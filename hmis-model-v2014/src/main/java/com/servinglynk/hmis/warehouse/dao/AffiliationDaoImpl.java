@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -34,35 +35,46 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			Data data =new Data();
 			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class, getProjectGroupCode(domain));
 			com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
-			if(affiliations!=null && !affiliations.isEmpty())
+			if(CollectionUtils.isNotEmpty(affiliations))
 			{
-				for(Affiliation affiliation :affiliations )
-				{
-					com.servinglynk.hmis.warehouse.model.v2014.Affiliation model = null;
-					try {
-						model = getModelObject(domain, affiliation,data,modelMap);
-						Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(),Project.class, affiliation.getProjectID(), model.getProjectGroupCode(),true,relatedModelMap, domain.getUpload().getId());
-						model.setProjectid(project);
-						model.setExport(exportEntity);
-						model.setResprojectid(affiliation.getResProjectID());
-						performSaveOrUpdate(model);
-					}catch(Exception e) {
-						String errorMessage = "Error occured with "+affiliation.getAffiliationID() + " Execption :::"+e.getLocalizedMessage();
-						if (model != null) {
-							Error2014 error = new Error2014();
-							error.model_id = model.getId();
-							error.bulk_upload_ui = domain.getUpload().getId();
-							error.project_group_code = domain.getUpload().getProjectGroupCode();
-							error.source_system_id = model.getSourceSystemId();
-							error.type = ErrorType.ERROR;
-							error.error_description = errorMessage;
-							error.date_created = model.getDateCreated();
-							performSave(error);
-						}
-						logger.error(errorMessage);
-					}
+				for(Affiliation e  : affiliations) {
+					processData(e, domain, data, modelMap,relatedModelMap,exportEntity);
 				}
 				hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(), domain, exportEntity);
+			}
+		}
+		/***
+		 * Process data method will process data from the files parallely.
+		 * @param affiliation
+		 * @param domain
+		 * @param data
+		 * @param modelMap
+		 * @param relatedModelMap
+		 * @param exportEntity
+		 */
+		public void processData(Affiliation affiliation,ExportDomain domain,Data data,Map<String,HmisBaseModel> modelMap,Map<String,HmisBaseModel> relatedModelMap,com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
+			com.servinglynk.hmis.warehouse.model.v2014.Affiliation model = null;
+			try {
+				model = getModelObject(domain, affiliation,data,modelMap);
+				Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2014.Affiliation.class.getSimpleName(),Project.class, affiliation.getProjectID(), model.getProjectGroupCode(),true,relatedModelMap, domain.getUpload().getId());
+				model.setProjectid(project);
+				model.setExport(exportEntity);
+				model.setResprojectid(affiliation.getResProjectID());
+				performSaveOrUpdate(model);
+			}catch(Exception e) {
+				String errorMessage = "Error occured with "+affiliation.getAffiliationID() + " Execption :::"+e.getLocalizedMessage();
+				if (model != null) {
+					Error2014 error = new Error2014();
+					error.model_id = model.getId();
+					error.bulk_upload_ui = domain.getUpload().getId();
+					error.project_group_code = domain.getUpload().getProjectGroupCode();
+					error.source_system_id = model.getSourceSystemId();
+					error.type = ErrorType.ERROR;
+					error.error_description = errorMessage;
+					error.date_created = model.getDateCreated();
+					performSave(error);
+				}
+				logger.error(errorMessage);
 			}
 		}
 			

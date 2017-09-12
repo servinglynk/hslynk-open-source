@@ -6,16 +6,6 @@ $(document).ready(function() {
 	var errorCode = getURLParameter("error");
 	var errorMsg = "";
 	
-	switch(errorCode){
-		case "ClientTypeNotFoundException":
-			errorMsg = "Invalid ClientType ID";
-			break;
-		case "InvalidRedirectUriException":
-			errorMsg = "Invalid Redirect URI";
-			break;
-		default:
-			errorMsg ="unknown error"
-	}
-	$("#error-msg").html(errorMsg);
+	$("#error-msg").html(errorCode);
 
 });

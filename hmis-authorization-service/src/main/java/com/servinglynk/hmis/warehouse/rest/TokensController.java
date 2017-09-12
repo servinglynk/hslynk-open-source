@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amazonaws.services.kms.model.InvalidGrantTokenException;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
@@ -20,6 +21,7 @@ import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterExcep
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
 import com.servinglynk.hmis.warehouse.service.exception.AuthCodeAlreadyUsedException;
+import com.servinglynk.hmis.warehouse.service.exception.GrantTypeNotSupportedException;
 
 @RestController
 @RequestMapping("/token")
@@ -68,6 +70,8 @@ public class TokensController extends ControllerBase {
 				// auth code is reused do a clean up (need to do here as it needs to be done in a separate transaction)
 				serviceFactory.getAuthorizationService().cleanAuthCode(code, trustedApp.getTrustedAppId(), Constants.AUTHORIZATION_SERVICE);
 				throw e;
+			}catch (Exception e) {
+				throw e;
 			}
 		}
 		else if (grantType.equals(Constants.OAUTH_REFRESH_TOKEN))	{
@@ -78,6 +82,8 @@ public class TokensController extends ControllerBase {
 			}
 			
 			authorization = serviceFactory.getAuthorizationService().authorizeWithRefreshToken(refreshToken, trustedApp.getTrustedAppId(), Constants.AUTHORIZATION_SERVICE);
+		}else {
+			throw new GrantTypeNotSupportedException("Invalid grant type "+grantType);
 		}
 		
 		response.setHeader("Cache-Control", "no-store");

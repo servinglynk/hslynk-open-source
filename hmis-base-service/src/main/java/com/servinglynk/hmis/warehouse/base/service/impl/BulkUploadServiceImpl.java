@@ -50,42 +50,48 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 		HmisUser user = daoFactory.getAccountDao().findByUsername(account.getUsername());
 		ProjectGroupEntity projectGroupEntity = user.getProjectGroupEntity();
 		String projectGroupCode = projectGroupEntity.getProjectGroupCode();
-		 Role role = account.getRoles()!=null ? account.getRoles().get(0):null;
-			List<BulkUpload> uploads = null; 
-			try {
+		Role role = account.getRoles()!=null ? account.getRoles().get(0):null;
+		List<BulkUpload> uploads = null; 
 		if(role != null) {
-			 if("CUSTADMIN".equals(role.getRoleName())) 
-				 uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadForCustAdmin(status, user.getId(), projectGroupCode);
-			 else if ("SUPERADMIN".equals(role.getRoleName()))
-				 uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadFoSuperAdmin(status);
-		}else
-			 uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadForDevelopers(status, user.getId(), projectGroupCode);
-			}catch(Exception e) {
-				logger.error("Some issues trying to get project groups"+e.getMessage());
-			}
-			BulkUploads bulkUploads = new BulkUploads();
-			for(BulkUpload upload : uploads ){
-				com.servinglynk.hmis.warehouse.core.model.BulkUpload bulkUpload = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
-				bulkUpload.setFileSize(FileUtils.byteCountToDisplaySize(upload.getSize()));
-				if(upload.getInputpath() != null){
-					bulkUpload.setInputPath(upload.getInputpath());
+			try {
+				if(StringUtils.equalsIgnoreCase("CUSTADMIN",role.getRoleName()))
+					uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadForCustAdmin(status,projectGroupCode);
+				else if(StringUtils.equalsIgnoreCase("SUPERADMIN",role.getRoleName())) {
+					uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadFoSuperAdmin(status);
+				}else{
+					uploads = daoFactory.getBulkUploaderWorkerDao().findBulkUploadForDevelopers(status, user.getId(), projectGroupCode);
 				}
-				bulkUpload.setInputPath(upload.getInputpath());
-				bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
-				bulkUpload.setYear(upload.getYear());
-			//	bulkUpload.setUsername(upload.getUser().getUsername());
-				bulkUpload.setStatus(upload.getStatus());
-				bulkUpload.setId(upload.getId());
-				bulkUpload.setDescription(upload.getDescription());
-				bulkUpload.setDateCreated(upload.getDateCreated());
-				bulkUploads.addBulkUpload(bulkUpload);
+					
+			}catch (Exception e) {
+				logger.error("Some issues trying to get project groups"+e.getMessage());
+				}
+			BulkUploads bulkUploads = new BulkUploads();
+			if(uploads != null) {
+				for(BulkUpload upload : uploads ){
+					com.servinglynk.hmis.warehouse.core.model.BulkUpload bulkUpload = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
+					bulkUpload.setFileSize(FileUtils.byteCountToDisplaySize(upload.getSize()));
+					if(upload.getInputpath() != null){
+						bulkUpload.setInputPath(upload.getInputpath());
+					}
+					bulkUpload.setInputPath(upload.getInputpath());
+					bulkUpload.setProjectGroupCode(upload.getProjectGroupCode());
+					bulkUpload.setYear(upload.getYear());
+				//	bulkUpload.setUsername(upload.getUser().getUsername());
+					bulkUpload.setStatus(upload.getStatus());
+					bulkUpload.setId(upload.getId());
+					bulkUpload.setDescription(upload.getDescription());
+					bulkUpload.setDateCreated(upload.getDateCreated());
+					bulkUploads.addBulkUpload(bulkUpload);
+				}
+			        SortedPagination pagination = new SortedPagination();
+			        pagination.setFrom(startIndex);
+			        pagination.setReturned(bulkUploads.getBulkUploads().size());
+			        //pagination.setTotal((int)count);
+			        bulkUploads.setPagination(pagination);
+			        return bulkUploads;
 			}
-		        SortedPagination pagination = new SortedPagination();
-		        pagination.setFrom(startIndex);
-		        pagination.setReturned(bulkUploads.getBulkUploads().size());
-		        //pagination.setTotal((int)count);
-		        bulkUploads.setPagination(pagination);
-		        return bulkUploads;
+		}
+			return null;
 	}
 	
 	@Transactional
@@ -95,7 +101,7 @@ public class BulkUploadServiceImpl extends ServiceBase implements BulkUploadServ
 		String projectGroupCode = projectGroupEntity.getProjectGroupCode();
 		List<BulkUpload> uploads = null; 
 		try {
-				uploads = daoFactory.getBulkUploaderWorkerDao().getRecentUploads(projectGroupCode, user.getId(),startIndex,maxItems);
+				uploads = daoFactory.getBulkUploaderWorkerDao().getRecentUploads(projectGroupCode,user.getId(),startIndex,maxItems);
 			}
 		  catch(Exception e)  {
 			  // Eating exception here, need to do something about it

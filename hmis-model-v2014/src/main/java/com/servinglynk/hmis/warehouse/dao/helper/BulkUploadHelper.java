@@ -29,6 +29,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.servinglynk.hmis.warehouse.AwsS3Client;
+import com.servinglynk.hmis.warehouse.base.util.ExtractItemsSimple;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -107,13 +108,17 @@ public class BulkUploadHelper {
 			AwsS3Client client = new AwsS3Client();
 			tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
 		}
+		String uploadId = String.valueOf(upload.getId());
 			if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath()))){
-			return getSourcesForZipFile(tempFile);
-		}
-		else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
-			return getSourcesForXml(tempFile,projectGroupEntity);
-		}
-		return null;
+				return getSourcesForZipFile(tempFile);
+			}
+			else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
+				return getSourcesForXml(tempFile,projectGroupEntity);
+			}else if(inputPath !=null && StringUtils.equals("7z",getFileExtension(upload.getInputpath()))) {
+				List<String> extractFiles = ExtractItemsSimple.extractFiles(tempFile, uploadId);
+				return getSourcesForXml(uploadId+"/"+extractFiles.get(0),projectGroupEntity);
+			}
+			return null;
 	}
 	/**
 	 * Gets the Sources XML object when the file to be bulk uploaded is an XML file.
@@ -123,15 +128,8 @@ public class BulkUploadHelper {
 	 */
 	public Sources getSourcesForXml(String fileName,ProjectGroupEntity projectGroupEntity) throws JAXBException {
 			File file = new File(fileName);
-//			if(validateXMLSchema(upload.getInputPath(),"C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_HMIS.xsd")) {
-//				System.out.println("XML is valid");
-//			}else{
-//				System.out.println("XML is NOT valid");
-//			}
-			
-		    File tempFile = new File(fileName + System.currentTimeMillis()+"-temp.xml");
+		    File tempFile = new File(fileName+"-temp.xml");
 			try {
-				
 				boolean skipUserIdentities = projectGroupEntity.isSkipuseridentifers();
 				FileInputStream fis = new FileInputStream(file);
 				BufferedReader in = new BufferedReader(new InputStreamReader(fis));

@@ -36,6 +36,7 @@ DROP TABLE IF EXISTS  base.hmis_verification;
 DROP TABLE IF EXISTS  base.client;
 DROP TABLE IF EXISTS  base.bulk_upload;
 DROP TABLE IF EXISTS  base.bulk_upload_activity;
+DROP TABLE IF EXISTS  base.client_tracker;
 drop table if exists "base".project;
 
 DROP TYPE IF EXISTS "base".gender;
@@ -1298,6 +1299,21 @@ WITH (
 );
 
 
+CREATE TABLE "base"."client_tracker" (
+"id" uuid NOT NULL,
+"client_id" uuid,
+"service_name" varchar(255) COLLATE "default",
+"user_name" varchar(255) COLLATE "default",
+"operation_at" timestamp(6),
+"operation" varchar(20) COLLATE "default",
+"project_group" varchar(255) COLLATE "default",
+"deleted_falg" bool,
+PRIMARY KEY ("id")
+)
+WITH (OIDS=FALSE)
+;
+
+
 ALTER TABLE base.hmis_user ADD COLUMN created_by character varying(256);
 ALTER TABLE base.hmis_user ADD COLUMN modified_by character varying(256);
 ALTER TABLE base.hmis_user ADD COLUMN organization_id uuid;
@@ -1338,3 +1354,7 @@ INSERT INTO base.hmis_user(
 ('2be4334a-ba97-4e12-a695-991752ca0391','Super Admin','Super Admin','Super Admin','Super Admin','','2015-12-10 00:00:00',
 '1','2015-12-10 00:00:00','2015-12-10 00:00:00','MASTER DATA','MASTER DATA',
 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=','superadmin@hmis.com','ACTIVE','admin','ed938948-b73e-4868-940d-371c5bd2d3f8',false);
+
+alter table base.client ADD COLUMN email_address character varying(266);
+alter table base.client ADD COLUMN phone_number character varying(16);
+  

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -48,47 +49,49 @@ public class ExitplansactionsDaoImpl extends ParentDaoImpl implements
 		Data data=new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class, getProjectGroupCode(domain));
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Exitplansactions.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
-		if(exitPlansActionsList !=null && !exitPlansActionsList.isEmpty()) 
-		{
-			for(ExitPlansActions exitPlansActions : exitPlansActionsList)
-			{
-				Exitplansactions model = null;
-				try {
-					model = getModelObject(domain, exitPlansActions,data,modelMap);
-					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitPlansActions.getDateCreated()));
-					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitPlansActions.getDateUpdated()));
-					model.setAssistancemainstreambenefits(ExitplansactionsAssistancemainstreambenefitsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getAssistanceMainstreamBenefits())));
-					model.setExitcounseling(ExitplansactionsExitcounselingEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getExitCounseling())));
-					model.setFurtherfollowupservices(ExitplansactionsFurtherfollowupservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getFurtherFollowUpServices())));
-					model.setOtheraftercareplanoraction(ExitplansactionsOtheraftercareplanoractionEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getOtherAftercarePlanOrAction())));
-					model.setPermanenthousingplacement(ExitplansactionsPermanenthousingplacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getPermanentHousingPlacement())));
-					model.setResourcepackage(ExitplansactionsResourcepackageEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getResourcePackage())));
-					model.setScheduledfollowupcontacts(ExitplansactionsScheduledfollowupcontactsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getScheduledFollowUpContacts())));
-					model.setTemporaryshelterplacement(ExitplansactionsTemporaryshelterplacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getTemporaryShelterPlacement())));
-					model.setWrittenaftercareplan(ExitplansactionsWrittenaftercareplanEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getWrittenAftercarePlan())));
-					Exit exit = (Exit) getModel(Exitplansactions.class.getSimpleName(),Exit.class, exitPlansActions.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					model.setExitid(exit);
-					model.setExport(exportEntity);
-					
-					performSaveOrUpdate(model);
-				} catch(Exception e) {
-					String errorMessage = "Exception in:"+exitPlansActions.getExitPlansActionsID()+  ":: Exception" +e.getLocalizedMessage();
-					if (model != null) {
-						Error2014 error = new Error2014();
-						error.model_id = model.getId();
-						error.bulk_upload_ui = domain.getUpload().getId();
-						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = model.getSourceSystemId();
-						error.type = ErrorType.ERROR;
-						error.error_description = errorMessage;
-						error.date_created = model.getDateCreated();
-						performSave(error);
-					}
-					logger.error(errorMessage);
-				}
+		if(CollectionUtils.isNotEmpty(exitPlansActionsList)) {
+			for(ExitPlansActions e :exitPlansActionsList) {
+				processData(e, domain, data, modelMap, relatedModelMap, exportEntity);
 			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions.class.getSimpleName(), domain,exportEntity);
+	}
+	
+	public void processData(ExitPlansActions exitPlansActions,ExportDomain domain,Data data,Map<String,HmisBaseModel> modelMap,Map<String,HmisBaseModel> relatedModelMap,com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
+		Exitplansactions model = null;
+		try {
+			model = getModelObject(domain, exitPlansActions,data,modelMap);
+			model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitPlansActions.getDateCreated()));
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitPlansActions.getDateUpdated()));
+			model.setAssistancemainstreambenefits(ExitplansactionsAssistancemainstreambenefitsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getAssistanceMainstreamBenefits())));
+			model.setExitcounseling(ExitplansactionsExitcounselingEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getExitCounseling())));
+			model.setFurtherfollowupservices(ExitplansactionsFurtherfollowupservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getFurtherFollowUpServices())));
+			model.setOtheraftercareplanoraction(ExitplansactionsOtheraftercareplanoractionEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getOtherAftercarePlanOrAction())));
+			model.setPermanenthousingplacement(ExitplansactionsPermanenthousingplacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getPermanentHousingPlacement())));
+			model.setResourcepackage(ExitplansactionsResourcepackageEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getResourcePackage())));
+			model.setScheduledfollowupcontacts(ExitplansactionsScheduledfollowupcontactsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getScheduledFollowUpContacts())));
+			model.setTemporaryshelterplacement(ExitplansactionsTemporaryshelterplacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getTemporaryShelterPlacement())));
+			model.setWrittenaftercareplan(ExitplansactionsWrittenaftercareplanEnum.lookupEnum(BasicDataGenerator.getStringValue(exitPlansActions.getWrittenAftercarePlan())));
+			Exit exit = (Exit) getModel(Exitplansactions.class.getSimpleName(),Exit.class, exitPlansActions.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+			model.setExitid(exit);
+			model.setExport(exportEntity);
+			
+			performSaveOrUpdate(model);
+		} catch(Exception e) {
+			String errorMessage = "Exception in:"+exitPlansActions.getExitPlansActionsID()+  ":: Exception" +e.getLocalizedMessage();
+			if (model != null) {
+				Error2014 error = new Error2014();
+				error.model_id = model.getId();
+				error.bulk_upload_ui = domain.getUpload().getId();
+				error.project_group_code = domain.getUpload().getProjectGroupCode();
+				error.source_system_id = model.getSourceSystemId();
+				error.type = ErrorType.ERROR;
+				error.error_description = errorMessage;
+				error.date_created = model.getDateCreated();
+				performSave(error);
+			}
+			logger.error(errorMessage);
+		}
 	}
 	public com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions getModelObject(ExportDomain domain, ExitPlansActions exitPlansActions ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Exitplansactions modelFromDB = null;

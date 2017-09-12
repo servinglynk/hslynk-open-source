@@ -262,6 +262,13 @@
                             <mainClass>com.servinglynk.hmis.warehouse.ActiveListView</mainClass>
                             <name>main-active-list-view.sh</name>
                         </program>
+<<<<<<< HEAD
+=======
+                          <program>
+                            <mainClass>com.servinglynk.hmis.warehouse.PurgeProjectGroup</mainClass>
+                            <name>main-purge.sh</name>
+                        </program>
+>>>>>>> develop
                     </programs>
 
                     <useWildcardClassPath>true</useWildcardClassPath>
@@ -309,6 +316,15 @@
                                        perm="ugo+rx"/>
                                 <chmod file="${basedir}/src/main/scripts/stop-active-list-view.sh"
                                        perm="ugo+rx"/>
+<<<<<<< HEAD
+=======
+                                <chmod file="${basedir}/target/temp_build/bin/main-purge.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/start-purge.sh"
+                                       perm="ugo+rx"/>
+                                <chmod file="${basedir}/src/main/scripts/stop-purge.sh"
+                                       perm="ugo+rx"/>
+>>>>>>> develop
                             </tasks>
                         </configuration>
                     </execution>

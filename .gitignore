@@ -7,6 +7,7 @@ bin/*
 *.iml
 *.properties
 *.conf
+*.DS_Store
 target
 bin
 hmis-userservice/*
@@ -22,6 +23,7 @@ hmis-admin/.project
 hmis-admin/.idea
 hmis-admin/*.iml
 hmis-admin/target
+hmis-admin/node_modules/
 hmis-admin/bin
 
 hmis-authorization-service/target/*

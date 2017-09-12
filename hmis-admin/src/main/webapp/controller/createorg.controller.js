@@ -1,5 +1,5 @@
 
-app.controller('createorgCtrl', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
+app.controller('createorgCtrl',[ '$scope','$location','$routeSegment','$http', '$timeout','$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
 	
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
@@ -35,4 +35,4 @@ $scope.showErrorAlert = true;})
 $scope.switchBool = function(value) {
    $scope[value] = !$scope[value];
 };
-});
+}]);

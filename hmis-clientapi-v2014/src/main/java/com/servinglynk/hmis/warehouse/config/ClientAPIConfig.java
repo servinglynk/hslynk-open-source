@@ -31,7 +31,8 @@ import com.servinglynk.hmis.warehouse.rest.SearchController;
 		com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
 		com.servinglynk.hmis.warehouse.service.config.ServiceConfig.class,
 		com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
-		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
+		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class,
+		com.servinglynk.hmis.warehouse.config.WebDBPoolConfig.class})
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling
@@ -80,10 +81,10 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 //		return new PropertyController();
 //	}
 //	
-	 @PostConstruct
+	/* @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_CLIENTAPI");
-	 }
+	 }*/
 	 
 	 @Bean
 	 public SearchController searchController(){

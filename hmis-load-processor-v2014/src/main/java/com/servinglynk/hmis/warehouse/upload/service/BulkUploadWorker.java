@@ -22,9 +22,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
+import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.upload.business.util.UploadStatus;
 
 
 @Component
@@ -39,44 +39,29 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 	private ParentDaoFactory factory;
 	
 	@Transactional
-	@Scheduled(initialDelay=20,fixedDelay=10000)
+	@Scheduled(initialDelay=300,fixedDelay=10000)
 	public void processWorkerLine() {
 		try {
-			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2014));
-			if(uploadEntities!=null && uploadEntities.size() >0 ) {
-				for(BulkUpload upload : uploadEntities) {
-
-					FileAppender appender = new FileAppender();
-					appender.setName("" + upload.getId());
-					appender.setFile("logs/" + upload.getId() + ".log");
-					appender.setImmediateFlush(true);
-					appender.setAppend(true);
-					appender.setLayout(new PatternLayout());
-					appender.activateOptions();
-
-					logger.addAppender(appender);
-					/** Perform full refresh base on Project group */
-					if(upload.getProjectGroupCode() !=null) {
-						List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByProjectGroupCodeAndYear(upload.getProjectGroupCode(),new Long(2014));
-						for(BulkUpload  bulkUpload : uploads) {
-						//	factory.getBulkUploaderDao().deleteLiveByProjectGroupCode(bulkUpload.getProjectGroupCode(),bulkUpload.getExportId());
-							bulkUpload.setStatus("DELETED");
-							factory.getBulkUploaderWorkerDao().delete(bulkUpload);
-						}
-					}
-					File file = new File(upload.getInputpath());
-					upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
-					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity, appender, true);
-					if (file.isFile()) {
-				        moveFile(file.getAbsolutePath(),env.getProperty("upload.backup.loc") + file.getName());
-				      //  new File(bullkUpload.getInputPath()).delete();
-					}
-					logger.removeAppender(appender);
-				}
-			}
-			logger.info("========Bulk Uploader processed ======");
+//			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2014));
+//			if(uploadEntities!=null && uploadEntities.size() >0 ) {
+//				for(BulkUpload upload : uploadEntities) {
+//					FileAppender appender = new FileAppender();
+//					appender.setName("" + upload.getId());
+//					appender.setFile("logs/base-" + upload.getId() + ".log");
+//					appender.setImmediateFlush(true);
+//					appender.setAppend(true);
+//					appender.setLayout(new PatternLayout());
+//					appender.activateOptions();
+//					logger.addAppender(appender);
+//					/** Perform full refresh base on Project group */
+//					upload.setStatus(UploadStatus.INPROGRESS.getStatus());
+//					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
+//					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
+//					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity, appender, true);
+//					logger.removeAppender(appender);
+//				}
+//			}
+//			logger.info("========Bulk Uploader processed ======");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

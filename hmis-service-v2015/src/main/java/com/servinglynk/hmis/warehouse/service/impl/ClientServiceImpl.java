@@ -58,7 +58,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		if(pClient == null ) throw new ClientNotFoundException();
 		
 		com.servinglynk.hmis.warehouse.model.base.Client baseClient =  daoFactory.getBaseClientDao().getClient(clientId);
-		daoFactory.getClientDao().delete(pClient);
+		daoFactory.getClientDao().deleteClient(pClient);
 		if(baseClient!=null)
 			daoFactory.getHmisClientDao().deleteClient(baseClient);
 		return new Client();
