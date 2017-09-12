@@ -70,8 +70,7 @@ public class AwsS3Client {
                 new GetObjectRequest(bucketName, keyName));
         InputStream objectData = object.getObjectContent();
         String name = keyName.contains("/") ? keyName.substring(keyName.lastIndexOf('/') + 1) : keyName;
-        String localPath =  UUID.randomUUID() + "-" + name;
-        String path = saveFile(objectData, localPath);
+        String path = saveFile(objectData, name);
         objectData.close();
         return path;
     }

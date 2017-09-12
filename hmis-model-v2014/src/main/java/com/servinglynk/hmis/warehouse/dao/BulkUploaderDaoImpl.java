@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
@@ -88,7 +89,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				logger.addAppender(appender);
 			}
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-			saveUpload(upload);
+			//saveUpload(upload);
 			long startNanos = System.nanoTime();
 			Sources sources = null;
 			try {
@@ -150,7 +151,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			
 			parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getServicesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
-			parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			//parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 
 			parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getEmploymentDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
@@ -415,11 +416,15 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.info("Base Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 			upload.setStatus(UploadStatus.ENROLLMENT.getStatus());
 			upload.setExportId(domain.getExportId());
+			if(isFileFromS3) {
+				deleteFile(upload.getInputpath()); 
+			}
+			deleteFile(upload.getInputpath()+"-temp.xml");
 			insertOrUpdate(upload);
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Base Process:::Error in base process....."+e.getStackTrace());
+			logger.error(" Base Process:::Base in base process....."+e.getLocalizedMessage() +" Cause"+e.getCause());
 		}
 			return upload;
 	
@@ -443,11 +448,15 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		logger.info("Enrollment Process::: Enrollment table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		upload.setStatus(UploadStatus.C_CLIENT.getStatus());
 		upload.setExportId(domain.getExportId());
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		insertOrUpdate(upload);
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in base process....."+e.getStackTrace());
+			logger.error(" Error in Enrollment process....."+e.getLocalizedMessage()+ "cause::"+e.getCause());
 		}
 			return upload;
 		
@@ -477,18 +486,23 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		upload.setExportId(domain.getExportId());
 		upload.setStatus(UploadStatus.EXIT.getStatus());
 		upload.setExportId(domain.getExportId());
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		insertOrUpdate(upload);
-		logger.info("ExitChildren Process::: ExitChildren table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+		logger.info("ExitChildren Process::: Client Children table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in Exit Children process....."+e.getStackTrace());
+			logger.error(" Error in Client Children process....."+e.getLocalizedMessage() +" cause:"+e.getCause());
 		}
 			return upload;
 		
 	}
 
 	@Override
+	@Transactional
 	public BulkUpload processExit(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,
 			Boolean isFileFromS3) {
 		long startNanos = System.nanoTime();
@@ -498,16 +512,20 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		saveUpload(upload);
 		Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
 		Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
-		parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+		parentDaoFactory.getExitDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap); // Done
 		logger.info(" Exit Process::: Bulk Upload Processing client Table Ends.....");
 		logger.info("Exit Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-		upload.setStatus(UploadStatus.DISAB.getStatus());
+		upload.setStatus(UploadStatus.C_EMENT.getStatus());
 		upload.setExportId(domain.getExportId());
 		insertOrUpdate(upload);
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in base process....."+e.getStackTrace());
+			logger.error(" Error in Exit process....."+e.getLocalizedMessage()+ " cause::"+e.getCause());
 		}
 			return upload;
 	}
@@ -519,7 +537,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			logger.addAppender(appender);
 		}
 		upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-		saveUpload(upload);
+		//saveUpload(upload);
 		try {
 		long startNanos = System.nanoTime();
 		Sources sources = null;
@@ -553,18 +571,38 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 		Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
 		Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
-		parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+		parentDaoFactory.getDisabilitiesDao().hydrate(domain,exportModelMap,enrollmentModelMap); // Done
 		logger.info(" Disabilities Process::: Bulk Upload Processing client Table Ends.....");
 		logger.info("Disabilities Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-		upload.setStatus(UploadStatus.C_EMENT.getStatus());
+		upload.setStatus(UploadStatus.STAGING.getStatus());
 		upload.setExportId(domain.getExportId());
+		//Delete all the files
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		insertOrUpdate(upload);
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in base process....."+e.getStackTrace());
+			e.printStackTrace();
+			logger.error(" Error in Disabilities process....."+e.getLocalizedMessage() +" cause:"+e.getCause());
 		}
 			return upload;
+	}
+	
+	private void deleteFile(String fileName) {
+		try{
+    		File file = new File(fileName);
+    		if(file.delete()){
+    			logger.info(file.getName() + " is deleted!");
+    		}else{
+    			logger.info("Delete operation is failed.");
+    		}
+
+    	}catch(Exception e){
+    		logger.error(" Error in File Deletion ....."+e.getLocalizedMessage() +" cause:"+e.getCause());
+    	}
 	}
 	/***
 	 * Get Source data after reading the file.
@@ -631,13 +669,17 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getConnectionwithsoarDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 		parentDaoFactory.getProjectcompletionstatusDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 		logger.info("ExitChildren Process::: ExitChildren table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-		upload.setStatus(UploadStatus.STAGING.getStatus());
+		upload.setStatus(UploadStatus.DISAB.getStatus());
 		upload.setExportId(domain.getExportId());
 		insertOrUpdate(upload);
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in Exit Children process....."+e.getStackTrace());
+			logger.error(" Error in Exit Children process....."+e.getLocalizedMessage() +" cause:"+e.getCause());
 		}
 			return upload;
 	}
@@ -685,11 +727,15 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		upload.setStatus(UploadStatus.C_EXIT.getStatus());
 		upload.setExportId(domain.getExportId());
 		insertOrUpdate(upload);
+		if(isFileFromS3) {
+			deleteFile(upload.getInputpath()); 
+		}
+		deleteFile(upload.getInputpath()+"-temp.xml");
 		logger.info("ExitChildren Process::: ExitChildren table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());
 			insertOrUpdate(upload);
-			logger.error(" Error in base process....."+e.getStackTrace());
+			logger.error(" Error in ExitChildren process....."+e.getLocalizedMessage() +" cause:"+e.getCause());
 		}
 			return upload;
 	}

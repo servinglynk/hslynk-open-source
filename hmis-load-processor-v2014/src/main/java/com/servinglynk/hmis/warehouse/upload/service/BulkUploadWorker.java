@@ -39,29 +39,29 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 	private ParentDaoFactory factory;
 	
 	@Transactional
-	@Scheduled(initialDelay=20,fixedDelay=10000)
+	@Scheduled(initialDelay=300,fixedDelay=10000)
 	public void processWorkerLine() {
 		try {
-			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2014));
-			if(uploadEntities!=null && uploadEntities.size() >0 ) {
-				for(BulkUpload upload : uploadEntities) {
-					FileAppender appender = new FileAppender();
-					appender.setName("" + upload.getId());
-					appender.setFile("logs/base-" + upload.getId() + ".log");
-					appender.setImmediateFlush(true);
-					appender.setAppend(true);
-					appender.setLayout(new PatternLayout());
-					appender.activateOptions();
-					logger.addAppender(appender);
-					/** Perform full refresh base on Project group */
-					upload.setStatus(UploadStatus.INPROGRESS.getStatus());
-					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
-					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity, appender, true);
-					logger.removeAppender(appender);
-				}
-			}
-			logger.info("========Bulk Uploader processed ======");
+//			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2014));
+//			if(uploadEntities!=null && uploadEntities.size() >0 ) {
+//				for(BulkUpload upload : uploadEntities) {
+//					FileAppender appender = new FileAppender();
+//					appender.setName("" + upload.getId());
+//					appender.setFile("logs/base-" + upload.getId() + ".log");
+//					appender.setImmediateFlush(true);
+//					appender.setAppend(true);
+//					appender.setLayout(new PatternLayout());
+//					appender.activateOptions();
+//					logger.addAppender(appender);
+//					/** Perform full refresh base on Project group */
+//					upload.setStatus(UploadStatus.INPROGRESS.getStatus());
+//					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
+//					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
+//					factory.getBulkUploaderDao().performBulkUpload(upload,projectGroupEntity, appender, true);
+//					logger.removeAppender(appender);
+//				}
+//			}
+//			logger.info("========Bulk Uploader processed ======");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

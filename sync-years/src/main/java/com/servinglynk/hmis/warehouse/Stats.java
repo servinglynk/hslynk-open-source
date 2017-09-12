@@ -91,6 +91,7 @@ public class Stats {
 		projectGroups.add("HO0002");
 		projectGroups.add("MO0010");
 		projectGroups.add("SR0012");
+		projectGroups.add("IL0009");
 		for(String projectGroupCode : projectGroups) {
 			for(String schema : schemas) {
 				List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);

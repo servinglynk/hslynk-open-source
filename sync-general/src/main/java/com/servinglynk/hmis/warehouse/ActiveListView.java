@@ -81,14 +81,15 @@ public class ActiveListView  extends Logging {
 	                	 Put p = new Put(Bytes.toBytes(key));
 	                	 addColumn("ignore_match_process",String.valueOf(resultSet.getBoolean("ignore_match_process")), key, p);
 	                	 addColumn("survey_score",String.valueOf(resultSet.getInt("survey_score")), key, p);
-	                	 String surveyId =getLastestSurveyByClient(key, projectGroupCode);
-	                	 if(StringUtils.isBlank(surveyId)) {
-	                		 surveyId = getLastestSurveyByClientFromSectionScore(key, projectGroupCode);
+	                	 Survey survey = getLastestSurveyByClient(key, projectGroupCode);
+	                	 if(survey !=null && survey.getSurveyId() !=null) {
+	                		 survey = getLastestSurveyByClientFromSectionScore(key, projectGroupCode);
 	                	 }
-	                	 if(StringUtils.isNotBlank(surveyId)) {
-	                		 Survey survey = getSurveyById(projectGroupCode, surveyId);
+	                	 if(survey !=null && survey.getSurveyId() !=null) {
+	                		 String surveyId =  String.valueOf(survey.getSurveyId());
 	                		 addColumn("survey_id",surveyId, key, p);
 	                		 addColumn("survey_title",survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", " "), key, p);
+	                		 addColumn("survey_date",getCreatedAtString(survey.getSurveyDate()), key, p);
 	                	 }
 	                	 
 	                	 Client client = getClientByID(key);
@@ -109,7 +110,7 @@ public class ActiveListView  extends Logging {
 	                	 if(StringUtils.isNotBlank(notes)) {
 	                		 addColumn("notes",notes,key,p);
 	                	 }
-	                	 addColumn("survey_date",getCreatedAtString(resultSet.getTimestamp("date_updated")), key, p);
+	                	 
 	                    if (existingKeysInHbase.contains(key)) {
 	                        putsToUpdate.add(p);
 	                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
@@ -195,42 +196,44 @@ public class ActiveListView  extends Logging {
 		    return stringDate;
 	}
 
-	public static  String getLastestSurveyByClient(String clientId,String projectGroupCode) {
+	public static  Survey getLastestSurveyByClient(String clientId,String projectGroupCode) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
-		String surveyID =null;
+		Survey survey = null;
 		try{
 		connection = SyncPostgresProcessor.getConnection();
 		statement = connection.prepareStatement(ViewQuery.GET_LASTEST_SURVEY_BY_CLIENT);
 		statement.setObject(1, UUID.fromString(clientId));
 		resultSet = statement.executeQuery();
 			while(resultSet.next()) {
-				surveyID = (String)resultSet.getString("survey_id");
+				String surveyId = (String)resultSet.getString("survey_id");
+				survey = new Survey(projectGroupCode, UUID.fromString(surveyId) , (String)resultSet.getString("survey_title"), (Timestamp)resultSet.getTimestamp("created_at"));
 			}
 		}catch (Exception ex){
 			ex.printStackTrace();
 		}
-		return surveyID;
+		return survey;
 	}
 	
-	public static  String getLastestSurveyByClientFromSectionScore(String clientId,String projectGroupCode) {
+	public static  Survey getLastestSurveyByClientFromSectionScore(String clientId,String projectGroupCode) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
-		String surveyID =null;
+		Survey survey = null;
 		try{
 		connection = SyncPostgresProcessor.getConnection();
 		statement = connection.prepareStatement(ViewQuery.GET_LASTEST_SURVEY_BY_CLIENT_FROM_SCORE);
 		statement.setObject(1, UUID.fromString(clientId));
 		resultSet = statement.executeQuery();
 			while(resultSet.next()) {
-				surveyID = (String)resultSet.getString("survey_id");
+				String surveyId = (String)resultSet.getString("survey_id");
+				survey = new Survey(projectGroupCode, UUID.fromString(surveyId) ,(String)resultSet.getString("survey_title") , (Timestamp)resultSet.getTimestamp("created_at"));
 			}
 		}catch (Exception ex){
 			ex.printStackTrace();
 		}
-		return surveyID;
+		return survey;
 	}
 	
 	public static Client getClientByID(String clientId) throws Exception{
@@ -262,30 +265,6 @@ public class ActiveListView  extends Logging {
 		}
 	}
 
-	public Survey getSurveyById(String schemaName,String surveyId) throws Exception{
-		ResultSet resultSet = null;
-		PreparedStatement statement = null;
-		Connection connection = null;
-		try{
-			connection = SyncPostgresProcessor.getConnection();
-			statement = connection.prepareStatement(ViewQuery.GET_SURVEY_BY_ID);
-			statement.setObject(1, UUID.fromString(surveyId));
-			resultSet = statement.executeQuery();
-			String projectGroupCode = null;
-			String surveyName =  null;
-			Date createdDate =  null;
-			while(resultSet.next()) {
-				projectGroupCode = resultSet.getString("project_group_code");
-				surveyName = resultSet.getString("survey_title");
-				createdDate = resultSet.getDate("created_at");
-			}
-			Survey survey = new Survey(projectGroupCode,UUID.fromString(surveyId) , surveyName, createdDate);
-			return survey;
-		}catch (Exception ex){
-			throw ex;
-		}
-	}
-	
 	public void processActiveList() {
 		 FileAppender appender = new FileAppender();
          String appenderName = "active-list";

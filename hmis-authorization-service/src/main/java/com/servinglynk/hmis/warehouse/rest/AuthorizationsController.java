@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.rest;
 
 import static com.servinglynk.hmis.warehouse.common.Constants.USER_SERVICE;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -11,13 +12,18 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
+import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.OAuthAuthorization;
@@ -25,6 +31,9 @@ import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
+import com.servinglynk.hmis.warehouse.rest.common.ExceptionMapper;
+import com.servinglynk.hmis.warehouse.rest.common.ExceptionMapper.Result;
+import com.servinglynk.hmis.warehouse.rest.common.RedirectExceptionMapper;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.UserAuthenticationFailedException;
 
@@ -32,13 +41,21 @@ import com.servinglynk.hmis.warehouse.service.exception.UserAuthenticationFailed
 
 @Controller
 @RequestMapping("/authorize")
-public class AuthorizationsController extends ControllerBase {
+public class AuthorizationsController  {
+	
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private String consentUri;
 	
 	@Autowired
 	private String loginUri;
+	
+	@Autowired
+	protected BaseServiceFactory serviceFactory;
+	
+	@Autowired
+	private String errorUri="";
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -315,5 +332,21 @@ public class AuthorizationsController extends ControllerBase {
 		Session returnSession = new Session();
 		returnSession.setToken(session.getToken());
 		return returnSession;
+	}
+	
+	@ExceptionHandler(Throwable.class)
+	public ModelAndView handleException(Throwable t, HttpServletRequest request, HttpServletResponse response) {
+
+		ExceptionMapper redirectExceptionMapper = new ExceptionMapper();
+		
+		Result result = redirectExceptionMapper.map(t, request);
+		try {
+			response.sendRedirect(errorUri+"?error="+result.getError().getMessage());
+		} 
+		catch (IOException e) {
+			logger.error(null, e);
+		}
+		
+		return null;
 	}
 }
