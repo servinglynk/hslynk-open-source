@@ -16,9 +16,9 @@ public class DeleteTable  extends Logging{
         try {
             admin.disableTable(tableName);
             admin.deleteTable(tableName);
-            log.info("Table ::" + tableName + " created.");
+            log.info("Table ::" + tableName + " deleted.");
         } catch (TableExistsException ex) {
-            log.warn("Table :: " + tableName + " already exists.");
+            log.warn("Table :: " + tableName + " does not exists.");
         } catch (Exception e) {
             // TODO Auto-generated catch block
         	e.printStackTrace();
