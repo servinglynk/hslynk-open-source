@@ -1,12 +1,13 @@
 package com.servinglynk.hmis.warehouse;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 public class Survey {
 	
 	public Survey(String projectGroupCode, UUID surveyId, String surveyName,
-			Date surveyDate) {
+			Timestamp surveyDate) {
 		super();
 		this.projectGroupCode = projectGroupCode;
 		this.surveyId = surveyId;
@@ -16,7 +17,7 @@ public class Survey {
 	private String projectGroupCode;
 	private UUID surveyId;
 	private String surveyName;
-	private Date surveyDate;
+	private Timestamp surveyDate;
 	/**
 	 * @return the projectGroupCode
 	 */
@@ -56,13 +57,13 @@ public class Survey {
 	/**
 	 * @return the surveyDate
 	 */
-	public Date getSurveyDate() {
+	public Timestamp getSurveyDate() {
 		return surveyDate;
 	}
 	/**
 	 * @param surveyDate the surveyDate to set
 	 */
-	public void setSurveyDate(Date surveyDate) {
+	public void setSurveyDate(Timestamp surveyDate) {
 		this.surveyDate = surveyDate;
 	}
 	
