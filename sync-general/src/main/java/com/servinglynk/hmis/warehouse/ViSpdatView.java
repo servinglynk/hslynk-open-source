@@ -389,6 +389,11 @@ public class ViSpdatView  extends Logging {
 		Properties props = new Properties();
 		props.generatePropValues();
 		ViSpdatView view = new ViSpdatView(logger);
+		List<String> disinctSurveys = view.getDisinctSurveys("survey");
+		for(String survey : disinctSurveys) {
+			view.createHbaseTable(survey);
+			view.processActiveList();
+		}
 		view.processActiveList();
 	}
 
