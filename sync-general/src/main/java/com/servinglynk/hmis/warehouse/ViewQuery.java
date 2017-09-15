@@ -5,7 +5,8 @@ public static String GET_DISTINCT_SURVEY=	"select distinct(survey_id) from surve
 public static String GET_DISPLAY_TEXT_FROM_QUESTION =	"select display_text from survey.question where id= ?";
 public static String GET_DISTINCT_QUESTIONS_FOR_SURVEY =	"select distinct(question_id) from survey.response where survey_id = ?";
 public static String GET_DISTICNT_CLIENT_FOR_SURVEY = "select distinct(client_id) from survey.response where survey_id = ?";
-public static String GET_CLIENTS_WITH_RESPONSE =	"select submission_id,client_id,question_id,response_text from survey.response where submission_id is not null and client_id is not null and survey_id=? and client_id=? group by client_id,submission_id,question_id,response_text order by submission_id";
+public static String GET_CLIENTS_WITH_RESPONSE = "select submission_id,client_id,question_id,response_text,created_at from survey.response where submission_id is not null and client_id is not null and survey_id=? order by submission_id";
+
 public static String GET_SURVEY_BY_ID =	"select survey_title,project_group_code,created_at from survey.survey where id = ?";
 
 public static String GET_PROJECT_BY_ID= "select * from project where projectid = ? ";
