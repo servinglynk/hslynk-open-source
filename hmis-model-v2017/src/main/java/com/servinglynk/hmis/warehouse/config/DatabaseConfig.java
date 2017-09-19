@@ -63,6 +63,8 @@ import com.servinglynk.hmis.warehouse.dao.InventoryDao;
 import com.servinglynk.hmis.warehouse.dao.InventoryDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.MedicalassistanceDao;
 import com.servinglynk.hmis.warehouse.dao.MedicalassistanceDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.MoveindateDao;
+import com.servinglynk.hmis.warehouse.dao.MoveindateDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.NoncashbenefitsDao;
 import com.servinglynk.hmis.warehouse.dao.NoncashbenefitsDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.OrganizationDaoImpl;
@@ -249,7 +251,10 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	public ProjectDao projectDao() { 
 		return new ProjectDaoImpl();
 	}
-
+	@Bean
+	public MoveindateDao residentialmoveindateDao() { 
+		return new MoveindateDaoImpl();
+	}
 	@Bean
 	public SiteDao siteDao() { 
 		return new SiteDaoImpl();

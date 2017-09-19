@@ -22,7 +22,7 @@ public interface InventoryDao extends ParentDao {
 	   public Inventory getInventoryByDedupInventoryId(UUID id,String projectGroupCode);
 	   List<Inventory> getAllInventories(Integer startIndex, Integer maxItems);
 	   long getIventoriesCount();
-	List<com.servinglynk.hmis.warehouse.model.v2017.Inventory> getAllCocInventories(UUID projectCocId,
+	List<Inventory> getAllCocInventories(UUID projectCocId,
 			Integer startIndex, Integer maxItems);
 	long getCocInventoriesCount(UUID projectCocId);
 	   

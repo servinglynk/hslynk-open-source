@@ -9,7 +9,7 @@ public interface GeographyDao extends ParentDao{
 	   com.servinglynk.hmis.warehouse.model.v2017.Geography updateGeography(com.servinglynk.hmis.warehouse.model.v2017.Geography geography);
 	   void deleteGeography(com.servinglynk.hmis.warehouse.model.v2017.Geography geography);
 	   com.servinglynk.hmis.warehouse.model.v2017.Geography getGeographyById(UUID geographyId);
-	   List<com.servinglynk.hmis.warehouse.model.v2017.Geography> getAllGeography(String geoCode, Integer startIndex, Integer maxItems);
+	   List<com.servinglynk.hmis.warehouse.model.v2017.Geography> getAllGeography(Integer startIndex, Integer maxItems);
 	   long getGeographyCount(String geoCode);
 
 }

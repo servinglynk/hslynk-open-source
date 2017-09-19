@@ -1609,7 +1609,7 @@ with (
 CREATE TABLE  "v2017".project
 (
 	  id uuid NOT NULL,
-	  --project_id character varying(8),
+	  project_id character varying(8),
 	  projectname text,
 	  continuumproject "v2017".no_yes,
 	  projecttype "v2017".project_type,
@@ -1644,7 +1644,7 @@ WITH (
 CREATE TABLE "v2017".client
 (
   "id" uuid NOT NULL,
-  "dedup_client_id" uuid,
+  --"dedup_client_id" uuid,
   "first_name" character(50),
   "middle_name" character(50),
   "last_name" character(50),
@@ -2020,7 +2020,7 @@ CREATE TABLE "v2017".health_status
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
   "information_date" timestamp,
-   "datacollectionstage" "v2017".datacollectionstage,
+   --"datacollectionstage" "v2017".datacollectionstage,
   "health_category" "v2017".health_category,
   "health_status" "v2017".health_status_type,
   "due_date" timestamp,
@@ -2444,7 +2444,7 @@ create table  "v2017".education
 	"school_status" "v2017".school_status,
 	"enrollmentid" uuid,
 	 information_date timestamp,
-     "datacollectionstage" "v2017".datacollectionstage,
+    --"datacollectionstage" "v2017".datacollectionstage,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
 	"date_created_from_source" timestamp,

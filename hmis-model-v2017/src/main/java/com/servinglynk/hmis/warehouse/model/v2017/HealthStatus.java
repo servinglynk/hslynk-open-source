@@ -20,7 +20,6 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
-import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthCategoryEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnum;
 
@@ -59,19 +58,7 @@ public class HealthStatus extends HmisBaseModel implements Cloneable, Serializab
 	private java.util.UUID id;
 	/** Field mapping. */
 	private LocalDateTime informationDate;
-	/** Field mapping. */
-	private DataCollectionStageEnum dataCollectionStage;
 
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
-	@Basic( optional = true )
-	@Column
-	 public DataCollectionStageEnum getDataCollectionStage() {
-		return dataCollectionStage;
-	}
-
-	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
-		this.dataCollectionStage = dataCollectionStage;
-	}
 	
 	
 	/** Field mapping. */

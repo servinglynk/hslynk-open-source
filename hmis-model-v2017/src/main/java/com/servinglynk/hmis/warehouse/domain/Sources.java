@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.domain;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13115,7 +13116,7 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "moveInDateID",
                 "projectEntryID",
-               /* "inPermanentHousing",*/
+                "inPermanentHousing",
                 "moveInDate"
             })
             public static class Moveindate {
@@ -13126,6 +13127,8 @@ public class Sources {
                 protected String projectEntryID;
                 @XmlElement(name = "MoveInDate", required = true)
                 protected XMLGregorianCalendar moveInDate;
+                @XmlElement(name = "inpermanenthousing", required = true)
+                protected byte inPermanentHousing;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -13185,17 +13188,17 @@ public class Sources {
                  * Gets the value of the inPermanentHousing property.
                  * 
                  */
-                /*public byte getInPermanentHousing() {
+                public byte getInPermanentHousing() {
                     return inPermanentHousing;
-                }*/
+                }
 
                 /**
                  * Sets the value of the inPermanentHousing property.
                  * 
                  */
-               /* public void setInPermanentHousing(byte value) {
+                public void setInPermanentHousing(byte value) {
                     this.inPermanentHousing = value;
-                }*/
+                }
 
                 /**
                  * Gets the value of the moveInDate property.
@@ -14144,21 +14147,21 @@ public class Sources {
                 @XmlElement(name = "id", required = true)
                 protected String id;
                 @XmlElement(name = "informationDate", required = true)
-                protected String informationDate;
+                protected XMLGregorianCalendar informationDate;
                 @XmlElement(name = "geoCode")
                 protected byte geoCode;
                 @XmlElement(name = "address1")
-                protected byte address1;
+                protected String address1;
                 @XmlElement(name = "address2")
-                protected byte address2;
+                protected String address2;
                 @XmlElement(name = "city")
-                protected byte city;
+                protected String city;
                 @XmlElement(name = "state")
-                protected byte state;
+                protected String state;
                 @XmlElement(name = "zip")
-                protected byte zip;
+                protected String zip;
                 @XmlElement(name = "geography_type")
-                protected byte geography_type;
+                protected Integer geography_type;
 				/**
 				 * @return the id
 				 */
@@ -14174,13 +14177,13 @@ public class Sources {
 				/**
 				 * @return the informationDate
 				 */
-				public String getInformationDate() {
+				public XMLGregorianCalendar getInformationDate() {
 					return informationDate;
 				}
 				/**
 				 * @param informationDate the informationDate to set
 				 */
-				public void setInformationDate(String informationDate) {
+				public void setInformationDate(XMLGregorianCalendar informationDate) {
 					this.informationDate = informationDate;
 				}
 				/**
@@ -14198,73 +14201,73 @@ public class Sources {
 				/**
 				 * @return the address1
 				 */
-				public byte getAddress1() {
+				public String getAddress1() {
 					return address1;
 				}
 				/**
 				 * @param address1 the address1 to set
 				 */
-				public void setAddress1(byte address1) {
+				public void setAddress1(String address1) {
 					this.address1 = address1;
 				}
 				/**
 				 * @return the address2
 				 */
-				public byte getAddress2() {
+				public String getAddress2() {
 					return address2;
 				}
 				/**
 				 * @param address2 the address2 to set
 				 */
-				public void setAddress2(byte address2) {
+				public void setAddress2(String address2) {
 					this.address2 = address2;
 				}
 				/**
 				 * @return the city
 				 */
-				public byte getCity() {
+				public String getCity() {
 					return city;
 				}
 				/**
 				 * @param city the city to set
 				 */
-				public void setCity(byte city) {
+				public void setCity(String city) {
 					this.city = city;
 				}
 				/**
 				 * @return the state
 				 */
-				public byte getState() {
+				public String getState() {
 					return state;
 				}
 				/**
 				 * @param state the state to set
 				 */
-				public void setState(byte state) {
+				public void setState(String state) {
 					this.state = state;
 				}
 				/**
 				 * @return the zip
 				 */
-				public byte getZip() {
+				public String getZip() {
 					return zip;
 				}
 				/**
 				 * @param zip the zip to set
 				 */
-				public void setZip(byte zip) {
+				public void setZip(String zip) {
 					this.zip = zip;
 				}
 				/**
 				 * @return the geography_type
 				 */
-				public byte getGeography_type() {
+				public Integer getGeography_type() {
 					return geography_type;
 				}
 				/**
 				 * @param geography_type the geography_type to set
 				 */
-				public void setGeography_type(byte geography_type) {
+				public void setGeography_type(Integer geography_type) {
 					this.geography_type = geography_type;
 				}
                
@@ -14274,7 +14277,8 @@ public class Sources {
             @XmlType(name = "", propOrder = {
             		"id",
             		"exitId",
-            		"cmExitReason"
+            		"cmExitReason",
+            		"dateCreated"
             })
 
             public static class VASHExitReason {
@@ -14284,7 +14288,8 @@ public class Sources {
 	            protected String exitId;
 	            @XmlElement(name = "cmExitReason")
 	            protected Integer cmExitReason;
-	            
+	            @XmlElement(name = "dateCreated")
+	            protected XMLGregorianCalendar dateCreated;
 	            
 				public String getId() {
 					return id;
@@ -14304,6 +14309,13 @@ public class Sources {
 				public void setCmExitReason(Integer cmExitReason) {
 					this.cmExitReason = cmExitReason;
 				}
+				public XMLGregorianCalendar getDateCreated() {
+					return dateCreated;
+				}
+				public void setDateCreated(XMLGregorianCalendar dateCreated) {
+					this.dateCreated = dateCreated;
+				}
+				
 	
 	         }
             

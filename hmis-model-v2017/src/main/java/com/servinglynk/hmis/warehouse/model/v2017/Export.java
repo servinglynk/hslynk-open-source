@@ -156,7 +156,7 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	private Set<Project> projects = new HashSet<Project>();
 
 	/** Field mapping. */
-	private Set<Moveindate> moveindates = new HashSet<Moveindate>();
+	private Set<Moveindate> residentialmoveindates = new HashSet<Moveindate>();
 
 	/** Field mapping. */
 	private Set<RhybcpStatus> rhybcpStatuses = new HashSet<RhybcpStatus>();
@@ -1266,7 +1266,7 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	@Basic( optional = false )
 	@Column( nullable = false  )
 	public Set<Moveindate> getResidentialmoveindates() {
-		return this.moveindates;
+		return this.residentialmoveindates;
 
 	}
 
@@ -1276,7 +1276,7 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	public void addResidentialmoveindate(Moveindate residentialmoveindate) {
 		residentialmoveindate.setExport(this);
-		this.moveindates.add(residentialmoveindate);
+		this.residentialmoveindates.add(residentialmoveindate);
 	}
 
 
@@ -1285,7 +1285,7 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	 * @param residentialmoveindate the residentialmoveindate value you wish to set
 	 */
 	public void setResidentialmoveindates(final Set<Moveindate> residentialmoveindate) {
-		this.moveindates = residentialmoveindate;
+		this.residentialmoveindates = residentialmoveindate;
 	}
 
 	 /**

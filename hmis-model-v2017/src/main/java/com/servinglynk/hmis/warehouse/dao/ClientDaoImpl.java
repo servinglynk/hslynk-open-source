@@ -226,7 +226,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				if(!forAPI && clientModelFromDB !=null) {
 					modelMatch(clientModelFromDB, clientModel);
 				}
-				clientModel.setDedupClientId(dedupId);
+//				clientModel.setDedupClientId(dedupId);
 			}
 		}else {
 			if(clientModelFromDB !=null) {
@@ -272,10 +272,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) get(com.servinglynk.hmis.warehouse.model.v2017.Export.class, client.getExport().getId());
 				exportEntity.addClient(target);
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.v2017.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
-				if(clientByDedupCliendId ==null) {
+//				com.servinglynk.hmis.warehouse.model.v2017.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
+				/*if(clientByDedupCliendId ==null) {
 					insert(target);	
-				}
+				}*/
 			}
 	}
 	
@@ -311,8 +311,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			BeanUtils.copyProperties(client, baseClient, new String[] {"enrollments","veteranInfoes"});
 			logger.info("Calling Dedup Service for "+client.getFirstName());
 			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-			client.setDedupClientId(UUID.fromString(dedupedId));
-			baseClient.setDedupClientId(client.getDedupClientId());
+//			client.setDedupClientId(UUID.fromString(dedupedId));
+//			baseClient.setDedupClientId(client.getDedupClientId());
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);

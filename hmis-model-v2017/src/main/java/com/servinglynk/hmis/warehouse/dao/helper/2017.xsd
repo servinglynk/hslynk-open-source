@@ -528,8 +528,8 @@
                     </xs:element>
                     <xs:element name="Project" maxOccurs="unbounded" minOccurs="0">
                       <xs:complexType>
-                          <xs:element type="xs:string" name="ProjectID"/>
                         <xs:sequence>
+                          <xs:element type="xs:string" name="ProjectID"/>
                           <xs:element type="xs:byte" name="OrganizationID"/>
                           <xs:element type="xs:string" name="ProjectName"/>
                           <xs:element type="xs:byte" name="ContinuumProject"/>

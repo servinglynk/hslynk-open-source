@@ -22,11 +22,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
 
 
 /**

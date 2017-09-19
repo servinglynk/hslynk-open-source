@@ -20,18 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.apache.solr.analysis.LowerCaseTokenizerFactory;
 import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.Analyzer;
-import org.hibernate.search.annotations.AnalyzerDef;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
-import org.hibernate.search.annotations.TokenizerDef;
 
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
@@ -64,8 +55,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** hashCode temporary storage. */
 	private volatile java.util.UUID hashCode;
-	/** Field mapping. */
-	private java.util.UUID dedupClientId;
+
 	/** Field mapping. */
 	private LocalDateTime dob;
 	/** Field mapping. */
@@ -114,27 +104,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		this.id = id;
 	}
 
-
-	 /**
-		 * Return the value associated with the column: dedupClientId.
-		 * @return A java.util.UUID object (this.dedupClientId)
-		 */
-		@Basic( optional = true )
-		@Column( name = "dedup_client_id"  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-		public java.util.UUID getDedupClientId() {
-			return this.dedupClientId;
-
-		}
-
-
-
-		 /**
-		 * Set the value related to the column: dedupClientId.
-		 * @param dedupClientId the dedupClientId value you wish to set
-		 */
-		public void setDedupClientId(final java.util.UUID dedupClientId) {
-			this.dedupClientId = dedupClientId;
-		}
+	
 
 		/** Field mapping. */
 		protected Export export;
@@ -571,6 +541,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setMiddleName(this.getMiddleName());
 		copy.setNameDataQuality(this.getNameDataQuality());
 		copy.setNameSuffix(this.getNameSuffix());
+//		copy.setOtherGender(this.getOtherGender());
 		copy.setRace(this.getRace());
 		copy.setSsn(this.getSsn());
 		copy.setSsnDataQuality(this.getSsnDataQuality());
@@ -607,6 +578,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("middleName: " + this.getMiddleName() + ", ");
 		sb.append("nameDataQuality: " + this.getNameDataQuality() + ", ");
 		sb.append("nameSuffix: " + this.getNameSuffix() + ", ");
+//		sb.append("otherGender: " + this.getOtherGender() + ", ");
 		sb.append("race: " + this.getRace() + ", ");
 		sb.append("ssn: " + this.getSsn() + ", ");
 		sb.append("ssnDataQuality: " + this.getSsnDataQuality() + ", ");
@@ -668,6 +640,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getMiddleName() == null) && (that.getMiddleName() == null)) || (getMiddleName() != null && getMiddleName().equals(that.getMiddleName())));
 		result = result && (((getNameDataQuality() == null) && (that.getNameDataQuality() == null)) || (getNameDataQuality() != null && getNameDataQuality().equals(that.getNameDataQuality())));
 		result = result && (((getNameSuffix() == null) && (that.getNameSuffix() == null)) || (getNameSuffix() != null && getNameSuffix().equals(that.getNameSuffix())));
+//		result = result && (((getOtherGender() == null) && (that.getOtherGender() == null)) || (getOtherGender() != null && getOtherGender().equals(that.getOtherGender())));
 		result = result && (((getRace() == null) && (that.getRace() == null)) || (getRace() != null && getRace().equals(that.getRace())));
 		result = result && (((getSsn() == null) && (that.getSsn() == null)) || (getSsn() != null && getSsn().equals(that.getSsn())));
 		result = result && (((getSsnDataQuality() == null) && (that.getSsnDataQuality() == null)) || (getSsnDataQuality() != null && getSsnDataQuality().equals(that.getSsnDataQuality())));

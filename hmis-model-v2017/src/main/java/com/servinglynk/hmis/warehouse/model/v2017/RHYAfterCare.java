@@ -1,13 +1,18 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class RHYAfterCare extends HmisBaseModel{
+@Entity(name = "rhyaftercare_v2017")
+@Table(name = "rhyaftercare", catalog = "hmis", schema = "v2017")
+public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializable   {
 	
 	private java.util.UUID id; 
 	private LocalDateTime afterCareDate;
@@ -16,8 +21,6 @@ public class RHYAfterCare extends HmisBaseModel{
 	private Integer telephone;
 	private Integer inPersonIndividual;
 	private Integer inPersonGroup;
-	public RHYAfterCare() {
-	}
 	/**
 	 * @return the id
 	 */
@@ -137,6 +140,9 @@ public class RHYAfterCare extends HmisBaseModel{
 		this.telephone = telephone;
 		this.inPersonIndividual = inPersonIndividual;
 		this.inPersonGroup = inPersonGroup;
+	}
+	public RHYAfterCare() {
+		// TODO Auto-generated constructor stub
 	}
 	
 	
