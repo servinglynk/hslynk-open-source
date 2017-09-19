@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.enums.MoveindateInpermanenthousingEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -42,7 +41,7 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements MoveindateDao {
 					try {
 						moveindateModel = getModelObject(domain, expMoveindates, data, modelMap);
 						moveindateModel.setMoveindate(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateCreated()));
-						moveindateModel.setInpermanenthousing(MoveindateInpermanenthousingEnum.lookupEnum(BasicDataGenerator.getStringValue(expMoveindates.getInPermanentHousing())));
+						//moveindateModel.setInpermanenthousing(MoveindateInpermanenthousin.lookupEnum(BasicDataGenerator.getStringValue(expMoveindates.getInPermanentHousing())));
 						moveindateModel.setDateCreated(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateCreated()));
 						moveindateModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateUpdated()));
 						

@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
-import com.servinglynk.hmis.warehouse.enums.MoveindateInpermanenthousingEnum;
+import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnum;
 
 
 /**
@@ -49,7 +49,7 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
-	private MoveindateInpermanenthousingEnum inpermanenthousing;
+	private ResidentialmoveindateInpermanenthousingEnum inpermanenthousing;
 	/** Field mapping. */
 	private LocalDateTime moveindate;
 	/** Field mapping. */
@@ -134,7 +134,7 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnumType")
 	@Basic( optional = true )
 	@Column
-	public MoveindateInpermanenthousingEnum getInpermanenthousing() {
+	public ResidentialmoveindateInpermanenthousingEnum getInpermanenthousing() {
 		return this.inpermanenthousing;
 
 	}
@@ -145,7 +145,7 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 	 * Set the value related to the column: inpermanenthousing.
 	 * @param inpermanenthousing the inpermanenthousing value you wish to set
 	 */
-	public void setInpermanenthousing(final MoveindateInpermanenthousingEnum inpermanenthousing) {
+	public void setInpermanenthousing(final ResidentialmoveindateInpermanenthousingEnum inpermanenthousing) {
 		this.inpermanenthousing = inpermanenthousing;
 	}
 
