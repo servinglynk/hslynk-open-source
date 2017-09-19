@@ -49,7 +49,11 @@ public class ViSpdatView  extends Logging {
 	            String key = "";
 	            Put p = null;
 	            for(Response response : responsesForSurvey) {
+	            	if(StringUtils.isBlank(key)) {
+	            		 p = new Put(Bytes.toBytes(response.getSubmissionId()));
+	            	}
 	            	if(!StringUtils.equals(key, response.getSubmissionId()) && StringUtils.isNotBlank(key)) {
+	            		p = new Put(Bytes.toBytes(key));
 	            		addColumn("client_id",String.valueOf(response.getClientId()), key, p);
 	            		addColumn("survey_id",String.valueOf(survey.getSurveyId()), key, p);
 	            		addColumn("survey_date",getCreatedAtString(response.getSurveyResponseDate()), key, p);
@@ -71,7 +75,6 @@ public class ViSpdatView  extends Logging {
 	     	            }
 	            	}
 	            	 key = response.getSubmissionId();
-	            	  new Put(Bytes.toBytes(key));
 	            	 addColumn(response.getQuestionId(),String.valueOf(response.getResponseText()), key, p);
 	            }
 	            if(p != null) {
@@ -215,26 +218,6 @@ public class ViSpdatView  extends Logging {
         return responses;
     }
     
-    public static List<String> getDisinctQuestions(String schemaName,UUID surveyId) throws Exception{
-        List<String> questions = new ArrayList<>();
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-        Connection connection = null;
-        try{
-            connection = SyncPostgresProcessor.getConnection();
-            statement = connection.prepareStatement(ViewQuery.GET_DISTINCT_QUESTIONS_FOR_SURVEY);
-            statement.setObject(1, surveyId);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()){
-            	questions.add(resultSet.getString("question_id"));
-            }
-
-        }catch (Exception ex){
-            throw ex;
-        }
-        return questions;
-    }
-    
 	public static void main(String args[]) throws Exception {
 		 Logger logger = Logger.getLogger(ViSpdatView.class.getName());
 		 FileAppender appender = new FileAppender();
@@ -253,9 +236,11 @@ public class ViSpdatView  extends Logging {
 		 List<String> disinctSurveys = view.getDisinctSurveys("survey");
 		 for(String surveyId : disinctSurveys) {
 			 Survey survey = view.getSurveyById("survey", surveyId);
-			 String tableName =survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_")+"_"+survey.getProjectGroupCode();
-			 view.createHbaseTable(tableName);
-			 view.processViSpdat(tableName, projectGroupCode, survey);
+			 if(StringUtils.equals("MO0010",survey.getProjectGroupCode())) {
+				 String tableName =survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase()+"_"+survey.getProjectGroupCode();
+				 view.createHbaseTable(tableName);
+				 view.processViSpdat(tableName, projectGroupCode, survey);
+			 }
 		}
 	}
 
