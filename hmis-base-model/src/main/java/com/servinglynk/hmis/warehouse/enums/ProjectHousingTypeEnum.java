@@ -1,20 +1,20 @@
 package com.servinglynk.hmis.warehouse.enums;
-
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
+/**
+ * Defines the ProjectProjecttypeEnum enumeration.
+ * 
+ * @author Sandeep Dolia
+ *
+ */
+public enum ProjectHousingTypeEnum {
 
-public enum NoYesEnum {
-
-	/** Enum Constant. */
-	ZERO("0"),
 	/** Enum Constant. */
 	ONE("1"),
 	/** Enum Constant. */
-	EIGHT("8"),
+	TWO("2"),
 	/** Enum Constant. */
-	NINE("9"),
-	/** Enum Constant. */
-	NINTY_NINE("99");
+	THREE("3");
 	/**
 	 * Internal storage of status field value, see the Enum spec for
  	 * clarification.
@@ -25,16 +25,16 @@ public enum NoYesEnum {
 	 * Enum constructor for ActiveState.
 	 * @param state Value.
 	 */
-	NoYesEnum(final String state) {
+	ProjectHousingTypeEnum(final String state) {
 		this.status = state;
 	}
 	
 	/** Construct a map for reverse lookup. */
-	private static Map<String, NoYesEnum> valueMap = new HashMap<String, NoYesEnum>();
+	private static Map<String, ProjectHousingTypeEnum> valueMap = new HashMap<String, ProjectHousingTypeEnum>();
 
     static {
     	// construct hashmap for later possible use.
-        for (NoYesEnum unit : values()) {
+        for (ProjectHousingTypeEnum unit : values()) {
             valueMap.put(unit.getValue(), unit);
         }
     }
@@ -54,7 +54,8 @@ public enum NoYesEnum {
      * @param value to search
      * @return Enum object.
      */
-    public static NoYesEnum lookupEnum(String value) {
-        return NoYesEnum.valueMap.get(value);
+    public static ProjectHousingTypeEnum lookupEnum(String value) {
+        return ProjectHousingTypeEnum.valueMap.get(value);
     }
+
 }

@@ -23,6 +23,8 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
+import com.servinglynk.hmis.warehouse.enums.LengthOfStayEnum;
+import com.servinglynk.hmis.warehouse.enums.LivingSituationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
@@ -74,8 +76,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 //										.getStatusDocumented())));
 				//	enrollmentModel.setResidencepriorlengthofstay(EnrollmentResidencepriorlengthofstayEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getResidencePriorLengthOfStay())));
 					enrollmentModel.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getRelationshipToHoH())));
-					enrollmentModel.setLivingSituation(0);
-					enrollmentModel.setLengthOfStay(BasicDataGenerator.getLocalDateTime(enrollment.getDateCreated()));
+					enrollmentModel.setLivingSituation(LivingSituationEnum.lookupEnum(enrollment.getLivingSituation()));
+					enrollmentModel.setLengthOfStay(LengthOfStayEnum.lookupEnum(enrollment.getLengthOfStay()));
 					enrollmentModel.setDateCreatedFromSource(BasicDataGenerator
 							.getLocalDateTime(enrollment.getDateCreated()));
 					enrollmentModel.setDateUpdatedFromSource(BasicDataGenerator

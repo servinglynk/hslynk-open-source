@@ -48,9 +48,10 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 
 	/** Field mapping. */
 	private java.util.UUID id;
-	
 	/** Field mapping. */
 	private String organizationname;
+	/** Field mapping. */
+	private String organizationcommonname;
 	/** Field mapping. */
 	private Set<Project> projects = new HashSet<Project>();
 	/**
@@ -128,6 +129,24 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		this.organizationname = organizationname;
 	}
 
+	 /**
+		 * Return the value associated with the column: organizationcommonname.
+		 * @return A String object (this.organizationcommonname)
+		 */
+		@Basic( optional = true )
+		@Column
+		public String getOrganizationcommonname() {
+			return this.organizationcommonname;
+
+		}
+
+		 /**
+		 * Set the value related to the column: organizationcommonname.
+		 * @param organizationcommonname the organizationcommonname value you wish to set
+		 */
+		public void setOrganizationcommonname(final String organizationcommonname) {
+			this.organizationcommonname = organizationcommonname;
+		}
 	 /**
 	 * Return the value associated with the column: project.
 	 * @return A Set&lt;Project&gt; object (this.project)

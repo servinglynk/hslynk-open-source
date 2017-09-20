@@ -39,6 +39,7 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
+import com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
 
 /**
@@ -100,7 +101,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private EntryRHYPhysicalDisabilityFamEnum physicalDisabilityFamilyMbr;
 	/** Field mapping. */
-	private Integer referralSource;
+	private ReferralsourceReferralsourceEnum referralSource;
 	/** Field mapping. */
 	private SexualorientationSexualorientationEnum sexualOrientation;
 	/** Field mapping. */
@@ -238,9 +239,10 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 * Return the value associated with the column: referralSource.
 	 * @return A Integer object (this.referralSource)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnumType")
 	@Basic( optional = true )
 	@Column( name = "referral_source"  )
-	public Integer getReferralSource() {
+	public ReferralsourceReferralsourceEnum getReferralSource() {
 		return this.referralSource;
 
 	}
@@ -251,7 +253,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 * Set the value related to the column: referralSource.
 	 * @param referralSource the referralSource value you wish to set
 	 */
-	public void setReferralSource(final Integer referralSource) {
+	public void setReferralSource(final ReferralsourceReferralsourceEnum referralSource) {
 		this.referralSource = referralSource;
 	}
 
@@ -382,7 +384,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardChildWelfareEnumType")
 	@Basic( optional = true )
-	@Column (name="FormerWardChildWelfare")
+	@Column (name="formerly_ward_child_welfr_forest_care")
 	public EntryRHYFormerWardChildWelfareEnum getFormerlyWardChildWelfrForestCare() {
 		return formerlyWardChildWelfrForestCare;
 	}
@@ -398,7 +400,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardJuvenileJusticeEnumType")
 	@Basic( optional = true )
-	@Column (name="FormerWardJuvenileJustice")
+	@Column (name="formerly_ward_of_juvenile_justice")
 	public EntryRHYFormerWardJuvenileJusticeEnum getFormerlyWardOfJuvenileJustice() {
 		return formerlyWardOfJuvenileJustice;
 	}
@@ -464,7 +466,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesFamEnumType")
 	@Basic( optional = true )
-	@Column (name="MentalHealthIssuesFam")
+	@Column (name="mental_health_issues_family_mbrily_mbr")
 	public EntryRHYMentalHealthIssuesFamEnum getMentalHealthIssuesFamilyMbr() {
 		return mentalHealthIssuesFamilyMbr;
 	}
@@ -481,7 +483,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityFamEnumType")
 	@Basic( optional = true )
-	@Column (name="PhysicalDisabilityFam")
+	@Column (name="physical_disability_family_mbr")
 	public EntryRHYPhysicalDisabilityFamEnum getPhysicalDisabilityFamilyMbr() {
 		return physicalDisabilityFamilyMbr;
 	}
@@ -515,7 +517,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnumType")
 	@Basic( optional = true )
-	@Column (name="UnemploymentFam")
+	@Column (name="unemployement_family_mbr")
 	public EntryRHYUnemploymentFamEnum getUnemployementFamilyMbr() {
 		return unemployementFamilyMbr;
 	}
@@ -563,7 +565,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYChildWelfareYearsEnumType")
 	@Basic( optional = true )
-	@Column (name="ChildWelfareYears")
+	@Column (name="years_child_welfr_forest_care")
 	public EntryRHYChildWelfareYearsEnum getYearsChildWelfrForestCare() {
 		return yearsChildWelfrForestCare;
 	}
@@ -579,7 +581,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYJuvenileJusticeYearsEnumType")
 	@Basic( optional = true )
-	@Column (name="JuvenileJusticeYears")
+	@Column (name="years_juvenile_justice")
 	public EntryRHYJuvenileJusticeYearsEnum getYearsJuvenileJustice() {
 		return yearsJuvenileJustice;
 	}

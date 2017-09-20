@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.LastgradecompletedLastgradecompletedEnum;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 
@@ -54,7 +55,19 @@ public class Education extends HmisBaseModel implements Cloneable, Serializable 
 	private SchoolStatusEnum schoolStatus;
 	/** Field mapping. */
 	private LocalDateTime informationDate;
-	
+	/** Field mapping. */
+	private DataCollectionStageEnum dataCollectionStage;
+
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
+	@Basic( optional = true )
+	@Column
+	 public DataCollectionStageEnum getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+
+	public void setDataCollectionStage(DataCollectionStageEnum dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
 
 	/**
 	 * Return the value associated with the column: informationDate.

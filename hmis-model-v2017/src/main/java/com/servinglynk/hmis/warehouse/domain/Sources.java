@@ -5063,6 +5063,10 @@ public class Sources {
                 protected byte relationshipToHoH;
                 @XmlElement(name = "ResidencePrior")
                 protected byte residencePrior;
+                @XmlElement(name = "livingSituation")
+                protected String livingSituation;
+                @XmlElement(name = "lengthOfStay")
+                protected String lengthOfStay;
                 /*@XmlElement(name = "OtherResidencePrior", required = true)
                 protected String otherResidencePrior;*/
                 /*@XmlElement(name = "ResidencePriorLengthOfStay")
@@ -5162,7 +5166,23 @@ public class Sources {
                     this.projectID = value;
                 }
 
-                /**
+                public String getLivingSituation() {
+					return livingSituation;
+				}
+
+				public void setLivingSituation(String livingSituation) {
+					this.livingSituation = livingSituation;
+				}
+
+				public String getLengthOfStay() {
+					return lengthOfStay;
+				}
+
+				public void setLengthOfStay(String lengthOfStay) {
+					this.lengthOfStay = lengthOfStay;
+				}
+
+				/**
                  * Gets the value of the entryDate property.
                  * 
                  * @return
@@ -12583,6 +12603,11 @@ public class Sources {
                 "residentialAffiliation",
                 "trackingMethod",
                 "targetPopulation",
+                "residentialaffiliation",
+                "operatingStartDate", 
+                "operatingEndDate", 
+                "victimServicesProvider", 
+                "housingType",
                 "projectCommonName"
             })
             public static class Project {
@@ -12603,6 +12628,14 @@ public class Sources {
                 protected byte trackingMethod;
                 @XmlElement(name = "TargetPopulation")
                 protected byte targetPopulation;
+                @XmlElement(name = "OperatingStartDate")
+                protected XMLGregorianCalendar operatingStartDate;
+                @XmlElement(name = "OperatingEndDate")
+                protected XMLGregorianCalendar operatingEndDate;
+                @XmlElement(name = "VictimServicesProvider")
+                protected String victimServicesProvider;
+                @XmlElement(name = "HousingType")
+                protected String housingType;
                 @XmlElement(name = "ProjectCommonName", required = true)
                 protected String projectCommonName;
                 @XmlAttribute
@@ -12756,7 +12789,40 @@ public class Sources {
                     this.targetPopulation = value;
                 }
 
-                /**
+                
+                public XMLGregorianCalendar getOperatingStartDate() {
+					return operatingStartDate;
+				}
+
+				public void setOperatingStartDate(XMLGregorianCalendar operatingStartDate) {
+					this.operatingStartDate = operatingStartDate;
+				}
+
+				public XMLGregorianCalendar getOperatingEndDate() {
+					return operatingEndDate;
+				}
+
+				public void setOperatingEndDate(XMLGregorianCalendar operatingEndDate) {
+					this.operatingEndDate = operatingEndDate;
+				}
+
+				public String getVictimServicesProvider() {
+					return victimServicesProvider;
+				}
+
+				public void setVictimServicesProvider(String victimServicesProvider) {
+					this.victimServicesProvider = victimServicesProvider;
+				}
+
+				public String getHousingType() {
+					return housingType;
+				}
+
+				public void setHousingType(String housingType) {
+					this.housingType = housingType;
+				}
+
+				/**
                  * Gets the value of the projectCommonName property.
                  * 
                  * @return

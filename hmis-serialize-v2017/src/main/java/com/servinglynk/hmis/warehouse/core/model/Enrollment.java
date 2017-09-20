@@ -8,49 +8,27 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("enrollment")
 public class Enrollment extends ClientModel {
 	
-	
-	
 	private UUID enrollmentId;
 	private Integer continuouslyhomelessoneyear;
 	private Integer  disablingcondition;
 	private Date  entrydate;
 	private String  householdid;
-	private Integer  housingstatus;
 	private Integer  monthshomelesspastthreeyears;
 	private Integer  monthshomelessthistime;
-	private String  otherresidenceprior;
 	private UUID  	personalid;
 	private UUID  	projectentryid;
 	private UUID  	projectid;
 	private Integer  relationshiptohoh;
 	private Integer  residenceprior;
-	private Integer  residencepriorlengthofstay;
 	private Integer  statusdocumented;
+	private Integer lengthOfStay;
+	private Integer livingSituation;
 	private Integer  timeshomelesspastthreeyears;
 	private int  yearshomeless;
 	private UUID  clientId;
-	private Integer entryfromstreetessh;
 	private Integer losunderthreshold;
 	private Integer previousStreetESSH;
 	
-	public Integer getEntryfromstreetessh() {
-		return entryfromstreetessh;
-	}
-
-	public void setEntryfromstreetessh(Integer entryfromstreetessh) {
-		this.entryfromstreetessh = entryfromstreetessh;
-	}
-
-	public Integer getDatetostreetessh() {
-		return datetostreetessh;
-	}
-
-	public void setDatetostreetessh(Integer datetostreetessh) {
-		this.datetostreetessh = datetostreetessh;
-	}
-
-	private Integer datetostreetessh;
-
 	public Enrollment(){
 		
 	}
@@ -100,14 +78,6 @@ public class Enrollment extends ClientModel {
 		this.householdid = householdid;
 	}
 
-	public Integer getHousingstatus() {
-		return housingstatus;
-	}
-
-	public void setHousingstatus(Integer housingstatus) {
-		this.housingstatus = housingstatus;
-	}
-
 	public Integer getMonthshomelesspastthreeyears() {
 		return monthshomelesspastthreeyears;
 	}
@@ -122,14 +92,6 @@ public class Enrollment extends ClientModel {
 
 	public void setMonthshomelessthistime(Integer monthshomelessthistime) {
 		this.monthshomelessthistime = monthshomelessthistime;
-	}
-
-	public String getOtherresidenceprior() {
-		return otherresidenceprior;
-	}
-
-	public void setOtherresidenceprior(String otherresidenceprior) {
-		this.otherresidenceprior = otherresidenceprior;
 	}
 
 	public UUID getPersonalid() {
@@ -170,14 +132,6 @@ public class Enrollment extends ClientModel {
 
 	public void setResidenceprior(Integer residenceprior) {
 		this.residenceprior = residenceprior;
-	}
-
-	public Integer getResidencepriorlengthofstay() {
-		return residencepriorlengthofstay;
-	}
-
-	public void setResidencepriorlengthofstay(Integer residencepriorlengthofstay) {
-		this.residencepriorlengthofstay = residencepriorlengthofstay;
 	}
 
 	public Integer getStatusdocumented() {
@@ -238,6 +192,22 @@ public class Enrollment extends ClientModel {
 	 */
 	public void setPreviousStreetESSH(Integer previousStreetESSH) {
 		this.previousStreetESSH = previousStreetESSH;
+	}
+
+	public Integer getLengthOfStay() {
+		return lengthOfStay;
+	}
+
+	public void setLengthOfStay(Integer lengthOfStay) {
+		this.lengthOfStay = lengthOfStay;
+	}
+
+	public Integer getLivingSituation() {
+		return livingSituation;
+	}
+
+	public void setLivingSituation(Integer livingSituation) {
+		this.livingSituation = livingSituation;
 	}
 	
 }

@@ -38,6 +38,7 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
+import com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2017.Entryrhy;
@@ -95,7 +96,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 //				entryRhyModel.setParentId(parentId);
 					entryRhyModel.setPhysicalDisabilityFamilyMbr(EntryRHYPhysicalDisabilityFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getPhysicalDisabilityFam())));
 //					entryRhyModel.setPhysicalDisabilityYouth(EntryRHYPhysicalDisabilityYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getPhysicalDisabilityYouth())));
-					entryRhyModel.setReferralSource(BasicDataGenerator.getIntegerValue(entryRhys.getReferralSource()));
+					entryRhyModel.setReferralSource(ReferralsourceReferralsourceEnum.lookupEnum(String.valueOf(entryRhys.getReferralSource())));
 //					entryRhyModel.setSchoolEducationIssuesFamilyMbr(EntryRHYSchoolEducationalIssuesFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getSchoolEducationalIssuesFam())));
 //					entryRhyModel.setSchoolEducationIssuesYouth(EntryRHYSchoolEducationalIssuesYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getSchoolEducationalIssuesYouth())));
 //					entryRhyModel.setSexualOrientatiionGenderIdentityFamilyMbr(EntryRHYSexualOrientationGenderIDFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getSexualOrientationGenderIDFam())));

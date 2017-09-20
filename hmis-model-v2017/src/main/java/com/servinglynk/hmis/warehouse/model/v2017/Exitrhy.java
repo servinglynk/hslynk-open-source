@@ -19,7 +19,9 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYEarlyExitReasonEnum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
 
 /**
@@ -55,9 +57,9 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private ProjectcompletionstatusProjectcompletionstatusEnum projectCompletionStatus;
 	
-	private Integer exchageForSex;
-	private Integer exchangeForSexPastThreeMonths;
-	private Integer countOfExchangeForSex;  
+	private NoYesEnum exchangeForSex;
+	private NoYesEnum exchangeForSexPastThreeMonths;
+	private EntryRHYcountOfExchangeForSexpEnum countOfExchangeForSex;  
 	private Integer askedOrForcedToExchangeForSex;
 	private Integer askedOrForcedToExchangeForSexPastThreeMonths; 
 	private Integer workPlaceViolenceThreats;  
@@ -115,34 +117,37 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		}
 
 
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "exchage_for_sex")
-		 public Integer getExchageForSex() {
-			return exchageForSex;
+		 public NoYesEnum getExchangeForSex() {
+			return exchangeForSex;
 		}
 
-		public void setExchageForSex(Integer exchageForSex) {
-			this.exchageForSex = exchageForSex;
+		public void setExchangeForSex(NoYesEnum exchageForSex) {
+			this.exchangeForSex = exchangeForSex;
 		}
 
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "exchange_for_sex_past_three_months")
-		public Integer getExchangeForSexPastThreeMonths() {
+		public NoYesEnum getExchangeForSexPastThreeMonths() {
 			return exchangeForSexPastThreeMonths;
 		}
 
 		public void setExchangeForSexPastThreeMonths(
-				Integer exchangeForSexPastThreeMonths) {
+				NoYesEnum exchangeForSexPastThreeMonths) {
 			this.exchangeForSexPastThreeMonths = exchangeForSexPastThreeMonths;
 		}
 		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnumType")
 		@Basic( optional = true )
 		@Column( name = "count_of_exchange_for_sex")
-		public Integer getCountOfExchangeForSex() {
+		public EntryRHYcountOfExchangeForSexpEnum getCountOfExchangeForSex() {
 			return countOfExchangeForSex;
 		}
 
-		public void setCountOfExchangeForSex(Integer countOfExchangeForSex) {
+		public void setCountOfExchangeForSex(EntryRHYcountOfExchangeForSexpEnum countOfExchangeForSex) {
 			this.countOfExchangeForSex = countOfExchangeForSex;
 		}
 		

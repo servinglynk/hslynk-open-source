@@ -7,8 +7,7 @@ public class ServicefareferralConverter  extends BaseConverter {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral();
        entity.setId(model.getServicefareferralId());
        entity.setDateprovided(model.getDateprovided());
-       entity.setServiceCategory(model.getServiceCategory());
-       entity.setFunderList(model.getFunderList());
+       entity.setRecordType(model.getRecordType());
        entity.setTypeProvided(model.getTypeProvided());
        entity.setOtherTypeProvided(model.getOtherTypeProvided());
        entity.setSubTypeProvided(model.getSubTypeProvided());

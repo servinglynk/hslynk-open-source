@@ -28,6 +28,8 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentMonthshomelesspastthreeyea
 import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
+import com.servinglynk.hmis.warehouse.enums.LengthOfStayEnum;
+import com.servinglynk.hmis.warehouse.enums.LivingSituationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 
@@ -139,8 +141,8 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private NoYesEnum losunderthreshold;
 	private NoYesEnum previousStreetESSH;
 	
-	private Integer livingSituation;
-	private LocalDateTime lengthOfStay;
+	private LivingSituationEnum livingSituation;
+	private LengthOfStayEnum lengthOfStay;
 
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -188,24 +190,25 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	public void setClient(final Client client) {
 		this.client = client;
 	}
-
+	
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.LivingSituationEnumType")
 	@Basic( optional = true )
 	@Column( name = "livingSituation" )
-	 public Integer getLivingSituation() {
+	 public LivingSituationEnum getLivingSituation() {
 		return livingSituation;
 	}
 
-	public void setLivingSituation(Integer livingSituation) {
+	public void setLivingSituation(LivingSituationEnum livingSituation) {
 		this.livingSituation = livingSituation;
 	}
-
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.LengthOfStayEnumType")
 	@Basic( optional = true )
 	@Column( name = "lengthOfStay" )
-	public LocalDateTime getLengthOfStay() {
+	public LengthOfStayEnum getLengthOfStay() {
 		return lengthOfStay;
 	}
 
-	public void setLengthOfStay(LocalDateTime lengthOfStay) {
+	public void setLengthOfStay(LengthOfStayEnum lengthOfStay) {
 		this.lengthOfStay = lengthOfStay;
 	}
 

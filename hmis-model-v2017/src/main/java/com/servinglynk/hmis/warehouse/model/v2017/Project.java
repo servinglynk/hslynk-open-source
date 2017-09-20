@@ -23,7 +23,9 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
+import com.servinglynk.hmis.warehouse.enums.ProjectHousingTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
@@ -74,9 +76,11 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	private ProjectResidentialaffiliationEnum residentialaffiliation;
 	private LocalDateTime operatingStartDate;
 	private LocalDateTime operatingEndDate;
-	private Integer victimServiceProvider;
-	private Integer housingType;
+	private NoYesEnum victimServiceProvider;
+	private ProjectHousingTypeEnum housingType;
 	private String projectname;
+	/** Field mapping. */
+	private String projectcommonname;
 	/** Field mapping. */
 	private ProjectProjecttypeEnum projecttype;
 	/** Field mapping. */
@@ -327,32 +331,34 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	/**
 	 * @return the victimServiceProvider
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column( name = "victimServiceProvider" )
-	public Integer getVictimServiceProvider() {
+	public NoYesEnum getVictimServiceProvider() {
 		return victimServiceProvider;
 	}
 
 	/**
 	 * @param victimServiceProvider the victimServiceProvider to set
 	 */
-	public void setVictimServiceProvider(Integer victimServiceProvider) {
+	public void setVictimServiceProvider(NoYesEnum victimServiceProvider) {
 		this.victimServiceProvider = victimServiceProvider;
 	}
 
 	/**
 	 * @return the housingType
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ProjectHousingTypeEnumType")
 	@Basic( optional = true )
 	@Column( name = "housingType" )
-	public Integer getHousingType() {
+	public ProjectHousingTypeEnum getHousingType() {
 		return housingType;
 	}
 
 	/**
 	 * @param housingType the housingType to set
 	 */
-	public void setHousingType(Integer housingType) {
+	public void setHousingType(ProjectHousingTypeEnum housingType) {
 		this.housingType = housingType;
 	}
 
@@ -416,6 +422,27 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	public void setProjectname(final String projectname) {
 		this.projectname = projectname;
 	}
+
+	 /**
+		 * Return the value associated with the column: projectcommonname.
+		 * @return A String object (this.projectcommonname)
+		 */
+		@Basic( optional = true )
+		@Column
+		public String getProjectcommonname() {
+			return this.projectcommonname;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: projectcommonname.
+		 * @param projectcommonname the projectcommonname value you wish to set
+		 */
+		public void setProjectcommonname(final String projectcommonname) {
+			this.projectcommonname = projectcommonname;
+		}
 
 		/**
 		 * Return the value associated with the column: projecttype.
@@ -537,6 +564,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setOrganizationid(this.getOrganizationid());
 		copy.setParentId(this.getParentId());
 		copy.setProjectname(this.getProjectname());
+		copy.setProjectcommonname(this.getProjectcommonname());
 		copy.setProjecttype(this.getProjecttype());
 		copy.setSync(this.isSync());
 		copy.setTargetpopulation(this.getTargetpopulation());
@@ -563,6 +591,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("projectname: " + this.getProjectname() + ", ");
+		sb.append("projectcommonname: " + this.getProjectcommonname() + ", ");
 		sb.append("projecttype: " + this.getProjecttype() + ", ");
 		sb.append("sync: " + this.isSync() + ", ");
 		sb.append("targetpopulation: " + this.getTargetpopulation() + ", ");
@@ -620,6 +649,7 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
 		result = result && (((getOrganizationid() == null) && (that.getOrganizationid() == null)) || (getOrganizationid() != null && getOrganizationid().getId().equals(that.getOrganizationid().getId())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
+		result = result && (((getProjectcommonname() == null) && (that.getProjectcommonname() == null)) || (getProjectcommonname() != null && getProjectcommonname().equals(that.getProjectcommonname())));
 		result = result && (((getProjectname() == null) && (that.getProjectname() == null)) || (getProjectname() != null && getProjectname().equals(that.getProjectname())));
 		result = result && (((getProjecttype() == null) && (that.getProjecttype() == null)) || (getProjecttype() != null && getProjecttype().equals(that.getProjecttype())));
 		result = result && (((getTargetpopulation() == null) && (that.getTargetpopulation() == null)) || (getTargetpopulation() != null && getTargetpopulation().equals(that.getTargetpopulation())));
