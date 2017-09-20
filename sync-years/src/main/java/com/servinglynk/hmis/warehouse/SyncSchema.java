@@ -76,6 +76,7 @@ public class SyncSchema extends Logging {
         log.info("Start a new sync for " + version.name() + " uploads");
         syncTablesToHBase();
         log.info("Sync done. Wait " + syncPeriod + " minutes before running next sync");
+        threadSleep(syncPeriod * 60 * 1000);
     }
 
     private void syncTablesToHBase() throws Exception {
