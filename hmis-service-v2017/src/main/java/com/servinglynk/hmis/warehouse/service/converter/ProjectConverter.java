@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import java.time.LocalDateTime;
+
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
@@ -22,6 +24,8 @@ public class ProjectConverter extends BaseConverter {
        if(model.getTargetPopulation()!=null)
        entity.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(model.getTargetPopulation().toString()));
       // entity.setProjectGroupCode(model.getProjectGroup());
+       if(model.getOperatingEndDate() !=null)
+    	   entity.setOperatingEndDate(model.getOperatingEndDate());
        return entity;
    }
 
