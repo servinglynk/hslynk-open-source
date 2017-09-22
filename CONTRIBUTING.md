@@ -2,7 +2,7 @@
 HSLynk is an open source project and your contribution is very much appreciated.
 
 1. Check for open issues (in a separate repo at https://github.com/servinglynk/hmis-lynk-open-source-docs/issues, to keep the code repo lean) or open a fresh issue to start a discussion around a feature idea or a bug.
-2. Fork the repository on Github and make your changes in a branch.
+2. Fork the repository on Github and make your changes in a branch. We use Vincent Driessen's branching methodology illustrated here: http://nvie.com/posts/a-successful-git-branching-model/
 4. Send a pull request (with the branch as the target).
 5. Please document early and often on the wiki at https://github.com/servinglynk/hmis-lynk-open-source-docs/wiki
 
