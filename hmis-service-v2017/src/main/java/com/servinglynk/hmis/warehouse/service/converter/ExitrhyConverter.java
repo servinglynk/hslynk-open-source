@@ -1,25 +1,8 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.Exitrhy;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYCoercedToContinueWorkEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexPastThreeMonthsEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
-import com.servinglynk.hmis.warehouse.enums.ExitRHYAssistanceMainstreamBenefitsEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYEarlyExitReasonEnum;
-import com.servinglynk.hmis.warehouse.enums.ExitRHYExitCounselingEnum;
-import com.servinglynk.hmis.warehouse.enums.ExitRHYFamilyReunificationAchievedEnum;
-import com.servinglynk.hmis.warehouse.enums.ExitRHYFurtherFollowUpServicesEnum;
-import com.servinglynk.hmis.warehouse.enums.ExitRHYOtherAftercarePlanOrActionEnum;
-import com.servinglynk.hmis.warehouse.enums.ExitRHYPermanentHousingPlacementEnum;
-import com.servinglynk.hmis.warehouse.enums.ExitRHYResourcePackageEnum;
-import com.servinglynk.hmis.warehouse.enums.ExitRHYScheduledFollowUpContactsEnum;
-import com.servinglynk.hmis.warehouse.enums.ExitRHYTemporaryShelterPlacementEnum;
-import com.servinglynk.hmis.warehouse.enums.ExitRHYWrittenAfterCarePlanEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
 public class ExitrhyConverter  extends BaseConverter {
@@ -27,22 +10,52 @@ public class ExitrhyConverter  extends BaseConverter {
    public static com.servinglynk.hmis.warehouse.model.v2017.Exitrhy modelToEntity (Exitrhy model ,com.servinglynk.hmis.warehouse.model.v2017.Exitrhy entity) {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Exitrhy();
        entity.setId(model.getExitrhyId());
-       if(model.getProjectCompletionStatus()!=null)
-       entity.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(model.getProjectCompletionStatus()+""));
        if(model.getEarlyExitReason()!=null)
     	   entity.setEarlyExitReason(ExitRHYEarlyExitReasonEnum.lookupEnum(model.getEarlyExitReason()+""));
+       if(model.getProjectCompletionStatus()!=null)
+       entity.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(model.getProjectCompletionStatus()+""));
        if(model.getExchangeForSex()!=null)
            entity.setExchangeForSex(NoYesEnum.lookupEnum(model.getExchangeForSex()+""));
-           if(model.getExchangeForSexPastThreeMonths()!=null)
+       if(model.getExchangeForSexPastThreeMonths()!=null)
            entity.setExchangeForSexPastThreeMonths(NoYesEnum.lookupEnum(model.getExchangeForSexPastThreeMonths()+""));
-           if(model.getCountOfExchangeForSex()!=null)
+       if(model.getCountOfExchangeForSex()!=null)
            entity.setCountOfExchangeForSex(EntryRHYcountOfExchangeForSexpEnum.lookupEnum(model.getCountOfExchangeForSex()+""));
-           if(model.getWorkPlacePromiseDifference()!=null)
+       if(model.getAskedOrForcedToExchangeForSex() !=null) 
+    	   entity.setAskedOrForcedToExchangeForSex(NoYesEnum.lookupEnum(model.getAskedOrForcedToExchangeForSex()+""));
+       if(model.getAskedOrForcedToExchangeForSexPastThreeMonths() !=null)
+    	   entity.setAskedOrForcedToExchangeForSexPastThreeMonths(NoYesEnum.lookupEnum(model.getAskedOrForcedToExchangeForSexPastThreeMonths()+""));
+       if(model.getWorkPlaceViolenceThreats() !=null)
+    	   entity.setWorkPlaceViolenceThreats(NoYesEnum.lookupEnum(model.getWorkPlaceViolenceThreats()+""));
+       if(model.getWorkPlacePromiseDifference()!=null)
            entity.setWorkPlacePromiseDifference(NoYesEnum.lookupEnum(model.getWorkPlacePromiseDifference()+""));
-           if(model.getCoercedToContinueWork()!=null)
+       if(model.getCoercedToContinueWork()!=null)
            entity.setCoercedToContinueWork(NoYesEnum.lookupEnum(model.getCoercedToContinueWork()+""));
-           if(model.getLaborExploitPastThreeMonths()!=null)
+       if(model.getLaborExploitPastThreeMonths()!=null)
            entity.setLaborExploitPastThreeMonths(NoYesEnum.lookupEnum(model.getLaborExploitPastThreeMonths()+""));
+       if(model.getCounselingReceived() !=null)
+    	   entity.setCounselingReceived(NoYesEnum.lookupEnum(model.getCounselingReceived()+""));
+       if(model.getIndividualCounseling() !=null)
+    	   entity.setIndividualCounseling(NoYesEnum.lookupEnum(model.getIndividualCounseling()+""));
+       if(model.getFamilyCounseling() !=null)
+    	   entity.setFamilyCounseling(NoYesEnum.lookupEnum(model.getFamilyCounseling()+""));
+       if(model.getGroupCounseling() !=null)
+    	   entity.setGroupCounseling(NoYesEnum.lookupEnum(model.getGroupCounseling()+""));
+       if(model.getSessionCountAtExit() !=null)
+    	   entity.setSessionCountAtExit(model.getSessionCountAtExit());
+       if(model.getSessionsInPlan() !=null)
+    	   entity.setSessionsInPlan(model.getSessionsInPlan());
+       if(model.getPostExitCounselingPlan() !=null)
+    	   entity.setPostExitCounselingPlan(NoYesEnum.lookupEnum(model.getPostExitCounselingPlan()+""));
+       if(model.getDestinationSafeClient() !=null)
+    	   entity.setDestinationSafeClient(NoYesEnum.lookupEnum(model.getDestinationSafeClient()+""));
+       if(model.getDestinationSafeWorker() !=null)
+    	   entity.setDestinationSafeWorker(NoYesEnum.lookupEnum(model.getDestinationSafeWorker()+""));
+       if(model.getPosAdultConnections() !=null)
+    	   entity.setPosAdultConnections(NoYesEnum.lookupEnum(model.getPosAdultConnections()+""));
+       if(model.getPosCommunityConnections() !=null)
+    	   entity.setPosCommunityConnections(NoYesEnum.lookupEnum(model.getPosCommunityConnections()+""));
+       if(model.getPosPeerConnections() !=null)
+    	   entity.setPosPeerConnections(NoYesEnum.lookupEnum(model.getPosPeerConnections()+""));
        return entity;
    }
 
@@ -54,8 +67,48 @@ public class ExitrhyConverter  extends BaseConverter {
        model.setProjectCompletionStatus(Integer.parseInt(entity.getProjectCompletionStatus().getValue()));
        if(entity.getEarlyExitReason()!=null)
        model.setEarlyExitReason(Integer.parseInt(entity.getEarlyExitReason().getValue()));
+       if(entity.getExchangeForSex() !=null)
+    	   model.setExchangeForSex(Integer.parseInt(entity.getExchangeForSex().getValue()));
+       if(entity.getExchangeForSexPastThreeMonths() != null)
+    	   model.setExchangeForSexPastThreeMonths(Integer.parseInt(entity.getExchangeForSexPastThreeMonths().getValue()));
+       if(entity.getCountOfExchangeForSex() !=null)
+    	   model.setCountOfExchangeForSex(Integer.parseInt(entity.getCountOfExchangeForSex().getValue()));
+       if(entity.getAskedOrForcedToExchangeForSex() !=null)
+    	   model.setAskedOrForcedToExchangeForSex(Integer.parseInt(entity.getAskedOrForcedToExchangeForSex().getValue()));
+       if(entity.getAskedOrForcedToExchangeForSexPastThreeMonths() !=null)
+    	   model.setAskedOrForcedToExchangeForSexPastThreeMonths(Integer.parseInt(entity.getAskedOrForcedToExchangeForSexPastThreeMonths().getValue()));
+       if(entity.getWorkPlacePromiseDifference() !=null)
+    	   model.setWorkPlacePromiseDifference(Integer.parseInt(entity.getWorkPlacePromiseDifference().getValue()));
+       if(entity.getWorkPlaceViolenceThreats() !=null)
+    	   model.setWorkPlaceViolenceThreats(Integer.parseInt(entity.getWorkPlaceViolenceThreats().getValue()));
+       if(entity.getCoercedToContinueWork() !=null)
+    	   model.setCoercedToContinueWork(Integer.parseInt(entity.getCoercedToContinueWork().getValue()));
+       if(entity.getLaborExploitPastThreeMonths() !=null)
+    	   model.setLaborExploitPastThreeMonths(Integer.parseInt(entity.getLaborExploitPastThreeMonths().getValue()));
+       if(entity.getCounselingReceived() !=null)
+    	   model.setCounselingReceived(Integer.parseInt(entity.getCounselingReceived().getValue()));
+       if(entity.getIndividualCounseling() !=null)
+    	   model.setIndividualCounseling(Integer.parseInt(entity.getIndividualCounseling().getValue()));
+       if(entity.getFamilyCounseling() !=null)
+    	   model.setFamilyCounseling(Integer.parseInt(entity.getFamilyCounseling().getValue()));
+       if(entity.getGroupCounseling() !=null)
+    	   model.setGroupCounseling(Integer.parseInt(entity.getGroupCounseling().getValue()));
+       if(entity.getSessionCountAtExit() !=null)
+    	   model.setSessionCountAtExit(entity.getSessionCountAtExit());
+       if(entity.getSessionsInPlan() !=null)
+    	   model.setSessionsInPlan(entity.getSessionsInPlan());
+       if(entity.getPostExitCounselingPlan() !=null)
+    	   model.setPostExitCounselingPlan(Integer.parseInt(entity.getPostExitCounselingPlan().getValue()));
+       if(entity.getDestinationSafeClient() !=null)
+    	   model.setDestinationSafeClient(Integer.parseInt(entity.getDestinationSafeClient().getValue()));
+       if(entity.getDestinationSafeWorker() !=null)
+    	   model.setDestinationSafeWorker(Integer.parseInt(entity.getDestinationSafeWorker().getValue()));
+       if(entity.getPosAdultConnections() !=null)
+    	   model.setPosAdultConnections(Integer.parseInt(entity.getPosAdultConnections().getValue()));
+       if(entity.getPosPeerConnections() !=null)
+    	   model.setPosPeerConnections(Integer.parseInt(entity.getPosPeerConnections().getValue()));
+       if(entity.getPosCommunityConnections() !=null)
+    	   model.setPosCommunityConnections(Integer.parseInt(entity.getPosCommunityConnections().getValue()));
        return model;
    }
-
-
 }

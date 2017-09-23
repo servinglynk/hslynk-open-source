@@ -2742,7 +2742,7 @@ create table "v2017".exitRHY
 	"early_exit_reason" "v2017".early_exit_reason,
 	exchage_for_sex  "v2017".no_yes,
 	exchange_for_sex_past_three_months "v2017".no_yes,
-	count_of_exchange_for_sex integer,
+	count_of_exchange_for_sex "v2017".count_of_exchange_for_sex,
 	asked_or_forced_to_exchange_for_sex "v2017".no_yes,
 	asked_or_forced_to_exchange_for_sex_past_three_months "v2017".no_yes,
 	work_place_violence_threats "v2017".no_yes,
