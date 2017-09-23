@@ -1,4 +1,4 @@
-﻿DROP SCHEMA IF EXISTS "v2017" cascade;
+DROP SCHEMA IF EXISTS "v2017" cascade;
 CREATE SCHEMA "v2017";
 DROP TABLE IF EXISTS "v2017".hmis_type;
 DROP TABLE IF EXISTS "v2017".path_status;
@@ -103,7 +103,22 @@ DROP TYPE IF EXISTS "v2017".annualpercentami;
 DROP TYPE IF EXISTS "v2017".evictionhistory;
 DROP TYPE IF EXISTS "v2017".crisisServicesUse;	
 DROP TYPE IF EXISTS "v2017".literalHomelessHistory;
+DROP TYPE IF EXISTS "v2017".livingSituation;
+DROP TYPE IF EXISTS "v2017".lengthOfStay;
+DROP TYPE IF EXISTS "v2017".record_type;
+DROP TYPE IF EXISTS "v2017".housingType;
+DROP TYPE IF EXISTS "v2017".tcell_viralload_source;
+DROP TYPE IF EXISTS "v2017".viral_load_available;
+DROP TYPE IF EXISTS "v2017".cm_exit_reason;
+DROP TYPE IF EXISTS "v2017".geography_type;
 
+
+CREATE TYPE "v2017".cm_exit_reason AS ENUM ('1','2','3','4','5','6','7','8','9','10','11','12','13','99');
+CREATE TYPE "v2017".tcell_viralload_source AS ENUM('1','2','3','99');
+CREATE TYPE "v2017".viral_load_available AS ENUM('0','1','2','8','9','99');
+
+CREATE TYPE "v2017".livingSituation AS ENUM('1','2','3','4','5','6','7','8','9','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','99');
+CREATE TYPE "v2017".lengthOfStay AS ENUM('2','3','4','5','8','9','10','11','99');
 CREATE TYPE "v2017".literalHomelessHistory AS ENUM('0','1','2','99');
 CREATE TYPE "v2017".timeToHousingLoss as ENUM('0','1','2','3','99');
 CREATE TYPE "v2017".annualpercentami as ENUM('0','1','2','99');
@@ -195,6 +210,12 @@ CREATE TYPE "v2017".project_completion_status AS ENUM (
 '3',
 '99');
 
+CREATE TYPE "v2017".housingType AS ENUM (	
+'1',
+'2',
+'3');
+
+
 CREATE TYPE "v2017".project_type AS ENUM (
 '1',
 '2',
@@ -215,9 +236,7 @@ CREATE TYPE "v2017".reason_not_enrolled AS ENUM (
 '99');
 CREATE TYPE "v2017".record_type AS ENUM (	
 '12',
-'14',
-'15',
-'16',
+'13',
 '141',
 '142',
 '143',
@@ -225,8 +244,8 @@ CREATE TYPE "v2017".record_type AS ENUM (
 '151',
 '152',
 '161',
-'162',
-'200');
+'200',
+'210');
 
 CREATE TYPE "v2017".referral_outcome AS ENUM (	
 '1',
@@ -506,8 +525,7 @@ CREATE TYPE "v2017".asked_of_forced_to_exchange_for_sex AS ENUM ('0','1','8','9'
 CREATE TYPE "v2017".datacollectionstage AS ENUM('1','2','3','5');
 CREATE TYPE "v2017".evictionhistory as ENUM('0','1','2','3','99');
 
-CREATE TYPE "v2017".geographyType as ENUM('1','2','3');
-CREATE TYPE "v2017".cmExitReason as ENUM('1','2','3','4','5','6','7','8','9','10','11','12','13','99');
+CREATE TYPE "v2017".geography_type as ENUM('1','2','3');
 
 CREATE TABLE "v2017".hmis_type
 (
@@ -526,6 +544,24 @@ CREATE TABLE "v2017".hmis_type
 WITH (
   OIDS=FALSE
 );
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','1','Medical Report','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','2','Client Report','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','3','Other','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_source','1','Medical Report','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_source','2','Client Report','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_source','3','Other','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_source','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','0','Not available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','1','Available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','2','Undetectable','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','99','Data not collected','ACTIVE');
+
 
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('literalHomelessHistory','0','4 or more times or total of at least 12 months in past three years','ACTIVE');
@@ -601,6 +637,20 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('femvet','
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('losunderthreshold','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('losunderthreshold','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('losunderthreshold','99','Data not collected','ACTIVE');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('victimServiceProvider','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('victimServiceProvider','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('victimServiceProvider','99','Data not collected','ACTIVE');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('continuumproject','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('continuumproject','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('continuumproject','99','Data not collected','ACTIVE');
+
+
+
+
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('previousStreetESSH','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('previousStreetESSH','1','Yes','ACTIVE');
@@ -1064,6 +1114,11 @@ INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('race','8
 INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('race','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('race','99','Data not collected','ACTIVE');	
 
+INSERT INTO "v2017".hmis_type (name,status,value,description) values ('housingType','ACTIVE','1','Site-based - single site'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('housingType','ACTIVE','2','Site-based - clustered/multiple sites'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('housingType','ACTIVE','3','Tenant-based - scattered site');
+
+
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','1','Emergency Shelter'); 
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','2','Transitional Housing'); 
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','3','PH - Permanent Supportive Housing (disability required for entry)');
@@ -1103,46 +1158,46 @@ INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('race','9
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referraloutcome','ACTIVE','3','Unkown');
  
  
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','1','Self-Referral');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','2','Individual: Parent/Guardian');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','3','Individual: Relative or Friend');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','4','Individual: Other Adult or Youth'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','5','Individual: Partner/Spouse');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','6','Individual: Foster Parent');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','7','Outreach Project: FYSB');  	
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','10','Outreach Project: Other');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','11','Temporary Shelter: FYSB Basic Center Project');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','12','Temporary Shelter: Other Youth Only Emergency Shelter');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','13','Temporary Shelter: Emergency Shelter for Families');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','14','Temporary Shelter: Emergency Shelter for Individuals');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','15','Temporary Shelter: Domestic Violence Shelter');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','16','Temporary Shelter: Safe Place');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','17','Temporary Shelter: Other');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','18','Residential Project: FYSB Transitional Living Project'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','19','Residential Project: Other Transitional Living Project');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','20','Residential Project: Group Home'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','21','Residential Project: Independent Living Project'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','22','Residential Project: Job Corps'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','23','Residential Project: Drug Treatment Center');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','24','Residential Project: Treatment Center');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','25','Residential Project: Educational Institute'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','26','Residential Project: Other Agency project'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','27','Residential Project: Other Project'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','28','Hotline: National Runaway Switchboard'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','29','Hotline: Other'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','30','Other Agency: Child Welfare/CPS'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','31','Other Agency: Non-Residential Independent Living Project');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','32','Other Project Operated by your Agency');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','33','Other Youth Services Agency');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','34','Juvenile Justice');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','35','Law Enforcement/ Police');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','36','Religious Organization');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','37','Mental Hospital');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','38','School');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','39','Other Organization');
- INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('referralsource','8','Client does not know','ACTIVE'); 
- INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('referralsource','9','Client refused','ACTIVE');  
- INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('referralsource','99','Data not collected','ACTIVE');  
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','1','Self-Referral');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','2','Individual: Parent/Guardian');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','3','Individual: Relative or Friend');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','4','Individual: Other Adult or Youth'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','5','Individual: Partner/Spouse');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','6','Individual: Foster Parent');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','7','Outreach Project: FYSB');  	
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','10','Outreach Project: Other');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','11','Temporary Shelter: FYSB Basic Center Project');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','12','Temporary Shelter: Other Youth Only Emergency Shelter');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','13','Temporary Shelter: Emergency Shelter for Families');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','14','Temporary Shelter: Emergency Shelter for Individuals');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','15','Temporary Shelter: Domestic Violence Shelter');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','16','Temporary Shelter: Safe Place');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','17','Temporary Shelter: Other');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','18','Residential Project: FYSB Transitional Living Project'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','19','Residential Project: Other Transitional Living Project');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','20','Residential Project: Group Home'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','21','Residential Project: Independent Living Project'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','22','Residential Project: Job Corps'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','23','Residential Project: Drug Treatment Center');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','24','Residential Project: Treatment Center');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','25','Residential Project: Educational Institute'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','26','Residential Project: Other Agency project'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','27','Residential Project: Other Project'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','28','Hotline: National Runaway Switchboard'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','29','Hotline: Other'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','30','Other Agency: Child Welfare/CPS'); 
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','31','Other Agency: Non-Residential Independent Living Project');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','32','Other Project Operated by your Agency');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','33','Other Youth Services Agency');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','34','Juvenile Justice');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','35','Law Enforcement/ Police');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','36','Religious Organization');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','37','Mental Hospital');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','38','School');
+ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','39','Other Organization');
+ INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('referral_source','8','Client does not know','ACTIVE'); 
+ INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('referral_source','9','Client refused','ACTIVE');  
+ INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('referral_source','99','Data not collected','ACTIVE');  
  
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','1','Self (head of household)'); 
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','2','Head of household’s child'); 
@@ -1160,23 +1215,35 @@ INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('race','9
    INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','7','Jail, prison or juvenile detention facility'); 
    INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','8','Client does not know');
    INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','9','Client refused'); 
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','12','Staying or living in a family member’s room, apartment or house');          
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','13','Staying or living in a friend’s room, apartment or house');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','14','Hotel or motel paid for without emergency shelter voucher'); 
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','15','Foster care home or foster care group home');                         
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','16','Place not meant for habitation (e.g. a vehicle, an abandoned building, bus/train/subway station/airport or anywhere outside)');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','17','Other');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','18','Safe Haven');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','19','Rental by client, with VASH subsidy');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','20','Rental by client, with other ongoing housing subsidy');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','21','Owned by client, with ongoing housing subsidy'); 
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','22','Rental by client, no ongoing housing subsidy');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','23','Owned by client, no ongoing housing subsidy'); 
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','24','Long-term care facility or nursing home');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','25','Rental by client, with GPD TIP subsidy');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referralsource','ACTIVE','26','Residential project or halfway house with no homeless criteria');
-  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('referralsource','99','Data not collected','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','12','Staying or living in a family member’s room, apartment or house');          
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','13','Staying or living in a friend’s room, apartment or house');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','14','Hotel or motel paid for without emergency shelter voucher'); 
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','15','Foster care home or foster care group home');                         
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','16','Place not meant for habitation (e.g. a vehicle, an abandoned building, bus/train/subway station/airport or anywhere outside)');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','17','Other');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','18','Safe Haven');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','19','Rental by client, with VASH subsidy');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','20','Rental by client, with other ongoing housing subsidy');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','21','Owned by client, with ongoing housing subsidy'); 
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','22','Rental by client, no ongoing housing subsidy');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','23','Owned by client, no ongoing housing subsidy'); 
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','24','Long-term care facility or nursing home');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','25','Rental by client, with GPD TIP subsidy');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','26','Residential project or halfway house with no homeless criteria');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('referral_source','99','Data not collected','ACTIVE');
+   
   
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','12','Contact records collected under 2014 HMIS Data Standards v5.1','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','13','4.12 Contact records collected under 2017 HMIS Data Standards','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','141','P1 Services Provided – PATH','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','142','R14 RHY Service Connections','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','143','W1 Services Provided – HOPWA','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','144','V2 Services Provided – SSVF','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','151','W2 Financial Assistance – HOPWA','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','152','V3 Financial Assistance – SSVF','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','161','P2 Referrals Provided – PATH','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','200','4.14  Bed night','ACTIVE');
+  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','210','V8 HUD-VASH Voucher Tracking','ACTIVE');
   
      INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','2','More than one week, but less than one month'); 
      INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','3','One to three months'); 
@@ -1588,6 +1655,7 @@ create table "v2017".organization
 (
 	id uuid not null,  
 	organizationname text,
+	organizationcommonname text,
    "project_group_code" character varying(8),
    "date_created" timestamp,
    "date_created_from_source" timestamp,
@@ -1609,7 +1677,7 @@ with (
 CREATE TABLE  "v2017".project
 (
 	  id uuid NOT NULL,
-	  --project_id character varying(8),
+	  project_id character varying(8),
 	  projectname text,
 	  continuumproject "v2017".no_yes,
 	  projecttype "v2017".project_type,
@@ -1618,9 +1686,9 @@ CREATE TABLE  "v2017".project
 	  operatingEndDate timestamp,
 	  trackingmethod "v2017".tracking_method,
 	  targetpopulation "v2017".target_population_type,
-	  victimServiceProvider integer,
-	  housingType integer,
-	  --projectcommonname text,
+	  victimServiceProvider "v2017".no_yes,
+	  housingType  "v2017".housingType,
+	  projectcommonname text,
 	  organizationid uuid,
 	  "date_created_from_source" timestamp,
       "date_updated_from_source" timestamp,
@@ -1724,8 +1792,8 @@ CREATE TABLE "v2017".enrollment
 	entrydate timestamp,
 	householdid text,
 	relationshiptohoh "v2017".relationship_to_head_of_household,
-	livingSituation integer,
-	lengthOfStay integer,
+	livingSituation "v2017".livingSituation,
+	lengthOfStay "v2017".lengthOfStay,
 	losunderthreshold "v2017".no_yes, 
 	previousStreetESSH "v2017".no_yes,
 	disablingCondition "v2017".five_val_dk_refused,
@@ -1801,7 +1869,7 @@ CREATE TABLE "v2017".entrySSVF
 	last_permanent_city character(50),
 	last_permanent_state character(50),
 	last_permanent_zip character(50),
-	address_data_quality integer,
+	address_data_quality "v2017".address_data_quality,
 	urgent_referral "v2017".no_yes,
 	timeToHousingLoss "v2017".timeToHousingLoss,
 	zeroincome "v2017".no_yes,
@@ -1847,29 +1915,20 @@ CREATE TABLE "v2017".entryRHY
 	"id" uuid NOT NULL,
 	"enrollmentid" uuid,
 	"sexual_orientation" "v2017".sexual_orientation,
-	"FormerWardChildWelfare" "v2017".FormerWardChildWelfare,
-	"ChildWelfareYears" "v2017".ChildWelfareYears,
-	"ChildWelfareYears" "v2017".ChildWelfareMonths,
-	"FormerWardJuvenileJustice" "v2017".FormerWardJuvenileJustice,
-	"JuvenileJusticeYears" "v2017".JuvenileJusticeYears,
-	"JuvenileJusticeMonths" "v2017".JuvenileJusticeMonths,
-	"unemployement_family_mbr" "v2017".UnemploymentFam,
-	"MentalHealthIssuesFam" "v2017".MentalHealthIssuesFam,
-	"PhysicalDisabilityFam" "v2017".PhysicalDisabilityFam,
+	"unemployement_family_mbr" "v2017".unemployement_family_mbr,
+	"mental_health_issues_family_mbrily_mbr" "v2017".mental_health_issues_family_mbrily_mbr,
+	"physical_disability_family_mbr" "v2017".physical_disability_family_mbr,
 	"alcohol_drug_abuse_family_mbr" "v2017".alcohol_drug_abuse_family_mbr,
 	"insufficient_income_to_support_youth" "v2017".insufficient_income_to_support_youth,
 	"incarcerated_parent" "v2017".incarcerated_parent,
-	referral_source integer,
+	"formerly_ward_of_juvenile_justice" "v2017".formerly_ward_of_juvenile_justice,
+	"years_juvenile_justice" "v2017".years_juvenile_justice,
+	"months_juvenile_justice" "v2016".years_juvenile_justice, 
+	"formerly_ward_child_welfr_forest_care" "v2017".formerly_ward_child_welfr_forest_care,
+	"years_child_welfr_forest_care" "v2017".years_child_welfr_forest_care,
+	months_child_welfr_forest_care integer,
+	referral_source "v2017".referral_source,
 	count_out_reach_referral_approaches integer,
-	exchange_for_sex integer,
-	"exchange_for_sex_past_three_months" "v2017".exchange_for_sex_past_three_months,
-	"count_of_exchange_for_sex" "v2017".count_of_exchange_for_sex,
-	"asked_of_forced_to_exchange_for_sex" "v2017".asked_of_forced_to_exchange_for_sex,
-	"asked_of_forced_to_exchange_for_sex_past_3_months" "v2017".asked_of_forced_to_exchange_for_sex_past_3_months,
-	"work_place_violence_threat" "v2017".work_place_violence_threats,
-	"work_place_promise_difference" "v2017".work_place_promise_difference,
-	"coerced_to_continue_work" "v2017".coerced_to_continue_work,
-	labor_exploit_past_three_months integer,
 	 information_date timestamp,
  	 "datacollectionstage" "v2017".datacollectionstage,
 	"project_group_code" character varying(8),
@@ -1926,7 +1985,7 @@ CREATE TABLE "v2017".service_fa_referral
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
   dateProvided timestamp,
-  record_type integer,
+  record_type "v2017".record_type,
   type_provided integer,
   other_type_provided text,
   sub_type_provided integer,
@@ -2020,7 +2079,7 @@ CREATE TABLE "v2017".health_status
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
   "information_date" timestamp,
-   "datacollectionstage" "v2017".datacollectionstage,
+  "datacollectionstage" "v2017".datacollectionstage,
   "health_category" "v2017".health_category,
   "health_status" "v2017".health_status_type,
   "due_date" timestamp,
@@ -2217,9 +2276,9 @@ CREATE TABLE "v2017".rhybcp_status
 (
   "id" uuid NOT NULL,
   "status_date" timestamp,
-  eligible_for_rhy integer,
+  eligible_for_rhy  "v2017".no_yes,
   "reason_no_services" "v2017".fysb_rsn_not_providing_srvcs,
-  runaway_youth integer,
+  runaway_youth  "v2017".no_yes,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
   "date_created" timestamp,
@@ -2324,12 +2383,12 @@ create table "v2017".disabilities
   "disabilityresponse" integer,
   "indefiniteandimpairs" "v2017".five_val_dk_refused,
   "enrollmentid" uuid,
-  tcellcountavailable integer,
+  tcellcountavailable  "v2017".no_yes,
   tcellcount integer,
-  tcellcountsource character(8),
-  viral_load_available integer,
+  tcellcountsource "v2017".tcell_viralload_source,
+  viral_load_available "v2017".viral_load_available,
   viral_load integer,
-  viral_load_source character(8),
+  viral_load_source "v2017".tcell_viralload_source,
   information_date timestamp,
   "datacollectionstage" "v2017".datacollectionstage,
   "project_group_code" character varying(8),
@@ -2681,25 +2740,27 @@ create table "v2017".exitRHY
 	"exitid" uuid,
 	"project_completion_status" "v2017".project_completion_status,
 	"early_exit_reason" "v2017".early_exit_reason,
-	exchage_for_sex integer,
-	exchange_for_sex_past_three_months integer,
+	exchage_for_sex  "v2017".no_yes,
+	exchange_for_sex_past_three_months "v2017".no_yes,
 	count_of_exchange_for_sex integer,
-	asked_or_forced_to_exchange_for_sex integer,
-	asked_or_forced_to_exchange_for_sex_past_three_months integer,
-	work_place_violence_threats integer,
-	work_place_promise_difference integer,
-	coerced_to_continue_work integer,
-	labor_exploit_past_three_months integer,
-	counseling_received integer,
-	counseling_type integer,
+	asked_or_forced_to_exchange_for_sex "v2017".no_yes,
+	asked_or_forced_to_exchange_for_sex_past_three_months "v2017".no_yes,
+	work_place_violence_threats "v2017".no_yes,
+	work_place_promise_difference "v2017".no_yes,
+	coerced_to_continue_work "v2017".no_yes,
+	labor_exploit_past_three_months "v2017".no_yes,
+	counseling_received "v2017".no_yes,
+	individual_counseling "v2017".no_yes,
+	family_counseling "v2017".no_yes,
+	group_counseling "v2017".no_yes,
 	session_count_at_exit integer,
 	sessions_in_plan integer,
-	post_exit_counseling_plan integer,
-	destination_safe_client integer,
-	destination_safe_worker integer,
-	pos_adult_connections integer,
-	pos_peer_connections integer,
-	pos_community_connections integer,
+	post_exit_counseling_plan "v2017".no_yes,
+	destination_safe_client "v2017".no_yes,
+	destination_safe_worker "v2017".no_yes,
+	pos_adult_connections "v2017".no_yes,
+	pos_peer_connections "v2017".no_yes,
+	pos_community_connections "v2017".no_yes,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
 	"date_created_from_source" timestamp,
@@ -2724,11 +2785,11 @@ create table "v2017".rhyaftercare
 (
 	"id" uuid not null, 
 	after_care_date timestamp,
-	after_provided integer,
-	email_social_media integer,
-	telephone integer,
-	in_person_individual integer,
-	in_person_group integer,
+	after_provided "v2017".no_yes,
+	email_social_media "v2017".no_yes,
+	telephone "v2017".no_yes,
+	in_person_individual "v2017".no_yes,
+	in_person_group "v2017".no_yes,
 	exitid uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
@@ -2753,7 +2814,7 @@ with (
 create table "v2017".vashexitreason
 (
 	"id" uuid not null, 
-	cm_exit_reason integer,
+	cm_exit_reason "v2017".cm_exit_reason,
 	exitid uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
@@ -2779,7 +2840,7 @@ create table "v2017".connectionwithsoar
 (
 	"id" uuid not null, 
 	information_date timestamp,
-	"connection_with_soar" integer,
+	"connection_with_soar" "v2017".connection_with_soar,
 	"enrollmentid" uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
@@ -2811,7 +2872,7 @@ create table "v2017".geography
 	city varchar(50),
 	state varchar(50),
 	zip varchar(15),
-	geography_type integer,
+	geography_type "v2017".geography_type,
 	projectid uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,

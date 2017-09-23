@@ -19,8 +19,8 @@ public class EmploymentServiceImpl extends ServiceBase implements EmploymentServ
 
    @Transactional
    public Employment createEmployment(Employment employment,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Employment pEmployment = EmploymentConverter.modelToEntity(employment, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Employment pEmployment = EmploymentConverter.modelToEntity(employment, null);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pEmployment.setEnrollmentid(pEnrollment);
        pEmployment.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class EmploymentServiceImpl extends ServiceBase implements EmploymentServ
 
    @Transactional
    public Employment updateEmployment(Employment employment,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.Employment pEmployment = daoFactory.getEmploymentDao().getEmploymentById(employment.getEmploymentId());
+       com.servinglynk.hmis.warehouse.model.v2016.Employment pEmployment = daoFactory.getEmploymentDao().getEmploymentById(employment.getEmploymentId());
        if(pEmployment==null) throw new EmploymentNotFoundException();
 
        EmploymentConverter.modelToEntity(employment, pEmployment);
@@ -50,7 +50,7 @@ public class EmploymentServiceImpl extends ServiceBase implements EmploymentServ
 
    @Transactional
    public Employment deleteEmployment(UUID employmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Employment pEmployment = daoFactory.getEmploymentDao().getEmploymentById(employmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Employment pEmployment = daoFactory.getEmploymentDao().getEmploymentById(employmentId);
        if(pEmployment==null) throw new EmploymentNotFoundException();
 
        daoFactory.getEmploymentDao().deleteEmployment(pEmployment);
@@ -60,7 +60,7 @@ public class EmploymentServiceImpl extends ServiceBase implements EmploymentServ
 
    @Transactional
    public Employment getEmploymentById(UUID employmentId){
-       com.servinglynk.hmis.warehouse.model.v2017.Employment pEmployment = daoFactory.getEmploymentDao().getEmploymentById(employmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Employment pEmployment = daoFactory.getEmploymentDao().getEmploymentById(employmentId);
        if(pEmployment==null) throw new EmploymentNotFoundException();
 
        return EmploymentConverter.entityToModel( pEmployment );
@@ -70,8 +70,8 @@ public class EmploymentServiceImpl extends ServiceBase implements EmploymentServ
    @Transactional
    public Employments getAllEnrollmentEmployments(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Employments employments = new Employments();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Employment> entities = daoFactory.getEmploymentDao().getAllEnrollmentEmployments(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Employment entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2016.Employment> entities = daoFactory.getEmploymentDao().getAllEnrollmentEmployments(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2016.Employment entity : entities){
            employments.addEmployment(EmploymentConverter.entityToModel(entity));
         }
         long count = daoFactory.getEmploymentDao().getEnrollmentEmploymentsCount(enrollmentId);

@@ -10,8 +10,8 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
 public class EntryssvfConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Entryssvf modelToEntity (Entryssvf model ,com.servinglynk.hmis.warehouse.model.v2017.Entryssvf entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Entryssvf();
+   public static com.servinglynk.hmis.warehouse.model.v2016.Entryssvf modelToEntity (Entryssvf model ,com.servinglynk.hmis.warehouse.model.v2016.Entryssvf entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Entryssvf();
        if(model.getEntryssvfId()!=null)
        entity.setId(model.getEntryssvfId());
        if(model.getPercentami()!=null)
@@ -75,7 +75,7 @@ public class EntryssvfConverter  extends BaseConverter {
    }
 
 
-   public static Entryssvf entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Entryssvf entity) {
+   public static Entryssvf entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Entryssvf entity) {
        Entryssvf model = new Entryssvf();
        if(entity.getId()!=null)
        model.setEntryssvfId(entity.getId());

@@ -68,9 +68,6 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 	}
 
 
-
-
-
 	/** Return the type of this class. Useful for when dealing with proxies.
 	* @return Defining class.
 	*/

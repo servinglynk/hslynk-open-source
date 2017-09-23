@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
+
 
 /**
  * Object mapping for hibernate-handled table: service_fa_referral.
@@ -56,7 +58,7 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 	/** Field mapping. */
 	private Integer referralOutcome;
 	/** Field mapping. */
-	private Integer recordType;
+	private RecordTypeEnum recordType;
 	/** Field mapping. */
 	private Integer subTypeProvided;
 	/** Field mapping. */
@@ -151,9 +153,10 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 	 * Return the value associated with the column: record_type.
 	 * @return A Integer object (this.recordType)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.RecordTypeEnumType")
 	@Basic( optional = true )
 	@Column( name = "record_type"  )
-	public Integer getRecordType() {
+	public RecordTypeEnum getRecordType() {
 		return this.recordType;
 
 	}
@@ -164,7 +167,7 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 	 * Set the value related to the column: recordType.
 	 * @param funderList the recordType value you wish to set
 	 */
-	public void setRecordType(final Integer recordType) {
+	public void setRecordType(final RecordTypeEnum recordType) {
 		this.recordType = recordType;
 	}
 

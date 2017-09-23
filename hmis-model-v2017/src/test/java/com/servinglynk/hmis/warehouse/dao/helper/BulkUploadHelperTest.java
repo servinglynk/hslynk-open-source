@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;
@@ -15,7 +14,6 @@ import org.junit.Test;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViolence;
@@ -23,7 +21,6 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Education;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntrySSVF;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit;
@@ -31,18 +28,19 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAs
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Geography;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthInsurance;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.MedicalAssistance;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Moveindate;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.NonCashBenefits;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ResidentialMoveInDate;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Site;
 public class BulkUploadHelperTest {
@@ -64,7 +62,7 @@ public class BulkUploadHelperTest {
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
 		//upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
-		upload.setInputpath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model-v2017\\src\\test\\java\\com\\servinglynk\\hmis\\warehouse\\dao\\helper\\2016.xml");
+		upload.setInputpath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model-v2016\\src\\test\\java\\com\\servinglynk\\hmis\\warehouse\\dao\\helper\\2016.xml");
 		com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp = new com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
 		sources = helper.getSourcesFromFiles(upload,projectGrp,false);
@@ -102,8 +100,8 @@ public class BulkUploadHelperTest {
 		assertEquals(enrollment.getHouseholdID(), "a34563w");
 		assertEquals(enrollment.getRelationshipToHoH(), helper.getByte("1"));
 		assertEquals(enrollment.getResidencePrior(),helper.getByte("17"));
-		assertEquals(enrollment.getResidencePriorLengthOfStay(),helper.getByte("8"));
-		assertEquals(enrollment.getHousingStatus(),helper.getByte("6"));
+		/*assertEquals(enrollment.getResidencePriorLengthOfStay(),helper.getByte("8"));
+		assertEquals(enrollment.getHousingStatus(),helper.getByte("6"));*/
         
 		List<Disabilities> disabilities = sources.getSource().getExport().getDisabilities();
 		assertNotNull(disabilities);
@@ -113,8 +111,8 @@ public class BulkUploadHelperTest {
 		assertEquals(disability.getDisabilityType(),8);
 		assertEquals(disability.getDisabilityResponse(),2);
 		assertEquals(disability.getIndefiniteAndImpairsIndependence(),9);
-		assertEquals(disability.getDocumentationOnFile(),1);
-		assertEquals(disability.getReceivingServices(),99);
+		/*assertEquals(disability.getDocumentationOnFile(),1);
+		assertEquals(disability.getReceivingServices(),99);*/
 		
 		List<Employment> empEducation = sources.getSource().getExport().getEmployment();
 		assertNotNull(empEducation);
@@ -396,7 +394,6 @@ public class BulkUploadHelperTest {
 		 assertNotNull(RHYBCPSts);
 		 assertEquals(RHYBCPSts.size(), 1);
 		 RHYBCPStatus rhybcpStatus = RHYBCPSts.get(0);
-		 assertEquals(rhybcpStatus.getFYSBYouth(), helper.getByte("0"));
 		 assertEquals(rhybcpStatus.getReasonNoServices(),helper.getByte("3"));
 		 assertEquals(rhybcpStatus.getRHYBCPStatusID(), "erffedyte1");
 		 assertEquals(rhybcpStatus.getUserID(), "ryu");
@@ -429,14 +426,14 @@ public class BulkUploadHelperTest {
 		 assertEquals(service.getTypeProvided(), 200);
 		// assertEquals(serviceFAReferral.getUserID(), "CoaTbskfRfTvBSHN8_eRmMF4.4O-A");
 		 
-		 List<ResidentialMoveInDate> residentMoveInDate = sources.getSource().getExport().getResidentialMoveInDate();
+		 List<Moveindate> residentMoveInDate = sources.getSource().getExport().getMoveInDate();
 		 assertNotNull(residentMoveInDate);
 		 assertEquals(residentMoveInDate.size(), 1);
-		 ResidentialMoveInDate residentialMoveInDate = residentMoveInDate.get(0);
+		 Moveindate residentialMoveInDate = residentMoveInDate.get(0);
 		 //assertEquals(residentialMoveInDate.getInPermanentHousing(),helper.getByte("1"));
 //		 assertEquals(residentialMoveInDate.getProjectEntryID(),"");
 //		 assertEquals(residentialMoveInDate.getResidentialMoveInDate(),helper.getXMLGregorianCalendar("2016-05-19Z"));
-		 assertEquals(residentialMoveInDate.getResidentialMoveInDateID(),"z44332");
+		 assertEquals(residentialMoveInDate.getMoveInDateID(),"z44332");
 		 assertEquals(residentialMoveInDate.getUserID(),"AUfZ2");
 		 
 		 List<DateOfEngagement> dateOfEngmnt = sources.getSource().getExport().getDateOfEngagement();
@@ -533,7 +530,7 @@ public class BulkUploadHelperTest {
 		 assertNotNull(org);
          assertEquals(org.size(),1);
 		 Organization organization = org.get(0);
-		 assertEquals(organization.getOrganizationCommonName(), "Helping");
+//		 assertEquals(organization.getOrganizationCommonName(), "Helping");
 		 assertEquals(organization.getOrganizationID(), 34);
 		 assertEquals(organization.getOrganizationName(),"Helping People, Inc.");
 		 assertEquals(organization.getUserID(),"ptravis");
@@ -575,6 +572,11 @@ public class BulkUploadHelperTest {
 		 assertEquals(site.getState(), "OK");
 		 assertEquals(site.getUserID(),"ck");
 		 assertEquals(site.getZIP(), 84683);
+		 
+		 /*List<Geography> geography = sources.getSource().getExport().getGeography();
+		 assertNotNull(geography);
+		 assertEquals(geography.size(), 1);
+		 */
 		
 	}
 }

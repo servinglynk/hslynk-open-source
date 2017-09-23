@@ -19,8 +19,8 @@ public class ExitpathServiceImpl extends ServiceBase implements ExitpathService 
 
    @Transactional
    public Exitpath createExitpath(Exitpath exitpath,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Exitpath pExitpath = ExitpathConverter.modelToEntity(exitpath, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2016.Exitpath pExitpath = ExitpathConverter.modelToEntity(exitpath, null);
+       com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
        if(pExit == null) throw new ExitNotFoundException();
        pExitpath.setExitid(pExit);
        pExitpath.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class ExitpathServiceImpl extends ServiceBase implements ExitpathService 
 
    @Transactional
    public Exitpath updateExitpath(Exitpath exitpath,UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
        if(pExit == null) throw new ExitpathNotFoundException();
-       com.servinglynk.hmis.warehouse.model.v2017.Exitpath pExitpath = daoFactory.getExitpathDao().getExitpathById(exitpath.getExitpathId());
+       com.servinglynk.hmis.warehouse.model.v2016.Exitpath pExitpath = daoFactory.getExitpathDao().getExitpathById(exitpath.getExitpathId());
        if(pExitpath==null) throw new ExitpathNotFoundException();
 
        ExitpathConverter.modelToEntity(exitpath, pExitpath);
@@ -50,7 +50,7 @@ public class ExitpathServiceImpl extends ServiceBase implements ExitpathService 
 
    @Transactional
    public Exitpath deleteExitpath(UUID exitpathId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Exitpath pExitpath = daoFactory.getExitpathDao().getExitpathById(exitpathId);
+       com.servinglynk.hmis.warehouse.model.v2016.Exitpath pExitpath = daoFactory.getExitpathDao().getExitpathById(exitpathId);
        if(pExitpath==null) throw new ExitpathNotFoundException();
 
        daoFactory.getExitpathDao().deleteExitpath(pExitpath);
@@ -60,7 +60,7 @@ public class ExitpathServiceImpl extends ServiceBase implements ExitpathService 
 
    @Transactional
    public Exitpath getExitpathById(UUID exitpathId){
-       com.servinglynk.hmis.warehouse.model.v2017.Exitpath pExitpath = daoFactory.getExitpathDao().getExitpathById(exitpathId);
+       com.servinglynk.hmis.warehouse.model.v2016.Exitpath pExitpath = daoFactory.getExitpathDao().getExitpathById(exitpathId);
        if(pExitpath==null) throw new ExitpathNotFoundException();
 
        return ExitpathConverter.entityToModel( pExitpath );
@@ -70,8 +70,8 @@ public class ExitpathServiceImpl extends ServiceBase implements ExitpathService 
    @Transactional
    public Exitpaths getAllExitExitpaths(UUID exitId,Integer startIndex, Integer maxItems){
        Exitpaths exitpaths = new Exitpaths();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Exitpath> entities = daoFactory.getExitpathDao().getAllExitExitpaths(exitId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Exitpath entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2016.Exitpath> entities = daoFactory.getExitpathDao().getAllExitExitpaths(exitId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2016.Exitpath entity : entities){
            exitpaths.addExitpath(ExitpathConverter.entityToModel(entity));
         }
         long count = daoFactory.getExitpathDao().getExitExitpathsCount(exitId);

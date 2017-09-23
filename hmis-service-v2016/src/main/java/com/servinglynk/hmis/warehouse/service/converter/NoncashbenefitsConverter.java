@@ -13,8 +13,8 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnu
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
 public class NoncashbenefitsConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits modelToEntity (Noncashbenefits model ,com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits();
+   public static com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits modelToEntity (Noncashbenefits model ,com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits();
        entity.setId(model.getNoncashbenefitsID());
  if(model.getBenefitsfromanysource()!=null)
        entity.setBenefitsfromanysource(NoncashbenefitsBenefitsfromanysourceEnum.lookupEnum(model.getBenefitsfromanysource().toString()));
@@ -46,7 +46,7 @@ public class NoncashbenefitsConverter  extends BaseConverter {
    }
 
 
-   public static Noncashbenefits entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits entity) {
+   public static Noncashbenefits entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Noncashbenefits entity) {
        Noncashbenefits model = new Noncashbenefits();
        model.setNoncashbenefitsID(entity.getId());
 if(entity.getBenefitsfromanysource()!=null)

@@ -5,8 +5,8 @@ import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
 public class SiteConverter extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Site modelToEntity (Site model ,com.servinglynk.hmis.warehouse.model.v2017.Site entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Site();
+   public static com.servinglynk.hmis.warehouse.model.v2016.Site modelToEntity (Site model ,com.servinglynk.hmis.warehouse.model.v2016.Site entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Site();
        if(model.getSiteId()!=null)
        entity.setId(model.getSiteId());
        if(model.getAddress()!=null)
@@ -25,7 +25,7 @@ public class SiteConverter extends BaseConverter {
    }
 
 
-   public static Site entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Site entity) {
+   public static Site entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Site entity) {
        Site model = new Site();
        if(entity.getId()!=null)
        model.setSiteId(entity.getId());

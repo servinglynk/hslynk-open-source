@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.domain;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -3457,7 +3458,7 @@ public class Sources {
                 @XmlElement(name = "enrollmentid" , required = true)
                 protected String enrollmentid;
                 @XmlElement(name = "connectionwithsoar" )
-                protected byte connectionwithsoar;
+                protected String connectionwithsoar;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -3476,10 +3477,10 @@ public class Sources {
 				public void setEnrollmentid(String enrollmentid) {
 					this.enrollmentid = enrollmentid;
 				}
-				public byte getConnectionwithsoar() {
+				public String getConnectionwithsoar() {
 					return connectionwithsoar;
 				}
-				public void setConnectionwithsoar(byte connectionwithsoar) {
+				public void setConnectionwithsoar(String connectionwithsoar) {
 					this.connectionwithsoar = connectionwithsoar;
 				}
 				public XMLGregorianCalendar getDateCreated() {
@@ -5062,6 +5063,10 @@ public class Sources {
                 protected byte relationshipToHoH;
                 @XmlElement(name = "ResidencePrior")
                 protected byte residencePrior;
+                @XmlElement(name = "livingSituation")
+                protected String livingSituation;
+                @XmlElement(name = "lengthOfStay")
+                protected String lengthOfStay;
                 /*@XmlElement(name = "OtherResidencePrior", required = true)
                 protected String otherResidencePrior;*/
                 /*@XmlElement(name = "ResidencePriorLengthOfStay")
@@ -5161,7 +5166,23 @@ public class Sources {
                     this.projectID = value;
                 }
 
-                /**
+                public String getLivingSituation() {
+					return livingSituation;
+				}
+
+				public void setLivingSituation(String livingSituation) {
+					this.livingSituation = livingSituation;
+				}
+
+				public String getLengthOfStay() {
+					return lengthOfStay;
+				}
+
+				public void setLengthOfStay(String lengthOfStay) {
+					this.lengthOfStay = lengthOfStay;
+				}
+
+				/**
                  * Gets the value of the entryDate property.
                  * 
                  * @return
@@ -6909,7 +6930,7 @@ public class Sources {
                 @XmlElement(name = "LastPermanentZIP")
                 protected int lastPermanentZIP;
                 @XmlElement(name = "AddressDataQuality")
-                protected byte addressDataQuality;
+                protected String addressDataQuality;
                 
                 @XmlElement(name = "UrgentReferral")
                 protected String urgentReferral;
@@ -7337,7 +7358,7 @@ public class Sources {
                  * Gets the value of the addressDataQuality property.
                  * 
                  */
-                public byte getAddressDataQuality() {
+                public String getAddressDataQuality() {
                     return addressDataQuality;
                 }
 
@@ -7345,7 +7366,7 @@ public class Sources {
                  * Sets the value of the addressDataQuality property.
                  * 
                  */
-                public void setAddressDataQuality(byte value) {
+                public void setAddressDataQuality(String value) {
                     this.addressDataQuality = value;
                 }
 
@@ -12582,6 +12603,11 @@ public class Sources {
                 "residentialAffiliation",
                 "trackingMethod",
                 "targetPopulation",
+                "residentialaffiliation",
+                "operatingStartDate", 
+                "operatingEndDate", 
+                "victimServicesProvider", 
+                "housingType",
                 "projectCommonName"
             })
             public static class Project {
@@ -12602,6 +12628,14 @@ public class Sources {
                 protected byte trackingMethod;
                 @XmlElement(name = "TargetPopulation")
                 protected byte targetPopulation;
+                @XmlElement(name = "OperatingStartDate")
+                protected XMLGregorianCalendar operatingStartDate;
+                @XmlElement(name = "OperatingEndDate")
+                protected XMLGregorianCalendar operatingEndDate;
+                @XmlElement(name = "VictimServicesProvider")
+                protected String victimServicesProvider;
+                @XmlElement(name = "HousingType")
+                protected String housingType;
                 @XmlElement(name = "ProjectCommonName", required = true)
                 protected String projectCommonName;
                 @XmlAttribute
@@ -12755,7 +12789,40 @@ public class Sources {
                     this.targetPopulation = value;
                 }
 
-                /**
+                
+                public XMLGregorianCalendar getOperatingStartDate() {
+					return operatingStartDate;
+				}
+
+				public void setOperatingStartDate(XMLGregorianCalendar operatingStartDate) {
+					this.operatingStartDate = operatingStartDate;
+				}
+
+				public XMLGregorianCalendar getOperatingEndDate() {
+					return operatingEndDate;
+				}
+
+				public void setOperatingEndDate(XMLGregorianCalendar operatingEndDate) {
+					this.operatingEndDate = operatingEndDate;
+				}
+
+				public String getVictimServicesProvider() {
+					return victimServicesProvider;
+				}
+
+				public void setVictimServicesProvider(String victimServicesProvider) {
+					this.victimServicesProvider = victimServicesProvider;
+				}
+
+				public String getHousingType() {
+					return housingType;
+				}
+
+				public void setHousingType(String housingType) {
+					this.housingType = housingType;
+				}
+
+				/**
                  * Gets the value of the projectCommonName property.
                  * 
                  * @return
@@ -12885,7 +12952,8 @@ public class Sources {
                 "rhybcpStatusID",
                 "projectEntryID",
                 "statusDate",
-                "fysbYouth",
+                "eligibleForRHY",
+                "runawayYouth",
                 "reasonNoServices"
             })
             public static class RHYBCPStatus {
@@ -12896,8 +12964,10 @@ public class Sources {
                 protected String projectEntryID;
                 @XmlElement(name = "StatusDate", required = true)
                 protected XMLGregorianCalendar statusDate;
-                @XmlElement(name = "FYSBYouth")
-                protected byte fysbYouth;
+                @XmlElement(name = "EligibleForRHY")
+                protected String eligibleForRHY;
+                @XmlElement(name = "RunawayYouth")
+                protected String runawayYouth;
                 @XmlElement(name = "ReasonNoServices")
                 protected byte reasonNoServices;
                 @XmlAttribute
@@ -12980,22 +13050,6 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the fysbYouth property.
-                 * 
-                 */
-                public byte getFYSBYouth() {
-                    return fysbYouth;
-                }
-
-                /**
-                 * Sets the value of the fysbYouth property.
-                 * 
-                 */
-                public void setFYSBYouth(byte value) {
-                    this.fysbYouth = value;
-                }
-
-                /**
                  * Gets the value of the reasonNoServices property.
                  * 
                  */
@@ -13010,8 +13064,24 @@ public class Sources {
                 public void setReasonNoServices(byte value) {
                     this.reasonNoServices = value;
                 }
+                
+				public String getEligibleForRHY() {
+					return eligibleForRHY;
+				}
 
-                /**
+				public void setEligibleForRHY(String eligibleForRHY) {
+					this.eligibleForRHY = eligibleForRHY;
+				}
+
+				public String getRunawayYouth() {
+					return runawayYouth;
+				}
+
+				public void setRunawayYouth(String runawayYouth) {
+					this.runawayYouth = runawayYouth;
+				}
+
+				/**
                  * Gets the value of the dateCreated property.
                  * 
                  * @return
@@ -13115,7 +13185,7 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "moveInDateID",
                 "projectEntryID",
-               /* "inPermanentHousing",*/
+                "inPermanentHousing",
                 "moveInDate"
             })
             public static class Moveindate {
@@ -13126,6 +13196,8 @@ public class Sources {
                 protected String projectEntryID;
                 @XmlElement(name = "MoveInDate", required = true)
                 protected XMLGregorianCalendar moveInDate;
+                @XmlElement(name = "inpermanenthousing", required = true)
+                protected byte inPermanentHousing;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -13185,17 +13257,17 @@ public class Sources {
                  * Gets the value of the inPermanentHousing property.
                  * 
                  */
-                /*public byte getInPermanentHousing() {
+                public byte getInPermanentHousing() {
                     return inPermanentHousing;
-                }*/
+                }
 
                 /**
                  * Sets the value of the inPermanentHousing property.
                  * 
                  */
-               /* public void setInPermanentHousing(byte value) {
+                public void setInPermanentHousing(byte value) {
                     this.inPermanentHousing = value;
-                }*/
+                }
 
                 /**
                  * Gets the value of the moveInDate property.
@@ -14144,21 +14216,21 @@ public class Sources {
                 @XmlElement(name = "id", required = true)
                 protected String id;
                 @XmlElement(name = "informationDate", required = true)
-                protected String informationDate;
+                protected XMLGregorianCalendar informationDate;
                 @XmlElement(name = "geoCode")
                 protected byte geoCode;
                 @XmlElement(name = "address1")
-                protected byte address1;
+                protected String address1;
                 @XmlElement(name = "address2")
-                protected byte address2;
+                protected String address2;
                 @XmlElement(name = "city")
-                protected byte city;
+                protected String city;
                 @XmlElement(name = "state")
-                protected byte state;
+                protected String state;
                 @XmlElement(name = "zip")
-                protected byte zip;
+                protected String zip;
                 @XmlElement(name = "geography_type")
-                protected byte geography_type;
+                protected Integer geography_type;
 				/**
 				 * @return the id
 				 */
@@ -14174,13 +14246,13 @@ public class Sources {
 				/**
 				 * @return the informationDate
 				 */
-				public String getInformationDate() {
+				public XMLGregorianCalendar getInformationDate() {
 					return informationDate;
 				}
 				/**
 				 * @param informationDate the informationDate to set
 				 */
-				public void setInformationDate(String informationDate) {
+				public void setInformationDate(XMLGregorianCalendar informationDate) {
 					this.informationDate = informationDate;
 				}
 				/**
@@ -14198,73 +14270,73 @@ public class Sources {
 				/**
 				 * @return the address1
 				 */
-				public byte getAddress1() {
+				public String getAddress1() {
 					return address1;
 				}
 				/**
 				 * @param address1 the address1 to set
 				 */
-				public void setAddress1(byte address1) {
+				public void setAddress1(String address1) {
 					this.address1 = address1;
 				}
 				/**
 				 * @return the address2
 				 */
-				public byte getAddress2() {
+				public String getAddress2() {
 					return address2;
 				}
 				/**
 				 * @param address2 the address2 to set
 				 */
-				public void setAddress2(byte address2) {
+				public void setAddress2(String address2) {
 					this.address2 = address2;
 				}
 				/**
 				 * @return the city
 				 */
-				public byte getCity() {
+				public String getCity() {
 					return city;
 				}
 				/**
 				 * @param city the city to set
 				 */
-				public void setCity(byte city) {
+				public void setCity(String city) {
 					this.city = city;
 				}
 				/**
 				 * @return the state
 				 */
-				public byte getState() {
+				public String getState() {
 					return state;
 				}
 				/**
 				 * @param state the state to set
 				 */
-				public void setState(byte state) {
+				public void setState(String state) {
 					this.state = state;
 				}
 				/**
 				 * @return the zip
 				 */
-				public byte getZip() {
+				public String getZip() {
 					return zip;
 				}
 				/**
 				 * @param zip the zip to set
 				 */
-				public void setZip(byte zip) {
+				public void setZip(String zip) {
 					this.zip = zip;
 				}
 				/**
 				 * @return the geography_type
 				 */
-				public byte getGeography_type() {
+				public Integer getGeography_type() {
 					return geography_type;
 				}
 				/**
 				 * @param geography_type the geography_type to set
 				 */
-				public void setGeography_type(byte geography_type) {
+				public void setGeography_type(Integer geography_type) {
 					this.geography_type = geography_type;
 				}
                
@@ -14274,7 +14346,8 @@ public class Sources {
             @XmlType(name = "", propOrder = {
             		"id",
             		"exitId",
-            		"cmExitReason"
+            		"cmExitReason",
+            		"dateCreated"
             })
 
             public static class VASHExitReason {
@@ -14284,7 +14357,8 @@ public class Sources {
 	            protected String exitId;
 	            @XmlElement(name = "cmExitReason")
 	            protected Integer cmExitReason;
-	            
+	            @XmlElement(name = "dateCreated")
+	            protected XMLGregorianCalendar dateCreated;
 	            
 				public String getId() {
 					return id;
@@ -14304,6 +14378,13 @@ public class Sources {
 				public void setCmExitReason(Integer cmExitReason) {
 					this.cmExitReason = cmExitReason;
 				}
+				public XMLGregorianCalendar getDateCreated() {
+					return dateCreated;
+				}
+				public void setDateCreated(XMLGregorianCalendar dateCreated) {
+					this.dateCreated = dateCreated;
+				}
+				
 	
 	         }
             

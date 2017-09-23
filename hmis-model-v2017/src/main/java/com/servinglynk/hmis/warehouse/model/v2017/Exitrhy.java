@@ -19,7 +19,9 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYEarlyExitReasonEnum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
 
 /**
@@ -54,26 +56,27 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 	private java.util.UUID id;
 	/** Field mapping. */
 	private ProjectcompletionstatusProjectcompletionstatusEnum projectCompletionStatus;
-	
-	private Integer exchageForSex;
-	private Integer exchangeForSexPastThreeMonths;
-	private Integer countOfExchangeForSex;  
-	private Integer askedOrForcedToExchangeForSex;
-	private Integer askedOrForcedToExchangeForSexPastThreeMonths; 
-	private Integer workPlaceViolenceThreats;  
-	private Integer workPlacePromiseDifference;
-	private Integer coercedToContinueWork;  
-	private Integer laborExploitPastThreeMonths;
-	private Integer counselingReceived;  
-	private Integer counselingType;  
+	private NoYesEnum exchangeForSex;
+	private NoYesEnum exchangeForSexPastThreeMonths;
+	private EntryRHYcountOfExchangeForSexpEnum countOfExchangeForSex;  
+	private NoYesEnum askedOrForcedToExchangeForSex;
+	private NoYesEnum askedOrForcedToExchangeForSexPastThreeMonths; 
+	private NoYesEnum workPlaceViolenceThreats;  
+	private NoYesEnum workPlacePromiseDifference;
+	private NoYesEnum coercedToContinueWork;  
+	private NoYesEnum laborExploitPastThreeMonths;
+	private NoYesEnum counselingReceived; 
+	private NoYesEnum individualCounseling;  
+	private NoYesEnum familyCounseling;
+	private NoYesEnum groupCounseling;
 	private Integer sessionCountAtExit;
 	private Integer sessionsInPlan; 
-	private Integer postExitCounselingPlan;  
-	private Integer destinationSafeClient;  
-	private Integer destinationSafeWorker;  
-	private Integer posAdultConnections;
-	private Integer posPeerConnections;  
-	private Integer posCommunityConnections;
+	private NoYesEnum postExitCounselingPlan;  
+	private NoYesEnum destinationSafeClient;  
+	private NoYesEnum destinationSafeWorker;  
+	private NoYesEnum posAdultConnections;
+	private NoYesEnum posPeerConnections;  
+	private NoYesEnum posCommunityConnections;
 	
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -115,119 +118,112 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		}
 
 
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "exchage_for_sex")
-		 public Integer getExchageForSex() {
-			return exchageForSex;
+		 public NoYesEnum getExchangeForSex() {
+			return exchangeForSex;
 		}
 
-		public void setExchageForSex(Integer exchageForSex) {
-			this.exchageForSex = exchageForSex;
+		public void setExchangeForSex(NoYesEnum exchageForSex) {
+			this.exchangeForSex = exchangeForSex;
 		}
 
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "exchange_for_sex_past_three_months")
-		public Integer getExchangeForSexPastThreeMonths() {
+		public NoYesEnum getExchangeForSexPastThreeMonths() {
 			return exchangeForSexPastThreeMonths;
 		}
 
 		public void setExchangeForSexPastThreeMonths(
-				Integer exchangeForSexPastThreeMonths) {
+				NoYesEnum exchangeForSexPastThreeMonths) {
 			this.exchangeForSexPastThreeMonths = exchangeForSexPastThreeMonths;
 		}
 		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnumType")
 		@Basic( optional = true )
 		@Column( name = "count_of_exchange_for_sex")
-		public Integer getCountOfExchangeForSex() {
+		public EntryRHYcountOfExchangeForSexpEnum getCountOfExchangeForSex() {
 			return countOfExchangeForSex;
 		}
 
-		public void setCountOfExchangeForSex(Integer countOfExchangeForSex) {
+		public void setCountOfExchangeForSex(EntryRHYcountOfExchangeForSexpEnum countOfExchangeForSex) {
 			this.countOfExchangeForSex = countOfExchangeForSex;
 		}
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "asked_or_forced_to_exchange_for_sex")
-		public Integer getAskedOrForcedToExchangeForSex() {
+		public NoYesEnum getAskedOrForcedToExchangeForSex() {
 			return askedOrForcedToExchangeForSex;
 		}
 
 		public void setAskedOrForcedToExchangeForSex(
-				Integer askedOrForcedToExchangeForSex) {
+				NoYesEnum askedOrForcedToExchangeForSex) {
 			this.askedOrForcedToExchangeForSex = askedOrForcedToExchangeForSex;
 		}
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "asked_or_forced_to_exchange_for_sex_past_three_months")
-		public Integer getAskedOrForcedToExchangeForSexPastThreeMonths() {
+		public NoYesEnum getAskedOrForcedToExchangeForSexPastThreeMonths() {
 			return askedOrForcedToExchangeForSexPastThreeMonths;
 		}
 
 		public void setAskedOrForcedToExchangeForSexPastThreeMonths(
-				Integer askedOrForcedToExchangeForSexPastThreeMonths) {
+				NoYesEnum askedOrForcedToExchangeForSexPastThreeMonths) {
 			this.askedOrForcedToExchangeForSexPastThreeMonths = askedOrForcedToExchangeForSexPastThreeMonths;
 		}
-
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "work_place_violence_threats")
-		public Integer getWorkPlaceViolenceThreats() {
+		public NoYesEnum getWorkPlaceViolenceThreats() {
 			return workPlaceViolenceThreats;
 		}
 
-		public void setWorkPlaceViolenceThreats(Integer workPlaceViolenceThreats) {
+		public void setWorkPlaceViolenceThreats(NoYesEnum workPlaceViolenceThreats) {
 			this.workPlaceViolenceThreats = workPlaceViolenceThreats;
 		}
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "work_place_promise_difference")
-		public Integer getWorkPlacePromiseDifference() {
+		public NoYesEnum getWorkPlacePromiseDifference() {
 			return workPlacePromiseDifference;
 		}
 
-		public void setWorkPlacePromiseDifference(Integer workPlacePromiseDifference) {
+		public void setWorkPlacePromiseDifference(NoYesEnum workPlacePromiseDifference) {
 			this.workPlacePromiseDifference = workPlacePromiseDifference;
 		}
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "coerced_to_continue_work")
-		public Integer getCoercedToContinueWork() {
+		public NoYesEnum getCoercedToContinueWork() {
 			return coercedToContinueWork;
 		}
 
-		public void setCoercedToContinueWork(Integer coercedToContinueWork) {
+		public void setCoercedToContinueWork(NoYesEnum coercedToContinueWork) {
 			this.coercedToContinueWork = coercedToContinueWork;
 		}
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "labor_exploit_past_three_months")
-		public Integer getLaborExploitPastThreeMonths() {
+		public NoYesEnum getLaborExploitPastThreeMonths() {
 			return laborExploitPastThreeMonths;
 		}
 
-		public void setLaborExploitPastThreeMonths(Integer laborExploitPastThreeMonths) {
+		public void setLaborExploitPastThreeMonths(NoYesEnum laborExploitPastThreeMonths) {
 			this.laborExploitPastThreeMonths = laborExploitPastThreeMonths;
 		}
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "counseling_received")
-		public Integer getCounselingReceived() {
+		public NoYesEnum getCounselingReceived() {
 			return counselingReceived;
 		}
 
-		public void setCounselingReceived(Integer counselingReceived) {
+		public void setCounselingReceived(NoYesEnum counselingReceived) {
 			this.counselingReceived = counselingReceived;
 		}
-		
-		@Basic( optional = true )
-		@Column( name = "counseling_type")
-		public Integer getCounselingType() {
-			return counselingType;
-		}
 
-		public void setCounselingType(Integer counselingType) {
-			this.counselingType = counselingType;
-		}
-		
 		@Basic( optional = true )
 		@Column( name = "session_count_at_exit")
 		public Integer getSessionCountAtExit() {
@@ -248,67 +244,101 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 		public void setSessionsInPlan(Integer sessionsInPlan) {
 			this.sessionsInPlan = sessionsInPlan;
 		}
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "post_exit_counseling_plan")
-		public Integer getPostExitCounselingPlan() {
+		public NoYesEnum getPostExitCounselingPlan() {
 			return postExitCounselingPlan;
 		}
 
-		public void setPostExitCounselingPlan(Integer postExitCounselingPlan) {
+		public void setPostExitCounselingPlan(NoYesEnum postExitCounselingPlan) {
 			this.postExitCounselingPlan = postExitCounselingPlan;
 		}
 
-  
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "destination_safe_client")
-		public Integer getDestinationSafeClient() {
+		public NoYesEnum getDestinationSafeClient() {
 			return destinationSafeClient;
 		}
 
-		public void setDestinationSafeClient(Integer destinationSafeClient) {
+		public void setDestinationSafeClient(NoYesEnum destinationSafeClient) {
 			this.destinationSafeClient = destinationSafeClient;
 		}
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "destination_safe_worker")
-		public Integer getDestinationSafeWorker() {
+		public NoYesEnum getDestinationSafeWorker() {
 			return destinationSafeWorker;
 		}
 
-		public void setDestinationSafeWorker(Integer destinationSafeWorker) {
+		public void setDestinationSafeWorker(NoYesEnum destinationSafeWorker) {
 			this.destinationSafeWorker = destinationSafeWorker;
 		}
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "pos_adult_connections")
-		public Integer getPosAdultConnections() {
+		public NoYesEnum getPosAdultConnections() {
 			return posAdultConnections;
 		}
 
-		public void setPosAdultConnections(Integer posAdultConnections) {
+		public void setPosAdultConnections(NoYesEnum posAdultConnections) {
 			this.posAdultConnections = posAdultConnections;
 		}
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "pos_peer_connections")
-		public Integer getPosPeerConnections() {
+		public NoYesEnum getPosPeerConnections() {
 			return posPeerConnections;
 		}
 
-		public void setPosPeerConnections(Integer posPeerConnections) {
+		public void setPosPeerConnections(NoYesEnum posPeerConnections) {
 			this.posPeerConnections = posPeerConnections;
 		}
 
-		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 		@Basic( optional = true )
 		@Column( name = "pos_community_connections")
-		public Integer getPosCommunityConnections() {
+		public NoYesEnum getPosCommunityConnections() {
 			return posCommunityConnections;
 		}
 
-		public void setPosCommunityConnections(Integer posCommunityConnections) {
+		public void setPosCommunityConnections(NoYesEnum posCommunityConnections) {
 			this.posCommunityConnections = posCommunityConnections;
+		}
+
+		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
+		@Basic( optional = true )
+		@Column( name = "individual_counseling")
+		public NoYesEnum getIndividualCounseling() {
+			return individualCounseling;
+		}
+
+		public void setIndividualCounseling(NoYesEnum individualCounseling) {
+			this.individualCounseling = individualCounseling;
+		}
+		
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
+		@Basic( optional = true )
+		@Column( name = "family_counseling")
+		public NoYesEnum getFamilyCounseling() {
+			return familyCounseling;
+		}
+
+		public void setFamilyCounseling(NoYesEnum familyCounseling) {
+			this.familyCounseling = familyCounseling;
+		}
+
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
+		@Basic( optional = true )
+		@Column( name = "group_counseling")
+		public NoYesEnum getGroupCounseling() {
+			return groupCounseling;
+		}
+
+		public void setGroupCounseling(NoYesEnum groupCounseling) {
+			this.groupCounseling = groupCounseling;
 		}
 
 		/**

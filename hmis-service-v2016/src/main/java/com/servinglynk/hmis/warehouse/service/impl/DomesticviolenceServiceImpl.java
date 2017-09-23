@@ -21,8 +21,8 @@ public class DomesticviolenceServiceImpl extends ServiceBase implements Domestic
 
    @Transactional
    public Domesticviolence createDomesticviolence(Domesticviolence domesticviolence,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence pDomesticviolence = DomesticviolenceConverter.modelToEntity(domesticviolence, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence pDomesticviolence = DomesticviolenceConverter.modelToEntity(domesticviolence, null);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pDomesticviolence.setEnrollmentid(pEnrollment);
        pDomesticviolence.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class DomesticviolenceServiceImpl extends ServiceBase implements Domestic
 
    @Transactional
    public Domesticviolence updateDomesticviolence(Domesticviolence domesticviolence,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence pDomesticviolence = daoFactory.getDomesticviolenceDao().getDomesticViolenceById(domesticviolence.getDomesticviolenceId());
+       com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence pDomesticviolence = daoFactory.getDomesticviolenceDao().getDomesticViolenceById(domesticviolence.getDomesticviolenceId());
        if(pDomesticviolence==null) throw new DomesticviolenceNotFoundException();
 
        DomesticviolenceConverter.modelToEntity(domesticviolence, pDomesticviolence);
@@ -52,7 +52,7 @@ public class DomesticviolenceServiceImpl extends ServiceBase implements Domestic
 
    @Transactional
    public Domesticviolence deleteDomesticviolence(UUID domesticviolenceId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence pDomesticviolence = daoFactory.getDomesticviolenceDao().getDomesticViolenceById(domesticviolenceId);
+       com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence pDomesticviolence = daoFactory.getDomesticviolenceDao().getDomesticViolenceById(domesticviolenceId);
        if(pDomesticviolence==null) throw new DomesticviolenceNotFoundException();
 
        daoFactory.getDomesticviolenceDao().deleteDomesticViolence(pDomesticviolence);
@@ -62,7 +62,7 @@ public class DomesticviolenceServiceImpl extends ServiceBase implements Domestic
 
    @Transactional
    public Domesticviolence getDomesticviolenceById(UUID domesticviolenceId){
-       com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence pDomesticviolence = daoFactory.getDomesticviolenceDao().getDomesticViolenceById(domesticviolenceId);
+       com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence pDomesticviolence = daoFactory.getDomesticviolenceDao().getDomesticViolenceById(domesticviolenceId);
        if(pDomesticviolence==null) throw new DomesticviolenceNotFoundException();
 
        return DomesticviolenceConverter.entityToModel( pDomesticviolence );
@@ -72,8 +72,8 @@ public class DomesticviolenceServiceImpl extends ServiceBase implements Domestic
    @Transactional
    public Domesticviolences getAllEnrollmentDomesticviolences(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Domesticviolences domesticviolences = new Domesticviolences();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence> entities = daoFactory.getDomesticviolenceDao().getAllEnrollmentDomesticViolences(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence> entities = daoFactory.getDomesticviolenceDao().getAllEnrollmentDomesticViolences(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence entity : entities){
            domesticviolences.addDomesticviolence(DomesticviolenceConverter.entityToModel(entity));
         }
         long count = daoFactory.getDomesticviolenceDao().getEnrollmentDomesticViolencesCount(enrollmentId);

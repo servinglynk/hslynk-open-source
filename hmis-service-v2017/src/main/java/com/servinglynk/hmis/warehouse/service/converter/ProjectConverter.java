@@ -1,7 +1,9 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.Project;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
+import com.servinglynk.hmis.warehouse.enums.ProjectHousingTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
@@ -22,6 +24,15 @@ public class ProjectConverter extends BaseConverter {
        if(model.getTargetPopulation()!=null)
        entity.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(model.getTargetPopulation().toString()));
       // entity.setProjectGroupCode(model.getProjectGroup());
+       if(model.getOperatingEndDate() !=null)
+    	   entity.setOperatingEndDate(model.getOperatingEndDate());
+       if(model.getOperatingStartDate() !=null)
+    	   entity.setOperatingStartDate(model.getOperatingStartDate());
+       if(model.getHousingType() !=null)
+    	   entity.setHousingType(ProjectHousingTypeEnum.lookupEnum(model.getHousingType().toString()));
+       if(model.getVictimServicesProvider() !=null) 
+    	   entity.setVictimServiceProvider(NoYesEnum.lookupEnum(model.getVictimServicesProvider().toString()));
+       
        return entity;
    }
 

@@ -20,10 +20,8 @@ public class Servicefareferral extends ClientModel{
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime dateprovided;
 
-      private Integer serviceCategory;
-
-      private Integer funderList;
-
+      private Integer recordType;
+      
       private Integer typeProvided;
 
       private String otherTypeProvided;
@@ -48,19 +46,14 @@ public class Servicefareferral extends ClientModel{
       public void setDateprovided(LocalDateTime dateprovided){
           this.dateprovided = dateprovided;
       }
-      public Integer getServiceCategory(){
-          return serviceCategory;
-      }
-      public void setServiceCategory(Integer serviceCategory){
-          this.serviceCategory = serviceCategory;
-      }
-      public Integer getFunderList(){
-          return funderList;
-      }
-      public void setFunderList(Integer funderList){
-          this.funderList = funderList;
-      }
-      public Integer getTypeProvided(){
+      
+      public Integer getRecordType() {
+		return recordType;
+	}
+	public void setRecordType(Integer recordType) {
+		this.recordType = recordType;
+	}
+	public Integer getTypeProvided(){
           return typeProvided;
       }
       public void setTypeProvided(Integer typeProvided){

@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
-import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
 
 
@@ -59,8 +59,8 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 	 * Default constructor, mainly for hibernate use.
 	 */
 	
-	private Integer eligibleForRhy;
-	private Integer runawayYouth;
+	private NoYesEnum eligibleForRhy;
+	private NoYesEnum runawayYouth;
 	
 	public RhybcpStatus() {
 		// Default constructor
@@ -122,25 +122,25 @@ public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializab
 
 	}
 
-
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column( name = "eligible_for_rhy")
-	public Integer getEligibleForRhy() {
+	public NoYesEnum getEligibleForRhy() {
 		return eligibleForRhy;
 	}
 
-	public void setEligibleForRhy(Integer eligibleForRhy) {
+	public void setEligibleForRhy(NoYesEnum eligibleForRhy) {
 		this.eligibleForRhy = eligibleForRhy;
 	}
 
-
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
 	@Column( name = "runaway_youth")
-	public Integer getRunawayYouth() {
+	public NoYesEnum getRunawayYouth() {
 		return runawayYouth;
 	}
 
-	public void setRunawayYouth(Integer runawayYouth) {
+	public void setRunawayYouth(NoYesEnum runawayYouth) {
 		this.runawayYouth = runawayYouth;
 	}
 

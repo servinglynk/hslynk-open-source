@@ -19,9 +19,8 @@ public class Rhybcpstatus extends ClientModel{
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime statusDate;
-
-      private Integer fysbYouth;
-
+      private Integer eligibleForRhy;
+      private Integer runawayYouth;
       private Integer reasonNoServices;
 
 	public UUID getRhybcpstatusId() {
@@ -40,14 +39,6 @@ public class Rhybcpstatus extends ClientModel{
 		this.statusDate = statusDate;
 	}
 
-	public Integer getFysbYouth() {
-		return fysbYouth;
-	}
-
-	public void setFysbYouth(Integer fysbYouth) {
-		this.fysbYouth = fysbYouth;
-	}
-
 	public Integer getReasonNoServices() {
 		return reasonNoServices;
 	}
@@ -56,7 +47,20 @@ public class Rhybcpstatus extends ClientModel{
 		this.reasonNoServices = reasonNoServices;
 	}
 
+	public Integer getEligibleForRhy() {
+		return eligibleForRhy;
+	}
 
+	public void setEligibleForRhy(Integer eligibleForRhy) {
+		this.eligibleForRhy = eligibleForRhy;
+	}
 
+	public Integer getRunawayYouth() {
+		return runawayYouth;
+	}
+
+	public void setRunawayYouth(Integer runawayYouth) {
+		this.runawayYouth = runawayYouth;
+	}
 
  }

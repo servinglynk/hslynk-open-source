@@ -58,7 +58,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 				educationModel.setEnrollmentid(enrollmentModel);
 				educationModel.setExport(exportEntity);
 				educationModel.setInformationDate(BasicDataGenerator.getLocalDateTime(education.getInformationDate()));
-				educationModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(education.getDataCollectionStage())));
+//				educationModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(education.getDataCollectionStage())));
 				
 				performSaveOrUpdate(educationModel);
 			}

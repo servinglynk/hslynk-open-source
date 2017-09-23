@@ -8,6 +8,9 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
+import com.servinglynk.hmis.warehouse.enums.TCellOrViralLoadSourceEnum;
+import com.servinglynk.hmis.warehouse.enums.ViralLoadAvailableEnum;
 public class DisabilitiesConverter  extends BaseConverter {
 
    public static com.servinglynk.hmis.warehouse.model.v2017.Disabilities modelToEntity (Disabilities model ,com.servinglynk.hmis.warehouse.model.v2017.Disabilities entity) {
@@ -21,13 +24,13 @@ public class DisabilitiesConverter  extends BaseConverter {
  if(model.getIndefiniteandimpairs()!=null)
        entity.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum(model.getIndefiniteandimpairs().toString()));
  if(model.getTcellcountavailable()!=null)
- 	   entity.setTcellcountavailable(model.getTcellcountavailable());
+ 	   entity.setTcellcountavailable(NoYesEnum.lookupEnum(model.getTcellcountavailable().toString()));
  if(model.getTcellcount()!=null)
  	   entity.setTcellcount(model.getTcellcount());
  if(model.getTcellcountsource()!=null)
-       entity.setTcellcountsource(model.getTcellcountsource());
+       entity.setTcellcountsource(TCellOrViralLoadSourceEnum.lookupEnum(model.getTcellcountsource().toString()));
  if(model.getViralLoadAvailable()!=null)
-       entity.setViralLoadAvailable(model.getViralLoadAvailable());
+       entity.setViralLoadAvailable(ViralLoadAvailableEnum.lookupEnum(model.getViralLoadAvailable().toString()));
  if(model.getViralLoad()!=null)
        entity.setViralLoad(model.getViralLoad());
  if(model.getInformationDate() !=null)
@@ -35,7 +38,7 @@ public class DisabilitiesConverter  extends BaseConverter {
  if(model.getDataCollectionStage() !=null)
 	  entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
  if(model.getViralLoadSource()!=null)
-       entity.setViralLoadSource(model.getViralLoadSource());
+       entity.setViralLoadSource(TCellOrViralLoadSourceEnum.lookupEnum(model.getViralLoadSource().toString()));
        return entity;
    }
 
@@ -53,17 +56,17 @@ if(entity.getDisabilitytype()!=null)
 if(entity.getIndefiniteandimpairs()!=null)
        model.setIndefiniteandimpairs(Integer.parseInt(entity.getIndefiniteandimpairs().getValue()));
 if(entity.getTcellcountavailable()!=null)
-       model.setTcellcountavailable(entity.getTcellcountavailable());
+       model.setTcellcountavailable(Integer.parseInt(entity.getTcellcountavailable().getValue()));
 if(entity.getTcellcount()!=null)
        model.setTcellcount(entity.getTcellcount());
 if(entity.getTcellcountsource()!=null)
-       model.setTcellcountsource(entity.getTcellcountsource());
+       model.setTcellcountsource(entity.getTcellcountsource().getValue());
 if(entity.getViralLoadAvailable()!=null)
-       model.setViralLoadAvailable(entity.getViralLoadAvailable());
+       model.setViralLoadAvailable(Integer.parseInt(entity.getViralLoadAvailable().getValue()));
 if(entity.getViralLoad()!=null)
        model.setViralLoad(entity.getViralLoad());
 if(entity.getViralLoadSource()!=null)
-       model.setViralLoadSource(entity.getViralLoadSource());
+       model.setViralLoadSource(entity.getViralLoadSource().getValue());
        return model;
    }
 

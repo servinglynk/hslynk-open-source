@@ -21,8 +21,8 @@ public class EnrollmentCocServiceImpl extends ServiceBase implements EnrollmentC
 
    @Transactional
    public EnrollmentCoc createEnrollmentCoc(EnrollmentCoc enrollmentCoc,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc pEnrollmentCoc = EnrollmentCocConverter.modelToEntity(enrollmentCoc, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.EnrollmentCoc pEnrollmentCoc = EnrollmentCocConverter.modelToEntity(enrollmentCoc, null);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pEnrollmentCoc.setEnrollmentid(pEnrollment);
        pEnrollmentCoc.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class EnrollmentCocServiceImpl extends ServiceBase implements EnrollmentC
 
    @Transactional
    public EnrollmentCoc updateEnrollmentCoc(EnrollmentCoc enrollmentCoc,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc pEnrollmentCoc = daoFactory.getEnrollmentCocDao().getEnrollmentCocById(enrollmentCoc.getEnrollmentCocId());
+       com.servinglynk.hmis.warehouse.model.v2016.EnrollmentCoc pEnrollmentCoc = daoFactory.getEnrollmentCocDao().getEnrollmentCocById(enrollmentCoc.getEnrollmentCocId());
        if(pEnrollmentCoc==null) throw new EnrollmentCocNotFoundException();
 
        EnrollmentCocConverter.modelToEntity(enrollmentCoc, pEnrollmentCoc);
@@ -52,7 +52,7 @@ public class EnrollmentCocServiceImpl extends ServiceBase implements EnrollmentC
 
    @Transactional
    public EnrollmentCoc deleteEnrollmentCoc(UUID enrollmentCocId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc pEnrollmentCoc = daoFactory.getEnrollmentCocDao().getEnrollmentCocById(enrollmentCocId);
+       com.servinglynk.hmis.warehouse.model.v2016.EnrollmentCoc pEnrollmentCoc = daoFactory.getEnrollmentCocDao().getEnrollmentCocById(enrollmentCocId);
        if(pEnrollmentCoc==null) throw new EnrollmentCocNotFoundException();
 
        daoFactory.getEnrollmentCocDao().deleteEnrollmentCoc(pEnrollmentCoc);
@@ -62,7 +62,7 @@ public class EnrollmentCocServiceImpl extends ServiceBase implements EnrollmentC
 
    @Transactional
    public EnrollmentCoc getEnrollmentCocById(UUID enrollmentCocId){
-       com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc pEnrollmentCoc = daoFactory.getEnrollmentCocDao().getEnrollmentCocById(enrollmentCocId);
+       com.servinglynk.hmis.warehouse.model.v2016.EnrollmentCoc pEnrollmentCoc = daoFactory.getEnrollmentCocDao().getEnrollmentCocById(enrollmentCocId);
        if(pEnrollmentCoc==null) throw new EnrollmentCocNotFoundException();
 
        return EnrollmentCocConverter.entityToModel( pEnrollmentCoc );
@@ -72,8 +72,8 @@ public class EnrollmentCocServiceImpl extends ServiceBase implements EnrollmentC
    @Transactional
    public EnrollmentCocs getAllEnrollmentEnrollmentCocs(UUID enrollmentId,Integer startIndex, Integer maxItems){
        EnrollmentCocs enrollmentCocs = new EnrollmentCocs();
-        List<com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc> entities = daoFactory.getEnrollmentCocDao().getAllEnrollmentEnrollmentCocs(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2016.EnrollmentCoc> entities = daoFactory.getEnrollmentCocDao().getAllEnrollmentEnrollmentCocs(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2016.EnrollmentCoc entity : entities){
            enrollmentCocs.addEnrollmentCoc(EnrollmentCocConverter.entityToModel(entity));
         }
         long count = daoFactory.getEnrollmentCocDao().getEnrollmentEnrollmentCocsCount(enrollmentId);

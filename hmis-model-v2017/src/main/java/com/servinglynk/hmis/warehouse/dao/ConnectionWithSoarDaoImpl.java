@@ -15,6 +15,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ConnectionWithSOAR;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.ConnectionWithSoarEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
@@ -43,15 +44,16 @@ public class ConnectionWithSoarDaoImpl extends ParentDaoImpl implements Connecti
 				 com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar connectionWithSoarModel = null;
 				 try {
 					 connectionWithSoarModel = getModelObject(domain, connectionWithSOAR,data,modelMap);
-					 connectionWithSoarModel.setConnectionwithsoar(BasicDataGenerator.getIntegerValue(connectionWithSOAR.getConnectionWithSOAR()));
+					 if(connectionWithSOAR.getConnectionwithsoar() !=null)
+						 connectionWithSoarModel.setConnectionwithsoar(ConnectionWithSoarEnum.lookupEnum(connectionWithSOAR.getConnectionwithsoar()));
 					 connectionWithSoarModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateCreated()));
 					 connectionWithSoarModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
-					 Enrollment enrollment = (Enrollment) getModel(ConnectionWithSoar.class, connectionWithSOAR.getEnrollmentID(), getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					 Enrollment enrollment = (Enrollment) getModel(ConnectionWithSoar.class, connectionWithSOAR.getEnrollmentid(), getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 				     connectionWithSoarModel.setEnrollmentid(enrollment);
 					connectionWithSoarModel.setExport(exportEntity);
 					 performSaveOrUpdate(connectionWithSoarModel);
 				 } catch(Exception e){
-					 String errorMessage = "Exception because of the connectionWithSoar::"+connectionWithSOAR.getConnectionWithSOARID() +" Exception ::"+e.getMessage();
+					 String errorMessage = "Exception because of the connectionWithSoar::"+connectionWithSOAR.getId() +" Exception ::"+e.getMessage();
 					 if(connectionWithSoarModel != null){
 						 Error2017 error = new Error2017();
 						 error.model_id = connectionWithSoarModel.getId();
@@ -74,7 +76,7 @@ public class ConnectionWithSoarDaoImpl extends ParentDaoImpl implements Connecti
 		com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar) getModel(com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar.class, connectionWithSoar.getConnectionWithSOARID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar) getModel(com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar.class, connectionWithSoar.getId(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar();
@@ -85,7 +87,7 @@ public class ConnectionWithSoarDaoImpl extends ParentDaoImpl implements Connecti
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSoar.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,connectionWithSoar.getConnectionWithSOARID(),data);
+		hydrateCommonFields(model, domain,connectionWithSoar.getId(),data);
 		return model;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar createConnectionWithSoar(com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar connectionWithSoar){

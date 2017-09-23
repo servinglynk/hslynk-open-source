@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -19,6 +18,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.ConnectionWithSoarEnum;
 
 
 /**
@@ -46,7 +47,7 @@ public class ConnectionWithSoar extends HmisBaseModel  implements Cloneable, Ser
 
 
 	/** Field mapping. */
-	private Integer connectionwithsoar;
+	private ConnectionWithSoarEnum connectionwithsoar;
 	/** Field mapping. */
 	private Enrollment enrollmentid;
 	/** Field mapping. */
@@ -107,7 +108,10 @@ public class ConnectionWithSoar extends HmisBaseModel  implements Cloneable, Ser
 	 * Return the value associated with the column: connectionwithsoar.
 	 * @return A Integer object (this.connectionwithsoar)
 	 */
-	public Integer getConnectionwithsoar() {
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ConnectionWithSoarEnumType")
+	@Basic( optional = true )
+	@Column( name = "connection_with_soar" )
+	public ConnectionWithSoarEnum getConnectionwithsoar() {
 		return this.connectionwithsoar;
 
 	}
@@ -118,7 +122,7 @@ public class ConnectionWithSoar extends HmisBaseModel  implements Cloneable, Ser
 	 * Set the value related to the column: connectionwithsoar.
 	 * @param connectionwithsoar the connectionwithsoar value you wish to set
 	 */
-	public void setConnectionwithsoar(final Integer connectionwithsoar) {
+	public void setConnectionwithsoar(final ConnectionWithSoarEnum connectionwithsoar) {
 		this.connectionwithsoar = connectionwithsoar;
 	}
 

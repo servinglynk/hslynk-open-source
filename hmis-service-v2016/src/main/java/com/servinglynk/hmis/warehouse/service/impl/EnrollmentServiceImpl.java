@@ -24,14 +24,14 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment createEnrollment(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
-		com.servinglynk.hmis.warehouse.model.v2017.Client pClient = daoFactory.getClientDao().getClientById(clientId);
+		com.servinglynk.hmis.warehouse.model.v2016.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 
-		com.servinglynk.hmis.warehouse.model.v2017.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
+		com.servinglynk.hmis.warehouse.model.v2016.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
 		if(pProject==null) throw new ProjectNotFoundException();
 
 
-		com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);
+		com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);
 		pEnrollment.setClient(pClient);
 		pEnrollment.setProject(pProject);
 		daoFactory.getProjectDao().populateUserProjectGroupCode(pEnrollment, caller);
@@ -46,13 +46,13 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment updateEnrollment(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
-		com.servinglynk.hmis.warehouse.model.v2017.Client pClient = daoFactory.getClientDao().getClientById(clientId);
+		com.servinglynk.hmis.warehouse.model.v2016.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 
-		com.servinglynk.hmis.warehouse.model.v2017.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
+		com.servinglynk.hmis.warehouse.model.v2016.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
 		if(pProject==null) throw new ProjectNotFoundException();
 
-		com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
+		com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
 		if(pEnrollment == null) throw new EnrollmentNotFound();
 
 		EnrollmentConveter.modelToEntity(enrollment, pEnrollment);
@@ -69,7 +69,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment deleteEnrollment(UUID enrollmentId,UUID clientId,String caller) {
 
-		com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+		com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
 
 		if(pEnrollment == null) throw new EnrollmentNotFound();
 
@@ -81,7 +81,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment getEnrollmentByClientIdAndEnrollmentId(
 			UUID enrollmentId, UUID clientId) {
-		com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+		com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
 		if(pEnrollment == null) throw new EnrollmentNotFound();
 
 		return EnrollmentConveter.entityToModel(pEnrollment);
@@ -91,7 +91,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment getEnrollmentByEnrollmentId(
 			UUID enrollmentId) {
-		com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+		com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
 		if(pEnrollment == null) throw new EnrollmentNotFound();
 
 		return EnrollmentConveter.entityToModel(pEnrollment);
@@ -104,15 +104,15 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		HmisUser hmisUser = daoFactory.getAccountDao().findByUsername(loginUser);
 		if(hmisUser==null) throw new AccountNotFoundException();
 
-		List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment> pEnrollments = daoFactory.getEnrollmentDao().getEnrollmentsByClientId(clientId,startIndex,maxItems);
-//		List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment> sharingEnrollments = daoFactory.getSharingRuleDao().getSharedEnrollments(hmisUser.getId(),hmisUser.getOrganization().getId());
+		List<com.servinglynk.hmis.warehouse.model.v2016.Enrollment> pEnrollments = daoFactory.getEnrollmentDao().getEnrollmentsByClientId(clientId,startIndex,maxItems);
+//		List<com.servinglynk.hmis.warehouse.model.v2016.Enrollment> sharingEnrollments = daoFactory.getSharingRuleDao().getSharedEnrollments(hmisUser.getId(),hmisUser.getOrganization().getId());
 //		if(sharingEnrollments.size()>0){
 //			pEnrollments.addAll(sharingEnrollments);
 //		}
 
 		Enrollments enrollments = new Enrollments();
 
-		for(com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment : pEnrollments ){
+		for(com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment : pEnrollments ){
 			enrollments.addEnrollment(EnrollmentConveter.entityToModel(pEnrollment));
 		}
 

@@ -6,8 +6,8 @@ import com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevict
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum;
 public class DomesticviolenceConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence modelToEntity (Domesticviolence model ,com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence();
+   public static com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence modelToEntity (Domesticviolence model ,com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence();
        entity.setId(model.getDomesticviolenceId());
  if(model.getDomesticviolencevictim()!=null)
        entity.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum(model.getDomesticviolencevictim().toString()));
@@ -24,7 +24,7 @@ public class DomesticviolenceConverter  extends BaseConverter {
    }
 
 
-   public static Domesticviolence entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence entity) {
+   public static Domesticviolence entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Domesticviolence entity) {
        Domesticviolence model = new Domesticviolence();
        model.setDomesticviolenceId(entity.getId());
 if(entity.getDomesticviolencevictim()!=null)

@@ -38,6 +38,7 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
+import com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2017.Entryrhy;
@@ -61,21 +62,11 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 				com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entryRhyModel = null;
 				try {
 					entryRhyModel = getModelObject(domain, entryRhys,data,modelMap);
-//					entryRhyModel.setAbuseAndNeglectFamilyMbr(EntryRHYAbuseAndNeglectFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getAbuseAndNeglectFam())));
-//					entryRhyModel.setAbuseAndNeglectYouth(EntryRHYAbuseAndNeglectYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getAbuseAndNeglectYouth())));
-//					entryRhyModel.setActiveMilitaryParent(EntryRHYActiveMilitaryParentEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getActiveMilitaryParent())));
 					entryRhyModel.setAlcoholDrugAbuseFamilyMbr(EntryRHYAlcoholDrugAbuseFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getAlcoholDrugAbuseFam())));
-//					entryRhyModel.setAlcoholDrugAbuseYouth(EntryRHYAlcoholDrugAbuseYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getAlcoholDrugAbuseYouth())));
-					entryRhyModel.setAskedOfForcedToExchangeForSex(EntryRHYAskedOrForcedToExchangeForSexEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getAskedOrForcedToExchangeForSex())));
-					entryRhyModel.setAskedOfForcedToExchangeForSexPastThreeMonths(EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getAskedOrForcedToExchangeForSexPastThreeMonths())));
-					entryRhyModel.setCoercedToContinueWork(EntryRHYCoercedToContinueWorkEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getCoercedToContinueWork())));
-					entryRhyModel.setCountOfExchangeForSex(EntryRHYcountOfExchangeForSexpEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getCountOfExchangeForSex())));
 					entryRhyModel.setCountOutReachReferralApproaches(BasicDataGenerator.getIntegerValue(entryRhys.getCountOutreachReferralApproaches()));
 					entryRhyModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhys.getDateCreated()));
 					entryRhyModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhys.getDateUpdated()));
 					entryRhyModel.setDeleted(false);
-					entryRhyModel.setExchangeForSex(EntryRHYExchangeForSexEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getExchangeForSex())));
-					entryRhyModel.setExchangeForSexPastThreeMonths( EntryRHYExchangeForSexPastThreeMonthsEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getExchangeForSexPastThreeMonths())));
 					entryRhyModel.setFormerlyWardChildWelfrForestCare(EntryRHYFormerWardChildWelfareEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getFormerWardChildWelfare())));
 					entryRhyModel.setFormerlyWardOfJuvenileJustice(EntryRHYFormerWardJuvenileJusticeEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getFormerWardJuvenileJustice())));
 //					entryRhyModel.setHealthIssuesFamilyMbr(EntryRHYHealthIssuesFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getHealthIssuesFam())));
@@ -86,7 +77,6 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 					entryRhyModel.setIncarceratedParent(EntryRHYIncarceratedParentEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getIncarceratedParent())));
 //					entryRhyModel.setIncarceratedParentStatus(EntryRHYIncarceratedParentStatusEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getIncarceratedParentStatus())));
 					entryRhyModel.setInsufficientIncomeToSupportYouth(EntryRHYInsufficientIncomeEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getInsufficientIncome())));
-					entryRhyModel.setLaborExploitPastThreeMonths(BasicDataGenerator.getIntegerValue(entryRhys.getLaborExploitPastThreeMonths()));
 //					entryRhyModel.setMentalDisabilityFamilyMbr(EntryRHYMentalDisabilityFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getMentalDisabilityFam())));
 //					entryRhyModel.setMentalDisabilityYouth(EntryRHYMentalDisabilityYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getMentalDisabilityYouth())));
 					entryRhyModel.setMentalHealthIssuesFamilyMbr(EntryRHYMentalHealthIssuesFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getMentalHealthIssuesFam())));
@@ -95,7 +85,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 //				entryRhyModel.setParentId(parentId);
 					entryRhyModel.setPhysicalDisabilityFamilyMbr(EntryRHYPhysicalDisabilityFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getPhysicalDisabilityFam())));
 //					entryRhyModel.setPhysicalDisabilityYouth(EntryRHYPhysicalDisabilityYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getPhysicalDisabilityYouth())));
-					entryRhyModel.setReferralSource(BasicDataGenerator.getIntegerValue(entryRhys.getReferralSource()));
+					entryRhyModel.setReferralSource(ReferralsourceReferralsourceEnum.lookupEnum(String.valueOf(entryRhys.getReferralSource())));
 //					entryRhyModel.setSchoolEducationIssuesFamilyMbr(EntryRHYSchoolEducationalIssuesFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getSchoolEducationalIssuesFam())));
 //					entryRhyModel.setSchoolEducationIssuesYouth(EntryRHYSchoolEducationalIssuesYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getSchoolEducationalIssuesYouth())));
 //					entryRhyModel.setSexualOrientatiionGenderIdentityFamilyMbr(EntryRHYSexualOrientationGenderIDFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getSexualOrientationGenderIDFam())));
@@ -104,8 +94,6 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 					entryRhyModel.setUnemployementFamilyMbr(EntryRHYUnemploymentFamEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getUnemploymentFam())));  ;
 //					entryRhyModel.setUnemployementYouth(EntryRHYUnemploymentYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getUnemploymentYouth())));
 //				entryRhyModel.setVersion(version);
-					entryRhyModel.setWorkPlacePromiseDifference(EntryRHYWorkplacePromiseDifferenceEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getWorkplacePromiseDifference())));
-					entryRhyModel.setWorkPlaceViolenceThreat(EntryRHYWorkPlaceViolenceThreatsEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getWorkPlaceViolenceThreats())));
 					entryRhyModel.setYearsChildWelfrForestCare(EntryRHYChildWelfareYearsEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getChildWelfareYears())));
 					entryRhyModel.setYearsJuvenileJustice(EntryRHYJuvenileJusticeYearsEnum.lookupEnum(BasicDataGenerator.getStringValue(entryRhys.getJuvenileJusticeYears())));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhys.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());

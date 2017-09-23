@@ -73,7 +73,6 @@ public class HealthStatus extends HmisBaseModel implements Cloneable, Serializab
 		this.dataCollectionStage = dataCollectionStage;
 	}
 	
-	
 	/** Field mapping. */
 	/**
 	 * Default constructor, mainly for hibernate use.

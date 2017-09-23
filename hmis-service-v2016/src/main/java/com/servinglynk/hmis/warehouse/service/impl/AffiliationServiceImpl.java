@@ -19,8 +19,8 @@ public class AffiliationServiceImpl extends ServiceBase implements AffiliationSe
 
    @Transactional
    public Affiliation createAffiliation(Affiliation affiliation,UUID projectId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Affiliation pAffiliation = AffiliationConverter.modelToEntity(affiliation, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
+       com.servinglynk.hmis.warehouse.model.v2016.Affiliation pAffiliation = AffiliationConverter.modelToEntity(affiliation, null);
+       com.servinglynk.hmis.warehouse.model.v2016.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
        if(pProject == null) throw new ProjectNotFoundException();
        pAffiliation.setProjectid(pProject);
        pAffiliation.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class AffiliationServiceImpl extends ServiceBase implements AffiliationSe
 
    @Transactional
    public Affiliation updateAffiliation(Affiliation affiliation,UUID projectId,String caller){
-	   com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
+	   com.servinglynk.hmis.warehouse.model.v2016.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
        if(pProject == null) throw new ProjectNotFoundException();
-       com.servinglynk.hmis.warehouse.model.v2017.Affiliation pAffiliation = daoFactory.getAffiliationDao().getAffiliationById(affiliation.getAffiliationId());
+       com.servinglynk.hmis.warehouse.model.v2016.Affiliation pAffiliation = daoFactory.getAffiliationDao().getAffiliationById(affiliation.getAffiliationId());
        if(pAffiliation==null) throw new AffiliationNotFoundException();
 
        AffiliationConverter.modelToEntity(affiliation, pAffiliation);
@@ -50,7 +50,7 @@ public class AffiliationServiceImpl extends ServiceBase implements AffiliationSe
 
    @Transactional
    public Affiliation deleteAffiliation(UUID affiliationId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Affiliation pAffiliation = daoFactory.getAffiliationDao().getAffiliationById(affiliationId);
+       com.servinglynk.hmis.warehouse.model.v2016.Affiliation pAffiliation = daoFactory.getAffiliationDao().getAffiliationById(affiliationId);
        if(pAffiliation==null) throw new AffiliationNotFoundException();
 
        daoFactory.getAffiliationDao().deleteAffiliation(pAffiliation);
@@ -60,7 +60,7 @@ public class AffiliationServiceImpl extends ServiceBase implements AffiliationSe
 
    @Transactional
    public Affiliation getAffiliationById(UUID affiliationId){
-       com.servinglynk.hmis.warehouse.model.v2017.Affiliation pAffiliation = daoFactory.getAffiliationDao().getAffiliationById(affiliationId);
+       com.servinglynk.hmis.warehouse.model.v2016.Affiliation pAffiliation = daoFactory.getAffiliationDao().getAffiliationById(affiliationId);
        if(pAffiliation==null) throw new AffiliationNotFoundException();
 
        return AffiliationConverter.entityToModel( pAffiliation );
@@ -70,8 +70,8 @@ public class AffiliationServiceImpl extends ServiceBase implements AffiliationSe
    @Transactional
    public Affiliations getAllProjectAffiliations(UUID projectId,Integer startIndex, Integer maxItems){
        Affiliations affiliations = new Affiliations();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Affiliation> entities = daoFactory.getAffiliationDao().getAllProjectAffiliations(projectId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Affiliation entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2016.Affiliation> entities = daoFactory.getAffiliationDao().getAllProjectAffiliations(projectId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2016.Affiliation entity : entities){
            affiliations.addAffiliation(AffiliationConverter.entityToModel(entity));
         }
         long count = daoFactory.getAffiliationDao().getProjectAffiliationsCount(projectId);

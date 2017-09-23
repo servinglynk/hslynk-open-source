@@ -4,8 +4,8 @@ import com.servinglynk.hmis.warehouse.core.model.Pathstatus;
 import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
 public class PathstatusConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Pathstatus modelToEntity (Pathstatus model ,com.servinglynk.hmis.warehouse.model.v2017.Pathstatus entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Pathstatus();
+   public static com.servinglynk.hmis.warehouse.model.v2016.Pathstatus modelToEntity (Pathstatus model ,com.servinglynk.hmis.warehouse.model.v2016.Pathstatus entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Pathstatus();
        if(model.getPathstatusId()!=null)
        entity.setId(model.getPathstatusId());
        if(model.getDateOfStatus()!=null)
@@ -18,7 +18,7 @@ public class PathstatusConverter  extends BaseConverter {
    }
 
 
-   public static Pathstatus entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Pathstatus entity) {
+   public static Pathstatus entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Pathstatus entity) {
        Pathstatus model = new Pathstatus();
        model.setPathstatusId(entity.getId());
        model.setDateOfStatus(entity.getDateOfStatus());

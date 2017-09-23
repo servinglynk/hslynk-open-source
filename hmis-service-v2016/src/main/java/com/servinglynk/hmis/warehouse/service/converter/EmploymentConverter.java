@@ -7,8 +7,8 @@ import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
 public class EmploymentConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Employment modelToEntity (Employment model ,com.servinglynk.hmis.warehouse.model.v2017.Employment entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Employment();
+   public static com.servinglynk.hmis.warehouse.model.v2016.Employment modelToEntity (Employment model ,com.servinglynk.hmis.warehouse.model.v2016.Employment entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Employment();
        entity.setId(model.getEmploymentId());
        entity.setInformationDate(model.getInformationDate());
        if(model.getDataCollectionStage() !=null)
@@ -23,7 +23,7 @@ public class EmploymentConverter  extends BaseConverter {
    }
 
 
-   public static Employment entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Employment entity) {
+   public static Employment entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Employment entity) {
        Employment model = new Employment();
        model.setEmploymentId(entity.getId());
        if(entity.getInformationDate()!=null)

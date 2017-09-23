@@ -380,13 +380,13 @@ public class BulkUploadHelper {
 	    	  disabilitiesModel.setDisabilitiesID(disability.getDisabilitiesID());
 	    	  disabilitiesModel.setDisabilityResponse(getByte(disability.getDisabilityResponse()));
 	    	  disabilitiesModel.setDisabilityType(getByte(disability.getDisabilityType()));
-	    	  disabilitiesModel.setDocumentationOnFile(getByte(disability.getDocumentationOnFile()));
+//	    	  disabilitiesModel.setDocumentationOnFile(getByte(disability.getDocumentationOnFile()));
 	    	 // disabilitiesModel.setIndefiniteAndImpairs(getByte(disability.getIndefiniteAndImpairs()));
 	    	  disabilitiesModel.setInformationDate(getXMLGregorianCalendar(disability.getInformationDate()));
-	    	  disabilitiesModel.setPATHHowConfirmed(getByte(disability.getPATHHowConfirmed()));
-	    	  disabilitiesModel.setPATHSMIInformation(getByte(disability.getPATHSMIInformation()));
+//	    	  disabilitiesModel.setPATHHowConfirmed(getByte(disability.getPATHHowConfirmed()));
+//	    	  disabilitiesModel.setPATHSMIInformation(getByte(disability.getPATHSMIInformation()));
 	    	  disabilitiesModel.setProjectEntryID(disability.getProjectEntryID());
-	    	  disabilitiesModel.setReceivingServices(getByte(disability.getReceivingServices()));
+//	    	  disabilitiesModel.setReceivingServices(getByte(disability.getReceivingServices()));
 	    	  disabilitiesModel.setUserID(disability.getUserID());
 	    	  
 	    	  disabilitiesList.add(disabilitiesModel);
@@ -455,7 +455,7 @@ public class BulkUploadHelper {
 	    	  enrollmentModel.setDisablingCondition(getByte(enroll.getDisablingCondition()));
 	    	  enrollmentModel.setEntryDate(getXMLGregorianCalendar(enroll.getEntryDate()));
 	    	  enrollmentModel.setHouseholdID(enroll.getHouseholdID());
-	    	  enrollmentModel.setHousingStatus(getByte(enroll.getHousingStatus()));
+//	    	  enrollmentModel.setHousingStatus(getByte(enroll.getHousingStatus()));
 	    	  enrollmentModel.setMonthsHomelessPastThreeYears(getByte(enroll.getMonthsHomelessPastThreeYears()));
 	    	  //enrollmentModel.setMonthsHomelessThisTime(getByte(enroll.get));
 	    	  //enrollmentModel.set(enroll.getOtherResidencePrior());
@@ -464,7 +464,7 @@ public class BulkUploadHelper {
 	    	  enrollmentModel.setProjectID(enroll.getProjectID());
 	    	  enrollmentModel.setRelationshipToHoH(getByte(enroll.getRelationshipToHoH()));
 	    	  enrollmentModel.setResidencePrior(getByte(enroll.getResidencePrior()));
-	    	  enrollmentModel.setResidencePriorLengthOfStay(getByte(enroll.getResidencePriorLengthOfStay()));
+//	    	  enrollmentModel.setResidencePriorLengthOfStay(getByte(enroll.getResidencePriorLengthOfStay()));
 //	    	  enrollmentModel.setStatusDocumented(getByte(enroll.get));
 	    	  enrollmentModel.setTimesHomelessPastThreeYears(getByte(enroll.getTimesHomelessPastThreeYears()));
 	    	  enrollmentModel.setUserID(enroll.getUserID());
@@ -514,16 +514,15 @@ public class BulkUploadHelper {
 	    	  RHYBCPStatus rhybcpstatusModel = new RHYBCPStatus();
 	    	  rhybcpstatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  rhybcpstatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  rhybcpstatusModel.setFYSBYouth(getByte(enroll.getFYSBYouth()));
 	    	  rhybcpstatusModel.setProjectEntryID(enroll.getProjectEntryID());
 	    	  rhybcpstatusModel.setReasonNoServices(getByte(enroll.getReasonNoServices()));
 	    	  rhybcpstatusModel.setRHYBCPStatusID(enroll.getProjectEntryID());
-	    	  //rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.get));
+	    	//  rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.get));
 	    	  rhybcpstatusModel.setUserID(enroll.getUserID());
 	    	  rhybcpStatusList.add(rhybcpstatusModel);
 	    	  
 	    	  EntrySSVF entrySSVFModel = new EntrySSVF();
-	    	  entrySSVFModel.setAddressDataQuality(getByte(enroll.getAddressDataQuality()));
+	    	  entrySSVFModel.setAddressDataQuality(enroll.getAddressDataQuality());
 	    	  entrySSVFModel.setHpsScreeningScore(enroll.getHPScreeningScore());
 	    	  entrySSVFModel.setLastPermanentCity(enroll.getLastPermanentCity());
 	    	  entrySSVFModel.setLastPermanentState(enroll.getLastPermanentState());
@@ -601,7 +600,7 @@ public class BulkUploadHelper {
 	    	  enrollmentCocModel.setDateUpdated(getXMLGregorianCalendar(enrollCoC.getDateUpdated()));
 	    	  enrollmentCocModel.setEnrollmentCoCID(enrollCoC.getEnrollmentCOCID());
 	    	  enrollmentCocModel.setInformationDate(getXMLGregorianCalendar(enrollCoC.getInformationDate()));
-	    	  enrollmentCocModel.setCocCode(enrollCoC.getCoCCode());
+	    	  enrollmentCocModel.setClientCoC(enrollCoC.getCoCCode());
 	    	  enrollmentCocModel.setProjectEntryID(enrollCoC.getProjectEntryID());
 	    	  enrollmentCocModel.setUserID(enrollCoC.getUserID());
 	    	  sources.getSource().getExport().getEnrollmentCoC().add(enrollmentCocModel);
@@ -1013,7 +1012,7 @@ public class BulkUploadHelper {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization organizationModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization();
 	    	  organizationModel.setDateCreated(getXMLGregorianCalendar(orgtn.getDateCreated()));
 	    	  organizationModel.setDateUpdated(getXMLGregorianCalendar(orgtn.getDateUpdated()));
-	    	  organizationModel.setOrganizationCommonName(orgtn.getOrganizationCommonName());
+//	    	  organizationModel.setOrganizationCommonName(orgtn.getOrganizationCommonName());
 	    	  organizationModel.setOrganizationID(orgtn.getOrganizationID());
 	    	  organizationModel.setOrganizationName(orgtn.getOrganizationName());
 	    	  organizationModel.setUserID(orgtn.getUserID());

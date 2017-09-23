@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.VeteranInfo;
 import com.servinglynk.hmis.warehouse.core.model.VeteranInfos;
-import com.servinglynk.hmis.warehouse.model.v2017.Client;
+import com.servinglynk.hmis.warehouse.model.v2016.Client;
 import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
 import com.servinglynk.hmis.warehouse.service.converter.VeteranInfoConverter;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
@@ -25,7 +25,7 @@ public class VeteranInfoServiceImpl extends ServiceBase implements VeteranInfoSe
 
 	   if(client == null) throw new ClientNotFoundException();
 
-       com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo pVeteranInfo = VeteranInfoConverter.modelToEntity(veteranInfo, null);
+       com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo pVeteranInfo = VeteranInfoConverter.modelToEntity(veteranInfo, null);
 
        pVeteranInfo.setClient(client);
        pVeteranInfo.setDateCreated(LocalDateTime.now());
@@ -39,7 +39,7 @@ public class VeteranInfoServiceImpl extends ServiceBase implements VeteranInfoSe
    @Transactional
    public VeteranInfo updateVeteranInfo(VeteranInfo veteranInfo,UUID clientId,String caller){
 
-       com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo pVeteranInfo = daoFactory.getVeteranInfoDao().getVeteranInfoById(veteranInfo.getVeteranInfoId());
+       com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo pVeteranInfo = daoFactory.getVeteranInfoDao().getVeteranInfoById(veteranInfo.getVeteranInfoId());
        if(pVeteranInfo==null) throw new VeteranInfoNotFoundException();
 
 	   Client client = daoFactory.getClientDao().getClientById(clientId);
@@ -59,7 +59,7 @@ public class VeteranInfoServiceImpl extends ServiceBase implements VeteranInfoSe
 
    @Transactional
    public VeteranInfo deleteVeteranInfo(UUID veteranInfoId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo pVeteranInfo = daoFactory.getVeteranInfoDao().getVeteranInfoById(veteranInfoId);
+       com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo pVeteranInfo = daoFactory.getVeteranInfoDao().getVeteranInfoById(veteranInfoId);
        if(pVeteranInfo==null) throw new VeteranInfoNotFoundException();
 
        daoFactory.getVeteranInfoDao().deleteVeteranInfo(pVeteranInfo);
@@ -69,7 +69,7 @@ public class VeteranInfoServiceImpl extends ServiceBase implements VeteranInfoSe
 
    @Transactional
    public VeteranInfo getVeteranInfoById(UUID veteranInfoId){
-       com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo pVeteranInfo = daoFactory.getVeteranInfoDao().getVeteranInfoById(veteranInfoId);
+       com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo pVeteranInfo = daoFactory.getVeteranInfoDao().getVeteranInfoById(veteranInfoId);
        if(pVeteranInfo==null) throw new VeteranInfoNotFoundException();
 
        return VeteranInfoConverter.entityToModel( pVeteranInfo );
@@ -79,8 +79,8 @@ public class VeteranInfoServiceImpl extends ServiceBase implements VeteranInfoSe
    @Transactional
    public VeteranInfos getAllClientVeteranInfos(UUID clientId,Integer startIndex, Integer maxItems){
        VeteranInfos veteranInfos = new VeteranInfos();
-        List<com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo> entities = daoFactory.getVeteranInfoDao().getAllClientVeteranInfos(clientId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo> entities = daoFactory.getVeteranInfoDao().getAllClientVeteranInfos(clientId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2016.ClientVeteranInfo entity : entities){
            veteranInfos.addVeteranInfo(VeteranInfoConverter.entityToModel(entity));
         }
         long count = daoFactory.getVeteranInfoDao().getClientVeteranInfosCount(clientId);

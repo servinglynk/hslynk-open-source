@@ -6,8 +6,8 @@ import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthCategoryEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnum;
 public class HealthstatusConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.HealthStatus modelToEntity (Healthstatus model ,com.servinglynk.hmis.warehouse.model.v2017.HealthStatus entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.HealthStatus();
+   public static com.servinglynk.hmis.warehouse.model.v2016.HealthStatus modelToEntity (Healthstatus model ,com.servinglynk.hmis.warehouse.model.v2016.HealthStatus entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.HealthStatus();
        entity.setId(model.getHealthstatusId());
        if(model.getDataCollectionStage() !=null)
     	   	entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
@@ -23,7 +23,7 @@ public class HealthstatusConverter  extends BaseConverter {
    }
 
 
-   public static Healthstatus entityToModel (com.servinglynk.hmis.warehouse.model.v2017.HealthStatus entity) {
+   public static Healthstatus entityToModel (com.servinglynk.hmis.warehouse.model.v2016.HealthStatus entity) {
        Healthstatus model = new Healthstatus();
        model.setHealthstatusId(entity.getId());
        if(entity.getInformationDate()!=null)
