@@ -279,7 +279,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.TCellOrViralLoadSourceEnumType")
 	@Basic( optional = true )
-	@Column( name = "tcellcountavailable" )
+	@Column( name = "tcellcountsource" )
 	public TCellOrViralLoadSourceEnum getTcellcountsource() {
 		return this.tcellcountsource;
 
