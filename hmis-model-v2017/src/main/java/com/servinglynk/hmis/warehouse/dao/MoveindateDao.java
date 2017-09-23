@@ -19,4 +19,6 @@ public interface MoveindateDao extends ParentDao {
 	   Moveindate getMoveInDateById(UUID moveindateId);
 	   List<Moveindate> getAllMoveInDate(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getMoveInDateCount(UUID enrollmentId);
+	   List<com.servinglynk.hmis.warehouse.model.v2017.Moveindate> getAllEnrollmentResidentialmoveindates(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   long getEnrollmentResidentialmoveindatesCount(UUID enrollmentId);
 }

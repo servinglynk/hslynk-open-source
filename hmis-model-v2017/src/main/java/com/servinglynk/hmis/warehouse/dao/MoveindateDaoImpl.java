@@ -136,6 +136,19 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements MoveindateDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Moveindate.class);	
 		return countRows(criteria);
 	}
+	
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.Moveindate> getAllEnrollmentResidentialmoveindates(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Moveindate.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Moveindate>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getEnrollmentResidentialmoveindatesCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Moveindate.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 
 }

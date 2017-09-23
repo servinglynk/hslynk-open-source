@@ -5,6 +5,7 @@ import com.servinglynk.hmis.warehouse.enums.AnnualpercentamiEnum;
 import com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnum;
 import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 import com.servinglynk.hmis.warehouse.enums.EvictionhistoryEnum;
+import com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
@@ -25,7 +26,7 @@ public class EntryssvfConverter  extends BaseConverter {
        if(model.getLastPermanentZip()!=null)
        entity.setLastPermanentZip(model.getLastPermanentZip());
        if(model.getAddressDataQuality()!=null)
-       entity.setAddressDataQuality(model.getAddressDataQuality());
+       entity.setAddressDataQuality(LastPermAddressAddressDataQualityEnum.lookupEnum(model.getAddressDataQuality().toString()));
        if(model.getHpScreenScore()!=null)
        entity.setHpScreeningScore(model.getHpScreenScore());
        if(model.getVamcStaction()!=null)
@@ -64,13 +65,6 @@ public class EntryssvfConverter  extends BaseConverter {
     	   entity.setFemvet(NoYesEnum.lookupEnum(model.getFemvet()+""));
        if(model.getThresholdscore()!=null)
     	   entity.setThresholdscore(model.getThresholdscore());
-       if(model.getErvisits()!=null)
-    	   entity.setErvisits(CrisisServicesUseEnum.lookupEnum(model.getErvisits()+""));
-       if(model.getJailnights()!=null)
-    	   entity.setJailnights(CrisisServicesUseEnum.lookupEnum(model.getJailnights()+""));
-       if(model.getHospitalnights()!=null)
-    	   entity.setHospitalnights(CrisisServicesUseEnum.lookupEnum(model.getHospitalnights()+""));
-       
        return entity;
    }
 
@@ -90,7 +84,7 @@ public class EntryssvfConverter  extends BaseConverter {
        if(entity.getLastPermanentZip()!=null)
        model.setLastPermanentZip(entity.getLastPermanentZip());
        if(entity.getAddressDataQuality()!=null)
-       model.setAddressDataQuality(entity.getAddressDataQuality());
+       model.setAddressDataQuality(Integer.parseInt(entity.getAddressDataQuality().getValue()));
        if(entity.getHpScreeningScore()!=null)
        model.setHpScreenScore(entity.getHpScreeningScore());
        if(entity.getVamcStation()!=null)
@@ -129,12 +123,6 @@ public class EntryssvfConverter  extends BaseConverter {
         	   model.setFemvet(Integer.parseInt(entity.getFemvet().getValue()));
            if(entity.getThresholdscore()!=null)
         	   model.setThresholdscore(entity.getThresholdscore());
-           if(entity.getErvisits()!=null)
-        	   model.setErvisits(Integer.parseInt(entity.getErvisits().getValue()));
-           if(entity.getJailnights()!=null)
-        	   model.setJailnights(Integer.parseInt(entity.getJailnights().getValue()));
-           if(entity.getHospitalnights()!=null)
-        	   model.setHospitalnights(Integer.parseInt(entity.getHospitalnights().getValue()));
        return model;
    }
 

@@ -61,9 +61,8 @@ public class EnrollmentConveter extends BaseConverter {
 		enrollment.setEnrollmentId(pEnrollment.getId());
 		if(pEnrollment.getResidenceprior()!=null) enrollment.setResidenceprior(Integer.parseInt(pEnrollment.getResidenceprior().getValue()));
 		enrollment.setEnrollmentId(pEnrollment.getId());
-		if(pEnrollment.getLivingSituation()!=null) enrollment.setLivingSituation(pEnrollment.getLivingSituation().getValue());
-		if(pEnrollment.getLengthOfStay() != null) enrollment.setLengthOfStay(pEnrollment.getLengthOfStay().getValue());
-		if(pEnrollment.getDatetostreetessh()!=null) enrollment.setDatetostreetessh(Integer.parseInt(pEnrollment.getDatetostreetessh().toString()));
+		if(pEnrollment.getLivingSituation()!=null) enrollment.setLivingSituation(Integer.parseInt(pEnrollment.getLivingSituation().getValue()));
+		if(pEnrollment.getLengthOfStay() != null) enrollment.setLengthOfStay(Integer.parseInt(pEnrollment.getLengthOfStay().getValue()));
 		enrollment.setEnrollmentId(pEnrollment.getId());
 		if(pEnrollment.getLosunderthreshold()!=null)
 		enrollment.setLosunderthreshold(Integer.parseInt(pEnrollment.getLosunderthreshold().getValue()));

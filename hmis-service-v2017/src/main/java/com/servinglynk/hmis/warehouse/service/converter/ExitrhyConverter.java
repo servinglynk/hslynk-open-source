@@ -1,6 +1,14 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.Exitrhy;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYCoercedToContinueWorkEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexPastThreeMonthsEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYAssistanceMainstreamBenefitsEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYEarlyExitReasonEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYExitCounselingEnum;
@@ -12,6 +20,7 @@ import com.servinglynk.hmis.warehouse.enums.ExitRHYResourcePackageEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYScheduledFollowUpContactsEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYTemporaryShelterPlacementEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYWrittenAfterCarePlanEnum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectcompletionstatusProjectcompletionstatusEnum;
 public class ExitrhyConverter  extends BaseConverter {
 
@@ -21,9 +30,19 @@ public class ExitrhyConverter  extends BaseConverter {
        if(model.getProjectCompletionStatus()!=null)
        entity.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum(model.getProjectCompletionStatus()+""));
        if(model.getEarlyExitReason()!=null)
-       entity.setEarlyExitReason(ExitRHYEarlyExitReasonEnum.lookupEnum(model.getEarlyExitReason()+""));
-       if(model.get)
-    	   entity.getExchageForSex()
+    	   entity.setEarlyExitReason(ExitRHYEarlyExitReasonEnum.lookupEnum(model.getEarlyExitReason()+""));
+       if(model.getExchangeForSex()!=null)
+           entity.setExchangeForSex(NoYesEnum.lookupEnum(model.getExchangeForSex()+""));
+           if(model.getExchangeForSexPastThreeMonths()!=null)
+           entity.setExchangeForSexPastThreeMonths(NoYesEnum.lookupEnum(model.getExchangeForSexPastThreeMonths()+""));
+           if(model.getCountOfExchangeForSex()!=null)
+           entity.setCountOfExchangeForSex(EntryRHYcountOfExchangeForSexpEnum.lookupEnum(model.getCountOfExchangeForSex()+""));
+           if(model.getWorkPlacePromiseDifference()!=null)
+           entity.setWorkPlacePromiseDifference(NoYesEnum.lookupEnum(model.getWorkPlacePromiseDifference()+""));
+           if(model.getCoercedToContinueWork()!=null)
+           entity.setCoercedToContinueWork(NoYesEnum.lookupEnum(model.getCoercedToContinueWork()+""));
+           if(model.getLaborExploitPastThreeMonths()!=null)
+           entity.setLaborExploitPastThreeMonths(NoYesEnum.lookupEnum(model.getLaborExploitPastThreeMonths()+""));
        return entity;
    }
 
@@ -35,7 +54,7 @@ public class ExitrhyConverter  extends BaseConverter {
        model.setProjectCompletionStatus(Integer.parseInt(entity.getProjectCompletionStatus().getValue()));
        if(entity.getEarlyExitReason()!=null)
        model.setEarlyExitReason(Integer.parseInt(entity.getEarlyExitReason().getValue()));
-       if(model.getExc)
+       return model;
    }
 
 

@@ -64,7 +64,7 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the geoCode
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.GeographyEnum")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.GeographyEnumType")
 	@Basic( optional = true )
 	@Column( name = "geo_code" )
 	public GeographyEnum getGeoCode() {

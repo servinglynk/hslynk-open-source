@@ -14,6 +14,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitRHY;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYAssistanceMainstreamBenefitsEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYEarlyExitReasonEnum;
 import com.servinglynk.hmis.warehouse.enums.ExitRHYExitCounselingEnum;
@@ -41,55 +42,45 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 	    com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Exitrhy.class, getProjectGroupCode(domain));
-		List<ExitRHY> exitrhy = export.getExitRHY();
-		if (exitrhy != null && exitrhy.size() > 0) {
-			for (ExitRHY exitrhys : exitrhy) {
+		List<ExitRHY> exitrhys = export.getExitRHY();
+		if (exitrhys != null && exitrhys.size() > 0) {
+			for (ExitRHY exitrhy : exitrhys) {
 				com.servinglynk.hmis.warehouse.model.v2017.Exitrhy exitrhyModel = null;
 				try {
-					exitrhyModel = getModelObject(domain, exitrhys,data,modelMap);
-//					exitrhyModel.setAssistanceMainStreamBenefits(ExitRHYAssistanceMainstreamBenefitsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getAssistanceMainstreamBenefits())));
-					exitrhyModel.setEarlyExitReason(ExitRHYEarlyExitReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getEarlyExitReason())));
-//					exitrhyModel.setExitCounseling(ExitRHYExitCounselingEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getExitCounseling())));
-//					exitrhyModel.setFamilyReunificationAchieved(ExitRHYFamilyReunificationAchievedEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getFamilyReunificationAchieved())));
-//					exitrhyModel.setFurtherFollowupServices(ExitRHYFurtherFollowUpServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getFurtherFollowUpServices())));
-//					exitrhyModel.setOtherAftercarePlanOrAction(ExitRHYOtherAftercarePlanOrActionEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getOtherAftercarePlanOrAction())));
-//					exitrhyModel.setPermenantHousingPlacement(ExitRHYPermanentHousingPlacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getPermanentHousingPlacement())));
-					exitrhyModel.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum( BasicDataGenerator.getStringValue(exitrhys.getProjectCompletionStatus())));
-//					exitrhyModel.setResourcePackage(ExitRHYResourcePackageEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getResourcePackage())));
-//					exitrhyModel.setScheduledFollowupContacts(ExitRHYScheduledFollowUpContactsEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getScheduledFollowUpContacts())));
-//					exitrhyModel.setTempShelterPlacement(ExitRHYTemporaryShelterPlacementEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getTemporaryShelterPlacement())));
-//					exitrhyModel.setWrittenAfterCarePlan(ExitRHYWrittenAfterCarePlanEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhys.getWrittenAftercarePlan())));
-					exitrhyModel.setExchageForSex(0);
-					exitrhyModel.setExchangeForSexPastThreeMonths(0);;
-					exitrhyModel.setCountOfExchangeForSex(0);
-					exitrhyModel.setAskedOrForcedToExchangeForSex(0);
-					exitrhyModel.setAskedOrForcedToExchangeForSexPastThreeMonths(0);
-					exitrhyModel.setWorkPlaceViolenceThreats(0);
-					exitrhyModel.setWorkPlacePromiseDifference(0);
-					exitrhyModel.setCoercedToContinueWork(0);
-					exitrhyModel.setLaborExploitPastThreeMonths(0);
-					exitrhyModel.setCounselingReceived(0);
-					exitrhyModel.setCounselingType(0);
-					exitrhyModel.setSessionCountAtExit(0);
-					exitrhyModel.setSessionsInPlan(0);
-					exitrhyModel.setPostExitCounselingPlan(0);
-					exitrhyModel.setDestinationSafeClient(0);
-					exitrhyModel.setDestinationSafeWorker(0);
-					exitrhyModel.setPosAdultConnections(0);
-					exitrhyModel.setPosPeerConnections(0);
-					exitrhyModel.setPosCommunityConnections(0);
+					exitrhyModel = getModelObject(domain, exitrhy,data,modelMap);
+					exitrhyModel.setEarlyExitReason(ExitRHYEarlyExitReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhy.getEarlyExitReason())));
+					exitrhyModel.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum( BasicDataGenerator.getStringValue(exitrhy.getProjectCompletionStatus())));
+				//	exitrhyModel.setExchageForSex(EntryRHYExchangeForSexEnum.lookupEnum(exitrhy.getE));
+//					exitrhyModel.setExchangeForSexPastThreeMonths(0);;
+//					exitrhyModel.setCountOfExchangeForSex(0);
+//					exitrhyModel.setAskedOrForcedToExchangeForSex(0);
+//					exitrhyModel.setAskedOrForcedToExchangeForSexPastThreeMonths(0);
+//					exitrhyModel.setWorkPlaceViolenceThreats(0);
+//					exitrhyModel.setWorkPlacePromiseDifference(0);
+//					exitrhyModel.setCoercedToContinueWork(0);
+//					exitrhyModel.setLaborExploitPastThreeMonths(0);
+//					exitrhyModel.setCounselingReceived(0);
+//					exitrhyModel.setCounselingType(0);
+//					exitrhyModel.setSessionCountAtExit(0);
+//					exitrhyModel.setSessionsInPlan(0);
+//					exitrhyModel.setPostExitCounselingPlan(0);
+//					exitrhyModel.setDestinationSafeClient(0);
+//					exitrhyModel.setDestinationSafeWorker(0);
+//					exitrhyModel.setPosAdultConnections(0);
+//					exitrhyModel.setPosPeerConnections(0);
+//					exitrhyModel.setPosCommunityConnections(0);
+//					
 					
-					
-					com.servinglynk.hmis.warehouse.model.v2017.Exit exit = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class,exitrhys.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					com.servinglynk.hmis.warehouse.model.v2017.Exit exit = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class,exitrhy.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					exitrhyModel.setExitid(exit);
 					exitrhyModel.setDeleted(false);
-					exitrhyModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhys.getDateCreated()));
-					exitrhyModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhys.getDateUpdated()));
+					exitrhyModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhy.getDateCreated()));
+					exitrhyModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhy.getDateUpdated()));
 					exitrhyModel.setExport(exportEntity);
 					exitrhyModel.setSync(false);
 					performSaveOrUpdate(exitrhyModel);
 				} catch(Exception e) {
-					String errorMessage = "Exception beause of the exitrhy::"+exitrhys.getExitRHYID() +" Exception ::"+e.getMessage();
+					String errorMessage = "Exception beause of the exitrhy::"+exitrhy.getExitRHYID() +" Exception ::"+e.getMessage();
 					if(exitrhyModel != null){
 						Error2017 error = new Error2017();
 						error.model_id = exitrhyModel.getId();

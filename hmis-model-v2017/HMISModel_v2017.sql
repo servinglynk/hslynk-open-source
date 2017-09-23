@@ -1,4 +1,4 @@
-﻿DROP SCHEMA IF EXISTS "v2017" cascade;
+DROP SCHEMA IF EXISTS "v2017" cascade;
 CREATE SCHEMA "v2017";
 DROP TABLE IF EXISTS "v2017".hmis_type;
 DROP TABLE IF EXISTS "v2017".path_status;
@@ -107,7 +107,18 @@ DROP TYPE IF EXISTS "v2017".livingSituation;
 DROP TYPE IF EXISTS "v2017".lengthOfStay;
 DROP TYPE IF EXISTS "v2017".record_type;
 DROP TYPE IF EXISTS "v2017".housingType;
+DROP TYPE IF EXISTS "v2017".tcell_viralload_source;
+DROP TYPE IF EXISTS "v2017".viral_load_available;
+DROP TYPE IF EXISTS "v2017".cm_exit_reason;
+DROP TYPE IF EXISTS "v2017".geography_type;
 
+
+CREATE TYPE "v2017".cm_exit_reason AS ENUM ('1','2','3','4','5','6','7','8','9','10','11','12','13','99');
+CREATE TYPE "v2017".tcell_viralload_source AS ENUM('1','2','3','99');
+CREATE TYPE "v2017".viral_load_available AS ENUM('0','1','2','8','9','99');
+
+CREATE TYPE "v2017".livingSituation AS ENUM('1','2','3','4','5','6','7','8','9','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','99');
+CREATE TYPE "v2017".lengthOfStay AS ENUM('2','3','4','5','8','9','10','11','99');
 CREATE TYPE "v2017".literalHomelessHistory AS ENUM('0','1','2','99');
 CREATE TYPE "v2017".timeToHousingLoss as ENUM('0','1','2','3','99');
 CREATE TYPE "v2017".annualpercentami as ENUM('0','1','2','99');
@@ -514,8 +525,7 @@ CREATE TYPE "v2017".asked_of_forced_to_exchange_for_sex AS ENUM ('0','1','8','9'
 CREATE TYPE "v2017".datacollectionstage AS ENUM('1','2','3','5');
 CREATE TYPE "v2017".evictionhistory as ENUM('0','1','2','3','99');
 
-CREATE TYPE "v2017".geographyType as ENUM('1','2','3');
-CREATE TYPE "v2017".cmExitReason as ENUM('1','2','3','4','5','6','7','8','9','10','11','12','13','99');
+CREATE TYPE "v2017".geography_type as ENUM('1','2','3');
 
 CREATE TABLE "v2017".hmis_type
 (
@@ -534,6 +544,23 @@ CREATE TABLE "v2017".hmis_type
 WITH (
   OIDS=FALSE
 );
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','1','Medical Report','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','2','Client Report','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','3','Other','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_source','1','Medical Report','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_source','2','Client Report','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_source','3','Other','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_source','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','0','Not available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','1','Available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','2','Undetectable','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','99','Data not collected','ACTIVE');
 
 
 
@@ -1842,7 +1869,7 @@ CREATE TABLE "v2017".entrySSVF
 	last_permanent_city character(50),
 	last_permanent_state character(50),
 	last_permanent_zip character(50),
-	address_data_quality integer,
+	address_data_quality "v2017".address_data_quality,
 	urgent_referral "v2017".no_yes,
 	timeToHousingLoss "v2017".timeToHousingLoss,
 	zeroincome "v2017".no_yes,
@@ -1888,27 +1915,20 @@ CREATE TABLE "v2017".entryRHY
 	"id" uuid NOT NULL,
 	"enrollmentid" uuid,
 	"sexual_orientation" "v2017".sexual_orientation,
-	"formerly_ward_child_welfr_forest_care" "v2017".formerly_ward_child_welfr_forest_care,
-	"years_child_welfr_forest_care" "v2017".years_child_welfr_forest_care,
-	"formerly_ward_of_juvenile_justice" "v2017".formerly_ward_of_juvenile_justice,
-	"years_juvenile_justice" "v2017".years_juvenile_justice,
 	"unemployement_family_mbr" "v2017".unemployement_family_mbr,
-	"physical_disability_family_mbr" "v2017".physical_disability_family_mbr,
 	"mental_health_issues_family_mbrily_mbr" "v2017".mental_health_issues_family_mbrily_mbr,
+	"physical_disability_family_mbr" "v2017".physical_disability_family_mbr,
 	"alcohol_drug_abuse_family_mbr" "v2017".alcohol_drug_abuse_family_mbr,
 	"insufficient_income_to_support_youth" "v2017".insufficient_income_to_support_youth,
 	"incarcerated_parent" "v2017".incarcerated_parent,
+	"formerly_ward_of_juvenile_justice" "v2017".formerly_ward_of_juvenile_justice,
+	"years_juvenile_justice" "v2017".years_juvenile_justice,
+	"months_juvenile_justice" "v2016".years_juvenile_justice, 
+	"formerly_ward_child_welfr_forest_care" "v2017".formerly_ward_child_welfr_forest_care,
+	"years_child_welfr_forest_care" "v2017".years_child_welfr_forest_care,
+	months_child_welfr_forest_care integer,
 	referral_source "v2017".referral_source,
 	count_out_reach_referral_approaches integer,
-	exchange_for_sex integer,
-	"exchange_for_sex_past_three_months" "v2017".exchange_for_sex_past_three_months,
-	"count_of_exchange_for_sex" "v2017".count_of_exchange_for_sex,
-	"asked_of_forced_to_exchange_for_sex" "v2017".asked_of_forced_to_exchange_for_sex,
-	"asked_of_forced_to_exchange_for_sex_past_3_months" "v2017".asked_of_forced_to_exchange_for_sex_past_3_months,
-	"work_place_violence_threat" "v2017".work_place_violence_threats,
-	"work_place_promise_difference" "v2017".work_place_promise_difference,
-	"coerced_to_continue_work" "v2017".coerced_to_continue_work,
-	labor_exploit_past_three_months integer,
 	 information_date timestamp,
  	 "datacollectionstage" "v2017".datacollectionstage,
 	"project_group_code" character varying(8),
@@ -2256,9 +2276,9 @@ CREATE TABLE "v2017".rhybcp_status
 (
   "id" uuid NOT NULL,
   "status_date" timestamp,
-  eligible_for_rhy integer,
+  eligible_for_rhy  "v2017".no_yes,
   "reason_no_services" "v2017".fysb_rsn_not_providing_srvcs,
-  runaway_youth integer,
+  runaway_youth  "v2017".no_yes,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
   "date_created" timestamp,
@@ -2363,12 +2383,12 @@ create table "v2017".disabilities
   "disabilityresponse" integer,
   "indefiniteandimpairs" "v2017".five_val_dk_refused,
   "enrollmentid" uuid,
-  tcellcountavailable integer,
+  tcellcountavailable  "v2017".no_yes,
   tcellcount integer,
-  tcellcountsource character(8),
-  viral_load_available integer,
+  tcellcountsource "v2017".tcell_viralload_source,
+  viral_load_available "v2017".viral_load_available,
   viral_load integer,
-  viral_load_source character(8),
+  viral_load_source "v2017".tcell_viralload_source,
   information_date timestamp,
   "datacollectionstage" "v2017".datacollectionstage,
   "project_group_code" character varying(8),
@@ -2720,25 +2740,27 @@ create table "v2017".exitRHY
 	"exitid" uuid,
 	"project_completion_status" "v2017".project_completion_status,
 	"early_exit_reason" "v2017".early_exit_reason,
-	exchage_for_sex integer,
-	exchange_for_sex_past_three_months integer,
+	exchage_for_sex  "v2017".no_yes,
+	exchange_for_sex_past_three_months "v2017".no_yes,
 	count_of_exchange_for_sex integer,
-	asked_or_forced_to_exchange_for_sex integer,
-	asked_or_forced_to_exchange_for_sex_past_three_months integer,
-	work_place_violence_threats integer,
-	work_place_promise_difference integer,
-	coerced_to_continue_work integer,
-	labor_exploit_past_three_months integer,
-	counseling_received integer,
-	counseling_type integer,
+	asked_or_forced_to_exchange_for_sex "v2017".no_yes,
+	asked_or_forced_to_exchange_for_sex_past_three_months "v2017".no_yes,
+	work_place_violence_threats "v2017".no_yes,
+	work_place_promise_difference "v2017".no_yes,
+	coerced_to_continue_work "v2017".no_yes,
+	labor_exploit_past_three_months "v2017".no_yes,
+	counseling_received "v2017".no_yes,
+	individual_counseling "v2017".no_yes,
+	family_counseling "v2017".no_yes,
+	group_counseling "v2017".no_yes,
 	session_count_at_exit integer,
 	sessions_in_plan integer,
-	post_exit_counseling_plan integer,
-	destination_safe_client integer,
-	destination_safe_worker integer,
-	pos_adult_connections integer,
-	pos_peer_connections integer,
-	pos_community_connections integer,
+	post_exit_counseling_plan "v2017".no_yes,
+	destination_safe_client "v2017".no_yes,
+	destination_safe_worker "v2017".no_yes,
+	pos_adult_connections "v2017".no_yes,
+	pos_peer_connections "v2017".no_yes,
+	pos_community_connections "v2017".no_yes,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
 	"date_created_from_source" timestamp,
@@ -2763,11 +2785,11 @@ create table "v2017".rhyaftercare
 (
 	"id" uuid not null, 
 	after_care_date timestamp,
-	after_provided integer,
-	email_social_media integer,
-	telephone integer,
-	in_person_individual integer,
-	in_person_group integer,
+	after_provided "v2017".no_yes,
+	email_social_media "v2017".no_yes,
+	telephone "v2017".no_yes,
+	in_person_individual "v2017".no_yes,
+	in_person_group "v2017".no_yes,
 	exitid uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
@@ -2792,7 +2814,7 @@ with (
 create table "v2017".vashexitreason
 (
 	"id" uuid not null, 
-	cm_exit_reason integer,
+	cm_exit_reason "v2017".cm_exit_reason,
 	exitid uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
@@ -2818,7 +2840,7 @@ create table "v2017".connectionwithsoar
 (
 	"id" uuid not null, 
 	information_date timestamp,
-	"connection_with_soar" integer,
+	"connection_with_soar" "v2017".connection_with_soar,
 	"enrollmentid" uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
@@ -2850,7 +2872,7 @@ create table "v2017".geography
 	city varchar(50),
 	state varchar(50),
 	zip varchar(15),
-	geography_type integer,
+	geography_type "v2017".geography_type,
 	projectid uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,

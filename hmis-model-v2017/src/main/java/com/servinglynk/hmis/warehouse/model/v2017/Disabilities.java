@@ -23,6 +23,9 @@ import org.hibernate.proxy.HibernateProxy;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
+import com.servinglynk.hmis.warehouse.enums.TCellOrViralLoadSourceEnum;
+import com.servinglynk.hmis.warehouse.enums.ViralLoadAvailableEnum;
 
 
 /**
@@ -61,23 +64,18 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	/** Field mapping. */
 	private Integer tcellcount;
 	/** Field mapping. */
-	private Integer tcellcountavailable;
+	private NoYesEnum tcellcountavailable;
 	/** Field mapping. */
-	private String tcellcountsource;
+	private TCellOrViralLoadSourceEnum tcellcountsource;
 	/** Field mapping. */
 	private Integer viralLoad;
 	/** Field mapping. */
-	private Integer viralLoadAvailable;
+	private ViralLoadAvailableEnum viralLoadAvailable;
 	/** Field mapping. */
-	private String viralLoadSource;
+	private TCellOrViralLoadSourceEnum viralLoadSource;
 	/** Field mapping. */
 	private DataCollectionStageEnum dataCollectionStage;
 	
-	private Integer residentialaffiliation;
-	private LocalDateTime operatingStartDate;
-	private LocalDateTime operatingEndDate;
-	private Integer victimServiceProvider;
-	private Integer housingType;
 	
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -128,54 +126,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	public DisabilitiesDisabilitytypeEnum getDisabilitytype() {
 		return this.disabilitytype;
 
-	}
-	
-	@Basic( optional = true )
-	@Column( name = "residentialaffiliation" )
-	 public Integer getResidentialaffiliation() {
-		return residentialaffiliation;
-	}
-
-	public void setResidentialaffiliation(Integer residentialaffiliation) {
-		this.residentialaffiliation = residentialaffiliation;
-	}
-
-	@Basic( optional = true )
-	@Column( name = "operatingStartDate" )
-	public LocalDateTime getOperatingStartDate() {
-		return operatingStartDate;
-	}
-
-	public void setOperatingStartDate(LocalDateTime operatingStartDate) {
-		this.operatingStartDate = operatingStartDate;
-	}
-
-	@Basic( optional = true )
-	@Column( name = "operatingEndDate" )
-	public LocalDateTime getOperatingEndDate() {
-		return operatingEndDate;
-	}
-
-	public void setOperatingEndDate(LocalDateTime operatingEndDate) {
-		this.operatingEndDate = operatingEndDate;
-	}
-
-	@Basic( optional = true )
-	@Column( name = "victimServiceProvider" )
-	public Integer getVictimServiceProvider() {
-		return victimServiceProvider;
-	}
-
-	public void setVictimServiceProvider(Integer victimServiceProvider) {
-		this.victimServiceProvider = victimServiceProvider;
-	}
-
-	public Integer getHousingType() {
-		return housingType;
-	}
-
-	public void setHousingType(Integer housingType) {
-		this.housingType = housingType;
 	}
 
 	/**
@@ -307,7 +257,10 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 * Return the value associated with the column: tcellcountavailable.
 	 * @return A Integer object (this.tcellcountavailable)
 	 */
-	public Integer getTcellcountavailable() {
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
+	@Basic( optional = true )
+	@Column( name = "tcellcountavailable"  )
+	public NoYesEnum getTcellcountavailable() {
 		return this.tcellcountavailable;
 
 	}
@@ -316,7 +269,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 * Set the value related to the column: tcellcountavailable.
 	 * @param tcellcountavailable the tcellcountavailable value you wish to set
 	 */
-	public void setTcellcountavailable(final Integer tcellcountavailable) {
+	public void setTcellcountavailable(final NoYesEnum tcellcountavailable) {
 		this.tcellcountavailable = tcellcountavailable;
 	}
 
@@ -324,9 +277,10 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 * Return the value associated with the column: tcellcountsource.
 	 * @return A String object (this.tcellcountsource)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.TCellOrViralLoadSourceEnumType")
 	@Basic( optional = true )
-	@Column( length = 8  )
-	public String getTcellcountsource() {
+	@Column( name = "tcellcountavailable" )
+	public TCellOrViralLoadSourceEnum getTcellcountsource() {
 		return this.tcellcountsource;
 
 	}
@@ -337,7 +291,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 * Set the value related to the column: tcellcountsource.
 	 * @param tcellcountsource the tcellcountsource value you wish to set
 	 */
-	public void setTcellcountsource(final String tcellcountsource) {
+	public void setTcellcountsource(final TCellOrViralLoadSourceEnum tcellcountsource) {
 		this.tcellcountsource = tcellcountsource;
 	}
 
@@ -366,9 +320,10 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 * Return the value associated with the column: viralLoadAvailable.
 	 * @return A Integer object (this.viralLoadAvailable)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ViralLoadAvailableEnumType")
 	@Basic( optional = true )
 	@Column( name = "viral_load_available"  )
-	public Integer getViralLoadAvailable() {
+	public ViralLoadAvailableEnum getViralLoadAvailable() {
 		return this.viralLoadAvailable;
 
 	}
@@ -379,7 +334,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 * Set the value related to the column: viralLoadAvailable.
 	 * @param viralLoadAvailable the viralLoadAvailable value you wish to set
 	 */
-	public void setViralLoadAvailable(final Integer viralLoadAvailable) {
+	public void setViralLoadAvailable(final ViralLoadAvailableEnum viralLoadAvailable) {
 		this.viralLoadAvailable = viralLoadAvailable;
 	}
 
@@ -387,9 +342,10 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 * Return the value associated with the column: viralLoadSource.
 	 * @return A String object (this.viralLoadSource)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.TCellOrViralLoadSourceEnumType")
 	@Basic( optional = true )
-	@Column( name = "viral_load_source", length = 8  )
-	public String getViralLoadSource() {
+	@Column( name = "viral_load_source" )
+	public TCellOrViralLoadSourceEnum getViralLoadSource() {
 		return this.viralLoadSource;
 
 	}
@@ -400,7 +356,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	 * Set the value related to the column: viralLoadSource.
 	 * @param viralLoadSource the viralLoadSource value you wish to set
 	 */
-	public void setViralLoadSource(final String viralLoadSource) {
+	public void setViralLoadSource(final TCellOrViralLoadSourceEnum viralLoadSource) {
 		this.viralLoadSource = viralLoadSource;
 	}
 	/** Field mapping. */

@@ -22,6 +22,7 @@ import org.hibernate.proxy.HibernateProxy;
 import com.servinglynk.hmis.warehouse.enums.AnnualpercentamiEnum;
 import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 import com.servinglynk.hmis.warehouse.enums.EvictionhistoryEnum;
+import com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
@@ -52,7 +53,7 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 
 
 	/** Field mapping. */
-	private Integer addressDataQuality;
+	private LastPermAddressAddressDataQualityEnum addressDataQuality;
 	/** Field mapping. */
 	/** Field mapping. */
 	private Enrollment enrollmentid;
@@ -122,9 +123,10 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	 * Return the value associated with the column: addressDataQuality.
 	 * @return A Integer object (this.addressDataQuality)
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnumType")
 	@Basic( optional = true )
 	@Column( name = "address_data_quality"  )
-	public Integer getAddressDataQuality() {
+	public LastPermAddressAddressDataQualityEnum getAddressDataQuality() {
 		return this.addressDataQuality;
 
 	}
@@ -135,7 +137,7 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	 * Set the value related to the column: addressDataQuality.
 	 * @param addressDataQuality the addressDataQuality value you wish to set
 	 */
-	public void setAddressDataQuality(final Integer addressDataQuality) {
+	public void setAddressDataQuality(final LastPermAddressAddressDataQualityEnum addressDataQuality) {
 		this.addressDataQuality = addressDataQuality;
 	}
 

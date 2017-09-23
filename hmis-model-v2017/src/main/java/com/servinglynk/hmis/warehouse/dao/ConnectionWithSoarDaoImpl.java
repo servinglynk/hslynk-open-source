@@ -15,6 +15,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ConnectionWithSOAR;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.ConnectionWithSoarEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
@@ -43,7 +44,8 @@ public class ConnectionWithSoarDaoImpl extends ParentDaoImpl implements Connecti
 				 com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar connectionWithSoarModel = null;
 				 try {
 					 connectionWithSoarModel = getModelObject(domain, connectionWithSOAR,data,modelMap);
-					 connectionWithSoarModel.setConnectionwithsoar(BasicDataGenerator.getIntegerValue(connectionWithSOAR.getConnectionwithsoar()));
+					 if(connectionWithSOAR.getConnectionwithsoar() !=null)
+						 connectionWithSoarModel.setConnectionwithsoar(ConnectionWithSoarEnum.lookupEnum(connectionWithSOAR.getConnectionwithsoar()));
 					 connectionWithSoarModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateCreated()));
 					 connectionWithSoarModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
 					 Enrollment enrollment = (Enrollment) getModel(ConnectionWithSoar.class, connectionWithSOAR.getEnrollmentid(), getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());

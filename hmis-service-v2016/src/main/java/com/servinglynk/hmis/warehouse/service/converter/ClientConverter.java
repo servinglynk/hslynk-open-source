@@ -14,8 +14,8 @@ import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 
 public class ClientConverter {
 
-	public static com.servinglynk.hmis.warehouse.model.v2017.Client modelToEntity(Client client,com.servinglynk.hmis.warehouse.model.v2017.Client pClient){
-		if(pClient==null) pClient = new com.servinglynk.hmis.warehouse.model.v2017.Client();
+	public static com.servinglynk.hmis.warehouse.model.v2016.Client modelToEntity(Client client,com.servinglynk.hmis.warehouse.model.v2016.Client pClient){
+		if(pClient==null) pClient = new com.servinglynk.hmis.warehouse.model.v2016.Client();
 	    if(client.getDob()!=null)
 		pClient.setDob(client.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 	    if(client.getDobDataQuality()!=null)
@@ -49,7 +49,7 @@ public class ClientConverter {
 		return pClient;
 	}
 
-	public static Client entityToModel(com.servinglynk.hmis.warehouse.model.v2017.Client pClient){
+	public static Client entityToModel(com.servinglynk.hmis.warehouse.model.v2016.Client pClient){
 		Client client = new Client();
 	    if(pClient.getDob()!=null)
 		client.setDob(Date.from(pClient.getDob().atZone(ZoneId.systemDefault()).toInstant()));

@@ -22,8 +22,8 @@ import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesVadisabilityserviceE
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesWorkerscompEnum;
 public class IncomeAndSourceConverter extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources modelToEntity (IncomeAndSource model ,com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources();
+   public static com.servinglynk.hmis.warehouse.model.v2016.Incomeandsources modelToEntity (IncomeAndSource model ,com.servinglynk.hmis.warehouse.model.v2016.Incomeandsources entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2016.Incomeandsources();
        if(model.getIncomeAndSourceId()!=null)
        entity.setId(model.getIncomeAndSourceId());
        if(model.getAlimony()!=null)
@@ -85,7 +85,7 @@ public class IncomeAndSourceConverter extends BaseConverter {
    }
 
 
-   public static IncomeAndSource entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources entity) {
+   public static IncomeAndSource entityToModel (com.servinglynk.hmis.warehouse.model.v2016.Incomeandsources entity) {
        IncomeAndSource model = new IncomeAndSource();
        if(entity.getId()!=null)
        model.setIncomeAndSourceId(entity.getId());

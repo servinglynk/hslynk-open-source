@@ -21,8 +21,8 @@ public class DateofengagementServiceImpl extends ServiceBase implements Dateofen
 
    @Transactional
    public Dateofengagement createDateofengagement(Dateofengagement dateofengagement,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement pDateofengagement = DateofengagementConverter.modelToEntity(dateofengagement, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement pDateofengagement = DateofengagementConverter.modelToEntity(dateofengagement, null);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pDateofengagement.setEnrollmentid(pEnrollment);
        pDateofengagement.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class DateofengagementServiceImpl extends ServiceBase implements Dateofen
 
    @Transactional
    public Dateofengagement updateDateofengagement(Dateofengagement dateofengagement,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement pDateofengagement = daoFactory.getDateofengagementDao().getDateofengagementById(dateofengagement.getDateofengagementId());
+       com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement pDateofengagement = daoFactory.getDateofengagementDao().getDateofengagementById(dateofengagement.getDateofengagementId());
        if(pDateofengagement==null) throw new DateofengagementNotFoundException();
 
        DateofengagementConverter.modelToEntity(dateofengagement, pDateofengagement);
@@ -52,7 +52,7 @@ public class DateofengagementServiceImpl extends ServiceBase implements Dateofen
 
    @Transactional
    public Dateofengagement deleteDateofengagement(UUID dateofengagementId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement pDateofengagement = daoFactory.getDateofengagementDao().getDateofengagementById(dateofengagementId);
+       com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement pDateofengagement = daoFactory.getDateofengagementDao().getDateofengagementById(dateofengagementId);
        if(pDateofengagement==null) throw new DateofengagementNotFoundException();
 
        daoFactory.getDateofengagementDao().deleteDateofengagement(pDateofengagement);
@@ -62,7 +62,7 @@ public class DateofengagementServiceImpl extends ServiceBase implements Dateofen
 
    @Transactional
    public Dateofengagement getDateofengagementById(UUID dateofengagementId){
-       com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement pDateofengagement = daoFactory.getDateofengagementDao().getDateofengagementById(dateofengagementId);
+       com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement pDateofengagement = daoFactory.getDateofengagementDao().getDateofengagementById(dateofengagementId);
        if(pDateofengagement==null) throw new DateofengagementNotFoundException();
 
        return DateofengagementConverter.entityToModel( pDateofengagement );
@@ -72,8 +72,8 @@ public class DateofengagementServiceImpl extends ServiceBase implements Dateofen
    @Transactional
    public Dateofengagements getAllEnrollmentDateofengagements(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Dateofengagements dateofengagements = new Dateofengagements();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement> entities = daoFactory.getDateofengagementDao().getAllEnrollmentDateofengagements(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement> entities = daoFactory.getDateofengagementDao().getAllEnrollmentDateofengagements(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2016.Dateofengagement entity : entities){
            dateofengagements.addDateofengagement(DateofengagementConverter.entityToModel(entity));
         }
         long count = daoFactory.getDateofengagementDao().getEnrollmentDateofengagementsCount(enrollmentId);

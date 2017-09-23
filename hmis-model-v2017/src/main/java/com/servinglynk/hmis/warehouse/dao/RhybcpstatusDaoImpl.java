@@ -16,6 +16,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
@@ -51,9 +52,10 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 					rhybcpstatusModel = getModelObject(domain, rhybcpStatus,data,modelMap);
 					rhybcpstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
 					rhybcpstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
-//					rhybcpstatusModel.setFysbYouth(RhybcpStatusFysbYouthEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getFYSBYouth())));
-					rhybcpstatusModel.setEligibleForRhy(0);
-					rhybcpstatusModel.setRunawayYouth(0);
+					if(rhybcpStatus.getEligibleForRHY() !=null)
+						rhybcpstatusModel.setEligibleForRhy(NoYesEnum.lookupEnum(rhybcpStatus.getEligibleForRHY()));
+					if(rhybcpStatus.getRunawayYouth() !=null)
+						rhybcpstatusModel.setRunawayYouth(NoYesEnum.lookupEnum(rhybcpStatus.getRunawayYouth()));
 					rhybcpstatusModel.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getReasonNoServices())));
 					rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, rhybcpStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());

@@ -21,8 +21,8 @@ public class RhybcpstatusServiceImpl extends ServiceBase implements Rhybcpstatus
 
    @Transactional
    public Rhybcpstatus createRhybcpstatus(Rhybcpstatus rhybcpstatus,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus pRhybcpstatus = RhybcpstatusConverter.modelToEntity(rhybcpstatus, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus pRhybcpstatus = RhybcpstatusConverter.modelToEntity(rhybcpstatus, null);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pRhybcpstatus.setEnrollmentid(pEnrollment);
        pRhybcpstatus.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class RhybcpstatusServiceImpl extends ServiceBase implements Rhybcpstatus
 
    @Transactional
    public Rhybcpstatus updateRhybcpstatus(Rhybcpstatus rhybcpstatus,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus pRhybcpstatus = daoFactory.getRhybcpstatusDao().getRhybcpstatusById(rhybcpstatus.getRhybcpstatusId());
+       com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus pRhybcpstatus = daoFactory.getRhybcpstatusDao().getRhybcpstatusById(rhybcpstatus.getRhybcpstatusId());
        if(pRhybcpstatus==null) throw new RhybcpstatusNotFoundException();
 
        RhybcpstatusConverter.modelToEntity(rhybcpstatus, pRhybcpstatus);
@@ -52,7 +52,7 @@ public class RhybcpstatusServiceImpl extends ServiceBase implements Rhybcpstatus
 
    @Transactional
    public Rhybcpstatus deleteRhybcpstatus(UUID rhybcpstatusId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus pRhybcpstatus = daoFactory.getRhybcpstatusDao().getRhybcpstatusById(rhybcpstatusId);
+       com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus pRhybcpstatus = daoFactory.getRhybcpstatusDao().getRhybcpstatusById(rhybcpstatusId);
        if(pRhybcpstatus==null) throw new RhybcpstatusNotFoundException();
 
        daoFactory.getRhybcpstatusDao().deleteRhybcpstatus(pRhybcpstatus);
@@ -62,7 +62,7 @@ public class RhybcpstatusServiceImpl extends ServiceBase implements Rhybcpstatus
 
    @Transactional
    public Rhybcpstatus getRhybcpstatusById(UUID rhybcpstatusId){
-       com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus pRhybcpstatus = daoFactory.getRhybcpstatusDao().getRhybcpstatusById(rhybcpstatusId);
+       com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus pRhybcpstatus = daoFactory.getRhybcpstatusDao().getRhybcpstatusById(rhybcpstatusId);
        if(pRhybcpstatus==null) throw new RhybcpstatusNotFoundException();
 
        return RhybcpstatusConverter.entityToModel( pRhybcpstatus );
@@ -72,8 +72,8 @@ public class RhybcpstatusServiceImpl extends ServiceBase implements Rhybcpstatus
    @Transactional
    public Rhybcpstatuses getAllEnrollmentRhybcpstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	   Rhybcpstatuses rhybcpstatuss = new Rhybcpstatuses();
-        List<com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus> entities = daoFactory.getRhybcpstatusDao().getAllEnrollmentRhybcpstatuss(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus> entities = daoFactory.getRhybcpstatusDao().getAllEnrollmentRhybcpstatuss(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2016.RhybcpStatus entity : entities){
            rhybcpstatuss.addRhybcpstatus(RhybcpstatusConverter.entityToModel(entity));
         }
         long count = daoFactory.getRhybcpstatusDao().getEnrollmentRhybcpstatussCount(enrollmentId);

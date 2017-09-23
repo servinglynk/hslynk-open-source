@@ -18,6 +18,7 @@ import com.servinglynk.hmis.warehouse.enums.AnnualpercentamiEnum;
 import com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnum;
 import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 import com.servinglynk.hmis.warehouse.enums.EvictionhistoryEnum;
+import com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
@@ -43,7 +44,8 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 				com.servinglynk.hmis.warehouse.model.v2017.Entryssvf entrySsvfModel = null;
 				try {
 					entrySsvfModel = getModelObject(domain, entrySSVF,data,modelMap);
-					entrySsvfModel.setAddressDataQuality(new Integer(entrySSVF.getAddressDataQuality()).intValue());
+					if(entrySSVF.getAddressDataQuality() !=null)
+						entrySsvfModel.setAddressDataQuality(LastPermAddressAddressDataQualityEnum.lookupEnum(entrySSVF.getAddressDataQuality()));
 					entrySsvfModel.setDeleted(false);
 					entrySsvfModel.setTimeToHousingLoss(TimeToHousingLossEnum.lookupEnum(entrySSVF.getTimeToHousingLoss()));
 					entrySsvfModel.setZeroincome(NoYesEnum.lookupEnum(entrySSVF.getZeroIncome()));

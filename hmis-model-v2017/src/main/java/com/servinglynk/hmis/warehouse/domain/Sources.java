@@ -3458,7 +3458,7 @@ public class Sources {
                 @XmlElement(name = "enrollmentid" , required = true)
                 protected String enrollmentid;
                 @XmlElement(name = "connectionwithsoar" )
-                protected byte connectionwithsoar;
+                protected String connectionwithsoar;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -3477,10 +3477,10 @@ public class Sources {
 				public void setEnrollmentid(String enrollmentid) {
 					this.enrollmentid = enrollmentid;
 				}
-				public byte getConnectionwithsoar() {
+				public String getConnectionwithsoar() {
 					return connectionwithsoar;
 				}
-				public void setConnectionwithsoar(byte connectionwithsoar) {
+				public void setConnectionwithsoar(String connectionwithsoar) {
 					this.connectionwithsoar = connectionwithsoar;
 				}
 				public XMLGregorianCalendar getDateCreated() {
@@ -6930,7 +6930,7 @@ public class Sources {
                 @XmlElement(name = "LastPermanentZIP")
                 protected int lastPermanentZIP;
                 @XmlElement(name = "AddressDataQuality")
-                protected byte addressDataQuality;
+                protected String addressDataQuality;
                 
                 @XmlElement(name = "UrgentReferral")
                 protected String urgentReferral;
@@ -7358,7 +7358,7 @@ public class Sources {
                  * Gets the value of the addressDataQuality property.
                  * 
                  */
-                public byte getAddressDataQuality() {
+                public String getAddressDataQuality() {
                     return addressDataQuality;
                 }
 
@@ -7366,7 +7366,7 @@ public class Sources {
                  * Sets the value of the addressDataQuality property.
                  * 
                  */
-                public void setAddressDataQuality(byte value) {
+                public void setAddressDataQuality(String value) {
                     this.addressDataQuality = value;
                 }
 
@@ -12952,7 +12952,8 @@ public class Sources {
                 "rhybcpStatusID",
                 "projectEntryID",
                 "statusDate",
-                "fysbYouth",
+                "eligibleForRHY",
+                "runawayYouth",
                 "reasonNoServices"
             })
             public static class RHYBCPStatus {
@@ -12963,8 +12964,10 @@ public class Sources {
                 protected String projectEntryID;
                 @XmlElement(name = "StatusDate", required = true)
                 protected XMLGregorianCalendar statusDate;
-                @XmlElement(name = "FYSBYouth")
-                protected byte fysbYouth;
+                @XmlElement(name = "EligibleForRHY")
+                protected String eligibleForRHY;
+                @XmlElement(name = "RunawayYouth")
+                protected String runawayYouth;
                 @XmlElement(name = "ReasonNoServices")
                 protected byte reasonNoServices;
                 @XmlAttribute
@@ -13047,22 +13050,6 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the fysbYouth property.
-                 * 
-                 */
-                public byte getFYSBYouth() {
-                    return fysbYouth;
-                }
-
-                /**
-                 * Sets the value of the fysbYouth property.
-                 * 
-                 */
-                public void setFYSBYouth(byte value) {
-                    this.fysbYouth = value;
-                }
-
-                /**
                  * Gets the value of the reasonNoServices property.
                  * 
                  */
@@ -13077,8 +13064,24 @@ public class Sources {
                 public void setReasonNoServices(byte value) {
                     this.reasonNoServices = value;
                 }
+                
+				public String getEligibleForRHY() {
+					return eligibleForRHY;
+				}
 
-                /**
+				public void setEligibleForRHY(String eligibleForRHY) {
+					this.eligibleForRHY = eligibleForRHY;
+				}
+
+				public String getRunawayYouth() {
+					return runawayYouth;
+				}
+
+				public void setRunawayYouth(String runawayYouth) {
+					this.runawayYouth = runawayYouth;
+				}
+
+				/**
                  * Gets the value of the dateCreated property.
                  * 
                  * @return

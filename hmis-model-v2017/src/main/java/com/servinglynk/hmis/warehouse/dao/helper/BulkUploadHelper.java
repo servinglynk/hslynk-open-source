@@ -514,16 +514,15 @@ public class BulkUploadHelper {
 	    	  RHYBCPStatus rhybcpstatusModel = new RHYBCPStatus();
 	    	  rhybcpstatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  rhybcpstatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  rhybcpstatusModel.setFYSBYouth(getByte(enroll.getFYSBYouth()));
 	    	  rhybcpstatusModel.setProjectEntryID(enroll.getProjectEntryID());
 	    	  rhybcpstatusModel.setReasonNoServices(getByte(enroll.getReasonNoServices()));
 	    	  rhybcpstatusModel.setRHYBCPStatusID(enroll.getProjectEntryID());
-	    	  //rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.get));
+	    	//  rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.get));
 	    	  rhybcpstatusModel.setUserID(enroll.getUserID());
 	    	  rhybcpStatusList.add(rhybcpstatusModel);
 	    	  
 	    	  EntrySSVF entrySSVFModel = new EntrySSVF();
-	    	  entrySSVFModel.setAddressDataQuality(getByte(enroll.getAddressDataQuality()));
+	    	  entrySSVFModel.setAddressDataQuality(enroll.getAddressDataQuality());
 	    	  entrySSVFModel.setHpsScreeningScore(enroll.getHPScreeningScore());
 	    	  entrySSVFModel.setLastPermanentCity(enroll.getLastPermanentCity());
 	    	  entrySSVFModel.setLastPermanentState(enroll.getLastPermanentState());

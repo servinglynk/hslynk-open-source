@@ -21,8 +21,8 @@ public class HealthinsuranceServiceImpl extends ServiceBase implements Healthins
 
    @Transactional
    public Healthinsurance createHealthinsurance(Healthinsurance healthinsurance,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance pHealthinsurance = HealthinsuranceConverter.modelToEntity(healthinsurance, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance pHealthinsurance = HealthinsuranceConverter.modelToEntity(healthinsurance, null);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pHealthinsurance.setEnrollmentid(pEnrollment);
        pHealthinsurance.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class HealthinsuranceServiceImpl extends ServiceBase implements Healthins
 
    @Transactional
    public Healthinsurance updateHealthinsurance(Healthinsurance healthinsurance,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance pHealthinsurance = daoFactory.getHealthinsuranceDao().getHealthInsuranceById(healthinsurance.getHealthinsuranceId());
+       com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance pHealthinsurance = daoFactory.getHealthinsuranceDao().getHealthInsuranceById(healthinsurance.getHealthinsuranceId());
        if(pHealthinsurance==null) throw new HealthinsuranceNotFoundException();
 
        HealthinsuranceConverter.modelToEntity(healthinsurance, pHealthinsurance);
@@ -52,7 +52,7 @@ public class HealthinsuranceServiceImpl extends ServiceBase implements Healthins
 
    @Transactional
    public Healthinsurance deleteHealthinsurance(UUID healthinsuranceId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance pHealthinsurance = daoFactory.getHealthinsuranceDao().getHealthInsuranceById(healthinsuranceId);
+       com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance pHealthinsurance = daoFactory.getHealthinsuranceDao().getHealthInsuranceById(healthinsuranceId);
        if(pHealthinsurance==null) throw new HealthinsuranceNotFoundException();
 
        daoFactory.getHealthinsuranceDao().deleteHealthInsurance(pHealthinsurance);
@@ -62,7 +62,7 @@ public class HealthinsuranceServiceImpl extends ServiceBase implements Healthins
 
    @Transactional
    public Healthinsurance getHealthinsuranceById(UUID healthinsuranceId){
-       com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance pHealthinsurance = daoFactory.getHealthinsuranceDao().getHealthInsuranceById(healthinsuranceId);
+       com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance pHealthinsurance = daoFactory.getHealthinsuranceDao().getHealthInsuranceById(healthinsuranceId);
        if(pHealthinsurance==null) throw new HealthinsuranceNotFoundException();
 
        return HealthinsuranceConverter.entityToModel( pHealthinsurance );
@@ -72,8 +72,8 @@ public class HealthinsuranceServiceImpl extends ServiceBase implements Healthins
    @Transactional
    public Healthinsurances getAllEnrollmentHealthinsurances(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Healthinsurances healthinsurances = new Healthinsurances();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance> entities = daoFactory.getHealthinsuranceDao().getAllEnrollmentHealthInsurances(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance> entities = daoFactory.getHealthinsuranceDao().getAllEnrollmentHealthInsurances(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance entity : entities){
            healthinsurances.addHealthinsurance(HealthinsuranceConverter.entityToModel(entity));
         }
         long count = daoFactory.getHealthinsuranceDao().getEnrollmentHealthInsurancesCount(enrollmentId);

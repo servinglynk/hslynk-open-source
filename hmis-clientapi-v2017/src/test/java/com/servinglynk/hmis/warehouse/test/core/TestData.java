@@ -339,16 +339,13 @@ public class TestData {
 			enrollment.setDisablingcondition(0);
 			enrollment.setEntrydate(new Date());
 			enrollment.setHouseholdid("text");
-			enrollment.setHousingstatus(0);
 			enrollment.setMonthshomelesspastthreeyears(7);
 			enrollment.setMonthshomelessthistime(1);
-			enrollment.setOtherresidenceprior("1");
 			enrollment.setPersonalid(UUID.randomUUID());
 			enrollment.setProjectentryid(UUID.randomUUID());
 			enrollment.setProjectid(UUID.randomUUID());
 			enrollment.setRelationshiptohoh(2);
 			enrollment.setResidenceprior(2);
-			enrollment.setResidencepriorlengthofstay(2);
 			enrollment.setStatusdocumented(1);
 			enrollment.setTimeshomelesspastthreeyears(1);
 			enrollment.setYearshomeless(2);
@@ -534,7 +531,8 @@ public class TestData {
 	       Rhybcpstatus rhybcpstatus = new Rhybcpstatus();
 
 	       Random random = new Random();
-	       rhybcpstatus.setFysbYouth(getRandamFromEnum("RhybcpStatusFysbYouthEnum"));
+	       rhybcpstatus.setEligibleForRhy(getRandamFromEnum("EligibleForRhy"));
+	       rhybcpstatus.setRunawayYouth(getRandamFromEnum("RunawayYouth"));
 	       rhybcpstatus.setReasonNoServices(getRandamFromEnum("RhybcpStatusReasonNoServicesEnum"));
 	       return rhybcpstatus;
 	}	

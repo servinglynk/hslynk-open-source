@@ -63,7 +63,7 @@ public class VASHExitReason  extends HmisBaseModel implements Cloneable, Seriali
 	/**
 	 * @return the cmExitReason
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.GeographyEnum")
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.CMExitReasonEnumType")
 	@Basic(optional=true)
 	@Column(name = "cm_exit_reason")
 	public CMExitReasonEnum getCmExitReason() {

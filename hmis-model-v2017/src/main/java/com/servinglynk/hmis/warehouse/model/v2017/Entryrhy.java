@@ -22,12 +22,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYAlcoholDrugAbuseFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYChildWelfareYearsEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYCoercedToContinueWorkEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexPastThreeMonthsEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardChildWelfareEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYFormerWardJuvenileJusticeEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYIncarceratedParentEnum;
@@ -36,9 +31,6 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYJuvenileJusticeYearsEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYMentalHealthIssuesFamEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityFamEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum;
-import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
 import com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
 
@@ -65,57 +57,41 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	/** hashCode temporary storage. */
 	private volatile java.util.UUID hashCode;
 
-
-	/** Field mapping. */
-	private EntryRHYAlcoholDrugAbuseFamEnum alcoholDrugAbuseFamilyMbr;
-	/** Field mapping. */
-	private EntryRHYAskedOrForcedToExchangeForSexEnum askedOfForcedToExchangeForSex;
-	/** Field mapping. */
-	private EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum askedOfForcedToExchangeForSexPastThreeMonths;
-	/** Field mapping. */
-	private EntryRHYCoercedToContinueWorkEnum coercedToContinueWork;
-	/** Field mapping. */
-	private EntryRHYcountOfExchangeForSexpEnum countOfExchangeForSex;
-	/** Field mapping. */
-	private Integer countOutReachReferralApproaches;
-	/** Field mapping. */
-	private Enrollment enrollmentid;
-	/** Field mapping. */
-	private EntryRHYExchangeForSexEnum exchangeForSex;
-	/** Field mapping. */
-	private EntryRHYExchangeForSexPastThreeMonthsEnum exchangeForSexPastThreeMonths;
-	/** Field mapping. */
-	private EntryRHYFormerWardChildWelfareEnum formerlyWardChildWelfrForestCare;
-	/** Field mapping. */
-	private EntryRHYFormerWardJuvenileJusticeEnum formerlyWardOfJuvenileJustice;
-	/** Field mapping. */
-	private java.util.UUID id;
-	/** Field mapping. */
-	private EntryRHYIncarceratedParentEnum incarceratedParent;
-	/** Field mapping. */
-	private EntryRHYInsufficientIncomeEnum insufficientIncomeToSupportYouth;
-	/** Field mapping. */
-	private Integer laborExploitPastThreeMonths;
-	/** Field mapping. */
-	private EntryRHYMentalHealthIssuesFamEnum mentalHealthIssuesFamilyMbr;
-	/** Field mapping. */
-	private EntryRHYPhysicalDisabilityFamEnum physicalDisabilityFamilyMbr;
-	/** Field mapping. */
-	private ReferralsourceReferralsourceEnum referralSource;
 	/** Field mapping. */
 	private SexualorientationSexualorientationEnum sexualOrientation;
 	/** Field mapping. */
 	private EntryRHYUnemploymentFamEnum unemployementFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYWorkplacePromiseDifferenceEnum workPlacePromiseDifference;
+	private EntryRHYMentalHealthIssuesFamEnum mentalHealthIssuesFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYWorkPlaceViolenceThreatsEnum workPlaceViolenceThreat;
+	private EntryRHYPhysicalDisabilityFamEnum physicalDisabilityFamilyMbr;
 	/** Field mapping. */
-	private EntryRHYChildWelfareYearsEnum yearsChildWelfrForestCare;
+	private EntryRHYAlcoholDrugAbuseFamEnum alcoholDrugAbuseFamilyMbr;
+	/** Field mapping. */
+	private EntryRHYInsufficientIncomeEnum insufficientIncomeToSupportYouth;
+	/** Field mapping. */
+	private EntryRHYIncarceratedParentEnum incarceratedParent;
+	/** Field mapping. */
+	private EntryRHYFormerWardJuvenileJusticeEnum formerlyWardOfJuvenileJustice;
 	/** Field mapping. */
 	private EntryRHYJuvenileJusticeYearsEnum yearsJuvenileJustice;
 	/** Field mapping. */
-	private EntryRHYJuvenileJusticeYearsEnum monthsJuvenileJustice;
+	private Integer monthsJuvenileJustice;
+	/** Field mapping. */
+	private EntryRHYFormerWardChildWelfareEnum formerlyWardChildWelfrForestCare;
+	/** Field mapping. */
+	private EntryRHYChildWelfareYearsEnum yearsChildWelfrForestCare;
+	/** Field mapping. */
+	private Integer monthsChildWelfrForestCare;
+	/** Field mapping. */
+	private ReferralsourceReferralsourceEnum referralSource;
+	/** Field mapping. */
+	private Integer countOutReachReferralApproaches;
+	/** Field mapping. */
+	private Enrollment enrollmentid;
+	/** Field mapping. */
+	private java.util.UUID id;
+
 	/** Field mapping. */
 	private DataCollectionStageEnum dataCollectionStage;
 	/** Field mapping. */
@@ -257,6 +233,16 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.referralSource = referralSource;
 	}
 
+	@Basic( optional = true )
+	@Column (name="months_child_welfr_forest_care")
+	public Integer getMonthsChildWelfrForestCare() {
+		return monthsChildWelfrForestCare;
+	}
+
+	public void setMonthsChildWelfrForestCare(Integer monthsChildWelfrForestCare) {
+		this.monthsChildWelfrForestCare = monthsChildWelfrForestCare;
+	}
+
 	/**
 	 * Return the value associated with the column: alcoholDrugAbuseFamilyMbr.
 	 * @return A Integer object (this.alcoholDrugAbuseFamilyMbr)
@@ -273,69 +259,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		this.alcoholDrugAbuseFamilyMbr = alcoholDrugAbuseFamilyMbr;
 	}
 
-	/**
-	 * Return the value associated with the column: askedOfForcedToExchangeForSex.
-	 * @return A Integer object (this.askedOfForcedToExchangeForSex)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexEnumType")
-	@Basic( optional = true )
-	@Column (name="asked_of_forced_to_exchange_for_sex")
-	public EntryRHYAskedOrForcedToExchangeForSexEnum getAskedOfForcedToExchangeForSex() {
-		return askedOfForcedToExchangeForSex;
-	}
 
-	public void setAskedOfForcedToExchangeForSex(
-			EntryRHYAskedOrForcedToExchangeForSexEnum askedOfForcedToExchangeForSex) {
-		this.askedOfForcedToExchangeForSex = askedOfForcedToExchangeForSex;
-	}
-
-	/**
-	 * Return the value associated with the column: askedOfForcedToExchangeForSexPastThreeMonths.
-	 * @return A Integer object (this.askedOfForcedToExchangeForSexPastThreeMonths)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnumType")
-	@Basic( optional = true )
-	@Column (name="asked_of_forced_to_exchange_for_sex_past_3_months")
-	public EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum getAskedOfForcedToExchangeForSexPastThreeMonths() {
-		return askedOfForcedToExchangeForSexPastThreeMonths;
-	}
-
-	public void setAskedOfForcedToExchangeForSexPastThreeMonths(
-			EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum askedOfForcedToExchangeForSexPastThreeMonths) {
-		this.askedOfForcedToExchangeForSexPastThreeMonths = askedOfForcedToExchangeForSexPastThreeMonths;
-	}
-
-	/**
-	 * Return the value associated with the column: coercedToContinueWork.
-	 * @return A Integer object (this.coercedToContinueWork)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYCoercedToContinueWorkEnumType")
-	@Basic( optional = true )
-	@Column (name="coerced_to_continue_work")
-	public EntryRHYCoercedToContinueWorkEnum getCoercedToContinueWork() {
-		return coercedToContinueWork;
-	}
-
-	public void setCoercedToContinueWork(
-			EntryRHYCoercedToContinueWorkEnum coercedToContinueWork) {
-		this.coercedToContinueWork = coercedToContinueWork;
-	}
-
-	/**
-	 * Return the value associated with the column: countOfExchangeForSex.
-	 * @return A Integer object (this.countOfExchangeForSex)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnumType")
-	@Basic( optional = true )
-	@Column (name="count_of_exchange_for_sex")
-	public EntryRHYcountOfExchangeForSexpEnum getCountOfExchangeForSex() {
-		return countOfExchangeForSex;
-	}
-
-	public void setCountOfExchangeForSex(
-			EntryRHYcountOfExchangeForSexpEnum countOfExchangeForSex) {
-		this.countOfExchangeForSex = countOfExchangeForSex;
-	}
 
 	@Column(name="count_out_reach_referral_approaches")
 	public Integer getCountOutReachReferralApproaches() {
@@ -345,37 +269,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	public void setCountOutReachReferralApproaches(
 			Integer countOutReachReferralApproaches) {
 		this.countOutReachReferralApproaches = countOutReachReferralApproaches;
-	}
-
-	/**
-	 * Return the value associated with the column: exchangeForSex.
-	 * @return A Integer object (this.exchangeForSex)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexEnumType")
-	@Basic( optional = true )
-	@Column (name="exchange_for_sex")
-	public EntryRHYExchangeForSexEnum getExchangeForSex() {
-		return exchangeForSex;
-	}
-
-	public void setExchangeForSex(EntryRHYExchangeForSexEnum exchangeForSex) {
-		this.exchangeForSex = exchangeForSex;
-	}
-
-	/**
-	 * Return the value associated with the column: exchangeForSexPastThreeMonths.
-	 * @return A Integer object (this.exchangeForSexPastThreeMonths)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYExchangeForSexPastThreeMonthsEnumType")
-	@Basic( optional = true )
-	@Column (name="exchange_for_sex_past_three_months")
-	public EntryRHYExchangeForSexPastThreeMonthsEnum getExchangeForSexPastThreeMonths() {
-		return exchangeForSexPastThreeMonths;
-	}
-
-	public void setExchangeForSexPastThreeMonths(
-			EntryRHYExchangeForSexPastThreeMonthsEnum exchangeForSexPastThreeMonths) {
-		this.exchangeForSexPastThreeMonths = exchangeForSexPastThreeMonths;
 	}
 
 	/**
@@ -445,22 +338,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	}
 
 	/**
-	 * Return the value associated with the column: laborExploitPastThreeMonths.
-	 * @return A Integer object (this.laborExploitPastThreeMonths)
-	 */
-	@Basic( optional = true )
-	@Column (name="labor_exploit_past_three_months")
-	public Integer getLaborExploitPastThreeMonths() {
-		return laborExploitPastThreeMonths;
-	}
-
-	public void setLaborExploitPastThreeMonths(
-			Integer laborExploitPastThreeMonths) {
-		this.laborExploitPastThreeMonths = laborExploitPastThreeMonths;
-	}
-
-
-	/**
 	 * Return the value associated with the column: mentalHealthIssuesFamilyMbr.
 	 * @return A Integer object (this.mentalHealthIssuesFamilyMbr)
 	 */
@@ -528,38 +405,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	}
 
 	/**
-	 * Return the value associated with the column: workPlacePromiseDifference.
-	 * @return A Integer object (this.workPlacePromiseDifference)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnumType")
-	@Basic( optional = true )
-	@Column (name="work_place_promise_difference")
-	public EntryRHYWorkplacePromiseDifferenceEnum getWorkPlacePromiseDifference() {
-		return workPlacePromiseDifference;
-	}
-
-	public void setWorkPlacePromiseDifference(
-			EntryRHYWorkplacePromiseDifferenceEnum workPlacePromiseDifference) {
-		this.workPlacePromiseDifference = workPlacePromiseDifference;
-	}
-
-	/**
-	 * Return the value associated with the column: workPlaceViolenceThreat.
-	 * @return A Integer object (this.workPlaceViolenceThreat)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnumType")
-	@Basic( optional = true )
-	@Column (name="work_place_violence_threat")
-	public EntryRHYWorkPlaceViolenceThreatsEnum getWorkPlaceViolenceThreat() {
-		return workPlaceViolenceThreat;
-	}
-
-	public void setWorkPlaceViolenceThreat(
-			EntryRHYWorkPlaceViolenceThreatsEnum workPlaceViolenceThreat) {
-		this.workPlaceViolenceThreat = workPlaceViolenceThreat;
-	}
-
-	/**
 	 * Return the value associated with the column: yearsChildWelfrForestCare.
 	 * @return A Integer object (this.yearsChildWelfrForestCare)
 	 */
@@ -594,10 +439,9 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	/**
 	 * @return the monthsJuvenileJustice
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.EntryRHYJuvenileJusticeYearsEnumType")
 	@Basic( optional = true )
 	@Column (name="months_juvenile_justice")
-	public EntryRHYJuvenileJusticeYearsEnum getMonthsJuvenileJustice() {
+	public Integer getMonthsJuvenileJustice() {
 		return monthsJuvenileJustice;
 	}
 
@@ -605,7 +449,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	 * @param monthsJuvenileJustice the monthsJuvenileJustice to set
 	 */
 	public void setMonthsJuvenileJustice(
-			EntryRHYJuvenileJusticeYearsEnum monthsJuvenileJustice) {
+			Integer monthsJuvenileJustice) {
 		this.monthsJuvenileJustice = monthsJuvenileJustice;
 	}
 
@@ -644,10 +488,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
         final Entryrhy copy = (Entryrhy)super.clone();
 
 		copy.setAlcoholDrugAbuseFamilyMbr(this.getAlcoholDrugAbuseFamilyMbr());
-		copy.setAskedOfForcedToExchangeForSex(this.getAskedOfForcedToExchangeForSex());
-		copy.setAskedOfForcedToExchangeForSexPastThreeMonths(this.getAskedOfForcedToExchangeForSexPastThreeMonths());
-		copy.setCoercedToContinueWork(this.getCoercedToContinueWork());
-		copy.setCountOfExchangeForSex(this.getCountOfExchangeForSex());
 		copy.setCountOutReachReferralApproaches(this.getCountOutReachReferralApproaches());
 		copy.setDateCreated(this.getDateCreated());
 		copy.setDateCreatedFromSource(this.getDateCreatedFromSource());
@@ -655,15 +495,12 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setDateUpdatedFromSource(this.getDateUpdatedFromSource());
 		copy.setDeleted(this.isDeleted());
 		copy.setEnrollmentid(this.getEnrollmentid());
-		copy.setExchangeForSex(this.getExchangeForSex());
-		copy.setExchangeForSexPastThreeMonths(this.getExchangeForSexPastThreeMonths());
 		copy.setExport(this.getExport());
 		copy.setFormerlyWardChildWelfrForestCare(this.getFormerlyWardChildWelfrForestCare());
 		copy.setFormerlyWardOfJuvenileJustice(this.getFormerlyWardOfJuvenileJustice());
 		copy.setId(this.getId());
 		copy.setIncarceratedParent(this.getIncarceratedParent());
 		copy.setInsufficientIncomeToSupportYouth(this.getInsufficientIncomeToSupportYouth());
-		copy.setLaborExploitPastThreeMonths(this.getLaborExploitPastThreeMonths());
 		copy.setMentalHealthIssuesFamilyMbr(this.getMentalHealthIssuesFamilyMbr());
 		copy.setParentId(this.getParentId());
 		copy.setPhysicalDisabilityFamilyMbr(this.getPhysicalDisabilityFamilyMbr());
@@ -674,8 +511,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setUnemployementFamilyMbr(this.getUnemployementFamilyMbr());
 		copy.setUserId(this.getUserId());
 		copy.setVersion(this.getVersion());
-		copy.setWorkPlacePromiseDifference(this.getWorkPlacePromiseDifference());
-		copy.setWorkPlaceViolenceThreat(this.getWorkPlaceViolenceThreat());
 		copy.setYearsChildWelfrForestCare(this.getYearsChildWelfrForestCare());
 		copy.setYearsJuvenileJustice(this.getYearsJuvenileJustice());
 		return copy;
@@ -692,24 +527,17 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		StringBuffer sb = new StringBuffer();
 
 		sb.append("alcoholDrugAbuseFamilyMbr: " + this.getAlcoholDrugAbuseFamilyMbr() + ", ");
-		sb.append("askedOfForcedToExchangeForSex: " + this.getAskedOfForcedToExchangeForSex() + ", ");
-		sb.append("askedOfForcedToExchangeForSexPastThreeMonths: " + this.getAskedOfForcedToExchangeForSexPastThreeMonths() + ", ");
-		sb.append("coercedToContinueWork: " + this.getCoercedToContinueWork() + ", ");
-		sb.append("countOfExchangeForSex: " + this.getCountOfExchangeForSex() + ", ");
 		sb.append("countOutReachReferralApproaches: " + this.getCountOutReachReferralApproaches() + ", ");
 		sb.append("dateCreated: " + this.getDateCreated() + ", ");
 		sb.append("dateCreatedFromSource: " + this.getDateCreatedFromSource() + ", ");
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
 		sb.append("dateUpdatedFromSource: " + this.getDateUpdatedFromSource() + ", ");
 		sb.append("deleted: " + this.isDeleted() + ", ");
-		sb.append("exchangeForSex: " + this.getExchangeForSex() + ", ");
-		sb.append("exchangeForSexPastThreeMonths: " + this.getExchangeForSexPastThreeMonths() + ", ");
 		sb.append("formerlyWardChildWelfrForestCare: " + this.getFormerlyWardChildWelfrForestCare() + ", ");
 		sb.append("formerlyWardOfJuvenileJustice: " + this.getFormerlyWardOfJuvenileJustice() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("incarceratedParent: " + this.getIncarceratedParent() + ", ");
 		sb.append("insufficientIncomeToSupportYouth: " + this.getInsufficientIncomeToSupportYouth() + ", ");
-		sb.append("laborExploitPastThreeMonths: " + this.getLaborExploitPastThreeMonths() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("physicalDisabilityFamilyMbr: " + this.getPhysicalDisabilityFamilyMbr() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
@@ -719,8 +547,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("unemployementFamilyMbr: " + this.getUnemployementFamilyMbr() + ", ");
 		sb.append("userId: " + this.getUserId() + ", ");
 		sb.append("version: " + this.getVersion() + ", ");
-		sb.append("workPlacePromiseDifference: " + this.getWorkPlacePromiseDifference() + ", ");
-		sb.append("workPlaceViolenceThreat: " + this.getWorkPlaceViolenceThreat() + ", ");
 		sb.append("yearsChildWelfrForestCare: " + this.getYearsChildWelfrForestCare() + ", ");
 		sb.append("yearsJuvenileJustice: " + this.getYearsJuvenileJustice());
 		return sb.toString();
@@ -769,24 +595,17 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		boolean result = true;
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
 		result = result && (((getAlcoholDrugAbuseFamilyMbr() == null) && (that.getAlcoholDrugAbuseFamilyMbr() == null)) || (getAlcoholDrugAbuseFamilyMbr() != null && getAlcoholDrugAbuseFamilyMbr().equals(that.getAlcoholDrugAbuseFamilyMbr())));
-		result = result && (((getAskedOfForcedToExchangeForSex() == null) && (that.getAskedOfForcedToExchangeForSex() == null)) || (getAskedOfForcedToExchangeForSex() != null && getAskedOfForcedToExchangeForSex().equals(that.getAskedOfForcedToExchangeForSex())));
-		result = result && (((getAskedOfForcedToExchangeForSexPastThreeMonths() == null) && (that.getAskedOfForcedToExchangeForSexPastThreeMonths() == null)) || (getAskedOfForcedToExchangeForSexPastThreeMonths() != null && getAskedOfForcedToExchangeForSexPastThreeMonths().equals(that.getAskedOfForcedToExchangeForSexPastThreeMonths())));
-		result = result && (((getCoercedToContinueWork() == null) && (that.getCoercedToContinueWork() == null)) || (getCoercedToContinueWork() != null && getCoercedToContinueWork().equals(that.getCoercedToContinueWork())));
-		result = result && (((getCountOfExchangeForSex() == null) && (that.getCountOfExchangeForSex() == null)) || (getCountOfExchangeForSex() != null && getCountOfExchangeForSex().equals(that.getCountOfExchangeForSex())));
 		result = result && (((getCountOutReachReferralApproaches() == null) && (that.getCountOutReachReferralApproaches() == null)) || (getCountOutReachReferralApproaches() != null && getCountOutReachReferralApproaches().equals(that.getCountOutReachReferralApproaches())));
 		result = result && (((getDateCreated() == null) && (that.getDateCreated() == null)) || (getDateCreated() != null && getDateCreated().equals(that.getDateCreated())));
 		result = result && (((getDateCreatedFromSource() == null) && (that.getDateCreatedFromSource() == null)) || (getDateCreatedFromSource() != null && getDateCreatedFromSource().equals(that.getDateCreatedFromSource())));
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getDateUpdatedFromSource() == null) && (that.getDateUpdatedFromSource() == null)) || (getDateUpdatedFromSource() != null && getDateUpdatedFromSource().equals(that.getDateUpdatedFromSource())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
-		result = result && (((getExchangeForSex() == null) && (that.getExchangeForSex() == null)) || (getExchangeForSex() != null && getExchangeForSex().equals(that.getExchangeForSex())));
-		result = result && (((getExchangeForSexPastThreeMonths() == null) && (that.getExchangeForSexPastThreeMonths() == null)) || (getExchangeForSexPastThreeMonths() != null && getExchangeForSexPastThreeMonths().equals(that.getExchangeForSexPastThreeMonths())));
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
 		result = result && (((getFormerlyWardChildWelfrForestCare() == null) && (that.getFormerlyWardChildWelfrForestCare() == null)) || (getFormerlyWardChildWelfrForestCare() != null && getFormerlyWardChildWelfrForestCare().equals(that.getFormerlyWardChildWelfrForestCare())));
 		result = result && (((getFormerlyWardOfJuvenileJustice() == null) && (that.getFormerlyWardOfJuvenileJustice() == null)) || (getFormerlyWardOfJuvenileJustice() != null && getFormerlyWardOfJuvenileJustice().equals(that.getFormerlyWardOfJuvenileJustice())));
 		result = result && (((getIncarceratedParent() == null) && (that.getIncarceratedParent() == null)) || (getIncarceratedParent() != null && getIncarceratedParent().equals(that.getIncarceratedParent())));
 		result = result && (((getInsufficientIncomeToSupportYouth() == null) && (that.getInsufficientIncomeToSupportYouth() == null)) || (getInsufficientIncomeToSupportYouth() != null && getInsufficientIncomeToSupportYouth().equals(that.getInsufficientIncomeToSupportYouth())));
-		result = result && (((getLaborExploitPastThreeMonths() == null) && (that.getLaborExploitPastThreeMonths() == null)) || (getLaborExploitPastThreeMonths() != null && getLaborExploitPastThreeMonths().equals(that.getLaborExploitPastThreeMonths())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
 		result = result && (((getPhysicalDisabilityFamilyMbr() == null) && (that.getPhysicalDisabilityFamilyMbr() == null)) || (getPhysicalDisabilityFamilyMbr() != null && getPhysicalDisabilityFamilyMbr().equals(that.getPhysicalDisabilityFamilyMbr())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));
@@ -795,8 +614,6 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getUnemployementFamilyMbr() == null) && (that.getUnemployementFamilyMbr() == null)) || (getUnemployementFamilyMbr() != null && getUnemployementFamilyMbr().equals(that.getUnemployementFamilyMbr())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getVersion() == null) && (that.getVersion() == null)) || (getVersion() != null && getVersion().equals(that.getVersion())));
-		result = result && (((getWorkPlacePromiseDifference() == null) && (that.getWorkPlacePromiseDifference() == null)) || (getWorkPlacePromiseDifference() != null && getWorkPlacePromiseDifference().equals(that.getWorkPlacePromiseDifference())));
-		result = result && (((getWorkPlaceViolenceThreat() == null) && (that.getWorkPlaceViolenceThreat() == null)) || (getWorkPlaceViolenceThreat() != null && getWorkPlaceViolenceThreat().equals(that.getWorkPlaceViolenceThreat())));
 		result = result && (((getYearsChildWelfrForestCare() == null) && (that.getYearsChildWelfrForestCare() == null)) || (getYearsChildWelfrForestCare() != null && getYearsChildWelfrForestCare().equals(that.getYearsChildWelfrForestCare())));
 		result = result && (((getYearsJuvenileJustice() == null) && (that.getYearsJuvenileJustice() == null)) || (getYearsJuvenileJustice() != null && getYearsJuvenileJustice().equals(that.getYearsJuvenileJustice())));
 		return result;

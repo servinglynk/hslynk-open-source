@@ -394,7 +394,6 @@ public class BulkUploadHelperTest {
 		 assertNotNull(RHYBCPSts);
 		 assertEquals(RHYBCPSts.size(), 1);
 		 RHYBCPStatus rhybcpStatus = RHYBCPSts.get(0);
-		 assertEquals(rhybcpStatus.getFYSBYouth(), helper.getByte("0"));
 		 assertEquals(rhybcpStatus.getReasonNoServices(),helper.getByte("3"));
 		 assertEquals(rhybcpStatus.getRHYBCPStatusID(), "erffedyte1");
 		 assertEquals(rhybcpStatus.getUserID(), "ryu");

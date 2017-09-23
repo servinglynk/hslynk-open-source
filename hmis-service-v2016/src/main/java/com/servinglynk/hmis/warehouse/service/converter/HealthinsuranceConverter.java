@@ -21,10 +21,10 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 public class HealthinsuranceConverter extends BaseConverter {
 
-	public static com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance modelToEntity(Healthinsurance model,
-			com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance entity) {
+	public static com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance modelToEntity(Healthinsurance model,
+			com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance entity) {
 		if (entity == null)
-			entity = new com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance();
+			entity = new com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance();
 		entity.setId(model.getHealthinsuranceId());
 		if(model.getInsurancefromanysource()!=null)
 		entity.setInsurancefromanysource(HealthinsuranceInsurancefromanysourceEnum.lookupEnum(model.getInsurancefromanysource().toString()));
@@ -83,7 +83,7 @@ public class HealthinsuranceConverter extends BaseConverter {
 		return entity;
 	}
 
-	public static Healthinsurance entityToModel(com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance entity) {
+	public static Healthinsurance entityToModel(com.servinglynk.hmis.warehouse.model.v2016.Healthinsurance entity) {
 		Healthinsurance model = new Healthinsurance();
 		model.setHealthinsuranceId(entity.getId());
 		if(entity.getInsurancefromanysource()!=null)

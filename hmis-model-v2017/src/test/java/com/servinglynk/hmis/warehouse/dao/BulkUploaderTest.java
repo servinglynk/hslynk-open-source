@@ -408,13 +408,6 @@ public class BulkUploaderTest {
 				assertEquals(new Integer("1"), entryRHY.getActiveMilitaryParent());*/
 				assertEquals(new Integer("0"), entryRHY.getAlcoholDrugAbuseFamilyMbr());
 //				assertEquals(new Integer("0"), entryRHY.getAlcoholDrugAbuseYouth());
-				assertEquals(new Integer("1"), entryRHY.getAskedOfForcedToExchangeForSex());
-				assertEquals(new Integer("8"), entryRHY.getAskedOfForcedToExchangeForSexPastThreeMonths());
-				assertEquals(new Integer("0"), entryRHY.getCoercedToContinueWork());
-				assertEquals(new Integer("3"), entryRHY.getCountOfExchangeForSex());
-				assertEquals(new Integer("3"), entryRHY.getCountOutReachReferralApproaches());
-				assertEquals(new Integer("1"), entryRHY.getExchangeForSex());
-				assertEquals(new Integer("1"), entryRHY.getExchangeForSexPastThreeMonths());
 				assertEquals(new Integer("1"), entryRHY.getFormerlyWardChildWelfrForestCare());
 				assertEquals(new Integer("9"), entryRHY.getFormerlyWardOfJuvenileJustice());
 				/*assertEquals(new Integer("0"), entryRHY.getHealthIssuesFamilyMbr());
@@ -424,7 +417,6 @@ public class BulkUploaderTest {
 				assertEquals(new Integer("1"), entryRHY.getIncarceratedParent());
 //				assertEquals(new Integer("1"), entryRHY.getIncarceratedParentStatus());
 				assertEquals(new Integer("0"), entryRHY.getInsufficientIncomeToSupportYouth());
-				assertEquals(new Integer("8"), entryRHY.getLaborExploitPastThreeMonths());
 				/*assertEquals(new Integer("0"), entryRHY.getMentalDisabilityFamilyMbr());
 				assertEquals(new Integer("1"), entryRHY.getMentalDisabilityYouth());*/
 				assertEquals(new Integer("0"), entryRHY.getMentalHealthIssuesFamilyMbr());
@@ -440,8 +432,6 @@ public class BulkUploaderTest {
 				assertEquals(new Integer("99"), entryRHY.getSexualOrientation());
 				assertEquals(new Integer("0"), entryRHY.getUnemployementFamilyMbr());
 //				assertEquals(new Integer("1"), entryRHY.getUnemployementYouth());
-				assertEquals(new Integer("1"), entryRHY.getWorkPlacePromiseDifference());
-				assertEquals(new Integer("0"), entryRHY.getWorkPlaceViolenceThreat());
 				assertEquals(new Integer("2"), entryRHY.getYearsChildWelfrForestCare());
 				assertEquals(new Integer("3"), entryRHY.getYearsJuvenileJustice());
 			}

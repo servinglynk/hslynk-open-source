@@ -20,8 +20,8 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
 
    @Transactional
    public Exit createExit(Exit exit,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = ExitConverter.modelToEntity(exit, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = ExitConverter.modelToEntity(exit, null);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pExit.setEnrollmentid(pEnrollment);
        pExit.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
@@ -34,10 +34,10 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
 
    @Transactional
    public Exit updateExit(Exit exit,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
 
-	   com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exit.getExitId());
+	   com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = daoFactory.getExitDao().getExitById(exit.getExitId());
        if(pExit==null) throw new ExitNotFoundException();
 
        ExitConverter.modelToEntity(exit, pExit);
@@ -52,7 +52,7 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
 
    @Transactional
    public Exit deleteExit(UUID exitId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
        if(pExit==null) throw new ExitNotFoundException();
 
        daoFactory.getExitDao().deleteExit(pExit);
@@ -62,7 +62,7 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
 
    @Transactional
    public Exit getExitById(UUID exitId){
-       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+       com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
        if(pExit==null) throw new ExitNotFoundException();
 
        return ExitConverter.entityToModel( pExit );
@@ -72,8 +72,8 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
    @Transactional
    public Exits getAllEnrollmentExits(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Exits exits = new Exits();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Exit> entities = daoFactory.getExitDao().getAllEnrollmentExits(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Exit entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2016.Exit> entities = daoFactory.getExitDao().getAllEnrollmentExits(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2016.Exit entity : entities){
            exits.addExit(ExitConverter.entityToModel(entity));
         }
         long count = daoFactory.getExitDao().getEnrollmentExitsCount(enrollmentId);
