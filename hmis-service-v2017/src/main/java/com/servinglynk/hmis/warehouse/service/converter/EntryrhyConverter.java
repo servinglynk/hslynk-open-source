@@ -58,7 +58,6 @@ public class EntryrhyConverter  extends BaseConverter {
        entity.setFormerlyWardOfJuvenileJustice(EntryRHYFormerWardJuvenileJusticeEnum.lookupEnum(model.getFormerlyWardOfJuvenileJustice()+""));
        if(model.getYearsJuvenileJustice()!=null)
        entity.setYearsJuvenileJustice(EntryRHYJuvenileJusticeYearsEnum.lookupEnum(model.getYearsJuvenileJustice()+""));
-       if(model.getHouseHoldDynamics()!=null)
        if(model.getUnemployementFamilyMbr()!=null)
        entity.setUnemployementFamilyMbr(EntryRHYUnemploymentFamEnum.lookupEnum(model.getUnemployementFamilyMbr()+""));
        if(model.getMentalHealthIssuesFamilyMbr()!=null)
@@ -97,6 +96,26 @@ public class EntryrhyConverter  extends BaseConverter {
        model.setFormerlyWardOfJuvenileJustice(Integer.parseInt(entity.getFormerlyWardOfJuvenileJustice().getValue()));
        if(entity.getYearsJuvenileJustice()!=null)
        model.setYearsJuvenileJustice(Integer.parseInt(entity.getYearsJuvenileJustice().getValue()));
+       if(entity.getUnemployementFamilyMbr()!=null)
+    	   model.setUnemployementFamilyMbr(Integer.parseInt(entity.getUnemployementFamilyMbr().getValue()));
+           if(entity.getMentalHealthIssuesFamilyMbr()!=null)
+        	   model.setMentalHealthIssuesFamilyMbr(Integer.parseInt(entity.getMentalHealthIssuesFamilyMbr().getValue()));
+           if(entity.getPhysicalDisabilityFamilyMbr()!=null)
+        	   model.setPhysicalDisabilityFamilyMbr(Integer.parseInt(entity.getPhysicalDisabilityFamilyMbr().getValue()));
+           if(entity.getAlcoholDrugAbuseFamilyMbr()!=null)
+        	   model.setAlcoholDrugAbuseFamilyMbr(Integer.parseInt(entity.getAlcoholDrugAbuseFamilyMbr().getValue()));
+           if(entity.getInsufficientIncomeToSupportYouth()!=null)
+        	   model.setInsufficientIncomeToSupportYouth(Integer.parseInt(entity.getInsufficientIncomeToSupportYouth().getValue()));
+           if(entity.getIncarceratedParent()!=null)
+        	   model.setIncarceratedParent(Integer.parseInt(entity.getIncarceratedParent().getValue()));
+           if(entity.getCountOutReachReferralApproaches()!=null)
+        	   model.setCountOutReachReferralApproaches(entity.getCountOutReachReferralApproaches());
+           if(entity.getDataCollectionStage() !=null)
+        	   model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+           if(entity.getInformationDate()!=null)
+        	   model.setInformationDate(entity.getInformationDate());
+           
+           
        return model;
    }
 
