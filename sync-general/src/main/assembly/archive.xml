@@ -54,7 +54,18 @@
             <source>${project.build.directory}/../src/main/scripts/stop-purge.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/start-vispdat.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-vispdat.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+>>>>>>> vi-spdat-view
     </files>
 
 </assembly>

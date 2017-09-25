@@ -34,6 +34,7 @@ public class ViSpdatView  extends Logging {
 		syncHBaseImport.createHBASETable(tableName, logger);
 	}
 	
+<<<<<<< HEAD
 	 private void syncTable(String hbaseTable, String projectGroupCode,String postgresTable) {
 	       // log.info("Start sync for table: " + postgresTable);
 	        HTable htable;
@@ -111,6 +112,53 @@ public class ViSpdatView  extends Logging {
 	                	 }
 	                	 
 	                    if (existingKeysInHbase.contains(key)) {
+=======
+	 private void processViSpdat(String hbaseTable, String projectGroupCode,Survey survey) {
+	       // log.info("Start sync for table: " + postgresTable);
+	        HTable htable;
+	        try {
+	            htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
+	            List<Response> responsesForSurvey = getResponsesForSurvey("survey", survey.getSurveyId());
+	            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
+	            List<String> existingKeysInPostgres = new ArrayList<>();
+	            
+	            List<Put> putsToUpdate = new ArrayList<>();
+	            List<Put> putsToInsert = new ArrayList<>();
+	            List<String> putsToDelete = new ArrayList<>();
+	            String key = "";
+	            Put p = null;
+	            for(Response response : responsesForSurvey) {
+	            	if(StringUtils.isBlank(key)) {
+	            		 p = new Put(Bytes.toBytes(response.getSubmissionId()));
+	            	}
+	            	if(!StringUtils.equals(key, response.getSubmissionId()) && StringUtils.isNotBlank(key)) {
+	            		p = new Put(Bytes.toBytes(key));
+	            		addColumn("client_id",String.valueOf(response.getClientId()), key, p);
+	            		addColumn("survey_id",String.valueOf(survey.getSurveyId()), key, p);
+	            		addColumn("survey_date",getCreatedAtString(response.getSurveyResponseDate()), key, p);
+	            		  if(p != null) {
+	     	            	 if (existingKeysInHbase.contains(key)) {
+	     	                        putsToUpdate.add(p);
+	     	                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
+	     	                            htable.put(putsToUpdate);
+	     	                            putsToUpdate.clear();
+	     	                        }
+	     	                    } else {
+	     	                        putsToInsert.add(p);
+	     	                        if (putsToInsert.size() > syncHBaseImport.batchSize) {
+	     	                            htable.put(putsToInsert);
+	     	                            putsToInsert.clear();
+	     	                        }
+	     	                    }
+	     	                existingKeysInPostgres.add(key);
+	     	            }
+	            	}
+	            	 key = response.getSubmissionId();
+	            	 addColumn(response.getQuestionId(),String.valueOf(response.getResponseText()), key, p);
+	            }
+	            if(p != null) {
+	            	 if (existingKeysInHbase.contains(key)) {
+>>>>>>> vi-spdat-view
 	                        putsToUpdate.add(p);
 	                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
 	                            htable.put(putsToUpdate);
@@ -123,6 +171,7 @@ public class ViSpdatView  extends Logging {
 	                            putsToInsert.clear();
 	                        }
 	                    }
+<<<<<<< HEAD
 	                }
 	                existingKeysInPostgres.add(key);
 	            }
@@ -133,16 +182,30 @@ public class ViSpdatView  extends Logging {
 	            });
 
 	            logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
+=======
+	                existingKeysInPostgres.add(key);
+	            }
+	                   	           
+	            logger.info("Rows to delete for table " + hbaseTable + ": " + putsToDelete.size());
+>>>>>>> vi-spdat-view
 	            if (putsToDelete.size() > 0) {
 	                syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
 	            }
 
+<<<<<<< HEAD
 	            logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
+=======
+	            logger.info("Rows to insert for table " + hbaseTable + ": " + putsToInsert.size());
+>>>>>>> vi-spdat-view
 	            if (putsToInsert.size() > 0) {
 	                htable.put(putsToInsert);
 	            }
 
+<<<<<<< HEAD
 	            logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
+=======
+	            logger.info("Rows to update for table " + hbaseTable + ": " + putsToUpdate.size());
+>>>>>>> vi-spdat-view
 	            if (putsToUpdate.size() > 0) {
 	                htable.put(putsToUpdate);
 	            }
@@ -152,6 +215,7 @@ public class ViSpdatView  extends Logging {
 	            ex.printStackTrace();
 	        }
 
+<<<<<<< HEAD
 	        log.info("Sync done for table: " + postgresTable);
 	    }
 	 
@@ -174,6 +238,11 @@ public class ViSpdatView  extends Logging {
 			return notes;
 	}
 
+=======
+	        log.info("Sync done for table: " + hbaseTable);
+	    }
+	 
+>>>>>>> vi-spdat-view
 	public void addColumn(String column, String value,String key,Put p) {
 		 if(StringUtils.isNotBlank(value)) {
 			  p.addColumn(Bytes.toBytes("CF"),
@@ -182,6 +251,7 @@ public class ViSpdatView  extends Logging {
 		 }
 	 }
 	 
+<<<<<<< HEAD
 	 public int getAge(java.util.Date dob) {
 			    long ageInMillis =  new java.util.Date().getTime() - dob.getTime();
 			    Date age = new Date(ageInMillis);
@@ -189,12 +259,16 @@ public class ViSpdatView  extends Logging {
 	 }
 
 	 private static String getCreatedAtString(Timestamp timestamp) {
+=======
+	 private String getCreatedAtString(Timestamp timestamp) {
+>>>>>>> vi-spdat-view
 		 String pattern = "yyyy-MM-dd HH:mm:ss";
 		    SimpleDateFormat format = new SimpleDateFormat(pattern);
 		    String stringDate = format.format(timestamp);
 		    return stringDate;
 	}
 
+<<<<<<< HEAD
 	public static  Survey getLastestSurveyByClient(String clientId,String projectGroupCode) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
@@ -281,6 +355,9 @@ public class ViSpdatView  extends Logging {
 	}
 	
     public static Survey getSurveyById(String schemaName,String surveyId) throws Exception{
+=======
+	 public Survey getSurveyById(String schemaName,String surveyId) throws Exception{
+>>>>>>> vi-spdat-view
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         Connection connection = null;
@@ -303,6 +380,10 @@ public class ViSpdatView  extends Logging {
             throw ex;
         }
     }
+<<<<<<< HEAD
+=======
+	 
+>>>>>>> vi-spdat-view
     public static String getQuestionDisplayTextByQuestionID(String schemaName,UUID questionId) throws Exception{
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -321,7 +402,11 @@ public class ViSpdatView  extends Logging {
         }
         return null;
     }
+<<<<<<< HEAD
     public static List<String> getDisinctSurveys(String schemaName) throws Exception{
+=======
+    public List<String> getDisinctSurveys(String schemaName) throws Exception{
+>>>>>>> vi-spdat-view
         List<String> tables = new ArrayList<>();
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -340,23 +425,38 @@ public class ViSpdatView  extends Logging {
         return tables;
     }
     
+<<<<<<< HEAD
     public static List<Response> getResponseBySubmissionClient(String schemaName,UUID surveyId, UUID clientId) throws Exception{
         List<Response> responses = new ArrayList<>();
         ResultSet resultSet = null;
         PreparedStatement statement = null;
+=======
+    public static List<Response> getResponsesForSurvey(String schemaName,UUID surveyId) throws Exception{
+        List<Response> responses = new ArrayList<>();
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;		
+>>>>>>> vi-spdat-view
         Connection connection = null;
         try{
             connection = SyncPostgresProcessor.getConnection();
             statement = connection.prepareStatement(ViewQuery.GET_CLIENTS_WITH_RESPONSE);
             statement.setObject(1, surveyId);
+<<<<<<< HEAD
             statement.setObject(2, clientId);
+=======
+>>>>>>> vi-spdat-view
             resultSet = statement.executeQuery();
             while (resultSet.next()){
             	String submissionId = resultSet.getString("submission_id");
             	String client  = resultSet.getString("client_id");
             	String questionId =  resultSet.getString("question_id");
             	String responseText = resultSet.getString("response_text");
+<<<<<<< HEAD
             	Response response = new Response(submissionId, questionId, client,responseText);
+=======
+            	Timestamp createdAt = resultSet.getTimestamp("created_at");
+            	Response response = new Response(submissionId, questionId, client,responseText,createdAt);
+>>>>>>> vi-spdat-view
             	responses.add(response);
             }
         }catch (Exception ex){
@@ -365,6 +465,7 @@ public class ViSpdatView  extends Logging {
         return responses;
     }
     
+<<<<<<< HEAD
     public static List<String> getDisinctQuestions(String schemaName,UUID surveyId) throws Exception{
         List<String> questions = new ArrayList<>();
         ResultSet resultSet = null;
@@ -390,6 +491,32 @@ public class ViSpdatView  extends Logging {
 		props.generatePropValues();
 		ViSpdatView view = new ViSpdatView(logger);
 		view.processActiveList();
+=======
+	public static void main(String args[]) throws Exception {
+		 Logger logger = Logger.getLogger(ViSpdatView.class.getName());
+		 FileAppender appender = new FileAppender();
+         String appenderName = "active-list";
+         appender.setName(appenderName);
+         appender.setFile("logs/" + appenderName + ".log");
+         appender.setImmediateFlush(true);
+         appender.setAppend(true);
+         appender.setLayout(new PatternLayout());
+         appender.activateOptions();
+         logger.addAppender(appender);
+         String projectGroupCode ="MO0010";
+		 Properties props = new Properties();
+		 props.generatePropValues();
+		 ViSpdatView view = new ViSpdatView(logger);
+		 List<String> disinctSurveys = view.getDisinctSurveys("survey");
+		 for(String surveyId : disinctSurveys) {
+			 Survey survey = view.getSurveyById("survey", surveyId);
+			 if(StringUtils.equals("MO0010",survey.getProjectGroupCode())) {
+				 String tableName =survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase()+"_"+survey.getProjectGroupCode();
+				 view.createHbaseTable(tableName);
+				 view.processViSpdat(tableName, projectGroupCode, survey);
+			 }
+		}
+>>>>>>> vi-spdat-view
 	}
 
 }
