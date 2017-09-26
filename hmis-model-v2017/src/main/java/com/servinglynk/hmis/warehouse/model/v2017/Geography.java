@@ -25,7 +25,7 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	private String city;
 	private String state;
 	private String zip;
-	private Integer geography_type;
+	private Integer geographyType;
 	
 	
 	public Geography() {
@@ -151,14 +151,14 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	 */
 	@Basic( optional = true )
 	@Column( name = "geography_type" )
-	public Integer getGeography_type() {
-		return geography_type;
+	public Integer getGeographyType() {
+		return geographyType;
 	}
 	/**
 	 * @param geography_type the geography_type to set
 	 */
-	public void setGeography_type(Integer geography_type) {
-		this.geography_type = geography_type;
+	public void setGeographyType(Integer geographyType) {
+		this.geographyType = geographyType;
 	}
 	/**
 	 * @param id

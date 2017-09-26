@@ -13455,6 +13455,7 @@ public class Sources {
                 "geoCode",
                 "geographyType",
                 "address1",
+                "address2",
                 "city",
                 "state",
             	"zip",
@@ -13473,13 +13474,15 @@ public class Sources {
                 protected String geoCode;
                 @XmlElement(name = "GeographyType")
                 protected String geographyType;
-                @XmlElement(name = "address1")
+                @XmlElement(name = "Address1")
                 protected String address1;
-                @XmlElement(name = "city")
+                @XmlElement(name = "Address2")
+                protected String address2;
+                @XmlElement(name = "City")
                 protected String city;
-                @XmlElement(name = "state")
+                @XmlElement(name = "State")
                 protected String state;
-                @XmlElement(name = "zip")
+                @XmlElement(name = "Zip")
                 protected String zip;
                 @XmlElement(name = "dateCreated")
 	            protected XMLGregorianCalendar dateCreated;
@@ -13522,6 +13525,13 @@ public class Sources {
 				}
 				public void setAddress1(String address1) {
 					this.address1 = address1;
+				}
+				
+				public String getAddress2() {
+					return address2;
+				}
+				public void setAddress2(String address2) {
+					this.address2 = address2;
 				}
 				public String getCity() {
 					return city;
