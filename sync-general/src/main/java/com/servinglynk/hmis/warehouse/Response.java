@@ -1,18 +1,22 @@
 package com.servinglynk.hmis.warehouse;
 
+import java.sql.Timestamp;
+
 public class Response {
 	
-public Response(String submissionId, String questionId, String clientId,String responseText) {
+public Response(String submissionId, String questionId, String clientId,String responseText,Timestamp surveyResponseDate) {
 		super();
 		this.submissionId = submissionId;
 		this.questionId = questionId;
 		this.clientId = clientId;
 		this.responseText = responseText;
+		this.surveyResponseDate = surveyResponseDate;
 	}
 private String submissionId;
 private String questionId;
 private String clientId;
 private String responseText;
+private Timestamp surveyResponseDate;
 /**
  * @return the submissionId
  */
@@ -60,6 +64,12 @@ public String getResponseText() {
  */
 public void setResponseText(String responseText) {
 	this.responseText = responseText;
+}
+public Timestamp getSurveyResponseDate() {
+	return surveyResponseDate;
+}
+public void setSurveyResponseDate(Timestamp surveyResponseDate) {
+	this.surveyResponseDate = surveyResponseDate;
 }
 
 }
