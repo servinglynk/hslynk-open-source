@@ -13488,7 +13488,8 @@ public class Sources {
 	            protected XMLGregorianCalendar dateCreated;
 	            @XmlElement(name = "dateUpdated")
 	            protected XMLGregorianCalendar dateUpdated;
-	            
+	            @XmlElement(name = "informationDate")
+	            protected XMLGregorianCalendar informationDate;
                 
 				public String getGeographyID() {
 					return geographyID;
@@ -13562,6 +13563,12 @@ public class Sources {
 				}
 				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
 					this.dateUpdated = dateUpdated;
+				}
+				public XMLGregorianCalendar getInformationDate() {
+					return informationDate;
+				}
+				public void setInformationDate(XMLGregorianCalendar informationDate) {
+					this.informationDate = informationDate;
 				}
 				
             }

@@ -44,7 +44,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 			 try {
 				 dateOfEngagementModel = getModelObject(domain, dateOfEngagement,data,modelMap);
 				 dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
-				 Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, dateOfEngagement.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+				 Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, dateOfEngagement.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 				 dateOfEngagementModel.setEnrollmentid(enrollmentModel);
 				 dateOfEngagementModel.setExport(exportEntity);
 				 dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));

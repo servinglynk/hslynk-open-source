@@ -54,7 +54,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 						SchoolStatusEnum
 						.lookupEnum(BasicDataGenerator
 								.getStringValue(education.getSchoolStatus())));
-				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, education.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+				Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, education.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 				educationModel.setEnrollmentid(enrollmentModel);
 				educationModel.setExport(exportEntity);
 				educationModel.setInformationDate(BasicDataGenerator.getLocalDateTime(education.getInformationDate()));

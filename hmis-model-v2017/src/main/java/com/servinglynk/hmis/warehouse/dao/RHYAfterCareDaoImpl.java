@@ -41,7 +41,7 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 					try {
 						rhyAfterCareModel = getModelObject(domain, expRHYAfterCares, data, modelMap);
 						rhyAfterCareModel.setAfterProvided(expRHYAfterCares.getAfterProvided());
-						rhyAfterCareModel.setEmailSocialMedia(expRHYAfterCares.getEmailSocialMedia());
+						rhyAfterCareModel.setEmailSocialMedia(RhyAfexpRHYAfterCares.getEmailSocialMedia());
 						rhyAfterCareModel.setInPersonGroup(expRHYAfterCares.getInPersonIndividual());
 						rhyAfterCareModel.setInPersonIndividual(expRHYAfterCares.getInPersonIndividual());
 						rhyAfterCareModel.setTelephone(expRHYAfterCares.getTelephone());

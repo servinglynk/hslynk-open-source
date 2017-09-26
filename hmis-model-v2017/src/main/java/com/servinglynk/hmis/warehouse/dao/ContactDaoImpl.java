@@ -56,7 +56,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 					contactModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(contacts.getDateUpdated()));
 					contactModel.setDeleted(false);
 
-					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, contacts.getProjectEntryID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, contacts.getEnrollmentID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
 					contactModel.setExport(exportEntity);
 					contactModel.setEnrollmentid(enrollment);
 					contactModel.setSync(false);

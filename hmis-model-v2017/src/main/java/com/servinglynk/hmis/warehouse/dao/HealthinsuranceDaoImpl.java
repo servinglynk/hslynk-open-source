@@ -86,7 +86,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 					healthinsuranceModel.setOtherInsuranceIdentify(healthInsurance.getOtherInsuranceIdentify());
 					healthinsuranceModel.setIndianHealthServices(NoYesEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getIndianHealthServices())));
 					healthinsuranceModel.setNoIndianHealthServicesReason(HealthinsuranceNomedicaidreasonEnum.lookupEnum(healthInsurance.getNoIndianHealthServicesReason()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, healthInsurance.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, healthInsurance.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					healthinsuranceModel.setEnrollmentid(enrollmentModel);
 					healthinsuranceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthInsurance.getInformationDate()));
 					healthinsuranceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(healthInsurance.getDataCollectionStage())));
