@@ -32,11 +32,7 @@
             <source>${project.build.directory}/../src/main/scripts/stop-sync-schemas.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
-<<<<<<< HEAD
-                <file>
-=======
          <file>
->>>>>>> develop
             <source>${project.build.directory}/../src/main/scripts/start-active-list-view.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
@@ -44,8 +40,6 @@
             <source>${project.build.directory}/../src/main/scripts/stop-active-list-view.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
-<<<<<<< HEAD
-=======
           <file>
             <source>${project.build.directory}/../src/main/scripts/start-purge.sh</source>
             <outputDirectory>/bin/</outputDirectory>
@@ -54,7 +48,13 @@
             <source>${project.build.directory}/../src/main/scripts/stop-purge.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
->>>>>>> develop
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/start-vispdat.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-vispdat.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
     </files>
-
 </assembly>
