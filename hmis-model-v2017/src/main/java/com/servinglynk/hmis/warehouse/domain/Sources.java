@@ -337,7 +337,6 @@ public class Sources {
             "services",
             "site",
             "clientVeteranInfo",
-            "worstHousingSituation",
             "entryRHY",
             "entryRHSP",
             "geography",
@@ -3264,7 +3263,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -3276,7 +3275,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -3435,7 +3434,7 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID" , required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "ConnectionWithSOAR" )
-                protected String ConnectionWithSOAR;
+                protected String connectionWithSOAR;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -3456,10 +3455,10 @@ public class Sources {
 					this.enrollmentID = enrollmentID;
 				}
 				public String getConnectionWithSOAR() {
-					return ConnectionWithSOAR;
+					return connectionWithSOAR;
 				}
 				public void setConnectionWithSOAR(String connectionWithSOAR) {
-					ConnectionWithSOAR = connectionWithSOAR;
+					this.connectionWithSOAR = connectionWithSOAR;
 				}
 				public XMLGregorianCalendar getDateCreated() {
 					return dateCreated;
@@ -3560,7 +3559,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -3572,7 +3571,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -3806,7 +3805,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -3818,7 +3817,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -4244,7 +4243,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -4256,7 +4255,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -4518,7 +4517,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -4530,7 +4529,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -4780,7 +4779,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -4792,7 +4791,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -5080,7 +5079,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -5092,7 +5091,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -5565,7 +5564,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -5577,7 +5576,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -6448,7 +6447,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -6460,7 +6459,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -6963,7 +6962,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -6975,7 +6974,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -8448,7 +8447,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -8460,7 +8459,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -9006,7 +9005,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -9018,7 +9017,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -9624,7 +9623,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -9636,7 +9635,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -10959,7 +10958,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -10971,7 +10970,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -11281,7 +11280,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -11293,7 +11292,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -11849,7 +11848,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -11861,7 +11860,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -12441,7 +12440,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -12453,7 +12452,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -12669,7 +12668,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -12681,7 +12680,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
@@ -12904,7 +12903,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getenrollmentID() {
+                public String getEnrollmentID() {
                     return enrollmentID;
                 }
 
@@ -12916,7 +12915,7 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setenrollmentID(String value) {
+                public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
                 }
 
