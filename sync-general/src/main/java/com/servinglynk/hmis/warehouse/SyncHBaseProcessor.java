@@ -36,23 +36,6 @@ public class SyncHBaseProcessor extends Logging {
         }
     }
 
-    /***
-     * Deletes an HBASE table
-     * @param tableName
-     */
-    public  void dropTable(String tableName) {
-        try {
-            admin.disableTable(tableName);
-            admin.deleteTable(tableName);
-            log.info("Table ::" + tableName + " deleted.");
-        } catch (TableExistsException ex) {
-            log.warn("Table :: " + tableName + " does not exists.");
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-        	e.printStackTrace();
-        }
-    }
-    
     public List<String> getAllKeyRecords (HTable table, Logger logger) {
         List<String> keys = new ArrayList<>();
         try {
