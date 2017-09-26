@@ -342,8 +342,8 @@ public class Sources {
             "entryRHSP",
             "geography",
             "connectionWithSOAR",
-            "VASHExitReason",
-            "rhyafterCare",
+            "vashExitReason",
+            "rhyAfterCare",
         })
         public static class Export {
 
@@ -421,8 +421,6 @@ public class Sources {
             protected List<Site> site;
             @XmlElement(name = "ClientVeteranInfo", required = true)
             protected List<ClientVeteranInfo> clientVeteranInfo;
-            @XmlElement(name = "WorstHousingSituation", required = true)
-            protected List<WorstHousingSituation> worstHousingSituation;
             @XmlElement(name = "EntryRHY", required = true)
             protected List<EntryRHY> entryRHY;
             @XmlElement(name = "Geography", required = true)
@@ -1474,30 +1472,6 @@ public class Sources {
              */
             public void setClientVeteranInfo(List<ClientVeteranInfo> value) {
                 this.clientVeteranInfo = value;
-            }
-
-            /**
-             * Gets the value of the worstHousingSituation property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link WorstHousingSituation }
-             *     
-             */
-            public List<WorstHousingSituation> getWorstHousingSituation() {
-                return worstHousingSituation;
-            }
-
-            /**
-             * Sets the value of the worstHousingSituation property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link WorstHousingSituation }
-             *     
-             */
-            public void setWorstHousingSituation(List<WorstHousingSituation> value) {
-                this.worstHousingSituation = value;
             }
 
             /**
@@ -3071,7 +3045,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "coCCode",
-                /*"projectID"*/
+                "projectID"
             })
             public static class CoC {
 
@@ -3220,7 +3194,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="ContactID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ContactDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
              *         &lt;element name="ContactLocation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *       &lt;/sequence>
@@ -3237,7 +3211,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "contactID",
-                "projectEntryID",
+                "enrollmentID",
                 "contactDate",
                 "contactLocation"
             })
@@ -3245,8 +3219,8 @@ public class Sources {
 
                 @XmlElement(name = "ContactID", required = true)
                 protected String contactID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "ContactDate", required = true)
                 protected XMLGregorianCalendar contactDate;
                 @XmlElement(name = "ContactLocation")
@@ -3283,27 +3257,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -3447,41 +3421,45 @@ public class Sources {
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
-                "id",
-                "enrollmentid",
-                "connectionwithsoar"
+                "connectionWithSOARID",
+                "enrollmentID",
+                "connectionWithSOAR",
+                "dateCreated",
+                "dateUpdated",
+                "userID"
             })
             public static class ConnectionWithSOAR {
 
-                @XmlElement(name = "id" , required = true)
-                protected String id;
-                @XmlElement(name = "enrollmentid" , required = true)
-                protected String enrollmentid;
-                @XmlElement(name = "connectionwithsoar" )
-                protected String connectionwithsoar;
+                @XmlElement(name = "ConnectionWithSOARID" , required = true)
+                protected String connectionWithSOARID;
+                @XmlElement(name = "EnrollmentID" , required = true)
+                protected String enrollmentID;
+                @XmlElement(name = "ConnectionWithSOAR" )
+                protected String ConnectionWithSOAR;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateUpdated;
                 @XmlAttribute
                 protected String userID;
-				public String getId() {
-					return id;
+                
+				public String getConnectionWithSOARID() {
+					return connectionWithSOARID;
 				}
-				public void setId(String id) {
-					this.id = id;
+				public void setConnectionWithSOARID(String connectionWithSOARID) {
+					this.connectionWithSOARID = connectionWithSOARID;
 				}
-				public String getEnrollmentid() {
-					return enrollmentid;
+				public String getEnrollmentID() {
+					return enrollmentID;
 				}
-				public void setEnrollmentid(String enrollmentid) {
-					this.enrollmentid = enrollmentid;
+				public void setEnrollmentID(String enrollmentID) {
+					this.enrollmentID = enrollmentID;
 				}
-				public String getConnectionwithsoar() {
-					return connectionwithsoar;
+				public String getConnectionWithSOAR() {
+					return ConnectionWithSOAR;
 				}
-				public void setConnectionwithsoar(String connectionwithsoar) {
-					this.connectionwithsoar = connectionwithsoar;
+				public void setConnectionWithSOAR(String connectionWithSOAR) {
+					ConnectionWithSOAR = connectionWithSOAR;
 				}
 				public XMLGregorianCalendar getDateCreated() {
 					return dateCreated;
@@ -3516,7 +3494,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="DateOfEngagementID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="DateOfEngagement" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -3532,15 +3510,15 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "dateOfEngagementID",
-                "projectEntryID",
+                "enrollmentID",
                 "dateOfEngagement"
             })
             public static class DateOfEngagement {
 
                 @XmlElement(name = "DateOfEngagementID", required = true)
                 protected String dateOfEngagementID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "DateOfEngagement", required = true)
                 protected XMLGregorianCalendar dateOfEngagement;
                 @XmlAttribute
@@ -3575,27 +3553,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -3708,7 +3686,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="DisabilitiesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="DisabilityType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="DisabilityResponse" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="IndefiniteAndImpairsIndependence" type="{http://www.w3.org/2001/XMLSchema}byte"/>
@@ -3738,7 +3716,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "disabilitiesID",
-                "projectEntryID",
+                "enrollmentID",
                 "disabilityType",
                 "disabilityResponse",
                 "indefiniteAndImpairsIndependence",
@@ -3757,8 +3735,8 @@ public class Sources {
 
                 @XmlElement(name = "DisabilitiesID", required = true)
                 protected String disabilitiesID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "DisabilityType")
                 protected byte disabilityType;
                 @XmlElement(name = "DisabilityResponse")
@@ -3821,27 +3799,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -4186,7 +4164,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="DomesticViolenceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="DomesticViolenceVictim" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="WhenOccurred" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="CurrentlyFleeing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
@@ -4206,7 +4184,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "domesticViolenceID",
-                "projectEntryID",
+                "enrollmentID",
                 "domesticViolenceVictim",
                 "whenOccurred",
                 "currentlyFleeing"
@@ -4215,8 +4193,8 @@ public class Sources {
 
                 @XmlElement(name = "DomesticViolenceID", required = true)
                 protected String domesticViolenceID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "DomesticViolenceVictim")
                 protected byte domesticViolenceVictim;
                 @XmlElement(name = "WhenOccurred")
@@ -4259,27 +4237,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -4464,7 +4442,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="EducationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="LastGradeCompleted" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="SchoolStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *       &lt;/sequence>
@@ -4483,7 +4461,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "educationID",
-                "projectEntryID",
+                "enrollmentID",
                 "lastGradeCompleted",
                 "schoolStatus"
             })
@@ -4491,8 +4469,8 @@ public class Sources {
 
                 @XmlElement(name = "EducationID", required = true)
                 protected String educationID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "LastGradeCompleted")
                 protected byte lastGradeCompleted;
                 @XmlElement(name = "SchoolStatus")
@@ -4533,27 +4511,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -4722,7 +4700,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="EmploymentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="Employed" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="EmploymentType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="NotEmployedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
@@ -4742,7 +4720,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "employmentID",
-                "projectEntryID",
+                "enrollmentID",
                 "employed",
                 "employmentType",
                 "notEmployedReason"
@@ -4751,8 +4729,8 @@ public class Sources {
 
                 @XmlElement(name = "EmploymentID", required = true)
                 protected String employmentID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "Employed")
                 protected byte employed;
                 @XmlElement(name = "EmploymentType")
@@ -4795,27 +4773,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -4999,7 +4977,7 @@ public class Sources {
              *   &lt;complexContent>
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="EntryDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
@@ -5027,7 +5005,7 @@ public class Sources {
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
-                "projectEntryID",
+                "enrollmentID",
                 "personalID",
                 "projectID",
                 "entryDate",
@@ -5049,8 +5027,8 @@ public class Sources {
             })
             public static class Enrollment {
 
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "PersonalID", required = true)
                 protected String personalID;
                 @XmlElement(name = "ProjectID", required = true)
@@ -5095,27 +5073,27 @@ public class Sources {
                 protected String userID;
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -5519,7 +5497,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="EnrollmentCoCID" type="{http://www.w3.org/2001/XMLSchema}int"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
@@ -5537,7 +5515,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "enrollmentCoCID",
-                "projectEntryID",
+                "enrollmentID",
                 "clientCoC",
                 "householdID",
                 "informationDate"
@@ -5546,8 +5524,8 @@ public class Sources {
 
                 @XmlElement(name = "EnrollmentCoCID")
                 protected String enrollmentCoCID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "clientCoC", required = true)
                 protected String clientCoC;
                 @XmlElement(name="HouseholdID")
@@ -5580,27 +5558,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -5803,7 +5781,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="EntryRHYID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="HouseholdDynamics" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="SexualOrientation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="SexualOrientationGenderIdentityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
@@ -5862,26 +5840,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "entryRHYID",
-                "projectEntryID",
-                /*"householdDynamics",
-                "sexualOrientationGenderIdentityYouth",
-                "sexualOrientationGenderIDFam",
-                "housingIssuesYouth",
-                "housingIssuesFam",
-                "schoolEducationalIssuesYouth",
-                "schoolEducationalIssuesFam",
-				"unemploymentYouth",
-				"mentalHealthIssuesYouth",
-                "healthIssuesYouth",
-                "healthIssuesFam",
-                "physicalDisabilityYouth",
-                "mentalDisabilityYouth",
-                "mentalDisabilityFam",
-                "abuseAndNeglectYouth",
-                "abuseAndNeglectFam",
-                "alcoholDrugAbuseYouth",
-                "activeMilitaryParent",
-                "incarceratedParentStatus",*/
+                "enrollmentID",
                 "sexualOrientation",
                 "unemploymentFam",
                 "mentalHealthIssuesFam",
@@ -5889,15 +5848,6 @@ public class Sources {
                 "alcoholDrugAbuseFam",
                 "insufficientIncome",
                 "incarceratedParent",
-                "workPlaceViolenceThreats",
-                "workplacePromiseDifference",
-                "coercedToContinueWork",
-                "laborExploitPastThreeMonths",
-                "exchangeForSex",
-                "exchangeForSexPastThreeMonths",
-                "countOfExchangeForSex",
-                "askedOrForcedToExchangeForSex",
-                "askedOrForcedToExchangeForSexPastThreeMonths",
                 "formerWardJuvenileJustice",
                 "juvenileJusticeYears",
                 "juvenileJusticeMonths",
@@ -5911,78 +5861,22 @@ public class Sources {
 
                 @XmlElement(name = "EntryRHYID", required = true)
                 protected String entryRHYID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
-                @XmlElement(name = "HouseholdDynamics")
-                protected byte householdDynamics;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "SexualOrientation")
                 protected byte sexualOrientation;
-                @XmlElement(name = "SexualOrientationGenderIdentityYouth")
-                protected byte sexualOrientationGenderIdentityYouth;
-                @XmlElement(name = "SexualOrientationGenderIDFam")
-                protected byte sexualOrientationGenderIDFam;
-                @XmlElement(name = "HousingIssuesYouth")
-                protected byte housingIssuesYouth;
-                @XmlElement(name = "HousingIssuesFam")
-                protected byte housingIssuesFam;
-                @XmlElement(name = "SchoolEducationalIssuesYouth")
-                protected byte schoolEducationalIssuesYouth;
-                @XmlElement(name = "SchoolEducationalIssuesFam")
-                protected byte schoolEducationalIssuesFam;
-                @XmlElement(name = "UnemploymentYouth")
-                protected byte unemploymentYouth;
                 @XmlElement(name = "UnemploymentFam")
                 protected byte unemploymentFam;
-                @XmlElement(name = "MentalHealthIssuesYouth")
-                protected byte mentalHealthIssuesYouth;
                 @XmlElement(name = "MentalHealthIssuesFam")
                 protected byte mentalHealthIssuesFam;
-                @XmlElement(name = "HealthIssuesYouth")
-                protected byte healthIssuesYouth;
-                @XmlElement(name = "HealthIssuesFam")
-                protected byte healthIssuesFam;
-                @XmlElement(name = "PhysicalDisabilityYouth")
-                protected byte physicalDisabilityYouth;
                 @XmlElement(name = "PhysicalDisabilityFam")
                 protected byte physicalDisabilityFam;
-                @XmlElement(name = "MentalDisabilityYouth")
-                protected byte mentalDisabilityYouth;
-                @XmlElement(name = "MentalDisabilityFam")
-                protected byte mentalDisabilityFam;
-                @XmlElement(name = "AbuseAndNeglectYouth")
-                protected byte abuseAndNeglectYouth;
-                @XmlElement(name = "AbuseAndNeglectFam")
-                protected byte abuseAndNeglectFam;
-                @XmlElement(name = "AlcoholDrugAbuseYouth")
-                protected byte alcoholDrugAbuseYouth;
                 @XmlElement(name = "AlcoholDrugAbuseFam")
                 protected byte alcoholDrugAbuseFam;
                 @XmlElement(name = "InsufficientIncome")
                 protected byte insufficientIncome;
-                @XmlElement(name = "ActiveMilitaryParent")
-                protected byte activeMilitaryParent;
                 @XmlElement(name = "IncarceratedParent")
                 protected byte incarceratedParent;
-                @XmlElement(name = "IncarceratedParentStatus")
-                protected byte incarceratedParentStatus;
-                @XmlElement(name = "WorkPlaceViolenceThreats")
-                protected byte workPlaceViolenceThreats;
-                @XmlElement(name = "WorkplacePromiseDifference")
-                protected byte workplacePromiseDifference;
-                @XmlElement(name = "CoercedToContinueWork")
-                protected byte coercedToContinueWork;
-                @XmlElement(name = "LaborExploitPastThreeMonths")
-                protected byte laborExploitPastThreeMonths;
-                @XmlElement(name = "ExchangeForSex")
-                protected byte exchangeForSex;
-                @XmlElement(name = "ExchangeForSexPastThreeMonths")
-                protected byte exchangeForSexPastThreeMonths;
-                @XmlElement(name = "CountOfExchangeForSex")
-                protected byte countOfExchangeForSex;
-                @XmlElement(name = "AskedOrForcedToExchangeForSex")
-                protected byte askedOrForcedToExchangeForSex;
-                @XmlElement(name = "AskedOrForcedToExchangeForSexPastThreeMonths")
-                protected byte askedOrForcedToExchangeForSexPastThreeMonths;
                 @XmlElement(name = "FormerWardJuvenileJustice")
                 protected byte formerWardJuvenileJustice;
                 @XmlElement(name = "JuvenileJusticeYears")
@@ -6032,47 +5926,16 @@ public class Sources {
                     this.entryRHYID = value;
                 }
 
-                /**
-                 * Gets the value of the projectEntryID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getProjectEntryID() {
-                    return projectEntryID;
-                }
 
-                /**
-                 * Sets the value of the projectEntryID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
-                }
+                public String getEnrollmentID() {
+					return enrollmentID;
+				}
 
-                /**
-                 * Gets the value of the householdDynamics property.
-                 * 
-                 */
-                public byte getHouseholdDynamics() {
-                    return householdDynamics;
-                }
+				public void setEnrollmentID(String enrollmentID) {
+					this.enrollmentID = enrollmentID;
+				}
 
-                /**
-                 * Sets the value of the householdDynamics property.
-                 * 
-                 */
-                public void setHouseholdDynamics(byte value) {
-                    this.householdDynamics = value;
-                }
-
-                /**
+				/**
                  * Gets the value of the sexualOrientation property.
                  * 
                  */
@@ -6086,118 +5949,6 @@ public class Sources {
                  */
                 public void setSexualOrientation(byte value) {
                     this.sexualOrientation = value;
-                }
-
-                /**
-                 * Gets the value of the sexualOrientationGenderIdentityYouth property.
-                 * 
-                 */
-                public byte getSexualOrientationGenderIdentityYouth() {
-                    return sexualOrientationGenderIdentityYouth;
-                }
-
-                /**
-                 * Sets the value of the sexualOrientationGenderIdentityYouth property.
-                 * 
-                 */
-                public void setSexualOrientationGenderIdentityYouth(byte value) {
-                    this.sexualOrientationGenderIdentityYouth = value;
-                }
-
-                /**
-                 * Gets the value of the sexualOrientationGenderIDFam property.
-                 * 
-                 */
-                public byte getSexualOrientationGenderIDFam() {
-                    return sexualOrientationGenderIDFam;
-                }
-
-                /**
-                 * Sets the value of the sexualOrientationGenderIDFam property.
-                 * 
-                 */
-                public void setSexualOrientationGenderIDFam(byte value) {
-                    this.sexualOrientationGenderIDFam = value;
-                }
-
-                /**
-                 * Gets the value of the housingIssuesYouth property.
-                 * 
-                 */
-                public byte getHousingIssuesYouth() {
-                    return housingIssuesYouth;
-                }
-
-                /**
-                 * Sets the value of the housingIssuesYouth property.
-                 * 
-                 */
-                public void setHousingIssuesYouth(byte value) {
-                    this.housingIssuesYouth = value;
-                }
-
-                /**
-                 * Gets the value of the housingIssuesFam property.
-                 * 
-                 */
-                public byte getHousingIssuesFam() {
-                    return housingIssuesFam;
-                }
-
-                /**
-                 * Sets the value of the housingIssuesFam property.
-                 * 
-                 */
-                public void setHousingIssuesFam(byte value) {
-                    this.housingIssuesFam = value;
-                }
-
-                /**
-                 * Gets the value of the schoolEducationalIssuesYouth property.
-                 * 
-                 */
-                public byte getSchoolEducationalIssuesYouth() {
-                    return schoolEducationalIssuesYouth;
-                }
-
-                /**
-                 * Sets the value of the schoolEducationalIssuesYouth property.
-                 * 
-                 */
-                public void setSchoolEducationalIssuesYouth(byte value) {
-                    this.schoolEducationalIssuesYouth = value;
-                }
-
-                /**
-                 * Gets the value of the schoolEducationalIssuesFam property.
-                 * 
-                 */
-                public byte getSchoolEducationalIssuesFam() {
-                    return schoolEducationalIssuesFam;
-                }
-
-                /**
-                 * Sets the value of the schoolEducationalIssuesFam property.
-                 * 
-                 */
-                public void setSchoolEducationalIssuesFam(byte value) {
-                    this.schoolEducationalIssuesFam = value;
-                }
-
-                /**
-                 * Gets the value of the unemploymentYouth property.
-                 * 
-                 */
-                public byte getUnemploymentYouth() {
-                    return unemploymentYouth;
-                }
-
-                /**
-                 * Sets the value of the unemploymentYouth property.
-                 * 
-                 */
-                public void setUnemploymentYouth(byte value) {
-                    this.unemploymentYouth = value;
                 }
 
                 /**
@@ -6217,22 +5968,6 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the mentalHealthIssuesYouth property.
-                 * 
-                 */
-                public byte getMentalHealthIssuesYouth() {
-                    return mentalHealthIssuesYouth;
-                }
-
-                /**
-                 * Sets the value of the mentalHealthIssuesYouth property.
-                 * 
-                 */
-                public void setMentalHealthIssuesYouth(byte value) {
-                    this.mentalHealthIssuesYouth = value;
-                }
-
-                /**
                  * Gets the value of the mentalHealthIssuesFam property.
                  * 
                  */
@@ -6249,54 +5984,6 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the healthIssuesYouth property.
-                 * 
-                 */
-                public byte getHealthIssuesYouth() {
-                    return healthIssuesYouth;
-                }
-
-                /**
-                 * Sets the value of the healthIssuesYouth property.
-                 * 
-                 */
-                public void setHealthIssuesYouth(byte value) {
-                    this.healthIssuesYouth = value;
-                }
-
-                /**
-                 * Gets the value of the healthIssuesFam property.
-                 * 
-                 */
-                public byte getHealthIssuesFam() {
-                    return healthIssuesFam;
-                }
-
-                /**
-                 * Sets the value of the healthIssuesFam property.
-                 * 
-                 */
-                public void setHealthIssuesFam(byte value) {
-                    this.healthIssuesFam = value;
-                }
-
-                /**
-                 * Gets the value of the physicalDisabilityYouth property.
-                 * 
-                 */
-                public byte getPhysicalDisabilityYouth() {
-                    return physicalDisabilityYouth;
-                }
-
-                /**
-                 * Sets the value of the physicalDisabilityYouth property.
-                 * 
-                 */
-                public void setPhysicalDisabilityYouth(byte value) {
-                    this.physicalDisabilityYouth = value;
-                }
-
-                /**
                  * Gets the value of the physicalDisabilityFam property.
                  * 
                  */
@@ -6310,86 +5997,6 @@ public class Sources {
                  */
                 public void setPhysicalDisabilityFam(byte value) {
                     this.physicalDisabilityFam = value;
-                }
-
-                /**
-                 * Gets the value of the mentalDisabilityYouth property.
-                 * 
-                 */
-                public byte getMentalDisabilityYouth() {
-                    return mentalDisabilityYouth;
-                }
-
-                /**
-                 * Sets the value of the mentalDisabilityYouth property.
-                 * 
-                 */
-                public void setMentalDisabilityYouth(byte value) {
-                    this.mentalDisabilityYouth = value;
-                }
-
-                /**
-                 * Gets the value of the mentalDisabilityFam property.
-                 * 
-                 */
-                public byte getMentalDisabilityFam() {
-                    return mentalDisabilityFam;
-                }
-
-                /**
-                 * Sets the value of the mentalDisabilityFam property.
-                 * 
-                 */
-                public void setMentalDisabilityFam(byte value) {
-                    this.mentalDisabilityFam = value;
-                }
-
-                /**
-                 * Gets the value of the abuseAndNeglectYouth property.
-                 * 
-                 */
-                public byte getAbuseAndNeglectYouth() {
-                    return abuseAndNeglectYouth;
-                }
-
-                /**
-                 * Sets the value of the abuseAndNeglectYouth property.
-                 * 
-                 */
-                public void setAbuseAndNeglectYouth(byte value) {
-                    this.abuseAndNeglectYouth = value;
-                }
-
-                /**
-                 * Gets the value of the abuseAndNeglectFam property.
-                 * 
-                 */
-                public byte getAbuseAndNeglectFam() {
-                    return abuseAndNeglectFam;
-                }
-
-                /**
-                 * Sets the value of the abuseAndNeglectFam property.
-                 * 
-                 */
-                public void setAbuseAndNeglectFam(byte value) {
-                    this.abuseAndNeglectFam = value;
-                }
-
-                /**
-                 * Gets the value of the alcoholDrugAbuseYouth property.
-                 * 
-                 */
-                public byte getAlcoholDrugAbuseYouth() {
-                    return alcoholDrugAbuseYouth;
-                }
-
-                /**
-                 * Sets the value of the alcoholDrugAbuseYouth property.
-                 * 
-                 */
-                public void setAlcoholDrugAbuseYouth(byte value) {
-                    this.alcoholDrugAbuseYouth = value;
                 }
 
                 /**
@@ -6424,21 +6031,6 @@ public class Sources {
                     this.insufficientIncome = value;
                 }
 
-                /**
-                 * Gets the value of the activeMilitaryParent property.
-                 * 
-                 */
-                public byte getActiveMilitaryParent() {
-                    return activeMilitaryParent;
-                }
-
-                /**
-                 * Sets the value of the activeMilitaryParent property.
-                 * 
-                 */
-                public void setActiveMilitaryParent(byte value) {
-                    this.activeMilitaryParent = value;
-                }
 
                 /**
                  * Gets the value of the incarceratedParent property.
@@ -6456,165 +6048,6 @@ public class Sources {
                     this.incarceratedParent = value;
                 }
 
-                /**
-                 * Gets the value of the incarceratedParentStatus property.
-                 * 
-                 */
-                public byte getIncarceratedParentStatus() {
-                    return incarceratedParentStatus;
-                }
-
-                /**
-                 * Sets the value of the incarceratedParentStatus property.
-                 * 
-                 */
-                public void setIncarceratedParentStatus(byte value) {
-                    this.incarceratedParentStatus = value;
-                }
-
-                /**
-                 * Gets the value of the workPlaceViolenceThreats property.
-                 * 
-                 */
-                public byte getWorkPlaceViolenceThreats() {
-                    return workPlaceViolenceThreats;
-                }
-
-                /**
-                 * Sets the value of the workPlaceViolenceThreats property.
-                 * 
-                 */
-                public void setWorkPlaceViolenceThreats(byte value) {
-                    this.workPlaceViolenceThreats = value;
-                }
-
-                /**
-                 * Gets the value of the workplacePromiseDifference property.
-                 * 
-                 */
-                public byte getWorkplacePromiseDifference() {
-                    return workplacePromiseDifference;
-                }
-
-                /**
-                 * Sets the value of the workplacePromiseDifference property.
-                 * 
-                 */
-                public void setWorkplacePromiseDifference(byte value) {
-                    this.workplacePromiseDifference = value;
-                }
-
-                /**
-                 * Gets the value of the coercedToContinueWork property.
-                 * 
-                 */
-                public byte getCoercedToContinueWork() {
-                    return coercedToContinueWork;
-                }
-
-                /**
-                 * Sets the value of the coercedToContinueWork property.
-                 * 
-                 */
-                public void setCoercedToContinueWork(byte value) {
-                    this.coercedToContinueWork = value;
-                }
-
-                /**
-                 * Gets the value of the laborExploitPastThreeMonths property.
-                 * 
-                 */
-                public byte getLaborExploitPastThreeMonths() {
-                    return laborExploitPastThreeMonths;
-                }
-
-                /**
-                 * Sets the value of the laborExploitPastThreeMonths property.
-                 * 
-                 */
-                public void setLaborExploitPastThreeMonths(byte value) {
-                    this.laborExploitPastThreeMonths = value;
-                }
-
-                /**
-                 * Gets the value of the exchangeForSex property.
-                 * 
-                 */
-                public byte getExchangeForSex() {
-                    return exchangeForSex;
-                }
-
-                /**
-                 * Sets the value of the exchangeForSex property.
-                 * 
-                 */
-                public void setExchangeForSex(byte value) {
-                    this.exchangeForSex = value;
-                }
-
-                /**
-                 * Gets the value of the exchangeForSexPastThreeMonths property.
-                 * 
-                 */
-                public byte getExchangeForSexPastThreeMonths() {
-                    return exchangeForSexPastThreeMonths;
-                }
-
-                /**
-                 * Sets the value of the exchangeForSexPastThreeMonths property.
-                 * 
-                 */
-                public void setExchangeForSexPastThreeMonths(byte value) {
-                    this.exchangeForSexPastThreeMonths = value;
-                }
-
-                /**
-                 * Gets the value of the countOfExchangeForSex property.
-                 * 
-                 */
-                public byte getCountOfExchangeForSex() {
-                    return countOfExchangeForSex;
-                }
-
-                /**
-                 * Sets the value of the countOfExchangeForSex property.
-                 * 
-                 */
-                public void setCountOfExchangeForSex(byte value) {
-                    this.countOfExchangeForSex = value;
-                }
-
-                /**
-                 * Gets the value of the askedOrForcedToExchangeForSex property.
-                 * 
-                 */
-                public byte getAskedOrForcedToExchangeForSex() {
-                    return askedOrForcedToExchangeForSex;
-                }
-
-                /**
-                 * Sets the value of the askedOrForcedToExchangeForSex property.
-                 * 
-                 */
-                public void setAskedOrForcedToExchangeForSex(byte value) {
-                    this.askedOrForcedToExchangeForSex = value;
-                }
-
-                /**
-                 * Gets the value of the askedOrForcedToExchangeForSexPastThreeMonths property.
-                 * 
-                 */
-                public byte getAskedOrForcedToExchangeForSexPastThreeMonths() {
-                    return askedOrForcedToExchangeForSexPastThreeMonths;
-                }
-
-                /**
-                 * Sets the value of the askedOrForcedToExchangeForSexPastThreeMonths property.
-                 * 
-                 */
-                public void setAskedOrForcedToExchangeForSexPastThreeMonths(byte value) {
-                    this.askedOrForcedToExchangeForSexPastThreeMonths = value;
-                }
 
                 /**
                  * Gets the value of the formerWardJuvenileJustice property.
@@ -6854,7 +6287,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="EntrySSVFID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="PercentAMI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="HPScreeningScore" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="VAMCStation" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -6877,7 +6310,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "entrySSVFID",
-                "projectEntryID",
+                "enrollmentID",
                 "percentAMI",
                 "hpScreeningScore",
                 "vamcStation",
@@ -6913,8 +6346,8 @@ public class Sources {
 
                 @XmlElement(name = "EntrySSVFID", required = true)
                 protected String entrySSVFID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "PercentAMI")
                 protected String percentAMI;
                 @XmlElement(name = "HPScreeningScore")
@@ -7008,27 +6441,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -7456,7 +6889,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ExitDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *         &lt;element name="Destination" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="OtherDestination" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -7474,7 +6907,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "exitID",
-                "projectEntryID",
+                "enrollmentID",
                 "exitDate",
                 "destination",
                 "otherDestination"
@@ -7483,8 +6916,8 @@ public class Sources {
 
                 @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "ExitDate", required = true)
                 protected XMLGregorianCalendar exitDate;
                 @XmlElement(name = "Destination")
@@ -7523,27 +6956,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -8831,7 +8264,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="HealthInsuranceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="InsuranceFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="Medicaid" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="NoMedicaidReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
@@ -8866,7 +8299,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "healthInsuranceID",
-                "projectEntryID",
+                "enrollmentID",
                 "insuranceFromAnySource",
                 "medicaid",
                 "noMedicaidReason",
@@ -8896,8 +8329,8 @@ public class Sources {
 
                 @XmlElement(name = "HealthInsuranceID", required = true)
                 protected String healthInsuranceID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "InsuranceFromAnySource")
                 protected byte insuranceFromAnySource;
                 @XmlElement(name = "Medicaid")
@@ -9008,27 +8441,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -9493,7 +8926,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="HealthStatusID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="HealthCategory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="HealthStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="DueDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
@@ -9513,7 +8946,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "healthStatusID",
-                "projectEntryID",
+                "enrollmentID",
                 "healthCategory",
                 "healthStatus",
                 "dueDate"
@@ -9522,8 +8955,8 @@ public class Sources {
 
                 @XmlElement(name = "HealthStatusID", required = true)
                 protected String healthStatusID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "HealthCategory")
                 protected byte healthCategory;
                 @XmlElement(name = "HealthStatus")
@@ -9566,27 +8999,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -9991,7 +9424,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="IncomeAndSourcesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="IncomeFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="TotalMonthlyIncome" type="{http://www.w3.org/2001/XMLSchema}float"/>
              *         &lt;element name="Earned" type="{http://www.w3.org/2001/XMLSchema}byte"/>
@@ -10041,7 +9474,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "incomeAndSourcesID",
-                "projectEntryID",
+                "enrollmentID",
                 "incomeFromAnySource",
                 "totalMonthlyIncome",
                 "earned",
@@ -10080,8 +9513,8 @@ public class Sources {
 
                 @XmlElement(name = "IncomeAndSourcesID", required = true)
                 protected String incomeAndSourcesID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "IncomeFromAnySource")
                 protected byte incomeFromAnySource;
                 @XmlElement(name = "TotalMonthlyIncome")
@@ -10184,27 +9617,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -11442,7 +10875,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="MedicalAssistanceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="HIVAIDSAssistance" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="NoHIVAIDSAssistanceReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="ADAP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
@@ -11463,7 +10896,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "medicalAssistanceID",
-                "projectEntryID",
+                "enrollmentID",
                 "hivaidsAssistance",
                 "noHIVAIDSAssistanceReason",
                 "adap",
@@ -11473,8 +10906,8 @@ public class Sources {
 
                 @XmlElement(name = "MedicalAssistanceID", required = true)
                 protected String medicalAssistanceID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "HIVAIDSAssistance")
                 protected byte hivaidsAssistance;
                 @XmlElement(name = "NoHIVAIDSAssistanceReason")
@@ -11519,27 +10952,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -11740,7 +11173,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="NonCashBenefitsID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="BenefitsFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="SNAP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="WIC" type="{http://www.w3.org/2001/XMLSchema}byte"/>
@@ -11767,7 +11200,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "nonCashBenefitsID",
-                "projectEntryID",
+                "enrollmentID",
                 "benefitsFromAnySource",
                 "snap",
                 "wic",
@@ -11783,8 +11216,8 @@ public class Sources {
 
                 @XmlElement(name = "NonCashBenefitsID", required = true)
                 protected String nonCashBenefitsID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "BenefitsFromAnySource")
                 protected byte benefitsFromAnySource;
                 @XmlElement(name = "SNAP")
@@ -11841,27 +11274,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -12350,7 +11783,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="PathStatusID" type="{http://www.w3.org/2001/XMLSchema}int"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="DateOfStatus" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *         &lt;element name="ClientEnrolledInPATH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="ReasonNotEnrolled" type="{http://www.w3.org/2001/XMLSchema}byte"/>
@@ -12368,7 +11801,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "pathStatusID",
-                "projectEntryID",
+                "enrollmentID",
                 "dateOfStatus",
                 "clientEnrolledInPATH",
                 "reasonNotEnrolled"
@@ -12377,8 +11810,8 @@ public class Sources {
 
                 @XmlElement(name = "PathStatusID")
                 protected String pathStatusID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "DateOfStatus", required = true)
                 protected XMLGregorianCalendar dateOfStatus;
                 @XmlElement(name = "ClientEnrolledInPATH")
@@ -12409,27 +11842,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -12603,7 +12036,6 @@ public class Sources {
                 "residentialAffiliation",
                 "trackingMethod",
                 "targetPopulation",
-                "residentialaffiliation",
                 "operatingStartDate", 
                 "operatingEndDate", 
                 "victimServicesProvider", 
@@ -12619,11 +12051,11 @@ public class Sources {
                 @XmlElement(name = "ProjectName", required = true)
                 protected String projectName;
                 @XmlElement(name = "ContinuumProject")
-                protected byte continuumProject;
+                protected String continuumProject;
                 @XmlElement(name = "ProjectType")
-                protected byte projectType;
+                protected String projectType;
                 @XmlElement(name = "ResidentialAffiliation")
-                protected byte residentialAffiliation;
+                protected String residentialAffiliation;
                 @XmlElement(name = "TrackingMethod")
                 protected byte trackingMethod;
                 @XmlElement(name = "TargetPopulation")
@@ -12713,7 +12145,7 @@ public class Sources {
                  * Gets the value of the continuumProject property.
                  * 
                  */
-                public byte getContinuumProject() {
+                public String getContinuumProject() {
                     return continuumProject;
                 }
 
@@ -12721,7 +12153,7 @@ public class Sources {
                  * Sets the value of the continuumProject property.
                  * 
                  */
-                public void setContinuumProject(byte value) {
+                public void setContinuumProject(String value) {
                     this.continuumProject = value;
                 }
 
@@ -12729,7 +12161,7 @@ public class Sources {
                  * Gets the value of the projectType property.
                  * 
                  */
-                public byte getProjectType() {
+                public String getProjectType() {
                     return projectType;
                 }
 
@@ -12737,7 +12169,7 @@ public class Sources {
                  * Sets the value of the projectType property.
                  * 
                  */
-                public void setProjectType(byte value) {
+                public void setProjectType(String value) {
                     this.projectType = value;
                 }
 
@@ -12745,7 +12177,7 @@ public class Sources {
                  * Gets the value of the residentialAffiliation property.
                  * 
                  */
-                public byte getResidentialAffiliation() {
+                public String getResidentialAffiliation() {
                     return residentialAffiliation;
                 }
 
@@ -12753,7 +12185,7 @@ public class Sources {
                  * Sets the value of the residentialAffiliation property.
                  * 
                  */
-                public void setResidentialAffiliation(byte value) {
+                public void setResidentialAffiliation(String value) {
                     this.residentialAffiliation = value;
                 }
 
@@ -12932,7 +12364,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="RHYBCPStatusID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="StatusDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *         &lt;element name="FYSBYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="ReasonNoServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
@@ -12950,7 +12382,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "rhybcpStatusID",
-                "projectEntryID",
+                "enrollmentID",
                 "statusDate",
                 "eligibleForRHY",
                 "runawayYouth",
@@ -12960,8 +12392,8 @@ public class Sources {
 
                 @XmlElement(name = "RHYBCPStatusID", required = true)
                 protected String rhybcpStatusID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "StatusDate", required = true)
                 protected XMLGregorianCalendar statusDate;
                 @XmlElement(name = "EligibleForRHY")
@@ -13002,27 +12434,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -13167,7 +12599,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="MoveInDateID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="InPermanentHousing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *         &lt;element name="MoveInDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *       &lt;/sequence>
@@ -13184,7 +12616,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "moveInDateID",
-                "projectEntryID",
+                "enrollmentID",
                 "inPermanentHousing",
                 "moveInDate"
             })
@@ -13192,8 +12624,8 @@ public class Sources {
 
                 @XmlElement(name = "MoveInDateID", required = true)
                 protected String moveInDateID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "MoveInDate", required = true)
                 protected XMLGregorianCalendar moveInDate;
                 @XmlElement(name = "inpermanenthousing", required = true)
@@ -13230,27 +12662,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -13379,7 +12811,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="ServicesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="DateProvided" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *         &lt;element name="RecordType" type="{http://www.w3.org/2001/XMLSchema}short"/>
              *         &lt;element name="TypeProvided" type="{http://www.w3.org/2001/XMLSchema}short"/>
@@ -13401,7 +12833,7 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "servicesID",
-                "projectEntryID",
+                "enrollmentID",
                 "dateProvided",
                 "recordType",
                 "typeProvided",
@@ -13414,8 +12846,8 @@ public class Sources {
 
                 @XmlElement(name = "ServicesID", required = true)
                 protected String servicesID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
+                @XmlElement(name = "EnrollmentID", required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "DateProvided", required = true)
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar dateProvided;
@@ -13465,27 +12897,27 @@ public class Sources {
                 }
 
                 /**
-                 * Gets the value of the projectEntryID property.
+                 * Gets the value of the enrollmentID property.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getProjectEntryID() {
-                    return projectEntryID;
+                public String getenrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
-                 * Sets the value of the projectEntryID property.
+                 * Sets the value of the enrollmentID property.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
+                public void setenrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -14003,7 +13435,7 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="WorstHousingSituationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
+             *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="WorstHousingSituation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -14018,364 +13450,149 @@ public class Sources {
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
-                "worstHousingSituationID",
-                "projectEntryID",
-                "worstHousingSituation"
-            })
-            public static class WorstHousingSituation {
-
-                @XmlElement(name = "WorstHousingSituationID", required = true)
-                protected String worstHousingSituationID;
-                @XmlElement(name = "ProjectEntryID", required = true)
-                protected String projectEntryID;
-                @XmlElement(name = "WorstHousingSituation")
-                protected byte worstHousingSituation;
-                @XmlAttribute
-                protected XMLGregorianCalendar dateCreated;
-                @XmlAttribute
-                protected XMLGregorianCalendar dateUpdated;
-                @XmlAttribute
-                protected String userID;
-
-                /**
-                 * Gets the value of the worstHousingSituationID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getWorstHousingSituationID() {
-                    return worstHousingSituationID;
-                }
-
-                /**
-                 * Sets the value of the worstHousingSituationID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setWorstHousingSituationID(String value) {
-                    this.worstHousingSituationID = value;
-                }
-
-                /**
-                 * Gets the value of the projectEntryID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getProjectEntryID() {
-                    return projectEntryID;
-                }
-
-                /**
-                 * Sets the value of the projectEntryID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setProjectEntryID(String value) {
-                    this.projectEntryID = value;
-                }
-
-                /**
-                 * Gets the value of the worstHousingSituation property.
-                 * 
-                 */
-                public byte getWorstHousingSituation() {
-                    return worstHousingSituation;
-                }
-
-                /**
-                 * Sets the value of the worstHousingSituation property.
-                 * 
-                 */
-                public void setWorstHousingSituation(byte value) {
-                    this.worstHousingSituation = value;
-                }
-
-                /**
-                 * Gets the value of the dateCreated property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public XMLGregorianCalendar getDateCreated() {
-                    return dateCreated;
-                }
-
-                /**
-                 * Sets the value of the dateCreated property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public void setDateCreated(XMLGregorianCalendar value) {
-                    this.dateCreated = value;
-                }
-
-                /**
-                 * Gets the value of the dateUpdated property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public XMLGregorianCalendar getDateUpdated() {
-                    return dateUpdated;
-                }
-
-                /**
-                 * Sets the value of the dateUpdated property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link XMLGregorianCalendar }
-                 *     
-                 */
-                public void setDateUpdated(XMLGregorianCalendar value) {
-                    this.dateUpdated = value;
-                }
-
-                /**
-                 * Gets the value of the userID property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getUserID() {
-                    return userID;
-                }
-
-                /**
-                 * Sets the value of the userID property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setUserID(String value) {
-                    this.userID = value;
-                }
-
-            }
-            
-            /**
-             * <p>Java class for anonymous complex type.
-             * 
-             * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
-             * <pre>
-             * &lt;complexType>
-             *   &lt;complexContent>
-             *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       &lt;sequence>
-             *         &lt;element name="WorstHousingSituationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ProjectEntryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="WorstHousingSituation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *       &lt;/sequence>
-             *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-             *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
-             *       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
-             *     &lt;/restriction>
-             *   &lt;/complexContent>
-             * &lt;/complexType>
-             * </pre>
-             * 
-             * 
-             */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "id",
-                "informationDate",
+                "geographyID",
+                "projectID",
+                "coCCode",
                 "geoCode",
+                "geographyType",
                 "address1",
-                "address2",
                 "city",
-               "state",
+                "state",
             	"zip",
-            	"geography_type"
+            	"dateCreated",
+        		"dateUpdated"
             })
             public static class Geography {
 
-                @XmlElement(name = "id", required = true)
-                protected String id;
-                @XmlElement(name = "informationDate", required = true)
-                protected XMLGregorianCalendar informationDate;
-                @XmlElement(name = "geoCode")
-                protected byte geoCode;
+                @XmlElement(name = "GeographyID", required = true)
+                protected String geographyID;
+                @XmlElement(name = "ProjectID")
+                protected String projectID;
+                @XmlElement(name = "CoCCode")
+                protected String coCCode;
+                @XmlElement(name = "GeoCode")
+                protected String geoCode;
+                @XmlElement(name = "GeographyType")
+                protected String geographyType;
                 @XmlElement(name = "address1")
                 protected String address1;
-                @XmlElement(name = "address2")
-                protected String address2;
                 @XmlElement(name = "city")
                 protected String city;
                 @XmlElement(name = "state")
                 protected String state;
                 @XmlElement(name = "zip")
                 protected String zip;
-                @XmlElement(name = "geography_type")
-                protected Integer geography_type;
-				/**
-				 * @return the id
-				 */
-				public String getId() {
-					return id;
+                @XmlElement(name = "dateCreated")
+	            protected XMLGregorianCalendar dateCreated;
+	            @XmlElement(name = "dateUpdated")
+	            protected XMLGregorianCalendar dateUpdated;
+	            
+                
+				public String getGeographyID() {
+					return geographyID;
 				}
-				/**
-				 * @param id the id to set
-				 */
-				public void setId(String id) {
-					this.id = id;
+				public void setGeographyID(String geographyID) {
+					this.geographyID = geographyID;
 				}
-				/**
-				 * @return the informationDate
-				 */
-				public XMLGregorianCalendar getInformationDate() {
-					return informationDate;
+				public String getProjectID() {
+					return projectID;
 				}
-				/**
-				 * @param informationDate the informationDate to set
-				 */
-				public void setInformationDate(XMLGregorianCalendar informationDate) {
-					this.informationDate = informationDate;
+				public void setProjectID(String projectID) {
+					this.projectID = projectID;
 				}
-				/**
-				 * @return the geoCode
-				 */
-				public byte getGeoCode() {
+				public String getCoCCode() {
+					return coCCode;
+				}
+				public void setCoCCode(String coCCode) {
+					this.coCCode = coCCode;
+				}
+				public String getGeoCode() {
 					return geoCode;
 				}
-				/**
-				 * @param geoCode the geoCode to set
-				 */
-				public void setGeoCode(byte geoCode) {
+				public void setGeoCode(String geoCode) {
 					this.geoCode = geoCode;
 				}
-				/**
-				 * @return the address1
-				 */
+				public String getGeographyType() {
+					return geographyType;
+				}
+				public void setGeographyType(String geographyType) {
+					this.geographyType = geographyType;
+				}
 				public String getAddress1() {
 					return address1;
 				}
-				/**
-				 * @param address1 the address1 to set
-				 */
 				public void setAddress1(String address1) {
 					this.address1 = address1;
 				}
-				/**
-				 * @return the address2
-				 */
-				public String getAddress2() {
-					return address2;
-				}
-				/**
-				 * @param address2 the address2 to set
-				 */
-				public void setAddress2(String address2) {
-					this.address2 = address2;
-				}
-				/**
-				 * @return the city
-				 */
 				public String getCity() {
 					return city;
 				}
-				/**
-				 * @param city the city to set
-				 */
 				public void setCity(String city) {
 					this.city = city;
 				}
-				/**
-				 * @return the state
-				 */
 				public String getState() {
 					return state;
 				}
-				/**
-				 * @param state the state to set
-				 */
 				public void setState(String state) {
 					this.state = state;
 				}
-				/**
-				 * @return the zip
-				 */
 				public String getZip() {
 					return zip;
 				}
-				/**
-				 * @param zip the zip to set
-				 */
 				public void setZip(String zip) {
 					this.zip = zip;
 				}
-				/**
-				 * @return the geography_type
-				 */
-				public Integer getGeography_type() {
-					return geography_type;
+				public XMLGregorianCalendar getDateCreated() {
+					return dateCreated;
 				}
-				/**
-				 * @param geography_type the geography_type to set
-				 */
-				public void setGeography_type(Integer geography_type) {
-					this.geography_type = geography_type;
+				public void setDateCreated(XMLGregorianCalendar dateCreated) {
+					this.dateCreated = dateCreated;
 				}
-               
+				public XMLGregorianCalendar getDateUpdated() {
+					return dateUpdated;
+				}
+				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
+					this.dateUpdated = dateUpdated;
+				}
+				
             }
             
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
-            		"id",
-            		"exitId",
+            		"vashExitReasonID",
+            		"exitID",
             		"cmExitReason",
-            		"dateCreated"
+            		"dateCreated",
+            		"dateUpdated"
             })
 
             public static class VASHExitReason {
-	            @XmlElement(name = "id", required = true)
-	            protected String id;
-	            @XmlElement(name = "exitId")
-	            protected String exitId;
-	            @XmlElement(name = "cmExitReason")
-	            protected Integer cmExitReason;
+	            @XmlElement(name = "VashExitReasonID", required = true)
+	            protected String vashExitReasonID;
+	            @XmlElement(name = "ExitID")
+	            protected String exitID;
+	            @XmlElement(name = "CMExitReason")
+	            protected String cmExitReason;
 	            @XmlElement(name = "dateCreated")
 	            protected XMLGregorianCalendar dateCreated;
-	            
-				public String getId() {
-					return id;
+	            @XmlElement(name = "dateUpdated")
+	            protected XMLGregorianCalendar dateUpdated;
+				public String getVashExitReasonID() {
+					return vashExitReasonID;
 				}
-				public void setId(String id) {
-					this.id = id;
+				public void setVashExitReasonID(String vashExitReasonID) {
+					this.vashExitReasonID = vashExitReasonID;
 				}
-				public String getExitId() {
-					return exitId;
+				public String getExitID() {
+					return exitID;
 				}
-				public void setExitId(String exitId) {
-					this.exitId = exitId;
+				public void setExitID(String exitID) {
+					this.exitID = exitID;
 				}
-				public Integer getCmExitReason() {
+				public String getCmExitReason() {
 					return cmExitReason;
 				}
-				public void setCmExitReason(Integer cmExitReason) {
+				public void setCmExitReason(String cmExitReason) {
 					this.cmExitReason = cmExitReason;
 				}
 				public XMLGregorianCalendar getDateCreated() {
@@ -14384,41 +13601,67 @@ public class Sources {
 				public void setDateCreated(XMLGregorianCalendar dateCreated) {
 					this.dateCreated = dateCreated;
 				}
-				
-	
+				public XMLGregorianCalendar getDateUpdated() {
+					return dateUpdated;
+				}
+				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
+					this.dateUpdated = dateUpdated;
+				}
 	         }
             
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
-            		"id", 
+            		"rhyAfterCareID", 
+            		"exitID",
             		"afterCareDate",
-            		"afterProvided",
+            		"afterCareProvided",
             		"emailSocialMedia",
             		"telephone",
             		"inPersonIndividual",
-            		"inPersonGroup"
+            		"inPersonGroup",
+            		"dateCreated",
+            		"dateUpdated"
             })
 
             public static class RHYAfterCare {
-	            @XmlElement(name = "id", required = true)
-	            protected String id;
-	            @XmlElement(name = "afterCareDate")
+	            @XmlElement(name = "RhyAfterCareID", required = true)
+	            protected String rhyAfterCareID;
+	            @XmlElement(name = "ExitID")
+	            protected String exitID;
+	            @XmlElement(name = "AfterCareDate")
 	            protected XMLGregorianCalendar afterCareDate;
-	            @XmlElement(name = "afterProvided")
-	            protected Integer afterProvided;
-	            @XmlElement(name = "emailSocialMedia")
-	            protected Integer emailSocialMedia;
-	            @XmlElement(name = "telephone")
-	            protected Integer telephone;
-	            @XmlElement(name = "inPersonIndividual")
-	            protected Integer inPersonIndividual;
-	            @XmlElement(name = "inPersonGroup")
-	            protected Integer inPersonGroup;
-				public String getId() {
-					return id;
+	            @XmlElement(name = "AfterCareProvided")
+	            protected String afterCareProvided;
+	            @XmlElement(name = "EmailSocialMedia")
+	            protected String emailSocialMedia;
+	            @XmlElement(name = "Telephone")
+	            protected String telephone;
+	            @XmlElement(name = "InPersonIndividual")
+	            protected String inPersonIndividual;
+	            @XmlElement(name = "InPersonGroup")
+	            protected String inPersonGroup;
+	            @XmlElement(name = "dateCreated")
+	            protected XMLGregorianCalendar dateCreated;
+	            @XmlElement(name = "dateUpdated")
+	            protected XMLGregorianCalendar dateUpdated;
+	            
+				public String getRhyAfterCareID() {
+					return rhyAfterCareID;
 				}
-				public void setId(String id) {
-					this.id = id;
+				public void setRhyAfterCareID(String rhyAfterCareID) {
+					this.rhyAfterCareID = rhyAfterCareID;
+				}
+				public String getExitID() {
+					return exitID;
+				}
+				public void setExitID(String exitID) {
+					this.exitID = exitID;
+				}
+				public String getAfterCareProvided() {
+					return afterCareProvided;
+				}
+				public void setAfterCareProvided(String afterCareProvided) {
+					this.afterCareProvided = afterCareProvided;
 				}
 				public XMLGregorianCalendar getAfterCareDate() {
 					return afterCareDate;
@@ -14426,37 +13669,42 @@ public class Sources {
 				public void setAfterCareDate(XMLGregorianCalendar afterCareDate) {
 					this.afterCareDate = afterCareDate;
 				}
-				public Integer getAfterProvided() {
-					return afterProvided;
-				}
-				public void setAfterProvided(Integer afterProvided) {
-					this.afterProvided = afterProvided;
-				}
-				public Integer getEmailSocialMedia() {
+				public String getEmailSocialMedia() {
 					return emailSocialMedia;
 				}
-				public void setEmailSocialMedia(Integer emailSocialMedia) {
+				public void setEmailSocialMedia(String emailSocialMedia) {
 					this.emailSocialMedia = emailSocialMedia;
 				}
-				public Integer getTelephone() {
+				public String getTelephone() {
 					return telephone;
 				}
-				public void setTelephone(Integer telephone) {
+				public void setTelephone(String telephone) {
 					this.telephone = telephone;
 				}
-				public Integer getInPersonIndividual() {
+				public String getInPersonIndividual() {
 					return inPersonIndividual;
 				}
-				public void setInPersonIndividual(Integer inPersonIndividual) {
+				public void setInPersonIndividual(String inPersonIndividual) {
 					this.inPersonIndividual = inPersonIndividual;
 				}
-				public Integer getInPersonGroup() {
+				public String getInPersonGroup() {
 					return inPersonGroup;
 				}
-				public void setInPersonGroup(Integer inPersonGroup) {
+				public void setInPersonGroup(String inPersonGroup) {
 					this.inPersonGroup = inPersonGroup;
 				}
-	            
+				public XMLGregorianCalendar getDateCreated() {
+					return dateCreated;
+				}
+				public void setDateCreated(XMLGregorianCalendar dateCreated) {
+					this.dateCreated = dateCreated;
+				}
+				public XMLGregorianCalendar getDateUpdated() {
+					return dateUpdated;
+				}
+				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
+					this.dateUpdated = dateUpdated;
+				}
 				
 	         }
 
