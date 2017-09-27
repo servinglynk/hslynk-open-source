@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.enums.GeographyEnum;
+import com.servinglynk.hmis.warehouse.enums.GeographyTypeEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -44,7 +44,7 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 						geographyModel.setAddress1(expGeographies.getAddress1());
 						geographyModel.setAddress2(expGeographies.getAddress2());
 						geographyModel.setCity(expGeographies.getCity());
-						geographyModel.setGeoCode(GeographyEnum.lookupEnum(expGeographies.getGeoCode()));
+						geographyModel.setGeoCode(GeographyTypeEnum.lookupEnum(expGeographies.getGeoCode()));
 						geographyModel.setGeographyType(expGeographies.getGeographyType());
 						geographyModel.setInformationDate(BasicDataGenerator.getLocalDateTime(expGeographies.getInformationDate()));
 						geographyModel.setState(expGeographies.getState());

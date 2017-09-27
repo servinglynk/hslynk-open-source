@@ -11,11 +11,11 @@ import org.hibernate.engine.spi.SessionImplementor;
 
 import com.servinglynk.hmis.warehouse.util.GenericEnumType;
 
-public class GeographyEnumType extends GenericEnumType<String, GeographyEnum> {
+public class GeographyTypeEnumType extends GenericEnumType<String, GeographyTypeEnum> {
 	
 
-	public GeographyEnumType() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-		super(GeographyEnum.class, GeographyEnum.values(), "getValue", Types.OTHER);
+	public GeographyTypeEnumType() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+		super(GeographyTypeEnum.class, GeographyTypeEnum.values(), "getValue", Types.OTHER);
 	}
 
 	@Override

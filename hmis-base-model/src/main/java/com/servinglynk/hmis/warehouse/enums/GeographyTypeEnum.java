@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.enums;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum GeographyEnum {
+public enum GeographyTypeEnum {
 
 	/** Enum Constant. */
 	ONE("1"),
@@ -21,16 +21,16 @@ public enum GeographyEnum {
 	 * Enum constructor for ActiveState.
 	 * @param state Value.
 	 */
-	GeographyEnum(final String state) {
+	GeographyTypeEnum(final String state) {
 		this.status = state;
 	}
 	
 	/** Construct a map for reverse lookup. */
-	private static Map<String, GeographyEnum> valueMap = new HashMap<String, GeographyEnum>();
+	private static Map<String, GeographyTypeEnum> valueMap = new HashMap<String, GeographyTypeEnum>();
 
     static {
     	// construct hashmap for later possible use.
-        for (GeographyEnum unit : values()) {
+        for (GeographyTypeEnum unit : values()) {
             valueMap.put(unit.getValue(), unit);
         }
     }
@@ -50,8 +50,8 @@ public enum GeographyEnum {
      * @param value to search
      * @return Enum object.
      */
-    public static GeographyEnum lookupEnum(String value) {
-        return GeographyEnum.valueMap.get(value);
+    public static GeographyTypeEnum lookupEnum(String value) {
+        return GeographyTypeEnum.valueMap.get(value);
     }
 
 }

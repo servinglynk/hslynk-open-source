@@ -12,20 +12,20 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
-import com.servinglynk.hmis.warehouse.enums.GeographyEnum;
+import com.servinglynk.hmis.warehouse.enums.GeographyTypeEnum;
 @Entity(name = "geography_v2017")
 @Table(name = "geography", catalog = "hmis", schema = "v2017")
 public class Geography extends HmisBaseModel implements Cloneable, Serializable  {
 	
 	private java.util.UUID id;
 	private LocalDateTime informationDate;
-	private GeographyEnum geoCode;
+	private String geoCode;
 	private String address1;
 	private String address2;
 	private String city;
 	private String state;
 	private String zip;
-	private Integer geographyType;
+	private GeographyTypeEnum geographyType;
 	
 	
 	public Geography() {
@@ -64,16 +64,16 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the geoCode
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.GeographyEnumType")
+	
 	@Basic( optional = true )
 	@Column( name = "geo_code" )
-	public GeographyEnum getGeoCode() {
+	public String getGeoCode() {
 		return geoCode;
 	}
 	/**
 	 * @param geoCode the geoCode to set
 	 */
-	public void setGeoCode(GeographyEnum geoCode) {
+	public void setGeoCode(String geoCode) {
 		this.geoCode = geoCode;
 	}
 	/**
@@ -149,15 +149,16 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the geography_type
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.GeographyTypeEnumType")
 	@Basic( optional = true )
 	@Column( name = "geography_type" )
-	public Integer getGeographyType() {
+	public GeographyTypeEnum getGeographyType() {
 		return geographyType;
 	}
 	/**
 	 * @param geography_type the geography_type to set
 	 */
-	public void setGeographyType(Integer geographyType) {
+	public void setGeographyType(GeographyTypeEnum geographyType) {
 		this.geographyType = geographyType;
 	}
 	/**
@@ -171,9 +172,9 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	 * @param zip
 	 * @param geography_type
 	 */
-	public Geography(UUID id, LocalDateTime informationDate, GeographyEnum geoCode,
+	public Geography(UUID id, LocalDateTime informationDate, String geoCode,
 			String address1, String address2, String city, String state,
-			String zip, Integer geography_type) {
+			String zip, GeographyTypeEnum geographyType) {
 		super();
 		this.id = id;
 		this.informationDate = informationDate;
@@ -183,7 +184,7 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.geography_type = geography_type;
+		this.geographyType = geographyType;
 	}
 	
 	
