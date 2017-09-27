@@ -41,10 +41,10 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 					com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason vashExitReasonModel = null;
 					try {
 						vashExitReasonModel = getModelObject(domain, expVASHExitReasons, data, modelMap);
-						vashExitReasonModel.setCmExitReason(CMExitReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(expVASHExitReasons.getCmExitReason().byteValue())));
+						vashExitReasonModel.setCmExitReason(CMExitReasonEnum.lookupEnum(expVASHExitReasons.getCmExitReason()));
 						performSaveOrUpdate(vashExitReasonModel);
 					}catch(Exception e ){
-						String errorMessage = "Exception beause of the VASHExitReasons ::"+expVASHExitReasons.getId() +" Exception ::"+e.getMessage();
+						String errorMessage = "Exception beause of the VASHExitReasons ::"+expVASHExitReasons.getVashExitReasonID() +" Exception ::"+e.getMessage();
 						if(vashExitReasonModel != null){
 							Error2017 error = new Error2017();
 							error.model_id = vashExitReasonModel.getId();
@@ -66,7 +66,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 	public com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason expVASHExitReason ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason modelFromDB = null;
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason) getModel(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason.class, expVASHExitReason.getId(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason) getModel(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason.class, expVASHExitReason.getVashExitReasonID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason();
@@ -76,7 +76,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 		com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason model = new com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason();
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expVASHExitReason.getDateCreated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,expVASHExitReason.getId(),data);
+		hydrateCommonFields(model, domain,expVASHExitReason.getVashExitReasonID(),data);
 		return model;
 	}
 	

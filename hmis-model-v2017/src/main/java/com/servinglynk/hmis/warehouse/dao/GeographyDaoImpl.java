@@ -44,8 +44,8 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 						geographyModel.setAddress1(expGeographies.getAddress1());
 						geographyModel.setAddress2(expGeographies.getAddress2());
 						geographyModel.setCity(expGeographies.getCity());
-						geographyModel.setGeoCode(GeographyTypeEnum.lookupEnum(expGeographies.getGeoCode()));
-						geographyModel.setGeographyType(expGeographies.getGeographyType());
+						geographyModel.setGeoCode(expGeographies.getGeoCode());
+						geographyModel.setGeographyType(GeographyTypeEnum.lookupEnum(expGeographies.getGeographyType()));
 						geographyModel.setInformationDate(BasicDataGenerator.getLocalDateTime(expGeographies.getInformationDate()));
 						geographyModel.setState(expGeographies.getState());
 						geographyModel.setZip(expGeographies.getZip());
