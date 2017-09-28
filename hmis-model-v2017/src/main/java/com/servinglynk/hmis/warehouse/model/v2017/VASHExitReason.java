@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -17,7 +21,7 @@ import com.servinglynk.hmis.warehouse.enums.CMExitReasonEnum;
 public class VASHExitReason  extends HmisBaseModel implements Cloneable, Serializable {
 	
 	private java.util.UUID id;
-	private java.util.UUID exitId;
+	private Exit exitid;
 	private CMExitReasonEnum cmExitReason;
 	
 	public VASHExitReason() {
@@ -45,20 +49,29 @@ public class VASHExitReason  extends HmisBaseModel implements Cloneable, Seriali
 	public void setId(java.util.UUID id) {
 		this.id = id;
 	}
-	/**
-	 * @return the exitId
+	 /**
+	 * Return the value associated with the column: exitid.
+	 * @return A Exit object (this.exitid)
 	 */
-	@Basic( optional = false )
-	@Column( name = "exitid", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-	public java.util.UUID getExitId() {
-		return exitId;
+	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = true )
+	@JoinColumn(name = "exitid", nullable = true )
+	public Exit getExitid() {
+		return this.exitid;
+
 	}
-	/**
-	 * @param exitId the exitId to set
+
+
+
+	 /**
+	 * Set the value related to the column: exitid.
+	 * @param exitid the exitid value you wish to set
 	 */
-	public void setExitId(java.util.UUID exitId) {
-		this.exitId = exitId;
+	public void setExitid(final Exit exitid) {
+		this.exitid = exitid;
 	}
+
 	
 	/**
 	 * @return the cmExitReason
@@ -83,10 +96,10 @@ public class VASHExitReason  extends HmisBaseModel implements Cloneable, Seriali
 	 * @param exitId
 	 * @param cmExitReason
 	 */
-	public VASHExitReason(UUID id, UUID exitId, CMExitReasonEnum cmExitReason) {
+	public VASHExitReason(UUID id, Exit exitid, CMExitReasonEnum cmExitReason) {
 		super();
 		this.id = id;
-		this.exitId = exitId;
+		this.exitid = exitid;
 		this.cmExitReason = cmExitReason;
 	}
 	

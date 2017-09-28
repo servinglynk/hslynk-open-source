@@ -30,21 +30,23 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 	
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason> expVASHExitReason= domain.getExport().getVashExitReason();
+		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason> expVASHExitReasons= domain.getExport().getVashExitReason();
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason.class, getProjectGroupCode(domain));
-		if(expVASHExitReason !=null && !expVASHExitReason.isEmpty())
+		if(expVASHExitReasons !=null && !expVASHExitReasons.isEmpty())
 		{
-				for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason expVASHExitReasons : expVASHExitReason)
+				for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason expVASHExitReason : expVASHExitReasons)
 				{
 					com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason vashExitReasonModel = null;
 					try {
-						vashExitReasonModel = getModelObject(domain, expVASHExitReasons, data, modelMap);
-						vashExitReasonModel.setCmExitReason(CMExitReasonEnum.lookupEnum(expVASHExitReasons.getCmExitReason()));
+						vashExitReasonModel = getModelObject(domain, expVASHExitReason, data, modelMap);
+						vashExitReasonModel.setCmExitReason(CMExitReasonEnum.lookupEnum(expVASHExitReason.getCmExitReason()));
+						com.servinglynk.hmis.warehouse.model.v2017.Exit exit = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class,expVASHExitReason.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+						vashExitReasonModel.setExitid(exit);
 						performSaveOrUpdate(vashExitReasonModel);
 					}catch(Exception e ){
-						String errorMessage = "Exception beause of the VASHExitReasons ::"+expVASHExitReasons.getVashExitReasonID() +" Exception ::"+e.getMessage();
+						String errorMessage = "Exception beause of the VASHExitReasons ::"+expVASHExitReason.getVashExitReasonID() +" Exception ::"+e.getMessage();
 						if(vashExitReasonModel != null){
 							Error2017 error = new Error2017();
 							error.model_id = vashExitReasonModel.getId();

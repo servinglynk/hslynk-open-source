@@ -5,9 +5,13 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -25,6 +29,8 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 	private NoYesEnum telephone;
 	private NoYesEnum inPersonIndividual;
 	private NoYesEnum inPersonGroup;
+	/** Field mapping. */
+	private Exitrhy exitrhyid;
 	/**
 	 * @return the id
 	 */
@@ -129,6 +135,28 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 	public void setInPersonGroup(NoYesEnum inPersonGroup) {
 		this.inPersonGroup = inPersonGroup;
 	}
+	 /**
+		 * Return the value associated with the column: exitid.
+		 * @return A Exit object (this.exitid)
+		 */
+		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = true )
+		@JoinColumn(name = "exitrhyid", nullable = true )
+		public Exitrhy getExitrhyid() {
+			return this.exitrhyid;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: exitid.
+		 * @param exitid the exitid value you wish to set
+		 */
+		public void setExitrhyid(final Exitrhy exitrhyid) {
+			this.exitrhyid = exitrhyid;
+		}
 	/**
 	 * @param id
 	 * @param afterCareDate

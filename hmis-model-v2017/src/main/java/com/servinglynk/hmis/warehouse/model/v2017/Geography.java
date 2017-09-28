@@ -5,9 +5,13 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -26,6 +30,8 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	private String state;
 	private String zip;
 	private GeographyTypeEnum geographyType;
+	/** Field mapping. */
+	private Coc coc;
 	
 	
 	public Geography() {
@@ -161,6 +167,29 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	public void setGeographyType(GeographyTypeEnum geographyType) {
 		this.geographyType = geographyType;
 	}
+	
+	 /**
+		 * Return the value associated with the column: coc.
+		 * @return A Coc object (this.coc)
+		 */
+		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = true )
+		@JoinColumn(name = "coc_id", nullable = true )
+		public Coc getCoc() {
+			return this.coc;
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: coc.
+		 * @param coc the coc value you wish to set
+		 */
+		public void setCoc(final Coc coc) {
+			this.coc = coc;
+		}
+
 	/**
 	 * @param id
 	 * @param informationDate

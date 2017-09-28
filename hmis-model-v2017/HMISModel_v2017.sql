@@ -2790,7 +2790,7 @@ create table "v2017".rhyaftercare
 	telephone "v2017".no_yes,
 	in_person_individual "v2017".no_yes,
 	in_person_group "v2017".no_yes,
-	exitid uuid,
+	exitrhyid uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
 	"date_created_from_source" timestamp,
@@ -2803,8 +2803,8 @@ create table "v2017".rhyaftercare
 	deleted boolean DEFAULT false,active boolean DEFAULT true, 
 	sync boolean DEFAULT false,
 		constraint "rhyaftercare_pkey" primary key ("id"),
-		constraint "rhyaftercare_fkey" foreign key ("exitid")
-		references v2017.exit("id") match simple
+		constraint "rhyaftercare_fkey" foreign key ("exitrhyid")
+		references v2017.exitRHY("id") match simple
 		on update no action on delete no action
 )
 with (
@@ -2873,7 +2873,7 @@ create table "v2017".geography
 	state varchar(50),
 	zip varchar(15),
 	geography_type "v2017".geography_type,
-	projectid uuid,
+	coc_id uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
 	"date_created_from_source" timestamp,
@@ -2886,8 +2886,8 @@ create table "v2017".geography
 	deleted boolean DEFAULT false,active boolean DEFAULT true, 
 	sync boolean DEFAULT false,
 		constraint "geography_pkey" primary key ("id"),
-		constraint "geography_fkey" foreign key ("projectid")
-		references v2017.exit("id") match simple
+		constraint "geography_fkey" foreign key ("coc_id")
+		references v2017.coc("id") match simple
 		on update no action on delete no action
 )
 with (
