@@ -12,7 +12,7 @@ import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.HMISTypes;
 
 @RestController
-@RequestMapping("/hmistypes")
+@RequestMapping("/dataelements")
 public class HMISTypeController extends ControllerBase {
 
 	@RequestMapping(method=RequestMethod.GET,value="/{name}/values")
