@@ -59,4 +59,6 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	BulkUploadErrorDao getBulkUploadErrorDao();
 
 	InformationReleasesDao getInformationReleasesDao();
+	HmisTypeDao getHmisTypeDao();
+	QuestionDao getQuestionDao();
 }

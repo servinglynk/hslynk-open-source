@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
@@ -25,6 +26,7 @@ import com.servinglynk.hmis.warehouse.service.impl.ExithousingassessmentServiceI
 import com.servinglynk.hmis.warehouse.service.impl.ExitpathServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.FunderServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.HMISTypeServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthinsuranceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HousingAssessmentDispositionServiceImpl;
@@ -36,6 +38,7 @@ import com.servinglynk.hmis.warehouse.service.impl.OrganizationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PathstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectcocServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.QuestionServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SearchServiceImpl;
@@ -233,5 +236,15 @@ public class ServiceConfig  {
 	 
 	 @Bean BulkUploadErrorActivityServiceImpl bulkUploadErrorActivityService() {
 		 return new BulkUploadErrorActivityServiceImpl();
+	 }
+	 
+	 @Bean
+	 public HMISTypeServiceImpl hmisTypeService() {
+		 return new HMISTypeServiceImpl();
+	 }
+	 
+	 @Bean
+	 public QuestionServiceImpl questionService() {
+		 return new QuestionServiceImpl();
 	 }
 }

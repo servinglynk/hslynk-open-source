@@ -50,6 +50,7 @@ DROP TABLE IF EXISTS "v2014".enrollment;
 DROP TABLE IF EXISTS "v2014".organization; 
 DROP TABLE IF  EXISTS "v2014".sync;
 DROP TABLE IF EXISTS "v2014".veteran_info;
+DROP TABLE IF EXISTS v2014.question;
 -- DROP TABLE IF EXISTS "v2014".client;
 
 
@@ -2718,6 +2719,24 @@ create table "v2014".bulk_upload_activity
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT bulk_upload_activity_pk PRIMARY KEY ("id")
 );
+
+CREATE TABLE v2014.question (
+	ID uuid NOT NULL,
+	question_description CHARACTER VARYING (256),
+	display_text CHARACTER VARYING (256),
+	question_data_type CHARACTER VARYING (256),
+	question_type CHARACTER VARYING (256),
+	created_at TIMESTAMP (0),
+	updated_at TIMESTAMP (0),
+	user_id CHARACTER VARYING (256),
+	is_active BOOLEAN,
+	picklist_group_name CHARACTER VARYING (256),
+	deleted BOOLEAN DEFAULT FALSE,
+	hud_question_id CHARACTER VARYING (32),
+	update_url_template CHARACTER VARYING (512),
+	PRIMARY KEY ("id")
+) WITH (OIDS = FALSE);
+
 
 CREATE SEQUENCE "v2014".bulk_upload_activity_id_seq START 1;
 

@@ -36,6 +36,7 @@ DROP TABLE IF EXISTS "v2015".export;
 DROP TABLE IF EXISTS "v2015".source;
 DROP TABLE IF EXISTS v2015.exitRHY;
 DROP TABLE IF EXISTS v2015.exitPath;
+DROP TABLE IF EXISTS v2015.question;
 -- Table: "v2015"."client"
 
 
@@ -2864,6 +2865,24 @@ CREATE TABLE v2015.bulk_upload_error
 WITH (
   OIDS=FALSE
 );
+
+
+CREATE TABLE v2015.question (
+	ID uuid NOT NULL,
+	question_description CHARACTER VARYING (256),
+	display_text CHARACTER VARYING (256),
+	question_data_type CHARACTER VARYING (256),
+	question_type CHARACTER VARYING (256),
+	created_at TIMESTAMP (0),
+	updated_at TIMESTAMP (0),
+	user_id CHARACTER VARYING (256),
+	is_active BOOLEAN,
+	picklist_group_name CHARACTER VARYING (256),
+	deleted BOOLEAN DEFAULT FALSE,
+	hud_question_id CHARACTER VARYING (32),
+	update_url_template CHARACTER VARYING (512),
+	PRIMARY KEY ("id")
+) WITH (OIDS = FALSE);
 
 -- DROP SEQUENCE v2015.error_sequence;
 
