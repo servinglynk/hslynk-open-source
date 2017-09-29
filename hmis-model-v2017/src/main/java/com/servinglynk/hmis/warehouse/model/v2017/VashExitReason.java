@@ -18,20 +18,20 @@ import org.hibernate.annotations.Type;
 import com.servinglynk.hmis.warehouse.enums.CMExitReasonEnum;
 @Entity(name = "vashexitreason_v2017")
 @Table(name = "vashexitreason", catalog = "hmis", schema = "v2017")
-public class VASHExitReason  extends HmisBaseModel implements Cloneable, Serializable {
+public class VashExitReason  extends HmisBaseModel implements Cloneable, Serializable {
 	
 	private java.util.UUID id;
 	private Exit exitid;
 	private CMExitReasonEnum cmExitReason;
 	
-	public VASHExitReason() {
+	public VashExitReason() {
 		// Default constructor
 	}
 
 	/** Constructor taking a given ID.
 	 * @param id to set
 	 */
-	public VASHExitReason(java.util.UUID id) {
+	public VashExitReason(java.util.UUID id) {
 		this.id = id;
 	}
 	/**
@@ -96,7 +96,7 @@ public class VASHExitReason  extends HmisBaseModel implements Cloneable, Seriali
 	 * @param exitId
 	 * @param cmExitReason
 	 */
-	public VASHExitReason(UUID id, Exit exitid, CMExitReasonEnum cmExitReason) {
+	public VashExitReason(UUID id, Exit exitid, CMExitReasonEnum cmExitReason) {
 		super();
 		this.id = id;
 		this.exitid = exitid;

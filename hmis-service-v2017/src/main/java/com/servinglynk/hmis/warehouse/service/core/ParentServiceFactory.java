@@ -5,6 +5,7 @@ import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
+import com.servinglynk.hmis.warehouse.service.ConnectionwithsoarService;
 import com.servinglynk.hmis.warehouse.service.ContactService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
 import com.servinglynk.hmis.warehouse.service.DisabilitiesService;
@@ -21,6 +22,7 @@ import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.ExitpathService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
+import com.servinglynk.hmis.warehouse.service.GeographyService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
@@ -32,10 +34,12 @@ import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.service.PathstatusService;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
 import com.servinglynk.hmis.warehouse.service.ProjectcocService;
+import com.servinglynk.hmis.warehouse.service.RHYAfterCareService;
 import com.servinglynk.hmis.warehouse.service.ResidentialmoveindateService;
 import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
 import com.servinglynk.hmis.warehouse.service.ServicefareferralService;
 import com.servinglynk.hmis.warehouse.service.SiteService;
+import com.servinglynk.hmis.warehouse.service.VashExitReasonService;
 import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
 
 
@@ -79,4 +83,9 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	ExithousingassessmentService getExithousingassessmentService();
 	SearchService getSearchService();
 	BulkUploadErrorActivityService getBulkUploadErrorActivityService();
+	GeographyService getGeographyService();
+	ConnectionwithsoarService getConnectionwithsoarService();
+	VashExitReasonService getVashExitReasonService();
+	RHYAfterCareService getRHYAfterCareService();
+	
 }

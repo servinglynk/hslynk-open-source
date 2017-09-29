@@ -26,12 +26,24 @@ public class RhyAfterCareConverter extends BaseConverter {
 	   }
 
 
-	   public static VashExitReason entityToModel (com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason entity) {
-		   VashExitReason model = new VashExitReason();
+	   public static RhyAfterCare entityToModel (com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare entity) {
+		   RhyAfterCare model = new RhyAfterCare();
+		   model.setDateCreated(entity.getDateCreated());
+		   model.setDateUpdated(entity.getDateUpdated());
 	       if(entity.getId()!=null)
-	    	   model.setVashExitReasonId(entity.getId());
-	       if(entity.getCmExitReason() !=null)
-	    	   model.setCmExitReason(Integer.parseInt(entity.getCmExitReason().getValue()));
+	    	   model.setRhyAfterCareId(entity.getId());
+	       if(entity.getAfterCareDate() !=null)
+	    	   model.setAfterCareDate(entity.getAfterCareDate());
+	       if(entity.getAfterProvided() !=null)
+	    	   model.setAfterProvided(Integer.parseInt(entity.getAfterProvided().getValue()));
+	       if(entity.getEmailSocialMedia() !=null)
+	    	   model.setEmailSocialMedia(Integer.parseInt(entity.getEmailSocialMedia().getValue()));
+	       if(entity.getInPersonGroup() !=null)
+	    	   model.setInPersonGroup(Integer.parseInt(entity.getInPersonGroup().getValue()));
+	       if(entity.getInPersonIndividual()!=null)
+	    	   model.setInPersonIndividual(Integer.parseInt(entity.getInPersonIndividual().getValue()));
+	       if(entity.getTelephone() !=null)
+	    	   model.setTelephone(Integer.parseInt(entity.getTelephone().getValue()));
 	       copyBeanProperties(entity, model);
 	       return model;
 	   }

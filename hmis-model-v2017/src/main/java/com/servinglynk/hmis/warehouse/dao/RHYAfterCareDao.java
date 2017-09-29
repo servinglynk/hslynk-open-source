@@ -13,7 +13,6 @@ public interface RHYAfterCareDao extends ParentDao{
 	   com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare getRhyAfterCareById(UUID rhyAfterCareId);
 	   List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare> getAllRHYAfterCare(String inPersonGroup, Integer startIndex, Integer maxItems);
 	   long getRhyAfterCareCount(String inPersonGroup);
-	   
-
-
+	   List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare> getAllExitrhyRHYAfterCares(UUID exitrhyId,Integer startIndex, Integer maxItems);
+	   long getExitrhyRHYAfterCaresCount(UUID exitrhyId);
 }

@@ -1,15 +1,12 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
-import com.servinglynk.hmis.warehouse.core.model.Site;
 import com.servinglynk.hmis.warehouse.core.model.VashExitReason;
 import com.servinglynk.hmis.warehouse.enums.CMExitReasonEnum;
-import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
-import com.servinglynk.hmis.warehouse.enums.StateEnum;
 
 public class VashExitReasonConverter extends BaseConverter{
 
-	  public static com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason modelToEntity (VashExitReason model ,com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason entity) {
-	       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason();
+	  public static com.servinglynk.hmis.warehouse.model.v2017.VashExitReason modelToEntity (VashExitReason model ,com.servinglynk.hmis.warehouse.model.v2017.VashExitReason entity) {
+	       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.VashExitReason();
 	       if(model.getCmExitReason()!=null)
 	    	   entity.setCmExitReason(CMExitReasonEnum.lookupEnum(model.getCmExitReason()+""));
 	       if(model.getVashExitReasonId() !=null)
@@ -19,7 +16,7 @@ public class VashExitReasonConverter extends BaseConverter{
 	   }
 
 
-	   public static VashExitReason entityToModel (com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason entity) {
+	   public static VashExitReason entityToModel (com.servinglynk.hmis.warehouse.model.v2017.VashExitReason entity) {
 		   VashExitReason model = new VashExitReason();
 	       if(entity.getId()!=null)
 	    	   model.setVashExitReasonId(entity.getId());

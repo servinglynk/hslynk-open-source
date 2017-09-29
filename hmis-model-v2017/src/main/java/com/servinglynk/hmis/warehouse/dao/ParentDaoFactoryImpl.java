@@ -90,6 +90,8 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	private RHYAfterCareDao rhyAfterCareDao;
 	@Autowired
 	private ClientDao clientDao;
+	@Autowired
+	private ConnectionWithSoarDao connectionWithSoarDao;
 	
 	@Autowired
 	private BulkUploadActivityDao bulkUploadActivityDao;
@@ -126,6 +128,19 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	 */
 	public void setDateofengagementDao(DateofengagementDao dateofengagementDao) {
 		this.dateofengagementDao = dateofengagementDao;
+	}
+	/**
+	 * @return the connectionWithSoarDao
+	 */
+	public ConnectionWithSoarDao getConnectionWithSoarDao() {
+		return connectionWithSoarDao;
+	}
+
+	/**
+	 * @param connectionWithSoarDao the connectionWithSoarDao to set
+	 */
+	public void setConnectionWithSoarDao(ConnectionWithSoarDao connectionWithSoarDao) {
+		this.connectionWithSoarDao = connectionWithSoarDao;
 	}
 
 	/**

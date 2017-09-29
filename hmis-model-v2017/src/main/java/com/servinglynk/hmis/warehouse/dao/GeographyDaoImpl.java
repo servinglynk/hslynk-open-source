@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -136,6 +137,25 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 		return geography;
 	}
 	
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2017.Geography> getAllCocGeographies(UUID cocId,
+			Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class);
+	       criteria.createAlias("coc", "coc");
+	       criteria.add(Restrictions.eq("coc.id", cocId));
+	       List<com.servinglynk.hmis.warehouse.model.v2017.Geography> geographies = (List<com.servinglynk.hmis.warehouse.model.v2017.Geography>) findByCriteria(criteria,startIndex,maxItems);
+	       if(geographies.size()>0) return geographies;
+	       else return new ArrayList<com.servinglynk.hmis.warehouse.model.v2017.Geography>(); 
+	}
+
+
+	@Override
+	public long getCocGeographiesCount(UUID cocId) {
+		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Geography.class);
+	       criteria.createAlias("coc", "coc");
+	       criteria.add(Restrictions.eq("coc.id", cocId));
+	       return countRows(criteria);
+	}
 	
 	public long getGeographyCount(String geoCode){
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Geography.class);	

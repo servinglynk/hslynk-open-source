@@ -140,4 +140,16 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 		return countRows(criteria);
 	}
 
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare> getAllExitrhyRHYAfterCares(UUID exitrhyId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class);
+	       criteria.createAlias("exitrhyid", "exitrhyid");
+	       criteria.add(Restrictions.eq("exitrhyid.id", exitrhyId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getExitrhyRHYAfterCaresCount(UUID exitrhyId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class);
+	       criteria.createAlias("exitrhyid", "exitrhyid");
+	       criteria.add(Restrictions.eq("exitrhyid.id", exitrhyId));
+	       return countRows(criteria);
+	   }
 }

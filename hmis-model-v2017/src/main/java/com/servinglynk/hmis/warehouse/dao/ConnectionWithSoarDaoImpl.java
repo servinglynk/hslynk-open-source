@@ -128,8 +128,20 @@ public class ConnectionWithSoarDaoImpl extends ParentDaoImpl implements Connecti
 		// TODO Auto-generated method stub
 		
 	}
-
-
+		@Override
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar> getAllEnrollmentConnectionwithsoars(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+		@Override
+	   public long getEnrollmentConnectionwithsoarsCount(UUID enrollmentId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar.class);
+	       criteria.createAlias("enrollmentid", "enrollmentid");
+	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+	       return countRows(criteria);
+	   }
 
 
 
