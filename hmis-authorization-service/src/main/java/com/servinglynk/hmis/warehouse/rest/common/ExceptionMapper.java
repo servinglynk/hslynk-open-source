@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 
 import com.amazonaws.services.kms.model.InvalidGrantTokenException;
 import com.servinglynk.hmis.warehouse.core.model.Error;
@@ -192,7 +193,7 @@ public class ExceptionMapper {
 		}catch (InvalidTrustedAppException ex) {
 			logger.info("InvalidTrustedAppException: " +ex.getMessage());
 			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
-			r.setErrorCode(ERR_CODE_INVALID_API_METHOD);
+			r.setErrorCode("INVALID_TRUSTED_APP");
 			r.setErrorMessage(ex.getMessage());
 		} catch (AuthCodeExpiredException ex) {
 			logger.info("AuthCodeExpiredException: " +ex.getMessage());
@@ -234,7 +235,11 @@ public class ExceptionMapper {
 			logger.info("AccountConsentNotFoundException: " +ex.getMessage());
 			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
 			r.setErrorMessage(ex.getMessage());
-		} 
+		} catch (HttpMessageNotReadableException e) {
+			r.setErrorMessage("Invalid request body");
+			r.setErrorCode("INVALID_REQUEST_BODY");
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+		}
 		
 		
 		catch (Throwable t) {

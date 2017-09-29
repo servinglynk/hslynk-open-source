@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -296,6 +297,10 @@ public class ExceptionMapper {
 			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
 			r.setErrorCode("ERR_CODE_INVALID_VERIFICATION_CODE");
 			r.setErrorMessage(ex.getMessage());
+		}catch (HttpMessageNotReadableException e) {
+			r.setErrorMessage("Invalid request body");
+			r.setErrorCode("INVALID_REQUEST_BODY");
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
 		}
 		catch (Throwable t) {
         	
