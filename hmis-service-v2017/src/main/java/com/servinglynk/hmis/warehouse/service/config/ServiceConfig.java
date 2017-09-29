@@ -9,6 +9,7 @@ import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.BulkUploadErrorActivityServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ConnectionwithsoarServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ContactServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DateofengagementServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DisabilitiesServiceImpl;
@@ -25,6 +26,7 @@ import com.servinglynk.hmis.warehouse.service.impl.ExithousingassessmentServiceI
 import com.servinglynk.hmis.warehouse.service.impl.ExitpathServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.FunderServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.GeographyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthinsuranceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HousingAssessmentDispositionServiceImpl;
@@ -36,11 +38,13 @@ import com.servinglynk.hmis.warehouse.service.impl.OrganizationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PathstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectcocServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.RHYAfterCareServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SearchServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ServicefareferralServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SiteServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.VashExitReasonServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.VeteranInfoServiceImpl;
 
 
@@ -233,5 +237,21 @@ public class ServiceConfig  {
 	 
 	 @Bean BulkUploadErrorActivityServiceImpl bulkUploadErrorActivityService() {
 		 return new BulkUploadErrorActivityServiceImpl();
+	 }
+	 
+	 @Bean GeographyServiceImpl geographyService() {
+		 return new GeographyServiceImpl();
+	 }
+	 
+	 @Bean ConnectionwithsoarServiceImpl connectionwithsoarService() {
+		 return new ConnectionwithsoarServiceImpl();
+	 }
+	 
+	 @Bean RHYAfterCareServiceImpl RHYAfterCareService() {
+		 return new RHYAfterCareServiceImpl();
+	 }
+	 
+	 @Bean VashExitReasonServiceImpl VashExitReasonService() {
+		 return new VashExitReasonServiceImpl();
 	 }
 }

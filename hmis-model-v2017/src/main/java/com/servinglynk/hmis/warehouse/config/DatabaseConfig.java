@@ -25,6 +25,7 @@ import com.servinglynk.hmis.warehouse.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ClientVeteranInfoDao;
 import com.servinglynk.hmis.warehouse.dao.ClientVeteranInfoDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.CocDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.ConnectionWithSoarDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ContactDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.DateofengagementDao;
 import com.servinglynk.hmis.warehouse.dao.DateofengagementDaoImpl;
@@ -51,6 +52,7 @@ import com.servinglynk.hmis.warehouse.dao.ExitrhyDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ExportDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.FunderDao;
 import com.servinglynk.hmis.warehouse.dao.FunderDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.GeographyDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HealthStatusDao;
 import com.servinglynk.hmis.warehouse.dao.HealthStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HealthinsuranceDao;
@@ -73,6 +75,7 @@ import com.servinglynk.hmis.warehouse.dao.PathstatusDao;
 import com.servinglynk.hmis.warehouse.dao.PathstatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ProjectDao;
 import com.servinglynk.hmis.warehouse.dao.ProjectDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.RHYAfterCareDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.RhybcpstatusDao;
 import com.servinglynk.hmis.warehouse.dao.RhybcpstatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ServiceFaReferralDaoImpl;
@@ -80,6 +83,7 @@ import com.servinglynk.hmis.warehouse.dao.SiteDao;
 import com.servinglynk.hmis.warehouse.dao.SiteDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.SourceDao;
 import com.servinglynk.hmis.warehouse.dao.SourceDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.VASHExitReasonDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
 
 @Configuration
@@ -343,5 +347,21 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public BulkUploadErrorDaoImpl bulkUploadErrorDao() {
 		return new BulkUploadErrorDaoImpl();
+	}
+	@Bean
+	public GeographyDaoImpl geographyDao() {
+		return new GeographyDaoImpl();
+	}
+	@Bean
+	public VASHExitReasonDaoImpl vashExitReasonDao() {
+		return new VASHExitReasonDaoImpl();
+	}
+	@Bean
+	public RHYAfterCareDaoImpl rhyAfterCareDao() {
+		return new RHYAfterCareDaoImpl();
+	}
+	@Bean
+	public ConnectionWithSoarDaoImpl connectionWithSoarDao() {
+		return new ConnectionWithSoarDaoImpl();
 	}
 }

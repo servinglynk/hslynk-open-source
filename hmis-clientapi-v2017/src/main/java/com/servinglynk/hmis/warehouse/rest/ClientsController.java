@@ -2018,7 +2018,7 @@ public class ClientsController extends ControllerBase {
 	        return serviceFactory.getVashExitReasonService().getVashExitReasonById(vashexitreasonid); 
 	   }
 
-	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments",method=RequestMethod.GET)
+	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/vashexitreasons",method=RequestMethod.GET)
 	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_VASHEXITREASON",checkTrustedApp=true,checkSessionToken=true)
 	   public VashExitReasons getAllExitVashExitReasons(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
 			   @PathVariable("exitid") UUID exitid ,
