@@ -73,6 +73,7 @@ import com.servinglynk.hmis.warehouse.core.model.Servicefareferral;
 import com.servinglynk.hmis.warehouse.core.model.Servicefareferrals;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.VashExitReason;
+import com.servinglynk.hmis.warehouse.core.model.VashExitReasons;
 import com.servinglynk.hmis.warehouse.core.model.VeteranInfo;
 import com.servinglynk.hmis.warehouse.core.model.VeteranInfos;
 
@@ -2019,7 +2020,7 @@ public class ClientsController extends ControllerBase {
 
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exithousingassessments",method=RequestMethod.GET)
 	   @APIMapping(value="CLIENT_API_GET_ALL_ENROLLMENT_VASHEXITREASON",checkTrustedApp=true,checkSessionToken=true)
-	   public VashExitReasons getAllEnrollmentExithousingassessments(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+	   public VashExitReasons getAllExitVashExitReasons(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
 			   @PathVariable("exitid") UUID exitid ,
 	                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
 	                       @RequestParam(value="maxItems", required=false) Integer maxItems,
