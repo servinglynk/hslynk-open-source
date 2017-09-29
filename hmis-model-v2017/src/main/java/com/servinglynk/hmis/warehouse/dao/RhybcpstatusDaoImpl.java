@@ -58,7 +58,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 						rhybcpstatusModel.setRunawayYouth(NoYesEnum.lookupEnum(rhybcpStatus.getRunawayYouth()));
 					rhybcpstatusModel.setReasonNoServices(RhybcpStatusReasonNoServicesEnum.lookupEnum(BasicDataGenerator.getStringValue(rhybcpStatus.getReasonNoServices())));
 					rhybcpstatusModel.setStatusDate(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getStatusDate()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, rhybcpStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, rhybcpStatus.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					rhybcpstatusModel.setEnrollmentid(enrollmentModel);
 					rhybcpstatusModel.setExport(exportEntity);
 					performSaveOrUpdate(rhybcpstatusModel);

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -29,27 +30,27 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 	
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYAfterCare> expRHYAfterCare= domain.getExport().getRhyAfterCare();
+		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYAfterCare> rhyAfterCares= domain.getExport().getRhyAfterCare();
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class, getProjectGroupCode(domain));
-		if(expRHYAfterCare !=null && !expRHYAfterCare.isEmpty())
+		if(rhyAfterCares !=null && !rhyAfterCares.isEmpty())
 		{
-				for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYAfterCare expRHYAfterCares : expRHYAfterCare)
+				for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYAfterCare rhyAfterCare : rhyAfterCares)
 				{
 					com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare rhyAfterCareModel = null;
 					try {
-						rhyAfterCareModel = getModelObject(domain, expRHYAfterCares, data, modelMap);
-						rhyAfterCareModel.setAfterProvided(expRHYAfterCares.getAfterProvided());
-						rhyAfterCareModel.setEmailSocialMedia(expRHYAfterCares.getEmailSocialMedia());
-						rhyAfterCareModel.setInPersonGroup(expRHYAfterCares.getInPersonIndividual());
-						rhyAfterCareModel.setInPersonIndividual(expRHYAfterCares.getInPersonIndividual());
-						rhyAfterCareModel.setTelephone(expRHYAfterCares.getTelephone());
-						rhyAfterCareModel.setAfterCareDate(BasicDataGenerator.getLocalDateTime(expRHYAfterCares.getAfterCareDate()));
+						rhyAfterCareModel = getModelObject(domain, rhyAfterCare, data, modelMap);
+						rhyAfterCareModel.setAfterProvided(NoYesEnum.lookupEnum((rhyAfterCare.getAfterCareProvided())));
+						rhyAfterCareModel.setEmailSocialMedia(NoYesEnum.lookupEnum(rhyAfterCare.getEmailSocialMedia()));
+						rhyAfterCareModel.setInPersonGroup(NoYesEnum.lookupEnum(rhyAfterCare.getInPersonIndividual()));
+						rhyAfterCareModel.setInPersonIndividual(NoYesEnum.lookupEnum(rhyAfterCare.getInPersonIndividual()));
+						rhyAfterCareModel.setTelephone(NoYesEnum.lookupEnum(rhyAfterCare.getTelephone()));
+						rhyAfterCareModel.setAfterCareDate(BasicDataGenerator.getLocalDateTime(rhyAfterCare.getAfterCareDate()));
 						
 						performSaveOrUpdate(rhyAfterCareModel);
 					}catch(Exception e ){
-						String errorMessage = "Exception beause of the RHYAfterCare ::"+expRHYAfterCares.getId() +" Exception ::"+e.getMessage();
+						String errorMessage = "Exception beause of the RHYAfterCare ::"+rhyAfterCare.getRhyAfterCareID() +" Exception ::"+e.getMessage();
 						if(rhyAfterCareModel != null){
 							Error2017 error = new Error2017();
 							error.model_id = rhyAfterCareModel.getId();
@@ -71,7 +72,7 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 	public com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYAfterCare expRhyAfterCare ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare modelFromDB = null;
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare) getModel(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class, expRhyAfterCare.getId(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare) getModel(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class, expRhyAfterCare.getRhyAfterCareID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare();
@@ -81,7 +82,7 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 		com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare model = new com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare();
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expRhyAfterCare.getAfterCareDate()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,expRhyAfterCare.getId(),data);
+		hydrateCommonFields(model, domain,expRhyAfterCare.getRhyAfterCareID(),data);
 		return model;
 	}
 	
@@ -139,4 +140,16 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 		return countRows(criteria);
 	}
 
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare> getAllExitrhyRHYAfterCares(UUID exitrhyId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class);
+	       criteria.createAlias("exitrhyid", "exitrhyid");
+	       criteria.add(Restrictions.eq("exitrhyid.id", exitrhyId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare>) findByCriteria(criteria,startIndex,maxItems);
+	   }
+	   public long getExitrhyRHYAfterCaresCount(UUID exitrhyId){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class);
+	       criteria.createAlias("exitrhyid", "exitrhyid");
+	       criteria.add(Restrictions.eq("exitrhyid.id", exitrhyId));
+	       return countRows(criteria);
+	   }
 }

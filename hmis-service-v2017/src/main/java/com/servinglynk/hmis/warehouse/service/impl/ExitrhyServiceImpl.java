@@ -1,21 +1,18 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Exitrhy;
+import com.servinglynk.hmis.warehouse.core.model.Exitrhys;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.converter.ExitrhyConverter;
-import com.servinglynk.hmis.warehouse.core.model.Exitrhys;
-import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ExitNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ExitrhyNotFoundException;
-import com.servinglynk.hmis.warehouse.SortedPagination;
 
 
 public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
@@ -60,7 +57,6 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
        return new Exitrhy();
    }
 
-
    @Transactional
    public Exitrhy getExitrhyById(UUID exitrhyId){
        com.servinglynk.hmis.warehouse.model.v2017.Exitrhy pExitrhy = daoFactory.getExitrhyDao().getExitrhyById(exitrhyId);
@@ -68,7 +64,6 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
 
        return ExitrhyConverter.entityToModel( pExitrhy );
    }
-
 
    @Transactional
    public Exitrhys getAllExitExitrhys(UUID enrollmentId,Integer startIndex, Integer maxItems){
@@ -86,6 +81,4 @@ public class ExitrhyServiceImpl extends ServiceBase implements ExitrhyService  {
         exitrhys.setPagination(pagination);
         return exitrhys;
    }
-
-
 }

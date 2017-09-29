@@ -8,6 +8,7 @@ import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
+import com.servinglynk.hmis.warehouse.service.ConnectionwithsoarService;
 import com.servinglynk.hmis.warehouse.service.ContactService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
 import com.servinglynk.hmis.warehouse.service.DisabilitiesService;
@@ -24,6 +25,7 @@ import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.ExitpathService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
+import com.servinglynk.hmis.warehouse.service.GeographyService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
@@ -35,10 +37,12 @@ import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.service.PathstatusService;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
 import com.servinglynk.hmis.warehouse.service.ProjectcocService;
+import com.servinglynk.hmis.warehouse.service.RHYAfterCareService;
 import com.servinglynk.hmis.warehouse.service.ResidentialmoveindateService;
 import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
 import com.servinglynk.hmis.warehouse.service.ServicefareferralService;
 import com.servinglynk.hmis.warehouse.service.SiteService;
+import com.servinglynk.hmis.warehouse.service.VashExitReasonService;
 import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
 
 @Component
@@ -74,6 +78,10 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public EducationService educationService;
 	@Autowired public ExithousingassessmentService exithousingassessmentService;
 	@Autowired public SearchService searchService;
+	@Autowired public GeographyService geographyService;
+	@Autowired public ConnectionwithsoarService connectionwithsoarService;
+	@Autowired public VashExitReasonService vashExitReasonService;
+	@Autowired public RHYAfterCareService rHYAfterCareService;
 	@Autowired public BulkUploadErrorActivityService bulkUploadErrorActivityService;
 	
 	public RhybcpstatusService getRhybcpstatusService() {
@@ -378,4 +386,61 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 			BulkUploadErrorActivityService bulkUploadErrorActivityService) {
 		this.bulkUploadErrorActivityService = bulkUploadErrorActivityService;
 	}
+
+	/**
+	 * @return the geographyService
+	 */
+	public GeographyService getGeographyService() {
+		return geographyService;
+	}
+
+	/**
+	 * @param geographyService the geographyService to set
+	 */
+	public void setGeographyService(GeographyService geographyService) {
+		this.geographyService = geographyService;
+	}
+
+	/**
+	 * @return the connectionwithsoarService
+	 */
+	public ConnectionwithsoarService getConnectionwithsoarService() {
+		return connectionwithsoarService;
+	}
+
+	/**
+	 * @param connectionwithsoarService the connectionwithsoarService to set
+	 */
+	public void setConnectionwithsoarService(ConnectionwithsoarService connectionwithsoarService) {
+		this.connectionwithsoarService = connectionwithsoarService;
+	}
+
+	/**
+	 * @return the vashExitReasonService
+	 */
+	public VashExitReasonService getVashExitReasonService() {
+		return vashExitReasonService;
+	}
+
+	/**
+	 * @param vashExitReasonService the vashExitReasonService to set
+	 */
+	public void setVashExitReasonService(VashExitReasonService vashExitReasonService) {
+		this.vashExitReasonService = vashExitReasonService;
+	}
+
+	/**
+	 * @return the rHYAfterCareService
+	 */
+	public RHYAfterCareService getRHYAfterCareService() {
+		return rHYAfterCareService;
+	}
+
+	/**
+	 * @param rHYAfterCareService the rHYAfterCareService to set
+	 */
+	public void setRHYAfterCareService(RHYAfterCareService rHYAfterCareService) {
+		this.rHYAfterCareService = rHYAfterCareService;
+	}
+	
 }

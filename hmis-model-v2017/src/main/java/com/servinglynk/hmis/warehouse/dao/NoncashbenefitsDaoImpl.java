@@ -68,7 +68,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 					noncashbenefitsModel.setTanfchildcare(NoncashbenefitsTanfchildcareEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getTANFChildCare())));
 					noncashbenefitsModel.setTanftransportation(NoncashbenefitsTanftransportationEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getTANFTransportation())));
 					noncashbenefitsModel.setWic(NoncashbenefitsWicEnum.lookupEnum(BasicDataGenerator.getStringValue(nonCashBenefits.getWIC())));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, nonCashBenefits.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, nonCashBenefits.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					noncashbenefitsModel.setEnrollmentid(enrollmentModel);
 					noncashbenefitsModel.setExport(exportEntity);
 					noncashbenefitsModel.setInformationDate(BasicDataGenerator.getLocalDateTime(nonCashBenefits.getInformationDate()));

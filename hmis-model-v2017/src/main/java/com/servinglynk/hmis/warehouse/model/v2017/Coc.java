@@ -50,6 +50,8 @@ public class Coc extends HmisBaseModel implements Cloneable, Serializable {
 	private java.util.UUID id;
 	/** Field mapping. */
 	private Set<Inventory> inventories = new HashSet<Inventory>();
+	/** Field mapping. */
+	private Set<Geography> geographies = new HashSet<Geography>();
 
 	/** Field mapping. */
 	private Project projectid;
@@ -164,6 +166,36 @@ public class Coc extends HmisBaseModel implements Cloneable, Serializable {
 	public void setInventories(final Set<Inventory> inventory) {
 		this.inventories = inventory;
 	}
+	 /**
+		 * Return the value associated with the column: inventory.
+		 * @return A Set&lt;Inventory&gt; object (this.inventory)
+		 */
+	 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "coc"  )
+	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = false )
+		@Column( nullable = false  )
+		public Set<Geography> getGeographies() {
+			return this.geographies;
+
+		}
+
+		/**
+		 * Adds a bi-directional link of type Geography to the geographies set.
+		 * @param inventory item to add
+		 */
+		public void addGeography(Geography geography) {
+			geography.setCoc(this);
+			this.geographies.add(geography);
+		}
+
+
+		 /**
+		 * Set the value related to the column: geography.
+		 * @param inventory the inventory value you wish to set
+		 */
+		public void setGeographies(final Set<Geography> geographies) {
+			this.geographies = geographies;
+		}
 
 	 /**
 	 * Return the value associated with the column: projectid.

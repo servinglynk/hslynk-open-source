@@ -11,7 +11,6 @@ public class Exitrhy extends ClientModel{
     private UUID exitrhyId;
   	private Integer earlyExitReason;
   	private UUID exitid;
-  	private java.util.UUID id;
   	private Integer projectCompletionStatus;
   	private Integer exchangeForSex;
   	private Integer exchangeForSexPastThreeMonths;
@@ -51,12 +50,6 @@ public class Exitrhy extends ClientModel{
 	}
 	public void setExitid(UUID exitid) {
 		this.exitid = exitid;
-	}
-	public java.util.UUID getId() {
-		return id;
-	}
-	public void setId(java.util.UUID id) {
-		this.id = id;
 	}
 	public Integer getProjectCompletionStatus() {
 		return projectCompletionStatus;

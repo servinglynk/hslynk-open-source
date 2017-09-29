@@ -18,6 +18,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.CMExitReasonEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.VashExitReason;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 
@@ -30,21 +31,23 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 	
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason> expVASHExitReason= domain.getExport().getVashExitReason();
+		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason> expVASHExitReasons= domain.getExport().getVashExitReason();
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason.class, getProjectGroupCode(domain));
-		if(expVASHExitReason !=null && !expVASHExitReason.isEmpty())
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason.class, getProjectGroupCode(domain));
+		if(expVASHExitReasons !=null && !expVASHExitReasons.isEmpty())
 		{
-				for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason expVASHExitReasons : expVASHExitReason)
+				for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason expVASHExitReason : expVASHExitReasons)
 				{
-					com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason vashExitReasonModel = null;
+					com.servinglynk.hmis.warehouse.model.v2017.VashExitReason vashExitReasonModel = null;
 					try {
-						vashExitReasonModel = getModelObject(domain, expVASHExitReasons, data, modelMap);
-						vashExitReasonModel.setCmExitReason(CMExitReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(expVASHExitReasons.getCmExitReason().byteValue())));
+						vashExitReasonModel = getModelObject(domain, expVASHExitReason, data, modelMap);
+						vashExitReasonModel.setCmExitReason(CMExitReasonEnum.lookupEnum(expVASHExitReason.getCmExitReason()));
+						com.servinglynk.hmis.warehouse.model.v2017.Exit exit = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class,expVASHExitReason.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+						vashExitReasonModel.setExitid(exit);
 						performSaveOrUpdate(vashExitReasonModel);
 					}catch(Exception e ){
-						String errorMessage = "Exception beause of the VASHExitReasons ::"+expVASHExitReasons.getId() +" Exception ::"+e.getMessage();
+						String errorMessage = "Exception beause of the VASHExitReasons ::"+expVASHExitReason.getVashExitReasonID() +" Exception ::"+e.getMessage();
 						if(vashExitReasonModel != null){
 							Error2017 error = new Error2017();
 							error.model_id = vashExitReasonModel.getId();
@@ -60,23 +63,23 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 					}
 				}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.VashExitReason.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason expVASHExitReason ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2017.VashExitReason getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason expVASHExitReason ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2017.VashExitReason modelFromDB = null;
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason) getModel(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason.class, expVASHExitReason.getId(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.VashExitReason) getModel(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason.class, expVASHExitReason.getVashExitReasonID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.VashExitReason();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason model = new com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason();
+		com.servinglynk.hmis.warehouse.model.v2017.VashExitReason model = new com.servinglynk.hmis.warehouse.model.v2017.VashExitReason();
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expVASHExitReason.getDateCreated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,expVASHExitReason.getId(),data);
+		hydrateCommonFields(model, domain,expVASHExitReason.getVashExitReasonID(),data);
 		return model;
 	}
 	
@@ -89,7 +92,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason createVashExitReason(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason vashExitReason) {
+	public com.servinglynk.hmis.warehouse.model.v2017.VashExitReason createVashExitReason(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason vashExitReason) {
 		vashExitReason.setId(UUID.randomUUID());
 		insert(vashExitReason);
 		return vashExitReason;
@@ -97,14 +100,14 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason updateVashExitReason(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason vashExitReason) {
+	public com.servinglynk.hmis.warehouse.model.v2017.VashExitReason updateVashExitReason(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason vashExitReason) {
 			update(vashExitReason);
 		return vashExitReason;
 	}
 
 
 	@Override
-	public void deleteVashExitReason(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason vashExitReason) {
+	public void deleteVashExitReason(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason vashExitReason) {
 			delete(vashExitReason);
 		
 	}
@@ -112,26 +115,42 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason getVashExitReasonById(UUID vashExitReasonId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason.class);
+	public com.servinglynk.hmis.warehouse.model.v2017.VashExitReason getVashExitReasonById(UUID vashExitReasonId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason.class);
 		criteria.add(Restrictions.eq("id", vashExitReasonId));
-		List<com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason> vashExitReason = (List<com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.VashExitReason> vashExitReason = (List<com.servinglynk.hmis.warehouse.model.v2017.VashExitReason>) findByCriteria(criteria);
 		if(vashExitReason.size()>0) return vashExitReason.get(0);
 		return null;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason> getAllVashExitReason(String exitId,Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason.class);	
-		List<com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason> vashExitReason = (List<com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason>) findByCriteria(criteria,startIndex,maxItems);
+	public List<com.servinglynk.hmis.warehouse.model.v2017.VashExitReason> getAllVashExitReason(String exitId,Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason.class);	
+		List<com.servinglynk.hmis.warehouse.model.v2017.VashExitReason> vashExitReason = (List<com.servinglynk.hmis.warehouse.model.v2017.VashExitReason>) findByCriteria(criteria,startIndex,maxItems);
 		return vashExitReason;
 	}
 	
 	
 	public long getVashExitReasonCount(String exitId){
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.VASHExitReason.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason.class);	
 		return countRows(criteria);
+	}
+
+	@Override
+	public List<VashExitReason> getAllExitVashExitReasons(UUID exitId, Integer startIndex, Integer maxItems) {
+	 	DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason.class);
+	    criteria.createAlias("exitid", "exitid");
+	    criteria.add(Restrictions.eq("exitid.id", exitId));
+	    return (List<com.servinglynk.hmis.warehouse.model.v2017.VashExitReason>) findByCriteria(criteria,startIndex,maxItems);
+	}
+
+	@Override
+	public long getExitVashExitReasonsCount(UUID exitId) {
+		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
+	       return countRows(criteria);
 	}
 
 }

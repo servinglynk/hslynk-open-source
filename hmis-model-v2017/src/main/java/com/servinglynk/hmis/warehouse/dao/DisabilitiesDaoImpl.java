@@ -60,7 +60,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 //					disabilitiesModel.setReceivingservices(DisabilitiesReceivingservicesEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
 					disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
 					disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,disabilities.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,disabilities.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					disabilitiesModel.setEnrollmentid(enrollmentModel);
 					disabilitiesModel.setInformationDate(BasicDataGenerator.getLocalDateTime(disabilities.getInformationDate()));
 					disabilitiesModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));

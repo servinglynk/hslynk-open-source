@@ -45,7 +45,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 					serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
 					serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
 					serviceFaReferralModel.setRecordType(RecordTypeEnum.lookupEnum(serviceFaReferrals.getRecordType()));
-					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, serviceFaReferrals.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, serviceFaReferrals.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					serviceFaReferralModel.setEnrollmentid(enrollment);
 					serviceFaReferralModel.setDeleted(false);
 					serviceFaReferralModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));

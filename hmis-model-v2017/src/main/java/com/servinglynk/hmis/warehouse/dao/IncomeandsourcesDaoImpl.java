@@ -98,7 +98,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 					incomeAndSourcesModel.setWorkerscompamount(new BigDecimal(incomeAndSources.getWorkersCompAmount()));
 					incomeAndSourcesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateCreated()));
 					incomeAndSourcesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeAndSources.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, incomeAndSources.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, incomeAndSources.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					incomeAndSourcesModel.setEnrollmentid(enrollmentModel);
 					incomeAndSourcesModel.setExport(exportEntity);
 					incomeAndSourcesModel.setInformationDate(BasicDataGenerator.getLocalDateTime(incomeAndSources.getInformationDate()));

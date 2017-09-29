@@ -106,7 +106,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					enrollmentModel.setExport(exportEntity);
 					performSaveOrUpdate(enrollmentModel);
 				} catch(Exception e) {
-					String errorMessage = "Exception beause of the enrollment::"+enrollment.getProjectEntryID() +" Exception ::"+e.getMessage();
+					String errorMessage = "Exception beause of the enrollment::"+enrollment.getEnrollmentID() +" Exception ::"+e.getMessage();
 					if(enrollmentModel != null){
 						Error2017 error = new Error2017();
 						error.model_id = enrollmentModel.getId();
@@ -129,7 +129,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		com.servinglynk.hmis.warehouse.model.v2017.Enrollment modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, enrollment.getProjectEntryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, enrollment.getEnrollmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
@@ -140,7 +140,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,enrollment.getProjectEntryID(),data);
+		hydrateCommonFields(model, domain,enrollment.getEnrollmentID(),data);
 		return model;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2017.Enrollment getEnrollmentById(UUID enrollmentId) {

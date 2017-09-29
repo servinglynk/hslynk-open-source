@@ -5,27 +5,33 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
-import com.servinglynk.hmis.warehouse.enums.GeographyEnum;
+import com.servinglynk.hmis.warehouse.enums.GeographyTypeEnum;
 @Entity(name = "geography_v2017")
 @Table(name = "geography", catalog = "hmis", schema = "v2017")
 public class Geography extends HmisBaseModel implements Cloneable, Serializable  {
 	
 	private java.util.UUID id;
 	private LocalDateTime informationDate;
-	private GeographyEnum geoCode;
+	private String geoCode;
 	private String address1;
 	private String address2;
 	private String city;
 	private String state;
 	private String zip;
-	private Integer geography_type;
+	private GeographyTypeEnum geographyType;
+	/** Field mapping. */
+	private Coc coc;
 	
 	
 	public Geography() {
@@ -64,16 +70,16 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the geoCode
 	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.GeographyEnumType")
+	
 	@Basic( optional = true )
 	@Column( name = "geo_code" )
-	public GeographyEnum getGeoCode() {
+	public String getGeoCode() {
 		return geoCode;
 	}
 	/**
 	 * @param geoCode the geoCode to set
 	 */
-	public void setGeoCode(GeographyEnum geoCode) {
+	public void setGeoCode(String geoCode) {
 		this.geoCode = geoCode;
 	}
 	/**
@@ -149,17 +155,41 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the geography_type
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.GeographyTypeEnumType")
 	@Basic( optional = true )
 	@Column( name = "geography_type" )
-	public Integer getGeography_type() {
-		return geography_type;
+	public GeographyTypeEnum getGeographyType() {
+		return geographyType;
 	}
 	/**
 	 * @param geography_type the geography_type to set
 	 */
-	public void setGeography_type(Integer geography_type) {
-		this.geography_type = geography_type;
+	public void setGeographyType(GeographyTypeEnum geographyType) {
+		this.geographyType = geographyType;
 	}
+	
+	 /**
+		 * Return the value associated with the column: coc.
+		 * @return A Coc object (this.coc)
+		 */
+		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = true )
+		@JoinColumn(name = "coc_id", nullable = true )
+		public Coc getCoc() {
+			return this.coc;
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: coc.
+		 * @param coc the coc value you wish to set
+		 */
+		public void setCoc(final Coc coc) {
+			this.coc = coc;
+		}
+
 	/**
 	 * @param id
 	 * @param informationDate
@@ -171,9 +201,9 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	 * @param zip
 	 * @param geography_type
 	 */
-	public Geography(UUID id, LocalDateTime informationDate, GeographyEnum geoCode,
+	public Geography(UUID id, LocalDateTime informationDate, String geoCode,
 			String address1, String address2, String city, String state,
-			String zip, Integer geography_type) {
+			String zip, GeographyTypeEnum geographyType) {
 		super();
 		this.id = id;
 		this.informationDate = informationDate;
@@ -183,7 +213,7 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.geography_type = geography_type;
+		this.geographyType = geographyType;
 	}
 	
 	

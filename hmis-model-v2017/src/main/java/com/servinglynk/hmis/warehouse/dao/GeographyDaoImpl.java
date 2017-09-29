@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -15,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.enums.GeographyEnum;
+import com.servinglynk.hmis.warehouse.enums.GeographyTypeEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -44,15 +45,15 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 						geographyModel.setAddress1(expGeographies.getAddress1());
 						geographyModel.setAddress2(expGeographies.getAddress2());
 						geographyModel.setCity(expGeographies.getCity());
-						geographyModel.setGeoCode(GeographyEnum.lookupEnum(BasicDataGenerator.getStringValue(expGeographies.getGeoCode())));
-						geographyModel.setGeography_type(expGeographies.getGeography_type());
+						geographyModel.setGeoCode(expGeographies.getGeoCode());
+						geographyModel.setGeographyType(GeographyTypeEnum.lookupEnum(expGeographies.getGeographyType()));
 						geographyModel.setInformationDate(BasicDataGenerator.getLocalDateTime(expGeographies.getInformationDate()));
 						geographyModel.setState(expGeographies.getState());
 						geographyModel.setZip(expGeographies.getZip());
 						
 						performSaveOrUpdate(geographyModel);
 					}catch(Exception e ){
-						String errorMessage = "Exception beause of the Geography ::"+expGeographies.getId() +" Exception ::"+e.getMessage();
+						String errorMessage = "Exception beause of the Geography ::"+expGeographies.getGeographyID() +" Exception ::"+e.getMessage();
 						if(geographyModel != null){
 							Error2017 error = new Error2017();
 							error.model_id = geographyModel.getId();
@@ -74,7 +75,7 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 	public com.servinglynk.hmis.warehouse.model.v2017.Geography getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Geography expGeography ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2017.Geography modelFromDB = null;
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Geography) getModel(com.servinglynk.hmis.warehouse.model.v2017.Geography.class, expGeography.getId(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Geography) getModel(com.servinglynk.hmis.warehouse.model.v2017.Geography.class, expGeography.getGeographyID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Geography();
@@ -84,7 +85,7 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 		com.servinglynk.hmis.warehouse.model.v2017.Geography model = new com.servinglynk.hmis.warehouse.model.v2017.Geography();
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expGeography.getInformationDate()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,expGeography.getId(),data);
+		hydrateCommonFields(model, domain,expGeography.getGeographyID(),data);
 		return model;
 	}
 	
@@ -136,6 +137,25 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 		return geography;
 	}
 	
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2017.Geography> getAllCocGeographies(UUID cocId,
+			Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class);
+	       criteria.createAlias("coc", "coc");
+	       criteria.add(Restrictions.eq("coc.id", cocId));
+	       List<com.servinglynk.hmis.warehouse.model.v2017.Geography> geographies = (List<com.servinglynk.hmis.warehouse.model.v2017.Geography>) findByCriteria(criteria,startIndex,maxItems);
+	       if(geographies.size()>0) return geographies;
+	       else return new ArrayList<com.servinglynk.hmis.warehouse.model.v2017.Geography>(); 
+	}
+
+
+	@Override
+	public long getCocGeographiesCount(UUID cocId) {
+		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Geography.class);
+	       criteria.createAlias("coc", "coc");
+	       criteria.add(Restrictions.eq("coc.id", cocId));
+	       return countRows(criteria);
+	}
 	
 	public long getGeographyCount(String geoCode){
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Geography.class);	

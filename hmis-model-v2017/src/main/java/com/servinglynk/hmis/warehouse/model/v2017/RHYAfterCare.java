@@ -5,10 +5,18 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 @Entity(name = "rhyaftercare_v2017")
 @Table(name = "rhyaftercare", catalog = "hmis", schema = "v2017")
@@ -16,11 +24,13 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 	
 	private java.util.UUID id; 
 	private LocalDateTime afterCareDate;
-	private Integer afterProvided;
-	private Integer emailSocialMedia;
-	private Integer telephone;
-	private Integer inPersonIndividual;
-	private Integer inPersonGroup;
+	private NoYesEnum afterProvided;
+	private NoYesEnum emailSocialMedia;
+	private NoYesEnum telephone;
+	private NoYesEnum inPersonIndividual;
+	private NoYesEnum inPersonGroup;
+	/** Field mapping. */
+	private Exitrhy exitrhyid;
 	/**
 	 * @return the id
 	 */
@@ -53,73 +63,100 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 	/**
 	 * @return the afterProvided
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic(optional=true)
 	@Column(name = "after_provided")
-	public Integer getAfterProvided() {
+	public NoYesEnum getAfterProvided() {
 		return afterProvided;
 	}
 	/**
 	 * @param afterProvided the afterProvided to set
 	 */
-	public void setAfterProvided(Integer afterProvided) {
+	public void setAfterProvided(NoYesEnum afterProvided) {
 		this.afterProvided = afterProvided;
 	}
 	/**
 	 * @return the emailSocialMedia
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic(optional=true)
 	@Column(name = "email_social_media")
-	public Integer getEmailSocialMedia() {
+	public NoYesEnum getEmailSocialMedia() {
 		return emailSocialMedia;
 	}
 	/**
 	 * @param emailSocialMedia the emailSocialMedia to set
 	 */
-	public void setEmailSocialMedia(Integer emailSocialMedia) {
+	public void setEmailSocialMedia(NoYesEnum emailSocialMedia) {
 		this.emailSocialMedia = emailSocialMedia;
 	}
 	/**
 	 * @return the telephone
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic(optional=true)
 	@Column(name = "telephone")
-	public Integer getTelephone() {
+	public NoYesEnum getTelephone() {
 		return telephone;
 	}
 	/**
 	 * @param telephone the telephone to set
 	 */
-	public void setTelephone(Integer telephone) {
+	public void setTelephone(NoYesEnum telephone) {
 		this.telephone = telephone;
 	}
 	/**
 	 * @return the inPersonIndividual
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic(optional=true)
 	@Column(name = "in_person_individual")
-	public Integer getInPersonIndividual() {
+	public NoYesEnum getInPersonIndividual() {
 		return inPersonIndividual;
 	}
 	/**
 	 * @param inPersonIndividual the inPersonIndividual to set
 	 */
-	public void setInPersonIndividual(Integer inPersonIndividual) {
+	public void setInPersonIndividual(NoYesEnum inPersonIndividual) {
 		this.inPersonIndividual = inPersonIndividual;
 	}
 	/**
 	 * @return the inPersonGroup
 	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic(optional=true)
 	@Column(name = "in_person_group")
-	public Integer getInPersonGroup() {
+	public NoYesEnum getInPersonGroup() {
 		return inPersonGroup;
 	}
 	/**
 	 * @param inPersonGroup the inPersonGroup to set
 	 */
-	public void setInPersonGroup(Integer inPersonGroup) {
+	public void setInPersonGroup(NoYesEnum inPersonGroup) {
 		this.inPersonGroup = inPersonGroup;
 	}
+	 /**
+		 * Return the value associated with the column: exitid.
+		 * @return A Exit object (this.exitid)
+		 */
+		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = true )
+		@JoinColumn(name = "exitrhyid", nullable = true )
+		public Exitrhy getExitrhyid() {
+			return this.exitrhyid;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: exitid.
+		 * @param exitid the exitid value you wish to set
+		 */
+		public void setExitrhyid(final Exitrhy exitrhyid) {
+			this.exitrhyid = exitrhyid;
+		}
 	/**
 	 * @param id
 	 * @param afterCareDate
@@ -130,8 +167,8 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 	 * @param inPersonGroup
 	 */
 	public RHYAfterCare(UUID id, LocalDateTime afterCareDate,
-			Integer afterProvided, Integer emailSocialMedia, Integer telephone,
-			Integer inPersonIndividual, Integer inPersonGroup) {
+			NoYesEnum afterProvided, NoYesEnum emailSocialMedia, NoYesEnum telephone,
+			NoYesEnum inPersonIndividual, NoYesEnum inPersonGroup) {
 		super();
 		this.id = id;
 		this.afterCareDate = afterCareDate;

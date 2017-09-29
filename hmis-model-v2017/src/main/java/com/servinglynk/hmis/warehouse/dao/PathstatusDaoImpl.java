@@ -50,7 +50,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 					pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
 					pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
 					pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, pathStatus.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, pathStatus.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					pathstatusModel.setEnrollmentid(enrollmentModel);
 					pathstatusModel.setExport(exportEntity);
 					performSaveOrUpdate(pathstatusModel);

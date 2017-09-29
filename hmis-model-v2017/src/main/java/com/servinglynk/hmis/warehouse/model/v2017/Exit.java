@@ -61,7 +61,8 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Field mapping. */
 	private Set<Exitrhy> exitrhies = new HashSet<Exitrhy>();
-
+	/** Field mapping. */
+	private Set<VashExitReason> vasExitReasons = new HashSet<VashExitReason>();
 	/** Field mapping. */
 	private Set<Housingassessmentdisposition> housingassessmentdispositions = new HashSet<Housingassessmentdisposition>();
 
@@ -254,8 +255,33 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 	public void setExitrhies(final Set<Exitrhy> exitrhy) {
 		this.exitrhies = exitrhy;
 	}
+	
+	
 
 	 /**
+	 * @return the vasExitReasons
+	 */
+	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "exitid"  )
+ 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Set<VashExitReason> getVasExitReasons() {
+		return vasExitReasons;
+	}
+
+	/**
+	 * @param vasExitReasons the vasExitReasons to set
+	 */
+	public void setVasExitReasons(Set<VashExitReason> vasExitReasons) {
+		this.vasExitReasons = vasExitReasons;
+	}
+	public void addVasExitReason(VashExitReason vasExitReason) {
+		vasExitReason.setExitid(this);
+		this.vasExitReasons.add(vasExitReason);
+	}
+
+
+	/**
 	 * Return the value associated with the column: housingassessmentdisposition.
 	 * @return A Set&lt;Housingassessmentdisposition&gt; object (this.housingassessmentdisposition)
 	 */
