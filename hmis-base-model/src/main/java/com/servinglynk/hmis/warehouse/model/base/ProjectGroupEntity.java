@@ -30,7 +30,6 @@ public class ProjectGroupEntity  {
     private String projectGroupCode;
     
     private boolean skipuseridentifers;
-    private boolean purgeData;
     
     List<ProjectProjectGroupMapEntity> projectGroupMapEntities = new ArrayList<ProjectProjectGroupMapEntity>();
 
@@ -83,13 +82,6 @@ public class ProjectGroupEntity  {
 	}
 	public void setSkipuseridentifers(boolean skipuseridentifers) {
 		this.skipuseridentifers = skipuseridentifers;
-	}
-	@Column(name="purge_data")
-	public boolean isPurgeData() {
-		return purgeData;
-	}
-	public void setPurgeData(boolean purgeData) {
-		this.purgeData = purgeData;
 	}
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="projectGroupEntity")
 	public List<ProjectProjectGroupMapEntity> getProjectGroupMapEntities() {

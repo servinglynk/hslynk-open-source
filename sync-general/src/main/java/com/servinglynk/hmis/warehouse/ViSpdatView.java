@@ -1,10 +1,13 @@
 package com.servinglynk.hmis.warehouse;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -53,7 +56,7 @@ public class ViSpdatView  extends Logging {
 	            		p = new Put(Bytes.toBytes(key));
 	            		addColumn("client_id",String.valueOf(response.getClientId()), key, p);
 	            		addColumn("survey_id",String.valueOf(survey.getSurveyId()), key, p);
-	            		addColumn("survey_date",getCreatedAtString(survey.getSurveyDate()), key, p);
+	            		addColumn("survey_date",getCreatedAtString(response.getSurveyResponseDate()), key, p);
 	            		  if(p != null) {
 	     	            	 if (existingKeysInHbase.contains(key)) {
 	     	                        putsToUpdate.add(p);

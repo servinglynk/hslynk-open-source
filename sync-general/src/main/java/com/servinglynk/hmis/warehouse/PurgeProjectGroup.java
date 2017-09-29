@@ -1,8 +1,6 @@
 package com.servinglynk.hmis.warehouse;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +9,9 @@ import org.apache.log4j.Logger;
 
 public class PurgeProjectGroup extends Logging {
 	 private Logger logger;
-	 private SyncHBaseProcessor syncHBaseImport;
+	 
 	 public PurgeProjectGroup(Logger logger) throws Exception {
 	        this.logger = logger;
-	        this.syncHBaseImport = new SyncHBaseProcessor();
 	    }
 	 /***
 	  * purge 
@@ -29,7 +26,6 @@ public class PurgeProjectGroup extends Logging {
 		for(String tableName : tables2014) {
 			   schema = "v2014";
 				purgeTable(tableName, projectGroupCode, schema);
-				syncHBaseImport.dropTable(tableName+"_"+projectGroupCode);
 		}
 		logger.info("2014 schema purged for ..."+projectGroupCode);
 		logger.info("Purging 2015 schema..."+projectGroupCode);
@@ -37,7 +33,6 @@ public class PurgeProjectGroup extends Logging {
 		for(String tableName : tables2015) {
 				schema = "v2015";
 				purgeTable(tableName, projectGroupCode, schema);
-				syncHBaseImport.dropTable(tableName+"_"+projectGroupCode);
 		}
 		logger.info("2015 schema purged for ..."+projectGroupCode);
 		logger.info("Purging 2016 schema..."+projectGroupCode);
@@ -45,7 +40,6 @@ public class PurgeProjectGroup extends Logging {
 		for(String tableName : tables2016) {
 				schema = "v2016";
 				purgeTable(tableName, projectGroupCode, schema);
-				syncHBaseImport.dropTable(tableName+"_"+projectGroupCode);
 		}
 		logger.info("2016 schema purged for ..."+projectGroupCode);
 		logger.info("Purging base schema..."+projectGroupCode);
@@ -242,26 +236,9 @@ public class PurgeProjectGroup extends Logging {
 		Logger logger = Logger.getLogger(PurgeProjectGroup.class.getName());
 		Properties props = new Properties();
 		props.generatePropValues();
-		String projectGroupCode = getProjecGroupsToPurge();
+		
 		PurgeProjectGroup view = new PurgeProjectGroup(logger);
-	    view.purge(projectGroupCode);
+	    view.purge("PG0001");
 	}
 
-	
-	public static String getProjecGroupsToPurge() {
-		ResultSet resultSet = null;
-		PreparedStatement statement = null;
-		Connection connection = null;
-		try{
-		connection = SyncPostgresProcessor.getConnection();
-		statement = connection.prepareStatement("select project_group_code from base.hmis_project_group where purge_data=true");
-		resultSet = statement.executeQuery();
-			while(resultSet.next()) {
-				return (String)resultSet.getString("project_group_code");
-			}
-		}catch (Exception ex){
-			ex.printStackTrace();
-		}
-		return null;
-	}
 }
