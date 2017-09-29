@@ -4,10 +4,6 @@
 	<property name="sql.url" value="jdbc:postgresql://localhost:5432/hmis"/>
    <property name="sql.user" value="hmisdb1"/>
    <property name="sql.pass" value="hmisdb1234"/>
-		
-	 <property name="sql.url" value="jdbc:postgresql://internal.hmislynk.com:20800/hmis"/>
-   <property name="sql.user" value="hmisdb1"/>
-   <property name="sql.pass" value="#SERVINGLYNK#2016%s3cur3"/>
  -->
 	<property name="sql.url" value="jdbc:postgresql://localhost:5432/hmis"/>
 	<property name="sql.user" value="postgres"/>

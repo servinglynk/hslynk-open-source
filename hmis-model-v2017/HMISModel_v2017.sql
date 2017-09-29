@@ -1923,7 +1923,7 @@ CREATE TABLE "v2017".entryRHY
 	"incarcerated_parent" "v2017".incarcerated_parent,
 	"formerly_ward_of_juvenile_justice" "v2017".formerly_ward_of_juvenile_justice,
 	"years_juvenile_justice" "v2017".years_juvenile_justice,
-	"months_juvenile_justice" "v2016".years_juvenile_justice, 
+	"months_juvenile_justice" "v2017".years_juvenile_justice, 
 	"formerly_ward_child_welfr_forest_care" "v2017".formerly_ward_child_welfr_forest_care,
 	"years_child_welfr_forest_care" "v2017".years_child_welfr_forest_care,
 	months_child_welfr_forest_care integer,
