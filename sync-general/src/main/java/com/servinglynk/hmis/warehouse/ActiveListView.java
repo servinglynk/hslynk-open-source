@@ -205,6 +205,7 @@ public class ActiveListView  extends Logging {
 		connection = SyncPostgresProcessor.getConnection();
 		statement = connection.prepareStatement(ViewQuery.GET_LASTEST_SURVEY_BY_CLIENT);
 		statement.setObject(1, UUID.fromString(clientId));
+		statement.setString(2, projectGroupCode);
 		resultSet = statement.executeQuery();
 			while(resultSet.next()) {
 				String surveyId = (String)resultSet.getString("survey_id");
@@ -225,6 +226,7 @@ public class ActiveListView  extends Logging {
 		connection = SyncPostgresProcessor.getConnection();
 		statement = connection.prepareStatement(ViewQuery.GET_LASTEST_SURVEY_BY_CLIENT_FROM_SCORE);
 		statement.setObject(1, UUID.fromString(clientId));
+		statement.setString(2, projectGroupCode);
 		resultSet = statement.executeQuery();
 			while(resultSet.next()) {
 				String surveyId = (String)resultSet.getString("survey_id");
