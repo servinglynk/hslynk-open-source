@@ -299,6 +299,12 @@ public class ExceptionMapper {
 			r.setErrorCode("INVALID_DATE_FORMAT");
 			ex.printStackTrace();
 			r.setErrorMessage(ex.getMessage());
+		}catch (com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException ex) {
+			logger.info("ResourceNotFoundException: " + ex.getMessage(), ex);
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorCode("RESOURCE_NOT_FOUND");
+			ex.printStackTrace();
+			r.setErrorMessage(ex.getMessage());
 		}
 		catch (Throwable t) {
         	

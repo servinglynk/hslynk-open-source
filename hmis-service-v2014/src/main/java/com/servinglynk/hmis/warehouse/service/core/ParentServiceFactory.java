@@ -17,6 +17,7 @@ import com.servinglynk.hmis.warehouse.service.ExitPlansActionsService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
 import com.servinglynk.hmis.warehouse.service.FamilyReunificationService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
+import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthInsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthStatusService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
@@ -32,6 +33,7 @@ import com.servinglynk.hmis.warehouse.service.PercentamiService;
 import com.servinglynk.hmis.warehouse.service.ProjectCompletionStatusService;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
 import com.servinglynk.hmis.warehouse.service.ProjectcocService;
+import com.servinglynk.hmis.warehouse.service.QuestionService;
 import com.servinglynk.hmis.warehouse.service.ReferralsourceService;
 import com.servinglynk.hmis.warehouse.service.ResidentialmoveindateService;
 import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
@@ -90,4 +92,6 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	ClientService getClientService();
 	SearchService getSearchService();
 	BulkUploadErrorActivityService getBulkUploadErrorActivityService();
+	HMISTypeService getHmisTypeService();
+	QuestionService getQuestionService();
 }

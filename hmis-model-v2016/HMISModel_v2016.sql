@@ -32,6 +32,7 @@ DROP TABLE IF EXISTS "v2016".export;
 DROP TABLE IF EXISTS "v2016".source;
 DROP TABLE IF EXISTS v2016.exitRHY;
 DROP TABLE IF EXISTS v2016.exitPath;
+DROP TABLE IF EXISTS v2016.question;
 
 
 DROP TYPE IF EXISTS "v2016".name_data_quality;
@@ -102,6 +103,7 @@ DROP TYPE IF EXISTS "v2016".annualpercentami;
 DROP TYPE IF EXISTS "v2016".evictionhistory;
 DROP TYPE IF EXISTS "v2016".crisisServicesUse;	
 DROP TYPE IF EXISTS "v2016".literalHomelessHistory;
+
 
 CREATE TYPE "v2016".literalHomelessHistory AS ENUM('0','1','2','99');
 CREATE TYPE "v2016".timeToHousingLoss as ENUM('0','1','2','3','99');
@@ -2912,6 +2914,23 @@ CREATE TABLE v2016.bulk_upload_error
 WITH (
   OIDS=FALSE
 );
+
+CREATE TABLE v2016.question (
+	ID uuid NOT NULL,
+	question_description CHARACTER VARYING (256),
+	display_text CHARACTER VARYING (256),
+	question_data_type CHARACTER VARYING (256),
+	question_type CHARACTER VARYING (256),
+	created_at TIMESTAMP (0),
+	updated_at TIMESTAMP (0),
+	user_id CHARACTER VARYING (256),
+	is_active BOOLEAN,
+	picklist_group_name CHARACTER VARYING (256),
+	deleted BOOLEAN DEFAULT FALSE,
+	hud_question_id CHARACTER VARYING (32),
+	update_url_template CHARACTER VARYING (512),
+	PRIMARY KEY ("id")
+) WITH (OIDS = FALSE);
 
 -- DROP SEQUENCE v2016.error_sequence;
 

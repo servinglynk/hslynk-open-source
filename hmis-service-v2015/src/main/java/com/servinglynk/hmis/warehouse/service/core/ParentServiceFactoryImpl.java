@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.ExitpathService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
+import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
@@ -35,11 +36,13 @@ import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.service.PathstatusService;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
 import com.servinglynk.hmis.warehouse.service.ProjectcocService;
+import com.servinglynk.hmis.warehouse.service.QuestionService;
 import com.servinglynk.hmis.warehouse.service.ResidentialmoveindateService;
 import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
 import com.servinglynk.hmis.warehouse.service.ServicefareferralService;
 import com.servinglynk.hmis.warehouse.service.SiteService;
 import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
+import com.servinglynk.hmis.warehouse.service.impl.HMISTypeServiceImpl;
 
 @Component
 public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements ParentServiceFactory {
@@ -75,6 +78,8 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public ExithousingassessmentService exithousingassessmentService;
 	@Autowired public SearchService searchService;
 	@Autowired public BulkUploadErrorActivityService bulkUploadErrorActivityService;
+	@Autowired public HMISTypeService hmisTypeService;
+	@Autowired public QuestionService questionService;
 	
 	public RhybcpstatusService getRhybcpstatusService() {
 		return rhybcpstatusService;
@@ -377,5 +382,21 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	public void setBulkUploadErrorActivityService(
 			BulkUploadErrorActivityService bulkUploadErrorActivityService) {
 		this.bulkUploadErrorActivityService = bulkUploadErrorActivityService;
+	}
+
+	public HMISTypeService getHmisTypeService() {
+		return hmisTypeService;
+	}
+
+	public void setHmisTypeService(HMISTypeService hmisTypeService) {
+		this.hmisTypeService = hmisTypeService;
+	}
+
+	public QuestionService getQuestionService() {
+		return questionService;
+	}
+
+	public void setQuestionService(QuestionService questionService) {
+		this.questionService = questionService;
 	}
 }
