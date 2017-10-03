@@ -3422,10 +3422,7 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "connectionWithSOARID",
                 "enrollmentID",
-                "connectionWithSOAR",
-                "dateCreated",
-                "dateUpdated",
-                "userID"
+                "connectionWithSOAR"
             })
             public static class ConnectionWithSOAR {
 
@@ -3441,7 +3438,23 @@ public class Sources {
                 protected XMLGregorianCalendar dateUpdated;
                 @XmlAttribute
                 protected String userID;
+                @XmlAttribute
+                protected XMLGregorianCalendar informationDate;
+                @XmlAttribute
+                protected String dataCollectionStage;
                 
+				public XMLGregorianCalendar getInformationDate() {
+					return informationDate;
+				}
+				public void setInformationDate(XMLGregorianCalendar informationDate) {
+					this.informationDate = informationDate;
+				}
+				public String getDataCollectionStage() {
+					return dataCollectionStage;
+				}
+				public void setDataCollectionStage(String dataCollectionStage) {
+					this.dataCollectionStage = dataCollectionStage;
+				}
 				public String getConnectionWithSOARID() {
 					return connectionWithSOARID;
 				}
@@ -13460,7 +13473,8 @@ public class Sources {
                 "state",
             	"zip",
             	"dateCreated",
-        		"dateUpdated"
+        		"dateUpdated",
+        		"informationDate"
             })
             public static class Geography {
 
@@ -13484,11 +13498,13 @@ public class Sources {
                 protected String state;
                 @XmlElement(name = "Zip")
                 protected String zip;
-                @XmlElement(name = "dateCreated")
-	            protected XMLGregorianCalendar dateCreated;
-	            @XmlElement(name = "dateUpdated")
-	            protected XMLGregorianCalendar dateUpdated;
-	            @XmlElement(name = "informationDate")
+                @XmlAttribute
+                protected XMLGregorianCalendar dateCreated;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateUpdated;
+                @XmlAttribute
+                protected String userID;
+                @XmlAttribute
 	            protected XMLGregorianCalendar informationDate;
                 
 				public String getGeographyID() {
@@ -13569,6 +13585,12 @@ public class Sources {
 				}
 				public void setInformationDate(XMLGregorianCalendar informationDate) {
 					this.informationDate = informationDate;
+				}
+				public String getUserID() {
+					return userID;
+				}
+				public void setUserID(String userID) {
+					this.userID = userID;
 				}
 				
             }
