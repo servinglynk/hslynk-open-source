@@ -299,8 +299,9 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	/**
 	 * @return the operatingStartDate
 	 */
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
-	@Column( name = "operatingStartDate" )
+	@Column( name = "operatingstartdate" )
 	public LocalDateTime getOperatingStartDate() {
 		return operatingStartDate;
 	}
@@ -315,8 +316,9 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	/**
 	 * @return the operatingEndDate
 	 */
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
-	@Column( name = "operatingEndDate" )
+	@Column( name = "operatingenddate" )
 	public LocalDateTime getOperatingEndDate() {
 		return operatingEndDate;
 	}

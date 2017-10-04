@@ -5528,7 +5528,7 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "enrollmentCoCID",
                 "enrollmentID",
-                "clientCoC",
+                "cocCode",
                 "householdID",
                 "informationDate"
             })
@@ -5538,8 +5538,8 @@ public class Sources {
                 protected String enrollmentCoCID;
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
-                @XmlElement(name = "clientCoC", required = true)
-                protected String clientCoC;
+                @XmlElement(name = "CocCode", required = true)
+                protected String cocCode;
                 @XmlElement(name="HouseholdID")
                 protected String householdID;
                 @XmlAttribute
@@ -5601,8 +5601,8 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getClientCoC() {
-                    return clientCoC;
+                public String getCocCode() {
+                    return cocCode;
                 }
 
                 /**
@@ -5613,8 +5613,8 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setClientCoC(String value) {
-                    this.clientCoC = value;
+                public void setCocCode(String value) {
+                    this.cocCode = value;
                 }
                 
                 public String getHouseholdID() {
@@ -13471,10 +13471,14 @@ public class Sources {
                 "address2",
                 "city",
                 "state",
+<<<<<<< Updated upstream
             	"zip",
             	"dateCreated",
         		"dateUpdated",
         		"informationDate"
+=======
+            	"zip"
+>>>>>>> Stashed changes
             })
             public static class Geography {
 

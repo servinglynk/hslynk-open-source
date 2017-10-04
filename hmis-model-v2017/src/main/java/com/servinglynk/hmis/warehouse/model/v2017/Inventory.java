@@ -72,8 +72,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	/** Field mapping. */
 	private Integer vetBedInventory;
 	/** Field mapping. */
-	private Integer youthAgeGroup;
-	/** Field mapping. */
 	private Integer youthBedInventory;
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -364,26 +362,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 		this.vetBedInventory = vetBedInventory;
 	}
 
-	 /**
-	 * Return the value associated with the column: youthAgeGroup.
-	 * @return A Integer object (this.youthAgeGroup)
-	 */
-	@Basic( optional = true )
-	@Column( name = "youth_age_group"  )
-	public Integer getYouthAgeGroup() {
-		return this.youthAgeGroup;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: youthAgeGroup.
-	 * @param youthAgeGroup the youthAgeGroup value you wish to set
-	 */
-	public void setYouthAgeGroup(final Integer youthAgeGroup) {
-		this.youthAgeGroup = youthAgeGroup;
-	}
 
 	 /**
 	 * Return the value associated with the column: youthBedInventory.
@@ -463,7 +441,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 		copy.setUserId(this.getUserId());
 		copy.setVersion(this.getVersion());
 		copy.setVetBedInventory(this.getVetBedInventory());
-		copy.setYouthAgeGroup(this.getYouthAgeGroup());
 		copy.setYouthBedInventory(this.getYouthBedInventory());
 		return copy;
 	}
@@ -499,7 +476,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 		sb.append("userId: " + this.getUserId() + ", ");
 		sb.append("version: " + this.getVersion() + ", ");
 		sb.append("vetBedInventory: " + this.getVetBedInventory() + ", ");
-		sb.append("youthAgeGroup: " + this.getYouthAgeGroup() + ", ");
 		sb.append("youthBedInventory: " + this.getYouthBedInventory());
 		return sb.toString();
 	}
@@ -566,7 +542,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
 		result = result && (((getVersion() == null) && (that.getVersion() == null)) || (getVersion() != null && getVersion().equals(that.getVersion())));
 		result = result && (((getVetBedInventory() == null) && (that.getVetBedInventory() == null)) || (getVetBedInventory() != null && getVetBedInventory().equals(that.getVetBedInventory())));
-		result = result && (((getYouthAgeGroup() == null) && (that.getYouthAgeGroup() == null)) || (getYouthAgeGroup() != null && getYouthAgeGroup().equals(that.getYouthAgeGroup())));
 		result = result && (((getYouthBedInventory() == null) && (that.getYouthBedInventory() == null)) || (getYouthBedInventory() != null && getYouthBedInventory().equals(that.getYouthBedInventory())));
 		return result;
 	}

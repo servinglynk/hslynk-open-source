@@ -79,8 +79,6 @@ import com.servinglynk.hmis.warehouse.dao.RHYAfterCareDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.RhybcpstatusDao;
 import com.servinglynk.hmis.warehouse.dao.RhybcpstatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ServiceFaReferralDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.SiteDao;
-import com.servinglynk.hmis.warehouse.dao.SiteDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.SourceDao;
 import com.servinglynk.hmis.warehouse.dao.SourceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.VASHExitReasonDaoImpl;
@@ -258,10 +256,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public MoveindateDao residentialmoveindateDao() { 
 		return new MoveindateDaoImpl();
-	}
-	@Bean
-	public SiteDao siteDao() { 
-		return new SiteDaoImpl();
 	}
 	@Bean
 	public SourceDao sourceDao() { 

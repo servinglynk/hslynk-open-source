@@ -124,7 +124,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getCocDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 			parentDaoFactory.getFunderDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 			Map<String, HmisBaseModel> cocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
-			parentDaoFactory.getSiteDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
 			parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
 			startNanos = System.nanoTime();
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done

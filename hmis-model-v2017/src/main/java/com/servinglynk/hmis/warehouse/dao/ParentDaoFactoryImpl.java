@@ -54,8 +54,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private RhybcpstatusDao rhybcpstatusDao;
 	@Autowired
-	private SiteDao siteDao;
-	@Autowired
 	private SourceDao sourceDao;
 	// private SyncDao
 	@Autowired
@@ -446,22 +444,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	 */
 	public void setRhybcpstatusDao(RhybcpstatusDao rhybcpstatusDao) {
 		this.rhybcpstatusDao = rhybcpstatusDao;
-	}
-
-
-	/**
-	 * @return the siteDao
-	 */
-	public SiteDao getSiteDao() {
-		return siteDao;
-	}
-
-	/**
-	 * @param siteDao
-	 *            the siteDao to set
-	 */
-	public void setSiteDao(SiteDao siteDao) {
-		this.siteDao = siteDao;
 	}
 
 	/**
