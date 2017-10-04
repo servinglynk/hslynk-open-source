@@ -55,6 +55,7 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	/**
 	 * @return the informationDate
 	 */
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic( optional = true )
 	@Column(name = "information_date")
 	public LocalDateTime getInformationDate() {

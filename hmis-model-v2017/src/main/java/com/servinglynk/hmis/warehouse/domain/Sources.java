@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.domain;
 
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,8 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar;
 
 /**
  * <p>Java class for Sources element declaration.
@@ -13471,14 +13472,7 @@ public class Sources {
                 "address2",
                 "city",
                 "state",
-<<<<<<< Updated upstream
-            	"zip",
-            	"dateCreated",
-        		"dateUpdated",
-        		"informationDate"
-=======
             	"zip"
->>>>>>> Stashed changes
             })
             public static class Geography {
 
@@ -13603,9 +13597,7 @@ public class Sources {
             @XmlType(name = "", propOrder = {
             		"vashExitReasonID",
             		"exitID",
-            		"cmExitReason",
-            		"dateCreated",
-            		"dateUpdated"
+            		"cmExitReason"
             })
 
             public static class VASHExitReason {
@@ -13615,10 +13607,13 @@ public class Sources {
 	            protected String exitID;
 	            @XmlElement(name = "CMExitReason")
 	            protected String cmExitReason;
-	            @XmlElement(name = "dateCreated")
-	            protected XMLGregorianCalendar dateCreated;
-	            @XmlElement(name = "dateUpdated")
-	            protected XMLGregorianCalendar dateUpdated;
+	            @XmlAttribute
+                protected XMLGregorianCalendar dateCreated;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateUpdated;
+                @XmlAttribute
+                protected String userID;
+                
 				public String getVashExitReasonID() {
 					return vashExitReasonID;
 				}
@@ -13660,9 +13655,7 @@ public class Sources {
             		"emailSocialMedia",
             		"telephone",
             		"inPersonIndividual",
-            		"inPersonGroup",
-            		"dateCreated",
-            		"dateUpdated"
+            		"inPersonGroup"
             })
 
             public static class RHYAfterCare {

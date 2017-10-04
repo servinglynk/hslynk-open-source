@@ -30,7 +30,7 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 	private NoYesEnum inPersonIndividual;
 	private NoYesEnum inPersonGroup;
 	/** Field mapping. */
-	private Exitrhy exitrhyid;
+	private Exit exitid;
 	/**
 	 * @return the id
 	 */
@@ -142,9 +142,9 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
 		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 		@Basic( optional = true )
-		@JoinColumn(name = "exitrhyid", nullable = true )
-		public Exitrhy getExitrhyid() {
-			return this.exitrhyid;
+		@JoinColumn(name = "exitid", nullable = true )
+		public Exit getExitid() {
+			return this.exitid;
 
 		}
 
@@ -154,8 +154,8 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 		 * Set the value related to the column: exitid.
 		 * @param exitid the exitid value you wish to set
 		 */
-		public void setExitrhyid(final Exitrhy exitrhyid) {
-			this.exitrhyid = exitrhyid;
+		public void setExitid(final Exit exitid) {
+			this.exitid = exitid;
 		}
 	/**
 	 * @param id

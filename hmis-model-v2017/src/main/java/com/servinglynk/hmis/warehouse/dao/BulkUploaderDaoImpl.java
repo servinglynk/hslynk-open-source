@@ -54,7 +54,6 @@ import com.servinglynk.hmis.warehouse.model.v2017.Pathstatus;
 import com.servinglynk.hmis.warehouse.model.v2017.Project;
 import com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus;
 import com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral;
-import com.servinglynk.hmis.warehouse.model.v2017.Site;
 
 public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		BulkUploaderDao {
@@ -125,6 +124,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getFunderDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 			Map<String, HmisBaseModel> cocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
 			parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
+			parentDaoFactory.getGeographyDao().hydrateStaging(domain, exportModelMap, cocModelMap);
 			startNanos = System.nanoTime();
 			parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
 			logger.info("Enrollment table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
@@ -142,7 +142,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 
-
+			
 			parentDaoFactory.getEntryrhspDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getEntryrhyDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getEntryssvfDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
@@ -157,11 +157,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			parentDaoFactory.getNoncashbenefitsDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getPathstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getConnectionWithSoarDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 			
 			Map<String, HmisBaseModel> exitModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Exit.class, getProjectGroupCode(domain));
 			parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
-			parentDaoFactory.getExitpathDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 			parentDaoFactory.getExitrhyDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
+			parentDaoFactory.getVashExitReasonDao().hydrateStaging(domain, exportModelMap, exitModelMap);
+			parentDaoFactory.getRhyAfterCareDao().hydrateStaging(domain, exportModelMap, exitModelMap);
 			upload.setExportId(domain.getExportId());
 			upload.setStatus(UploadStatus.STAGING.getStatus());
 			logger.debug("Chaning status of Bulk_upload table to STAGING");
@@ -251,7 +253,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		undoSoftDeleteByExportId(Project.class.getName(), exportId);
 		undoSoftDeleteByExportId(Moveindate.class.getName(), exportId);
 		undoSoftDeleteByExportId(RhybcpStatus.class.getName(), exportId);
-		undoSoftDeleteByExportId(Site.class.getName(), exportId);
 		undoSoftDeleteByExportId(Source.class.getName(), exportId);
 		undoSoftDeleteByExportId(ClientVeteranInfo.class.getName(), exportId);
 		undoSoftDeleteByExportId(BulkUpload.class.getName(), exportId);
@@ -283,7 +284,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		softDeleteByProjectGroupCode(Project.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Moveindate.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(RhybcpStatus.class.getName(), projectGroupCode,exportId);
-		softDeleteByProjectGroupCode(Site.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Source.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(ClientVeteranInfo.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Coc.class.getName(), projectGroupCode,exportId);

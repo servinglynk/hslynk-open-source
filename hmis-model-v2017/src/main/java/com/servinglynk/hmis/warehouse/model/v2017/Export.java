@@ -104,9 +104,6 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	private Set<Exithousingassessment> exithousingassessments = new HashSet<Exithousingassessment>();
 
 	/** Field mapping. */
-	private Set<Exitpath> exitpaths = new HashSet<Exitpath>();
-
-	/** Field mapping. */
 	private Set<Exitrhy> exitrhies = new HashSet<Exitrhy>();
 	/** Field mapping. */
 	private Set<Education> educations = new HashSet<Education>();
@@ -163,9 +160,6 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Field mapping. */
 	private Set<ServiceFaReferral> serviceFaReferrals = new HashSet<ServiceFaReferral>();
-
-	/** Field mapping. */
-	private Set<Site> sites = new HashSet<Site>();
 
 	/** Field mapping. */
 	private Source source;
@@ -716,37 +710,6 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	public void setExithousingassessments(final Set<Exithousingassessment> exithousingassessment) {
 		this.exithousingassessments = exithousingassessment;
-	}
-
-	 /**
-	 * Return the value associated with the column: exitpath.
-	 * @return A Set&lt;Exitpath&gt; object (this.exitpath)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Exitpath> getExitpaths() {
-		return this.exitpaths;
-
-	}
-
-	/**
-	 * Adds a bi-directional link of type Exitpath to the exitpaths set.
-	 * @param exitpath item to add
-	 */
-	public void addExitpath(Exitpath exitpath) {
-		exitpath.setExport(this);
-		this.exitpaths.add(exitpath);
-	}
-
-
-	 /**
-	 * Set the value related to the column: exitpath.
-	 * @param exitpath the exitpath value you wish to set
-	 */
-	public void setExitpaths(final Set<Exitpath> exitpath) {
-		this.exitpaths = exitpath;
 	}
 
 	 /**
@@ -1349,36 +1312,6 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	public void setServiceFaReferrals(final Set<ServiceFaReferral> serviceFaReferral) {
 		this.serviceFaReferrals = serviceFaReferral;
 	}
-	 /**
-	 * Return the value associated with the column: site.
-	 * @return A Set&lt;Site&gt; object (this.site)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Site> getSites() {
-		return this.sites;
-
-	}
-
-	/**
-	 * Adds a bi-directional link of type Site to the sites set.
-	 * @param site item to add
-	 */
-	public void addSite(Site site) {
-		site.setExport(this);
-		this.sites.add(site);
-	}
-
-
-	 /**
-	 * Set the value related to the column: site.
-	 * @param site the site value you wish to set
-	 */
-	public void setSites(final Set<Site> site) {
-		this.sites = site;
-	}
 
 	 /**
 	 * Return the value associated with the column: source.
@@ -1584,9 +1517,6 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 		if (this.getExithousingassessments() != null) {
 			copy.getExithousingassessments().addAll(this.getExithousingassessments());
 		}
-		if (this.getExitpaths() != null) {
-			copy.getExitpaths().addAll(this.getExitpaths());
-		}
 		if (this.getExitrhies() != null) {
 			copy.getExitrhies().addAll(this.getExitrhies());
 		}
@@ -1638,9 +1568,6 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 		}
 		if (this.getServiceFaReferrals() != null) {
 			copy.getServiceFaReferrals().addAll(this.getServiceFaReferrals());
-		}
-		if (this.getSites() != null) {
-			copy.getSites().addAll(this.getSites());
 		}
 		copy.setSource(this.getSource());
 		copy.setStartDate(this.getStartDate());

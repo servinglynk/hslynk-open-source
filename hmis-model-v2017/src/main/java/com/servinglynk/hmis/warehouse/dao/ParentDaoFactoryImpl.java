@@ -71,8 +71,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private EntryssvfDao entryssvfDao;
 	@Autowired
-	private ExitpathDao exitpathDao;
-	@Autowired
 	private ExitrhyDao exitrhyDao;
 	@Autowired
 	private ServiceFaReferralDao serviceFaReferralDao;
@@ -521,14 +519,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 
 	public void setEntryssvfDao(EntryssvfDao entryssvfDao) {
 		this.entryssvfDao = entryssvfDao;
-	}
-
-	public ExitpathDao getExitpathDao() {
-		return exitpathDao;
-	}
-
-	public void setExitpathDao(ExitpathDao exitpathDao) {
-		this.exitpathDao = exitpathDao;
 	}
 
 	public ExitrhyDao getExitrhyDao() {

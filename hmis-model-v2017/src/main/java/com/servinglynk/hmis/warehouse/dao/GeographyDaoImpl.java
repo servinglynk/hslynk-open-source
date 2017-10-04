@@ -17,6 +17,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.GeographyTypeEnum;
+import com.servinglynk.hmis.warehouse.model.v2017.Coc;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -46,6 +47,8 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 						geographyModel.setAddress2(expGeographies.getAddress2());
 						geographyModel.setCity(expGeographies.getCity());
 						geographyModel.setGeoCode(expGeographies.getGeoCode());
+						Coc coc = (Coc) getModel(Coc.class,expGeographies.getCoCCode(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+						geographyModel.setCoc(coc);
 						geographyModel.setGeographyType(GeographyTypeEnum.lookupEnum(expGeographies.getGeographyType()));
 						geographyModel.setInformationDate(BasicDataGenerator.getLocalDateTime(expGeographies.getInformationDate()));
 						geographyModel.setState(expGeographies.getState());

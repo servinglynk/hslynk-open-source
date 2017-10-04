@@ -46,6 +46,8 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 						rhyAfterCareModel.setInPersonGroup(NoYesEnum.lookupEnum(rhyAfterCare.getInPersonIndividual()));
 						rhyAfterCareModel.setInPersonIndividual(NoYesEnum.lookupEnum(rhyAfterCare.getInPersonIndividual()));
 						rhyAfterCareModel.setTelephone(NoYesEnum.lookupEnum(rhyAfterCare.getTelephone()));
+						com.servinglynk.hmis.warehouse.model.v2017.Exit exit = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class,rhyAfterCare.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+						rhyAfterCareModel.setExitid(exit);
 						rhyAfterCareModel.setAfterCareDate(BasicDataGenerator.getLocalDateTime(rhyAfterCare.getAfterCareDate()));
 						
 						performSaveOrUpdate(rhyAfterCareModel);

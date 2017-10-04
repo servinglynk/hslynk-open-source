@@ -47,7 +47,6 @@ import com.servinglynk.hmis.warehouse.dao.ExitDao;
 import com.servinglynk.hmis.warehouse.dao.ExitDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ExithousingassessmentDao;
 import com.servinglynk.hmis.warehouse.dao.ExithousingassessmentDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.ExitpathDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ExitrhyDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ExportDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.FunderDao;
@@ -300,10 +299,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public EntryssvfDaoImpl entryssvfDao() {
 		return new EntryssvfDaoImpl();
-	}
-	@Bean
-	public ExitpathDaoImpl exitpathDao() {
-		return new ExitpathDaoImpl();
 	}
 	@Bean
 	public ExitrhyDaoImpl exitrhyDao() {
