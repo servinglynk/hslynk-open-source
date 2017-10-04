@@ -13599,7 +13599,6 @@ public class Sources {
             		"exitID",
             		"cmExitReason"
             })
-
             public static class VASHExitReason {
 	            @XmlElement(name = "VashExitReasonID", required = true)
 	            protected String vashExitReasonID;
@@ -13644,6 +13643,13 @@ public class Sources {
 				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
 					this.dateUpdated = dateUpdated;
 				}
+				public String getUserID() {
+					return userID;
+				}
+				public void setUserID(String userID) {
+					this.userID = userID;
+				}
+				
 	         }
             
             @XmlAccessorType(XmlAccessType.FIELD)
@@ -13657,7 +13663,6 @@ public class Sources {
             		"inPersonIndividual",
             		"inPersonGroup"
             })
-
             public static class RHYAfterCare {
 	            @XmlElement(name = "RhyAfterCareID", required = true)
 	            protected String rhyAfterCareID;
@@ -13675,11 +13680,12 @@ public class Sources {
 	            protected String inPersonIndividual;
 	            @XmlElement(name = "InPersonGroup")
 	            protected String inPersonGroup;
-	            @XmlElement(name = "dateCreated")
-	            protected XMLGregorianCalendar dateCreated;
-	            @XmlElement(name = "dateUpdated")
-	            protected XMLGregorianCalendar dateUpdated;
-	            
+	            @XmlAttribute
+                protected XMLGregorianCalendar dateCreated;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateUpdated;
+                @XmlAttribute
+                protected String userID;
 				public String getRhyAfterCareID() {
 					return rhyAfterCareID;
 				}
@@ -13740,7 +13746,12 @@ public class Sources {
 				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
 					this.dateUpdated = dateUpdated;
 				}
-				
+				public String getUserID() {
+					return userID;
+				}
+				public void setUserID(String userID) {
+					this.userID = userID;
+				}
 	         }
 
             }

@@ -32,10 +32,35 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	private GeographyTypeEnum geographyType;
 	/** Field mapping. */
 	private Coc coc;
-	
+	/** Field mapping. */
+	protected Export export;
 	
 	public Geography() {
 		// Default constructor
+	}
+	
+	
+	 /**
+	 * Return the value associated with the column: export.
+	 * @return A Export object (this.export)
+	 */
+	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = true )
+	@JoinColumn(name = "export_id", nullable = true )
+	public Export getExport() {
+		return this.export;
+
+	}
+
+
+
+	 /**
+	 * Set the value related to the column: export.
+	 * @param export the export value you wish to set
+	 */
+	public void setExport(final Export export) {
+		this.export = export;
 	}
 	/**
 	 * @return the id
@@ -204,7 +229,7 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	 */
 	public Geography(UUID id, LocalDateTime informationDate, String geoCode,
 			String address1, String address2, String city, String state,
-			String zip, GeographyTypeEnum geographyType) {
+			String zip, GeographyTypeEnum geographyType,Export export) {
 		super();
 		this.id = id;
 		this.informationDate = informationDate;
@@ -215,6 +240,7 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 		this.state = state;
 		this.zip = zip;
 		this.geographyType = geographyType;
+		this.export = export;
 	}
 	
 	

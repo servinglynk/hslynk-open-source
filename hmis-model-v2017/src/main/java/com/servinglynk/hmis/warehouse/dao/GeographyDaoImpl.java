@@ -47,6 +47,7 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 						geographyModel.setAddress2(expGeographies.getAddress2());
 						geographyModel.setCity(expGeographies.getCity());
 						geographyModel.setGeoCode(expGeographies.getGeoCode());
+						geographyModel.setExport(exportEntity);
 						Coc coc = (Coc) getModel(Coc.class,expGeographies.getCoCCode(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						geographyModel.setCoc(coc);
 						geographyModel.setGeographyType(GeographyTypeEnum.lookupEnum(expGeographies.getGeographyType()));
