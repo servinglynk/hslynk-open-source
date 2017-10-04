@@ -47,6 +47,7 @@ import com.servinglynk.hmis.warehouse.dao.FormerwardjuvenilejusticeDao;
 import com.servinglynk.hmis.warehouse.dao.FormerwardjuvenilejusticeDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.FunderDao;
 import com.servinglynk.hmis.warehouse.dao.FunderDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.HMISTypeDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HealthStatusDao;
 import com.servinglynk.hmis.warehouse.dao.HealthStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HealthinsuranceDao;
@@ -78,6 +79,7 @@ import com.servinglynk.hmis.warehouse.dao.ProjectcocDao;
 import com.servinglynk.hmis.warehouse.dao.ProjectcocDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ProjectcompletionstatusDao;
 import com.servinglynk.hmis.warehouse.dao.ProjectcompletionstatusDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.QuestionDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ReferralsourceDao;
 import com.servinglynk.hmis.warehouse.dao.ReferralsourceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ResidentialmoveindateDao;
@@ -345,5 +347,15 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public BulkUploadErrorDaoImpl bulkUploadErrorDao() {
 		return new BulkUploadErrorDaoImpl();
+	}
+	
+	@Bean
+	public HMISTypeDaoImpl hmisTypeDao() {
+		return new HMISTypeDaoImpl();
+	}
+	
+	@Bean
+	public QuestionDaoImpl questionDao() {
+		return new QuestionDaoImpl();
 	}
 }
