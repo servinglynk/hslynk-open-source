@@ -29,6 +29,7 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	MoveindateDao getResidentialmoveindateDao();
 	RhybcpstatusDao getRhybcpstatusDao();
 	SourceDao getSourceDao();
+	EducationDao getEducationDao();
 	//SyncDao getSyncDao();
 	ClientVeteranInfoDao getVeteranInfoDao();
 	ExportDao getExportDao();
