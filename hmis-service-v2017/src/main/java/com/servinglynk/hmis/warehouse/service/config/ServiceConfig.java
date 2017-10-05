@@ -23,7 +23,6 @@ import com.servinglynk.hmis.warehouse.service.impl.EntryrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EntryssvfServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExithousingassessmentServiceImpl;
-import com.servinglynk.hmis.warehouse.service.impl.ExitpathServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.FunderServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.GeographyServiceImpl;
@@ -43,7 +42,6 @@ import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceI
 import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SearchServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ServicefareferralServiceImpl;
-import com.servinglynk.hmis.warehouse.service.impl.SiteServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.VashExitReasonServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.VeteranInfoServiceImpl;
 
@@ -138,11 +136,6 @@ public class ServiceConfig  {
 	 }
 	 
 	 @Bean
-	 public SiteServiceImpl siteService(){
-		 return new SiteServiceImpl();
-	 }
-	 
-	 @Bean
 	 public InventoryServiceImpl inventoryService(){
 		 return new InventoryServiceImpl();
 	 }
@@ -179,11 +172,6 @@ public class ServiceConfig  {
 	 @Bean
 	 public IncomeAndSourceServiceImpl incomeAndSourceService(){
 		 return new IncomeAndSourceServiceImpl();
-	 }
-	 
-	 @Bean
-	 public ExitpathServiceImpl exitpathService(){
-		 return new ExitpathServiceImpl();
 	 }
 	 
 	 @Bean

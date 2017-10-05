@@ -1469,7 +1469,7 @@ public class ClientsController extends ControllerBase {
 		serviceFactory.getClientService().getClientById(clientId);
 		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
 		serviceFactory.getExitService().getExitById(exitId);
-		return serviceFactory.getRHYAfterCareService().getAllExitrhyRhyAfterCares(exitId, startIndex, maxItems);
+		return serviceFactory.getRHYAfterCareService().getAllExitRhyAfterCares(exitId, startIndex, maxItems);
 	}
 
 	@RequestMapping(value = "/{clientid}/exits/{exitid}/exitrhys/{exitrhyid}", method = RequestMethod.POST)
