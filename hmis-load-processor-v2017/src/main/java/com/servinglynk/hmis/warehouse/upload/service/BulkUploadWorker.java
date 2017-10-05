@@ -38,8 +38,6 @@ public class BulkUploadWorker implements IBulkUploadWorker  {
 	@Autowired
 	private ParentDaoFactory factory;
 	
-	@Transactional
-	@Scheduled(initialDelay=300,fixedDelay=10000)
 	public void processWorkerLine() {
 		try {
 //			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.INITIAL.getStatus(),new Long(2014));
