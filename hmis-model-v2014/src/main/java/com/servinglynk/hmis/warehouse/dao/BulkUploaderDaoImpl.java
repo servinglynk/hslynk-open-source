@@ -452,6 +452,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			deleteFile(upload.getInputpath()); 
 		}
 		deleteFile(upload.getInputpath()+"-temp.xml");
+		upload.setStatus(UploadStatus.C_CLIENT.getStatus());
 		insertOrUpdate(upload);
 		}catch(Exception e) {
 			upload.setStatus(UploadStatus.ERROR.getStatus());

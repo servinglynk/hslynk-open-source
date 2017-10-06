@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.domain;
 
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,8 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar;
 
 /**
  * <p>Java class for Sources element declaration.
@@ -3422,10 +3423,7 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "connectionWithSOARID",
                 "enrollmentID",
-                "connectionWithSOAR",
-                "dateCreated",
-                "dateUpdated",
-                "userID"
+                "connectionWithSOAR"
             })
             public static class ConnectionWithSOAR {
 
@@ -3441,7 +3439,23 @@ public class Sources {
                 protected XMLGregorianCalendar dateUpdated;
                 @XmlAttribute
                 protected String userID;
+                @XmlAttribute
+                protected XMLGregorianCalendar informationDate;
+                @XmlAttribute
+                protected String dataCollectionStage;
                 
+				public XMLGregorianCalendar getInformationDate() {
+					return informationDate;
+				}
+				public void setInformationDate(XMLGregorianCalendar informationDate) {
+					this.informationDate = informationDate;
+				}
+				public String getDataCollectionStage() {
+					return dataCollectionStage;
+				}
+				public void setDataCollectionStage(String dataCollectionStage) {
+					this.dataCollectionStage = dataCollectionStage;
+				}
 				public String getConnectionWithSOARID() {
 					return connectionWithSOARID;
 				}
@@ -5515,7 +5529,7 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "enrollmentCoCID",
                 "enrollmentID",
-                "clientCoC",
+                "cocCode",
                 "householdID",
                 "informationDate"
             })
@@ -5525,8 +5539,8 @@ public class Sources {
                 protected String enrollmentCoCID;
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
-                @XmlElement(name = "clientCoC", required = true)
-                protected String clientCoC;
+                @XmlElement(name = "CocCode", required = true)
+                protected String cocCode;
                 @XmlElement(name="HouseholdID")
                 protected String householdID;
                 @XmlAttribute
@@ -5588,8 +5602,8 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getClientCoC() {
-                    return clientCoC;
+                public String getCocCode() {
+                    return cocCode;
                 }
 
                 /**
@@ -5600,8 +5614,8 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setClientCoC(String value) {
-                    this.clientCoC = value;
+                public void setCocCode(String value) {
+                    this.cocCode = value;
                 }
                 
                 public String getHouseholdID() {
@@ -13458,9 +13472,7 @@ public class Sources {
                 "address2",
                 "city",
                 "state",
-            	"zip",
-            	"dateCreated",
-        		"dateUpdated"
+            	"zip"
             })
             public static class Geography {
 
@@ -13484,11 +13496,13 @@ public class Sources {
                 protected String state;
                 @XmlElement(name = "Zip")
                 protected String zip;
-                @XmlElement(name = "dateCreated")
-	            protected XMLGregorianCalendar dateCreated;
-	            @XmlElement(name = "dateUpdated")
-	            protected XMLGregorianCalendar dateUpdated;
-	            @XmlElement(name = "informationDate")
+                @XmlAttribute
+                protected XMLGregorianCalendar dateCreated;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateUpdated;
+                @XmlAttribute
+                protected String userID;
+                @XmlAttribute
 	            protected XMLGregorianCalendar informationDate;
                 
 				public String getGeographyID() {
@@ -13570,6 +13584,12 @@ public class Sources {
 				public void setInformationDate(XMLGregorianCalendar informationDate) {
 					this.informationDate = informationDate;
 				}
+				public String getUserID() {
+					return userID;
+				}
+				public void setUserID(String userID) {
+					this.userID = userID;
+				}
 				
             }
             
@@ -13577,11 +13597,8 @@ public class Sources {
             @XmlType(name = "", propOrder = {
             		"vashExitReasonID",
             		"exitID",
-            		"cmExitReason",
-            		"dateCreated",
-            		"dateUpdated"
+            		"cmExitReason"
             })
-
             public static class VASHExitReason {
 	            @XmlElement(name = "VashExitReasonID", required = true)
 	            protected String vashExitReasonID;
@@ -13589,10 +13606,13 @@ public class Sources {
 	            protected String exitID;
 	            @XmlElement(name = "CMExitReason")
 	            protected String cmExitReason;
-	            @XmlElement(name = "dateCreated")
-	            protected XMLGregorianCalendar dateCreated;
-	            @XmlElement(name = "dateUpdated")
-	            protected XMLGregorianCalendar dateUpdated;
+	            @XmlAttribute
+                protected XMLGregorianCalendar dateCreated;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateUpdated;
+                @XmlAttribute
+                protected String userID;
+                
 				public String getVashExitReasonID() {
 					return vashExitReasonID;
 				}
@@ -13623,6 +13643,13 @@ public class Sources {
 				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
 					this.dateUpdated = dateUpdated;
 				}
+				public String getUserID() {
+					return userID;
+				}
+				public void setUserID(String userID) {
+					this.userID = userID;
+				}
+				
 	         }
             
             @XmlAccessorType(XmlAccessType.FIELD)
@@ -13634,11 +13661,8 @@ public class Sources {
             		"emailSocialMedia",
             		"telephone",
             		"inPersonIndividual",
-            		"inPersonGroup",
-            		"dateCreated",
-            		"dateUpdated"
+            		"inPersonGroup"
             })
-
             public static class RHYAfterCare {
 	            @XmlElement(name = "RhyAfterCareID", required = true)
 	            protected String rhyAfterCareID;
@@ -13656,11 +13680,12 @@ public class Sources {
 	            protected String inPersonIndividual;
 	            @XmlElement(name = "InPersonGroup")
 	            protected String inPersonGroup;
-	            @XmlElement(name = "dateCreated")
-	            protected XMLGregorianCalendar dateCreated;
-	            @XmlElement(name = "dateUpdated")
-	            protected XMLGregorianCalendar dateUpdated;
-	            
+	            @XmlAttribute
+                protected XMLGregorianCalendar dateCreated;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateUpdated;
+                @XmlAttribute
+                protected String userID;
 				public String getRhyAfterCareID() {
 					return rhyAfterCareID;
 				}
@@ -13721,7 +13746,12 @@ public class Sources {
 				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
 					this.dateUpdated = dateUpdated;
 				}
-				
+				public String getUserID() {
+					return userID;
+				}
+				public void setUserID(String userID) {
+					this.userID = userID;
+				}
 	         }
 
             }

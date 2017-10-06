@@ -23,7 +23,8 @@ public class VashExitReason  extends HmisBaseModel implements Cloneable, Seriali
 	private java.util.UUID id;
 	private Exit exitid;
 	private CMExitReasonEnum cmExitReason;
-	
+	/** Field mapping. */
+	protected Export export;
 	public VashExitReason() {
 		// Default constructor
 	}
@@ -49,6 +50,29 @@ public class VashExitReason  extends HmisBaseModel implements Cloneable, Seriali
 	public void setId(java.util.UUID id) {
 		this.id = id;
 	}
+	
+	 /**
+		 * Return the value associated with the column: export.
+		 * @return A Export object (this.export)
+		 */
+		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = true )
+		@JoinColumn(name = "export_id", nullable = true )
+		public Export getExport() {
+			return this.export;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: export.
+		 * @param export the export value you wish to set
+		 */
+		public void setExport(final Export export) {
+			this.export = export;
+		}
 	 /**
 	 * Return the value associated with the column: exitid.
 	 * @return A Exit object (this.exitid)
@@ -96,11 +120,12 @@ public class VashExitReason  extends HmisBaseModel implements Cloneable, Seriali
 	 * @param exitId
 	 * @param cmExitReason
 	 */
-	public VashExitReason(UUID id, Exit exitid, CMExitReasonEnum cmExitReason) {
+	public VashExitReason(UUID id, Exit exitid, CMExitReasonEnum cmExitReason,Export export) {
 		super();
 		this.id = id;
 		this.exitid = exitid;
 		this.cmExitReason = cmExitReason;
+		this.export = export;
 	}
 	
 	

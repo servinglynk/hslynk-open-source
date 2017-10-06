@@ -48,7 +48,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 
 
 	/** Field mapping. */
-	private String clientCoc;
+	private String cocCode;
 	private String householdId;
 	/** Field mapping. */
 	private Enrollment enrollmentid;
@@ -92,13 +92,13 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 
 
 	@Basic( optional = true )
-	@Column( name = "client_code", length = 20  )
-	 public String getClientCoc() {
-		return clientCoc;
+	@Column( name = "coc_code", length = 20  )
+	 public String getCocCode() {
+		return cocCode;
 	}
 
-	public void setClientCoc(String clientCoc) {
-		this.clientCoc = clientCoc;
+	public void setCocCode(String cocCode) {
+		this.cocCode = cocCode;
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 
         final EnrollmentCoc copy = (EnrollmentCoc)super.clone();
 
-		copy.setClientCoc(this.getClientCoc());
+		copy.setCocCode(this.getCocCode());
 		copy.setDateCreated(this.getDateCreated());
 		copy.setDateUpdated(this.getDateUpdated());
 		copy.setEnrollmentid(this.getEnrollmentid());
@@ -232,7 +232,7 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("clientCoc: " + this.getClientCoc() + ", ");
+		sb.append("clientCoc: " + this.getCocCode() + ", ");
 		sb.append("dateCreated: " + this.getDateCreated() + ", ");
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
 		sb.append("id: " + this.getId() + ", ");

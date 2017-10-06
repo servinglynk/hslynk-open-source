@@ -67,9 +67,13 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		Export export = domain.getExport();
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		Data data = new Data();
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = (Validator) factory.getValidator();
-		String dedupSessionKey = dedupHelper.getAuthenticationHeader();
+		String dedupSessionKey = null;
+		try {
+			 dedupSessionKey = dedupHelper.getAuthenticationHeader();
+		}catch(Exception e) {
+			//eat the exception
+		}
+		
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Client.class, getProjectGroupCode(domain));
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 		Boolean skipClientIdentifier = projectGroupEntity != null && projectGroupEntity.isSkipuseridentifers();

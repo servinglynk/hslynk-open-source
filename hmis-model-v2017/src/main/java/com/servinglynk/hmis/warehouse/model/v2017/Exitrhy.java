@@ -2,9 +2,7 @@ package com.servinglynk.hmis.warehouse.model.v2017;
 
 import java.io.Serializable;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.WeakHashMap;
 
 import javax.persistence.Basic;
@@ -15,7 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -81,8 +78,7 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 	private NoYesEnum posPeerConnections;  
 	private NoYesEnum posCommunityConnections;
 
-	/** Field mapping. */
-	private Set<RHYAfterCare> rhyAfterCares = new HashSet<RHYAfterCare>();
+	
 	
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -455,32 +451,6 @@ public class Exitrhy extends HmisBaseModel implements Cloneable, Serializable {
 			this.export = export;
 		}
 		
-	   /**
-		 * @return the rhyAfterCares
-		 */
-		@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "exitrhyid"  )
-	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-		@Basic( optional = false )
-		@Column( nullable = false  )
-		public Set<RHYAfterCare> getRhyAfterCares() {
-			return rhyAfterCares;
-		}
-		
-		/**
-		 * Adds a bi-directional link of type Exitrhy to the exitrhies set.
-		 * @param exitrhy item to add
-		 */
-		public void addRhyAfterCares(RHYAfterCare rhyAfterCare) {
-			rhyAfterCare.setExitrhyid(this);
-			this.rhyAfterCares.add(rhyAfterCare);
-		}
-		/**
-		 * @param rhyAfterCares the rhyAfterCares to set
-		 */
-		public void setRhyAfterCares(Set<RHYAfterCare> rhyAfterCares) {
-			this.rhyAfterCares = rhyAfterCares;
-		}
-
 	/**
 	    * Deep copy.
 		* @return cloned object

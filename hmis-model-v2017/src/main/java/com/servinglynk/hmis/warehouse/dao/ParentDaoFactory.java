@@ -28,20 +28,21 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	PathstatusDao getPathstatusDao();
 	MoveindateDao getResidentialmoveindateDao();
 	RhybcpstatusDao getRhybcpstatusDao();
-	SiteDao getSiteDao();
 	SourceDao getSourceDao();
+	EducationDao getEducationDao();
 	//SyncDao getSyncDao();
 	ClientVeteranInfoDao getVeteranInfoDao();
 	ExportDao getExportDao();
 	ClientDao getClientDao();
-	
-
+	GeographyDao getGeographyDao();
+	VASHExitReasonDao getVashExitReasonDao(); 
+	RHYAfterCareDao getRhyAfterCareDao();
+	ConnectionWithSoarDao getConnectionWithSoarDao();
 	CocDao getCocDao();
 	ContactDao getContactDao();
 	EntryrhspDao getEntryrhspDao();
 	EntryrhyDao getEntryrhyDao();
 	EntryssvfDao getEntryssvfDao();
-	ExitpathDao getExitpathDao();
 	ExitrhyDao getExitrhyDao();
 	ServiceFaReferralDao getServiceFaReferralDao();
 }

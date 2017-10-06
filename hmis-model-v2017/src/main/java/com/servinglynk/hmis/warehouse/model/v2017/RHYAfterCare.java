@@ -30,7 +30,9 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 	private NoYesEnum inPersonIndividual;
 	private NoYesEnum inPersonGroup;
 	/** Field mapping. */
-	private Exitrhy exitrhyid;
+	protected Export export;
+	/** Field mapping. */
+	private Exit exitid;
 	/**
 	 * @return the id
 	 */
@@ -45,6 +47,29 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 	 */
 	public void setId(java.util.UUID id) {
 		this.id = id;
+	}
+
+	 /**
+	 * Return the value associated with the column: export.
+	 * @return A Export object (this.export)
+	 */
+	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = true )
+	@JoinColumn(name = "export_id", nullable = true )
+	public Export getExport() {
+		return this.export;
+
+	}
+
+
+
+	 /**
+	 * Set the value related to the column: export.
+	 * @param export the export value you wish to set
+	 */
+	public void setExport(final Export export) {
+		this.export = export;
 	}
 	/**
 	 * @return the afterCareDate
@@ -142,9 +167,9 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
 		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 		@Basic( optional = true )
-		@JoinColumn(name = "exitrhyid", nullable = true )
-		public Exitrhy getExitrhyid() {
-			return this.exitrhyid;
+		@JoinColumn(name = "exitid", nullable = true )
+		public Exit getExitid() {
+			return this.exitid;
 
 		}
 
@@ -154,8 +179,8 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 		 * Set the value related to the column: exitid.
 		 * @param exitid the exitid value you wish to set
 		 */
-		public void setExitrhyid(final Exitrhy exitrhyid) {
-			this.exitrhyid = exitrhyid;
+		public void setExitid(final Exit exitid) {
+			this.exitid = exitid;
 		}
 	/**
 	 * @param id
@@ -168,7 +193,7 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 	 */
 	public RHYAfterCare(UUID id, LocalDateTime afterCareDate,
 			NoYesEnum afterProvided, NoYesEnum emailSocialMedia, NoYesEnum telephone,
-			NoYesEnum inPersonIndividual, NoYesEnum inPersonGroup) {
+			NoYesEnum inPersonIndividual, NoYesEnum inPersonGroup,Export export) {
 		super();
 		this.id = id;
 		this.afterCareDate = afterCareDate;
@@ -177,6 +202,7 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 		this.telephone = telephone;
 		this.inPersonIndividual = inPersonIndividual;
 		this.inPersonGroup = inPersonGroup;
+		this.export = export;
 	}
 	public RHYAfterCare() {
 		// TODO Auto-generated constructor stub

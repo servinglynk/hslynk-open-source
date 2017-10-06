@@ -38,8 +38,6 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(enrollment.getTimeshomelesspastthreeyears().toString()));
 		if(enrollment.getMonthshomelesspastthreeyears()!=null)
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment.getMonthshomelesspastthreeyears().toString()));
-		if(enrollment.getResidenceprior()!=null)
-		pEnrollment.setResidenceprior(EnrollmentResidencepriorEnum.lookupEnum(enrollment.getResidenceprior().toString()));
 		if(enrollment.getLosunderthreshold()!=null)
 		pEnrollment.setLosunderthreshold(NoYesEnum.lookupEnum(enrollment.getLosunderthreshold().toString()));
 		if(enrollment.getPreviousStreetESSH()!=null)
@@ -59,7 +57,6 @@ public class EnrollmentConveter extends BaseConverter {
 */		if(pEnrollment.getRelationshiptohoh()!=null) enrollment.setRelationshiptohoh(Integer.parseInt(pEnrollment.getRelationshiptohoh().getValue()));
 		if(pEnrollment.getTimeshomelesspastthreeyears()!=null) enrollment.setTimeshomelesspastthreeyears(Integer.parseInt(pEnrollment.getTimeshomelesspastthreeyears().getValue()));
 		enrollment.setEnrollmentId(pEnrollment.getId());
-		if(pEnrollment.getResidenceprior()!=null) enrollment.setResidenceprior(Integer.parseInt(pEnrollment.getResidenceprior().getValue()));
 		enrollment.setEnrollmentId(pEnrollment.getId());
 		if(pEnrollment.getLivingSituation()!=null) enrollment.setLivingSituation(Integer.parseInt(pEnrollment.getLivingSituation().getValue()));
 		if(pEnrollment.getLengthOfStay() != null) enrollment.setLengthOfStay(Integer.parseInt(pEnrollment.getLengthOfStay().getValue()));

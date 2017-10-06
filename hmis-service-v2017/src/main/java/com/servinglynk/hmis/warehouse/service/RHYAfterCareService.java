@@ -10,5 +10,5 @@ public interface RHYAfterCareService {
 	   public RhyAfterCare updateRhyAfterCare(RhyAfterCare rhyAfterCare, UUID exitRhyId, String caller);
 	   RhyAfterCare deleteRhyAfterCare(UUID rhyAfterCareId,String caller);
 	   RhyAfterCare getRhyAfterCareById(UUID rhyAfterCareId);
-	   RhyAfterCares getAllExitrhyRhyAfterCares(UUID exitId,Integer startIndex, Integer maxItems);
+	   RhyAfterCares getAllExitRhyAfterCares(UUID exitId,Integer startIndex, Integer maxItems);
 }

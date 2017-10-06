@@ -20,8 +20,6 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
-import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnum;
-
 
 /**
  * Object mapping for hibernate-handled table: residentialmoveindate.
@@ -48,8 +46,6 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 	private Enrollment enrollmentid;
 	/** Field mapping. */
 	private java.util.UUID id;
-	/** Field mapping. */
-	private ResidentialmoveindateInpermanenthousingEnum inpermanenthousing;
 	/** Field mapping. */
 	private LocalDateTime moveindate;
 	/** Field mapping. */
@@ -127,28 +123,6 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 		this.id = id;
 	}
 
-	/**
-	 * Return the value associated with the column: inpermanenthousing.
-	 * @return A ResidentialmoveindateInpermanenthousingEnum object (this.inpermanenthousing)
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnumType")
-	@Basic( optional = true )
-	@Column
-	public ResidentialmoveindateInpermanenthousingEnum getInpermanenthousing() {
-		return this.inpermanenthousing;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: inpermanenthousing.
-	 * @param inpermanenthousing the inpermanenthousing value you wish to set
-	 */
-	public void setInpermanenthousing(final ResidentialmoveindateInpermanenthousingEnum inpermanenthousing) {
-		this.inpermanenthousing = inpermanenthousing;
-	}
-
 	 /**
 	 * Return the value associated with the column: residentialmoveindate.
 	 * @return A LocalDateTime object (this.residentialmoveindate)
@@ -210,7 +184,6 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 		copy.setEnrollmentid(this.getEnrollmentid());
 		copy.setExport(this.getExport());
 		copy.setId(this.getId());
-		copy.setInpermanenthousing(this.getInpermanenthousing());
 		copy.setParentId(this.getParentId());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
 		copy.setMoveindate(this.getMoveindate());
@@ -236,7 +209,6 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 		sb.append("dateUpdatedFromSource: " + this.getDateUpdatedFromSource() + ", ");
 		sb.append("deleted: " + this.isDeleted() + ", ");
 		sb.append("id: " + this.getId() + ", ");
-		sb.append("inpermanenthousing: " + this.getInpermanenthousing() + ", ");
 		sb.append("parentId: " + this.getParentId() + ", ");
 		sb.append("projectGroupCode: " + this.getProjectGroupCode() + ", ");
 		sb.append("moveindate: " + this.getMoveindate() + ", ");
@@ -294,7 +266,6 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 		result = result && (((getDateUpdatedFromSource() == null) && (that.getDateUpdatedFromSource() == null)) || (getDateUpdatedFromSource() != null && getDateUpdatedFromSource().equals(that.getDateUpdatedFromSource())));
 		result = result && (((getEnrollmentid() == null) && (that.getEnrollmentid() == null)) || (getEnrollmentid() != null && getEnrollmentid().getId().equals(that.getEnrollmentid().getId())));
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
-		result = result && (((getInpermanenthousing() == null) && (that.getInpermanenthousing() == null)) || (getInpermanenthousing() != null && getInpermanenthousing().equals(that.getInpermanenthousing())));
 		result = result && (((getParentId() == null) && (that.getParentId() == null)) || (getParentId() != null && getParentId().equals(that.getParentId())));
 		result = result && (((getProjectGroupCode() == null) && (that.getProjectGroupCode() == null)) || (getProjectGroupCode() != null && getProjectGroupCode().equals(that.getProjectGroupCode())));
 		result = result && (((getMoveindate() == null) && (that.getMoveindate() == null)) || (getMoveindate() != null && getMoveindate().equals(that.getMoveindate())));

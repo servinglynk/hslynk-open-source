@@ -57,15 +57,14 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 	private Set<Exithousingassessment> exithousingassessments = new HashSet<Exithousingassessment>();
 
 	/** Field mapping. */
-	private Set<Exitpath> exitpaths = new HashSet<Exitpath>();
-
-	/** Field mapping. */
 	private Set<Exitrhy> exitrhies = new HashSet<Exitrhy>();
 	/** Field mapping. */
 	private Set<VashExitReason> vasExitReasons = new HashSet<VashExitReason>();
 	/** Field mapping. */
 	private Set<Housingassessmentdisposition> housingassessmentdispositions = new HashSet<Housingassessmentdisposition>();
 
+	/** Field mapping. */
+	private Set<RHYAfterCare> rhyAfterCares = new HashSet<RHYAfterCare>();
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
@@ -194,36 +193,7 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 		this.exithousingassessments = exithousingassessment;
 	}
 
-	 /**
-	 * Return the value associated with the column: exitpath.
-	 * @return A Set&lt;Exitpath&gt; object (this.exitpath)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "exitid"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Exitpath> getExitpaths() {
-		return this.exitpaths;
 
-	}
-
-	/**
-	 * Adds a bi-directional link of type Exitpath to the exitpaths set.
-	 * @param exitpath item to add
-	 */
-	public void addExitpath(Exitpath exitpath) {
-		exitpath.setExitid(this);
-		this.exitpaths.add(exitpath);
-	}
-
-
-	 /**
-	 * Set the value related to the column: exitpath.
-	 * @param exitpath the exitpath value you wish to set
-	 */
-	public void setExitpaths(final Set<Exitpath> exitpath) {
-		this.exitpaths = exitpath;
-	}
 
 	 /**
 	 * Return the value associated with the column: exitrhy.
@@ -342,6 +312,31 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 		this.id = id;
 	}
 
+	   /**
+		 * @return the rhyAfterCares
+		 */
+		@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "exitid"  )
+	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = false )
+		@Column( nullable = false  )
+		public Set<RHYAfterCare> getRhyAfterCares() {
+			return rhyAfterCares;
+		}
+		
+		/**
+		 * Adds a bi-directional link of type Exitrhy to the exitrhies set.
+		 * @param exitrhy item to add
+		 */
+		public void addRhyAfterCares(RHYAfterCare rhyAfterCare) {
+			rhyAfterCare.setExitid(this);
+			this.rhyAfterCares.add(rhyAfterCare);
+		}
+		/**
+		 * @param rhyAfterCares the rhyAfterCares to set
+		 */
+		public void setRhyAfterCares(Set<RHYAfterCare> rhyAfterCares) {
+			this.rhyAfterCares = rhyAfterCares;
+		}
 	 /**
 	 * Return the value associated with the column: otherdestination.
 	 * @return A String object (this.otherdestination)
@@ -408,9 +403,6 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setExitdate(this.getExitdate());
 		if (this.getExithousingassessments() != null) {
 			copy.getExithousingassessments().addAll(this.getExithousingassessments());
-		}
-		if (this.getExitpaths() != null) {
-			copy.getExitpaths().addAll(this.getExitpaths());
 		}
 		if (this.getExitrhies() != null) {
 			copy.getExitrhies().addAll(this.getExitrhies());
