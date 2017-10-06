@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.Residentialmoveindate;
-import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnum;
 public class ResidentialmoveindateConverter  extends BaseConverter {
 
    public static com.servinglynk.hmis.warehouse.model.v2017.Moveindate modelToEntity (Residentialmoveindate model ,com.servinglynk.hmis.warehouse.model.v2017.Moveindate entity) {
