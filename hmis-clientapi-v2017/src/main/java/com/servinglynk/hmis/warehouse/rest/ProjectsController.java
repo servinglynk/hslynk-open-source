@@ -235,63 +235,6 @@ public class ProjectsController extends ControllerBase {
         return serviceFactory.getFunderService().getAllProjectFunders(projectId,startIndex,maxItems); 
    }
    
-   // Sites API start
-   
-   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/sites",method=RequestMethod.POST)
-   @APIMapping(value="CLIENT_API_CREATE_SITE",checkTrustedApp=true,checkSessionToken=true)
-   public Site createSite(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid ,@RequestBody Site site,HttpServletRequest request) throws Exception{
-        Session session = sessionHelper.getSession(request); 
-        serviceFactory.getProjectService().getProjectById(projectid);
-
-        serviceFactory.getSiteService().createSite(site,projectcocid,session.getAccount().getUsername()); 
-        Site returnSite = new Site();
-        returnSite.setSiteId(site.getSiteId());
-        return returnSite;
-   }
-
-   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/sites/{siteid}",method=RequestMethod.PUT)
-   @APIMapping(value="CLIENT_API_UPDATE_SITE",checkTrustedApp=true,checkSessionToken=true)
-   public void updateSite(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid ,@PathVariable( "siteid" ) UUID siteId,@RequestBody Site site,HttpServletRequest request) throws Exception{
-        Session session = sessionHelper.getSession(request); 
-        site.setSiteId(siteId);
-        serviceFactory.getProjectService().getProjectById(projectid);
-        serviceFactory.getSiteService().updateSite(site,projectcocid,session.getAccount().getUsername()); 
-   }
-
-   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/sites/{siteid}",method=RequestMethod.DELETE)
-   @APIMapping(value="CLIENT_API_DELETE_SITE",checkTrustedApp=true,checkSessionToken=true)
-   public void deleteSite(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid,
-		   @PathVariable( "siteid" ) UUID siteId,HttpServletRequest request,HttpServletResponse response) throws Exception{
-        Session session = sessionHelper.getSession(request); 
-        serviceFactory.getProjectService().getProjectById(projectid);
-        serviceFactory.getProjectcocService().getProjectcocById(projectcocid);
-        serviceFactory.getSiteService().deleteSite(siteId,session.getAccount().getUsername()); 
-        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-   }
-
-   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/sites/{siteid}",method=RequestMethod.GET)
-   @APIMapping(value="CLIENT_API_GET_SITE_BY_ID",checkTrustedApp=true,checkSessionToken=true)
-   public Site getSiteById(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid ,@PathVariable( "siteid" ) UUID siteId,HttpServletRequest request) throws Exception{
-       serviceFactory.getProjectService().getProjectById(projectid);
-       serviceFactory.getProjectcocService().getProjectcocById(projectcocid);
-        return serviceFactory.getSiteService().getSiteById(siteId); 
-   }
-
-   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/sites",method=RequestMethod.GET)
-   @APIMapping(value="CLIENT_API_GET_ALL_PROJECTCOC_SITE",checkTrustedApp=true,checkSessionToken=true)
-   public Sites getAllEnrollmentSites(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid ,
-                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
-                       @RequestParam(value="maxItems", required=false) Integer maxItems,
-                       HttpServletRequest request) throws Exception {
-           if (startIndex == null) startIndex =0;
-           if (maxItems == null) maxItems =30;
- 
-         serviceFactory.getProjectService().getProjectById(projectid);
-         serviceFactory.getProjectcocService().getProjectcocById(projectcocid);
-        return serviceFactory.getSiteService().getAllProjectCocSites(projectcocid,startIndex,maxItems); 
-   }
-   
-   
    // Inventory API start
    
    
