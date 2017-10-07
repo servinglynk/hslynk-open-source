@@ -179,6 +179,8 @@ CREATE TYPE "v2017".not_employed_reason  AS ENUM (
 CREATE TYPE "v2017".no_yes  AS ENUM (	
 '0',
 '1',
+'8',
+'9',
 '99');
 CREATE TYPE "v2017".no_yes_refused AS ENUM (
 '0',
@@ -1682,16 +1684,18 @@ CREATE TABLE  "v2017".project
 	  continuumproject "v2017".no_yes,
 	  projecttype "v2017".project_type,
 	  residentialaffiliation integer,
-	  operatingStartDate timestamp,
-	  operatingEndDate timestamp,
+	  operatingstartdate timestamp,
+	  operatingenddate timestamp,
 	  trackingmethod "v2017".tracking_method,
 	  targetpopulation "v2017".target_population_type,
 	  victimServiceProvider "v2017".no_yes,
 	  housingType  "v2017".housingType,
 	  projectcommonname text,
 	  organizationid uuid,
-	  "date_created_from_source" timestamp,
-      "date_updated_from_source" timestamp,
+	    "date_created" timestamp,
+   "date_created_from_source" timestamp,
+   "date_updated_from_source" timestamp,
+   "date_updated" timestamp,
       "project_group_code" character varying(8),
 	  user_id uuid,
 	  export_id uuid,
@@ -1923,7 +1927,7 @@ CREATE TABLE "v2017".entryRHY
 	"incarcerated_parent" "v2017".incarcerated_parent,
 	"formerly_ward_of_juvenile_justice" "v2017".formerly_ward_of_juvenile_justice,
 	"years_juvenile_justice" "v2017".years_juvenile_justice,
-	"months_juvenile_justice" "v2017".years_juvenile_justice, 
+	"months_juvenile_justice" integer, 
 	"formerly_ward_child_welfr_forest_care" "v2017".formerly_ward_child_welfr_forest_care,
 	"years_child_welfr_forest_care" "v2017".years_child_welfr_forest_care,
 	months_child_welfr_forest_care integer,
@@ -1955,7 +1959,7 @@ CREATE TABLE "v2017".enrollment_coc
 (
 	  id uuid NOT NULL,
   	  enrollmentid uuid,
-	  client_coc character(20),
+	  coc_code character(20),
 	  householdid text,
 	  information_date timestamp,
 	  "datacollectionstage" "v2017".datacollectionstage,
@@ -2197,7 +2201,7 @@ create table "v2017".inventory
 (
    id uuid not null,
   householdtype "v2017".house_hold_type,
-  --bedtype "v2017".bed_type,
+  bedtype "v2017".bed_type,
   availabilty "v2017".availability,
   unitinventory integer,
   bed_inventory integer,
@@ -2790,7 +2794,7 @@ create table "v2017".rhyaftercare
 	telephone "v2017".no_yes,
 	in_person_individual "v2017".no_yes,
 	in_person_group "v2017".no_yes,
-	exitrhyid uuid,
+	exitid uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
 	"date_created_from_source" timestamp,
@@ -2803,8 +2807,8 @@ create table "v2017".rhyaftercare
 	deleted boolean DEFAULT false,active boolean DEFAULT true, 
 	sync boolean DEFAULT false,
 		constraint "rhyaftercare_pkey" primary key ("id"),
-		constraint "rhyaftercare_fkey" foreign key ("exitrhyid")
-		references v2017.exitRHY("id") match simple
+		constraint "rhyaftercare_fkey" foreign key ("exitid")
+		references v2017.exit("id") match simple
 		on update no action on delete no action
 )
 with (

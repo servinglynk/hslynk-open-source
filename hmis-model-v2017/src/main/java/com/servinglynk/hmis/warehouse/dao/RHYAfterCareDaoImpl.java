@@ -46,6 +46,9 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 						rhyAfterCareModel.setInPersonGroup(NoYesEnum.lookupEnum(rhyAfterCare.getInPersonIndividual()));
 						rhyAfterCareModel.setInPersonIndividual(NoYesEnum.lookupEnum(rhyAfterCare.getInPersonIndividual()));
 						rhyAfterCareModel.setTelephone(NoYesEnum.lookupEnum(rhyAfterCare.getTelephone()));
+						rhyAfterCareModel.setExport(exportEntity);
+						com.servinglynk.hmis.warehouse.model.v2017.Exit exit = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class,rhyAfterCare.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+						rhyAfterCareModel.setExitid(exit);
 						rhyAfterCareModel.setAfterCareDate(BasicDataGenerator.getLocalDateTime(rhyAfterCare.getAfterCareDate()));
 						
 						performSaveOrUpdate(rhyAfterCareModel);
@@ -140,16 +143,16 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 		return countRows(criteria);
 	}
 
-	   public List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare> getAllExitrhyRHYAfterCares(UUID exitrhyId,Integer startIndex, Integer maxItems){
+	   public List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare> getAllExitRHYAfterCares(UUID exitId,Integer startIndex, Integer maxItems){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class);
-	       criteria.createAlias("exitrhyid", "exitrhyid");
-	       criteria.add(Restrictions.eq("exitrhyid.id", exitrhyId));
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return (List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare>) findByCriteria(criteria,startIndex,maxItems);
 	   }
-	   public long getExitrhyRHYAfterCaresCount(UUID exitrhyId){
+	   public long getExitRHYAfterCaresCount(UUID exitId){
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class);
-	       criteria.createAlias("exitrhyid", "exitrhyid");
-	       criteria.add(Restrictions.eq("exitrhyid.id", exitrhyId));
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", exitId));
 	       return countRows(criteria);
 	   }
 }

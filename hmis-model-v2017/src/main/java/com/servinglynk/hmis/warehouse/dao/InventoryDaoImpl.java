@@ -65,7 +65,6 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					inventoryModel.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryStartDate()));
 					inventoryModel.setUnitinventory(inventory.getUnitInventory());
 					inventoryModel.setVetBedInventory(inventory.getVetBedInventory());
-					inventoryModel.setYouthAgeGroup(inventory.getYouthAgeGroup());
 					inventoryModel.setYouthBedInventory(inventory.getYouthBedInventory());
 					inventoryModel.setDeleted(false);
 					/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));

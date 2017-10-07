@@ -9,36 +9,37 @@ import com.servinglynk.hmis.warehouse.core.model.RhyAfterCare;
 import com.servinglynk.hmis.warehouse.core.model.RhyAfterCares;
 import com.servinglynk.hmis.warehouse.service.RHYAfterCareService;
 import com.servinglynk.hmis.warehouse.service.converter.RhyAfterCareConverter;
+import com.servinglynk.hmis.warehouse.service.exception.ExitNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ExitrhyNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.RhyAfterCareNotFoundException;
 
 public class RHYAfterCareServiceImpl  extends ServiceBase implements RHYAfterCareService {
 
 	@Override
-	public RhyAfterCare createRhyAfterCare(RhyAfterCare rhyAfterCare, UUID exitRhyId, String caller) {
+	public RhyAfterCare createRhyAfterCare(RhyAfterCare rhyAfterCare, UUID exitId, String caller) {
 		com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare pRhyAfterCare = RhyAfterCareConverter.modelToEntity(rhyAfterCare, null);
-	       com.servinglynk.hmis.warehouse.model.v2017.Exitrhy pExitrhy = daoFactory.getExitrhyDao().getExitrhyById(exitRhyId);
-	       if(pExitrhy == null) throw new ExitrhyNotFoundException();
-	       pRhyAfterCare.setExitrhyid(pExitrhy);
+	       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+	       if(pExit == null) throw new ExitNotFoundException();
+	       pRhyAfterCare.setExitid(pExit);
 	       pRhyAfterCare.setDateCreated(LocalDateTime.now());
-	       daoFactory.getProjectDao().populateUserProjectGroupCode(pExitrhy, caller);
-	       daoFactory.getExitrhyDao().createExitrhy(pExitrhy);
+	       daoFactory.getProjectDao().populateUserProjectGroupCode(pRhyAfterCare, caller);
+	       daoFactory.getRhyAfterCareDao().createRhyAfterCare(pRhyAfterCare);
 	       rhyAfterCare.setRhyAfterCareId(pRhyAfterCare.getId());
 	       return rhyAfterCare;
 	}
 
 	@Override
-	public RhyAfterCare updateRhyAfterCare(RhyAfterCare rhyAfterCare, UUID exitRhyId, String caller) {
-		com.servinglynk.hmis.warehouse.model.v2017.Exitrhy pExitrhy = daoFactory.getExitrhyDao().getExitrhyById(exitRhyId);
-	       if(pExitrhy == null) throw new ExitrhyNotFoundException();
+	public RhyAfterCare updateRhyAfterCare(RhyAfterCare rhyAfterCare, UUID exitId, String caller) {
+		com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+	       if(pExit == null) throw new ExitNotFoundException();
 	       com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare pRHYAfterCare = daoFactory.getRhyAfterCareDao().getRhyAfterCareById(rhyAfterCare.getRhyAfterCareId());
 	       if(pRHYAfterCare==null) throw new RhyAfterCareNotFoundException();
 
 	       RhyAfterCareConverter.modelToEntity(rhyAfterCare, pRHYAfterCare);
-	       pRHYAfterCare.setExitrhyid(pExitrhy);
+	       pRHYAfterCare.setExitid(pExit);
 	       pRHYAfterCare.setDateUpdated(LocalDateTime.now());
 	       pRHYAfterCare.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
-	       daoFactory.getExitrhyDao().updateExitrhy(pExitrhy);
+	       daoFactory.getRhyAfterCareDao().updateRhyAfterCare(pRHYAfterCare);
 	       rhyAfterCare.setRhyAfterCareId(pRHYAfterCare.getId());
 	       return rhyAfterCare;
 	}
@@ -60,13 +61,13 @@ public class RHYAfterCareServiceImpl  extends ServiceBase implements RHYAfterCar
 	}
 
 	@Override
-	public RhyAfterCares getAllExitrhyRhyAfterCares(UUID exitrhyId, Integer startIndex, Integer maxItems) {
+	public RhyAfterCares getAllExitRhyAfterCares(UUID exitId, Integer startIndex, Integer maxItems) {
 		RhyAfterCares rhyAfterCares = new RhyAfterCares();
-        List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare> entities = daoFactory.getRhyAfterCareDao().getAllExitrhyRHYAfterCares(exitrhyId,startIndex,maxItems);
+        List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare> entities = daoFactory.getRhyAfterCareDao().getAllExitRHYAfterCares(exitId,startIndex,maxItems);
         for(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare entity : entities){
         	rhyAfterCares.addRhyaftercares(RhyAfterCareConverter.entityToModel(entity));
         }
-        long count = daoFactory.getRhyAfterCareDao().getExitrhyRHYAfterCaresCount(exitrhyId);
+        long count = daoFactory.getRhyAfterCareDao().getExitRHYAfterCaresCount(exitId);
         SortedPagination pagination = new SortedPagination();
 
         pagination.setFrom(startIndex);

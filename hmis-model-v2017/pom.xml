@@ -29,11 +29,6 @@
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-s3-client</artifactId>
-			<version>${parent-version}</version>
-		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -69,6 +64,11 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 		<dependency>
+		     <groupId>org.hibernate</groupId>
+   			 <artifactId>hibernate-search-orm</artifactId>
+   			 <version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>${commons.dbcp.version}</version>
@@ -88,18 +88,16 @@
 			<artifactId>spring-web</artifactId>
 			<version>3.0.2.RELEASE</version>
 		</dependency>
-	<dependency>
+		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-validator</artifactId>
 		    <version>5.2.4.Final</version>
 		</dependency>
-	
-<!-- 		<dependency>
-	<groupId>org.springframework.data</groupId>
-	<artifactId>spring-data-jpa</artifactId>
-	<version>1.4.3.RELEASE</version>
-</dependency> -->
-
+		<dependency>
+   <groupId>javax.el</groupId>
+   <artifactId>javax.el-api</artifactId>
+   <version>2.2.4</version>
+</dependency>
 <dependency>
 	<groupId>com.mysema.querydsl</groupId>
 	<artifactId>querydsl-jpa</artifactId>
@@ -209,6 +207,7 @@
 			<scope>test</scope>
 		</dependency>
 
+
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-core-common</artifactId>
@@ -219,8 +218,13 @@
 			  <artifactId>hmis-base-model</artifactId>
 			  <version>${parent-version}</version>
 			</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-s3-client</artifactId>
+			<version>${parent-version}</version>
+		</dependency>
 	</dependencies>
-		<build>
+			<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -249,6 +253,16 @@
 				</configuration>
 			</plugin>
 			
+<!-- <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>tomcat-maven-plugin</artifactId>
+    <configuration>
+        <url>http://ec2-52-27-63-94.us-west-2.compute.amazonaws.com:8080/manager/text</url>
+        <server>TomcatServer</server>
+        <path>/hmis-admin</path>
+    </configuration>
+</plugin> -->
+
 		</plugins>
 	</build>
 <!-- 	<repositories>

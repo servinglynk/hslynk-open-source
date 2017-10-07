@@ -11,7 +11,7 @@ public class EnrollmentCocConverter  extends BaseConverter {
    	   	entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
    	   if(model.getInformationDate()!=null)
    	      entity.setInformationDate(model.getInformationDate());
-          entity.setClientCoc(model.getClientCoc());
+          entity.setCocCode(model.getCocCode());
        return entity;
    }
 
@@ -22,7 +22,7 @@ public class EnrollmentCocConverter  extends BaseConverter {
        model.setInformationDate(entity.getInformationDate());
        if(entity.getDataCollectionStage() !=null)
     	   model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
-         model.setClientCoc(entity.getClientCoc());
+         model.setCocCode(entity.getCocCode());
 
 
        return model;

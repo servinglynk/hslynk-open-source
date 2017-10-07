@@ -17,4 +17,12 @@ public interface BulkUploaderDao {
 	public void deleteLiveByExportId(UUID exportId);
 	public void deleteLiveByProjectGroupCode(String projectGroupCode, UUID exportId);
 	public void undoDeleteLiveByExportId(UUID exportId);
+	public BulkUpload processBase(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3);
+	public BulkUpload processEnrollment(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3);
+	public BulkUpload processDisabilities(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3);
+	public BulkUpload processExit(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3);
+	public BulkUpload processExitChildren(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3);
+	public BulkUpload processEnrollmentChildren(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3);
+	public BulkUpload processClientChildren(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender, Boolean isFileFromS3);
+
 }

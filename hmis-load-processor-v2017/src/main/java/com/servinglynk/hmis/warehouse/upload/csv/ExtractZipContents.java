@@ -12,7 +12,9 @@ import java.util.zip.ZipFile;
 
 public class ExtractZipContents {
 
-	public void test() {
+	// this cannot be a main class. the spring project mush have exactly one main class
+	//public static void main(String[] args) {
+	public static void test () {
 
 		try {
 			URL path = ExtractZipContents.class.getResource("CSV_files.rar");

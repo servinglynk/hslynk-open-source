@@ -54,8 +54,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private RhybcpstatusDao rhybcpstatusDao;
 	@Autowired
-	private SiteDao siteDao;
-	@Autowired
 	private SourceDao sourceDao;
 	// private SyncDao
 	@Autowired
@@ -72,8 +70,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	private EntryrhyDao entryrhyDao;
 	@Autowired
 	private EntryssvfDao entryssvfDao;
-	@Autowired
-	private ExitpathDao exitpathDao;
 	@Autowired
 	private ExitrhyDao exitrhyDao;
 	@Autowired
@@ -448,22 +444,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 		this.rhybcpstatusDao = rhybcpstatusDao;
 	}
 
-
-	/**
-	 * @return the siteDao
-	 */
-	public SiteDao getSiteDao() {
-		return siteDao;
-	}
-
-	/**
-	 * @param siteDao
-	 *            the siteDao to set
-	 */
-	public void setSiteDao(SiteDao siteDao) {
-		this.siteDao = siteDao;
-	}
-
 	/**
 	 * @return the sourceDao
 	 */
@@ -539,14 +519,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 
 	public void setEntryssvfDao(EntryssvfDao entryssvfDao) {
 		this.entryssvfDao = entryssvfDao;
-	}
-
-	public ExitpathDao getExitpathDao() {
-		return exitpathDao;
-	}
-
-	public void setExitpathDao(ExitpathDao exitpathDao) {
-		this.exitpathDao = exitpathDao;
 	}
 
 	public ExitrhyDao getExitrhyDao() {

@@ -21,8 +21,8 @@ public static String SSN_DATE_QUALITY_DNE_REFUSED ="select count(*) from client 
 public static String SSN_DATE_QUALITY_DNC ="select count(*) from client where ssn_data_quality in ('99')";
 
 public static String HOUSING_INVENTORY_ACTIVE_LIST = "select survey_score as score, client_id, survey_date, ignore_match_process from housing_inventory.eligible_clients where project_group_code=? and deleted=false  order by date_created desc";
-public static String GET_LASTEST_SURVEY_BY_CLIENT="select r.survey_id,r.created_at as created_at,s.survey_title as survey_title from survey.response r,survey.survey s where client_id=? and s.id= r.survey_id order by created_at desc limit 1";
-public static String GET_LASTEST_SURVEY_BY_CLIENT_FROM_SCORE ="select survey_id,ss.created_at as created_at,s.survey_title as survey_title  from survey.section_score ss,survey.survey s where client_id=? and ss.survey_id=s.id order by created_at desc limit 1";
+public static String GET_LASTEST_SURVEY_BY_CLIENT="select r.survey_id,r.created_at as created_at,s.survey_title as survey_title from survey.response r,survey.survey s where client_id=? and s.project_group_code=? and s.id= r.survey_id order by created_at desc limit 1";
+public static String GET_LASTEST_SURVEY_BY_CLIENT_FROM_SCORE ="select survey_id,ss.created_at as created_at,s.survey_title as survey_title  from survey.section_score ss,survey.survey s where client_id=? and s.project_group_code=? and ss.survey_id=s.id order by created_at desc limit 1";
 public static String GET_ACTIVE_LIST_DATA = "select sum(section_score)as score,ss.survey_id,ss.client_id,ss.created_at from survey.section_score ss,survey.survey s where  ss.survey_id= s.id  and s.project_group_code=? group by ss.survey_id,ss.client_id,ss.created_at order by ss.created_at desc";
 public static String GET_CLIENT_BY_ID="select first_name,last_name,phone_number,email_address,convert_from(dob_decrypt(dob),'UTF-8') as dob from base.client where id = ?";
 public static String GET_NOTES ="select response_text from survey.response where question_id  in( select id from survey.question where lower(question_description) like '%note%') and client_id= ?";

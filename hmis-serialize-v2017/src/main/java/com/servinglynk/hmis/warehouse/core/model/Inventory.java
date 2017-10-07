@@ -28,7 +28,6 @@ public class Inventory extends ClientModel{
       
       private Integer vetbedinventory;
       private Integer youthbedinventory;
-      private Integer youthagegroup;
       
       public Integer getChbedinventory() {
 		return chbedinventory;
@@ -47,12 +46,6 @@ public class Inventory extends ClientModel{
 	}
 	public void setYouthbedinventory(Integer youthbedinventory) {
 		this.youthbedinventory = youthbedinventory;
-	}
-	public Integer getYouthagegroup() {
-		return youthagegroup;
-	}
-	public void setYouthagegroup(Integer youthagegroup) {
-		this.youthagegroup = youthagegroup;
 	}
 	
 

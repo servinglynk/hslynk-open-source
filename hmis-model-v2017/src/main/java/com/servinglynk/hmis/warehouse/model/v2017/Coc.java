@@ -55,8 +55,6 @@ public class Coc extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Field mapping. */
 	private Project projectid;
-	/** Field mapping. */
-	private Set<Site> sites = new HashSet<Site>();
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -220,36 +218,6 @@ public class Coc extends HmisBaseModel implements Cloneable, Serializable {
 		this.projectid = projectid;
 	}
 
-	 /**
-	 * Return the value associated with the column: site.
-	 * @return A Set&lt;Site&gt; object (this.site)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "coc"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Site> getSites() {
-		return this.sites;
-
-	}
-
-	/**
-	 * Adds a bi-directional link of type Site to the sites set.
-	 * @param site item to add
-	 */
-	public void addSite(Site site) {
-		site.setCoc(this);
-		this.sites.add(site);
-	}
-
-
-	 /**
-	 * Set the value related to the column: site.
-	 * @param site the site value you wish to set
-	 */
-	public void setSites(final Set<Site> site) {
-		this.sites = site;
-	}
 
 	/** Field mapping. */
 	protected Export export;
@@ -265,7 +233,6 @@ public class Coc extends HmisBaseModel implements Cloneable, Serializable {
 		return this.export;
 
 	}
-
 
 
 	 /**
@@ -299,9 +266,6 @@ public class Coc extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setParentId(this.getParentId());
 		copy.setProjectid(this.getProjectid());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
-		if (this.getSites() != null) {
-			copy.getSites().addAll(this.getSites());
-		}
 		copy.setSync(this.isSync());
 		copy.setUserId(this.getUserId());
 		copy.setVersion(this.getVersion());
