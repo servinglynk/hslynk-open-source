@@ -22,7 +22,6 @@ import com.servinglynk.hmis.warehouse.service.EntryrhyService;
 import com.servinglynk.hmis.warehouse.service.EntryssvfService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
 import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
-import com.servinglynk.hmis.warehouse.service.ExitpathService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
 import com.servinglynk.hmis.warehouse.service.GeographyService;
@@ -41,7 +40,6 @@ import com.servinglynk.hmis.warehouse.service.RHYAfterCareService;
 import com.servinglynk.hmis.warehouse.service.ResidentialmoveindateService;
 import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
 import com.servinglynk.hmis.warehouse.service.ServicefareferralService;
-import com.servinglynk.hmis.warehouse.service.SiteService;
 import com.servinglynk.hmis.warehouse.service.VashExitReasonService;
 import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
 
@@ -67,7 +65,6 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public HousingAssessmentDispositionService housingAssessmentDispositionService;
 	@Autowired public VeteranInfoService veteranInfoService;
 	@Autowired public IncomeAndSourceService incomeAndSourceService;
-	@Autowired public ExitpathService exitpathService;
 	@Autowired public ExitrhyService exitrhyService;
 	@Autowired public EntryrhspService entryrhspService;
 	@Autowired public EntryrhyService entryrhyService;
@@ -227,17 +224,6 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 		this.affiliationService = affiliationService;
 	}
 	
-	@Autowired SiteService siteService;
-
-
-	public SiteService getSiteService() {
-		return siteService;
-	}
-
-	public void setSiteService(SiteService siteService) {
-		this.siteService = siteService;
-	}
-
 	@Autowired InventoryService inventoryService;
 
 
@@ -288,14 +274,6 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 
 	public void setIncomeAndSourceService(IncomeAndSourceService incomeAndSourceService) {
 		this.incomeAndSourceService = incomeAndSourceService;
-	}
-
-	public ExitpathService getExitpathService() {
-		return exitpathService;
-	}
-
-	public void setExitpathService(ExitpathService exitpathService) {
-		this.exitpathService = exitpathService;
 	}
 
 	public ExitrhyService getExitrhyService() {

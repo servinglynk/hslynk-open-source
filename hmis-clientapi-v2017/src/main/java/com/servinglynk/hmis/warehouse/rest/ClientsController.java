@@ -1339,73 +1339,6 @@ public class ClientsController extends ControllerBase {
 				.getAllEnrollmentHousingAssessmentDispositions(exitId, startIndex, maxItems);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths", method = RequestMethod.POST)
-	@APIMapping(value = "CLIENT_API_CREATE_EXITPATH", checkTrustedApp = true, checkSessionToken = true)
-	public Exitpath createExitpath(@PathVariable("clientid") UUID clientId,
-			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("exitid") UUID exitId,
-			@RequestBody Exitpath exitpath, HttpServletRequest request) throws Exception {
-		Session session = sessionHelper.getSession(request);
-		serviceFactory.getClientService().getClientById(clientId);
-		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		serviceFactory.getExitpathService().createExitpath(exitpath, exitId, session.getAccount().getUsername());
-		Exitpath returnexitpath = new Exitpath();
-		returnexitpath.setExitpathId(exitpath.getExitpathId());
-		return returnexitpath;
-	}
-
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths/{exitpathid}", method = RequestMethod.PUT)
-	@APIMapping(value = "CLIENT_API_UPDATE_EXITPATH", checkTrustedApp = true, checkSessionToken = true)
-	public void updateExitpath(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId,
-			@PathVariable("exitid") UUID exitId, @PathVariable("exitpathid") UUID exitpathId,
-			@RequestBody Exitpath exitpath, HttpServletRequest request) throws Exception {
-		Session session = sessionHelper.getSession(request);
-		exitpath.setExitpathId(exitpathId);
-		serviceFactory.getClientService().getClientById(clientId);
-		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		serviceFactory.getExitpathService().updateExitpath(exitpath, exitId, session.getAccount().getUsername());
-	}
-
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths/{exitpathid}", method = RequestMethod.DELETE)
-	@APIMapping(value = "CLIENT_API_DELETE_EXITPATH", checkTrustedApp = true, checkSessionToken = true)
-	public void deleteExitpath(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId,
-			@PathVariable("exitid") UUID exitId, @PathVariable("exitpathid") UUID exitpathId,
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Session session = sessionHelper.getSession(request);
-		serviceFactory.getClientService().getClientById(clientId);
-		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		serviceFactory.getExitpathService().deleteExitpath(exitpathId, session.getAccount().getUsername());
-		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-	}
-
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths/{exitpathid}", method = RequestMethod.GET)
-	@APIMapping(value = "CLIENT_API_GET_EXITPATH_BY_ID", checkTrustedApp = true, checkSessionToken = true)
-	public Exitpath getExitpathById(@PathVariable("clientid") UUID clientId,
-			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("exitid") UUID exitId,
-			@PathVariable("exitpathid") UUID exitpathId, HttpServletRequest request) throws Exception {
-		serviceFactory.getClientService().getClientById(clientId);
-		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		return serviceFactory.getExitpathService().getExitpathById(exitpathId);
-	}
-
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitpaths", method = RequestMethod.GET)
-	@APIMapping(value = "CLIENT_API_GET_ALL_EXIT_EXITPATHS", checkTrustedApp = true, checkSessionToken = true)
-	public Exitpaths getAllEnrollmentExitpaths(@PathVariable("clientid") UUID clientId,
-			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("exitid") UUID exitId,
-			@RequestParam(value = "startIndex", required = false) Integer startIndex,
-			@RequestParam(value = "maxItems", required = false) Integer maxItems, HttpServletRequest request)
-					throws Exception {
-		if (startIndex == null)
-			startIndex = 0;
-		if (maxItems == null)
-			maxItems = 30;
-
-		serviceFactory.getClientService().getClientById(clientId);
-		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		serviceFactory.getExitService().getExitById(exitId);
-		return serviceFactory.getExitpathService().getAllExitExitpaths(exitId, startIndex, maxItems);
-	}
-
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitrhys", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_EXITRHY", checkTrustedApp = true, checkSessionToken = true)
 	public Exitrhy createExitrhy(@PathVariable("clientid") UUID clientId,
@@ -1453,74 +1386,9 @@ public class ClientsController extends ControllerBase {
 		serviceFactory.getExitService().getExitById(exitId);
 		return serviceFactory.getExitrhyService().getExitrhyById(exitrhyId);
 	}
-
-	@RequestMapping(value = "/{clientid}/exits/{exitid}/exitrhys/", method = RequestMethod.GET)
-	@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT_EXITRHY", checkTrustedApp = true, checkSessionToken = true)
-	public RhyAfterCares getAllExitrhysRhyAfterCares(@PathVariable("clientid") UUID clientId,
-			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("exitid") UUID exitId,
-			@RequestParam(value = "startIndex", required = false) Integer startIndex,
-			@RequestParam(value = "maxItems", required = false) Integer maxItems, HttpServletRequest request)
-					throws Exception {
-		if (startIndex == null)
-			startIndex = 0;
-		if (maxItems == null)
-			maxItems = 30;
-
-		serviceFactory.getClientService().getClientById(clientId);
-		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		serviceFactory.getExitService().getExitById(exitId);
-		return serviceFactory.getRHYAfterCareService().getAllExitRhyAfterCares(exitId, startIndex, maxItems);
-	}
-
-	@RequestMapping(value = "/{clientid}/exits/{exitid}/exitrhys/{exitrhyid}", method = RequestMethod.POST)
-	@APIMapping(value = "CLIENT_API_CREATE_RHYAFTERCARE", checkTrustedApp = true, checkSessionToken = true)
-	public RhyAfterCare createRhyAfterCare(@PathVariable("clientid") UUID clientId,
-			@PathVariable("exitrhyid") UUID exitrhyid, @PathVariable("exitid") UUID exitId,
-			@RequestBody RhyAfterCare rhyAfterCare, HttpServletRequest request) throws Exception {
-		Session session = sessionHelper.getSession(request);
-		serviceFactory.getClientService().getClientById(clientId);
-		serviceFactory.getRHYAfterCareService().createRhyAfterCare(rhyAfterCare, exitrhyid, session.getAccount().getUsername());
-		RhyAfterCare returnRhyAfterCare = new RhyAfterCare();
-		returnRhyAfterCare.setRhyAfterCareId(rhyAfterCare.getRhyAfterCareId());
-		return returnRhyAfterCare;
-	}
-
-	@RequestMapping(value = "/{clientid}/exits/{exitid}/exitrhys/{exitrhyid}/rhyaftercares/{rhyaftercareid}", method = RequestMethod.PUT)
-	@APIMapping(value = "CLIENT_API_UPDATE_RHYAFTERCARE", checkTrustedApp = true, checkSessionToken = true)
-	public void updateRhyAfterCare(@PathVariable("clientid") UUID clientId, @PathVariable("rhyaftercareid") UUID rhyaftercareid,
-			@PathVariable("exitid") UUID exitId, @PathVariable("exitrhyid") UUID exitrhyId,
-			@RequestBody RhyAfterCare rhyAfterCare, HttpServletRequest request) throws Exception {
-		Session session = sessionHelper.getSession(request);
-		rhyAfterCare.setRhyAfterCareId(rhyaftercareid);
-		serviceFactory.getClientService().getClientById(clientId);
-		serviceFactory.getRHYAfterCareService().updateRhyAfterCare(rhyAfterCare, exitrhyId, session.getAccount().getUsername());
-	}
-
-	@RequestMapping(value = "/{clientid}/exits/{exitid}/exitrhys/{exitrhyid}/rhyaftercares/{rhyaftercareid}", method = RequestMethod.DELETE)
-	@APIMapping(value = "CLIENT_API_DELETE_RHYAFTERCARE", checkTrustedApp = true, checkSessionToken = true)
-	public void deleteRhyAfterCare(@PathVariable("clientid") UUID clientId, @PathVariable("rhyaftercareid") UUID rhyaftercareid,
-			@PathVariable("exitid") UUID exitId, @PathVariable("exitrhyid") UUID exitrhyId, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		Session session = sessionHelper.getSession(request);
-		serviceFactory.getClientService().getClientById(clientId);
-		serviceFactory.getRHYAfterCareService().deleteRhyAfterCare(rhyaftercareid, session.getAccount().getUsername());
-		serviceFactory.getExitService().getExitById(exitId);
-		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-	}
-
-	@RequestMapping(value = "/{clientid}/exits/{exitid}/exitrhys/{exitrhyid}/rhyaftercares/{rhyaftercareid}", method = RequestMethod.GET)
-	@APIMapping(value = "CLIENT_API_GET_RHYAFTERCARE_BY_ID", checkTrustedApp = true, checkSessionToken = true)
-	public RhyAfterCare getRhyAfterCareById(@PathVariable("clientid") UUID clientId,
-			@PathVariable("rhyaftercareid") UUID rhyaftercareid, @PathVariable("exitid") UUID exitId,
-			@PathVariable("exitrhyid") UUID exitrhyId, HttpServletRequest request) throws Exception {
-		serviceFactory.getClientService().getClientById(clientId);
-		serviceFactory.getExitService().getExitById(exitId);
-		serviceFactory.getExitrhyService().getExitrhyById(exitrhyId);
-		return serviceFactory.getRHYAfterCareService().getRhyAfterCareById(rhyaftercareid);
-	}
-
+	
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits/{exitid}/exitrhys", method = RequestMethod.GET)
-	@APIMapping(value = "CLIENT_API_GET_ALL_EXITRHY_RHYAFTERCARE", checkTrustedApp = true, checkSessionToken = true)
+	@APIMapping(value = "CLIENT_API_GET_ALL_EXITRHY", checkTrustedApp = true, checkSessionToken = true)
 	public Exitrhys getAllEnrollmentExitrhys(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("exitid") UUID exitId,
 			@RequestParam(value = "startIndex", required = false) Integer startIndex,
@@ -1536,7 +1404,65 @@ public class ClientsController extends ControllerBase {
 		serviceFactory.getExitService().getExitById(exitId);
 		return serviceFactory.getExitrhyService().getAllExitExitrhys(exitId, startIndex, maxItems);
 	}
-	
+
+	@RequestMapping(value = "/exits/{exitid}/rhyaftercares/", method = RequestMethod.GET)
+	@APIMapping(value = "CLIENT_API_GET_ALL_EXIT_RHYAFTERCARE", checkTrustedApp = true, checkSessionToken = true)
+	public RhyAfterCares getAllExitsRhyAfterCares(
+			 @PathVariable("exitid") UUID exitId,
+			@RequestParam(value = "startIndex", required = false) Integer startIndex,
+			@RequestParam(value = "maxItems", required = false) Integer maxItems, HttpServletRequest request)
+					throws Exception {
+		if (startIndex == null)
+			startIndex = 0;
+		if (maxItems == null)
+			maxItems = 30;
+
+		serviceFactory.getExitService().getExitById(exitId);
+		return serviceFactory.getRHYAfterCareService().getAllExitRhyAfterCares(exitId, startIndex, maxItems);
+	}
+
+	@RequestMapping(value = "/exits/{exitid}/rhyaftercares", method = RequestMethod.POST)
+	@APIMapping(value = "CLIENT_API_CREATE_RHYAFTERCARE", checkTrustedApp = true, checkSessionToken = true)
+	public RhyAfterCare createRhyAfterCare(
+			 @PathVariable("exitid") UUID exitId,
+			@RequestBody RhyAfterCare rhyAfterCare, HttpServletRequest request) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		serviceFactory.getRHYAfterCareService().createRhyAfterCare(rhyAfterCare, exitId, session.getAccount().getUsername());
+		RhyAfterCare returnRhyAfterCare = new RhyAfterCare();
+		returnRhyAfterCare.setRhyAfterCareId(rhyAfterCare.getRhyAfterCareId());
+		return returnRhyAfterCare;
+	}
+
+	@RequestMapping(value = "/exits/{exitid}/rhyaftercares/{rhyaftercareid}", method = RequestMethod.PUT)
+	@APIMapping(value = "CLIENT_API_UPDATE_RHYAFTERCARE", checkTrustedApp = true, checkSessionToken = true)
+	public void updateRhyAfterCare(@PathVariable("rhyaftercareid") UUID rhyaftercareid,
+			@PathVariable("exitid") UUID exitId,
+			@RequestBody RhyAfterCare rhyAfterCare, HttpServletRequest request) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		rhyAfterCare.setRhyAfterCareId(rhyaftercareid);
+		serviceFactory.getRHYAfterCareService().updateRhyAfterCare(rhyAfterCare, exitId, session.getAccount().getUsername());
+	}
+
+	@RequestMapping(value = "/exits/{exitid}/rhyaftercares/{rhyaftercareid}", method = RequestMethod.DELETE)
+	@APIMapping(value = "CLIENT_API_DELETE_RHYAFTERCARE", checkTrustedApp = true, checkSessionToken = true)
+	public void deleteRhyAfterCare(@PathVariable("rhyaftercareid") UUID rhyaftercareid,
+			@PathVariable("exitid") UUID exitId,HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		serviceFactory.getRHYAfterCareService().deleteRhyAfterCare(rhyaftercareid, session.getAccount().getUsername());
+		serviceFactory.getExitService().getExitById(exitId);
+		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	}
+
+	@RequestMapping(value = "/exits/{exitid}/rhyaftercares/{rhyaftercareid}", method = RequestMethod.GET)
+	@APIMapping(value = "CLIENT_API_GET_RHYAFTERCARE_BY_ID", checkTrustedApp = true, checkSessionToken = true)
+	public RhyAfterCare getRhyAfterCareById(
+			@PathVariable("rhyaftercareid") UUID rhyaftercareid, @PathVariable("exitid") UUID exitId, 
+			HttpServletRequest request) throws Exception {
+		serviceFactory.getExitService().getExitById(exitId);
+		return serviceFactory.getRHYAfterCareService().getRhyAfterCareById(rhyaftercareid);
+	}
+
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/entryrhsps", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_ENTRYRHSP", checkTrustedApp = true, checkSessionToken = true)
 	public Entryrhsp createEntryrhsp(@PathVariable("clientid") UUID clientId,
