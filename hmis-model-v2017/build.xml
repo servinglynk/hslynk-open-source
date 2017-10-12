@@ -6,8 +6,8 @@
    <property name="sql.pass" value="hmisdb1234"/>
  -->
 	<property name="sql.url" value="jdbc:postgresql://localhost:5432/hmis"/>
-	<property name="sql.user" value="postgres"/>
-	<property name="sql.pass" value=""/>
+   <property name="sql.user" value="postgres"/>
+   <property name="sql.pass" value=""/>
  	
 	<property name="sql.driver" value="org.postgresql.Driver"/>
 	   <target name="setupDB2017">

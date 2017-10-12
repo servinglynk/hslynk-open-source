@@ -28,7 +28,7 @@ import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 
 @Component
-public class BaseWorker implements IBulkUploadWorker  {
+public class BaseWorker implements IBaseWorker  {
 	
 	final static Logger logger = Logger.getLogger(BaseWorker.class);
 
