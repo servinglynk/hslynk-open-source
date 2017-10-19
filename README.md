@@ -13,7 +13,7 @@ Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk
 ## How to Run on local machine
 
 Maker a local copy `database.properties` with the below conifg
-
+```
 app.jndi.name=jdbc/multischema
 db.driver=org.postgresql.Driver
 
@@ -34,7 +34,7 @@ db.minidle=20
 db.maxidle=20
 db.maxwait=60000
 #Also adding some more properties
-
+```
 
 ```
 git clone https://github.com/servinglynk/hmis-lynk-open-source.git
@@ -50,6 +50,7 @@ Tomcat is used to deploy this app.
 #### First time steps
 
 - Create database: 
+```
 Open Eclipse and navigate to 
 Base Schema
 /hmis-base-model/build.xml
@@ -87,7 +88,7 @@ v2015   (You need to run this if you plan to load data in the 2017 schema)
  to wherever you have <pathelement location="MAVEN_HOME/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
  
 run setupDB2017
-
+```
 
 #### Deploy steps
 - Open server.xml in your tomcat and add the below line.
