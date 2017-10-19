@@ -53,7 +53,7 @@ public class ClientWorkerChildren implements IClientWorkerChildren  {
  					logger.removeAppender(appender);
 				}
 			}
-			logger.info("======== Exit Bulk Uploader processed ======");
+			logger.info("======== Client Workder Children Bulk Uploader processed ======");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

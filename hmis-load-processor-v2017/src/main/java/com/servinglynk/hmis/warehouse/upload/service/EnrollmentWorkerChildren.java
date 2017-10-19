@@ -62,7 +62,7 @@ public class EnrollmentWorkerChildren implements IEnrollmentWorkerChildren  {
 					logger.removeAppender(appender);
 				}
 			}
-			logger.info("========Enrollment Bulk Uploader processed ======");
+			logger.info("========Enrollment Children Bulk Uploader processed ======");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

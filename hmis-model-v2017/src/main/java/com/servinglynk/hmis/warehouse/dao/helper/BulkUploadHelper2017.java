@@ -89,7 +89,7 @@ import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 @Component
-public class BulkUploadHelper {
+public class BulkUploadHelper2017 {
 	
 	/**
 	 * Gets the source object from the upload location.
@@ -104,12 +104,14 @@ public class BulkUploadHelper {
 			String tempFile = upload.getInputpath();
 			if(BooleanUtils.isTrue(isFileFromS3)) {
 				AwsS3Client client = new AwsS3Client();
+				System.out.println("Starting to read a file by downloadin a file from S3..........");
 				tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
 			}
 			if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath())) || StringUtils.equals("7z",getFileExtension(upload.getInputpath()))){
 				return getSourcesForZipFile(tempFile);
 			}
 			else if(inputPath !=null && StringUtils.equals("xml",getFileExtension(upload.getInputpath()))){
+				System.out.println("BEfore getSourcesForXml");
 				return getSourcesForXml(tempFile,projectGroupEntity);
 			}
 		return null;
