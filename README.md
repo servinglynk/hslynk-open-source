@@ -12,12 +12,12 @@ Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk
 
 ## How to Run on local machine
 
-Maker a local copy `database.properties` with the below conifg
+Maker a local copy `database.properties` with the below config
 ```
 app.jndi.name=jdbc/multischema
 db.driver=org.postgresql.Driver
 
-db.url=jdbc:postgresql://localhost:POSTGRE_PORT/hmis
+db.url=jdbc:postgresql://localhost:POSTGRES_PORT/hmis
 db.username=postgres
 db.password=
 
