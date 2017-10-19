@@ -82,7 +82,7 @@ v2016  (You need to run this if you plan to load data in the 2016 schema)
  
 run setupDB2016
 
-v2015   (You need to run this if you plan to load data in the 2017 schema) 
+v2017 (You need to run this if you plan to load data in the 2017 schema) 
  /hmis-model-v2017/build.xml
   replace <pathelement location="/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
  to wherever you have <pathelement location="MAVEN_HOME/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
