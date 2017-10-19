@@ -12,7 +12,7 @@ Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk
 
 ## How to Run on local machine
 
-Maker a local copy `database.properties` with the below config
+Maker a local copy `database.properties` with the below config in /hmis-base-model/src/main/resources
 ```
 app.jndi.name=jdbc/multischema
 db.driver=org.postgresql.Driver
