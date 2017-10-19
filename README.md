@@ -8,11 +8,33 @@ Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk
 - Node: https://nodejs.org/en/
 	- Preferred way to install: https://github.com/creationix/nvm
 - Maven: https://maven.apache.org/install.html
-- Eclipse: http://www.eclipse.org/downloads/eclipse-packages/
+- Eclipse or any IDE: http://www.eclipse.org/downloads/eclipse-packages/
 
 ## How to Run on local machine
 
-Maker a local copy `settings.local.json` of the file `settings.json`
+Maker a local copy `database.properties` with the below conifg
+
+app.jndi.name=jdbc/multischema
+db.driver=org.postgresql.Driver
+
+db.url=jdbc:postgresql://localhost:POSTGRE_PORT/hmis
+db.username=postgres
+db.password=
+
+
+hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+hibernate.show_sql=true
+entitymanager.packages.to.scan=com.servinglynk.hmis.warehouse.entity
+hibernate.default.schema=base
+# change this indexing location value to point to your local system path (the value below is setup for the server)
+solr.search.indexing.location=/usr/share/hmisindexing
+db.initsize=10
+db.maxactive=100
+db.minidle=20
+db.maxidle=20
+db.maxwait=60000
+#Also adding some more properties
+
 
 ```
 git clone https://github.com/servinglynk/hmis-lynk-open-source.git
@@ -68,5 +90,6 @@ run setupDB2017
 
 
 #### Deploy steps
-
-- Open eclipse and deploy the microservices you want on Tomcat.
+- Open server.xml in your tomcat and add the below line.
+  <Resource auth="Container" driverClassName="org.postgresql.Driver" factory="org.apache.commons.dbcp.BasicDataSourceFactory" initialSize="50" logAbandoned="true" maxActive="100" maxIdle="50" maxWait="60000" minIdle="50" name="jdbc/hmisdb" password="" removeAbandoned="true" removeAbandonedTimeout="30" testWhileIdle="true" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/hmis" username="postgres" validationQuery="SELECT 1"/>
+- Deploy microservices you want in eclipse or any IDE.
