@@ -28,7 +28,7 @@ import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 
 @Component
-public class BaseWorker implements IBulkUploadWorker  {
+public class BaseWorker implements IBaseWorker  {
 	
 	final static Logger logger = Logger.getLogger(BaseWorker.class);
 
@@ -54,7 +54,6 @@ public class BaseWorker implements IBulkUploadWorker  {
 					appender.activateOptions();
 					logger.addAppender(appender);
 					/** Perform full refresh base on Project group */
-					File file = new File(upload.getInputpath());
 					upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 					factory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
 					ProjectGroupEntity projectGroupEntity = factory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());

@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -65,7 +65,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	ParentDaoFactory parentDaoFactory;
 	
 	@Autowired
-	BulkUploadHelper bulkUploadHelper;
+	BulkUploadHelper2017 bulkUploadHelper;
 	
 	@Override
 	@Transactional
@@ -74,7 +74,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			if (appender != null) {
 				logger.addAppender(appender);
 			}
-			logger.debug("Bulk Uploader Process Begins..........");
+			logger.info("Bulk Uploader Process Begins..........");
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			insertOrUpdate(upload);
 			long startNanos = System.nanoTime();
@@ -314,6 +314,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				logger.addAppender(appender);
 			}
 		try {
+			logger.info("Base Process::: Bulk Upload Processing Begin.....");
 			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
 			saveUpload(upload);
 			long startNanos = System.nanoTime();
@@ -537,6 +538,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		Sources sources = null;
 		try {
+			logger.info("Reading the file::"+upload.getInputpath());
 			sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity,isFileFromS3);
 		} catch (UnmarshalException ex) {
 			logger.error("Error executing the bulk upload process:: ", ex);

@@ -13,7 +13,7 @@ import org.junit.Test;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 public class BulkUploadHelperTest {
 
-	public BulkUploadHelper helper = new BulkUploadHelper();
+	public BulkUploadHelper2017 helper = new BulkUploadHelper2017();
 	private Sources sources;
 	
 	@Before
@@ -30,7 +30,7 @@ public class BulkUploadHelperTest {
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
 		//upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
-		upload.setInputpath(path.getPath());
+		upload.setInputpath("/Users/sdolia/github/hmis-lynk-open-source/hmis-model-v2017/src/test/java/com/servinglynk/hmis/warehouse/dao/helper/2017.xml");
 		com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp = new com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
 		sources = helper.getSourcesFromFiles(upload,projectGrp,false);

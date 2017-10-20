@@ -28,7 +28,7 @@ import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 
 @Component
-public class DisabilitiesWorker implements IBulkUploadWorker  {
+public class DisabilitiesWorker implements IDisabilitiesWorker  {
 	
 	final static Logger logger = Logger.getLogger(DisabilitiesWorker.class);
 
@@ -42,7 +42,7 @@ public class DisabilitiesWorker implements IBulkUploadWorker  {
 	@Scheduled(initialDelay=200,fixedDelay=10000)
 	public void processWorkerLine() {
 		try {
-			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.DISAB.getStatus(),new Long(2014));
+			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.DISAB.getStatus(),new Long(2017));
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
 					FileAppender appender = new FileAppender();
