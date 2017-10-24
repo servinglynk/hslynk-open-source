@@ -12,7 +12,7 @@ Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk
 
 ## How to Run on local machine
 
-Maker a local copy `database.properties` with the below config in /hmis-base-model/src/main/resources
+Make a local copy `database.properties` with the below config in /hmis-base-model/src/main/resources
 ```
 app.jndi.name=jdbc/multischema
 db.driver=org.postgresql.Driver
@@ -42,6 +42,7 @@ cd hmis-lynk-open-source
 mvn clean install -DskipTests
 ```
 
+Note: if you wish to run the unit tests, remove "-DskipTests" from the mvn command above,
 
 ## Deploy instructions
 
@@ -94,6 +95,3 @@ run setupDB2017
 - Open server.xml in your tomcat and add the below line.
   <Resource auth="Container" driverClassName="org.postgresql.Driver" factory="org.apache.commons.dbcp.BasicDataSourceFactory" initialSize="50" logAbandoned="true" maxActive="100" maxIdle="50" maxWait="60000" minIdle="50" name="jdbc/hmisdb" password="" removeAbandoned="true" removeAbandonedTimeout="30" testWhileIdle="true" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/hmis" username="postgres" validationQuery="SELECT 1"/>
 - Deploy microservices you want in eclipse or any IDE.
-
-
-README to-do: Database setup and configuration needs to be detailed more.
