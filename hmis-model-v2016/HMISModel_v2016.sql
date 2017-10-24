@@ -306,6 +306,7 @@ CREATE TYPE "v2016".residence_prior  AS ENUM (
 '24',
 '25',
 '26',
+'27',
 '99');
 
 CREATE TYPE "v2016".residence_prior_length_of_stay AS ENUM (	
