@@ -2,8 +2,17 @@
 HSLynk is an open source project and your contribution is very much appreciated.
 
 1. Check for open issues (in a separate repo at https://github.com/servinglynk/hmis-lynk-open-source-docs/issues, to keep the code repo lean) or open a fresh issue to start a discussion around a feature idea or a bug.
+
+To-do: add issue submission guidelines.
+
 2. Fork the repository on Github and make your changes in a branch. We use Vincent Driessen's branching methodology illustrated here: http://nvie.com/posts/a-successful-git-branching-model/
+
+To-do: add Lint code validation instructions.
+
 4. Send a pull request (with the branch as the target).
+
+To-do: add pull request review process description.
+
 5. Please document early and often on the wiki at https://github.com/servinglynk/hmis-lynk-open-source-docs/wiki
 
 A big thank you goes out to everyone who has helped with the project, the [doc contributors](https://github.com/servinglynk/hmis-lynk-open-source-docs/graphs/contributors) and [code contributors](https://github.com/servinglynk/hmis-lynk-open-source/graphs/contributors) and everyone who took the time to report issues and give feedback. (adapted from [this](https://github.com/raml2html/raml2html/edit/master/README.md))
