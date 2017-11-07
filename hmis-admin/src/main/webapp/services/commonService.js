@@ -298,6 +298,21 @@ bulkupload: function ($http, $scope,file, success, error) {
      }).success(function () { success() }).error(error);
   		
     },
+    bulkuploadNew: function ($http, $scope,file, success, error) {
+        var apiurl = "/hmis-upload-service/rest/upload";							
+        var formData = new FormData();
+        formData.append("file", file);
+        formData.append("year", $scope.year);
+        $http.post(apiurl, formData, {
+             transformRequest: angular.identity,
+        headers: {
+            'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+              'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+               'Content-Type': undefined
+          } //TODO change accept to multipart.
+         }).success(function () { success() }).error(error);
+      		
+        },
     
 //	GetOrganizations: function ($http, success) {
 //        $http.get('/hmis-user-service/rest/accounts').success(function (data) {
