@@ -9,7 +9,7 @@ app.controller('bulkuploadNewCtrl', function ($scope, $location, $routeSegment, 
         $scope.infoTextAlert = "Please wait uploading....";
         $scope.showInfoAlert = true;
         var file = $scope.inputfile;
-        Service.bulkupload($http, $scope,file,
+        Service.bulkuploadNew($http, $scope,file,
  //success
             function () {
                 $scope.switchBool("showInfoAlert");
