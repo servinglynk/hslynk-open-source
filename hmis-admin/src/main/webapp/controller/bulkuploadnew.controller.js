@@ -1,6 +1,5 @@
 
-
-app.controller('bulkuploadNewCtrl', function ($scope, $location, $routeSegment, $http, $timeout,$sessionStorage){
+app.controller('bulkUploadNewCtrl',[ '$scope', '$location', '$routeSegment', '$http', '$timeout','$sessionStorage', function ($scope, $location, $routeSegment, $http, $timeout,$sessionStorage){
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
@@ -8,7 +7,7 @@ app.controller('bulkuploadNewCtrl', function ($scope, $location, $routeSegment, 
     $scope.submitForm = function () {
         $scope.infoTextAlert = "Please wait uploading....";
         $scope.showInfoAlert = true;
-        var file = $scope.inputfile;
+        var file = $scope.form.inputfile;
         Service.bulkuploadNew($http, $scope,file,
  //success
             function () {
@@ -32,6 +31,9 @@ app.controller('bulkuploadNewCtrl', function ($scope, $location, $routeSegment, 
         $scope[value] = !$scope[value];
     };
 
-});
+
+}]);
+
+
 
 

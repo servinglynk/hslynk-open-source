@@ -299,10 +299,10 @@ bulkupload: function ($http, $scope,file, success, error) {
   		
     },
     bulkuploadNew: function ($http, $scope,file, success, error) {
-        var apiurl = "/hmis-upload-service/rest/upload";							
+        var apiurl = "/hmis-upload-service/rest/bulkupload";							
         var formData = new FormData();
         formData.append("file", file);
-        formData.append("year", $scope.year);
+        formData.append("year", $scope.form.year);
         $http.post(apiurl, formData, {
              transformRequest: angular.identity,
         headers: {

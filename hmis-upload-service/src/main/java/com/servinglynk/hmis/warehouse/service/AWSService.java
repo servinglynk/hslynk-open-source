@@ -39,7 +39,7 @@ public class AWSService{
 		String fileNameInS3 = filename;
 		
 		PutObjectResult putObject = s3client().putObject(
-				new PutObjectRequest(awsBucket+File.separator+"logos", 
+				new PutObjectRequest(awsBucket, 
 						fileNameInS3, new File(uploadFile)));
 	}
 	
