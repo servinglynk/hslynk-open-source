@@ -34,18 +34,13 @@ public class AWSService{
 	/*
 	 * upload file to folder and set it to public
 	 */ 
-	public void uploadFile(String uploadFile, String filename) {
+	public void uploadFile(String uploadFile, String filename,String bucketName) {
 		
 		String fileNameInS3 = filename;
 		
 		PutObjectResult putObject = s3client().putObject(
-				new PutObjectRequest(awsBucket, 
+				new PutObjectRequest(bucketName, 
 						fileNameInS3, new File(uploadFile)));
-	}
-	
-	public URL getFile(String fileKey) {
-		URL presignedUrl = s3client().generatePresignedUrl(new GeneratePresignedUrlRequest(awsBucket, fileKey));		
-		return presignedUrl;
 	}
 	
 	private AmazonS3 s3client() {

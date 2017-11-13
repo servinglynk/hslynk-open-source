@@ -49,7 +49,7 @@ var Service= ({
 			});
     },
     GetFilesListRECENT: function ($http, success, $scope) {
-        var apiurl = "/hmis-upload-service/rest/bulkupload?status=RECENT";
+        var apiurl = "/hmis-upload-service/rest/bulk-upload?status=RECENT";
             $http({
                 method: 'GET',
                 url: apiurl,
@@ -62,7 +62,7 @@ var Service= ({
             });
       },
     GetFilesListSTAGING: function ($http, success, $scope) {
-        var apiurl = "/hmis-upload-service/rest/bulkupload?status=STAGING";
+        var apiurl = "/hmis-upload-service/rest/bulk-upload?status=STAGING";
             $http({
                 method: 'GET',
                 url: apiurl,
@@ -74,7 +74,7 @@ var Service= ({
                 if(success)success(data.BulkUploads.bulkUploads)
             });
       },  GetFilesListDELETED: function ($http, success, $scope) {
-          var apiurl = "/hmis-upload-service/rest/bulkupload?status=DELETED";
+          var apiurl = "/hmis-upload-service/rest/bulk-upload?status=DELETED";
              $http({
                  method: 'GET',
                  url: apiurl,
@@ -87,7 +87,7 @@ var Service= ({
              });
        },       
     GetFilesListLIVE: function ($http, success,$scope) {
-    var apiurl = "/hmis-upload-service/rest/bulkupload?status=LIVE";
+    var apiurl = "/hmis-upload-service/rest/bulk-upload?status=LIVE";
        $http({
            method: 'GET',
            url: apiurl,
@@ -100,7 +100,7 @@ var Service= ({
        });
  },        
     GetFilesListERROR: function ($http, success,$scope) {
-         var apiurl = "/hmis-upload-service/rest/bulkupload?status=ERROR";
+         var apiurl = "/hmis-upload-service/rest/bulk-upload?status=ERROR";
              $http({
                  method: 'GET',
                  url: apiurl,
@@ -146,7 +146,7 @@ var Service= ({
 			});
     },
     CheckServiceAvailableBulkUpload: function ($http,$scope, success,error) {
-    	  var apiurl = "/hmis-upload-service/rest/bulkupload?status=STAGING";
+    	  var apiurl = "/hmis-upload-service/rest/bulk-upload?status=STAGING";
              $http({
                  method: 'GET',
                  url: apiurl,
@@ -179,7 +179,7 @@ CheckServiceAvailableAuthenticate: function ($http,$scope, success,error) {
 		
 },
 LoadStatistics: function ($http,$scope, success) {
-        $http.get('/hmis-upload-service/rest/bulkupload?status=LIVE',{
+        $http.get('/hmis-upload-service/rest/bulk-upload?status=LIVE',{
                 headers: {
                     'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
                       'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
@@ -188,7 +188,7 @@ LoadStatistics: function ($http,$scope, success) {
 		{
 			 filesCollection =data.BulkUploads.bulkUploads;
 	    	// success(data)
-			  $http.get('/hmis-upload-service/rest/bulkupload?status=STAGING', {
+			  $http.get('/hmis-upload-service/rest/bulk-upload?status=STAGING', {
 			            headers: {
 			                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
 			                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
@@ -198,7 +198,7 @@ LoadStatistics: function ($http,$scope, success) {
 					Array.prototype.push.apply(filesCollection, data.BulkUploads.bulkUploads);
 				// success(data)
 					
-					$http.get('/hmis-upload-service/rest/bulkupload?status=ERROR',{
+					$http.get('/hmis-upload-service/rest/bulk-upload?status=ERROR',{
 				            headers: {
 				                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
 				                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
@@ -298,11 +298,10 @@ bulkupload: function ($http, $scope,file, success, error) {
      }).success(function () { success() }).error(error);
   		
     },
-    bulkuploadNew: function ($http, $scope,file, success, error) {
-        var apiurl = "/hmis-upload-service/rest/bulkupload";							
+    bulkuploadNew: function ($http, $scope,file,progress,success, error) {
+        var apiurl = "/hmis-upload-service/rest/bulk-upload/"+$scope.form.version;							
         var formData = new FormData();
         formData.append("file", file);
-        formData.append("year", $scope.form.year);
         $http.post(apiurl, formData, {
              transformRequest: angular.identity,
         headers: {

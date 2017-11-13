@@ -4,11 +4,17 @@ app.controller('bulkUploadNewCtrl',[ '$scope', '$location', '$routeSegment', '$h
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
+	
     $scope.submitForm = function () {
         $scope.infoTextAlert = "Please wait uploading....";
         $scope.showInfoAlert = true;
         var file = $scope.form.inputfile;
         Service.bulkuploadNew($http, $scope,file,
+  //progress
+        	function(evt) {
+        			   console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+        			   $scope.infoTextAlert = parseInt(100.0 * evt.loaded / evt.total);
+        	 },
  //success
             function () {
                 $scope.switchBool("showInfoAlert");
