@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.servinglynk.hmis.household.anntation.ValidateClient;
+import com.servinglynk.hmis.household.anntation.ValidateDedupId;
 import com.servinglynk.hmis.warehouse.core.model.JsonDateDeserializer;
 import com.servinglynk.hmis.warehouse.core.model.JsonDateTimeSerializer;
 
@@ -19,12 +19,12 @@ import com.servinglynk.hmis.warehouse.core.model.JsonDateTimeSerializer;
 /**
  * A DTO for the HouseholdMembership entity.
  */
-@ValidateClient(clientIdField="globalClientId",linkField="link",dedupClientIdField="dedupClientId")
-public class HouseholdMembershipDTO implements Serializable {
+@ValidateDedupId(clientIdField="globalClientId",linkField="link",dedupClientIdField="dedupClientId")
+public class HouseholdMembershipModel implements Serializable {
 
     private UUID householdMembershipId;
 
-    @NotNull(message="Global client is required.")
+
     private UUID globalClientId;
     
 	@JsonDeserialize(using=JsonDateDeserializer.class)
@@ -41,14 +41,14 @@ public class HouseholdMembershipDTO implements Serializable {
     
     private UUID userId;
     
+    @NotNull(message="Global client is required.")
     private UUID dedupClientId;
     
     @JsonProperty(access=Access.WRITE_ONLY)
     private String link;
- 
+
     @JsonProperty(access=Access.WRITE_ONLY)
-    public String schemaYear;
-    
+    private String schemaYear;
     
     public UUID getHouseholdMembershipId() {
 		return householdMembershipId;
@@ -122,7 +122,7 @@ public class HouseholdMembershipDTO implements Serializable {
 	public void setDedupClientId(UUID dedupClientId) {
 		this.dedupClientId = dedupClientId;
 	}
-
+	
 	public String getSchemaYear() {
 		return schemaYear;
 	}
@@ -140,7 +140,7 @@ public class HouseholdMembershipDTO implements Serializable {
             return false;
         }
 
-        HouseholdMembershipDTO householdMembershipDTO = (HouseholdMembershipDTO) o;
+        HouseholdMembershipModel householdMembershipDTO = (HouseholdMembershipModel) o;
 
         if ( ! Objects.equals(householdMembershipId, householdMembershipDTO.householdMembershipId)) return false;
 
