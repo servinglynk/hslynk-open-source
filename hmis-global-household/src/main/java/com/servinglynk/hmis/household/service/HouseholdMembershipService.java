@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -93,18 +92,7 @@ public class HouseholdMembershipService {
     	GlobalHousehold globalHousehold =		globalHouseholdRepository.findByGlobalHouseholdIdAndProjectGroupCodeAndDeleted(householdId,projectGroup,false);
     	if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+householdId);
     	Page<HouseholdMembership> members = householdMembershipRepository.findByGlobalHouseholdAndDeleted(globalHousehold, pageable,false);
-        List<UUID> dedups = new ArrayList<>();
-        List<HouseholdMembership> data = new ArrayList<>();
-        for(HouseholdMembership membership : members.getContent()) {
-        			if(!dedups.contains(membership.getDedupClientId()) && membership.getDedupClientId()!=null) {
-        				data.add(membership);
-        				dedups.add(globalHousehold.getDedupClientId());
-        			}
-        				
-        }	        
-    	
-    	
-        return new PageImpl<>(data, pageable, members.getTotalElements());
+        return members;
     }
     
     @Transactional(readOnly = true) 

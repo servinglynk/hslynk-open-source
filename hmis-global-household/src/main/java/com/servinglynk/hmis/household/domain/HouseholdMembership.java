@@ -41,13 +41,6 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
     
     @Column(name="client_link")
     private String clientLink;
-    
-	@Column( name = "dedup_client_id"  ) 
-	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-    private UUID dedupClientId;
-	
-	@Column(name="schema_year")
-	private String schemaYear;
 
 
     public UUID getHouseholdMembershipId() {
@@ -88,21 +81,5 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
 
 	public void setClientLink(String clientLink) {
 		this.clientLink = clientLink;
-	}
-	
-	public UUID getDedupClientId() {
-		return dedupClientId;
-	}
-
-	public void setDedupClientId(UUID dedupClientId) {
-		this.dedupClientId = dedupClientId;
-	}
-
-	public String getSchemaYear() {
-		return schemaYear;
-	}
-
-	public void setSchemaYear(String schemaYear) {
-		this.schemaYear = schemaYear;
 	}
 }

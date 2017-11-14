@@ -66,8 +66,8 @@ public class GlobalHouseholdResource extends BaseResource  {
 			
 			Resource<GlobalHouseholdDTO> resource=null;
 				resource = new Resource<GlobalHouseholdDTO>(globalHouseholdMapper.globalHouseholdToGlobalHouseholdDTO(arg0));
-				if(resource.getContent().getLink()!=null){
-					resource.add(new Link("client", resource.getContent().getLink()));
+				if(arg0.getHeadOfHouseHoldLink()!=null){
+					resource.add(new Link("client", arg0.getHeadOfHouseHoldLink()));
 				}
 			return resource;
 		}

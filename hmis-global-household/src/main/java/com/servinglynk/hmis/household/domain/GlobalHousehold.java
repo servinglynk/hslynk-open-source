@@ -2,7 +2,6 @@ package com.servinglynk.hmis.household.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -10,16 +9,10 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
@@ -54,13 +47,7 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
     @Column(name="head_of_household_link")
     private String headOfHouseHoldLink;
 
-	@Column( name = "dedup_client_id"  ) 
-	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
-    private UUID dedupClientId;
-	
-	@Column(name="schema_year")
-	private String schemaYear;
- 
+
     public UUID getGlobalHouseholdId() {
 		return globalHouseholdId;
 	}
@@ -92,22 +79,6 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
 	public void setHeadOfHouseHoldLink(String headOfHouseHoldLink) {
 		this.headOfHouseHoldLink = headOfHouseHoldLink;
 	}
-	
-	public UUID getDedupClientId() {
-		return dedupClientId;
-	}
-
-	public void setDedupClientId(UUID dedupClientId) {
-		this.dedupClientId = dedupClientId;
-	}
-
-	public String getSchemaYear() {
-		return schemaYear;
-	}
-
-	public void setSchemaYear(String schemaYear) {
-		this.schemaYear = schemaYear;
-	}
 
 	@Override
     public boolean equals(Object o) {
@@ -129,8 +100,9 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
         return Objects.hashCode(globalHouseholdId);
     }
     
+    
 
-	@Override
+    @Override
     public String toString() {
         return "GlobalHousehold{" +
             "globalHouseholdId=" + globalHouseholdId +

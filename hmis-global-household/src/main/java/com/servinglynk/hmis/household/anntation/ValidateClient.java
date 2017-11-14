@@ -21,7 +21,6 @@ public @interface ValidateClient {
 	 String message() default "Invalid Client Identification";
 	 String clientIdField() default "";
 	 String linkField() default "";
-	 String dedupClientIdField() default "";
 	 Class[] groups() default {};
 	 Class[] payload() default {};
 }

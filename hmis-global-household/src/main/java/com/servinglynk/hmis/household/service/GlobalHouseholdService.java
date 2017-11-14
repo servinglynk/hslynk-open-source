@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ import com.servinglynk.hmis.household.domain.HouseholdMembership;
 import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
 import com.servinglynk.hmis.household.repository.HouseholdMembershipRepository;
 import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
-import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdModel;
 import com.servinglynk.hmis.household.web.rest.mapper.GlobalHouseholdMapper;
 import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
 
@@ -111,17 +109,8 @@ public class GlobalHouseholdService {
     public Page<GlobalHousehold> findAll(Pageable pageable) {
         log.debug("Request to get all GlobalHouseholds");
         String projectGroup = SecurityContextUtil.getUserProjectGroup();
-        Page<GlobalHousehold> result = globalHouseholdRepository.findByProjectGroupCodeAndDeletedOrderBySchemaYearDesc(projectGroup,pageable,false);
-        List<UUID> dedups = new ArrayList<>();
-        List<GlobalHousehold> data = new ArrayList<>();
-        for(GlobalHousehold globalHousehold : result.getContent()) {
-        			if(!dedups.contains(globalHousehold.getDedupClientId()) && globalHousehold.getDedupClientId()!=null) {
-        				data.add(globalHousehold);
-        				dedups.add(globalHousehold.getDedupClientId());
-        			}
-        				
-        }	        
-        return new PageImpl<>(data, pageable, result.getTotalElements());
+        Page<GlobalHousehold> result = globalHouseholdRepository.findByProjectGroupCodeAndDeleted(projectGroup,pageable,false);
+        return result;
     }
 
     /**
