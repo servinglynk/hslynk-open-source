@@ -3,17 +3,25 @@ package com.servinglynk.hmis.household.web.rest.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.servinglynk.hmis.household.domain.Client;
 import com.servinglynk.hmis.household.domain.GlobalHousehold;
 import com.servinglynk.hmis.household.domain.HouseholdMembership;
+import com.servinglynk.hmis.household.repository.ClientRepository;
 import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
+import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
 
 @Component("globalHouseholdMapper")
 public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
+	
+	@Autowired
+	ClientRepository clientRepository;
 
 	@Override
 	public GlobalHouseholdDTO globalHouseholdToGlobalHouseholdDTO(GlobalHousehold globalHousehold) {
+			
 			GlobalHouseholdDTO globalHouseholdDTO = new GlobalHouseholdDTO();
 			globalHouseholdDTO.setDateCreated(globalHousehold.getDateCreated());
 			globalHouseholdDTO.setDateUpdated(globalHousehold.getDateUpdated());
@@ -21,7 +29,18 @@ public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
 			globalHouseholdDTO.setHeadOfHouseholdId(globalHousehold.getHeadOfHouseholdId());
 			globalHouseholdDTO.setUserId(globalHousehold.getUserId());
 			globalHouseholdDTO.setLink(globalHousehold.getHeadOfHouseHoldLink());
-		return globalHouseholdDTO;
+			
+	//		System.out.println("Clients size is "+clientRepository.findByDedupClientIdOrderBySchemaYearAsc(globalHousehold.getDedupClientId()).size());
+			if(globalHousehold.getDedupClientId()!=null)
+			{
+				List<Client> clients = clientRepository.findByDedupClientIdAndProjectGroupCodeOrderBySchemaYearDesc(globalHousehold.getDedupClientId(),SecurityContextUtil.getUserProjectGroup());
+				globalHouseholdDTO.setHeadOfHouseholdId(clients.get(0).getId());
+				globalHouseholdDTO.setDedupClientId(clients.get(0).getDedupClientId());
+				globalHouseholdDTO.setLink("/hmis-clientapi/rest/v"+clients.get(0).getSchemaYear()+"/clients/"+clients.get(0).getId());
+			}
+			
+			
+			return globalHouseholdDTO;
 	}
 
 	@Override
@@ -39,7 +58,8 @@ public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
 		globalHousehold.setGlobalHouseholdId(globalHouseholdDTO.getGlobalHouseholdId());
 		globalHousehold.setHeadOfHouseholdId(globalHouseholdDTO.getHeadOfHouseholdId());	
 		globalHousehold.setHeadOfHouseHoldLink(globalHouseholdDTO.getLink());
-		
+		globalHousehold.setDedupClientId(globalHouseholdDTO.getDedupClientId());
+		globalHousehold.setSchemaYear(globalHouseholdDTO.getSchemaYear());
 		if(globalHouseholdDTO.getGlobalHouseholdId()==null){
 			HouseholdMembership membership = new HouseholdMembership();
 			membership.setGlobalClientId(globalHouseholdDTO.getHeadOfHouseholdId());
