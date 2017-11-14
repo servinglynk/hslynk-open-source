@@ -41,7 +41,10 @@ app.controller('bulkUploadCtrl',[ '$scope', '$location', '$routeSegment', '$http
  
     }).send(function(err, data) {
    // alert("File uploaded successfully.");
- 
+    	 if (err) {
+    		 $scope.successTextAlert = "There was an error uploading your Hmis upload:"+ err.message;
+    	      return alert('There was an error uploading your photo: ', err.message);
+    	    }
         $scope.fileName = file1.name;
         $scope.bucketName = 'sdolia-2015';
       //  $scope.fileSize = file1.size;
