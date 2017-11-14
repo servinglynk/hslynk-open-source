@@ -2,7 +2,6 @@ package com.servinglynk.hmis.household.web.rest.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 import javax.validation.constraints.NotNull;
@@ -11,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.servinglynk.hmis.household.anntation.ValidateClient;
+import com.servinglynk.hmis.household.anntation.ValidateDedupId;
 import com.servinglynk.hmis.warehouse.core.model.JsonDateDeserializer;
 import com.servinglynk.hmis.warehouse.core.model.JsonDateTimeSerializer;
 
@@ -20,13 +19,12 @@ import com.servinglynk.hmis.warehouse.core.model.JsonDateTimeSerializer;
  * A DTO for the GlobalHousehold entity.
  */
 @SuppressWarnings("serial")
-@ValidateClient(clientIdField="headOfHouseholdId",linkField="link",dedupClientIdField="dedupClientId")
-public class GlobalHouseholdDTO implements Serializable {
+@ValidateDedupId(clientIdField="headOfHouseholdId",linkField="link",dedupClientIdField="dedupClientId")
+public class GlobalHouseholdModel implements Serializable {
 
     private UUID globalHouseholdId;
 
     
-    @NotNull(message=" Head of household is required.")
     private UUID headOfHouseholdId;
     
 	@JsonDeserialize(using=JsonDateDeserializer.class)
@@ -37,16 +35,15 @@ public class GlobalHouseholdDTO implements Serializable {
 	@JsonSerialize(using=JsonDateTimeSerializer.class)
 	private LocalDateTime dateUpdated;
 	
-	private String schemaYear;
-	
 	private UUID userId;
 	
 	@JsonProperty(access=Access.WRITE_ONLY)
 	private String link;
 	
-	
+	@NotNull(message=" Head of household is required.")
 	private UUID dedupClientId;
 
+	private String schemaYear;
    
     public UUID getGlobalHouseholdId() {
 		return globalHouseholdId;
@@ -112,33 +109,4 @@ public class GlobalHouseholdDTO implements Serializable {
 	public void setSchemaYear(String schemaYear) {
 		this.schemaYear = schemaYear;
 	}
-
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        GlobalHouseholdDTO globalHouseholdDTO = (GlobalHouseholdDTO) o;
-
-        if ( ! Objects.equals(globalHouseholdId, globalHouseholdDTO.globalHouseholdId)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(globalHouseholdId);
-    }
-
-    @Override
-    public String toString() {
-        return "GlobalHouseholdDTO{" +
-            "globalHouseholdId=" + globalHouseholdId +
-            ", headOfHouseholdId='" + headOfHouseholdId + "'" +
-            '}';
-    }
 }

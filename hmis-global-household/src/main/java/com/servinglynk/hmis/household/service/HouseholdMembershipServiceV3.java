@@ -22,18 +22,20 @@ import com.servinglynk.hmis.household.domain.HouseholdMembership;
 import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
 import com.servinglynk.hmis.household.repository.HouseholdMembershipRepository;
 import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
+import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipModel;
 import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapper;
+import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapperImplV3;
 import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 
 /**
  * Service Implementation for managing HouseholdMembership.
  */
-@Service
+@Service("householdMembershipServiceV3")
 @Transactional
-public class HouseholdMembershipService {
+public class HouseholdMembershipServiceV3 {
 
-    private final Logger log = LoggerFactory.getLogger(HouseholdMembershipService.class);
+    private final Logger log = LoggerFactory.getLogger(HouseholdMembershipServiceV3.class);
     
     @Inject
     private HouseholdMembershipRepository householdMembershipRepository;
@@ -42,15 +44,15 @@ public class HouseholdMembershipService {
     private GlobalHouseholdRepository globalHouseholdRepository;
     
     @Autowired
-    private HouseholdMembershipMapper householdMembershipMapper;
+    private HouseholdMembershipMapperImplV3 householdMembershipMapper;
     
     @Transactional
-    public List<HouseholdMembershipDTO> save(UUID householdId,List<HouseholdMembershipDTO> householdMembershipDTOs, Session session) {
+    public List<HouseholdMembershipModel> save(UUID householdId,List<HouseholdMembershipModel> householdMembershipDTOs, Session session) {
         log.debug("Request to save HouseholdMembership : {}", householdMembershipDTOs);
         GlobalHousehold household =		globalHouseholdRepository.findOne(householdId);
         if(household==null) throw new ResourceNotFoundException("Global household not found "+householdId);
-        List<HouseholdMembershipDTO> lhouseholdmembersDTOs=new ArrayList<HouseholdMembershipDTO>(); 
-        for(HouseholdMembershipDTO dto: householdMembershipDTOs){
+        List<HouseholdMembershipModel> lhouseholdmembersDTOs=new ArrayList<HouseholdMembershipModel>(); 
+        for(HouseholdMembershipModel dto: householdMembershipDTOs){
         	dto.setDateCreated(LocalDateTime.now());
         	dto.setDateUpdated(LocalDateTime.now());
         	dto.setGlobalHouseholdId(householdId);
@@ -60,12 +62,12 @@ public class HouseholdMembershipService {
         }
         List<HouseholdMembership> householdMembers = householdMembershipMapper.householdMembershipDTOsToHouseholdMemberships(lhouseholdmembersDTOs);
         householdMembers = householdMembershipRepository.save(householdMembers);
-       List<HouseholdMembershipDTO> result = householdMembershipMapper.householdMembershipsToHouseholdMembershipDTOs(householdMembers);
+       List<HouseholdMembershipModel> result = householdMembershipMapper.householdMembershipsToHouseholdMembershipDTOs(householdMembers);
         return result;
     }
     
     @Transactional
-    public HouseholdMembershipDTO update(UUID householdId, HouseholdMembershipDTO householdMembershipDTO, Session session) {
+    public HouseholdMembershipModel update(UUID householdId, HouseholdMembershipModel householdMembershipDTO, Session session) {
         log.debug("Request to save HouseholdMembership : {}", householdMembershipDTO);
     	GlobalHousehold globalHousehold =		globalHouseholdRepository.findOne(householdId);
     	if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+householdId);
@@ -93,17 +95,16 @@ public class HouseholdMembershipService {
     	GlobalHousehold globalHousehold =		globalHouseholdRepository.findByGlobalHouseholdIdAndProjectGroupCodeAndDeleted(householdId,projectGroup,false);
     	if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+householdId);
     	Page<HouseholdMembership> members = householdMembershipRepository.findByGlobalHouseholdAndDeleted(globalHousehold, pageable,false);
-        List<UUID> dedups = new ArrayList<>();
+      
+    	List<UUID> dedups = new ArrayList<>();
         List<HouseholdMembership> data = new ArrayList<>();
         for(HouseholdMembership membership : members.getContent()) {
         			if(!dedups.contains(membership.getDedupClientId()) && membership.getDedupClientId()!=null) {
         				data.add(membership);
         				dedups.add(globalHousehold.getDedupClientId());
-        			}
-        				
+        			}			
         }	        
-    	
-    	
+   
         return new PageImpl<>(data, pageable, members.getTotalElements());
     }
     
@@ -121,12 +122,12 @@ public class HouseholdMembershipService {
      *  @return the entity
      */
     @Transactional(readOnly = true) 
-    public HouseholdMembershipDTO findOne(UUID id) {
+    public HouseholdMembershipModel findOne(UUID id) {
         log.debug("Request to get HouseholdMembership : {}", id);
         String projectGroup = SecurityContextUtil.getUserProjectGroup();
         HouseholdMembership householdMembership = householdMembershipRepository.findByHouseholdMembershipIdAndProjectGroupCodeAndDeleted(id,projectGroup,false);
         if(householdMembership==null) throw new ResourceNotFoundException("Global household not found "+id);
-        HouseholdMembershipDTO householdMembershipDTO = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMembership);
+        HouseholdMembershipModel householdMembershipDTO = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMembership);
         return householdMembershipDTO;
     }
 
