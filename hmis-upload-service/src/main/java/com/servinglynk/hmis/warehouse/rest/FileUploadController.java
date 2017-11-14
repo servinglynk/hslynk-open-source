@@ -38,6 +38,7 @@ public class FileUploadController  extends ControllerBase {
 					BulkUpload upload = new BulkUpload();
 					upload.setFileName(fileName);
 					upload.setFileSize("0");
+					upload.setStatus("INITIAL");
 					if(StringUtils.isEmpty(year)) {
 						throw new IllegalArgumentException("Year cannot be null.");
 					}else{
