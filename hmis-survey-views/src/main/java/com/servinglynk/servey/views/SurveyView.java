@@ -20,41 +20,6 @@ import com.servinglynk.hive.connection.ViewQuery;
 import com.servinglynk.hmis.warehouse.Properties;
 public class SurveyView extends BaseView {	
     
-	/***
-	 * Get existings submissions so we don't insert them again.
-	 * @param projectGroupCode
-	 * @param tableName
-	 * @return
-	 */
-	public static Map<String,String> getExisingSubmissions(String projectGroupCode,String tableName) {
-		ResultSet resultSet = null;
-		PreparedStatement statement = null;
-		Connection connection = null;
-		Map<String,String> hiveSubmissions = new HashMap<>();
-		try {
-			connection = HiveConnection.getConnection();
-			// execute statement
-				StringBuilder builder = new StringBuilder();
-				builder.append("select client_id client,submission_id submission from ");
-				builder.append(projectGroupCode);
-				builder.append(".");
-				builder.append(tableName);
-				statement = connection.prepareStatement(builder.toString());
-				resultSet = statement.executeQuery();
-				while(resultSet.next()) {
-					String clientId = resultSet.getString("client");
-					String submissionId = resultSet.getString("submission");
-					hiveSubmissions.put(submissionId, clientId);
-				}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return hiveSubmissions;
-	}
     public static void createHiveTableForSurvey(String projectGroupCode) throws Exception {
     	// Get distinct questions for a survey.
     	List<String> disinctSurveys = getDisinctSurveys("survey");
@@ -70,12 +35,11 @@ public class SurveyView extends BaseView {
             	//  create a hive table after getting the questions.    	
             	//Insert the data into the view by clientIds and submission id.
         		// Get unique clients for a survey.
-    	   		Map<String, String> exisingSubmissions = getExisingSubmissions(projectGroupCode, tableName);
         		List<String>  clients = getClientsForSurvey("survey", UUID.fromString(surveyId));
         		for(String clientId : clients) {
         			if(StringUtils.isNotBlank(clientId)) {
         				List<Response>  responses = getResponseBySubmissionClient("survey", UUID.fromString(surveyId),UUID.fromString(clientId));
-                		insertIntoHiveTable(survey,disinctQuestions, responses,clientId,exisingSubmissions);
+                		insertIntoHiveTable(survey,disinctQuestions, responses,clientId);
         			}
         		}	
     		}
@@ -105,7 +69,7 @@ public class SurveyView extends BaseView {
          return clientIds;
 	}
 
-	public static void insertIntoHiveTable(Survey survey, List<String> disinctQuestions, List<Response>  responses,String clientId, Map<String,String> existingSubmissions) {
+	public static void insertIntoHiveTable(Survey survey, List<String> disinctQuestions, List<Response>  responses,String clientId) {
     	Connection connection;
 		try {
 			connection = HiveConnection.getConnection();
@@ -136,7 +100,6 @@ public class SurveyView extends BaseView {
 			  boolean resonseContainMoreThanOneClient = false;
 			  boolean clientWithSubmissionExist =false;
 		 for (Response response : responses) {
-			 	  String client = existingSubmissions.get(response.getSubmissionId());
 			 	  if(StringUtils.isBlank(client)) {
 			 		 preparedStatement.setString(3, response.getSubmissionId());
 					  preparedStatement.setString(questionMap.get(response.getQuestionId()), response.getResponseText() !=null ?  response.getResponseText() : "");

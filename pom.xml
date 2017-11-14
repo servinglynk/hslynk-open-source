@@ -32,7 +32,7 @@
 		</pluginManagement>
 	</build>
 	<modules>
-  		<module>hmis-admin</module>  
+  	        <module>hmis-admin</module>
 		<module>hmis-core-client</module>
 		<module>hmis-s3-client</module>
 		<module>hmis-core-common</module>
@@ -40,6 +40,7 @@
 		<module>hmis-model-v2014</module>
  		<module>hmis-model-v2015</module>
  		<module>hmis-model-v2016</module>
+ 		<module>hmis-model-v2017</module>
 		<module>hmis-base-serialize</module>
 		<module>hmis-base-service</module>
 		<module>hmis-service-v2014</module>
@@ -48,14 +49,18 @@
 		<module>hmis-serialize-v2015</module>
 		<module>hmis-service-v2016</module>
 		<module>hmis-serialize-v2016</module>
+		<module>hmis-service-v2017</module>
+		<module>hmis-serialize-v2017</module>
 		<module>hmis-clientapi-v2014</module>
 		<module>hmis-clientapi-v2015</module>
 		<module>hmis-clientapi-v2016</module>
+		<module>hmis-clientapi-v2017</module>
  		<module>hmis-load-processor-v2014</module>
 		<module>hmis-bulk-loader-v2014</module>
 		<module>hmis-load-processor-v2015</module>
 		<module>hmis-load-processor-v2016</module>
-		<module>hmis-bulk-loader-v2015</module> 
+	 	<module>hmis-load-processor-v2017</module>
+        	<module>hmis-bulk-loader-v2015</module> 
 		<module>hmis-notification-core</module>
 		<module>hmis-notification-service</module>
 		<module>hmis-report-core</module>

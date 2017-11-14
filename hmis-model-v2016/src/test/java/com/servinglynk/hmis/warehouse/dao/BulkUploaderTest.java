@@ -221,21 +221,21 @@ public class BulkUploaderTest {
 		factory.getBulkUploaderWorkerDao().insert(upload);
 		//dao.performBulkUpload(upload);
 	}
-	/*@Test
-	public void testCSVZip() throws Exception
+	@Test
+	public void testCSVZipFile() throws Exception
 	{
 				URL path = BulkUploaderTest.class.getResource("2015.xml");
 				BulkUpload bullkUpload = new BulkUpload();
 				bullkUpload.setInputpath(path.getPath());
 				bullkUpload.setId(3L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-				BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
+			//	BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity);
 			//	com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
 				//(com.servinglynk.hmis.warehouse.model.stagv2015.Export) factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, upload.getExport().getId());
 			//	assertNotNull(exportEntity);
 //				assertEquals("",exportEntity.getExportperiodtype());
 	}
-*/	
+
 	
 	
 	@Test

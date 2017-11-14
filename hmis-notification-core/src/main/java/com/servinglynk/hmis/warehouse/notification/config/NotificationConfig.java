@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.notification.config;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.velocity.app.VelocityEngine;
@@ -16,6 +18,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
+import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -81,15 +84,21 @@ public class NotificationConfig  {
 		return (DataSource)jndi.getObject();
 	}*/
 
-    @Bean
-    public BasicDataSource relationalDataSource(){
-    	BasicDataSource datasource = new BasicDataSource();
-    	datasource.setDriverClassName(env.getProperty(PROPERTY_NAME_DATABASE_DRIVER));
-    	datasource.setUrl(env.getProperty(PROPERTY_NAME_DATABASE_URL));
-    	datasource.setUsername(env.getProperty(PROPERTY_NAME_DATABASE_USERNAME));
-    	datasource.setPassword(env.getProperty(PROPERTY_NAME_DATABASE_PASSWORD));
-    	return datasource;
-    }
+	@Bean
+	public DataSource relationalDataSource() {
+	
+		JndiObjectFactoryBean jndi=new JndiObjectFactoryBean();
+		jndi.setResourceRef(true);
+		jndi.setJndiName("jdbc/hmisdb");
+		jndi.setProxyInterface(DataSource.class);
+		jndi.setLookupOnStartup(true);
+		try {
+			jndi.afterPropertiesSet();
+		}catch (NamingException e) {
+			throw new RuntimeException(e);
+		}
+		return (DataSource)jndi.getObject();
+	}
 
     
 	@Bean

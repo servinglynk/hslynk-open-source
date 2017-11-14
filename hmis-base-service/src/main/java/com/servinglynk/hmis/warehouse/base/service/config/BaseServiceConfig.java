@@ -12,10 +12,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
+import com.servinglynk.hmis.warehouse.base.service.APIAccessService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.base.service.core.security.LocalApiAuthChecker;
+import com.servinglynk.hmis.warehouse.base.service.impl.APIAccessServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AccountServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ApiMethodServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AuthorizationServiceImpl;
@@ -213,5 +215,10 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public ClientDataElementsServiceImpl clientDataElementsService(){
 		 return new ClientDataElementsServiceImpl();
+	 }
+	 
+	 @Bean
+	 public APIAccessServiceImpl apiAccessService() {
+		 return new APIAccessServiceImpl();
 	 }
 }

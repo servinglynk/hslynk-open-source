@@ -43,38 +43,40 @@ public class ConnectionwithsoarDaoImpl extends ParentDaoImpl implements
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar.class, getProjectGroupCode(domain));
 		if(connectionWithSOARList !=null && !connectionWithSOARList.isEmpty()) 
 		{
-			for(ConnectionWithSOAR connectionWithSOAR:connectionWithSOARList )
-			{
-				Connectionwithsoar model = null;
-				try {
-					model = getModelObject(domain, connectionWithSOAR,data,modelMap);
-					model.setConnectionwithsoar(BasicDataGenerator.getIntegerValue(connectionWithSOAR.getConnectionWithSOAR()));
-					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateCreated()));
-					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
-					Exit exit = (Exit) getModel(Connectionwithsoar.class.getSimpleName(),Exit.class, connectionWithSOAR.getExitID(), getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					model.setExitid(exit);
-					model.setExport(exportEntity);
-					
-					performSaveOrUpdate(model);
-				} catch(Exception e) {
-					String errorMessage = "Exception in:"+connectionWithSOAR.getConnectionWithSOARID()+ ":: Exception" +e.getLocalizedMessage();
-					if (model != null) {
-						Error2014 error = new Error2014();
-						error.model_id = model.getId();
-						error.bulk_upload_ui = domain.getUpload().getId();
-						error.project_group_code = domain.getUpload().getProjectGroupCode();
-						error.source_system_id = model.getSourceSystemId();
-						error.type = ErrorType.ERROR;
-						error.error_description = errorMessage;
-						error.date_created = model.getDateCreated();
-						performSave(error);
-					}
-					logger.error(errorMessage);
-				}
-				
+			for(ConnectionWithSOAR e : connectionWithSOARList) {
+				processData(e, domain, data, modelMap, relatedModelMap, exportEntity);
 			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, Connectionwithsoar.class.getSimpleName(), domain, exportEntity);
+	}
+	public void processData(ConnectionWithSOAR connectionWithSOAR,ExportDomain domain,Data data,Map<String,HmisBaseModel> modelMap,Map<String,HmisBaseModel> relatedModelMap,com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
+		Connectionwithsoar model = null;
+		try {
+			model = getModelObject(domain, connectionWithSOAR,data,modelMap);
+			model.setConnectionwithsoar(BasicDataGenerator.getIntegerValue(connectionWithSOAR.getConnectionWithSOAR()));
+			model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateCreated()));
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
+			Exit exit = (Exit) getModel(Connectionwithsoar.class.getSimpleName(),Exit.class, connectionWithSOAR.getExitID(), getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+			model.setExitid(exit);
+			model.setExport(exportEntity);
+			
+			performSaveOrUpdate(model);
+		} catch(Exception e) {
+			String errorMessage = "Exception in:"+connectionWithSOAR.getConnectionWithSOARID()+ ":: Exception" +e.getLocalizedMessage();
+			if (model != null) {
+				Error2014 error = new Error2014();
+				error.model_id = model.getId();
+				error.bulk_upload_ui = domain.getUpload().getId();
+				error.project_group_code = domain.getUpload().getProjectGroupCode();
+				error.source_system_id = model.getSourceSystemId();
+				error.type = ErrorType.ERROR;
+				error.error_description = errorMessage;
+				error.date_created = model.getDateCreated();
+				performSave(error);
+			}
+			logger.error(errorMessage);
+		}
+		
 	}
 	public  com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar getModelObject(ExportDomain domain, ConnectionWithSOAR connectionWithSOAR ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Connectionwithsoar modelFromDB = null;

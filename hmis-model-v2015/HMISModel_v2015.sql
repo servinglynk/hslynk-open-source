@@ -36,6 +36,7 @@ DROP TABLE IF EXISTS "v2015".export;
 DROP TABLE IF EXISTS "v2015".source;
 DROP TABLE IF EXISTS v2015.exitRHY;
 DROP TABLE IF EXISTS v2015.exitPath;
+DROP TABLE IF EXISTS v2015.question;
 -- Table: "v2015"."client"
 
 
@@ -2865,6 +2866,24 @@ WITH (
   OIDS=FALSE
 );
 
+
+CREATE TABLE v2015.question (
+	ID uuid NOT NULL,
+	question_description CHARACTER VARYING (256),
+	display_text CHARACTER VARYING (256),
+	question_data_type CHARACTER VARYING (256),
+	question_type CHARACTER VARYING (256),
+	created_at TIMESTAMP (0),
+	updated_at TIMESTAMP (0),
+	user_id CHARACTER VARYING (256),
+	is_active BOOLEAN,
+	picklist_group_name CHARACTER VARYING (256),
+	deleted BOOLEAN DEFAULT FALSE,
+	hud_question_id CHARACTER VARYING (32),
+	update_url_template CHARACTER VARYING (512),
+	PRIMARY KEY ("id")
+) WITH (OIDS = FALSE);
+
 -- DROP SEQUENCE v2015.error_sequence;
 
 CREATE SEQUENCE v2015.error_sequence
@@ -2873,3 +2892,6 @@ CREATE SEQUENCE v2015.error_sequence
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
+
+alter table v2015.client ADD COLUMN email_address character varying(266);
+alter table v2015.client ADD COLUMN phone_number character varying(16);

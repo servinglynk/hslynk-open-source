@@ -131,7 +131,13 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					clientModel.setExport(exportEntity);
 					//makes a microservice all to the dedup micro service
 					performSaveOrUpdate(clientModel);
-					
+					UUID userId = clientModel.getUserId();
+					if(clientModel.isRecordToBoInserted()) {
+						daoFactory.getClientTrackerDao().createTracker(clientModel.getId(), clientModel.getProjectGroupCode(), clientModel.isDeleted(), "INSERT","BULK_UPLOAD",userId != null ? userId.toString() : null);
+					}
+					if(!clientModel.isRecordToBoInserted()){
+						daoFactory.getClientTrackerDao().createTracker(clientModel.getId(), clientModel.getProjectGroupCode(), clientModel.isDeleted(), "UPDATE","BULK_UPLOAD",userId != null ? userId.toString() : null);
+					}
 					// Inserting client in base schema	
 					if(!clientModel.isIgnored()) {
 						com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
@@ -311,8 +317,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			BeanUtils.copyProperties(client, baseClient, new String[] {"enrollments","veteranInfoes"});
 			logger.info("Calling Dedup Service for "+client.getFirstName());
 			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-			client.setDedupClientId(UUID.fromString(dedupedId));
-			baseClient.setDedupClientId(client.getDedupClientId());
+			if(StringUtils.isNotBlank(dedupedId)) {
+				client.setDedupClientId(UUID.fromString(dedupedId));
+				baseClient.setDedupClientId(client.getDedupClientId());
+			}
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);
@@ -326,6 +334,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		baseClient.setSchemaYear("2016");
 			update(client);
 			update(baseClient);
+			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), client.isDeleted(), "UPDATE",null,null);
 		return client;
 	}
 
@@ -334,7 +343,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public void deleteClient(
 			com.servinglynk.hmis.warehouse.model.v2016.Client client) {
 			delete(client);
-		
+			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), true, "DELETE",null,null);
 	}
 
 

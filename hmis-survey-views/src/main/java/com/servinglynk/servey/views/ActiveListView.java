@@ -137,7 +137,6 @@ public class ActiveListView extends BaseView {
 		 String pattern = "yyyy-MM-dd HH:mm:ss";
 		    SimpleDateFormat format = new SimpleDateFormat(pattern);
 		    String stringDate = format.format(timestamp);
-		    System.out.println("String Date"+stringDate);
 		    return stringDate;
 	}
 

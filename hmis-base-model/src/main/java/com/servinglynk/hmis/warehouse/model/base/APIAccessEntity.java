@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="hmis_api_access")
+@Table(name="hmis_api_access", catalog = "hmis", schema = "base")
 public class APIAccessEntity {
 
     @javax.persistence.Id

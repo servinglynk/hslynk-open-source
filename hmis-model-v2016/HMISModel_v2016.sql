@@ -32,6 +32,7 @@ DROP TABLE IF EXISTS "v2016".export;
 DROP TABLE IF EXISTS "v2016".source;
 DROP TABLE IF EXISTS v2016.exitRHY;
 DROP TABLE IF EXISTS v2016.exitPath;
+DROP TABLE IF EXISTS v2016.question;
 
 
 DROP TYPE IF EXISTS "v2016".name_data_quality;
@@ -102,6 +103,7 @@ DROP TYPE IF EXISTS "v2016".annualpercentami;
 DROP TYPE IF EXISTS "v2016".evictionhistory;
 DROP TYPE IF EXISTS "v2016".crisisServicesUse;	
 DROP TYPE IF EXISTS "v2016".literalHomelessHistory;
+
 
 CREATE TYPE "v2016".literalHomelessHistory AS ENUM('0','1','2','99');
 CREATE TYPE "v2016".timeToHousingLoss as ENUM('0','1','2','3','99');
@@ -2913,6 +2915,23 @@ WITH (
   OIDS=FALSE
 );
 
+CREATE TABLE v2016.question (
+	ID uuid NOT NULL,
+	question_description CHARACTER VARYING (256),
+	display_text CHARACTER VARYING (256),
+	question_data_type CHARACTER VARYING (256),
+	question_type CHARACTER VARYING (256),
+	created_at TIMESTAMP (0),
+	updated_at TIMESTAMP (0),
+	user_id CHARACTER VARYING (256),
+	is_active BOOLEAN,
+	picklist_group_name CHARACTER VARYING (256),
+	deleted BOOLEAN DEFAULT FALSE,
+	hud_question_id CHARACTER VARYING (32),
+	update_url_template CHARACTER VARYING (512),
+	PRIMARY KEY ("id")
+) WITH (OIDS = FALSE);
+
 -- DROP SEQUENCE v2016.error_sequence;
 
 CREATE SEQUENCE v2016.error_sequence
@@ -2921,3 +2940,11 @@ CREATE SEQUENCE v2016.error_sequence
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
+<<<<<<< HEAD
+CREATE INDEX disab_proj_grp
+ON v2016.disabilities (project_group_code);
+=======
+
+  alter table v2016.client ADD COLUMN email_address character varying(266);
+alter table v2016.client ADD COLUMN phone_number character varying(16);
+>>>>>>> develop

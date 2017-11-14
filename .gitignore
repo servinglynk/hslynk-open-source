@@ -7,6 +7,7 @@ bin/*
 *.iml
 *.properties
 *.conf
+*.DS_Store
 target
 bin
 hmis-userservice/*
@@ -15,12 +16,14 @@ hmis-survey-views/src/main/conf/*.conf
 
 hmis-admin/target/*
 hmis-admin/bin/*
+hmis-admin/node_modules/*
 hmis-admin/.settings/*
 hmis-admin/.classpath
 hmis-admin/.project
 hmis-admin/.idea
 hmis-admin/*.iml
 hmis-admin/target
+hmis-admin/node_modules/
 hmis-admin/bin
 
 hmis-authorization-service/target/*

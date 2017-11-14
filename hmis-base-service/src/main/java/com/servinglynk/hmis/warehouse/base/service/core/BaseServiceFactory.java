@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.base.service.core;
 
+import com.servinglynk.hmis.warehouse.base.service.APIAccessService;
 import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
@@ -44,4 +45,5 @@ public interface BaseServiceFactory {
 	HealthService getHealthService();
 	ClientConsentService getClientConsentService();
 	ClientDataElementsService getClientDataElementsService();
+	APIAccessService getApiAccessService();
 }

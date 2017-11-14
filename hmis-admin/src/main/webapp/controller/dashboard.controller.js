@@ -1,4 +1,4 @@
-app.controller('dashboardCtrl', function($rootScope, $scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
+app.controller('dashboardCtrl',['$rootScope', '$scope', '$location', '$routeSegment', '$http', '$timeout', '$sessionStorage', function($rootScope, $scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
     $scope.authToken = ($location.search()).code;
     if($rootScope.roleName=="SUPERADMIN")
 	{
@@ -164,4 +164,4 @@ app.controller('dashboardCtrl', function($rootScope, $scope, $location, $routeSe
 	checkservice();
 	}
 
-});
+}]);
