@@ -10,11 +10,11 @@ import com.servinglynk.hmis.household.domain.Client;
 import com.servinglynk.hmis.household.domain.HouseholdMembership;
 import com.servinglynk.hmis.household.repository.ClientRepository;
 import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
-import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
+import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipModel;
 import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
 
-@Component("householdMembershipMapper")
-public class HouseholdMembershipMapperImpl implements HouseholdMembershipMapper {
+@Component("householdMembershipMapperV3")
+public class HouseholdMembershipMapperImplV3 {
 
 	@Autowired
 	GlobalHouseholdRepository globalHouseholdRepository; 
@@ -23,9 +23,8 @@ public class HouseholdMembershipMapperImpl implements HouseholdMembershipMapper 
 	ClientRepository clientRepository;
 	
 	
-	@Override
-	public HouseholdMembershipDTO householdMembershipToHouseholdMembershipDTO(HouseholdMembership householdMembership) {
-			HouseholdMembershipDTO householdMembershipDTO = new HouseholdMembershipDTO();
+	public HouseholdMembershipModel householdMembershipToHouseholdMembershipDTO(HouseholdMembership householdMembership) {
+		HouseholdMembershipModel householdMembershipDTO = new HouseholdMembershipModel();
 			householdMembershipDTO.setDateCreated(householdMembership.getDateCreated());
 			householdMembershipDTO.setDateUpdated(householdMembership.getDateUpdated());
 			householdMembershipDTO.setGlobalClientId(householdMembership.getGlobalClientId());
@@ -46,19 +45,18 @@ public class HouseholdMembershipMapperImpl implements HouseholdMembershipMapper 
 		return householdMembershipDTO;
 	}
 
-	@Override
-	public List<HouseholdMembershipDTO> householdMembershipsToHouseholdMembershipDTOs(
+
+	public List<HouseholdMembershipModel> householdMembershipsToHouseholdMembershipDTOs(
 			List<HouseholdMembership> householdMemberships) {
-			List<HouseholdMembershipDTO> householdMembershipDTOs = new ArrayList<HouseholdMembershipDTO>();
+			List<HouseholdMembershipModel> householdMembershipDTOs = new ArrayList<HouseholdMembershipModel>();
 			for(HouseholdMembership  householdMembership : householdMemberships){
 				householdMembershipDTOs.add(this.householdMembershipToHouseholdMembershipDTO(householdMembership));
 			}
 		return householdMembershipDTOs;
 	}
 
-	@Override
 	public HouseholdMembership householdMembershipDTOToHouseholdMembership(
-			HouseholdMembershipDTO householdMembershipDTO) {
+			HouseholdMembershipModel householdMembershipDTO) {
 		HouseholdMembership householdMembership = new HouseholdMembership();
 		householdMembership.setDateCreated(householdMembershipDTO.getDateCreated());
 		householdMembership.setDateUpdated(householdMembershipDTO.getDateUpdated());
@@ -71,11 +69,10 @@ public class HouseholdMembershipMapperImpl implements HouseholdMembershipMapper 
 		return householdMembership;
 	}
 
-	@Override
 	public List<HouseholdMembership> householdMembershipDTOsToHouseholdMemberships(
-			List<HouseholdMembershipDTO> householdMembershipDTOs) {
+			List<HouseholdMembershipModel> householdMembershipDTOs) {
 			List<HouseholdMembership> householdMemberships = new ArrayList<HouseholdMembership>();
-			for(HouseholdMembershipDTO householdMembershipDTO : householdMembershipDTOs){
+			for(HouseholdMembershipModel householdMembershipDTO : householdMembershipDTOs){
 				householdMemberships.add(this.householdMembershipDTOToHouseholdMembership(householdMembershipDTO));
 			}
 		return householdMemberships;

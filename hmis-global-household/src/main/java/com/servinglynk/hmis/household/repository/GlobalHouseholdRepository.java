@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -17,8 +18,13 @@ public interface GlobalHouseholdRepository extends JpaRepository<GlobalHousehold
 
 	GlobalHousehold findByGlobalHouseholdIdAndProjectGroupCode(UUID id, String projectGroup);
 
-	Page<GlobalHousehold> findByProjectGroupCodeAndDeleted(String projectGroup, Pageable pageable, boolean deleted);
+	Page<GlobalHousehold> findByProjectGroupCodeAndDeletedOrderBySchemaYearDesc(String projectGroup, Pageable pageable, boolean deleted);
 
 	GlobalHousehold findByGlobalHouseholdIdAndProjectGroupCodeAndDeleted(UUID id, String projectGroup, boolean deleted);
+
+	List<GlobalHousehold> findByDedupClientIdAndProjectGroupCodeAndDeleted(UUID id, String projectGroup, boolean deleted);
+
+	GlobalHousehold findFirstByDedupClientIdAndProjectGroupCodeAndDeletedOrderBySchemaYearDesc(UUID id, String projectGroup,
+			boolean deleted);
 
 }
