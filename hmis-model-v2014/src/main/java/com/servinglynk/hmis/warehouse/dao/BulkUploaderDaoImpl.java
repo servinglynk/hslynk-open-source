@@ -572,7 +572,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 		Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
 		Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
-		parentDaoFactory.getDisabilitiesDao().hydrate(domain,exportModelMap,enrollmentModelMap); // Done
+		parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 		logger.info(" Disabilities Process::: Bulk Upload Processing client Table Ends.....");
 		logger.info("Disabilities Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		upload.setStatus(UploadStatus.STAGING.getStatus());

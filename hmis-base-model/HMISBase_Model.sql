@@ -1358,3 +1358,7 @@ INSERT INTO base.hmis_user(
 alter table base.client ADD COLUMN email_address character varying(266);
 alter table base.client ADD COLUMN phone_number character varying(16);
   
+
+
+Alter table base.hmis_role add column role_level INTEGER;
+CREATE TABLE base.hmis_api_access (id UUID NOT NULL, project_group_code CHARACTER VARYING(255), access_count BIGINT, access_date DATE, service_name CHARACTER VARYING(255), service_id UUID);

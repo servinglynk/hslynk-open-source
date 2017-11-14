@@ -28,7 +28,7 @@ import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 
 @Component
-public class EnrollmentWorkerChildren implements IBulkUploadWorker  {
+public class EnrollmentWorkerChildren implements IEnrollmentWorkerChildren  {
 	
 	final static Logger logger = Logger.getLogger(EnrollmentWorkerChildren.class);
 
@@ -42,7 +42,7 @@ public class EnrollmentWorkerChildren implements IBulkUploadWorker  {
 	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() {
 		try {
-			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.C_EMENT.getStatus(),new Long(2014));
+			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.C_EMENT.getStatus(),new Long(2017));
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
 					FileAppender appender = new FileAppender();
@@ -62,7 +62,7 @@ public class EnrollmentWorkerChildren implements IBulkUploadWorker  {
 					logger.removeAppender(appender);
 				}
 			}
-			logger.info("========Enrollment Bulk Uploader processed ======");
+			logger.info("========Enrollment Children Bulk Uploader processed ======");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -81,7 +81,7 @@ import com.servinglynk.hmis.warehouse.dao.ServiceFaReferralDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.SourceDao;
 import com.servinglynk.hmis.warehouse.dao.SourceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.VASHExitReasonDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
 
 @Configuration
 @EnableTransactionManagement
@@ -276,8 +276,8 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	}
 	
 	@Bean
-	public BulkUploadHelper bulkUploadHelper() {
-		return new BulkUploadHelper();
+	public BulkUploadHelper2017 bulkUploadHelper() {
+		return new BulkUploadHelper2017();
 	}
 	
 	@Bean
