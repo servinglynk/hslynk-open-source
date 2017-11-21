@@ -19,5 +19,5 @@ export CLASSPATH_PREFIX=$parentdir"/conf"
 
 echo "Start sync"
 
-export JAVA_OPTS="-XX:MaxPermSize=1024m -Dlog4j.debug=true -Dlog4j.configuration=log4j-staging-2014.properties"
-$dir/main-sync-staging-2014.sh  &>/dev/null &
+export JAVA_OPTS="-XX:MaxPermSize=3g -Dlog4j.debug=true -Dlog4j.configuration=log4j-staging.properties"
+$dir/main-sync-staging.sh  &>/dev/null &

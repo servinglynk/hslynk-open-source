@@ -45,6 +45,13 @@ public class SyncSchema extends Logging {
         this.syncHBaseImport = new SyncHBaseProcessor();
 
         switch (version) {
+        	case V2017:
+	            syncPeriod = Properties.SYNC_2017_PERIOD;
+	            syncSchema = Properties.SYNC_2017_SCHEMA;
+	            includeTables = Properties.SYNC_2017_INCLUDE_TABLES;
+	            excludeTables = Properties.SYNC_2017_EXCLUDE_TABLES;
+	            year = 2017;
+	            break;
             case V2016:
                 syncPeriod = Properties.SYNC_2016_PERIOD;
                 syncSchema = Properties.SYNC_2016_SCHEMA;
@@ -134,7 +141,6 @@ public class SyncSchema extends Logging {
                     // TODO Auto-generated catch block
                     logger.error(e);
                 }
-                threadSleep(1000);
             } catch (Exception ex) {
                 logger.error(ex);
             } finally {
