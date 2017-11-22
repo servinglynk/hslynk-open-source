@@ -12,6 +12,7 @@ public class SyncLive {
     	for(VERSION version : VERSION.values()) {
 			logger.info("Processing live sync for  version ...."+version.name());
 			new SyncSchema(version, logger, Status.LIVE, false).sync();
+			
 		}
     }
 }

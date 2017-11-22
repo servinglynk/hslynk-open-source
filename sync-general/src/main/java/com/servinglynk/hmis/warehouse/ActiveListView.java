@@ -98,6 +98,7 @@ public class ActiveListView  extends Logging {
 		                	 addColumn("last_name",client.getLastName(), key, p);
 		                	 addColumn("email",client.getEmail(),key,p);
 		                	 addColumn("phone",client.getPhone(),key,p);
+		                	 addColumn("dedup_client_id",client.getDedupClientId() !=null ? client.getDedupClientId().toString() : null,key,p);
 		                	 if(client.getDob() !=null) {
 		                		 Date dob = client.getDob();
 		                		 LocalDate birthday = dob.toLocalDate();
@@ -252,15 +253,16 @@ public class ActiveListView  extends Logging {
 			String email = null;
 			String phoneNumber = null;
 			Date dob = null;
+			UUID dedupClientId =  null;
 			while(resultSet.next()) {
 				firstName = resultSet.getString("first_name");
 				lastName = resultSet.getString("last_name");
 				email = resultSet.getString("email_address");
 				phoneNumber = resultSet.getString("phone_number");
 				dob = (Date) resultSet.getDate("dob");
-						
+				dedupClientId = (UUID) resultSet.getObject("dedup_client_id");
 			}
-			Client client = new Client(UUID.fromString(clientId), firstName, lastName,phoneNumber,email,dob);
+			Client client = new Client(UUID.fromString(clientId), firstName, lastName,phoneNumber,email,dob,dedupClientId);
 			return client;
 		}catch (Exception ex){
 			throw ex;

@@ -10,8 +10,9 @@ public class Client {
 	private String phone;
 	private String email;
 	private Date dob;
+	private UUID dedupClientId;
 
-	public Client(UUID id, String firstName, String lastName, String phone, String email, Date dob) {
+	public Client(UUID id, String firstName, String lastName, String phone, String email, Date dob,UUID dedupClientId) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -19,6 +20,7 @@ public class Client {
 		this.email = email;
 		this.phone = phone;
 		this.dob = dob;
+		this.dedupClientId = dedupClientId;
 	}
 
 	/**
@@ -89,4 +91,13 @@ public class Client {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
+
+	public UUID getDedupClientId() {
+		return dedupClientId;
+	}
+
+	public void setDedupClientId(UUID dedupClientId) {
+		this.dedupClientId = dedupClientId;
+	}
+	
 }

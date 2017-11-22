@@ -1,11 +1,15 @@
 package com.servinglynk.hmis.warehouse;
 
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
 
 public class SyncPostgresProcessor extends Logging{
 
@@ -43,6 +47,19 @@ public class SyncPostgresProcessor extends Logging{
         return tables;
     }
 
+    
+    public static void hydrateSyncTable(String schemaName) throws Exception{
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("");
+            statement.executeUpdate();
+        }catch (Exception ex){
+            throw ex;
+        }
+    }
+    
     private static Timestamp getCUrrentTimestamp() {
         Calendar calendar = Calendar.getInstance();
         java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
