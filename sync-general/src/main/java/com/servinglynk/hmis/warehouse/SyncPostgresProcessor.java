@@ -10,9 +10,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
+
+import com.jcraft.jsch.Logger;
 
 public class SyncPostgresProcessor extends Logging{
-
     public static int batchSize = 1000;
     private static Connection connection = null;
     static Connection getConnection() throws SQLException {
@@ -48,15 +50,21 @@ public class SyncPostgresProcessor extends Logging{
     }
 
     
-    public static void hydrateSyncTable(String schemaName) throws Exception{
+    public static void hydrateSyncTable(String schemaName,String tableName,String status,String message){
         PreparedStatement statement = null;
         Connection connection = null;
         try{
             connection = getConnection();
-            statement = connection.prepareStatement("");
+            statement = connection.prepareStatement("insert into "+schemaName+".sync values (?,?,?,?,?,?)");
+            statement.setObject(1, UUID.randomUUID());
+            statement.setString(2, tableName);
+            statement.setString(3,status);
+            statement.setString(4,message);
+            statement.setTimestamp(5, getCUrrentTimestamp());
+            statement.setTimestamp(6, getCUrrentTimestamp());
             statement.executeUpdate();
         }catch (Exception ex){
-            throw ex;
+            ex.printStackTrace();
         }
     }
     

@@ -204,6 +204,7 @@ public class SyncSchema extends Logging {
         ResultSet resultSet;
         PreparedStatement statement;
         Connection connection;
+        String message="";
         try {
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
             connection = SyncPostgresProcessor.getConnection();
@@ -289,8 +290,11 @@ public class SyncSchema extends Logging {
                 htable.flushCommits();
             }
 
+            message = " Records inserted : "+putsToInsert.size() +" updated :"+putsToUpdate.size() + " deleted :"+putsToDelete.size();
+            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message);
         } catch (Exception ex) {
             logger.error(ex);
+            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "ERROR", ex.getMessage());
         }
 
         log.info("Sync done for table: " + postgresTable);

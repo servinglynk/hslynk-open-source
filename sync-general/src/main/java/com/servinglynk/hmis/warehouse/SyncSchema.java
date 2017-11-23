@@ -69,7 +69,6 @@ public class SyncSchema extends Logging {
                         logger.info("[" + tempName + "] Processing table : " + tempName);
                         try {
                             syncTable(tempName, tempName + "_" + schema, schema);
-                            
                         } catch (Exception ex) {
                            logger.error(ex);
                         }
@@ -91,6 +90,7 @@ public class SyncSchema extends Logging {
         ResultSet resultSet;
         PreparedStatement statement;
         Connection connection;
+        String message = "";
         try {
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
             connection = SyncPostgresProcessor.getConnection();
@@ -130,7 +130,7 @@ public class SyncSchema extends Logging {
                     }
                 } else {
                     Put p = new Put(Bytes.toBytes(key));
-                    for (int i = 1; i < metaData.getColumnCount(); i++) {
+                    for (int i = 1; i <= metaData.getColumnCount(); i++) {
                         String column = metaData.getColumnName(i);
                         String value = resultSet.getString(i);
                         if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
@@ -175,11 +175,12 @@ public class SyncSchema extends Logging {
             if (putsToUpdate.size() > 0) {
                 htable.put(putsToUpdate);
             }
-
+            message = " Records inserted : "+putsToInsert.size() +" updated :"+putsToUpdate.size() + " deleted :"+putsToDelete.size();
+            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message);
         } catch (Exception ex) {
             logger.error(ex);
+            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "ERROR", ex.getMessage());
         }
-
         log.info("Sync done for table: " + postgresTable);
     }
 
@@ -194,26 +195,5 @@ public class SyncSchema extends Logging {
             logger.warn("No tables found: ", ex);
         }
         return tables;
-    }
-    private void hydrateSyncTable(String schema) throws Exception {
-        log.info("Hydrating sync table for schema:"+schema);
-        List<String> tables = new ArrayList<>();
-        try{
-            tables = SyncPostgresProcessor.getAllTablesFromPostgres(schema);
-            log.info("Found " + tables.size() + " tables to sync");
-            tables.forEach(table -> log.info("Table to sync: " + table));
-        }catch (Exception ex){
-            logger.warn("No tables found: ", ex);
-        }
-    }
-    
-
-    public static void threadSleep(long period) {
-        try {
-            Thread.sleep(period);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 }
