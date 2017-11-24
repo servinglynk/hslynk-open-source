@@ -17,6 +17,7 @@ import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.UUID;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
@@ -197,6 +198,44 @@ public class SyncSchema extends Logging {
 		}
 		return null;
 	}
+	
+	 /***
+		 * Loads the Hmistype into a hashMap so that I canbe retrieved from there instead of querying the tables.
+		 *
+		 * @return Map<String,String>
+		 */
+		public static Map<String, String> loadDedupClientMap(String schema,String projectGroupCode) {
+			ResultSet resultSet = null;
+			PreparedStatement statement = null;
+			Connection connection = null;
+			Map<String, String> clientDedupClientMap = new HashMap<String, String>();
+			try {
+				connection = SyncPostgresProcessor.getConnection();
+				statement = connection.prepareStatement("SELECT id,dedup_client_id FROM " + schema + ".client where project_group_code=?");
+				statement.setString(1, projectGroupCode);
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					UUID id = (UUID) resultSet.getObject(1);
+					UUID dedupClientId = (UUID) resultSet.getObject(2);
+					clientDedupClientMap.put(id.toString(), dedupClientId !=null ?dedupClientId.toString() : null );
+				}
+				return clientDedupClientMap;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (statement != null) {
+					try {
+						statement.close();
+						//connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			return null;
+		}
 
     private void syncTable(String postgresTable, String hbaseTable,  Map<String, String> hmisTypes,BulkUpload upload) {
         log.info("Start sync for table: " + postgresTable);
@@ -204,24 +243,28 @@ public class SyncSchema extends Logging {
         ResultSet resultSet;
         PreparedStatement statement;
         Connection connection;
-        String message="";
+        String message = "";
+        Map<String,String> clientDedupMap = new HashMap<>();
         try {
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
             connection = SyncPostgresProcessor.getConnection();
             statement = connection.prepareStatement("SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? ");
             statement.setString(1,upload.getProjectGroupCode());
             resultSet = statement.executeQuery();
-
+            
             List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable);
             List<String> existingKeysInPostgres = new ArrayList<>();
 
             List<Put> putsToUpdate = new ArrayList<>();
             List<Put> putsToInsert = new ArrayList<>();
             List<String> putsToDelete = new ArrayList<>();
+            if(StringUtils.equals("enrollment", postgresTable)) {
+            	clientDedupMap = loadDedupClientMap(syncSchema, upload.getProjectGroupCode());
+            }
             while (resultSet.next()) {
                 Boolean markedForDelete = resultSet.getBoolean("deleted");
                 String key = resultSet.getString("id");
-
+                
                 if (markedForDelete) {
                     if (existingKeysInHbase.contains(key)) {
                         putsToDelete.add(key);
@@ -244,6 +287,11 @@ public class SyncSchema extends Logging {
                             p.addColumn(Bytes.toBytes("CF"),
                                     Bytes.toBytes(column),
                                     Bytes.toBytes(value));
+                            if(StringUtils.equals("enrollment", postgresTable) && StringUtils.equals("client_id", column)) {
+                          	  p.addColumn(Bytes.toBytes("CF"),
+                                        Bytes.toBytes("dedup_client_id"),
+                                        Bytes.toBytes(String.valueOf(clientDedupMap.get(key))));
+                            }
                             // Add a new column for description for enums
                             if(columnTypeName.contains(syncSchema)) {
                             	String description = getDescriptionForHmisType(hmisTypes, column.toLowerCase().trim()+"_"+value.trim());
