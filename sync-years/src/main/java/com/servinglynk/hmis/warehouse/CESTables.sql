@@ -141,6 +141,7 @@ create table housing_unit_eligibility as select * from default.housing_unit_elig
 
 CREATE EXTERNAL TABLE IF NOT EXISTS active_list
 (client_id	string,
+dedup_client_id STRING,
 first_name string,
 last_name string,
 survey_id string,
@@ -152,8 +153,7 @@ email string,
 age BIGINT,
 ignore_match_process boolean)
 STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
-("hbase.columns.mapping" = ":key,CF:first_name,CF:last_name,CF:survey_id,CF:survey_title,CF:survey_date,CF:survey_score,CF:phone,CF:email,CF:age,CF:ignore_match_process") TBLPROPERTIES ("hbase.table.name" = "active_list_MO0010");
-
+("hbase.columns.mapping" = ":key,CF:dedup_client_id,CF:first_name,CF:last_name,CF:survey_id,CF:survey_title,CF:survey_date,CF:survey_score,CF:phone,CF:email,CF:age,CF:ignore_match_process") TBLPROPERTIES ("hbase.table.name" = "active_list_MO0010");
 
 
 
