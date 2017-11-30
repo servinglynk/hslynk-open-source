@@ -279,10 +279,14 @@ public class ActiveListView  extends Logging {
          appender.setLayout(new PatternLayout());
          appender.activateOptions();
          logger.addAppender(appender);
-         String projectGroupCode ="MO0010";
-         String tableName ="active_list_"+projectGroupCode;
-         createHbaseTable(tableName);
-         syncTable(tableName, projectGroupCode, "eligible_clients");
+         List<String> projectGroups = new ArrayList<>();
+         projectGroups.add("MO0010");
+         projectGroups.add("HO0002");
+         for (String projectGroupCode :projectGroups) {
+        	 String tableName ="active_list_"+projectGroupCode;
+             createHbaseTable(tableName);
+             syncTable(tableName, projectGroupCode, "eligible_clients");
+         }
 	}
 	
 	
