@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.NotImplementedException;
@@ -198,98 +200,197 @@ public class SyncSchema extends Logging {
         ResultSet resultSet;
         PreparedStatement statement;
         Connection connection;
+        String message ="";
+        Map<String, String> clientDedupMap = new HashMap<>();
         try {
+        	connection = SyncPostgresProcessor.getConnection();
+        	if(StringUtils.equals("enrollment", postgresTable)) {
+            	clientDedupMap = loadDedupClientMap(syncSchema, upload.getProjectGroupCode());
+            }
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
-            connection = SyncPostgresProcessor.getConnection();
-            statement = connection.prepareStatement("SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? ");
-            statement.setString(1,upload.getProjectGroupCode());
-            resultSet = statement.executeQuery();
+            boolean empty = true;
+            int count = 0;
+           // int recordCount = getRecordCount(upload.getProjectGroupCode(), message, postgresTable);
+            while(true) {
+            	int limit = 20000;
+                statement = connection.prepareStatement("SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ?  limit ?  offset ?");
+                statement.setString(1,upload.getProjectGroupCode());
+                statement.setInt(2, 20000);
+                int offset = limit*count++;
+                statement.setInt(3,offset);
+                resultSet = statement.executeQuery();
+                System.out.println("Testing count"+count);
+                System.out.println("Offset count"+offset);
+                empty = true;
+             
+                List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable);
+                List<String> existingKeysInPostgres = new ArrayList<>();
 
-            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable);
-            List<String> existingKeysInPostgres = new ArrayList<>();
-
-            List<Put> putsToUpdate = new ArrayList<>();
-            List<Put> putsToInsert = new ArrayList<>();
-            List<String> putsToDelete = new ArrayList<>();
-            while (resultSet.next()) {
-                Boolean markedForDelete = resultSet.getBoolean("deleted");
-                String key = resultSet.getString("id");
-
-                if (markedForDelete) {
-                    if (existingKeysInHbase.contains(key)) {
-                        putsToDelete.add(key);
-                        if (putsToDelete.size() > syncHBaseImport.batchSize) {
-                            syncHBaseImport.deleteDataInBatch(htable, putsToDelete);
-                            putsToDelete.clear();
+                List<Put> putsToUpdate = new ArrayList<>();
+                List<Put> putsToInsert = new ArrayList<>();
+                List<String> putsToDelete = new ArrayList<>();
+                while (resultSet.next()) {
+                    Boolean markedForDelete = resultSet.getBoolean("deleted");
+                    String key = resultSet.getString("id");
+                    empty = false;
+                    if (markedForDelete) {
+                        if (existingKeysInHbase.contains(key)) {
+                            putsToDelete.add(key);
+                            if (putsToDelete.size() > syncHBaseImport.batchSize) {
+                                syncHBaseImport.deleteDataInBatch(htable, putsToDelete);
+                                putsToDelete.clear();
+                            }
+                        } else {
+                            log.debug("Skip row with key: " + key);
+                            continue;
                         }
                     } else {
-                        log.debug("Skip row with key: " + key);
-                        continue;
-                    }
-                } else {
-                    ResultSetMetaData metaData = resultSet.getMetaData();
-                    Put p = new Put(Bytes.toBytes(key));
-                    for (int i = 1; i < metaData.getColumnCount(); i++) {
-                        String column = metaData.getColumnName(i);
-                        String value = resultSet.getString(i);
-                        String columnTypeName = metaData.getColumnTypeName(i);
-                        if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
-                            p.addColumn(Bytes.toBytes("CF"),
-                                    Bytes.toBytes(column),
-                                    Bytes.toBytes(value));
-                            // Add a new column for description for enums
-                            if(columnTypeName.contains(syncSchema)) {
-                            	String description = getDescriptionForHmisType(hmisTypes, column.toLowerCase().trim()+"_"+value.trim());
-                            	if(StringUtils.isNotBlank(description)) {
-                            		 p.addColumn(Bytes.toBytes("CF"),
-                                             Bytes.toBytes(column+"_desc"),
-                                             Bytes.toBytes(description));
-                            	}
+                        ResultSetMetaData metaData = resultSet.getMetaData();
+                        Put p = new Put(Bytes.toBytes(key));
+                        for (int i = 1; i < metaData.getColumnCount(); i++) {
+                            String column = metaData.getColumnName(i);
+                            String value = resultSet.getString(i);
+                            String columnTypeName = metaData.getColumnTypeName(i);
+                            if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
+                                p.addColumn(Bytes.toBytes("CF"),
+                                        Bytes.toBytes(column),
+                                        Bytes.toBytes(value));
+                                
+                                if(StringUtils.equals("client_id", column)) {
+                                	if(clientDedupMap.get(value) !=null) {
+                                		p.addColumn(Bytes.toBytes("CF"),
+                                                Bytes.toBytes("dedup_client_id"),
+                                                Bytes.toBytes(clientDedupMap.get(value)));
+                                	}
+                                }
+                                // Add a new column for description for enums
+                                if(columnTypeName.contains(syncSchema)) {
+                                	String description = getDescriptionForHmisType(hmisTypes, column.toLowerCase().trim()+"_"+value.trim());
+                                	if(StringUtils.isNotBlank(description)) {
+                                		 p.addColumn(Bytes.toBytes("CF"),
+                                                 Bytes.toBytes(column+"_desc"),
+                                                 Bytes.toBytes(description));
+                                	}
+                                }
+                            }
+                        }
+                        p.addColumn(Bytes.toBytes("CF"),
+                                Bytes.toBytes("year"),
+                                Bytes.toBytes(String.valueOf(upload.getYear())));
+                        if (existingKeysInHbase.contains(key)) {
+                            putsToUpdate.add(p);
+                            if (putsToUpdate.size() > syncHBaseImport.batchSize) {
+                                htable.put(putsToUpdate);
+                                putsToUpdate.clear();
+                            }
+                        } else {
+                            putsToInsert.add(p);
+                            if (putsToInsert.size() > syncHBaseImport.batchSize) {
+                                htable.put(putsToInsert);
+                                putsToInsert.clear();
                             }
                         }
                     }
-                    p.addColumn(Bytes.toBytes("CF"),
-                            Bytes.toBytes("year"),
-                            Bytes.toBytes(String.valueOf(upload.getYear())));
-                    if (existingKeysInHbase.contains(key)) {
-                        putsToUpdate.add(p);
-                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
-                            htable.put(putsToUpdate);
-                            putsToUpdate.clear();
-                        }
-                    } else {
-                        putsToInsert.add(p);
-                        if (putsToInsert.size() > syncHBaseImport.batchSize) {
-                            htable.put(putsToInsert);
-                            putsToInsert.clear();
-                        }
-                    }
+                    existingKeysInPostgres.add(key);
                 }
-                existingKeysInPostgres.add(key);
-            }
 
-            logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
-            if (putsToDelete.size() > 0) {
-                syncHBaseImport.deleteDataInBatch(htable, putsToDelete);
+                logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
+                if (putsToDelete.size() > 0) {
+                    syncHBaseImport.deleteDataInBatch(htable, putsToDelete);
+                }
+                logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
+                if (putsToInsert.size() > 0) {
+                    htable.put(putsToInsert);
+                    htable.flushCommits();
+                }
+                logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
+                if (putsToUpdate.size() > 0) {
+                    htable.put(putsToUpdate);
+                    htable.flushCommits();
+                }
+                if(empty) {
+                	break;
+                }
             }
-            logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
-            if (putsToInsert.size() > 0) {
-                htable.put(putsToInsert);
-                htable.flushCommits();
-            }
-            logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
-            if (putsToUpdate.size() > 0) {
-                htable.put(putsToUpdate);
-                htable.flushCommits();
-            }
-
+           
+          //  message = " Records inserted : "+putsToInsert.size() +" updated :"+putsToUpdate.size() + " deleted :"+putsToDelete.size();
+            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message);
         } catch (Exception ex) {
             logger.error(ex);
+            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "ERROR", ex.getMessage());
         }
 
         log.info("Sync done for table: " + postgresTable);
     }
     
+    
+    public static int getRecordCount(String projectGroupCode,String syncSchema,String postgresTable) {
+    	ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		int count =0;
+		try {
+    	 connection = SyncPostgresProcessor.getConnection();
+         statement = connection.prepareStatement("SELECT count(*) as cnt FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? ");
+         statement.setString(1,projectGroupCode);
+         while (resultSet.next()) {
+        	 count = resultSet.getInt("cnt") ;
+        	 break;
+         }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return count;
+    }
+	 /***
+		 * Loads the Hmistype into a hashMap so that I canbe retrieved from there instead of querying the tables.
+		 *
+		 * @return Map<String,String>
+		 */
+		public static Map<String, String> loadDedupClientMap(String schema,String projectGroupCode) {
+			ResultSet resultSet = null;
+			PreparedStatement statement = null;
+			Connection connection = null;
+			Map<String, String> clientDedupClientMap = new HashMap<String, String>();
+			try {
+				connection = SyncPostgresProcessor.getConnection();
+				statement = connection.prepareStatement("SELECT id,dedup_client_id FROM " + schema + ".client where project_group_code=?");
+				statement.setString(1, projectGroupCode);
+				resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					UUID id = (UUID) resultSet.getObject(1);
+					UUID dedupClientId = (UUID) resultSet.getObject(2);
+					clientDedupClientMap.put(id.toString(), dedupClientId !=null ?dedupClientId.toString() : null );
+				}
+				return clientDedupClientMap;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (statement != null) {
+					try {
+						statement.close();
+						//connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			return null;
+		}
+		
     private String getDescriptionForHmisType(final Map<String, String> hmisTypes, String key) {
     	return hmisTypes.get(key);
     }
@@ -368,5 +469,54 @@ public class SyncSchema extends Logging {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+    
+    public static void main(String args[]) throws IOException {
+    	
+    	 Properties props = new Properties();
+         props.generatePropValues();
+         props.printProps();
+    	ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		try {
+			connection = SyncPostgresProcessor.getConnection();
+        boolean empty = true;
+        int count = 0;
+       // int recordCount = getRecordCount(upload.getProjectGroupCode(), message, postgresTable);
+        while(true) {
+        	int limit = 20000;
+            statement = connection.prepareStatement("SELECT * FROM v2014.disabilities where project_group_code = ? limit ?  offset ?");
+            statement.setString(1,"IL0009");
+            statement.setInt(2, 20000);
+            int offset = limit*count++;
+            statement.setInt(3,offset);
+            resultSet = statement.executeQuery();
+            System.out.println("Testing count"+count);
+            System.out.println("Offset count"+offset);
+            empty = true;
+            while (resultSet.next()) { 
+            	empty = false;
+             }
+           
+            if(empty) {
+            	break;
+            }
+         }
+       
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
     }
 }

@@ -207,6 +207,25 @@ public class SyncPostgresProcessor extends Logging{
             }
         }
     }
+    
+    public static void hydrateSyncTable(String schemaName,String tableName,String status,String message){
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("insert into "+schemaName+".sync values (?,?,?,?,?,?)");
+            statement.setObject(1, UUID.randomUUID());
+            statement.setString(2, tableName);
+            statement.setString(3,status);
+            statement.setString(4,message);
+            statement.setTimestamp(5, getCUrrentTimestamp());
+            statement.setTimestamp(6, getCUrrentTimestamp());
+            statement.executeUpdate();
+        }catch (Exception ex){
+        	// TODO Auto-generated catch block
+            logger.error(ex);
+        }
+    }
 
     public static void markRowsForDeletion(String fullTableName, String exportId, Logger logger) {
         PreparedStatement statement = null;
