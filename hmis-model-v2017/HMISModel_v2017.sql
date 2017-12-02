@@ -2986,3 +2986,19 @@ CREATE SEQUENCE v2017.error_sequence
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
+
+  
+  CREATE TABLE "v2017".sync
+(
+  id serial,
+  sync_table character(100),
+  status character(10),
+  description text,
+  project_group_code character(8),
+  date_created timestamp,
+  date_updated timestamp,
+  CONSTRAINT sync_pk PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);

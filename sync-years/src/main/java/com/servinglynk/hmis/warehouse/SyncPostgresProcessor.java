@@ -1,13 +1,18 @@
 package com.servinglynk.hmis.warehouse;
 
 
-import org.apache.log4j.Logger;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
+
+import org.apache.log4j.Logger;
 
 public class SyncPostgresProcessor extends Logging{
 
@@ -51,6 +56,36 @@ public class SyncPostgresProcessor extends Logging{
         return tables;
     }
 
+    public static List<String> getAllProjectGroupCodes(Logger logger) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        Connection connection = null;
+        List<String> projectGroupCodes = new ArrayList<String>();
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement("SELECT distinct(project_group_code) FROM base.hmis_project_group where project_group_code not in ('TE0008','MO0006','TE0011','JP0005','FI0009','BA0007','PG0001','TE0003','CP0004')");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+            	projectGroupCodes.add(resultSet.getString(1));
+            }
+
+            return projectGroupCodes;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            logger.error(e);
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                    //connection.close();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    logger.error(e);
+                }
+            }
+        }
+        return null;
+    }
     public static List<BulkUpload> getExportIDFromBulkUpload(int schemaYear, Logger logger) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -208,22 +243,31 @@ public class SyncPostgresProcessor extends Logging{
         }
     }
     
-    public static void hydrateSyncTable(String schemaName,String tableName,String status,String message){
+    public static void hydrateSyncTable(String schemaName,String tableName,String status,String message,String projectGroupCode){
         PreparedStatement statement = null;
         Connection connection = null;
         try{
             connection = getConnection();
-            statement = connection.prepareStatement("insert into "+schemaName+".sync values (?,?,?,?,?,?)");
-            statement.setObject(1, UUID.randomUUID());
-            statement.setString(2, tableName);
-            statement.setString(3,status);
-            statement.setString(4,message);
+            statement = connection.prepareStatement("insert into "+schemaName+".sync (sync_table,status,description,project_group_code,date_created,date_updated)  values (?,?,?,?,?,?)");
+            statement.setString(1, tableName);
+            statement.setString(2,status);
+            statement.setString(3,message);
+            statement.setString(4,projectGroupCode);
             statement.setTimestamp(5, getCUrrentTimestamp());
             statement.setTimestamp(6, getCUrrentTimestamp());
             statement.executeUpdate();
-        }catch (Exception ex){
-        	// TODO Auto-generated catch block
-            logger.error(ex);
+        }catch (SQLException ex) {
+            logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+
+        } finally {
+
+            try {
+                if (statement != null) {
+                	statement.close();
+                }
+            } catch (SQLException ex) {
+            	logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+            }
         }
     }
 
