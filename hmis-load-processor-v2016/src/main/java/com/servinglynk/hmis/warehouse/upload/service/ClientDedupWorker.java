@@ -14,13 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
-import com.servinglynk.hmis.warehouse.model.v2014.Client;
+import com.servinglynk.hmis.warehouse.model.v2016.Client;
 
 
 @Component
 public class ClientDedupWorker implements IClientDedupWorker  {
 	
-	final static Logger logger = Logger.getLogger(ClientWorkerChildren.class);
+	final static Logger logger = Logger.getLogger(ClientDedupWorker.class);
 
 	@Autowired
 	Environment env;
@@ -40,8 +40,8 @@ public class ClientDedupWorker implements IClientDedupWorker  {
 				String dedupSessionKey = dedupHelper.getAuthenticationHeader();;
 				for(Client client : clients) {
 					FileAppender appender = new FileAppender();
-					appender.setName("client-dedup-2014");
-					appender.setFile("logs/client-dedup-2014.log");
+					appender.setName("client-dedup-2015");
+					appender.setFile("logs/client-dedup-2015.log");
 					appender.setImmediateFlush(true);
 					appender.setAppend(true);
 					appender.setLayout(new PatternLayout());

@@ -388,4 +388,28 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		return countRows(criteria);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2016.Client> getAllNullDedupIdClients() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Client.class);
+		criteria.add(Restrictions.isNull("dedupClientId"));
+		List<com.servinglynk.hmis.warehouse.model.v2016.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2016.Client>) findByCriteria(criteria);
+		return clients;
+	}
+	
+	@Override
+	public void updateDedupClient(
+			com.servinglynk.hmis.warehouse.model.v2016.Client client,String dedupSessionKey) {
+		    logger.info("Calling Dedup Service for "+client.getFirstName());
+		    com.servinglynk.hmis.warehouse.model.base.Client basClient = daoFactory.getBaseClientDao().getClient(client.getId());
+		    if(basClient !=null) {
+		    	 String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
+				 client.setDateUpdated(LocalDateTime.now());
+				 client.setDedupClientId(UUID.fromString(dedupedId));
+				 getCurrentSession().update(client);
+				 basClient.setDedupClientId(UUID.fromString(dedupedId));
+				 getCurrentSession().update(basClient);
+		    }
+	}
 }
