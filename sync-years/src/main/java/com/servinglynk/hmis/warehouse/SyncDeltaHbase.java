@@ -205,9 +205,11 @@ public class SyncDeltaHbase extends Logging {
             	int limit = 20000;
             	String deltaQuery = "";
             	if(delta) {
-            		deltaQuery="and date_created >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_created limit 1";
+            		deltaQuery="and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  limit 1 ) ";
             	}
-                statement = connection.prepareStatement("SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?");
+                String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
+                logger.info("SQL:"+sql);
+                statement = connection.prepareStatement(sql);
                 statement.setString(1,projectGroupCode);
                 statement.setInt(2, 20000);
                 int offset = limit*count++;
