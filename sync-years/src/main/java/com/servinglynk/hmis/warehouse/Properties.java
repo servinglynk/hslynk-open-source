@@ -58,10 +58,10 @@ public class Properties {
             HBASE_ZOOKEEPER_QUORUM = prop.getProperty("hbase.zookeeper.quorum");
             HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = prop.getProperty("hbase.zookeeper.property.clientPort", "2181");
             
-            SYNC_2017_SCHEMA = prop.getProperty("sync2016.schema");
-            SYNC_2017_INCLUDE_TABLES = prop.getProperty("sync2016.includetables");
-            SYNC_2017_EXCLUDE_TABLES = prop.getProperty("sync2016.excludetables");
-            SYNC_2017_PERIOD = Integer.valueOf(prop.getProperty("sync2016.period"));
+            SYNC_2017_SCHEMA = prop.getProperty("sync2017.schema");
+            SYNC_2017_INCLUDE_TABLES = prop.getProperty("sync2017.includetables");
+            SYNC_2017_EXCLUDE_TABLES = prop.getProperty("sync2017.excludetables");
+            SYNC_2017_PERIOD = Integer.valueOf(prop.getProperty("sync2017.period"));
             
             SYNC_2016_SCHEMA = prop.getProperty("sync2016.schema");
             SYNC_2016_INCLUDE_TABLES = prop.getProperty("sync2016.includetables");

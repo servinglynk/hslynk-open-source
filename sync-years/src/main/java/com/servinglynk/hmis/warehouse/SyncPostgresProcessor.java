@@ -151,6 +151,10 @@ public class SyncPostgresProcessor extends Logging{
         try {
             connection = getConnection();
             switch (version) {
+            	case V2017:
+            		statement = connection.prepareStatement("UPDATE base.hmis_project_group SET tables_v2016_in_hbase=TRUE where project_group_code=?");
+            		statement.setString(1, groupCode);
+            		break;
                 case V2016:
                     statement = connection.prepareStatement("UPDATE base.hmis_project_group SET tables_v2016_in_hbase=TRUE where project_group_code=?");
                     statement.setString(1, groupCode);
@@ -164,7 +168,10 @@ public class SyncPostgresProcessor extends Logging{
                     statement.setString(1, groupCode);
                     break;
             }
-            int status = statement.executeUpdate();
+            if(version != VERSION.V2017) {
+            	int status = statement.executeUpdate();
+            }
+            	
         } catch (SQLException ex) {
             logger.error(ex);
 

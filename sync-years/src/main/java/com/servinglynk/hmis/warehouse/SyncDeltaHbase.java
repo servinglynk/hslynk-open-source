@@ -117,7 +117,7 @@ public class SyncDeltaHbase extends Logging {
                 logger.info("\n#######################################################\n");
 
                 logger.info("Create tables in HBASE");
-                tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + projectGroupCode, logger));
+              //  tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + projectGroupCode, logger));
                 logger.info("Create tables done");
                 SyncPostgresProcessor.updateCreateFlag(projectGroupCode, version, logger);
                 Map<String, String> hmisTypes = loadHmisTypeMap(syncSchema);
@@ -208,7 +208,6 @@ public class SyncDeltaHbase extends Logging {
             		deltaQuery="and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  limit 1 ) ";
             	}
                 String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
-                logger.info("SQL:"+sql);
                 statement = connection.prepareStatement(sql);
                 statement.setString(1,projectGroupCode);
                 statement.setInt(2, 20000);

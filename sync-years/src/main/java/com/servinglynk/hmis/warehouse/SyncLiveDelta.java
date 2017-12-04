@@ -2,9 +2,9 @@ package com.servinglynk.hmis.warehouse;
 
 import org.apache.log4j.Logger;
 
-public class SyncLive2014 {
+public class SyncLiveDelta {
     public static void main(String args[]) throws Exception {
-        Logger logger = Logger.getLogger(SyncLive2014.class.getName());
+        Logger logger = Logger.getLogger(SyncLiveDelta.class.getName());
         Properties props = new Properties();
         props.generatePropValues();
         props.printProps();
