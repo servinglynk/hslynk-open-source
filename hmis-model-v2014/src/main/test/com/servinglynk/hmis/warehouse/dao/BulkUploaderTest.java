@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.math.BigInteger;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
@@ -234,4 +237,12 @@ public class BulkUploaderTest {
 		System.out.println(constraintViolations.toString());
 	}
 
+	
+	@Test
+	@Transactional
+	public void getNullDedupIds() {
+		List<Client> allNullDedupIdClients = factory.getClientDao().getAllNullDedupIdClients();
+		assertNotNull(allNullDedupIdClients);
+	}
+	
 }

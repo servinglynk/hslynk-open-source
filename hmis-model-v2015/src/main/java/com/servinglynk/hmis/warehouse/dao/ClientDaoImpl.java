@@ -9,6 +9,7 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -377,6 +378,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public List<com.servinglynk.hmis.warehouse.model.v2015.Client> getAllNullDedupIdClients() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Client.class);
 		criteria.add(Restrictions.isNull("dedupClientId"));
+		List<String> projectGroupCodes = new ArrayList<String>();
+		projectGroupCodes.add("MO0010");
+		projectGroupCodes.add("HO0002");
+		projectGroupCodes.add("IL0009");
+		projectGroupCodes.add("BD0005");
+		criteria.add(Restrictions.in("projectGroupCode", projectGroupCodes));
 		List<com.servinglynk.hmis.warehouse.model.v2015.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2015.Client>) findByCriteria(criteria);
 		return clients;
 	}

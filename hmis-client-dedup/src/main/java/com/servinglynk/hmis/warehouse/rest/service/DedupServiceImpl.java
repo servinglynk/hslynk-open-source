@@ -110,7 +110,9 @@ public class DedupServiceImpl implements DedupService{
 	private String parsePersonObjectToXMLString(Person person) {
 		String requestBody = "<person>";
 		if(person.getSsn() !=null && !"".equals(person.getSsn())) {
-			requestBody =requestBody+"<ssn>"+person.getSsn()+"</ssn>";
+			if(containsOnlyNumbers(person.getSsn())) {
+				requestBody = requestBody+"<ssn>"+person.getSsn()+"</ssn>";
+			}
 		}
 		if(person.getGivenName() !=null && !"".equals(person.getGivenName())) {
 			requestBody = requestBody +"<givenName>"+person.getGivenName()+"</givenName>";
@@ -125,6 +127,14 @@ public class DedupServiceImpl implements DedupService{
 		logger.info("Request Body"+requestBody);
 		return requestBody;	
 	}
+	
+	public boolean containsOnlyNumbers(String str) {
+	    for (int i = 0; i < str.length(); i++) {
+	      if (!Character.isDigit(str.charAt(i)))
+	        return false;
+	    }
+	    return true;
+	  }
 
 	/***
 	 *  Follow the following deduping algorithm for each new Client record.

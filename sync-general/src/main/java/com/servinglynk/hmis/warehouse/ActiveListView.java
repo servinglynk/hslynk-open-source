@@ -82,7 +82,7 @@ public class ActiveListView  extends Logging {
 	                	 addColumn("ignore_match_process",String.valueOf(resultSet.getBoolean("ignore_match_process")), key, p);
 	                	 addColumn("survey_score",String.valueOf(resultSet.getInt("survey_score")), key, p);
 	                	 Survey survey = getLastestSurveyByClient(key, projectGroupCode);
-	                	 if(survey !=null && survey.getSurveyId() !=null) {
+	                	 if(survey == null || survey.getSurveyId() == null) {
 	                		 survey = getLastestSurveyByClientFromSectionScore(key, projectGroupCode);
 	                	 }
 	                	 if(survey !=null && survey.getSurveyId() !=null) {
