@@ -56,9 +56,9 @@ public class Stats {
             StringBuilder builder = new StringBuilder();
             builder.append("SELECT count(*) FROM "+schema+"."+tableName);
             
-            if(!StringUtils.equals("survey", schema)) {
+           // if(!StringUtils.equals("survey", schema)) {
             	builder.append(" WHERE project_group_code='"+projGrpCode+"'");
-            }
+         //   }
             statement = connection.prepareStatement(builder.toString());
             
             resultSet = statement.executeQuery();
@@ -84,14 +84,17 @@ public class Stats {
 		schemas.add("v2014");
 		schemas.add("v2015");
 		schemas.add("v2016");
+		schemas.add("v2017");
 		schemas.add("base");
 		schemas.add("survey");
 		schemas.add("housing_inventory");
 		List<String> projectGroups = new ArrayList<>();
+		projectGroups.add("BD0005");
 		projectGroups.add("HO0002");
 		projectGroups.add("MO0010");
 		projectGroups.add("SR0012");
 		projectGroups.add("IL0009");
+		
 		for(String projectGroupCode : projectGroups) {
 			for(String schema : schemas) {
 				List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);

@@ -8,7 +8,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,7 +24,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 
-public class SyncSchema extends Logging {
+public class SyncDeltaHbase extends Logging {
 
 
     private SyncHBaseProcessor syncHBaseImport;
@@ -38,8 +37,9 @@ public class SyncSchema extends Logging {
     private Status status;
     private Logger logger;
     private boolean purgeRecords;
+	private String projectGroupCode;
 
-    public SyncSchema(VERSION version, Logger logger, Status status, boolean purgeRecords) throws Exception {
+    public SyncDeltaHbase(VERSION version, Logger logger, Status status, boolean purgeRecords) throws Exception {
         this.version = version;
         this.logger = logger;
         this.status = status;
@@ -81,85 +81,64 @@ public class SyncSchema extends Logging {
 
     }
 
-    public void sync() throws Exception {
+    public void sync(boolean delta) throws Exception {
         log.info("Start a new sync for " + version.name() + " uploads");
-        syncTablesToHBase();
+        syncTablesToHBase(delta);
         log.info("Sync done. Wait " + syncPeriod + " minutes before running next sync");
     }
 
-    private void syncTablesToHBase() throws Exception {
+    private void syncTablesToHBase(boolean delta) throws Exception {
 
         log.info("Get list of bulkupload for schema: " + syncSchema);
         // list of than 10 uploads
-        List<BulkUpload> allUploads = SyncPostgresProcessor.getExportIDFromBulkUpload(year, logger);
-        final List<BulkUpload> uploads = new ArrayList<>();
-        for (BulkUpload el : allUploads) {
-            if (el.getStatus() == status) {
-                uploads.add(el);
-            }
-        }
+        List<String> projectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes(logger);
+      
         List<String> tables = getTablesToSync();
         if(tables.size() < 1){
             logger.error("Cannot run sync for schema " + syncSchema + ". No tables found in it");
             System.exit(1);
         }
 
-        log.info("Upload list size: " + uploads.size());
-        for (BulkUpload upload : uploads) {
-            FileAppender appender = new FileAppender();
-            String appenderName = "sync-" + syncSchema + "-" + status.name() + "-" + upload.getId();
-            appender.setName(appenderName);
-            appender.setFile("logs/" + appenderName + ".log");
-            appender.setImmediateFlush(true);
-            appender.setAppend(true);
-            appender.setLayout(new PatternLayout());
-            appender.activateOptions();
-
-            logger.addAppender(appender);
-            logger.info("\n#######################################################\n");
-            logger.info("######Start new sync for id: " + upload.getId() + "######");
-            logger.info("\n#######################################################\n");
-
+        log.info("ProjectGroupCodes  size: " + projectGroupCodes.size());
+        for (String projectGroupCode : projectGroupCodes) {
             try {
+            	String appenderName = "sync-" + syncSchema + "-" + status.name() + "-" + projectGroupCode;
+                FileAppender appender = new FileAppender();
+                appender.setName(appenderName);
+                appender.setFile("logs/" + appenderName + ".log");
+                appender.setImmediateFlush(true);
+                appender.setAppend(true);
+                appender.setLayout(new PatternLayout());
+                appender.activateOptions();
+
+                logger.addAppender(appender);
+                logger.info("\n#######################################################\n");
+                logger.info("######Start new sync for ProjectGroupCode: " + projectGroupCode + "######");
+                logger.info("\n#######################################################\n");
+
                 logger.info("Create tables in HBASE");
-                tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + upload.getProjectGroupCode(), logger));
+              //  tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + projectGroupCode, logger));
                 logger.info("Create tables done");
-                SyncPostgresProcessor.updateCreateFlag(upload.getProjectGroupCode(), version, logger);
+                SyncPostgresProcessor.updateCreateFlag(projectGroupCode, version, logger);
                 Map<String, String> hmisTypes = loadHmisTypeMap(syncSchema);
                 for (final String tableName : tables) {
                     final String tempName = tableName;
                     logger.info("[" + tempName + "] Processing table : " + tempName);
                         try {
-                            syncTable(tempName, tempName + "_" + upload.getProjectGroupCode(), hmisTypes, upload);
+                            syncTable(tempName, tempName + "_" + projectGroupCode, hmisTypes, projectGroupCode,delta);
                         } catch (Exception ex) {
                             logger.error(ex);
                         }
-                }
-
-                try {
-                    logger.info("Set status to LIVE for upload: " + upload.getId() + " with project group code: " + upload.getProjectGroupCode());
-                    SyncPostgresProcessor.updateBulkUploadStatusToLive(upload.getId(), logger);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    logger.error(e);
-                }
-                threadSleep(1000);
+              }
             } catch (Exception ex) {
                 logger.error(ex);
             } finally {
-                logger.removeAppender(appender);
             }
         }
 
         if (purgeRecords) {
             log.info("\n\n\n\n Mark rows as deleted");
-            final Set<String> toPurge = new HashSet<>();
-            for (BulkUpload el : allUploads) {
-                if (el.getStatus() == Status.DELETED || el.getStatus() == Status.ERROR) {
-                    toPurge.add(el.getExportId().toString());
-                }
-            }
-            cleanTables(toPurge, tables);
+           // cleanTables(toPurge, tables);
             log.info("Delete mark is done");
         }
     }
@@ -202,7 +181,8 @@ public class SyncSchema extends Logging {
 		return null;
 	}
 
-    private void syncTable(String postgresTable, String hbaseTable,  Map<String, String> hmisTypes,BulkUpload upload) {
+	
+    private void syncTable(String postgresTable, String hbaseTable,  Map<String, String> hmisTypes,String projectGroupCode,boolean delta) {
         log.info("Start sync for table: " + postgresTable);
         HTable htable;
         ResultSet resultSet;
@@ -213,16 +193,23 @@ public class SyncSchema extends Logging {
         try {
         	connection = SyncPostgresProcessor.getConnection();
         	if(StringUtils.equals("enrollment", postgresTable)) {
-            	clientDedupMap = loadDedupClientMap(syncSchema, upload.getProjectGroupCode());
+            	clientDedupMap = loadDedupClientMap(syncSchema, projectGroupCode);
             }
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
             boolean empty = true;
             int count = 0;
-           // int recordCount = getRecordCount(upload.getProjectGroupCode(), message, postgresTable);
+            Long insertCount =0L;
+            Long updateCount =0L;
+            Long deleteCount =0L;
             while(true) {
             	int limit = 20000;
-                statement = connection.prepareStatement("SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ?  limit ?  offset ?");
-                statement.setString(1,upload.getProjectGroupCode());
+            	String deltaQuery = "";
+            	if(delta) {
+            		deltaQuery="and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  limit 1 ) ";
+            	}
+                String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
+                statement = connection.prepareStatement(sql);
+                statement.setString(1,projectGroupCode);
                 statement.setInt(2, 20000);
                 int offset = limit*count++;
                 statement.setInt(3,offset);
@@ -237,6 +224,7 @@ public class SyncSchema extends Logging {
                 List<Put> putsToUpdate = new ArrayList<>();
                 List<Put> putsToInsert = new ArrayList<>();
                 List<String> putsToDelete = new ArrayList<>();
+         
                 while (resultSet.next()) {
                     Boolean markedForDelete = resultSet.getBoolean("deleted");
                     String key = resultSet.getString("id");
@@ -284,7 +272,7 @@ public class SyncSchema extends Logging {
                         }
                         p.addColumn(Bytes.toBytes("CF"),
                                 Bytes.toBytes("year"),
-                                Bytes.toBytes(String.valueOf(upload.getYear())));
+                                Bytes.toBytes(String.valueOf(syncSchema.substring(1, syncSchema.length()))));
                         if (existingKeysInHbase.contains(key)) {
                             putsToUpdate.add(p);
                             if (putsToUpdate.size() > syncHBaseImport.batchSize) {
@@ -301,16 +289,18 @@ public class SyncSchema extends Logging {
                     }
                     existingKeysInPostgres.add(key);
                 }
-
+                deleteCount += putsToDelete.size();
                 logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
                 if (putsToDelete.size() > 0) {
                     syncHBaseImport.deleteDataInBatch(htable, putsToDelete);
                 }
+                insertCount += putsToInsert.size();
                 logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
                 if (putsToInsert.size() > 0) {
                     htable.put(putsToInsert);
                     htable.flushCommits();
                 }
+                updateCount += putsToUpdate.size();
                 logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
                 if (putsToUpdate.size() > 0) {
                     htable.put(putsToUpdate);
@@ -320,12 +310,11 @@ public class SyncSchema extends Logging {
                 	break;
                 }
             }
-           
-          //  message = " Records inserted : "+putsToInsert.size() +" updated :"+putsToUpdate.size() + " deleted :"+putsToDelete.size();
-            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,upload.getProjectGroupCode());
+            message = " Records inserted : "+insertCount +" updated :"+ updateCount+ " deleted :"+ deleteCount;
+            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,projectGroupCode);
         } catch (Exception ex) {
             logger.error(ex);
-            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "ERROR", ex.getMessage(),upload.getProjectGroupCode());
+            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "ERROR", "Error in sync process "+ex.getMessage(),projectGroupCode);
         }
 
         log.info("Sync done for table: " + postgresTable);
@@ -478,53 +467,5 @@ public class SyncSchema extends Logging {
             e.printStackTrace();
         }
     }
-    
-    public static void main(String args[]) throws IOException {
-    	
-    	 Properties props = new Properties();
-         props.generatePropValues();
-         props.printProps();
-    	ResultSet resultSet = null;
-		PreparedStatement statement = null;
-		Connection connection = null;
-		try {
-			connection = SyncPostgresProcessor.getConnection();
-        boolean empty = true;
-        int count = 0;
-       // int recordCount = getRecordCount(upload.getProjectGroupCode(), message, postgresTable);
-        while(true) {
-        	int limit = 20000;
-            statement = connection.prepareStatement("SELECT * FROM v2014.disabilities where project_group_code = ? limit ?  offset ?");
-            statement.setString(1,"IL0009");
-            statement.setInt(2, 20000);
-            int offset = limit*count++;
-            statement.setInt(3,offset);
-            resultSet = statement.executeQuery();
-            System.out.println("Testing count"+count);
-            System.out.println("Offset count"+offset);
-            empty = true;
-            while (resultSet.next()) { 
-            	empty = false;
-             }
-           
-            if(empty) {
-            	break;
-            }
-         }
-       
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-					//connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-    }
+   
 }

@@ -832,4 +832,12 @@ public class BulkUploaderTest {
 		factory.getBulkUploaderWorkerDao().insert(error2015_2);
 
 	}
+	
+	@Test
+	@Transactional
+	public void getNullDedupIds() {
+		List<Client> allNullDedupIdClients = factory.getClientDao().getAllNullDedupIdClients();
+		assertNotNull(allNullDedupIdClients);
+	}
+	
 }

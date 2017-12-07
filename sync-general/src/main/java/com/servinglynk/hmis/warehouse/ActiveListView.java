@@ -82,7 +82,7 @@ public class ActiveListView  extends Logging {
 	                	 addColumn("ignore_match_process",String.valueOf(resultSet.getBoolean("ignore_match_process")), key, p);
 	                	 addColumn("survey_score",String.valueOf(resultSet.getInt("survey_score")), key, p);
 	                	 Survey survey = getLastestSurveyByClient(key, projectGroupCode);
-	                	 if(survey !=null && survey.getSurveyId() !=null) {
+	                	 if(survey == null || survey.getSurveyId() == null) {
 	                		 survey = getLastestSurveyByClientFromSectionScore(key, projectGroupCode);
 	                	 }
 	                	 if(survey !=null && survey.getSurveyId() !=null) {
@@ -277,10 +277,14 @@ public class ActiveListView  extends Logging {
          appender.setLayout(new PatternLayout());
          appender.activateOptions();
          logger.addAppender(appender);
-         String projectGroupCode ="MO0010";
-         String tableName ="active_list_"+projectGroupCode;
-         createHbaseTable(tableName);
-         syncTable(tableName, projectGroupCode, "eligible_clients");
+         List<String> projectGroups = new ArrayList<>();
+         projectGroups.add("MO0010");
+         projectGroups.add("HO0002");
+         for (String projectGroupCode :projectGroups) {
+        	 String tableName ="active_list_"+projectGroupCode;
+             createHbaseTable(tableName);
+             syncTable(tableName, projectGroupCode, "eligible_clients");
+         }
 	}
 	
 	

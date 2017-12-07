@@ -2749,10 +2749,11 @@ with (
 
 CREATE TABLE "v2015".sync
 (
-  id uuid NOT NULL,
+  id serial,
   sync_table character(100),
   status character(10),
-  json text,
+  description text,
+  project_group_code character(8),
   date_created timestamp,
   date_updated timestamp,
   CONSTRAINT sync_pk PRIMARY KEY (id)

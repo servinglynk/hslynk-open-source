@@ -8,6 +8,7 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -345,6 +346,36 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2014.Client>) findByCriteria(criteria,startIndex,maxItems);
 		return clients;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2014.Client> getAllNullDedupIdClients() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Client.class);
+		criteria.add(Restrictions.isNull("dedupClientId"));
+		List<String> projectGroupCodes = new ArrayList<String>();
+		projectGroupCodes.add("MO0010");
+		projectGroupCodes.add("HO0002");
+		projectGroupCodes.add("IL0009");
+		projectGroupCodes.add("BD0005");
+		criteria.add(Restrictions.in("projectGroupCode", projectGroupCodes));
+		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2014.Client>) findByCriteria(criteria);
+		return clients;
+	}
+	
+	@Override
+	public void updateDedupClient(
+			com.servinglynk.hmis.warehouse.model.v2014.Client client,String dedupSessionKey) {
+		    logger.info(" Update Calling Dedup Service for "+client.getFirstName());
+		    com.servinglynk.hmis.warehouse.model.base.Client basClient = daoFactory.getBaseClientDao().getClient(client.getId());
+		    if(basClient !=null) {
+		    	 String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
+				 client.setDateUpdated(LocalDateTime.now());
+				 client.setDedupClientId(UUID.fromString(dedupedId));
+				 getCurrentSession().update(client);
+				 basClient.setDedupClientId(UUID.fromString(dedupedId));
+				 getCurrentSession().update(basClient);
+		    }
 	}
 	
 	public long getClientsCount(String projectGroupCode){

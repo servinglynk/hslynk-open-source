@@ -51,6 +51,7 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
         .when('/admin/dashboard',      's2.dashboard')
 		 .when('/admin/managefiles',      's2.managefiles')
 		  .when('/admin/bulkupload',      's2.bulkupload')
+		  .when('/admin/bulkuploadNew',      's2.bulkuploadNew')
 		   .when('/admin/managesync',      's2.managesync')
 		      .when('/admin/managereport',      's2.managereport')
 		      .when('/admin/manageeligreq',      's2.manageeligreq')
@@ -101,6 +102,8 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
                 templateUrl: 'templates/partial/manageeligreq.html', controller: 'manageeligreqCtrl'})   
 		  .segment('bulkupload', {
 		      templateUrl: 'templates/partial/bulkupload.html', controller: 'bulkUploadCtrl'})   
+		   .segment('bulkuploadNew', {
+		      templateUrl: 'templates/partial/bulkuploadnew.html', controller: 'bulkUploadNewCtrl'})  
 		  .segment('managesync', {
                 templateUrl: 'templates/partial/managesync.html', controller: 'managesyncCtrl'})   
 		    .segment('setting', {
@@ -244,7 +247,7 @@ var Service= ({
 			});
     },
     GetFilesListRECENT: function ($http, success, $scope) {
-        var apiurl = "/hmis-upload-service/rest/bulkupload?status=RECENT";
+        var apiurl = "/hmis-upload-service/rest/bulk-upload?status=RECENT";
             $http({
                 method: 'GET',
                 url: apiurl,
@@ -257,7 +260,7 @@ var Service= ({
             });
       },
     GetFilesListSTAGING: function ($http, success, $scope) {
-        var apiurl = "/hmis-upload-service/rest/bulkupload?status=STAGING";
+        var apiurl = "/hmis-upload-service/rest/bulk-upload?status=STAGING";
             $http({
                 method: 'GET',
                 url: apiurl,
@@ -269,7 +272,7 @@ var Service= ({
                 if(success)success(data.BulkUploads.bulkUploads)
             });
       },  GetFilesListDELETED: function ($http, success, $scope) {
-          var apiurl = "/hmis-upload-service/rest/bulkupload?status=DELETED";
+          var apiurl = "/hmis-upload-service/rest/bulk-upload?status=DELETED";
              $http({
                  method: 'GET',
                  url: apiurl,
@@ -282,7 +285,7 @@ var Service= ({
              });
        },       
     GetFilesListLIVE: function ($http, success,$scope) {
-    var apiurl = "/hmis-upload-service/rest/bulkupload?status=LIVE";
+    var apiurl = "/hmis-upload-service/rest/bulk-upload?status=LIVE";
        $http({
            method: 'GET',
            url: apiurl,
@@ -295,7 +298,7 @@ var Service= ({
        });
  },        
     GetFilesListERROR: function ($http, success,$scope) {
-         var apiurl = "/hmis-upload-service/rest/bulkupload?status=ERROR";
+         var apiurl = "/hmis-upload-service/rest/bulk-upload?status=ERROR";
              $http({
                  method: 'GET',
                  url: apiurl,
@@ -341,7 +344,7 @@ var Service= ({
 			});
     },
     CheckServiceAvailableBulkUpload: function ($http,$scope, success,error) {
-    	  var apiurl = "/hmis-upload-service/rest/bulkupload?status=STAGING";
+    	  var apiurl = "/hmis-upload-service/rest/bulk-upload?status=STAGING";
              $http({
                  method: 'GET',
                  url: apiurl,
@@ -374,7 +377,7 @@ CheckServiceAvailableAuthenticate: function ($http,$scope, success,error) {
 		
 },
 LoadStatistics: function ($http,$scope, success) {
-        $http.get('/hmis-upload-service/rest/bulkupload?status=LIVE',{
+        $http.get('/hmis-upload-service/rest/bulk-upload?status=LIVE',{
                 headers: {
                     'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
                       'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
@@ -383,7 +386,7 @@ LoadStatistics: function ($http,$scope, success) {
 		{
 			 filesCollection =data.BulkUploads.bulkUploads;
 	    	// success(data)
-			  $http.get('/hmis-upload-service/rest/bulkupload?status=STAGING', {
+			  $http.get('/hmis-upload-service/rest/bulk-upload?status=STAGING', {
 			            headers: {
 			                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
 			                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
@@ -393,7 +396,7 @@ LoadStatistics: function ($http,$scope, success) {
 					Array.prototype.push.apply(filesCollection, data.BulkUploads.bulkUploads);
 				// success(data)
 					
-					$http.get('/hmis-upload-service/rest/bulkupload?status=ERROR',{
+					$http.get('/hmis-upload-service/rest/bulk-upload?status=ERROR',{
 				            headers: {
 				                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
 				                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
@@ -493,6 +496,20 @@ bulkupload: function ($http, $scope,file, success, error) {
      }).success(function () { success() }).error(error);
   		
     },
+    bulkuploadNew: function ($http, $scope,file,progress,success, error) {
+        var apiurl = "/hmis-upload-service/rest/bulk-upload/"+$scope.form.version;							
+        var formData = new FormData();
+        formData.append("file", file);
+        $http.post(apiurl, formData, {
+             transformRequest: angular.identity,
+        headers: {
+            'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+              'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+               'Content-Type': undefined
+          } //TODO change accept to multipart.
+         }).success(function () { success() }).error(error);
+      		
+        },
     
 //	GetOrganizations: function ($http, success) {
 //        $http.get('/hmis-user-service/rest/accounts').success(function (data) {
@@ -784,7 +801,10 @@ app.controller('bulkUploadCtrl',[ '$scope', '$location', '$routeSegment', '$http
  
     }).send(function(err, data) {
    // alert("File uploaded successfully.");
- 
+    	 if (err) {
+    		 $scope.successTextAlert = "There was an error uploading your Hmis upload:"+ err.message;
+    	      return false;
+    	    }
         $scope.fileName = file1.name;
         $scope.bucketName = 'sdolia-2015';
       //  $scope.fileSize = file1.size;
@@ -820,6 +840,51 @@ app.controller('bulkUploadCtrl',[ '$scope', '$location', '$routeSegment', '$http
     };
 
 }]);
+
+
+;
+app.controller('bulkUploadNewCtrl',[ '$scope', '$location', '$routeSegment', '$http', '$timeout','$sessionStorage', function ($scope, $location, $routeSegment, $http, $timeout,$sessionStorage){
+	$scope.sessionToken = $sessionStorage.sessionToken;
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	
+    $scope.submitForm = function () {
+        $scope.infoTextAlert = "Please wait uploading....";
+        $scope.showInfoAlert = true;
+        var file = $scope.form.inputfile;
+        Service.bulkuploadNew($http, $scope,file,
+  //progress
+        	function(evt) {
+        			   console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+        			   $scope.infoTextAlert = parseInt(100.0 * evt.loaded / evt.total);
+        	 },
+ //success
+            function () {
+                $scope.switchBool("showInfoAlert");
+                $scope.successTextAlert = "File has been uploaded successfully.";
+                $scope.showSuccessAlert = true;
+				$location.path("/admin/managefiles");
+            },
+//error
+       function () {
+		//	   $location.path("/admin/managefiles");
+           $scope.switchBool("showInfoAlert");
+           $scope.errorTextAlert = "Error, Something gone wrong.";
+           $scope.showErrorAlert = true;
+           
+       })
+    }
+
+    // switch flag
+    $scope.switchBool = function (value) {
+        $scope[value] = !$scope[value];
+    };
+
+
+}]);
+
+
 
 
 ;
