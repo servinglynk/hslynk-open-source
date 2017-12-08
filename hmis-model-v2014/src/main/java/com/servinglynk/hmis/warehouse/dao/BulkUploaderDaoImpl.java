@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -200,6 +201,22 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 		return upload;
 	}
+	
+	@Override
+	public void calculateChrionicHomelessPerProjectGroup(String projectGroupCode) {
+		long count = parentDaoFactory.getEnrollmentDao().getEnrollmentCountByProjectGroupCode(projectGroupCode);
+			List<Enrollment> enrollments = parentDaoFactory.getEnrollmentDao().getEnrollmentsByProjectGroupCode(projectGroupCode, 0, Integer.parseInt(String.valueOf(count)));
+			for(HmisBaseModel model : enrollments) {
+				Enrollment enrollmentModel = (Enrollment) model;
+				Enrollment enrollment = (Enrollment) get(Enrollment.class, enrollmentModel.getId());
+				enrollment.setChronicHomeless(chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollment));
+				enrollment.setDateUpdated(LocalDateTime.now());
+				getCurrentSession().update(enrollment);
+				getCurrentSession().flush();
+				getCurrentSession().clear();
+		}
+	}
+	
 	
 	public void saveError(BulkUpload upload) {
 		try {

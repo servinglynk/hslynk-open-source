@@ -319,6 +319,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				client.setDedupClientId(UUID.fromString(dedupedId));
 				baseClient.setDedupClientId(client.getDedupClientId());
 			}
+			client.setDateUpdated(LocalDateTime.now());
+			baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);

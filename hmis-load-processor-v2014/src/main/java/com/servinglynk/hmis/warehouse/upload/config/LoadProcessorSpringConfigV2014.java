@@ -12,6 +12,7 @@ import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
 import com.servinglynk.hmis.warehouse.upload.service.BaseWorker;
 import com.servinglynk.hmis.warehouse.upload.service.BulkUploadWorker;
+import com.servinglynk.hmis.warehouse.upload.service.ChronicHomelessnesCalculator;
 import com.servinglynk.hmis.warehouse.upload.service.ClientDedupWorker;
 import com.servinglynk.hmis.warehouse.upload.service.ClientWorkerChildren;
 import com.servinglynk.hmis.warehouse.upload.service.DisabilitiesWorker;
@@ -72,4 +73,8 @@ public class LoadProcessorSpringConfigV2014 {
 		return new ClientDedupWorker();
 	}
 	
+	@Bean 
+	public ChronicHomelessnesCalculator chronicHomelessnesCalculator() {
+		return new ChronicHomelessnesCalculator();
+	}
 }

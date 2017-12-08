@@ -236,5 +236,18 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		criteria.add(Restrictions.eq("client.id",clientId));
 		return countRows(criteria);
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment> getEnrollmentsByProjectGroupCode(String projectGroupCode,Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class);
+		criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode));
+		return (List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment>) findByCriteria(criteria,startIndex,maxItems);
+	}
+	@Override
+	public long getEnrollmentCountByProjectGroupCode(String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class);
+		criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode));
+		return countRows(criteria);
+	}
 }
 
