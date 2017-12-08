@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.upload.service;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.FileAppender;
@@ -49,6 +50,7 @@ public class ClientDedupWorker implements IClientDedupWorker  {
 					logger.addAppender(appender);
 					/** Perform full refresh base on Project group */
 					factory.getClientDao().updateDedupClient(client,dedupSessionKey);
+					Thread.sleep(TimeUnit.SECONDS.toMillis(10));
  					logger.removeAppender(appender);
 				}
 			}

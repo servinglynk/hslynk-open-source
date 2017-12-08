@@ -320,6 +320,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			if(dedupedId!=null)
 				client.setDedupClientId(UUID.fromString(dedupedId));
 			baseClient.setDedupClientId(client.getDedupClientId());
+			client.setDateUpdated(LocalDateTime.now());
+		    baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);
@@ -399,7 +401,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				 client.setDedupClientId(UUID.fromString(dedupedId));
 				 getCurrentSession().update(client);
 				 basClient.setDedupClientId(UUID.fromString(dedupedId));
+				 basClient.setDateUpdated(LocalDateTime.now());
 				 getCurrentSession().update(basClient);
+				 getCurrentSession().flush();
+				 getCurrentSession().clear();
 		    }
 	}
 	
