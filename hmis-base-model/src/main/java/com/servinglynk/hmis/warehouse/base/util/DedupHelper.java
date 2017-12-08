@@ -60,7 +60,7 @@ public class DedupHelper {
 	            	java.util.Date d = new SimpleDateFormat("yyyy-MM-dd").parse(client.getDob().toString());
 	                person.setDateOfBirth(d);
 	            } catch (ParseException e) {
-	                e.printStackTrace();
+	                throw new IllegalArgumentException("Invalid date ::"+client.getDob());
 	            }
 	    	}
 	        
@@ -147,9 +147,10 @@ public class DedupHelper {
 			requestBody = requestBody +"\"givenName\":  \""+person.getGivenName()+"\",";
 		}
 		if(person.getFamilyName() !=null && !"".equals(person.getFamilyName())) {
-			requestBody = requestBody+ " \"familyName\":  \""+person.getFamilyName()+"\",";
+			requestBody = requestBody+ " \"familyName\":  \""+person.getFamilyName();
 		}
 		if(person.getDateOfBirth() !=null)  {
+			requestBody = requestBody +"\",";
 			String dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").format(person.getDateOfBirth());
 			requestBody = requestBody+ " \"dateOfBirth\":  \""+ dateOfBirth + "\"";
 		}

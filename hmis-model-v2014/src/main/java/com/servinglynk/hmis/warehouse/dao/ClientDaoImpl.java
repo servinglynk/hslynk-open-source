@@ -285,6 +285,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			if(dedupedId!=null)
 				client.setDedupClientId(UUID.fromString(dedupedId));
 			baseClient.setDedupClientId(client.getDedupClientId());
+			client.setDateUpdated(LocalDateTime.now());
+			baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);
