@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -62,8 +63,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 		Export export = domain.getExport();
 		List<Disabilities> disabilitiesList = export.getDisabilities();
 		Data data = new Data();
-		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class,
-				getProjectGroupCode(domain));
+		Map<String, HmisBaseModel> modelMap = new HashMap<String, HmisBaseModel>();
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(
 				com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),
 				com.servinglynk.hmis.warehouse.model.v2014.Export.class,
@@ -344,12 +344,6 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 		com.servinglynk.hmis.warehouse.model.v2014.Disabilities modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists
 		// for Delta refresh
-		if (!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Disabilities) getModel(
-					com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),
-					com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class, disabilities.getDisabilitiesID(),
-					getProjectGroupCode(domain), false, modelMap, domain.getUpload().getId());
-
 		if (modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
 			modelFromDB.setId(UUID.randomUUID());
@@ -359,7 +353,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB,
 		// model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
+		//performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain, disabilities.getDisabilitiesID(), data);
 
 		return model;
