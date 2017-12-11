@@ -60,6 +60,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			activity.setUpdated(j);
 			activity.setDescription("Saving "+className +" to staging" );
 			insertOrUpdate(activity); 		
+			getCurrentSession().flush();
+			getCurrentSession().clear();
 	        Long totalProcessed = i+j+ignore;
 	        logger.info("Processed"+totalProcessed+" in "+ className+" table with "+i+" inserts and "+j+" updates and "+ignore+ " are ignored");
 		}

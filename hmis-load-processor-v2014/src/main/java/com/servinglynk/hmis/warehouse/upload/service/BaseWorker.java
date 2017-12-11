@@ -38,7 +38,6 @@ public class BaseWorker implements IBulkUploadWorker  {
 	@Autowired
 	private ParentDaoFactory factory;
 	
-	@Transactional
 	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() {
 		try {

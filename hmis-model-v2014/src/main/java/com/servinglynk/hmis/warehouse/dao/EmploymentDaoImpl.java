@@ -50,7 +50,6 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Employment.class.getSimpleName(), domain, exportEntity);
 	}
-	@Transactional
 	public void processData(Employment employment,ExportDomain domain,Data data,Map<String,HmisBaseModel> modelMap,Map<String,HmisBaseModel> relatedModelMap,com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity) {
 		com.servinglynk.hmis.warehouse.model.v2014.Employment model = null;
 		try {

@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -205,16 +206,23 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Override
 	public void calculateChrionicHomelessPerProjectGroup(String projectGroupCode) {
 		long count = parentDaoFactory.getEnrollmentDao().getEnrollmentCountByProjectGroupCode(projectGroupCode);
-			List<Enrollment> enrollments = parentDaoFactory.getEnrollmentDao().getEnrollmentsByProjectGroupCode(projectGroupCode, 0, Integer.parseInt(String.valueOf(count)));
-			for(HmisBaseModel model : enrollments) {
-				Enrollment enrollmentModel = (Enrollment) model;
-				Enrollment enrollment = (Enrollment) get(Enrollment.class, enrollmentModel.getId());
-				enrollment.setChronicHomeless(chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollment));
-				enrollment.setDateUpdated(LocalDateTime.now());
-				getCurrentSession().update(enrollment);
-				getCurrentSession().flush();
-				getCurrentSession().clear();
-		}
+		logger.info("======== Enrollment Counts for Project Group Code======"+projectGroupCode+" count:"+count);
+		 long pageSize = 5000;
+			long loop = (count/pageSize) + 1;
+				for(int i=0;i<=loop; i++) {
+					List<Enrollment> enrollments = parentDaoFactory.getEnrollmentDao().getEnrollmentsByProjectGroupCode(projectGroupCode,Integer.parseInt(String.valueOf(i*pageSize)), Integer.parseInt(String.valueOf(pageSize)));
+					for(HmisBaseModel model : enrollments) {
+						Enrollment enrollmentModel = (Enrollment) model;
+						Enrollment enrollment = (Enrollment) get(Enrollment.class, enrollmentModel.getId());
+						enrollment.setChronicHomeless(chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollment));
+						logger.info("======== Enrollment ======"+enrollment.getId()+" is chronic homeless::"+enrollment.isChronicHomeless());
+						enrollment.setDateUpdated(LocalDateTime.now());
+						getCurrentSession().update(enrollment);
+				}
+					logger.info("========Chronic homelessness flush called");
+					getCurrentSession().flush();
+					getCurrentSession().clear();
+			}
 	}
 	
 	
@@ -383,7 +391,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	@Transactional
 	public BulkUpload processBase(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,
 			Boolean isFileFromS3) {
 		
@@ -520,7 +527,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	}
 
 	@Override
-	@Transactional
 	public BulkUpload processExit(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,
 			Boolean isFileFromS3) {
 		long startNanos = System.nanoTime();
@@ -588,10 +594,10 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		domain.setSource(source);
 		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 		Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Export.class, getProjectGroupCode(domain));
-		Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
-		parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
-		logger.info(" Disabilities Process::: Bulk Upload Processing client Table Ends.....");
-		logger.info("Disabilities Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+		Map<String,HmisBaseModel> relatedModelMap  = new HashMap<String, HmisBaseModel>();
+		parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,relatedModelMap); // Done
+		logger.info(" Disabilities Process::: Bulk Upload Processing Disabilities Table Ends.....");
+		logger.info("Disabilities Process::: Disabilities table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		upload.setStatus(UploadStatus.STAGING.getStatus());
 		upload.setExportId(domain.getExportId());
 		//Delete all the files

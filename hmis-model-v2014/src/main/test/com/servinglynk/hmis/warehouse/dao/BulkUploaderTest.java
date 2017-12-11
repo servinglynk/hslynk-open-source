@@ -93,9 +93,9 @@ public class BulkUploaderTest {
 	{
 		//URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
-		bullkUpload.setInputpath("/Users/sdolia/Downloads/HUD_4_0_1_3101_36.xml");
+		bullkUpload.setInputpath("/Users/sdolia/Downloads/HUD_HMIS_Instance.xml");
 	//	bullkUpload.setInputpath(path.getPath());
-		bullkUpload.setId(297L);
+		bullkUpload.setId(1L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + bullkUpload.getId());
 		appender.setFile("logs/" + bullkUpload.getId() + ".log");

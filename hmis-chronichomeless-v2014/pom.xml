@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
-	<artifactId>hmis-load-processor-v2014</artifactId>
+	<artifactId>hmis-chronichomeless-v2014</artifactId>
 	<version>2.0</version>
 	<packaging>jar</packaging>
 
-	<name>hmis-load-processor-v2014</name>
+	<name>hmis-chronichomeless-v2014</name>
 	<url>http://maven.apache.org</url>
 	<scm>	
 			  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
@@ -245,7 +245,7 @@
 
 					<programs>
 						<program>
-							<mainClass>com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
+							<mainClass>com.servinglynk.hmis.warehouse.upload.ChronicHomelessProcessor</mainClass>
 							<name>main-processor-2014.sh</name>
 						</program>
 					</programs>
@@ -287,15 +287,6 @@
 								<chmod file="${basedir}/src/main/scripts/start-processor-2014.sh"
 									   perm="ugo+rx"/>
 							    <chmod file="${basedir}/src/main/scripts/stop-processor-2014.sh"
-                                       perm="ugo+rx"/>
-                                       
-                                <chmod file="${basedir}/target/temp_build/bin/main-disab-2014.sh"
-									   perm="ugo+rx"/>
-								<chmod file="${basedir}/target/temp_build/bin/main-disab-2014.bat"
-									   perm="ugo+rx"/>
-								<chmod file="${basedir}/src/main/scripts/start-disab-2014.sh"
-									   perm="ugo+rx"/>
-							    <chmod file="${basedir}/src/main/scripts/stop-disab-2014.sh"
                                        perm="ugo+rx"/>
 							</tasks>
 						</configuration>
