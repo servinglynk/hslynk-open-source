@@ -368,16 +368,22 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 	@Override
 	public void updateDedupClient(
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,String dedupSessionKey) {
-		    logger.info(" Update Calling Dedup Service for "+client.getFirstName());
-		    com.servinglynk.hmis.warehouse.model.base.Client basClient = daoFactory.getBaseClientDao().getClient(client.getId());
-		    if(basClient !=null) {
-		    	 String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
-				 client.setDateUpdated(LocalDateTime.now());
-				 client.setDedupClientId(UUID.fromString(dedupedId));
-				 getCurrentSession().update(client);
-				 basClient.setDedupClientId(UUID.fromString(dedupedId));
-				 getCurrentSession().update(basClient);
-		    }
+	    com.servinglynk.hmis.warehouse.model.base.Client basClient = daoFactory.getBaseClientDao().getClient(client.getId());
+	    if(basClient == null) {
+	    	basClient = new  com.servinglynk.hmis.warehouse.model.base.Client();
+	    	BeanUtils.copyProperties(client, basClient, new String[] {"enrollments","veteranInfoes"});
+	    	basClient.setSchemaYear("2014");
+	     }
+	     String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
+	     logger.info("Calling Dedup Service for "+client.getFirstName());
+		 client.setDateUpdated(LocalDateTime.now());
+		 client.setDedupClientId(UUID.fromString(dedupedId));
+		 getCurrentSession().update(client);
+		 basClient.setDedupClientId(UUID.fromString(dedupedId));
+		 basClient.setDateUpdated(LocalDateTime.now());
+		 insert(basClient);
+		 getCurrentSession().flush();
+		 getCurrentSession().clear();
 	}
 	
 	public long getClientsCount(String projectGroupCode){
