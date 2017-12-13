@@ -160,7 +160,6 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 				modelMap);
 		
 		try {
-			model = getModelObject(domain, disabilities, data, modelMap);
 			model.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
 			model.setDisabilitytype(DisabilitiesDisabilitytypeEnum
 					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
@@ -176,10 +175,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
 			model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
 			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-			Enrollment enrollmentModel = (Enrollment) getModel(
-					com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), Enrollment.class,
-					disabilities.getProjectEntryID(), getProjectGroupCode(domain), true, relatedModelMap,
-					domain.getUpload().getId());
+			Enrollment enrollmentModel = (Enrollment) parentDaoFactory.getEnrollmentDao().getEnrollmentByProjectGroupCodeAndSourceSystem(domain.getUpload().getProjectGroupCode(), disabilities.getDisabilitiesID(), null);
 			model.setEnrollmentid(enrollmentModel);
 			model.setInformationDate(BasicDataGenerator.getLocalDateTime(disabilities.getInformationDate()));
 			model.setDataCollectionStage(DataCollectionStageEnum
@@ -350,10 +346,10 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2014.Disabilities model = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
+		model.setId(UUID.randomUUID());
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB,
 		// model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-		//performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain, disabilities.getDisabilitiesID(), data);
 
 		return model;

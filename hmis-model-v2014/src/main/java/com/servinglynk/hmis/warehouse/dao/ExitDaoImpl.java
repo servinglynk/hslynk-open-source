@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -46,7 +47,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		List<Exit> exits = export.getExit();
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Exit.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Exit.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = new HashMap<String, HmisBaseModel>();
 		if(CollectionUtils.isNotEmpty(exits)){
 			for(Exit e : exits) {
 				processData(e, domain, data, modelMap, relatedModelMap, exportEntity);
@@ -63,7 +64,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 			model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
 			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
 			model.setExitdate(BasicDataGenerator.getLocalDateTime(exit.getExitDate()));
-			Enrollment enrollmentModel = (Enrollment) getModel(Exit.class.getSimpleName(),Enrollment.class, exit.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+			Enrollment enrollmentModel = parentDaoFactory.getEnrollmentDao().getEnrollmentByProjectGroupCodeAndSourceSystem(domain.getUpload().getProjectGroupCode(), exit.getExitID(), null);
 			model.setEnrollmentid(enrollmentModel);
 			model.setExport(exportEntity);
 			performSaveOrUpdate(model);

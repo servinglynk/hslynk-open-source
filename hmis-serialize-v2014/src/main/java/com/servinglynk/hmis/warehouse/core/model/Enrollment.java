@@ -15,6 +15,7 @@ public class Enrollment extends ClientModel {
 	private Integer  disablingcondition;
 	private Date  entrydate;
 	private String  householdid;
+	private boolean chronicHomeless;
 	private Integer  housingstatus;
 	private Integer  monthshomelesspastthreeyears;
 	private Integer  monthshomelessthistime;
@@ -190,5 +191,13 @@ public class Enrollment extends ClientModel {
 
 	public void setClientId(UUID clientId) {
 		this.clientId = clientId;
+	}
+
+	public boolean isChronicHomeless() {
+		return chronicHomeless;
+	}
+
+	public void setChronicHomeless(boolean chronicHomeless) {
+		this.chronicHomeless = chronicHomeless;
 	}
 }

@@ -5,12 +5,17 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentContinuouslyhomelessoneyearEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnum;
@@ -56,7 +60,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollments = export
 				.getEnrollment();
 		Data data = new Data();
-		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
+		//Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
+		Map<String, HmisBaseModel> modelMap = new HashMap<String, HmisBaseModel>();
 		Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Project.class, getProjectGroupCode(domain));
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 
@@ -235,6 +240,41 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		return countRows(criteria);
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment> getEnrollmentsByProjectGroupCode(String projectGroupCode,Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class);
+		criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode));
+		return (List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment>) findByCriteria(criteria,startIndex,maxItems);
+	}
+	@Override
+	public long getEnrollmentCountByProjectGroupCode(String projectGroupCode) {
+		Criteria criteria = getCurrentSession().createCriteria(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class);
+		criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode));
+		criteria.setProjection(Projections.rowCount());
+		long count=(Long) criteria.uniqueResult();
+		return count;
+	}
+	
+	@Override
+	public com.servinglynk.hmis.warehouse.model.v2014.Enrollment getEnrollmentByProjectGroupCodeAndSourceSystem(String projectGroupCode,String sourceSystemId,String exportId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class);
+		criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode));
+		criteria.add(Restrictions.eq("sourceSystemId",sourceSystemId));
+		if(StringUtils.isNotEmpty(exportId)) {
+			criteria.createAlias("export","export");
+			criteria.add(Restrictions.eq("export.id",exportId));
+		}
+		criteria.add(Restrictions.eq("deleted",false));
+		criteria.add(Restrictions.isNull("parentId"));
+		criteria.addOrder( Order.desc("dateCreated") );
+		@SuppressWarnings("unchecked")
+		List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment> models = (List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment>) findByCriteria(criteria) ;
+		if(CollectionUtils.isNotEmpty(models)) {
+			return models.get(0);
+		}
+		return null;
 	}
 }
 

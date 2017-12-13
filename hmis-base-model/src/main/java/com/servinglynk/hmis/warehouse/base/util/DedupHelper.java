@@ -147,10 +147,10 @@ public class DedupHelper {
 			requestBody = requestBody +"\"givenName\":  \""+person.getGivenName()+"\",";
 		}
 		if(person.getFamilyName() !=null && !"".equals(person.getFamilyName())) {
-			requestBody = requestBody+ " \"familyName\":  \""+person.getFamilyName();
+			requestBody = requestBody+ " \"familyName\":  \""+person.getFamilyName()+"\"";
 		}
 		if(person.getDateOfBirth() !=null)  {
-			requestBody = requestBody +"\",";
+			requestBody = requestBody +",";
 			String dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").format(person.getDateOfBirth());
 			requestBody = requestBody+ " \"dateOfBirth\":  \""+ dateOfBirth + "\"";
 		}
@@ -163,14 +163,21 @@ public class DedupHelper {
 	
     public static void main(String args[]) {
     	DedupHelper impl = new DedupHelper();
-    	Client client = new Client();
-    	client.setFirstName("John");
-    	client.setLastName("Anderson");
-    	client.setDob(LocalDateTime.of(1980, 01, 01, 00 ,0, 0));
-    	client.setGender(ClientGenderEnum.ONE);
-    	client.setSsn("111111111");
-    	client.setSsnDataQuality(ClientSsnDataQualityEnum.EIGHT);
-    	String abc = impl.getDedupedClient(client,impl.getAuthenticationHeader());
-    	System.out.println("Identifier "+abc);
+//    	Client client = new Client();
+//    	client.setFirstName("John");
+//    	client.setLastName("Anderson");
+//    	//client.setDob(LocalDateTime.of(1980, 01, 01, 00 ,0, 0));
+//    	client.setGender(ClientGenderEnum.ONE);
+//    	client.setSsn("111111111");
+//    	client.setSsnDataQuality(ClientSsnDataQualityEnum.EIGHT);
+//    	String abc = impl.getDedupedClient(client,impl.getAuthenticationHeader());
+//    	System.out.println("Identifier "+abc);
+    	Person person = new Person();
+    	person.setGivenName("John");
+    	person.setFamilyName("Anderson");
+//    	//client.setDob(LocalDateTime.of(1980, 01, 01, 00 ,0, 0));
+//    	client.setGender(ClientGenderEnum.ONE);
+    	person.setSsn("111111111");
+    	impl.parsePersonObjectToXMLString(person);
     }
 }

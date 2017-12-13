@@ -12,7 +12,6 @@ import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
 import com.servinglynk.hmis.warehouse.upload.service.BaseWorker;
 import com.servinglynk.hmis.warehouse.upload.service.BulkUploadWorker;
-import com.servinglynk.hmis.warehouse.upload.service.ClientDedupWorker;
 import com.servinglynk.hmis.warehouse.upload.service.ClientWorkerChildren;
 import com.servinglynk.hmis.warehouse.upload.service.DisabilitiesWorker;
 import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorker;
@@ -66,10 +65,4 @@ public class LoadProcessorSpringConfigV2014 {
 	public BulkUploaderWorkerDaoImpl getBulkUploaderWorkerDao(){
 		return new BulkUploaderWorkerDaoImpl();
 	}
-	
-	@Bean
-	public ClientDedupWorker clientDedupWorker() {
-		return new ClientDedupWorker();
-	}
-	
 }
