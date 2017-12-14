@@ -4,11 +4,12 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("enrollmentcoc")
+@JsonRootName("enrollmentCoc")
 public class EnrollmentCoc extends ClientModel {
 	
 	private String cocCode;
 	private UUID enrollmentId;
+	private UUID projectCocId;
 	private UUID enrollmentCocId;
 
 	public EnrollmentCoc(){
@@ -43,4 +44,11 @@ public class EnrollmentCoc extends ClientModel {
 		this.enrollmentId = enrollmentId;
 	}
 
+	public UUID getProjectCocId() {
+		return projectCocId;
+	}
+
+	public void setProjectCocId(UUID projectCocId) {
+		this.projectCocId = projectCocId;
+	}
 }
