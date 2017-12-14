@@ -12,6 +12,7 @@ import com.servinglynk.hmis.warehouse.service.DateofengagementService;
 import com.servinglynk.hmis.warehouse.service.DisabilitiesService;
 import com.servinglynk.hmis.warehouse.service.DomesticViolenceService;
 import com.servinglynk.hmis.warehouse.service.EmploymentService;
+import com.servinglynk.hmis.warehouse.service.EnrollmentCocService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.ExitPlansActionsService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
@@ -52,6 +53,7 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	
 	SharingRuleService getSharingRuleService();
 	EnrollmentService getEnrollmentService();
+	EnrollmentCocService getEnrollmentCocService();
 	InformationReleasesService getInformationReleasesService();
 	ProjectService getProjectService();
 	ExitService getExitService();

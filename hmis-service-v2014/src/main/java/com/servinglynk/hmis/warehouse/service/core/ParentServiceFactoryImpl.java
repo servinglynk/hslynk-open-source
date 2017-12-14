@@ -16,6 +16,7 @@ import com.servinglynk.hmis.warehouse.service.DateofengagementService;
 import com.servinglynk.hmis.warehouse.service.DisabilitiesService;
 import com.servinglynk.hmis.warehouse.service.DomesticViolenceService;
 import com.servinglynk.hmis.warehouse.service.EmploymentService;
+import com.servinglynk.hmis.warehouse.service.EnrollmentCocService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.ExitPlansActionsService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
@@ -63,6 +64,9 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	private EnrollmentService enrollmentService;
 	
 	@Autowired
+	private EnrollmentCocService enrollmentCocService;
+	
+	@Autowired
 	private BulkUploadService bulkUploadService;
 	
 	@Autowired
@@ -100,7 +104,15 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 		this.enrollmentService = enrollmentService;
 	}
 	
-	
+	public EnrollmentCocService getEnrollmentCocService() {
+		return enrollmentCocService;
+	}
+
+	public void setEnrollmentCocService(EnrollmentCocService enrollmentCocService) {
+		this.enrollmentCocService = enrollmentCocService;
+	}
+
+
 	@Autowired
 	private InformationReleasesService informationReleasesService;
 
