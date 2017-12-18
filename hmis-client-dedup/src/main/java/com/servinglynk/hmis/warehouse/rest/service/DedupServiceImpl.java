@@ -218,13 +218,10 @@ public class DedupServiceImpl implements DedupService{
 				// PART 7 : Delete from potential matches
 				List<Person> finalPersons =	deleteFromPotentialMatches(matchingPersons,person);
 				//	-- Part 8 IF Total Likely Matches = 1 MATCH FOUND
-				if(finalPersons !=null && finalPersons.size() == 1 ) {
+				if(CollectionUtils.isNotEmpty(finalPersons)) {
 					Person finalPerson =  (Person) finalPersons.get(0);
 					finalPerson.setCustom20(getUniqueIdentifier(finalPerson.getPersonIdentifiers()));
 					return finalPerson;
-				}
-				if(finalPersons !=null && finalPersons.size() > 1 ) {
-					throw new IllegalArgumentException("Very hard to match this guy");
 				}
 			}
 			// When no match found lets insert a new record.
