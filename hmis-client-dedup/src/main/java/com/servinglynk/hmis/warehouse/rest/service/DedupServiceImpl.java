@@ -110,7 +110,7 @@ public class DedupServiceImpl implements DedupService{
 	private String parsePersonObjectToXMLString(Person person) {
 		String requestBody = "<person>";
 		if(person.getSsn() !=null && !"".equals(person.getSsn())) {
-				requestBody = requestBody+"<ssn>"+person.getSsn()+"</ssn>";
+			requestBody =requestBody+"<ssn>"+person.getSsn()+"</ssn>";
 		}
 		if(person.getGivenName() !=null && !"".equals(person.getGivenName())) {
 			requestBody = requestBody +"<givenName>"+person.getGivenName()+"</givenName>";
@@ -125,7 +125,7 @@ public class DedupServiceImpl implements DedupService{
 		logger.info("Request Body"+requestBody);
 		return requestBody;	
 	}
-	
+
 	/***
 	 *  Follow the following deduping algorithm for each new Client record.
 	 * For Each New Client Record
@@ -482,14 +482,26 @@ public class DedupServiceImpl implements DedupService{
  		person.setFamilyName((String)linkedPersons.get("familyName"));
  		Integer personId =  Integer.parseInt((String)linkedPersons.get("personId"));
  		person.setPersonId(personId);
- 		
- 		LinkedHashMap<Object, Object>  personIdentifiersLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("personIdentifiers");
- 		if(personIdentifiersLinkedList !=null) {
- 			String identifier = (String)personIdentifiersLinkedList.get("identifier");
- 			PersonIdentifier personIdentifier = new PersonIdentifier();
- 			personIdentifier.setIdentifier(identifier);
- 			person.addPersonIdentifier(personIdentifier);
+ 		try {
+ 			LinkedHashMap<Object, Object>  personIdentifiersLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("personIdentifiers");
+ 	 		if(personIdentifiersLinkedList !=null) {
+ 	 			String identifier = (String)personIdentifiersLinkedList.get("identifier");
+ 	 			PersonIdentifier personIdentifier = new PersonIdentifier();
+ 	 			personIdentifier.setIdentifier(identifier);
+ 	 			person.addPersonIdentifier(personIdentifier);
+ 	 		}
+ 		} catch(ClassCastException ex) {
+ 			// There is a possiblitity that we have multiple personalIdentifiers
+ 			LinkedHashMap<Object, Object>  personIdentifiersList = (ArrayList<LinkedHashMap<Object, Object>>)linkedPersons.get("personIdentifiers");
+ 	 		if(CollectionUtils.isNotEmpty(personIdentifiersList)) {
+ 	 			LinkedHashMap<Object, Object> personIdentifiersLinkedList = personIdentifiersList.get(0);
+ 	 			String identifier = (String)personIdentifiersLinkedList.get("identifier");
+ 	 			PersonIdentifier personIdentifier = new PersonIdentifier();
+ 	 			personIdentifier.setIdentifier(identifier);
+ 	 			person.addPersonIdentifier(personIdentifier);
+ 	 		}
  		}
+ 	
  		LinkedHashMap<Object, Object>  genderLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("gender");
  		Gender gender = new Gender();
  		if(genderLinkedList !=null) {
