@@ -28,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
 import com.servinglynk.hmis.warehouse.domain.Gender;
 import com.servinglynk.hmis.warehouse.domain.Person;
 import com.servinglynk.hmis.warehouse.domain.PersonIdentifier;
+import com.servinglynk.hmis.warehouse.rest.service.DedupService;
 import com.servinglynk.hmis.warehouse.util.AuthenticationRequest;
 
 public class DedupServiceImpl implements DedupService{
@@ -492,7 +493,7 @@ public class DedupServiceImpl implements DedupService{
  	 		}
  		} catch(ClassCastException ex) {
  			// There is a possiblitity that we have multiple personalIdentifiers
- 			LinkedHashMap<Object, Object>  personIdentifiersList = (ArrayList<LinkedHashMap<Object, Object>>)linkedPersons.get("personIdentifiers");
+ 			ArrayList<LinkedHashMap<Object, Object>>  personIdentifiersList = (ArrayList<LinkedHashMap<Object, Object>>)linkedPersons.get("personIdentifiers");
  	 		if(CollectionUtils.isNotEmpty(personIdentifiersList)) {
  	 			LinkedHashMap<Object, Object> personIdentifiersLinkedList = personIdentifiersList.get(0);
  	 			String identifier = (String)personIdentifiersLinkedList.get("identifier");
