@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.rest.service;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
@@ -52,10 +53,9 @@ public class DedupServiceImpl implements DedupService{
 
 	public Person createUser(Person person,String sessionKey) {
 			RestTemplate restTemplate = new RestTemplate();
-			restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-16")));
 			HttpHeaders headers = new HttpHeaders();
-		  	headers.setContentType(MediaType.APPLICATION_XML); 
-		  	
+			MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-8"));
+			headers.setContentType(mediaType);
 	        headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
 	        String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/addPerson";
 	       // requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
@@ -66,9 +66,9 @@ public class DedupServiceImpl implements DedupService{
 
 	public Person updateUser(Person person,String sessionKey) {
 		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-16")));
 		HttpHeaders headers = new HttpHeaders();
-	  	headers.setContentType(MediaType.APPLICATION_XML); 
+		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-8"));
+		headers.setContentType(mediaType);
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
         String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/updatePerson";
        // requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
@@ -83,7 +83,8 @@ public class DedupServiceImpl implements DedupService{
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		//headers.setAccept(Arrays.asList(new MediaType[] {MediaType.TEXT_XML}));
-	  	headers.setContentType(MediaType.APPLICATION_XML); 
+		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-8"));
+		headers.setContentType(mediaType);
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
         String url = OPENEMPI_HOST+"openempi-ws-rest/person-query-resource/findPersonsByAttributes";
         HttpEntity<Object> entityHttp = new HttpEntity<Object>(parsePersonObjectToXMLString(person), headers); 
