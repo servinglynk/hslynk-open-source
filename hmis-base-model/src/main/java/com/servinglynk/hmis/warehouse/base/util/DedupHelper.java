@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.base.util;
 
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResourceAccessException;
@@ -41,7 +43,9 @@ public class DedupHelper {
 		try {
 		 	RestTemplate restTemplate = new RestTemplate();
 	        HttpHeaders headers = new HttpHeaders();
-	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
+	        //headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
+	    	MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-16"));
+	    	headers.setContentType(mediaType);
 	        headers.set("OPENEMPI_SESSION_KEY", sessionKey);
 	     //   String url = env.getRequiredProperty(OPENEMPI_HOST)+"dedup";
 	        String url = "http://hmiselb.aws.hmislynk.com/hmis-client-dedup/rest/api/v1/dedup";

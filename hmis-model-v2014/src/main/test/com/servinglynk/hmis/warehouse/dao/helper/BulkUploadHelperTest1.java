@@ -50,7 +50,7 @@ public class BulkUploadHelperTest1 {
 	public void testCVSUpload() throws JAXBException, IOException {
 		//URL path = BulkUploadHelper.class.getResource("CSV_files.zip");
 		BulkUpload upload = new BulkUpload();
-		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV_files.zip");
+		upload.setInputpath("/Users/sdolia/Downloads/CSV_files.zip");
 		ProjectGroupEntity projectGrp = new ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
 		sources = helper.getSourcesFromFiles(upload,projectGrp,false);
