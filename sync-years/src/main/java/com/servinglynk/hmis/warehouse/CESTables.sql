@@ -217,7 +217,7 @@ STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIE
 ("hbase.columns.mapping" = ":key,CF:note_id,CF:match_date,CF:match_status,CF:reservation_adults,CF:reservation_children,CF:manual_match,CF:inactive,CF:date_created,CF:date_updated,CF:user_id,CF:client_id,CF:housing_unit_id,CF:status_id,CF:program_type,CF:project_group_code,CF:deleted,CF:process_id,CF:client_dedup_id")
 TBLPROPERTIES ("hbase.table.name" = "match_reservations_housing_inventory");
 
-create table match_reservations as select * from default.match_reservations where project_group_code='MO0010';
+create table match_reservations as select * from default.match_reservations where project_group_code='HO0002';
 
 
 CREATE EXTERNAL TABLE IF NOT EXISTS match_status
@@ -250,7 +250,7 @@ CF:client_dedup_id
 ")
 TBLPROPERTIES ("hbase.table.name" = "match_status_housing_inventory");
 
-create table match_status as select * from default.match_status where project_group_code='MO0010';
+create table match_status as select * from default.match_status where project_group_code='HO0002';
 
 
 CREATE EXTERNAL TABLE IF NOT EXISTS match_status_levels
@@ -269,7 +269,7 @@ CF:status_description,
 CF:next_status_code")
 TBLPROPERTIES ("hbase.table.name" = "match_status_levels_housing_inventory");
 
-create table match_status_levels as select * from default.match_status_levels where project_group_code='MO0010';
+create table match_status_levels as select * from default.match_status_levels where project_group_code='HO0002';
 
 CREATE EXTERNAL TABLE IF NOT EXISTS match_status_remarks
 (id string,
@@ -293,7 +293,7 @@ CF:deleted,
 CF:status_code")
 TBLPROPERTIES ("hbase.table.name" = "match_status_remarks_housing_inventory");
 
-create table match_status_remarks as select * from default.match_status_remarks where project_group_code='MO0010';
+create table match_status_remarks as select * from default.match_status_remarks where project_group_code='HO0002';
 
 CREATE EXTERNAL TABLE IF NOT EXISTS status_note
 (id string,
@@ -318,7 +318,7 @@ CF:user_id"
 )
 TBLPROPERTIES ("hbase.table.name" = "status_note_housing_inventory");
 
-
+create table status_note as select * from default.status_note where project_group_code='HO0002';
 
 
 CREATE EXTERNAL TABLE IF NOT EXISTS new_vi_spdat_tay_youth_v1(submission_id string,client_id string,survey_date  timestamp,

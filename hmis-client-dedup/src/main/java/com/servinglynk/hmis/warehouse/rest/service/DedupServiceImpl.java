@@ -52,7 +52,7 @@ public class DedupServiceImpl implements DedupService{
 
 	public Person createUser(Person person,String sessionKey) {
 			RestTemplate restTemplate = new RestTemplate();
-			restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+			restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-16")));
 			HttpHeaders headers = new HttpHeaders();
 		  	headers.setContentType(MediaType.APPLICATION_XML); 
 		  	
@@ -66,7 +66,7 @@ public class DedupServiceImpl implements DedupService{
 
 	public Person updateUser(Person person,String sessionKey) {
 		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-16")));
 		HttpHeaders headers = new HttpHeaders();
 	  	headers.setContentType(MediaType.APPLICATION_XML); 
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
