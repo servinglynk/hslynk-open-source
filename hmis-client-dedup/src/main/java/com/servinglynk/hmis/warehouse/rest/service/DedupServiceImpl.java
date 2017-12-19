@@ -54,7 +54,7 @@ public class DedupServiceImpl implements DedupService{
 	public Person createUser(Person person,String sessionKey) {
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
-			MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-8"));
+			MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
 			headers.setContentType(mediaType);
 	        headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
 	        String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/addPerson";
@@ -67,7 +67,7 @@ public class DedupServiceImpl implements DedupService{
 	public Person updateUser(Person person,String sessionKey) {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
-		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-8"));
+		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
 		headers.setContentType(mediaType);
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
         String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/updatePerson";
@@ -83,7 +83,7 @@ public class DedupServiceImpl implements DedupService{
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		//headers.setAccept(Arrays.asList(new MediaType[] {MediaType.TEXT_XML}));
-		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-8"));
+		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
 		headers.setContentType(mediaType);
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
         String url = OPENEMPI_HOST+"openempi-ws-rest/person-query-resource/findPersonsByAttributes";
