@@ -50,44 +50,44 @@ Tomcat is used to deploy this app.
 
 #### First time steps
 
-- Create database: 
+- Create database:
 ```
-Open Eclipse and navigate to 
+Open Eclipse and navigate to
 Base Schema
 /hmis-base-model/build.xml
  replace <pathelement location="/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
  to wherever you have <pathelement location="MAVEN_HOME/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
- 
+
 run setupDB
     MasterData
     SSN_decrypt
-    
-v2014   (You need to run this if you plan to load data in the 2014 schema) 
+
+v2014   (You need to run this if you plan to load data in the 2014 schema)
  /hmis-model-v2014/build.xml
   replace <pathelement location="/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
  to wherever you have <pathelement location="MAVEN_HOME/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
- 
+
 run setupDB2014
 
-v2015   (You need to run this if you plan to load data in the 2015 schema) 
+v2015   (You need to run this if you plan to load data in the 2015 schema)
  /hmis-model-v2015/build.xml
   replace <pathelement location="/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
  to wherever you have <pathelement location="MAVEN_HOME/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
- 
+
 run setupDB2015
 
-v2016  (You need to run this if you plan to load data in the 2016 schema) 
+v2016  (You need to run this if you plan to load data in the 2016 schema)
  /hmis-model-v2016/build.xml
   replace <pathelement location="/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
  to wherever you have <pathelement location="MAVEN_HOME/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
- 
+
 run setupDB2016
 
-v2017 (You need to run this if you plan to load data in the 2017 schema) 
+v2017 (You need to run this if you plan to load data in the 2017 schema)
  /hmis-model-v2017/build.xml
   replace <pathelement location="/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
  to wherever you have <pathelement location="MAVEN_HOME/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
- 
+
 run setupDB2017
 ```
 
@@ -95,3 +95,92 @@ run setupDB2017
 - Open server.xml in your tomcat and add the below line.
   <Resource auth="Container" driverClassName="org.postgresql.Driver" factory="org.apache.commons.dbcp.BasicDataSourceFactory" initialSize="50" logAbandoned="true" maxActive="100" maxIdle="50" maxWait="60000" minIdle="50" name="jdbc/hmisdb" password="" removeAbandoned="true" removeAbandonedTimeout="30" testWhileIdle="true" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/hmis" username="postgres" validationQuery="SELECT 1"/>
 - Deploy microservices you want in eclipse or any IDE.
+
+#### Project Description
+- hmis-admin
+  Hmis admin UI application for admin related activity for HMIS.
+- hmis-authorization-service
+	 Authorization service is a microservice which takes care of authentication and authorization and is a means to acquire authentication token whichn will be required to call other microservices.
+- hmis-base-model
+		Hmis base model is project which points to the base postgres schema.
+- hmis-base-serialize
+		Hmis base serialize contains pojos to serialize/de-serialize apis from the base base schema.
+- hmis-user-service
+		 Microservice containing apis providing hmis user,projects, organization, roles specific information.
+- hmis-base-service
+    Base service is a common service layer across all the hmis version specific schema and also contains service layer for the base service schema.
+- hmis-chronichomeless-v2014
+     Background process to calculate Chronic homelessness in the 2014 schema.
+- hmis-client-dedup
+     Microservice to determine dedup client id from OPEN EMPI.
+- hmis-client-deidentify
+     Standalone java project to de-identify (remove) client specific information from the source file.
+		 Client information like First Name, Last Name, DOB, SSN.
+- hmis-clientapi-v2014
+     Microservice which has apis against the 2014 schema (HUD Version 4.0.1)
+- hmis-clientapi-v2015
+	 	 Microservice which has apis against the 2015 schema (HUD Version 4.1.1)
+- hmis-clientapi-v2016
+		 Microservice which has apis against the 2016 schema (HUD Version 5.1)
+- hmis-clientapi-v2017
+		 Microservice which has apis against the 2017 schema (HUD Version 6.1)
+- hmis-core-client
+     Common project across all the projects to communicate between microservices.	 			 	 			 			 
+- hmis-core-common
+		Common library across all the projects containing basic utils and classes.
+- hmis-developer-service
+    Microservice which contains apis to provision trusted app, developer company, developer service.
+- hmis-global-household
+     Microservice containing apis related to global house hold.
+- hmis-globalapi
+		 Microservice containing apis related to global house hold.
+- hmis-hud-reports
+     Project which calculates/generates HUD APR reports.
+- hmis-load-processor-v2014
+     Processes uploaded files agains the 2014 schema.
+- hmis-load-processor-v2015
+		 Processes uploaded files agains the 2015 schema.
+- hmis-load-processor-v2016
+		 Processes uploaded files agains the 2016 schema.
+- hmis-load-processor-v2017		
+		Processes uploaded files agains the 2016 schema. 	
+- hmis-model-v2014	 
+     Java library containing Hibernate entities related to the 2014 data model.
+- hmis-model-v2015
+		 Java library containing Hibernate entities related to the 2015 data model.
+- hmis-model-v2016	 
+ 		Java library containing Hibernate entities related to the 2016 data model.
+- hmis-model-v2017
+     Java library containing Hibernate entities related to the 2017 data model. 	
+- hmis-serialize-v2014
+     Java library containing pojos to serialize/de-serialize apis related to the 2014 database schema. HUD version 4.0.1.
+- hmis-serialize-v2015
+		Java library containing pojos to serialize/de-serialize apis related to the 2015 database schema. HUD version 4.1.1.
+- hmis-serialize-v2016
+		Java library containing pojos to serialize/de-serialize apis related to the 2016 database schema. HUD version 5.1.
+- hmis-serialize-v2017
+		Java library containing pojos to serialize/de-serialize apis related to the 2017 database schema. HUD version 6.1.
+- hmis-service-v2014
+		Java library containing spring service layer classes for 2014 apis and data model.
+- hmis-service-v2015
+    Java library containing spring service layer classes for 2015 apis and data model.
+- hmis-service-2016
+    Java library containing spring service layer classes for 2016 apis and data model.
+- hmis-service-v2017
+    Java library containing spring service layer classes for 2017 apis and data model.
+- hmis-s3-client
+     Java library containing code to connect to Amazon S3 for hmis.
+- hmis-upload-service
+     Microservice to upload xml,zip or .7z files and to know the fetch the bulk uploads by status.
+- hmis-notification-core
+     Java library to send email notification for functionalities like welcome email etc.
+- hmis-notification-service
+		 Microservice which uses hmis-notification-core to send notifications.
+- hmis-report-core
+	 	 Java library containing core report functionality.
+- hmis-report-service
+	 	  Microservice which would be used to request a report for users. 				 		 		 
+- sync-general
+     Sync process to sync data from postgres CES schema to HBASE.
+- sync-years
+		 Sync process to sync data from postgres HMIS version specific schema to HBASE.
