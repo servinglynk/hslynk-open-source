@@ -1,6 +1,6 @@
 # HSLynk Human Services Data Warehouse
 All subdirectories in this repository contain HSLynk microservice code.
-
+HMIS Master build status : https://builds.hmislynk.com/buildStatus/icon?job=Build-hmis-master
 Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk/hmis-lynk-open-source-docs), to keep the code repo lean.
 
 ## Prerequisites
