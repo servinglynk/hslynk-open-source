@@ -1,4 +1,4 @@
-[![Build Status](https://builds.hmislynk.com/buildStatus/icon?job=Build-hmis-master)]
+[![Build Status](https://builds.hmislynk.com/buildStatus/icon?job=Build-hmis-master)](https://builds.hmislynk.com/view/HMIS%20Build/job/Build-hmis-master/)
 # HSLynk Human Services Data Warehouse
 All subdirectories in this repository contain HSLynk microservice code.
 Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk/hmis-lynk-open-source-docs), to keep the code repo lean.
