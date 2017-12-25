@@ -69,9 +69,15 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 				com.servinglynk.hmis.warehouse.model.v2014.Export.class,
 				String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap,
 				domain.getUpload().getId());
+		int i =0;
 		if (CollectionUtils.isNotEmpty(disabilitiesList)) {
 			for(Disabilities disabilities : disabilitiesList) {
 				processData(disabilities, domain, data, modelMap, relatedModelMap, exportEntity);
+			}
+			if(i++ % 1000 == 0) {
+				logger.info("Disabilities flush called ---");
+				getCurrentSession().flush();
+				getCurrentSession().clear();
 			}
 		}
 		hydrateBulkUploadActivityStaging(data.i, data.j, data.ignore,
@@ -175,12 +181,13 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
 			model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
 			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-			Enrollment enrollmentModel = (Enrollment) parentDaoFactory.getEnrollmentDao().getEnrollmentByProjectGroupCodeAndSourceSystem(domain.getUpload().getProjectGroupCode(), disabilities.getDisabilitiesID(), null);
+			Enrollment enrollmentModel = (Enrollment) relatedModelMap.get(disabilities.getProjectEntryID().trim());
 			model.setEnrollmentid(enrollmentModel);
 			model.setInformationDate(BasicDataGenerator.getLocalDateTime(disabilities.getInformationDate()));
 			model.setDataCollectionStage(DataCollectionStageEnum
 					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));
 			model.setExport(exportEntity);
+			data.i++;
 			performSaveOrUpdate(model);
 		} catch (Exception e) {
 			String errorMessage = "Exception in Disabilities :" + disabilities.getProjectEntryID() + ":: Exception"

@@ -64,7 +64,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 			model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
 			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
 			model.setExitdate(BasicDataGenerator.getLocalDateTime(exit.getExitDate()));
-			Enrollment enrollmentModel = parentDaoFactory.getEnrollmentDao().getEnrollmentByProjectGroupCodeAndSourceSystem(domain.getUpload().getProjectGroupCode(), exit.getExitID(), null);
+			Enrollment enrollmentModel = (Enrollment) relatedModelMap.get(exit.getProjectEntryID().trim());
 			model.setEnrollmentid(enrollmentModel);
 			model.setExport(exportEntity);
 			performSaveOrUpdate(model);

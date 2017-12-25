@@ -32,6 +32,10 @@
             <source>${project.build.directory}/../src/main/scripts/start-sync-live-full.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
+           <file>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-client-delta.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
         <file>
             <source>${project.build.directory}/../src/main/scripts/start-sync-staging-2014.sh</source>
             <outputDirectory>/bin/</outputDirectory>
@@ -55,6 +59,10 @@
         </file>
         <file>
             <source>${project.build.directory}/../src/main/scripts/stop-sync-live-full.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+          <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-client-delta.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
         <file>

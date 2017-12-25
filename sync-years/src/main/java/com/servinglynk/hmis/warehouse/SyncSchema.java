@@ -482,7 +482,7 @@ public class SyncSchema extends Logging {
     public static void main(String args[]) throws IOException {
     	
     	 Properties props = new Properties();
-         props.generatePropValues();
+         props.generatePropValues("application.conf");
          props.printProps();
     	ResultSet resultSet = null;
 		PreparedStatement statement = null;
