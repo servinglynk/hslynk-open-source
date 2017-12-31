@@ -255,7 +255,7 @@ public class AuthorizationsController  {
 		 
 			 
 			 if (state != null)	{
-				 effectiveRedirectUri = effectiveRedirectUri + "&state=" + urlEncode(state);
+				 effectiveRedirectUri = effectiveRedirectUri + "&state=" + state;
 					logger.debug("state is provided {}, append it to the redirect uri", state);
 				}
 				
@@ -311,7 +311,7 @@ public class AuthorizationsController  {
 		String effectiveRedirectUri = "/hmis-authorization-service/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
 		
 		 if (state != null)	{
-			 effectiveRedirectUri = effectiveRedirectUri + "&state=" + urlEncode(state);
+			 effectiveRedirectUri = effectiveRedirectUri + "&state=" + state;
 				logger.debug("state is provided {}, append it to the redirect uri", state);
 			}
 			
