@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -11,6 +12,8 @@ public class EnrollmentCoc extends ClientModel {
 	private UUID enrollmentId;
 	private UUID projectCocId;
 	private UUID enrollmentCocId;
+	private LocalDateTime informationDate;
+    private Integer dataCollectionStage;
 
 	public EnrollmentCoc(){
 		
@@ -51,4 +54,21 @@ public class EnrollmentCoc extends ClientModel {
 	public void setProjectCocId(UUID projectCocId) {
 		this.projectCocId = projectCocId;
 	}
+
+	public LocalDateTime getInformationDate() {
+		return informationDate;
+	}
+
+	public void setInformationDate(LocalDateTime informationDate) {
+		this.informationDate = informationDate;
+	}
+
+	public Integer getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+
+	public void setDataCollectionStage(Integer dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
+	
 }

@@ -84,7 +84,7 @@ public class SyncDeltaHbase extends Logging {
     public void sync(boolean delta) throws Exception {
         log.info("Start a new sync for " + version.name() + " uploads");
         syncTablesToHBase(delta);
-        log.info("Sync done. Wait " + syncPeriod + " minutes before running next sync");
+        log.info("Sync Completed.");
     }
 
     private void syncTablesToHBase(boolean delta) throws Exception {
@@ -205,7 +205,7 @@ public class SyncDeltaHbase extends Logging {
             	int limit = 20000;
             	String deltaQuery = "";
             	if(delta) {
-            		deltaQuery="and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  limit 1 ) ";
+            		deltaQuery="and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  desc limit 1 ) ";
             	}
                 String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
                 statement = connection.prepareStatement(sql);
@@ -214,8 +214,6 @@ public class SyncDeltaHbase extends Logging {
                 int offset = limit*count++;
                 statement.setInt(3,offset);
                 resultSet = statement.executeQuery();
-                System.out.println("Testing count"+count);
-                System.out.println("Offset count"+offset);
                 empty = true;
              
                 List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable);
@@ -306,9 +304,7 @@ public class SyncDeltaHbase extends Logging {
                     htable.put(putsToUpdate);
                     htable.flushCommits();
                 }
-                if(empty) {
                 	break;
-                }
             }
             message = " Records inserted : "+insertCount +" updated :"+ updateCount+ " deleted :"+ deleteCount;
             SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,projectGroupCode);

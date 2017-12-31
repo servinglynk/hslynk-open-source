@@ -355,6 +355,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 	public List<com.servinglynk.hmis.warehouse.model.v2014.Client> getAllNullDedupIdClients() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Client.class);
 		criteria.add(Restrictions.isNull("dedupClientId"));
+		criteria.add(Restrictions.neOrIsNotNull("firstName", ""));
+		criteria.add(Restrictions.neOrIsNotNull("lastName", ""));
 		List<String> projectGroupCodes = new ArrayList<String>();
 		projectGroupCodes.add("MO0010");
 		projectGroupCodes.add("HO0002");

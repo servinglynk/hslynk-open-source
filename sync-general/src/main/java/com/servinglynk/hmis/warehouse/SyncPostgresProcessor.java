@@ -1,15 +1,22 @@
 package com.servinglynk.hmis.warehouse;
 
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
+
+import org.apache.log4j.Logger;
 
 public class SyncPostgresProcessor extends Logging{
 
     public static int batchSize = 1000;
+    static final Logger logger = Logger.getLogger(SyncPostgresProcessor.class);
     private static Connection connection = null;
     static Connection getConnection() throws SQLException {
         if (connection == null) {
@@ -42,6 +49,34 @@ public class SyncPostgresProcessor extends Logging{
         }
         return tables;
     }
+    
+    public static void hydrateSyncTable(String schemaName,String tableName,String status,String message){
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("insert into "+schemaName+".sync (sync_table,status,description,date_created,date_updated)  values (?,?,?,?,?)");
+            statement.setString(1, tableName);
+            statement.setString(2,status);
+            statement.setString(3,message);
+            statement.setTimestamp(4, getCUrrentTimestamp());
+            statement.setTimestamp(5, getCUrrentTimestamp());
+            statement.executeUpdate();
+        }catch (SQLException ex) {
+            logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+
+        } finally {
+
+            try {
+                if (statement != null) {
+                	statement.close();
+                }
+            } catch (SQLException ex) {
+            	logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+            }
+        }
+    }
+
 
     private static Timestamp getCUrrentTimestamp() {
         Calendar calendar = Calendar.getInstance();
