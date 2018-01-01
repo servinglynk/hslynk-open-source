@@ -15,6 +15,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.SortField;
 import org.hibernate.CacheMode;
+import org.hibernate.Criteria;
 import org.hibernate.FlushMode;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
@@ -32,6 +33,7 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.search.query.dsl.TermMatchingContext;
 
 import com.servinglynk.hmis.warehouse.SearchRequest;
+import com.servinglynk.hmis.warehouse.Sort;
 import com.servinglynk.hmis.warehouse.model.base.Client;
 import com.servinglynk.hmis.warehouse.model.base.Project;
 
@@ -93,7 +95,87 @@ public class SearchDaoImpl
   // If search keyword is string         -> search will be done on remaining fields.
   // In all the scenarios search results will be filtered on login user project group
   
+  
+  public DetachedCriteria prepareCriteria(SearchRequest searchRequest) {
+	  
+	  DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
+	  DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+	  Date date=null;
+	  
+	try {
+		date = formatter.parse(searchRequest.getFreeText());
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
+		
+		criteria.add(Restrictions.sqlRestriction(" convert_from(dob_decrypt(dob),'UTF-8') >= ?" , date,org.hibernate.type.StandardBasicTypes.DATE));
+		criteria.add(Restrictions.sqlRestriction(" convert_from(dob_decrypt(dob),'UTF-8') < ?" , new Date(date.getTime()+TimeUnit.DAYS.toMillis(1)),org.hibernate.type.StandardBasicTypes.DATE));			
+		
+		
+		//  criteria.add(Restrictions.ge(" convert_from(hmis_decrypt(dob,'UTF8')", LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())));
+		//  criteria.add(Restrictions.lt(" convert_from(hmis_decrypt(dob,'UTF8')", LocalDateTime.ofInstant(DateUtils.addDays(date,1).toInstant(), ZoneId.systemDefault())));
+	} catch (ParseException e) {
+		try{
+			  UUID clientId = UUID.fromString(searchRequest.getFreeText());
+			  Criterion clientIdCr = Restrictions.eq("id", clientId);
+			  Criterion dedupClientIdCr =Restrictions.eq("dedupClientId", clientId);
+			  criteria.add(Restrictions.or(clientIdCr,dedupClientIdCr));
+			  //criteria.addOrder(Order.desc("dateUpdated"));
+			  Sort sorting = new Sort();
+			    sorting.setOrder("desc");
+			    sorting.setField("dateUpdated");
+			    searchRequest.setSort(sorting);
+		  }catch (Exception ex) {
+				  
+				  Criterion firstName = Restrictions.ilike("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+				  Criterion lastName = Restrictions.ilike("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+				  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+				 Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
+				  Criterion ssn = Restrictions.sqlRestriction(" ( convert_from(ssn_decrypt(ssn),'UTF-8') ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
+				  Criterion fullName = Restrictions.sqlRestriction("(concat(first_name,middle_name,last_name) ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
+				  Criterion clientName = Restrictions.sqlRestriction("(concat(first_name,last_name) ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
+				  if(Arrays.asList(searchRequest.getExcludeFields()).contains("ssi"))
+					  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,fullName,clientName));
+				  else
+					  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,sourceSystemId,fullName,clientName));
+				
+				
+				/*ProjectionList projectionList = Projections.projectionList();
+				  projectionList.add(Projections.groupProperty("dedupClientId"));
+				  projectionList.add(Projections.groupProperty("firstName"));
+				  projectionList.add(Projections.groupProperty("lastName"));
+				  projectionList.add(Projections.groupProperty("middleName"));
+				  projectionList.add(Projections.groupProperty("sourceSystemId"));
+				  projectionList.add(Projections.groupProperty("ssn"));
+				  projectionList.add(Projections.groupProperty("dateUpdated"));
+				  criteria.setProjection(projectionList);  */
+				//  criteria.addOrder(Order.desc("dateUpdated"));
+		  } 
+  }
+	criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
+	criteria.add(Restrictions.eq("deleted", false));
+	criteria.add(Restrictions.isNotNull("dedupClientId"));
+
+	  return criteria;
+  }
+  
+  
   public List<?> searchData(SearchRequest searchRequest){
+	  searchRequest.getPagination().setTotal((int) countRows(this.prepareCriteria(searchRequest)));
+	  
+	  
+	  DetachedCriteria criteria =this.prepareCriteria(searchRequest);
+	  
+	  if(searchRequest.getSort().getOrder().equals("asc"))
+		  criteria.addOrder(Order.asc(searchRequest.getSort().getField()));
+	  else
+		  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
+	  
+	  criteria.addOrder(Order.desc("dateUpdated"));
+	  return findByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
+  }
+  
+/*  public List<?> searchData(SearchRequest searchRequest){
 
 	  DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
 		  DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -117,7 +199,11 @@ public class SearchDaoImpl
 				  Criterion clientIdCr = Restrictions.eq("id", clientId);
 				  Criterion dedupClientIdCr =Restrictions.eq("dedupClientId", clientId);
 				  criteria.add(Restrictions.or(clientIdCr,dedupClientIdCr));
-				  criteria.addOrder(Order.desc("dateUpdated"));
+				  //criteria.addOrder(Order.desc("dateUpdated"));
+				  Sort sorting = new Sort();
+				    sorting.setOrder("desc");
+				    sorting.setField("dateUpdated");
+				    searchRequest.setSort(sorting);
 			  }catch (Exception ex) {
 					  
 					  Criterion firstName = Restrictions.ilike("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
@@ -131,12 +217,9 @@ public class SearchDaoImpl
 						  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,fullName,clientName));
 					  else
 						  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,sourceSystemId,fullName,clientName));
-					  if(searchRequest.getSort().getOrder().equals("asc"))
-						  criteria.addOrder(Order.asc(searchRequest.getSort().getField()));
-					  else
-						  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
 					
-					/*ProjectionList projectionList = Projections.projectionList();
+					
+					ProjectionList projectionList = Projections.projectionList();
 					  projectionList.add(Projections.groupProperty("dedupClientId"));
 					  projectionList.add(Projections.groupProperty("firstName"));
 					  projectionList.add(Projections.groupProperty("lastName"));
@@ -144,19 +227,25 @@ public class SearchDaoImpl
 					  projectionList.add(Projections.groupProperty("sourceSystemId"));
 					  projectionList.add(Projections.groupProperty("ssn"));
 					  projectionList.add(Projections.groupProperty("dateUpdated"));
-					  criteria.setProjection(projectionList);  */
-					  criteria.addOrder(Order.desc("dateUpdated"));
+					  criteria.setProjection(projectionList);  
+					//  criteria.addOrder(Order.desc("dateUpdated"));
 			  } 
 	  }
 		criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
 		criteria.add(Restrictions.eq("deleted", false));
 		criteria.add(Restrictions.isNotNull("dedupClientId"));
-	  searchRequest.getPagination().setTotal((int) countRows(criteria));
+		DetachedCriteria countCriteria = criteria;
+	  searchRequest.getPagination().setTotal((int) countRows(countCriteria));
 	  
-	
+	  if(searchRequest.getSort().getOrder().equals("asc"))
+		  criteria.addOrder(Order.asc(searchRequest.getSort().getField()));
+	  else
+		  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
+	  
+	  criteria.addOrder(Order.desc("dateUpdated"));
 	  return findByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
   }
-  
+  */
   public boolean indexing(String indexClassList)
   {
     boolean status = true;
