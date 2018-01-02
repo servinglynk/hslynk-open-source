@@ -36,12 +36,13 @@ public class SyncSchema extends Logging {
         this.syncSchemas = Properties.SYNC_SCHEMAS;
     }
 
-    public void sync(boolean delta) throws Exception {
-        syncTablesToHBase(delta);
-        log.info("Sync process completed.");
+    public void sync() throws Exception {
+        syncTablesToHBase();
+        log.info("Sync completed.");
     }
 
-    private void syncTablesToHBase(boolean delta) throws Exception {
+    private void syncTablesToHBase() throws Exception {
+
         if (syncSchemas.trim().length() > 0) {
             String[] schemas = syncSchemas.split(",");
             for (String schema : schemas) {
@@ -68,11 +69,12 @@ public class SyncSchema extends Logging {
                     logger.info("Create tables in HBASE");
                     tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + schema, logger));
                     logger.info("Create tables done");
+                    Map<String, String> hmisTypes = loadHmisTypeMap(schema);
                     for (final String tableName : tables) {
                         final String tempName = tableName;
                         logger.info("[" + tempName + "] Processing table : " + tempName);
                         try {
-                            syncTable(tempName, tempName + "_" + schema, schema,delta);
+                            syncTable(tempName, tempName + "_" + schema, schema,hmisTypes);
                         } catch (Exception ex) {
                            logger.error(ex);
                         }
@@ -88,7 +90,48 @@ public class SyncSchema extends Logging {
         }
     }
 
-    private void syncTable(String postgresTable, String hbaseTable, String syncSchema,boolean delta) {
+    /***
+   	 * Loads the Hmistype into a hashMap so that I canbe retrieved from there instead of querying the tables.
+   	 *
+   	 * @return Map<String,String>
+   	 */
+   	public static Map<String, String> loadHmisTypeMap(String schema) {
+   		ResultSet resultSet = null;
+   		PreparedStatement statement = null;
+   		Connection connection = null;
+   		Map<String, String> hmisTypeMap = new HashMap<String, String>();
+   		try {
+   			connection = SyncPostgresProcessor.getConnection();
+   			statement = connection.prepareStatement("SELECT name, value,description FROM " + schema + ".hmis_type");
+   			resultSet = statement.executeQuery();
+   			while (resultSet.next()) {
+   				String name = resultSet.getString(1);
+   				String key = name.toLowerCase().trim() + "_" + resultSet.getString(2).trim();
+   				String desc = resultSet.getString(3);
+   				hmisTypeMap.put(key, desc);
+   			}
+   			return hmisTypeMap;
+   		} catch (SQLException e) {
+   			// TODO Auto-generated catch block
+   			e.printStackTrace();
+   		} finally {
+   			if (statement != null) {
+   				try {
+   					statement.close();
+   					//connection.close();
+   				} catch (SQLException e) {
+   					// TODO Auto-generated catch block
+   					e.printStackTrace();
+   				}
+   			}
+   		}
+   		return null;
+   	}
+    private String getDescriptionForHmisType(final Map<String, String> hmisTypes, String key) {
+    	return hmisTypes.get(key);
+    }
+    
+    private void syncTable(String postgresTable, String hbaseTable, String syncSchema, Map<String, String> hmisTypes) {
         log.info("Start sync for table: " + postgresTable);
         HTable htable;
         ResultSet resultSet;
@@ -97,36 +140,17 @@ public class SyncSchema extends Logging {
         try {
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
             connection = SyncPostgresProcessor.getConnection();
-            boolean empty = true;
-            String message ="";
-            int count = 0;
-            Long insertCount =0L;
-            Long updateCount =0L;
-            Long deleteCount =0L;
-            while(true) {
-            	int limit = 20000;
-            	String deltaQuery = "";
-            	if(delta) {
-            		deltaQuery=" date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' order by date_updated  desc limit 1 ) ";
-            		if(StringUtils.equals("survey", syncSchema)) {
-            			deltaQuery=" updated_at >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' order by updated_at  desc limit 1 ) ";
-            		}
-            	}
-            	String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where "+deltaQuery+" limit ?  offset ?";
-            statement = connection.prepareStatement(sql);
-            statement.setInt(1, 20000);
-            int offset = limit*count++;
-            statement.setInt(2,offset);
+            statement = connection.prepareStatement("SELECT * FROM " + syncSchema + "." + postgresTable);
             resultSet = statement.executeQuery();
 
             List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
             List<String> existingKeysInPostgres = new ArrayList<>();
+
             List<Put> putsToUpdate = new ArrayList<>();
             List<Put> putsToInsert = new ArrayList<>();
             List<String> putsToDelete = new ArrayList<>();
             while (resultSet.next()) {
                 Boolean markedForDelete = false;
-                empty = false;
                 try{
                     resultSet.getBoolean("deleted");
                 }catch (Exception ex){
@@ -155,12 +179,25 @@ public class SyncSchema extends Logging {
                     for (int i = 1; i < metaData.getColumnCount(); i++) {
                         String column = metaData.getColumnName(i);
                         String value = resultSet.getString(i);
+                        String columnTypeName = metaData.getColumnTypeName(i);
                         if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
                             p.addColumn(Bytes.toBytes("CF"),
                                     Bytes.toBytes(column),
                                     Bytes.toBytes(value));
+                            // Add a new column for description for enums
+                            if(columnTypeName.contains(syncSchema)) {
+                            	String description = getDescriptionForHmisType(hmisTypes, column.toLowerCase().trim()+"_"+value.trim());
+                            	if(StringUtils.isNotBlank(description)) {
+                            		 p.addColumn(Bytes.toBytes("CF"),
+                                             Bytes.toBytes(column+"_desc"),
+                                             Bytes.toBytes(description));
+                            	}
+                            }
                         }
                     }
+                    p.addColumn(Bytes.toBytes("CF"),
+                            Bytes.toBytes("year"),
+                            Bytes.toBytes(syncSchema));
                     if (existingKeysInHbase.contains(key)) {
                         putsToUpdate.add(p);
                         if (putsToUpdate.size() > syncHBaseImport.batchSize) {
@@ -182,31 +219,27 @@ public class SyncSchema extends Logging {
                     putsToDelete.add(key);
                 }
             });
-            deleteCount += putsToDelete.size();
+
             logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
             if (putsToDelete.size() > 0) {
                 syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
             }
-            insertCount += putsToInsert.size();
+
             logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
             if (putsToInsert.size() > 0) {
                 htable.put(putsToInsert);
             }
-            updateCount += putsToUpdate.size();
+
             logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
             if (putsToUpdate.size() > 0) {
                 htable.put(putsToUpdate);
             }
-           break;
-        }
-        message = " Records inserted : "+insertCount +" updated :"+ updateCount+ " deleted :"+ deleteCount;
-        SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message);
-    } catch (Exception ex) {
-        logger.error(ex);
-        SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "ERROR", "Error in sync process "+ex.getMessage());
-    }
 
-    log.info("Sync done for table: " + postgresTable);
+        } catch (Exception ex) {
+            logger.error(ex);
+        }
+
+        log.info("Sync done for table: " + postgresTable);
     }
 
     private List<String> getTablesToSync(String schema) throws Exception {
@@ -220,14 +253,5 @@ public class SyncSchema extends Logging {
             logger.warn("No tables found: ", ex);
         }
         return tables;
-    }
-    
-    public static void main(String args[]) throws Exception {
-		Logger logger = Logger.getLogger(SyncSchema.class.getName());
-		Properties props = new Properties();
-		props.generatePropValues();
-		props.printProps();
-		SyncSchema sync = new SyncSchema(logger);
-		sync.syncTablesToHBase(true);
     }
 }
