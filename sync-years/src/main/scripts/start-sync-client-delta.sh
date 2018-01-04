@@ -17,7 +17,7 @@ fi
 
 export CLASSPATH_PREFIX=$parentdir"/conf"
 
-echo "Start active list view process"
+echo "Start sync"
 
-export JAVA_OPTS="-XX:MaxPermSize=1024m -Dlog4j.debug=true -Dlog4j.configuration=log4j-active-list-view.properties"
-$dir/main-active-list-view.sh </dev/null > $logsFolder/active-list-view.log 2>&1 &
+export JAVA_OPTS="-XX:MaxPermSize=1g -Dlog4j.debug=true -Dlog4j.configuration=log4j-client-delta.properties"
+$dir/main-sync-client-delta.sh &>/dev/null &

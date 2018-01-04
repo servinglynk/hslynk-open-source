@@ -6,7 +6,7 @@ public class SyncLiveFull {
     public static void main(String args[]) throws Exception {
         Logger logger = Logger.getLogger(SyncLiveFull.class.getName());
         Properties props = new Properties();
-        props.generatePropValues();
+        props.generatePropValues("application.conf");
         props.printProps();
 
         new SyncDeltaHbase(VERSION.V2014, logger, Status.LIVE, true).sync(false);

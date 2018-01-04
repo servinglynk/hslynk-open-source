@@ -101,7 +101,7 @@ public class CocCodeFix {
 		int count =0;
 		  Logger logger = Logger.getLogger(Stats.class.getName());
 	        Properties props = new Properties();
-	        props.generatePropValues();
+	        props.generatePropValues("application.conf");
 	        props.printProps();
 		List<String> schemas = new ArrayList<>();
 		schemas.add("v2014");

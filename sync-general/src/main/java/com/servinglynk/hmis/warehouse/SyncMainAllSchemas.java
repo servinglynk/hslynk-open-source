@@ -10,5 +10,6 @@ public class SyncMainAllSchemas {
 		props.generatePropValues();
 		props.printProps();
 	    new SyncSchema(logger).sync();
+	    System.exit(0);
 	}
 }
