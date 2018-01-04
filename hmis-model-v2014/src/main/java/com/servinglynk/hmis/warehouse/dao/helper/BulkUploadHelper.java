@@ -709,6 +709,7 @@ public class BulkUploadHelper {
 	    	  enrollmentCocModel.setDateUpdated(getXMLGregorianCalendar(enrollCoC.getDateUpdated()));
 	    	  enrollmentCocModel.setEnrollmentCoCID(enrollCoC.getEnrollmentCOCID());
 	    	  enrollmentCocModel.setInformationDate(getXMLGregorianCalendar(enrollCoC.getInformationDate()));
+	    	  enrollmentCocModel.setCocCode(enrollCoC.getCoCCode());
 	    	  enrollmentCocModel.setProjectCoCID(String.valueOf(enrollCoC.getProjectID()));
 	    	  enrollmentCocModel.setProjectEntryID(enrollCoC.getProjectEntryID());
 	    	  enrollmentCocModel.setUserID(enrollCoC.getUserID());

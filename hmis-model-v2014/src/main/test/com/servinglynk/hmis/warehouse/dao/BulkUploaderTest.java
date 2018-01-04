@@ -109,6 +109,29 @@ public class BulkUploaderTest {
 		factory.getBulkUploaderDao().processDisabilities(bullkUpload,projectGrpEntity, appender,false);
 	}
 	
+	
+	@Test
+	public void testEnrollmentCoc() throws Exception                                         
+	{
+		//URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		BulkUpload	bullkUpload = new BulkUpload();
+		bullkUpload.setInputpath("/Users/sdolia/Downloads/CSV_files.zip");
+	//	bullkUpload.setInputpath(path.getPath());
+		bullkUpload.setId(389L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + bullkUpload.getId());
+		appender.setFile("logs/" + bullkUpload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
+		bullkUpload.setProjectGroupCode("IL0009");
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("IL0009");
+		factory.getBulkUploaderDao().processEnrollmentChildren(bullkUpload, projectGrpEntity, appender, false);
+		
+	}
+	
 	@Test
 	public void test7ZFile() throws Exception                                         
 	{

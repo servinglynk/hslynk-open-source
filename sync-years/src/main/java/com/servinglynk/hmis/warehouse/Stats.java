@@ -63,7 +63,7 @@ public class Stats {
             
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-            	//System.out.println("Table Name :"+tableName + " count: "+resultSet.getInt(1));
+            	System.out.println("Table Name :"+tableName + " count: "+resultSet.getInt(1));
             	return  resultSet.getInt(1);
             }
         }catch (Exception ex){
@@ -81,18 +81,18 @@ public class Stats {
 	        props.generatePropValues("application.conf");
 	        props.printProps();
 		List<String> schemas = new ArrayList<>();
-		schemas.add("v2014");
-		schemas.add("v2015");
-		schemas.add("v2016");
-		schemas.add("v2017");
+//		schemas.add("v2014");
+//		schemas.add("v2015");
+//		schemas.add("v2016");
+//		schemas.add("v2017");
 		schemas.add("base");
-		schemas.add("survey");
-		schemas.add("housing_inventory");
+//		schemas.add("survey");
+//		schemas.add("housing_inventory");
 		List<String> projectGroups = new ArrayList<>();
-		projectGroups.add("BD0005");
-		projectGroups.add("HO0002");
-		projectGroups.add("MO0010");
-		projectGroups.add("SR0012");
+//		projectGroups.add("BD0005");
+//		projectGroups.add("HO0002");
+//		projectGroups.add("MO0010");
+//		projectGroups.add("SR0012");
 		projectGroups.add("IL0009");
 		
 		for(String projectGroupCode : projectGroups) {
