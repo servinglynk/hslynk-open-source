@@ -28,6 +28,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -380,7 +381,9 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 
 	public long countRows(DetachedCriteria dCriteria){
 		addingConditionsToCriteria(dCriteria);
-		return dCriteria.getExecutableCriteria(getCurrentSession()).list().size();
+		dCriteria.setProjection(Projections.rowCount());
+		Criteria criteria = dCriteria.getExecutableCriteria(getCurrentSession());
+		return (long) criteria.uniqueResult();
 		 //TBD
 	}
 	
