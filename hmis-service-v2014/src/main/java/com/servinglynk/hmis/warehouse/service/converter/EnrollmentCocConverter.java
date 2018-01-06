@@ -21,8 +21,8 @@ public class EnrollmentCocConverter  extends BaseConverter {
        EnrollmentCoc model = new EnrollmentCoc();
        model.setEnrollmentCocId(entity.getId());
        model.setCocCode(entity.getCocCode());
-       model.setEnrollmentId(entity.getEnrollmentid().getId());
-       model.setProjectCocId(entity.getProjectCoc().getId());
+       model.setEnrollmentId(entity.getEnrollmentid() !=null ? entity.getEnrollmentid().getId() : null);
+       model.setProjectCocId(entity.getProjectCoc() !=null? entity.getProjectCoc().getId() : null);
        model.setDateCreated(entity.getDateCreated());
        model.setDateUpdated(entity.getDateUpdated());
        if(entity.getInformationDate()!=null)

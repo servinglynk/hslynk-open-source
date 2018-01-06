@@ -378,18 +378,19 @@ public class BulkUploadHelper2017 {
 	    	  disabilitiesModel.setDataCollectionStage(getByte(disability.getDataCollectionStage()));
 	    	  disabilitiesModel.setDateCreated(getXMLGregorianCalendar(disability.getDateCreated()));
 	    	  disabilitiesModel.setDateUpdated(getXMLGregorianCalendar(disability.getDateUpdated()));
+	    	  disabilitiesModel.setTCellCount(getShortValue(disability.getTCellCount()));
+	    	  disabilitiesModel.setTCellCountAvailable(getByte(disability.getTCellCountAvailable()));
+	    	  disabilitiesModel.setTCellSource(getByte(disability.getTCellSource()));
 	    	  disabilitiesModel.setDisabilitiesID(disability.getDisabilitiesID());
 	    	  disabilitiesModel.setDisabilityResponse(getByte(disability.getDisabilityResponse()));
 	    	  disabilitiesModel.setDisabilityType(getByte(disability.getDisabilityType()));
-//	    	  disabilitiesModel.setDocumentationOnFile(getByte(disability.getDocumentationOnFile()));
-	    	 // disabilitiesModel.setIndefiniteAndImpairs(getByte(disability.getIndefiniteAndImpairs()));
 	    	  disabilitiesModel.setInformationDate(getXMLGregorianCalendar(disability.getInformationDate()));
-//	    	  disabilitiesModel.setPATHHowConfirmed(getByte(disability.getPATHHowConfirmed()));
-//	    	  disabilitiesModel.setPATHSMIInformation(getByte(disability.getPATHSMIInformation()));
-	    	  disabilitiesModel.setEnrollmentID(disability.getProjectEntryID());
-//	    	  disabilitiesModel.setReceivingServices(getByte(disability.getReceivingServices()));
+	    	  disabilitiesModel.setEnrollmentID(disability.getEnrollmentID());
 	    	  disabilitiesModel.setUserID(disability.getUserID());
-	    	  
+	    	  disabilitiesModel.setIndefiniteAndImpairsIndependence(getByte(disability.getIndefiniteAndImpairs()));
+	    	  disabilitiesModel.setViralLoad(getIntValue(disability.getViralLoad()));
+	    	  disabilitiesModel.setViralLoadAvailable(getByte(disability.getViralLoadAvailable()));
+	    	  disabilitiesModel.setViralLoadSource(getByte(disability.getViralLoadSource()));
 	    	  disabilitiesList.add(disabilitiesModel);
 	      }
 	      sources.getSource().getExport().setDisabilities(disabilitiesList);
@@ -460,10 +461,10 @@ public class BulkUploadHelper2017 {
 	    	  //enrollmentModel.setMonthsHomelessThisTime(getByte(enroll.get));
 	    	  //enrollmentModel.set(enroll.getOtherResidencePrior());
 	    	  enrollmentModel.setPersonalID(enroll.getPersonalID());
-	    	  enrollmentModel.setEnrollmentID(enroll.getProjectEntryID());
+	    	  enrollmentModel.setEnrollmentID(enroll.getEnrollmentID());
 	    	  enrollmentModel.setProjectID(enroll.getProjectID());
 	    	  enrollmentModel.setRelationshipToHoH(getByte(enroll.getRelationshipToHoH()));
-	    	  enrollmentModel.setResidencePrior(getByte(enroll.getResidencePrior()));
+	    	//  enrollmentModel.setResidencePrior(getByte(enroll.getResi()));
 //	    	  enrollmentModel.setResidencePriorLengthOfStay(getByte(enroll.getResidencePriorLengthOfStay()));
 //	    	  enrollmentModel.setStatusDocumented(getByte(enroll.get));
 	    	  enrollmentModel.setTimesHomelessPastThreeYears(getByte(enroll.getTimesHomelessPastThreeYears()));
@@ -475,9 +476,9 @@ public class BulkUploadHelper2017 {
 	    	  DateOfEngagement dateOfEngagementModel = new DateOfEngagement();
 	    	  dateOfEngagementModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  dateOfEngagementModel.setDateOfEngagement(getXMLGregorianCalendar(enroll.getDateOfEngagement()));
-	    	  dateOfEngagementModel.setDateOfEngagementID(enroll.getProjectEntryID());
+	    	  dateOfEngagementModel.setDateOfEngagementID(enroll.getEnrollmentID());
 	    	  dateOfEngagementModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  dateOfEngagementModel.setEnrollmentID(enroll.getProjectEntryID());
+	    	  dateOfEngagementModel.setEnrollmentID(enroll.getEnrollmentID());
 	    	  dateOfEngagementModel.setUserID(enroll.getUserID());
 	    	  dateOfEngagementList.add(dateOfEngagementModel);
 	    	  
@@ -485,29 +486,29 @@ public class BulkUploadHelper2017 {
 	    	  residentialmoveindateModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  residentialmoveindateModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 	    	//  residentialmoveindateModel.setInPermanentHousing(getByte(enroll.getInPermanentHousing()));
-	    	  residentialmoveindateModel.setEnrollmentID(enroll.getProjectEntryID());
-	    	  residentialmoveindateModel.setMoveInDate(getXMLGregorianCalendar(enroll.getResidentialMoveInDate()));
-	    	  residentialmoveindateModel.setMoveInDateID(enroll.getProjectEntryID());
+	    	  residentialmoveindateModel.setEnrollmentID(enroll.getEnrollmentID());
+	    	  residentialmoveindateModel.setMoveInDate(getXMLGregorianCalendar(enroll.getMoveInDate()));
+	    	  residentialmoveindateModel.setMoveInDateID(enroll.getEnrollmentID());
 	    	  residentialmoveindateModel.setUserID(enroll.getUserID());
 	    	  residentialmoveindateList.add(residentialmoveindateModel);
 	    	  
 	    	  PATHStatus pathstatusModel = new PATHStatus();;
 	    	  pathstatusModel.setClientEnrolledInPATH(getByte(enroll.getClientEnrolledInPATH()));
 	    	  pathstatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
-	    	  pathstatusModel.setDateOfStatus(getXMLGregorianCalendar(enroll.getDateOFPATHStatus()));
+	    	  pathstatusModel.setDateOfStatus(getXMLGregorianCalendar(enroll.getDateOfPATHStatus()));
 	    	  pathstatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  pathstatusModel.setPathStatusID(enroll.getProjectEntryID());
-	    	  pathstatusModel.setEnrollmentID(enroll.getProjectEntryID());
-	    	  pathstatusModel.setReasonNotEnrolled(getByte(enroll.getReasonNotEnrolled()));
+	    	  pathstatusModel.setPathStatusID(enroll.getEnrollmentID());
+	    	  pathstatusModel.setEnrollmentID(enroll.getEnrollmentID());
+	    	//  pathstatusModel.setReasonNotEnrolled(getByte(enroll.getEnrollmentID()));
 	    	  pathstatusModel.setUserID(enroll.getUserID());
 	    	  pathStatusList.add(pathstatusModel);
 
 	    	  RHYBCPStatus rhybcpstatusModel = new RHYBCPStatus();
 	    	  rhybcpstatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  rhybcpstatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  rhybcpstatusModel.setEnrollmentID(enroll.getProjectEntryID());
+	    	  rhybcpstatusModel.setEnrollmentID(enroll.getEnrollmentID());
 	    	  rhybcpstatusModel.setReasonNoServices(getByte(enroll.getReasonNoServices()));
-	    	  rhybcpstatusModel.setRHYBCPStatusID(enroll.getProjectEntryID());
+	    	  rhybcpstatusModel.setRHYBCPStatusID(enroll.getEnrollmentID());
 	    	//  rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.get));
 	    	  rhybcpstatusModel.setUserID(enroll.getUserID());
 	    	  rhybcpStatusList.add(rhybcpstatusModel);
@@ -519,9 +520,9 @@ public class BulkUploadHelper2017 {
 	    	  entrySSVFModel.setLastPermanentState(enroll.getLastPermanentState());
 	    	  entrySSVFModel.setLastPermanentStreet(enroll.getLastPermanentStreet());
 	    	  if(StringUtils.isNotBlank(enroll.getLastPermanentZIP()))
-	    		  entrySSVFModel.setLastPermanentZIP(Integer.parseInt(enroll.getLastPermanentZIP()));
+	    		  entrySSVFModel.setLastPermanentZIP(getIntValue(enroll.getLastPermanentZIP()));
 	    	  entrySSVFModel.setPercentAMI(enroll.getPercentAMI());
-	    	  entrySSVFModel.setEnrollmentID(enroll.getProjectEntryID());
+	    	  entrySSVFModel.setEnrollmentID(enroll.getEnrollmentID());
 	    	  entrySSVFModel.setVAMCStation(enroll.getVAMCStation());
 	    	  entrySSVFModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  entrySSVFModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
@@ -536,14 +537,14 @@ public class BulkUploadHelper2017 {
 	    	  
 	    	  entryRHY.setCountOutreachReferralApproaches(getByte(enroll.getCountOutreachReferralApproaches()));
 	    	  //entryRHY.setDataCollectionStage(enroll.getDat);
-	    	  entryRHY.setEntryRHYID(enroll.getProjectEntryID());
+	    	  entryRHY.setEntryRHYID(enroll.getEnrollmentID());
 	    	  entryRHYList.add(entryRHY);
 	    	  
 	    	  
 	    	  EntryRHSP entryRHSP = new EntryRHSP();
 	    	  entryRHSP.setWorstHousingSituation(enroll.getWorstHousingSituation());
 	    	  entryRHSP.setProjectID(enroll.getProjectID());
-	    	  entryRHSP.setEntryRHSPID(enroll.getProjectEntryID());
+	    	  entryRHSP.setEntryRHSPID(enroll.getEnrollmentID());
 	    	  entryRHSP.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  entryRHSP.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 	    	  entryRHSP.setUserID(enroll.getUserID());
@@ -807,76 +808,76 @@ public class BulkUploadHelper2017 {
 	    	  
 	    	  incomeBenefitsModel.setAlimony(getByte(incomeBnfts.getAlimony()));
 	    	  if(incomeBnfts.getAlimonyAmount()!=null && !"".equals(incomeBnfts.getAlimonyAmount())){
-	    		  incomeBenefitsModel.setAlimonyAmount(Float.parseFloat(incomeBnfts.getAlimonyAmount()));
+	    		  incomeBenefitsModel.setAlimonyAmount(getFloatValue(incomeBnfts.getAlimonyAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setChildSupport(getByte(incomeBnfts.getChildSupport()));
 	    	  if(incomeBnfts.getChildSupportAmount()!=null && !"".equals(incomeBnfts.getChildSupportAmount())){
-	    		  incomeBenefitsModel.setChildSupportAmount(Float.parseFloat(incomeBnfts.getChildSupportAmount()));
+	    		  incomeBenefitsModel.setChildSupportAmount(getFloatValue(incomeBnfts.getChildSupportAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
 	    	  incomeBenefitsModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
 	    	  incomeBenefitsModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
 	    	  incomeBenefitsModel.setEarned(getByte(incomeBnfts.getEarned()));
 	    	  if(incomeBnfts.getEarnedAmount()!=null && !"".equals(incomeBnfts.getEarnedAmount())){
-	    		  incomeBenefitsModel.setEarnedAmount(Float.parseFloat(incomeBnfts.getEarnedAmount()));
+	    		  incomeBenefitsModel.setEarnedAmount(getFloatValue(incomeBnfts.getEarnedAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setGA(getByte(incomeBnfts.getGA()));
 	    	  if(incomeBnfts.getGAAmount()!=null && !"".equals(incomeBnfts.getGAAmount())){
-	    		  incomeBenefitsModel.setGAAmount(Float.parseFloat(incomeBnfts.getGAAmount()));
+	    		  incomeBenefitsModel.setGAAmount(getFloatValue(incomeBnfts.getGAAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setIncomeAndSourcesID(incomeBnfts.getIncomeBenefitsID());
 	    	  incomeBenefitsModel.setIncomeFromAnySource(getByte(incomeBnfts.getIncomeFromAnySource()));
 	    	  incomeBenefitsModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
 	    	  incomeBenefitsModel.setOtherSource(getByte(incomeBnfts.getOtherIncomeSource()));
 	    	  if(incomeBnfts.getOtherIncomeAmount()!=null && !"".equals(incomeBnfts.getOtherIncomeAmount())){
-	    		  incomeBenefitsModel.setOtherAmount(Float.parseFloat(incomeBnfts.getOtherIncomeAmount()));
+	    		  incomeBenefitsModel.setOtherAmount(getFloatValue(incomeBnfts.getOtherIncomeAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setOtherSourceIdentify(incomeBnfts.getOtherIncomeSourceIdentify());
-	    	  incomeBenefitsModel.setPension(getByte(incomeBnfts.getPension()));
+	    	  incomeBenefitsModel.setPension(incomeBnfts.getPension());
 	    	  if(incomeBnfts.getPensionAmount()!=null && !"".equals(incomeBnfts.getPensionAmount())){
-	    		  incomeBenefitsModel.setPensionAmount(Float.parseFloat(incomeBnfts.getPensionAmount()));
+	    		  incomeBenefitsModel.setPensionAmount(getFloatValue(incomeBnfts.getPensionAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setPrivateDisability(getByte(incomeBnfts.getPrivateDisability()));
 	    	  if(incomeBnfts.getPrivateDisabilityAmount()!=null && !"".equals(incomeBnfts.getPrivateDisabilityAmount())){
-	    		  incomeBenefitsModel.setPrivateDisabilityAmount(Float.parseFloat(incomeBnfts.getPrivateDisabilityAmount()));
+	    		  incomeBenefitsModel.setPrivateDisabilityAmount(getFloatValue(incomeBnfts.getPrivateDisabilityAmount()));
 	    	  }
-	    	  incomeBenefitsModel.setEnrollmentID(incomeBnfts.getProjectEntryID());
-	    	  incomeBenefitsModel.setSocSecRetirement(getByte(incomeBnfts.getSocSecRetirement()));
+	    	  incomeBenefitsModel.setEnrollmentID(incomeBnfts.getEnrollmentID());
+	    	  incomeBenefitsModel.setSocSecRetirement(incomeBnfts.getSocSecRetirement());
 	    	  if(incomeBnfts.getSocSecRetirementAmount()!=null && !"".equals(incomeBnfts.getSocSecRetirementAmount())){
-	    		  incomeBenefitsModel.setSocSecRetirementAmount(Float.parseFloat(incomeBnfts.getSocSecRetirementAmount()));
+	    		  incomeBenefitsModel.setSocSecRetirementAmount(getFloatValue(incomeBnfts.getSocSecRetirementAmount()));
 	    	  }
-	    	  incomeBenefitsModel.setSSDI(getByte(incomeBnfts.getSSDI()));
+	    	  incomeBenefitsModel.setSSDI(incomeBnfts.getSSDI());
 	    	  if(incomeBnfts.getSSDIAmount()!=null && !"".equals(incomeBnfts.getSSDIAmount())){
-	    		  incomeBenefitsModel.setSSDIAmount(Float.parseFloat(incomeBnfts.getSSDIAmount()));
+	    		  incomeBenefitsModel.setSSDIAmount(getFloatValue(incomeBnfts.getSSDIAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setSSI(getByte(incomeBnfts.getSSI()));
 	    	  if(incomeBnfts.getSSIAmount()!=null && !"".equals(incomeBnfts.getSSIAmount())){
-	    		  incomeBenefitsModel.setSSIAmount(Float.parseFloat(incomeBnfts.getSSIAmount()));
+	    		  incomeBenefitsModel.setSSIAmount(getFloatValue(incomeBnfts.getSSIAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setTANF(getByte(incomeBnfts.getTANF()));
 	    	  if(incomeBnfts.getTANFAmount()!=null && !"".equals(incomeBnfts.getTANFAmount())){
-	    		  incomeBenefitsModel.setTANFAmount(Float.parseFloat(incomeBnfts.getTANFAmount()));
+	    		  incomeBenefitsModel.setTANFAmount(getFloatValue(incomeBnfts.getTANFAmount()));
 	    	  }
 	    	  if(incomeBnfts.getTotalMonthlyIncome()!=null && !"".equals(incomeBnfts.getTotalMonthlyIncome())){
-	    		  incomeBenefitsModel.setTotalMonthlyIncome(Float.parseFloat(incomeBnfts.getTotalMonthlyIncome()));
+	    		  incomeBenefitsModel.setTotalMonthlyIncome(getFloatValue(incomeBnfts.getTotalMonthlyIncome()));
 	    	  }
 	    	  incomeBenefitsModel.setUnemployment(getByte(incomeBnfts.getUnemployment()));
 	    	  if(incomeBnfts.getUnemploymentAmount()!=null && !"".equals(incomeBnfts.getUnemploymentAmount())){
-	    		  incomeBenefitsModel.setUnemploymentAmount(Float.parseFloat(incomeBnfts.getUnemploymentAmount()));
+	    		  incomeBenefitsModel.setUnemploymentAmount(getFloatValue(incomeBnfts.getUnemploymentAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setUserID(incomeBnfts.getUserID());
 	    	  incomeBenefitsModel.setVADisabilityNonService(getByte(incomeBnfts.getVADisabilityNonService()));
 	    	  if(incomeBnfts.getVADisabilityNonServiceAmount()!=null && !"".equals(incomeBnfts.getVADisabilityNonServiceAmount())){
-	    		  incomeBenefitsModel.setVADisabilityNonServiceAmount(Float.parseFloat(incomeBnfts.getVADisabilityNonServiceAmount()));
+	    		  incomeBenefitsModel.setVADisabilityNonServiceAmount(getFloatValue(incomeBnfts.getVADisabilityNonServiceAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setVADisabilityService(getByte(incomeBnfts.getVADisabilityService()));
 	    	  if(incomeBnfts.getVADisabilityServiceAmount()!=null && !"".equals(incomeBnfts.getVADisabilityServiceAmount())){
-	    		  incomeBenefitsModel.setVADisabilityServiceAmount(Float.parseFloat(incomeBnfts.getVADisabilityServiceAmount()));
+	    		  incomeBenefitsModel.setVADisabilityServiceAmount(getFloatValue(incomeBnfts.getVADisabilityServiceAmount()));
 	    	  }
 	    	  
 	    	  incomeBenefitsModel.setWorkersComp(getByte(incomeBnfts.getWorkersComp()));
 	    	  if(incomeBnfts.getWorkersCompAmount()!=null && !"".equals(incomeBnfts.getWorkersCompAmount())){
-	    		  incomeBenefitsModel.setWorkersCompAmount(Float.parseFloat(incomeBnfts.getWorkersCompAmount()));
+	    		  incomeBenefitsModel.setWorkersCompAmount(getFloatValue(incomeBnfts.getWorkersCompAmount()));
 	    	  }
 	    	  
 	    	  NonCashBenefits noncashbenefitsModel = new NonCashBenefits();
@@ -915,7 +916,7 @@ public class BulkUploadHelper2017 {
 	    	  healthinsuranceModel.setNoStateHealthInsReason(getByte(incomeBnfts.getNoStateHealthInsReason()));
 	    	  healthinsuranceModel.setNoVAMedReason(getByte(incomeBnfts.getNoVAMedReason()));
 	    	  healthinsuranceModel.setPrivatePay(getByte(incomeBnfts.getPrivatePay()));
-	    	  healthinsuranceModel.setEnrollmentID(incomeBnfts.getProjectEntryID());
+	    	  healthinsuranceModel.setEnrollmentID(incomeBnfts.getEnrollmentID());
 	    	  healthinsuranceModel.setSCHIP(getByte(incomeBnfts.getSCHIP()));
 	    	  healthinsuranceModel.setStateHealthIns(getByte(incomeBnfts.getStateHealthIns()));
 	    	  healthinsuranceModel.setUserID(incomeBnfts.getUserID());
@@ -932,7 +933,7 @@ public class BulkUploadHelper2017 {
 	    	  medicalassistanceModel.setMedicalAssistanceID(incomeBnfts.getIncomeBenefitsID());
 	    	  medicalassistanceModel.setNoADAPReason(getByte(incomeBnfts.getNoADAPReason()));
 	    	  medicalassistanceModel.setNoHIVAIDSAssistanceReason(getByte(incomeBnfts.getNoHIVAIDSAssistanceReason()));
-	    	  medicalassistanceModel.setEnrollmentID(incomeBnfts.getProjectEntryID());
+	    	  medicalassistanceModel.setEnrollmentID(incomeBnfts.getEnrollmentID());
 	    	  medicalassistanceModel.setUserID(incomeBnfts.getUserID());
 	    	  medicalAssistanceList.add(medicalassistanceModel);
 	    	  incomeBenefitsList.add(incomeBenefitsModel);
@@ -1179,10 +1180,10 @@ public class BulkUploadHelper2017 {
 		  return null;
 	  }
 	  protected byte getByte(String value) {
-		  if(value !=null && !"".equals(value)) {
+		  if(value !=null && !"".equals(value) && !"NA".equals(value)) {
 			  return Byte.valueOf(value);
 		  }
-		  return 0;
+		  return 99;
 	  }
 	  protected String getFileExtension(String fileName) {
 			if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
@@ -1216,6 +1217,33 @@ public class BulkUploadHelper2017 {
 		  return xmlDate2;
 		}
 	  
+	  protected int getIntValue(String value) {
+		  int s= 0;
+		  try {
+			  s = Integer.parseInt(value);
+			} catch (NumberFormatException e){
+				return 0;
+			}     
+	  	return s;
+	  }
+	  protected float getFloatValue(String value) {
+		  float s = 0;
+		  try {
+			  s = Float.parseFloat(value);
+			} catch (NumberFormatException e){
+				return 0;
+			}     
+	  	return s;
+	  }
+	  protected short getShortValue(String value) {
+		  short s= 0;
+		  try {
+			  s = Short.parseShort(value);
+			} catch (NumberFormatException e){
+				return 0;
+			}     
+	  	return s;
+	  }
 	  protected XMLGregorianCalendar getXMLGregorianCalendarMMddyyyy(String date) {
 		  if(date == null || "".equals(date)) {
 			  return null;

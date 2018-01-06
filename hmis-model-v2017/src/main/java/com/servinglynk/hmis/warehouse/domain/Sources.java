@@ -9545,7 +9545,7 @@ public class Sources {
                 @XmlElement(name = "SSIAmount")
                 protected float ssiAmount;
                 @XmlElement(name = "SSDI")
-                protected byte ssdi;
+                protected String ssdi;
                 @XmlElement(name = "SSDIAmount")
                 protected float ssdiAmount;
                 @XmlElement(name = "VADisabilityService")
@@ -9573,11 +9573,11 @@ public class Sources {
                 @XmlElement(name = "GAAmount")
                 protected float gaAmount;
                 @XmlElement(name = "SocSecRetirement")
-                protected byte socSecRetirement;
+                protected String socSecRetirement;
                 @XmlElement(name = "SocSecRetirementAmount")
                 protected float socSecRetirementAmount;
                 @XmlElement(name = "Pension")
-                protected byte pension;
+                protected String pension;
                 @XmlElement(name = "PensionAmount")
                 protected float pensionAmount;
                 @XmlElement(name = "ChildSupport")
@@ -9785,7 +9785,7 @@ public class Sources {
                  * Gets the value of the ssdi property.
                  * 
                  */
-                public byte getSSDI() {
+                public String getSSDI() {
                     return ssdi;
                 }
 
@@ -9793,7 +9793,7 @@ public class Sources {
                  * Sets the value of the ssdi property.
                  * 
                  */
-                public void setSSDI(byte value) {
+                public void setSSDI(String value) {
                     this.ssdi = value;
                 }
 
@@ -10009,7 +10009,7 @@ public class Sources {
                  * Gets the value of the socSecRetirement property.
                  * 
                  */
-                public byte getSocSecRetirement() {
+                public String getSocSecRetirement() {
                     return socSecRetirement;
                 }
 
@@ -10017,7 +10017,7 @@ public class Sources {
                  * Sets the value of the socSecRetirement property.
                  * 
                  */
-                public void setSocSecRetirement(byte value) {
+                public void setSocSecRetirement(String value) {
                     this.socSecRetirement = value;
                 }
 
@@ -10041,7 +10041,7 @@ public class Sources {
                  * Gets the value of the pension property.
                  * 
                  */
-                public byte getPension() {
+                public String getPension() {
                     return pension;
                 }
 
@@ -10049,7 +10049,7 @@ public class Sources {
                  * Sets the value of the pension property.
                  * 
                  */
-                public void setPension(byte value) {
+                public void setPension(String value) {
                     this.pension = value;
                 }
 
