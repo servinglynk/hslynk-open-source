@@ -25,7 +25,7 @@ public class QuestionsController extends ControllerBase {
                        @RequestParam(value="maxItems", required=false) Integer maxItems,
                        HttpServletRequest request) throws Exception {
            if (startIndex == null) startIndex =0;
-           if (maxItems == null || maxItems > 30) maxItems =30;
+           if (maxItems == null || maxItems > 200) maxItems =200;
         return serviceFactory.getQuestionService().getAllQuestions(startIndex,maxItems); 
    }
    
