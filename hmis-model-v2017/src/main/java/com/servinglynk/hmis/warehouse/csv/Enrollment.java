@@ -43,106 +43,108 @@ public class Enrollment {
 	@MapToColumn(column=17)
 	private String ClientEnrolledInPATH;
 	@MapToColumn(column=18)
-	private String WorstHousingSituation;
+	private String ReasonNotEnrolled;
 	@MapToColumn(column=19)
-	private String PercentAMI;
+	private String WorstHousingSituation;
 	@MapToColumn(column=20)
-	private String LastPermanentStreet;
+	private String PercentAMI;
 	@MapToColumn(column=21)
-	private String LastPermanentCity;
+	private String LastPermanentStreet;
 	@MapToColumn(column=22)
-	private String LastPermanentState;
+	private String LastPermanentCity;
 	@MapToColumn(column=23)
-	private String LastPermanentZIP;
+	private String LastPermanentState;
 	@MapToColumn(column=24)
-	private String AddressDataQuality;
+	private String LastPermanentZIP;
 	@MapToColumn(column=25)
-	private String DateOfBCPStatus;
+	private String AddressDataQuality;
 	@MapToColumn(column=26)
-	private String EligibleForRHY;
+	private String DateOfBCPStatus;
 	@MapToColumn(column=27)
-	private String ReasonNoServices;
+	private String EligibleForRHY;
 	@MapToColumn(column=28)
-	private String RunawayYouth;
+	private String ReasonNoServices;
 	@MapToColumn(column=29)
-	private String SexualOrientation;
+	private String RunawayYouth;
 	@MapToColumn(column=30)
-	private String FormerWardChildWelfare;
+	private String SexualOrientation;
 	@MapToColumn(column=31)
-	private String ChildWelfareYears;
+	private String FormerWardChildWelfare;
 	@MapToColumn(column=32)
-	private String ChildWelfareMonths;
+	private String ChildWelfareYears;
 	@MapToColumn(column=33)
-	private String FormerWardJuvenileJustice;
+	private String ChildWelfareMonths;
 	@MapToColumn(column=34)
-	private String JuvenileJusticeYears;
+	private String FormerWardJuvenileJustice;
 	@MapToColumn(column=35)
-	private String JuvenileJusticeMonths;
+	private String JuvenileJusticeYears;
 	@MapToColumn(column=36)
-	private String UnemploymentFam;
+	private String JuvenileJusticeMonths;
 	@MapToColumn(column=37)
-	private String MentalHealthIssuesFam;
+	private String UnemploymentFam;
 	@MapToColumn(column=38)
-	private String PhysicalDisabilityFam;
+	private String MentalHealthIssuesFam;
 	@MapToColumn(column=39)
-	private String AlcoholDrugAbuseFam;
+	private String PhysicalDisabilityFam;
 	@MapToColumn(column=40)
-	private String InsufficientIncome;
+	private String AlcoholDrugAbuseFam;
 	@MapToColumn(column=41)
-	private String IncarceratedParent;
+	private String InsufficientIncome;
 	@MapToColumn(column=42)
-	private String ReferralSource;
+	private String IncarceratedParent;
 	@MapToColumn(column=43)
-	private String CountOutreachReferralApproaches;
+	private String ReferralSource;
 	@MapToColumn(column=44)
-	private String UrgentReferral;
+	private String CountOutreachReferralApproaches;
 	@MapToColumn(column=45)
-	private String TimeToHousingLoss;
+	private String UrgentReferral;
 	@MapToColumn(column=46)
-	private String ZeroIncome;
+	private String TimeToHousingLoss;
 	@MapToColumn(column=47)
-	private String AnnualPercentAMI;
+	private String ZeroIncome;
 	@MapToColumn(column=48)
-	private String FinancialChange;
+	private String AnnualPercentAMI;
 	@MapToColumn(column=49)
-	private String HouseholdChange;
+	private String FinancialChange;
 	@MapToColumn(column=50)
-	private String EvictionHistory;
+	private String HouseholdChange;
 	@MapToColumn(column=51)
-	private String SubsidyAtRisk;
+	private String EvictionHistory;
 	@MapToColumn(column=52)
-	private String LiteralHomelessHistory;
+	private String SubsidyAtRisk;
 	@MapToColumn(column=53)
-	private String DisabledHoH;
+	private String LiteralHomelessHistory;
 	@MapToColumn(column=54)
-	private String CriminalRecord;
+	private String DisabledHoH;
 	@MapToColumn(column=55)
-	private String SexOffender;
+	private String CriminalRecord;
 	@MapToColumn(column=56)
-	private String DependentUnder6;
+	private String SexOffender;
 	@MapToColumn(column=57)
-	private String SingleParent;
+	private String DependentUnder6;
 	@MapToColumn(column=58)
-	private String HH5Plus;
+	private String SingleParent;
 	@MapToColumn(column=59)
-	private String IraqAfghanistan;
+	private String HH5Plus;
 	@MapToColumn(column=60)
-	private String FemVet;	
+	private String IraqAfghanistan;
 	@MapToColumn(column=61)
-	private String HPScreeningScore;
+	private String FemVet;	
 	@MapToColumn(column=62)
-	private String ThresholdScore;
+	private String HPScreeningScore;
 	@MapToColumn(column=63)
-	private String VAMCStation;
+	private String ThresholdScore;
 	@MapToColumn(column=64)
-	private String DateCreated;
+	private String VAMCStation;
 	@MapToColumn(column=65)
-	private String DateUpdated;
+	private String DateCreated;
 	@MapToColumn(column=66)
-	private String UserID;
+	private String DateUpdated;
 	@MapToColumn(column=67)
-	private String DateDeleted;
+	private String UserID;
 	@MapToColumn(column=68)
+	private String DateDeleted;
+	@MapToColumn(column=69)
 	private String ExportID;
 	
 	public String getEnrollmentID() {
@@ -252,6 +254,12 @@ public class Enrollment {
 	}
 	public void setClientEnrolledInPATH(String clientEnrolledInPATH) {
 		ClientEnrolledInPATH = clientEnrolledInPATH;
+	}
+	public String getReasonNotEnrolled() {
+		return ReasonNotEnrolled;
+	}
+	public void setReasonNotEnrolled(String reasonNotEnrolled) {
+		ReasonNotEnrolled = reasonNotEnrolled;
 	}
 	public String getWorstHousingSituation() {
 		return WorstHousingSituation;

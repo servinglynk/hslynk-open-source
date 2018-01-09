@@ -3,10 +3,11 @@ package com.servinglynk.hmis.warehouse.csv;
 import com.googlecode.jcsv.annotations.MapToColumn;
 														
 public class Exit {
+
 	@MapToColumn(column=0)
 	private String ExitID;
 	@MapToColumn(column=1)
-	private String ProjectEntryID;
+	private String EnrollmentID;
 	@MapToColumn(column=2)
 	private String PersonalID;
 	@MapToColumn(column=3)
@@ -24,38 +25,74 @@ public class Exit {
 	@MapToColumn(column=9)
 	private String SubsidyInformation;
 	@MapToColumn(column=10)
-	private String WrittenAftercarePlan;
-	@MapToColumn(column=11)
-	private String AssistanceMainstreamBenefits;
-	@MapToColumn(column=12)
-	private String PermanentHousingPlacement;
-	@MapToColumn(column=13)
-	private String TemporaryShelterPlacement;
-	@MapToColumn(column=14)
-	private String ExitCounseling;
-	@MapToColumn(column=15)
-	private String FurtherFollowUpServices;
-	@MapToColumn(column=16)
-	private String ScheduledFollowupContacts;
-	@MapToColumn(column=17)
-	private String ResourcePackage;
-	@MapToColumn(column=18)
-	private String OtherAftercarePlanOrAction;
-	@MapToColumn(column=19)
 	private String ProjectCompletionStatus;
-	@MapToColumn(column=20)
+	@MapToColumn(column=11)
 	private String EarlyExitReason;
+	@MapToColumn(column=12)
+	private String ExchangeForSex;
+	@MapToColumn(column=13)
+	private String ExchangeForSexPastThreeMonths;
+	@MapToColumn(column=14)
+	private String CountOfExchangeForSex;
+	@MapToColumn(column=15)
+	private String AskedOrForcedToExchangeForSex;
+	@MapToColumn(column=16)
+	private String AskedOrForcedToExchangeForSexPastThreeMonths;
+	@MapToColumn(column=17)
+	private String WorkplaceViolenceThreats;
+	@MapToColumn(column=18)
+	private String WorkplacePromiseDifference;
+	@MapToColumn(column=19)
+	private String CoercedToContinueWork;
+	@MapToColumn(column=20)
+	private String LaborExploitPastThreeMonths;
 	@MapToColumn(column=21)
-	private String FamilyReunificationAchieved;
+	private String CounselingReceived;
 	@MapToColumn(column=22)
-	private String DateCreated;
+	private String IndividualCounseling;
 	@MapToColumn(column=23)
-	private String DateUpdated;
+	private String FamilyCounseling;
 	@MapToColumn(column=24)
-	private String UserID;
+	private String GroupCounseling;
 	@MapToColumn(column=25)
-	private String DateDeleted;
+	private String SessionCountAtExit;
 	@MapToColumn(column=26)
+	private String PostExitCounselingPlan;
+	@MapToColumn(column=27)
+	private String SessionsInPlan;
+	@MapToColumn(column=28)
+	private String DestinationSafeClient;
+	@MapToColumn(column=29)
+	private String DestinationSafeWorker;
+	@MapToColumn(column=30)
+	private String PosAdultConnections;
+	@MapToColumn(column=31)
+	private String PosPeerConnections;
+	@MapToColumn(column=32)
+	private String PosCommunityConnections;
+	@MapToColumn(column=33)
+	private String AftercareDate;
+	@MapToColumn(column=34)
+	private String AftercareProvided;
+	@MapToColumn(column=35)
+	private String EmailSocialMedia;
+	@MapToColumn(column=36)
+	private String Telephone;
+	@MapToColumn(column=37)
+	private String InPersonIndividual;
+	@MapToColumn(column=38)
+	private String InPersonGroup;
+	@MapToColumn(column=39)
+	private String CMExitReason;
+	@MapToColumn(column=40)
+	private String DateCreated;
+	@MapToColumn(column=41)
+	private String DateUpdated;
+	@MapToColumn(column=42)
+	private String UserID;
+	@MapToColumn(column=43)
+	private String DateDeleted;
+	@MapToColumn(column=44)
 	private String ExportID;
 	public String getExitID() {
 		return ExitID;
@@ -63,11 +100,11 @@ public class Exit {
 	public void setExitID(String exitID) {
 		ExitID = exitID;
 	}
-	public String getProjectEntryID() {
-		return ProjectEntryID;
+	public String getEnrollmentID() {
+		return EnrollmentID;
 	}
-	public void setProjectEntryID(String projectEntryID) {
-		ProjectEntryID = projectEntryID;
+	public void setEnrollmentID(String enrollmentID) {
+		EnrollmentID = enrollmentID;
 	}
 	public String getPersonalID() {
 		return PersonalID;
@@ -117,60 +154,6 @@ public class Exit {
 	public void setSubsidyInformation(String subsidyInformation) {
 		SubsidyInformation = subsidyInformation;
 	}
-	public String getWrittenAftercarePlan() {
-		return WrittenAftercarePlan;
-	}
-	public void setWrittenAftercarePlan(String writtenAftercarePlan) {
-		WrittenAftercarePlan = writtenAftercarePlan;
-	}
-	public String getAssistanceMainstreamBenefits() {
-		return AssistanceMainstreamBenefits;
-	}
-	public void setAssistanceMainstreamBenefits(String assistanceMainstreamBenefits) {
-		AssistanceMainstreamBenefits = assistanceMainstreamBenefits;
-	}
-	public String getPermanentHousingPlacement() {
-		return PermanentHousingPlacement;
-	}
-	public void setPermanentHousingPlacement(String permanentHousingPlacement) {
-		PermanentHousingPlacement = permanentHousingPlacement;
-	}
-	public String getTemporaryShelterPlacement() {
-		return TemporaryShelterPlacement;
-	}
-	public void setTemporaryShelterPlacement(String temporaryShelterPlacement) {
-		TemporaryShelterPlacement = temporaryShelterPlacement;
-	}
-	public String getExitCounseling() {
-		return ExitCounseling;
-	}
-	public void setExitCounseling(String exitCounseling) {
-		ExitCounseling = exitCounseling;
-	}
-	public String getFurtherFollowUpServices() {
-		return FurtherFollowUpServices;
-	}
-	public void setFurtherFollowUpServices(String furtherFollowUpServices) {
-		FurtherFollowUpServices = furtherFollowUpServices;
-	}
-	public String getScheduledFollowupContacts() {
-		return ScheduledFollowupContacts;
-	}
-	public void setScheduledFollowupContacts(String scheduledFollowupContacts) {
-		ScheduledFollowupContacts = scheduledFollowupContacts;
-	}
-	public String getResourcePackage() {
-		return ResourcePackage;
-	}
-	public void setResourcePackage(String resourcePackage) {
-		ResourcePackage = resourcePackage;
-	}
-	public String getOtherAftercarePlanOrAction() {
-		return OtherAftercarePlanOrAction;
-	}
-	public void setOtherAftercarePlanOrAction(String otherAftercarePlanOrAction) {
-		OtherAftercarePlanOrAction = otherAftercarePlanOrAction;
-	}
 	public String getProjectCompletionStatus() {
 		return ProjectCompletionStatus;
 	}
@@ -183,11 +166,173 @@ public class Exit {
 	public void setEarlyExitReason(String earlyExitReason) {
 		EarlyExitReason = earlyExitReason;
 	}
-	public String getFamilyReunificationAchieved() {
-		return FamilyReunificationAchieved;
+	public String getExchangeForSex() {
+		return ExchangeForSex;
 	}
-	public void setFamilyReunificationAchieved(String familyReunificationAchieved) {
-		FamilyReunificationAchieved = familyReunificationAchieved;
+	public void setExchangeForSex(String exchangeForSex) {
+		ExchangeForSex = exchangeForSex;
+	}
+	public String getExchangeForSexPastThreeMonths() {
+		return ExchangeForSexPastThreeMonths;
+	}
+	public void setExchangeForSexPastThreeMonths(String exchangeForSexPastThreeMonths) {
+		ExchangeForSexPastThreeMonths = exchangeForSexPastThreeMonths;
+	}
+	public String getCountOfExchangeForSex() {
+		return CountOfExchangeForSex;
+	}
+	public void setCountOfExchangeForSex(String countOfExchangeForSex) {
+		CountOfExchangeForSex = countOfExchangeForSex;
+	}
+	public String getAskedOrForcedToExchangeForSex() {
+		return AskedOrForcedToExchangeForSex;
+	}
+	public void setAskedOrForcedToExchangeForSex(String askedOrForcedToExchangeForSex) {
+		AskedOrForcedToExchangeForSex = askedOrForcedToExchangeForSex;
+	}
+	public String getAskedOrForcedToExchangeForSexPastThreeMonths() {
+		return AskedOrForcedToExchangeForSexPastThreeMonths;
+	}
+	public void setAskedOrForcedToExchangeForSexPastThreeMonths(String askedOrForcedToExchangeForSexPastThreeMonths) {
+		AskedOrForcedToExchangeForSexPastThreeMonths = askedOrForcedToExchangeForSexPastThreeMonths;
+	}
+	public String getWorkplaceViolenceThreats() {
+		return WorkplaceViolenceThreats;
+	}
+	public void setWorkplaceViolenceThreats(String workplaceViolenceThreats) {
+		WorkplaceViolenceThreats = workplaceViolenceThreats;
+	}
+	public String getWorkplacePromiseDifference() {
+		return WorkplacePromiseDifference;
+	}
+	public void setWorkplacePromiseDifference(String workplacePromiseDifference) {
+		WorkplacePromiseDifference = workplacePromiseDifference;
+	}
+	public String getCoercedToContinueWork() {
+		return CoercedToContinueWork;
+	}
+	public void setCoercedToContinueWork(String coercedToContinueWork) {
+		CoercedToContinueWork = coercedToContinueWork;
+	}
+	public String getLaborExploitPastThreeMonths() {
+		return LaborExploitPastThreeMonths;
+	}
+	public void setLaborExploitPastThreeMonths(String laborExploitPastThreeMonths) {
+		LaborExploitPastThreeMonths = laborExploitPastThreeMonths;
+	}
+	public String getCounselingReceived() {
+		return CounselingReceived;
+	}
+	public void setCounselingReceived(String counselingReceived) {
+		CounselingReceived = counselingReceived;
+	}
+	public String getIndividualCounseling() {
+		return IndividualCounseling;
+	}
+	public void setIndividualCounseling(String individualCounseling) {
+		IndividualCounseling = individualCounseling;
+	}
+	public String getFamilyCounseling() {
+		return FamilyCounseling;
+	}
+	public void setFamilyCounseling(String familyCounseling) {
+		FamilyCounseling = familyCounseling;
+	}
+	public String getGroupCounseling() {
+		return GroupCounseling;
+	}
+	public void setGroupCounseling(String groupCounseling) {
+		GroupCounseling = groupCounseling;
+	}
+	public String getSessionCountAtExit() {
+		return SessionCountAtExit;
+	}
+	public void setSessionCountAtExit(String sessionCountAtExit) {
+		SessionCountAtExit = sessionCountAtExit;
+	}
+	public String getPostExitCounselingPlan() {
+		return PostExitCounselingPlan;
+	}
+	public void setPostExitCounselingPlan(String postExitCounselingPlan) {
+		PostExitCounselingPlan = postExitCounselingPlan;
+	}
+	public String getSessionsInPlan() {
+		return SessionsInPlan;
+	}
+	public void setSessionsInPlan(String sessionsInPlan) {
+		SessionsInPlan = sessionsInPlan;
+	}
+	public String getDestinationSafeClient() {
+		return DestinationSafeClient;
+	}
+	public void setDestinationSafeClient(String destinationSafeClient) {
+		DestinationSafeClient = destinationSafeClient;
+	}
+	public String getDestinationSafeWorker() {
+		return DestinationSafeWorker;
+	}
+	public void setDestinationSafeWorker(String destinationSafeWorker) {
+		DestinationSafeWorker = destinationSafeWorker;
+	}
+	public String getPosAdultConnections() {
+		return PosAdultConnections;
+	}
+	public void setPosAdultConnections(String posAdultConnections) {
+		PosAdultConnections = posAdultConnections;
+	}
+	public String getPosPeerConnections() {
+		return PosPeerConnections;
+	}
+	public void setPosPeerConnections(String posPeerConnections) {
+		PosPeerConnections = posPeerConnections;
+	}
+	public String getPosCommunityConnections() {
+		return PosCommunityConnections;
+	}
+	public void setPosCommunityConnections(String posCommunityConnections) {
+		PosCommunityConnections = posCommunityConnections;
+	}
+	public String getAftercareDate() {
+		return AftercareDate;
+	}
+	public void setAftercareDate(String aftercareDate) {
+		AftercareDate = aftercareDate;
+	}
+	public String getAftercareProvided() {
+		return AftercareProvided;
+	}
+	public void setAftercareProvided(String aftercareProvided) {
+		AftercareProvided = aftercareProvided;
+	}
+	public String getEmailSocialMedia() {
+		return EmailSocialMedia;
+	}
+	public void setEmailSocialMedia(String emailSocialMedia) {
+		EmailSocialMedia = emailSocialMedia;
+	}
+	public String getTelephone() {
+		return Telephone;
+	}
+	public void setTelephone(String telephone) {
+		Telephone = telephone;
+	}
+	public String getInPersonIndividual() {
+		return InPersonIndividual;
+	}
+	public void setInPersonIndividual(String inPersonIndividual) {
+		InPersonIndividual = inPersonIndividual;
+	}
+	public String getInPersonGroup() {
+		return InPersonGroup;
+	}
+	public void setInPersonGroup(String inPersonGroup) {
+		InPersonGroup = inPersonGroup;
+	}
+	public String getCMExitReason() {
+		return CMExitReason;
+	}
+	public void setCMExitReason(String cMExitReason) {
+		CMExitReason = cMExitReason;
 	}
 	public String getDateCreated() {
 		return DateCreated;
@@ -219,7 +364,4 @@ public class Exit {
 	public void setExportID(String exportID) {
 		ExportID = exportID;
 	}
-	
-	
-		
 }

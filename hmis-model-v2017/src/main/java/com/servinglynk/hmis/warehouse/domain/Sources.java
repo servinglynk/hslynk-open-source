@@ -14,8 +14,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar;
-
 /**
  * <p>Java class for Sources element declaration.
  * 
@@ -4487,7 +4485,7 @@ public class Sources {
                 @XmlElement(name = "LastGradeCompleted")
                 protected byte lastGradeCompleted;
                 @XmlElement(name = "SchoolStatus")
-                protected byte schoolStatus;
+                protected String schoolStatus;
                 @XmlAttribute
                 protected Byte dataCollectionStage;
                 @XmlAttribute
@@ -4567,7 +4565,7 @@ public class Sources {
                  * Gets the value of the schoolStatus property.
                  * 
                  */
-                public byte getSchoolStatus() {
+                public String getSchoolStatus() {
                     return schoolStatus;
                 }
 
@@ -4575,7 +4573,7 @@ public class Sources {
                  * Sets the value of the schoolStatus property.
                  * 
                  */
-                public void setSchoolStatus(byte value) {
+                public void setSchoolStatus(String value) {
                     this.schoolStatus = value;
                 }
 
@@ -5024,7 +5022,6 @@ public class Sources {
                 "entryDate",
                 "householdID",
                 "relationshipToHoH",
-                "residencePrior",
                 /*"otherResidencePrior",*/
                 //"residencePriorLengthOfStay",
                 /*"entryFromStreetESSH",*/
@@ -5052,32 +5049,22 @@ public class Sources {
                 protected String householdID;
                 @XmlElement(name = "RelationshipToHoH")
                 protected byte relationshipToHoH;
-                @XmlElement(name = "ResidencePrior")
-                protected byte residencePrior;
                 @XmlElement(name = "livingSituation")
                 protected String livingSituation;
                 @XmlElement(name = "lengthOfStay")
                 protected String lengthOfStay;
-                /*@XmlElement(name = "OtherResidencePrior", required = true)
-                protected String otherResidencePrior;*/
-                /*@XmlElement(name = "ResidencePriorLengthOfStay")
-                protected byte residencePriorLengthOfStay;*/
-                /*@XmlElement(name = "EntryFromStreetESSH")
-                protected byte entryFromStreetESSH;*/
                 @XmlElement(name="LOSUnderThreshold")
-                protected byte losUnderThreshold;
+                protected String losUnderThreshold;
                 @XmlElement(name="PreviousStreetESSH")
-                protected byte previousStreetESSH;
+                protected String previousStreetESSH;
                 @XmlElement(name = "DateToStreetESSH")
                 protected XMLGregorianCalendar dateToStreetESSH;
                 @XmlElement(name = "TimesHomelessPastThreeYears")
-                protected byte timesHomelessPastThreeYears;
+                protected String timesHomelessPastThreeYears;
                 @XmlElement(name = "MonthsHomelessPastThreeYears")
-                protected byte monthsHomelessPastThreeYears;
+                protected String monthsHomelessPastThreeYears;
                 @XmlElement(name = "DisablingCondition")
-                protected byte disablingCondition;
-               /* @XmlElement(name = "HousingStatus")
-                protected byte housingStatus;*/
+                protected String disablingCondition;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -5236,89 +5223,15 @@ public class Sources {
                 public void setRelationshipToHoH(byte value) {
                     this.relationshipToHoH = value;
                 }
-
-                /**
-                 * Gets the value of the residencePrior property.
-                 * 
-                 */
-                public byte getResidencePrior() {
-                    return residencePrior;
-                }
-
-                /**
-                 * Sets the value of the residencePrior property.
-                 * 
-                 */
-                public void setResidencePrior(byte value) {
-                    this.residencePrior = value;
-                }
-
-                /**
-                 * Gets the value of the otherResidencePrior property.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                /*public String getOtherResidencePrior() {
-                    return otherResidencePrior;
-                }*/
-
-                /**
-                 * Sets the value of the otherResidencePrior property.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                /*public void setOtherResidencePrior(String value) {
-                    this.otherResidencePrior = value;
-                }
-*/
-                /**
-                 * Gets the value of the residencePriorLengthOfStay property.
-                 * 
-                 */
-                /*public byte getResidencePriorLengthOfStay() {
-                    return residencePriorLengthOfStay;
-                }*/
-
-                /**
-                 * Sets the value of the residencePriorLengthOfStay property.
-                 * 
-                 */
-               /* public void setResidencePriorLengthOfStay(byte value) {
-                    this.residencePriorLengthOfStay = value;
-                }*/
-
-                /**
-                 * Gets the value of the entryFromStreetESSH property.
-                 * 
-                 */
-               /* public byte getEntryFromStreetESSH() {
-                    return entryFromStreetESSH;
-                }*/
-
-                /**
-                 * Sets the value of the entryFromStreetESSH property.
-                 * 
-                 */
-               /* public void setEntryFromStreetESSH(byte value) {
-                    this.entryFromStreetESSH = value;
-                }*/
-                
-                
                 /**
                  * Gets the value of the LOSUnderThreshold property.
                  * 
                  */
-                public byte getLosUnderThreshold() {
+                public String getLosUnderThreshold() {
 					return losUnderThreshold;
 				}
 
-				public void setLosUnderThreshold(byte losUnderThreshold) {
+				public void setLosUnderThreshold(String losUnderThreshold) {
 					this.losUnderThreshold = losUnderThreshold;
 				}
 
@@ -5327,11 +5240,11 @@ public class Sources {
                  * 
                  */
                				
-				public byte getPreviousStreetESSH() {
+				public String getPreviousStreetESSH() {
 					return previousStreetESSH;
 				}
 
-				public void setPreviousStreetESSH(byte previousStreetESSH) {
+				public void setPreviousStreetESSH(String previousStreetESSH) {
 					this.previousStreetESSH = previousStreetESSH;
 				}
 
@@ -5364,7 +5277,7 @@ public class Sources {
                  * Gets the value of the timesHomelessPastThreeYears property.
                  * 
                  */
-                public byte getTimesHomelessPastThreeYears() {
+                public String getTimesHomelessPastThreeYears() {
                     return timesHomelessPastThreeYears;
                 }
 
@@ -5372,7 +5285,7 @@ public class Sources {
                  * Sets the value of the timesHomelessPastThreeYears property.
                  * 
                  */
-                public void setTimesHomelessPastThreeYears(byte value) {
+                public void setTimesHomelessPastThreeYears(String value) {
                     this.timesHomelessPastThreeYears = value;
                 }
 
@@ -5380,7 +5293,7 @@ public class Sources {
                  * Gets the value of the monthsHomelessPastThreeYears property.
                  * 
                  */
-                public byte getMonthsHomelessPastThreeYears() {
+                public String getMonthsHomelessPastThreeYears() {
                     return monthsHomelessPastThreeYears;
                 }
 
@@ -5388,7 +5301,7 @@ public class Sources {
                  * Sets the value of the monthsHomelessPastThreeYears property.
                  * 
                  */
-                public void setMonthsHomelessPastThreeYears(byte value) {
+                public void setMonthsHomelessPastThreeYears(String value) {
                     this.monthsHomelessPastThreeYears = value;
                 }
 
@@ -5396,7 +5309,7 @@ public class Sources {
                  * Gets the value of the disablingCondition property.
                  * 
                  */
-                public byte getDisablingCondition() {
+                public String getDisablingCondition() {
                     return disablingCondition;
                 }
 
@@ -5404,7 +5317,7 @@ public class Sources {
                  * Sets the value of the disablingCondition property.
                  * 
                  */
-                public void setDisablingCondition(byte value) {
+                public void setDisablingCondition(String value) {
                     this.disablingCondition = value;
                 }
 
@@ -7546,22 +7459,60 @@ public class Sources {
              * 
              * 
              */
+	    	  /*
+            <ExitRHYID>342r</ExitRHYID>
+            <ExitID>C2x</ExitID>
+            <ProjectCompletionStatus>3</ProjectCompletionStatus>
+            <EarlyExitReason>2</EarlyExitReason>
+            <ExchangeForSex>1</ExchangeForSex>
+            <ExchangeForSexPastThreeMonths>1</ExchangeForSexPastThreeMonths>
+            <CountOfExchangeForSex>3</CountOfExchangeForSex>
+            <AskedOrForcedToExchangeForSex>1</AskedOrForcedToExchangeForSex>
+            <AskedOrForcedToExchangeForSexPastThreeMonths>8</AskedOrForcedToExchangeForSexPastThreeMonths>
+            <WorkPlaceViolenceThreats>0</WorkPlaceViolenceThreats>
+            <WorkplacePromiseDifference>1</WorkplacePromiseDifference>
+            <CoercedToContinueWork>0</CoercedToContinueWork>
+            <LaborExploitPastThreeMonths>8</LaborExploitPastThreeMonths>
+            <CounselingReceived>1</CounselingReceived>
+            <IndividualCounseling>0</IndividualCounseling>
+            <FamilyCounseling>99</FamilyCounseling>
+            <GroupCounseling>1</GroupCounseling>
+            <SessionCountAtExit>23</SessionCountAtExit>
+            <SessionsInPlan>1</SessionsInPlan>
+            <PostExitCounselingPlan>0</PostExitCounselingPlan>
+            <DestinationSafeClient>1</DestinationSafeClient>
+            <DestinationSafeWorker>0</DestinationSafeWorker>
+            <PosAdultConnections>2</PosAdultConnections>
+            <PosPeerConnections>1</PosPeerConnections>
+            <PosCommunityConnections>0</PosCommunityConnections> 
+            */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "exitRHYID",
                 "exitID",
-                "writtenAftercarePlan",
-                "assistanceMainstreamBenefits",
-                "permanentHousingPlacement",
-                "temporaryShelterPlacement",
-                "exitCounseling",
-                "furtherFollowUpServices",
-                "scheduledFollowUpContacts",
-                "resourcePackage",
-                "otherAftercarePlanOrAction",
-                "familyReunificationAchieved",
                 "projectCompletionStatus",
-                "earlyExitReason"
+                "earlyExitReason",
+                "exchangeForSex",
+                "exchangeForSexPastThreeMonths",
+                "countOfExchangeForSex",
+                "askedOrForcedToExchangeForSex",
+                "askedOrForcedToExchangeForSexPastThreeMonths",
+                "workPlaceViolenceThreats",
+                "workplacePromiseDifference",
+                "coercedToContinueWork",
+                "laborExploitPastThreeMonths",
+                "counselingReceived",
+                "individualCounseling",
+                "familyCounseling",
+                "groupCounseling",
+                "sessionCountAtExit",
+                "sessionsInPlan",
+                "postExitCounselingPlan",
+                "destinationSafeClient",
+                "destinationSafeWorker",
+                "posAdultConnections",
+                "posPeerConnections",
+                "posCommunityConnections"
             })
             public static class ExitRHY {
 
@@ -7569,30 +7520,52 @@ public class Sources {
                 protected String exitRHYID;
                 @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
-                @XmlElement(name = "WrittenAftercarePlan")
-                protected byte writtenAftercarePlan;
-                @XmlElement(name = "AssistanceMainstreamBenefits")
-                protected byte assistanceMainstreamBenefits;
-                @XmlElement(name = "PermanentHousingPlacement")
-                protected byte permanentHousingPlacement;
-                @XmlElement(name = "TemporaryShelterPlacement")
-                protected byte temporaryShelterPlacement;
-                @XmlElement(name = "ExitCounseling")
-                protected byte exitCounseling;
-                @XmlElement(name = "FurtherFollowUpServices")
-                protected byte furtherFollowUpServices;
-                @XmlElement(name = "ScheduledFollowUpContacts")
-                protected byte scheduledFollowUpContacts;
-                @XmlElement(name = "ResourcePackage")
-                protected byte resourcePackage;
-                @XmlElement(name = "OtherAftercarePlanOrAction")
-                protected byte otherAftercarePlanOrAction;
-                @XmlElement(name = "FamilyReunificationAchieved")
-                protected byte familyReunificationAchieved;
                 @XmlElement(name = "ProjectCompletionStatus")
-                protected byte projectCompletionStatus;
+                protected String projectCompletionStatus;
                 @XmlElement(name = "EarlyExitReason")
-                protected byte earlyExitReason;
+                protected String earlyExitReason;
+                @XmlElement(name = "ExchangeForSex")
+                protected String exchangeForSex;
+                @XmlElement(name = "ExchangeForSexPastThreeMonths")
+                protected String exchangeForSexPastThreeMonths;
+                @XmlElement(name = "CountOfExchangeForSex")
+                protected String countOfExchangeForSex;
+                @XmlElement(name = "AskedOrForcedToExchangeForSex")
+                protected String askedOrForcedToExchangeForSex;
+                @XmlElement(name = "AskedOrForcedToExchangeForSexPastThreeMonths")
+                protected String askedOrForcedToExchangeForSexPastThreeMonths;
+                @XmlElement(name = "WorkPlaceViolenceThreats")
+                protected String workPlaceViolenceThreats;
+                @XmlElement(name = "WorkplacePromiseDifference")
+                protected String workplacePromiseDifference;
+                @XmlElement(name = "CoercedToContinueWork")
+                protected String coercedToContinueWork;
+                @XmlElement(name = "LaborExploitPastThreeMonths")
+                protected String laborExploitPastThreeMonths;
+                @XmlElement(name = "CounselingReceived")
+                protected String counselingReceived;
+                @XmlElement(name = "IndividualCounseling")
+                protected String individualCounseling;
+                @XmlElement(name = "FamilyCounseling")
+                protected String familyCounseling;
+                @XmlElement(name = "GroupCounseling")
+                protected String groupCounseling;
+                @XmlElement(name = "SessionCountAtExit")
+                protected String sessionCountAtExit;
+                @XmlElement(name = "SessionsInPlan")
+                protected String sessionsInPlan;
+                @XmlElement(name = "PostExitCounselingPlan")
+                protected String postExitCounselingPlan;
+                @XmlElement(name = "DestinationSafeClient")
+                protected String destinationSafeClient;
+                @XmlElement(name = "DestinationSafeWorker")
+                protected String destinationSafeWorker;
+                @XmlElement(name = "PosAdultConnections")
+                protected String posAdultConnections;
+                @XmlElement(name = "PosPeerConnections")
+                protected String posPeerConnections;
+                @XmlElement(name = "PosCommunityConnections")
+                protected String posCommunityConnections;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -7648,199 +7621,191 @@ public class Sources {
                     this.exitID = value;
                 }
 
-                /**
-                 * Gets the value of the writtenAftercarePlan property.
-                 * 
-                 */
-                public byte getWrittenAftercarePlan() {
-                    return writtenAftercarePlan;
-                }
+                public String getProjectCompletionStatus() {
+					return projectCompletionStatus;
+				}
 
-                /**
-                 * Sets the value of the writtenAftercarePlan property.
-                 * 
-                 */
-                public void setWrittenAftercarePlan(byte value) {
-                    this.writtenAftercarePlan = value;
-                }
+				public void setProjectCompletionStatus(String projectCompletionStatus) {
+					this.projectCompletionStatus = projectCompletionStatus;
+				}
 
-                /**
-                 * Gets the value of the assistanceMainstreamBenefits property.
-                 * 
-                 */
-                public byte getAssistanceMainstreamBenefits() {
-                    return assistanceMainstreamBenefits;
-                }
+				public String getEarlyExitReason() {
+					return earlyExitReason;
+				}
 
-                /**
-                 * Sets the value of the assistanceMainstreamBenefits property.
-                 * 
-                 */
-                public void setAssistanceMainstreamBenefits(byte value) {
-                    this.assistanceMainstreamBenefits = value;
-                }
+				public void setEarlyExitReason(String earlyExitReason) {
+					this.earlyExitReason = earlyExitReason;
+				}
 
-                /**
-                 * Gets the value of the permanentHousingPlacement property.
-                 * 
-                 */
-                public byte getPermanentHousingPlacement() {
-                    return permanentHousingPlacement;
-                }
+				public String getExchangeForSex() {
+					return exchangeForSex;
+				}
 
-                /**
-                 * Sets the value of the permanentHousingPlacement property.
-                 * 
-                 */
-                public void setPermanentHousingPlacement(byte value) {
-                    this.permanentHousingPlacement = value;
-                }
+				public void setExchangeForSex(String exchangeForSex) {
+					this.exchangeForSex = exchangeForSex;
+				}
 
-                /**
-                 * Gets the value of the temporaryShelterPlacement property.
-                 * 
-                 */
-                public byte getTemporaryShelterPlacement() {
-                    return temporaryShelterPlacement;
-                }
+				public String getExchangeForSexPastThreeMonths() {
+					return exchangeForSexPastThreeMonths;
+				}
 
-                /**
-                 * Sets the value of the temporaryShelterPlacement property.
-                 * 
-                 */
-                public void setTemporaryShelterPlacement(byte value) {
-                    this.temporaryShelterPlacement = value;
-                }
+				public void setExchangeForSexPastThreeMonths(String exchangeForSexPastThreeMonths) {
+					this.exchangeForSexPastThreeMonths = exchangeForSexPastThreeMonths;
+				}
 
-                /**
-                 * Gets the value of the exitCounseling property.
-                 * 
-                 */
-                public byte getExitCounseling() {
-                    return exitCounseling;
-                }
+				public String getCountOfExchangeForSex() {
+					return countOfExchangeForSex;
+				}
 
-                /**
-                 * Sets the value of the exitCounseling property.
-                 * 
-                 */
-                public void setExitCounseling(byte value) {
-                    this.exitCounseling = value;
-                }
+				public void setCountOfExchangeForSex(String countOfExchangeForSex) {
+					this.countOfExchangeForSex = countOfExchangeForSex;
+				}
 
-                /**
-                 * Gets the value of the furtherFollowUpServices property.
-                 * 
-                 */
-                public byte getFurtherFollowUpServices() {
-                    return furtherFollowUpServices;
-                }
+				public String getAskedOrForcedToExchangeForSex() {
+					return askedOrForcedToExchangeForSex;
+				}
 
-                /**
-                 * Sets the value of the furtherFollowUpServices property.
-                 * 
-                 */
-                public void setFurtherFollowUpServices(byte value) {
-                    this.furtherFollowUpServices = value;
-                }
+				public void setAskedOrForcedToExchangeForSex(String askedOrForcedToExchangeForSex) {
+					this.askedOrForcedToExchangeForSex = askedOrForcedToExchangeForSex;
+				}
 
-                /**
-                 * Gets the value of the scheduledFollowUpContacts property.
-                 * 
-                 */
-                public byte getScheduledFollowUpContacts() {
-                    return scheduledFollowUpContacts;
-                }
+				public String getAskedOrForcedToExchangeForSexPastThreeMonths() {
+					return askedOrForcedToExchangeForSexPastThreeMonths;
+				}
 
-                /**
-                 * Sets the value of the scheduledFollowUpContacts property.
-                 * 
-                 */
-                public void setScheduledFollowUpContacts(byte value) {
-                    this.scheduledFollowUpContacts = value;
-                }
+				public void setAskedOrForcedToExchangeForSexPastThreeMonths(String askedOrForcedToExchangeForSexPastThreeMonths) {
+					this.askedOrForcedToExchangeForSexPastThreeMonths = askedOrForcedToExchangeForSexPastThreeMonths;
+				}
 
-                /**
-                 * Gets the value of the resourcePackage property.
-                 * 
-                 */
-                public byte getResourcePackage() {
-                    return resourcePackage;
-                }
+				public String getWorkPlaceViolenceThreats() {
+					return workPlaceViolenceThreats;
+				}
 
-                /**
-                 * Sets the value of the resourcePackage property.
-                 * 
-                 */
-                public void setResourcePackage(byte value) {
-                    this.resourcePackage = value;
-                }
+				public void setWorkPlaceViolenceThreats(String workPlaceViolenceThreats) {
+					this.workPlaceViolenceThreats = workPlaceViolenceThreats;
+				}
 
-                /**
-                 * Gets the value of the otherAftercarePlanOrAction property.
-                 * 
-                 */
-                public byte getOtherAftercarePlanOrAction() {
-                    return otherAftercarePlanOrAction;
-                }
+				public String getWorkplacePromiseDifference() {
+					return workplacePromiseDifference;
+				}
 
-                /**
-                 * Sets the value of the otherAftercarePlanOrAction property.
-                 * 
-                 */
-                public void setOtherAftercarePlanOrAction(byte value) {
-                    this.otherAftercarePlanOrAction = value;
-                }
+				public void setWorkplacePromiseDifference(String workplacePromiseDifference) {
+					this.workplacePromiseDifference = workplacePromiseDifference;
+				}
 
-                /**
-                 * Gets the value of the familyReunificationAchieved property.
-                 * 
-                 */
-                public byte getFamilyReunificationAchieved() {
-                    return familyReunificationAchieved;
-                }
+				public String getCoercedToContinueWork() {
+					return coercedToContinueWork;
+				}
 
-                /**
-                 * Sets the value of the familyReunificationAchieved property.
-                 * 
-                 */
-                public void setFamilyReunificationAchieved(byte value) {
-                    this.familyReunificationAchieved = value;
-                }
+				public void setCoercedToContinueWork(String coercedToContinueWork) {
+					this.coercedToContinueWork = coercedToContinueWork;
+				}
 
-                /**
-                 * Gets the value of the projectCompletionStatus property.
-                 * 
-                 */
-                public byte getProjectCompletionStatus() {
-                    return projectCompletionStatus;
-                }
+				public String getLaborExploitPastThreeMonths() {
+					return laborExploitPastThreeMonths;
+				}
 
-                /**
-                 * Sets the value of the projectCompletionStatus property.
-                 * 
-                 */
-                public void setProjectCompletionStatus(byte value) {
-                    this.projectCompletionStatus = value;
-                }
+				public void setLaborExploitPastThreeMonths(String laborExploitPastThreeMonths) {
+					this.laborExploitPastThreeMonths = laborExploitPastThreeMonths;
+				}
 
-                /**
-                 * Gets the value of the earlyExitReason property.
-                 * 
-                 */
-                public byte getEarlyExitReason() {
-                    return earlyExitReason;
-                }
+				public String getCounselingReceived() {
+					return counselingReceived;
+				}
 
-                /**
-                 * Sets the value of the earlyExitReason property.
-                 * 
-                 */
-                public void setEarlyExitReason(byte value) {
-                    this.earlyExitReason = value;
-                }
+				public void setCounselingReceived(String counselingReceived) {
+					this.counselingReceived = counselingReceived;
+				}
 
-                /**
+				public String getIndividualCounseling() {
+					return individualCounseling;
+				}
+
+				public void setIndividualCounseling(String individualCounseling) {
+					this.individualCounseling = individualCounseling;
+				}
+
+				public String getFamilyCounseling() {
+					return familyCounseling;
+				}
+
+				public void setFamilyCounseling(String familyCounseling) {
+					this.familyCounseling = familyCounseling;
+				}
+
+				public String getGroupCounseling() {
+					return groupCounseling;
+				}
+
+				public void setGroupCounseling(String groupCounseling) {
+					this.groupCounseling = groupCounseling;
+				}
+
+				public String getSessionCountAtExit() {
+					return sessionCountAtExit;
+				}
+
+				public void setSessionCountAtExit(String sessionCountAtExit) {
+					this.sessionCountAtExit = sessionCountAtExit;
+				}
+
+				public String getSessionsInPlan() {
+					return sessionsInPlan;
+				}
+
+				public void setSessionsInPlan(String sessionsInPlan) {
+					this.sessionsInPlan = sessionsInPlan;
+				}
+
+				public String getPostExitCounselingPlan() {
+					return postExitCounselingPlan;
+				}
+
+				public void setPostExitCounselingPlan(String postExitCounselingPlan) {
+					this.postExitCounselingPlan = postExitCounselingPlan;
+				}
+
+				public String getDestinationSafeClient() {
+					return destinationSafeClient;
+				}
+
+				public void setDestinationSafeClient(String destinationSafeClient) {
+					this.destinationSafeClient = destinationSafeClient;
+				}
+
+				public String getDestinationSafeWorker() {
+					return destinationSafeWorker;
+				}
+
+				public void setDestinationSafeWorker(String destinationSafeWorker) {
+					this.destinationSafeWorker = destinationSafeWorker;
+				}
+
+				public String getPosAdultConnections() {
+					return posAdultConnections;
+				}
+
+				public void setPosAdultConnections(String posAdultConnections) {
+					this.posAdultConnections = posAdultConnections;
+				}
+
+				public String getPosPeerConnections() {
+					return posPeerConnections;
+				}
+
+				public void setPosPeerConnections(String posPeerConnections) {
+					this.posPeerConnections = posPeerConnections;
+				}
+
+				public String getPosCommunityConnections() {
+					return posCommunityConnections;
+				}
+
+				public void setPosCommunityConnections(String posCommunityConnections) {
+					this.posCommunityConnections = posCommunityConnections;
+				}
+
+				/**
                  * Gets the value of the dateCreated property.
                  * 
                  * @return
@@ -11828,9 +11793,9 @@ public class Sources {
                 @XmlElement(name = "DateOfStatus", required = true)
                 protected XMLGregorianCalendar dateOfStatus;
                 @XmlElement(name = "ClientEnrolledInPATH")
-                protected byte clientEnrolledInPATH;
+                protected String clientEnrolledInPATH;
                 @XmlElement(name = "ReasonNotEnrolled")
-                protected byte reasonNotEnrolled;
+                protected String reasonNotEnrolled;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -11906,7 +11871,7 @@ public class Sources {
                  * Gets the value of the clientEnrolledInPATH property.
                  * 
                  */
-                public byte getClientEnrolledInPATH() {
+                public String getClientEnrolledInPATH() {
                     return clientEnrolledInPATH;
                 }
 
@@ -11914,7 +11879,7 @@ public class Sources {
                  * Sets the value of the clientEnrolledInPATH property.
                  * 
                  */
-                public void setClientEnrolledInPATH(byte value) {
+                public void setClientEnrolledInPATH(String value) {
                     this.clientEnrolledInPATH = value;
                 }
 
@@ -11922,7 +11887,7 @@ public class Sources {
                  * Gets the value of the reasonNotEnrolled property.
                  * 
                  */
-                public byte getReasonNotEnrolled() {
+                public String getReasonNotEnrolled() {
                     return reasonNotEnrolled;
                 }
 
@@ -11930,7 +11895,7 @@ public class Sources {
                  * Sets the value of the reasonNotEnrolled property.
                  * 
                  */
-                public void setReasonNotEnrolled(byte value) {
+                public void setReasonNotEnrolled(String value) {
                     this.reasonNotEnrolled = value;
                 }
 
@@ -12641,8 +12606,6 @@ public class Sources {
                 protected String enrollmentID;
                 @XmlElement(name = "MoveInDate", required = true)
                 protected XMLGregorianCalendar moveInDate;
-                @XmlElement(name = "inpermanenthousing", required = true)
-                protected byte inPermanentHousing;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -12696,22 +12659,6 @@ public class Sources {
                  */
                 public void setEnrollmentID(String value) {
                     this.enrollmentID = value;
-                }
-
-                /**
-                 * Gets the value of the inPermanentHousing property.
-                 * 
-                 */
-                public byte getInPermanentHousing() {
-                    return inPermanentHousing;
-                }
-
-                /**
-                 * Sets the value of the inPermanentHousing property.
-                 * 
-                 */
-                public void setInPermanentHousing(byte value) {
-                    this.inPermanentHousing = value;
                 }
 
                 /**

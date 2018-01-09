@@ -67,8 +67,10 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.LastNa
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.MiddleName;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.SSN;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ConnectionWithSOAR;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DomesticViolence;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Education;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Employment;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHY;
@@ -330,6 +332,8 @@ public class BulkUploadHelper2017 {
 	    		   clientModel.setSSNDataQuality(getByte(client.getSsnDataQuality()));
 	    		   clientModel.setUserID(client.getUserID());
 	    		   clientModel.setVeteranStatus(getByte(client.getVeteranStatus()));
+	    		   clientModel.setDateCreated(getXMLGregorianCalendar(client.getDateCreated()));
+	    		   clientModel.setDateUpdated(getXMLGregorianCalendar(client.getDateUpdated()));
 	    		   clientList.add(clientModel);
 	    		   
 	    		   ClientVeteranInfo veteranInfoModel = new ClientVeteranInfo();
@@ -345,6 +349,7 @@ public class BulkUploadHelper2017 {
 	    		   veteranInfoModel.setOtherTheater(getByte(client.getOtherTheater()));
 	    		   veteranInfoModel.setPersonalID(client.getPersonalID());
 	    		   veteranInfoModel.setUserID(client.getUserID());
+	    		   veteranInfoModel.setClientVeteranInfoID(client.getPersonalID());
 //	    		   veteranInfoModel.setVeteranInfoID(client.getv);
 	    		   veteranInfoModel.setVietnamWar(getByte(client.getVietnamWar()));
 	    		   veteranInfoModel.setWorldWarII(getByte(client.getWorldWarII()));
@@ -408,6 +413,7 @@ public class BulkUploadHelper2017 {
 	                      new AnnotationEntryParser<EmployementEducation>(EmployementEducation.class, vpp)).build();
 	      List<EmployementEducation> employementEdu = employementReader.readAll();
 	      List<Employment> employmentList = new ArrayList<Sources.Source.Export.Employment>();
+	      List<Education> educationList = new ArrayList<Sources.Source.Export.Education>();
 	      if(employementEdu !=null && employementEdu.size() >0 ) {
 	    	  for(EmployementEducation  employementEducationCSV : employementEdu) {
 	    		  if(employementEducationCSV !=null) {
@@ -420,11 +426,24 @@ public class BulkUploadHelper2017 {
 	    			  employmentModel.setEmploymentType(getByte(employementEducationCSV.getEmploymentType()));
 	    			  employmentModel.setInformationDate(getXMLGregorianCalendar(employementEducationCSV.getInformationDate()));
 	    			  employmentModel.setNotEmployedReason(getByte(employementEducationCSV.getNotEmployedReason()));
-	    			  employmentModel.setEnrollmentID(employementEducationCSV.getProjectEntryID());
+	    			  employmentModel.setEnrollmentID(employementEducationCSV.getEnrollmentyID());
 	    			  employmentModel.setUserID(employementEducationCSV.getUserID());
 	    			  employmentList.add(employmentModel);
+	    			  
+	    			  Education educationModel = new Education();
+	    			  educationModel.setDataCollectionStage(getByte(employementEducationCSV.getDataCollectionStage()));
+	    			  educationModel.setDateCreated(getXMLGregorianCalendar(employementEducationCSV.getDateCreated()));
+	    			  educationModel.setDateUpdated(getXMLGregorianCalendar(employementEducationCSV.getDateCreated()));
+	    			  educationModel.setEnrollmentID(employementEducationCSV.getEnrollmentyID());
+	    			  educationModel.setEducationID(employementEducationCSV.getEmploymentEducationID());
+	    			  educationModel.setInformationDate(getXMLGregorianCalendar(employementEducationCSV.getInformationDate()));
+	    			  educationModel.setSchoolStatus(employementEducationCSV.getSchoolStatus());
+	    			  educationModel.setLastGradeCompleted(getByte(employementEducationCSV.getLastGradeCompleted()));
+	    			  educationList.add(educationModel);
+	    			  
 	    		  }
 	    		  sources.getSource().getExport().setEmployment(employmentList);
+	    		  sources.getSource().getExport().setEducation(educationList);
 	    	  }
 	      }
 	  }
@@ -453,25 +472,22 @@ public class BulkUploadHelper2017 {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollmentModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment();
 	    	  enrollmentModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  enrollmentModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  enrollmentModel.setDisablingCondition(getByte(enroll.getDisablingCondition()));
+	    	  enrollmentModel.setDateToStreetESSH(getXMLGregorianCalendar(enroll.getDateToStreetESSH()));
+	    	  enrollmentModel.setDisablingCondition(enroll.getDisablingCondition());
+	    	  enrollmentModel.setEnrollmentID(enroll.getEnrollmentID());
 	    	  enrollmentModel.setEntryDate(getXMLGregorianCalendar(enroll.getEntryDate()));
 	    	  enrollmentModel.setHouseholdID(enroll.getHouseholdID());
-//	    	  enrollmentModel.setHousingStatus(getByte(enroll.getHousingStatus()));
-	    	  enrollmentModel.setMonthsHomelessPastThreeYears(getByte(enroll.getMonthsHomelessPastThreeYears()));
-	    	  //enrollmentModel.setMonthsHomelessThisTime(getByte(enroll.get));
-	    	  //enrollmentModel.set(enroll.getOtherResidencePrior());
+	    	  enrollmentModel.setLengthOfStay(enroll.getLengthOfStay());
+	    	  enrollmentModel.setLivingSituation(enroll.getLivingSituation());
+	    	  enrollmentModel.setLosUnderThreshold(enroll.getLOSUnderThreshold());
+	    	  enrollmentModel.setPreviousStreetESSH(enroll.getPreviousStreetESSH());
+	    	  enrollmentModel.setMonthsHomelessPastThreeYears(enroll.getMonthsHomelessPastThreeYears());
 	    	  enrollmentModel.setPersonalID(enroll.getPersonalID());
-	    	  enrollmentModel.setEnrollmentID(enroll.getEnrollmentID());
 	    	  enrollmentModel.setProjectID(enroll.getProjectID());
 	    	  enrollmentModel.setRelationshipToHoH(getByte(enroll.getRelationshipToHoH()));
-	    	//  enrollmentModel.setResidencePrior(getByte(enroll.getResi()));
-//	    	  enrollmentModel.setResidencePriorLengthOfStay(getByte(enroll.getResidencePriorLengthOfStay()));
-//	    	  enrollmentModel.setStatusDocumented(getByte(enroll.get));
-	    	  enrollmentModel.setTimesHomelessPastThreeYears(getByte(enroll.getTimesHomelessPastThreeYears()));
+	    	  enrollmentModel.setTimesHomelessPastThreeYears(enroll.getTimesHomelessPastThreeYears());
 	    	  enrollmentModel.setUserID(enroll.getUserID());
-//	    	  enrollmentModel.setYearsHomeless(getByte(enroll.get));
 	    	  enrollmentList.add(enrollmentModel);
-	    	  
 	    	  
 	    	  DateOfEngagement dateOfEngagementModel = new DateOfEngagement();
 	    	  dateOfEngagementModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
@@ -485,7 +501,6 @@ public class BulkUploadHelper2017 {
 	    	  Moveindate residentialmoveindateModel = new Moveindate();
 	    	  residentialmoveindateModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  residentialmoveindateModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	//  residentialmoveindateModel.setInPermanentHousing(getByte(enroll.getInPermanentHousing()));
 	    	  residentialmoveindateModel.setEnrollmentID(enroll.getEnrollmentID());
 	    	  residentialmoveindateModel.setMoveInDate(getXMLGregorianCalendar(enroll.getMoveInDate()));
 	    	  residentialmoveindateModel.setMoveInDateID(enroll.getEnrollmentID());
@@ -493,13 +508,13 @@ public class BulkUploadHelper2017 {
 	    	  residentialmoveindateList.add(residentialmoveindateModel);
 	    	  
 	    	  PATHStatus pathstatusModel = new PATHStatus();;
-	    	  pathstatusModel.setClientEnrolledInPATH(getByte(enroll.getClientEnrolledInPATH()));
+	    	  pathstatusModel.setClientEnrolledInPATH(enroll.getClientEnrolledInPATH());
 	    	  pathstatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  pathstatusModel.setDateOfStatus(getXMLGregorianCalendar(enroll.getDateOfPATHStatus()));
 	    	  pathstatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 	    	  pathstatusModel.setPathStatusID(enroll.getEnrollmentID());
 	    	  pathstatusModel.setEnrollmentID(enroll.getEnrollmentID());
-	    	//  pathstatusModel.setReasonNotEnrolled(getByte(enroll.getEnrollmentID()));
+	    	  pathstatusModel.setReasonNotEnrolled(enroll.getReasonNotEnrolled());
 	    	  pathstatusModel.setUserID(enroll.getUserID());
 	    	  pathStatusList.add(pathstatusModel);
 
@@ -507,9 +522,11 @@ public class BulkUploadHelper2017 {
 	    	  rhybcpstatusModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  rhybcpstatusModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 	    	  rhybcpstatusModel.setEnrollmentID(enroll.getEnrollmentID());
+	    	  rhybcpstatusModel.setEligibleForRHY(enroll.getEligibleForRHY());
+	    	  rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.getDateOfBCPStatus()));
+	    	  rhybcpstatusModel.setRunawayYouth(enroll.getRunawayYouth());
 	    	  rhybcpstatusModel.setReasonNoServices(getByte(enroll.getReasonNoServices()));
 	    	  rhybcpstatusModel.setRHYBCPStatusID(enroll.getEnrollmentID());
-	    	//  rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.get));
 	    	  rhybcpstatusModel.setUserID(enroll.getUserID());
 	    	  rhybcpStatusList.add(rhybcpstatusModel);
 	    	  
@@ -536,7 +553,6 @@ public class BulkUploadHelper2017 {
 	    	  entryRHY.setChildWelfareYears(getByte(enroll.getChildWelfareYears()));
 	    	  
 	    	  entryRHY.setCountOutreachReferralApproaches(getByte(enroll.getCountOutreachReferralApproaches()));
-	    	  //entryRHY.setDataCollectionStage(enroll.getDat);
 	    	  entryRHY.setEntryRHYID(enroll.getEnrollmentID());
 	    	  entryRHYList.add(entryRHY);
 	    	  
@@ -618,7 +634,7 @@ public class BulkUploadHelper2017 {
 	    	  exitModel.setExitDate(getXMLGregorianCalendar(ext.getExitDate()));
 	    	  exitModel.setExitID(ext.getExitID());
 	    	  exitModel.setOtherDestination(ext.getOtherDestination());
-	    	  exitModel.setEnrollmentID(ext.getProjectEntryID());
+	    	  exitModel.setEnrollmentID(ext.getEnrollmentID());
 	    	  exitModel.setUserID(ext.getUserID());
 	    	  exitList.add(exitModel);
 	    	  sources.getSource().getExport().getExit().add(exitModel);
@@ -632,6 +648,7 @@ public class BulkUploadHelper2017 {
 	    	  housingAssessmentDispositionModel.setOtherDisposition(ext.getOtherDisposition());
 	    	  housingAssessmentDispositionModel.setUserID(ext.getUserID());
 	    	  housingAssessmentDispositionList.add(housingAssessmentDispositionModel);
+	    	  
 	    	  ExitHousingAssessment exitHousingAssessmentModel = new ExitHousingAssessment();
 	    	  exitHousingAssessmentModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
 	    	  exitHousingAssessmentModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
@@ -641,43 +658,38 @@ public class BulkUploadHelper2017 {
 	    	  exitHousingAssessmentModel.setSubsidyInformation(getByte(ext.getSubsidyInformation()));
 	    	  exitHousingAssessmentModel.setUserID(ext.getUserID());
 	    	  exitHousingAssessmentList.add(exitHousingAssessmentModel);
-	    	  ExitPATH exitPathModel = new ExitPATH();
-	    	  //TODO :Sandeep need to fix the below problem with ConnectionWithSOAR
-	    	  //exitPathModel.setConnectionWithSOAR(getByte(ext.getConnectionWithSOAR()));
-	    	  exitPathModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
-	    	  exitPathModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
-	    	  exitPathModel.setExitPATHID(ext.getExitID());
-	    	  exitPathModel.setUserID(ext.getUserID());
-	    	  exitPathModel.setExitID(ext.getExitID());
-	    	  exitPATHList.add(exitPathModel);
+	    	  
+	    	  
+//	    	  ConnectionWithSOAR connectionWithSOARModel = new ConnectionWithSOAR();
+//	    	  connectionWithSOARModel.setConnectionWithSOAR(ext.getCo);
+//	    	  connectionWithSOARModel.setEnrollmentID(ext.getProjectEntryID());
+//	    	  connectionWithSOARModel.setDataCollectionStage(ext.getDa);
 	    	  
 	    	  ExitRHY exitRHYModel = new ExitRHY();
-	    	  exitRHYModel.setAssistanceMainstreamBenefits(getByte(ext.getAssistanceMainstreamBenefits()));
-	    	  exitRHYModel.setEarlyExitReason(getByte(ext.getEarlyExitReason()));
-	    	  exitRHYModel.setExitCounseling(getByte(ext.getExitCounseling()));
+	    	  exitRHYModel.setProjectCompletionStatus(ext.getProjectCompletionStatus());
+	    	  exitRHYModel.setEarlyExitReason(ext.getEarlyExitReason());
+	    	  exitRHYModel.setExitRHYID(ext.getExitID());
 	    	  exitRHYModel.setExitID(ext.getExitID());
-	    	  exitRHYModel.setFamilyReunificationAchieved(getByte(ext.getFamilyReunificationAchieved()));
-	    	  exitRHYModel.setFurtherFollowUpServices(getByte(ext.getFurtherFollowUpServices()));
-	    	  exitRHYModel.setOtherAftercarePlanOrAction(getByte(ext.getOtherAftercarePlanOrAction()));
-	    	  exitRHYModel.setPermanentHousingPlacement(getByte(ext.getPermanentHousingPlacement()));
-	    	  exitRHYModel.setProjectCompletionStatus(getByte(ext.getProjectCompletionStatus()));
-	    	  exitRHYModel.setResourcePackage(getByte(ext.getResourcePackage()));
-	    	  exitRHYModel.setScheduledFollowUpContacts(getByte(ext.getScheduledFollowupContacts()));
-	    	  exitRHYModel.setTemporaryShelterPlacement(getByte(ext.getTemporaryShelterPlacement()));
-	    	  exitRHYModel.setWrittenAftercarePlan(getByte(ext.getWrittenAftercarePlan()));
-//	    	  exitRHYModel.setAbuseAndNeglectFam(getByte(ext.getAbuseAndNeglectFam()));
-//	    	  exitRHYModel.setAbuseAndNeglectYouth(getByte(enroll.getAbuseAndNeglectYouth()));
-//	    	  exitRHYModel.setActiveMilitaryParent(getByte(enroll.getActiveMilitaryParent()));
-//	    	  exitRHYModel.setAlcoholDrugAbuseYouth(getByte(enroll.getAlcoholDrugAbuseYouth()));
-//	    	  exitRHYModel.setAskedOrForcedToExchangeForSex(getByte(enroll.getAskedOrForcedToExchangeForSex()));
-//	    	  exitRHYModel.setAskedOrForcedToExchangeForSexPastThreeMonths(getByte(enroll.getAskedOrForcedToExchangeForSexPastThreeMonths()));
-//	    	  exitRHYModel.setCoercedToContinueWork(getByte(enroll.getCoercedToContinueWork()));
-//	    	  exitRHYModel.setCountOfExchangeForSex(getByte(enroll.getCountOfExchangeForSex()));
-//	    	  exitRHYModel.setExchangeForSex(getByte(enroll.getExchangeForSex()));
-	    	  
+	    	  exitRHYModel.setAskedOrForcedToExchangeForSex(ext.getAskedOrForcedToExchangeForSex());
+	    	  exitRHYModel.setAskedOrForcedToExchangeForSexPastThreeMonths(ext.getAskedOrForcedToExchangeForSexPastThreeMonths());
+	    	  exitRHYModel.setCoercedToContinueWork(ext.getCoercedToContinueWork());
+	    	  exitRHYModel.setCounselingReceived(ext.getCounselingReceived());
+	    	  exitRHYModel.setCountOfExchangeForSex(ext.getCountOfExchangeForSex());
+	    	  exitRHYModel.setDestinationSafeClient(ext.getDestinationSafeClient());
+	    	  exitRHYModel.setDestinationSafeWorker(ext.getDestinationSafeWorker());
+	    	  exitRHYModel.setEarlyExitReason(ext.getEarlyExitReason());
+	    	  exitRHYModel.setExchangeForSex(ext.getExchangeForSex());
+	    	  exitRHYModel.setExchangeForSexPastThreeMonths(ext.getExchangeForSexPastThreeMonths());
+	    	  exitRHYModel.setFamilyCounseling(ext.getFamilyCounseling());
+	    	  exitRHYModel.setGroupCounseling(ext.getGroupCounseling());
+	    	  exitRHYModel.setIndividualCounseling(ext.getIndividualCounseling());
+	    	  exitRHYModel.setLaborExploitPastThreeMonths(ext.getLaborExploitPastThreeMonths());
+	    	  exitRHYModel.setPosAdultConnections(ext.getPosAdultConnections());
+	    	  exitRHYModel.setPosCommunityConnections(ext.getPosCommunityConnections());
+	    	  exitRHYModel.setPosPeerConnections(ext.getPosPeerConnections());
+	    	  exitRHYModel.setPostExitCounselingPlan(ext.getPostExitCounselingPlan());
 	    	  exitRHYModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
 	    	  exitRHYModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
-	    	  exitRHYModel.setExitRHYID(ext.getExitID());
 	    	  exitRHYModel.setUserID(ext.getUserID());
 	    	  exitRhyList.add(exitRHYModel);
 	      }
@@ -1191,7 +1203,7 @@ public class BulkUploadHelper2017 {
 		        else return "";
 	  }
 	  protected XMLGregorianCalendar getXMLGregorianCalendar(String date) {
-		  if(date == null || "".equals(date)) {
+		  if(date == null || "".equals(date) || "NA".equalsIgnoreCase(date)) {
 			  return null;
 		  }
 		  Date dob=null;

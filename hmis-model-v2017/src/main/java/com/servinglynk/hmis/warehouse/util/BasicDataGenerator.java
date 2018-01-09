@@ -816,4 +816,13 @@ public class BasicDataGenerator {
 		return null;
 		
 	}
+	 public static long getLongValue(String value) {
+		  long s = 0;
+		  try {
+			  s = Long.parseLong(value);
+			} catch (NumberFormatException e){
+				return 0;
+			}     
+	  	return s;
+	  }
 }

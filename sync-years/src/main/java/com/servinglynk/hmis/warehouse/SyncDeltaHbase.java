@@ -117,7 +117,7 @@ public class SyncDeltaHbase extends Logging {
                 logger.info("\n#######################################################\n");
 
                 logger.info("Create tables in HBASE");
-              //  tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + projectGroupCode, logger));
+                tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + projectGroupCode, logger));
                 logger.info("Create tables done");
                 SyncPostgresProcessor.updateCreateFlag(projectGroupCode, version, logger);
                 Map<String, String> hmisTypes = loadHmisTypeMap(syncSchema);
