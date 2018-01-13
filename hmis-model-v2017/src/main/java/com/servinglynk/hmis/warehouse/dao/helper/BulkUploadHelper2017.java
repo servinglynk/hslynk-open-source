@@ -32,6 +32,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
@@ -79,6 +80,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAs
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExportPeriod;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Geography;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthInsurance;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory.BedInventory;
@@ -86,7 +88,9 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.MedicalAssist
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Moveindate;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.NonCashBenefits;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYAfterCare;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYBCPStatus;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
@@ -228,11 +232,17 @@ public class BulkUploadHelper2017 {
 		                new InputStreamReader(zf.getInputStream(ze)));
 		            
 		            switch(ze.getName()) {
+		            	case "Affiliation.csv":
+		            		hydrateAffiliation(csvFile, sources);
+		            		break;
 		            	case "Client.csv":
 		            		hydrateClient(csvFile, sources);
 		            		break;
 		            	case "Disabilities.csv":
 		            		hydrateDisabilities(csvFile, sources);
+		            		break;
+		            	case "Geography.csv":
+		            		hydrateGeography(csvFile, sources);
 		            		break;
 		            	case "EmploymentEducation.csv":
 		            		hydrateEmployementEducation(csvFile,sources);
@@ -290,7 +300,68 @@ public class BulkUploadHelper2017 {
 		    } 
 		return sources;
 	}
-
+	/**
+	 * Hydrate Geography with in Sources.Export.
+	 * @param csvFile
+	 * @param sources
+	 * @throws IOException
+	 */
+	private void hydrateGeography(BufferedReader csvFile, Sources sources)  throws IOException {
+		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Geography> geographyList = new ArrayList<Sources.Source.Export.Geography>();
+		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
+	      ValueProcessorProvider vpp = new ValueProcessorProvider();
+	      CSVReader<com.servinglynk.hmis.warehouse.csv.Geography> csvReader = new CSVReaderBuilder<com.servinglynk.hmis.warehouse.csv.Geography>(csvFile).strategy(strategy).entryParser(
+	                      new AnnotationEntryParser<com.servinglynk.hmis.warehouse.csv.Geography>(com.servinglynk.hmis.warehouse.csv.Geography.class, vpp)).build();
+	      List<com.servinglynk.hmis.warehouse.csv.Geography> geographies = csvReader.readAll(); 
+	      if(CollectionUtils.isNotEmpty(geographies)) {
+	    	  for(com.servinglynk.hmis.warehouse.csv.Geography geography : geographies) {
+	    		  Geography geographyModel = new Geography();
+	    		  geographyModel.setAddress1(geography.getAddress1());
+	    		  geographyModel.setAddress2(geography.getAddress2());
+	    		  geographyModel.setCity(geography.getCity());
+	    		  geographyModel.setCoCCode(geography.getCoCCode());
+	    		  geographyModel.setGeoCode(geography.getGeocode());
+	    		  geographyModel.setGeographyID(geography.getGeographyID());
+	    		  geographyModel.setGeographyType(geography.getGeographyType());
+	    		  geographyModel.setDateCreated(getXMLGregorianCalendar(geography.getDateCreated()));
+	    		  geographyModel.setDateUpdated(getXMLGregorianCalendar(geography.getDateUpdated()));
+	    		  geographyModel.setProjectID(geography.getProjectID());
+	    		  geographyModel.setUserID(geography.getUserID());
+	    		  geographyModel.setInformationDate(getXMLGregorianCalendar(geography.getInformationDate()));
+	    		  geographyModel.setUserID(geography.getUserID());
+	    		  geographyModel.setZip(geography.getZIP());
+	    		  geographyList.add(geographyModel);
+	    	  }
+	      }
+	      sources.getSource().getExport().setGeography(geographyList);		
+	}
+	/**
+	 * Hydrate Client with in Sources.Export.
+	 * @param csvFile
+	 * @param sources
+	 * @throws IOException
+	 */
+	private void hydrateAffiliation(BufferedReader csvFile, Sources sources) throws IOException {
+		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation> affiliationList = new ArrayList<Sources.Source.Export.Affiliation>();
+		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
+	      ValueProcessorProvider vpp = new ValueProcessorProvider();
+	      CSVReader<com.servinglynk.hmis.warehouse.csv.Affiliation> csvReader = new CSVReaderBuilder<com.servinglynk.hmis.warehouse.csv.Affiliation>(csvFile).strategy(strategy).entryParser(
+	                      new AnnotationEntryParser<com.servinglynk.hmis.warehouse.csv.Affiliation>(com.servinglynk.hmis.warehouse.csv.Affiliation.class, vpp)).build();
+	      List<com.servinglynk.hmis.warehouse.csv.Affiliation> affiliations = csvReader.readAll(); 
+	      if(CollectionUtils.isNotEmpty(affiliations)) {
+	    	  for(com.servinglynk.hmis.warehouse.csv.Affiliation affiliation : affiliations) {
+	    		  Affiliation affiliationModel = new Affiliation();
+	    		  affiliationModel.setAffiliationID(affiliation.getAffiliationID());
+	    		  affiliationModel.setDateCreated(getXMLGregorianCalendar(affiliation.getDateCreated()));
+	    		  affiliationModel.setDateUpdated(getXMLGregorianCalendar(affiliation.getDateUpdated()));
+	    		  affiliationModel.setProjectID(affiliation.getProjectID());
+	    		  affiliationModel.setResProjectID(affiliation.getResProjectID());
+	    		  affiliationModel.setUserID(affiliation.getUserID());
+	    		  affiliationList.add(affiliationModel);
+	    	  }
+	      }
+	      sources.getSource().getExport().setAffiliation(affiliationList);
+	}
 	/**
 	 * Hydrate Client with in Sources.Export.
 	 * @param csvFile
@@ -323,7 +394,6 @@ public class BulkUploadHelper2017 {
 	    		   clientModel.setGender(getByte(client.getGender()));
 	    		   clientModel.setNameDataQuality(getByte(client.getNameDataQuality()));
 	    		   clientModel.setNameSuffix(client.getNameSuffix());
-	    		   //clientModel.setO(client.getOtherGender());
 	    		   clientModel.setPersonalID(client.getPersonalID());
 	    		   clientModel.setRace(getByte(client.getRaceNone()));
 	    		   SSN ssn = new SSN();
@@ -350,7 +420,6 @@ public class BulkUploadHelper2017 {
 	    		   veteranInfoModel.setPersonalID(client.getPersonalID());
 	    		   veteranInfoModel.setUserID(client.getUserID());
 	    		   veteranInfoModel.setClientVeteranInfoID(client.getPersonalID());
-//	    		   veteranInfoModel.setVeteranInfoID(client.getv);
 	    		   veteranInfoModel.setVietnamWar(getByte(client.getVietnamWar()));
 	    		   veteranInfoModel.setWorldWarII(getByte(client.getWorldWarII()));
 	    		   if (client.getYearEnteredService()!=null && !"".equals(client.getYearEnteredService()) ) {
@@ -383,9 +452,9 @@ public class BulkUploadHelper2017 {
 	    	  disabilitiesModel.setDataCollectionStage(getByte(disability.getDataCollectionStage()));
 	    	  disabilitiesModel.setDateCreated(getXMLGregorianCalendar(disability.getDateCreated()));
 	    	  disabilitiesModel.setDateUpdated(getXMLGregorianCalendar(disability.getDateUpdated()));
-	    	  disabilitiesModel.setTCellCount(getShortValue(disability.getTCellCount()));
-	    	  disabilitiesModel.setTCellCountAvailable(getByte(disability.getTCellCountAvailable()));
-	    	  disabilitiesModel.setTCellSource(getByte(disability.getTCellSource()));
+	    	  disabilitiesModel.setTCellCount(disability.getTCellCount());
+	    	  disabilitiesModel.setTCellCountAvailable(disability.getTCellCountAvailable());
+	    	  disabilitiesModel.setTCellSource(disability.getTCellSource());
 	    	  disabilitiesModel.setDisabilitiesID(disability.getDisabilitiesID());
 	    	  disabilitiesModel.setDisabilityResponse(getByte(disability.getDisabilityResponse()));
 	    	  disabilitiesModel.setDisabilityType(getByte(disability.getDisabilityType()));
@@ -394,7 +463,7 @@ public class BulkUploadHelper2017 {
 	    	  disabilitiesModel.setUserID(disability.getUserID());
 	    	  disabilitiesModel.setIndefiniteAndImpairsIndependence(getByte(disability.getIndefiniteAndImpairs()));
 	    	  disabilitiesModel.setViralLoad(getIntValue(disability.getViralLoad()));
-	    	  disabilitiesModel.setViralLoadAvailable(getByte(disability.getViralLoadAvailable()));
+	    	  disabilitiesModel.setViralLoadAvailable(disability.getViralLoadAvailable());
 	    	  disabilitiesModel.setViralLoadSource(getByte(disability.getViralLoadSource()));
 	    	  disabilitiesList.add(disabilitiesModel);
 	      }
@@ -440,7 +509,6 @@ public class BulkUploadHelper2017 {
 	    			  educationModel.setSchoolStatus(employementEducationCSV.getSchoolStatus());
 	    			  educationModel.setLastGradeCompleted(getByte(employementEducationCSV.getLastGradeCompleted()));
 	    			  educationList.add(educationModel);
-	    			  
 	    		  }
 	    		  sources.getSource().getExport().setEmployment(employmentList);
 	    		  sources.getSource().getExport().setEducation(educationList);
@@ -625,9 +693,11 @@ public class BulkUploadHelper2017 {
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment> exitHousingAssessmentList = new ArrayList<Sources.Source.Export.ExitHousingAssessment>();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitRHY> exitRhyList = new ArrayList<Sources.Source.Export.ExitRHY>();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH> exitPATHList = new ArrayList<Sources.Source.Export.ExitPATH>();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.RHYAfterCare> rhyAfterCareList = new ArrayList<Sources.Source.Export.RHYAfterCare>();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.VASHExitReason> vashExitReasonList = new ArrayList<Sources.Source.Export.VASHExitReason>();
+		   
 	      for(Exit ext : exit) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit exitModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit();
-	    	  
 	    	  exitModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
 	    	  exitModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
 	    	  exitModel.setDestination(getByte(ext.getDestination()));
@@ -649,21 +719,38 @@ public class BulkUploadHelper2017 {
 	    	  housingAssessmentDispositionModel.setUserID(ext.getUserID());
 	    	  housingAssessmentDispositionList.add(housingAssessmentDispositionModel);
 	    	  
+	    	  VASHExitReason vashExitReasonModel = new VASHExitReason();
+	    	  vashExitReasonModel.setCmExitReason(ext.getCMExitReason());
+	    	  vashExitReasonModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
+	    	  vashExitReasonModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
+	    	  vashExitReasonModel.setUserID(ext.getUserID());
+	    	  vashExitReasonModel.setExitID(ext.getExitID());
+	    	  vashExitReasonModel.setVashExitReasonID(ext.getExitID());
+	    	  vashExitReasonList.add(vashExitReasonModel);
+	    	  
+	      	  RHYAfterCare rhyAfterCareModel = new RHYAfterCare();
+	      	  rhyAfterCareModel.setAfterCareDate(getXMLGregorianCalendar(ext.getAftercareDate()));
+	      	  rhyAfterCareModel.setAfterCareProvided(ext.getAftercareProvided());
+	      	  rhyAfterCareModel.setEmailSocialMedia(ext.getEmailSocialMedia());
+	      	  rhyAfterCareModel.setInPersonGroup(ext.getInPersonGroup());
+	      	  rhyAfterCareModel.setInPersonIndividual(ext.getInPersonIndividual());
+	      	  rhyAfterCareModel.setRhyAfterCareID(ext.getExitID());
+	      	  rhyAfterCareModel.setTelephone(ext.getTelephone());
+	    	  rhyAfterCareModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
+	    	  rhyAfterCareModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
+	    	  rhyAfterCareModel.setExitID(ext.getExitID());
+	    	  rhyAfterCareModel.setUserID(ext.getUserID());
+	    	  rhyAfterCareList.add(rhyAfterCareModel);
+	    	  
 	    	  ExitHousingAssessment exitHousingAssessmentModel = new ExitHousingAssessment();
 	    	  exitHousingAssessmentModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
 	    	  exitHousingAssessmentModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
+	    	  exitHousingAssessmentModel.setUserID(ext.getUserID());
 	    	  exitHousingAssessmentModel.setExitHousingAssessmentID(ext.getExitID());
 	    	  exitHousingAssessmentModel.setExitID(ext.getExitID());
 	    	  exitHousingAssessmentModel.setHousingAssessment(getByte(ext.getHousingAssessment()));
 	    	  exitHousingAssessmentModel.setSubsidyInformation(getByte(ext.getSubsidyInformation()));
-	    	  exitHousingAssessmentModel.setUserID(ext.getUserID());
 	    	  exitHousingAssessmentList.add(exitHousingAssessmentModel);
-	    	  
-	    	  
-//	    	  ConnectionWithSOAR connectionWithSOARModel = new ConnectionWithSOAR();
-//	    	  connectionWithSOARModel.setConnectionWithSOAR(ext.getCo);
-//	    	  connectionWithSOARModel.setEnrollmentID(ext.getProjectEntryID());
-//	    	  connectionWithSOARModel.setDataCollectionStage(ext.getDa);
 	    	  
 	    	  ExitRHY exitRHYModel = new ExitRHY();
 	    	  exitRHYModel.setProjectCompletionStatus(ext.getProjectCompletionStatus());
@@ -697,6 +784,8 @@ public class BulkUploadHelper2017 {
 	      sources.getSource().getExport().setExitHousingAssessment(exitHousingAssessmentList);
 	      sources.getSource().getExport().setExitPATH(exitPATHList);
 	      sources.getSource().getExport().setExitRHY(exitRhyList);
+	      sources.getSource().getExport().setVashExitReason(vashExitReasonList);
+	      sources.getSource().getExport().setRhyAfterCaren(rhyAfterCareList);
 	      
 	  }
 	  
@@ -749,7 +838,6 @@ public class BulkUploadHelper2017 {
 	    	  funderModel.setProjectID(fund.getProjectID());
 	    	  funderModel.setStartDate(getXMLGregorianCalendar(fund.getStartDate()));
 	    	  funderModel.setUserID(fund.getUserID());
-	    	  
 	    	  sources.getSource().getExport().getFunder().add(funderModel);
 	      }
 	      
@@ -814,6 +902,7 @@ public class BulkUploadHelper2017 {
 	      List<IncomeBenefits> incomeBenefits = incomeBenefitsReader.readAll(); 
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources> incomeBenefitsList = new ArrayList<Sources.Source.Export.IncomeAndSources>();
 	      List<NonCashBenefits> nonCashBenefitsList = new ArrayList<NonCashBenefits>();
+	      List<ConnectionWithSOAR> ConnectionWithSOARList = new ArrayList<ConnectionWithSOAR>();
 	      List<MedicalAssistance> medicalAssistanceList = new ArrayList<MedicalAssistance>();
 	      for(IncomeBenefits incomeBnfts : incomeBenefits) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources incomeBenefitsModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources();
@@ -892,6 +981,15 @@ public class BulkUploadHelper2017 {
 	    		  incomeBenefitsModel.setWorkersCompAmount(getFloatValue(incomeBnfts.getWorkersCompAmount()));
 	    	  }
 	    	  
+	    	  ConnectionWithSOAR connectionWithSOAR = new ConnectionWithSOAR();
+	    	  connectionWithSOAR.setConnectionWithSOAR(incomeBnfts.getConnectionWithSOAR());
+	    	  connectionWithSOAR.setDataCollectionStage(incomeBnfts.getDataCollectionStage());
+	    	  connectionWithSOAR.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
+	    	  connectionWithSOAR.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
+	    	  connectionWithSOAR.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
+	    	  connectionWithSOAR.setConnectionWithSOARID(incomeBnfts.getIncomeBenefitsID());
+	    	  ConnectionWithSOARList.add(connectionWithSOAR);
+	    	  
 	    	  NonCashBenefits noncashbenefitsModel = new NonCashBenefits();
 	    	  noncashbenefitsModel.setBenefitsFromAnySource(getByte(incomeBnfts.getBenefitsFromAnySource()));
 	    	  noncashbenefitsModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
@@ -908,7 +1006,6 @@ public class BulkUploadHelper2017 {
 	    	  healthinsuranceModel.setOtherInsuranceIdentify(incomeBnfts.getOtherIncomeSourceIdentify());
 	    	  healthinsuranceModel.setIndianHealthServices(getByte(incomeBnfts.getIndianHealthServices()));
 	    	  healthinsuranceModel.setNoIndianHealthServicesReason(incomeBnfts.getNoIndianHealthServicesReason());
-	    	  
 	    	  healthinsuranceModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
 	    	  healthinsuranceModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
 	    	  healthinsuranceModel.setDateDeleted(getXMLGregorianCalendar(incomeBnfts.getDateDeleted()));
@@ -953,6 +1050,7 @@ public class BulkUploadHelper2017 {
 	      sources.getSource().getExport().setIncomeAndSources(incomeBenefitsList);
 	      sources.getSource().getExport().setNonCashBenefits(nonCashBenefitsList);
 	      sources.getSource().getExport().setMedicalAssistance(medicalAssistanceList);
+	      sources.getSource().getExport().setConnectionWithSoar(ConnectionWithSOARList);
 	  }
 	  
 	  /**
@@ -1041,16 +1139,13 @@ public class BulkUploadHelper2017 {
 	      CSVReader<Project> projectReader = new CSVReaderBuilder<Project>(csvFile).strategy(strategy).entryParser(
 	                      new AnnotationEntryParser<Project>(Project.class, vpp)).build();
 	      List<Project> project = projectReader.readAll();
-	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project> projectList = new ArrayList<Sources.Source.Export.Project>();
-	      List<Affiliation> affiliationList = new ArrayList<Sources.Source.Export.Affiliation>();
 	      for(Project prjt : project) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project projectModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Project();
 	    	  
 	    	  projectModel.setContinuumProject(prjt.getContinuumProject());
 	    	  projectModel.setDateCreated(getXMLGregorianCalendar(prjt.getDateCreated()));
 	    	  projectModel.setDateUpdated(getXMLGregorianCalendar(prjt.getDateUpdated()));
-	    	 // Sandeep Fix this.
-	    	 // projectModel.setOrganizationID(getByte(prjt.getOrganizationID()));
+	    	  projectModel.setOrganizationID(prjt.getOrganizationID());
 	    	  projectModel.setProjectCommonName(prjt.getProjectCommonName());
 	    	  projectModel.setProjectID(prjt.getProjectID());
 	    	  projectModel.setProjectName(prjt.getProjectName());
@@ -1060,20 +1155,8 @@ public class BulkUploadHelper2017 {
 	    	  projectModel.setTrackingMethod(getByte(prjt.getTrackingMethod()));
 	    	  projectModel.setUserID(prjt.getUserID());
 	    	  
-	    	  projectList.add(projectModel);
-	    	  
-	    	  Affiliation affiliationModel = new Affiliation();
-	    	  affiliationModel.setAffiliationID(prjt.getResidentialAffiliation());
-	    	  affiliationModel.setDateCreated(getXMLGregorianCalendar(prjt.getDateCreated()));
-	    	  affiliationModel.setDateUpdated(getXMLGregorianCalendar(prjt.getDateUpdated()));
-	    	  affiliationModel.setProjectID(prjt.getProjectID());
-	    	  affiliationModel.setResProjectID(prjt.getResidentialAffiliation()); 
-	    	  affiliationModel.setUserID(prjt.getUserID());
-	    	  affiliationList.add(affiliationModel);
-	    	  
 	    	  sources.getSource().getExport().getProject().add(projectModel);
 	      }
-	      sources.getSource().getExport().setAffiliation(affiliationList);
 	  }
 	  
 	  /**
@@ -1132,6 +1215,8 @@ public class BulkUploadHelper2017 {
 	    	  servicesModel.setTypeProvided(getByte(srvcs.getTypeProvided()));
 	    	  servicesModel.setUserID(srvcs.getUserID());
 	    	  servicesList.add(servicesModel);
+	    	  
+	    	  srvcs.get
 	      }
 	      sources.getSource().getExport().setServices(servicesList);
 	  }

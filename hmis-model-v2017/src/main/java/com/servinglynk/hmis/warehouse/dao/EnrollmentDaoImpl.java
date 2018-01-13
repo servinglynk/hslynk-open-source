@@ -60,9 +60,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 //						.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 //								.getContinuouslyHomelessOneYear())));
 //					enrollmentModel.setHousingstatus(EnrollmentHousingstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getHousingStatus())));
-					enrollmentModel
-					.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum((enrollment
-									.getDisablingCondition())));
+					enrollmentModel.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingCondition()));
 					enrollmentModel.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getRelationshipToHoH())));
 					enrollmentModel.setLivingSituation(LivingSituationEnum.lookupEnum(enrollment.getLivingSituation()));
 					enrollmentModel.setLengthOfStay(LengthOfStayEnum.lookupEnum(enrollment.getLengthOfStay()));

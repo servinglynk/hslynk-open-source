@@ -3754,22 +3754,14 @@ public class Sources {
                 protected byte disabilityResponse;
                 @XmlElement(name = "IndefiniteAndImpairsIndependence")
                 protected byte indefiniteAndImpairsIndependence;
-               /* @XmlElement(name = "DocumentationOnFile")
-                protected byte documentationOnFile;
-                @XmlElement(name = "ReceivingServices")
-                protected byte receivingServices;
-                @XmlElement(name = "PATHHowConfirmed")
-                protected byte pathHowConfirmed;
-                @XmlElement(name = "PATHSMIInformation")
-                protected byte pathsmiInformation;*/
                 @XmlElement(name = "TCellCountAvailable")
-                protected byte tCellCountAvailable;
+                protected String tCellCountAvailable;
                 @XmlElement(name = "TCellCount")
-                protected short tCellCount;
+                protected String tCellCount;
                 @XmlElement(name = "TCellSource")
-                protected byte tCellSource;
+                protected String tCellSource;
                 @XmlElement(name = "ViralLoadAvailable")
-                protected byte viralLoadAvailable;
+                protected String viralLoadAvailable;
                 @XmlElement(name = "ViralLoad")
                 protected int viralLoad;
                 @XmlElement(name = "ViralLoadSource")
@@ -3949,7 +3941,7 @@ public class Sources {
                  * Gets the value of the tCellCountAvailable property.
                  * 
                  */
-                public byte getTCellCountAvailable() {
+                public String getTCellCountAvailable() {
                     return tCellCountAvailable;
                 }
 
@@ -3957,7 +3949,7 @@ public class Sources {
                  * Sets the value of the tCellCountAvailable property.
                  * 
                  */
-                public void setTCellCountAvailable(byte value) {
+                public void setTCellCountAvailable(String value) {
                     this.tCellCountAvailable = value;
                 }
 
@@ -3965,7 +3957,7 @@ public class Sources {
                  * Gets the value of the tCellCount property.
                  * 
                  */
-                public short getTCellCount() {
+                public String getTCellCount() {
                     return tCellCount;
                 }
 
@@ -3973,7 +3965,7 @@ public class Sources {
                  * Sets the value of the tCellCount property.
                  * 
                  */
-                public void setTCellCount(short value) {
+                public void setTCellCount(String value) {
                     this.tCellCount = value;
                 }
 
@@ -3981,7 +3973,7 @@ public class Sources {
                  * Gets the value of the tCellSource property.
                  * 
                  */
-                public byte getTCellSource() {
+                public String getTCellSource() {
                     return tCellSource;
                 }
 
@@ -3989,7 +3981,7 @@ public class Sources {
                  * Sets the value of the tCellSource property.
                  * 
                  */
-                public void setTCellSource(byte value) {
+                public void setTCellSource(String value) {
                     this.tCellSource = value;
                 }
 
@@ -3997,7 +3989,7 @@ public class Sources {
                  * Gets the value of the viralLoadAvailable property.
                  * 
                  */
-                public byte getViralLoadAvailable() {
+                public String getViralLoadAvailable() {
                     return viralLoadAvailable;
                 }
 
@@ -4005,7 +3997,7 @@ public class Sources {
                  * Sets the value of the viralLoadAvailable property.
                  * 
                  */
-                public void setViralLoadAvailable(byte value) {
+                public void setViralLoadAvailable(String value) {
                     this.viralLoadAvailable = value;
                 }
 
