@@ -95,6 +95,17 @@ run setupDB2017
 - Open server.xml in your tomcat and add the below line.
   <Resource auth="Container" driverClassName="org.postgresql.Driver" factory="org.apache.commons.dbcp.BasicDataSourceFactory" initialSize="50" logAbandoned="true" maxActive="100" maxIdle="50" maxWait="60000" minIdle="50" name="jdbc/hmisdb" password="" removeAbandoned="true" removeAbandonedTimeout="30" testWhileIdle="true" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/hmis" username="postgres" validationQuery="SELECT 1"/>
 - Deploy microservices you want in eclipse or any IDE.
+- When performing a new install in Eclipse or Debian 7, Maven complains about adding some plugins like grunt in the build section. The issue can be fixed by adding the tag pluginManagement as below...
+    
+    <build> 
+      <pluginManagement>
+	<plugins>
+	  //............
+	</plugins>
+      </pluginManagement>
+    </build>
+
+  The need for this tag appears to be environment dependent, as more files are needed to be modified to run under windows 10 than Debian 7.
 
 #### Project Description
 - hmis-admin : <br />
