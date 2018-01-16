@@ -1215,8 +1215,6 @@ public class BulkUploadHelper2017 {
 	    	  servicesModel.setTypeProvided(getByte(srvcs.getTypeProvided()));
 	    	  servicesModel.setUserID(srvcs.getUserID());
 	    	  servicesList.add(servicesModel);
-	    	  
-	    	  srvcs.get
 	      }
 	      sources.getSource().getExport().setServices(servicesList);
 	  }

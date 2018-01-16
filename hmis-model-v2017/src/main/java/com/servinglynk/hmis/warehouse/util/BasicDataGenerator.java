@@ -811,7 +811,13 @@ public class BasicDataGenerator {
 	{
 		if(value!=null)
 		{
-			return value.toGregorianCalendar().toZonedDateTime().toLocalDateTime();
+			try {
+				return value.toGregorianCalendar().toZonedDateTime().toLocalDateTime();
+			}catch (Exception e) {
+				//eat the exception but log it.
+				
+			}
+			
 		}
 		return null;
 		
