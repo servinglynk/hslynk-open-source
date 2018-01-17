@@ -36,6 +36,7 @@ import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.service.PathstatusService;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
 import com.servinglynk.hmis.warehouse.service.ProjectcocService;
+import com.servinglynk.hmis.warehouse.service.QuestionService;
 import com.servinglynk.hmis.warehouse.service.RHYAfterCareService;
 import com.servinglynk.hmis.warehouse.service.ResidentialmoveindateService;
 import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
@@ -80,6 +81,7 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public VashExitReasonService vashExitReasonService;
 	@Autowired public RHYAfterCareService rHYAfterCareService;
 	@Autowired public BulkUploadErrorActivityService bulkUploadErrorActivityService;
+	@Autowired public QuestionService questionService;
 	
 	public RhybcpstatusService getRhybcpstatusService() {
 		return rhybcpstatusService;
@@ -419,6 +421,14 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	 */
 	public void setRHYAfterCareService(RHYAfterCareService rHYAfterCareService) {
 		this.rHYAfterCareService = rHYAfterCareService;
+	}
+	
+	public QuestionService getQuestionService() {
+		return questionService;
+	}
+
+	public void setQuestionService(QuestionService questionService) {
+		this.questionService = questionService;
 	}
 	
 }
