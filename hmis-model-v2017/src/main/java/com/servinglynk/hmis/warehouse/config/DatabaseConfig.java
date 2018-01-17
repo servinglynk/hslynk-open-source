@@ -74,6 +74,7 @@ import com.servinglynk.hmis.warehouse.dao.PathstatusDao;
 import com.servinglynk.hmis.warehouse.dao.PathstatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ProjectDao;
 import com.servinglynk.hmis.warehouse.dao.ProjectDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.QuestionDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.RHYAfterCareDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.RhybcpstatusDao;
 import com.servinglynk.hmis.warehouse.dao.RhybcpstatusDaoImpl;
@@ -352,5 +353,10 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public ConnectionWithSoarDaoImpl connectionWithSoarDao() {
 		return new ConnectionWithSoarDaoImpl();
+	}
+
+	@Bean
+	public QuestionDaoImpl questionDao() {
+		return new QuestionDaoImpl();
 	}
 }
