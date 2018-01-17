@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.core.model.Question;
+import com.servinglynk.hmis.warehouse.core.model.Questions;
+import com.servinglynk.hmis.warehouse.service.QuestionService;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
@@ -37,6 +40,7 @@ import com.servinglynk.hmis.warehouse.service.impl.OrganizationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PathstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectcocServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.QuestionServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RHYAfterCareServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
@@ -241,5 +245,10 @@ public class ServiceConfig  {
 	 
 	 @Bean VashExitReasonServiceImpl VashExitReasonService() {
 		 return new VashExitReasonServiceImpl();
+	 }
+	 
+	 @Bean
+	 public QuestionServiceImpl questionService() {
+		 return new QuestionServiceImpl();
 	 }
 }

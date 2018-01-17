@@ -25,6 +25,7 @@ import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.OrganizationsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsController;
+import com.servinglynk.hmis.warehouse.rest.QuestionsController;
 import com.servinglynk.hmis.warehouse.rest.SearchController;
 
 @Configuration
@@ -106,4 +107,10 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 	 public HealthController healthController(){
 		 return new HealthController();
 	 }
+	 
+	 @Bean
+	 public QuestionsController questionsController() {
+		 return new QuestionsController();
+	 }
+	 
 }

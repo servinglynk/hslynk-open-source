@@ -2,7 +2,7 @@ package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Question;
-import com.servinglynk.hmis.warehouse.model.v2016.QuestionEntity;
+import com.servinglynk.hmis.warehouse.model.v2017.QuestionEntity;
 
 public class QuestionConverter   {
 
@@ -17,7 +17,7 @@ public class QuestionConverter   {
        model.setQuestionType(entity.getQuestionType());
        model.setHudQuestionId(entity.getHudQuestionId());
        model.setPicklistGroupName(entity.getPicklistGroupName());
-      if(entity.getPicklistGroupName()!=null) model.addLink(new ActionLink("pickList", "/hmis-clientapi/rest/v2016/hmistypes/"+entity.getPicklistGroupName()+"/values"));
+      if(entity.getPicklistGroupName()!=null) model.addLink(new ActionLink("pickList", "/hmis-clientapi/rest/v2017/hmistypes/"+entity.getPicklistGroupName()+"/values"));
       if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate()));
       return model;
    }
