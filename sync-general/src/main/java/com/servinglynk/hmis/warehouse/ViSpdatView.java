@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -229,19 +230,20 @@ public class ViSpdatView  extends Logging {
          appender.setLayout(new PatternLayout());
          appender.activateOptions();
          logger.addAppender(appender);
-         String projectGroupCode ="MO0010";
 		 Properties props = new Properties();
 		 props.generatePropValues();
-		 ViSpdatView view = new ViSpdatView(logger);
-		 List<String> disinctSurveys = view.getDisinctSurveys("survey");
-		 for(String surveyId : disinctSurveys) {
-			 Survey survey = view.getSurveyById("survey", surveyId);
-			 if(StringUtils.equals("MO0010",survey.getProjectGroupCode())) {
-				 String tableName =survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase()+"_"+survey.getProjectGroupCode();
-				 view.createHbaseTable(tableName);
+		 String projectGroupCodes = Properties.PROJECT_GROUP_CODE;
+		 String[] split = projectGroupCodes.split(",");
+		 List<String> projectGroups = new ArrayList<>(Arrays.asList(split));
+		 for(String projectGroupCode : projectGroups) {
+			 ViSpdatView view = new ViSpdatView(logger);
+			 List<String> disinctSurveys = view.getDisinctSurveys("survey");
+			 for(String surveyId : disinctSurveys) {
+				 Survey survey = view.getSurveyById("survey", surveyId);
+			     String tableName =survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase()+"_"+survey.getProjectGroupCode();
+			     view.createHbaseTable(tableName);
 				 view.processViSpdat(tableName, projectGroupCode, survey);
-			 }
-		}
-	}
-
+			  }
+			}
+		 }
 }

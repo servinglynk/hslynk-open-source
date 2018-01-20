@@ -359,9 +359,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		criteria.add(Restrictions.neOrIsNotNull("lastName", ""));
 		List<String> projectGroupCodes = new ArrayList<String>();
 		projectGroupCodes.add("MO0010");
-		projectGroupCodes.add("HO0002");
 		projectGroupCodes.add("IL0009");
-		projectGroupCodes.add("BD0005");
+		projectGroupCodes.add("BD0005");	
 		criteria.add(Restrictions.in("projectGroupCode", projectGroupCodes));
 		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2014.Client>) findByCriteria(criteria);
 		return clients;
