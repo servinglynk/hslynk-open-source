@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -278,12 +279,13 @@ public class ActiveListView  extends Logging {
          appender.setLayout(new PatternLayout());
          appender.activateOptions();
          logger.addAppender(appender);
-         List<String> projectGroups = new ArrayList<>();
-         projectGroups.add("MO0010");
-         projectGroups.add("HO0002");
+     	String projectGroupCodes = Properties.PROJECT_GROUP_CODE;
+		String[] split = projectGroupCodes.split(",");
+		List<String> projectGroups = new ArrayList<>(Arrays.asList(split));
          for (String projectGroupCode :projectGroups) {
         	 String tableName ="active_list_"+projectGroupCode;
              createHbaseTable(tableName);
+             logger.info("Processing active list for project group code"+projectGroupCode);
              syncTable(tableName, projectGroupCode, "eligible_clients");
          }
 	}
