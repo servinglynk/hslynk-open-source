@@ -4,13 +4,13 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q09bNumberofPersonsEngagedDataBean;
+import com.servinglynk.report.bean.Q09bDataBean;
 
 public class Q09bBeanMaker {
 	
-	public static List<Q09bNumberofPersonsEngagedDataBean> getQ09bNumberofPersonsEngagedList(){
+	public static List<Q09bDataBean> getQ09bNumberofPersonsEngagedList(){
 		
-		Q09bNumberofPersonsEngagedDataBean q09BNumberOfPersonsEngaged = new Q09bNumberofPersonsEngagedDataBean();
+		Q09bDataBean q09BNumberOfPersonsEngaged = new Q09bDataBean();
 		
 		q09BNumberOfPersonsEngaged.setTotEngagedAfter1Contract(BigInteger.valueOf(0));
 		q09BNumberOfPersonsEngaged.setTotEngagedAfter2to5Contract(BigInteger.valueOf(0));

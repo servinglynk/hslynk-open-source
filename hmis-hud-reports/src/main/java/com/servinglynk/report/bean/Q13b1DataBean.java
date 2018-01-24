@@ -2,7 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
+public class Q13b1DataBean {
 	
 	private BigInteger q13b1MentalIllnessTotal;
 	private BigInteger q13b1MentalIllnessWithoutChildren;

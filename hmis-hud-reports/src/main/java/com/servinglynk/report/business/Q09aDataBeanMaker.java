@@ -4,13 +4,13 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q09aNumberPersonsContactedDataBean;
+import com.servinglynk.report.bean.Q09aDataBean;
 
 public class Q09aDataBeanMaker {
 	
-	public static List<Q09aNumberPersonsContactedDataBean> getQ09aNumberPersonsContactedList(){
+	public static List<Q09aDataBean> getQ09aNumberPersonsContactedList(){
 		
-		Q09aNumberPersonsContactedDataBean q09aNumberPersonsContactedDataBean=new Q09aNumberPersonsContactedDataBean();
+		Q09aDataBean q09aNumberPersonsContactedDataBean=new Q09aDataBean();
 		q09aNumberPersonsContactedDataBean.setTotContactedOnce(BigInteger.valueOf(0));
 		q09aNumberPersonsContactedDataBean.setCoFirstContactHumanHabitation(BigInteger.valueOf(0));
 		q09aNumberPersonsContactedDataBean.setCoFirstContactNRSS(BigInteger.valueOf(0));

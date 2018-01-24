@@ -4,13 +4,13 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
+import com.servinglynk.report.bean.Q07bDataBean;
 
 public class Q07bBeanMaker {;
 	
-	public static List<Q07bPointInTimeCountHouseholdsLastWednesdayDataBean> getQ07bPointInTimeCountHouseholdsLastWednesdayList(){
+	public static List<Q07bDataBean> getQ07bPointInTimeCountHouseholdsLastWednesdayList(){
 		
-		Q07bPointInTimeCountHouseholdsLastWednesdayDataBean q07bPointInTimeCountHouseholdsLastWednesdayDataBean	= new Q07bPointInTimeCountHouseholdsLastWednesdayDataBean();
+		Q07bDataBean q07bPointInTimeCountHouseholdsLastWednesdayDataBean	= new Q07bDataBean();
 		
 		q07bPointInTimeCountHouseholdsLastWednesdayDataBean.setHhJanTotal(BigInteger.valueOf(0));
 		q07bPointInTimeCountHouseholdsLastWednesdayDataBean.setHhCountJanUht(BigInteger.valueOf(0));

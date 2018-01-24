@@ -4,13 +4,13 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean;
+import com.servinglynk.report.bean.Q13a1DataBean;
 
 public class Q13a1BeanMaker {
 	
-	public static List<Q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean> getQ13a1PhysicalAndMentalHealthConditionsAtEntryList(){
+	public static List<Q13a1DataBean> getQ13a1PhysicalAndMentalHealthConditionsAtEntryList(){
 		
-		Q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean q13a1PhysicalMntlHealthCondTableBean = new Q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean();
+		Q13a1DataBean q13a1PhysicalMntlHealthCondTableBean = new Q13a1DataBean();
 		
 		q13a1PhysicalMntlHealthCondTableBean.setQ13a1MentalIllnessTotal(BigInteger.valueOf(0));
     	q13a1PhysicalMntlHealthCondTableBean.setQ13a1MentalIllnessWithoutChildren(BigInteger.valueOf(0));

@@ -4,14 +4,14 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q10cGenderOfPersonsMissingAgeInformationDataBean;
+import com.servinglynk.report.bean.Q10cDataBean;
 import com.servinglynk.report.bean.ReportData;
 
 public class Q10cBeanMaker {
 	
-	public static List<Q10cGenderOfPersonsMissingAgeInformationDataBean> getQ10CGPMIList(ReportData data){
+	public static List<Q10cDataBean> getQ10CGPMIList(ReportData data){
 		
-		Q10cGenderOfPersonsMissingAgeInformationDataBean q10cGenderofPersonsMissingAgeInformation= new Q10cGenderOfPersonsMissingAgeInformationDataBean();
+		Q10cDataBean q10cGenderofPersonsMissingAgeInformation= new Q10cDataBean();
 	
 	q10cGenderofPersonsMissingAgeInformation.setTotMAIMale(BigInteger.valueOf(0));
 	q10cGenderofPersonsMissingAgeInformation.setTotMAIFemale(BigInteger.valueOf(0));

@@ -4,14 +4,14 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q07aHouseholdsServedDataBean;
+import com.servinglynk.report.bean.Q07aDataBean;
 import com.servinglynk.report.bean.ReportData;
 
 public class Q07aBeanMaker {
 	
-        public static List<Q07aHouseholdsServedDataBean> getQ07aHouseholdsServeList(ReportData data) {
+        public static List<Q07aDataBean> getQ07aHouseholdsServeList(ReportData data) {
     	
-        	Q07aHouseholdsServedDataBean q07aHouseholdsServed = new Q07aHouseholdsServedDataBean();
+        	Q07aDataBean q07aHouseholdsServed = new Q07aDataBean();
                 
         	q07aHouseholdsServed.setAdultsTotal(BigInteger.valueOf(0));
         	q07aHouseholdsServed.setAdultsWithOutChildren(BigInteger.valueOf(0));

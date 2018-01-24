@@ -4,14 +4,14 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q13a2NumberOfConditionsAtEntryDataBean;
+import com.servinglynk.report.bean.Q13a2DataBean;
 import com.servinglynk.report.bean.ReportData;
 
 public class Q13a2BeanMaker {
 	
-	public static List<Q13a2NumberOfConditionsAtEntryDataBean> getQ13a2NumberOfConditionsAtEntryList(ReportData data){
+	public static List<Q13a2DataBean> getQ13a2NumberOfConditionsAtEntryList(ReportData data){
 		
-		Q13a2NumberOfConditionsAtEntryDataBean q13a2NumberofConditioinsTableBean = new Q13a2NumberOfConditionsAtEntryDataBean();
+		Q13a2DataBean q13a2NumberofConditioinsTableBean = new Q13a2DataBean();
 		
 		q13a2NumberofConditioinsTableBean.setQ13a2NoneTotal(BigInteger.valueOf(0));
     	q13a2NumberofConditioinsTableBean.setQ13a2NoneWithoutChildren(BigInteger.valueOf(0));

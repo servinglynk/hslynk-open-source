@@ -4,17 +4,17 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q13b2NumberOfConditionsAtExitDataBean;
+import com.servinglynk.report.bean.Q13b2DataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ExitModel;
 
 public class Q13b2BeanMaker {
 	
-	public static List<Q13b2NumberOfConditionsAtExitDataBean> getQ13b2NumberOfConditionsAtExitList(ReportData data){
+	public static List<Q13b2DataBean> getQ13b2NumberOfConditionsAtExitList(ReportData data){
 		
 		List<ExitModel> exits = data.getExits();
 		
-		Q13b2NumberOfConditionsAtExitDataBean q13b2NumberOfConditionsAtExitTableBean = new Q13b2NumberOfConditionsAtExitDataBean();
+		Q13b2DataBean q13b2NumberOfConditionsAtExitTableBean = new Q13b2DataBean();
 		
 		q13b2NumberOfConditionsAtExitTableBean.setQ13b2NoneTotal(BigInteger.valueOf(0));
     	q13b2NumberOfConditionsAtExitTableBean.setQ13b2NoneWithoutChildren(BigInteger.valueOf(0));

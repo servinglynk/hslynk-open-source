@@ -31,22 +31,22 @@ public class HomePageDataBean {
 	private List<Q06dDataBean> q06dDataBean;
 	private List<Q06eDataBean> q06eDataBean;
 	private List<Q06fDataBean> q06fDataBean;
-	private List<Q07aHouseholdsServedDataBean> q07aHouseholdsServedDataBean;
-	private List<Q07bPointInTimeCountHouseholdsLastWednesdayDataBean> q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
+	private List<Q07aDataBean> q07aHouseholdsServedDataBean;
+	private List<Q07bDataBean> q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
 	private List<Q08aDataBean> q08aDataBean;
 	private List<Q08bDataBean> q08bDataBean;
-	private List<Q09aNumberPersonsContactedDataBean> qQ09aNumberPersonsContactedDataBean;
-	private List<Q09bNumberofPersonsEngagedDataBean> q09bNumberofPersonsEngagedDataBean;
-	private List<Q10aGenderOfAdultsDataBean> q10aGenderOfAdultsDataBean;
-	private List<Q10bGenderOfChildrenDataBean> q10bGenderOfChildrenDataBean;
-	private List<Q10cGenderOfPersonsMissingAgeInformationDataBean> q10cGenderOfPersonsMissingAgeInformationDataBean;
+	private List<Q09aDataBean> qQ09aNumberPersonsContactedDataBean;
+	private List<Q09bDataBean> q09bNumberofPersonsEngagedDataBean;
+	private List<Q10aDataBean> q10aGenderOfAdultsDataBean;
+	private List<Q10bDataBean> q10bGenderOfChildrenDataBean;
+	private List<Q10cDataBean> q10cGenderOfPersonsMissingAgeInformationDataBean;
 	private List<Q11AgeDataBean> q11AgeDataBean;
 	private List<Q12aRaceDataBean> q12aRaceDataBean;
 	private List<Q12bEthnicityDataBean> q12bEthnicityDataBean;
-	private List<Q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean> q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean;
-	private List<Q13a2NumberOfConditionsAtEntryDataBean> q13a2NumberOfConditionsAtEntryDataBean;
-	private List<Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean> q13b1PhysicalAndMentalHealthConditionsAtExitDataBean;
-	private List<Q13b2NumberOfConditionsAtExitDataBean> q13b2NumberOfConditionsAtExitDataBean;
+	private List<Q13a1DataBean> q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean;
+	private List<Q13a2DataBean> q13a2NumberOfConditionsAtEntryDataBean;
+	private List<Q13b1DataBean> q13b1PhysicalAndMentalHealthConditionsAtExitDataBean;
+	private List<Q13b2DataBean> q13b2NumberOfConditionsAtExitDataBean;
 	private List<Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean> q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
 	private List<Q13c2NumberOfConditionsForStayerDataBean> q13c2NumberOfConditionsForStayerDataBean;
 	private List<Q14aDomesticViolenceHistoryDataBean> q14aDomesticViolenceHistoryDataBean;
@@ -235,18 +235,18 @@ public class HomePageDataBean {
 	public void setQ06fDataBean(List<Q06fDataBean> q06fDataBean) {
 		this.q06fDataBean = q06fDataBean;
 	}
-	public List<Q07aHouseholdsServedDataBean> getQ07aHouseholdsServedDataBean() {
+	public List<Q07aDataBean> getQ07aHouseholdsServedDataBean() {
 		return q07aHouseholdsServedDataBean;
 	}
 	public void setQ07aHouseholdsServedDataBean(
-			List<Q07aHouseholdsServedDataBean> q07aHouseholdsServedDataBean) {
+			List<Q07aDataBean> q07aHouseholdsServedDataBean) {
 		this.q07aHouseholdsServedDataBean = q07aHouseholdsServedDataBean;
 	}
-	public List<Q07bPointInTimeCountHouseholdsLastWednesdayDataBean> getQ07bPointInTimeCountHouseholdsLastWednesdayDataBean() {
+	public List<Q07bDataBean> getQ07bPointInTimeCountHouseholdsLastWednesdayDataBean() {
 		return q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
 	}
 	public void setQ07bPointInTimeCountHouseholdsLastWednesdayDataBean(
-			List<Q07bPointInTimeCountHouseholdsLastWednesdayDataBean> q07bPointInTimeCountHouseholdsLastWednesdayDataBean) {
+			List<Q07bDataBean> q07bPointInTimeCountHouseholdsLastWednesdayDataBean) {
 		this.q07bPointInTimeCountHouseholdsLastWednesdayDataBean = q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
 	}
 	public List<Q08aDataBean> getQ08aDataBean() {
@@ -261,39 +261,39 @@ public class HomePageDataBean {
 	public void setQ08bDataBean(List<Q08bDataBean> q08bDataBean) {
 		this.q08bDataBean = q08bDataBean;
 	}
-	public List<Q09aNumberPersonsContactedDataBean> getqQ09aNumberPersonsContactedDataBean() {
+	public List<Q09aDataBean> getqQ09aNumberPersonsContactedDataBean() {
 		return qQ09aNumberPersonsContactedDataBean;
 	}
 	public void setqQ09aNumberPersonsContactedDataBean(
-			List<Q09aNumberPersonsContactedDataBean> qQ09aNumberPersonsContactedDataBean) {
+			List<Q09aDataBean> qQ09aNumberPersonsContactedDataBean) {
 		this.qQ09aNumberPersonsContactedDataBean = qQ09aNumberPersonsContactedDataBean;
 	}
-	public List<Q09bNumberofPersonsEngagedDataBean> getQ09bNumberofPersonsEngagedDataBean() {
+	public List<Q09bDataBean> getQ09bNumberofPersonsEngagedDataBean() {
 		return q09bNumberofPersonsEngagedDataBean;
 	}
 	public void setQ09bNumberofPersonsEngagedDataBean(
-			List<Q09bNumberofPersonsEngagedDataBean> q09bNumberofPersonsEngagedDataBean) {
+			List<Q09bDataBean> q09bNumberofPersonsEngagedDataBean) {
 		this.q09bNumberofPersonsEngagedDataBean = q09bNumberofPersonsEngagedDataBean;
 	}
-	public List<Q10aGenderOfAdultsDataBean> getQ10aGenderOfAdultsDataBean() {
+	public List<Q10aDataBean> getQ10aGenderOfAdultsDataBean() {
 		return q10aGenderOfAdultsDataBean;
 	}
 	public void setQ10aGenderOfAdultsDataBean(
-			List<Q10aGenderOfAdultsDataBean> q10aGenderOfAdultsDataBean) {
+			List<Q10aDataBean> q10aGenderOfAdultsDataBean) {
 		this.q10aGenderOfAdultsDataBean = q10aGenderOfAdultsDataBean;
 	}
-	public List<Q10bGenderOfChildrenDataBean> getQ10bGenderOfChildrenDataBean() {
+	public List<Q10bDataBean> getQ10bGenderOfChildrenDataBean() {
 		return q10bGenderOfChildrenDataBean;
 	}
 	public void setQ10bGenderOfChildrenDataBean(
-			List<Q10bGenderOfChildrenDataBean> q10bGenderOfChildrenDataBean) {
+			List<Q10bDataBean> q10bGenderOfChildrenDataBean) {
 		this.q10bGenderOfChildrenDataBean = q10bGenderOfChildrenDataBean;
 	}
-	public List<Q10cGenderOfPersonsMissingAgeInformationDataBean> getQ10cGenderOfPersonsMissingAgeInformationDataBean() {
+	public List<Q10cDataBean> getQ10cGenderOfPersonsMissingAgeInformationDataBean() {
 		return q10cGenderOfPersonsMissingAgeInformationDataBean;
 	}
 	public void setQ10cGenderOfPersonsMissingAgeInformationDataBean(
-			List<Q10cGenderOfPersonsMissingAgeInformationDataBean> q10cGenderOfPersonsMissingAgeInformationDataBean) {
+			List<Q10cDataBean> q10cGenderOfPersonsMissingAgeInformationDataBean) {
 		this.q10cGenderOfPersonsMissingAgeInformationDataBean = q10cGenderOfPersonsMissingAgeInformationDataBean;
 	}
 	public List<Q11AgeDataBean> getQ11AgeDataBean() {
@@ -315,32 +315,32 @@ public class HomePageDataBean {
 			List<Q12bEthnicityDataBean> q12bEthnicityDataBean) {
 		this.q12bEthnicityDataBean = q12bEthnicityDataBean;
 	}
-	public List<Q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean> getQ13a1PhysicalAndMentalHealthConditionsAtEntryDataBean() {
+	public List<Q13a1DataBean> getQ13a1PhysicalAndMentalHealthConditionsAtEntryDataBean() {
 		return q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean;
 	}
 	public void setQ13a1PhysicalAndMentalHealthConditionsAtEntryDataBean(
-			List<Q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean> q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean) {
+			List<Q13a1DataBean> q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean) {
 		this.q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean = q13a1PhysicalAndMentalHealthConditionsAtEntryDataBean;
 	}
-	public List<Q13a2NumberOfConditionsAtEntryDataBean> getQ13a2NumberOfConditionsAtEntryDataBean() {
+	public List<Q13a2DataBean> getQ13a2NumberOfConditionsAtEntryDataBean() {
 		return q13a2NumberOfConditionsAtEntryDataBean;
 	}
 	public void setQ13a2NumberOfConditionsAtEntryDataBean(
-			List<Q13a2NumberOfConditionsAtEntryDataBean> q13a2NumberOfConditionsAtEntryDataBean) {
+			List<Q13a2DataBean> q13a2NumberOfConditionsAtEntryDataBean) {
 		this.q13a2NumberOfConditionsAtEntryDataBean = q13a2NumberOfConditionsAtEntryDataBean;
 	}
-	public List<Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean> getQ13b1PhysicalAndMentalHealthConditionsAtExitDataBean() {
+	public List<Q13b1DataBean> getQ13b1PhysicalAndMentalHealthConditionsAtExitDataBean() {
 		return q13b1PhysicalAndMentalHealthConditionsAtExitDataBean;
 	}
 	public void setQ13b1PhysicalAndMentalHealthConditionsAtExitDataBean(
-			List<Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean> q13b1PhysicalAndMentalHealthConditionsAtExitDataBean) {
+			List<Q13b1DataBean> q13b1PhysicalAndMentalHealthConditionsAtExitDataBean) {
 		this.q13b1PhysicalAndMentalHealthConditionsAtExitDataBean = q13b1PhysicalAndMentalHealthConditionsAtExitDataBean;
 	}
-	public List<Q13b2NumberOfConditionsAtExitDataBean> getQ13b2NumberOfConditionsAtExitDataBean() {
+	public List<Q13b2DataBean> getQ13b2NumberOfConditionsAtExitDataBean() {
 		return q13b2NumberOfConditionsAtExitDataBean;
 	}
 	public void setQ13b2NumberOfConditionsAtExitDataBean(
-			List<Q13b2NumberOfConditionsAtExitDataBean> q13b2NumberOfConditionsAtExitDataBean) {
+			List<Q13b2DataBean> q13b2NumberOfConditionsAtExitDataBean) {
 		this.q13b2NumberOfConditionsAtExitDataBean = q13b2NumberOfConditionsAtExitDataBean;
 	}
 	public List<Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean> getQ13c1PhysicalAndMentalHealthConditionsForStayersDataBean() {

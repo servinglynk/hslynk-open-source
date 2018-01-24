@@ -2,7 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q10cGenderOfPersonsMissingAgeInformationDataBean {
+public class Q10cDataBean {
 
 	private BigInteger totMAIMale;
 	private BigInteger totMAIFemale;

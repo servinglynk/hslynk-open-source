@@ -21,6 +21,25 @@ public class Q05aDataBean extends ReportBean {
 	private BigInteger numOfYouthUnderAge25;
 	private BigInteger numOfHeadsOfHHandAdults365Days;
 	
+	
+	public Q05aDataBean() {
+		this.totNumOfPersonServed = BigInteger.ZERO;
+		this.numOfAdults = BigInteger.ZERO;
+		this.numOfChildren = BigInteger.ZERO;
+		this.numOfPersonsWithUnknownAge = BigInteger.ZERO;
+		this.totNoOfLeavers = BigInteger.ZERO;
+		this.totNoOfStayers = BigInteger.ZERO;
+		this.totNoOfAdultStayers = BigInteger.ZERO;
+		this.totNoOfAdultLeavers = BigInteger.ZERO;
+		this.noOfVeterans = BigInteger.ZERO;
+		this.noOfChronicallyHomelessPersons = BigInteger.ZERO;
+		this.noOfAdultHeadsOfHousehold = BigInteger.ZERO;
+		this.noOfChildHeadsOfHousehold = BigInteger.ZERO;
+		this.numOfParentingYouthUnderAge25WithChildren = BigInteger.ZERO;
+		this.numOfAdultandHeadOfHHLeavers = BigInteger.ZERO;
+		this.numOfYouthUnderAge25 = BigInteger.ZERO;
+		this.numOfHeadsOfHHandAdults365Days = BigInteger.ZERO;
+	}
 	public BigInteger getTotNumOfPersonServed() {
 		return totNumOfPersonServed;
 	}

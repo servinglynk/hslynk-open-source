@@ -13,6 +13,17 @@ public class Q04aDataBean extends ReportBean{
 	private String q04aProjectId;
 	private String q04aProjectName;
 	
+	//Setting default values in the constructor.
+	public Q04aDataBean() {
+		this.q04aHmisProjectIdService=BigInteger.ZERO;
+		this.q04aHmisProjectType="7";
+		this.q04aIdentityProjectId=BigInteger.ZERO;;
+		this.q04aMethodOfTracking="0";
+		this.q04aOrgId="0";
+		this.q04aOrgName="0";
+		this.q04aProjectId="0";
+		this.q04aProjectName="0";
+	}
 	public BigInteger getQ04aHmisProjectIdService() {
 		return q04aHmisProjectIdService;
 	}

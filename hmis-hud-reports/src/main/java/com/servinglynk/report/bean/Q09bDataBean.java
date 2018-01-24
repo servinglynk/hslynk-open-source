@@ -2,7 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q09bNumberofPersonsEngagedDataBean {
+public class Q09bDataBean {
 
 	private BigInteger totEngagedAfter1Contract;
 	private BigInteger engFirstContactHumanHabitation;
