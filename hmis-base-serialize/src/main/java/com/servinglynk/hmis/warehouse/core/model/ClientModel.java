@@ -1,13 +1,12 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public abstract class ClientModel {
@@ -16,6 +15,14 @@ public abstract class ClientModel {
 	 LocalDateTime dateCreated;
 	@JsonSerialize(using=JsonDateSerializer.class)	
 	LocalDateTime dateUpdated;
+	
+	
+	@JsonProperty("createdTimeStamp")
+	@JsonSerialize(using=JsonDateTimeSerializer.class)
+	 LocalDateTime createdTime;
+	@JsonProperty("lastStatusTimeStamp")
+	@JsonSerialize(using=JsonDateTimeSerializer.class)	
+	LocalDateTime updatedTime;
 	
 	public LocalDateTime getDateCreated() {
 		return dateCreated;
@@ -66,7 +73,28 @@ public abstract class ClientModel {
 		}
 		return name;
 	}
-	
-	
 
+
+
+	public LocalDateTime getCreatedTime() {
+		return createdTime;
+	}
+
+
+
+	public void setCreatedTime(LocalDateTime createdTime) {
+		this.createdTime = createdTime;
+	}
+
+
+
+	public LocalDateTime getUpdatedTime() {
+		return updatedTime;
+	}
+
+
+
+	public void setUpdatedTime(LocalDateTime updatedTime) {
+		this.updatedTime = updatedTime;
+	}
 }

@@ -28,8 +28,14 @@ public class NotificationService extends NotificationUtil implements INotificati
 		if(nps!=null){
 		
 		NotificationHeader header = new NotificationHeader();
-		Originator originator = createOriginator(nps.getSenderEmailAddress(), nps.getSenderEmailAddress(),
+		Originator originator = null;
+		if(notification.getSender()==null) {
+		 originator = createOriginator(nps.getSenderEmailAddress(), nps.getSenderEmailAddress(),
 				nps.getSenderFriendlyName(), NotificationOriginatorType.USER.toString());
+		}else {
+			originator = createOriginator(notification.getSender(), notification.getSender(),
+					notification.getSender(), NotificationOriginatorType.USER.toString());
+		}
 
 		NotificationMethod method = NotificationMethod.valueOf(notification.getMethod());
 		try{
@@ -48,6 +54,7 @@ public class NotificationService extends NotificationUtil implements INotificati
 		header.setNotificationData(data);
 		header.setPriority(notification.getPriority()!=null?notification.getPriority():0);
 		header.setAttachment(notification.getAttachment());
+		header.setNotificationId(notification.getHmisNotificationId());
 		createWorkerLine(header);
 		}else{
 			throw new NotifcationException("Notification  type "+ notification.getType() +" not found ");

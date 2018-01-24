@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.notification.persistence.dao.core;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.servinglynk.hmis.warehouse.notification.persistence.dao.HMISNotificationDao;
+import com.servinglynk.hmis.warehouse.notification.persistence.dao.IHMISNotificationDao;
 import com.servinglynk.hmis.warehouse.notification.persistence.dao.INotificationHeaderDao;
 import com.servinglynk.hmis.warehouse.notification.persistence.dao.INotificationLineDao;
 import com.servinglynk.hmis.warehouse.notification.persistence.dao.ITemplateLineDao;
@@ -68,6 +70,19 @@ public class ParentDaoFactory implements IParentDaoFactory {
 	public void setTemplateLineDao(ITemplateLineDao templateLineDao) {
 		this.templateLineDao = templateLineDao;
 	}
+	
+	@Autowired
+	private IHMISNotificationDao hmIhmisNotificationDao;
+
+	public IHMISNotificationDao getHmIhmisNotificationDao() {
+		return hmIhmisNotificationDao;
+	}
+
+	public void setHmIhmisNotificationDao(IHMISNotificationDao hmIhmisNotificationDao) {
+		this.hmIhmisNotificationDao = hmIhmisNotificationDao;
+	}
+	
+	
 	
 	
 }

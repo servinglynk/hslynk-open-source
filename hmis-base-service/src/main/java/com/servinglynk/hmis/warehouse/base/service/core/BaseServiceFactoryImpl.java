@@ -23,6 +23,7 @@ import com.servinglynk.hmis.warehouse.base.service.SessionService;
 import com.servinglynk.hmis.warehouse.base.service.TrustedAppService;
 import com.servinglynk.hmis.warehouse.base.service.UsernameChangeService;
 import com.servinglynk.hmis.warehouse.base.service.VerificationService;
+import com.servinglynk.hmis.warehouse.base.service.impl.HMISNotificationsService;
 
 @Component
 public class BaseServiceFactoryImpl  implements BaseServiceFactory {
@@ -78,6 +79,7 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	@Autowired private ClientConsentService clientConsentService;
 	@Autowired private ClientDataElementsService clientDataElementsService;
 	@Autowired private APIAccessService apiAccessService;
+	@Autowired private HMISNotificationsService hmisNotificationsService;
 	
 
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -242,4 +244,13 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	public void setApiAccessService(APIAccessService apiAccessService) {
 		this.apiAccessService = apiAccessService;
 	}
+
+	public HMISNotificationsService getHmisNotificationsService() {
+		return hmisNotificationsService;
+	}
+
+	public void setHmisNotificationsService(HMISNotificationsService hmisNotificationsService) {
+		this.hmisNotificationsService = hmisNotificationsService;
+	}
+	
 }
