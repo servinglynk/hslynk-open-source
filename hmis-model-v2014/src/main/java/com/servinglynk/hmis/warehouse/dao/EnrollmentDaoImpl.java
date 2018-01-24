@@ -60,8 +60,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollments = export
 				.getEnrollment();
 		Data data = new Data();
-		//Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
-		Map<String, HmisBaseModel> modelMap = new HashMap<String, HmisBaseModel>();
+		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, getProjectGroupCode(domain));
 		Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Project.class, getProjectGroupCode(domain));
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 
@@ -164,19 +163,18 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	public  com.servinglynk.hmis.warehouse.model.v2014.Enrollment getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Enrollment modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
-		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, enrollment.getProjectEntryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
-		
+	    modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Enrollment) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class, enrollment.getProjectEntryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2014.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
-			
+		}else {
+			  org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
+			  performMatch(domain, modelFromDB, model, data);
 		}
-		 com.servinglynk.hmis.warehouse.model.v2014.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2014.Enrollment();
-		  // org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		  model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
-		  performMatch(domain, modelFromDB, model, data);
+
 		hydrateCommonFields(model, domain,enrollment.getProjectEntryID(),data);
 		
 		return model;

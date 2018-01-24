@@ -69,7 +69,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		model.setEnrollmentid(enrollmentModel);
 			Projectcoc projectCoc = (Projectcoc) getModel(EnrollmentCoc.class.getSimpleName(),Projectcoc.class,enrollmentCoc.getProjectCoCID(),getProjectGroupCode(domain),false,projectCocModelMap, domain.getUpload().getId());
 		model.setProjectCoc(projectCoc);	
-		//enrollmentCocModel.setCocCode(enrollmentCoc.get
+		model.setCocCode(enrollmentCoc.getCocCode());
 		model.setExport(exportEntity);
 		model.setInformationDate(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getInformationDate()));
 		model.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollmentCoc.getDataCollectionStage())));

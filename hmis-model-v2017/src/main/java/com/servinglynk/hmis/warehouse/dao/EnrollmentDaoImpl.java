@@ -20,8 +20,6 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentMonthshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
-import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
-import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.LengthOfStayEnum;
 import com.servinglynk.hmis.warehouse.enums.LivingSituationEnum;
@@ -62,10 +60,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 //						.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
 //								.getContinuouslyHomelessOneYear())));
 //					enrollmentModel.setHousingstatus(EnrollmentHousingstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getHousingStatus())));
-					enrollmentModel
-					.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(BasicDataGenerator
-							.getStringValue(enrollment
-									.getDisablingCondition())));
+					enrollmentModel.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingCondition()));
 					enrollmentModel.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getRelationshipToHoH())));
 					enrollmentModel.setLivingSituation(LivingSituationEnum.lookupEnum(enrollment.getLivingSituation()));
 					enrollmentModel.setLengthOfStay(LengthOfStayEnum.lookupEnum(enrollment.getLengthOfStay()));
@@ -76,8 +71,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					enrollmentModel.setEntrydate(BasicDataGenerator
 							.getLocalDateTime(enrollment.getEntryDate()));
 					enrollmentModel
-					.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
-							.getMonthsHomelessPastThreeYears())));
+					.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment
+							.getMonthsHomelessPastThreeYears()));
 					enrollmentModel.setHouseholdid(enrollment.getHouseholdID());
 //				enrollmentModel
 //						.setMonthshomelessthistime(EnrollmentMonthshomelessthistimeEnum.lookupEnum(BasicDataGenerator
@@ -85,11 +80,11 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 //										.getMonthsHomelessThisTime())));
 //					enrollmentModel.setOtherresidenceprior(enrollment
 //							.getOtherResidencePrior());
-					enrollmentModel.setLosunderthreshold(NoYesEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getLosUnderThreshold())));
-					enrollmentModel.setPreviousStreetESSH(NoYesEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getPreviousStreetESSH())));
+					enrollmentModel.setLosunderthreshold(NoYesEnum.lookupEnum(enrollment.getLosUnderThreshold()));
+					enrollmentModel.setPreviousStreetESSH(NoYesEnum.lookupEnum(enrollment.getPreviousStreetESSH()));
 					com.servinglynk.hmis.warehouse.model.v2017.Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2017.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),true,projectModelMap, domain.getUpload().getId());
 					enrollmentModel.setProject(project);
-					enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
+					enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(enrollment.getTimesHomelessPastThreeYears()));
 					com.servinglynk.hmis.warehouse.model.v2017.Client client = (com.servinglynk.hmis.warehouse.model.v2017.Client) getModel(com.servinglynk.hmis.warehouse.model.v2017.Client.class, enrollment.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 					// Very important logic needs to come here via a Microservice call.

@@ -7,7 +7,7 @@ import com.googlecode.jcsv.annotations.MapToColumn;
 
 public class Enrollment {
 	@MapToColumn(column=0)
-	private String ProjectEntryID;
+	private String EnrollmentID;
 	@MapToColumn(column=1)
 	private String PersonalID;
 	@MapToColumn(column=2)
@@ -19,218 +19,193 @@ public class Enrollment {
 	@MapToColumn(column=5)
 	private String RelationshipToHoH;
 	@MapToColumn(column=6)
-	private String ResidencePrior;
+	private String LivingSituation;
 	@MapToColumn(column=7)
-	private String OtherResidencePrior;
+	private String LengthOfStay;
 	@MapToColumn(column=8)
-	private String ResidencePriorLengthOfStay;
+	private String LOSUnderThreshold;
 	@MapToColumn(column=9)
-	private String DisablingCondition;
+	private String PreviousStreetESSH;
 	@MapToColumn(column=10)
-	private String EntryFromStreetESSH;
-	@MapToColumn(column=11)
 	private String DateToStreetESSH;
-	@MapToColumn(column=12)
+	@MapToColumn(column=11)
 	private String TimesHomelessPastThreeYears;
-	@MapToColumn(column=13)
+	@MapToColumn(column=12)
 	private String MonthsHomelessPastThreeYears;
+	@MapToColumn(column=13)
+	private String DisablingCondition;
 	@MapToColumn(column=14)
-	private String HousingStatus;
-	@MapToColumn(column=15)
 	private String DateOfEngagement;
+	@MapToColumn(column=15)
+	private String MoveInDate;
 	@MapToColumn(column=16)
-	private String InPermanentHousing;
+	private String DateOfPATHStatus;
 	@MapToColumn(column=17)
-	private String ResidentialMoveInDate;
-	@MapToColumn(column=18)
-	private String DateOFPATHStatus;
-	@MapToColumn(column=19)
 	private String ClientEnrolledInPATH;
-	@MapToColumn(column=20)
+	@MapToColumn(column=18)
 	private String ReasonNotEnrolled;
-	@MapToColumn(column=21)
+	@MapToColumn(column=19)
 	private String WorstHousingSituation;
-	@MapToColumn(column=22)
+	@MapToColumn(column=20)
 	private String PercentAMI;
-	@MapToColumn(column=23)
+	@MapToColumn(column=21)
 	private String LastPermanentStreet;
-	@MapToColumn(column=24)
+	@MapToColumn(column=22)
 	private String LastPermanentCity;
-	@MapToColumn(column=25)
+	@MapToColumn(column=23)
 	private String LastPermanentState;
-	@MapToColumn(column=26)
+	@MapToColumn(column=24)
 	private String LastPermanentZIP;
-	@MapToColumn(column=27)
+	@MapToColumn(column=25)
 	private String AddressDataQuality;
-	@MapToColumn(column=28)
+	@MapToColumn(column=26)
 	private String DateOfBCPStatus;
-	@MapToColumn(column=29)
-	private String FYSBYouth;
-	@MapToColumn(column=30)
+	@MapToColumn(column=27)
+	private String EligibleForRHY;
+	@MapToColumn(column=28)
 	private String ReasonNoServices;
-	@MapToColumn(column=31)
+	@MapToColumn(column=29)
+	private String RunawayYouth;
+	@MapToColumn(column=30)
 	private String SexualOrientation;
-	@MapToColumn(column=32)
+	@MapToColumn(column=31)
 	private String FormerWardChildWelfare;
-	@MapToColumn(column=33)
+	@MapToColumn(column=32)
 	private String ChildWelfareYears;
-	@MapToColumn(column=34)
+	@MapToColumn(column=33)
 	private String ChildWelfareMonths;
+	@MapToColumn(column=34)
+	private String FormerWardJuvenileJustice;
 	@MapToColumn(column=35)
 	private String JuvenileJusticeYears;
 	@MapToColumn(column=36)
 	private String JuvenileJusticeMonths;
 	@MapToColumn(column=37)
-	private String HouseholdDynamics;
-	@MapToColumn(column=38)
-	private String SexualOrientationGenderIDYouth;
-	@MapToColumn(column=39)
-	private String SexualOrientationGenderIDFam;
-	@MapToColumn(column=40)
-	private String HousingIssuesYouth;
-	@MapToColumn(column=41)
-	private String HousingIssuesFam;
-	@MapToColumn(column=42)
-	private String SchoolEducationalIssuesYouth;
-	@MapToColumn(column=43)
-	private String SchoolEducationalIssuesFam;
-	@MapToColumn(column=44)
-	private String UnemploymentYouth;
-	@MapToColumn(column=45)
 	private String UnemploymentFam;
-	@MapToColumn(column=46)
-	private String MentalHealthIssuesYouth;
-	@MapToColumn(column=47)
+	@MapToColumn(column=38)
 	private String MentalHealthIssuesFam;
-	@MapToColumn(column=48)
-	private String HealthIssuesYouth;
-	@MapToColumn(column=49)
-	private String HealthIssuesFam;
-	@MapToColumn(column=50)
-	private String PhysicalDisabilityYouth;
-	@MapToColumn(column=51)
+	@MapToColumn(column=39)
 	private String PhysicalDisabilityFam;
-	@MapToColumn(column=52)
-	private String MentalDisabilityYouth;
-	@MapToColumn(column=53)
-	private String MentalDisabilityFam;
-	@MapToColumn(column=54)
-	private String AbuseAndNeglectYouth;
-	@MapToColumn(column=55)
-	private String AbuseAndNeglectFam;
-	@MapToColumn(column=56)
-	private String AlcoholDrugAbuseYouth;
-	@MapToColumn(column=57)
+	@MapToColumn(column=40)
 	private String AlcoholDrugAbuseFam;
-	@MapToColumn(column=58)
+	@MapToColumn(column=41)
 	private String InsufficientIncome;
-	@MapToColumn(column=59)
-	private String ActiveMilitaryParent;
-	@MapToColumn(column=60)
+	@MapToColumn(column=42)
 	private String IncarceratedParent;
-	@MapToColumn(column=61)
-	private String IncarceratedParentStatus;
-	@MapToColumn(column=62)
+	@MapToColumn(column=43)
 	private String ReferralSource;
-	@MapToColumn(column=63)
+	@MapToColumn(column=44)
 	private String CountOutreachReferralApproaches;
-	@MapToColumn(column=64)
-	private String ExchangeForSex;
-	@MapToColumn(column=65)
-	private String ExchangeForSexPastThreeMonths;
-	@MapToColumn(column=66)
-	private String CountOfExchangeForSex;
-	@MapToColumn(column=67)
-	private String AskedOrForcedToExchangeForSex;
-	@MapToColumn(column=68)
-	private String AskedOrForcedToExchangeForSexPastThreeMonths;
-	@MapToColumn(column=69)
-	private String WorkPlaceViolenceThreats;
-	@MapToColumn(column=70)
-	private String WorkPlacePromiseDifference;
-	@MapToColumn(column=71)
-	private String CoercedToContinueWork;
-	@MapToColumn(column=72)
-	private String LaborExploitPastThreeMonths;
-	@MapToColumn(column=73)
+	@MapToColumn(column=45)
+	private String UrgentReferral;
+	@MapToColumn(column=46)
+	private String TimeToHousingLoss;
+	@MapToColumn(column=47)
+	private String ZeroIncome;
+	@MapToColumn(column=48)
+	private String AnnualPercentAMI;
+	@MapToColumn(column=49)
+	private String FinancialChange;
+	@MapToColumn(column=50)
+	private String HouseholdChange;
+	@MapToColumn(column=51)
+	private String EvictionHistory;
+	@MapToColumn(column=52)
+	private String SubsidyAtRisk;
+	@MapToColumn(column=53)
+	private String LiteralHomelessHistory;
+	@MapToColumn(column=54)
+	private String DisabledHoH;
+	@MapToColumn(column=55)
+	private String CriminalRecord;
+	@MapToColumn(column=56)
+	private String SexOffender;
+	@MapToColumn(column=57)
+	private String DependentUnder6;
+	@MapToColumn(column=58)
+	private String SingleParent;
+	@MapToColumn(column=59)
+	private String HH5Plus;
+	@MapToColumn(column=60)
+	private String IraqAfghanistan;
+	@MapToColumn(column=61)
+	private String FemVet;	
+	@MapToColumn(column=62)
 	private String HPScreeningScore;
-	@MapToColumn(column=74)
+	@MapToColumn(column=63)
+	private String ThresholdScore;
+	@MapToColumn(column=64)
 	private String VAMCStation;
-	@MapToColumn(column=75)
+	@MapToColumn(column=65)
 	private String DateCreated;
-	@MapToColumn(column=76)
+	@MapToColumn(column=66)
 	private String DateUpdated;
-	@MapToColumn(column=77)
+	@MapToColumn(column=67)
 	private String UserID;
-	@MapToColumn(column=78)
+	@MapToColumn(column=68)
 	private String DateDeleted;
-	@MapToColumn(column=79)
+	@MapToColumn(column=69)
 	private String ExportID;
-	public String getProjectEntryID() {
-		return ProjectEntryID;
+	
+	public String getEnrollmentID() {
+		return EnrollmentID;
 	}
-	public void setProjectEntryID(String projectEntryID) {
-		ProjectEntryID = projectEntryID;
+	public void setEnrollmentID(String EnrollmentID) {
+		this.EnrollmentID = EnrollmentID;
 	}
 	public String getPersonalID() {
 		return PersonalID;
 	}
 	public void setPersonalID(String personalID) {
-		PersonalID = personalID;
+		this.PersonalID = personalID;
 	}
 	public String getProjectID() {
 		return ProjectID;
 	}
 	public void setProjectID(String projectID) {
-		ProjectID = projectID;
+		this.ProjectID = projectID;
 	}
 	public String getEntryDate() {
 		return EntryDate;
 	}
 	public void setEntryDate(String entryDate) {
-		EntryDate = entryDate;
+		this.EntryDate = entryDate;
 	}
 	public String getHouseholdID() {
 		return HouseholdID;
 	}
 	public void setHouseholdID(String householdID) {
-		HouseholdID = householdID;
+		this.HouseholdID = householdID;
 	}
 	public String getRelationshipToHoH() {
 		return RelationshipToHoH;
 	}
 	public void setRelationshipToHoH(String relationshipToHoH) {
-		RelationshipToHoH = relationshipToHoH;
+		this.RelationshipToHoH = relationshipToHoH;
 	}
-	public String getResidencePrior() {
-		return ResidencePrior;
+	public String getLengthOfStay() {
+		return LengthOfStay;
 	}
-	public void setResidencePrior(String residencePrior) {
-		ResidencePrior = residencePrior;
+	public void setLengthOfStay(String LengthOfStay) {
+		this.LengthOfStay = LengthOfStay;
 	}
-	public String getOtherResidencePrior() {
-		return OtherResidencePrior;
+	public String getLivingSituation() {
+		return LivingSituation;
 	}
-	public void setOtherResidencePrior(String otherResidencePrior) {
-		OtherResidencePrior = otherResidencePrior;
+	public void setLivingSituation(String livingSituation) {
+		LivingSituation = livingSituation;
 	}
-	public String getResidencePriorLengthOfStay() {
-		return ResidencePriorLengthOfStay;
+	public String getLOSUnderThreshold() {
+		return LOSUnderThreshold;
 	}
-	public void setResidencePriorLengthOfStay(String residencePriorLengthOfStay) {
-		ResidencePriorLengthOfStay = residencePriorLengthOfStay;
+	public void setLOSUnderThreshold(String lOSUnderThreshold) {
+		LOSUnderThreshold = lOSUnderThreshold;
 	}
-	public String getDisablingCondition() {
-		return DisablingCondition;
+	public String getPreviousStreetESSH() {
+		return PreviousStreetESSH;
 	}
-	public void setDisablingCondition(String disablingCondition) {
-		DisablingCondition = disablingCondition;
-	}
-	public String getEntryFromStreetESSH() {
-		return EntryFromStreetESSH;
-	}
-	public void setEntryFromStreetESSH(String entryFromStreetESSH) {
-		EntryFromStreetESSH = entryFromStreetESSH;
+	public void setPreviousStreetESSH(String previousStreetESSH) {
+		PreviousStreetESSH = previousStreetESSH;
 	}
 	public String getDateToStreetESSH() {
 		return DateToStreetESSH;
@@ -250,11 +225,11 @@ public class Enrollment {
 	public void setMonthsHomelessPastThreeYears(String monthsHomelessPastThreeYears) {
 		MonthsHomelessPastThreeYears = monthsHomelessPastThreeYears;
 	}
-	public String getHousingStatus() {
-		return HousingStatus;
+	public String getDisablingCondition() {
+		return DisablingCondition;
 	}
-	public void setHousingStatus(String housingStatus) {
-		HousingStatus = housingStatus;
+	public void setDisablingCondition(String disablingCondition) {
+		DisablingCondition = disablingCondition;
 	}
 	public String getDateOfEngagement() {
 		return DateOfEngagement;
@@ -262,23 +237,17 @@ public class Enrollment {
 	public void setDateOfEngagement(String dateOfEngagement) {
 		DateOfEngagement = dateOfEngagement;
 	}
-	public String getInPermanentHousing() {
-		return InPermanentHousing;
+	public String getMoveInDate() {
+		return MoveInDate;
 	}
-	public void setInPermanentHousing(String inPermanentHousing) {
-		InPermanentHousing = inPermanentHousing;
+	public void setMoveInDate(String moveInDate) {
+		MoveInDate = moveInDate;
 	}
-	public String getResidentialMoveInDate() {
-		return ResidentialMoveInDate;
+	public String getDateOfPATHStatus() {
+		return DateOfPATHStatus;
 	}
-	public void setResidentialMoveInDate(String residentialMoveInDate) {
-		ResidentialMoveInDate = residentialMoveInDate;
-	}
-	public String getDateOFPATHStatus() {
-		return DateOFPATHStatus;
-	}
-	public void setDateOFPATHStatus(String dateOFPATHStatus) {
-		DateOFPATHStatus = dateOFPATHStatus;
+	public void setDateOfPATHStatus(String dateOfPATHStatus) {
+		DateOfPATHStatus = dateOfPATHStatus;
 	}
 	public String getClientEnrolledInPATH() {
 		return ClientEnrolledInPATH;
@@ -340,17 +309,23 @@ public class Enrollment {
 	public void setDateOfBCPStatus(String dateOfBCPStatus) {
 		DateOfBCPStatus = dateOfBCPStatus;
 	}
-	public String getFYSBYouth() {
-		return FYSBYouth;
+	public String getEligibleForRHY() {
+		return EligibleForRHY;
 	}
-	public void setFYSBYouth(String fYSBYouth) {
-		FYSBYouth = fYSBYouth;
+	public void setEligibleForRHY(String eligibleForRHY) {
+		EligibleForRHY = eligibleForRHY;
 	}
 	public String getReasonNoServices() {
 		return ReasonNoServices;
 	}
 	public void setReasonNoServices(String reasonNoServices) {
 		ReasonNoServices = reasonNoServices;
+	}
+	public String getRunawayYouth() {
+		return RunawayYouth;
+	}
+	public void setRunawayYouth(String runawayYouth) {
+		RunawayYouth = runawayYouth;
 	}
 	public String getSexualOrientation() {
 		return SexualOrientation;
@@ -376,6 +351,12 @@ public class Enrollment {
 	public void setChildWelfareMonths(String childWelfareMonths) {
 		ChildWelfareMonths = childWelfareMonths;
 	}
+	public String getFormerWardJuvenileJustice() {
+		return FormerWardJuvenileJustice;
+	}
+	public void setFormerWardJuvenileJustice(String formerWardJuvenileJustice) {
+		FormerWardJuvenileJustice = formerWardJuvenileJustice;
+	}
 	public String getJuvenileJusticeYears() {
 		return JuvenileJusticeYears;
 	}
@@ -388,66 +369,11 @@ public class Enrollment {
 	public void setJuvenileJusticeMonths(String juvenileJusticeMonths) {
 		JuvenileJusticeMonths = juvenileJusticeMonths;
 	}
-	public String getHouseholdDynamics() {
-		return HouseholdDynamics;
-	}
-	public void setHouseholdDynamics(String householdDynamics) {
-		HouseholdDynamics = householdDynamics;
-	}
-	public String getSexualOrientationGenderIDYouth() {
-		return SexualOrientationGenderIDYouth;
-	}
-	public void setSexualOrientationGenderIDYouth(
-			String sexualOrientationGenderIDYouth) {
-		SexualOrientationGenderIDYouth = sexualOrientationGenderIDYouth;
-	}
-	public String getSexualOrientationGenderIDFam() {
-		return SexualOrientationGenderIDFam;
-	}
-	public void setSexualOrientationGenderIDFam(String sexualOrientationGenderIDFam) {
-		SexualOrientationGenderIDFam = sexualOrientationGenderIDFam;
-	}
-	public String getHousingIssuesYouth() {
-		return HousingIssuesYouth;
-	}
-	public void setHousingIssuesYouth(String housingIssuesYouth) {
-		HousingIssuesYouth = housingIssuesYouth;
-	}
-	public String getHousingIssuesFam() {
-		return HousingIssuesFam;
-	}
-	public void setHousingIssuesFam(String housingIssuesFam) {
-		HousingIssuesFam = housingIssuesFam;
-	}
-	public String getSchoolEducationalIssuesYouth() {
-		return SchoolEducationalIssuesYouth;
-	}
-	public void setSchoolEducationalIssuesYouth(String schoolEducationalIssuesYouth) {
-		SchoolEducationalIssuesYouth = schoolEducationalIssuesYouth;
-	}
-	public String getSchoolEducationalIssuesFam() {
-		return SchoolEducationalIssuesFam;
-	}
-	public void setSchoolEducationalIssuesFam(String schoolEducationalIssuesFam) {
-		SchoolEducationalIssuesFam = schoolEducationalIssuesFam;
-	}
-	public String getUnemploymentYouth() {
-		return UnemploymentYouth;
-	}
-	public void setUnemploymentYouth(String unemploymentYouth) {
-		UnemploymentYouth = unemploymentYouth;
-	}
 	public String getUnemploymentFam() {
 		return UnemploymentFam;
 	}
 	public void setUnemploymentFam(String unemploymentFam) {
 		UnemploymentFam = unemploymentFam;
-	}
-	public String getMentalHealthIssuesYouth() {
-		return MentalHealthIssuesYouth;
-	}
-	public void setMentalHealthIssuesYouth(String mentalHealthIssuesYouth) {
-		MentalHealthIssuesYouth = mentalHealthIssuesYouth;
 	}
 	public String getMentalHealthIssuesFam() {
 		return MentalHealthIssuesFam;
@@ -455,59 +381,11 @@ public class Enrollment {
 	public void setMentalHealthIssuesFam(String mentalHealthIssuesFam) {
 		MentalHealthIssuesFam = mentalHealthIssuesFam;
 	}
-	public String getHealthIssuesYouth() {
-		return HealthIssuesYouth;
-	}
-	public void setHealthIssuesYouth(String healthIssuesYouth) {
-		HealthIssuesYouth = healthIssuesYouth;
-	}
-	public String getHealthIssuesFam() {
-		return HealthIssuesFam;
-	}
-	public void setHealthIssuesFam(String healthIssuesFam) {
-		HealthIssuesFam = healthIssuesFam;
-	}
-	public String getPhysicalDisabilityYouth() {
-		return PhysicalDisabilityYouth;
-	}
-	public void setPhysicalDisabilityYouth(String physicalDisabilityYouth) {
-		PhysicalDisabilityYouth = physicalDisabilityYouth;
-	}
 	public String getPhysicalDisabilityFam() {
 		return PhysicalDisabilityFam;
 	}
 	public void setPhysicalDisabilityFam(String physicalDisabilityFam) {
 		PhysicalDisabilityFam = physicalDisabilityFam;
-	}
-	public String getMentalDisabilityYouth() {
-		return MentalDisabilityYouth;
-	}
-	public void setMentalDisabilityYouth(String mentalDisabilityYouth) {
-		MentalDisabilityYouth = mentalDisabilityYouth;
-	}
-	public String getMentalDisabilityFam() {
-		return MentalDisabilityFam;
-	}
-	public void setMentalDisabilityFam(String mentalDisabilityFam) {
-		MentalDisabilityFam = mentalDisabilityFam;
-	}
-	public String getAbuseAndNeglectYouth() {
-		return AbuseAndNeglectYouth;
-	}
-	public void setAbuseAndNeglectYouth(String abuseAndNeglectYouth) {
-		AbuseAndNeglectYouth = abuseAndNeglectYouth;
-	}
-	public String getAbuseAndNeglectFam() {
-		return AbuseAndNeglectFam;
-	}
-	public void setAbuseAndNeglectFam(String abuseAndNeglectFam) {
-		AbuseAndNeglectFam = abuseAndNeglectFam;
-	}
-	public String getAlcoholDrugAbuseYouth() {
-		return AlcoholDrugAbuseYouth;
-	}
-	public void setAlcoholDrugAbuseYouth(String alcoholDrugAbuseYouth) {
-		AlcoholDrugAbuseYouth = alcoholDrugAbuseYouth;
 	}
 	public String getAlcoholDrugAbuseFam() {
 		return AlcoholDrugAbuseFam;
@@ -521,23 +399,11 @@ public class Enrollment {
 	public void setInsufficientIncome(String insufficientIncome) {
 		InsufficientIncome = insufficientIncome;
 	}
-	public String getActiveMilitaryParent() {
-		return ActiveMilitaryParent;
-	}
-	public void setActiveMilitaryParent(String activeMilitaryParent) {
-		ActiveMilitaryParent = activeMilitaryParent;
-	}
 	public String getIncarceratedParent() {
 		return IncarceratedParent;
 	}
 	public void setIncarceratedParent(String incarceratedParent) {
 		IncarceratedParent = incarceratedParent;
-	}
-	public String getIncarceratedParentStatus() {
-		return IncarceratedParentStatus;
-	}
-	public void setIncarceratedParentStatus(String incarceratedParentStatus) {
-		IncarceratedParentStatus = incarceratedParentStatus;
 	}
 	public String getReferralSource() {
 		return ReferralSource;
@@ -548,72 +414,122 @@ public class Enrollment {
 	public String getCountOutreachReferralApproaches() {
 		return CountOutreachReferralApproaches;
 	}
-	public void setCountOutreachReferralApproaches(
-			String countOutreachReferralApproaches) {
+	public void setCountOutreachReferralApproaches(String countOutreachReferralApproaches) {
 		CountOutreachReferralApproaches = countOutreachReferralApproaches;
 	}
-	public String getExchangeForSex() {
-		return ExchangeForSex;
+	public String getUrgentReferral() {
+		return UrgentReferral;
 	}
-	public void setExchangeForSex(String exchangeForSex) {
-		ExchangeForSex = exchangeForSex;
+	public void setUrgentReferral(String urgentReferral) {
+		UrgentReferral = urgentReferral;
 	}
-	public String getExchangeForSexPastThreeMonths() {
-		return ExchangeForSexPastThreeMonths;
+	public String getTimeToHousingLoss() {
+		return TimeToHousingLoss;
 	}
-	public void setExchangeForSexPastThreeMonths(
-			String exchangeForSexPastThreeMonths) {
-		ExchangeForSexPastThreeMonths = exchangeForSexPastThreeMonths;
+	public void setTimeToHousingLoss(String timeToHousingLoss) {
+		TimeToHousingLoss = timeToHousingLoss;
 	}
-	public String getCountOfExchangeForSex() {
-		return CountOfExchangeForSex;
+	public String getZeroIncome() {
+		return ZeroIncome;
 	}
-	public void setCountOfExchangeForSex(String countOfExchangeForSex) {
-		CountOfExchangeForSex = countOfExchangeForSex;
+	public void setZeroIncome(String zeroIncome) {
+		ZeroIncome = zeroIncome;
 	}
-	public String getAskedOrForcedToExchangeForSex() {
-		return AskedOrForcedToExchangeForSex;
+	public String getAnnualPercentAMI() {
+		return AnnualPercentAMI;
 	}
-	public void setAskedOrForcedToExchangeForSex(
-			String askedOrForcedToExchangeForSex) {
-		AskedOrForcedToExchangeForSex = askedOrForcedToExchangeForSex;
+	public void setAnnualPercentAMI(String annualPercentAMI) {
+		AnnualPercentAMI = annualPercentAMI;
 	}
-	public String getAskedOrForcedToExchangeForSexPastThreeMonths() {
-		return AskedOrForcedToExchangeForSexPastThreeMonths;
+	public String getFinancialChange() {
+		return FinancialChange;
 	}
-	public void setAskedOrForcedToExchangeForSexPastThreeMonths(
-			String askedOrForcedToExchangeForSexPastThreeMonths) {
-		AskedOrForcedToExchangeForSexPastThreeMonths = askedOrForcedToExchangeForSexPastThreeMonths;
+	public void setFinancialChange(String financialChange) {
+		FinancialChange = financialChange;
 	}
-	public String getWorkPlaceViolenceThreats() {
-		return WorkPlaceViolenceThreats;
+	public String getHouseholdChange() {
+		return HouseholdChange;
 	}
-	public void setWorkPlaceViolenceThreats(String workPlaceViolenceThreats) {
-		WorkPlaceViolenceThreats = workPlaceViolenceThreats;
+	public void setHouseholdChange(String householdChange) {
+		HouseholdChange = householdChange;
 	}
-	public String getWorkPlacePromiseDifference() {
-		return WorkPlacePromiseDifference;
+	public String getEvictionHistory() {
+		return EvictionHistory;
 	}
-	public void setWorkPlacePromiseDifference(String workPlacePromiseDifference) {
-		WorkPlacePromiseDifference = workPlacePromiseDifference;
+	public void setEvictionHistory(String evictionHistory) {
+		EvictionHistory = evictionHistory;
 	}
-	public String getCoercedToContinueWork() {
-		return CoercedToContinueWork;
+	public String getSubsidyAtRisk() {
+		return SubsidyAtRisk;
 	}
-	public void setCoercedToContinueWork(String coercedToContinueWork) {
-		CoercedToContinueWork = coercedToContinueWork;
+	public void setSubsidyAtRisk(String subsidyAtRisk) {
+		SubsidyAtRisk = subsidyAtRisk;
 	}
-	public String getLaborExploitPastThreeMonths() {
-		return LaborExploitPastThreeMonths;
+	public String getLiteralHomelessHistory() {
+		return LiteralHomelessHistory;
 	}
-	public void setLaborExploitPastThreeMonths(String laborExploitPastThreeMonths) {
-		LaborExploitPastThreeMonths = laborExploitPastThreeMonths;
+	public void setLiteralHomelessHistory(String literalHomelessHistory) {
+		LiteralHomelessHistory = literalHomelessHistory;
+	}
+	public String getDisabledHoH() {
+		return DisabledHoH;
+	}
+	public void setDisabledHoH(String disabledHoH) {
+		DisabledHoH = disabledHoH;
+	}
+	public String getCriminalRecord() {
+		return CriminalRecord;
+	}
+	public void setCriminalRecord(String criminalRecord) {
+		CriminalRecord = criminalRecord;
+	}
+	public String getSexOffender() {
+		return SexOffender;
+	}
+	public void setSexOffender(String sexOffender) {
+		SexOffender = sexOffender;
+	}
+	public String getDependentUnder6() {
+		return DependentUnder6;
+	}
+	public void setDependentUnder6(String dependentUnder6) {
+		DependentUnder6 = dependentUnder6;
+	}
+	public String getSingleParent() {
+		return SingleParent;
+	}
+	public void setSingleParent(String singleParent) {
+		SingleParent = singleParent;
+	}
+	public String getHH5Plus() {
+		return HH5Plus;
+	}
+	public void setHH5Plus(String hH5Plus) {
+		HH5Plus = hH5Plus;
+	}
+	public String getIraqAfghanistan() {
+		return IraqAfghanistan;
+	}
+	public void setIraqAfghanistan(String iraqAfghanistan) {
+		IraqAfghanistan = iraqAfghanistan;
+	}
+	public String getFemVet() {
+		return FemVet;
+	}
+	public void setFemVet(String femVet) {
+		FemVet = femVet;
 	}
 	public String getHPScreeningScore() {
 		return HPScreeningScore;
 	}
 	public void setHPScreeningScore(String hPScreeningScore) {
 		HPScreeningScore = hPScreeningScore;
+	}
+	public String getThresholdScore() {
+		return ThresholdScore;
+	}
+	public void setThresholdScore(String thresholdScore) {
+		ThresholdScore = thresholdScore;
 	}
 	public String getVAMCStation() {
 		return VAMCStation;
@@ -651,6 +567,4 @@ public class Enrollment {
 	public void setExportID(String exportID) {
 		ExportID = exportID;
 	}
-				
-	
 }

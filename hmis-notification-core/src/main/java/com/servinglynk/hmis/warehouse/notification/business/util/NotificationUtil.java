@@ -55,6 +55,7 @@ public abstract class NotificationUtil  extends ParentService  implements INotif
 		WorkerLine wl = new WorkerLine();
 		wl.setWorkerHeaderId(Workers.NOTIFICATION_WORKER.toString());
 		wl.setInput(nh.toString());
+		wl.setNotificationId(nh.getNotificationId());
 		serviceFactory.getWorkerService().createWorkerLine(wl);
 	}
 }

@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -46,7 +47,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 				Pathstatus pathstatusModel = null;
 				try {
 					pathstatusModel = getModelObject(domain, pathStatus,data,modelMap);
-					pathstatusModel.setClientEnrolledInPath( new Long(BasicDataGenerator.getStringValue(pathStatus.getClientEnrolledInPATH())));
+					pathstatusModel.setClientEnrolledInPath(BasicDataGenerator.getLongValue(pathStatus.getClientEnrolledInPATH()));
 					pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
 					pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
 					pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));

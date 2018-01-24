@@ -31,6 +31,8 @@ public class ProjectGroupEntity  {
     
     private boolean skipuseridentifers;
     
+    private String senderEmail;
+    
     List<ProjectProjectGroupMapEntity> projectGroupMapEntities = new ArrayList<ProjectProjectGroupMapEntity>();
 
    
@@ -90,4 +92,12 @@ public class ProjectGroupEntity  {
 	public void setProjectGroupMapEntities(List<ProjectProjectGroupMapEntity> projectGroupMapEntities) {
 		this.projectGroupMapEntities = projectGroupMapEntities;
 	}
+	@Column(name="sender_email")
+	public String getSenderEmail() {
+		return senderEmail;
+	}
+	public void setSenderEmail(String senderEmail) {
+		this.senderEmail = senderEmail;
+	}
+	
 }

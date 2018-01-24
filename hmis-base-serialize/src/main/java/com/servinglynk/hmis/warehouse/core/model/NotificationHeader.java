@@ -25,7 +25,7 @@ public class NotificationHeader extends ClientModel {
 	
 	private Integer priority;
 	
-
+	private Long notificationId;
 	
 	private String attachment;
 	
@@ -97,6 +97,12 @@ public class NotificationHeader extends ClientModel {
 	}
 	public void setPriority(Integer priority) {
 		this.priority = priority;
+	}
+	public Long getNotificationId() {
+		return notificationId;
+	}
+	public void setNotificationId(Long notificationId) {
+		this.notificationId = notificationId;
 	}
 	
 	

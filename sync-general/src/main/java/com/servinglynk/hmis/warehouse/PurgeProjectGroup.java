@@ -48,6 +48,13 @@ public class PurgeProjectGroup extends Logging {
 				schema = "base";
 				purgeTable(tableName, projectGroupCode, schema);
 		}
+		logger.info("2017 schema purged for ..."+projectGroupCode);
+		logger.info("Purging base schema..."+projectGroupCode);
+		List<String> tables2017 = get2017Tables();
+		for(String tableName : tables2017) {
+				schema = "v2017";
+				purgeTable(tableName, projectGroupCode, schema);
+		}
 		logger.info("Base schema purged for ..."+projectGroupCode);
 	}
 	
@@ -222,6 +229,46 @@ public class PurgeProjectGroup extends Logging {
 	        return tables;
 	    }
 		/***
+		 * Get all the tables from the 2017 schema to be purged.
+		 * @return
+		 */
+		public List<String> get2017Tables(){
+	        List<String> tables = new ArrayList<>();
+	        tables.add("path_status");
+	        tables.add("rhybcp_status");
+	        tables.add("employment");
+	        tables.add("health_status");
+	        tables.add("affiliation");
+	        tables.add("site");
+	        tables.add("inventory");
+	        tables.add("funder");	
+	        tables.add("enrollment_coc");
+	        tables.add("medicalassistance");
+	        tables.add("domesticviolence");
+	        tables.add("disabilities");
+	        tables.add("residentialmoveindate");
+	        tables.add("dateofengagement");
+	        tables.add("incomeandsources");
+	        tables.add("noncashbenefits");
+	        tables.add("healthinsurance");
+	        tables.add("exithousingassessment");
+	        tables.add("housingassessmentdisposition");
+	        tables.add("exit");
+	        tables.add("coc");
+	        tables.add("project"); 
+	        tables.add("enrollment");
+	        tables.add("organization"); 
+	        tables.add("client_veteran_info");
+	        tables.add("client");
+	        tables.add("bulk_upload_activity");
+	        tables.add("bulk_upload_error");
+	        tables.add("export"); 
+	        tables.add("source");
+	        tables.add("exitRHY");
+	        tables.add("exitPath");
+	        return tables;
+	    }
+		/***
 		 * Get all the tables from the base schema to be purged.
 		 * @return
 		 */
@@ -238,7 +285,7 @@ public class PurgeProjectGroup extends Logging {
 		props.generatePropValues();
 		
 		PurgeProjectGroup view = new PurgeProjectGroup(logger);
-	    view.purge("PG0001");
+	    view.purge("IL0009");
 	}
 
 }

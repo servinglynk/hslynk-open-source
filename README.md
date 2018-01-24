@@ -74,6 +74,8 @@ v2015   (You need to run this if you plan to load data in the 2015 schema)
   replace <pathelement location="/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
  to wherever you have <pathelement location="MAVEN_HOME/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
 
+
+
 run setupDB2015
 
 v2016  (You need to run this if you plan to load data in the 2016 schema)
@@ -90,6 +92,58 @@ v2017 (You need to run this if you plan to load data in the 2017 schema)
 
 run setupDB2017
 ```
+Git Eclipse Maven Howto:
+	Below is an example showing how to import Maven projects from the GitHub
+
+	In this example:
+	Git repository:https://github.com/hserv
+	Project: coordinated-entry
+	Sub project
+
+
+	Open Eclipse
+	File => Import
+	Git => Projects from Git => Next
+		HiLight Clone URI => Next	
+		
+		URI:https://github.com/hserv/coordinated-entry
+		Host;github.com
+		Repository Path:/hserv/coordinated-entry
+		
+		Connection
+		Protocol https
+		
+		Authentication 
+		User:
+		Password:
+		
+		=> Next
+		
+		Select survey_global_project
+		->Next
+		
+		Local Destination
+		
+		Directory
+		c:/Users/xxxx/git/coordinated-entry
+		
+		
+	Select import Wizard
+		Click Maven 
+		HiLight Existing Maven Projects
+		=> Next
+			
+		Root Directory
+		Browse to c:/Users/xxxx/git/coordinated-entry
+		Check Project(s) to import from the list of projects (survey-api)
+			=> Finish
+			
+		Projects have been imported and show in the Package Explorer window
+		
+		HiLight survey-api
+		Right Click 
+			HiLight Run As
+				Maven install
 
 #### Deploy steps
 - Open server.xml in your tomcat and add the below line.

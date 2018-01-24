@@ -20,6 +20,7 @@ import com.servinglynk.hmis.warehouse.base.service.SessionService;
 import com.servinglynk.hmis.warehouse.base.service.TrustedAppService;
 import com.servinglynk.hmis.warehouse.base.service.UsernameChangeService;
 import com.servinglynk.hmis.warehouse.base.service.VerificationService;
+import com.servinglynk.hmis.warehouse.base.service.impl.HMISNotificationsService;
 
 
 
@@ -46,4 +47,5 @@ public interface BaseServiceFactory {
 	ClientConsentService getClientConsentService();
 	ClientDataElementsService getClientDataElementsService();
 	APIAccessService getApiAccessService();
+	HMISNotificationsService getHmisNotificationsService();
 }
