@@ -38,6 +38,7 @@ import com.servinglynk.hmis.warehouse.notification.carrier.EMailCarrier;
 import com.servinglynk.hmis.warehouse.notification.carrier.SMSCarrier;
 import com.servinglynk.hmis.warehouse.notification.framework.NotificationEngine;
 import com.servinglynk.hmis.warehouse.notification.framework.NotificationEngineContext;
+import com.servinglynk.hmis.warehouse.notification.persistence.dao.HMISNotificationDao;
 import com.servinglynk.hmis.warehouse.notification.persistence.dao.NotificationHeaderDao;
 import com.servinglynk.hmis.warehouse.notification.persistence.dao.NotificationLineDao;
 import com.servinglynk.hmis.warehouse.notification.persistence.dao.TemplateLineDao;
@@ -319,4 +320,12 @@ public class NotificationConfig  {
 		  PropertiesPropertySource dbPropertySource = new PropertiesPropertySource("dbPropertySource", properties);
 		  propertySources.addFirst(dbPropertySource);
 	 }
+	 
+	 
+	 @Bean
+	 public HMISNotificationDao hmisNotificationDao() {
+		 return new HMISNotificationDao();
+	 }
 }
+
+

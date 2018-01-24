@@ -2,6 +2,12 @@ package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,13 +38,25 @@ public class Notification extends ClientModel {
 	private List<String> recipients;*/
 	
 	@JsonProperty("recipients")
+	@Valid
 	private Recipients recipients = new Recipients();
+	
+	@NotNull(message= "Email body is required")
+	@JsonProperty("body")
+	private String message;
 	
 	
 	@JsonProperty("parameters")
 	Parameters parameters=new Parameters();
 	
+	@NotNull(message= "Email subject is required")
+	private String subject;
+	
 	private Integer priority;
+	
+	private Long hmisNotificationId;
+	
+	private String sender;
 
 	
 	public Parameters getParameters() {
@@ -103,7 +121,28 @@ public class Notification extends ClientModel {
 	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
-	
-	
-
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public Long getHmisNotificationId() {
+		return hmisNotificationId;
+	}
+	public void setHmisNotificationId(Long hmisNotificationId) {
+		this.hmisNotificationId = hmisNotificationId;
+	}
+	public String getSender() {
+		return sender;
+	}
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
 }

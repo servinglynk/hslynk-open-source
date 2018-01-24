@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
+import java.util.UUID;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,7 +24,7 @@ public class WorkerLine {
 	@XmlElement(name = "workerLineId")
 	private String workerLineId;
 
-	
+	private Long notificationId;
 
 	
 	public String getWorkerHeaderId() {
@@ -52,6 +54,15 @@ public class WorkerLine {
 
 	public void setInput(String input) {
 		this.input = input;
+	}
+
+	public Long getNotificationId() {
+		return notificationId;
+	}
+
+
+	public void setNotificationId(Long notificationId) {
+		this.notificationId = notificationId;
 	}
 
 
