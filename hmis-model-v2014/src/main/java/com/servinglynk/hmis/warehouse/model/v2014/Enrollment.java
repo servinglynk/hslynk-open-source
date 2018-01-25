@@ -1029,7 +1029,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
 		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 		@Basic( optional = true )
-		@JoinColumn(name = "project_id", nullable = true )
+		@JoinColumn(name = "projectid", nullable = true )
 		public Project getProject() {
 			return this.project;
 
