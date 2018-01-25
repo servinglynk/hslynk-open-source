@@ -1298,7 +1298,7 @@ timesHomelesspastthreeyears "v2014".times_homeless_past_3_years,
 yearshomeless integer,
 ageAtEntry integer,
 client_id uuid,
-project_id  uuid,
+projectid  uuid,
 project_group_code character varying(8),
 date_created timestamp,
 date_updated timestamp,
@@ -1317,7 +1317,7 @@ sync boolean DEFAULT false,
   CONSTRAINT "enrollment_pkey" PRIMARY KEY (id),
     CONSTRAINT enrollment_client_fk FOREIGN KEY ("client_id")
       REFERENCES "v2014".client ("id"),
-          CONSTRAINT enrollment_project_fk FOREIGN KEY ("project_id")
+          CONSTRAINT enrollment_project_fk FOREIGN KEY ("projectid")
       REFERENCES "v2014".project ("id")
 )
 WITH (
