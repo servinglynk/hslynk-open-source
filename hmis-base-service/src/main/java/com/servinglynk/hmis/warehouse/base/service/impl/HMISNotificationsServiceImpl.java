@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.NotificationSearchRequest;
 import com.servinglynk.hmis.warehouse.SortedPagination;
-import com.servinglynk.hmis.warehouse.base.dao.config.HibernateConfig;
 import com.servinglynk.hmis.warehouse.base.service.converter.HMISNotificationConverter;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.core.model.Account;
@@ -29,10 +28,8 @@ public class HMISNotificationsServiceImpl extends ServiceBase implements HMISNot
 		
 		HMISNotificationEntity entity = HMISNotificationConverter.modelToEntity(hmisNotification, null);
 		entity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
-		entity.setCreatedBy(account.getAccountId().toString());
-		entity.setModifiedAt(new Date());
 		entity.setCreatedAt(new Date());
-		
+		entity.setUser(account.getAccountId());
 		daoFactory.getHmisNotificationsDao().saveNotification(entity);
 		
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(account.getProjectGroup().getProjectGroupCode());

@@ -1,21 +1,28 @@
 package com.servinglynk.hmis.warehouse.model;
 
 import java.util.Date;
+import java.util.UUID;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.servinglynk.hmis.warehouse.model.base.BaseModel;
+import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "hmis_notification",schema="notificationdb")
-public class HMISNotificationEntity extends BaseModel {
+public class HMISNotificationEntity {
 	
 	@Id
 	@SequenceGenerator(name="pk_sequence",sequenceName="notificationdb.hmis_notification_id_seq", allocationSize=1)
@@ -172,5 +179,38 @@ public class HMISNotificationEntity extends BaseModel {
 
 	public void setDeliveredAt(Date deliveredAt) {
 		this.deliveredAt = deliveredAt;
+	}
+	
+	
+	@Column(name = "date_created")
+	protected Date createdAt = new java.util.Date();
+	@Column(name = "date_updated")
+	protected Date modifiedAt;
+	
+	@Basic( optional = true )
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	@Column(name = "user_id", nullable = true )
+	private UUID user;
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	public Date getModifiedAt() {
+		return modifiedAt;
+	}
+	public void setModifiedAt(Date modifiedAt) {
+		this.modifiedAt = modifiedAt;
+	}
+
+	public UUID getUser() {
+		return user;
+	}
+
+	public void setUser(UUID user) {
+		this.user = user;
 	}
 }
