@@ -31,6 +31,7 @@ public class NotificationsController extends ControllerBase {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="CLIENT_API_SEARCH")
+	
 	public HmisNotification sendEmailNotification(@Valid @RequestBody HmisNotification hmisNotification,HttpServletRequest request,HttpServletResponse response) throws Exception {
 
 		hmisNotification.getData().getRecipients().getBccRecipients().removeAll(Collections.singletonList(""));
@@ -44,6 +45,8 @@ public class NotificationsController extends ControllerBase {
 		hmisNotification.getData().getRecipients().getToRecipients().removeAll(Collections.singletonList(""));
 		hmisNotification.getData().getRecipients().getToRecipients().removeAll(Collections.singletonList(" "));
 		hmisNotification.getData().getRecipients().getToRecipients().removeAll(Collections.singletonList(null));
+		
+		
 		
 		Set<String> errorReciepents = new HashSet<String>();
 		
@@ -61,8 +64,14 @@ public class NotificationsController extends ControllerBase {
 			boolean flag =	EmailValidator.validate(email);
 			if(!flag) errorReciepents.add("BCC");
 		}
+		
+		
 
 		if(!errorReciepents.isEmpty()) throw new InvalidRequest(" Invalid email addresses in "+errorReciepents.toString());
+		
+		hmisNotification.getData().getRecipients().getBccRecipients().addAll(hmisNotification.getData().getRecipients().getCcRecipients());
+		hmisNotification.getData().getRecipients().getCcRecipients().clear();
+		
 		
 		Session session = sessionHelper.getSession(request);
 		serviceFactory.getHmisNotificationsService().sendHmisNotification(hmisNotification, session.getAccount());
@@ -98,21 +107,25 @@ public class NotificationsController extends ControllerBase {
 	
 	
 	
-/*	public static void main(String args[]) throws Exception  {
-		HmisNotification notification = new HmisNotification();
-		notification.setMessage("Test message");
-		notification.setMessageType("Test type");
-		notification.setMethod("email");
-		notification.setRecipientId("tets");
-		notification.setRecipientType("test");
-		notification.setSubject("Test subject");
-		notification.getRecipients().addToRecipient("narayana880@gmail.com");
-		notification.getRecipients().addBccRecipient("narayana880@gmail.com");
-		notification.getRecipients().addCcRecipient("narayana880@gmail.com");
-		
-		System.out.println("" +notification.toJSONString());
-		
-		
-	}*/
+//public static void main(String args[]) throws Exception  {
+//		HmisNotification notification = new HmisNotification();
+//		notification.setMessage("Test message");
+//		notification.setMessageType("Test type");
+//		notification.setMethod("email");
+//		notification.setRecipientId("tets");
+//		notification.setRecipientType("test");
+//		notification.setSubject("Test subject");
+//		
+//		notification.getRecipients().addToRecipient("test-To@gmail.com");
+//		notification.getRecipients().addBccRecipient("test-BCC@gmail.com");
+//		notification.getRecipients().addCcRecipient("test-CC@gmail.com");
+//		notification.getRecipients().addBccRecipient("test-BCC2@gmail.com");
+//		notification.getRecipients().addBccRecipient("test-BCC3@gmail.com");
+//		System.out.println("" +notification.toJSONString());
+//		
+//		
+//	}
+//	
+	
 	
 }
