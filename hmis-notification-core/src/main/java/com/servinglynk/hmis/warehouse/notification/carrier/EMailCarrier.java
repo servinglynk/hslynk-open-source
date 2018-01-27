@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.notification.carrier;
 
+import java.util.Collections;
+
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.core.io.FileSystemResource;
@@ -23,7 +25,19 @@ public class EMailCarrier  extends JavaMailSenderImpl implements ICarrier{
 	               
 	               Recipients recipients = CoreUtil.convertJSONtoJava(carrierNotification.getRecipient(),Recipients.class); 
 	               // convert recipients JSON string to recipient ibject 
-	               recipients.getToRecipients().toArray();
+	             //  recipients.getToRecipients().toArray();
+	               recipients.getBccRecipients().removeAll(Collections.singletonList(""));
+	               recipients.getBccRecipients().removeAll(Collections.singletonList(" "));
+	               recipients.getBccRecipients().removeAll(Collections.singletonList(null));
+	    		
+	               recipients.getCcRecipients().removeAll(Collections.singletonList(""));
+	               recipients.getCcRecipients().removeAll(Collections.singletonList(" "));
+	               recipients.getCcRecipients().removeAll(Collections.singletonList(null));
+	    		
+	               recipients.getToRecipients().removeAll(Collections.singletonList(""));
+	               recipients.getToRecipients().removeAll(Collections.singletonList(" "));
+	               recipients.getToRecipients().removeAll(Collections.singletonList(null));
+	               
 	               if(!recipients.getToRecipients().isEmpty())
 	            	message.setTo(recipients.getToRecipients().toArray(new String[recipients.getToRecipients().size()]));  
 	               

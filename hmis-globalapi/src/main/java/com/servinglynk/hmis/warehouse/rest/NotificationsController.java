@@ -1,7 +1,10 @@
 package com.servinglynk.hmis.warehouse.rest;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +21,8 @@ import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.HmisNotification;
 import com.servinglynk.hmis.warehouse.core.model.HmisNotifications;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.service.exception.InvalidRequest;
+import com.servinglynk.hmis.warehouse.validator.EmailValidator;
 
 @RestController
 @RequestMapping("/notifications")
@@ -28,6 +33,37 @@ public class NotificationsController extends ControllerBase {
 	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="CLIENT_API_SEARCH")
 	public HmisNotification sendEmailNotification(@Valid @RequestBody HmisNotification hmisNotification,HttpServletRequest request,HttpServletResponse response) throws Exception {
 
+		hmisNotification.getData().getRecipients().getBccRecipients().removeAll(Collections.singletonList(""));
+		hmisNotification.getData().getRecipients().getBccRecipients().removeAll(Collections.singletonList(" "));
+		hmisNotification.getData().getRecipients().getBccRecipients().removeAll(Collections.singletonList(null));
+		
+		hmisNotification.getData().getRecipients().getCcRecipients().removeAll(Collections.singletonList(""));
+		hmisNotification.getData().getRecipients().getCcRecipients().removeAll(Collections.singletonList(" "));
+		hmisNotification.getData().getRecipients().getCcRecipients().removeAll(Collections.singletonList(null));
+		
+		hmisNotification.getData().getRecipients().getToRecipients().removeAll(Collections.singletonList(""));
+		hmisNotification.getData().getRecipients().getToRecipients().removeAll(Collections.singletonList(" "));
+		hmisNotification.getData().getRecipients().getToRecipients().removeAll(Collections.singletonList(null));
+		
+		Set<String> errorReciepents = new HashSet<String>();
+		
+		for(String email: hmisNotification.getData().getRecipients().getToRecipients()) {
+			boolean flag =	EmailValidator.validate(email);
+			if(!flag) errorReciepents.add("TO");
+		}
+		
+		for(String email: hmisNotification.getData().getRecipients().getCcRecipients()) {
+			boolean flag =	EmailValidator.validate(email);
+			if(!flag) errorReciepents.add("CC");
+		}
+		
+		for(String email: hmisNotification.getData().getRecipients().getBccRecipients()) {
+			boolean flag =	EmailValidator.validate(email);
+			if(!flag) errorReciepents.add("BCC");
+		}
+
+		if(!errorReciepents.isEmpty()) throw new InvalidRequest(" Invalid email addresses in "+errorReciepents.toString());
+		
 		Session session = sessionHelper.getSession(request);
 		serviceFactory.getHmisNotificationsService().sendHmisNotification(hmisNotification, session.getAccount());
 		
