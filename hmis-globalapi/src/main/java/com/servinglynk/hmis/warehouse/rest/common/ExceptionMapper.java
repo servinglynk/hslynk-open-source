@@ -43,6 +43,7 @@ import com.servinglynk.hmis.warehouse.service.exception.HealthInsuranceNotFoundE
 import com.servinglynk.hmis.warehouse.service.exception.HealthStatusNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.HousingAssessmentDispositionNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.IncomeAndSourceNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.InvalidRequest;
 import com.servinglynk.hmis.warehouse.service.exception.InventoryNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.LastPermanentAddressNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.MedicalassistanceNotFoundException;
@@ -392,9 +393,15 @@ public class ExceptionMapper {
 			r.setErrorCode(ERR_CODE_INVALID_TRUSTED_APP);
 			r.setErrorMessage(ex.getMessage());
 		} catch (DateTimeParseException ex) {
-			logger.info("InvalidTrustedAppException: " + ex.getMessage(), ex);
+			logger.info("DateTimeParseException: " + ex.getMessage(), ex);
 			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
 			r.setErrorCode("INVALID_DATE_FORMAT");
+			ex.printStackTrace();
+			r.setErrorMessage(ex.getMessage());
+		} catch (InvalidRequest ex) {
+			logger.info("InvalidRequest: " + ex.getMessage(), ex);
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+			r.setErrorCode("INVALID_REQUEST");
 			ex.printStackTrace();
 			r.setErrorMessage(ex.getMessage());
 		}
