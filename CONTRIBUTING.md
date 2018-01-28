@@ -5,7 +5,7 @@ HSLynk is an open source project and your contribution is very much appreciated.
 
 To-do: add issue submission guidelines.
 
-2. Fork the repository on Github and make your changes in a branch. We use Vincent Driessen's branching methodology illustrated here: http://nvie.com/posts/a-successful-git-branching-model/
+2. Fork the repository on Github and make your changes in a branch. We use Vincent Driessen's branching methodology illustrated here: http://nvie.com/posts/a-successful-git-branching-model/ .  For branch and tag names, please use: https://github.com/servinglynk/hmis-lynk-open-source-docs/wiki/Release-and-branching-conventions .
 
 To-do: add Lint code validation instructions.
 
