@@ -125,13 +125,14 @@ public class SyncSchema extends Logging {
                 Boolean markedForDelete = false;
                 empty = false;
                 try{
-                    resultSet.getBoolean("deleted");
+                	markedForDelete = resultSet.getBoolean("deleted");
                 }catch (Exception ex){
-                    logger.debug("table does not contained 'deleted' column", ex);
+                    logger.error("table does not contained 'deleted' column", ex);
+                    markedForDelete = false;
                 }
 
                 ResultSetMetaData metaData = resultSet.getMetaData();
-                String key = resultSet.getString(1);
+                String key = resultSet.getString("id");
                 if(key.trim() == ""){
                     continue;
                 }
@@ -174,11 +175,6 @@ public class SyncSchema extends Logging {
                 }
                 existingKeysInPostgres.add(key);
             }
-            existingKeysInHbase.forEach(key -> {
-                if(!existingKeysInPostgres.contains(key)){
-                    putsToDelete.add(key);
-                }
-            });
             deleteCount += putsToDelete.size();
             logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
             if (putsToDelete.size() > 0) {
