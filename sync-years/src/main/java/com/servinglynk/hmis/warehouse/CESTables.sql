@@ -366,7 +366,29 @@ CF:priority,
 CF:user_id")
 TBLPROPERTIES ("hbase.table.name" = "hmis_notification_notificationdb");
 
-
+CREATE EXTERNAL TABLE IF NOT EXISTS hmis_user
+(
+id string,
+first_name string,
+middle_name string,
+last_name string,
+name_suffix string,
+email_address string,
+status string,
+username string,
+project_group_id string)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = "
+:key,
+CF:first_name,
+CF:middle_name,
+CF:last_name,
+CF:name_suffix,
+CF:email_address,
+CF:status,
+CF:username,
+CF:project_group_id")
+TBLPROPERTIES ("hbase.table.name" = "hmis_user_MO0010");
 
 
 CREATE EXTERNAL TABLE IF NOT EXISTS match_status_remarks
