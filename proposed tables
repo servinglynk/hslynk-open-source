@@ -26,7 +26,7 @@ ALTER TABLE "human-svcs".document
 CREATE TABLE "human-svcs".document_category
 (
   id uuid NOT NULL DEFAULT uuid_generate_v4(),
-  doc_type_id uuid,
+  doc_type_id uuid,        -- doc_type and doc_category will allow for any kind of documents to be referenced
   doc_category uuid,
   description character varying(128),
   created_at date,
