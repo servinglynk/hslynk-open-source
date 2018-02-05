@@ -1,0 +1,44 @@
+CREATE TABLE "human-svcs".document
+(
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  project_id uuid,
+  beginning_date date,
+  ending_date date,
+  client_id uuid,
+  user_id uuid,
+  enrollment_id uuid,
+  url character varying(128),
+  doc_size integer,
+  description character varying(256),
+  created_at date,
+  updated_at date,
+  is_active boolean,
+  deleted boolean,
+  doc_category_id uuid, 
+  CONSTRAINT document_pk PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE "human-svcs".document
+  OWNER TO hmisdb1;
+
+CREATE TABLE "human-svcs".document_category
+(
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  doc_type_id uuid,
+  doc_category uuid,
+  description character varying(128),
+  created_at date,
+  updated_at date,
+  is_active boolean,
+  deleted boolean,
+  CONSTRAINT primary_pk PRIMARY KEY (id),
+  CONSTRAINT unique_set UNIQUE (doc_type_id, doc_category)
+)
+WITH (
+  OIDS=FALSE
+);
+
+ALTER TABLE "human-svcs".document_category
+  OWNER TO hmisdb1;
