@@ -67,8 +67,8 @@ public class HouseholdMembershipResource  extends BaseResource {
 			
 			Resource<HouseholdMembershipDTO> resource=null;
 				resource = new Resource<HouseholdMembershipDTO>(householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(arg0));
-				if(arg0.getClientLink()!=null)
-					resource.add(new Link("client",arg0.getClientLink()));
+				if(resource.getContent().getLink()!=null)
+					resource.add(new Link("client",resource.getContent().getLink()));
 				return resource;
 		}
 	}

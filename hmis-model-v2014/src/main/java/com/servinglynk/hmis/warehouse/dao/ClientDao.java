@@ -13,4 +13,6 @@ public interface ClientDao extends ParentDao {
 	List<Client> getAllClients(String projectGroupCode, Integer startIndex, Integer maxItems);
 	long getClientsCount(String projectGroupCode);
 	public com.servinglynk.hmis.warehouse.model.v2014.Client getClientByDedupCliendId(UUID id,String projectGroupCode);
+	public List<com.servinglynk.hmis.warehouse.model.v2014.Client> getAllNullDedupIdClients();
+	void updateDedupClient(Client client, String dedupSessionKey);
 }

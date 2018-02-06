@@ -19,4 +19,8 @@ public interface EnrollmentDao extends ParentDao {
 	Enrollment getEnrollmentByClientIdAndEnrollmentId(UUID enrollmentId,UUID clientId);
 	List<Enrollment> getEnrollmentsByClientId(UUID clientId,Integer startIndex, Integer maxItems);
 	long getEnrollmentCount(UUID clientId);
+	public long getEnrollmentCountByProjectGroupCode(String projectGroupCode);
+	public List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment> getEnrollmentsByProjectGroupCode(String projectGroupCode,Integer startIndex, Integer maxItems);
+	public com.servinglynk.hmis.warehouse.model.v2014.Enrollment getEnrollmentByProjectGroupCodeAndSourceSystem(String projectGroupCode,String sourceSystemId,String exportId);
+
 }

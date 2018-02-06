@@ -6,7 +6,7 @@ public class Disabilities {
 	@MapToColumn(column=0)
 	private String DisabilitiesID;
 	@MapToColumn(column=1)
-	private String ProjectEntryID;
+	private String EnrollmentID;
 	@MapToColumn(column=2)
 	private String PersonalID;
 	@MapToColumn(column=3)
@@ -18,36 +18,28 @@ public class Disabilities {
 	@MapToColumn(column=6)
 	private String IndefiniteAndImpairs;
 	@MapToColumn(column=7)
-	private String DocumentationOnFile;
-	@MapToColumn(column=8)
-	private String ReceivingServices;
-	@MapToColumn(column=9)
-	private String PATHHowConfirmed;
-	@MapToColumn(column=10)
-	private String PATHSMIInformation;
-	@MapToColumn(column=11)
 	private String TCellCountAvailable;
-	@MapToColumn(column=12)
+	@MapToColumn(column=8)
 	private String TCellCount;
-	@MapToColumn(column=13)
+	@MapToColumn(column=9)
 	private String TCellSource;
-	@MapToColumn(column=14)
+	@MapToColumn(column=10)
 	private String ViralLoadAvailable;
-	@MapToColumn(column=15)
+	@MapToColumn(column=11)
 	private String ViralLoad;
-	@MapToColumn(column=16)
+	@MapToColumn(column=12)
 	private String ViralLoadSource;
-	@MapToColumn(column=17)
+	@MapToColumn(column=13)
 	private String DataCollectionStage;
-	@MapToColumn(column=18)
+	@MapToColumn(column=14)
 	private String DateCreated;
-	@MapToColumn(column=19)
+	@MapToColumn(column=15)
 	private String DateUpdated;
-	@MapToColumn(column=20)
+	@MapToColumn(column=16)
 	private String UserID;
-	@MapToColumn(column=21)
+	@MapToColumn(column=17)
 	private String DateDeleted;
-	@MapToColumn(column=22)
+	@MapToColumn(column=18)
 	private String ExportID;
 	public String getDisabilitiesID() {
 		return DisabilitiesID;
@@ -55,11 +47,11 @@ public class Disabilities {
 	public void setDisabilitiesID(String disabilitiesID) {
 		DisabilitiesID = disabilitiesID;
 	}
-	public String getProjectEntryID() {
-		return ProjectEntryID;
+	public String getEnrollmentID() {
+		return EnrollmentID;
 	}
-	public void setProjectEntryID(String projectEntryID) {
-		ProjectEntryID = projectEntryID;
+	public void setEnrollmentID(String projectEntryID) {
+		EnrollmentID = projectEntryID;
 	}
 	public String getPersonalID() {
 		return PersonalID;
@@ -90,30 +82,6 @@ public class Disabilities {
 	}
 	public void setIndefiniteAndImpairs(String indefiniteAndImpairs) {
 		IndefiniteAndImpairs = indefiniteAndImpairs;
-	}
-	public String getDocumentationOnFile() {
-		return DocumentationOnFile;
-	}
-	public void setDocumentationOnFile(String documentationOnFile) {
-		DocumentationOnFile = documentationOnFile;
-	}
-	public String getReceivingServices() {
-		return ReceivingServices;
-	}
-	public void setReceivingServices(String receivingServices) {
-		ReceivingServices = receivingServices;
-	}
-	public String getPATHHowConfirmed() {
-		return PATHHowConfirmed;
-	}
-	public void setPATHHowConfirmed(String pATHHowConfirmed) {
-		PATHHowConfirmed = pATHHowConfirmed;
-	}
-	public String getPATHSMIInformation() {
-		return PATHSMIInformation;
-	}
-	public void setPATHSMIInformation(String pATHSMIInformation) {
-		PATHSMIInformation = pATHSMIInformation;
 	}
 	public String getTCellCountAvailable() {
 		return TCellCountAvailable;

@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.rest.service;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
@@ -22,12 +24,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import com.servinglynk.hmis.warehouse.domain.Gender;
 import com.servinglynk.hmis.warehouse.domain.Person;
 import com.servinglynk.hmis.warehouse.domain.PersonIdentifier;
+import com.servinglynk.hmis.warehouse.rest.service.DedupService;
 import com.servinglynk.hmis.warehouse.util.AuthenticationRequest;
 
 public class DedupServiceImpl implements DedupService{
@@ -51,7 +54,8 @@ public class DedupServiceImpl implements DedupService{
 	public Person createUser(Person person,String sessionKey) {
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
-		  	headers.setContentType(MediaType.APPLICATION_XML); 
+			MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
+			headers.setContentType(mediaType);
 	        headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
 	        String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/addPerson";
 	       // requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
@@ -63,7 +67,8 @@ public class DedupServiceImpl implements DedupService{
 	public Person updateUser(Person person,String sessionKey) {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
-	  	headers.setContentType(MediaType.APPLICATION_XML); 
+		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
+		headers.setContentType(mediaType);
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
         String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/updatePerson";
        // requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
@@ -78,7 +83,8 @@ public class DedupServiceImpl implements DedupService{
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		//headers.setAccept(Arrays.asList(new MediaType[] {MediaType.TEXT_XML}));
-	  	headers.setContentType(MediaType.APPLICATION_XML); 
+		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
+		headers.setContentType(mediaType);
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
         String url = OPENEMPI_HOST+"openempi-ws-rest/person-query-resource/findPersonsByAttributes";
         HttpEntity<Object> entityHttp = new HttpEntity<Object>(parsePersonObjectToXMLString(person), headers); 
@@ -218,13 +224,10 @@ public class DedupServiceImpl implements DedupService{
 				// PART 7 : Delete from potential matches
 				List<Person> finalPersons =	deleteFromPotentialMatches(matchingPersons,person);
 				//	-- Part 8 IF Total Likely Matches = 1 MATCH FOUND
-				if(finalPersons !=null && finalPersons.size() == 1 ) {
+				if(CollectionUtils.isNotEmpty(finalPersons)) {
 					Person finalPerson =  (Person) finalPersons.get(0);
 					finalPerson.setCustom20(getUniqueIdentifier(finalPerson.getPersonIdentifiers()));
 					return finalPerson;
-				}
-				if(finalPersons !=null && finalPersons.size() > 1 ) {
-					throw new IllegalArgumentException("Very hard to match this guy");
 				}
 			}
 			// When no match found lets insert a new record.
@@ -485,14 +488,26 @@ public class DedupServiceImpl implements DedupService{
  		person.setFamilyName((String)linkedPersons.get("familyName"));
  		Integer personId =  Integer.parseInt((String)linkedPersons.get("personId"));
  		person.setPersonId(personId);
- 		
- 		LinkedHashMap<Object, Object>  personIdentifiersLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("personIdentifiers");
- 		if(personIdentifiersLinkedList !=null) {
- 			String identifier = (String)personIdentifiersLinkedList.get("identifier");
- 			PersonIdentifier personIdentifier = new PersonIdentifier();
- 			personIdentifier.setIdentifier(identifier);
- 			person.addPersonIdentifier(personIdentifier);
+ 		try {
+ 			LinkedHashMap<Object, Object>  personIdentifiersLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("personIdentifiers");
+ 	 		if(personIdentifiersLinkedList !=null) {
+ 	 			String identifier = (String)personIdentifiersLinkedList.get("identifier");
+ 	 			PersonIdentifier personIdentifier = new PersonIdentifier();
+ 	 			personIdentifier.setIdentifier(identifier);
+ 	 			person.addPersonIdentifier(personIdentifier);
+ 	 		}
+ 		} catch(ClassCastException ex) {
+ 			// There is a possiblitity that we have multiple personalIdentifiers
+ 			ArrayList<LinkedHashMap<Object, Object>>  personIdentifiersList = (ArrayList<LinkedHashMap<Object, Object>>)linkedPersons.get("personIdentifiers");
+ 	 		if(CollectionUtils.isNotEmpty(personIdentifiersList)) {
+ 	 			LinkedHashMap<Object, Object> personIdentifiersLinkedList = personIdentifiersList.get(0);
+ 	 			String identifier = (String)personIdentifiersLinkedList.get("identifier");
+ 	 			PersonIdentifier personIdentifier = new PersonIdentifier();
+ 	 			personIdentifier.setIdentifier(identifier);
+ 	 			person.addPersonIdentifier(personIdentifier);
+ 	 		}
  		}
+ 	
  		LinkedHashMap<Object, Object>  genderLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("gender");
  		Gender gender = new Gender();
  		if(genderLinkedList !=null) {

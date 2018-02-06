@@ -9,6 +9,7 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -319,6 +320,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				client.setDedupClientId(UUID.fromString(dedupedId));
 				baseClient.setDedupClientId(client.getDedupClientId());
 			}
+			client.setDateUpdated(LocalDateTime.now());
+			baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);
@@ -384,5 +387,43 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Client.class);	
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		return countRows(criteria);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2017.Client> getAllNullDedupIdClients() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Client.class);
+		criteria.add(Restrictions.isNull("dedupClientId"));
+		criteria.add(Restrictions.isNotNull("firstName"));
+		criteria.add(Restrictions.isNotNull("lastName"));
+		List<String> projectGroupCodes = new ArrayList<String>();
+		projectGroupCodes.add("MO0010");
+		projectGroupCodes.add("HO0002");
+		projectGroupCodes.add("IL0009");
+		projectGroupCodes.add("BD0005");
+		criteria.add(Restrictions.in("projectGroupCode", projectGroupCodes));
+		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2017.Client>) findByCriteria(criteria);
+		return clients;
+	}
+	
+	@Override
+	public void updateDedupClient(
+			com.servinglynk.hmis.warehouse.model. v2017.Client client,String dedupSessionKey) {
+	    com.servinglynk.hmis.warehouse.model.base.Client basClient = daoFactory.getBaseClientDao().getClient(client.getId());
+	    if(basClient == null) {
+	    	basClient = new  com.servinglynk.hmis.warehouse.model.base.Client();
+	    	BeanUtils.copyProperties(client, basClient, new String[] {"enrollments","veteranInfoes"});
+	    	basClient.setSchemaYear("2014");
+	     }
+	     String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
+	     logger.info("Calling Dedup Service for "+client.getFirstName());
+		 client.setDateUpdated(LocalDateTime.now());
+		 client.setDedupClientId(UUID.fromString(dedupedId));
+		 getCurrentSession().update(client);
+		 basClient.setDedupClientId(UUID.fromString(dedupedId));
+		 basClient.setDateUpdated(LocalDateTime.now());
+		 insert(basClient);
+		 getCurrentSession().flush();
+		 getCurrentSession().clear();
 	}
 }

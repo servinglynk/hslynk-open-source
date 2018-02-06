@@ -1,20 +1,34 @@
-CREATE EXTERNAL TABLE IF NOT EXISTS picklist_group(picklist_group_id string ,picklist_group_name string ,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:picklist_group_name,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "picklist_group_survey");
-CREATE EXTERNAL TABLE IF NOT EXISTS picklist_value(picklist_value_id string ,picklist_value_code string ,created_at timestamp,  updated_at timestamp,user_id string,is_active string,value_text string,picklist_group_id string ) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:picklist_value_code,CF:created_at,CF:updated_at,CF:user_id,CF:is_active,CF:picklist_value_code,CF:picklist_group_id") TBLPROPERTIES ("hbase.table.name" = "picklist_value_survey");
+CREATE EXTERNAL TABLE IF NOT EXISTS picklist_group(picklist_group_id string ,picklist_group_name string ,created_at timestamp,  updated_at timestamp,user_id string,is_active string,project_group_code string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:picklist_group_name,CF:created_at,CF:updated_at,CF:user_id,CF:is_active,CF:project_group_code") TBLPROPERTIES ("hbase.table.name" = "picklist_group_survey");
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS picklist_value(picklist_value_id string ,picklist_value_code string ,created_at timestamp,  updated_at timestamp,user_id string,is_active string,value_text string,picklist_group_id string,project_group_code string ) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:picklist_value_code,CF:created_at,CF:updated_at,CF:user_id,CF:is_active,CF:picklist_value_code,CF:picklist_group_id,CF:project_group_code") TBLPROPERTIES ("hbase.table.name" = "picklist_value_survey");
+
+
 CREATE EXTERNAL TABLE IF NOT EXISTS question(question_id string ,project_group_id string ,question_description string,display_text string,question_data_type string,
 question_type string,correct_value_for_assessment string,hud_question string,locked string,question_weight string,question_group_id string,picklist_group_id string,
-is_copy_question_id string,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+is_copy_question_id string,created_at timestamp,  updated_at timestamp,user_id string,is_active string,project_group_code string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
 ("hbase.columns.mapping" = ":key,CF:project_group_id,CF:question_description,CF:display_text,CF:question_data_type,CF:question_type,CF:correct_value_for_assessment,CF:hud_question,CF:locked,
-CF:question_weight,CF:question_group_id,CF:picklist_group_id,CF:is_copy_question_id,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "question_survey");
-CREATE EXTERNAL TABLE IF NOT EXISTS question_group(question_group_id string ,question_group_name string ,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:question_group_name,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "question_group_survey");
+CF:question_weight,CF:question_group_id,CF:picklist_group_id,CF:is_copy_question_id,CF:created_at,CF:updated_at,CF:user_id,CF:is_active,CF:project_group_code") TBLPROPERTIES ("hbase.table.name" = "question_survey");
+
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS question_group(question_group_id string ,question_group_name string ,created_at timestamp,  updated_at timestamp,user_id string,is_active string,project_group_code string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:question_group_name,CF:created_at,CF:updated_at,CF:user_id,CF:is_active,CF:project_group_code") TBLPROPERTIES ("hbase.table.name" = "question_group_survey");
+
+
 
 CREATE EXTERNAL TABLE IF NOT EXISTS response(response_id string ,response_text string ,question_score string,app_id string,effective_date timestamp,
-section_id string,submission_id string,question_id string,client_id string,survey_id string,refused string,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
-("hbase.columns.mapping" = ":key,CF:response_text,CF:question_score,CF:app_id,CF:effective_date,CF:section_id,CF:submission_id,CF:question_id,CF:client_id,CF:survey_id,CF:refused,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "response_survey");
+section_id string,submission_id string,question_id string,client_id string,survey_id string,refused string,created_at timestamp,  updated_at timestamp,user_id string,is_active string,project_group_code string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = ":key,CF:response_text,CF:question_score,CF:app_id,CF:effective_date,CF:section_id,CF:submission_id,CF:question_id,CF:client_id,CF:survey_id,CF:refused,CF:created_at,CF:updated_at,CF:user_id,CF:is_active,CF:project_group_code") TBLPROPERTIES ("hbase.table.name" = "response_survey");
 
-CREATE EXTERNAL TABLE IF NOT EXISTS section_question_mapping(section_question_mapping_id string,is_required string,question_id string,question_group_id string,section_id string,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:is_required,CF:question_id,CF:question_group_id,CF:section_id,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "section_question_mapping_survey");
-CREATE EXTERNAL TABLE IF NOT EXISTS section_score(section_score_id string ,section_score string ,survey_id string,section_id string,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:section_score,CF:survey_id,CF:section_id,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "section_score_survey");
-CREATE EXTERNAL TABLE IF NOT EXISTS survey(survey_id string ,project_group_code string ,survey_title string,survey_owner string,locked string,is_copy_survey_id string,tag_value string,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:project_group_code,CF:survey_title,CF:survey_owner,CF:locked,CF:is_copy_survey_id,CF:tag_value,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "survey_survey");
-CREATE EXTERNAL TABLE IF NOT EXISTS survey_section(section_text string,survey_section_id string ,survey_id string ,section_detail string,section_weight string,section_order string,created_at timestamp,  updated_at timestamp,user_id string,is_active string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:id,CF:survey_id ,CF:section_detail,CF:section_weight,CF:section_order,CF:created_at,CF:updated_at,CF:user_id,CF:is_active") TBLPROPERTIES ("hbase.table.name" = "survey_section_survey");
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS section_question_mapping(section_question_mapping_id string,is_required string,question_id string,question_group_id string,section_id string,created_at timestamp,  updated_at timestamp,user_id string,is_active string,project_group_code string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:is_required,CF:question_id,CF:question_group_id,CF:section_id,CF:created_at,CF:updated_at,CF:user_id,CF:is_active,CF:project_group_code") TBLPROPERTIES ("hbase.table.name" = "section_question_mapping_survey");
+
+CREATE EXTERNAL TABLE IF NOT EXISTS section_score(section_score_id string ,section_score string ,survey_id string,section_id string,created_at timestamp,  updated_at timestamp,user_id string,is_active string,project_group_code string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:section_score,CF:survey_id,CF:section_id,CF:created_at,CF:updated_at,CF:user_id,CF:is_active,CF:project_group_code") TBLPROPERTIES ("hbase.table.name" = "section_score_survey");
+
+CREATE EXTERNAL TABLE IF NOT EXISTS survey(survey_id string ,project_group_code string ,survey_title string,survey_owner string,locked string,is_copy_survey_id string,tag_value string,created_at timestamp,  updated_at timestamp,user_id string,is_active string,project_group_code string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:project_group_code,CF:survey_title,CF:survey_owner,CF:locked,CF:is_copy_survey_id,CF:tag_value,CF:created_at,CF:updated_at,CF:user_id,CF:is_active,CF:project_group_code") TBLPROPERTIES ("hbase.table.name" = "survey_survey");
+
+CREATE EXTERNAL TABLE IF NOT EXISTS survey_section(section_text string,survey_section_id string ,survey_id string ,section_detail string,section_weight string,section_order string,created_at timestamp,  updated_at timestamp,user_id string,is_active string,project_group_code string) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,CF:id,CF:survey_id ,CF:section_detail,CF:section_weight,CF:section_order,CF:created_at,CF:updated_at,CF:user_id,CF:is_active,CF:project_group_code") TBLPROPERTIES ("hbase.table.name" = "survey_section_survey");
 
 
 
@@ -26,6 +40,25 @@ CREATE EXTERNAL TABLE IF NOT EXISTS global_household(global_household_id string 
 project_group_code string,user_id string,user_create string,user_update string,date_created timestamp,date_updated timestamp,deleted boolean) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
 ("hbase.columns.mapping" = ":key,CF:inactive,CF:head_of_household_id,CF:head_of_household_link,CF:project_group_code,
 CF:user_id,CF:user_create,CF:user_update,CF:date_created,CF:date_updated,CF:deleted") TBLPROPERTIES ("hbase.table.name" = "global_household_housing_inventory");
+
+drop table picklist_group;
+create table picklist_group as select * from default.picklist_group where project_group_code='HO0002';
+drop table picklist_value;
+create table picklist_value as select * from default.picklist_value where project_group_code='HO0002';
+drop table question;
+create table question as select * from default.question where project_group_code='HO0002';
+drop table question_group;
+create table question_group as select * from default.question_group where project_group_code='HO0002';
+drop table response;
+create table response as select * from default.response where project_group_code='HO0002';
+drop table section_question_mapping;
+create table section_question_mapping as select * from default.section_question_mapping where project_group_code='HO0002';
+drop table section_score;
+create table section_score as select * from default.section_score where project_group_code='HO0002';
+drop table survey;
+create table survey as select * from default.survey where project_group_code='HO0002';
+drop table survey_section;
+create table survey_section as select * from default.survey_section where project_group_code='HO0002';
 
 create table global_household as select * from default.global_household where project_group_code='MO0010';
 
@@ -141,6 +174,7 @@ create table housing_unit_eligibility as select * from default.housing_unit_elig
 
 CREATE EXTERNAL TABLE IF NOT EXISTS active_list
 (client_id	string,
+dedup_client_id STRING,
 first_name string,
 last_name string,
 survey_id string,
@@ -150,11 +184,141 @@ score BIGINT,
 phone string,
 email string,
 age BIGINT,
+notes string,
 ignore_match_process boolean)
 STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
-("hbase.columns.mapping" = ":key,CF:first_name,CF:last_name,CF:survey_id,CF:survey_title,CF:survey_date,CF:survey_score,CF:phone,CF:email,CF:age,CF:ignore_match_process") TBLPROPERTIES ("hbase.table.name" = "active_list_MO0010");
+("hbase.columns.mapping" = ":key,CF:dedup_client_id,CF:first_name,CF:last_name,CF:survey_id,CF:survey_title,CF:survey_date,CF:survey_score,CF:phone,CF:email,CF:age,CF:notes,CF:ignore_match_process") TBLPROPERTIES ("hbase.table.name" = "active_list_MO0010");
+
+create table active_list as select * from default.active_list where project_group_code='MO0010';
+
+CREATE EXTERNAL TABLE IF NOT EXISTS match_reservations
+(
+reservation_id string,
+note_id string,
+match_date timestamp,
+match_status  string,
+reservation_adults BIGINT,
+reservation_children BIGINT,
+manual_match boolean,
+inactive boolean,
+date_created timestamp,
+date_updated timestamp,
+user_id    string,
+client_id string,
+housing_unit_id string,
+status_id string,
+program_type string,
+project_group_code string,
+deleted boolean,
+process_id string,
+client_dedup_id string
+)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = ":key,CF:note_id,CF:match_date,CF:match_status,CF:reservation_adults,CF:reservation_children,CF:manual_match,CF:inactive,CF:date_created,CF:date_updated,CF:user_id,CF:client_id,CF:housing_unit_id,CF:status_id,CF:program_type,CF:project_group_code,CF:deleted,CF:process_id,CF:client_dedup_id")
+TBLPROPERTIES ("hbase.table.name" = "match_reservations_housing_inventory");
+
+create table match_reservations as select * from default.match_reservations where project_group_code='HO0002';
 
 
+CREATE EXTERNAL TABLE IF NOT EXISTS match_status
+(id string,
+client_id string,
+comments string,
+recipients string,
+active boolean,
+status BIGINT,
+date_created timestamp,
+date_updated timestamp,
+user_id string,
+project_group_code string,
+reservation_id string,
+client_dedup_id  string)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = "
+:key,
+CF:client_id,
+CF:comments,
+CF:recipients,
+CF:active,
+CF:status,
+CF:date_created,
+CF:date_updated,
+CF:user_id,
+CF:project_group_code,
+CF:reservation_id,
+CF:client_dedup_id
+")
+TBLPROPERTIES ("hbase.table.name" = "match_status_housing_inventory");
+
+create table match_status as select * from default.match_status where project_group_code='HO0002';
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS match_status_levels
+(id string,
+project_group_code string,
+status_code string,
+status_description string,
+next_status_code string
+)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = "
+:key,
+CF:project_group_code,
+CF:status_code,
+CF:status_description,
+CF:next_status_code")
+TBLPROPERTIES ("hbase.table.name" = "match_status_levels_housing_inventory");
+
+create table match_status_levels as select * from default.match_status_levels where project_group_code='HO0002';
+
+CREATE EXTERNAL TABLE IF NOT EXISTS match_status_remarks
+(id string,
+reason string,
+date_created timestamp,
+date_updated timestamp,
+project_group_code string,
+user_id string,
+deleted boolean,
+status_code BIGINT
+)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = "
+:key,
+CF:reason,
+CF:date_created,
+CF:date_updated,
+CF:project_group_code,
+CF:user_id,
+CF:deleted,
+CF:status_code")
+TBLPROPERTIES ("hbase.table.name" = "match_status_remarks_housing_inventory");
+
+create table match_status_remarks as select * from default.match_status_remarks where project_group_code='HO0002';
+
+CREATE EXTERNAL TABLE IF NOT EXISTS status_note
+(id string,
+status_id string,
+notes string,
+deleted boolean,
+date_created timestamp,
+date_updated timestamp,
+project_group_code string,
+user_id string
+)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES 
+("hbase.columns.mapping" = "
+:key,
+CF:status_id
+CF:notes
+CF:deleted
+CF:date_created
+CF:date_updated
+CF:project_group_code
+CF:user_id"
+)
+TBLPROPERTIES ("hbase.table.name" = "status_note_housing_inventory");
+
+create table status_note as select * from default.status_note where project_group_code='HO0002';
 
 
 CREATE EXTERNAL TABLE IF NOT EXISTS new_vi_spdat_tay_youth_v1(submission_id string,client_id string,survey_date  timestamp,

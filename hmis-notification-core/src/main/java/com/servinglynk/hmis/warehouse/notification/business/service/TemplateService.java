@@ -51,10 +51,14 @@ public class TemplateService extends ParentService implements ITemplateService{
 							templateLine.getLocation(),"UTF-8",
 							params.getMap());
 					 
-
-					 StringBuffer mergedSubject = StringUtils.stringSubstitution(templateLine.getSubject(), params.getMap());
+					 if(params.getMap().get("subject")!=null && !(params.getMap().get("subject")+"").equalsIgnoreCase(""))
+					 {
+						 notificationContent.setSubject(params.getMap().get("subject")+"");
+					 }else{
+						 StringBuffer mergedSubject = StringUtils.stringSubstitution(templateLine.getSubject(), params.getMap());						 
+						 notificationContent.setSubject(mergedSubject.toString());
+					 }
 					 notificationContent.setBody(mergedContent);
-					 notificationContent.setSubject(mergedSubject.toString());
 				}
 			}
 			

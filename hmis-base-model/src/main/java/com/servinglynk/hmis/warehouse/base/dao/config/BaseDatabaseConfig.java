@@ -20,6 +20,7 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperServiceDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.HMISNotificationsDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HealthDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisBulkUploadDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisOrganizationDaoImpl;
@@ -260,5 +261,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public ClientTrackerDaoImpl clientTrackerDao() {
 		return new ClientTrackerDaoImpl();
+	}
+	
+	@Bean
+	public HMISNotificationsDaoImpl hmisNotificationsDao() {
+		return new HMISNotificationsDaoImpl();
 	}
 }

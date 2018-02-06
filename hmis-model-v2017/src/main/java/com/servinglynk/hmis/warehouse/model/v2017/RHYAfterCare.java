@@ -74,6 +74,7 @@ public class RHYAfterCare extends HmisBaseModel implements Cloneable, Serializab
 	/**
 	 * @return the afterCareDate
 	 */
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Basic(optional=true)
 	@Column(name = "after_care_date")
 	public LocalDateTime getAfterCareDate() {

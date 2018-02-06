@@ -476,7 +476,7 @@ public class BulkUploadHelper {
 	    	  //enrollmentModel.setContinuouslyHomelessOneYear(enroll.get);
 	    	  enrollmentModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 	    	  enrollmentModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
-	    	  enrollmentModel.setDisablingCondition(getByte(enroll.getDisablingCondition()));
+	    	  enrollmentModel.setDisablingCondition(getByte(StringUtils.substringBefore(enroll.getDisablingCondition(), ".")));
 	    	  enrollmentModel.setEntryDate(getXMLGregorianCalendar(enroll.getEntryDate()));
 	    	  enrollmentModel.setHouseholdID(enroll.getHouseholdID());
 	    	  enrollmentModel.setHousingStatus(getByte(enroll.getHousingStatus()));
@@ -709,6 +709,7 @@ public class BulkUploadHelper {
 	    	  enrollmentCocModel.setDateUpdated(getXMLGregorianCalendar(enrollCoC.getDateUpdated()));
 	    	  enrollmentCocModel.setEnrollmentCoCID(enrollCoC.getEnrollmentCOCID());
 	    	  enrollmentCocModel.setInformationDate(getXMLGregorianCalendar(enrollCoC.getInformationDate()));
+	    	  enrollmentCocModel.setCocCode(enrollCoC.getCoCCode());
 	    	  enrollmentCocModel.setProjectCoCID(String.valueOf(enrollCoC.getProjectID()));
 	    	  enrollmentCocModel.setProjectEntryID(enrollCoC.getProjectEntryID());
 	    	  enrollmentCocModel.setUserID(enrollCoC.getUserID());

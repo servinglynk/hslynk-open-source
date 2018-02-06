@@ -48,29 +48,9 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 				com.servinglynk.hmis.warehouse.model.v2017.Exitrhy exitrhyModel = null;
 				try {
 					exitrhyModel = getModelObject(domain, exitrhy,data,modelMap);
-					exitrhyModel.setEarlyExitReason(ExitRHYEarlyExitReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(exitrhy.getEarlyExitReason())));
-					exitrhyModel.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum( BasicDataGenerator.getStringValue(exitrhy.getProjectCompletionStatus())));
-				//	exitrhyModel.setExchageForSex(EntryRHYExchangeForSexEnum.lookupEnum(exitrhy.getE));
-//					exitrhyModel.setExchangeForSexPastThreeMonths(0);;
-//					exitrhyModel.setCountOfExchangeForSex(0);
-//					exitrhyModel.setAskedOrForcedToExchangeForSex(0);
-//					exitrhyModel.setAskedOrForcedToExchangeForSexPastThreeMonths(0);
-//					exitrhyModel.setWorkPlaceViolenceThreats(0);
-//					exitrhyModel.setWorkPlacePromiseDifference(0);
-//					exitrhyModel.setCoercedToContinueWork(0);
-//					exitrhyModel.setLaborExploitPastThreeMonths(0);
-//					exitrhyModel.setCounselingReceived(0);
-//					exitrhyModel.setCounselingType(0);
-//					exitrhyModel.setSessionCountAtExit(0);
-//					exitrhyModel.setSessionsInPlan(0);
-//					exitrhyModel.setPostExitCounselingPlan(0);
-//					exitrhyModel.setDestinationSafeClient(0);
-//					exitrhyModel.setDestinationSafeWorker(0);
-//					exitrhyModel.setPosAdultConnections(0);
-//					exitrhyModel.setPosPeerConnections(0);
-//					exitrhyModel.setPosCommunityConnections(0);
-//					
-					
+					exitrhyModel.setEarlyExitReason(ExitRHYEarlyExitReasonEnum.lookupEnum(exitrhy.getEarlyExitReason()));
+					exitrhyModel.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum( exitrhy.getProjectCompletionStatus()));
+
 					com.servinglynk.hmis.warehouse.model.v2017.Exit exit = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class,exitrhy.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					exitrhyModel.setExitid(exit);
 					exitrhyModel.setDeleted(false);

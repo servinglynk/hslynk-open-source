@@ -79,6 +79,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	
 	@Autowired private ClientTrackerDao clientTrackerDao;
 	
+	@Autowired private HMISNotificationsDao hmisNotificationsDao;
+	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
 	}
@@ -295,4 +297,11 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	public void setClientTrackerDao(ClientTrackerDao clientTrackerDao) {
 		this.clientTrackerDao = clientTrackerDao;
 	}
+	public HMISNotificationsDao getHmisNotificationsDao() {
+		return hmisNotificationsDao;
+	}
+	public void setHmisNotificationsDao(HMISNotificationsDao hmisNotificationsDao) {
+		this.hmisNotificationsDao = hmisNotificationsDao;
+	}
+	
 }

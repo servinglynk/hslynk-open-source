@@ -33,6 +33,7 @@ import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.service.PathstatusService;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
 import com.servinglynk.hmis.warehouse.service.ProjectcocService;
+import com.servinglynk.hmis.warehouse.service.QuestionService;
 import com.servinglynk.hmis.warehouse.service.RHYAfterCareService;
 import com.servinglynk.hmis.warehouse.service.ResidentialmoveindateService;
 import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
@@ -83,5 +84,5 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	ConnectionwithsoarService getConnectionwithsoarService();
 	VashExitReasonService getVashExitReasonService();
 	RHYAfterCareService getRHYAfterCareService();
-	
+	QuestionService getQuestionService();
 }

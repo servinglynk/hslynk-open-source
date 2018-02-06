@@ -9,6 +9,7 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -319,6 +320,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			if(dedupedId!=null)
 				client.setDedupClientId(UUID.fromString(dedupedId));
 			baseClient.setDedupClientId(client.getDedupClientId());
+			client.setDateUpdated(LocalDateTime.now());
+		    baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);
@@ -371,7 +374,45 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		if(clients !=null && clients.size()>0) return clients.get(0);
 		return null;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2015.Client> getAllNullDedupIdClients() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Client.class);
+		criteria.add(Restrictions.isNull("dedupClientId"));
+		criteria.add(Restrictions.neOrIsNotNull("firstName", ""));
+		criteria.add(Restrictions.neOrIsNotNull("lastName", ""));
+		List<String> projectGroupCodes = new ArrayList<String>();
+		projectGroupCodes.add("MO0010");
+		projectGroupCodes.add("IL0009");
+		projectGroupCodes.add("BD0005");
+		criteria.add(Restrictions.in("projectGroupCode", projectGroupCodes));
+		List<com.servinglynk.hmis.warehouse.model.v2015.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2015.Client>) findByCriteria(criteria);
+		return clients;
+	}
+	
+	@Override
+	public void updateDedupClient(
+			com.servinglynk.hmis.warehouse.model.v2015.Client client,String dedupSessionKey) {
+		    com.servinglynk.hmis.warehouse.model.base.Client basClient = daoFactory.getBaseClientDao().getClient(client.getId());
+		    if(basClient == null) {
+		    	basClient = new  com.servinglynk.hmis.warehouse.model.base.Client();
+		    	BeanUtils.copyProperties(client, basClient, new String[] {"enrollments","veteranInfoes"});
+		    	basClient.setSchemaYear("2015");
+		     }
+		     String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
+		     logger.info("Calling Dedup Service for "+client.getFirstName());
+			 client.setDateUpdated(LocalDateTime.now());
+			 client.setDedupClientId(UUID.fromString(dedupedId));
+			 getCurrentSession().update(client);
+			 basClient.setDedupClientId(UUID.fromString(dedupedId));
+			 basClient.setDateUpdated(LocalDateTime.now());
+			 insert(basClient);
+			 getCurrentSession().flush();
+			 getCurrentSession().clear();
+		  
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<com.servinglynk.hmis.warehouse.model.v2015.Client> getAllClients(String projectGroupCode, Integer startIndex, Integer maxItems) {

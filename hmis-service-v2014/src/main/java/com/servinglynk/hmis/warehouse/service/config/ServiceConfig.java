@@ -19,6 +19,7 @@ import com.servinglynk.hmis.warehouse.service.impl.DateofengagementServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DisabilitiesServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DomesticViolenceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EmploymentServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EnrollmentCocServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitPlansActionsServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitServiceImpl;
@@ -82,6 +83,11 @@ public class ServiceConfig  {
 	 @Bean
 	 public EnrollmentServiceImpl enrollmentService(){
 		 return new EnrollmentServiceImpl();
+	 }
+	 
+	 @Bean
+	 public EnrollmentCocServiceImpl enrollmentCocService() {
+		 return new EnrollmentCocServiceImpl();
 	 }
 	 
 	 @Bean

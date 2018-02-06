@@ -69,7 +69,7 @@ public class HibernateConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
 		sessionFactoryBean.setDataSource(dataSource());
-		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.live","com.servinglynk.hmis.warehouse.model.staging");
+		sessionFactoryBean.setPackagesToScan("com.servinglynk.hmis.warehouse.model.base","com.servinglynk.hmis.warehouse.model.live","com.servinglynk.hmis.warehouse.model.staging","com.servinglynk.hmis.warehouse.model");
 		sessionFactoryBean.setHibernateProperties(hibProperties());
 		return sessionFactoryBean;
 	}
