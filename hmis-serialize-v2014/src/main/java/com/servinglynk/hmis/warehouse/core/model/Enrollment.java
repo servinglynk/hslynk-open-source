@@ -30,6 +30,7 @@ public class Enrollment extends ClientModel {
 	private Integer  timeshomelesspastthreeyears;
 	private int  yearshomeless;
 	private UUID  clientId;
+	private String source;
 	
 
 	public Enrollment(){
@@ -199,5 +200,13 @@ public class Enrollment extends ClientModel {
 
 	public void setChronicHomeless(boolean chronicHomeless) {
 		this.chronicHomeless = chronicHomeless;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 }

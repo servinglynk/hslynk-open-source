@@ -81,6 +81,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	
 	@Autowired private HMISNotificationsDao hmisNotificationsDao;
 	
+	@Autowired private GlobalEnrollmentDao globalEnrollmentDao;
+	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
 	}
@@ -302,6 +304,12 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setHmisNotificationsDao(HMISNotificationsDao hmisNotificationsDao) {
 		this.hmisNotificationsDao = hmisNotificationsDao;
+	}
+	public GlobalEnrollmentDao getGlobalEnrollmentDao() {
+		return globalEnrollmentDao;
+	}
+	public void setGlobalEnrollmentDao(GlobalEnrollmentDao globalEnrollmentDao) {
+		this.globalEnrollmentDao = globalEnrollmentDao;
 	}
 	
 }

@@ -1623,6 +1623,7 @@ CREATE TABLE "v2015".enrollment
 	version integer,source_system_id text,
 	deleted boolean DEFAULT false,active boolean DEFAULT true, 
 	sync boolean DEFAULT false,
+	source varchar varying(56) DEFAULT 2015,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2015.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,

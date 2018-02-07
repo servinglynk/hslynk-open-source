@@ -138,6 +138,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	
 	private LivingSituationEnum livingSituation;
 	private LengthOfStayEnum lengthOfStay;
+	private String source;
 
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -1010,8 +1011,17 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	public void setExport(final Export export) {
 		this.export = export;
 	}
+	
+	@Column(name="source")
+   public String getSource() {
+		return source;
+	}
 
-   /**
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+/**
     * Deep copy.
 	* @return cloned object
 	* @throws CloneNotSupportedException on error

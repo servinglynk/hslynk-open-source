@@ -19,7 +19,10 @@ public class EnrollmentConveter extends BaseConverter {
 
 
 	public static com.servinglynk.hmis.warehouse.model.v2016.Enrollment modelToEntity(Enrollment enrollment,com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment){
-		if(pEnrollment==null) pEnrollment = new com.servinglynk.hmis.warehouse.model.v2016.Enrollment();
+		if(pEnrollment==null) {
+			pEnrollment = new com.servinglynk.hmis.warehouse.model.v2016.Enrollment();
+			pEnrollment.setSource("2016");
+		}
 		if(enrollment.getDisablingcondition()!=null)
 		pEnrollment.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingcondition().toString()));
 		if(enrollment.getEntrydate()!=null)
@@ -86,6 +89,7 @@ public class EnrollmentConveter extends BaseConverter {
 		if(pEnrollment.getPreviousStreetESSH()!=null)
 		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
+		enrollment.setSource(pEnrollment.getSource());
 		copyBeanProperties(pEnrollment, enrollment);
 
 		return enrollment;
