@@ -30,6 +30,7 @@ public class Enrollment extends ClientModel {
 	private int  yearshomeless;
 	private UUID  clientId;
 	private Integer entryfromstreetessh;
+	private String source;
 	
 	public Integer getEntryfromstreetessh() {
 		return entryfromstreetessh;
@@ -209,4 +210,13 @@ public class Enrollment extends ClientModel {
 	public void setClientId(UUID clientId) {
 		this.clientId = clientId;
 	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+	
 }
