@@ -1313,6 +1313,32 @@ PRIMARY KEY ("id")
 WITH (OIDS=FALSE)
 ;
 
+CREATE TABLE "base"."hmis_global_enrollment" (
+"id" uuid NOT NULL,
+"date_created" timestamp(6),
+"date_updated" timestamp(6),
+"project_group_code" varchar(56) COLLATE "default",
+"deleted" bool,
+"user_id" uuid,
+"dedup_client_id" uuid,
+CONSTRAINT "global_enrollment_pk" PRIMARY KEY ("id")
+);
+
+CREATE TABLE "base"."hmis_global_enrollment_map" (
+"id" uuid NOT NULL,
+"global_enrollment_id" uuid,
+"client_id" uuid,
+"enrollment_id" uuid,
+"source" varchar(50),
+"date_created" timestamp(6),
+"date_updated" timestamp(6),
+"project_group_code" varchar(56),
+"user_id" uuid,
+"deleted" bool,
+CONSTRAINT "gloabal_enrollment_map_pk" PRIMARY KEY ("id")
+);
+
+
 
 ALTER TABLE base.hmis_user ADD COLUMN created_by character varying(256);
 ALTER TABLE base.hmis_user ADD COLUMN modified_by character varying(256);

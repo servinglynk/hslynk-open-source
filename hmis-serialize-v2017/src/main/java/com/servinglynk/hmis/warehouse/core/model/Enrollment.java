@@ -28,6 +28,7 @@ public class Enrollment extends ClientModel {
 	private UUID  clientId;
 	private Integer losunderthreshold;
 	private Integer previousStreetESSH;
+	private String source;
 	
 	public Enrollment(){
 		
@@ -209,5 +210,12 @@ public class Enrollment extends ClientModel {
 	public void setLivingSituation(Integer livingSituation) {
 		this.livingSituation = livingSituation;
 	}
-	
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
 }

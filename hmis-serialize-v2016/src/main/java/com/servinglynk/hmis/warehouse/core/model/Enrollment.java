@@ -32,6 +32,7 @@ public class Enrollment extends ClientModel {
 	private Integer entryfromstreetessh;
 	private Integer losunderthreshold;
 	private Integer previousStreetESSH;
+	private String source;
 	
 	public Integer getEntryfromstreetessh() {
 		return entryfromstreetessh;
@@ -238,6 +239,14 @@ public class Enrollment extends ClientModel {
 	 */
 	public void setPreviousStreetESSH(Integer previousStreetESSH) {
 		this.previousStreetESSH = previousStreetESSH;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 	
 }

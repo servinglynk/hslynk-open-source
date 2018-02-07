@@ -1819,6 +1819,7 @@ CREATE TABLE "v2017".enrollment
 	version integer,source_system_id text,
 	deleted boolean DEFAULT false,active boolean DEFAULT true, 
 	sync boolean DEFAULT false,
+	source varchar varying(56) DEFAULT 2017,
   		CONSTRAINT "enrollment_pkey" PRIMARY KEY (id),
     	CONSTRAINT enrollment_client_fk FOREIGN KEY ("client_id")
       	REFERENCES "v2017".client ("id") MATCH SIMPLE

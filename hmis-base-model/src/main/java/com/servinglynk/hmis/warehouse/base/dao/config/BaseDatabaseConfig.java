@@ -20,6 +20,7 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperServiceDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.GlobalEnrollmentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HMISNotificationsDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HealthDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisBulkUploadDaoImpl;
@@ -44,6 +45,7 @@ import com.servinglynk.hmis.warehouse.base.dao.TrustedAppDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.TrustedAppStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.VerificationDaoImpl;
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
+import com.servinglynk.hmis.warehouse.model.base.GlobalEnrollmentEntity;
 import com.servinglynk.hmis.warehouse.util.ClientOperationLogger;
 
 @Configuration
@@ -266,5 +268,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public HMISNotificationsDaoImpl hmisNotificationsDao() {
 		return new HMISNotificationsDaoImpl();
+	}
+	
+	@Bean
+	public GlobalEnrollmentDaoImpl globalEnrollmentDao() {
+		return new GlobalEnrollmentDaoImpl();
 	}
 }
