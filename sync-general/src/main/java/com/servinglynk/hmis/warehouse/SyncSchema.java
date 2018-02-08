@@ -108,24 +108,24 @@ public class SyncSchema extends Logging {
             	int limit = 20000;
             	String deltaQuery = "";
             	if(delta) {
-            		deltaQuery=" date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  desc limit 1 ) ";
+            		deltaQuery=" and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  desc limit 1 ) ";
             		if(StringUtils.equals("survey", syncSchema)) {
-            			deltaQuery=" updated_at >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' order by updated_at  desc limit 1 ) ";
+            			deltaQuery=" and updated_at >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' order by updated_at  desc limit 1 ) ";
             		}
             	}
-            	String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? and "+deltaQuery+" limit ?  offset ?";
+            	String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, projectGroupCode);
-            statement.setInt(2, 20000);
+            statement.setInt(2, 50000);
             int offset = limit*count++;
             statement.setInt(3,offset);
             resultSet = statement.executeQuery();
-
             List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
             List<String> existingKeysInPostgres = new ArrayList<>();
             List<Put> putsToUpdate = new ArrayList<>();
             List<Put> putsToInsert = new ArrayList<>();
             List<String> putsToDelete = new ArrayList<>();
+            empty = true;
             while (resultSet.next()) {
                 Boolean markedForDelete = false;
                 empty = false;
@@ -195,7 +195,10 @@ public class SyncSchema extends Logging {
             if (putsToUpdate.size() > 0) {
                 htable.put(putsToUpdate);
             }
-           break;
+            if(empty){
+            	break;
+            }
+            	
         }
         message = " Records inserted : "+insertCount +" updated :"+ updateCount+ " deleted :"+ deleteCount;
         SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,projectGroupCode);
@@ -234,6 +237,7 @@ public class SyncSchema extends Logging {
             Long updateCount =0L;
             Long deleteCount =0L;
             while(true) {
+            	empty = true;
             	int limit = 20000;
             	String deltaQuery = "";
             	if(delta) {
@@ -245,7 +249,7 @@ public class SyncSchema extends Logging {
             	String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_id = ? and "+deltaQuery+" limit ?  offset ?";
             statement = connection.prepareStatement(sql);
             statement.setObject(1, projectGroupId);
-            statement.setInt(2, 20000);
+            statement.setInt(2, 50000);
             int offset = limit*count++;
             statement.setInt(3,offset);
             resultSet = statement.executeQuery();

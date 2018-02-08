@@ -12587,7 +12587,6 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "moveInDateID",
                 "enrollmentID",
-                "inPermanentHousing",
                 "moveInDate"
             })
             public static class Moveindate {

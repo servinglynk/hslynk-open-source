@@ -214,7 +214,6 @@ public class SyncDeltaHbase extends Logging {
                 int offset = limit*count++;
                 statement.setInt(3,offset);
                 resultSet = statement.executeQuery();
-                empty = true;
              
                 List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable);
                 List<String> existingKeysInPostgres = new ArrayList<>();
@@ -222,7 +221,6 @@ public class SyncDeltaHbase extends Logging {
                 List<Put> putsToUpdate = new ArrayList<>();
                 List<Put> putsToInsert = new ArrayList<>();
                 List<String> putsToDelete = new ArrayList<>();
-         
                 while (resultSet.next()) {
                     Boolean markedForDelete = resultSet.getBoolean("deleted");
                     String key = resultSet.getString("id");
