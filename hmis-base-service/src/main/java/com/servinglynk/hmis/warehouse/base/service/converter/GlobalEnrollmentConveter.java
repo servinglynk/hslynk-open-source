@@ -18,8 +18,8 @@ public class GlobalEnrollmentConveter {
 	public static GlobalEnrollment entityToModel(GlobalEnrollmentEntity entity) {
 		GlobalEnrollment model = new GlobalEnrollment();
 		
-		model.setDateCreated(entity.getDateCreated());
-		model.setDateUpdated(entity.getDateUpdated());
+	//	model.setDateCreated(entity.getDateCreated());
+	//	model.setDateUpdated(entity.getDateUpdated());
 		model.setId(entity.getId());
 		model.setDedupClientId(entity.getDedupClientId());
 	
@@ -39,10 +39,10 @@ public class GlobalEnrollmentConveter {
 		
 		model.setClientId(entity.getClientId());
 		model.setEnrollmentId(entity.getEnrollmentId());
-		model.setId(entity.getId());
+		//model.setId(entity.getId());
 		model.setSource(entity.getSource());
-		model.setDateCreated(entity.getDateCreated());
-		model.setDateUpdated(entity.getDateUpdated());
+	//	model.setDateCreated(entity.getDateCreated());
+	//	model.setDateUpdated(entity.getDateUpdated());
 		model.setLink("hmis-clientapi/v"+entity.getSource()+"/rest/clients/"+entity.getClientId()+"/enrollments/"+entity.getEnrollmentId());
 		return model;
 	}
