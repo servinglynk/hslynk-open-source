@@ -18,6 +18,7 @@ import com.servinglynk.hmis.warehouse.service.DomesticViolenceService;
 import com.servinglynk.hmis.warehouse.service.EmploymentService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentCocService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
+import com.servinglynk.hmis.warehouse.service.EnrollmentServiceV2;
 import com.servinglynk.hmis.warehouse.service.ExitPlansActionsService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
 import com.servinglynk.hmis.warehouse.service.FamilyReunificationService;
@@ -583,5 +584,16 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 
 	public void setQuestionService(QuestionService questionService) {
 		this.questionService = questionService;
+	}
+	
+	@Autowired EnrollmentServiceV2 enrollmentServiceV2;
+
+
+	public EnrollmentServiceV2 getEnrollmentServiceV2() {
+		return enrollmentServiceV2;
+	}
+
+	public void setEnrollmentServiceV2(EnrollmentServiceV2 enrollmentServiceV2) {
+		this.enrollmentServiceV2 = enrollmentServiceV2;
 	}
 }

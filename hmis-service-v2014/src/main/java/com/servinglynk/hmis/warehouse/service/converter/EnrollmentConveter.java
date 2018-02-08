@@ -80,6 +80,31 @@ public class EnrollmentConveter extends BaseConverter {
 		enrollment.setChronicHomeless(pEnrollment.isChronicHomeless());
 		enrollment.setEnrollmentId(pEnrollment.getId());
 		copyBeanProperties(pEnrollment, enrollment);
+		
+		return enrollment;
+	}
+	
+	public static Enrollment entityToModelV2(com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment){
+		Enrollment enrollment = new Enrollment();	
+		if(pEnrollment.getContinuouslyhomelessoneyear()!=null)
+		enrollment.setContinuouslyhomelessoneyear(Integer.parseInt(pEnrollment.getContinuouslyhomelessoneyear().getValue()));
+		if(pEnrollment.getDisablingcondition()!=null)		enrollment.setDisablingcondition(Integer.parseInt(pEnrollment.getDisablingcondition().getValue()));
+		if(pEnrollment.getEntrydate()!=null) enrollment.setEntrydate(Date.from(pEnrollment.getEntrydate().atZone(ZoneId.systemDefault()).toInstant()));
+		if(pEnrollment.getHouseholdid()!=null) enrollment.setHouseholdid(pEnrollment.getHouseholdid());
+		if(pEnrollment.getHousingstatus()!=null) enrollment.setHousingstatus(Integer.parseInt(pEnrollment.getHousingstatus().getValue()));
+		if(pEnrollment.getMonthshomelesspastthreeyears()!=null) enrollment.setMonthshomelesspastthreeyears(Integer.parseInt(pEnrollment.getMonthshomelesspastthreeyears().getValue()));
+		if(pEnrollment.getMonthshomelessthistime()!=null) enrollment.setMonthshomelessthistime(Integer.parseInt(pEnrollment.getMonthshomelessthistime().getValue()));
+		if(pEnrollment.getOtherresidenceprior()!=null) enrollment.setOtherresidenceprior(pEnrollment.getOtherresidenceprior());
+		if(pEnrollment.getRelationshiptohoh()!=null) enrollment.setRelationshiptohoh(Integer.parseInt(pEnrollment.getRelationshiptohoh().getValue()));
+		if(pEnrollment.getResidenceprior()!=null) enrollment.setResidenceprior(Integer.parseInt(pEnrollment.getResidenceprior().getValue()));
+		if(pEnrollment.getResidencepriorlengthofstay()!=null) enrollment.setResidencepriorlengthofstay(Integer.parseInt(pEnrollment.getResidencepriorlengthofstay().getValue()));
+		if(pEnrollment.getStatusdocumented()!=null) enrollment.setStatusdocumented(Integer.parseInt(pEnrollment.getStatusdocumented().getValue()));
+		if(pEnrollment.getTimeshomelesspastthreeyears()!=null) enrollment.setTimeshomelesspastthreeyears(Integer.parseInt(pEnrollment.getTimeshomelesspastthreeyears().getValue()));
+		if(pEnrollment.getYearshomeless()!=null) enrollment.setYearshomeless(pEnrollment.getYearshomeless());
+		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
+		enrollment.setChronicHomeless(pEnrollment.isChronicHomeless());
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		copyBeanProperties(pEnrollment, enrollment);
 		enrollment.setSource(pEnrollment.getSource());
 		
 		return enrollment;

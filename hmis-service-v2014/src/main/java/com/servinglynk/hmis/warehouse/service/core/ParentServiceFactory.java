@@ -14,6 +14,7 @@ import com.servinglynk.hmis.warehouse.service.DomesticViolenceService;
 import com.servinglynk.hmis.warehouse.service.EmploymentService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentCocService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
+import com.servinglynk.hmis.warehouse.service.EnrollmentServiceV2;
 import com.servinglynk.hmis.warehouse.service.ExitPlansActionsService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
 import com.servinglynk.hmis.warehouse.service.FamilyReunificationService;
@@ -96,4 +97,5 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	BulkUploadErrorActivityService getBulkUploadErrorActivityService();
 	HMISTypeService getHmisTypeService();
 	QuestionService getQuestionService();
+	EnrollmentServiceV2 getEnrollmentServiceV2();
 }
