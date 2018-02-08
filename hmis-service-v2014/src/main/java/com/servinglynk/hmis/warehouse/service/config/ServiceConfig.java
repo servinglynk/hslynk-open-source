@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.service.impl.DomesticViolenceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EmploymentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentCocServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImplV2;
 import com.servinglynk.hmis.warehouse.service.impl.ExitPlansActionsServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.FamilyReunificationServiceImpl;
@@ -293,5 +294,10 @@ public class ServiceConfig  {
 	 @Bean
 	 public QuestionServiceImpl questionService() {
 		 return new QuestionServiceImpl();
+	 }
+	 
+	 @Bean
+	 public EnrollmentServiceImplV2 enrollmentServiceV2() {
+		 return new EnrollmentServiceImplV2();
 	 }
 }

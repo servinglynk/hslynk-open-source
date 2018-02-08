@@ -22,6 +22,7 @@ import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImp
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.BulkUploadErrorActivityController;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
+import com.servinglynk.hmis.warehouse.rest.ClientsControllerV2;
 import com.servinglynk.hmis.warehouse.rest.HMISTypeController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.OrganizationsController;
@@ -117,5 +118,10 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public QuestionsController questionsController() {
 		 return new QuestionsController();
+	 }
+	 
+	 @Bean
+	 public ClientsControllerV2 clientsControllerV2() {
+		 return new ClientsControllerV2();
 	 }
 }
