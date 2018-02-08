@@ -5,7 +5,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
-import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.GlobalEnrollment;
 import com.servinglynk.hmis.warehouse.core.model.GlobalEnrollments;
 import com.servinglynk.hmis.warehouse.core.model.GlobalEnrollmentsMap;
@@ -27,11 +25,14 @@ public class GlobalEnrollmentsController extends ControllerBase {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="CLIENT_API_SEARCH")
-	GlobalEnrollment create(@PathVariable("clientDedupId") UUID clientDedupId,HttpServletRequest request) {
+	GlobalEnrollment create(@PathVariable("clientDedupId") UUID clientDedupId,
+		@Valid @RequestBody GlobalEnrollment globalEnrollment,	HttpServletRequest request) {
 		Session session = sessionHelper.getSession(request);
 		GlobalEnrollment model = new GlobalEnrollment();
 		model.setDedupClientId(clientDedupId);
-		return serviceFactory.getGlobalEnrollmentService().create(model, session.getAccount());
+		GlobalEnrollment emEnrollment = serviceFactory.getGlobalEnrollmentService().create(model, session.getAccount());
+		serviceFactory.getGlobalEnrollmentService().mapEnrollmentsToGlobalEnrollment(emEnrollment.getId(), globalEnrollment.getEnrollments(), session.getAccount());
+		return serviceFactory.getGlobalEnrollmentService().getById(emEnrollment.getId());
 	}
 	void update(GlobalEnrollment model) {
 		
