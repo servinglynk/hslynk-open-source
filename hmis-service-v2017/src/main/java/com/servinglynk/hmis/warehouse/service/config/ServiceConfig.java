@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.service.impl.EducationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EmploymentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentCocServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImplV2;
 import com.servinglynk.hmis.warehouse.service.impl.EntryrhspServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EntryrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EntryssvfServiceImpl;
@@ -250,5 +251,10 @@ public class ServiceConfig  {
 	 @Bean
 	 public QuestionServiceImpl questionService() {
 		 return new QuestionServiceImpl();
+	 }
+	 
+	 @Bean
+	 public EnrollmentServiceImplV2 enrollmentServiceV2() {
+		 return new EnrollmentServiceImplV2();
 	 }
 }

@@ -17,6 +17,7 @@ import com.servinglynk.hmis.warehouse.service.EducationService;
 import com.servinglynk.hmis.warehouse.service.EmploymentService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentCocService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
+import com.servinglynk.hmis.warehouse.service.EnrollmentServiceV2;
 import com.servinglynk.hmis.warehouse.service.EntryrhspService;
 import com.servinglynk.hmis.warehouse.service.EntryrhyService;
 import com.servinglynk.hmis.warehouse.service.EntryssvfService;
@@ -80,6 +81,7 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public BulkUploadErrorActivityService bulkUploadErrorActivityService;
 	@Autowired public HMISTypeService hmisTypeService;
 	@Autowired public QuestionService questionService;
+	@Autowired private EnrollmentServiceV2 enrollmentServiceV2;
 	
 	public RhybcpstatusService getRhybcpstatusService() {
 		return rhybcpstatusService;
@@ -398,5 +400,13 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 
 	public void setQuestionService(QuestionService questionService) {
 		this.questionService = questionService;
+	}
+
+	public EnrollmentServiceV2 getEnrollmentServiceV2() {
+		return enrollmentServiceV2;
+	}
+
+	public void setEnrollmentServiceV2(EnrollmentServiceV2 enrollmentServiceV2) {
+		this.enrollmentServiceV2 = enrollmentServiceV2;
 	}
 }

@@ -16,7 +16,6 @@ import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
-import com.servinglynk.hmis.warehouse.service.exception.ProjectcocNotFoundException;
 
 public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentService {
 
