@@ -34,6 +34,7 @@ public class Servicefareferral extends ClientModel{
 
       private Integer referralOutcome;
 
+      private String recordType;
 
 
       public UUID getServicefareferralId(){
@@ -90,5 +91,11 @@ public class Servicefareferral extends ClientModel{
       public void setReferralOutcome(Integer referralOutcome){
           this.referralOutcome = referralOutcome;
       }
-
+	  public String getRecordType() {
+			return recordType;
+		}
+		public void setRecordType(String recordType) {
+			this.recordType = recordType;
+		}
+      
  }
