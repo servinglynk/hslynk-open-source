@@ -1,0 +1,167 @@
+#%RAML 1.0
+---
+title: doc-upload
+version: v0.01
+protocols: [http]
+#baseUri: http://api.hmis.com/doc-upload/{version}
+mediaType: application/json
+
+/document:
+  get:
+    description: |
+      list all documents matching provided query criteria or return all documents
+    body:
+      application/json:
+        type: Document
+        example:
+          {"document": {
+          "type_category_id": "326c9435-ece2-4850-9f3f-b76d91451513",
+          "clientId": "326c9435-ece2-4850-9f3f-b76d91451512",
+          "project_id": "326c9435-ece2-4850-9f3f-b76d91451515",
+          }}
+    responses:
+      200:
+        body:
+          application/json:
+            type: Document[]
+            example:
+              {"documents":
+                [
+                  {"document":{
+                  "id": "326c9435-ece2-4850-9f3f-b76d91451510",
+                  "type_category_id":"326c9435-ece2-4850-9f3f-b76d91451513",
+                  "clientId": "326c9435-ece2-4850-9f3f-b76d91451512",
+                  "project_id":"326c9435-ece2-4850-9f3f-b76d91451515",
+                  "user_id":"326c9435-ece2-4850-9f3f-b76d91451517",
+                  "documentDescription": "recorded verbal consent",
+                  "effectiveStartDate": "February 13,2018",
+                  "effectiveEndDate": "February 13,2019",
+                  "document_size":2300000,
+                  "enrollment_id":"326c9435-ece2-4850-9f3f-b76d91451519"
+                  }},
+                  {"document":{
+                  "id": "326c9435-ece2-4850-9f3f-b76d91451520",
+                  "type_category_id":"326c9435-ece2-4850-9f3f-b76d914513
+                  "clientId": "326c9435-ece2-4850-9f3f-b76d91451512",
+                  "project_id":"326c9435-ece2-4850-9f3f-b76d91451515",
+                  "user_id":"326c9435-ece2-4850-9f3f-b76d91451527",
+                  "documentDescription": "consent form",
+                  "effectiveStartDate": "January 8,2018",
+                  "effectiveEndDate": "January 8,2019",
+                  "document_size":4500000,
+                  "enrollment_id":"326c9435-ece2-4850-9f3f-b76d91451529"
+                  }}
+                ]
+              }
+      404:
+        body:
+          application/json:
+          type: error[]
+          example:
+            {errors:[
+              {"error":{
+                "statusCode":404,
+                "content":"Your query did not return any document"
+                }}
+            ]}
+  post:
+    description: create a new document using the multipart/mixed containg a Document json and file content data
+    body:
+      multipart/mixed:
+        type: Document
+        example:
+          {"document":{
+          "id": "326c9435-ece2-4850-9f3f-b76d91451520",
+          "type_category_id":"326c9435-ece2-4850-9f3f-b76d914515
+          "clientId": "326c9435-ece2-4850-9f3f-b76d91451522",
+          "project_id":"326c9435-ece2-4850-9f3f-b76d91451525",
+          "user_id":"326c9435-ece2-4850-9f3f-b76d91451527",
+          "documentDescription": "recorded verbal consent",
+          "effectiveStartDate": "January 8,2018",
+          "effectiveEndDate": "January 8,2019",
+          "document_size":2300000,
+          "enrollment_id":"326c9435-ece2-4850-9f3f-b76d91451529"
+          }}
+      binary/octet-stream:
+      multipart/form-data:
+        properties:
+          file:
+            description: The file to be uploaded
+            required: true
+            type: file
+    responses:
+      201:
+        body:
+          application/json:
+            type: Document
+            example:
+              {"document":{
+              "id": "326c9435-ece2-4850-9f3f-b76d91451520",
+              "type_category_id":"326c9435-ece2-4850-9f3f-b76d914515
+              "clientId": "326c9435-ece2-4850-9f3f-b76d91451522",
+              "project_id":"326c9435-ece2-4850-9f3f-b76d91451525",
+              "user_id":"326c9435-ece2-4850-9f3f-b76d91451527",
+              "documentDescription": "recorded verbal consent",
+              "effectiveStartDate": "January 8,2018",
+              "effectiveEndDate": "January 8,2019",
+              "document_size":2300000,
+              "enrollment_id":"326c9435-ece2-4850-9f3f-b76d91451529"
+              }}
+  /{documentId}:
+    put:
+      description: update an existing document. The documentId parameter is a String representing a UUID
+      responses:
+        201:
+          body:
+            application/json:
+              type: Document
+              example:
+                {"document":{
+                "id": "326c9435-ece2-4850-9f3f-b76d91451520",
+                "type_category_id":"326c9435-ece2-4850-9f3f-b76d91451523",
+                "clientId": "326c9435-ece2-4850-9f3f-b76d91451522",
+                "project_id":"326c9435-ece2-4850-9f3f-b76d91451525",
+                "user_id":"326c9435-ece2-4850-9f3f-b76d91451527",
+                "documentDescription": "recorded verbal consent",
+                "effectiveStartDate":"February 13,2018",
+                "effectiveEndDate":"February 13,2019"",
+                "document_size":2300000,
+                "enrollment_id":"326c9435-ece2-4850-9f3f-b76d91451529"
+                }}
+        404:
+          body:
+            application/json:
+              type: error[]
+              example:
+                {"error":{
+                  "statusCode":404,
+                  "content":"DocumentId 326c9435-ece2-4850-9f3f-b76d91451510 was not found"
+                }}
+    delete:
+      description: delete an existing document
+      responses:
+        201:
+          body:
+            application/json:
+              type: Message
+/document_category:
+  get:
+    description: list all document category matching provided query criteria or return all document categories
+    queryParameters:
+      doc_type?: varchar(64)
+      doc_category?: varchar(64)
+    responses:
+      200:
+        body:
+          application/json:
+            type: DocumentCategory[]
+            example:
+              {"documentCategories":[
+                {"documentCategory":{
+                "type_category_id":"326c9435-ece2-4850-9f3f-b76d91451529",
+                "description":"audio file containing verbal consent",
+                "doc_type":"consent",
+                "doc_category":"verbal consent"
+                }}
+              ]
+              }
