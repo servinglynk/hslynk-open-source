@@ -25,6 +25,7 @@ public class ProjectConverter extends BaseConverter {
        if(model.getTargetPopulation()!=null)
        entity.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(model.getTargetPopulation().toString()));
      //  entity.setProjectGroupCode(model.getProjectGroup());
+       entity.setSource("2014");
        return entity;    
    }
 
@@ -51,6 +52,34 @@ public class ProjectConverter extends BaseConverter {
        project.setTrackingMethod(Integer.parseInt(entity.getTrackingmethod().getValue()));
        
        project.setProjectGroup(entity.getProjectGroupCode());
+       copyBeanProperties(entity, project);
+       return project;
+   }
+   
+
+   public static Project entityToModelV2 (com.servinglynk.hmis.warehouse.model.v2014.Project entity) {
+       Project project= new Project();
+       if(entity.getContinuumproject()!=null)
+       project.setContinuumProject(Integer.parseInt(entity.getContinuumproject().getValue()));
+       if(entity.getProjectcommonname()!=null)
+       project.setProjectCommonName(entity.getProjectcommonname());
+       if(entity.getId()!=null)
+       project.setProjectId(entity.getId());
+       if(entity.getProjectname()!=null)
+       project.setProjectName(entity.getProjectname());
+       if(entity.getProjecttype()!=null)
+       project.setProjectType(Integer.parseInt(entity.getProjecttype().getValue()));
+       if(entity.getResidentialaffiliation()!=null)
+       project.setResidentialAffiliation(Integer.parseInt(entity.getResidentialaffiliation().getValue()));
+       
+       if(entity.getTargetpopulation()!=null)
+       project.setTargetPopulation(Integer.parseInt(entity.getTargetpopulation().getValue()));
+       
+       if(entity.getTrackingmethod()!=null)
+       project.setTrackingMethod(Integer.parseInt(entity.getTrackingmethod().getValue()));
+       
+       project.setProjectGroup(entity.getProjectGroupCode());
+       project.setSource(entity.getSource());
        copyBeanProperties(entity, project);
        return project;
    }

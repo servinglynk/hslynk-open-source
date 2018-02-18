@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperServiceDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.GlobalEnrollmentDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.GlobalProjectDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HMISNotificationsDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HealthDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisBulkUploadDaoImpl;
@@ -273,5 +274,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public GlobalEnrollmentDaoImpl globalEnrollmentDao() {
 		return new GlobalEnrollmentDaoImpl();
+	}
+	
+	@Bean
+	public GlobalProjectDaoImpl globalProjectDao() {
+		return new GlobalProjectDaoImpl();
 	}
 }

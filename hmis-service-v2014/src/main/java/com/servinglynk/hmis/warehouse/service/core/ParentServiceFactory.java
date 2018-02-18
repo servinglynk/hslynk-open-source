@@ -34,6 +34,7 @@ import com.servinglynk.hmis.warehouse.service.PathstatusService;
 import com.servinglynk.hmis.warehouse.service.PercentamiService;
 import com.servinglynk.hmis.warehouse.service.ProjectCompletionStatusService;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
+import com.servinglynk.hmis.warehouse.service.ProjectServiceV2;
 import com.servinglynk.hmis.warehouse.service.ProjectcocService;
 import com.servinglynk.hmis.warehouse.service.QuestionService;
 import com.servinglynk.hmis.warehouse.service.ReferralsourceService;
@@ -98,4 +99,5 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	HMISTypeService getHmisTypeService();
 	QuestionService getQuestionService();
 	EnrollmentServiceV2 getEnrollmentServiceV2();
+	ProjectServiceV2 getProjectServiceV2();
 }

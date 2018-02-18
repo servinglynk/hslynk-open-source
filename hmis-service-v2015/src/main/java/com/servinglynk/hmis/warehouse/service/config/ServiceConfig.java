@@ -37,6 +37,7 @@ import com.servinglynk.hmis.warehouse.service.impl.NoncashbenefitsServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.OrganizationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PathstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImplV2;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectcocServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.QuestionServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceImpl;
@@ -251,5 +252,9 @@ public class ServiceConfig  {
 	 @Bean
 	 public EnrollmentServiceImplV2 enrollmentServiceV2() {
 		 return new EnrollmentServiceImplV2();
+	 }
+	 @Bean
+	 public ProjectServiceImplV2 projectServiceV2() {
+		 return new ProjectServiceImplV2();
 	 }
 }

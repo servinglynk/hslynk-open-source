@@ -83,6 +83,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	
 	@Autowired private GlobalEnrollmentDao globalEnrollmentDao;
 	
+	@Autowired private GlobalProjectDao globalProjectDao;
+	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
 	}
@@ -310,6 +312,12 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setGlobalEnrollmentDao(GlobalEnrollmentDao globalEnrollmentDao) {
 		this.globalEnrollmentDao = globalEnrollmentDao;
+	}
+	public GlobalProjectDao getGlobalProjectDao() {
+		return globalProjectDao;
+	}
+	public void setGlobalProjectDao(GlobalProjectDao globalProjectDao) {
+		this.globalProjectDao = globalProjectDao;
 	}
 	
 }

@@ -132,7 +132,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	   public com.servinglynk.hmis.warehouse.model.v2017.Project createProject(com.servinglynk.hmis.warehouse.model.v2017.Project project){
 		   project.setId(UUID.randomUUID());
 		   com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
-		   BeanUtils.copyProperties(project, baseProject, new String[] {"organizationid"});
+		   BeanUtils.copyProperties(project, baseProject, new String[] {"organizationid","source"});
 		   baseProject.setSchemaYear(2015);
 		   insert(project);
 		   factory.getBaseProjectDao().createProject(baseProject);
@@ -140,7 +140,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2017.Project updateProject(com.servinglynk.hmis.warehouse.model.v2017.Project project){
 		   com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
-		   BeanUtils.copyProperties(project, baseProject, new String[] {"organizationid"});
+		   BeanUtils.copyProperties(project, baseProject, new String[] {"organizationid","source"});
 		   baseProject.setSchemaYear(2015);
 		   update(project);
 		   factory.getBaseProjectDao().updateProject(baseProject);
