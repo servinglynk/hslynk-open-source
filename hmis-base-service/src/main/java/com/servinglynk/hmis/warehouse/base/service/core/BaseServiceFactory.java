@@ -9,6 +9,7 @@ import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalEnrollmentService;
+import com.servinglynk.hmis.warehouse.base.service.GlobalProjectService;
 import com.servinglynk.hmis.warehouse.base.service.HealthService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
@@ -50,4 +51,5 @@ public interface BaseServiceFactory {
 	APIAccessService getApiAccessService();
 	HMISNotificationsService getHmisNotificationsService();
 	GlobalEnrollmentService getGlobalEnrollmentService();
+	GlobalProjectService getGlobalProjectService();
 }

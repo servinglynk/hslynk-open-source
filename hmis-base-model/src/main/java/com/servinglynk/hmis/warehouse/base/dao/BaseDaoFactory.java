@@ -32,4 +32,5 @@ public interface BaseDaoFactory {
 	ClientTrackerDao getClientTrackerDao();
 	HMISNotificationsDao getHmisNotificationsDao();
 	GlobalEnrollmentDao getGlobalEnrollmentDao();
+	GlobalProjectDao getGlobalProjectDao();
 }

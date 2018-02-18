@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -24,6 +23,7 @@ public class Project extends ClientModel {
     private LocalDateTime operatingEndDate;
     private Integer housingType;
     private Integer victimServicesProvider;
+	private String source;
     
     
 	public UUID getOrganizationId() {
@@ -144,5 +144,13 @@ public class Project extends ClientModel {
 
 	public void setVictimServicesProvider(Integer victimServicesProvider) {
 		this.victimServicesProvider = victimServicesProvider;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 }
