@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.ConsentsController;
 import com.servinglynk.hmis.warehouse.rest.GlobalEnrollmentsController;
+import com.servinglynk.hmis.warehouse.rest.GlobalProjectsController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.NotificationsController;
 
@@ -87,5 +88,10 @@ public class GlobalAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public GlobalEnrollmentsController globalEnrollmentsController() {
 		 return new GlobalEnrollmentsController();
+	 }
+	 
+	 @Bean
+	 public GlobalProjectsController globalProjectsController() {
+		 return new GlobalProjectsController();
 	 }
 }

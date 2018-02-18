@@ -18,6 +18,7 @@ public class Project extends ClientModel {
     private Integer trackingMethod;
     private UUID organizationId;
     private String projectGroup;
+	private String source;
     
     
 	public UUID getOrganizationId() {
@@ -106,6 +107,14 @@ public class Project extends ClientModel {
 
 	public void setProjectGroup(String projectGroup) {
 		this.projectGroup = projectGroup;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 }

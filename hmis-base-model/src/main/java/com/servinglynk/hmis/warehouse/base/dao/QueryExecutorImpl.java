@@ -365,6 +365,13 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 					detachedCriteria.add(Restrictions.eq("deleted", false));
 					detachedCriteria.add(Restrictions.isNull("parentId"));
 				}
+			}else if (clz.getSuperclass().getSimpleName().equals("HMISModel")) {
+				if(authentication.getPrincipal()!=null){
+					SessionEntity entity = (SessionEntity) authentication.getPrincipal();
+					System.out.println(entity.getAccount().getProjectGroupEntity().getProjectGroupCode());
+					detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getAccount().getProjectGroupEntity().getProjectGroupCode()));
+					detachedCriteria.add(Restrictions.eq("deleted", false));
+				}
 			}
 		return detachedCriteria;
 		}catch(Exception e){
