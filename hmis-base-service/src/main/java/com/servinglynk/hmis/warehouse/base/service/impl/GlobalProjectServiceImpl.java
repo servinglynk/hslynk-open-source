@@ -139,9 +139,9 @@ public class GlobalProjectServiceImpl extends ServiceBase implements GlobalProje
 		if(entity==null) throw new ResourceNotFoundException("Global project not found");
 		List<GlobalProjectUserEnity> enities =	daoFactory.getGlobalProjectDao().getGlobalProjecUsertMappings(globalProjectId);
 		for(GlobalProjectUserEnity userEnity : enities) {
-			GlobalProjectUser user = new GlobalProjectUser();
-			user.setUserId(userEnity.getHmisUser().getId());
-			users.addGlobalProjectUser(user);
+			/*GlobalProjectUser user = new GlobalProjectUser();
+			user.setUserId(userEnity.getHmisUser().getId());*/
+			users.addGlobalProjectUser(GlobalProjectConveter.entityToModel(userEnity.getHmisUser()));
 		}
 		
 		return users;

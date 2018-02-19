@@ -1,9 +1,12 @@
 package com.servinglynk.hmis.warehouse.base.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProject;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProjectMap;
+import com.servinglynk.hmis.warehouse.core.model.GlobalProjectUser;
 import com.servinglynk.hmis.warehouse.model.base.GlobalProjectEntity;
 import com.servinglynk.hmis.warehouse.model.base.GlobalProjectMapEntity;
+import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 
 public class GlobalProjectConveter {
 	
@@ -41,6 +44,20 @@ public class GlobalProjectConveter {
 		model.setSource(entity.getSource());
 		if(entity.getSource()!=null) model.setLink("/hmis-clientapi/v"+entity.getSource()+"/rest/projects/"+entity.getProjectId());
 		return model;
+	}
+	
+	public static GlobalProjectUser entityToModel(HmisUser hmisUser) {
+		GlobalProjectUser user = new GlobalProjectUser();
+		user.setUserId(hmisUser.getId());
+		user.setFirstName(hmisUser.getFirstName());
+		user.setMiddleName(hmisUser.getMiddleName());
+		user.setLastName(hmisUser.getLastName());
+		user.setUsername(hmisUser.getUsername());
+		user.setEmailAddress(hmisUser.getEmailAddress());
+		user.setStatus(hmisUser.getStatus());
+		user.setLink("/hmis-user-service/rest/accounts/"+hmisUser.getId());
+		
+		return user;
 	}
 	
 
