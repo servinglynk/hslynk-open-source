@@ -222,10 +222,13 @@ public class DedupServiceImpl implements DedupService{
 			Person person = getSanitizedPerson(personParam);
 		// PART 3: Now is the time to select a potential match.
 			// Custom10 field is set to a value if the client provides partial SSN.
-			if(StringUtils.isNotEmpty(person.getSsn())  && person.getSsn().length() ==9 && !StringUtils.equals(person.getSsn(), "123456789"))  {
+			 if(StringUtils.isNotEmpty(person.getSsn())  && person.getSsn().length() ==9 && !StringUtils.equals(person.getSsn(), "123456789") && !StringUtils.equals(person.getSsn(), "000000000") && !StringUtils.equals(person.getSsn(), "111111111"))  {
 					List<Person>  unMatchedPersons = getPersonsBySSN(person,sessionKey);
 					// PART 6 : Complete SSN AND • Two of (First Name/First Name Alias, Last Name/Last Name Alias, Date of Birth)
 					List<Person> matchingPersons = unMatchingRecordsForCompleteSSN(unMatchedPersons,person);
+					if(CollectionUtils.isNotEmpty(matchingPersons) && matchingPersons.size() != 1) {
+						deleteFromPotentialMatches(matchingPersons, person);
+					}
 					// If the total match likely equals 1 then return it
 					//	-- Part 8 IF Total Likely Matches = 1 MATCH FOUND
 					if(matchingPersons !=null && CollectionUtils.isNotEmpty(matchingPersons) ){
@@ -407,7 +410,7 @@ public class DedupServiceImpl implements DedupService{
 				                       .atZone(ZoneId.systemDefault())
 				                       .toLocalDate();
 							long days = ChronoUnit.DAYS.between(personDOB, matchingPersonDOB);
-							if(days == 1 || days == -1) {
+							if(days < 5 || days > -5) {
 								points++;
 							}
 						}
@@ -415,7 +418,7 @@ public class DedupServiceImpl implements DedupService{
 					}
 					
 					if(StringUtils.equals(matchingPerson.getSsn(), person.getSsn())) {
-						points = points+2;
+						points = points+3;
 					}
 					person.setPoints(points);
 					
@@ -463,7 +466,7 @@ public class DedupServiceImpl implements DedupService{
 				                       .atZone(ZoneId.systemDefault())
 				                       .toLocalDate();
 							long days = ChronoUnit.DAYS.between(personDOB, matchingPersonDOB);
-							if(days == 1 || days == -1) {
+							if(days < 5 || days > -5) {
 								points++;
 							}
 						}
@@ -471,7 +474,7 @@ public class DedupServiceImpl implements DedupService{
 					}
 					
 					if(StringUtils.equals(matchingPerson.getSsn(), person.getSsn())) {
-						points = points+2;
+						points = points+3;
 					}
 					person.setPoints(points);
 					
