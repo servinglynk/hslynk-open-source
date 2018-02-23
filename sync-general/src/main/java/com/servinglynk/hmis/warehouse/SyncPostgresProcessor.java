@@ -72,8 +72,8 @@ public class SyncPostgresProcessor extends Logging{
         
         try {
             connection = getConnection();
-          //  statement = connection.prepareStatement("SELECT project_group_code,id FROM base.hmis_project_group where project_group_code not in ('TE0008','MO0006','TE0011','JP0005','FI0009','BA0007','PG0001','TE0003','CP0004')");
-            statement = connection.prepareStatement("SELECT project_group_code,id FROM base.hmis_project_group where project_group_code  in ('MO0010')");
+              statement = connection.prepareStatement("SELECT project_group_code,id FROM base.hmis_project_group where project_group_code not in ('TE0008','MO0006','TE0011','JP0005','FI0009','BA0007','PG0001','TE0003','CP0004')");
+          //  statement = connection.prepareStatement("SELECT project_group_code,id FROM base.hmis_project_group where project_group_code  in ('MO0010')");
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {

@@ -202,6 +202,7 @@ public class SyncDeltaHbase extends Logging {
             Long updateCount =0L;
             Long deleteCount =0L;
             while(true) {
+            	empty = true;
             	int limit = 20000;
             	String deltaQuery = "";
             	if(delta) {
@@ -302,7 +303,9 @@ public class SyncDeltaHbase extends Logging {
                     htable.put(putsToUpdate);
                     htable.flushCommits();
                 }
+                if(empty){
                 	break;
+                }
             }
             message = " Records inserted : "+insertCount +" updated :"+ updateCount+ " deleted :"+ deleteCount;
             SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,projectGroupCode);

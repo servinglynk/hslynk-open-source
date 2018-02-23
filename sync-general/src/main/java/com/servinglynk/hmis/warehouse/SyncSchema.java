@@ -230,29 +230,14 @@ public class SyncSchema extends Logging {
         try {
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
             connection = SyncPostgresProcessor.getConnection();
-            boolean empty = true;
             String message ="";
-            int count = 0;
             Long insertCount =0L;
             Long updateCount =0L;
             Long deleteCount =0L;
-            while(true) {
-            	empty = true;
-            	int limit = 20000;
-            	String deltaQuery = "";
-            	if(delta) {
-            		deltaQuery=" date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_id='"+projectGroupId+"' order by date_updated  desc limit 1 ) ";
-            		if(StringUtils.equals("survey", syncSchema)) {
-            			deltaQuery=" updated_at >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' order by updated_at  desc limit 1 ) ";
-            		}
-            	}
-            	String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_id = ? and "+deltaQuery+" limit ?  offset ?";
-            statement = connection.prepareStatement(sql);
-            statement.setObject(1, projectGroupId);
-            statement.setInt(2, 50000);
-            int offset = limit*count++;
-            statement.setInt(3,offset);
-            resultSet = statement.executeQuery();
+	        String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_id = ?";
+	        statement = connection.prepareStatement(sql);
+	        statement.setObject(1, projectGroupId);
+	        resultSet = statement.executeQuery();
 
             List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
             List<String> existingKeysInPostgres = new ArrayList<>();
@@ -261,7 +246,6 @@ public class SyncSchema extends Logging {
             List<String> putsToDelete = new ArrayList<>();
             while (resultSet.next()) {
                 Boolean markedForDelete = false;
-                empty = false;
                 if(!StringUtils.equals("notificationdb", syncSchema)) {
 	                try{
 	                	markedForDelete = resultSet.getBoolean("deleted");
@@ -328,8 +312,6 @@ public class SyncSchema extends Logging {
             if (putsToUpdate.size() > 0) {
                 htable.put(putsToUpdate);
             }
-           break;
-        }
         message = " Records inserted : "+insertCount +" updated :"+ updateCount+ " deleted :"+ deleteCount;
         SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,projectGroupCode);
     } catch (Exception ex) {
