@@ -3,15 +3,12 @@ package com.servinglynk.report.business;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.servinglynk.report.bean.Q06aDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
-
-import jodd.util.StringUtil;
 
 public class Q06aBeanMaker {
 	public static Long nameCDK = 0L;
@@ -51,20 +48,20 @@ public class Q06aBeanMaker {
 		Long numOfClients = Long.valueOf(clients.size());
 		clients.parallelStream().forEach(client -> { 
 			
-			if(StringUtil.equals("8", client.getName_data_quality()) || StringUtil.equals("9", client.getName_data_quality()))  {
+			if(StringUtils.equals("8", client.getName_data_quality()) || StringUtils.equals("9", client.getName_data_quality()))  {
 				nameCDK++;
 			}
-			if(StringUtil.equals("99", client.getName_data_quality())) {
+			if(StringUtils.equals("99", client.getName_data_quality())) {
 				nameInfoMissing++;
 			}
-			if(StringUtil.equals("2", client.getName_data_quality())) {
+			if(StringUtils.equals("2", client.getName_data_quality())) {
 				nameDataIssue++;
 			}
 			//Sandeept TODO: What is a name data issue and what is % Error rate.
-			if(StringUtil.equals("8", client.getSsn_data_quality()) || StringUtil.equals("9", client.getSsn_data_quality()))  {
+			if(StringUtils.equals("8", client.getSsn_data_quality()) || StringUtils.equals("9", client.getSsn_data_quality()))  {
 				ssnCDK++;
 			}
-			if(StringUtil.equals("99", client.getSsn_data_quality())) {
+			if(StringUtils.equals("99", client.getSsn_data_quality())) {
 				ssnInfoMissing++;
 			}
 			/* TODO Sandeep
@@ -77,13 +74,13 @@ public class Q06aBeanMaker {
 				numbers for all 9 digits.
 				• Column B Row 4 – count of clients 
 			 */
-			if(StringUtil.equals("2", client.getSsn_data_quality()) ) {
+			if(StringUtils.equals("2", client.getSsn_data_quality()) ) {
 				ssnDataIssue++;
 			}
-			if(StringUtil.equals("8", client.getDob_data_quality()) || StringUtil.equals("9", client.getDob_data_quality()))  {
+			if(StringUtils.equals("8", client.getDob_data_quality()) || StringUtils.equals("9", client.getDob_data_quality()))  {
 				dobCDK++;
 			}
-			if(StringUtil.equals("99", client.getDob_data_quality())) {
+			if(StringUtils.equals("99", client.getDob_data_quality())) {
 				dobInfoMissing++;
 			}
 			/* TODO: Sandeep
@@ -91,31 +88,31 @@ public class Q06aBeanMaker {
 				o After the [date created] for the record.
 				o Equal to or after the [project entry date]. 
 			 */
-			if(StringUtil.equals("2", client.getDob_data_quality())) {
+			if(StringUtils.equals("2", client.getDob_data_quality())) {
 				dobDataIssue++;
 			}
-			if(StringUtil.equals("8", client.getRace()) || StringUtil.equals("9", client.getRace()))  {
+			if(StringUtils.equals("8", client.getRace()) || StringUtils.equals("9", client.getRace()))  {
 				raceCDK++;
 			}
-			if(StringUtil.equals("99", client.getRace())) {
+			if(StringUtils.equals("99", client.getRace())) {
 				raceInfoMissing++;
 			}
-			if(StringUtil.equals("2", client.getRace())) {
+			if(StringUtils.equals("2", client.getRace())) {
 				raceDataIssue++;
 			}
-			if(StringUtil.equals("8", client.getEthnicity()) || StringUtil.equals("9", client.getEthnicity()))  {
+			if(StringUtils.equals("8", client.getEthnicity()) || StringUtils.equals("9", client.getEthnicity()))  {
 				ethnicityCDK++;
 			}
-			if(StringUtil.equals("99", client.getEthnicity())) {
+			if(StringUtils.equals("99", client.getEthnicity())) {
 				ethnicityInfoMissing++;
 			}
-			if(StringUtil.equals("2", client.getRace())) {
+			if(StringUtils.equals("2", client.getRace())) {
 				ethnicityDataIssue++;
 			}
-			if(StringUtil.equals("8", client.getGender()) || StringUtil.equals("9", client.getGender()))  {
+			if(StringUtils.equals("8", client.getGender()) || StringUtils.equals("9", client.getGender()))  {
 				genderCDK++;
 			}
-			if(StringUtil.equals("99", client.getGender())) {
+			if(StringUtils.equals("99", client.getGender())) {
 				genderInfoMissing++;
 			}
 		}

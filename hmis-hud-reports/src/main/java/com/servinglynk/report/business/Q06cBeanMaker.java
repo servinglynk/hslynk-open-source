@@ -4,12 +4,12 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.servinglynk.report.bean.Q06cDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
-
-import jodd.util.StringUtil;
 
 public class Q06cBeanMaker {
 
@@ -24,8 +24,8 @@ public class Q06cBeanMaker {
 		List<ExitModel> exits = data.getExits();
 		exits.parallelStream().forEach(exit -> { 
 			
-			if(StringUtil.equals("8", exit.getDestination()) || StringUtil.equals("9", exit.getDestination()) || StringUtil.equals("30", exit.getDestination())
-					|| StringUtil.equals("99", exit.getDestination())
+			if(StringUtils.equals("8", exit.getDestination()) || StringUtils.equals("9", exit.getDestination()) || StringUtils.equals("30", exit.getDestination())
+					|| StringUtils.equals("99", exit.getDestination())
 					) {
 				destinationErroCount++;
 			}
@@ -34,21 +34,21 @@ public class Q06cBeanMaker {
 		List<IncomeAndSourceModel> incomeAndSources = data.getIncomeAndSources();
 		incomeAndSources.parallelStream().forEach(incomeAndSource -> { 
 			
-			if(StringUtil.equals("1", incomeAndSource.getDataCollectionStage()) ) {
+			if(StringUtils.equals("1", incomeAndSource.getDataCollectionStage()) ) {
 				iseErrorCount++;
 			}
 		}
 		);
 		incomeAndSources.parallelStream().forEach(incomeAndSource -> { 
 			
-			if(StringUtil.equals("3", incomeAndSource.getDataCollectionStage()) ) {
+			if(StringUtils.equals("3", incomeAndSource.getDataCollectionStage()) ) {
 				isaeErrorCount++;
 			}
 		}
 		);
 		incomeAndSources.parallelStream().forEach(incomeAndSource -> { 
 			
-			if(StringUtil.equals("5", incomeAndSource.getDataCollectionStage()) ) {
+			if(StringUtils.equals("5", incomeAndSource.getDataCollectionStage()) ) {
 				isaaErrorCount++;
 			}
 		}

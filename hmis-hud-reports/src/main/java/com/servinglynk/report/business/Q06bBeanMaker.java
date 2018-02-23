@@ -6,12 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.servinglynk.report.bean.Q06bDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
-
-import jodd.util.StringUtil;
 
 public class Q06bBeanMaker  {
 	public static Long veteranStatusErrorCount = 0L;
@@ -27,17 +27,17 @@ public class Q06bBeanMaker  {
 		Long numOfClients = Long.valueOf(clients.size());
 		clients.parallelStream().forEach(client -> { 
 			
-			if(StringUtil.equals("8", client.getVeteran_status()) || StringUtil.equals("9", client.getVeteran_status()) || StringUtil.equals("9", client.getVeteran_status()) || 
-				(StringUtil.equals("1", client.getVeteran_status()) && client.getDob() != null && getAge(client.getDob())  < 18 ) ) {
+			if(StringUtils.equals("8", client.getVeteran_status()) || StringUtils.equals("9", client.getVeteran_status()) || StringUtils.equals("9", client.getVeteran_status()) || 
+				(StringUtils.equals("1", client.getVeteran_status()) && client.getDob() != null && getAge(client.getDob())  < 18 ) ) {
 				veteranStatusErrorCount++;
 			}
 		}
 		);
 		enrollments.parallelStream().forEach(enrollment -> { 
-			if(StringUtil.equals("8", enrollment.getDisablingcondition()) || StringUtil.equals("9", enrollment.getDisablingcondition())) {
+			if(StringUtils.equals("8", enrollment.getDisablingcondition()) || StringUtils.equals("9", enrollment.getDisablingcondition())) {
 				disablingCondErrorCount++;
 			}
-			if(StringUtil.equals("8", enrollment.getRelationshiptohoh()) || StringUtil.equals("9", enrollment.getRelationshiptohoh())) {
+			if(StringUtils.equals("8", enrollment.getRelationshiptohoh()) || StringUtils.equals("9", enrollment.getRelationshiptohoh())) {
 				relationShipHHErrorCount++;
 			}
 //			if(enrollment.getEntrydate() == null) {
