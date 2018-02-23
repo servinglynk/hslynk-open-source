@@ -1,2 +1,0 @@
- Error in Enrollment process.....Found shared references to a collection: com.servinglynk.hmis.warehouse.model.v2014.Enrollment.commercialsexualexploitationscause::null
- Error in Enrollment process.....could not prepare statementcause::org.postgresql.util.PSQLException: This connection has been closed.
