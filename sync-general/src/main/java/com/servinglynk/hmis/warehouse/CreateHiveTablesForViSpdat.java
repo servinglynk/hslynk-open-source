@@ -102,7 +102,7 @@ public class CreateHiveTablesForViSpdat {
 		 Set<String> disinctSurveys = getDisinctSurveys("survey");
 		 for(String surveyId : disinctSurveys) {
 			 Survey survey = getSurveyById("survey", surveyId);
-			 if(StringUtils.equals("HO0002",survey.getProjectGroupCode())) {
+			 if(StringUtils.equals("MC0005",survey.getProjectGroupCode())) {
 				 StringBuilder builder = new StringBuilder();
 				 builder.append("CREATE EXTERNAL TABLE IF NOT EXISTS new_"+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase());
 				 builder.append("(submission_id string,client_id string,survey_date  timestamp ");

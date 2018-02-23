@@ -1182,6 +1182,22 @@ WITH (
   OIDS = FALSE
 );
 
+CREATE TABLE base.hmis_project_group_property
+(
+   id uuid, 
+   hmis_project_group_id uuid, 
+   project_group_code character varying(8),
+   property_name varchar(20),
+   property_value text,
+   INSERT_AT timestamp without time zone, 
+   INSERT_BY character varying(32), 
+   UPDATE_AT timestamp without time zone, 
+   UPDATE_BY character varying(32), 
+   CONSTRAINT pk_hmis_project_group_status PRIMARY KEY (id)
+) 
+WITH (
+  OIDS = FALSE
+);
 
 CREATE TABLE base.hmis_property
 (
