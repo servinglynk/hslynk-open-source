@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.servinglynk.hive.connection.HiveConnection;
+import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.bean.Q04aDataBean;
@@ -543,7 +543,7 @@ public class HomePageDataBeanMaker {
 			PreparedStatement statement = null;
 			Connection connection = null;
 			try {
-				connection = HiveConnection.getConnection();
+				connection = ImpalaConnection.getConnection();
 				statement = connection.prepareStatement(String.format(ReportQuery.GET_PROJECT_BY_ID,schema));
 				statement.setString(1, id);
 				resultSet = statement.executeQuery();
@@ -576,7 +576,7 @@ public class HomePageDataBeanMaker {
 				PreparedStatement statement = null;
 				Connection connection = null;
 				try {
-					connection = HiveConnection.getConnection();
+					connection = ImpalaConnection.getConnection();
 					statement = connection.prepareStatement(String.format(ReportQuery.GET_ORG_BY_ID,schema));
 					statement.setString(1, id);
 					resultSet = statement.executeQuery();
@@ -607,18 +607,18 @@ public class HomePageDataBeanMaker {
 				Connection connection = null;
 				List<ClientModel>  models = new ArrayList<ClientModel>();
 				try {
-					connection = HiveConnection.getConnection();
+					connection = ImpalaConnection.getConnection();
 					statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_CLIENTS,schema));
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
-					 ClientModel model = new ClientModel(resultSet.getString("client.personalid"), resultSet.getString("client.dedup_client_id"), 
-							 resultSet.getString("client.name_data_quality"),resultSet.getString("client.name_data_quality_desc"), 
-							 resultSet.getString("client.ssn_data_quality"), resultSet.getString("client.ssn_data_quality_desc"), 
-							 null,resultSet.getString("client.dob_data_quality"), 
-							 resultSet.getString("client.dob_data_quality_desc"), resultSet.getString("client.gender"), 
-							 resultSet.getString("client.gender_desc"), resultSet.getString("client.other_gender"), resultSet.getString("client.ethnicity"), 
-							 resultSet.getString("client.ethnicity_desc"), resultSet.getString("client.race"), resultSet.getString("client.race_desc"), 
-							 resultSet.getString("client.veteran_status"), resultSet.getString("client.source_system_id"));
+					 ClientModel model = new ClientModel(resultSet.getString("personalid"), resultSet.getString("dedup_client_id"), 
+							 resultSet.getString("name_data_quality"),resultSet.getString("name_data_quality_desc"), 
+							 resultSet.getString("ssn_data_quality"), resultSet.getString("ssn_data_quality_desc"), 
+							 null,resultSet.getString("dob_data_quality"), 
+							 resultSet.getString("dob_data_quality_desc"), resultSet.getString("gender"), 
+							 resultSet.getString("gender_desc"), resultSet.getString("other_gender"), resultSet.getString("ethnicity"), 
+							 resultSet.getString("ethnicity_desc"), resultSet.getString("race"), resultSet.getString("race_desc"), 
+							 resultSet.getString("veteran_status"), resultSet.getString("source_system_id"));
 					 models.add(model);
 				 }
 				} catch (SQLException e) {
@@ -644,7 +644,7 @@ public class HomePageDataBeanMaker {
 				Connection connection = null;
 				List<IncomeAndSourceModel>  models = new ArrayList<IncomeAndSourceModel>();
 				try {
-					connection = HiveConnection.getConnection();
+					connection = ImpalaConnection.getConnection();
 					statement = connection.prepareStatement(String.format(ReportQuery.GET_INCOMEANDSOURCE,schema));
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
@@ -673,42 +673,42 @@ public class HomePageDataBeanMaker {
 				Connection connection = null;
 				List<EnrollmentModel>  models = new ArrayList<EnrollmentModel>();
 				try {
-					connection = HiveConnection.getConnection();
+					connection = ImpalaConnection.getConnection();
 					statement = connection.prepareStatement(String.format(ReportQuery.GET_ENROLLMENTS_BY_PROJECT_ID,schema));
 					statement.setString(1, projectId);
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
-					 EnrollmentModel model = new EnrollmentModel(resultSet.getString("enrollment.project_entry_id"), 
+					 EnrollmentModel model = new EnrollmentModel(resultSet.getString("project_entry_id"), 
 							// resultSet.getString("enrollment.continuouslyhomelessoneyear"),
 							 null,
-							 resultSet.getString("enrollment.disablingcondition"), 
-							 resultSet.getDate("enrollment.entrydate"), 
-							 resultSet.getString("enrollment.householdid"), 
-							 resultSet.getString("enrollment.housingstatus"), 
-							 resultSet.getString("enrollment.housingstatus_desc"), 
-							 resultSet.getString("enrollment.monthshomelesspastthreeyears"), 
-							 resultSet.getString("enrollment.monthshomelesspastthreeyears_desc"), 
-							// resultSet.getString("enrollment.monthshomelessthistime"), 
+							 resultSet.getString("disablingcondition"), 
+							 resultSet.getDate("entrydate"), 
+							 resultSet.getString("householdid"), 
+							 resultSet.getString("housingstatus"), 
+							 resultSet.getString("housingstatus_desc"), 
+							 resultSet.getString("monthshomelesspastthreeyears"), 
+							 resultSet.getString("monthshomelesspastthreeyears_desc"), 
+							// resultSet.getString("monthshomelessthistime"), 
 							 null,
-							 resultSet.getString("enrollment.otherresidenceprior"), 
-							 resultSet.getString("enrollment.project_id"), 
-							 resultSet.getString("enrollment.relationshiptohoh"), 
-							 resultSet.getString("enrollment.relationshiptohoh_desc"), 
-							 resultSet.getString("enrollment.residenceprior"), 
-							 resultSet.getString("enrollment.residenceprior_desc"), 
-							 resultSet.getString("enrollment.residencepriorlengthofstay"), 
-							 resultSet.getString("enrollment.residencepriorlengthofstay_desc"), 
-							// resultSet.getString("enrollment.statusdocumented"), 
+							 resultSet.getString("otherresidenceprior"), 
+							 resultSet.getString("project_id"), 
+							 resultSet.getString("relationshiptohoh"), 
+							 resultSet.getString("relationshiptohoh_desc"), 
+							 resultSet.getString("residenceprior"), 
+							 resultSet.getString("residenceprior_desc"), 
+							 resultSet.getString("residencepriorlengthofstay"), 
+							 resultSet.getString("residencepriorlengthofstay_desc"), 
+							// resultSet.getString("statusdocumented"), 
 							 null,
-							 resultSet.getString("enrollment.timeshomelesspastthreeyears"), 
-							 resultSet.getString("enrollment.timeshomelesspastthreeyears_desc"), 
-							 resultSet.getString("enrollment.ageatentry"), 
-							 resultSet.getString("enrollment.client_id"), 
-							// resultSet.getInt("enrollment.yearshomeless"), 
+							 resultSet.getString("timeshomelesspastthreeyears"), 
+							 resultSet.getString("timeshomelesspastthreeyears_desc"), 
+							 resultSet.getString("ageatentry"), 
+							 resultSet.getString("client_id"), 
+							// resultSet.getInt("yearshomeless"), 
 							 0,
-							 (Boolean)resultSet.getBoolean("enrollment.chronichomeless"), 
-							 resultSet.getString("enrollment.source_system_id"),
-							 resultSet.getDate("enrollment.date_created_from_source"));
+							 (Boolean)resultSet.getBoolean("chronichomeless"), 
+							 resultSet.getString("source_system_id"),
+							 resultSet.getDate("date_created_from_source"));
 					 models.add(model);
 				 }
 				} catch (SQLException e) {
@@ -735,7 +735,7 @@ public class HomePageDataBeanMaker {
 				Connection connection = null;
 				List<ExitModel>  models = new ArrayList<ExitModel>();
 				try {
-					connection = HiveConnection.getConnection();
+					connection = ImpalaConnection.getConnection();
 					statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_EXITS,schema));
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {

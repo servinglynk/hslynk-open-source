@@ -7,7 +7,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/csvresources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/csvfiles"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <property name="context-root" value="hudCoc"/>
         <property name="java-output-path" value="/hudCoc/target/classes"/>
+        <property name="context-root" value="hmis-hud-reports"/>
     </wb-module>
 </project-modules>

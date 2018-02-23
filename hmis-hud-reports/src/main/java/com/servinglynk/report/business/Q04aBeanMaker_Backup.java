@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.hive.connection.HiveConnection;
+import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q04aDataBean;
 
@@ -25,7 +25,7 @@ public class Q04aBeanMaker_Backup {
 				PreparedStatement statement = null;
 				Connection connection = null;
 				try {
-					connection = HiveConnection.getConnection();
+					connection = ImpalaConnection.getConnection();
 //					statement = connection.prepareStatement(String.format(ReportQuery.GET_PROJECT_BY_ID,schema));
 //					statement.setString(1, id);
 					resultSet = statement.executeQuery();
@@ -66,7 +66,7 @@ public class Q04aBeanMaker_Backup {
 					PreparedStatement statement = null;
 					Connection connection = null;
 					try {
-						connection = HiveConnection.getConnection();
+						connection = ImpalaConnection.getConnection();
 						statement = connection.prepareStatement(String.format(ReportQuery.GET_ORG_BY_ID,schema));
 						statement.setString(1, id);
 						resultSet = statement.executeQuery();
