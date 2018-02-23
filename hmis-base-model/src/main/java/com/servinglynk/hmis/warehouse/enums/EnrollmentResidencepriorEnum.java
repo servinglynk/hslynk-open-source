@@ -58,6 +58,8 @@ public enum EnrollmentResidencepriorEnum {
 	/** Enum Constant. */
 	TWENTY_SIX("26"),
 	/** Enum Constant. */
+	TWENTY_SEVEN("27"),
+	/** Enum Constant. */
 	NINTY_NINE("99");
 	/**
 	 * Internal storage of status field value, see the Enum spec for
