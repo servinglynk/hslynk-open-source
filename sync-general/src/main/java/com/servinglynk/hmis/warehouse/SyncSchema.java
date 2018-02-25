@@ -110,7 +110,7 @@ public class SyncSchema extends Logging {
             	if(delta) {
             		deltaQuery=" and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  desc limit 1 ) ";
             		if(StringUtils.equals("survey", syncSchema)) {
-            			deltaQuery=" and updated_at >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' order by updated_at  desc limit 1 ) ";
+            			deltaQuery=" and updated_at >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code ='"+projectGroupCode+"' order by updated_at  desc limit 1 ) ";
             		}
             	}
             	String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
