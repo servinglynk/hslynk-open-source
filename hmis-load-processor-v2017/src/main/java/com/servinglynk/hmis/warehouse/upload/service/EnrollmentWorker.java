@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
@@ -43,7 +44,7 @@ public class EnrollmentWorker implements IEnrollmentWorker  {
 	public void processWorkerLine() {
 		try {
 			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.ENROLLMENT.getStatus(),new Long(2017));
-			if(uploadEntities!=null && uploadEntities.size() >0 ) {
+			if(CollectionUtils.isNotEmpty(uploadEntities)) {
 				for(BulkUpload upload : uploadEntities) {
 					FileAppender appender = new FileAppender();
 					appender.setName("" + upload.getId());

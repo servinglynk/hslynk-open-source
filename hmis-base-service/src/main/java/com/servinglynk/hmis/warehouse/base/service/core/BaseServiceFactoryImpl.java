@@ -11,6 +11,8 @@ import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
+import com.servinglynk.hmis.warehouse.base.service.GlobalEnrollmentService;
+import com.servinglynk.hmis.warehouse.base.service.GlobalProjectService;
 import com.servinglynk.hmis.warehouse.base.service.HealthService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
@@ -23,6 +25,7 @@ import com.servinglynk.hmis.warehouse.base.service.SessionService;
 import com.servinglynk.hmis.warehouse.base.service.TrustedAppService;
 import com.servinglynk.hmis.warehouse.base.service.UsernameChangeService;
 import com.servinglynk.hmis.warehouse.base.service.VerificationService;
+import com.servinglynk.hmis.warehouse.base.service.impl.HMISNotificationsService;
 
 @Component
 public class BaseServiceFactoryImpl  implements BaseServiceFactory {
@@ -78,8 +81,13 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	@Autowired private ClientConsentService clientConsentService;
 	@Autowired private ClientDataElementsService clientDataElementsService;
 	@Autowired private APIAccessService apiAccessService;
+	@Autowired private HMISNotificationsService hmisNotificationsService;
 	
-
+	@Autowired private GlobalEnrollmentService globalEnrollmentService;
+	
+	@Autowired private GlobalProjectService globalProjectService;
+	
+	
 	public DeveloperCompanyService getDeveloperCompanyService() {
 		return developerCompanyService;
 	}
@@ -241,5 +249,29 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setApiAccessService(APIAccessService apiAccessService) {
 		this.apiAccessService = apiAccessService;
+	}
+
+	public HMISNotificationsService getHmisNotificationsService() {
+		return hmisNotificationsService;
+	}
+
+	public void setHmisNotificationsService(HMISNotificationsService hmisNotificationsService) {
+		this.hmisNotificationsService = hmisNotificationsService;
+	}
+
+	public GlobalEnrollmentService getGlobalEnrollmentService() {
+		return globalEnrollmentService;
+	}
+
+	public void setGlobalEnrollmentService(GlobalEnrollmentService globalEnrollmentService) {
+		this.globalEnrollmentService = globalEnrollmentService;
+	}
+
+	public GlobalProjectService getGlobalProjectService() {
+		return globalProjectService;
+	}
+
+	public void setGlobalProjectService(GlobalProjectService globalProjectService) {
+		this.globalProjectService = globalProjectService;
 	}
 }

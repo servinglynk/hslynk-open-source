@@ -19,7 +19,10 @@ public class EnrollmentConveter extends BaseConverter {
 
 
 	public static com.servinglynk.hmis.warehouse.model.v2016.Enrollment modelToEntity(Enrollment enrollment,com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment){
-		if(pEnrollment==null) pEnrollment = new com.servinglynk.hmis.warehouse.model.v2016.Enrollment();
+		if(pEnrollment==null) {
+			pEnrollment = new com.servinglynk.hmis.warehouse.model.v2016.Enrollment();
+			pEnrollment.setSource("2016");
+		}
 		if(enrollment.getDisablingcondition()!=null)
 		pEnrollment.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingcondition().toString()));
 		if(enrollment.getEntrydate()!=null)
@@ -57,8 +60,7 @@ public class EnrollmentConveter extends BaseConverter {
 
 		return pEnrollment;
 	}
-
-
+	
 	public static Enrollment entityToModel(com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment){
 		Enrollment enrollment = new Enrollment();
 		if(pEnrollment.getDisablingcondition()!=null)		enrollment.setDisablingcondition(Integer.parseInt(pEnrollment.getDisablingcondition().getValue()));
@@ -86,6 +88,40 @@ public class EnrollmentConveter extends BaseConverter {
 		if(pEnrollment.getPreviousStreetESSH()!=null)
 		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
+		copyBeanProperties(pEnrollment, enrollment);
+
+		return enrollment;
+	}
+
+
+	public static Enrollment entityToModelv2(com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment){
+		Enrollment enrollment = new Enrollment();
+		if(pEnrollment.getDisablingcondition()!=null)		enrollment.setDisablingcondition(Integer.parseInt(pEnrollment.getDisablingcondition().getValue()));
+		if(pEnrollment.getEntrydate()!=null) enrollment.setEntrydate(Date.from(pEnrollment.getEntrydate().atZone(ZoneId.systemDefault()).toInstant()));
+		if(pEnrollment.getHouseholdid()!=null) enrollment.setHouseholdid(pEnrollment.getHouseholdid());
+		if(pEnrollment.getHousingstatus()!=null) enrollment.setHousingstatus(Integer.parseInt(pEnrollment.getHousingstatus().getValue()));
+		if(pEnrollment.getMonthshomelesspastthreeyears()!=null) enrollment.setMonthshomelesspastthreeyears(Integer.parseInt(pEnrollment.getMonthshomelesspastthreeyears().getValue()));
+		if(pEnrollment.getOtherresidenceprior()!=null) enrollment.setOtherresidenceprior(pEnrollment.getOtherresidenceprior());
+/*		if(pEnrollment.getProjectentryid()!=null) enrollment.setProjectentryid(pEnrollment.getProjectentryid());
+*/		if(pEnrollment.getRelationshiptohoh()!=null) enrollment.setRelationshiptohoh(Integer.parseInt(pEnrollment.getRelationshiptohoh().getValue()));
+		if(pEnrollment.getTimeshomelesspastthreeyears()!=null) enrollment.setTimeshomelesspastthreeyears(Integer.parseInt(pEnrollment.getTimeshomelesspastthreeyears().getValue()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getResidenceprior()!=null) enrollment.setResidenceprior(Integer.parseInt(pEnrollment.getResidenceprior().getValue()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getResidencepriorlengthofstay()!=null) enrollment.setResidencepriorlengthofstay(Integer.parseInt(pEnrollment.getResidencepriorlengthofstay().getValue()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getHousingstatus()!=null) enrollment.setHousingstatus(Integer.parseInt(pEnrollment.getHousingstatus().getValue()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getEntryfromstreetessh()!=null) enrollment.setEntryfromstreetessh(Integer.parseInt(pEnrollment.getEntryfromstreetessh().toString()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getDatetostreetessh()!=null) enrollment.setDatetostreetessh(Integer.parseInt(pEnrollment.getDatetostreetessh().toString()));
+		enrollment.setEnrollmentId(pEnrollment.getId());
+		if(pEnrollment.getLosunderthreshold()!=null)
+		enrollment.setLosunderthreshold(Integer.parseInt(pEnrollment.getLosunderthreshold().getValue()));
+		if(pEnrollment.getPreviousStreetESSH()!=null)
+		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
+		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
+		enrollment.setSource(pEnrollment.getSource());
 		copyBeanProperties(pEnrollment, enrollment);
 
 		return enrollment;

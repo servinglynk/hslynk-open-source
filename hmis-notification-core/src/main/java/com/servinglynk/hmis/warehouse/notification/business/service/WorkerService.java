@@ -34,6 +34,7 @@ public class WorkerService extends ParentService implements IWorkerService{
 		workerLineEntity.setStatus(Constants.JOB_CREATED);
 		workerLineEntity.setLineInput(workerLine.getInput());
 		workerLineEntity.setInsertAt(new Date());
+		workerLineEntity.setNotificationId(workerLine.getNotificationId());
 		daoFactory.getWorkerLineDao().insert(workerLineEntity);
 		workerLine.setWorkerLineId(workerLineEntity.getExternalId());
 	}

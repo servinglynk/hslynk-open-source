@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.core.model.Question;
+import com.servinglynk.hmis.warehouse.core.model.Questions;
+import com.servinglynk.hmis.warehouse.service.QuestionService;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
@@ -18,6 +21,7 @@ import com.servinglynk.hmis.warehouse.service.impl.EducationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EmploymentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentCocServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImplV2;
 import com.servinglynk.hmis.warehouse.service.impl.EntryrhspServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EntryrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EntryssvfServiceImpl;
@@ -36,7 +40,9 @@ import com.servinglynk.hmis.warehouse.service.impl.NoncashbenefitsServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.OrganizationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PathstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImplV2;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectcocServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.QuestionServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RHYAfterCareServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
@@ -241,5 +247,20 @@ public class ServiceConfig  {
 	 
 	 @Bean VashExitReasonServiceImpl VashExitReasonService() {
 		 return new VashExitReasonServiceImpl();
+	 }
+	 
+	 @Bean
+	 public QuestionServiceImpl questionService() {
+		 return new QuestionServiceImpl();
+	 }
+	 
+	 @Bean
+	 public EnrollmentServiceImplV2 enrollmentServiceV2() {
+		 return new EnrollmentServiceImplV2();
+	 }
+	 
+	 @Bean
+	 public ProjectServiceImplV2 projectServiceV2() {
+		 return new ProjectServiceImplV2();
 	 }
 }

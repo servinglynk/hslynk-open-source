@@ -18,6 +18,7 @@ public class Project extends ClientModel {
     private Integer targetPopulation;
     private Integer trackingMethod;
     private String projectGroup;
+	private String source;
     
 	public Project() {
 		
@@ -106,5 +107,12 @@ public class Project extends ClientModel {
 	public void setOrganizationId(UUID organizationId) {
 		this.organizationId = organizationId;
 	}
-	
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
 }

@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.math.BigInteger;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
@@ -90,9 +93,9 @@ public class BulkUploaderTest {
 	{
 		//URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
-		bullkUpload.setInputpath("/Users/sdolia/Downloads/HUD_4_0_1_3101_36.xml");
+		bullkUpload.setInputpath("/Users/sdolia/Downloads/HUD_HMIS_Instance.xml");
 	//	bullkUpload.setInputpath(path.getPath());
-		bullkUpload.setId(297L);
+		bullkUpload.setId(1L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + bullkUpload.getId());
 		appender.setFile("logs/" + bullkUpload.getId() + ".log");
@@ -105,6 +108,51 @@ public class BulkUploaderTest {
 		projectGrpEntity.setProjectGroupCode("IL0009");
 		factory.getBulkUploaderDao().processDisabilities(bullkUpload,projectGrpEntity, appender,false);
 	}
+	
+	
+	@Test
+	public void testEnrollmentCoc() throws Exception                                         
+	{
+		//URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		BulkUpload	bullkUpload = new BulkUpload();
+		bullkUpload.setInputpath("/Users/sdolia/Downloads/CSV_files.zip");
+	//	bullkUpload.setInputpath(path.getPath());
+		bullkUpload.setId(389L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + bullkUpload.getId());
+		appender.setFile("logs/" + bullkUpload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
+		bullkUpload.setProjectGroupCode("IL0009");
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("IL0009");
+		factory.getBulkUploaderDao().processEnrollmentChildren(bullkUpload, projectGrpEntity, appender, false);
+	}
+	
+	@Test
+	@Transactional
+	public void testEnrollment() throws Exception                                         
+	{
+		//URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		BulkUpload	bullkUpload = new BulkUpload();
+		bullkUpload.setInputpath("/Users/sdolia/Downloads/CSV_File.zip");
+	//	bullkUpload.setInputpath(path.getPath());
+		bullkUpload.setId(393L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + bullkUpload.getId());
+		appender.setFile("logs/" + bullkUpload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
+		bullkUpload.setProjectGroupCode("IL0009");
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("IL0009");
+		factory.getBulkUploaderDao().processEnrollment(bullkUpload, projectGrpEntity, appender, false);
+	}
+	
 	
 	@Test
 	public void test7ZFile() throws Exception                                         
@@ -125,6 +173,13 @@ public class BulkUploaderTest {
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
 		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity, appender,false);
+	}
+	
+	
+	@Test
+	public void testChronicHomelesness() throws Exception                                         
+	{
+		factory.getBulkUploaderDao().calculateChrionicHomelessPerProjectGroup("IL0009");
 	}
 	
 	@Test
@@ -234,4 +289,12 @@ public class BulkUploaderTest {
 		System.out.println(constraintViolations.toString());
 	}
 
+	
+	@Test
+	@Transactional
+	public void getNullDedupIds() {
+		List<Client> allNullDedupIdClients = factory.getClientDao().getAllNullDedupIdClients();
+		assertNotNull(allNullDedupIdClients);
+	}
+	
 }

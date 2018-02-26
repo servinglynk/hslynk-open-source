@@ -29,6 +29,8 @@ import com.servinglynk.hmis.warehouse.core.model.DomesticViolences;
 import com.servinglynk.hmis.warehouse.core.model.Employment;
 import com.servinglynk.hmis.warehouse.core.model.Employments;
 import com.servinglynk.hmis.warehouse.core.model.Enrollment;
+import com.servinglynk.hmis.warehouse.core.model.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.core.model.EnrollmentCocs;
 import com.servinglynk.hmis.warehouse.core.model.Enrollments;
 import com.servinglynk.hmis.warehouse.core.model.Exit;
 import com.servinglynk.hmis.warehouse.core.model.ExitPlansActions;
@@ -468,6 +470,74 @@ public class ClientsController extends ControllerBase {
 	         serviceFactory.getExitService().getExitById(exitId);
 	        return serviceFactory.getConnectionwithsoarService().getAllExitConnectionwithsoars(exitId,startIndex,maxItems); 
 	   }
+	   
+	   // Enrollment Coc ACtions API Start
+		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/enrollmentcocs", method = RequestMethod.POST)
+		@APIMapping(value = "CLIENT_API_CREATE_ENROLLMENTCOC", checkTrustedApp = true, checkSessionToken = true)
+		public EnrollmentCoc createEnrollmentCoc(@PathVariable("clientid") UUID clientId,
+				@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody EnrollmentCoc enrollmentCoc,
+				HttpServletRequest request) throws Exception {
+			Session session = sessionHelper.getSession(request);
+			serviceFactory.getClientService().getClientById(clientId);
+			serviceFactory.getEnrollmentCocService().createEnrollmentCoc(enrollmentCoc, enrollmentId,
+					session.getAccount().getUsername());
+			EnrollmentCoc returnenrollmentCoc = new EnrollmentCoc();
+			returnenrollmentCoc.setEnrollmentCocId(enrollmentCoc.getEnrollmentCocId());
+			return returnenrollmentCoc;
+		}
+
+		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/enrollmentcocs/{enrollmentCocid}", method = RequestMethod.PUT)
+		@APIMapping(value = "CLIENT_API_UPDATE_ENROLLMENTCOC", checkTrustedApp = true, checkSessionToken = true)
+		public void updateEnrollmentCoc(@PathVariable("clientid") UUID clientId,
+				@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("enrollmentCocid") UUID enrollmentCocId,
+				@RequestBody EnrollmentCoc enrollmentCoc, HttpServletRequest request) throws Exception {
+			Session session = sessionHelper.getSession(request);
+			enrollmentCoc.setEnrollmentCocId(enrollmentCocId);
+			serviceFactory.getClientService().getClientById(clientId);
+			serviceFactory.getEnrollmentCocService().updateEnrollmentCoc(enrollmentCoc, enrollmentId,
+					session.getAccount().getUsername());
+		}
+
+		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/enrollmentcocs/{enrollmentCocid}", method = RequestMethod.DELETE)
+		@APIMapping(value = "CLIENT_API_DELETE_ENROLLMENTCOC", checkTrustedApp = true, checkSessionToken = true)
+		public void deleteEnrollmentCoc(@PathVariable("clientid") UUID clientId,
+				@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("enrollmentCocid") UUID enrollmentCocId,
+				HttpServletRequest request, HttpServletResponse response) throws Exception {
+			Session session = sessionHelper.getSession(request);
+			serviceFactory.getClientService().getClientById(clientId);
+			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getEnrollmentCocService().deleteEnrollmentCoc(enrollmentCocId,
+					session.getAccount().getUsername());
+			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+		}
+
+		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/enrollmentcocs/{enrollmentCocid}", method = RequestMethod.GET)
+		@APIMapping(value = "CLIENT_API_GET_ENROLLMENTCOC_BY_ID", checkTrustedApp = true, checkSessionToken = true)
+		public EnrollmentCoc getEnrollmentCocById(@PathVariable("clientid") UUID clientId,
+				@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("enrollmentCocid") UUID enrollmentCocId,
+				HttpServletRequest request) throws Exception {
+			serviceFactory.getClientService().getClientById(clientId);
+			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			return serviceFactory.getEnrollmentCocService().getEnrollmentCocById(enrollmentCocId);
+		}
+
+		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/enrollmentcocs", method = RequestMethod.GET)
+		@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT_ENROLLMENTCOC", checkTrustedApp = true, checkSessionToken = true)
+		public EnrollmentCocs getAllEnrollmentEnrollmentCocs(@PathVariable("clientid") UUID clientId,
+				@PathVariable("enrollmentid") UUID enrollmentId,
+				@RequestParam(value = "startIndex", required = false) Integer startIndex,
+				@RequestParam(value = "maxItems", required = false) Integer maxItems, HttpServletRequest request)
+						throws Exception {
+			if (startIndex == null)
+				startIndex = 0;
+			if (maxItems == null)
+				maxItems = 30;
+
+			serviceFactory.getClientService().getClientById(clientId);
+			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			return serviceFactory.getEnrollmentCocService().getAllEnrollmentEnrollmentCocs(enrollmentId, startIndex,
+					maxItems);
+		}
 	   
 	   // Exit Plans Actions API Start
 	   

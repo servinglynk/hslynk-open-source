@@ -34,6 +34,7 @@ DROP TABLE IF EXISTS "v2017".rhyaftercare;
 DROP TABLE IF EXISTS "v2017".vashexitreason;
 DROP TABLE IF EXISTS "v2017".connectionwithsoar;
 DROP TABLE IF EXISTS "v2017".geography;
+DROP TABLE IF EXISTS "v2017".question;
 
 DROP TYPE IF EXISTS "v2017".name_data_quality;
 DROP TYPE IF EXISTS "v2017".dob_data_quality;
@@ -1818,6 +1819,7 @@ CREATE TABLE "v2017".enrollment
 	version integer,source_system_id text,
 	deleted boolean DEFAULT false,active boolean DEFAULT true, 
 	sync boolean DEFAULT false,
+	source varchar varying(56) DEFAULT 2017,
   		CONSTRAINT "enrollment_pkey" PRIMARY KEY (id),
     	CONSTRAINT enrollment_client_fk FOREIGN KEY ("client_id")
       	REFERENCES "v2017".client ("id") MATCH SIMPLE
@@ -2986,3 +2988,40 @@ CREATE SEQUENCE v2017.error_sequence
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
+
+  
+  CREATE TABLE "v2017".sync
+(
+  id serial,
+  sync_table character(100),
+  status character(10),
+  description text,
+  project_group_code character(8),
+  date_created timestamp,
+  date_updated timestamp,
+  CONSTRAINT sync_pk PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "v2017"."question" (
+"id" uuid NOT NULL,
+"question_description" character varying(256),
+"display_text" character varying(256) ,
+"question_data_type" character varying(256) ,
+"question_type" character varying(256) ,
+"created_at" timestamp,
+"updated_at" timestamp,
+"user_id" character varying(256),
+"is_active" BOOLEAN,
+"picklist_group_name" character varying(256),
+"deleted" BOOLEAN DEFAULT false,
+"hud_question_id" character varying(32),
+"update_url_template" character varying(512),
+PRIMARY KEY ("id")
+)
+WITH (OIDS=FALSE)
+;

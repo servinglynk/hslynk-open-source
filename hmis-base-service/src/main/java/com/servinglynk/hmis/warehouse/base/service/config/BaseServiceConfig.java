@@ -26,6 +26,9 @@ import com.servinglynk.hmis.warehouse.base.service.impl.BulkUploadServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ClientConsentServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ClientDataElementsServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.DeveloperCompanyServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.GlobalEnrollmentServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.GlobalProjectServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.HMISNotificationsServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.HealthServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PermissionSetServiceImpl;
@@ -221,4 +224,21 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 public APIAccessServiceImpl apiAccessService() {
 		 return new APIAccessServiceImpl();
 	 }
+	 
+	 @Bean
+	 public HMISNotificationsServiceImpl hmisNotificationsService() {
+		 return new HMISNotificationsServiceImpl();
+	 }
+	 
+	 @Bean
+	 public GlobalEnrollmentServiceImpl globalEnrollmentService() {
+		 return new GlobalEnrollmentServiceImpl();
+	 }
+	 
+	 @Bean
+	 public GlobalProjectServiceImpl globalProjectService() {
+		 return new GlobalProjectServiceImpl();
+	 }
+	 
+	 
 }

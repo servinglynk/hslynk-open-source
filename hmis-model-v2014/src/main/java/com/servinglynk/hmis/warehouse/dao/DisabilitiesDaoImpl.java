@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -62,16 +63,21 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 		Export export = domain.getExport();
 		List<Disabilities> disabilitiesList = export.getDisabilities();
 		Data data = new Data();
-		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class,
-				getProjectGroupCode(domain));
+		Map<String, HmisBaseModel> modelMap = new HashMap<String, HmisBaseModel>();
 		com.servinglynk.hmis.warehouse.model.v2014.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2014.Export) getModel(
 				com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),
 				com.servinglynk.hmis.warehouse.model.v2014.Export.class,
 				String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap,
 				domain.getUpload().getId());
+		int i =0;
 		if (CollectionUtils.isNotEmpty(disabilitiesList)) {
 			for(Disabilities disabilities : disabilitiesList) {
 				processData(disabilities, domain, data, modelMap, relatedModelMap, exportEntity);
+			}
+			if(i++ % 1000 == 0) {
+				logger.info("Disabilities flush called ---");
+				getCurrentSession().flush();
+				getCurrentSession().clear();
 			}
 		}
 		hydrateBulkUploadActivityStaging(data.i, data.j, data.ignore,
@@ -160,7 +166,6 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 				modelMap);
 		
 		try {
-			model = getModelObject(domain, disabilities, data, modelMap);
 			model.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
 			model.setDisabilitytype(DisabilitiesDisabilitytypeEnum
 					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
@@ -176,15 +181,13 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getReceivingServices())));
 			model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
 			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-			Enrollment enrollmentModel = (Enrollment) getModel(
-					com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(), Enrollment.class,
-					disabilities.getProjectEntryID(), getProjectGroupCode(domain), true, relatedModelMap,
-					domain.getUpload().getId());
+			Enrollment enrollmentModel = (Enrollment) relatedModelMap.get(disabilities.getProjectEntryID().trim());
 			model.setEnrollmentid(enrollmentModel);
 			model.setInformationDate(BasicDataGenerator.getLocalDateTime(disabilities.getInformationDate()));
 			model.setDataCollectionStage(DataCollectionStageEnum
 					.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));
 			model.setExport(exportEntity);
+			data.i++;
 			performSaveOrUpdate(model);
 		} catch (Exception e) {
 			String errorMessage = "Exception in Disabilities :" + disabilities.getProjectEntryID() + ":: Exception"
@@ -344,22 +347,16 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements DisabilitiesDa
 		com.servinglynk.hmis.warehouse.model.v2014.Disabilities modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists
 		// for Delta refresh
-		if (!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2014.Disabilities) getModel(
-					com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class.getSimpleName(),
-					com.servinglynk.hmis.warehouse.model.v2014.Disabilities.class, disabilities.getDisabilitiesID(),
-					getProjectGroupCode(domain), false, modelMap, domain.getUpload().getId());
-
 		if (modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
 		com.servinglynk.hmis.warehouse.model.v2014.Disabilities model = new com.servinglynk.hmis.warehouse.model.v2014.Disabilities();
+		model.setId(UUID.randomUUID());
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB,
 		// model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain, disabilities.getDisabilitiesID(), data);
 
 		return model;

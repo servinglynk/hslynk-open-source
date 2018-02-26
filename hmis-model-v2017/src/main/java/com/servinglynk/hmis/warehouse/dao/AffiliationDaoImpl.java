@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			Data data =new Data();
 			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Affiliation.class, getProjectGroupCode(domain));
 			com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
-			if(affiliations!=null && !affiliations.isEmpty())
+			if(CollectionUtils.isNotEmpty(affiliations))
 			{
 				for(Affiliation affiliation :affiliations )
 				{
@@ -75,16 +76,17 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			// We always insert for a Full refresh and update if the record exists for Delta refresh
 			if(!isFullRefresh(domain))
 				modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Affiliation) getModel(com.servinglynk.hmis.warehouse.model.v2017.Affiliation.class, affiliation.getAffiliationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
-			
+			com.servinglynk.hmis.warehouse.model.v2017.Affiliation model = null;
 			if(modelFromDB == null) {
-				modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Affiliation();
-				modelFromDB.setId(UUID.randomUUID());
-				modelFromDB.setRecordToBeInserted(true);
+				model = new com.servinglynk.hmis.warehouse.model.v2017.Affiliation();
+				model.setId(UUID.randomUUID());
+				model.setRecordToBeInserted(true);
+			}else {
+				org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
+				performMatch(domain, modelFromDB, model, data);
 			}
-			com.servinglynk.hmis.warehouse.model.v2017.Affiliation model = new com.servinglynk.hmis.warehouse.model.v2017.Affiliation();
-			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
-			performMatch(domain, modelFromDB, model, data);
+		
 			hydrateCommonFields(model, domain,affiliation.getAffiliationID(),data);
 			return model;
 		}

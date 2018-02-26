@@ -811,9 +811,24 @@ public class BasicDataGenerator {
 	{
 		if(value!=null)
 		{
-			return value.toGregorianCalendar().toZonedDateTime().toLocalDateTime();
+			try {
+				return value.toGregorianCalendar().toZonedDateTime().toLocalDateTime();
+			}catch (Exception e) {
+				//eat the exception but log it.
+				
+			}
+			
 		}
 		return null;
 		
 	}
+	 public static long getLongValue(String value) {
+		  long s = 0;
+		  try {
+			  s = Long.parseLong(value);
+			} catch (NumberFormatException e){
+				return 0;
+			}     
+	  	return s;
+	  }
 }

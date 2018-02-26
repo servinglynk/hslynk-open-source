@@ -883,6 +883,18 @@ INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('noprivat
 INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('noprivatepayreason','9','Client refused','ACTIVE');  
 INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('noprivatepayreason','99','Data not collected','ACTIVE');  
 
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','12','Contact records collected under 2014 HMIS Data Standards v5.1','ACTIVE');
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','13','4.12 Contact records collected under 2017 HMIS Data Standards','ACTIVE');
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','141','P1 Services Provided – PATH','ACTIVE');
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','142','R14 RHY Service Connections','ACTIVE');
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','143','W1 Services Provided – HOPWA','ACTIVE');
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','144','V2 Services Provided – SSVF','ACTIVE');
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','151','W2 Financial Assistance – HOPWA','ACTIVE');
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','152','V3 Financial Assistance – SSVF','ACTIVE');
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','161','P2 Referrals Provided – PATH','ACTIVE');
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','200','4.14  Bed night','ACTIVE');
+  INSERT INTO "v2015".hmis_type (name,value,description,status)  values ('record_type','210','V8 HUD-VASH Voucher Tracking','ACTIVE');
+  
 INSERT INTO "v2015".hmis_type (name,status,value,description) values ('noschipreason','ACTIVE','1','Applied; decision pending');
 INSERT INTO "v2015".hmis_type (name,status,value,description) values ('noschipreason','ACTIVE','2','Applied; client not eligible');    
 INSERT INTO "v2015".hmis_type (name,status,value,description) values ('noschipreason','ACTIVE','3','Client did not apply');
@@ -1623,6 +1635,7 @@ CREATE TABLE "v2015".enrollment
 	version integer,source_system_id text,
 	deleted boolean DEFAULT false,active boolean DEFAULT true, 
 	sync boolean DEFAULT false,
+	source varchar varying(56) DEFAULT 2015,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2015.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -1813,6 +1826,7 @@ CREATE TABLE "v2015".service_fa_referral
 (
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
+  record_type "v2015".record_type,
   dateProvided timestamp,
   service_category integer,
   funder_list integer,
@@ -2749,10 +2763,11 @@ with (
 
 CREATE TABLE "v2015".sync
 (
-  id uuid NOT NULL,
+  id serial,
   sync_table character(100),
   status character(10),
-  json text,
+  description text,
+  project_group_code character(8),
   date_created timestamp,
   date_updated timestamp,
   CONSTRAINT sync_pk PRIMARY KEY (id)

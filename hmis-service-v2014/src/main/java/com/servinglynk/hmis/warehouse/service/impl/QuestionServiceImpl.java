@@ -30,6 +30,7 @@ public class QuestionServiceImpl extends ServiceBase implements QuestionService 
         pagination.setFrom(startIndex);
         pagination.setReturned(Questions.getQuestions().size());
         pagination.setTotal((int)count);
+        pagination.setMaximum(200);
         Questions.setPagination(pagination);
         return Questions; 
    }

@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
+import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
@@ -40,6 +41,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 					serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
 					serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFAAmount()));
 					//serviceFaReferralModel.setFunderList(serviceFaReferrals.getFunderList());
+					serviceFaReferralModel.setRecordType(RecordTypeEnum.lookupEnum(String.valueOf(serviceFaReferrals.getRecordType())));
 					serviceFaReferralModel.setOtherTypeProvided(serviceFaReferrals.getOtherTypeProvided());
 					serviceFaReferralModel.setReferralOutcome(new Integer(serviceFaReferrals.getReferralOutcome()).intValue());
 					//	serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getFAAmount()).intValue());

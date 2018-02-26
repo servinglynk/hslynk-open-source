@@ -288,6 +288,15 @@
 									   perm="ugo+rx"/>
 							    <chmod file="${basedir}/src/main/scripts/stop-processor-2014.sh"
                                        perm="ugo+rx"/>
+                                       
+                                <chmod file="${basedir}/target/temp_build/bin/main-disab-2014.sh"
+									   perm="ugo+rx"/>
+								<chmod file="${basedir}/target/temp_build/bin/main-disab-2014.bat"
+									   perm="ugo+rx"/>
+								<chmod file="${basedir}/src/main/scripts/start-disab-2014.sh"
+									   perm="ugo+rx"/>
+							    <chmod file="${basedir}/src/main/scripts/stop-disab-2014.sh"
+                                       perm="ugo+rx"/>
 							</tasks>
 						</configuration>
 					</execution>

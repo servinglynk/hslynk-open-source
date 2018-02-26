@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,7 +45,7 @@ public class ActiveListView  extends Logging {
 	        try {
 	            htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
 	            connection = SyncPostgresProcessor.getConnection();
-	            statement = connection.prepareStatement("SELECT client_id,deleted,ignore_match_process,survey_score,date_updated FROM housing_inventory.eligible_clients where project_group_code=?");
+	            statement = connection.prepareStatement("SELECT client_id,deleted,ignore_match_process,survey_score,date_updated,client_dedup_id FROM housing_inventory.eligible_clients where project_group_code=?");
 	            statement.setString(1, projectGroupCode);
 	            resultSet = statement.executeQuery();
 	            
@@ -80,9 +81,10 @@ public class ActiveListView  extends Logging {
 	                } else {
 	                	 Put p = new Put(Bytes.toBytes(key));
 	                	 addColumn("ignore_match_process",String.valueOf(resultSet.getBoolean("ignore_match_process")), key, p);
+	                	 addColumn("dedup_client_id",(String)resultSet.getString("client_dedup_id"), key, p);
 	                	 addColumn("survey_score",String.valueOf(resultSet.getInt("survey_score")), key, p);
 	                	 Survey survey = getLastestSurveyByClient(key, projectGroupCode);
-	                	 if(survey !=null && survey.getSurveyId() !=null) {
+	                	 if(survey == null || survey.getSurveyId() == null) {
 	                		 survey = getLastestSurveyByClientFromSectionScore(key, projectGroupCode);
 	                	 }
 	                	 if(survey !=null && survey.getSurveyId() !=null) {
@@ -277,10 +279,15 @@ public class ActiveListView  extends Logging {
          appender.setLayout(new PatternLayout());
          appender.activateOptions();
          logger.addAppender(appender);
-         String projectGroupCode ="MO0010";
-         String tableName ="active_list_"+projectGroupCode;
-         createHbaseTable(tableName);
-         syncTable(tableName, projectGroupCode, "eligible_clients");
+     	String projectGroupCodes = Properties.PROJECT_GROUP_CODE;
+		String[] split = projectGroupCodes.split(",");
+		List<String> projectGroups = new ArrayList<>(Arrays.asList(split));
+         for (String projectGroupCode :projectGroups) {
+        	 String tableName ="active_list_"+projectGroupCode;
+             createHbaseTable(tableName);
+             logger.info("Processing active list for project group code"+projectGroupCode);
+             syncTable(tableName, projectGroupCode, "eligible_clients");
+         }
 	}
 	
 	

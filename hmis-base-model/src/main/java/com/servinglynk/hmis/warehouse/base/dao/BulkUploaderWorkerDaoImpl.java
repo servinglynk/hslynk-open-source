@@ -83,8 +83,6 @@ public class BulkUploaderWorkerDaoImpl extends BaseDaoImpl<BulkUpload> implement
 		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
 		query.add(Restrictions.eq("projectGroupCode",projectGroupCode));
 		query.add(Restrictions.eq("deleted",false));
-		//query.createAlias("user", "user");
-		//query.add(Restrictions.eq("user.id", userId));
 		query.addOrder( Order.desc("id") );
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query,startIndex,maxItems);
 		return list;
@@ -97,5 +95,37 @@ public class BulkUploaderWorkerDaoImpl extends BaseDaoImpl<BulkUpload> implement
 		query.add(Restrictions.eq("year",year));
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
 		return list;
+	}
+	@Override
+	public BulkUpload updateBulkUpload(BulkUpload upload) {
+		getCurrentSession().update(upload); 
+		return upload;
+	}
+	@Override
+	public void deleteClient(BulkUpload upload) {
+		delete(upload);
+	}
+	@Override
+	public BulkUpload getBulkUploadId(Long bulkUploadId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.base.BulkUpload.class);
+		criteria.add(Restrictions.eq("id", bulkUploadId));
+		List<com.servinglynk.hmis.warehouse.model.base.BulkUpload> uploads = (List<com.servinglynk.hmis.warehouse.model.base.BulkUpload>) findByCriteria(criteria);
+		if(uploads.size()>0) return uploads.get(0);
+		return null;
+	}
+	@Override
+	public int getCount(BulkUpload upload) {
+		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
+		if(StringUtils.isNotBlank(upload.getProjectGroupCode()))
+			query.add(Restrictions.eq("projectGroupCode",upload.getProjectGroupCode()));
+		if(upload.getYear() !=null)
+			query.add(Restrictions.eq("year",upload.getYear()));
+		if(StringUtils.isNotBlank(upload.getStatus()))
+			query.add(Restrictions.eq("status",upload.getStatus()));
+		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query);
+		if(list !=null)
+			return list.size();
+		else 
+			return 0;
 	}
 }

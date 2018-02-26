@@ -43,6 +43,7 @@ import com.servinglynk.hmis.warehouse.service.exception.HealthInsuranceNotFoundE
 import com.servinglynk.hmis.warehouse.service.exception.HealthStatusNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.HousingAssessmentDispositionNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.IncomeAndSourceNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.InvalidRequest;
 import com.servinglynk.hmis.warehouse.service.exception.InventoryNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.LastPermanentAddressNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.MedicalassistanceNotFoundException;
@@ -57,6 +58,7 @@ import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException
 import com.servinglynk.hmis.warehouse.service.exception.ProjectcocNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ReferralsourceNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ResidentialmoveindateNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.RhybcpstatusNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.SchoolstatusNotFoundException;
@@ -392,12 +394,25 @@ public class ExceptionMapper {
 			r.setErrorCode(ERR_CODE_INVALID_TRUSTED_APP);
 			r.setErrorMessage(ex.getMessage());
 		} catch (DateTimeParseException ex) {
-			logger.info("InvalidTrustedAppException: " + ex.getMessage(), ex);
+			logger.info("DateTimeParseException: " + ex.getMessage(), ex);
 			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
 			r.setErrorCode("INVALID_DATE_FORMAT");
 			ex.printStackTrace();
 			r.setErrorMessage(ex.getMessage());
+		} catch (InvalidRequest ex) {
+			logger.info("InvalidRequest: " + ex.getMessage(), ex);
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+			r.setErrorCode("INVALID_REQUEST");
+			ex.printStackTrace();
+			r.setErrorMessage(ex.getMessage());
+		}catch (com.servinglynk.hmis.warehouse.service.exception.ResourceNotFound ex) {
+			logger.info("ResourceNotFoundException: " + ex.getMessage(), ex);
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorCode("REQUEST_RESOURCE_NOTFOUND");
+			ex.printStackTrace();
+			r.setErrorMessage(ex.getMessage());
 		}
+		
 		catch (Throwable t) {
         	
 			logger.error(t.getMessage(), t);

@@ -23,6 +23,7 @@ public class Constants {
 	/* Notification Constants */
 	public static final String JOB_FAILED = "FAILED";
 	public static final String JOB_SUCCEEDED = "SUCCESS";
+	public static final String JOB_DELIVERED = "DELIVERED";
 	public static final String JOB_CREATED = "CREATED";
 	public static final String JOB_PROCESSING = "PROCESSING";
 

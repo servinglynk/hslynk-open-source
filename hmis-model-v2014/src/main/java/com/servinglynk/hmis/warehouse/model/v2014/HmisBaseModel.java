@@ -20,9 +20,9 @@ import org.hibernate.search.annotations.Store;
 public abstract class HmisBaseModel implements Entity{
 	
 	/** Field mapping. */
-	protected LocalDateTime dateCreated;
+	protected LocalDateTime dateCreated = LocalDateTime.now();
 	/** Field mapping. */
-	protected LocalDateTime dateUpdated;
+	protected LocalDateTime dateUpdated = LocalDateTime.now();
 	/** Field mapping. */
 	protected LocalDateTime dateCreatedFromSource;
 	/** Field mapping. */

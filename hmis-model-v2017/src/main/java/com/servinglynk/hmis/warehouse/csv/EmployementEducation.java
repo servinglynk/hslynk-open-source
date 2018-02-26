@@ -7,7 +7,7 @@ public class EmployementEducation {
 	@MapToColumn(column=0)
 	private String EmploymentEducationID;
 	@MapToColumn(column=1)
-	private String ProjectEntryID;
+	private String EnrollmentyID;
 	@MapToColumn(column=2)
 	private String PersonalID;
 	@MapToColumn(column=3)
@@ -40,11 +40,11 @@ public class EmployementEducation {
 	public void setEmploymentEducationID(String employmentEducationID) {
 		EmploymentEducationID = employmentEducationID;
 	}
-	public String getProjectEntryID() {
-		return ProjectEntryID;
+	public String getEnrollmentyID() {
+		return EnrollmentyID;
 	}
-	public void setProjectEntryID(String projectEntryID) {
-		ProjectEntryID = projectEntryID;
+	public void setEnrollmentyID(String EnrollmentyID) {
+		this.EnrollmentyID = EnrollmentyID;
 	}
 	public String getPersonalID() {
 		return PersonalID;

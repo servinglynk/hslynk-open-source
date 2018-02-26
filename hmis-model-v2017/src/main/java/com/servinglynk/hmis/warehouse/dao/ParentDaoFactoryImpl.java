@@ -94,6 +94,8 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	
 	@Autowired
 	private BulkUploadErrorDao bulkUploadErrorDao;
+	
+	@Autowired private QuestionDao questionDao;
 
 	/**
 	 * @return the bulkUploaderDao
@@ -618,5 +620,11 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setRhyAfterCareDao(RHYAfterCareDao rhyAfterCareDao) {
 		this.rhyAfterCareDao = rhyAfterCareDao;
 	}
-	
+	public QuestionDao getQuestionDao() {
+		return questionDao;
+	}
+
+	public void setQuestionDao(QuestionDao questionDao) {
+		this.questionDao = questionDao;
+	}
 }

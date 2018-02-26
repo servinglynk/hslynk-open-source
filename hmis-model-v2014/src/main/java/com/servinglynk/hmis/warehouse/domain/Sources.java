@@ -7195,6 +7195,7 @@ public class Sources {
                 protected Byte dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
+                protected String cocCode;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateUpdated;
                 @XmlAttribute
@@ -7282,7 +7283,15 @@ public class Sources {
                     this.dataCollectionStage = value;
                 }
 
-                /**
+                public String getCocCode() {
+					return cocCode;
+				}
+
+				public void setCocCode(String cocCode) {
+					this.cocCode = cocCode;
+				}
+
+				/**
                  * Gets the value of the dateCreated property.
                  * 
                  * @return

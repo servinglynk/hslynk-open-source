@@ -13,6 +13,7 @@ import com.servinglynk.hmis.warehouse.service.EducationService;
 import com.servinglynk.hmis.warehouse.service.EmploymentService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentCocService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
+import com.servinglynk.hmis.warehouse.service.EnrollmentServiceV2;
 import com.servinglynk.hmis.warehouse.service.EntryrhspService;
 import com.servinglynk.hmis.warehouse.service.EntryrhyService;
 import com.servinglynk.hmis.warehouse.service.EntryssvfService;
@@ -32,6 +33,7 @@ import com.servinglynk.hmis.warehouse.service.NoncashbenefitsService;
 import com.servinglynk.hmis.warehouse.service.OrganizationService;
 import com.servinglynk.hmis.warehouse.service.PathstatusService;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
+import com.servinglynk.hmis.warehouse.service.ProjectServiceV2;
 import com.servinglynk.hmis.warehouse.service.ProjectcocService;
 import com.servinglynk.hmis.warehouse.service.QuestionService;
 import com.servinglynk.hmis.warehouse.service.ResidentialmoveindateService;
@@ -83,4 +85,6 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	BulkUploadErrorActivityService getBulkUploadErrorActivityService();
 	HMISTypeService getHmisTypeService();
 	QuestionService getQuestionService();
+	EnrollmentServiceV2 getEnrollmentServiceV2();
+	ProjectServiceV2 getProjectServiceV2();
 }

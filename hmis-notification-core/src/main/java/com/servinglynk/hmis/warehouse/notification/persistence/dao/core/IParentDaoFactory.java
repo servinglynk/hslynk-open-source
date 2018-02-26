@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.notification.persistence.dao.core;
 
+import com.servinglynk.hmis.warehouse.notification.persistence.dao.IHMISNotificationDao;
 import com.servinglynk.hmis.warehouse.notification.persistence.dao.INotificationHeaderDao;
 import com.servinglynk.hmis.warehouse.notification.persistence.dao.INotificationLineDao;
 import com.servinglynk.hmis.warehouse.notification.persistence.dao.ITemplateLineDao;
@@ -15,5 +16,6 @@ public interface IParentDaoFactory {
 	public INotificationHeaderDao getNotificationHeaderDao();
 	public INotificationLineDao getNotificationLineDao();
 	public ITemplateLineDao getTemplateLineDao();
+	IHMISNotificationDao getHmIhmisNotificationDao();
 	
 }

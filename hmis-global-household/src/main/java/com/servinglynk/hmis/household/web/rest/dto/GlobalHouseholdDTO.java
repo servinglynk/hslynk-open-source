@@ -20,7 +20,7 @@ import com.servinglynk.hmis.warehouse.core.model.JsonDateTimeSerializer;
  * A DTO for the GlobalHousehold entity.
  */
 @SuppressWarnings("serial")
-@ValidateClient(clientIdField="headOfHouseholdId",linkField="link")
+@ValidateClient(clientIdField="headOfHouseholdId",linkField="link",dedupClientIdField="dedupClientId")
 public class GlobalHouseholdDTO implements Serializable {
 
     private UUID globalHouseholdId;
@@ -37,10 +37,15 @@ public class GlobalHouseholdDTO implements Serializable {
 	@JsonSerialize(using=JsonDateTimeSerializer.class)
 	private LocalDateTime dateUpdated;
 	
+	private String schemaYear;
+	
 	private UUID userId;
 	
 	@JsonProperty(access=Access.WRITE_ONLY)
 	private String link;
+	
+	
+	private UUID dedupClientId;
 
    
     public UUID getGlobalHouseholdId() {
@@ -90,6 +95,22 @@ public class GlobalHouseholdDTO implements Serializable {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public UUID getDedupClientId() {
+		return dedupClientId;
+	}
+
+	public void setDedupClientId(UUID dedupClientId) {
+		this.dedupClientId = dedupClientId;
+	}
+
+	public String getSchemaYear() {
+		return schemaYear;
+	}
+
+	public void setSchemaYear(String schemaYear) {
+		this.schemaYear = schemaYear;
 	}
 
 	@Override

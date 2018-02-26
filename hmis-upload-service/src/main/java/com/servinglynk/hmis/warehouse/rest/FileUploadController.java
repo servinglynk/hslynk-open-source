@@ -1,9 +1,5 @@
 package com.servinglynk.hmis.warehouse.rest;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -14,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.Account;
+import com.servinglynk.hmis.warehouse.core.model.BulkUpload;
 import com.servinglynk.hmis.warehouse.core.model.Session;
-import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 
 @RestController
 @RequestMapping("/upload")
@@ -40,9 +35,10 @@ public class FileUploadController  extends ControllerBase {
 				try {
 					logger.info("Server File Location=");
 					Session session = sessionHelper.getSession(request);
-					com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new BulkUpload();
-					upload.setInputpath(fileName);
-					upload.setSize(0L);
+					BulkUpload upload = new BulkUpload();
+					upload.setFileName(fileName);
+					upload.setFileSize("0");
+					upload.setStatus("INITIAL");
 					if(StringUtils.isEmpty(year)) {
 						throw new IllegalArgumentException("Year cannot be null.");
 					}else{
@@ -51,7 +47,6 @@ public class FileUploadController  extends ControllerBase {
 					}
 					Account account = session.getAccount();
 					serviceFactory.getBulkUploadService().createBulkUploadEntry(upload,account);
-
 					return "You successfully uploaded file=" + fileName;
 				} catch (Exception e) {
 					logger.error("Error while uploading file {}",e.getMessage());

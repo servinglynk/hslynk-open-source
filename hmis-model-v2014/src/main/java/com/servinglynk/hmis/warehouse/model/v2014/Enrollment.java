@@ -174,6 +174,9 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	/** Field mapping. */
 	private Set<Youthcriticalissues> youthcriticalissueses = new HashSet<Youthcriticalissues>();
 	private boolean chronicHomeless;
+	
+	private String source;
+	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -1029,7 +1032,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
 		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 		@Basic( optional = true )
-		@JoinColumn(name = "project_id", nullable = true )
+		@JoinColumn(name = "projectid", nullable = true )
 		public Project getProject() {
 			return this.project;
 
@@ -1443,6 +1446,15 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	 */
 	public void setYouthcriticalissueses(final Set<Youthcriticalissues> youthcriticalissues) {
 		this.youthcriticalissueses = youthcriticalissues;
+	}
+	
+	@Column(name = "source")
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 

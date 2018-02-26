@@ -11,6 +11,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.xstream.XStreamMarshaller;
+import org.springframework.security.config.method.GlobalMethodSecurityBeanDefinitionParser;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -19,7 +20,10 @@ import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.ConsentsController;
+import com.servinglynk.hmis.warehouse.rest.GlobalEnrollmentsController;
+import com.servinglynk.hmis.warehouse.rest.GlobalProjectsController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
+import com.servinglynk.hmis.warehouse.rest.NotificationsController;
 
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
@@ -72,5 +76,22 @@ public class GlobalAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public ClientsController clientsController(){
 		 return new ClientsController();
+	 }
+	 
+	 
+	 
+	 @Bean
+	 public NotificationsController notificationsController() {
+		return new NotificationsController();
+	 }
+	 
+	 @Bean
+	 public GlobalEnrollmentsController globalEnrollmentsController() {
+		 return new GlobalEnrollmentsController();
+	 }
+	 
+	 @Bean
+	 public GlobalProjectsController globalProjectsController() {
+		 return new GlobalProjectsController();
 	 }
 }

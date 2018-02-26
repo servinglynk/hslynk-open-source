@@ -107,6 +107,8 @@ public class Person extends BaseObject implements java.io.Serializable
 	private String custom19;
 	private String custom20;
 	
+	private int points;
+	
 	private String account;
 	private IdentifierDomain accountIdentifierDomain;
 	private Set<PersonIdentifier> personIdentifiers = new HashSet<PersonIdentifier>();
@@ -961,6 +963,14 @@ public class Person extends BaseObject implements java.io.Serializable
 		this.accountIdentifierDomain = accountIdentifierDomain;
 	}
 	
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
 	@Override
 	public boolean equals(final Object other) {
 		if (!(other instanceof Person))
