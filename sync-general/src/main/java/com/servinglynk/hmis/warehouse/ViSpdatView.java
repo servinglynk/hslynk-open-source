@@ -50,9 +50,22 @@ public class ViSpdatView  extends Logging {
 	            String key = "";
 	            Put p = null;
 	            for(Response response : responsesForSurvey) {
+	            	 Boolean deleted = response.getDeleted();
 	            	if(StringUtils.isBlank(key)) {
 	            		 p = new Put(Bytes.toBytes(response.getSubmissionId()));
 	            	}
+	                if (deleted !=null && deleted.booleanValue()) {
+	                    if (existingKeysInHbase.contains(key)) {
+	                        putsToDelete.add(key);
+	                        if (putsToDelete.size() > syncHBaseImport.batchSize) {
+	                            syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
+	                            putsToDelete.clear();
+	                        }
+	                    } else {
+	                        log.debug("Skip row with key: " + key);
+	                        continue;
+	                    }
+	                } else {
 	            	if(!StringUtils.equals(key, response.getSubmissionId()) && StringUtils.isNotBlank(key)) {
 	            		p = new Put(Bytes.toBytes(key));
 	            		addColumn("client_id",String.valueOf(response.getClientId()), key, p);
@@ -60,12 +73,13 @@ public class ViSpdatView  extends Logging {
 	            		addColumn("survey_date",getCreatedAtString(response.getSurveyResponseDate()), key, p);
 	            		  if(p != null) {
 	     	            	 if (existingKeysInHbase.contains(key)) {
-	     	                        putsToUpdate.add(p);
-	     	                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
-	     	                            htable.put(putsToUpdate);
-	     	                            putsToUpdate.clear();
-	     	                        }
-	     	                    } else {
+	     	            		 	putsToUpdate.add(p);
+	 	     	                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
+	 	     	                            htable.put(putsToUpdate);
+	 	     	                            putsToUpdate.clear();
+	 	     	                        }
+	     	            		 	}
+	     	                      else {
 	     	                        putsToInsert.add(p);
 	     	                        if (putsToInsert.size() > syncHBaseImport.batchSize) {
 	     	                            htable.put(putsToInsert);
@@ -73,10 +87,11 @@ public class ViSpdatView  extends Logging {
 	     	                        }
 	     	                    }
 	     	                existingKeysInPostgres.add(key);
+	            		  }
 	     	            }
-	            	}
 	            	 key = response.getSubmissionId();
 	            	 addColumn(response.getQuestionId(),String.valueOf(response.getResponseText()), key, p);
+	            	}
 	            }
 	            if(p != null) {
 	            	 if (existingKeysInHbase.contains(key)) {
@@ -210,7 +225,8 @@ public class ViSpdatView  extends Logging {
             	String questionId =  resultSet.getString("question_id");
             	String responseText = resultSet.getString("response_text");
             	Timestamp createdAt = resultSet.getTimestamp("created_at");
-            	Response response = new Response(submissionId, questionId, client,responseText,createdAt);
+            	Boolean deleted = resultSet.getBoolean("deleted");
+            	Response response = new Response(submissionId, questionId, client,responseText,createdAt,deleted);
             	responses.add(response);
             }
         }catch (Exception ex){
