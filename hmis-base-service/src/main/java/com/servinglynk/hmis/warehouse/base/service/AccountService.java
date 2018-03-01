@@ -35,6 +35,6 @@ public interface AccountService {
 
 	Account getAccount(Account account,boolean onlyBasicInfo);
 	
-	boolean checkClientConsentAuthorizationForUser(Account account, UUID clientid,String apiMethodId);
+	boolean checkClientConsentAuthorizationForUser(Account account, UUID clientid);
 
 }

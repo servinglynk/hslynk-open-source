@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.base.service.impl;
 import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_ACTIVE;
 import static com.servinglynk.hmis.warehouse.common.Constants.VERIFICATION_TYPE_ACCOUNT_CREATION;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,9 @@ import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Accounts;
+import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
+import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
+import com.servinglynk.hmis.warehouse.core.model.GlobalProject;
 import com.servinglynk.hmis.warehouse.core.model.Notification;
 import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
@@ -369,17 +373,22 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 	}
 	
 	@Transactional
-	public boolean checkClientConsentAuthorizationForUser(Account account, UUID clientid,String apiMethodId) {
-		ApiMethodEntity apiMethodEntity = daoFactory.getApiMethodDao().findByExternalId(apiMethodId);
+	public boolean checkClientConsentAuthorizationForUser(Account account, UUID clientid) {
 
-		if (apiMethodEntity == null)
-			throw new ApiMethodNotFoundException();
-
-		if (!apiMethodEntity.isClientConsentRequired())
-			return true;
-		boolean isAccess = daoFactory.getClientConsentDao().checkClientAccess(clientid, account.getProjectGroup().getProjectGroupCode(), account.getAccountId(),apiMethodEntity.getClientConsentGroup());
-			if(!isAccess) logger.debug("User does not have client consent for requested client ");
-		return isAccess;
+		ClientConsents consents = serviceFactory.getClientConsentService().getClientConsents(clientid, null, null);
+		if(consents.getClientConsents().isEmpty()) throw new AccessDeniedException("Client does not have any consents");
+		
+		List<UUID> projectids = new ArrayList<>();
+		for(ClientConsent clientConsent : consents.getClientConsents()) {
+			for(GlobalProject globalProject : clientConsent.getGlobalProjects()) {
+				projectids.add(globalProject.getId());
+			}
+		}
+		System.out.println(projectids.isEmpty());
+		System.out.println(projectids.size());
+		if(projectids.size() == 0) throw new AccessDeniedException("Client does not given consent to any global project");
+		
+		return serviceFactory.getGlobalProjectService().checkGlobalProjectUser(projectids,account.getAccountId());
 	}
 	
 	@Transactional

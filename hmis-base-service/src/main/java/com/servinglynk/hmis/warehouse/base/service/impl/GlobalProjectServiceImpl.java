@@ -147,4 +147,10 @@ public class GlobalProjectServiceImpl extends ServiceBase implements GlobalProje
 		return users;
 	}
 
+	@Transactional
+	public Boolean checkGlobalProjectUser(List<UUID> projectids, UUID accountId) {
+		return	daoFactory.getGlobalProjectDao().checkGlobalProjectUser(projectids,accountId);
+		
+	}
+
 }

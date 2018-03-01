@@ -13,12 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
-import com.servinglynk.hmis.warehouse.core.model.ClientConsentStatus;
-import com.servinglynk.hmis.warehouse.core.model.ClientConsentTypes;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
+import com.servinglynk.hmis.warehouse.core.model.GlobalProjects;
 import com.servinglynk.hmis.warehouse.core.model.Session;
-import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequest;
-import com.servinglynk.hmis.warehouse.core.model.ClientConsentRequests;
 
 @RestController
 public class ConsentsController extends ControllerBase {
@@ -61,71 +58,21 @@ public class ConsentsController extends ControllerBase {
 		return serviceFactory.getClientConsentService().getClientConsents(clientId,startIndex,maxItems);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="/clients/{clientid}/consentrequests")
-	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="CREATE_CLIENT_CONSENT_REQUEST")
-	public ClientConsentRequest createClientConsentRequest(@PathVariable("clientid") UUID clientId ,@RequestBody ClientConsentRequest requestClientConsent, HttpServletRequest request) throws Exception {
-			requestClientConsent.setClientId(clientId);
-			Session session = sessionHelper.getSession(request);
-		return serviceFactory.getClientConsentService().createClientConsentRequest(requestClientConsent,session);
+	@RequestMapping(method=RequestMethod.PUT,value="/clients/{clientid}/consents/{consentid}/projects")
+	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_CLIENT_CONSENTS")
+	public void addClientConsentProjects(@PathVariable("clientid") UUID clientId,@PathVariable("consentid")  UUID clientConsentId,
+				@RequestBody GlobalProjects globalProjects) {
+		serviceFactory.getClientConsentService().addProjectToClientConsent(clientConsentId, globalProjects);
 	}
+	
+	@RequestMapping(method=RequestMethod.DELETE,value="/clients/{clientid}/consents/{consentid}/projects/{globalProjectId}")
+	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_CLIENT_CONSENTS")
+	public void removeClientConsentProjects(@PathVariable("clientid") UUID clientId,
+			@PathVariable("consentid") UUID clientConsentId,
+			@PathVariable("globalProjectId") UUID globalProjectId) {
+		serviceFactory.getClientConsentService().removeProjectFromClientConsent(clientConsentId, globalProjectId);
+		
+	}
+	
 
-	
-	@RequestMapping(method=RequestMethod.PUT,value="/clients/{clientid}/consentrequests/{consentrequestid}")
-	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="UPDATE_CLIENT_CONSENT_REQUEST")
-	public ClientConsentRequest updateClientConsentRequest(
-			@PathVariable("clientid") UUID clientId ,
-			@PathVariable("consentrequestid") UUID clientConsentRequestId,
-			@RequestBody ClientConsentRequest requestClientConsent, HttpServletRequest request) throws Exception {
-		requestClientConsent.setId(clientConsentRequestId);
-		requestClientConsent.setClientId(clientId);
-		Session session = sessionHelper.getSession(request);
-		return serviceFactory.getClientConsentService().updateClientConsentRequest(requestClientConsent,session);
-	}
-	
-	@RequestMapping(method=RequestMethod.DELETE,value="/clients/{clientid}/consentrequests/{consentrequestid}")
-	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="DELETE_CLIENT_CONSENT_REQUEST")
-	public void deleteClientConsentRequest(			
-			@PathVariable("clientid") UUID clientId ,
-			@PathVariable("consentrequestid") UUID clientConsentRequestId,HttpServletRequest request) throws Exception {
-		serviceFactory.getClientConsentService().deleteClientConsentRequest(clientConsentRequestId);
-	}
-	
-	
-	@RequestMapping(method=RequestMethod.GET,value="/clients/{clientid}/consentrequests/{consentrequestid}")
-	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_CLIENT_CONSENT_REQUEST_BY_ID")
-	public ClientConsentRequest getClientConsentRequestById(
-			@PathVariable("clientid") UUID clientId ,
-			@PathVariable("consentrequestid") UUID clientConsentRequestId,HttpServletRequest request) throws Exception {
-		return serviceFactory.getClientConsentService().getClientConsentRequestById(clientConsentRequestId);
-	}
-	
-	
-	@RequestMapping(method=RequestMethod.GET,value="/clients/{clientid}/consentrequests")
-	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_CLIENT_CONSENT_REQUESTS")
-	public ClientConsentRequests getAllClientConsentRequests(
-			@PathVariable("clientid") UUID clientId,
-			@RequestParam(value="startIndex",defaultValue="0",required=true) Integer startIndex,
-			@RequestParam(value="maxItems",defaultValue="30",required=true) Integer maxItems,
-			HttpServletRequest request) throws Exception {
-		return serviceFactory.getClientConsentService().getAllClientConsentRequests(clientId,startIndex,maxItems);
-	}
-	
-	@RequestMapping(method=RequestMethod.PUT,value="/clients/{clientid}/consentrequests/{consentrequestid}/statuses")
-	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="UPDATE_CLIENT_CONSENT_REQUEST_STATUS")
-	public void updateConsentStatus(@PathVariable("clientid") UUID clientId,
-			@PathVariable("consentrequestid") UUID consentId ,
-			@RequestBody ClientConsentStatus clientConsentStatus,HttpServletRequest request) throws Exception {
-		clientConsentStatus.setConsentId(consentId);
-		Session session = sessionHelper.getSession(request);
-		serviceFactory.getClientConsentService().updateClientConsentStatus(clientConsentStatus,session);
-	}
-	
-	@RequestMapping(method=RequestMethod.GET,value="/clientConsentTypes")
-	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="UPDATE_CLIENT_CONSENT_REQUEST_STATUS")
-	public ClientConsentTypes getConsentTypes(			
-			@RequestParam(value="startIndex",defaultValue="0",required=true) Integer startIndex,
-			@RequestParam(value="maxItems",defaultValue="30",required=true) Integer maxItems,
-			HttpServletRequest request) throws Exception {
-		return serviceFactory.getClientConsentService().getConsentTypes(startIndex,maxItems);
-	}
 }

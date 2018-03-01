@@ -1,35 +1,34 @@
 package com.servinglynk.hmis.warehouse.base.service.converter;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsentEntityModel;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntitiesEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
-import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 
 public class ClientConsentConverter {
 
 	public static ClientConsentEntity modelToEntity(ClientConsent model,ClientConsentEntity entity){
 		if(entity==null) entity = new ClientConsentEntity();
 		entity.setClientId(model.getClientId());
-		entity.setStartTime(model.getStartTime());
-		entity.setEndTime(model.getEndTime());
+		entity.setStartTime(LocalDateTime.ofInstant(model.getStartTime().toInstant(), ZoneId.systemDefault()));
+		entity.setEndTime(LocalDateTime.ofInstant(model.getEndTime().toInstant(), ZoneId.systemDefault()));
 		entity.setConsentDocument(model.getConsentDocumentLink());
-		entity.setEntityGroup(model.getEntityGroup());
 		return entity;
 	}
 
 	public static ClientConsent entityToModel(ClientConsentEntity entity){
 		ClientConsent model = new ClientConsent();
 		model.setClientId(entity.getClientId());
-		model.setStartTime(entity.getStartTime());
-		model.setEndTime(entity.getEndTime());
+		model.setStartTime(Date.from(entity.getStartTime().atZone(ZoneId.systemDefault()).toInstant()));
+		model.setEndTime(Date.from(entity.getEndTime().atZone(ZoneId.systemDefault()).toInstant()));
 		model.setConsentDocumentLink(entity.getConsentDocument());
 		model.setStatus(entity.getStatus());
 		model.setId(entity.getId());
+		
 		return model;
 	}
 
