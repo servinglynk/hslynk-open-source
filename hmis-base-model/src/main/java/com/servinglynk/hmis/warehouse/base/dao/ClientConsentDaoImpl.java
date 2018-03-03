@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.base.dao;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -10,9 +11,12 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.omg.CORBA.OMGVMCID;
 
+import com.servinglynk.hmis.warehouse.enums.UuidUserType;
 import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
+import com.servinglynk.hmis.warehouse.model.base.ClientConsentProjectMapEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntitiesEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentRequestEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentStatusEntity;
@@ -49,7 +53,13 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 	public List<ClientConsentEntity> getClinetConsents(UUID clientId,Integer startIndex,Integer maxItems) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
 		if(clientId!=null) criteria.add(Restrictions.eq("clientId", clientId));
-		List<ClientConsentEntity> consents = (List<ClientConsentEntity>) findByCriteria(criteria,startIndex,maxItems);
+		List<ClientConsentEntity> consents = new ArrayList<>();
+		if(startIndex==null || maxItems==null) {
+			consents = (List<ClientConsentEntity>) findByCriteria(criteria);
+		}else {
+			
+		 consents = (List<ClientConsentEntity>) findByCriteria(criteria,startIndex,maxItems);
+		}
 		return consents;
 	}
 	
@@ -108,21 +118,6 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 		return (List<ClientConsentStatusEntity>) findByCriteria(criteria);
 	}
 	
-	
-	public boolean checkClientAccess(UUID clientId,String projectGroup,UUID userId,String entityGroup){
-		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
-		criteria.add(Restrictions.eq("clientId", clientId));
-		criteria.add(Restrictions.eq("entityGroup", entityGroup));
-		Criterion pgCodeCriterion = Restrictions.eq("consentProjectGroup", projectGroup);
-		Criterion userCtiterion = Restrictions.eq("consentUserId", userId);
-		criteria.add(Restrictions.or(pgCodeCriterion,userCtiterion));
-		criteria.add(Restrictions.lt("startTime", LocalDateTime.now()));
-		criteria.add(Restrictions.ge("endTime", LocalDateTime.now()));
-		List<ClientConsentEntity> entities = (List<ClientConsentEntity>) findByCriteria(criteria);
-		if(entities.isEmpty()) return false;
-		return true;
-	}
-	
 	public List<String> getConsentTypes() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ApiMethodEntity.class);
 		ProjectionList projList = Projections.projectionList();
@@ -132,4 +127,37 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 		return consentTypes;
 	}
 	
+	
+	public void createConsentProjectMap(ClientConsentProjectMapEntity entity) {
+		entity.setId(UUID.randomUUID());
+		insert(entity);
+	}
+	
+	
+	public void deleteConsentProjectMap(ClientConsentProjectMapEntity entity) {
+		delete(entity);
+	}
+	
+	public ClientConsentProjectMapEntity getClientConsentProjectMap(UUID clientConsentId,UUID globalProjectId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentProjectMapEntity.class);
+		criteria.createAlias("clientConsent", "clientConsent");
+		criteria.createAlias("globalProject", "globalProject");
+		
+		criteria.add(Restrictions.eq("clientConsent.id",clientConsentId));
+		if(globalProjectId!=null) criteria.add(Restrictions.eq("globalProject.id",globalProjectId));
+		
+		List<ClientConsentProjectMapEntity> entities = (List<ClientConsentProjectMapEntity>) findByCriteria(criteria);
+		if(!entities.isEmpty()) return entities.get(0);
+		return null;
+	}
+	
+	public List<ClientConsentProjectMapEntity> getClientConsentProjectMap(UUID clientConsentId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentProjectMapEntity.class);
+		criteria.createAlias("clientConsent", "clientConsent");
+		
+		criteria.add(Restrictions.eq("clientConsent.id",clientConsentId));
+		
+		List<ClientConsentProjectMapEntity> entities = (List<ClientConsentProjectMapEntity>) findByCriteria(criteria);
+		return entities;
+	}
 }

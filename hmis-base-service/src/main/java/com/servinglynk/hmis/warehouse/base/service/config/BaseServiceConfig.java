@@ -42,6 +42,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.UsernameChangeServiceImp
 import com.servinglynk.hmis.warehouse.base.service.impl.VerificationServiceImpl;
 import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ApiAuthCheckInterceptor;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.ClientConsentInterceptor;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
 
@@ -69,9 +70,16 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	public LocalApiAuthChecker apiAuthChecker(){
 		return new LocalApiAuthChecker();
 	}
+	
+	 @Bean
+	 public ClientConsentInterceptor clientConsentInterceptor() {
+		 return new ClientConsentInterceptor();
+	 }
+	 
 		 @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
 	        registry.addInterceptor(apiAuthCheckInterceptor());
+	        registry.addInterceptor(clientConsentInterceptor()).addPathPatterns("/clients/*/enrollments/**","/clients/*/enrollments","/clients/*/veteraninfos");
 	    }
 	
 	@Bean(name="serviceFactory")
