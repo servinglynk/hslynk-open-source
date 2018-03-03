@@ -14,6 +14,7 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
+		<java-version>1.8</java-version>
 
 		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
 
