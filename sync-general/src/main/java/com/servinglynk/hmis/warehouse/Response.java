@@ -4,19 +4,21 @@ import java.sql.Timestamp;
 
 public class Response {
 	
-public Response(String submissionId, String questionId, String clientId,String responseText,Timestamp surveyResponseDate) {
+public Response(String submissionId, String questionId, String clientId,String responseText,Timestamp surveyResponseDate,Boolean deleted) {
 		super();
 		this.submissionId = submissionId;
 		this.questionId = questionId;
 		this.clientId = clientId;
 		this.responseText = responseText;
 		this.surveyResponseDate = surveyResponseDate;
+		this.deleted = deleted;
 	}
 private String submissionId;
 private String questionId;
 private String clientId;
 private String responseText;
 private Timestamp surveyResponseDate;
+private Boolean deleted;
 /**
  * @return the submissionId
  */
@@ -70,6 +72,12 @@ public Timestamp getSurveyResponseDate() {
 }
 public void setSurveyResponseDate(Timestamp surveyResponseDate) {
 	this.surveyResponseDate = surveyResponseDate;
+}
+public Boolean getDeleted() {
+	return deleted;
+}
+public void setDeleted(Boolean deleted) {
+	this.deleted = deleted;
 }
 
 }

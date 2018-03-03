@@ -23,5 +23,13 @@ public class PropertyDaoImpl extends QueryExecutorImpl implements PropertyDao {
 		criteria.add(Restrictions.eq("service", "COMMON"));
 		return (List<PropertyEntity>) findByCriteria(criteria);
 	}
+	
+	public PropertyEntity readConsentProperty(){
+		DetachedCriteria criteria = DetachedCriteria.forClass(PropertyEntity.class);
+		criteria.add(Restrictions.eq("keyName","consentCheck"));
+		List<PropertyEntity> entities = (List<PropertyEntity>) findByCriteria(criteria);
+		if(!entities.isEmpty()) return entities.get(0);
+		return null;
+	}
 
 }

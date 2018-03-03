@@ -63,13 +63,17 @@ public class BulkUploadHelperTest {
 //		System.out.println(path);
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
 		//upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
+		upload.setInputpath("/Users/sdolia/Downloads/HUD_4_1_1_4012_77.xml");
 		upload.setProjectGroupCode("PG0001");
-		upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml");
+		//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_4012_63.xml");
 		com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp = new com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
 		sources = helper.getSourcesFromFiles(upload,projectGrp,false);
 		assertNotNull(sources);
-		
+		List<Services> services2 = sources.getSource().getExport().getServices();
+		for(Services services : services2) {
+			System.out.println(services.getServicesID()+","+services.getRecordType());
+		}
 		List<Client> clients = sources.getSource().getExport().getClient();
 		assertNotNull(clients);
 		assertEquals(clients.size(), 1);

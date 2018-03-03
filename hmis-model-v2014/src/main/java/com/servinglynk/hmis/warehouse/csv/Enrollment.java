@@ -77,94 +77,96 @@ public class Enrollment {
 	@MapToColumn(column=34)
 	private String ChildWelfareMonths;
 	@MapToColumn(column=35)
-	private String JuvenileJusticeYears;
+	private String FormerWardJuvenileJustice;
 	@MapToColumn(column=36)
-	private String JuvenileJusticeMonths;
+	private String JuvenileJusticeYears;
 	@MapToColumn(column=37)
-	private String HouseholdDynamics;
+	private String JuvenileJusticeMonths;
 	@MapToColumn(column=38)
-	private String SexualOrientationGenderIDYouth;
+	private String HouseholdDynamics;
 	@MapToColumn(column=39)
-	private String SexualOrientationGenderIDFam;
+	private String SexualOrientationGenderIDYouth;
 	@MapToColumn(column=40)
-	private String HousingIssuesYouth;
+	private String SexualOrientationGenderIDFam;
 	@MapToColumn(column=41)
-	private String HousingIssuesFam;
+	private String HousingIssuesYouth;
 	@MapToColumn(column=42)
-	private String SchoolEducationalIssuesYouth;
+	private String HousingIssuesFam;
 	@MapToColumn(column=43)
-	private String SchoolEducationalIssuesFam;
+	private String SchoolEducationalIssuesYouth;
 	@MapToColumn(column=44)
-	private String UnemploymentYouth;
+	private String SchoolEducationalIssuesFam;
 	@MapToColumn(column=45)
-	private String UnemploymentFam;
+	private String UnemploymentYouth;
 	@MapToColumn(column=46)
-	private String MentalHealthIssuesYouth;
+	private String UnemploymentFam;
 	@MapToColumn(column=47)
-	private String MentalHealthIssuesFam;
+	private String MentalHealthIssuesYouth;
 	@MapToColumn(column=48)
-	private String HealthIssuesYouth;
+	private String MentalHealthIssuesFam;
 	@MapToColumn(column=49)
-	private String HealthIssuesFam;
+	private String HealthIssuesYouth;
 	@MapToColumn(column=50)
-	private String PhysicalDisabilityYouth;
+	private String HealthIssuesFam;
 	@MapToColumn(column=51)
-	private String PhysicalDisabilityFam;
+	private String PhysicalDisabilityYouth;
 	@MapToColumn(column=52)
-	private String MentalDisabilityYouth;
+	private String PhysicalDisabilityFam;
 	@MapToColumn(column=53)
-	private String MentalDisabilityFam;
+	private String MentalDisabilityYouth;
 	@MapToColumn(column=54)
-	private String AbuseAndNeglectYouth;
+	private String MentalDisabilityFam;
 	@MapToColumn(column=55)
-	private String AbuseAndNeglectFam;
+	private String AbuseAndNeglectYouth;
 	@MapToColumn(column=56)
-	private String AlcoholDrugAbuseYouth;
+	private String AbuseAndNeglectFam;
 	@MapToColumn(column=57)
-	private String AlcoholDrugAbuseFam;
+	private String AlcoholDrugAbuseYouth;
 	@MapToColumn(column=58)
-	private String InsufficientIncome;
+	private String AlcoholDrugAbuseFam;
 	@MapToColumn(column=59)
-	private String ActiveMilitaryParent;
+	private String InsufficientIncome;
 	@MapToColumn(column=60)
-	private String IncarceratedParent;
+	private String ActiveMilitaryParent;
 	@MapToColumn(column=61)
-	private String IncarceratedParentStatus;
+	private String IncarceratedParent;
 	@MapToColumn(column=62)
-	private String ReferralSource;
+	private String IncarceratedParentStatus;
 	@MapToColumn(column=63)
-	private String CountOutreachReferralApproaches;
+	private String ReferralSource;
 	@MapToColumn(column=64)
-	private String ExchangeForSex;
+	private String CountOutreachReferralApproaches;
 	@MapToColumn(column=65)
-	private String ExchangeForSexPastThreeMonths;
+	private String ExchangeForSex;
 	@MapToColumn(column=66)
-	private String CountOfExchangeForSex;
+	private String ExchangeForSexPastThreeMonths;
 	@MapToColumn(column=67)
-	private String AskedOrForcedToExchangeForSex;
+	private String CountOfExchangeForSex;
 	@MapToColumn(column=68)
-	private String AskedOrForcedToExchangeForSexPastThreeMonths;
+	private String AskedOrForcedToExchangeForSex;
 	@MapToColumn(column=69)
+	private String AskedOrForcedToExchangeForSexPastThreeMonths;
+	@MapToColumn(column=70)	
 	private String WorkPlaceViolenceThreats;
-	@MapToColumn(column=70)
-	private String WorkPlacePromiseDifference;
 	@MapToColumn(column=71)
-	private String CoercedToContinueWork;
+	private String WorkPlacePromiseDifference;
 	@MapToColumn(column=72)
-	private String LaborExploitPastThreeMonths;
+	private String CoercedToContinueWork;
 	@MapToColumn(column=73)
-	private String HPScreeningScore;
+	private String LaborExploitPastThreeMonths;
 	@MapToColumn(column=74)
-	private String VAMCStation;
+	private String HPScreeningScore;
 	@MapToColumn(column=75)
-	private String DateCreated;
+	private String VAMCStation;
 	@MapToColumn(column=76)
-	private String DateUpdated;
+	private String DateCreated;
 	@MapToColumn(column=77)
-	private String UserID;
+	private String DateUpdated;
 	@MapToColumn(column=78)
-	private String DateDeleted;
+	private String UserID;
 	@MapToColumn(column=79)
+	private String DateDeleted;
+	@MapToColumn(column=80)
 	private String ExportID;
 	public String getProjectEntryID() {
 		return ProjectEntryID;
@@ -651,6 +653,10 @@ public class Enrollment {
 	public void setExportID(String exportID) {
 		ExportID = exportID;
 	}
-				
-	
+	public String getFormerWardJuvenileJustice() {
+		return FormerWardJuvenileJustice;
+	}
+	public void setFormerWardJuvenileJustice(String formerWardJuvenileJustice) {
+		FormerWardJuvenileJustice = formerWardJuvenileJustice;
+	}
 }

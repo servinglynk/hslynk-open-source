@@ -66,16 +66,10 @@ public class ClientConsentRequestConverter {
 	public static ClientConsentEntity consentRequestToConsent(ClientConsentRequestEntity entity, String username){
 		ClientConsentEntity clientConsentEntity = new ClientConsentEntity();
 		clientConsentEntity.setClientId(entity.getClientId());
-		clientConsentEntity.setConsentUserId(entity.getConsentUserId());
+
 		clientConsentEntity.setStartTime(entity.getStartTime());
 		clientConsentEntity.setEndTime(entity.getEndTime());
-		clientConsentEntity.setConsentUserId(entity.getConsentUserId());
-		clientConsentEntity.setEntityGroup(entity.getEntityGroup());
 		clientConsentEntity.setProjectGroupCode(entity.getProjectGroupCode());
-		clientConsentEntity.setCreatedBy(username);
-		clientConsentEntity.setStatus("APPROVED");
-		clientConsentEntity.setCreatedAt(new Date());
-		clientConsentEntity.setEntityGroup(entity.getEntityGroup());
 		return clientConsentEntity;
 	}
 }

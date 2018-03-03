@@ -9,6 +9,7 @@ public class SyncMainAllSchemas {
 		Properties props = new Properties();
 		props.generatePropValues();
 		props.printProps();
+		new SyncSchema(logger).syncBase(true);
 	    new SyncSchema(logger).sync(true);
 	}
 }

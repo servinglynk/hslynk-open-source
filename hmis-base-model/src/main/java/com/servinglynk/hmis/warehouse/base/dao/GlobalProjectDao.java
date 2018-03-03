@@ -23,4 +23,5 @@ public interface GlobalProjectDao {
 	void removeUserToGlobalProject(GlobalProjectUserEnity enity);
 	GlobalProjectUserEnity getGlobalProjectUserMap(UUID globalProjectId,UUID userId);
 	List<GlobalProjectUserEnity> getGlobalProjecUsertMappings(UUID globalProjectId);
+	Boolean checkGlobalProjectUser(List<UUID> projectids, UUID accountId);
 }
