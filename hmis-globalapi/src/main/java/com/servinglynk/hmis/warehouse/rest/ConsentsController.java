@@ -74,5 +74,12 @@ public class ConsentsController extends ControllerBase {
 		
 	}
 	
+	@RequestMapping(method=RequestMethod.GET,value="/clients/{clientid}/checkUserConsent")
+	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_CLIENT_CONSENTS")
+	public Boolean checkClientUserAccess(@PathVariable("clientid") UUID clientId,HttpServletRequest request) {
+		Session session = sessionHelper.getSession(request);
+		return serviceFactory.getAccountService().checkClientConsentAuthorizationForUser(session.getAccount(), clientId);
+	}
+	
 
 }
