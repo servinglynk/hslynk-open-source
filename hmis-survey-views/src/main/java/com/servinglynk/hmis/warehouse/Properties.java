@@ -18,6 +18,7 @@ public class Properties {
     public static String HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT="2181";
     public static int SYNC_PERIOD;
     public static String SYNC_SCHEMAS;
+    public static String PROJECT_GROUPS;
     public static String HIVE_USERNAME;
     public static String HIVE_PASSWORD;
     public static String HIVE_DRIVER_URL;
@@ -50,7 +51,7 @@ public class Properties {
             HIVE_USERNAME = prop.getProperty("hive.username");
             HIVE_PASSWORD = prop.getProperty("hive.password");
             HIVE_DRIVER_URL= prop.getProperty("hive.driverUrl");
-
+            PROJECT_GROUPS = prop.getProperty("sync.projectgroups");
         } catch (Exception e) {
             System.out.println("Exception: " + e);
             throw e;

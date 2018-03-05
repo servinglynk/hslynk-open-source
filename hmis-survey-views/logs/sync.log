@@ -29,3 +29,561 @@
 2018-03-04 23:35:27 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
 2018-03-04 23:35:27 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
 2018-03-04 23:35:27 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:53 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:53 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:54 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:54 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:54 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:54 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:54 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:54 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:54 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:54 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:54 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:54 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:51:54 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:51:54 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:52:21 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:52:21 main HiveConnection [INFO] Could not open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:53:08 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:53:08 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:53:08 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-04 23:53:46 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:53:46 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-04 23:53:46 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/

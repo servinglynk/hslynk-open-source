@@ -13,13 +13,15 @@ public class CreateCESTables {
 		 Properties props = new Properties();
 		 props.generatePropValues();
 		CreateCESTables cesTables = new CreateCESTables();
-		cesTables.getFile("CESTables.sql","MC0005");
+		String projectGroups = Properties.PROJECT_GROUPS;
+		String[] split = projectGroups.split(",");
+		for(String projectGroup : split) {
+			cesTables.getFile("CESTables.sql",projectGroup);
+		}
 	}
 	
 	 private String getFile(String fileName,String projectGroupCode) {
-
 			StringBuilder result = new StringBuilder("");
-
 			//Get file from resources folder
 			ClassLoader classLoader = getClass().getClassLoader();
 			File file = new File(classLoader.getResource(fileName).getFile());
