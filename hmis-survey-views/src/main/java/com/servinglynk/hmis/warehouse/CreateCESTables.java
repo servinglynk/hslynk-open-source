@@ -17,6 +17,8 @@ public class CreateCESTables {
 		String[] split = projectGroups.split(",");
 		for(String projectGroup : split) {
 			cesTables.getFile("CESTables.sql",projectGroup);
+			cesTables.getFile("HiveSQLCreateTable.sql",projectGroup);
+			cesTables.getFile("HiveSQLCreateTable_v2015.sql",projectGroup);
 		}
 	}
 	
