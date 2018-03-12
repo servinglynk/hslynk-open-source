@@ -332,11 +332,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.servinglynk.servey.views.ActiveListView</mainClass>
-                                </transformer>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.servinglynk.servey.views.SurveyView</mainClass>
+                                    <mainClass>com.servinglynk.hmis.warehouse.CreateHiveTablesForViSpdat</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -352,11 +348,7 @@
                     <programs>
                         <program>
                             <mainClass>com.servinglynk.servey.views.ActiveListView</mainClass>
-                            <name>main-active-list-view.sh</name>
-                        </program>
-                        <program>
-                            <mainClass>com.servinglynk.servey.views.SurveyView</mainClass>
-                            <name>main-survey-view.sh</name>
+                            <name>main-hive-view.sh</name>
                         </program>
                     </programs>
 
@@ -391,18 +383,11 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <chmod file="${basedir}/target/temp_build/bin/main-active-list-view.sh"
+                                <chmod file="${basedir}/target/temp_build/bin/main-hive-view.sh"
                                        perm="ugo+rx"/>
-                                <chmod file="${basedir}/target/temp_build/bin/main-survey-view.sh"
+                                <chmod file="${basedir}/src/main/scripts/start-hive-view.sh"
                                        perm="ugo+rx"/>
-
-                                <chmod file="${basedir}/src/main/scripts/start-active-list-view.sh"
-                                       perm="ugo+rx"/>
-                                <chmod file="${basedir}/src/main/scripts/start-survey-view.sh"
-                                       perm="ugo+rx"/>
-                                <chmod file="${basedir}/src/main/scripts/stop-active-list-view.sh"
-                                       perm="ugo+rx"/>
-                                <chmod file="${basedir}/src/main/scripts/stop-survey-view.sh"
+                                <chmod file="${basedir}/src/main/scripts/stop-hive-view.sh"
                                        perm="ugo+rx"/>
                             </tasks>
                         </configuration>

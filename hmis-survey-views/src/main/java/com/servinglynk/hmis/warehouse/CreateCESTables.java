@@ -16,13 +16,13 @@ public class CreateCESTables {
 		String projectGroups = Properties.PROJECT_GROUPS;
 		String[] split = projectGroups.split(",");
 		for(String projectGroup : split) {
-			cesTables.getFile("CESTables.sql",projectGroup);
-			cesTables.getFile("HiveSQLCreateTable.sql",projectGroup);
-			cesTables.getFile("HiveSQLCreateTable_v2015.sql",projectGroup);
+			cesTables.createTable("CESTables.sql",projectGroup);
+			cesTables.createTable("HiveSQLCreateTable.sql",projectGroup);
+			cesTables.createTable("HiveSQLCreateTable_v2015.sql",projectGroup);
 		}
 	}
 	
-	 private String getFile(String fileName,String projectGroupCode) {
+	 public String createTable(String fileName,String projectGroupCode) {
 			StringBuilder result = new StringBuilder("");
 			//Get file from resources folder
 			ClassLoader classLoader = getClass().getClassLoader();

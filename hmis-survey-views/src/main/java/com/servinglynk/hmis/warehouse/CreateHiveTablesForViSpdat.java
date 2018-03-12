@@ -106,7 +106,8 @@ public class CreateHiveTablesForViSpdat {
 		 Set<String> disinctSurveys = getDisinctSurveys("survey");
 		 for(String surveyId : disinctSurveys) {
 			 Survey survey = getSurveyById("survey", surveyId);
-			 if(StringUtils.equals("MC0005",survey.getProjectGroupCode())) {
+			 String projectGroupCodes = Properties.PROJECT_GROUPS;
+			 if(projectGroupCodes.contains(survey.getProjectGroupCode())) {
 				 StringBuilder builder = new StringBuilder();
 				 builder.append("CREATE EXTERNAL TABLE IF NOT EXISTS "+survey.getProjectGroupCode()+"."+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase());
 				 builder.append("(submission_id string,client_id string,survey_date  timestamp ");
@@ -136,6 +137,14 @@ public class CreateHiveTablesForViSpdat {
 				 createHiveTable(builder.toString());
 			 }
 	     }
+		 CreateCESTables hmisCESTables = new CreateCESTables();
+		 String projectGroups = Properties.PROJECT_GROUPS;
+			String[] split = projectGroups.split(",");
+			for(String projectGroup : split) {
+				hmisCESTables.createTable("CESTables.sql",projectGroup);
+				hmisCESTables.createTable("HiveSQLCreateTable.sql",projectGroup);
+				hmisCESTables.createTable("HiveSQLCreateTable_v2015.sql",projectGroup);
+			}
 	}
 	
 	public static void createHiveTable(String sql) {

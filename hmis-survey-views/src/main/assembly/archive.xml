@@ -25,19 +25,11 @@
     </fileSets>
     <files>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/start-active-list-view.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/start-hive-view.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/start-survey-view.sh</source>
-            <outputDirectory>/bin/</outputDirectory>
-        </file>
-        <file>
-            <source>${project.build.directory}/../src/main/scripts/stop-active-list-view.sh</source>
-            <outputDirectory>/bin/</outputDirectory>
-        </file>
-        <file>
-            <source>${project.build.directory}/../src/main/scripts/stop-survey-view.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/stop-hive-view.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
     </files>
