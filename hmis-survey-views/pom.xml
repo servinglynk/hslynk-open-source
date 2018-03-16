@@ -347,7 +347,7 @@
                 <configuration>
                     <programs>
                         <program>
-                            <mainClass>com.servinglynk.servey.views.ActiveListView</mainClass>
+                            <mainClass>com.servinglynk.hmis.warehouse.CreateHiveTablesForViSpdat</mainClass>
                             <name>main-hive-view.sh</name>
                         </program>
                     </programs>
