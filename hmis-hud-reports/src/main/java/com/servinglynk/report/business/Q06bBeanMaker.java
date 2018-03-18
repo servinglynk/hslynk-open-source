@@ -12,8 +12,10 @@ import com.servinglynk.report.bean.Q06bDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
+import com.servinglynk.report.model.ProjectModel;
 
-public class Q06bBeanMaker  {
+
+public class Q06bBeanMaker  extends BaseBeanMaker {
 	public static Long veteranStatusErrorCount = 0L;
 	public static Long pedErrorCount = 0L;
 	public static Long relationShipHHErrorCount = 0L;
@@ -24,6 +26,7 @@ public class Q06bBeanMaker  {
 		Q06bDataBean q06bDataBean = new Q06bDataBean();
 		List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel> enrollments = data.getEnrollments();
+		ProjectModel project = data.getProject();
 		Long numOfClients = Long.valueOf(clients.size());
 		clients.parallelStream().forEach(client -> { 
 			
@@ -40,7 +43,7 @@ public class Q06bBeanMaker  {
 			if(StringUtils.equals("8", enrollment.getRelationshiptohoh()) || StringUtils.equals("9", enrollment.getRelationshiptohoh())) {
 				relationShipHHErrorCount++;
 			}
-//			if(enrollment.getEntrydate() == null) {
+//			if(enrollment.getStart == null) {
 //				pedErrorCount++;
 //			}
 		 }
