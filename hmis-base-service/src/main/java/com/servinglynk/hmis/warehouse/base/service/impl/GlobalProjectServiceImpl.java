@@ -1,7 +1,9 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -88,7 +90,11 @@ public class GlobalProjectServiceImpl extends ServiceBase implements GlobalProje
 	public void addProjectsToGlobalProject(UUID globalProjectId, GlobalProjectsMap globalProjectsMap, Account account) {
 		GlobalProjectEntity entity = daoFactory.getGlobalProjectDao().getById(globalProjectId);
 		if(entity==null) throw new ResourceNotFoundException("Global project not found");
+		daoFactory.getGlobalProjectDao().removeAllProjects(globalProjectId);
+		List<UUID> projectIds = new ArrayList<UUID>();
 		for(GlobalProjectMap project : globalProjectsMap.getGlobalProjectMaps()) {
+			if(!projectIds.contains(project.getProjectId())) {
+				projectIds.add(project.getProjectId());
 				GlobalProjectMapEntity mapEntity = GlobalProjectConveter.modelToEntity(project, null);
 				mapEntity.setDateCreated(LocalDateTime.now());
 				mapEntity.setDateUpdated(LocalDateTime.now());
@@ -96,6 +102,7 @@ public class GlobalProjectServiceImpl extends ServiceBase implements GlobalProje
 				mapEntity.setUser(account.getAccountId());
 				mapEntity.setGlobalProject(entity);
 				daoFactory.getGlobalProjectDao().addProjectToGlobalProject(mapEntity);
+			}
 		}
 		
 	}
@@ -111,17 +118,26 @@ public class GlobalProjectServiceImpl extends ServiceBase implements GlobalProje
 	public void addUsersToGlobalProject(UUID globalProjectId,GlobalProjectUsers users,Account account) {
 		GlobalProjectEntity entity = daoFactory.getGlobalProjectDao().getById(globalProjectId);
 		if(entity==null) throw new ResourceNotFoundException("Global project not found");
+		List<GlobalProjectUserEnity> projUsers = new ArrayList<>();
+		List<UUID> userIds = new ArrayList<UUID>();
 		for(GlobalProjectUser user : users.getGlobalProjectUsers()) {
 			GlobalProjectUserEnity userEnity = new GlobalProjectUserEnity();
-			HmisUser hmisUser = daoFactory.getAccountDao().findByUserId(user.getUserId());
-			if(hmisUser==null) throw new ResourceNotFoundException("User not found");
-			userEnity.setGlobalProject(entity);
-			userEnity.setHmisUser(hmisUser);
-			userEnity.setUser(account.getAccountId());
-			userEnity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
-			userEnity.setDateCreated(LocalDateTime.now());
-			userEnity.setDateUpdated(LocalDateTime.now());
-			daoFactory.getGlobalProjectDao().addUserToGlobalProject(userEnity);
+			if(!userIds.contains(user.getUserId())) {
+				userIds.add(user.getUserId());
+				HmisUser hmisUser = daoFactory.getAccountDao().findByUserId(user.getUserId());
+				if(hmisUser==null) throw new ResourceNotFoundException("User not found");
+				userEnity.setGlobalProject(entity);
+				userEnity.setHmisUser(hmisUser);
+				userEnity.setUser(account.getAccountId());
+				userEnity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
+				userEnity.setDateCreated(LocalDateTime.now());
+				userEnity.setDateUpdated(LocalDateTime.now());
+				projUsers.add(userEnity);
+			}
+		}
+		daoFactory.getGlobalProjectDao().removeAllProjectUsers(globalProjectId);
+		for(GlobalProjectUserEnity user : projUsers) {
+			daoFactory.getGlobalProjectDao().addUserToGlobalProject(user);
 		}
 	}
 	
