@@ -65,4 +65,17 @@ public class GlobalEnrollmentDaoImpl extends QueryExecutorImpl implements Global
 		criteria.add(Restrictions.eq("globalEnrollment.id", globalEnrollmentId));
 		return (List<GlobalEnrollmentsMapEntity>) findByCriteria(criteria);
 	}
+
+	@Override
+	public void removeAllEnrollments(UUID globalEnrollmentId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(GlobalEnrollmentsMapEntity.class);
+		criteria.createAlias("globalEnrollment", "globalEnrollment");
+		criteria.add(Restrictions.eq("globalEnrollment.id", globalEnrollmentId));
+		List<GlobalEnrollmentsMapEntity> entities = (List<GlobalEnrollmentsMapEntity>) findByCriteria(criteria);
+		for(GlobalEnrollmentsMapEntity entity : entities) {
+			delete(entity);
+		}
+
+		
+	}
 }
