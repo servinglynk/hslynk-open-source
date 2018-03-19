@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -80,14 +81,19 @@ public class GlobalEnrollmentServiceImpl extends ServiceBase implements GlobalEn
 	public void mapEnrollmentsToGlobalEnrollment(UUID globalEnrollmentId, GlobalEnrollmentsMap enrollments,Account account) {
 		GlobalEnrollmentEntity entity = daoFactory.getGlobalEnrollmentDao().getById(globalEnrollmentId);
 		if(entity==null) throw new ResourceNotFound("Global enrollment not found");
+		daoFactory.getGlobalEnrollmentDao().removeAllEnrollments(globalEnrollmentId);
+		List<UUID> enrollmentIds = new ArrayList<UUID>();
 		for(GlobalEnrollmentMap enrollment : enrollments.getGlobalEnrollmentMaps()) {
-			GlobalEnrollmentsMapEntity enrollmentsMapEntity = GlobalEnrollmentConveter.modelToEntity(null, enrollment);
-			enrollmentsMapEntity.setUser(account.getAccountId());
-			enrollmentsMapEntity.setDateCreated(LocalDateTime.now());
-			enrollmentsMapEntity.setDateUpdated(LocalDateTime.now());
-			enrollmentsMapEntity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
-			enrollmentsMapEntity.setGlobalEnrollment(entity);
-			daoFactory.getGlobalEnrollmentDao().createEnrollmentMap(enrollmentsMapEntity);
+			if(!enrollmentIds.contains(enrollment.getEnrollmentId())) {
+				enrollmentIds.add(enrollment.getEnrollmentId());
+				GlobalEnrollmentsMapEntity enrollmentsMapEntity = GlobalEnrollmentConveter.modelToEntity(null, enrollment);
+				enrollmentsMapEntity.setUser(account.getAccountId());
+				enrollmentsMapEntity.setDateCreated(LocalDateTime.now());
+				enrollmentsMapEntity.setDateUpdated(LocalDateTime.now());
+				enrollmentsMapEntity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
+				enrollmentsMapEntity.setGlobalEnrollment(entity);
+				daoFactory.getGlobalEnrollmentDao().createEnrollmentMap(enrollmentsMapEntity);
+			}
 		}
 		
 	}
