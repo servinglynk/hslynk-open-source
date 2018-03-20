@@ -2,8 +2,11 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.report.bean.Q06dDataBean;
 import com.servinglynk.report.bean.ReportData;
@@ -49,12 +52,14 @@ of months...] (3.917.5).
 columns C through G and divide by the total records in column B.
  * @return
  */
-public class Q06dDataBeanMaker {
+public class Q06dDataBeanMaker extends BaseBeanMaker{
 
 	public static List<Q06dDataBean> getQ06DataBeanList(ReportData data){
 		
 		List<EnrollmentModel> enrollments = data.getEnrollments();
-
+		List<EnrollmentModel> adultAndHoh = enrollments.parallelStream().filter(enrollment -> enrollment.getEntrydate().compareTo(chCutoffDate) > 0  && (StringUtils.equals("1", enrollment.getRelationshiptohoh()) ||enrollment.getAgeatentry() > 18)).collect(Collectors.toList());
+		
+		
 		Q06dDataBean q06dDataBean =new Q06dDataBean();
 		q06dDataBean.setEsshCountOfTotalRecords(BigInteger.valueOf(0));
 		q06dDataBean.setEsshMissingTimeInInstitution(BigInteger.valueOf(0));

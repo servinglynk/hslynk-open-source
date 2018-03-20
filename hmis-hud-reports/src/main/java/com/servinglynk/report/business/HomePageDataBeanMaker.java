@@ -87,10 +87,11 @@ import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
+import com.servinglynk.report.model.ProjectModel;
 
-public class HomePageDataBeanMaker {
+public class HomePageDataBeanMaker extends BaseBeanMaker {
 	
-			public static List<HomePageDataBean> getHomePageDataList(String schema,String projectId,boolean sageReport,Date reportStartDate, Date reportEndDate){
+			public static List<HomePageDataBean> getHomePageDataList(String schema,String cocId,boolean sageReport,Date reportStartDate, Date reportEndDate){
 				
 	       
 			HomePageDataBean homePageDataBean = new HomePageDataBean();
@@ -110,6 +111,8 @@ public class HomePageDataBeanMaker {
 			if(sageReport) {
 				CSVGenerator.buildReport(q04aDataBeanList, "Q4a.jrxml", "Q4a.csv");
 			}
+			
+			List<ProjectModel> projects = getProjectsByCoc(cocId);
 			
 			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId,reportStartDate, reportEndDate);
 			data.setSchema(schema);
@@ -166,7 +169,7 @@ public class HomePageDataBeanMaker {
 				CSVGenerator.buildReport(q06cPointInTimeCountPersonsLastWednesdayList, "Q6c.jrxml", "Q6c.csv");
 			}
 			
-			List<Q06dDataBean> q06dDataBeanList = Q06dDataBeanMaker.getQ06DataBeanList();
+			List<Q06dDataBean> q06dDataBeanList = Q06dDataBeanMaker.getQ06DataBeanList(data);
 			homePageDataBean.setQ06dDataBean(q06dDataBeanList);
 			if(q06dDataBeanList!=null){
 				CSVGenerator.buildReport(q06dDataBeanList, "Q6d.jrxml", "Q6d.csv");
@@ -729,6 +732,40 @@ public class HomePageDataBeanMaker {
 			}
 
 			
+			public static List<ProjectModel> getProjectsByCoc(String schema,String cocId) {
+				ResultSet resultSet = null;
+				PreparedStatement statement = null;
+				Connection connection = null;
+				List<ExitModel>  models = new ArrayList<ExitModel>();
+				try {
+					connection = ImpalaConnection.getConnection();
+					statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_EXITS,schema));
+					resultSet = statement.executeQuery();
+				 while(resultSet.next()) {
+					 ExitModel model = new ExitModel( resultSet.getString("exit.exit_id"), resultSet.getString("exit.destination"), 
+							 resultSet.getString("destination_desc"), 
+							 resultSet.getDate("exitdate"), 
+							 resultSet.getString("otherdestination"), 
+							 resultSet.getString("project_entry_id"), resultSet.getString("exit.source_system_id"), resultSet.getDate("exit.date_created_from_source"));
+					 models.add(model);
+				 }
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (statement != null) {
+						try {
+							statement.close();
+							//connection.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				return models;
+			}
+			
 			public static List<ExitModel> getAllExits(String schema) {
 				ResultSet resultSet = null;
 				PreparedStatement statement = null;
@@ -740,10 +777,10 @@ public class HomePageDataBeanMaker {
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
 					 ExitModel model = new ExitModel( resultSet.getString("exit.exit_id"), resultSet.getString("exit.destination"), 
-							 resultSet.getString("exit.destination_desc"), 
-							 resultSet.getDate("exit.exitdate"), 
-							 resultSet.getString("exit.otherdestination"), 
-							 resultSet.getString("exit.project_entry_id"), resultSet.getString("exit.source_system_id"), resultSet.getDate("exit.date_created_from_source"));
+							 resultSet.getString("destination_desc"), 
+							 resultSet.getDate("exitdate"), 
+							 resultSet.getString("otherdestination"), 
+							 resultSet.getString("project_entry_id"), resultSet.getString("exit.source_system_id"), resultSet.getDate("exit.date_created_from_source"));
 					 models.add(model);
 				 }
 				} catch (SQLException e) {

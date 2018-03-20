@@ -5,6 +5,8 @@ import java.time.Period;
 import java.util.Date;
 
 public class BaseBeanMaker {
+	
+	protected static Date chCutoffDate = new Date(2016, 10, 1);
 
 	public static boolean isChild(Date dob) {
 		try {
