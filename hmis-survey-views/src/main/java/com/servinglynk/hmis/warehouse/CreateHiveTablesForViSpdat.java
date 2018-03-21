@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,6 +13,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.servinglynk.hive.connection.ViewQuery;
 
 public class CreateHiveTablesForViSpdat {
 	
@@ -102,9 +106,16 @@ public class CreateHiveTablesForViSpdat {
 		 Set<String> disinctSurveys = getDisinctSurveys("survey");
 		 for(String surveyId : disinctSurveys) {
 			 Survey survey = getSurveyById("survey", surveyId);
+<<<<<<< HEAD:sync-general/src/main/java/com/servinglynk/hmis/warehouse/CreateHiveTablesForViSpdat.java
 			 if(StringUtils.equals("HO0002",survey.getProjectGroupCode())) {
 				 StringBuilder builder = new StringBuilder();
 				 builder.append("CREATE EXTERNAL TABLE IF NOT EXISTS "+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase());
+=======
+			 String projectGroupCodes = Properties.PROJECT_GROUPS;
+			 if(projectGroupCodes.contains(survey.getProjectGroupCode())) {
+				 StringBuilder builder = new StringBuilder();
+				 builder.append("CREATE EXTERNAL TABLE IF NOT EXISTS "+survey.getProjectGroupCode()+"."+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase());
+>>>>>>> 422_423_sync_service_fa:hmis-survey-views/src/main/java/com/servinglynk/hmis/warehouse/CreateHiveTablesForViSpdat.java
 				 builder.append("(submission_id string,client_id string,survey_date  timestamp ");
 				 List<String> disinctQuestions = getDisinctQuestions("survey", survey.getSurveyId());
 				 for(String questionId : disinctQuestions) {
@@ -127,9 +138,32 @@ public class CreateHiveTablesForViSpdat {
 					 builder.append(",CF:"+questionId);
 				 }
 				 String tableName =survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase()+"_"+survey.getProjectGroupCode();
-				 builder.append("\") TBLPROPERTIES (\"hbase.table.name\" = \""+tableName+"\");");
+				 builder.append("\") TBLPROPERTIES (\"hbase.table.name\" = \""+tableName+"\")");
 				 System.out.println(builder.toString());
+				 createHiveTable(builder.toString());
 			 }
 	     }
+		 CreateCESTables hmisCESTables = new CreateCESTables();
+		 String projectGroups = Properties.PROJECT_GROUPS;
+			String[] split = projectGroups.split(",");
+			for(String projectGroup : split) {
+				hmisCESTables.createTable("CESTables.sql",projectGroup);
+				hmisCESTables.createTable("HiveSQLCreateTable.sql",projectGroup);
+				hmisCESTables.createTable("HiveSQLCreateTable_v2015.sql",projectGroup);
+			}
+	}
+	
+	public static void createHiveTable(String sql) {
+		Connection connection;
+		try {
+			connection = HiveConnection.getConnection();
+			Statement stmt = connection.createStatement();
+			// execute statement
+			System.out.println(" Create Query::"+ sql);
+			stmt.execute(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();	
+		}
 	}
 }
