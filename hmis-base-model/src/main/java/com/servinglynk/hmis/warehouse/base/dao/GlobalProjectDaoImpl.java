@@ -99,4 +99,38 @@ public class GlobalProjectDaoImpl extends QueryExecutorImpl implements GlobalPro
 		criteria.add(Restrictions.eq("globalProject.id", globalProjectId));
 		return (List<GlobalProjectUserEnity>) findByCriteria(criteria);
 	}
+
+	public Boolean checkGlobalProjectUser(List<UUID> projectids, UUID userId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(GlobalProjectUserEnity.class);
+		criteria.createAlias("globalProject","globalProject");
+		criteria.createAlias("hmisUser","hmisUser");
+		criteria.add(Restrictions.in("globalProject.id", projectids));
+		criteria.add(Restrictions.eq("hmisUser.id",userId));
+		List<GlobalProjectUserEnity> entities = (List<GlobalProjectUserEnity>) findByCriteria(criteria);
+		if(!entities.isEmpty()) return true;
+		return false;
+	}
+
+	@Override
+	public void removeAllProjectUsers(UUID globalProjectId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(GlobalProjectUserEnity.class);
+		criteria.createAlias("globalProject","globalProject");
+		criteria.add(Restrictions.eq("globalProject.id", globalProjectId));
+		List<GlobalProjectUserEnity> entities = (List<GlobalProjectUserEnity>) findByCriteria(criteria);
+		for(GlobalProjectUserEnity enity : entities) {
+			delete(enity);
+		}
+	}
+
+	@Override
+	public void removeAllProjects(UUID globalProjectId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(GlobalProjectMapEntity.class);
+		criteria.createAlias("globalProject","globalProject");
+		criteria.add(Restrictions.eq("globalProject.id", globalProjectId));
+		List<GlobalProjectMapEntity> entities = (List<GlobalProjectMapEntity>) findByCriteria(criteria);
+		for(GlobalProjectMapEntity entity : entities) {
+			delete(entity);
+		}
+		
+	}
 }

@@ -16,4 +16,5 @@ public interface GlobalEnrollmentDao {
 	void deleteEnrollmentMap(GlobalEnrollmentsMapEntity entity);
 	List<GlobalEnrollmentsMapEntity> getGlobalEnrollmentMappings(UUID globalEnrollmentId);
 	 GlobalEnrollmentsMapEntity getByEnrollmetnMapId(UUID globalEnrollmentId, UUID enrollmentMapId);
+	void removeAllEnrollments(UUID globalEnrollmentId);
 }
