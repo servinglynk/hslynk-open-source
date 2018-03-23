@@ -14,6 +14,7 @@ public class ReportData {
 	private String schema;
 	private String projectId;
 	private List<ClientModel> clients = new ArrayList<ClientModel>();
+	private List<ProjectModel> projects = new ArrayList<ProjectModel>();
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
 	private List<ExitModel> exits = new ArrayList<ExitModel>();
 	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
@@ -287,5 +288,10 @@ public class ReportData {
 	public void setProject(ProjectModel project) {
 		this.project = project;
 	}
-	
+	public List<ProjectModel> getProjects() {
+		return projects;
+	}
+	public void setProjects(List<ProjectModel> projects) {
+		this.projects = projects;
+	}
 }

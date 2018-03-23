@@ -1,16 +1,19 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.report.bean.Q06dDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.EnrollmentModel;
+import com.servinglynk.report.model.ProjectModel;
 
 /***
  * https://www.hudexchange.info/resources/documents/HMIS-Standard-Reporting-Terminology-Glossary.pdf
@@ -57,8 +60,16 @@ public class Q06dDataBeanMaker extends BaseBeanMaker{
 	public static List<Q06dDataBean> getQ06DataBeanList(ReportData data){
 		
 		List<EnrollmentModel> enrollments = data.getEnrollments();
+		List<ProjectModel> projects = data.getProjects();
+		List<ProjectModel> esshProjects =  projects.parallelStream().filter(project -> StringUtils.equals("1", project.getProjectType()) || StringUtils.equals("4", project.getProjectType()) ||  StringUtils.equals("8", project.getProjectType())  ).collect(Collectors.toList());
+		List<String> esshProjectIds = new ArrayList<>();
+		esshProjects.forEach(project -> { esshProjectIds.add(project.getProjectId()); });
+		List<ProjectModel> transitionalHousingProjects = projects.parallelStream().filter(project -> StringUtils.equals("2", project.getProjectType())).collect(Collectors.toList());
+		List<ProjectModel> permanentHousingProjects = projects.parallelStream().filter(project -> StringUtils.equals("3", project.getProjectType()) || StringUtils.equals("9", project.getProjectType()) || StringUtils.equals("10", project.getProjectType()) || StringUtils.equals("13", project.getProjectType()) ).collect(Collectors.toList());
+		
 		List<EnrollmentModel> adultAndHoh = enrollments.parallelStream().filter(enrollment -> enrollment.getEntrydate().compareTo(chCutoffDate) > 0  && (StringUtils.equals("1", enrollment.getRelationshiptohoh()) ||enrollment.getAgeatentry() > 18)).collect(Collectors.toList());
 		
+		//Adults and HOH belonging to esshProjects
 		
 		Q06dDataBean q06dDataBean =new Q06dDataBean();
 		q06dDataBean.setEsshCountOfTotalRecords(BigInteger.valueOf(0));

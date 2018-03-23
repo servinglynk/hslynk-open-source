@@ -107,16 +107,17 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setHomePageView("Aggregate / summary");
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
-			List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projectId,data);
+			
+			List<ProjectModel> projects = getProjectsByCoc(schema,cocId);
+			
+			List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projects.get(0).getProjectId(),data);
 			if(sageReport) {
 				CSVGenerator.buildReport(q04aDataBeanList, "Q4a.jrxml", "Q4a.csv");
 			}
 			
-			List<ProjectModel> projects = getProjectsByCoc(cocId);
-			
-			List<EnrollmentModel> enrollments = getEnrollmentsByProjectId(schema, projectId,reportStartDate, reportEndDate);
+			List<EnrollmentModel> enrollments = getEnrollmentsByCocId(schema, cocId,reportStartDate, reportEndDate);
 			data.setSchema(schema);
-			data.setProjectId(projectId);
+			data.setProjectId(cocId);
 			data.setEnrollments(enrollments);
 			List<ClientModel> allClients = getClients(schema);
 			List<String> clientIds = new ArrayList<String>(); 
@@ -551,12 +552,12 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				statement.setString(1, id);
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
-				 homePageDataBean.setQ04aProjectName(resultSet.getString("project.projectname"));
-				 homePageDataBean.setQ04aHmisProjectType(resultSet.getString("project.projecttype_desc"));
-				 homePageDataBean.setQ04aProjectId(resultSet.getString("project.project_source_system_id"));
+				 homePageDataBean.setQ04aProjectName(resultSet.getString("projectname"));
+				 homePageDataBean.setQ04aHmisProjectType(resultSet.getString("projecttype_desc"));
+				 homePageDataBean.setQ04aProjectId(resultSet.getString("project_source_system_id"));
 //				 homePageDataBean.setQ04aProjectId("");
-				 homePageDataBean.setQ04aMethodOfTracking(resultSet.getString("project.trackingmethod_desc"));
-				 String organizationId = resultSet.getString("project.organizationid");
+				 homePageDataBean.setQ04aMethodOfTracking(resultSet.getString("trackingmethod_desc"));
+				 String organizationId = resultSet.getString("organizationid");
 				 populateOranization(schema, organizationId, homePageDataBean);
 			 }
 			} catch (SQLException e) {
@@ -670,15 +671,15 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				}
 				return models;
 			}
-			public static List<EnrollmentModel> getEnrollmentsByProjectId(String schema,String projectId,Date reportStartDate, Date reportEndDate) {
+			public static List<EnrollmentModel> getEnrollmentsByCocId(String schema,String  cocId,Date reportStartDate, Date reportEndDate) {
 				ResultSet resultSet = null;
 				PreparedStatement statement = null;
 				Connection connection = null;
 				List<EnrollmentModel>  models = new ArrayList<EnrollmentModel>();
 				try {
 					connection = ImpalaConnection.getConnection();
-					statement = connection.prepareStatement(String.format(ReportQuery.GET_ENROLLMENTS_BY_PROJECT_ID,schema));
-					statement.setString(1, projectId);
+					statement = connection.prepareStatement(String.format(ReportQuery.GET_ENROLLMENTS_BY_COC_ID,schema));
+					statement.setString(1, cocId);
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
 					 EnrollmentModel model = new EnrollmentModel(resultSet.getString("project_entry_id"), 
@@ -736,17 +737,14 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				ResultSet resultSet = null;
 				PreparedStatement statement = null;
 				Connection connection = null;
-				List<ExitModel>  models = new ArrayList<ExitModel>();
+				List<ProjectModel>  models = new ArrayList<ProjectModel>();
 				try {
 					connection = ImpalaConnection.getConnection();
-					statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_EXITS,schema));
+					statement = connection.prepareStatement(String.format(ReportQuery.GET_PROJECTS_BY_COC,schema));
+					statement.setString(1, cocId);
 					resultSet = statement.executeQuery();
 				 while(resultSet.next()) {
-					 ExitModel model = new ExitModel( resultSet.getString("exit.exit_id"), resultSet.getString("exit.destination"), 
-							 resultSet.getString("destination_desc"), 
-							 resultSet.getDate("exitdate"), 
-							 resultSet.getString("otherdestination"), 
-							 resultSet.getString("project_entry_id"), resultSet.getString("exit.source_system_id"), resultSet.getDate("exit.date_created_from_source"));
+					 ProjectModel model = new ProjectModel(resultSet.getString("projectname"), resultSet.getString("projectType"), resultSet.getString("project_id"),resultSet.getString("organizationid"));
 					 models.add(model);
 				 }
 				} catch (SQLException e) {
