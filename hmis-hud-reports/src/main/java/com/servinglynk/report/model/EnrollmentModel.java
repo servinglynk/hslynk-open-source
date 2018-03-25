@@ -17,7 +17,7 @@ public class EnrollmentModel {
 			String timeshomelesspastthreeyears,
 			String timeshomelesspastthreeyears_desc, String yearshomeless,
 			String personalID, int ageatentry, boolean chronichomeless,
-			String enrollment_source_system_id,Date dateCreatedFromSource) {
+			String enrollment_source_system_id,Date dateCreatedFromSource, String livingSituation) {
 		super();
 		this.projectEntryID = projectEntryID;
 		this.continuouslyhomelessoneyear = continuouslyhomelessoneyear;
@@ -46,6 +46,7 @@ public class EnrollmentModel {
 		this.ageatentry = ageatentry;
 		this.chronichomeless = chronichomeless;
 		this.enrollment_source_system_id = enrollment_source_system_id;
+		this.livingSituation = livingSituation;
 	}
 	private String projectEntryID;
 	private String continuouslyhomelessoneyear;
@@ -74,6 +75,7 @@ public class EnrollmentModel {
 	private int ageatentry;
 	private boolean chronichomeless;
 	private String enrollment_source_system_id;
+	private String livingSituation;
 	/**
 	 * @return the projectEntryID
 	 */
@@ -395,6 +397,10 @@ public class EnrollmentModel {
 	public void setEnrollment_source_system_id(String enrollment_source_system_id) {
 		this.enrollment_source_system_id = enrollment_source_system_id;
 	}
-	
-	
+	public String getLivingSituation() {
+		return livingSituation;
+	}
+	public void setLivingSituation(String livingSituation) {
+		this.livingSituation = livingSituation;
+	}
 }
