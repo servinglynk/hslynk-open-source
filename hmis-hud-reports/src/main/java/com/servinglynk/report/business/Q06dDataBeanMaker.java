@@ -63,10 +63,12 @@ public class Q06dDataBeanMaker extends BaseBeanMaker{
 		
 		// Count the number of adults and heads of household entering from housing and other situations
 			//who are missing their
+		String[] missingesshArray = new String[] {"16", "1", "18", "27"};
 		String[] missingTimeInHousingArray = new String[] { "14", "23", "21", "3", "22", "19", "25", "20", "26", "12", "13", "2", "8", "9","99"};
 		String[] missingTimeInInstitutionArray = new String[] { "15", "6", "7", "24", "4", "5" };
-		List<String> missingTimeInInstitution = Arrays.asList(missingTimeInInstitutionArray);
 		
+		List<String> missingTimeInInstitution = Arrays.asList(missingTimeInInstitutionArray);
+		List<String> missingessh = Arrays.asList(missingesshArray);
 		String[] lengthOfStayInPriorLivingSituationArray = new String[] {"8","9","99"};
 		List<String> missingTimeInHousing = Arrays.asList(missingTimeInHousingArray);
 		List<String> lengthOfStayInPriorLivingSituation = Arrays.asList(lengthOfStayInPriorLivingSituationArray);
@@ -101,31 +103,44 @@ public class Q06dDataBeanMaker extends BaseBeanMaker{
 		List<EnrollmentModel> esshMissingTimeInHousing = esshCount.parallelStream().filter(enrollment -> missingTimeInHousing.contains(enrollment.getLivingSituation()) && lengthOfStayInPriorLivingSituation.contains(enrollment.getResidencepriorlengthofstay())).collect(Collectors.toList());
 		List<EnrollmentModel> thMissingTimeInHousing = transitionalHousing.parallelStream().filter(enrollment -> missingTimeInHousing.contains(enrollment.getLivingSituation()) && lengthOfStayInPriorLivingSituation.contains(enrollment.getResidencepriorlengthofstay())).collect(Collectors.toList());
 		List<EnrollmentModel> phMissingTimeInHousing  = permanentHousing.parallelStream().filter(enrollment -> missingTimeInHousing.contains(enrollment.getLivingSituation()) && lengthOfStayInPriorLivingSituation.contains(enrollment.getResidencepriorlengthofstay())).collect(Collectors.toList());
-		//Column E 3.917.3 (Approximate Date started) missing 
-		List<EnrollmentModel> esshapproximateDateMissing = esshCount.parallelStream().filter(enrollment -> enrollment.getDatetostreetessh() ==null).collect(Collectors.toList());
+		//Column E 
+		//3.917.3 (Approximate Date started) missing 
+		List<EnrollmentModel> esshapproximateDateMissing = esshCount.parallelStream().filter(enrollment -> enrollment.getDatetostreetessh() ==null  || missingessh.contains(enrollment.getLivingSituation())).collect(Collectors.toList());
 		List<EnrollmentModel> thApproximateDateStartedMissing = transitionalHousing.parallelStream().filter(enrollment -> enrollment.getDatetostreetessh() ==null).collect(Collectors.toList());
 		List<EnrollmentModel> phApproximateDateStartedMissing = permanentHousing.parallelStream().filter(enrollment -> enrollment.getDatetostreetessh() ==null).collect(Collectors.toList());
 		
+		//Column F
+		//3.917.4 (Approximate Date started) missing 
+		List<EnrollmentModel> essNumOfTimesHomelessMissing = esshCount.parallelStream().filter(enrollment -> enrollment.getTimeshomelesspastthreeyears() == null  || lengthOfStayInPriorLivingSituation.contains(enrollment.getTimeshomelesspastthreeyears()) || missingessh.contains(enrollment.getLivingSituation())).collect(Collectors.toList());
+		List<EnrollmentModel> thNumOfTimesHomelessMissing = transitionalHousing.parallelStream().filter(enrollment -> enrollment.getTimeshomelesspastthreeyears() == null  || lengthOfStayInPriorLivingSituation.contains(enrollment.getTimeshomelesspastthreeyears())).collect(Collectors.toList());
+		List<EnrollmentModel> phNumOfTimesHomelessMissing = permanentHousing.parallelStream().filter(enrollment -> enrollment.getTimeshomelesspastthreeyears() == null  || lengthOfStayInPriorLivingSituation.contains(enrollment.getTimeshomelesspastthreeyears())).collect(Collectors.toList());
+			
+		//Column G
+		//3.917.4 (Approximate Date started) missing 
+		List<EnrollmentModel> essNumOfMonthsHomelessMissing = esshCount.parallelStream().filter(enrollment -> enrollment.getMonthshomelesspastthreeyears() == null  || lengthOfStayInPriorLivingSituation.contains(enrollment.getMonthshomelesspastthreeyears())  || missingessh.contains(enrollment.getLivingSituation())).collect(Collectors.toList());
+		List<EnrollmentModel> thNumOfMonthsHomelessMissing = transitionalHousing.parallelStream().filter(enrollment -> enrollment.getMonthshomelesspastthreeyears() == null  || lengthOfStayInPriorLivingSituation.contains(enrollment.getMonthshomelesspastthreeyears())).collect(Collectors.toList());
+		List<EnrollmentModel> phNumOfMonthsHomelessMissing = permanentHousing.parallelStream().filter(enrollment -> enrollment.getMonthshomelesspastthreeyears() == null  || lengthOfStayInPriorLivingSituation.contains(enrollment.getMonthshomelesspastthreeyears())).collect(Collectors.toList());
+	
 		Q06dDataBean q06dDataBean =new Q06dDataBean();
 		q06dDataBean.setEsshCountOfTotalRecords(BigInteger.valueOf(esshCount !=null ? esshCount.size(): 0));
 		q06dDataBean.setEsshMissingTimeInInstitution(BigInteger.valueOf(missingesshCount !=null ? missingesshCount.size() : 0));
 		q06dDataBean.setEsshMissingTimeInHousing(BigInteger.valueOf(esshMissingTimeInHousing !=null ? esshMissingTimeInHousing.size() : 0));
 		q06dDataBean.setEsshApproximateDateStarted(BigInteger.valueOf(esshapproximateDateMissing != null  ? esshapproximateDateMissing.size() : 0));
-		q06dDataBean.setEsshnumberOfTimesDKR(BigInteger.valueOf(0));
+		q06dDataBean.setEsshnumberOfTimesDKR(BigInteger.valueOf(essNumOfTimesHomelessMissing != null  ? essNumOfTimesHomelessMissing.size() : 0));
 		q06dDataBean.setEsshNumberOfMonthsDKR(BigInteger.valueOf(0));
 		q06dDataBean.setEsshPercentOfRecords(BigInteger.valueOf(0));
 		q06dDataBean.setThCountOfTotalRecords(BigInteger.valueOf(transitionalHousing !=null  ? transitionalHousing.size() : 0));
 		q06dDataBean.setThMissingTimeInInstitution(BigInteger.valueOf(missingTransitionalHousing != null ? missingTransitionalHousing.size() : 0));
 		q06dDataBean.setThMissingTimeInHousing(BigInteger.valueOf(thMissingTimeInHousing != null ? thMissingTimeInHousing.size() :0 ));
 		q06dDataBean.setThApproximateDateStarted(BigInteger.valueOf(thApproximateDateStartedMissing != null ? thApproximateDateStartedMissing.size() :0));
-		q06dDataBean.setThnumberOfTimesDKR(BigInteger.valueOf(0));
+		q06dDataBean.setThnumberOfTimesDKR(BigInteger.valueOf(thNumOfTimesHomelessMissing != null ? thNumOfTimesHomelessMissing.size() :0));
 		q06dDataBean.setThNumberOfMonthsDKR(BigInteger.valueOf(0));
 		q06dDataBean.setThPercentOfRecords(BigInteger.valueOf(0));
 		q06dDataBean.setPhCountOfTotalRecords(BigInteger.valueOf(permanentHousing !=null ? permanentHousing.size() : 0));
 		q06dDataBean.setPhMissingTimeInInstitution(BigInteger.valueOf(missingPermanentHousing !=null ? missingPermanentHousing.size() : 0));
 		q06dDataBean.setPhMissingTimeInHousing(BigInteger.valueOf(phMissingTimeInHousing != null ? phMissingTimeInHousing.size() :0));
 		q06dDataBean.setPhApproximateDateStarted(BigInteger.valueOf(phApproximateDateStartedMissing != null ? phApproximateDateStartedMissing.size() : 0));
-		q06dDataBean.setPhnumberOfTimesDKR(BigInteger.valueOf(0));
+		q06dDataBean.setPhnumberOfTimesDKR(BigInteger.valueOf(phNumOfTimesHomelessMissing != null ? phNumOfTimesHomelessMissing.size() :0));
 		q06dDataBean.setPhNumberOfMonthsDKR(BigInteger.valueOf(0));
 		q06dDataBean.setPhPercentOfRecords(BigInteger.valueOf(0));
 		q06dDataBean.setTotalCountOfTotalRecords(BigInteger.valueOf(0));
