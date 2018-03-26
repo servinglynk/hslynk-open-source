@@ -187,12 +187,16 @@ public class AuthorizationsController  {
 			String authenticationToken = null;
 
 		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
+	/*	if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals(Constants.OAUTH_AUTHENTICATION_COOKIE)) {
 					authenticationToken = cookie.getValue();
 				}
 			}
+		}
+	*/	
+		if(authenticationToken==null) {
+			authenticationToken = request.getParameter("authentication_token");
 		}
 		
 		return authenticationToken;
