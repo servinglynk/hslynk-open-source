@@ -102,6 +102,8 @@ public class VerificationServiceImpl extends ServiceBase implements
 				Notification notification = new Notification();
 				notification.setMethod("EMAIL");
 				notification.setType("HMIS_ACCOUNT_ACTIVATED");
+				if(pAccount.getProjectGroupEntity()!=null)	
+					notification.setSender(pAccount.getProjectGroupEntity().getSenderEmail());
 				notification.getParameters().addParameter(new Parameter("name", pAccount.getFirstName()+" "+pAccount.getLastName()));
 				notification.getRecipients().addToRecipient(pAccount.getEmailAddress());
 				notificationServiceClient.createNotification(notification);

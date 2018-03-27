@@ -156,6 +156,8 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		Notification notification = new Notification();
 		notification.setMethod("EMAIL");
 		notification.setType("HMIS_USER_CREATION");
+		if(pAuditUser.getProjectGroupEntity()!=null)
+			notification.setSender(pAuditUser.getProjectGroupEntity().getSenderEmail());
 		notification.getParameters().addParameter(new Parameter("username", account.getUsername()));
 		notification.getParameters().addParameter(new Parameter("password", account.getPassword()));
 		notification.getParameters().addParameter(new Parameter("name",account.getFirstName()+" "+account.getLastName()));
@@ -249,6 +251,8 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		daoFactory.getAccountDao().updateAccount(pAccount);
 		Notification notification = new Notification();
 		notification.setMethod("EMAIL");
+		if(pAccount.getProjectGroupEntity()!=null)
+			notification.setSender(pAccount.getProjectGroupEntity().getSenderEmail());
 		notification.setType("HMIS_ACCOUNT_PASSWORD_CHANGE");
 		notification.getRecipients().addToRecipient(pAccount.getEmailAddress());
 		notification.getParameters().addParameter(new Parameter("username", pAccount.getFirstName()+" "+pAccount.getLastName()));
