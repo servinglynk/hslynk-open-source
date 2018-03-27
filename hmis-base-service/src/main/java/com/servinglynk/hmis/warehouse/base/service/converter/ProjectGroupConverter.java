@@ -16,6 +16,7 @@ public class ProjectGroupConverter {
 		projectGroup.setProjectGroupId(projectGroupEntity.getId());
 		projectGroup.setBucketName(projectGroupEntity.getBucketName());
 		projectGroup.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
+		projectGroup.setSenderEmail(projectGroupEntity.getSenderEmail());
 		
 		for(ProjectProjectGroupMapEntity entity : projectGroupEntity.getProjectGroupMapEntities()){
 			BaseProject project = ProjectConverter.entityToModel(entity.getProject());

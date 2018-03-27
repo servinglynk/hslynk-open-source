@@ -16,6 +16,7 @@ public class ProjectGroup extends ClientModel {
 	private String projectGroupCode;
 	private boolean skipuseridentifers;
 	private String bucketName;
+	private String senderEmail;
 	
 	@JsonProperty("projects")
 	List<BaseProject> projects = new ArrayList<BaseProject>();
@@ -77,5 +78,13 @@ public class ProjectGroup extends ClientModel {
 	}
 	public void setSkipuseridentifers(boolean skipuseridentifers) {
 		this.skipuseridentifers = skipuseridentifers;
+	}
+
+	public String getSenderEmail() {
+		return senderEmail;
+	}
+
+	public void setSenderEmail(String senderEmail) {
+		this.senderEmail = senderEmail;
 	}
 }
