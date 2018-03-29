@@ -1,7 +1,9 @@
 package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.servinglynk.report.model.ClientModel;
@@ -13,6 +15,8 @@ import com.servinglynk.report.model.ProjectModel;
 public class ReportData {
 	private String schema;
 	private String projectId;
+	private Date reportStartDate;
+	private Date reportEndDate;
 	private List<ClientModel> clients = new ArrayList<ClientModel>();
 	private List<ProjectModel> projects = new ArrayList<ProjectModel>();
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
@@ -46,6 +50,30 @@ public class ReportData {
 	 */
 	public void setSchema(String schema) {
 		this.schema = schema;
+	}
+	/**
+	 * @return the reportStartDate
+	 */
+	public Date getReportStartDate() {
+		return reportStartDate;
+	}
+	/**
+	 * @param reportStartDate the reportStartDate to set
+	 */
+	public void setReportStartDate(Date reportStartDate) {
+		this.reportStartDate = reportStartDate;
+	}
+	/**
+	 * @return the reportEndDate
+	 */
+	public Date getReportEndDate() {
+		return reportEndDate;
+	}
+	/**
+	 * @param reportEndDate the reportEndDate to set
+	 */
+	public void setReportEndDate(Date reportEndDate) {
+		this.reportEndDate = reportEndDate;
 	}
 	/**
 	 * @return the projectId

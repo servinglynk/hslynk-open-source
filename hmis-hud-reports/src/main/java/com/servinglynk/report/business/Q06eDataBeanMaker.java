@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import com.servinglynk.report.bean.Q06eDataBean;
 import com.servinglynk.report.bean.ReportData;
@@ -27,7 +28,8 @@ public class Q06eDataBeanMaker {
 		
 		Q06eDataBean q06eDataBean =new Q06eDataBean();
 		List<EnrollmentModel> enrollments = data.getEnrollments();
-		enrollments.parallelStream().forEach(enrollment -> { 
+		List<EnrollmentModel>  filteredEnrollments = enrollments.parallelStream().filter(enrollment -> (enrollment.getEntrydate().compareTo(data.getReportStartDate()) > 0) && enrollment.getEntrydate().compareTo(data.getReportStartDate()) < 0).collect(Collectors.toList());
+		filteredEnrollments.parallelStream().forEach(enrollment -> { 
 		    long diff = enrollment.getEntrydate().getTime() - enrollment.getDateCreatedFromSource().getTime();
 		    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 			if(enrollment.getEntrydate().compareTo(enrollment.getDateCreatedFromSource()) ==0) {
@@ -44,7 +46,9 @@ public class Q06eDataBeanMaker {
 		}
 		);
 		List<ExitModel> exits = data.getExits();
-		exits.parallelStream().forEach(exit -> { 
+		List<ExitModel>  filteredExits = exits.parallelStream().filter(exit -> (exit.getExitdate().compareTo(data.getReportStartDate()) > 0) && exit.getExitdate().compareTo(data.getReportStartDate()) < 0).collect(Collectors.toList());
+		
+		filteredExits.parallelStream().forEach(exit -> { 
 		    long diff = exit.getExitdate().getTime() - exit.getDateCreatedFromSource().getTime();
 		    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 			if(exit.getExitdate().compareTo(exit.getDateCreatedFromSource()) ==0) {
