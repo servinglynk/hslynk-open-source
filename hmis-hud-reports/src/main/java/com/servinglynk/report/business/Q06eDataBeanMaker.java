@@ -11,7 +11,7 @@ import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 
-public class Q06eDataBeanMaker {
+public class Q06eDataBeanMaker extends BaseBeanMaker {
 
 	public static Long zeroDaysNumberOfProjectEntry=0L;
 	public static Long zeroDaysNumberOfProjectExit=0L;

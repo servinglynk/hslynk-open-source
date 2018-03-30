@@ -5,13 +5,15 @@ public class ProjectModel {
 	private String projectType;
 	private String projectId;
 	private String organizationid;
+	private String trackingMethod;
 	
-	public ProjectModel(String projectname, String projectType, String projectId, String organizationid) {
+	public ProjectModel(String projectname, String projectType, String projectId, String organizationid,String trackingMethod) {
 		super();
 		this.projectname = projectname;
 		this.projectType = projectType;
 		this.projectId = projectId;
 		this.organizationid = organizationid;
+		this.trackingMethod = trackingMethod;
 	}
 	/**
 	 * @return the projectname
@@ -60,6 +62,18 @@ public class ProjectModel {
 	 */
 	public void setOrganizationid(String organizationid) {
 		this.organizationid = organizationid;
+	}
+	/**
+	 * @return the trackingMethod
+	 */
+	public String getTrackingMethod() {
+		return trackingMethod;
+	}
+	/**
+	 * @param trackingMethod the trackingMethod to set
+	 */
+	public void setTrackingMethod(String trackingMethod) {
+		this.trackingMethod = trackingMethod;
 	}
 	
 }
