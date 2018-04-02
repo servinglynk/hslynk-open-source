@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -28,8 +29,10 @@ public class Q06fDataBeanMaker extends BaseBeanMaker {
 		List<ProjectModel> filteredProjects = projects.parallelStream().filter(project -> (StringUtils.equals("3",project.getProjectType()) && StringUtils.equals("3", project.getTrackingMethod())) || StringUtils.equals("4",project.getProjectType())).collect(Collectors.toList());
 		List<String> projectIds = new ArrayList<String>(); 
 		filteredProjects.parallelStream().forEach(project -> { projectIds.add(project.getProjectId()); });
-		enrollments.parallelStream().forEach(enrollment -> { 
-			if (projectIds.contains(enrollment.getProjectID()))  {
+		enrollments.parallelStream().forEach(enrollment -> {
+			 long diff = enrollment.getEntrydate().getTime() - data.getReportEndDate().getTime();
+			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+			if (projectIds.contains(enrollment.getProjectID()) && days >= 90)  {
 			enrollmentIds.add(enrollment.getProjectEntryID());
 			}
 		});
