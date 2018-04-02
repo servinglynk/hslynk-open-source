@@ -18,13 +18,13 @@ import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundExceptio
 public class QuestionServiceImpl extends ServiceBase implements QuestionService  {
 
    @Transactional
-   public Questions getAllQuestions(Integer startIndex, Integer maxItems){
+   public Questions getAllQuestions(String displayText, String description,Integer startIndex, Integer maxItems){
        Questions Questions = new Questions();
-        List<QuestionEntity> entities = daoFactory.getQuestionDao().getAllQuestionEntities(startIndex,maxItems);
+        List<QuestionEntity> entities = daoFactory.getQuestionDao().getAllQuestionEntities(displayText,description,startIndex,maxItems);
         for(QuestionEntity entity : entities){
            Questions.addQuestion(QuestionConverter.entityToModel(entity));
         }
-        long count = daoFactory.getQuestionDao().getQuestionEntitysCount();
+        long count = daoFactory.getQuestionDao().getQuestionEntitysCount(displayText,description);
         SortedPagination pagination = new SortedPagination();
  
         pagination.setFrom(startIndex);

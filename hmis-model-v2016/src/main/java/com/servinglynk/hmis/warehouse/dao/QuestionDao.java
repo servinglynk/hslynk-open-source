@@ -6,7 +6,7 @@ import com.servinglynk.hmis.warehouse.model.v2016.QuestionEntity;
 
 public interface QuestionDao {
 
-   List<QuestionEntity> getAllQuestionEntities(Integer startIndex, Integer maxItems);
-   long getQuestionEntitysCount();
+   List<QuestionEntity> getAllQuestionEntities(String displayText, String description,Integer startIndex, Integer maxItems);
+   long getQuestionEntitysCount(String displayText, String description);
    QuestionEntity getQuestionsHudId(String hudQuestionId);
 }
