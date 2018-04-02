@@ -1,13 +1,13 @@
-app.controller('onboardfellowCtrl', function($scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
+app.controller('onboardfellowCtrl',['$scope', '$location', '$routeSegment', '$http', '$timeout', '$sessionStorage', function($scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
 
     if ($sessionStorage.isLoggedIn) {
         $("#userDetails").html($sessionStorage.account.emailAddress);
     }
     $scope.sessionToken = $sessionStorage.sessionToken;
 
-});
+}]);
 
-app.controller('onboardfellowgroupCtrl', function($scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
+app.controller('onboardfellowgroupCtrl',['$scope', '$location', '$routeSegment', '$http', '$timeout', '$sessionStorage', function($scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
     $("#createUser").removeClass("active");
     $("#createGroup").addClass("active");
 
@@ -37,8 +37,8 @@ app.controller('onboardfellowgroupCtrl', function($scope, $location, $routeSegme
         $scope[value] = !$scope[value];
     };
 
-});
-app.controller('onboardfellowuserCtrl', function($rootScope,$scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
+}]);
+app.controller('onboardfellowuserCtrl',['$rootScope','$scope', '$location', '$routeSegment', '$http', '$timeout', '$sessionStorage', function($rootScope,$scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
     $("#createGroup").removeClass("active");
     $("#createUser").addClass("active");
     $scope.sessionToken = $sessionStorage.sessionToken;
@@ -108,4 +108,4 @@ app.controller('onboardfellowuserCtrl', function($rootScope,$scope, $location, $
     $scope.switchBool = function(value) {
         $scope[value] = !$scope[value];
     };
-});
+}]);

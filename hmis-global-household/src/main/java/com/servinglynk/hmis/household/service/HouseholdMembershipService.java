@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import com.servinglynk.hmis.household.repository.HouseholdMembershipRepository;
 import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
 import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapper;
 import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
+import com.servinglynk.hmis.warehouse.core.model.Session;
 
 /**
  * Service Implementation for managing HouseholdMembership.
@@ -43,7 +45,7 @@ public class HouseholdMembershipService {
     private HouseholdMembershipMapper householdMembershipMapper;
     
     @Transactional
-    public List<HouseholdMembershipDTO> save(UUID householdId,List<HouseholdMembershipDTO> householdMembershipDTOs) {
+    public List<HouseholdMembershipDTO> save(UUID householdId,List<HouseholdMembershipDTO> householdMembershipDTOs, Session session) {
         log.debug("Request to save HouseholdMembership : {}", householdMembershipDTOs);
         GlobalHousehold household =		globalHouseholdRepository.findOne(householdId);
         if(household==null) throw new ResourceNotFoundException("Global household not found "+householdId);
@@ -52,6 +54,7 @@ public class HouseholdMembershipService {
         	dto.setDateCreated(LocalDateTime.now());
         	dto.setDateUpdated(LocalDateTime.now());
         	dto.setGlobalHouseholdId(householdId);
+        	dto.setUserId(session.getAccount().getAccountId());
        // 	dto.setInactive(false);
         	lhouseholdmembersDTOs.add(dto);
         }
@@ -62,13 +65,16 @@ public class HouseholdMembershipService {
     }
     
     @Transactional
-    public HouseholdMembershipDTO update(UUID householdId, HouseholdMembershipDTO householdMembershipDTO) {
+    public HouseholdMembershipDTO update(UUID householdId, HouseholdMembershipDTO householdMembershipDTO, Session session) {
         log.debug("Request to save HouseholdMembership : {}", householdMembershipDTO);
     	GlobalHousehold globalHousehold =		globalHouseholdRepository.findOne(householdId);
     	if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+householdId);
+    	householdMembershipDTO.setDateCreated(LocalDateTime.now());
         householdMembershipDTO.setDateUpdated(LocalDateTime.now());
         householdMembershipDTO.setGlobalHouseholdId(householdId);
+        householdMembershipDTO.setUserId(session.getAccount().getAccountId());
         HouseholdMembership householdMember = householdMembershipMapper.householdMembershipDTOToHouseholdMembership(householdMembershipDTO);
+
         householdMember = householdMembershipRepository.save(householdMember);
       //  HouseholdMembershipDTO result = householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(householdMember);
         return householdMembershipDTO;
@@ -87,7 +93,18 @@ public class HouseholdMembershipService {
     	GlobalHousehold globalHousehold =		globalHouseholdRepository.findByGlobalHouseholdIdAndProjectGroupCodeAndDeleted(householdId,projectGroup,false);
     	if(globalHousehold==null) throw new ResourceNotFoundException("Global household not found "+householdId);
     	Page<HouseholdMembership> members = householdMembershipRepository.findByGlobalHouseholdAndDeleted(globalHousehold, pageable,false);
-        return members;
+        List<UUID> dedups = new ArrayList<>();
+        List<HouseholdMembership> data = new ArrayList<>();
+        for(HouseholdMembership membership : members.getContent()) {
+  //      			if(!dedups.contains(membership.getDedupClientId()) && membership.getDedupClientId()!=null) {
+        				data.add(membership);
+        				dedups.add(globalHousehold.getDedupClientId());
+  //      			}
+        				
+        }	        
+    	
+    	
+        return new PageImpl<>(data, pageable, members.getTotalElements());
     }
     
     @Transactional(readOnly = true) 

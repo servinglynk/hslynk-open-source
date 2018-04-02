@@ -2,6 +2,7 @@ package com.servinglynk.hmis.household.validator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
@@ -34,12 +35,14 @@ public class ClientValidator implements ConstraintValidator<ValidateClient,Objec
 	 
 	 String clientField;
 	 String link;
+	 String dedupClientId;
 	 
 	 
 	@Override
 	public void initialize(ValidateClient arg0) {
 		clientField = arg0.clientIdField();	
 		link = arg0.linkField();
+		dedupClientId = arg0.dedupClientIdField();
 	}
 
 	@Override
@@ -69,11 +72,17 @@ public class ClientValidator implements ConstraintValidator<ValidateClient,Objec
 		}else{
 			BaseClient client = clients.get(0);
 			BeanUtils.setProperty(arg0, link, client.getLink());
+			BeanUtils.setProperty(arg0, dedupClientId, client.getDedupClientId());
+			BeanUtils.setProperty(arg0, "schemaYear", this.getSchemaYear(client.getLink()));
 			return true;
 		}
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public String getSchemaYear(String link) {
+		return link.substring(link.indexOf("/v")+2,link.indexOf("/clients"));
 	}
 
 }

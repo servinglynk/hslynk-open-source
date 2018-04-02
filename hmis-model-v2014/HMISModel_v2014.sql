@@ -50,6 +50,7 @@ DROP TABLE IF EXISTS "v2014".enrollment;
 DROP TABLE IF EXISTS "v2014".organization; 
 DROP TABLE IF  EXISTS "v2014".sync;
 DROP TABLE IF EXISTS "v2014".veteran_info;
+DROP TABLE IF EXISTS v2014.question;
 -- DROP TABLE IF EXISTS "v2014".client;
 
 
@@ -1297,7 +1298,7 @@ timesHomelesspastthreeyears "v2014".times_homeless_past_3_years,
 yearshomeless integer,
 ageAtEntry integer,
 client_id uuid,
-project_id  uuid,
+projectid  uuid,
 project_group_code character varying(8),
 date_created timestamp,
 date_updated timestamp,
@@ -1310,13 +1311,14 @@ chronicHomeless boolean DEFAULT false,
 version integer,source_system_id text,
 deleted boolean DEFAULT false,active boolean DEFAULT true,
 sync boolean DEFAULT false,
+source varchar varying(56) DEFAULT 2014,
       CONSTRAINT export_fkey FOREIGN KEY (export_id)
       REFERENCES v2014.export (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT "enrollment_pkey" PRIMARY KEY (id),
     CONSTRAINT enrollment_client_fk FOREIGN KEY ("client_id")
       REFERENCES "v2014".client ("id"),
-          CONSTRAINT enrollment_project_fk FOREIGN KEY ("project_id")
+          CONSTRAINT enrollment_project_fk FOREIGN KEY ("projectid")
       REFERENCES "v2014".project ("id")
 )
 WITH (
@@ -2719,6 +2721,24 @@ create table "v2014".bulk_upload_activity
   CONSTRAINT bulk_upload_activity_pk PRIMARY KEY ("id")
 );
 
+CREATE TABLE v2014.question (
+	ID uuid NOT NULL,
+	question_description CHARACTER VARYING (256),
+	display_text CHARACTER VARYING (256),
+	question_data_type CHARACTER VARYING (256),
+	question_type CHARACTER VARYING (256),
+	created_at TIMESTAMP (0),
+	updated_at TIMESTAMP (0),
+	user_id CHARACTER VARYING (256),
+	is_active BOOLEAN,
+	picklist_group_name CHARACTER VARYING (256),
+	deleted BOOLEAN DEFAULT FALSE,
+	hud_question_id CHARACTER VARYING (32),
+	update_url_template CHARACTER VARYING (512),
+	PRIMARY KEY ("id")
+) WITH (OIDS = FALSE);
+
+
 CREATE SEQUENCE "v2014".bulk_upload_activity_id_seq START 1;
 
 
@@ -2783,3 +2803,8 @@ alter table v2014.nonCashBenefits add column information_date  timestamp;
 alter table v2014.referralSource add column information_date  timestamp;
 alter table v2014.sexualOrientation add column information_date  timestamp;
 alter table v2014.youthCriticalIssues add column information_date  timestamp;
+
+CREATE INDEX disab_proj_grp
+ON v2014.disabilities (project_group_code);
+alter table v2014.client ADD COLUMN email_address character varying(266);
+alter table v2014.client ADD COLUMN phone_number character varying(16);

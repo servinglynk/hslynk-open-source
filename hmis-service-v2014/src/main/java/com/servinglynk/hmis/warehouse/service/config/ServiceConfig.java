@@ -19,11 +19,14 @@ import com.servinglynk.hmis.warehouse.service.impl.DateofengagementServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DisabilitiesServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DomesticViolenceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EmploymentServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EnrollmentCocServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImplV2;
 import com.servinglynk.hmis.warehouse.service.impl.ExitPlansActionsServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.FamilyReunificationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.FunderServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.HMISTypeServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthInsuranceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthStatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HousingAssessmentDispositionServiceImpl;
@@ -38,7 +41,9 @@ import com.servinglynk.hmis.warehouse.service.impl.PathstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.PercentamiServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectCompletionStatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ProjectServiceImplV2;
 import com.servinglynk.hmis.warehouse.service.impl.ProjectcocServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.QuestionServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ReferralsourceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
@@ -80,6 +85,11 @@ public class ServiceConfig  {
 	 @Bean
 	 public EnrollmentServiceImpl enrollmentService(){
 		 return new EnrollmentServiceImpl();
+	 }
+	 
+	 @Bean
+	 public EnrollmentCocServiceImpl enrollmentCocService() {
+		 return new EnrollmentCocServiceImpl();
 	 }
 	 
 	 @Bean
@@ -275,5 +285,24 @@ public class ServiceConfig  {
 	 
 	 @Bean BulkUploadErrorActivityServiceImpl bulkUploadErrorActivityService() {
 		 return new BulkUploadErrorActivityServiceImpl();
+	 }
+	 
+	 @Bean
+	 public HMISTypeServiceImpl hmisTypeService() {
+		 return new HMISTypeServiceImpl();
+	 }
+	 
+	 @Bean
+	 public QuestionServiceImpl questionService() {
+		 return new QuestionServiceImpl();
+	 }
+	 
+	 @Bean
+	 public EnrollmentServiceImplV2 enrollmentServiceV2() {
+		 return new EnrollmentServiceImplV2();
+	 }
+	 @Bean
+	 public ProjectServiceImplV2 projectServiceV2() {
+		 return new ProjectServiceImplV2();
 	 }
 }

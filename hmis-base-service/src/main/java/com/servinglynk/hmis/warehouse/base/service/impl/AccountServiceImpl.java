@@ -3,10 +3,13 @@ package com.servinglynk.hmis.warehouse.base.service.impl;
 import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_ACTIVE;
 import static com.servinglynk.hmis.warehouse.common.Constants.VERIFICATION_TYPE_ACCOUNT_CREATION;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,9 @@ import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Accounts;
+import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
+import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
+import com.servinglynk.hmis.warehouse.core.model.GlobalProject;
 import com.servinglynk.hmis.warehouse.core.model.Notification;
 import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.core.model.PasswordChange;
@@ -34,6 +40,7 @@ import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.PermissionSetEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProfileEntity;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.base.RoleEntity;
 import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.base.UserRoleMapEntity;
@@ -42,10 +49,11 @@ import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException
 import com.servinglynk.hmis.warehouse.service.exception.ApiMethodNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidCurrentPasswordException;
 import com.servinglynk.hmis.warehouse.service.exception.ProfileNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.RoleNotFoundException;
 
 public class AccountServiceImpl extends ServiceBase implements AccountService {
-	
+	private static String SUPER_ADMIN = "SUPERADMIN";
 	@Autowired
 	NotificationServiceClient notificationServiceClient;
 
@@ -119,12 +127,22 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		UserRoleMapEntity userRoleMapEntity = new UserRoleMapEntity();
 		userRoleMapEntity.setAccountEntity(pAccount);
 		userRoleMapEntity.setRoleEntity(pRole);
+		
+		boolean isSuperAdmin = isSuperAdmin(pAuditUser.getId());
+		if (account.getProjectGroup() != null && isSuperAdmin) {
+			ProjectGroupEntity pProjectGroup = daoFactory.getProjectGroupDao()
+					.getProjectGroupById(account.getProjectGroup().getProjectGroupId());
+			if (pProjectGroup == null)
+				throw new ProjectGroupNotFoundException("Project group selected does not exist.");
 
+			pAccount.setProjectGroupEntity(pProjectGroup);
+		} else {
 			if (pAuditUser.getProjectGroupEntity() != null) {
 				pAccount.setProjectGroupEntity(pAuditUser.getProjectGroupEntity());
 			}else{
 				throw new AccessDeniedException("Login user does not have project group.");
 			}
+		}
 
 		daoFactory.getAccountDao().createAccount(pAccount);
 		daoFactory.getAccountDao().createUserRole(userRoleMapEntity);
@@ -147,7 +165,27 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		
 		return AccountConverter.convertToAccount(pAccount);
 	}
-
+	/***
+	 * Determines if the logged in user is a super admin
+	 * @param userid
+	 * @return
+	 */
+	private boolean isSuperAdmin(UUID userid) {
+		List<UserRoleMapEntity> userMapByUserId = daoFactory.getAccountDao().getUserMapByUserId(userid);
+		if(CollectionUtils.isNotEmpty(userMapByUserId)) {
+			for(UserRoleMapEntity userRoleMap : userMapByUserId) {
+				if(userRoleMap != null) {
+					RoleEntity roleEntity = userRoleMap.getRoleEntity();
+					if(roleEntity !=null) {
+						if(StringUtils.equals(SUPER_ADMIN,roleEntity.getRoleCode())) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 	@Transactional
 	public Account updateAccount(Account account, String auditUser) {
 
@@ -335,17 +373,22 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 	}
 	
 	@Transactional
-	public boolean checkClientConsentAuthorizationForUser(Account account, UUID clientid,String apiMethodId) {
-		ApiMethodEntity apiMethodEntity = daoFactory.getApiMethodDao().findByExternalId(apiMethodId);
+	public boolean checkClientConsentAuthorizationForUser(Account account, UUID clientid) {
 
-		if (apiMethodEntity == null)
-			throw new ApiMethodNotFoundException();
-
-		if (!apiMethodEntity.isClientConsentRequired())
-			return true;
-		boolean isAccess = daoFactory.getClientConsentDao().checkClientAccess(clientid, account.getProjectGroup().getProjectGroupCode(), account.getAccountId(),apiMethodEntity.getClientConsentGroup());
-			if(!isAccess) logger.debug("User does not have client consent for requested client ");
-		return isAccess;
+		ClientConsents consents = serviceFactory.getClientConsentService().getClientConsents(clientid, null, null);
+		if(consents.getClientConsents().isEmpty()) throw new AccessDeniedException("Client does not have any consents");
+		
+		List<UUID> projectids = new ArrayList<>();
+		for(ClientConsent clientConsent : consents.getClientConsents()) {
+			for(GlobalProject globalProject : clientConsent.getGlobalProjects()) {
+				projectids.add(globalProject.getId());
+			}
+		}
+		System.out.println(projectids.isEmpty());
+		System.out.println(projectids.size());
+		if(projectids.size() == 0) throw new AccessDeniedException("Client does not given consent to any global project");
+		
+		return serviceFactory.getGlobalProjectService().checkGlobalProjectUser(projectids,account.getAccountId());
 	}
 	
 	@Transactional

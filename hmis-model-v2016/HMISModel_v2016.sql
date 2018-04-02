@@ -32,6 +32,8 @@ DROP TABLE IF EXISTS "v2016".export;
 DROP TABLE IF EXISTS "v2016".source;
 DROP TABLE IF EXISTS v2016.exitRHY;
 DROP TABLE IF EXISTS v2016.exitPath;
+DROP TABLE IF EXISTS v2016.question;
+DROP TABLE IF EXITS  v2016.sync;
 
 
 DROP TYPE IF EXISTS "v2016".name_data_quality;
@@ -102,6 +104,7 @@ DROP TYPE IF EXISTS "v2016".annualpercentami;
 DROP TYPE IF EXISTS "v2016".evictionhistory;
 DROP TYPE IF EXISTS "v2016".crisisServicesUse;	
 DROP TYPE IF EXISTS "v2016".literalHomelessHistory;
+
 
 CREATE TYPE "v2016".literalHomelessHistory AS ENUM('0','1','2','99');
 CREATE TYPE "v2016".timeToHousingLoss as ENUM('0','1','2','3','99');
@@ -839,6 +842,7 @@ INSERT INTO "v2016".hmis_type (name,value,description,status) values ('destinati
  INSERT INTO "v2016".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','3','Ward of the Criminal Justice System – Immediate Reunification');
  INSERT INTO "v2016".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','4','Other');
  INSERT INTO "v2016".hmis_type (name,value,description,status) values ('reason_no_services','99','Data not collected','ACTIVE'); 
+ INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('gender','0','Female','ACTIVE');
  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('gender','1','Male','ACTIVE');
  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('gender','2','Transgender male to female','ACTIVE');
  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('gender','3','Transgender female to male','ACTIVE');
@@ -992,6 +996,18 @@ INSERT INTO "v2016".hmis_type (name,status,value,description) values ('noprivate
 INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('noprivatepayreason','8','Client does not know','ACTIVE'); 
 INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('noprivatepayreason','9','Client refused','ACTIVE');  
 INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('noprivatepayreason','99','Data not collected','ACTIVE');  
+
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','12','Contact records collected under 2014 HMIS Data Standards v5.1','ACTIVE');
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','13','4.12 Contact records collected under 2017 HMIS Data Standards','ACTIVE');
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','141','P1 Services Provided – PATH','ACTIVE');
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','142','R14 RHY Service Connections','ACTIVE');
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','143','W1 Services Provided – HOPWA','ACTIVE');
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','144','V2 Services Provided – SSVF','ACTIVE');
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','151','W2 Financial Assistance – HOPWA','ACTIVE');
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','152','V3 Financial Assistance – SSVF','ACTIVE');
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','161','P2 Referrals Provided – PATH','ACTIVE');
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','200','4.14  Bed night','ACTIVE');
+  INSERT INTO "v2016".hmis_type (name,value,description,status)  values ('record_type','210','V8 HUD-VASH Voucher Tracking','ACTIVE');
 
 INSERT INTO "v2016".hmis_type (name,status,value,description) values ('noschipreason','ACTIVE','1','Applied; decision pending');
 INSERT INTO "v2016".hmis_type (name,status,value,description) values ('noschipreason','ACTIVE','2','Applied; client not eligible');    
@@ -1619,10 +1635,10 @@ CREATE TABLE "v2016".client
 (
   "id" uuid NOT NULL,
   "dedup_client_id" uuid,
-  "first_name" character(50),
-  "middle_name" character(50),
-  "last_name" character(50),
-  "name_suffix" character(50),
+  "first_name" varchar(50),
+  "middle_name" varchar(50),
+  "last_name" varchar(50),
+  "name_suffix" varchar(50),
   "name_data_quality" "v2016".name_data_quality,
   "ssn" character(9),
   "ssn_data_quality" "v2016".ssn_data_quality,
@@ -1726,6 +1742,7 @@ CREATE TABLE "v2016".enrollment
 	version integer,source_system_id text,
 	deleted boolean DEFAULT false,active boolean DEFAULT true, 
 	sync boolean DEFAULT false,
+	source varchar varying(56) DEFAULT 2016,
   		CONSTRAINT "enrollment_pkey" PRIMARY KEY (id),
     	CONSTRAINT enrollment_client_fk FOREIGN KEY ("client_id")
       	REFERENCES "v2016".client ("id") MATCH SIMPLE
@@ -1930,6 +1947,7 @@ CREATE TABLE "v2016".service_fa_referral
   "id" uuid NOT NULL,
   "enrollmentid" uuid,
   dateProvided timestamp,
+  record_type "v2016".record_type,
   service_category integer,
   funder_list integer,
   type_provided integer,
@@ -2912,6 +2930,23 @@ WITH (
   OIDS=FALSE
 );
 
+CREATE TABLE v2016.question (
+	ID uuid NOT NULL,
+	question_description CHARACTER VARYING (256),
+	display_text CHARACTER VARYING (256),
+	question_data_type CHARACTER VARYING (256),
+	question_type CHARACTER VARYING (256),
+	created_at TIMESTAMP (0),
+	updated_at TIMESTAMP (0),
+	user_id CHARACTER VARYING (256),
+	is_active BOOLEAN,
+	picklist_group_name CHARACTER VARYING (256),
+	deleted BOOLEAN DEFAULT FALSE,
+	hud_question_id CHARACTER VARYING (32),
+	update_url_template CHARACTER VARYING (512),
+	PRIMARY KEY ("id")
+) WITH (OIDS = FALSE);
+
 -- DROP SEQUENCE v2016.error_sequence;
 
 CREATE SEQUENCE v2016.error_sequence
@@ -2920,3 +2955,22 @@ CREATE SEQUENCE v2016.error_sequence
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
+CREATE INDEX disab_proj_grp
+ON v2016.disabilities (project_group_code);
+
+  alter table v2016.client ADD COLUMN email_address character varying(266);
+alter table v2016.client ADD COLUMN phone_number character varying(16);
+CREATE TABLE "v2016".sync
+(
+  id serial,
+  sync_table character(100),
+  status character(10),
+  description text,
+  project_group_code character(8),
+  date_created timestamp,
+  date_updated timestamp,
+  CONSTRAINT sync_pk PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);

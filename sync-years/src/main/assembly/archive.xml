@@ -25,18 +25,17 @@
     </fileSets>
     <files>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/start-sync-live-2014.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-live-delta.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
         <file>
-            <source>${project.build.directory}/../src/main/scripts/start-sync-live-2015.sh</source>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-live-full.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
-        <file>
-            <source>${project.build.directory}/../src/main/scripts/start-sync-live-2016.sh</source>
+           <file>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-client-delta.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
-
         <file>
             <source>${project.build.directory}/../src/main/scripts/start-sync-staging-2014.sh</source>
             <outputDirectory>/bin/</outputDirectory>
@@ -49,23 +48,23 @@
             <source>${project.build.directory}/../src/main/scripts/start-sync-staging-2016.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
-
-
-        <file>
-            <source>${project.build.directory}/../src/main/scripts/stop-sync-live-2014.sh</source>
-            <outputDirectory>/bin/</outputDirectory>
-        </file>
-        <file>
-            <source>${project.build.directory}/../src/main/scripts/stop-sync-live-2015.sh</source>
-            <outputDirectory>/bin/</outputDirectory>
-        </file>
-        <file>
-            <source>${project.build.directory}/../src/main/scripts/stop-sync-live-2016.sh</source>
+  <file>
+            <source>${project.build.directory}/../src/main/scripts/start-sync-staging-2017.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
 
-
-
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-live-delta.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+        <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-live-full.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
+          <file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-client-delta.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
         <file>
             <source>${project.build.directory}/../src/main/scripts/stop-sync-staging-2014.sh</source>
             <outputDirectory>/bin/</outputDirectory>
@@ -78,7 +77,10 @@
             <source>${project.build.directory}/../src/main/scripts/stop-sync-staging-2016.sh</source>
             <outputDirectory>/bin/</outputDirectory>
         </file>
-
+ 		<file>
+            <source>${project.build.directory}/../src/main/scripts/stop-sync-staging-2017.sh</source>
+            <outputDirectory>/bin/</outputDirectory>
+        </file>
     </files>
 
 </assembly>

@@ -36,8 +36,6 @@ import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
 	private static final Logger logger = Logger.getLogger(ParentDaoImpl.class);
-	private ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-	private Validator validator = (Validator) factory.getValidator();
 	@Autowired
 	ParentDaoFactory parentDaoFactory;
 		/***
@@ -63,7 +61,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			activity.setDescription("Saving "+className +" to staging" );
 			insertOrUpdate(activity); 		
 			getCurrentSession().flush();
-	        getCurrentSession().clear();
+			getCurrentSession().clear();
 	        Long totalProcessed = i+j+ignore;
 	        logger.info("Processed"+totalProcessed+" in "+ className+" table with "+i+" inserts and "+j+" updates and "+ignore+ " are ignored");
 		}
@@ -290,10 +288,6 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @param model
 	 */
 	protected void performSaveOrUpdate(HmisBaseModel model) {
-//		Set<ConstraintViolation<HmisBaseModel>> constraintViolations = validator.validate(model);
-//		if(constraintViolations.isEmpty()) {
-//			
-//		}
 		if(model.isIgnored()) {
 			logger.info("Ignoring this record because is already exists:::"+model.toString());
 			return;

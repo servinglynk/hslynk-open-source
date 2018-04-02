@@ -1,39 +1,32 @@
 package com.servinglynk.hmis.warehouse.upload.config;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
+import com.servinglynk.hmis.warehouse.upload.service.BaseWorker;
 import com.servinglynk.hmis.warehouse.upload.service.BulkUploadWorker;
+import com.servinglynk.hmis.warehouse.upload.service.ClientDedupWorker;
+import com.servinglynk.hmis.warehouse.upload.service.ClientWorkerChildren;
+import com.servinglynk.hmis.warehouse.upload.service.DisabilitiesWorker;
+import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorker;
+import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorkerChildren;
+import com.servinglynk.hmis.warehouse.upload.service.ExitWorker;
+import com.servinglynk.hmis.warehouse.upload.service.ExitWorkerChildren;
 
 @Configuration
 @EnableScheduling
 @EnableTransactionManagement
-@Import({DatabaseConfig.class})
-@ImportResource("classpath:com/servinglynk/hmis/warehouse/upload/property-config.xml")
+@Import({DatabaseConfig.class,StandAloneDBPoolConfig.class})
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.upload.service"})
-@PropertySource("classpath:com/servinglynk/hmis/warehouse/upload/upload.properties")
 
 public class LoadProcessorSpringConfigV2014 {
-
-	@Bean
-    public static PropertyPlaceholderConfigurer properties(){
-        PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-        ClassPathResource[] resources = new ClassPathResource[ ]
-                { new ClassPathResource( "com/servinglynk/hmis/warehouse/upload/upload.properties" ) };
-        ppc.setLocations( resources );
-        ppc.setIgnoreUnresolvablePlaceholders( true );
-        return ppc;
-    }
 	
 	@Bean
 	public BulkUploadWorker bulkUploadWorker(){
@@ -41,8 +34,39 @@ public class LoadProcessorSpringConfigV2014 {
 	}
 	
 	@Bean
+	public BaseWorker baseWorker(){
+		return new BaseWorker();
+	}
+	@Bean
+	public DisabilitiesWorker disabilitiesWorker(){
+		return new DisabilitiesWorker();
+	}
+	@Bean
+	public EnrollmentWorker enrollmentWorker(){
+		return new EnrollmentWorker();
+	}
+	@Bean
+	public ExitWorkerChildren exitWorkerChildrenr(){
+		return new ExitWorkerChildren();
+	}
+	@Bean
+	public EnrollmentWorkerChildren enrollmentWorkerChildren(){
+		return new EnrollmentWorkerChildren();
+	}
+	@Bean
+	public ClientWorkerChildren clientWorkerChildren(){
+		return new ClientWorkerChildren();
+	}
+	@Bean
+	public ExitWorker exitWorker(){
+		return new ExitWorker();
+	}
+	@Bean
+	public ClientDedupWorker clientDedupWorker(){
+		return new ClientDedupWorker();
+	}
+	@Bean
 	public BulkUploaderWorkerDaoImpl getBulkUploaderWorkerDao(){
 		return new BulkUploaderWorkerDaoImpl();
 	}
-	
 }

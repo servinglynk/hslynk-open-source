@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
@@ -25,6 +28,8 @@ import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImp
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.BulkUploadController;
 import com.servinglynk.hmis.warehouse.rest.FileUploadController;
+import com.servinglynk.hmis.warehouse.service.AWSService;
+import com.servinglynk.hmis.warehouse.service.LocalFileUploadService;
 
 
 @Configuration
@@ -34,8 +39,18 @@ import com.servinglynk.hmis.warehouse.rest.FileUploadController;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling
+@PropertySource("classpath:application.properties")
 public class RestConfig extends WebMvcConfigurerAdapter {
 
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		PropertySourcesPlaceholderConfigurer ppc = new PropertySourcesPlaceholderConfigurer();
+		ClassPathResource locations[] = {
+				new ClassPathResource("/application.properties")};
+		ppc.setLocations(locations);
+		return ppc;
+	}
+	
 	public void configureMessageConverters(
 			List<HttpMessageConverter<?>> messageConverters) {
 
@@ -82,19 +97,27 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	 public CommonsMultipartResolver commonsMultipartResolver(){
 	     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
 	     commonsMultipartResolver.setDefaultEncoding("utf-8");
-	     commonsMultipartResolver.setMaxUploadSize(605783057);
+	     commonsMultipartResolver.setMaxUploadSize(-1);
 	     return commonsMultipartResolver;
 	 }
 	 
+	@Bean
+	public BulkUploadController bulkUploadController() {
+		return new BulkUploadController();
+	}
 	@Bean
 	public FileUploadController fileUploadController() {
 		return new FileUploadController();
 	}
 	@Bean
-	public BulkUploadController bulkUploadController() {
-		return new BulkUploadController();
+	public AWSService aWSService() {
+		return new AWSService();
 	}
-
+	@Bean
+	public LocalFileUploadService localFileUploadService() {
+		return new LocalFileUploadService();
+	}
+	
 	@PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_AUTHORIZATION_SERVICE");

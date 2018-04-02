@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -33,6 +34,7 @@ import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipDTO;
 import com.servinglynk.hmis.household.web.rest.mapper.HouseholdMembershipMapper;
 import com.servinglynk.hmis.household.web.rest.util.HeaderUtil;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
+import com.servinglynk.hmis.warehouse.core.model.Session;
 
 /**
  * REST controller for managing HouseholdMembership.
@@ -65,8 +67,8 @@ public class HouseholdMembershipResource  extends BaseResource {
 			
 			Resource<HouseholdMembershipDTO> resource=null;
 				resource = new Resource<HouseholdMembershipDTO>(householdMembershipMapper.householdMembershipToHouseholdMembershipDTO(arg0));
-				if(arg0.getClientLink()!=null)
-					resource.add(new Link("client",arg0.getClientLink()));
+				if(resource.getContent().getLink()!=null)
+					resource.add(new Link("client",resource.getContent().getLink()));
 				return resource;
 		}
 	}
@@ -102,9 +104,11 @@ public class HouseholdMembershipResource  extends BaseResource {
             )
     	@APIMapping(value="GLOBAL_HOUSE_HOLD_CREATE_MEMBERS")
         public ResponseEntity<List<HouseholdMembershipDTO>> createHouseholdMembership(
-        		@PathVariable UUID householdId, @Valid @RequestBody HouseHodMembersDto householdMembershipDTOs) throws Exception {
+        		@PathVariable UUID householdId, @Valid @RequestBody HouseHodMembersDto householdMembershipDTOs,HttpServletRequest request) throws Exception {
+    			Session session = sessionHelper.getSession(request);
+
             log.debug("REST request to save HouseholdMembership : {}", householdMembershipDTOs);
-            List<HouseholdMembershipDTO> result = householdMembershipService.save(householdId,householdMembershipDTOs.getMembers());
+            List<HouseholdMembershipDTO> result = householdMembershipService.save(householdId,householdMembershipDTOs.getMembers(),session);
             return new ResponseEntity<List<HouseholdMembershipDTO>>(result,HttpStatus.OK);
         }
 
@@ -165,7 +169,6 @@ public class HouseholdMembershipResource  extends BaseResource {
     public ResponseEntity<Resource> getHouseholdMembership(@PathVariable UUID householdId, @PathVariable UUID id) throws Exception {
         log.debug("REST request to get HouseholdMembership : {}", id);
         HouseholdMembershipDTO householdMembershipDTO = householdMembershipService.findOne(id);
-        
         Resource<HouseholdMembershipDTO> resource=null;
         if(householdMembershipDTO.getLink()!=null)
         	resource = new Resource<HouseholdMembershipDTO>(householdMembershipDTO, new Link("client",householdMembershipDTO.getLink()));
@@ -182,10 +185,11 @@ public class HouseholdMembershipResource  extends BaseResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     	@APIMapping(value="GLOBAL_HOUSE_HOLD_UPDATE_MEMBER_BY_ID")
         public ResponseEntity<HouseholdMembershipDTO> updateHouseholdMembership(
-        		@PathVariable UUID householdId,@Valid @RequestBody HouseholdMembershipDTO householdMembershipDTO, @PathVariable UUID memberId) throws Exception {
+        		@PathVariable UUID householdId,@Valid @RequestBody HouseholdMembershipDTO householdMembershipDTO, @PathVariable UUID memberId,HttpServletRequest request) throws Exception {
             log.debug("REST request to update HouseholdMembership : {}", householdMembershipDTO);
+            Session session = sessionHelper.getSession(request);
             householdMembershipDTO.setHouseholdMembershipId(memberId);
-            HouseholdMembershipDTO result = householdMembershipService.update(householdId, householdMembershipDTO);
+            HouseholdMembershipDTO result = householdMembershipService.update(householdId, householdMembershipDTO,session);
             return new ResponseEntity<HouseholdMembershipDTO>(result,HttpStatus.OK);
         }
     
@@ -197,10 +201,11 @@ public class HouseholdMembershipResource  extends BaseResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
 	@APIMapping(value="GLOBAL_HOUSE_HOLD_UPDATE_MEMBERS")
         public ResponseEntity<HouseholdMembershipDTO> updateHouseholdMemberships(
-        		@PathVariable UUID householdId,@Valid @RequestBody HouseHodMembersDto householdMembershipDTOs) throws Exception {
+        		@PathVariable UUID householdId,@Valid @RequestBody HouseHodMembersDto householdMembershipDTOs,HttpServletRequest request) throws Exception {
             log.debug("REST request to update HouseholdMembership : {}", householdMembershipDTOs);
+            Session session = sessionHelper.getSession(request);
             for(HouseholdMembershipDTO householdMembershipDTO : householdMembershipDTOs.getMembers()) {
-            	HouseholdMembershipDTO result = householdMembershipService.update(householdId, householdMembershipDTO);
+            	HouseholdMembershipDTO result = householdMembershipService.update(householdId, householdMembershipDTO,session);
             }
             return new ResponseEntity<HouseholdMembershipDTO>(HttpStatus.OK);
         }

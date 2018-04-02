@@ -5,11 +5,17 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
+import com.servinglynk.hmis.warehouse.base.dao.PropertyDao;
+import com.servinglynk.hmis.warehouse.base.dao.PropertyDaoImpl;
+import com.servinglynk.hmis.warehouse.base.service.PropertyReaderService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ApiAuthChecker;
+import com.servinglynk.hmis.warehouse.model.base.PropertyEntity;
 
 
 
@@ -20,6 +26,10 @@ public class LocalApiAuthChecker implements ApiAuthChecker	{
 
 	@Autowired
 	private BaseServiceFactory serviceFactory;
+	
+	@Autowired
+	PropertyDao propertyDao;
+	
 	
 	private String requestor="WebInterceptor";
 		
@@ -44,7 +54,14 @@ public class LocalApiAuthChecker implements ApiAuthChecker	{
 	public boolean checkApiAuthForUser(Session session, String apiMethodId,UUID clientId){
 		boolean flag = serviceFactory.getAccountService().checkApiAuthorizationForUser(session.getAccount(), apiMethodId);
 		if(flag) this.extendUserSession(session.getToken());
-		if(flag) flag = serviceFactory.getAccountService().checkClientConsentAuthorizationForUser(session.getAccount(), clientId,apiMethodId);
+		return flag;
+	}	
+	
+	@Transactional
+	public boolean checkApiAuthForConsent(Session session,UUID clientId){
+				PropertyEntity entity =	propertyDao.readConsentProperty();
+				if(entity==null || entity.getValue().equalsIgnoreCase("false")) return true;
+		boolean flag= serviceFactory.getAccountService().checkClientConsentAuthorizationForUser(session.getAccount(), clientId);
 		return flag;
 	}	
 	public void extendUserSession(String accessToken){

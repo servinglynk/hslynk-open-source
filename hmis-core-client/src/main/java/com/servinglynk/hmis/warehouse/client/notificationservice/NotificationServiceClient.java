@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -21,6 +22,9 @@ import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 
 public class NotificationServiceClient extends CoreClientBase implements INotificationServiceClient {
 	final static Logger logger = Logger.getLogger(NotificationServiceClient.class);
+	
+	@Autowired
+	Environment env;
 
 	/** Surya 04/13/2015 
 	 * serviceURL is the URL where the notification service is deployed (different host) */
@@ -52,10 +56,7 @@ public class NotificationServiceClient extends CoreClientBase implements INotifi
 		restTemplate.setMessageConverters(messageConverters);
 		
       	HttpEntity<Notification> requestEntity = new HttpEntity<Notification>(notification, headers);
-		Notification responseEntity = restTemplate.postForObject("http://52.36.2.74:8080/hmis-notification-service/rest/notifications", notification, Notification.class);
-		
-		
-
+		Notification responseEntity = restTemplate.postForObject("http://hmisns.aws.hmislynk.com:8080/hmis-notification-service/rest/notifications", notification, Notification.class);
 		return responseEntity;
 	}
 	

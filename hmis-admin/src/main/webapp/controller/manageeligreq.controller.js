@@ -1,5 +1,5 @@
 
-app.controller('manageeligreqCtrl', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
+app.controller('manageeligreqCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$modal', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
@@ -32,8 +32,8 @@ app.controller('manageeligreqCtrl', function($scope,$location,$routeSegment,$htt
     });
 };
 
-});
+}]);
 
-app.controller('viewEligReqCtrl', function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
+app.controller('viewEligReqCtrl',['$scope', '$location', '$routeSegment', '$http', '$timeout', 'datajson', function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
     $scope.datajson = datajson;
-});
+}]);

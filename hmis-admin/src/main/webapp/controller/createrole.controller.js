@@ -1,7 +1,5 @@
 
-app.controller('createprojgrpCtrl', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
-	//$rootScope.sessionToken = $window.localStorage.getItem('sessionToken');
-	console.log('Session Token..'+$sessionStorage.sessionToken);	
+app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
@@ -34,4 +32,4 @@ $scope.showErrorAlert = true;})
 $scope.switchBool = function(value) {
    $scope[value] = !$scope[value];
 };
-});
+}]);

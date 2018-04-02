@@ -88,39 +88,11 @@
 			<artifactId>spring-web</artifactId>
 			<version>3.0.2.RELEASE</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-client</artifactId>
-			<version>2.4.0</version>
-			<scope>compile</scope>
-		</dependency>
 	<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-validator</artifactId>
 		    <version>5.2.4.Final</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.hbase</groupId>
-			<artifactId>hbase</artifactId>
-			<version>0.94.18</version>
-			<scope>compile</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-	
-<!-- 		<dependency>
-	<groupId>org.springframework.data</groupId>
-	<artifactId>spring-data-jpa</artifactId>
-	<version>1.4.3.RELEASE</version>
-</dependency> -->
 
 <dependency>
 	<groupId>com.mysema.querydsl</groupId>

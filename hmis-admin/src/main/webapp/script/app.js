@@ -17,7 +17,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
        }
     };
  }]);
-app.factory("LS", function($window, $rootScope) {
+app.factory("LS", [ '$window', '$rootScope', function($window, $rootScope) {
 	  angular.element($window).on('storage', function(event) {
 	    if (event.key === 'my-storage') {
 	      $rootScope.$apply();
@@ -32,8 +32,8 @@ app.factory("LS", function($window, $rootScope) {
 	      return $window.localStorage && $window.localStorage.getItem('my-storage');
 	    }
 	  };
-	});
-app.config(function($routeSegmentProvider, $routeProvider) {
+	}]);
+app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentProvider, $routeProvider) {
     
     // Configuring provider options
     
@@ -51,6 +51,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
         .when('/admin/dashboard',      's2.dashboard')
 		 .when('/admin/managefiles',      's2.managefiles')
 		  .when('/admin/bulkupload',      's2.bulkupload')
+		  .when('/admin/bulkuploadNew',      's2.bulkuploadNew')
 		   .when('/admin/managesync',      's2.managesync')
 		      .when('/admin/managereport',      's2.managereport')
 		      .when('/admin/manageeligreq',      's2.manageeligreq')
@@ -101,6 +102,8 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                 templateUrl: 'templates/partial/manageeligreq.html', controller: 'manageeligreqCtrl'})   
 		  .segment('bulkupload', {
 		      templateUrl: 'templates/partial/bulkupload.html', controller: 'bulkUploadCtrl'})   
+		   .segment('bulkuploadNew', {
+		      templateUrl: 'templates/partial/bulkuploadnew.html', controller: 'bulkUploadNewCtrl'})  
 		  .segment('managesync', {
                 templateUrl: 'templates/partial/managesync.html', controller: 'managesyncCtrl'})   
 		    .segment('setting', {
@@ -149,9 +152,10 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 			})
                 
         .up()
-        
+
     $routeProvider.otherwise({redirectTo: '/login'});  // default redirect
-}) ;
+    
+}]) ;
 app.run(['$rootScope', '$location', '$sessionStorage', '$http',
          function ($rootScope, $location, $sessionStorage, $http) {
 			 
@@ -172,7 +176,7 @@ app.run(['$rootScope', '$location', '$sessionStorage', '$http',
          }]);
 app.value('loader', { show: false });
 
-app.directive('appFilereader', function ($q) {
+app.directive('appFilereader',['$q', function ($q) {
     var slice = Array.prototype.slice;
 		
     return {
@@ -191,4 +195,4 @@ app.directive('appFilereader', function ($q) {
 
         } //link
     }; //return
-});
+}]);

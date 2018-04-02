@@ -14,24 +14,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 
+import com.amazonaws.services.kms.model.InvalidGrantTokenException;
 import com.servinglynk.hmis.warehouse.core.model.Error;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.IllegalBusinessStateException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidSessionTokenException;
+import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppException;
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
+import com.servinglynk.hmis.warehouse.core.model.exception.TrustedAppNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.AccountConsentNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.AccountDisabledException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ApiMethodNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.AuthCodeAlreadyUsedException;
+import com.servinglynk.hmis.warehouse.service.exception.AuthCodeExpiredException;
+import com.servinglynk.hmis.warehouse.service.exception.AuthCodeNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.DeveloperCompanyAccountAlreadyExistsException;
 import com.servinglynk.hmis.warehouse.service.exception.DeveloperCompanyAccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.DeveloperCompanyNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.DeveloperCompanyOwnerDissociationNotAllowedException;
 import com.servinglynk.hmis.warehouse.service.exception.DuplicateDataException;
+import com.servinglynk.hmis.warehouse.service.exception.GrantTypeNotSupportedException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidApiMethodException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidRedirectUriException;
+import com.servinglynk.hmis.warehouse.service.exception.RefreshTokenNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ServiceAlreadyExistsException;
 import com.servinglynk.hmis.warehouse.service.exception.ServiceNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.SessionNotFoundException;
 
 
 public class ExceptionMapper {
@@ -178,7 +190,59 @@ public class ExceptionMapper {
 			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
 			r.setErrorCode(ERR_CODE_INVALID_API_METHOD);
 			r.setErrorMessage(ex.getMessage());
-		}  catch (Throwable t) {
+		}catch (InvalidTrustedAppException ex) {
+			logger.info("InvalidTrustedAppException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+			r.setErrorCode("INVALID_TRUSTED_APP");
+			r.setErrorMessage(ex.getMessage());
+		} catch (AuthCodeExpiredException ex) {
+			logger.info("AuthCodeExpiredException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_FORBIDDEN);
+			r.setErrorMessage(ex.getMessage());
+		} catch (InvalidGrantTokenException ex) {
+			logger.info("InvalidGrantTokenException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+			r.setErrorMessage(ex.getMessage());
+		} catch (GrantTypeNotSupportedException ex) {
+			logger.info("GrantTypeNotSupportedException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+			r.setErrorMessage(ex.getMessage());
+		} catch (AuthCodeNotFoundException ex) {
+			logger.info("AuthCodeNotFoundException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorMessage(ex.getMessage());
+		} catch (TrustedAppNotFoundException ex) {
+			logger.info("TrustedAppNotFoundException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorMessage(ex.getMessage());
+		} catch (AccountDisabledException ex) {
+			logger.info("AccountDisabledException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorMessage(ex.getMessage());
+		} catch (AuthCodeAlreadyUsedException ex) {
+			logger.info("AuthCodeAlreadyUsedException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_FORBIDDEN);
+			r.setErrorMessage(ex.getMessage());
+		} catch (RefreshTokenNotFoundException ex) {
+			logger.info("RefreshTokenNotFoundException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorMessage(ex.getMessage());
+		} catch (SessionNotFoundException ex) {
+			logger.info("SessionNotFoundException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_FORBIDDEN);
+			r.setErrorMessage(ex.getMessage());
+		} catch (AccountConsentNotFoundException ex) {
+			logger.info("AccountConsentNotFoundException: " +ex.getMessage());
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorMessage(ex.getMessage());
+		} catch (HttpMessageNotReadableException e) {
+			r.setErrorMessage("Invalid request body");
+			r.setErrorCode("INVALID_REQUEST_BODY");
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+		}
+		
+		
+		catch (Throwable t) {
         	
 			logger.error(t.getMessage(), t);
 

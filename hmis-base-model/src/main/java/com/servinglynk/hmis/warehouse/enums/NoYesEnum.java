@@ -10,6 +10,10 @@ public enum NoYesEnum {
 	/** Enum Constant. */
 	ONE("1"),
 	/** Enum Constant. */
+	EIGHT("8"),
+	/** Enum Constant. */
+	NINE("9"),
+	/** Enum Constant. */
 	NINTY_NINE("99");
 	/**
 	 * Internal storage of status field value, see the Enum spec for

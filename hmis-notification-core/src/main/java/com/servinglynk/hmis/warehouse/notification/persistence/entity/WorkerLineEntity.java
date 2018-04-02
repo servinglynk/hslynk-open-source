@@ -25,6 +25,7 @@ public class WorkerLineEntity extends ParentEntity {
 	private int currRetry;
 	private int retryInterval;
 	private String externalId;
+	private Long notificationId;
 	
 	@Id
 	@SequenceGenerator(name="pk_sequence",sequenceName="hmis_worker_line_id_seq", allocationSize=1)
@@ -112,6 +113,13 @@ public class WorkerLineEntity extends ParentEntity {
 		this.retryInterval = retryInterval;
 	}
 
+	@Column(name="notification_id")
+	public Long getNotificationId() {
+		return notificationId;
+	}
 
+	public void setNotificationId(Long notificationId) {
+		this.notificationId = notificationId;
+	}
 	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,10 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.servinglynk.hmis.household.web.rest.util.Errors;
 import com.servinglynk.hmis.household.web.rest.util.Error;
 import com.servinglynk.hmis.household.web.rest.util.ExceptionMapper;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 
 
 public class BaseResource {
 
+	
+	@Autowired
+	SessionHelper sessionHelper;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody

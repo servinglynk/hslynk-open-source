@@ -22,8 +22,12 @@ import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImp
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.BulkUploadErrorActivityController;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
+import com.servinglynk.hmis.warehouse.rest.ClientsControllerv2;
+import com.servinglynk.hmis.warehouse.rest.HMISTypeController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsController;
+import com.servinglynk.hmis.warehouse.rest.ProjectsControllerV2;
+import com.servinglynk.hmis.warehouse.rest.QuestionsController;
 import com.servinglynk.hmis.warehouse.rest.SearchController;
 
 @Configuration
@@ -31,7 +35,8 @@ import com.servinglynk.hmis.warehouse.rest.SearchController;
 		com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
 		com.servinglynk.hmis.warehouse.service.config.ServiceConfig.class,
 		com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
-		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
+		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class,
+		com.servinglynk.hmis.warehouse.config.WebDBPoolConfig.class})
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling
@@ -80,10 +85,10 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 //		return new PropertyController();
 //	}
 //	
-	 @PostConstruct
+	/* @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_CLIENTAPI");
-	 }
+	 }*/
 	 
 	 @Bean
 	 public SearchController searchController(){
@@ -98,5 +103,25 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public HealthController healthController(){
 		 return new HealthController();
+	 }
+	 
+	 @Bean
+	 public HMISTypeController hmisTypeController() {
+		 return new HMISTypeController();
+	 }
+	 
+	 @Bean
+	 public QuestionsController questionsController() {
+		 return new QuestionsController();
+	 }
+	 
+	 @Bean
+	 public ClientsControllerv2 clientsControllerv2() {
+		 return new ClientsControllerv2();
+	 }
+	 
+	 @Bean
+	 public ProjectsControllerV2 projectsControllerV2() {
+		 return new ProjectsControllerV2();
 	 }
 }

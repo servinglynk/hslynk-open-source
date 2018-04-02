@@ -8,7 +8,7 @@ public class SyncStaging2015 {
 	public static void main(String args[]) throws Exception {
 		Logger logger = Logger.getLogger(SyncStaging2015.class.getName());
 		Properties props = new Properties();
-		props.generatePropValues();
+		props.generatePropValues("application.conf");
 		props.printProps();
 
 		while(true){

@@ -19,7 +19,7 @@ import com.servinglynk.hmis.warehouse.core.model.JsonDateTimeSerializer;
 /**
  * A DTO for the HouseholdMembership entity.
  */
-@ValidateClient(clientIdField="globalClientId",linkField="link")
+@ValidateClient(clientIdField="globalClientId",linkField="link",dedupClientIdField="dedupClientId")
 public class HouseholdMembershipDTO implements Serializable {
 
     private UUID householdMembershipId;
@@ -41,10 +41,13 @@ public class HouseholdMembershipDTO implements Serializable {
     
     private UUID userId;
     
+    private UUID dedupClientId;
+    
     @JsonProperty(access=Access.WRITE_ONLY)
     private String link;
-    
-    
+ 
+    @JsonProperty(access=Access.WRITE_ONLY)
+    public String schemaYear;
     
     
     public UUID getHouseholdMembershipId() {
@@ -110,6 +113,22 @@ public class HouseholdMembershipDTO implements Serializable {
 
 	public void setUserId(UUID userId) {
 		this.userId = userId;
+	}
+		
+	public UUID getDedupClientId() {
+		return dedupClientId;
+	}
+
+	public void setDedupClientId(UUID dedupClientId) {
+		this.dedupClientId = dedupClientId;
+	}
+
+	public String getSchemaYear() {
+		return schemaYear;
+	}
+
+	public void setSchemaYear(String schemaYear) {
+		this.schemaYear = schemaYear;
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +73,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		String dedupSessionKey = dedupHelper.getAuthenticationHeader();
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Client.class, getProjectGroupCode(domain));
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
-		Boolean skipClientIdentifier = projectGroupEntity != null && !projectGroupEntity.isSkipuseridentifers();
+		Boolean skipClientIdentifier = projectGroupEntity != null && projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
@@ -131,7 +132,13 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					clientModel.setExport(exportEntity);
 					//makes a microservice all to the dedup micro service
 					performSaveOrUpdate(clientModel);
-					
+					UUID userId = clientModel.getUserId();
+					if(clientModel.isRecordToBoInserted()) {
+						daoFactory.getClientTrackerDao().createTracker(clientModel.getId(), clientModel.getProjectGroupCode(), clientModel.isDeleted(), "INSERT","BULK_UPLOAD",userId != null ? userId.toString() : null);
+					}
+					if(!clientModel.isRecordToBoInserted()){
+						daoFactory.getClientTrackerDao().createTracker(clientModel.getId(), clientModel.getProjectGroupCode(), clientModel.isDeleted(), "UPDATE","BULK_UPLOAD",userId != null ? userId.toString() : null);
+					}
 					// Inserting client in base schema	
 					if(!clientModel.isIgnored()) {
 						com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
@@ -311,8 +318,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			BeanUtils.copyProperties(client, baseClient, new String[] {"enrollments","veteranInfoes"});
 			logger.info("Calling Dedup Service for "+client.getFirstName());
 			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-			client.setDedupClientId(UUID.fromString(dedupedId));
-			baseClient.setDedupClientId(client.getDedupClientId());
+			if(StringUtils.isNotBlank(dedupedId)) {
+				client.setDedupClientId(UUID.fromString(dedupedId));
+				baseClient.setDedupClientId(client.getDedupClientId());
+			}
+			client.setDateUpdated(LocalDateTime.now());
+			baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);
@@ -326,6 +337,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		baseClient.setSchemaYear("2016");
 			update(client);
 			update(baseClient);
+			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), client.isDeleted(), "UPDATE",null,null);
 		return client;
 	}
 
@@ -334,7 +346,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public void deleteClient(
 			com.servinglynk.hmis.warehouse.model.v2016.Client client) {
 			delete(client);
-		
+			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), true, "DELETE",null,null);
 	}
 
 
@@ -378,5 +390,43 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Client.class);	
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		return countRows(criteria);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<com.servinglynk.hmis.warehouse.model.v2016.Client> getAllNullDedupIdClients() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2016.Client.class);
+		criteria.add(Restrictions.isNull("dedupClientId"));
+		criteria.add(Restrictions.isNotNull("firstName"));
+		criteria.add(Restrictions.isNotNull("lastName"));
+		List<String> projectGroupCodes = new ArrayList<String>();
+		projectGroupCodes.add("MO0010");
+		projectGroupCodes.add("HO0002");
+		projectGroupCodes.add("IL0009");
+		projectGroupCodes.add("BD0005");
+		criteria.add(Restrictions.in("projectGroupCode", projectGroupCodes));
+		List<com.servinglynk.hmis.warehouse.model.v2016.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2016.Client>) findByCriteria(criteria);
+		return clients;
+	}
+	
+	@Override
+	public void updateDedupClient(
+			com.servinglynk.hmis.warehouse.model.v2016.Client client,String dedupSessionKey) {
+	    com.servinglynk.hmis.warehouse.model.base.Client basClient = daoFactory.getBaseClientDao().getClient(client.getId());
+	    if(basClient == null) {
+	    	basClient = new  com.servinglynk.hmis.warehouse.model.base.Client();
+	    	BeanUtils.copyProperties(client, basClient, new String[] {"enrollments","veteranInfoes"});
+	    	basClient.setSchemaYear("2016");
+	     }
+	     String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
+	     logger.info("Calling Dedup Service for "+client.getFirstName());
+		 client.setDateUpdated(LocalDateTime.now());
+		 client.setDedupClientId(UUID.fromString(dedupedId));
+		 getCurrentSession().update(client);
+		 basClient.setDedupClientId(UUID.fromString(dedupedId));
+		 basClient.setDateUpdated(LocalDateTime.now());
+		 insert(basClient);
+		 getCurrentSession().flush();
+		 getCurrentSession().clear();
 	}
 }

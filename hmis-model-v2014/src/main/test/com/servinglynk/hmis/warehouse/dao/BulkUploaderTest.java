@@ -1,6 +1,9 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.math.BigInteger;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -10,11 +13,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import javax.validation.constraints.AssertTrue;
-
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.model.v2014.Client;
-import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
@@ -27,12 +25,16 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
+import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
+import com.servinglynk.hmis.warehouse.model.v2014.Client;
+import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = DatabaseConfig.class,loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = {DatabaseConfig.class,StandAloneDBPoolConfig.class},loader = AnnotationConfigContextLoader.class)
 @TransactionConfiguration(defaultRollback=true,transactionManager="transactionManager") 
 public class BulkUploaderTest {
 	
@@ -47,7 +49,7 @@ public class BulkUploaderTest {
 	public void testOldFile()
 	{
 		BulkUpload upload = new BulkUpload();
-	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 //		path.setURLStreamHandlerFactory(fac);
 		//upload.setInputPath(path.getFile());
 		FileAppender appender = new FileAppender();
@@ -57,7 +59,7 @@ public class BulkUploaderTest {
 		appender.setAppend(true);
 		appender.setLayout(new PatternLayout());
 		appender.activateOptions();
-		upload.setInputpath("C:/HMIS/hmis-lynk-open-source/hmis-model/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0.xml");
+		upload.setInputpath(path.getPath());
 		upload.setProjectGroupCode("PG0001");
 		upload.setStatus("INITIAL");
 	//	HmisUser hmisUser = (HmisUser)factory.getHmisUserDao().findByUsername("superadmin@hmis.com");
@@ -68,11 +70,11 @@ public class BulkUploaderTest {
 	@Test
 	public void testCSVZip() throws Exception                                         
 	{
-	//	URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		//URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
 		BulkUpload	bullkUpload = new BulkUpload();
-	//	bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUD_4_0_1_4012_76.xml");
-		bullkUpload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\HUD_4_0_1_4012_93.xml");
-		bullkUpload.setId(220L);
+		bullkUpload.setInputpath("/Users/sdolia/github/hmis-lynk-open-source/hmis-model-v2014/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
+	//	bullkUpload.setInputpath(path.getPath());
+		bullkUpload.setId(1L);
 		FileAppender appender = new FileAppender();
 		appender.setName("" + bullkUpload.getId());
 		appender.setFile("logs/" + bullkUpload.getId() + ".log");
@@ -80,10 +82,104 @@ public class BulkUploaderTest {
 		appender.setAppend(true);
 		appender.setLayout(new PatternLayout());
 		appender.activateOptions();
-		bullkUpload.setProjectGroupCode("MO0010");
+		bullkUpload.setProjectGroupCode("IL0009");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-		projectGrpEntity.setProjectGroupCode("MO0010");
+		projectGrpEntity.setProjectGroupCode("PG0001");
 		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity, appender,false);
+	}
+	
+	@Test
+	public void testProessDisab() throws Exception                                         
+	{
+		//URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		BulkUpload	bullkUpload = new BulkUpload();
+		bullkUpload.setInputpath("/Users/sdolia/Downloads/HUD_HMIS_Instance.xml");
+	//	bullkUpload.setInputpath(path.getPath());
+		bullkUpload.setId(1L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + bullkUpload.getId());
+		appender.setFile("logs/" + bullkUpload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
+		bullkUpload.setProjectGroupCode("IL0009");
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("IL0009");
+		factory.getBulkUploaderDao().processDisabilities(bullkUpload,projectGrpEntity, appender,false);
+	}
+	
+	
+	@Test
+	public void testEnrollmentCoc() throws Exception                                         
+	{
+		//URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		BulkUpload	bullkUpload = new BulkUpload();
+		bullkUpload.setInputpath("/Users/sdolia/Downloads/CSV_files.zip");
+	//	bullkUpload.setInputpath(path.getPath());
+		bullkUpload.setId(389L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + bullkUpload.getId());
+		appender.setFile("logs/" + bullkUpload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
+		bullkUpload.setProjectGroupCode("IL0009");
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("IL0009");
+		factory.getBulkUploaderDao().processEnrollmentChildren(bullkUpload, projectGrpEntity, appender, false);
+	}
+	
+	@Test
+	@Transactional
+	public void testEnrollment() throws Exception                                         
+	{
+		//URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml");
+		BulkUpload	bullkUpload = new BulkUpload();
+		bullkUpload.setInputpath("/Users/sdolia/Downloads/CSV_File.zip");
+	//	bullkUpload.setInputpath(path.getPath());
+		bullkUpload.setId(393L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + bullkUpload.getId());
+		appender.setFile("logs/" + bullkUpload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
+		bullkUpload.setProjectGroupCode("IL0009");
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("IL0009");
+		factory.getBulkUploaderDao().processEnrollment(bullkUpload, projectGrpEntity, appender, false);
+	}
+	
+	
+	@Test
+	public void test7ZFile() throws Exception                                         
+	{
+		URL path = BulkUploaderTest.class.getResource("HUD_4_0__6.xml.7z");
+		BulkUpload	bullkUpload = new BulkUpload();
+		bullkUpload.setInputpath(path.getPath());
+	//	bullkUpload.setInputpath("/Users/sdolia/Downloads/HUD_4_0__6.xml.7z");
+		bullkUpload.setId(1L);
+		FileAppender appender = new FileAppender();
+		appender.setName("" + bullkUpload.getId());
+		appender.setFile("logs/" + bullkUpload.getId() + ".log");
+		appender.setImmediateFlush(true);
+		appender.setAppend(true);
+		appender.setLayout(new PatternLayout());
+		appender.activateOptions();
+		bullkUpload.setProjectGroupCode("PG0001");
+		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+		projectGrpEntity.setProjectGroupCode("PG0001");
+		factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity, appender,false);
+	}
+	
+	
+	@Test
+	public void testChronicHomelesness() throws Exception                                         
+	{
+		factory.getBulkUploaderDao().calculateChrionicHomelessPerProjectGroup("IL0009");
 	}
 	
 	@Test
@@ -99,12 +195,12 @@ public class BulkUploaderTest {
 		appender.setAppend(true);
 		appender.setLayout(new PatternLayout());
 		appender.activateOptions();
-		upload.setInputpath("C:\\AWS\\HUD_4_0_4012_48.xml");
+		upload.setInputpath("/Users/sdolia/github/hmis-lynk-open-source/hmis-model-v2014/src/main/test/com/servinglynk/hmis/warehouse/dao/HUD_4_0__6.xml");
 		
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		projectGrpEntity.setProjectGroupCode("PG0001");
 		upload.setProjectGroupCode("PG0001");
-		factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
+		factory.getBulkUploaderDao().processDisabilities(upload,projectGrpEntity,appender,false);
 	}
 	@Test
 	public void testAnotherxmlBigFile() throws Exception
@@ -193,4 +289,12 @@ public class BulkUploaderTest {
 		System.out.println(constraintViolations.toString());
 	}
 
+	
+	@Test
+	@Transactional
+	public void getNullDedupIds() {
+		List<Client> allNullDedupIdClients = factory.getClientDao().getAllNullDedupIdClients();
+		assertNotNull(allNullDedupIdClients);
+	}
+	
 }

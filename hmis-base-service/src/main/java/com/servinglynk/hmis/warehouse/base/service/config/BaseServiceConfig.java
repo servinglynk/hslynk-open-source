@@ -12,10 +12,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
+import com.servinglynk.hmis.warehouse.base.service.APIAccessService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.base.service.core.security.LocalApiAuthChecker;
+import com.servinglynk.hmis.warehouse.base.service.impl.APIAccessServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AccountServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ApiMethodServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AuthorizationServiceImpl;
@@ -24,6 +26,9 @@ import com.servinglynk.hmis.warehouse.base.service.impl.BulkUploadServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ClientConsentServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ClientDataElementsServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.DeveloperCompanyServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.GlobalEnrollmentServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.GlobalProjectServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.HMISNotificationsServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.HealthServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.PermissionSetServiceImpl;
@@ -37,6 +42,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.UsernameChangeServiceImp
 import com.servinglynk.hmis.warehouse.base.service.impl.VerificationServiceImpl;
 import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ApiAuthCheckInterceptor;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.ClientConsentInterceptor;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
 
@@ -64,9 +70,16 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	public LocalApiAuthChecker apiAuthChecker(){
 		return new LocalApiAuthChecker();
 	}
+	
+	 @Bean
+	 public ClientConsentInterceptor clientConsentInterceptor() {
+		 return new ClientConsentInterceptor();
+	 }
+	 
 		 @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
 	        registry.addInterceptor(apiAuthCheckInterceptor());
+	        registry.addInterceptor(clientConsentInterceptor()).addPathPatterns("/clients/*/enrollments/**","/clients/*/enrollments","/clients/*/veteraninfos");
 	    }
 	
 	@Bean(name="serviceFactory")
@@ -214,4 +227,26 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 public ClientDataElementsServiceImpl clientDataElementsService(){
 		 return new ClientDataElementsServiceImpl();
 	 }
+	 
+	 @Bean
+	 public APIAccessServiceImpl apiAccessService() {
+		 return new APIAccessServiceImpl();
+	 }
+	 
+	 @Bean
+	 public HMISNotificationsServiceImpl hmisNotificationsService() {
+		 return new HMISNotificationsServiceImpl();
+	 }
+	 
+	 @Bean
+	 public GlobalEnrollmentServiceImpl globalEnrollmentService() {
+		 return new GlobalEnrollmentServiceImpl();
+	 }
+	 
+	 @Bean
+	 public GlobalProjectServiceImpl globalProjectService() {
+		 return new GlobalProjectServiceImpl();
+	 }
+	 
+	 
 }

@@ -54,11 +54,16 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Client deleteClient(UUID clientId, String caller) {
-	com.servinglynk.hmis.warehouse.model.base.Client pClient = daoFactory.getHmisClientDao().getClientById(clientId);
+		
+		com.servinglynk.hmis.warehouse.model.v2016.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
+		
+		if(pClient == null ) throw new ClientNotFoundException();
+		daoFactory.getClientDao().deleteClient(pClient);
+	com.servinglynk.hmis.warehouse.model.base.Client baseClient = daoFactory.getHmisClientDao().getClientById(clientId);
 
 		if(pClient == null ) throw new ClientNotFoundException();
 
-		daoFactory.getHmisClientDao().deleteClient(pClient);
+		daoFactory.getHmisClientDao().deleteClient(baseClient);
 		return new Client();
 	}
 

@@ -1,5 +1,5 @@
 
-app.controller('manageuserCtrl', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+app.controller('manageuserCtrl',['$scope','$location','$routeSegment','$http', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
@@ -20,4 +20,4 @@ app.controller('manageuserCtrl', function($scope,$location,$routeSegment,$http, 
     };
 
 
-});
+}]);

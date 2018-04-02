@@ -16,11 +16,14 @@ import com.servinglynk.hmis.warehouse.service.DateofengagementService;
 import com.servinglynk.hmis.warehouse.service.DisabilitiesService;
 import com.servinglynk.hmis.warehouse.service.DomesticViolenceService;
 import com.servinglynk.hmis.warehouse.service.EmploymentService;
+import com.servinglynk.hmis.warehouse.service.EnrollmentCocService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
+import com.servinglynk.hmis.warehouse.service.EnrollmentServiceV2;
 import com.servinglynk.hmis.warehouse.service.ExitPlansActionsService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
 import com.servinglynk.hmis.warehouse.service.FamilyReunificationService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
+import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthInsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthStatusService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
@@ -35,7 +38,9 @@ import com.servinglynk.hmis.warehouse.service.PathstatusService;
 import com.servinglynk.hmis.warehouse.service.PercentamiService;
 import com.servinglynk.hmis.warehouse.service.ProjectCompletionStatusService;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
+import com.servinglynk.hmis.warehouse.service.ProjectServiceV2;
 import com.servinglynk.hmis.warehouse.service.ProjectcocService;
+import com.servinglynk.hmis.warehouse.service.QuestionService;
 import com.servinglynk.hmis.warehouse.service.ReferralsourceService;
 import com.servinglynk.hmis.warehouse.service.ResidentialmoveindateService;
 import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
@@ -61,10 +66,19 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	private EnrollmentService enrollmentService;
 	
 	@Autowired
+	private EnrollmentCocService enrollmentCocService;
+	
+	@Autowired
 	private BulkUploadService bulkUploadService;
 	
 	@Autowired
 	private SearchService searchService;
+	
+	@Autowired
+	private HMISTypeService hmisTypeService;
+	
+	@Autowired
+	private QuestionService questionService;
 	
 	
 	public BulkUploadService getBulkUploadService() {
@@ -92,7 +106,15 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 		this.enrollmentService = enrollmentService;
 	}
 	
-	
+	public EnrollmentCocService getEnrollmentCocService() {
+		return enrollmentCocService;
+	}
+
+	public void setEnrollmentCocService(EnrollmentCocService enrollmentCocService) {
+		this.enrollmentCocService = enrollmentCocService;
+	}
+
+
 	@Autowired
 	private InformationReleasesService informationReleasesService;
 
@@ -547,5 +569,42 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
+	}
+
+	public HMISTypeService getHmisTypeService() {
+		return hmisTypeService;
+	}
+
+	public void setHmisTypeService(HMISTypeService hmisTypeService) {
+		this.hmisTypeService = hmisTypeService;
+	}
+
+	public QuestionService getQuestionService() {
+		return questionService;
+	}
+
+	public void setQuestionService(QuestionService questionService) {
+		this.questionService = questionService;
+	}
+	
+	@Autowired EnrollmentServiceV2 enrollmentServiceV2;
+
+
+	public EnrollmentServiceV2 getEnrollmentServiceV2() {
+		return enrollmentServiceV2;
+	}
+
+	public void setEnrollmentServiceV2(EnrollmentServiceV2 enrollmentServiceV2) {
+		this.enrollmentServiceV2 = enrollmentServiceV2;
+	}
+	
+	@Autowired ProjectServiceV2 projectServiceV2;
+
+	public ProjectServiceV2 getProjectServiceV2() {
+		return projectServiceV2;
+	}
+
+	public void setProjectServiceV2(ProjectServiceV2 projectServiceV2) {
+		this.projectServiceV2 = projectServiceV2;
 	}
 }

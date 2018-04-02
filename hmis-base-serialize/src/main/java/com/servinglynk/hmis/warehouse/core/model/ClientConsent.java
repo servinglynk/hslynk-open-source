@@ -1,10 +1,10 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
-
-import org.omg.PortableInterceptor.LOCATION_FORWARD;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -21,17 +21,16 @@ public class ClientConsent extends ClientModel {
 	
 	@AllowedValues(values={"APPROVED","REJECTED"},message="Allowed values for status value are APPROVED,REJECTED")
 	private String status;
-	
-	@JsonDeserialize(using=JsonTimestampDeserializer.class)
-	@JsonSerialize(using=JsonTimestampSerializer.class)
-	private LocalDateTime startTime;
-	
-	@JsonDeserialize(using=JsonTimestampDeserializer.class)
-	@JsonSerialize(using=JsonTimestampSerializer.class)
-	private LocalDateTime endTime;
+
+	private Date startTime;
+	private Date endTime;
 	
 	private String consentDocumentLink;
 	private String entityGroup;
+	
+//	private GlobalProjects globalProjects=new GlobalProjects();
+	
+	private List<GlobalProject> globalProjects = new ArrayList<GlobalProject>();
 	
 	private UUID consentUserId;
 	
@@ -53,16 +52,16 @@ public class ClientConsent extends ClientModel {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public LocalDateTime getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(LocalDateTime startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
-	public LocalDateTime getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(LocalDateTime endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 	public String getConsentDocumentLink() {
@@ -83,5 +82,20 @@ public class ClientConsent extends ClientModel {
 	public void setConsentUserId(UUID consentUserId) {
 		this.consentUserId = consentUserId;
 	}
+	/*public GlobalProjects getGlobalProjects() {
+		return globalProjects;
+	}
+	public void setGlobalProjects(GlobalProjects globalProjects) {
+		this.globalProjects = globalProjects;
+	}*/
+	public List<GlobalProject> getGlobalProjects() {
+		return globalProjects;
+	}
+	public void setGlobalProjects(List<GlobalProject> globalProjects) {
+		this.globalProjects = globalProjects;
+	}
 	
+	public void addGlobalProject(GlobalProject globalProject) {
+		this.globalProjects.add(globalProject);
+	}
 }

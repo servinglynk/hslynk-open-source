@@ -16,7 +16,10 @@ public class Properties {
     public static String HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT="2181";
     public static int SYNC_PERIOD;
     public static String SYNC_SCHEMAS;
-
+    public static String PROJECT_GROUP_CODE;
+    public static String HIVE_USERNAME;
+    public static String HIVE_PASSWORD;
+    public static String HIVE_DRIVER_URL;
 
     public void generatePropValues() throws Exception {
 
@@ -42,7 +45,10 @@ public class Properties {
             HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = prop.getProperty("hbase.zookeeper.property.clientPort", "2181");
             SYNC_PERIOD = Integer.valueOf(prop.getProperty("sync.period"));
             SYNC_SCHEMAS = prop.getProperty("sync.schemas");
-
+            PROJECT_GROUP_CODE = prop.getProperty("sync.projectgroup");
+            HIVE_USERNAME = prop.getProperty("hive.username");
+            HIVE_PASSWORD = prop.getProperty("hive.password");
+            HIVE_DRIVER_URL= prop.getProperty("hive.driverUrl");
         } catch (Exception e) {
             System.out.println("Exception: " + e);
             throw e;
@@ -63,6 +69,7 @@ public class Properties {
         System.out.println(HBASE_MASTER);
         System.out.println(HBASE_ZOOKEEPER_QUORUM);
         System.out.println(HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT);
+        System.out.println(PROJECT_GROUP_CODE);
     }
 
 }

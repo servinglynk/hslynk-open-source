@@ -1,6 +1,14 @@
 package com.servinglynk.hmis.warehouse;
 
-import org.apache.commons.lang.NotImplementedException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
@@ -8,12 +16,6 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
-
-import java.sql.*;
-import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 
 public class SyncSchema extends Logging {
@@ -33,16 +35,15 @@ public class SyncSchema extends Logging {
         this.syncSchemas = Properties.SYNC_SCHEMAS;
     }
 
-    public void sync() throws Exception {
-
-        syncTablesToHBase();
-        log.info("Sync done. Wait " + syncPeriod + " minutes before running next sync");
-        threadSleep(syncPeriod * 60 * 1000);
+    public void sync(boolean delta) throws Exception {
+        List<String> projectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes(logger);
+        for(String projectGroupCode : projectGroupCodes) {
+        	 syncTablesToHBase(delta,projectGroupCode);
+        }
+        log.info("Sync process completed.");
     }
 
-    private void syncTablesToHBase() throws Exception {
-
-
+    private void syncTablesToHBase(boolean delta,String projectGroupCode) throws Exception {
         if (syncSchemas.trim().length() > 0) {
             String[] schemas = syncSchemas.split(",");
             for (String schema : schemas) {
@@ -56,7 +57,7 @@ public class SyncSchema extends Logging {
                     continue;
                 }
                 FileAppender appender = new FileAppender();
-                String appenderName = "sync-" + schema;
+                String appenderName = "sync-" + schema+"-"+projectGroupCode;
                 appender.setName(appenderName);
                 appender.setFile("logs/" + appenderName + ".log");
                 appender.setImmediateFlush(true);
@@ -67,20 +68,16 @@ public class SyncSchema extends Logging {
 
                 try {
                     logger.info("Create tables in HBASE");
-                    tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + schema, logger));
+                    tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + projectGroupCode, logger));
                     logger.info("Create tables done");
-
                     for (final String tableName : tables) {
-                        final String tempName = tableName;
-                        logger.info("[" + tempName + "] Processing table : " + tempName);
+                        logger.info("[" + tableName + "] Processing table : " + tableName);
                         try {
-                            syncTable(tempName, tempName + "_" + schema, schema);
+                            syncTable(tableName, tableName + "_" + projectGroupCode, schema,delta,projectGroupCode);
                         } catch (Exception ex) {
                            logger.error(ex);
                         }
                     }
-
-                    threadSleep(1000);
                 } catch (Exception ex) {
                     logger.error(ex);
                 } finally {
@@ -92,8 +89,7 @@ public class SyncSchema extends Logging {
         }
     }
 
-    private void
-    syncTable(String postgresTable, String hbaseTable, String syncSchema) {
+    private void syncTable(String postgresTable, String hbaseTable, String syncSchema,boolean delta,String projectGroupCode) {
         log.info("Start sync for table: " + postgresTable);
         HTable htable;
         ResultSet resultSet;
@@ -102,29 +98,50 @@ public class SyncSchema extends Logging {
         try {
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
             connection = SyncPostgresProcessor.getConnection();
-            statement = connection.prepareStatement("SELECT * FROM " + syncSchema + "." + postgresTable);
+            boolean empty = true;
+            String message ="";
+            int count = 0;
+            Long insertCount =0L;
+            Long updateCount =0L;
+            Long deleteCount =0L;
+            while(true) {
+            	int limit = 20000;
+            	String deltaQuery = "";
+            	if(delta) {
+            		deltaQuery=" and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  desc limit 1 ) ";
+            		if(StringUtils.equals("survey", syncSchema)) {
+            			deltaQuery=" and updated_at >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code ='"+projectGroupCode+"' order by updated_at  desc limit 1 ) ";
+            		}
+            	}
+            	String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, projectGroupCode);
+            statement.setInt(2, 50000);
+            int offset = limit*count++;
+            statement.setInt(3,offset);
             resultSet = statement.executeQuery();
-
             List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
             List<String> existingKeysInPostgres = new ArrayList<>();
-
             List<Put> putsToUpdate = new ArrayList<>();
             List<Put> putsToInsert = new ArrayList<>();
             List<String> putsToDelete = new ArrayList<>();
+            empty = true;
             while (resultSet.next()) {
                 Boolean markedForDelete = false;
-                try{
-                    resultSet.getBoolean("deleted");
-                }catch (Exception ex){
-                    logger.debug("table does not contained 'deleted' column", ex);
+                empty = false;
+                if(!StringUtils.equals("notificationdb", syncSchema)) {
+	                try{
+	                	markedForDelete = resultSet.getBoolean("deleted");
+	                }catch (Exception ex){
+	                    logger.error("table does not contained 'deleted' column", ex);
+	                    markedForDelete = false;
+	                }
                 }
-
                 ResultSetMetaData metaData = resultSet.getMetaData();
-                String key = resultSet.getString(1);
+                String key = resultSet.getString("id");
                 if(key.trim() == ""){
                     continue;
                 }
-
                 if (markedForDelete) {
                     if (existingKeysInHbase.contains(key)) {
                         putsToDelete.add(key);
@@ -163,34 +180,148 @@ public class SyncSchema extends Logging {
                 }
                 existingKeysInPostgres.add(key);
             }
-            existingKeysInHbase.forEach(key -> {
-                if(!existingKeysInPostgres.contains(key)){
-                    putsToDelete.add(key);
-                }
-            });
-
+            deleteCount += putsToDelete.size();
             logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
             if (putsToDelete.size() > 0) {
                 syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
             }
-
+            insertCount += putsToInsert.size();
             logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
             if (putsToInsert.size() > 0) {
                 htable.put(putsToInsert);
             }
-
+            updateCount += putsToUpdate.size();
             logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
             if (putsToUpdate.size() > 0) {
                 htable.put(putsToUpdate);
             }
-
-        } catch (Exception ex) {
-            logger.error(ex);
+            if(empty){
+            	break;
+            }
+            	
         }
-
-        log.info("Sync done for table: " + postgresTable);
+        message = " Records inserted : "+insertCount +" updated :"+ updateCount+ " deleted :"+ deleteCount;
+        SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,projectGroupCode);
+    } catch (Exception ex) {
+        logger.error(ex);
+        SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "ERROR", "Error in sync process "+ex.getMessage(),projectGroupCode);
     }
 
+    log.info("Sync done for table: " + postgresTable);
+    }
+
+    public void syncBase(boolean delta) {
+    	   Map<UUID,String> projectGroups = SyncPostgresProcessor.getAllProjectGroupId(logger);
+    	   String postgresTable = "hmis_user";
+           for(UUID projectGroupId : projectGroups.keySet()) {
+        	   String projectGroupCode = projectGroups.get(projectGroupId);
+        	   String hbaseTable = postgresTable +"_"+ projectGroupCode;
+        	  	syncHBaseImport.createHBASETable( postgresTable +"_"+ projectGroupCode, logger);
+        		syncTableBase(postgresTable, hbaseTable,"base",delta,projectGroupId,projectGroupCode);
+        		logger.info(" syncing completed of hmis_user for project group code "+projectGroupCode);
+           }
+    }
+    private void syncTableBase(String postgresTable, String hbaseTable, String syncSchema,boolean delta,UUID projectGroupId,String projectGroupCode) {
+        log.info("Start sync for table: " + postgresTable);
+        HTable htable;
+        ResultSet resultSet;
+        PreparedStatement statement;
+        Connection connection;
+        try {
+            htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
+            connection = SyncPostgresProcessor.getConnection();
+            String message ="";
+            Long insertCount =0L;
+            Long updateCount =0L;
+            Long deleteCount =0L;
+	        String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_id = ?";
+	        statement = connection.prepareStatement(sql);
+	        statement.setObject(1, projectGroupId);
+	        resultSet = statement.executeQuery();
+
+            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
+            List<String> existingKeysInPostgres = new ArrayList<>();
+            List<Put> putsToUpdate = new ArrayList<>();
+            List<Put> putsToInsert = new ArrayList<>();
+            List<String> putsToDelete = new ArrayList<>();
+            while (resultSet.next()) {
+                Boolean markedForDelete = false;
+                if(!StringUtils.equals("notificationdb", syncSchema)) {
+	                try{
+	                	markedForDelete = resultSet.getBoolean("deleted");
+	                }catch (Exception ex){
+	                    logger.error("table does not contained 'deleted' column", ex);
+	                    markedForDelete = false;
+	                }
+                }
+                ResultSetMetaData metaData = resultSet.getMetaData();
+                String key = resultSet.getString("id");
+                if(key.trim() == ""){
+                    continue;
+                }
+                if (markedForDelete) {
+                    if (existingKeysInHbase.contains(key)) {
+                        putsToDelete.add(key);
+                        if (putsToDelete.size() > syncHBaseImport.batchSize) {
+                            syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
+                            putsToDelete.clear();
+                        }
+                    } else {
+                        log.debug("Skip row with key: " + key);
+                        continue;
+                    }
+                } else {
+                    Put p = new Put(Bytes.toBytes(key));
+                    for (int i = 1; i < metaData.getColumnCount(); i++) {
+                        String column = metaData.getColumnName(i);
+                        String value = resultSet.getString(i);
+                        if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value) && !StringUtils.contains(column, "password")) {
+                            p.addColumn(Bytes.toBytes("CF"),
+                                    Bytes.toBytes(column),
+                                    Bytes.toBytes(value));
+                        }
+                    }
+                    if (existingKeysInHbase.contains(key)) {
+                        putsToUpdate.add(p);
+                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
+                            htable.put(putsToUpdate);
+                            putsToUpdate.clear();
+                        }
+                    } else {
+                        putsToInsert.add(p);
+                        if (putsToInsert.size() > syncHBaseImport.batchSize) {
+                            htable.put(putsToInsert);
+                            putsToInsert.clear();
+                        }
+                    }
+                }
+                existingKeysInPostgres.add(key);
+            }
+            deleteCount += putsToDelete.size();
+            logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
+            if (putsToDelete.size() > 0) {
+                syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
+            }
+            insertCount += putsToInsert.size();
+            logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
+            if (putsToInsert.size() > 0) {
+                htable.put(putsToInsert);
+            }
+            updateCount += putsToUpdate.size();
+            logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
+            if (putsToUpdate.size() > 0) {
+                htable.put(putsToUpdate);
+            }
+        message = " Records inserted : "+insertCount +" updated :"+ updateCount+ " deleted :"+ deleteCount;
+        SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,projectGroupCode);
+    } catch (Exception ex) {
+        logger.error(ex);
+        SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "ERROR", "Error in sync process "+ex.getMessage(),projectGroupCode);
+    }
+
+    log.info("Sync done for table: " + postgresTable);
+    }
+    
     private List<String> getTablesToSync(String schema) throws Exception {
         log.info("Get tables to sync");
         List<String> tables = new ArrayList<>();
@@ -203,13 +334,14 @@ public class SyncSchema extends Logging {
         }
         return tables;
     }
-
-    public static void threadSleep(long period) {
-        try {
-            Thread.sleep(period);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    
+    public static void main(String args[]) throws Exception {
+		Logger logger = Logger.getLogger(SyncSchema.class.getName());
+		Properties props = new Properties();
+		props.generatePropValues();
+		props.printProps();
+		SyncSchema sync = new SyncSchema(logger);
+		sync.syncBase(true);
+		sync.sync(true);
     }
 }

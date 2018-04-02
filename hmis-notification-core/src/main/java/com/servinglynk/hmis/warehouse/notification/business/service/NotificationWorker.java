@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.notification.common.CoreUtil;
 import com.servinglynk.hmis.warehouse.notification.common.Constants.NotificationStatus;
 import com.servinglynk.hmis.warehouse.notification.framework.NotificationEngine;
 import com.servinglynk.hmis.warehouse.notification.framework.NotificationWork;
+import com.servinglynk.hmis.warehouse.notification.persistence.entity.HMISNotificationEntity;
 import com.servinglynk.hmis.warehouse.notification.persistence.entity.NotificationHeaderEntity;
 import com.servinglynk.hmis.warehouse.notification.persistence.entity.NotificationLineEntity;
 import com.servinglynk.hmis.warehouse.notification.persistence.entity.TemplateHeaderEntity;
@@ -84,11 +85,34 @@ public class NotificationWorker  extends ParentService implements INotificationW
 					worker.setAttachment(headerModel.getAttachment());
 					worker.setPriority(headerModel.getPriority());
 					//to-do - move it to Thread pool executor
-					notificationEngine.processNotificationWork(worker);
-					
-					wle.setStatus(Constants.JOB_SUCCEEDED);
-					wle.setUpdateAt(new Date());
-					daoFactory.getWorkerLineDao().update(wle);
+					try{
+						System.out.println("worker line id "+wle.getId());
+						if(wle.getNotificationId()!=null) {
+							HMISNotificationEntity entity = daoFactory.getHmIhmisNotificationDao().getHmisNotification(wle.getNotificationId());
+							if(entity!=null) daoFactory.getHmIhmisNotificationDao().updateNotificationStatus(entity, Constants.JOB_PROCESSING, "");
+						}
+						notificationEngine.processNotificationWork(worker);
+						wle.setStatus(Constants.JOB_SUCCEEDED);
+						wle.setUpdateAt(new Date());
+						daoFactory.getWorkerLineDao().update(wle);
+						if(wle.getNotificationId()!=null) {
+							HMISNotificationEntity entity = daoFactory.getHmIhmisNotificationDao().getHmisNotification(wle.getNotificationId());
+							if(entity!=null) {
+								entity.setDeliveredAt(new Date());
+								daoFactory.getHmIhmisNotificationDao().updateNotificationStatus(entity, Constants.JOB_DELIVERED, "");
+							}
+						}
+					}catch (Exception e) {
+						wle.setStatus(Constants.JOB_FAILED);
+						wle.setUpdateAt(new Date());
+						wle.setLineOutput(e.getMessage());
+						wle.setCurrRetry(wle.getCurrRetry()+1);
+						daoFactory.getWorkerLineDao().update(wle);
+						if(wle.getNotificationId()!=null) {
+							HMISNotificationEntity entity = daoFactory.getHmIhmisNotificationDao().getHmisNotification(wle.getNotificationId());
+							if(entity!=null) daoFactory.getHmIhmisNotificationDao().updateNotificationStatus(entity, Constants.JOB_FAILED, e.getMessage());
+						}
+					}
 
 			
 		}

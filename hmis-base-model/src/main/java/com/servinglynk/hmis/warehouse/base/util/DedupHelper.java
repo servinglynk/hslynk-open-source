@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.base.util;
 
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResourceAccessException;
@@ -41,10 +43,12 @@ public class DedupHelper {
 		try {
 		 	RestTemplate restTemplate = new RestTemplate();
 	        HttpHeaders headers = new HttpHeaders();
-	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
+	        //headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
+	    	MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-16"));
+	    	headers.setContentType(mediaType);
 	        headers.set("OPENEMPI_SESSION_KEY", sessionKey);
 	     //   String url = env.getRequiredProperty(OPENEMPI_HOST)+"dedup";
-	        String url = "http://ec2-52-38-189-237.us-west-2.compute.amazonaws.com:8080/hmis-client-dedup/rest/api/v1/dedup";
+	        String url = "http://hmiselb.aws.hmislynk.com/hmis-client-dedup/rest/api/v1/dedup";
 	        Person person = new Person();
 	        person.setGivenName(client.getFirstName());
 	        person.setFamilyName(client.getLastName());
@@ -60,7 +64,7 @@ public class DedupHelper {
 	            	java.util.Date d = new SimpleDateFormat("yyyy-MM-dd").parse(client.getDob().toString());
 	                person.setDateOfBirth(d);
 	            } catch (ParseException e) {
-	                e.printStackTrace();
+	                throw new IllegalArgumentException("Invalid date ::"+client.getDob());
 	            }
 	    	}
 	        
@@ -99,7 +103,7 @@ public class DedupHelper {
 	public String getAuthenticationHeader() {
 			RestTemplate restTemplate = new RestTemplate();
 		    //String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";
-			String url = "http://ec2-52-38-189-237.us-west-2.compute.amazonaws.com:8080/hmis-client-dedup/rest/api/v1/authenticate";
+			String url = "http://hmiselb.aws.hmislynk.com/hmis-client-dedup/rest/api/v1/authenticate";
 	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
 	        AuthenticationRequest AuthenticationRequest = new AuthenticationRequest();
 	        AuthenticationRequest.setPassword("admin");
@@ -147,9 +151,10 @@ public class DedupHelper {
 			requestBody = requestBody +"\"givenName\":  \""+person.getGivenName()+"\",";
 		}
 		if(person.getFamilyName() !=null && !"".equals(person.getFamilyName())) {
-			requestBody = requestBody+ " \"familyName\":  \""+person.getFamilyName()+"\",";
+			requestBody = requestBody+ " \"familyName\":  \""+person.getFamilyName()+"\"";
 		}
 		if(person.getDateOfBirth() !=null)  {
+			requestBody = requestBody +",";
 			String dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").format(person.getDateOfBirth());
 			requestBody = requestBody+ " \"dateOfBirth\":  \""+ dateOfBirth + "\"";
 		}
@@ -162,14 +167,21 @@ public class DedupHelper {
 	
     public static void main(String args[]) {
     	DedupHelper impl = new DedupHelper();
-    	Client client = new Client();
-    	client.setFirstName("John");
-    	client.setLastName("Anderson");
-    	client.setDob(LocalDateTime.of(1980, 01, 01, 00 ,0, 0));
-    	client.setGender(ClientGenderEnum.ONE);
-    	client.setSsn("111111111");
-    	client.setSsnDataQuality(ClientSsnDataQualityEnum.EIGHT);
-    	String abc = impl.getDedupedClient(client,impl.getAuthenticationHeader());
-    	System.out.println("Identifier "+abc);
+//    	Client client = new Client();
+//    	client.setFirstName("John");
+//    	client.setLastName("Anderson");
+//    	//client.setDob(LocalDateTime.of(1980, 01, 01, 00 ,0, 0));
+//    	client.setGender(ClientGenderEnum.ONE);
+//    	client.setSsn("111111111");
+//    	client.setSsnDataQuality(ClientSsnDataQualityEnum.EIGHT);
+//    	String abc = impl.getDedupedClient(client,impl.getAuthenticationHeader());
+//    	System.out.println("Identifier "+abc);
+    	Person person = new Person();
+    	person.setGivenName("John");
+    	person.setFamilyName("Anderson");
+//    	//client.setDob(LocalDateTime.of(1980, 01, 01, 00 ,0, 0));
+//    	client.setGender(ClientGenderEnum.ONE);
+    	person.setSsn("111111111");
+    	impl.parsePersonObjectToXMLString(person);
     }
 }

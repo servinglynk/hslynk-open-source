@@ -44,4 +44,6 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	ExitpathDao getExitpathDao();
 	ExitrhyDao getExitrhyDao();
 	ServiceFaReferralDao getServiceFaReferralDao();
+	QuestionDao getQuestionDao();
+	HmisTypeDao getHmisTypeDao();
 }

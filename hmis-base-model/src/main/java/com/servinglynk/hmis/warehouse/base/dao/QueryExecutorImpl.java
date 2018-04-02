@@ -28,6 +28,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -364,6 +365,13 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 					detachedCriteria.add(Restrictions.eq("deleted", false));
 					detachedCriteria.add(Restrictions.isNull("parentId"));
 				}
+			}else if (clz.getSuperclass().getSimpleName().equals("HMISModel")) {
+				if(authentication.getPrincipal()!=null){
+					SessionEntity entity = (SessionEntity) authentication.getPrincipal();
+					System.out.println(entity.getAccount().getProjectGroupEntity().getProjectGroupCode());
+					detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getAccount().getProjectGroupEntity().getProjectGroupCode()));
+					detachedCriteria.add(Restrictions.eq("deleted", false));
+				}
 			}
 		return detachedCriteria;
 		}catch(Exception e){
@@ -380,7 +388,9 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 
 	public long countRows(DetachedCriteria dCriteria){
 		addingConditionsToCriteria(dCriteria);
-		return dCriteria.getExecutableCriteria(getCurrentSession()).list().size();
+		dCriteria.setProjection(Projections.rowCount());
+		Criteria criteria = dCriteria.getExecutableCriteria(getCurrentSession());
+		return (long) criteria.uniqueResult();
 		 //TBD
 	}
 	

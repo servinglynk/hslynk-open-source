@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
 import com.servinglynk.hmis.warehouse.core.model.Servicefareferral;
+import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
 public class ServicefareferralConverter  extends BaseConverter {
 
    public static com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral modelToEntity (Servicefareferral model ,com.servinglynk.hmis.warehouse.model.v2015.ServiceFaReferral entity) {
@@ -9,6 +10,7 @@ public class ServicefareferralConverter  extends BaseConverter {
        entity.setDateprovided(model.getDateprovided());
        entity.setServiceCategory(model.getServiceCategory());
        entity.setFunderList(model.getFunderList());
+       entity.setRecordType(RecordTypeEnum.lookupEnum(model.getRecordType()));
        entity.setTypeProvided(model.getTypeProvided());
        entity.setOtherTypeProvided(model.getOtherTypeProvided());
        entity.setSubTypeProvided(model.getSubTypeProvided());
@@ -29,6 +31,7 @@ public class ServicefareferralConverter  extends BaseConverter {
        model.setSubTypeProvided(entity.getSubTypeProvided());
        model.setFaAmount(entity.getFaAmount());
        model.setReferralOutcome(entity.getReferralOutcome());
+       model.setRecordType(entity.getRecordType().getValue());
        return model;
    }
 

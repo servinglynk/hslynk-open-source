@@ -1,11 +1,17 @@
 package com.servinglynk.hmis.warehouse.rest.service;
 
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,7 +28,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.servinglynk.hmis.warehouse.domain.Gender;
@@ -32,7 +37,7 @@ import com.servinglynk.hmis.warehouse.util.AuthenticationRequest;
 
 public class DedupServiceImpl implements DedupService{
 	private static final String OPENEMPI_SESSION_KEY_HEADER = "OPENEMPI_SESSION_KEY";
-	private static final String OPENEMPI_HOST = "http://ec2-35-161-97-14.us-west-2.compute.amazonaws.com:8080/openempi-webapp-web-2.2.9/";
+	private static final String OPENEMPI_HOST = "http://openempi.aws.hmislynk.com:8080/openempi-webapp-web-2.2.9/";
 	final static Logger logger = Logger.getLogger(DedupServiceImpl.class);
 	
 	public String authenticate(AuthenticationRequest authRequest) {
@@ -51,7 +56,8 @@ public class DedupServiceImpl implements DedupService{
 	public Person createUser(Person person,String sessionKey) {
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
-		  	headers.setContentType(MediaType.APPLICATION_XML); 
+			MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
+			headers.setContentType(mediaType);
 	        headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
 	        String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/addPerson";
 	       // requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
@@ -63,7 +69,8 @@ public class DedupServiceImpl implements DedupService{
 	public Person updateUser(Person person,String sessionKey) {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
-	  	headers.setContentType(MediaType.APPLICATION_XML); 
+		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
+		headers.setContentType(mediaType);
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
         String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/updatePerson";
        // requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
@@ -78,7 +85,8 @@ public class DedupServiceImpl implements DedupService{
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		//headers.setAccept(Arrays.asList(new MediaType[] {MediaType.TEXT_XML}));
-	  	headers.setContentType(MediaType.APPLICATION_XML); 
+		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
+		headers.setContentType(mediaType);
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
         String url = OPENEMPI_HOST+"openempi-ws-rest/person-query-resource/findPersonsByAttributes";
         HttpEntity<Object> entityHttp = new HttpEntity<Object>(parsePersonObjectToXMLString(person), headers); 
@@ -107,6 +115,20 @@ public class DedupServiceImpl implements DedupService{
         
         return finalPersons;
 	}
+	public String convertStringToDate(Date indate)
+	{
+	   String dateString = null;
+	   SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
+	   /*you can also use DateFormat reference instead of SimpleDateFormat 
+	    * like this: DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
+	    */
+	   try{
+		dateString = sdfr.format( indate );
+	   }catch (Exception ex ){
+		System.out.println(ex);
+	   }
+	   return dateString;
+	}
 	private String parsePersonObjectToXMLString(Person person) {
 		String requestBody = "<person>";
 		if(person.getSsn() !=null && !"".equals(person.getSsn())) {
@@ -119,7 +141,7 @@ public class DedupServiceImpl implements DedupService{
 			requestBody = requestBody+ "<familyName>"+person.getFamilyName()+"</familyName>";
 		}
 		if(person.getDateOfBirth() !=null)  {
-			requestBody = requestBody+"<dateOfBirth>"+person.getDateOfBirth()+"</dateOfBirth>";
+			requestBody = requestBody+"<dateOfBirth>"+convertStringToDate(person.getDateOfBirth())+"</dateOfBirth>";
 		}
 		requestBody = requestBody+"</person>";
 		logger.info("Request Body"+requestBody);
@@ -191,20 +213,25 @@ public class DedupServiceImpl implements DedupService{
 	 * @param sessionKey
 	 * @return
 	 */
-	public Person dedupingLogic(Person person,String sessionKey) {
+	public Person dedupingLogic(Person personParam,String sessionKey) {
 		// PART 1: of the algorithm states that when all the required fields are null we should not insert the record in Open EMPI or HMIS database.
-			if(!isRecordFitForMatching(person)) {
-				//throw new ApplicationException(id, ins);
+			if(!isRecordFitForMatching(personParam)) {
+				throw new IllegalArgumentException("Everything in the person object is null.");
 			}
+			// sanitize SSN
+			Person person = getSanitizedPerson(personParam);
 		// PART 3: Now is the time to select a potential match.
 			// Custom10 field is set to a value if the client provides partial SSN.
-			if(StringUtils.isEmpty(person.getCustom10()) && person.getSsn() != null && !"".equals(person.getSsn())) {
+			 if(StringUtils.isNotEmpty(person.getSsn())  && person.getSsn().length() ==9 && !StringUtils.equals(person.getSsn(), "123456789") && !StringUtils.equals(person.getSsn(), "000000000") && !StringUtils.equals(person.getSsn(), "111111111"))  {
 					List<Person>  unMatchedPersons = getPersonsBySSN(person,sessionKey);
 					// PART 6 : Complete SSN AND • Two of (First Name/First Name Alias, Last Name/Last Name Alias, Date of Birth)
 					List<Person> matchingPersons = unMatchingRecordsForCompleteSSN(unMatchedPersons,person);
+					if(CollectionUtils.isNotEmpty(matchingPersons) && matchingPersons.size() != 1) {
+						deleteFromPotentialMatches(matchingPersons, person);
+					}
 					// If the total match likely equals 1 then return it
 					//	-- Part 8 IF Total Likely Matches = 1 MATCH FOUND
-					if(matchingPersons !=null && matchingPersons.size() == 1 ) {
+					if(matchingPersons !=null && CollectionUtils.isNotEmpty(matchingPersons) ){
 						Person finalPerson =  (Person) matchingPersons.get(0);
 						finalPerson.setCustom20(getUniqueIdentifier(finalPerson.getPersonIdentifiers()));
 						return finalPerson;
@@ -217,14 +244,12 @@ public class DedupServiceImpl implements DedupService{
 				List<Person> matchingPersons = unMatchingRecordsForPartialSSN(unMatchingPersons, person);
 				// PART 7 : Delete from potential matches
 				List<Person> finalPersons =	deleteFromPotentialMatches(matchingPersons,person);
+				
 				//	-- Part 8 IF Total Likely Matches = 1 MATCH FOUND
-				if(finalPersons !=null && finalPersons.size() == 1 ) {
+				if(CollectionUtils.isNotEmpty(finalPersons)) {
 					Person finalPerson =  (Person) finalPersons.get(0);
 					finalPerson.setCustom20(getUniqueIdentifier(finalPerson.getPersonIdentifiers()));
 					return finalPerson;
-				}
-				if(finalPersons !=null && finalPersons.size() > 1 ) {
-					throw new IllegalArgumentException("Very hard to match this guy");
 				}
 			}
 			// When no match found lets insert a new record.
@@ -237,6 +262,24 @@ public class DedupServiceImpl implements DedupService{
 			return newlyAddedPerson;
 	}
 	
+	private Person getSanitizedPerson(Person personParam) {
+		Person person = new Person();
+		person.setSsn(sanitizeSSN(personParam.getSsn()));
+		person.setFamilyName(StringUtils.isNotEmpty(personParam.getFamilyName()) ? personParam.getFamilyName().toLowerCase() : personParam.getFamilyName() );
+		person.setGivenName(StringUtils.isNotEmpty(personParam.getGivenName()) ? personParam.getGivenName().toLowerCase() : personParam.getGivenName() );
+		person.setDateOfBirth(personParam.getDateOfBirth());
+		return person;
+	}
+
+	private String sanitizeSSN(String ssn) {
+		if(StringUtils.isNotEmpty(ssn)) {
+			String newSSN = ssn.replaceAll("[^a-zA-Z0-9\\s+]", "");
+			String finalSSN = newSSN.replaceAll("[a-zA-Z]","");
+			return finalSSN;
+		}
+		return ssn;
+	}
+
 	/*-- Part 4
 	Existing records match new record on at least 2 of the following elements:
 	• First Name/First Name Alias (match first name and all first name aliases of
@@ -308,7 +351,7 @@ public class DedupServiceImpl implements DedupService{
 		}
 		return matchingPersons;	
 	}
-	private String getUniqueIdentifier(Set<PersonIdentifier> personIdentifiers) {
+	protected String getUniqueIdentifier(Set<PersonIdentifier> personIdentifiers) {
 		 Iterator<PersonIdentifier> iterator = personIdentifiers.iterator();
 		 String identifier = null;
 		 while(iterator.hasNext()) {
@@ -350,26 +393,45 @@ public class DedupServiceImpl implements DedupService{
 			for(Person person : persons) {
 				int points = 0 ;
 				if(person != null && matchingPerson !=null) {
-					if(StringUtils.equals(matchingPerson.getFamilyName(), person.getFamilyName())) {
+					if(StringUtils.equalsIgnoreCase(matchingPerson.getFamilyName(), person.getFamilyName())) {
 						points++;
 					}
-					if(StringUtils.equals(matchingPerson.getGivenName(), person.getGivenName())) {
+					if(StringUtils.equalsIgnoreCase(matchingPerson.getGivenName(), person.getGivenName())) {
 						points++;
 					}
-					if(person.getDateOfBirth()!=null && matchingPerson.getDateOfBirth()!=null && DateUtils.isSameDay(person.getDateOfBirth(), matchingPerson.getDateOfBirth())) {
-						points++;
+					if(person.getDateOfBirth()!=null && matchingPerson.getDateOfBirth()!=null) {
+						if(DateUtils.isSameDay(person.getDateOfBirth(), matchingPerson.getDateOfBirth())) {
+							points = points+2;
+						}else{
+							LocalDate personDOB = person.getDateOfBirth().toInstant()
+				                       .atZone(ZoneId.systemDefault())
+				                       .toLocalDate();
+							LocalDate matchingPersonDOB = matchingPerson.getDateOfBirth().toInstant()
+				                       .atZone(ZoneId.systemDefault())
+				                       .toLocalDate();
+							long days = ChronoUnit.DAYS.between(personDOB, matchingPersonDOB);
+							if(days < 5 || days > -5) {
+								points++;
+							}
+						}
+						
 					}
+					
 					if(StringUtils.equals(matchingPerson.getSsn(), person.getSsn())) {
-						points++;
+						points = points+3;
 					}
-					if(matchingPerson.getGender()!=null && person.getGender() !=null  && StringUtils.equals(matchingPerson.getGender().getGenderCode(), person.getGender().getGenderCode())) {
-						points++;
-					}
-					if(points >= 2) {
+					person.setPoints(points);
+					
+					if(points >= 3) {
 						matchingPersons.add(person);	
 					}
 				}
 			}
+			Comparator<Person> pointsComparator 
+		      = Comparator.comparingInt(Person::getPoints);
+			Comparator<Person> pointsComparatorReverse
+		      = pointsComparator.reversed();
+			matchingPersons.sort(pointsComparatorReverse);
 		}
 		return matchingPersons;
 	}
@@ -387,23 +449,47 @@ public class DedupServiceImpl implements DedupService{
 			for(Person person : persons) {
 				int points = 0 ;
 				if(person != null && matchingPerson !=null) {
-					if(StringUtils.equals(matchingPerson.getFamilyName(), person.getFamilyName())) {
+					if(StringUtils.equalsIgnoreCase(matchingPerson.getFamilyName(), person.getFamilyName())) {
 						points++;
 					}
-					if(StringUtils.equals(matchingPerson.getGivenName(), person.getGivenName())) {
+					if(StringUtils.equalsIgnoreCase(matchingPerson.getGivenName(), person.getGivenName())) {
 						points++;
 					}
-					if(person.getDateOfBirth()!=null && matchingPerson.getDateOfBirth()!=null && DateUtils.isSameDay(person.getDateOfBirth(), matchingPerson.getDateOfBirth())) {
-						points++;
+					if(person.getDateOfBirth()!=null && matchingPerson.getDateOfBirth()!=null) {
+						if(DateUtils.isSameDay(person.getDateOfBirth(), matchingPerson.getDateOfBirth())) {
+							points = points+2;
+						}else{
+							LocalDate personDOB = person.getDateOfBirth().toInstant()
+				                       .atZone(ZoneId.systemDefault())
+				                       .toLocalDate();
+							LocalDate matchingPersonDOB = matchingPerson.getDateOfBirth().toInstant()
+				                       .atZone(ZoneId.systemDefault())
+				                       .toLocalDate();
+							long days = ChronoUnit.DAYS.between(personDOB, matchingPersonDOB);
+							if(days < 5 || days > -5) {
+								points++;
+							}
+						}
+						
 					}
+					
 					if(StringUtils.equals(matchingPerson.getSsn(), person.getSsn())) {
-						points++;
+						points = points+3;
 					}
-					if(points >= 2) {
+					person.setPoints(points);
+					
+					if(points >= 4) {
 						matchingPersons.add(person);	
 					}
 				}
 			}
+			
+			Comparator<Person> pointsComparator 
+		      = Comparator.comparingInt(Person::getPoints);
+			Comparator<Person> pointsComparatorReverse
+		      = pointsComparator.reversed();
+			matchingPersons.sort(pointsComparatorReverse);
+
 		}
 		return matchingPersons;
 	}
@@ -420,7 +506,7 @@ public class DedupServiceImpl implements DedupService{
 		if(!CollectionUtils.isEmpty(persons)) {
 			for(Person newPerson : persons) {
 				if(newPerson !=null ) {
-					if(!StringUtils.equals(newPerson.getSsn(), person.getSsn())) {
+					if(StringUtils.isNotBlank(person.getSsn()) && !StringUtils.equals(newPerson.getSsn(), person.getSsn())) {
 						continue;
 					}
 					if(newPerson.getGivenName() == null) {
@@ -485,14 +571,26 @@ public class DedupServiceImpl implements DedupService{
  		person.setFamilyName((String)linkedPersons.get("familyName"));
  		Integer personId =  Integer.parseInt((String)linkedPersons.get("personId"));
  		person.setPersonId(personId);
- 		
- 		LinkedHashMap<Object, Object>  personIdentifiersLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("personIdentifiers");
- 		if(personIdentifiersLinkedList !=null) {
- 			String identifier = (String)personIdentifiersLinkedList.get("identifier");
- 			PersonIdentifier personIdentifier = new PersonIdentifier();
- 			personIdentifier.setIdentifier(identifier);
- 			person.addPersonIdentifier(personIdentifier);
+ 		try {
+ 			LinkedHashMap<Object, Object>  personIdentifiersLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("personIdentifiers");
+ 	 		if(personIdentifiersLinkedList !=null) {
+ 	 			String identifier = (String)personIdentifiersLinkedList.get("identifier");
+ 	 			PersonIdentifier personIdentifier = new PersonIdentifier();
+ 	 			personIdentifier.setIdentifier(identifier);
+ 	 			person.addPersonIdentifier(personIdentifier);
+ 	 		}
+ 		} catch(ClassCastException ex) {
+ 			// There is a possiblitity that we have multiple personalIdentifiers
+ 			ArrayList<LinkedHashMap<Object, Object>>  personIdentifiersList = (ArrayList<LinkedHashMap<Object, Object>>)linkedPersons.get("personIdentifiers");
+ 	 		if(CollectionUtils.isNotEmpty(personIdentifiersList)) {
+ 	 			LinkedHashMap<Object, Object> personIdentifiersLinkedList = personIdentifiersList.get(0);
+ 	 			String identifier = (String)personIdentifiersLinkedList.get("identifier");
+ 	 			PersonIdentifier personIdentifier = new PersonIdentifier();
+ 	 			personIdentifier.setIdentifier(identifier);
+ 	 			person.addPersonIdentifier(personIdentifier);
+ 	 		}
  		}
+ 	
  		LinkedHashMap<Object, Object>  genderLinkedList = (LinkedHashMap<Object, Object>)linkedPersons.get("gender");
  		Gender gender = new Gender();
  		if(genderLinkedList !=null) {
@@ -506,7 +604,7 @@ public class DedupServiceImpl implements DedupService{
      	return person;
      }
 	 
-	private Date getDateInFormat(String dob) {
+	protected Date getDateInFormat(String dob) {
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         try {
@@ -518,6 +616,7 @@ public class DedupServiceImpl implements DedupService{
         }
         return date;
 	}
+	
 	public static void main(String args[]) {
 		DedupServiceImpl impl = new DedupServiceImpl();
 		AuthenticationRequest authRequest = new AuthenticationRequest();
@@ -525,29 +624,15 @@ public class DedupServiceImpl implements DedupService{
 		authRequest.setUsername("admin");
 		String value = impl.authenticate(authRequest);
 		System.out.println("SESSION_KEY:"+value);
-//		Person person = new Person();
-		
 		//Fetch by First Name and Last Name
 		Person person = new Person();
-		person.setFamilyName("Jackson");
-		person.setGivenName("Paul");
-		person.setSsn("4321");
-		
-		person.setDateOfBirth(impl.getDateInFormat("1970-01-01"));
-//		person.setCity("Minneapolis");
-		person.setCustom10("ANC");
+		person.setGivenName("Jesus");	
+		person.setFamilyName("Vega");
+		person.setSsn("635057848");
+		person.setDateOfBirth(impl.getDateInFormat("1966-06-14"));
 		Person personRestult  =	impl.dedupingLogic(person, value);
-//		 Set<PersonIdentifier> personIdentifiers = personRestult.getPersonIdentifiers();
-//		 Iterator<PersonIdentifier> iterator = personIdentifiers.iterator();
-//		 while(iterator.hasNext()) {
-//			 PersonIdentifier personIdentifier = iterator.next();
-//			 System.out.println("PERSON_ID:"+personIdentifier.getIdentifier());
-//		 }
 		System.out.println("PERSON_ID:"+impl.getUniqueIdentifier(personRestult.getPersonIdentifiers()));
-//		 List<Person> findMatchingPersonsByAttributes = impl.findMatchingPersonsByAttributes(person, value);
-//		 
-//		 System.out.println("Inserted Value:"+findMatchingPersonsByAttributes.get(0).getGivenName());
-//		
+		
 	}
 
 }

@@ -37,9 +37,8 @@
 									  <thead>
 										<tr>
 										  <th>Id</th>
-										  <th>File path</th>
+										  <th>File Name</th>
 										  <th>Status</th>
-										  <th>File Size</th>
 										  <th>Year</th>
 										  <th>Username</th>
 										  <th>Project Group</th>
@@ -50,11 +49,10 @@
 										</tr>
 									  </thead>
 									  <tbody>
-										<tr ng-repeat="data in filtered = (listRECENT | filter:search | orderBy : predicate :reverse) | startFrom:(currentPageRECENT-1)*entryLimitRECENT | limitTo:entryLimitRECENT">
+										<tr ng-repeat="data in filtered = (listRECENT | filter:search ) | startFrom:(currentPageRECENT-1)*entryLimitRECENT | limitTo:entryLimitRECENT">
 										  <td>{{data.id}}</td>
-										  <td>{{data.inputPath}}</td>
+										  <td>{{data.fileName}}</td>
 										  <td>{{data.status}}</td>
-										  <td>{{data.fileSize}}</td>
 										  <td>{{data.year}}</td>
 										  <td>{{data.username}}</td>
 										  <td>{{data.projectGroupCode}}</td>
@@ -108,9 +106,8 @@
 									  <thead>
 										<tr>
 										  <th>Id</th>
-										  <th>File path</th>
+										  <th>File Name</th>
 										  <th>Status</th>
-										  <th>File Size</th>
 										  <th>Year</th>
 										  <th>Username</th>
 										  <th>Project Group</th>
@@ -121,11 +118,10 @@
 										</tr>
 									  </thead>
 									  <tbody>
-										<tr ng-repeat="data in filtered = (listSTAGING | filter:search | orderBy : predicate :reverse) | startFrom:(currentPageSTAGING-1)*entryLimitSTAGING | limitTo:entryLimitSTAGING">
+										<tr ng-repeat="data in filtered = (listSTAGING | filter:search ) | startFrom:(currentPageSTAGING-1)*entryLimitSTAGING | limitTo:entryLimitSTAGING">
 										  <td>{{data.id}}</td>
-										  <td>{{data.inputPath}}</td>
+										  <td>{{data.fileName}}</td>
 										  <td>{{data.status}}</td>
-										  <td>{{data.fileSize}}</td>
 										  <td>{{data.year}}</td>
 										  <td>{{data.username}}</td>
 										  <td>{{data.projectGroupCode}}</td>
@@ -178,9 +174,8 @@
 									  <thead>
 										<tr>
 										  <th>Id</th>
-										  <th>File path</th>
+										  <th>File Name</th>
 										  <th>Status</th>
-										  <th>File Size</th>
 										  <th>Year</th>
 										  <th>Username</th>
 										  <th>Project Group</th>
@@ -191,11 +186,10 @@
 										</tr>
 									  </thead>
 									  <tbody>
-										<tr ng-repeat="data in filtered = (listLIVE | filter:search | orderBy : predicate :reverse) | startFrom:(currentPageLIVE-1)*entryLimitLIVE | limitTo:entryLimitLIVE">
+										<tr ng-repeat="data in filtered = (listLIVE | filter:search ) | startFrom:(currentPageLIVE-1)*entryLimitLIVE | limitTo:entryLimitLIVE">
 											<td>{{data.id}}</td>
-										  <td>{{data.inputPath}}</td>
+										  <td>{{data.fileName}}</td>
 										  <td>{{data.status}}</td>
-										  <td>{{data.fileSize}}</td>
 										  <td>{{data.year}}</td>
 										  <td>{{data.username}}</td>
 										  <td>{{data.projectGroupCode}}</td>
@@ -235,9 +229,8 @@
 									  <thead>
 										<tr>
 										  <th>Id</th>
-										  <th>File path</th>
+										  <th>File Name</th>
 										  <th>Status</th>
-										  <th>File Size</th>
 										  <th>Year</th>
 										  <th>Username</th>
 										  <th>Project Group</th>
@@ -248,11 +241,10 @@
 										</tr>
 									  </thead>
 									  <tbody>
-										<tr ng-repeat="data in filtered = (listDELETED | filter:search | orderBy : predicate :reverse) | startFrom:(currentPageDELETED-1)*entryLimitDELETED | limitTo:entryLimitDELETED">
+										<tr ng-repeat="data in filtered = (listDELETED | filter:search ) | startFrom:(currentPageDELETED-1)*entryLimitDELETED | limitTo:entryLimitDELETED">
 											<td>{{data.id}}</td>
-										  <td>{{data.inputPath}}</td>
+										  <td>{{data.fileName}}</td>
 										  <td>{{data.status}}</td>
-										  <td>{{data.fileSize}}</td>
 										  <td>{{data.year}}</td>
 										  <td>{{data.username}}</td>
 										  <td>{{data.projectGroupCode}}</td>
@@ -304,9 +296,8 @@
 									  <thead>
 									   <tr>
 										  <th>Id</th>
-										  <th>File path</th>
+										  <th>File Name</th>
 										  <th>Status</th>
-										  <th>File Size</th>
 										  <th>Year</th>
 										  <th>Username</th>
 										  <th>Project Group</th>
@@ -317,11 +308,10 @@
 										</tr>
 									  </thead>
 									  <tbody>
-										<tr ng-repeat="data in filtered = (listERROR | filter:search | orderBy : predicate :reverse) | startFrom:(currentPageERROR-1)*entryLimitERROR | limitTo:entryLimitERROR">
+										<tr ng-repeat="data in filtered = (listERROR | filter:search) | startFrom:(currentPageERROR-1)*entryLimitERROR | limitTo:entryLimitERROR">
 										  <td>{{data.id}}</td>
-										  <td>{{data.inputPath}}</td>
+										  <td>{{data.fileName}}</td>
 										  <td>{{data.status}}</td>
-										  <td>{{data.fileSize}}</td>
 										  <td>{{data.year}}</td>
 										  <td>{{data.username}}</td>
 										  <td>{{data.projectGroupCode}}</td>

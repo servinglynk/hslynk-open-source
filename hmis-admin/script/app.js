@@ -97,7 +97,9 @@ app.config(function($routeSegmentProvider, $routeProvider) {
 		   .segment('managereport', {
                 templateUrl: 'templates/partial/managereport.html', controller: 'managereportCtrl'})   
 		  .segment('bulkupload', {
-		      templateUrl: 'templates/partial/bulkupload.html', controller: 'bulkUploadCtrl'})   
+		      templateUrl: 'templates/partial/bulkupload.html', controller: 'bulkUploadCtrl'})  
+		    .segment('bulkuploadNew', {
+		      templateUrl: 'templates/partial/bulkuploadnew.html', controller: 'bulkUploadNewCtrl'})  
 		  .segment('managesync', {
                 templateUrl: 'templates/partial/managesync.html', controller: 'managesyncCtrl'})   
 		    .segment('setting', {

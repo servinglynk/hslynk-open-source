@@ -111,6 +111,12 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private ClientDao clientDao;
 	
+	@Autowired
+	private HmisTypeDao hmisTypeDao;
+	
+	
+	@Autowired
+	private QuestionDao questionDao;
 	
 	public SyncListDao getSyncListDao() {
 		return syncListDao;
@@ -411,5 +417,18 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	}
 	public void setBulkUploadErrorDao(BulkUploadErrorDao bulkUploadErrorDao) {
 		this.bulkUploadErrorDao = bulkUploadErrorDao;
+	}
+	public HmisTypeDao getHmisTypeDao() {
+		return hmisTypeDao;
+	}
+	public void setHmisTypeDao(HmisTypeDao hmisTypeDao) {
+		this.hmisTypeDao = hmisTypeDao;
+	}
+	public QuestionDao getQuestionDao() {
+		return questionDao;
+	}
+	public void setQuestionDao(QuestionDao questionDao) {
+		this.questionDao = questionDao;
 	}	
+	
 }

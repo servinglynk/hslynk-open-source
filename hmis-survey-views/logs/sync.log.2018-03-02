@@ -1,0 +1,6 @@
+2018-03-02 22:12:41 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-02 22:12:41 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-02 22:12:41 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/
+2018-03-02 22:14:57 main Utils [INFO] Supplied authorities: dwhmaster.aws.hmislynk.com:10000
+2018-03-02 22:14:57 main Utils [INFO] Resolved authority: dwhmaster.aws.hmislynk.com:10000
+2018-03-02 22:14:58 main HiveConnection [INFO] Will try to open client transport with JDBC Uri: jdbc:hive2://dwhmaster.aws.hmislynk.com:10000/

@@ -147,6 +147,8 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private boolean chronicHomeless;
 	private NoYesEnum losunderthreshold;
 	private NoYesEnum previousStreetESSH;
+	
+	private String source;
 
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -1116,6 +1118,15 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 */
 	public void setExport(final Export export) {
 		this.export = export;
+	}
+	
+	@Column(name = "source")
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 
    /**

@@ -8,4 +8,5 @@ public interface PropertyDao {
 
 	public List<PropertyEntity> readProperties(String serviceName);
 	public List<PropertyEntity> readCommonProperties();
+	PropertyEntity readConsentProperty();
 }

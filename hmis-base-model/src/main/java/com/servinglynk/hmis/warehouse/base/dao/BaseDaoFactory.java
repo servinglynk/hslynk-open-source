@@ -29,4 +29,8 @@ public interface BaseDaoFactory {
 	ClientDataElementDao getClientDataElementDao();
 	APIAccessDao getApiAccessDao();
 	BaseClientDao getBaseClientDao();
+	ClientTrackerDao getClientTrackerDao();
+	HMISNotificationsDao getHmisNotificationsDao();
+	GlobalEnrollmentDao getGlobalEnrollmentDao();
+	GlobalProjectDao getGlobalProjectDao();
 }

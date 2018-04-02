@@ -78,6 +78,8 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	private ProjectTargetpopulationEnum targetpopulation;
 	/** Field mapping. */
 	private ProjectTrackingmethodEnum trackingmethod;
+	
+	private String source;
 	/** Field mapping. */
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -402,8 +404,6 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 		return this.trackingmethod;
 
 	}
-	
-
   
 	 /**  
 	 * Set the value related to the column: trackingmethod.
@@ -412,6 +412,19 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	public void setTrackingmethod(final ProjectTrackingmethodEnum trackingmethod) {
 		this.trackingmethod = trackingmethod;
 	}
+
+	
+	
+	   @Column(name="source")
+	   public String getSource() {
+			return source;
+		}
+
+		public void setSource(String source) {
+			this.source = source;
+		}
+	
+	
 	/** Field mapping. */
 	protected Export export;
 	 /**
