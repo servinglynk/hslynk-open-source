@@ -1,7 +1,5 @@
 package com.servinglynk.hmis.warehouse.rest; 
 
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,10 +21,12 @@ public class QuestionsController extends ControllerBase {
    @APIMapping(value="SURVEY_API_GET_ALL_QUESTION",checkTrustedApp=true,checkSessionToken=true)
    public Questions getAllQuestions(@RequestParam(value="startIndex", required=false) Integer startIndex, 
                        @RequestParam(value="maxItems", required=false) Integer maxItems,
+           			@RequestParam(value="text",required=false) String displayText,
+        			@RequestParam(value="name",required=false) String description,
                        HttpServletRequest request) throws Exception {
            if (startIndex == null) startIndex =0;
            if (maxItems == null || maxItems > 200) maxItems =200;
-        return serviceFactory.getQuestionService().getAllQuestions(startIndex,maxItems); 
+        return serviceFactory.getQuestionService().getAllQuestions(displayText,description,startIndex,maxItems); 
    }
    
    @RequestMapping(method=RequestMethod.GET,value="/{hudQuestionId:.+}")
