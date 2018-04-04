@@ -47,8 +47,8 @@ public class GlobalEnrollmentsController extends ControllerBase {
 	@RequestMapping(method=RequestMethod.GET)
 	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="CLIENT_API_SEARCH")
 	GlobalEnrollments getAllGlobalEnrollments(@PathVariable("clientDedupId") UUID dedupClientId,
-			@RequestParam("startIndex") Integer start,
-			@RequestParam("maxItems") Integer maxItems) {
+			@RequestParam(value="startIndex",defaultValue="0",required=false) Integer start,
+			@RequestParam(value="maxItems",defaultValue="200",required=false) Integer maxItems) {
 		
 		return serviceFactory.getGlobalEnrollmentService().getAllGlobalEnrollments(dedupClientId, start, maxItems);
 	}
