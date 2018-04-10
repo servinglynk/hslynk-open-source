@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.servinglynk.report.bean.Q06fDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.EnrollmentModel;
+import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.ProjectModel;
 
 public class Q06fDataBeanMaker extends BaseBeanMaker {
@@ -29,10 +30,13 @@ public class Q06fDataBeanMaker extends BaseBeanMaker {
 		List<ProjectModel> filteredProjects = projects.parallelStream().filter(project -> (StringUtils.equals("3",project.getProjectType()) && StringUtils.equals("3", project.getTrackingMethod())) || StringUtils.equals("4",project.getProjectType())).collect(Collectors.toList());
 		List<String> projectIds = new ArrayList<String>(); 
 		filteredProjects.parallelStream().forEach(project -> { projectIds.add(project.getProjectId()); });
+		
+		List<ExitModel> exits = data.getExits();
+		exits.forEach(exit-> {  if( enrollmentIds.contains(exit.getProjectEntryID()) && exit.getExitdate() == null || exit.getExitdate().compareTo(data.getReportStartDate()) > 0 ) {} });
 		enrollments.parallelStream().forEach(enrollment -> {
 			 long diff = enrollment.getEntrydate().getTime() - data.getReportEndDate().getTime();
 			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-			if (projectIds.contains(enrollment.getProjectID()) && days >= 90)  {
+			if (projectIds.contains(enrollment.getProjectID()) && enrollment.getEntrydate().compareTo(data.getReportEndDate()) < 0)  {
 			enrollmentIds.add(enrollment.getProjectEntryID());
 			}
 		});
