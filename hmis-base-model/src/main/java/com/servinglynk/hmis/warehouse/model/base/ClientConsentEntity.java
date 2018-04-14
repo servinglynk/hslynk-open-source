@@ -35,7 +35,7 @@ public class ClientConsentEntity extends HMISModel {
 	private String status;
 	
 
-	private String consentDocument;
+	private UUID consentDocument;
 	
 
 	private List<ClientConsentProjectMapEntity> consentProjects;
@@ -87,11 +87,12 @@ public class ClientConsentEntity extends HMISModel {
 		this.status = status;
 	}
 	
-	@Column(name="CONSENT_DOCUMENT")
-	public String getConsentDocument() {
+	@Column(name="CLIENT_CONSENT_DOCUMENT")
+    @org.hibernate.annotations.Type(type="pg-uuid")
+	public UUID getConsentDocument() {
 		return consentDocument;
 	}
-	public void setConsentDocument(String consentDocument) {
+	public void setConsentDocument(UUID consentDocument) {
 		this.consentDocument = consentDocument;
 	}
 		

@@ -33,8 +33,8 @@ public abstract class ControllerBase {
 
 	@Autowired
 	protected BaseServiceFactory serviceFactory;
-
 	
+
 
 	public BaseServiceFactory getServiceFactory() {
 		return serviceFactory;
