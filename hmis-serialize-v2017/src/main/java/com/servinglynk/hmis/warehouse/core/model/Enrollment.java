@@ -12,6 +12,7 @@ public class Enrollment extends ClientModel {
 	private Integer continuouslyhomelessoneyear;
 	private Integer  disablingcondition;
 	private Date  entrydate;
+	private Date  dateToStreetESSH;
 	private String  householdid;
 	private Integer  monthshomelesspastthreeyears;
 	private Integer  monthshomelessthistime;
@@ -69,6 +70,12 @@ public class Enrollment extends ClientModel {
 
 	public void setEntrydate(Date entrydate) {
 		this.entrydate = entrydate;
+	}
+	public Date getDateToStreetESSH() {
+		return dateToStreetESSH;
+	}
+	public void setDateToStreetESSH(Date dateToStreetESSH) {
+		this.dateToStreetESSH = dateToStreetESSH;
 	}
 
 	public String getHouseholdid() {
