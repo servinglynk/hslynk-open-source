@@ -3,7 +3,9 @@ package com.servinglynk.hmis.warehouse.model.v2017;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.WeakHashMap;
 
 import javax.persistence.Basic;
@@ -14,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -55,6 +58,8 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	private Integer chBedInventory;
 	/** Field mapping. */
 	private Coc coc;
+	/** Field mapping. */
+	private Project projectid;
 	/** Field mapping. */
 	private Integer hmisparticipatingbeds;
 	/** Field mapping. */
@@ -188,6 +193,29 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	 */
 	public void setCoc(final Coc coc) {
 		this.coc = coc;
+	}
+
+	 /**
+	 * Return the value associated with the column: projectid.
+	 * @return A Project object (this.projectid)
+	 */
+	@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = true )
+	@JoinColumn(name = "projectid", nullable = true )
+	public Project getProjectid() {
+		return this.projectid;
+
+	}
+
+
+
+	 /**
+	 * Set the value related to the column: projectid.
+	 * @param projectid the projectid value you wish to set
+	 */
+	public void setProjectid(final Project projectid) {
+		this.projectid = projectid;
 	}
 
 

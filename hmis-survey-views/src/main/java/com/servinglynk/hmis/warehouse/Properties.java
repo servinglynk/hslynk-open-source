@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Properties {
 
     public static String POSTGRESQL_DB_HOST;
@@ -16,10 +18,11 @@ public class Properties {
     public static String HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT="2181";
     public static int SYNC_PERIOD;
     public static String SYNC_SCHEMAS;
-    public static String PROJECT_GROUP_CODE;
+    public static String PROJECT_GROUPS;
     public static String HIVE_USERNAME;
     public static String HIVE_PASSWORD;
     public static String HIVE_DRIVER_URL;
+
 
     public void generatePropValues() throws Exception {
 
@@ -43,12 +46,12 @@ public class Properties {
             HBASE_MASTER = prop.getProperty("hbase.master");
             HBASE_ZOOKEEPER_QUORUM = prop.getProperty("hbase.zookeeper.quorum");
             HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = prop.getProperty("hbase.zookeeper.property.clientPort", "2181");
-            SYNC_PERIOD = Integer.valueOf(prop.getProperty("sync.period"));
-            SYNC_SCHEMAS = prop.getProperty("sync.schemas");
-            PROJECT_GROUP_CODE = prop.getProperty("sync.projectgroup");
+          //  SYNC_PERIOD = Integer.valueOf(prop.getProperty("sync.period"));
+         //   SYNC_SCHEMAS = prop.getProperty("sync.schemas");
             HIVE_USERNAME = prop.getProperty("hive.username");
             HIVE_PASSWORD = prop.getProperty("hive.password");
             HIVE_DRIVER_URL= prop.getProperty("hive.driverUrl");
+            PROJECT_GROUPS = prop.getProperty("sync.projectgroups");
         } catch (Exception e) {
             System.out.println("Exception: " + e);
             throw e;
@@ -69,7 +72,6 @@ public class Properties {
         System.out.println(HBASE_MASTER);
         System.out.println(HBASE_ZOOKEEPER_QUORUM);
         System.out.println(HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT);
-        System.out.println(PROJECT_GROUP_CODE);
     }
 
 }

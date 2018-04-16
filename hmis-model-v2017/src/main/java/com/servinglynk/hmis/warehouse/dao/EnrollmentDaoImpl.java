@@ -74,6 +74,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment
 							.getMonthsHomelessPastThreeYears()));
 					enrollmentModel.setHouseholdid(enrollment.getHouseholdID());
+					enrollmentModel.setDatetostreetessh(BasicDataGenerator
+							.getLocalDateTime(enrollment.getDateToStreetESSH()));
 //				enrollmentModel
 //						.setMonthshomelessthistime(EnrollmentMonthshomelessthistimeEnum.lookupEnum(BasicDataGenerator
 //								.getStringValue(enrollment

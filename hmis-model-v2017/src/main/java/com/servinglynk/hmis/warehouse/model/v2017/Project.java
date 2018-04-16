@@ -61,6 +61,9 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	private Set<Coc> cocs = new HashSet<Coc>();
 
 	/** Field mapping. */
+	private Set<Inventory> inventories = new HashSet<Inventory>();
+	
+	/** Field mapping. */
 	private ProjectContinuumprojectEnum continuumproject;
 	/** Field mapping. */
 	private Set<Enrollment> enrollments = new HashSet<Enrollment>();
@@ -178,6 +181,38 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	public void setCocs(final Set<Coc> coc) {
 		this.cocs = coc;
 	}
+	
+	 /**
+		 * Return the value associated with the column: coc.
+		 * @return A Set&lt;Coc&gt; object (this.inventories)
+		 */
+	 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "projectid"  )
+	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = false )
+		@Column( nullable = false  )
+		public Set<Inventory> getInventories() {
+			return this.inventories;
+
+		}
+
+		/**
+		 * Adds a bi-directional link of type Inventory to the inventories set.
+		 * @param coc item to add
+		 */
+		public void addCoc(Inventory inventory) {
+			inventory.setProjectid(this);
+			this.inventories.add(inventory);
+		}
+
+
+		 /**
+		 * Set the value related to the column: coc.
+		 * @param Inventory the Inventory value you wish to set
+		 */
+		public void setInventories(final Set<Inventory> inventories) {
+			this.inventories = inventories;
+		}
+	
 
 	/**
 	 * Return the value associated with the column: continuumproject.

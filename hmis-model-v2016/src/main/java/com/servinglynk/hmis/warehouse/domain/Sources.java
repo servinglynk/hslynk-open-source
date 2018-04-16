@@ -3026,8 +3026,8 @@ public class Sources {
 
                 @XmlElement(name = "CoCCode", required = true)
                 protected String coCCode;
-               /* @XmlElement(name = "ProjectID", required = true)
-                protected String projectID;*/
+                @XmlElement(name = "ProjectID", required = true)
+                protected String projectID;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -3067,9 +3067,9 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                /*public String getProjectID() {
+                public String getProjectID() {
                     return projectID;
-                }*/
+                }
 
                 /**
                  * Sets the value of the projectID property.
@@ -3079,9 +3079,9 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-               /* public void setProjectID(String value) {
+                public void setProjectID(String value) {
                     this.projectID = value;
-                }*/
+                }
 
                 /**
                  * Gets the value of the dateCreated property.
