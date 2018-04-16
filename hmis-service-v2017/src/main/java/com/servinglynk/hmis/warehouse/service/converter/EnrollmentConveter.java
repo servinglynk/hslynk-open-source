@@ -45,6 +45,8 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setLosunderthreshold(NoYesEnum.lookupEnum(enrollment.getLosunderthreshold().toString()));
 		if(enrollment.getPreviousStreetESSH()!=null)
 		pEnrollment.setPreviousStreetESSH(NoYesEnum.lookupEnum(enrollment.getPreviousStreetESSH().toString()));
+		if(enrollment.getDateToStreetESSH() != null) 
+			pEnrollment.setEntrydate(enrollment.getDateToStreetESSH().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 
 		return pEnrollment;
 	}
@@ -69,6 +71,7 @@ public class EnrollmentConveter extends BaseConverter {
 		if(pEnrollment.getPreviousStreetESSH()!=null)
 		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
+		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(Date.from(pEnrollment.getDatetostreetessh().atZone(ZoneId.systemDefault()).toInstant()));
 
 		copyBeanProperties(pEnrollment, enrollment);
 
@@ -95,6 +98,8 @@ public class EnrollmentConveter extends BaseConverter {
 		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
 		enrollment.setSource(pEnrollment.getSource());
+		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(Date.from(pEnrollment.getDatetostreetessh().atZone(ZoneId.systemDefault()).toInstant()));
+
 		copyBeanProperties(pEnrollment, enrollment);
 
 		return enrollment;
