@@ -180,4 +180,13 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				}
 			}
 		}
+
+		public Boolean checkProjectExists(String projectName, String sourceSystemId) {
+			DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Project.class);
+			criteria.add(Restrictions.eq("projectname", projectName));
+			criteria.add(Restrictions.eq("sourceSystemId", sourceSystemId));
+			List<com.servinglynk.hmis.warehouse.model.v2015.Project> projects = (List<com.servinglynk.hmis.warehouse.model.v2015.Project>) findByCriteria(criteria);
+			if(projects.isEmpty()) return false;
+			return true;
+		}
 }

@@ -16,6 +16,7 @@ public class BaseProject extends ClientModel {
     private Integer schemaYear;
     private String link;
     private String projectGroup;
+    private String sourceSystemId;
     
 	public BaseProject() {
 		
@@ -112,5 +113,12 @@ public class BaseProject extends ClientModel {
 	public void setProjectGroup(String projectGroup) {
 		this.projectGroup = projectGroup;
 	}
-	
+
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
+	}
 }

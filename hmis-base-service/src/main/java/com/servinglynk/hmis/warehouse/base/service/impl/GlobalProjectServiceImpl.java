@@ -12,6 +12,7 @@ import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.GlobalProjectService;
 import com.servinglynk.hmis.warehouse.base.service.converter.GlobalProjectConveter;
 import com.servinglynk.hmis.warehouse.core.model.Account;
+import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProject;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProjectMap;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProjectUser;
@@ -167,6 +168,34 @@ public class GlobalProjectServiceImpl extends ServiceBase implements GlobalProje
 	public Boolean checkGlobalProjectUser(List<UUID> projectids, UUID accountId) {
 		return	daoFactory.getGlobalProjectDao().checkGlobalProjectUser(projectids,accountId);
 		
+	}
+	
+	
+	@Transactional
+	public void manageGlobalProjects(GlobalProject baseProject,String schemaYear,Account account) {
+		GlobalProjectEntity entity = daoFactory.getGlobalProjectDao().getGlobalProject(baseProject.getProjectName(),baseProject.getSourceSystemId());
+		if(entity==null) {
+			GlobalProjectMap map = new GlobalProjectMap();
+			map.setProjectId(baseProject.getId());
+			map.setSource(schemaYear);
+			baseProject.addProject(map);
+			baseProject = this.create(baseProject, account);
+		} else {
+		  GlobalProjectMapEntity entity2 = daoFactory.getGlobalProjectDao().getProjectMap(schemaYear);
+		  if(entity2==null) {
+			  GlobalProjectMapEntity mapEntity = new GlobalProjectMapEntity();
+			  
+			  mapEntity.setDateCreated(LocalDateTime.now());
+			  mapEntity.setDateUpdated(LocalDateTime.now());
+			  mapEntity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
+			  mapEntity.setProjectId(baseProject.getId());
+			  mapEntity.setSource(schemaYear);
+			  mapEntity.setGlobalProject(entity);
+			  mapEntity.setUser(account.getAccountId());
+			  daoFactory.getGlobalProjectDao().addProjectToGlobalProject(mapEntity);
+		  }
+		  
+		}
 	}
 
 }

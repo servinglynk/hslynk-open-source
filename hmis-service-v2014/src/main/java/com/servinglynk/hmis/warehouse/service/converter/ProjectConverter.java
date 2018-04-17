@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.GlobalProject;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
@@ -83,6 +84,18 @@ public class ProjectConverter extends BaseConverter {
        copyBeanProperties(entity, project);
        return project;
    }
+/*   
+   public static GlobalProject modelToGlobalProject(Project project) {
+	   GlobalProject globalProject = new GlobalProject();
+	   globalProject.setId(project.getProjectId());
+	   globalProject.setProjectCommonName(project.getProjectCommonName());
+	   globalProject.setProjectName(project.getProjectName());
+	   globalProject.setSourceSystemId(project.get);
+	   
+	   
+	   
+	   return globalProject;
+   }*/
 
 
 }

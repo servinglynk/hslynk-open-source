@@ -33,6 +33,12 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        pProject.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        pProject.setUserId(user.getId());       
        pProject.setProjectGroupCode(user.getProjectGroupEntity().getProjectGroupCode());
+       boolean projectExists = false;
+       if(project.getSourceSystemId()!=null) {
+           daoFactory.getProjectDao().checkProjectExists(project.getProjectName(),project.getSourceSystemId());
+       }
+       
+       if(!projectExists) {
        daoFactory.getProjectDao().createProject(pProject);
        project.setProjectId(pProject.getId());
        
@@ -42,6 +48,9 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
      //  serviceFactory.getBaseProjectService().createProject(baseProject, project.getOrganizationId(), caller);
        
        return project;
+       }else {
+    	   return new Project();
+       }
    }
 
    @Transactional

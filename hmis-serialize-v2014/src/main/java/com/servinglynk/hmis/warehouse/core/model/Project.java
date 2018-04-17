@@ -19,6 +19,7 @@ public class Project extends ClientModel {
     private Integer trackingMethod;
     private String projectGroup;
 	private String source;
+	private String sourceSystemId;
     
 	public Project() {
 		
@@ -115,4 +116,12 @@ public class Project extends ClientModel {
 	public void setSource(String source) {
 		this.source = source;
 	}
+
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
+	}	
 }
