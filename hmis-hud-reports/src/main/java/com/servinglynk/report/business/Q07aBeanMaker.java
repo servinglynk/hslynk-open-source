@@ -1,58 +1,20 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q07aDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
-import com.servinglynk.report.model.ProjectModel;
 
 public class Q07aBeanMaker extends BaseBeanMaker {
-	
-	public static List<String> getProjectsForHouseHoldType(String schema,String query) {
-		ResultSet resultSet = null;
-		PreparedStatement statement = null;
-		Connection connection = null;
-		List<String>  models = new ArrayList<String>();
-		try {
-			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
-			resultSet = statement.executeQuery();
-		 while(resultSet.next()) {
-			 models.add(resultSet.getString(1));
-		 }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-					//connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return models;
-	}
-	
-	
 	
         public static List<Q07aDataBean> getQ07aHouseholdsServeList(ReportData data) {
         	List<String> projectsHHWithChildren  = getProjectsForHouseHoldType(data.getSchema(), ReportQuery.PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN);
@@ -60,6 +22,10 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         	List<String> projectsHHWithOutChildren  = getProjectsForHouseHoldType(data.getSchema(), ReportQuery.PROJECT_WITH_HOUSEHOLD_WITHOUT_CHILDREN);
         	List<String> projectsUnknownHouseHold  = getProjectsForHouseHoldType(data.getSchema(), ReportQuery.PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN);
         	
+        	data.setProjectsHHWithChildren(projectsHHWithChildren);
+        	data.setProjectsHHWithOneAdultChild(projectsHHWithOneAdultChild);
+        	data.setProjectsHHWithOutChildren(projectsHHWithOutChildren);
+        	data.setProjectsUnknownHouseHold(projectsUnknownHouseHold);
         	
         	List<ClientModel> clients = data.getClients();
         	List<EnrollmentModel> enrollments = data.getEnrollments();

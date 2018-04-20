@@ -194,7 +194,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q07aHouseholdsServeList, "Q7a.jrxml", "Q7a.csv");
 			}
 			
-			List<Q07bDataBean> q07bPointInTimeCountHouseholdsLastWednesdayList = Q07bBeanMaker.getQ07bPointInTimeCountHouseholdsLastWednesdayList();
+			List<Q07bDataBean> q07bPointInTimeCountHouseholdsLastWednesdayList = Q07bBeanMaker.getQ07bPointInTimeCountHouseholdsLastWednesdayList(data);
 			homePageDataBean.setQ07bPointInTimeCountHouseholdsLastWednesdayDataBean(q07bPointInTimeCountHouseholdsLastWednesdayList);
 			if(q07bPointInTimeCountHouseholdsLastWednesdayList!=null){
 				CSVGenerator.buildReport(q07bPointInTimeCountHouseholdsLastWednesdayList, "Q7b.jrxml", "Q7b.csv");
@@ -206,7 +206,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q08aDataBeanList, "Q8a.jrxml", "Q8a.csv");
 			}
 			
-			List<Q08bDataBean> q08bDataBeanList = Q08bDataBeanMaker.getQ08bDataBeanList();
+			List<Q08bDataBean> q08bDataBeanList = Q08bDataBeanMaker.getQ08bDataBeanList(data);
 			homePageDataBean.setQ08bDataBean(q08bDataBeanList);
 			if(q08bDataBeanList!=null){
 				CSVGenerator.buildReport(q08bDataBeanList, "Q8b.jrxml", "Q8b.csv");

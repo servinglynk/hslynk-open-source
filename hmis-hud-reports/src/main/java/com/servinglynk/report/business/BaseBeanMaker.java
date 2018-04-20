@@ -1,9 +1,14 @@
 package com.servinglynk.report.business;
 
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
+import static java.time.temporal.TemporalAdjusters.previousOrSame;
+
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -42,7 +47,45 @@ public class BaseBeanMaker {
 		
 	}
 	
+	public static BigInteger getDefaultValue() {
+		return BigInteger.valueOf(0);
+	}
 	
+	public static int getDefaultIntValue() {
+		return 0;
+	}
+	 public static LocalDate lasWednesayOf(int year,int month) {
+		 return LocalDate.of(year, month, 1).with(lastDayOfMonth()).with(previousOrSame(DayOfWeek.WEDNESDAY));
+	  }
+	
+	public static List<String> getProjectsForHouseHoldType(String schema,String query) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<String>  models = new ArrayList<String>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(query,schema));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.add(resultSet.getString(1));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
 	public static List<ClientModel> getClients(String schema) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
@@ -306,7 +349,7 @@ public class BaseBeanMaker {
 				statement.setString(1, cocId);
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
-				 ProjectModel model = new ProjectModel(resultSet.getString("projectname"), resultSet.getString("projectType"), resultSet.getString("project_id"),resultSet.getString("organizationid"),resultSet.getString("organizationid"));
+				 ProjectModel model = new ProjectModel(resultSet.getString("projectname"), resultSet.getString("projectType"), resultSet.getString("project_id"),resultSet.getString("organizationid"),resultSet.getString("trackingmethod"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {

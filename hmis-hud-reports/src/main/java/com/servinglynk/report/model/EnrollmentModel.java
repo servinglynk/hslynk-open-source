@@ -77,7 +77,7 @@ public class EnrollmentModel {
 	private boolean chronichomeless;
 	private String enrollment_source_system_id;
 	private String livingSituation;
-	private String datetostreetessh;
+	private Date datetostreetessh;
 	/**
 	 * @return the projectEntryID
 	 */
@@ -405,10 +405,10 @@ public class EnrollmentModel {
 	public void setLivingSituation(String livingSituation) {
 		this.livingSituation = livingSituation;
 	}
-	public String getDatetostreetessh() {
+	public Date getDatetostreetessh() {
 		return datetostreetessh;
 	}
-	public void setDatetostreetessh(String datetostreetessh) {
+	public void setDatetostreetessh(Date datetostreetessh) {
 		this.datetostreetessh = datetostreetessh;
 	}
 }

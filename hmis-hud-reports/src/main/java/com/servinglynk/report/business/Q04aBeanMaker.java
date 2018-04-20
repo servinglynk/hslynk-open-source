@@ -36,7 +36,7 @@ public class Q04aBeanMaker {
 					 q04aDataBean.setQ04aProjectId(resultSet.getString("source_system_id"));
 					 q04aDataBean.setQ04aMethodOfTracking(resultSet.getString("trackingmethod_desc"));
 					 String organizationId = resultSet.getString("organizationid");
-					 ProjectModel project = new ProjectModel(q04aDataBean.getQ04aProjectName(), q04aDataBean.getQ04aHmisProjectType(), id, q04aDataBean.getQ04aOrgId(),q04aDataBean.getQ04aMethodOfTracking());
+					 ProjectModel project = new ProjectModel(q04aDataBean.getQ04aProjectName(), q04aDataBean.getQ04aHmisProjectType(), id, q04aDataBean.getQ04aOrgId(),resultSet.getString("trackingmethod"));
 					 data.setProject(project);
 					populateOranization(schema, organizationId, q04aDataBean);
 				 }

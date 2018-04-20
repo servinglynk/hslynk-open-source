@@ -27,7 +27,6 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 		List<ClientModel> adults = clients.parallelStream().filter(client -> isAdult(client.getDob())).collect(Collectors.toList());
 		List<ClientModel> children = clients.parallelStream().filter(client -> isChild(client.getDob())).collect(Collectors.toList());
 		List<ClientModel> youthUnder25 = clients.parallelStream().filter(client -> isYouthUnder25(client.getDob())).collect(Collectors.toList());
-		
 		List<ClientModel> ageUnknown = clients.parallelStream().filter(client -> client.getDob() == null).collect(Collectors.toList());
 		List<EnrollmentModel> chronicHomeless = enrollments.parallelStream().filter(enrollment -> enrollment.isChronichomeless()).collect(Collectors.toList());
 		List<ExitModel> exits = data.getExits();

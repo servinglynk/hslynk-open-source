@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
@@ -38,6 +39,10 @@ public class ReportData {
 	private BigInteger numOfYouthUnderAge25;
 	private BigInteger numOfHeadsOfHHandAdults365Days;
 	
+	List<String> projectsHHWithChildren = new ArrayList<String>();
+	List<String> projectsHHWithOneAdultChild  =  new ArrayList<String>();
+	List<String> projectsHHWithOutChildren  =  new ArrayList<String>();
+	List<String> projectsUnknownHouseHold  =  new ArrayList<String>();
 	
 	/**
 	 * @return the schema
@@ -321,5 +326,30 @@ public class ReportData {
 	}
 	public void setProjects(List<ProjectModel> projects) {
 		this.projects = projects;
+	}
+	public List<String> getProjectsHHWithChildren() {
+		return projectsHHWithChildren;
+	}
+	public void setProjectsHHWithChildren(List<String> projectsHHWithChildren) {
+		this.projectsHHWithChildren = projectsHHWithChildren;
+	}
+	public List<String> getProjectsHHWithOneAdultChild() {
+		return projectsHHWithOneAdultChild;
+	}
+	public void setProjectsHHWithOneAdultChild(
+			List<String> projectsHHWithOneAdultChild) {
+		this.projectsHHWithOneAdultChild = projectsHHWithOneAdultChild;
+	}
+	public List<String> getProjectsHHWithOutChildren() {
+		return projectsHHWithOutChildren;
+	}
+	public void setProjectsHHWithOutChildren(List<String> projectsHHWithOutChildren) {
+		this.projectsHHWithOutChildren = projectsHHWithOutChildren;
+	}
+	public List<String> getProjectsUnknownHouseHold() {
+		return projectsUnknownHouseHold;
+	}
+	public void setProjectsUnknownHouseHold(List<String> projectsUnknownHouseHold) {
+		this.projectsUnknownHouseHold = projectsUnknownHouseHold;
 	}
 }
