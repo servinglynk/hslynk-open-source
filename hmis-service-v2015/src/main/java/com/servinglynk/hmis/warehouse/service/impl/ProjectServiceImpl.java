@@ -5,9 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
+import com.servinglynk.hmis.warehouse.base.service.converter.AccountConverter;
+import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.core.model.Projects;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
@@ -34,16 +37,26 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        pProject.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        pProject.setUserId(user.getId());
        boolean projectExists = false;
+       com.servinglynk.hmis.warehouse.model.v2015.Project cProject =null;
        if(project.getSourceSystemId()!=null) {
-           projectExists = daoFactory.getProjectDao().checkProjectExists(project.getProjectName(),project.getSourceSystemId());
+    	    cProject =  daoFactory.getProjectDao().checkProjectExists(project.getProjectName(),project.getSourceSystemId());
+    	   if(cProject!=null) projectExists = true;
        }
        
        if(!projectExists) {
-    	   project.setProjectId(pProject.getId());  
-       return project;
+       daoFactory.getProjectDao().createProject(pProject);
+       project.setProjectId(pProject.getId());
+       
+       BaseProject baseProject = new BaseProject();
+       BeanUtils.copyProperties(project, baseProject);
+       baseProject.setSchemaYear(2015);
+       project.setProjectId(pProject.getId());
        }else {
-    	   return new Project();
+          project.setProjectId(cProject.getId());
        }
+       serviceFactory.getGlobalProjectService().manageGlobalProjects(ProjectConverter.modelToGlobalProject(project), "2015", AccountConverter.convertToAccount(user));
+     //  serviceFactory.getBaseProjectService().createProject(baseProject, project.getOrganizationId(), caller);
+       return project;
    }
 
    @Transactional

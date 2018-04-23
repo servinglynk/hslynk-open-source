@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.service.ProjectService;
@@ -17,6 +18,7 @@ import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.service.exception.OrganizationNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
 import com.servinglynk.hmis.warehouse.SortedPagination;
+import com.servinglynk.hmis.warehouse.base.service.converter.AccountConverter;
 
 
 public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
@@ -34,8 +36,10 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        pProject.setUserId(user.getId());       
        pProject.setProjectGroupCode(user.getProjectGroupEntity().getProjectGroupCode());
        boolean projectExists = false;
+       com.servinglynk.hmis.warehouse.model.v2014.Project cProject =null;
        if(project.getSourceSystemId()!=null) {
-           daoFactory.getProjectDao().checkProjectExists(project.getProjectName(),project.getSourceSystemId());
+    	    cProject =  daoFactory.getProjectDao().checkProjectExists(project.getProjectName(),project.getSourceSystemId());
+    	   if(cProject!=null) projectExists = true;
        }
        
        if(!projectExists) {
@@ -45,12 +49,14 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        BaseProject baseProject = new BaseProject();
        BeanUtils.copyProperties(project, baseProject);
        baseProject.setSchemaYear(2014);
-     //  serviceFactory.getBaseProjectService().createProject(baseProject, project.getOrganizationId(), caller);
-       
-       return project;
+       project.setProjectId(pProject.getId());
        }else {
-    	   return new Project();
+          project.setProjectId(cProject.getId());
        }
+       serviceFactory.getGlobalProjectService().manageGlobalProjects(ProjectConverter.modelToGlobalProject(project), "2014", AccountConverter.convertToAccount(user));
+     //  serviceFactory.getBaseProjectService().createProject(baseProject, project.getOrganizationId(), caller);
+       return project;
+
    }
 
    @Transactional

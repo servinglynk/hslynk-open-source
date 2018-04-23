@@ -27,5 +27,5 @@ public interface GlobalProjectDao {
 	void removeAllProjectUsers(UUID globalProjectId);
 	void removeAllProjects(UUID globalProjectId);
 	GlobalProjectEntity getGlobalProject(String projectName, String sourceSystemId);
-	GlobalProjectMapEntity getProjectMap(String schemaYear);
+	GlobalProjectMapEntity getProjectMap(UUID globalProjectId, String schemaYear);
 }

@@ -181,7 +181,9 @@ public class GlobalProjectServiceImpl extends ServiceBase implements GlobalProje
 			baseProject.addProject(map);
 			baseProject = this.create(baseProject, account);
 		} else {
-		  GlobalProjectMapEntity entity2 = daoFactory.getGlobalProjectDao().getProjectMap(schemaYear);
+			GlobalProjectEntity globalProjectEntity = daoFactory.getGlobalProjectDao().getGlobalProject(baseProject.getProjectName(),baseProject.getSourceSystemId());
+
+		  GlobalProjectMapEntity entity2 = daoFactory.getGlobalProjectDao().getProjectMap(globalProjectEntity.getId(),schemaYear);
 		  if(entity2==null) {
 			  GlobalProjectMapEntity mapEntity = new GlobalProjectMapEntity();
 			  
