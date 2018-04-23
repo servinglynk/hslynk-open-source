@@ -20,4 +20,5 @@ public interface ProjectDao extends ParentDao {
 	   List<com.servinglynk.hmis.warehouse.model.v2015.Project> getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems);
 	   long getProjectCount(String getAllProjects);
 	   void populateUserProjectGroupCode(HmisBaseModel model,String caller);
+	   com.servinglynk.hmis.warehouse.model.v2015.Project checkProjectExists(String projectName, String sourceSystemId);
 }

@@ -24,6 +24,7 @@ public class Project extends ClientModel {
     private Integer housingType;
     private Integer victimServicesProvider;
 	private String source;
+	private String sourceSystemId;
     
     
 	public UUID getOrganizationId() {
@@ -152,5 +153,13 @@ public class Project extends ClientModel {
 
 	public void setSource(String source) {
 		this.source = source;
+	}
+
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
 	}
 }
