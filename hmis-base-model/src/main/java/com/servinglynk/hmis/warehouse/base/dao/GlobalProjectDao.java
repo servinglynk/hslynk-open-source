@@ -26,4 +26,6 @@ public interface GlobalProjectDao {
 	Boolean checkGlobalProjectUser(List<UUID> projectids, UUID accountId);
 	void removeAllProjectUsers(UUID globalProjectId);
 	void removeAllProjects(UUID globalProjectId);
+	GlobalProjectEntity getGlobalProject(String projectName, String sourceSystemId);
+	GlobalProjectMapEntity getProjectMap(UUID globalProjectId, String schemaYear);
 }

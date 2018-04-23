@@ -19,6 +19,7 @@ public class Project extends ClientModel {
     private UUID organizationId;
     private String projectGroup;
 	private String source;
+	private String sourceSystemId;
     
     
 	public UUID getOrganizationId() {
@@ -117,4 +118,11 @@ public class Project extends ClientModel {
 		this.source = source;
 	}
 
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
+	}
 }
