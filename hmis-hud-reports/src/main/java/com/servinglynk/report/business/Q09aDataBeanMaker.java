@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -18,6 +18,7 @@ import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ContactModel;
 import com.servinglynk.report.model.DateOfEngagementModel;
 import com.servinglynk.report.model.EnrollmentModel;
+import com.servinglynk.report.model.ExitModel;
 
 public class Q09aDataBeanMaker extends BaseBeanMaker {
 	
@@ -28,7 +29,9 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 		List<String> enrollmentIds = data.getEnrollmentIds();
 		List<ContactModel> filteredContacts = contacts.parallelStream().filter(contact -> enrollmentIds.contains(contact.getEnrollmentId())).collect(Collectors.toList());
 		List<DateOfEngagementModel> dateOfEngagements = getDateOfEngagements(data.getSchema());
+		data.setContacts(filteredContacts);
 		List<DateOfEngagementModel> filteredDOE = dateOfEngagements.parallelStream().filter(doe -> enrollmentIds.contains(doe.getEnrollmentId())).collect(Collectors.toList());
+		data.setDateOfEngagements(filteredDOE);
 		Q09aDataBean q09aNumberPersonsContactedDataBean=new Q09aDataBean();
 		if(CollectionUtils.isNotEmpty(filteredContacts)) {
 			   Map<String, Long> totalContacts = filteredContacts.stream().collect(Collectors.groupingBy(ContactModel::getEnrollmentId, Collectors.counting()));
@@ -47,17 +50,18 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 			   }
 			   
 		}
-	 	
-		/** a. [date of contact] >= [project start date]   == get all the enrollments where date of contact is greater than project start date
-			b. [project exit date] is null or [date of contact] <= [project exit date]   == 
-			c. [date of contact] <= [date of engagement] (or the [date of engagement] is null)
-			d. [date of contact] <= [report end date]
-			**/
+		Map<String,Date> enrollmentMap = new HashMap<>();
+		enrollments.parallelStream().forEach(enrollment-> enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate()));
+		Map<String,Date> dateOfEngagementMap = new HashMap<>();
+		dateOfEngagements.parallelStream().forEach(doe-> dateOfEngagementMap.put(doe.getEnrollmentId(), doe.getDateOfEngagement()));
+		List<ExitModel> exits = data.getExits();
+		Map<String,Date> exitMap = new HashMap<>();
+		exits.parallelStream().forEach(exit-> exitMap.put(exit.getProjectEntryID(), exit.getExitdate()));
+		
 		List<ContactModel> seperatedContacts = new ArrayList<>();
-//		filteredContacts.parallelStream().forEach(
-//				contact -> contact.getContactDate() != null && contact.getContactDate().before(when)
-//				
-//				);
+		filteredContacts.parallelStream().forEach(
+				contact ->  { filterContacts(contact, seperatedContacts,enrollmentMap,dateOfEngagementMap,exitMap); }
+				);
 		
 		List<ContactModel> notStayingOnStreets = seperatedContacts.parallelStream().filter(contact -> StringUtils.equals("0", contact.getContactLocation())).collect(Collectors.toList());
 		List<ContactModel> stayingOnStreets = seperatedContacts.parallelStream().filter(contact ->StringUtils.equals("1", contact.getContactLocation())).collect(Collectors.toList());
@@ -122,8 +126,26 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 		
 		return Arrays.asList(q09aNumberPersonsContactedDataBean);
 	}
-
-	
+	/** a. [date of contact] >= [project start date]   == get all the enrollments where date of contact is greater than project start date
+	b. [project exit date] is null or [date of contact] <= [project exit date]   == 
+	c. [date of contact] <= [date of engagement] (or the [date of engagement] is null)
+	d. [date of contact] <= [report end date]
+	**/
+	private static void filterContacts(ContactModel contact, List<ContactModel> seperatedContacts,
+			Map<String, Date> enrollmentMap, Map<String, Date> dateOfEngagementMap, Map<String, Date> exitMap,ReportData data) {
+		Date contactDate = contact.getContactDate();
+		Date projectStartDate = enrollmentMap.get(contact.getEnrollmentId());
+		if(contactDate != null && projectStartDate !=null) {
+			if(contactDate.compareTo(projectStartDate) >= 0 && contactDate.compareTo(data.getReportEndDate()) <=0)  {
+				Date dateOfEngagement = dateOfEngagementMap.get(contact.getEnrollmentId());
+				Date dateOfExit = exitMap.get(contact.getEnrollmentId());
+				if((dateOfEngagement == null) || (dateOfEngagement != null && contactDate.compareTo(dateOfEngagement) <=0) 
+						&& ((dateOfExit == null) && contactDate.compareTo(dateOfExit) <= 0))  {
+					seperatedContacts.add(contact);
+				}
+			}
+		}
+	}
 	public static void main(String args[]) {
 		List<ContactModel> filteredContacts = new ArrayList<ContactModel>();
 		ContactModel contact1 = new ContactModel("contactID", "enrollmentId", new Date(), "1", "sourceSystemId");

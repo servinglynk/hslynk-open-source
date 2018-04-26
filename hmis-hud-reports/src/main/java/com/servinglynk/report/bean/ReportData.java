@@ -1,13 +1,13 @@
 package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.model.ClientModel;
+import com.servinglynk.report.model.ContactModel;
+import com.servinglynk.report.model.DateOfEngagementModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
@@ -22,6 +22,8 @@ public class ReportData {
 	private List<ProjectModel> projects = new ArrayList<ProjectModel>();
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
 	private List<ExitModel> exits = new ArrayList<ExitModel>();
+	private List<ContactModel> contacts = new ArrayList<>();
+	private List<DateOfEngagementModel> dateOfEngagements = new ArrayList<>();
 	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
 	private ProjectModel project;
 	private BigInteger totNumOfPersonServed;
@@ -363,5 +365,29 @@ public class ReportData {
 	 */
 	public void setEnrollmentIds(List<String> enrollmentIds) {
 		this.enrollmentIds = enrollmentIds;
+	}
+	/**
+	 * @return the contacts
+	 */
+	public List<ContactModel> getContacts() {
+		return contacts;
+	}
+	/**
+	 * @param contacts the contacts to set
+	 */
+	public void setContacts(List<ContactModel> contacts) {
+		this.contacts = contacts;
+	}
+	/**
+	 * @return the dateOfEngagements
+	 */
+	public List<DateOfEngagementModel> getDateOfEngagements() {
+		return dateOfEngagements;
+	}
+	/**
+	 * @param dateOfEngagements the dateOfEngagements to set
+	 */
+	public void setDateOfEngagements(List<DateOfEngagementModel> dateOfEngagements) {
+		this.dateOfEngagements = dateOfEngagements;
 	}
 }
