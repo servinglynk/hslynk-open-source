@@ -1,6 +1,6 @@
 package com.servinglynk.report.model;
 
-public class IncomeAndSourceModel {
+public class IncomeAndSourceModel extends BaseModel {
 	
 	private String dataCollectionStage;
 	private String projectEntryId;

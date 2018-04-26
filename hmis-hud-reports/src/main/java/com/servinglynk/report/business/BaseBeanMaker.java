@@ -19,6 +19,8 @@ import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.model.ClientModel;
+import com.servinglynk.report.model.ContactModel;
+import com.servinglynk.report.model.DateOfEngagementModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
@@ -69,6 +71,64 @@ public class BaseBeanMaker {
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
 			 models.add(resultSet.getString(1));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	public static List<ContactModel> getContacts(final String schema) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<ContactModel>  models = new ArrayList<ContactModel>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_CONTACTS,schema));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 ContactModel model = new ContactModel(resultSet.getString("contact_id"), resultSet.getString("project_entry_id"), resultSet.getDate("contact_date"), resultSet.getString("contact_location"), resultSet.getString("source_system_id"));
+			 models.add(model);
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	public static List<DateOfEngagementModel> getDateOfEngagements(final String schema) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<DateOfEngagementModel>  models = new ArrayList<DateOfEngagementModel>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_DOE,schema));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 DateOfEngagementModel model = new DateOfEngagementModel(resultSet.getString("dateofengagement_id"),resultSet.getString("project_entry_id"), resultSet.getDate("dateofengagement"), resultSet.getString("source_system_id"));
+			 models.add(model);
 		 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

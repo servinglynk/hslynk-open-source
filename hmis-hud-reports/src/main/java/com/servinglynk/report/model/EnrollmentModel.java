@@ -2,7 +2,7 @@ package com.servinglynk.report.model;
 
 import java.util.Date;
 
-public class EnrollmentModel {
+public class EnrollmentModel extends BaseModel {
 	public EnrollmentModel() {}
 	public EnrollmentModel(String projectEntryID,
 			String continuouslyhomelessoneyear, String disablingcondition,

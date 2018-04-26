@@ -2,7 +2,7 @@ package com.servinglynk.report.model;
 
 import java.util.Date;
 
-public class ExitModel {
+public class ExitModel extends BaseModel {
 		private String exitid;
 		private String destination;
 		private String destination_desc;

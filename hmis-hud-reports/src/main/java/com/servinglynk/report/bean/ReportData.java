@@ -38,7 +38,7 @@ public class ReportData {
 	private BigInteger numOfAdultandHeadOfHHLeavers;
 	private BigInteger numOfYouthUnderAge25;
 	private BigInteger numOfHeadsOfHHandAdults365Days;
-	
+	List<String> enrollmentIds = new ArrayList<String>();
 	List<String> projectsHHWithChildren = new ArrayList<String>();
 	List<String> projectsHHWithOneAdultChild  =  new ArrayList<String>();
 	List<String> projectsHHWithOutChildren  =  new ArrayList<String>();
@@ -351,5 +351,17 @@ public class ReportData {
 	}
 	public void setProjectsUnknownHouseHold(List<String> projectsUnknownHouseHold) {
 		this.projectsUnknownHouseHold = projectsUnknownHouseHold;
+	}
+	/**
+	 * @return the enrollmentIds
+	 */
+	public List<String> getEnrollmentIds() {
+		return enrollmentIds;
+	}
+	/**
+	 * @param enrollmentIds the enrollmentIds to set
+	 */
+	public void setEnrollmentIds(List<String> enrollmentIds) {
+		this.enrollmentIds = enrollmentIds;
 	}
 }

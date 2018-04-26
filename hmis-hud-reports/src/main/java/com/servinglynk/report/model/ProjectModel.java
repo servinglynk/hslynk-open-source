@@ -1,6 +1,6 @@
 package com.servinglynk.report.model;
 
-public class ProjectModel {
+public class ProjectModel extends BaseModel {
 	private String projectname;
 	private String projectType;
 	private String projectId;

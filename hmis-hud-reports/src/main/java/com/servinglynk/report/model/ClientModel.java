@@ -2,7 +2,7 @@ package com.servinglynk.report.model;
 
 import java.util.Date;
 
-public class ClientModel {
+public class ClientModel extends BaseModel{
 	public ClientModel() {
 		
 	}
