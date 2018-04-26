@@ -1109,26 +1109,39 @@ public class BulkUploadHelper {
 	                      new AnnotationEntryParser<Services>(Services.class, vpp)).build();
 	      List<Services> services = servicesReader.readAll();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services> servicesList = new ArrayList<Sources.Source.Export.Services>();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact> contactList = new ArrayList<Sources.Source.Export.Contact>();
 	      for(Services srvcs : services) {
-	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services servicesModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services();
-	    	  servicesModel.setDateCreated(getXMLGregorianCalendar(srvcs.getDateCreated()));
-	    	  servicesModel.setDateProvided(getXMLGregorianCalendar(srvcs.getDateProvided()));
-	    	  servicesModel.setDateUpdated(getXMLGregorianCalendar(srvcs.getDateUpdated()));
-	    	  if(srvcs.getFAAmount()!=null && !"".equals(srvcs.getFAAmount())){
-	    		  servicesModel.setFAAmount(Float.valueOf(srvcs.getFAAmount()));
+	    	  if(StringUtils.isNotEmpty(srvcs.getRecordType()) && StringUtils.equals("13", srvcs.getRecordType())) {
+	    		  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact contactModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact();
+	    		  contactModel.setDateCreated(getXMLGregorianCalendar(srvcs.getDateCreated()));
+	    		  contactModel.setDateUpdated(getXMLGregorianCalendar(srvcs.getDateUpdated()));
+		    	  contactModel.setProjectEntryID(srvcs.getProjectEntryID());
+		    	  contactModel.setUserID(srvcs.getUserID());
+		    	  contactModel.setContactDate(getXMLGregorianCalendar(srvcs.getDateProvided()));
+		    	  contactModel.setContactID(srvcs.getServicesID());
+		    	  contactModel.setContactLocation(srvcs.getTypeProvided());
+		    	  contactList.add(contactModel);
+	    	  }else {
+	    		  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services servicesModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services();
+		    	  servicesModel.setDateCreated(getXMLGregorianCalendar(srvcs.getDateCreated()));
+		    	  servicesModel.setDateProvided(getXMLGregorianCalendar(srvcs.getDateProvided()));
+		    	  servicesModel.setDateUpdated(getXMLGregorianCalendar(srvcs.getDateUpdated()));
+		    	  if(srvcs.getFAAmount()!=null && !"".equals(srvcs.getFAAmount())){
+		    		  servicesModel.setFAAmount(Float.valueOf(srvcs.getFAAmount()));
+		    	  }
+		    	  servicesModel.setOtherTypeProvided(srvcs.getOtherTypeProvided());
+		    	  servicesModel.setProjectEntryID(srvcs.getProjectEntryID());
+		    	  servicesModel.setRecordType(srvcs.getRecordType());
+		    	  servicesModel.setReferralOutcome(getByte(srvcs.getReferralOutcome()));
+		    	  servicesModel.setServicesID(srvcs.getServicesID());
+		    	  servicesModel.setSubTypeProvided(getByte(srvcs.getSubTypeProvided()));
+		    	  if(StringUtils.isNotBlank(srvcs.getTypeProvided())) {
+		    		  servicesModel.setTypeProvided(Short.parseShort(srvcs.getTypeProvided()));
+		    	  }
+		    	  servicesModel.setUserID(srvcs.getUserID());
+		    	  servicesList.add(servicesModel);
 	    	  }
-	    	  servicesModel.setOtherTypeProvided(srvcs.getOtherTypeProvided());
-	    	  servicesModel.setProjectEntryID(srvcs.getProjectEntryID());
-	    	  servicesModel.setRecordType(srvcs.getRecordType());
-	    	  servicesModel.setReferralOutcome(getByte(srvcs.getReferralOutcome()));
-	    	  servicesModel.setServicesID(srvcs.getServicesID());
-	    	  servicesModel.setSubTypeProvided(getByte(srvcs.getSubTypeProvided()));
-	    	  if(StringUtils.isNotBlank(srvcs.getTypeProvided())) {
-	    		  servicesModel.setTypeProvided(Short.parseShort(srvcs.getTypeProvided()));
-	    	  }
-	    	  servicesModel.setUserID(srvcs.getUserID());
-	    	  servicesList.add(servicesModel);
-	      }
+	    	}
 	      sources.getSource().getExport().setServices(servicesList);
 	  }
 	 

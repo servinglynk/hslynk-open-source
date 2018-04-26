@@ -45,7 +45,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				com.servinglynk.hmis.warehouse.model.v2017.Funder funderModel = null;
 				try {
 					funderModel = getModelObject(domain, funder,data,modelMap);
-					funderModel.setFunder(FunderFunderEnum.lookupEnum(BasicDataGenerator.getStringValue(funder.getFunder())));
+					funderModel.setFunder(FunderFunderEnum.lookupEnum((funder.getFunder())));
 					//funderModel.setGrantid(funder.getGrantID());
 					funderModel.setStartdate(BasicDataGenerator.getLocalDateTime(funder.getStartDate()));
 					funderModel.setEnddate(BasicDataGenerator.getLocalDateTime(funder.getEndDate()));

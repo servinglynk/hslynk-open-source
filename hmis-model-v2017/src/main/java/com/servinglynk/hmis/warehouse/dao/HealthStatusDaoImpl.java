@@ -49,8 +49,8 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 				try {
 					healthStatusModel = getModelObject(domain, healthStatus,data,modelMap);
 					healthStatusModel.setDueDate(BasicDataGenerator.getLocalDateTime(healthStatus.getDueDate()));
-					healthStatusModel.setHealthCategory(HealthStatusHealthCategoryEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthCategory())));
-					healthStatusModel.setHealthStatus(HealthStatusHealthStatusEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getHealthStatus())));
+					healthStatusModel.setHealthCategory(HealthStatusHealthCategoryEnum.lookupEnum((healthStatus.getHealthCategory())));
+					healthStatusModel.setHealthStatus(HealthStatusHealthStatusEnum.lookupEnum((healthStatus.getHealthStatus())));
 					healthStatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthStatus.getInformationDate()));
 					healthStatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateCreated()));
 					healthStatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
@@ -58,7 +58,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 					healthStatusModel.setEnrollmentid(enrollmentModel);
 					healthStatusModel.setExport(exportEntity);
 					healthStatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthStatus.getInformationDate()));
-					healthStatusModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(healthStatus.getDataCollectionStage())));
+					healthStatusModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((healthStatus.getDataCollectionStage())));
 					performSaveOrUpdate(healthStatusModel);
 				}catch(Exception e){
 					String errorMessage = "Exception beause of the healthStatus::"+healthStatus.getHealthStatusID() +" Exception ::"+e.getMessage();

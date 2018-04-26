@@ -55,17 +55,17 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				try {
 					disabilitiesModel = getModelObject(domain, disabilities,data,modelMap);
 					disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
-					disabilitiesModel.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getIndefiniteAndImpairsIndependence())));
+					disabilitiesModel.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum((disabilities.getIndefiniteAndImpairsIndependence())));
 					disabilitiesModel.setTcellcount(Integer.getInteger((disabilities.getTCellCount())));
 					disabilitiesModel.setTcellcountavailable(NoYesEnum.lookupEnum(disabilities.getTCellCountAvailable()));
 					disabilitiesModel.setTcellcountsource(TCellOrViralLoadSourceEnum.lookupEnum(disabilities.getTCellSource()));
-					disabilitiesModel.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDisabilityType())));
+					disabilitiesModel.setDisabilitytype(DisabilitiesDisabilitytypeEnum.lookupEnum((disabilities.getDisabilityType())));
 					disabilitiesModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateCreated()));
 					disabilitiesModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class,disabilities.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					disabilitiesModel.setEnrollmentid(enrollmentModel);
 					disabilitiesModel.setInformationDate(BasicDataGenerator.getLocalDateTime(disabilities.getInformationDate()));
-					disabilitiesModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(disabilities.getDataCollectionStage())));
+					disabilitiesModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((disabilities.getDataCollectionStage())));
 					disabilitiesModel.setExport(exportEntity);
 					performSaveOrUpdate(disabilitiesModel);
 				}catch(Exception e) {
