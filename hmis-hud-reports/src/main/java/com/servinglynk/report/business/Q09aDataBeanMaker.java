@@ -60,7 +60,7 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 		
 		List<ContactModel> seperatedContacts = new ArrayList<>();
 		filteredContacts.parallelStream().forEach(
-				contact ->  { filterContacts(contact, seperatedContacts,enrollmentMap,dateOfEngagementMap,exitMap); }
+				contact ->  { filterContacts(contact, seperatedContacts,enrollmentMap,dateOfEngagementMap,exitMap,data); }
 				);
 		
 		List<ContactModel> notStayingOnStreets = seperatedContacts.parallelStream().filter(contact -> StringUtils.equals("0", contact.getContactLocation())).collect(Collectors.toList());
