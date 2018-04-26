@@ -57,9 +57,8 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 					vInfo = getModelObject(domain, veteranInfo, data, modelMap);
 					if(vInfo.isIgnored()) {
 						vInfo.setAfghanistanOef(VeteranInfoAfghanistanOefEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(veteranInfo
-												.getAfghanistanOEF())));
+								.lookupEnum(veteranInfo
+												.getAfghanistanOEF()));
 						vInfo.setDesertStorm(VeteranInfoDesertStormEnum
 								.lookupEnum(String.valueOf(veteranInfo
 										.getDesertStorm())));
@@ -73,25 +72,20 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 								.lookupEnum(String.valueOf(veteranInfo
 										.getIraqOND())));
 						vInfo.setOtherTheater(VeteranInfoOtherTheaterEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(veteranInfo
-												.getOtherTheater())));
+								.lookupEnum(veteranInfo
+												.getOtherTheater()));
 						vInfo.setKoreanWar(VeteranInfoKoreanWarEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(veteranInfo
-												.getVietnamWar())));
+								.lookupEnum(veteranInfo
+												.getVietnamWar()));
 						vInfo.setMilitaryBranch(VeteranInfoMilitaryBranchEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(veteranInfo
-												.getMilitaryBranch())));
+								.lookupEnum(veteranInfo
+												.getMilitaryBranch()));
 						vInfo.setVietnamWar(VeteranInfoVietnamWarEnum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(veteranInfo
-												.getVietnamWar())));
+								.lookupEnum(veteranInfo
+												.getVietnamWar()));
 						vInfo.setWorldWar2(VeteranInfoWorldWar2Enum
-								.lookupEnum(BasicDataGenerator
-										.getStringValue(veteranInfo
-												.getWorldWarII())));
+								.lookupEnum(veteranInfo
+												.getWorldWarII()));
 						vInfo.setYearEntrdService(new Integer(veteranInfo
 								.getYearEnteredService()));
 						vInfo.setYearSeperated(new Integer(veteranInfo

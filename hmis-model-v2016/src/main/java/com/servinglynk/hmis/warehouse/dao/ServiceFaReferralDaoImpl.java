@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
+import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
@@ -33,28 +35,43 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral.class, getProjectGroupCode(domain));
 		List<Services> services = export.getServices();
+		Long contactCount =0L;
 		if (services != null && services.size() > 0) {
 			for (Services serviceFaReferrals : services) {
 				com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral serviceFaReferralModel = null;
 				try{
-					serviceFaReferralModel = getModelObject(domain, serviceFaReferrals,data,modelMap);
-					serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
-					serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFAAmount()));
-					//serviceFaReferralModel.setFunderList(serviceFaReferrals.getFunderList());
-					serviceFaReferralModel.setRecordType(RecordTypeEnum.lookupEnum(String.valueOf(serviceFaReferrals.getRecordType())));
-					serviceFaReferralModel.setOtherTypeProvided(serviceFaReferrals.getOtherTypeProvided());
-					serviceFaReferralModel.setReferralOutcome(new Integer(serviceFaReferrals.getReferralOutcome()).intValue());
-					//	serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getFAAmount()).intValue());
-					serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
-					serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
-					Enrollment enrollment = (Enrollment) getModel(Enrollment.class, serviceFaReferrals.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-					serviceFaReferralModel.setEnrollmentid(enrollment);
-					serviceFaReferralModel.setDeleted(false);
-					serviceFaReferralModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
-					serviceFaReferralModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateUpdated()));
-					serviceFaReferralModel.setExport(exportEntity);
-					serviceFaReferralModel.setSync(false);
-					performSaveOrUpdate(serviceFaReferralModel);
+					  if(StringUtils.isNotEmpty(serviceFaReferrals.getRecordType()) && StringUtils.equals("12", serviceFaReferrals.getRecordType())) {
+						  com.servinglynk.hmis.warehouse.model.v2016.Contact  contactModel = new com.servinglynk.hmis.warehouse.model.v2016.Contact();
+			    		  contactModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
+			    		  contactModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime((serviceFaReferrals.getDateUpdated())));
+				    	  Enrollment enrollment = (Enrollment) getModel(Enrollment.class, serviceFaReferrals.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+				    	  contactModel.setEnrollmentid(enrollment);
+				    	  contactModel.setExport(exportEntity);
+				    	  contactModel.setContactDate(BasicDataGenerator.getLocalDateTime((serviceFaReferrals.getDateProvided())));
+				    	  contactModel.setSourceSystemId(serviceFaReferrals.getServicesID());
+				    	  contactModel.setContactLocation(ContactLocationEnum.lookupEnum(String.valueOf(serviceFaReferrals.getTypeProvided())));
+				    	  performSaveOrUpdate(contactModel);
+				    	  contactCount++;
+					  }else {
+							serviceFaReferralModel = getModelObject(domain, serviceFaReferrals,data,modelMap);
+							serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
+							serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFAAmount()));
+							//serviceFaReferralModel.setFunderList(serviceFaReferrals.getFunderList());
+							serviceFaReferralModel.setRecordType(RecordTypeEnum.lookupEnum(String.valueOf(serviceFaReferrals.getRecordType())));
+							serviceFaReferralModel.setOtherTypeProvided(serviceFaReferrals.getOtherTypeProvided());
+							serviceFaReferralModel.setReferralOutcome(new Integer(serviceFaReferrals.getReferralOutcome()).intValue());
+							//	serviceFaReferralModel.setServiceCategory(new Integer(serviceFaReferrals.getFAAmount()).intValue());
+							serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
+							serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
+							Enrollment enrollment = (Enrollment) getModel(Enrollment.class, serviceFaReferrals.getProjectEntryID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+							serviceFaReferralModel.setEnrollmentid(enrollment);
+							serviceFaReferralModel.setDeleted(false);
+							serviceFaReferralModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
+							serviceFaReferralModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateUpdated()));
+							serviceFaReferralModel.setExport(exportEntity);
+							serviceFaReferralModel.setSync(false);
+							performSaveOrUpdate(serviceFaReferralModel);
+					  }
 				} catch (Exception e){
 					String errorMessage = "Exception beause of the serviceFaReferrals::"+serviceFaReferrals.getServicesID() +" Exception ::"+e.getMessage();
 					if(serviceFaReferralModel != null){
@@ -72,6 +89,8 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 				}
 			}
 		}
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(contactCount,0L,0L, com.servinglynk.hmis.warehouse.model.v2016.Contact.class.getSimpleName(), domain,exportEntity);
 
 	}
 

@@ -41,7 +41,7 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements MoveindateDao {
 					try {
 						moveindateModel = getModelObject(domain, expMoveindates, data, modelMap);
 						moveindateModel.setMoveindate(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateCreated()));
-						//moveindateModel.setInpermanenthousing(MoveindateInpermanenthousin.lookupEnum(BasicDataGenerator.getStringValue(expMoveindates.getInPermanentHousing())));
+						//moveindateModel.setInpermanenthousing(MoveindateInpermanenthousin.lookupEnum((expMoveindates.getInPermanentHousing())));
 						moveindateModel.setDateCreated(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateCreated()));
 						moveindateModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateUpdated()));
 						

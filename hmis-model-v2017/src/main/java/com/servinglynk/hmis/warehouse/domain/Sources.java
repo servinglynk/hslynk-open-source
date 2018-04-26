@@ -79,7 +79,7 @@ public class Sources {
         protected String softwareName;
         
         @XmlElement(name = "SoftwareVersion")
-        protected byte softwareVersion;
+        protected String softwareVersion;
         @XmlElement(name = "SourceContactEmail", required = true)
         protected String sourceContactEmail;
         @XmlElement(name = "SourceContactExtension")
@@ -116,7 +116,7 @@ public class Sources {
          * Gets the value of the softwareVersion property.
          * 
          */
-        public byte getSoftwareVersion() {
+        public String getSoftwareVersion() {
             return softwareVersion;
         }
 
@@ -140,7 +140,7 @@ public class Sources {
          * Sets the value of the softwareVersion property.
          * 
          */
-        public void setSoftwareVersion(byte value) {
+        public void setSoftwareVersion(String value) {
             this.softwareVersion = value;
         }
 
@@ -1835,7 +1835,7 @@ public class Sources {
              *           &lt;complexType>
              *             &lt;simpleContent>
              *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-             *                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}String" />
              *               &lt;/extension>
              *             &lt;/simpleContent>
              *           &lt;/complexType>
@@ -1844,7 +1844,7 @@ public class Sources {
              *           &lt;complexType>
              *             &lt;simpleContent>
              *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-             *                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}String" />
              *               &lt;/extension>
              *             &lt;/simpleContent>
              *           &lt;/complexType>
@@ -1853,30 +1853,30 @@ public class Sources {
              *           &lt;complexType>
              *             &lt;simpleContent>
              *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-             *                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}String" />
              *               &lt;/extension>
              *             &lt;/simpleContent>
              *           &lt;/complexType>
              *         &lt;/element>
              *         &lt;element name="NameSuffix" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="NameDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="NameDataQuality" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="SSN">
              *           &lt;complexType>
              *             &lt;simpleContent>
              *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-             *                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *                 &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}String" />
              *               &lt;/extension>
              *             &lt;/simpleContent>
              *           &lt;/complexType>
              *         &lt;/element>
-             *         &lt;element name="SSNDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="SSNDataQuality" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="DOB" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="DOBDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="Gender" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="DOBDataQuality" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="Gender" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="OtherGender" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="Ethnicity" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="Race" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="VeteranStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="Ethnicity" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="Race" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="VeteranStatus" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -1918,23 +1918,23 @@ public class Sources {
                 @XmlElement(name = "NameSuffix", required = true)
                 protected String nameSuffix;
                 @XmlElement(name = "NameDataQuality")
-                protected byte nameDataQuality;
+                protected String nameDataQuality;
                 @XmlElement(name = "SSN", required = true)
                 protected SSN ssn;
                 @XmlElement(name = "SSNDataQuality")
-                protected byte ssnDataQuality;
+                protected String ssnDataQuality;
                 @XmlElement(name = "DOB", required = true)
                 protected XMLGregorianCalendar dob;
                 @XmlElement(name = "DOBDataQuality")
-                protected byte dobDataQuality;
+                protected String dobDataQuality;
                 @XmlElement(name = "Gender")
-                protected byte gender;
+                protected String gender;
                 @XmlElement(name = "Ethnicity")
-                protected byte ethnicity;
+                protected String ethnicity;
                 @XmlElement(name = "Race")
-                protected byte race;
+                protected String race;
                 @XmlElement(name = "VeteranStatus")
-                protected byte veteranStatus;
+                protected String veteranStatus;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -2066,7 +2066,7 @@ public class Sources {
                  * Gets the value of the nameDataQuality property.
                  * 
                  */
-                public byte getNameDataQuality() {
+                public String getNameDataQuality() {
                     return nameDataQuality;
                 }
 
@@ -2074,7 +2074,7 @@ public class Sources {
                  * Sets the value of the nameDataQuality property.
                  * 
                  */
-                public void setNameDataQuality(byte value) {
+                public void setNameDataQuality(String value) {
                     this.nameDataQuality = value;
                 }
 
@@ -2106,7 +2106,7 @@ public class Sources {
                  * Gets the value of the ssnDataQuality property.
                  * 
                  */
-                public byte getSSNDataQuality() {
+                public String getSSNDataQuality() {
                     return ssnDataQuality;
                 }
 
@@ -2114,7 +2114,7 @@ public class Sources {
                  * Sets the value of the ssnDataQuality property.
                  * 
                  */
-                public void setSSNDataQuality(byte value) {
+                public void setSSNDataQuality(String value) {
                     this.ssnDataQuality = value;
                 }
 
@@ -2146,7 +2146,7 @@ public class Sources {
                  * Gets the value of the dobDataQuality property.
                  * 
                  */
-                public byte getDOBDataQuality() {
+                public String getDOBDataQuality() {
                     return dobDataQuality;
                 }
 
@@ -2154,7 +2154,7 @@ public class Sources {
                  * Sets the value of the dobDataQuality property.
                  * 
                  */
-                public void setDOBDataQuality(byte value) {
+                public void setDOBDataQuality(String value) {
                     this.dobDataQuality = value;
                 }
 
@@ -2162,7 +2162,7 @@ public class Sources {
                  * Gets the value of the gender property.
                  * 
                  */
-                public byte getGender() {
+                public String getGender() {
                     return gender;
                 }
 
@@ -2170,7 +2170,7 @@ public class Sources {
                  * Sets the value of the gender property.
                  * 
                  */
-                public void setGender(byte value) {
+                public void setGender(String value) {
                     this.gender = value;
                 }
 
@@ -2178,7 +2178,7 @@ public class Sources {
                  * Gets the value of the ethnicity property.
                  * 
                  */
-                public byte getEthnicity() {
+                public String getEthnicity() {
                     return ethnicity;
                 }
 
@@ -2186,7 +2186,7 @@ public class Sources {
                  * Sets the value of the ethnicity property.
                  * 
                  */
-                public void setEthnicity(byte value) {
+                public void setEthnicity(String value) {
                     this.ethnicity = value;
                 }
 
@@ -2194,7 +2194,7 @@ public class Sources {
                  * Gets the value of the race property.
                  * 
                  */
-                public byte getRace() {
+                public String getRace() {
                     return race;
                 }
 
@@ -2202,7 +2202,7 @@ public class Sources {
                  * Sets the value of the race property.
                  * 
                  */
-                public void setRace(byte value) {
+                public void setRace(String value) {
                     this.race = value;
                 }
 
@@ -2210,7 +2210,7 @@ public class Sources {
                  * Gets the value of the veteranStatus property.
                  * 
                  */
-                public byte getVeteranStatus() {
+                public String getVeteranStatus() {
                     return veteranStatus;
                 }
 
@@ -2218,7 +2218,7 @@ public class Sources {
                  * Sets the value of the veteranStatus property.
                  * 
                  */
-                public void setVeteranStatus(byte value) {
+                public void setVeteranStatus(String value) {
                     this.veteranStatus = value;
                 }
 
@@ -2304,7 +2304,7 @@ public class Sources {
                  * &lt;complexType>
                  *   &lt;simpleContent>
                  *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-                 *       &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
+                 *       &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}String" />
                  *     &lt;/extension>
                  *   &lt;/simpleContent>
                  * &lt;/complexType>
@@ -2321,7 +2321,7 @@ public class Sources {
                     @XmlValue
                     protected String value;
                     @XmlAttribute
-                    protected Byte hashStatus;
+                    protected String hashStatus;
 
                     /**
                      * Gets the value of the value property.
@@ -2352,10 +2352,10 @@ public class Sources {
                      * 
                      * @return
                      *     possible object is
-                     *     {@link Byte }
+                     *     {@link String }
                      *     
                      */
-                    public Byte getHashStatus() {
+                    public String getHashStatus() {
                         return hashStatus;
                     }
 
@@ -2364,10 +2364,10 @@ public class Sources {
                      * 
                      * @param value
                      *     allowed object is
-                     *     {@link Byte }
+                     *     {@link String }
                      *     
                      */
-                    public void setHashStatus(Byte value) {
+                    public void setHashStatus(String value) {
                         this.hashStatus = value;
                     }
 
@@ -2383,7 +2383,7 @@ public class Sources {
                  * &lt;complexType>
                  *   &lt;simpleContent>
                  *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-                 *       &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
+                 *       &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}String" />
                  *     &lt;/extension>
                  *   &lt;/simpleContent>
                  * &lt;/complexType>
@@ -2400,7 +2400,7 @@ public class Sources {
                     @XmlValue
                     protected String value;
                     @XmlAttribute
-                    protected Byte hashStatus;
+                    protected String hashStatus;
 
                     /**
                      * Gets the value of the value property.
@@ -2431,10 +2431,10 @@ public class Sources {
                      * 
                      * @return
                      *     possible object is
-                     *     {@link Byte }
+                     *     {@link String }
                      *     
                      */
-                    public Byte getHashStatus() {
+                    public String getHashStatus() {
                         return hashStatus;
                     }
 
@@ -2443,10 +2443,10 @@ public class Sources {
                      * 
                      * @param value
                      *     allowed object is
-                     *     {@link Byte }
+                     *     {@link String }
                      *     
                      */
-                    public void setHashStatus(Byte value) {
+                    public void setHashStatus(String value) {
                         this.hashStatus = value;
                     }
 
@@ -2462,7 +2462,7 @@ public class Sources {
                  * &lt;complexType>
                  *   &lt;simpleContent>
                  *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-                 *       &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
+                 *       &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}String" />
                  *     &lt;/extension>
                  *   &lt;/simpleContent>
                  * &lt;/complexType>
@@ -2479,7 +2479,7 @@ public class Sources {
                     @XmlValue
                     protected String value;
                     @XmlAttribute
-                    protected Byte hashStatus;
+                    protected String hashStatus;
 
                     /**
                      * Gets the value of the value property.
@@ -2510,10 +2510,10 @@ public class Sources {
                      * 
                      * @return
                      *     possible object is
-                     *     {@link Byte }
+                     *     {@link String }
                      *     
                      */
-                    public Byte getHashStatus() {
+                    public String getHashStatus() {
                         return hashStatus;
                     }
 
@@ -2522,10 +2522,10 @@ public class Sources {
                      * 
                      * @param value
                      *     allowed object is
-                     *     {@link Byte }
+                     *     {@link String }
                      *     
                      */
-                    public void setHashStatus(Byte value) {
+                    public void setHashStatus(String value) {
                         this.hashStatus = value;
                     }
 
@@ -2541,7 +2541,7 @@ public class Sources {
                  * &lt;complexType>
                  *   &lt;simpleContent>
                  *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-                 *       &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}byte" />
+                 *       &lt;attribute name="hashStatus" type="{http://www.w3.org/2001/XMLSchema}String" />
                  *     &lt;/extension>
                  *   &lt;/simpleContent>
                  * &lt;/complexType>
@@ -2558,7 +2558,7 @@ public class Sources {
                     @XmlValue
                     protected String value;
                     @XmlAttribute
-                    protected Byte hashStatus;
+                    protected String hashStatus;
 
                     /**
                      * Gets the value of the value property.
@@ -2589,10 +2589,10 @@ public class Sources {
                      * 
                      * @return
                      *     possible object is
-                     *     {@link Byte }
+                     *     {@link String }
                      *     
                      */
-                    public Byte getHashStatus() {
+                    public String getHashStatus() {
                         return hashStatus;
                     }
 
@@ -2601,10 +2601,10 @@ public class Sources {
                      * 
                      * @param value
                      *     allowed object is
-                     *     {@link Byte }
+                     *     {@link String }
                      *     
                      */
-                    public void setHashStatus(Byte value) {
+                    public void setHashStatus(String value) {
                         this.hashStatus = value;
                     }
 
@@ -2627,16 +2627,16 @@ public class Sources {
              *         &lt;element name="PersonalID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="YearEnteredService" type="{http://www.w3.org/2001/XMLSchema}short"/>
              *         &lt;element name="YearSeparated" type="{http://www.w3.org/2001/XMLSchema}short"/>
-             *         &lt;element name="WorldWarII" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="KoreanWar" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="VietnamWar" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="DesertStorm" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="AfghanistanOEF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="IraqOIF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="IraqOND" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="OtherTheater" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="MilitaryBranch" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="DischargeStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="WorldWarII" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="KoreanWar" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="VietnamWar" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="DesertStorm" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="AfghanistanOEF" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="IraqOIF" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="IraqOND" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="OtherTheater" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="MilitaryBranch" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="DischargeStatus" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -2676,25 +2676,25 @@ public class Sources {
                 @XmlElement(name = "YearSeparated")
                 protected short yearSeparated;
                 @XmlElement(name = "WorldWarII")
-                protected byte worldWarII;
+                protected String worldWarII;
                 @XmlElement(name = "KoreanWar")
-                protected byte koreanWar;
+                protected String koreanWar;
                 @XmlElement(name = "VietnamWar")
-                protected byte vietnamWar;
+                protected String vietnamWar;
                 @XmlElement(name = "DesertStorm")
-                protected byte desertStorm;
+                protected String desertStorm;
                 @XmlElement(name = "AfghanistanOEF")
-                protected byte afghanistanOEF;
+                protected String afghanistanOEF;
                 @XmlElement(name = "IraqOIF")
-                protected byte iraqOIF;
+                protected String iraqOIF;
                 @XmlElement(name = "IraqOND")
-                protected byte iraqOND;
+                protected String iraqOND;
                 @XmlElement(name = "OtherTheater")
-                protected byte otherTheater;
+                protected String otherTheater;
                 @XmlElement(name = "MilitaryBranch")
-                protected byte militaryBranch;
+                protected String militaryBranch;
                 @XmlElement(name = "DischargeStatus")
-                protected byte dischargeStatus;
+                protected String dischargeStatus;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -2786,7 +2786,7 @@ public class Sources {
                  * Gets the value of the worldWarII property.
                  * 
                  */
-                public byte getWorldWarII() {
+                public String getWorldWarII() {
                     return worldWarII;
                 }
 
@@ -2794,7 +2794,7 @@ public class Sources {
                  * Sets the value of the worldWarII property.
                  * 
                  */
-                public void setWorldWarII(byte value) {
+                public void setWorldWarII(String value) {
                     this.worldWarII = value;
                 }
 
@@ -2802,7 +2802,7 @@ public class Sources {
                  * Gets the value of the koreanWar property.
                  * 
                  */
-                public byte getKoreanWar() {
+                public String getKoreanWar() {
                     return koreanWar;
                 }
 
@@ -2810,7 +2810,7 @@ public class Sources {
                  * Sets the value of the koreanWar property.
                  * 
                  */
-                public void setKoreanWar(byte value) {
+                public void setKoreanWar(String value) {
                     this.koreanWar = value;
                 }
 
@@ -2818,7 +2818,7 @@ public class Sources {
                  * Gets the value of the vietnamWar property.
                  * 
                  */
-                public byte getVietnamWar() {
+                public String getVietnamWar() {
                     return vietnamWar;
                 }
 
@@ -2826,7 +2826,7 @@ public class Sources {
                  * Sets the value of the vietnamWar property.
                  * 
                  */
-                public void setVietnamWar(byte value) {
+                public void setVietnamWar(String value) {
                     this.vietnamWar = value;
                 }
 
@@ -2834,7 +2834,7 @@ public class Sources {
                  * Gets the value of the desertStorm property.
                  * 
                  */
-                public byte getDesertStorm() {
+                public String getDesertStorm() {
                     return desertStorm;
                 }
 
@@ -2842,7 +2842,7 @@ public class Sources {
                  * Sets the value of the desertStorm property.
                  * 
                  */
-                public void setDesertStorm(byte value) {
+                public void setDesertStorm(String value) {
                     this.desertStorm = value;
                 }
 
@@ -2850,7 +2850,7 @@ public class Sources {
                  * Gets the value of the afghanistanOEF property.
                  * 
                  */
-                public byte getAfghanistanOEF() {
+                public String getAfghanistanOEF() {
                     return afghanistanOEF;
                 }
 
@@ -2858,7 +2858,7 @@ public class Sources {
                  * Sets the value of the afghanistanOEF property.
                  * 
                  */
-                public void setAfghanistanOEF(byte value) {
+                public void setAfghanistanOEF(String value) {
                     this.afghanistanOEF = value;
                 }
 
@@ -2866,7 +2866,7 @@ public class Sources {
                  * Gets the value of the iraqOIF property.
                  * 
                  */
-                public byte getIraqOIF() {
+                public String getIraqOIF() {
                     return iraqOIF;
                 }
 
@@ -2874,7 +2874,7 @@ public class Sources {
                  * Sets the value of the iraqOIF property.
                  * 
                  */
-                public void setIraqOIF(byte value) {
+                public void setIraqOIF(String value) {
                     this.iraqOIF = value;
                 }
 
@@ -2882,7 +2882,7 @@ public class Sources {
                  * Gets the value of the iraqOND property.
                  * 
                  */
-                public byte getIraqOND() {
+                public String getIraqOND() {
                     return iraqOND;
                 }
 
@@ -2890,7 +2890,7 @@ public class Sources {
                  * Sets the value of the iraqOND property.
                  * 
                  */
-                public void setIraqOND(byte value) {
+                public void setIraqOND(String value) {
                     this.iraqOND = value;
                 }
 
@@ -2898,7 +2898,7 @@ public class Sources {
                  * Gets the value of the otherTheater property.
                  * 
                  */
-                public byte getOtherTheater() {
+                public String getOtherTheater() {
                     return otherTheater;
                 }
 
@@ -2906,7 +2906,7 @@ public class Sources {
                  * Sets the value of the otherTheater property.
                  * 
                  */
-                public void setOtherTheater(byte value) {
+                public void setOtherTheater(String value) {
                     this.otherTheater = value;
                 }
 
@@ -2914,7 +2914,7 @@ public class Sources {
                  * Gets the value of the militaryBranch property.
                  * 
                  */
-                public byte getMilitaryBranch() {
+                public String getMilitaryBranch() {
                     return militaryBranch;
                 }
 
@@ -2922,7 +2922,7 @@ public class Sources {
                  * Sets the value of the militaryBranch property.
                  * 
                  */
-                public void setMilitaryBranch(byte value) {
+                public void setMilitaryBranch(String value) {
                     this.militaryBranch = value;
                 }
 
@@ -2930,7 +2930,7 @@ public class Sources {
                  * Gets the value of the dischargeStatus property.
                  * 
                  */
-                public byte getDischargeStatus() {
+                public String getDischargeStatus() {
                     return dischargeStatus;
                 }
 
@@ -2938,7 +2938,7 @@ public class Sources {
                  * Sets the value of the dischargeStatus property.
                  * 
                  */
-                public void setDischargeStatus(byte value) {
+                public void setDischargeStatus(String value) {
                     this.dischargeStatus = value;
                 }
 
@@ -3194,7 +3194,7 @@ public class Sources {
              *         &lt;element name="ContactID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ContactDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
-             *         &lt;element name="ContactLocation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="ContactLocation" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -3222,7 +3222,7 @@ public class Sources {
                 @XmlElement(name = "ContactDate", required = true)
                 protected XMLGregorianCalendar contactDate;
                 @XmlElement(name = "ContactLocation")
-                protected byte contactLocation;
+                protected String contactLocation;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -3306,7 +3306,7 @@ public class Sources {
                  * Gets the value of the contactLocation property.
                  * 
                  */
-                public byte getContactLocation() {
+                public String getContactLocation() {
                     return contactLocation;
                 }
 
@@ -3314,7 +3314,7 @@ public class Sources {
                  * Sets the value of the contactLocation property.
                  * 
                  */
-                public void setContactLocation(byte value) {
+                public void setContactLocation(String value) {
                     this.contactLocation = value;
                 }
 
@@ -3405,7 +3405,7 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="ConnectionWithSOARID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ConnectionWithSOAR" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="ConnectionWithSOAR" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -3698,21 +3698,21 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="DisabilitiesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="DisabilityType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="DisabilityResponse" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="IndefiniteAndImpairsIndependence" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="DocumentationOnFile" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ReceivingServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="PATHHowConfirmed" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="PATHSMIInformation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="TCellCountAvailable" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="DisabilityType" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="DisabilityResponse" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="IndefiniteAndImpairsIndependence" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="DocumentationOnFile" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ReceivingServices" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="PATHHowConfirmed" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="PATHSMIInformation" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="TCellCountAvailable" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="TCellCount" type="{http://www.w3.org/2001/XMLSchema}short"/>
-             *         &lt;element name="TCellSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ViralLoadAvailable" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="TCellSource" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ViralLoadAvailable" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="ViralLoad" type="{http://www.w3.org/2001/XMLSchema}int"/>
-             *         &lt;element name="ViralLoadSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="ViralLoadSource" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
@@ -3749,11 +3749,11 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "DisabilityType")
-                protected byte disabilityType;
+                protected String disabilityType;
                 @XmlElement(name = "DisabilityResponse")
-                protected byte disabilityResponse;
+                protected String disabilityResponse;
                 @XmlElement(name = "IndefiniteAndImpairsIndependence")
-                protected byte indefiniteAndImpairsIndependence;
+                protected String indefiniteAndImpairsIndependence;
                 @XmlElement(name = "TCellCountAvailable")
                 protected String tCellCountAvailable;
                 @XmlElement(name = "TCellCount")
@@ -3765,9 +3765,9 @@ public class Sources {
                 @XmlElement(name = "ViralLoad")
                 protected int viralLoad;
                 @XmlElement(name = "ViralLoadSource")
-                protected byte viralLoadSource;
+                protected String viralLoadSource;
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -3829,7 +3829,7 @@ public class Sources {
                  * Gets the value of the disabilityType property.
                  * 
                  */
-                public byte getDisabilityType() {
+                public String getDisabilityType() {
                     return disabilityType;
                 }
 
@@ -3837,7 +3837,7 @@ public class Sources {
                  * Sets the value of the disabilityType property.
                  * 
                  */
-                public void setDisabilityType(byte value) {
+                public void setDisabilityType(String value) {
                     this.disabilityType = value;
                 }
 
@@ -3845,7 +3845,7 @@ public class Sources {
                  * Gets the value of the disabilityResponse property.
                  * 
                  */
-                public byte getDisabilityResponse() {
+                public String getDisabilityResponse() {
                     return disabilityResponse;
                 }
 
@@ -3853,7 +3853,7 @@ public class Sources {
                  * Sets the value of the disabilityResponse property.
                  * 
                  */
-                public void setDisabilityResponse(byte value) {
+                public void setDisabilityResponse(String value) {
                     this.disabilityResponse = value;
                 }
 
@@ -3861,7 +3861,7 @@ public class Sources {
                  * Gets the value of the indefiniteAndImpairsIndependence property.
                  * 
                  */
-                public byte getIndefiniteAndImpairsIndependence() {
+                public String getIndefiniteAndImpairsIndependence() {
                     return indefiniteAndImpairsIndependence;
                 }
 
@@ -3869,7 +3869,7 @@ public class Sources {
                  * Sets the value of the indefiniteAndImpairsIndependence property.
                  * 
                  */
-                public void setIndefiniteAndImpairsIndependence(byte value) {
+                public void setIndefiniteAndImpairsIndependence(String value) {
                     this.indefiniteAndImpairsIndependence = value;
                 }
 
@@ -3877,7 +3877,7 @@ public class Sources {
                  * Gets the value of the documentationOnFile property.
                  * 
                  */
-                /*public byte getDocumentationOnFile() {
+                /*public String getDocumentationOnFile() {
                     return documentationOnFile;
                 }*/
 
@@ -3885,7 +3885,7 @@ public class Sources {
                  * Sets the value of the documentationOnFile property.
                  * 
                  */
-                /*public void setDocumentationOnFile(byte value) {
+                /*public void setDocumentationOnFile(String value) {
                     this.documentationOnFile = value;
                 }*/
 
@@ -3893,7 +3893,7 @@ public class Sources {
                  * Gets the value of the receivingServices property.
                  * 
                  */
-               /* public byte getReceivingServices() {
+               /* public String getReceivingServices() {
                     return receivingServices;
                 }*/
 
@@ -3901,7 +3901,7 @@ public class Sources {
                  * Sets the value of the receivingServices property.
                  * 
                  */
-               /* public void setReceivingServices(byte value) {
+               /* public void setReceivingServices(String value) {
                     this.receivingServices = value;
                 }*/
 
@@ -3909,7 +3909,7 @@ public class Sources {
                  * Gets the value of the pathHowConfirmed property.
                  * 
                  */
-               /* public byte getPATHHowConfirmed() {
+               /* public String getPATHHowConfirmed() {
                     return pathHowConfirmed;
                 }*/
 
@@ -3917,7 +3917,7 @@ public class Sources {
                  * Sets the value of the pathHowConfirmed property.
                  * 
                  */
-                /*public void setPATHHowConfirmed(byte value) {
+                /*public void setPATHHowConfirmed(String value) {
                     this.pathHowConfirmed = value;
                 }*/
 
@@ -3925,7 +3925,7 @@ public class Sources {
                  * Gets the value of the pathsmiInformation property.
                  * 
                  */
-                /*public byte getPATHSMIInformation() {
+                /*public String getPATHSMIInformation() {
                     return pathsmiInformation;
                 }*/
 
@@ -3933,7 +3933,7 @@ public class Sources {
                  * Sets the value of the pathsmiInformation property.
                  * 
                  */
-               /* public void setPATHSMIInformation(byte value) {
+               /* public void setPATHSMIInformation(String value) {
                     this.pathsmiInformation = value;
                 }*/
 
@@ -4021,7 +4021,7 @@ public class Sources {
                  * Gets the value of the viralLoadSource property.
                  * 
                  */
-                public byte getViralLoadSource() {
+                public String getViralLoadSource() {
                     return viralLoadSource;
                 }
 
@@ -4029,7 +4029,7 @@ public class Sources {
                  * Sets the value of the viralLoadSource property.
                  * 
                  */
-                public void setViralLoadSource(byte value) {
+                public void setViralLoadSource(String value) {
                     this.viralLoadSource = value;
                 }
 
@@ -4038,10 +4038,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -4050,10 +4050,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -4168,11 +4168,11 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="DomesticViolenceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="DomesticViolenceVictim" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="WhenOccurred" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="CurrentlyFleeing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="DomesticViolenceVictim" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="WhenOccurred" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="CurrentlyFleeing" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
@@ -4199,13 +4199,13 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "DomesticViolenceVictim")
-                protected byte domesticViolenceVictim;
+                protected String domesticViolenceVictim;
                 @XmlElement(name = "WhenOccurred")
-                protected byte whenOccurred;
+                protected String whenOccurred;
                 @XmlElement(name = "CurrentlyFleeing")
-                protected byte currentlyFleeing;
+                protected String currentlyFleeing;
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -4267,7 +4267,7 @@ public class Sources {
                  * Gets the value of the domesticViolenceVictim property.
                  * 
                  */
-                public byte getDomesticViolenceVictim() {
+                public String getDomesticViolenceVictim() {
                     return domesticViolenceVictim;
                 }
 
@@ -4275,7 +4275,7 @@ public class Sources {
                  * Sets the value of the domesticViolenceVictim property.
                  * 
                  */
-                public void setDomesticViolenceVictim(byte value) {
+                public void setDomesticViolenceVictim(String value) {
                     this.domesticViolenceVictim = value;
                 }
 
@@ -4283,7 +4283,7 @@ public class Sources {
                  * Gets the value of the whenOccurred property.
                  * 
                  */
-                public byte getWhenOccurred() {
+                public String getWhenOccurred() {
                     return whenOccurred;
                 }
 
@@ -4291,7 +4291,7 @@ public class Sources {
                  * Sets the value of the whenOccurred property.
                  * 
                  */
-                public void setWhenOccurred(byte value) {
+                public void setWhenOccurred(String value) {
                     this.whenOccurred = value;
                 }
 
@@ -4299,7 +4299,7 @@ public class Sources {
                  * Gets the value of the currentlyFleeing property.
                  * 
                  */
-                public byte getCurrentlyFleeing() {
+                public String getCurrentlyFleeing() {
                     return currentlyFleeing;
                 }
 
@@ -4307,7 +4307,7 @@ public class Sources {
                  * Sets the value of the currentlyFleeing property.
                  * 
                  */
-                public void setCurrentlyFleeing(byte value) {
+                public void setCurrentlyFleeing(String value) {
                     this.currentlyFleeing = value;
                 }
 
@@ -4316,10 +4316,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -4328,10 +4328,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -4446,10 +4446,10 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="EducationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="LastGradeCompleted" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="SchoolStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="LastGradeCompleted" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="SchoolStatus" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
@@ -4475,11 +4475,11 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "LastGradeCompleted")
-                protected byte lastGradeCompleted;
+                protected String lastGradeCompleted;
                 @XmlElement(name = "SchoolStatus")
                 protected String schoolStatus;
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -4541,7 +4541,7 @@ public class Sources {
                  * Gets the value of the lastGradeCompleted property.
                  * 
                  */
-                public byte getLastGradeCompleted() {
+                public String getLastGradeCompleted() {
                     return lastGradeCompleted;
                 }
 
@@ -4549,7 +4549,7 @@ public class Sources {
                  * Sets the value of the lastGradeCompleted property.
                  * 
                  */
-                public void setLastGradeCompleted(byte value) {
+                public void setLastGradeCompleted(String value) {
                     this.lastGradeCompleted = value;
                 }
 
@@ -4574,10 +4574,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -4586,10 +4586,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -4704,11 +4704,11 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="EmploymentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="Employed" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="EmploymentType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NotEmployedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="Employed" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="EmploymentType" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NotEmployedReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
@@ -4735,13 +4735,13 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "Employed")
-                protected byte employed;
+                protected String employed;
                 @XmlElement(name = "EmploymentType")
-                protected byte employmentType;
+                protected String employmentType;
                 @XmlElement(name = "NotEmployedReason")
-                protected byte notEmployedReason;
+                protected String notEmployedReason;
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -4803,7 +4803,7 @@ public class Sources {
                  * Gets the value of the employed property.
                  * 
                  */
-                public byte getEmployed() {
+                public String getEmployed() {
                     return employed;
                 }
 
@@ -4811,7 +4811,7 @@ public class Sources {
                  * Sets the value of the employed property.
                  * 
                  */
-                public void setEmployed(byte value) {
+                public void setEmployed(String value) {
                     this.employed = value;
                 }
 
@@ -4819,7 +4819,7 @@ public class Sources {
                  * Gets the value of the employmentType property.
                  * 
                  */
-                public byte getEmploymentType() {
+                public String getEmploymentType() {
                     return employmentType;
                 }
 
@@ -4827,7 +4827,7 @@ public class Sources {
                  * Sets the value of the employmentType property.
                  * 
                  */
-                public void setEmploymentType(byte value) {
+                public void setEmploymentType(String value) {
                     this.employmentType = value;
                 }
 
@@ -4835,7 +4835,7 @@ public class Sources {
                  * Gets the value of the notEmployedReason property.
                  * 
                  */
-                public byte getNotEmployedReason() {
+                public String getNotEmployedReason() {
                     return notEmployedReason;
                 }
 
@@ -4843,7 +4843,7 @@ public class Sources {
                  * Sets the value of the notEmployedReason property.
                  * 
                  */
-                public void setNotEmployedReason(byte value) {
+                public void setNotEmployedReason(String value) {
                     this.notEmployedReason = value;
                 }
 
@@ -4852,10 +4852,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -4864,10 +4864,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -4985,16 +4985,16 @@ public class Sources {
              *         &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="EntryDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *         &lt;element name="HouseholdID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="RelationshipToHoH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ResidencePrior" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="RelationshipToHoH" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ResidencePrior" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="OtherResidencePrior" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ResidencePriorLengthOfStay" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="EntryFromStreetESSH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="ResidencePriorLengthOfStay" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="EntryFromStreetESSH" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="DateToStreetESSH" type="{http://www.w3.org/2001/XMLSchema}date" minOccurs="0"/>
-             *         &lt;element name="TimesHomelessPastThreeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="MonthsHomelessPastThreeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="DisablingCondition" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="HousingStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="TimesHomelessPastThreeYears" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="MonthsHomelessPastThreeYears" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="DisablingCondition" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="HousingStatus" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -5040,7 +5040,7 @@ public class Sources {
                 @XmlElement(name = "HouseholdID", required = true)
                 protected String householdID;
                 @XmlElement(name = "RelationshipToHoH")
-                protected byte relationshipToHoH;
+                protected String relationshipToHoH;
                 @XmlElement(name = "livingSituation")
                 protected String livingSituation;
                 @XmlElement(name = "lengthOfStay")
@@ -5204,7 +5204,7 @@ public class Sources {
                  * Gets the value of the relationshipToHoH property.
                  * 
                  */
-                public byte getRelationshipToHoH() {
+                public String getRelationshipToHoH() {
                     return relationshipToHoH;
                 }
 
@@ -5212,7 +5212,7 @@ public class Sources {
                  * Sets the value of the relationshipToHoH property.
                  * 
                  */
-                public void setRelationshipToHoH(byte value) {
+                public void setRelationshipToHoH(String value) {
                     this.relationshipToHoH = value;
                 }
                 /**
@@ -5317,7 +5317,7 @@ public class Sources {
                  * Gets the value of the housingStatus property.
                  * 
                  */
-                /*public byte getHousingStatus() {
+                /*public String getHousingStatus() {
                     return housingStatus;
                 }*/
 
@@ -5325,7 +5325,7 @@ public class Sources {
                  * Sets the value of the housingStatus property.
                  * 
                  */
-                /*public void setHousingStatus(byte value) {
+                /*public void setHousingStatus(String value) {
                     this.housingStatus = value;
                 }*/
 
@@ -5418,7 +5418,7 @@ public class Sources {
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
@@ -5449,7 +5449,7 @@ public class Sources {
                 @XmlElement(name="HouseholdID")
                 protected String householdID;
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -5570,10 +5570,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -5582,10 +5582,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -5700,51 +5700,51 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="EntryRHYID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="HouseholdDynamics" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="SexualOrientation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="SexualOrientationGenderIdentityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="SexualOrientationGenderIDFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="HousingIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="HousingIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="SchoolEducationalIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="SchoolEducationalIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="UnemploymentYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="UnemploymentFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="MentalHealthIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="MentalHealthIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="HealthIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="HealthIssuesFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="PhysicalDisabilityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="PhysicalDisabilityFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="MentalDisabilityYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="MentalDisabilityFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="AbuseAndNeglectYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="AbuseAndNeglectFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="AlcoholDrugAbuseYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="AlcoholDrugAbuseFam" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="InsufficientIncome" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ActiveMilitaryParent" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="IncarceratedParent" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="IncarceratedParentStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="WorkPlaceViolenceThreats" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="WorkplacePromiseDifference" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="CoercedToContinueWork" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="LaborExploitPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ExchangeForSexPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="CountOfExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="AskedOrForcedToExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="AskedOrForcedToExchangeForSexPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="FormerWardJuvenileJustice" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="JuvenileJusticeYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="JuvenileJusticeMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="FormerWardChildWelfare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ChildWelfareYears" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ChildWelfareMonths" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ReferralSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="CountOutreachReferralApproaches" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="HouseholdDynamics" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="SexualOrientation" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="SexualOrientationGenderIdentityYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="SexualOrientationGenderIDFam" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="HousingIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="HousingIssuesFam" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="SchoolEducationalIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="SchoolEducationalIssuesFam" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="UnemploymentYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="UnemploymentFam" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="MentalHealthIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="MentalHealthIssuesFam" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="HealthIssuesYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="HealthIssuesFam" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="PhysicalDisabilityYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="PhysicalDisabilityFam" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="MentalDisabilityYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="MentalDisabilityFam" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="AbuseAndNeglectYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="AbuseAndNeglectFam" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="AlcoholDrugAbuseYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="AlcoholDrugAbuseFam" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="InsufficientIncome" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ActiveMilitaryParent" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="IncarceratedParent" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="IncarceratedParentStatus" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="WorkPlaceViolenceThreats" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="WorkplacePromiseDifference" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="CoercedToContinueWork" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="LaborExploitPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ExchangeForSexPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="CountOfExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="AskedOrForcedToExchangeForSex" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="AskedOrForcedToExchangeForSexPastThreeMonths" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="FormerWardJuvenileJustice" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="JuvenileJusticeYears" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="JuvenileJusticeMonths" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="FormerWardChildWelfare" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ChildWelfareYears" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ChildWelfareMonths" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ReferralSource" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="CountOutreachReferralApproaches" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="userID" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -5782,37 +5782,37 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "SexualOrientation")
-                protected byte sexualOrientation;
+                protected String sexualOrientation;
                 @XmlElement(name = "UnemploymentFam")
-                protected byte unemploymentFam;
+                protected String unemploymentFam;
                 @XmlElement(name = "MentalHealthIssuesFam")
-                protected byte mentalHealthIssuesFam;
+                protected String mentalHealthIssuesFam;
                 @XmlElement(name = "PhysicalDisabilityFam")
-                protected byte physicalDisabilityFam;
+                protected String physicalDisabilityFam;
                 @XmlElement(name = "AlcoholDrugAbuseFam")
-                protected byte alcoholDrugAbuseFam;
+                protected String alcoholDrugAbuseFam;
                 @XmlElement(name = "InsufficientIncome")
-                protected byte insufficientIncome;
+                protected String insufficientIncome;
                 @XmlElement(name = "IncarceratedParent")
-                protected byte incarceratedParent;
+                protected String incarceratedParent;
                 @XmlElement(name = "FormerWardJuvenileJustice")
-                protected byte formerWardJuvenileJustice;
+                protected String formerWardJuvenileJustice;
                 @XmlElement(name = "JuvenileJusticeYears")
-                protected byte juvenileJusticeYears;
+                protected String juvenileJusticeYears;
                 @XmlElement(name = "JuvenileJusticeMonths")
-                protected byte juvenileJusticeMonths;
+                protected String juvenileJusticeMonths;
                 @XmlElement(name = "FormerWardChildWelfare")
-                protected byte formerWardChildWelfare;
+                protected String formerWardChildWelfare;
                 @XmlElement(name = "ChildWelfareYears")
-                protected byte childWelfareYears;
+                protected String childWelfareYears;
                 @XmlElement(name = "ChildWelfareMonths")
-                protected byte childWelfareMonths;
+                protected String childWelfareMonths;
                 @XmlElement(name = "ReferralSource")
-                protected byte referralSource;
+                protected String referralSource;
                 @XmlElement(name = "CountOutreachReferralApproaches")
-                protected byte countOutreachReferralApproaches;
+                protected String countOutreachReferralApproaches;
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -5857,7 +5857,7 @@ public class Sources {
                  * Gets the value of the sexualOrientation property.
                  * 
                  */
-                public byte getSexualOrientation() {
+                public String getSexualOrientation() {
                     return sexualOrientation;
                 }
 
@@ -5865,7 +5865,7 @@ public class Sources {
                  * Sets the value of the sexualOrientation property.
                  * 
                  */
-                public void setSexualOrientation(byte value) {
+                public void setSexualOrientation(String value) {
                     this.sexualOrientation = value;
                 }
 
@@ -5873,7 +5873,7 @@ public class Sources {
                  * Gets the value of the unemploymentFam property.
                  * 
                  */
-                public byte getUnemploymentFam() {
+                public String getUnemploymentFam() {
                     return unemploymentFam;
                 }
 
@@ -5881,7 +5881,7 @@ public class Sources {
                  * Sets the value of the unemploymentFam property.
                  * 
                  */
-                public void setUnemploymentFam(byte value) {
+                public void setUnemploymentFam(String value) {
                     this.unemploymentFam = value;
                 }
 
@@ -5889,7 +5889,7 @@ public class Sources {
                  * Gets the value of the mentalHealthIssuesFam property.
                  * 
                  */
-                public byte getMentalHealthIssuesFam() {
+                public String getMentalHealthIssuesFam() {
                     return mentalHealthIssuesFam;
                 }
 
@@ -5897,7 +5897,7 @@ public class Sources {
                  * Sets the value of the mentalHealthIssuesFam property.
                  * 
                  */
-                public void setMentalHealthIssuesFam(byte value) {
+                public void setMentalHealthIssuesFam(String value) {
                     this.mentalHealthIssuesFam = value;
                 }
 
@@ -5905,7 +5905,7 @@ public class Sources {
                  * Gets the value of the physicalDisabilityFam property.
                  * 
                  */
-                public byte getPhysicalDisabilityFam() {
+                public String getPhysicalDisabilityFam() {
                     return physicalDisabilityFam;
                 }
 
@@ -5913,7 +5913,7 @@ public class Sources {
                  * Sets the value of the physicalDisabilityFam property.
                  * 
                  */
-                public void setPhysicalDisabilityFam(byte value) {
+                public void setPhysicalDisabilityFam(String value) {
                     this.physicalDisabilityFam = value;
                 }
 
@@ -5921,7 +5921,7 @@ public class Sources {
                  * Gets the value of the alcoholDrugAbuseFam property.
                  * 
                  */
-                public byte getAlcoholDrugAbuseFam() {
+                public String getAlcoholDrugAbuseFam() {
                     return alcoholDrugAbuseFam;
                 }
 
@@ -5929,7 +5929,7 @@ public class Sources {
                  * Sets the value of the alcoholDrugAbuseFam property.
                  * 
                  */
-                public void setAlcoholDrugAbuseFam(byte value) {
+                public void setAlcoholDrugAbuseFam(String value) {
                     this.alcoholDrugAbuseFam = value;
                 }
 
@@ -5937,7 +5937,7 @@ public class Sources {
                  * Gets the value of the insufficientIncome property.
                  * 
                  */
-                public byte getInsufficientIncome() {
+                public String getInsufficientIncome() {
                     return insufficientIncome;
                 }
 
@@ -5945,7 +5945,7 @@ public class Sources {
                  * Sets the value of the insufficientIncome property.
                  * 
                  */
-                public void setInsufficientIncome(byte value) {
+                public void setInsufficientIncome(String value) {
                     this.insufficientIncome = value;
                 }
 
@@ -5954,7 +5954,7 @@ public class Sources {
                  * Gets the value of the incarceratedParent property.
                  * 
                  */
-                public byte getIncarceratedParent() {
+                public String getIncarceratedParent() {
                     return incarceratedParent;
                 }
 
@@ -5962,7 +5962,7 @@ public class Sources {
                  * Sets the value of the incarceratedParent property.
                  * 
                  */
-                public void setIncarceratedParent(byte value) {
+                public void setIncarceratedParent(String value) {
                     this.incarceratedParent = value;
                 }
 
@@ -5971,7 +5971,7 @@ public class Sources {
                  * Gets the value of the formerWardJuvenileJustice property.
                  * 
                  */
-                public byte getFormerWardJuvenileJustice() {
+                public String getFormerWardJuvenileJustice() {
                     return formerWardJuvenileJustice;
                 }
 
@@ -5979,7 +5979,7 @@ public class Sources {
                  * Sets the value of the formerWardJuvenileJustice property.
                  * 
                  */
-                public void setFormerWardJuvenileJustice(byte value) {
+                public void setFormerWardJuvenileJustice(String value) {
                     this.formerWardJuvenileJustice = value;
                 }
 
@@ -5987,7 +5987,7 @@ public class Sources {
                  * Gets the value of the juvenileJusticeYears property.
                  * 
                  */
-                public byte getJuvenileJusticeYears() {
+                public String getJuvenileJusticeYears() {
                     return juvenileJusticeYears;
                 }
 
@@ -5995,7 +5995,7 @@ public class Sources {
                  * Sets the value of the juvenileJusticeYears property.
                  * 
                  */
-                public void setJuvenileJusticeYears(byte value) {
+                public void setJuvenileJusticeYears(String value) {
                     this.juvenileJusticeYears = value;
                 }
 
@@ -6003,7 +6003,7 @@ public class Sources {
                  * Gets the value of the juvenileJusticeMonths property.
                  * 
                  */
-                public byte getJuvenileJusticeMonths() {
+                public String getJuvenileJusticeMonths() {
                     return juvenileJusticeMonths;
                 }
 
@@ -6011,7 +6011,7 @@ public class Sources {
                  * Sets the value of the juvenileJusticeMonths property.
                  * 
                  */
-                public void setJuvenileJusticeMonths(byte value) {
+                public void setJuvenileJusticeMonths(String value) {
                     this.juvenileJusticeMonths = value;
                 }
 
@@ -6019,7 +6019,7 @@ public class Sources {
                  * Gets the value of the formerWardChildWelfare property.
                  * 
                  */
-                public byte getFormerWardChildWelfare() {
+                public String getFormerWardChildWelfare() {
                     return formerWardChildWelfare;
                 }
 
@@ -6027,7 +6027,7 @@ public class Sources {
                  * Sets the value of the formerWardChildWelfare property.
                  * 
                  */
-                public void setFormerWardChildWelfare(byte value) {
+                public void setFormerWardChildWelfare(String value) {
                     this.formerWardChildWelfare = value;
                 }
 
@@ -6035,7 +6035,7 @@ public class Sources {
                  * Gets the value of the childWelfareYears property.
                  * 
                  */
-                public byte getChildWelfareYears() {
+                public String getChildWelfareYears() {
                     return childWelfareYears;
                 }
 
@@ -6043,7 +6043,7 @@ public class Sources {
                  * Sets the value of the childWelfareYears property.
                  * 
                  */
-                public void setChildWelfareYears(byte value) {
+                public void setChildWelfareYears(String value) {
                     this.childWelfareYears = value;
                 }
 
@@ -6051,7 +6051,7 @@ public class Sources {
                  * Gets the value of the childWelfareMonths property.
                  * 
                  */
-                public byte getChildWelfareMonths() {
+                public String getChildWelfareMonths() {
                     return childWelfareMonths;
                 }
 
@@ -6059,7 +6059,7 @@ public class Sources {
                  * Sets the value of the childWelfareMonths property.
                  * 
                  */
-                public void setChildWelfareMonths(byte value) {
+                public void setChildWelfareMonths(String value) {
                     this.childWelfareMonths = value;
                 }
 
@@ -6067,7 +6067,7 @@ public class Sources {
                  * Gets the value of the referralSource property.
                  * 
                  */
-                public byte getReferralSource() {
+                public String getReferralSource() {
                     return referralSource;
                 }
 
@@ -6075,7 +6075,7 @@ public class Sources {
                  * Sets the value of the referralSource property.
                  * 
                  */
-                public void setReferralSource(byte value) {
+                public void setReferralSource(String value) {
                     this.referralSource = value;
                 }
 
@@ -6083,7 +6083,7 @@ public class Sources {
                  * Gets the value of the countOutreachReferralApproaches property.
                  * 
                  */
-                public byte getCountOutreachReferralApproaches() {
+                public String getCountOutreachReferralApproaches() {
                     return countOutreachReferralApproaches;
                 }
 
@@ -6091,7 +6091,7 @@ public class Sources {
                  * Sets the value of the countOutreachReferralApproaches property.
                  * 
                  */
-                public void setCountOutreachReferralApproaches(byte value) {
+                public void setCountOutreachReferralApproaches(String value) {
                     this.countOutreachReferralApproaches = value;
                 }
 
@@ -6100,10 +6100,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -6112,10 +6112,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -6206,14 +6206,14 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="EntrySSVFID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="PercentAMI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="HPScreeningScore" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="PercentAMI" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="HPScreeningScore" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="VAMCStation" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="LastPermanentStreet" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="LastPermanentCity" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="LastPermanentState" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="LastPermanentZIP" type="{http://www.w3.org/2001/XMLSchema}int"/>
-             *         &lt;element name="AddressDataQuality" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="AddressDataQuality" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -6269,7 +6269,7 @@ public class Sources {
                 @XmlElement(name = "PercentAMI")
                 protected String percentAMI;
                 @XmlElement(name = "HPScreeningScore")
-                protected byte hpScreeningScore;
+                protected String hpScreeningScore;
                 @XmlElement(name = "VAMCStation", required = true)
                 protected String vamcStation;
                 @XmlElement(name = "LastPermanentStreet", required = true)
@@ -6402,7 +6402,7 @@ public class Sources {
                  * Gets the value of the hpScreeningScore property.
                  * 
                  */
-                public byte getHPScreeningScore() {
+                public String getHPScreeningScore() {
                     return hpScreeningScore;
                 }
 
@@ -6410,7 +6410,7 @@ public class Sources {
                  * Sets the value of the hpScreeningScore property.
                  * 
                  */
-                public void setHPScreeningScore(byte value) {
+                public void setHPScreeningScore(String value) {
                     this.hpScreeningScore = value;
                 }
                 
@@ -6809,7 +6809,7 @@ public class Sources {
              *         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ExitDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="Destination" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="Destination" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="OtherDestination" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -6839,7 +6839,7 @@ public class Sources {
                 @XmlElement(name = "ExitDate", required = true)
                 protected XMLGregorianCalendar exitDate;
                 @XmlElement(name = "Destination")
-                protected byte destination;
+                protected String destination;
                 @XmlElement(name = "OtherDestination")
                 protected String otherDestination;
                 @XmlAttribute
@@ -6925,7 +6925,7 @@ public class Sources {
                  * Gets the value of the destination property.
                  * 
                  */
-                public byte getDestination() {
+                public String getDestination() {
                     return destination;
                 }
 
@@ -6933,7 +6933,7 @@ public class Sources {
                  * Sets the value of the destination property.
                  * 
                  */
-                public void setDestination(byte value) {
+                public void setDestination(String value) {
                     this.destination = value;
                 }
 
@@ -7048,8 +7048,8 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="ExitHousingAssessmentID" type="{http://www.w3.org/2001/XMLSchema}short"/>
              *         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="HousingAssessment" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="SubsidyInformation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="HousingAssessment" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="SubsidyInformation" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -7075,9 +7075,9 @@ public class Sources {
                 @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
                 @XmlElement(name = "HousingAssessment")
-                protected byte housingAssessment;
+                protected String housingAssessment;
                 @XmlElement(name = "SubsidyInformation")
-                protected byte subsidyInformation;
+                protected String subsidyInformation;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -7129,7 +7129,7 @@ public class Sources {
                  * Gets the value of the housingAssessment property.
                  * 
                  */
-                public byte getHousingAssessment() {
+                public String getHousingAssessment() {
                     return housingAssessment;
                 }
 
@@ -7137,7 +7137,7 @@ public class Sources {
                  * Sets the value of the housingAssessment property.
                  * 
                  */
-                public void setHousingAssessment(byte value) {
+                public void setHousingAssessment(String value) {
                     this.housingAssessment = value;
                 }
 
@@ -7145,7 +7145,7 @@ public class Sources {
                  * Gets the value of the subsidyInformation property.
                  * 
                  */
-                public byte getSubsidyInformation() {
+                public String getSubsidyInformation() {
                     return subsidyInformation;
                 }
 
@@ -7153,7 +7153,7 @@ public class Sources {
                  * Sets the value of the subsidyInformation property.
                  * 
                  */
-                public void setSubsidyInformation(byte value) {
+                public void setSubsidyInformation(String value) {
                     this.subsidyInformation = value;
                 }
 
@@ -7244,7 +7244,7 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="ExitPATHID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ConnectionWithSOAR" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="ConnectionWithSOAR" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -7269,7 +7269,7 @@ public class Sources {
                 @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
                 @XmlElement(name = "ConnectionWithSOAR")
-                protected byte connectionWithSOAR;
+                protected String connectionWithSOAR;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -7329,7 +7329,7 @@ public class Sources {
                  * Gets the value of the connectionWithSOAR property.
                  * 
                  */
-                public byte getConnectionWithSOAR() {
+                public String getConnectionWithSOAR() {
                     return connectionWithSOAR;
                 }
 
@@ -7337,7 +7337,7 @@ public class Sources {
                  * Sets the value of the connectionWithSOAR property.
                  * 
                  */
-                public void setConnectionWithSOAR(byte value) {
+                public void setConnectionWithSOAR(String value) {
                     this.connectionWithSOAR = value;
                 }
 
@@ -7428,18 +7428,18 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="ExitRHYID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="WrittenAftercarePlan" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="AssistanceMainstreamBenefits" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="PermanentHousingPlacement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="TemporaryShelterPlacement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ExitCounseling" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="FurtherFollowUpServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ScheduledFollowUpContacts" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ResourcePackage" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="OtherAftercarePlanOrAction" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="FamilyReunificationAchieved" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ProjectCompletionStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="EarlyExitReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="WrittenAftercarePlan" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="AssistanceMainstreamBenefits" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="PermanentHousingPlacement" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="TemporaryShelterPlacement" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ExitCounseling" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="FurtherFollowUpServices" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ScheduledFollowUpContacts" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ResourcePackage" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="OtherAftercarePlanOrAction" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="FamilyReunificationAchieved" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ProjectCompletionStatus" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="EarlyExitReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -7967,7 +7967,7 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="FunderID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="Funder" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="Funder" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="GrantID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *         &lt;element name="EndDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
@@ -7998,7 +7998,7 @@ public class Sources {
                 @XmlElement(name = "ProjectID", required = true)
                 protected String projectID;
                 @XmlElement(name = "Funder")
-                protected byte funder;
+                protected String funder;
                 @XmlElement(name = "GrantID", required = true)
                 protected String grantID;
                 @XmlElement(name = "StartDate", required = true)
@@ -8064,7 +8064,7 @@ public class Sources {
                  * Gets the value of the funder property.
                  * 
                  */
-                public byte getFunder() {
+                public String getFunder() {
                     return funder;
                 }
 
@@ -8072,7 +8072,7 @@ public class Sources {
                  * Sets the value of the funder property.
                  * 
                  */
-                public void setFunder(byte value) {
+                public void setFunder(String value) {
                     this.funder = value;
                 }
 
@@ -8235,25 +8235,25 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="HealthInsuranceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="InsuranceFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="Medicaid" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NoMedicaidReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="Medicare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NoMedicareReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="SCHIP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NoSCHIPReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="VAMedicalServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NoVAMedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="EmployerProvided" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NoEmployerProvidedReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="COBRA" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NoCOBRAReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="PrivatePay" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NoPrivatePayReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="StateHealthIns" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NoStateHealthInsReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="InsuranceFromAnySource" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="Medicaid" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NoMedicaidReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="Medicare" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NoMedicareReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="SCHIP" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NoSCHIPReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="VAMedicalServices" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NoVAMedReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="EmployerProvided" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NoEmployerProvidedReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="COBRA" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NoCOBRAReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="PrivatePay" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NoPrivatePayReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="StateHealthIns" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NoStateHealthInsReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateDeleted" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -8302,39 +8302,39 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "InsuranceFromAnySource")
-                protected byte insuranceFromAnySource;
+                protected String insuranceFromAnySource;
                 @XmlElement(name = "Medicaid")
-                protected byte medicaid;
+                protected String medicaid;
                 @XmlElement(name = "NoMedicaidReason")
-                protected byte noMedicaidReason;
+                protected String noMedicaidReason;
                 @XmlElement(name = "Medicare")
-                protected byte medicare;
+                protected String medicare;
                 @XmlElement(name = "NoMedicareReason")
-                protected byte noMedicareReason;
+                protected String noMedicareReason;
                 @XmlElement(name = "SCHIP")
-                protected byte schip;
+                protected String schip;
                 @XmlElement(name = "NoSCHIPReason")
-                protected byte noSCHIPReason;
+                protected String noSCHIPReason;
                 @XmlElement(name = "VAMedicalServices")
-                protected byte vaMedicalServices;
+                protected String vaMedicalServices;
                 @XmlElement(name = "NoVAMedReason")
-                protected byte noVAMedReason;
+                protected String noVAMedReason;
                 @XmlElement(name = "EmployerProvided")
-                protected byte employerProvided;
+                protected String employerProvided;
                 @XmlElement(name = "NoEmployerProvidedReason")
-                protected byte noEmployerProvidedReason;
+                protected String noEmployerProvidedReason;
                 @XmlElement(name = "COBRA")
-                protected byte cobra;
+                protected String cobra;
                 @XmlElement(name = "NoCOBRAReason")
-                protected byte noCOBRAReason;
+                protected String noCOBRAReason;
                 @XmlElement(name = "PrivatePay")
-                protected byte privatePay;
+                protected String privatePay;
                 @XmlElement(name = "NoPrivatePayReason")
-                protected byte noPrivatePayReason;
+                protected String noPrivatePayReason;
                 @XmlElement(name = "StateHealthIns")
-                protected byte stateHealthIns;
+                protected String stateHealthIns;
                 @XmlElement(name = "NoStateHealthInsReason")
-                protected byte noStateHealthInsReason;
+                protected String noStateHealthInsReason;
                 /*
                  * Added newly Starts*/
                /* @XmlElement(name = "otherSource")
@@ -8344,16 +8344,16 @@ public class Sources {
                 /*
                  * Added newly Ends*/
                 @XmlElement(name = "OtherInsurance")
-                protected byte otherInsurance;
+                protected String otherInsurance;
                 @XmlElement(name = "OtherInsuranceIdentify")
                 protected String otherInsuranceIdentify;
                 @XmlElement(name = "IndianHealthServices")
-                protected byte indianHealthServices;
+                protected String indianHealthServices;
                 @XmlElement(name = "NoIndianHealthServicesReason")
                 protected String noIndianHealthServicesReason;
                 
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -8438,7 +8438,7 @@ public class Sources {
                  * Gets the value of the insuranceFromAnySource property.
                  * 
                  */
-                public byte getInsuranceFromAnySource() {
+                public String getInsuranceFromAnySource() {
                     return insuranceFromAnySource;
                 }
 
@@ -8446,7 +8446,7 @@ public class Sources {
                  * Sets the value of the insuranceFromAnySource property.
                  * 
                  */
-                public void setInsuranceFromAnySource(byte value) {
+                public void setInsuranceFromAnySource(String value) {
                     this.insuranceFromAnySource = value;
                 }
 
@@ -8454,7 +8454,7 @@ public class Sources {
                  * Gets the value of the medicaid property.
                  * 
                  */
-                public byte getMedicaid() {
+                public String getMedicaid() {
                     return medicaid;
                 }
 
@@ -8462,7 +8462,7 @@ public class Sources {
                  * Sets the value of the medicaid property.
                  * 
                  */
-                public void setMedicaid(byte value) {
+                public void setMedicaid(String value) {
                     this.medicaid = value;
                 }
 
@@ -8470,7 +8470,7 @@ public class Sources {
                  * Gets the value of the noMedicaidReason property.
                  * 
                  */
-                public byte getNoMedicaidReason() {
+                public String getNoMedicaidReason() {
                     return noMedicaidReason;
                 }
 
@@ -8478,7 +8478,7 @@ public class Sources {
                  * Sets the value of the noMedicaidReason property.
                  * 
                  */
-                public void setNoMedicaidReason(byte value) {
+                public void setNoMedicaidReason(String value) {
                     this.noMedicaidReason = value;
                 }
 
@@ -8486,7 +8486,7 @@ public class Sources {
                  * Gets the value of the medicare property.
                  * 
                  */
-                public byte getMedicare() {
+                public String getMedicare() {
                     return medicare;
                 }
 
@@ -8494,7 +8494,7 @@ public class Sources {
                  * Sets the value of the medicare property.
                  * 
                  */
-                public void setMedicare(byte value) {
+                public void setMedicare(String value) {
                     this.medicare = value;
                 }
 
@@ -8502,7 +8502,7 @@ public class Sources {
                  * Gets the value of the noMedicareReason property.
                  * 
                  */
-                public byte getNoMedicareReason() {
+                public String getNoMedicareReason() {
                     return noMedicareReason;
                 }
 
@@ -8510,7 +8510,7 @@ public class Sources {
                  * Sets the value of the noMedicareReason property.
                  * 
                  */
-                public void setNoMedicareReason(byte value) {
+                public void setNoMedicareReason(String value) {
                     this.noMedicareReason = value;
                 }
 
@@ -8518,7 +8518,7 @@ public class Sources {
                  * Gets the value of the schip property.
                  * 
                  */
-                public byte getSCHIP() {
+                public String getSCHIP() {
                     return schip;
                 }
 
@@ -8526,7 +8526,7 @@ public class Sources {
                  * Sets the value of the schip property.
                  * 
                  */
-                public void setSCHIP(byte value) {
+                public void setSCHIP(String value) {
                     this.schip = value;
                 }
 
@@ -8534,7 +8534,7 @@ public class Sources {
                  * Gets the value of the noSCHIPReason property.
                  * 
                  */
-                public byte getNoSCHIPReason() {
+                public String getNoSCHIPReason() {
                     return noSCHIPReason;
                 }
 
@@ -8542,7 +8542,7 @@ public class Sources {
                  * Sets the value of the noSCHIPReason property.
                  * 
                  */
-                public void setNoSCHIPReason(byte value) {
+                public void setNoSCHIPReason(String value) {
                     this.noSCHIPReason = value;
                 }
 
@@ -8550,7 +8550,7 @@ public class Sources {
                  * Gets the value of the vaMedicalServices property.
                  * 
                  */
-                public byte getVAMedicalServices() {
+                public String getVAMedicalServices() {
                     return vaMedicalServices;
                 }
 
@@ -8558,7 +8558,7 @@ public class Sources {
                  * Sets the value of the vaMedicalServices property.
                  * 
                  */
-                public void setVAMedicalServices(byte value) {
+                public void setVAMedicalServices(String value) {
                     this.vaMedicalServices = value;
                 }
 
@@ -8566,7 +8566,7 @@ public class Sources {
                  * Gets the value of the noVAMedReason property.
                  * 
                  */
-                public byte getNoVAMedReason() {
+                public String getNoVAMedReason() {
                     return noVAMedReason;
                 }
 
@@ -8574,7 +8574,7 @@ public class Sources {
                  * Sets the value of the noVAMedReason property.
                  * 
                  */
-                public void setNoVAMedReason(byte value) {
+                public void setNoVAMedReason(String value) {
                     this.noVAMedReason = value;
                 }
 
@@ -8582,7 +8582,7 @@ public class Sources {
                  * Gets the value of the employerProvided property.
                  * 
                  */
-                public byte getEmployerProvided() {
+                public String getEmployerProvided() {
                     return employerProvided;
                 }
 
@@ -8590,7 +8590,7 @@ public class Sources {
                  * Sets the value of the employerProvided property.
                  * 
                  */
-                public void setEmployerProvided(byte value) {
+                public void setEmployerProvided(String value) {
                     this.employerProvided = value;
                 }
 
@@ -8598,7 +8598,7 @@ public class Sources {
                  * Gets the value of the noEmployerProvidedReason property.
                  * 
                  */
-                public byte getNoEmployerProvidedReason() {
+                public String getNoEmployerProvidedReason() {
                     return noEmployerProvidedReason;
                 }
 
@@ -8606,7 +8606,7 @@ public class Sources {
                  * Sets the value of the noEmployerProvidedReason property.
                  * 
                  */
-                public void setNoEmployerProvidedReason(byte value) {
+                public void setNoEmployerProvidedReason(String value) {
                     this.noEmployerProvidedReason = value;
                 }
 
@@ -8614,7 +8614,7 @@ public class Sources {
                  * Gets the value of the cobra property.
                  * 
                  */
-                public byte getCOBRA() {
+                public String getCOBRA() {
                     return cobra;
                 }
 
@@ -8622,7 +8622,7 @@ public class Sources {
                  * Sets the value of the cobra property.
                  * 
                  */
-                public void setCOBRA(byte value) {
+                public void setCOBRA(String value) {
                     this.cobra = value;
                 }
 
@@ -8630,7 +8630,7 @@ public class Sources {
                  * Gets the value of the noCOBRAReason property.
                  * 
                  */
-                public byte getNoCOBRAReason() {
+                public String getNoCOBRAReason() {
                     return noCOBRAReason;
                 }
 
@@ -8638,7 +8638,7 @@ public class Sources {
                  * Sets the value of the noCOBRAReason property.
                  * 
                  */
-                public void setNoCOBRAReason(byte value) {
+                public void setNoCOBRAReason(String value) {
                     this.noCOBRAReason = value;
                 }
 
@@ -8646,7 +8646,7 @@ public class Sources {
                  * Gets the value of the privatePay property.
                  * 
                  */
-                public byte getPrivatePay() {
+                public String getPrivatePay() {
                     return privatePay;
                 }
 
@@ -8654,7 +8654,7 @@ public class Sources {
                  * Sets the value of the privatePay property.
                  * 
                  */
-                public void setPrivatePay(byte value) {
+                public void setPrivatePay(String value) {
                     this.privatePay = value;
                 }
 
@@ -8662,7 +8662,7 @@ public class Sources {
                  * Gets the value of the noPrivatePayReason property.
                  * 
                  */
-                public byte getNoPrivatePayReason() {
+                public String getNoPrivatePayReason() {
                     return noPrivatePayReason;
                 }
 
@@ -8670,7 +8670,7 @@ public class Sources {
                  * Sets the value of the noPrivatePayReason property.
                  * 
                  */
-                public void setNoPrivatePayReason(byte value) {
+                public void setNoPrivatePayReason(String value) {
                     this.noPrivatePayReason = value;
                 }
 
@@ -8678,7 +8678,7 @@ public class Sources {
                  * Gets the value of the stateHealthIns property.
                  * 
                  */
-                public byte getStateHealthIns() {
+                public String getStateHealthIns() {
                     return stateHealthIns;
                 }
 
@@ -8686,7 +8686,7 @@ public class Sources {
                  * Sets the value of the stateHealthIns property.
                  * 
                  */
-                public void setStateHealthIns(byte value) {
+                public void setStateHealthIns(String value) {
                     this.stateHealthIns = value;
                 }
 
@@ -8694,7 +8694,7 @@ public class Sources {
                  * Gets the value of the noStateHealthInsReason property.
                  * 
                  */
-                public byte getNoStateHealthInsReason() {
+                public String getNoStateHealthInsReason() {
                     return noStateHealthInsReason;
                 }
 
@@ -8702,15 +8702,15 @@ public class Sources {
                  * Sets the value of the noStateHealthInsReason property.
                  * 
                  */
-                public void setNoStateHealthInsReason(byte value) {
+                public void setNoStateHealthInsReason(String value) {
                     this.noStateHealthInsReason = value;
                 }
                 
-                public byte getOtherInsurance() {
+                public String getOtherInsurance() {
 					return otherInsurance;
 				}
 
-				public void setOtherInsurance(byte otherInsurance) {
+				public void setOtherInsurance(String otherInsurance) {
 					this.otherInsurance = otherInsurance;
 				}
 
@@ -8722,11 +8722,11 @@ public class Sources {
 					this.otherInsuranceIdentify = otherInsuranceIdentify;
 				}
 
-				public byte getIndianHealthServices() {
+				public String getIndianHealthServices() {
 					return indianHealthServices;
 				}
 
-				public void setIndianHealthServices(byte indianHealthServices) {
+				public void setIndianHealthServices(String indianHealthServices) {
 					this.indianHealthServices = indianHealthServices;
 				}
 
@@ -8743,10 +8743,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -8755,10 +8755,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -8897,11 +8897,11 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="HealthStatusID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="HealthCategory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="HealthStatus" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="HealthCategory" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="HealthStatus" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="DueDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
@@ -8928,13 +8928,13 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "HealthCategory")
-                protected byte healthCategory;
+                protected String healthCategory;
                 @XmlElement(name = "HealthStatus")
-                protected byte healthStatus;
+                protected String healthStatus;
                 @XmlElement(name = "DueDate", required = true)
                 protected XMLGregorianCalendar dueDate;
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -8996,7 +8996,7 @@ public class Sources {
                  * Gets the value of the healthCategory property.
                  * 
                  */
-                public byte getHealthCategory() {
+                public String getHealthCategory() {
                     return healthCategory;
                 }
 
@@ -9004,7 +9004,7 @@ public class Sources {
                  * Sets the value of the healthCategory property.
                  * 
                  */
-                public void setHealthCategory(byte value) {
+                public void setHealthCategory(String value) {
                     this.healthCategory = value;
                 }
 
@@ -9012,7 +9012,7 @@ public class Sources {
                  * Gets the value of the healthStatus property.
                  * 
                  */
-                public byte getHealthStatus() {
+                public String getHealthStatus() {
                     return healthStatus;
                 }
 
@@ -9020,7 +9020,7 @@ public class Sources {
                  * Sets the value of the healthStatus property.
                  * 
                  */
-                public void setHealthStatus(byte value) {
+                public void setHealthStatus(String value) {
                     this.healthStatus = value;
                 }
 
@@ -9053,10 +9053,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -9065,10 +9065,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -9183,7 +9183,7 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="HousingAssessmentDispositionID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="ExitID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="AssessmentDisposition" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="AssessmentDisposition" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="OtherDisposition" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -9210,7 +9210,7 @@ public class Sources {
                 @XmlElement(name = "ExitID", required = true)
                 protected String exitID;
                 @XmlElement(name = "AssessmentDisposition")
-                protected byte assessmentDisposition;
+                protected String assessmentDisposition;
                 @XmlElement(name = "OtherDisposition", required = true)
                 protected String otherDisposition;
                 @XmlAttribute
@@ -9272,7 +9272,7 @@ public class Sources {
                  * Gets the value of the assessmentDisposition property.
                  * 
                  */
-                public byte getAssessmentDisposition() {
+                public String getAssessmentDisposition() {
                     return assessmentDisposition;
                 }
 
@@ -9280,7 +9280,7 @@ public class Sources {
                  * Sets the value of the assessmentDisposition property.
                  * 
                  */
-                public void setAssessmentDisposition(byte value) {
+                public void setAssessmentDisposition(String value) {
                     this.assessmentDisposition = value;
                 }
 
@@ -9395,41 +9395,41 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="IncomeAndSourcesID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="IncomeFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="IncomeFromAnySource" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="TotalMonthlyIncome" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="Earned" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="Earned" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="EarnedAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="Unemployment" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="Unemployment" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="UnemploymentAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="SSI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="SSI" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="SSIAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="SSDI" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="SSDI" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="SSDIAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="VADisabilityService" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="VADisabilityService" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="VADisabilityServiceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="VADisabilityNonService" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="VADisabilityNonService" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="VADisabilityNonServiceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="PrivateDisability" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="PrivateDisability" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="PrivateDisabilityAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="WorkersComp" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="WorkersComp" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="WorkersCompAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="TANF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="TANF" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="TANFAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="GA" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="GA" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="GAAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="SocSecRetirement" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="SocSecRetirement" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="SocSecRetirementAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="Pension" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="Pension" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="PensionAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="ChildSupport" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="ChildSupport" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="ChildSupportAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="Alimony" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="Alimony" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="AlimonyAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="OtherSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="OtherSource" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="OtherSourceAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
              *         &lt;element name="OtherSourceIdentify" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
@@ -9486,19 +9486,19 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "IncomeFromAnySource")
-                protected byte incomeFromAnySource;
+                protected String incomeFromAnySource;
                 @XmlElement(name = "TotalMonthlyIncome")
                 protected float totalMonthlyIncome;
                 @XmlElement(name = "Earned")
-                protected byte earned;
+                protected String earned;
                 @XmlElement(name = "EarnedAmount")
                 protected float earnedAmount;
                 @XmlElement(name = "Unemployment")
-                protected byte unemployment;
+                protected String unemployment;
                 @XmlElement(name = "UnemploymentAmount")
                 protected float unemploymentAmount;
                 @XmlElement(name = "SSI")
-                protected byte ssi;
+                protected String ssi;
                 @XmlElement(name = "SSIAmount")
                 protected float ssiAmount;
                 @XmlElement(name = "SSDI")
@@ -9506,27 +9506,27 @@ public class Sources {
                 @XmlElement(name = "SSDIAmount")
                 protected float ssdiAmount;
                 @XmlElement(name = "VADisabilityService")
-                protected byte vaDisabilityService;
+                protected String vaDisabilityService;
                 @XmlElement(name = "VADisabilityServiceAmount")
                 protected float vaDisabilityServiceAmount;
                 @XmlElement(name = "VADisabilityNonService")
-                protected byte vaDisabilityNonService;
+                protected String vaDisabilityNonService;
                 @XmlElement(name = "VADisabilityNonServiceAmount")
                 protected float vaDisabilityNonServiceAmount;
                 @XmlElement(name = "PrivateDisability")
-                protected byte privateDisability;
+                protected String privateDisability;
                 @XmlElement(name = "PrivateDisabilityAmount")
                 protected float privateDisabilityAmount;
                 @XmlElement(name = "WorkersComp")
-                protected byte workersComp;
+                protected String workersComp;
                 @XmlElement(name = "WorkersCompAmount")
                 protected float workersCompAmount;
                 @XmlElement(name = "TANF")
-                protected byte tanf;
+                protected String tanf;
                 @XmlElement(name = "TANFAmount")
                 protected float tanfAmount;
                 @XmlElement(name = "GA")
-                protected byte ga;
+                protected String ga;
                 @XmlElement(name = "GAAmount")
                 protected float gaAmount;
                 @XmlElement(name = "SocSecRetirement")
@@ -9538,21 +9538,21 @@ public class Sources {
                 @XmlElement(name = "PensionAmount")
                 protected float pensionAmount;
                 @XmlElement(name = "ChildSupport")
-                protected byte childSupport;
+                protected String childSupport;
                 @XmlElement(name = "ChildSupportAmount")
                 protected float childSupportAmount;
                 @XmlElement(name = "Alimony")
-                protected byte alimony;
+                protected String alimony;
                 @XmlElement(name = "AlimonyAmount")
                 protected float alimonyAmount;
                 @XmlElement(name = "OtherSource")
-                protected byte otherSource;
+                protected String otherSource;
                 @XmlElement(name = "OtherAmount")
                 protected float otherAmount;
                 @XmlElement(name = "OtherSourceIdentify", required = true)
                 protected String otherSourceIdentify;
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -9614,7 +9614,7 @@ public class Sources {
                  * Gets the value of the incomeFromAnySource property.
                  * 
                  */
-                public byte getIncomeFromAnySource() {
+                public String getIncomeFromAnySource() {
                     return incomeFromAnySource;
                 }
 
@@ -9622,7 +9622,7 @@ public class Sources {
                  * Sets the value of the incomeFromAnySource property.
                  * 
                  */
-                public void setIncomeFromAnySource(byte value) {
+                public void setIncomeFromAnySource(String value) {
                     this.incomeFromAnySource = value;
                 }
 
@@ -9646,7 +9646,7 @@ public class Sources {
                  * Gets the value of the earned property.
                  * 
                  */
-                public byte getEarned() {
+                public String getEarned() {
                     return earned;
                 }
 
@@ -9654,7 +9654,7 @@ public class Sources {
                  * Sets the value of the earned property.
                  * 
                  */
-                public void setEarned(byte value) {
+                public void setEarned(String value) {
                     this.earned = value;
                 }
 
@@ -9678,7 +9678,7 @@ public class Sources {
                  * Gets the value of the unemployment property.
                  * 
                  */
-                public byte getUnemployment() {
+                public String getUnemployment() {
                     return unemployment;
                 }
 
@@ -9686,7 +9686,7 @@ public class Sources {
                  * Sets the value of the unemployment property.
                  * 
                  */
-                public void setUnemployment(byte value) {
+                public void setUnemployment(String value) {
                     this.unemployment = value;
                 }
 
@@ -9710,7 +9710,7 @@ public class Sources {
                  * Gets the value of the ssi property.
                  * 
                  */
-                public byte getSSI() {
+                public String getSSI() {
                     return ssi;
                 }
 
@@ -9718,7 +9718,7 @@ public class Sources {
                  * Sets the value of the ssi property.
                  * 
                  */
-                public void setSSI(byte value) {
+                public void setSSI(String value) {
                     this.ssi = value;
                 }
 
@@ -9774,7 +9774,7 @@ public class Sources {
                  * Gets the value of the vaDisabilityService property.
                  * 
                  */
-                public byte getVADisabilityService() {
+                public String getVADisabilityService() {
                     return vaDisabilityService;
                 }
 
@@ -9782,7 +9782,7 @@ public class Sources {
                  * Sets the value of the vaDisabilityService property.
                  * 
                  */
-                public void setVADisabilityService(byte value) {
+                public void setVADisabilityService(String value) {
                     this.vaDisabilityService = value;
                 }
 
@@ -9806,7 +9806,7 @@ public class Sources {
                  * Gets the value of the vaDisabilityNonService property.
                  * 
                  */
-                public byte getVADisabilityNonService() {
+                public String getVADisabilityNonService() {
                     return vaDisabilityNonService;
                 }
 
@@ -9814,7 +9814,7 @@ public class Sources {
                  * Sets the value of the vaDisabilityNonService property.
                  * 
                  */
-                public void setVADisabilityNonService(byte value) {
+                public void setVADisabilityNonService(String value) {
                     this.vaDisabilityNonService = value;
                 }
 
@@ -9838,7 +9838,7 @@ public class Sources {
                  * Gets the value of the privateDisability property.
                  * 
                  */
-                public byte getPrivateDisability() {
+                public String getPrivateDisability() {
                     return privateDisability;
                 }
 
@@ -9846,7 +9846,7 @@ public class Sources {
                  * Sets the value of the privateDisability property.
                  * 
                  */
-                public void setPrivateDisability(byte value) {
+                public void setPrivateDisability(String value) {
                     this.privateDisability = value;
                 }
 
@@ -9870,7 +9870,7 @@ public class Sources {
                  * Gets the value of the workersComp property.
                  * 
                  */
-                public byte getWorkersComp() {
+                public String getWorkersComp() {
                     return workersComp;
                 }
 
@@ -9878,7 +9878,7 @@ public class Sources {
                  * Sets the value of the workersComp property.
                  * 
                  */
-                public void setWorkersComp(byte value) {
+                public void setWorkersComp(String value) {
                     this.workersComp = value;
                 }
 
@@ -9902,7 +9902,7 @@ public class Sources {
                  * Gets the value of the tanf property.
                  * 
                  */
-                public byte getTANF() {
+                public String getTANF() {
                     return tanf;
                 }
 
@@ -9910,7 +9910,7 @@ public class Sources {
                  * Sets the value of the tanf property.
                  * 
                  */
-                public void setTANF(byte value) {
+                public void setTANF(String value) {
                     this.tanf = value;
                 }
 
@@ -9934,7 +9934,7 @@ public class Sources {
                  * Gets the value of the ga property.
                  * 
                  */
-                public byte getGA() {
+                public String getGA() {
                     return ga;
                 }
 
@@ -9942,7 +9942,7 @@ public class Sources {
                  * Sets the value of the ga property.
                  * 
                  */
-                public void setGA(byte value) {
+                public void setGA(String value) {
                     this.ga = value;
                 }
 
@@ -10030,7 +10030,7 @@ public class Sources {
                  * Gets the value of the childSupport property.
                  * 
                  */
-                public byte getChildSupport() {
+                public String getChildSupport() {
                     return childSupport;
                 }
 
@@ -10038,7 +10038,7 @@ public class Sources {
                  * Sets the value of the childSupport property.
                  * 
                  */
-                public void setChildSupport(byte value) {
+                public void setChildSupport(String value) {
                     this.childSupport = value;
                 }
 
@@ -10062,7 +10062,7 @@ public class Sources {
                  * Gets the value of the alimony property.
                  * 
                  */
-                public byte getAlimony() {
+                public String getAlimony() {
                     return alimony;
                 }
 
@@ -10070,7 +10070,7 @@ public class Sources {
                  * Sets the value of the alimony property.
                  * 
                  */
-                public void setAlimony(byte value) {
+                public void setAlimony(String value) {
                     this.alimony = value;
                 }
 
@@ -10094,7 +10094,7 @@ public class Sources {
                  * Gets the value of the otherSource property.
                  * 
                  */
-                public byte getOtherSource() {
+                public String getOtherSource() {
                     return otherSource;
                 }
 
@@ -10102,7 +10102,7 @@ public class Sources {
                  * Sets the value of the otherSource property.
                  * 
                  */
-                public void setOtherSource(byte value) {
+                public void setOtherSource(String value) {
                     this.otherSource = value;
                 }
 
@@ -10151,10 +10151,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -10163,10 +10163,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -10281,9 +10281,9 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="InventoryID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="HouseholdType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="BedType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="Availability" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="HouseholdType" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="BedType" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="Availability" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="UnitInventory" type="{http://www.w3.org/2001/XMLSchema}int"/>
              *         &lt;element name="BedInventory">
              *           &lt;complexType>
@@ -10291,10 +10291,10 @@ public class Sources {
              *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *                 &lt;sequence>
              *                   &lt;element name="BedInventory" type="{http://www.w3.org/2001/XMLSchema}short"/>
-             *                   &lt;element name="CHBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *                   &lt;element name="VetBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *                   &lt;element name="YouthBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *                   &lt;element name="YouthAgeGroup" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *                   &lt;element name="CHBedInventory" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *                   &lt;element name="VetBedInventory" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *                   &lt;element name="YouthBedInventory" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *                   &lt;element name="YouthAgeGroup" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *                 &lt;/sequence>
              *               &lt;/restriction>
              *             &lt;/complexContent>
@@ -10345,11 +10345,11 @@ public class Sources {
                 @XmlElement(name = "projectID")
                 protected String projectID;
                 @XmlElement(name = "HouseholdType")
-                protected byte householdType;
+                protected String householdType;
                 @XmlElement(name = "BedType")
-                protected byte bedType;
+                protected String bedType;
                 @XmlElement(name = "Availability")
-                protected byte availability;
+                protected String availability;
                 @XmlElement(name = "UnitInventory")
                 protected int unitInventory;
                 @XmlElement(name = "BedInventory", required = true)
@@ -10478,7 +10478,7 @@ public class Sources {
                  * Gets the value of the householdType property.
                  * 
                  */
-                public byte getHouseholdType() {
+                public String getHouseholdType() {
                     return householdType;
                 }
 
@@ -10486,7 +10486,7 @@ public class Sources {
                  * Sets the value of the householdType property.
                  * 
                  */
-                public void setHouseholdType(byte value) {
+                public void setHouseholdType(String value) {
                     this.householdType = value;
                 }
 
@@ -10494,7 +10494,7 @@ public class Sources {
                  * Gets the value of the bedType property.
                  * 
                  */
-                public byte getBedType() {
+                public String getBedType() {
                     return bedType;
                 }
 
@@ -10502,7 +10502,7 @@ public class Sources {
                  * Sets the value of the bedType property.
                  * 
                  */
-                public void setBedType(byte value) {
+                public void setBedType(String value) {
                     this.bedType = value;
                 }
 
@@ -10510,7 +10510,7 @@ public class Sources {
                  * Gets the value of the availability property.
                  * 
                  */
-                public byte getAvailability() {
+                public String getAvailability() {
                     return availability;
                 }
 
@@ -10518,7 +10518,7 @@ public class Sources {
                  * Sets the value of the availability property.
                  * 
                  */
-                public void setAvailability(byte value) {
+                public void setAvailability(String value) {
                     this.availability = value;
                 }
 
@@ -10734,10 +10734,10 @@ public class Sources {
                  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
                  *       &lt;sequence>
                  *         &lt;element name="BedInventory" type="{http://www.w3.org/2001/XMLSchema}short"/>
-                 *         &lt;element name="CHBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-                 *         &lt;element name="VetBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-                 *         &lt;element name="YouthBedInventory" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-                 *         &lt;element name="YouthAgeGroup" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+                 *         &lt;element name="CHBedInventory" type="{http://www.w3.org/2001/XMLSchema}String"/>
+                 *         &lt;element name="VetBedInventory" type="{http://www.w3.org/2001/XMLSchema}String"/>
+                 *         &lt;element name="YouthBedInventory" type="{http://www.w3.org/2001/XMLSchema}String"/>
+                 *         &lt;element name="YouthAgeGroup" type="{http://www.w3.org/2001/XMLSchema}String"/>
                  *       &lt;/sequence>
                  *     &lt;/restriction>
                  *   &lt;/complexContent>
@@ -10759,13 +10759,13 @@ public class Sources {
                     @XmlElement(name = "BedInventory")
                     protected short bedInventory;
                     @XmlElement(name = "CHBedInventory")
-                    protected byte chBedInventory;
+                    protected String chBedInventory;
                     @XmlElement(name = "VetBedInventory")
-                    protected byte vetBedInventory;
+                    protected String vetBedInventory;
                     @XmlElement(name = "YouthBedInventory")
-                    protected byte youthBedInventory;
+                    protected String youthBedInventory;
                     @XmlElement(name = "YouthAgeGroup")
-                    protected byte youthAgeGroup;
+                    protected String youthAgeGroup;
 
                     /**
                      * Gets the value of the bedInventory property.
@@ -10787,7 +10787,7 @@ public class Sources {
                      * Gets the value of the chBedInventory property.
                      * 
                      */
-                    public byte getCHBedInventory() {
+                    public String getCHBedInventory() {
                         return chBedInventory;
                     }
 
@@ -10795,7 +10795,7 @@ public class Sources {
                      * Sets the value of the chBedInventory property.
                      * 
                      */
-                    public void setCHBedInventory(byte value) {
+                    public void setCHBedInventory(String value) {
                         this.chBedInventory = value;
                     }
 
@@ -10803,7 +10803,7 @@ public class Sources {
                      * Gets the value of the vetBedInventory property.
                      * 
                      */
-                    public byte getVetBedInventory() {
+                    public String getVetBedInventory() {
                         return vetBedInventory;
                     }
 
@@ -10811,7 +10811,7 @@ public class Sources {
                      * Sets the value of the vetBedInventory property.
                      * 
                      */
-                    public void setVetBedInventory(byte value) {
+                    public void setVetBedInventory(String value) {
                         this.vetBedInventory = value;
                     }
 
@@ -10819,7 +10819,7 @@ public class Sources {
                      * Gets the value of the youthBedInventory property.
                      * 
                      */
-                    public byte getYouthBedInventory() {
+                    public String getYouthBedInventory() {
                         return youthBedInventory;
                     }
 
@@ -10827,7 +10827,7 @@ public class Sources {
                      * Sets the value of the youthBedInventory property.
                      * 
                      */
-                    public void setYouthBedInventory(byte value) {
+                    public void setYouthBedInventory(String value) {
                         this.youthBedInventory = value;
                     }
 
@@ -10835,7 +10835,7 @@ public class Sources {
                      * Gets the value of the youthAgeGroup property.
                      * 
                      */
-                    public byte getYouthAgeGroup() {
+                    public String getYouthAgeGroup() {
                         return youthAgeGroup;
                     }
 
@@ -10843,7 +10843,7 @@ public class Sources {
                      * Sets the value of the youthAgeGroup property.
                      * 
                      */
-                    public void setYouthAgeGroup(byte value) {
+                    public void setYouthAgeGroup(String value) {
                         this.youthAgeGroup = value;
                     }
 
@@ -10864,12 +10864,12 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="MedicalAssistanceID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="HIVAIDSAssistance" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NoHIVAIDSAssistanceReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ADAP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="NoADAPReason" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="HIVAIDSAssistance" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NoHIVAIDSAssistanceReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ADAP" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="NoADAPReason" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
@@ -10897,15 +10897,15 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "HIVAIDSAssistance")
-                protected byte hivaidsAssistance;
+                protected String hivaidsAssistance;
                 @XmlElement(name = "NoHIVAIDSAssistanceReason")
-                protected byte noHIVAIDSAssistanceReason;
+                protected String noHIVAIDSAssistanceReason;
                 @XmlElement(name = "ADAP")
-                protected byte adap;
+                protected String adap;
                 @XmlElement(name = "NoADAPReason")
-                protected byte noADAPReason;
+                protected String noADAPReason;
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -10967,7 +10967,7 @@ public class Sources {
                  * Gets the value of the hivaidsAssistance property.
                  * 
                  */
-                public byte getHIVAIDSAssistance() {
+                public String getHIVAIDSAssistance() {
                     return hivaidsAssistance;
                 }
 
@@ -10975,7 +10975,7 @@ public class Sources {
                  * Sets the value of the hivaidsAssistance property.
                  * 
                  */
-                public void setHIVAIDSAssistance(byte value) {
+                public void setHIVAIDSAssistance(String value) {
                     this.hivaidsAssistance = value;
                 }
 
@@ -10983,7 +10983,7 @@ public class Sources {
                  * Gets the value of the noHIVAIDSAssistanceReason property.
                  * 
                  */
-                public byte getNoHIVAIDSAssistanceReason() {
+                public String getNoHIVAIDSAssistanceReason() {
                     return noHIVAIDSAssistanceReason;
                 }
 
@@ -10991,7 +10991,7 @@ public class Sources {
                  * Sets the value of the noHIVAIDSAssistanceReason property.
                  * 
                  */
-                public void setNoHIVAIDSAssistanceReason(byte value) {
+                public void setNoHIVAIDSAssistanceReason(String value) {
                     this.noHIVAIDSAssistanceReason = value;
                 }
 
@@ -10999,7 +10999,7 @@ public class Sources {
                  * Gets the value of the adap property.
                  * 
                  */
-                public byte getADAP() {
+                public String getADAP() {
                     return adap;
                 }
 
@@ -11007,7 +11007,7 @@ public class Sources {
                  * Sets the value of the adap property.
                  * 
                  */
-                public void setADAP(byte value) {
+                public void setADAP(String value) {
                     this.adap = value;
                 }
 
@@ -11015,7 +11015,7 @@ public class Sources {
                  * Gets the value of the noADAPReason property.
                  * 
                  */
-                public byte getNoADAPReason() {
+                public String getNoADAPReason() {
                     return noADAPReason;
                 }
 
@@ -11023,7 +11023,7 @@ public class Sources {
                  * Sets the value of the noADAPReason property.
                  * 
                  */
-                public void setNoADAPReason(byte value) {
+                public void setNoADAPReason(String value) {
                     this.noADAPReason = value;
                 }
 
@@ -11032,10 +11032,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -11044,10 +11044,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -11162,18 +11162,18 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="NonCashBenefitsID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="BenefitsFromAnySource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="SNAP" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="WIC" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="TANFChildCare" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="TANFTransportation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="OtherTANF" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="RentalAssistanceOngoing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="RentalAssistanceTemp" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="OtherSource" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="BenefitsFromAnySource" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="SNAP" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="WIC" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="TANFChildCare" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="TANFTransportation" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="OtherTANF" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="RentalAssistanceOngoing" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="RentalAssistanceTemp" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="OtherSource" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="OtherSourceIdentify" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *       &lt;/sequence>
-             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}byte" />
+             *       &lt;attribute name="dataCollectionStage" type="{http://www.w3.org/2001/XMLSchema}String" />
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="informationDate" type="{http://www.w3.org/2001/XMLSchema}date" />
@@ -11207,27 +11207,27 @@ public class Sources {
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
                 @XmlElement(name = "BenefitsFromAnySource")
-                protected byte benefitsFromAnySource;
+                protected String benefitsFromAnySource;
                 @XmlElement(name = "SNAP")
-                protected byte snap;
+                protected String snap;
                 @XmlElement(name = "WIC")
-                protected byte wic;
+                protected String wic;
                 @XmlElement(name = "TANFChildCare")
-                protected byte tanfChildCare;
+                protected String tanfChildCare;
                 @XmlElement(name = "TANFTransportation")
-                protected byte tanfTransportation;
+                protected String tanfTransportation;
                 @XmlElement(name = "OtherTANF")
-                protected byte otherTANF;
+                protected String otherTANF;
                 @XmlElement(name = "RentalAssistanceOngoing")
-                protected byte rentalAssistanceOngoing;
+                protected String rentalAssistanceOngoing;
                 @XmlElement(name = "RentalAssistanceTemp")
-                protected byte rentalAssistanceTemp;
+                protected String rentalAssistanceTemp;
                 @XmlElement(name = "OtherSource")
-                protected byte otherSource;
+                protected String otherSource;
                 @XmlElement(name = "OtherSourceIdentify", required = true)
                 protected String otherSourceIdentify;
                 @XmlAttribute
-                protected Byte dataCollectionStage;
+                protected String dataCollectionStage;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -11289,7 +11289,7 @@ public class Sources {
                  * Gets the value of the benefitsFromAnySource property.
                  * 
                  */
-                public byte getBenefitsFromAnySource() {
+                public String getBenefitsFromAnySource() {
                     return benefitsFromAnySource;
                 }
 
@@ -11297,7 +11297,7 @@ public class Sources {
                  * Sets the value of the benefitsFromAnySource property.
                  * 
                  */
-                public void setBenefitsFromAnySource(byte value) {
+                public void setBenefitsFromAnySource(String value) {
                     this.benefitsFromAnySource = value;
                 }
 
@@ -11305,7 +11305,7 @@ public class Sources {
                  * Gets the value of the snap property.
                  * 
                  */
-                public byte getSNAP() {
+                public String getSNAP() {
                     return snap;
                 }
 
@@ -11313,7 +11313,7 @@ public class Sources {
                  * Sets the value of the snap property.
                  * 
                  */
-                public void setSNAP(byte value) {
+                public void setSNAP(String value) {
                     this.snap = value;
                 }
 
@@ -11321,7 +11321,7 @@ public class Sources {
                  * Gets the value of the wic property.
                  * 
                  */
-                public byte getWIC() {
+                public String getWIC() {
                     return wic;
                 }
 
@@ -11329,7 +11329,7 @@ public class Sources {
                  * Sets the value of the wic property.
                  * 
                  */
-                public void setWIC(byte value) {
+                public void setWIC(String value) {
                     this.wic = value;
                 }
 
@@ -11337,7 +11337,7 @@ public class Sources {
                  * Gets the value of the tanfChildCare property.
                  * 
                  */
-                public byte getTANFChildCare() {
+                public String getTANFChildCare() {
                     return tanfChildCare;
                 }
 
@@ -11345,7 +11345,7 @@ public class Sources {
                  * Sets the value of the tanfChildCare property.
                  * 
                  */
-                public void setTANFChildCare(byte value) {
+                public void setTANFChildCare(String value) {
                     this.tanfChildCare = value;
                 }
 
@@ -11353,7 +11353,7 @@ public class Sources {
                  * Gets the value of the tanfTransportation property.
                  * 
                  */
-                public byte getTANFTransportation() {
+                public String getTANFTransportation() {
                     return tanfTransportation;
                 }
 
@@ -11361,7 +11361,7 @@ public class Sources {
                  * Sets the value of the tanfTransportation property.
                  * 
                  */
-                public void setTANFTransportation(byte value) {
+                public void setTANFTransportation(String value) {
                     this.tanfTransportation = value;
                 }
 
@@ -11369,7 +11369,7 @@ public class Sources {
                  * Gets the value of the otherTANF property.
                  * 
                  */
-                public byte getOtherTANF() {
+                public String getOtherTANF() {
                     return otherTANF;
                 }
 
@@ -11377,7 +11377,7 @@ public class Sources {
                  * Sets the value of the otherTANF property.
                  * 
                  */
-                public void setOtherTANF(byte value) {
+                public void setOtherTANF(String value) {
                     this.otherTANF = value;
                 }
 
@@ -11385,7 +11385,7 @@ public class Sources {
                  * Gets the value of the rentalAssistanceOngoing property.
                  * 
                  */
-                public byte getRentalAssistanceOngoing() {
+                public String getRentalAssistanceOngoing() {
                     return rentalAssistanceOngoing;
                 }
 
@@ -11393,7 +11393,7 @@ public class Sources {
                  * Sets the value of the rentalAssistanceOngoing property.
                  * 
                  */
-                public void setRentalAssistanceOngoing(byte value) {
+                public void setRentalAssistanceOngoing(String value) {
                     this.rentalAssistanceOngoing = value;
                 }
 
@@ -11401,7 +11401,7 @@ public class Sources {
                  * Gets the value of the rentalAssistanceTemp property.
                  * 
                  */
-                public byte getRentalAssistanceTemp() {
+                public String getRentalAssistanceTemp() {
                     return rentalAssistanceTemp;
                 }
 
@@ -11409,7 +11409,7 @@ public class Sources {
                  * Sets the value of the rentalAssistanceTemp property.
                  * 
                  */
-                public void setRentalAssistanceTemp(byte value) {
+                public void setRentalAssistanceTemp(String value) {
                     this.rentalAssistanceTemp = value;
                 }
 
@@ -11417,7 +11417,7 @@ public class Sources {
                  * Gets the value of the otherSource property.
                  * 
                  */
-                public byte getOtherSource() {
+                public String getOtherSource() {
                     return otherSource;
                 }
 
@@ -11425,7 +11425,7 @@ public class Sources {
                  * Sets the value of the otherSource property.
                  * 
                  */
-                public void setOtherSource(byte value) {
+                public void setOtherSource(String value) {
                     this.otherSource = value;
                 }
 
@@ -11458,10 +11458,10 @@ public class Sources {
                  * 
                  * @return
                  *     possible object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public Byte getDataCollectionStage() {
+                public String getDataCollectionStage() {
                     return dataCollectionStage;
                 }
 
@@ -11470,10 +11470,10 @@ public class Sources {
                  * 
                  * @param value
                  *     allowed object is
-                 *     {@link Byte }
+                 *     {@link String }
                  *     
                  */
-                public void setDataCollectionStage(Byte value) {
+                public void setDataCollectionStage(String value) {
                     this.dataCollectionStage = value;
                 }
 
@@ -11586,7 +11586,7 @@ public class Sources {
              *   &lt;complexContent>
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
-             *         &lt;element name="OrganizationID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="OrganizationID" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="OrganizationName" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="OrganizationCommonName" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *       &lt;/sequence>
@@ -11773,8 +11773,8 @@ public class Sources {
              *         &lt;element name="PathStatusID" type="{http://www.w3.org/2001/XMLSchema}int"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="DateOfStatus" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="ClientEnrolledInPATH" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ReasonNotEnrolled" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="ClientEnrolledInPATH" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ReasonNotEnrolled" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -11995,13 +11995,13 @@ public class Sources {
              *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
              *       &lt;sequence>
              *         &lt;element name="ProjectID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="OrganizationID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="OrganizationID" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="ProjectName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="ContinuumProject" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ProjectType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ResidentialAffiliation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="TrackingMethod" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="TargetPopulation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="ContinuumProject" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ProjectType" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ResidentialAffiliation" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="TrackingMethod" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="TargetPopulation" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="ProjectCommonName" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -12045,9 +12045,9 @@ public class Sources {
                 @XmlElement(name = "ResidentialAffiliation")
                 protected String residentialAffiliation;
                 @XmlElement(name = "TrackingMethod")
-                protected byte trackingMethod;
+                protected String trackingMethod;
                 @XmlElement(name = "TargetPopulation")
-                protected byte targetPopulation;
+                protected String targetPopulation;
                 @XmlElement(name = "OperatingStartDate")
                 protected XMLGregorianCalendar operatingStartDate;
                 @XmlElement(name = "OperatingEndDate")
@@ -12181,7 +12181,7 @@ public class Sources {
                  * Gets the value of the trackingMethod property.
                  * 
                  */
-                public byte getTrackingMethod() {
+                public String getTrackingMethod() {
                     return trackingMethod;
                 }
 
@@ -12189,7 +12189,7 @@ public class Sources {
                  * Sets the value of the trackingMethod property.
                  * 
                  */
-                public void setTrackingMethod(byte value) {
+                public void setTrackingMethod(String value) {
                     this.trackingMethod = value;
                 }
 
@@ -12197,7 +12197,7 @@ public class Sources {
                  * Gets the value of the targetPopulation property.
                  * 
                  */
-                public byte getTargetPopulation() {
+                public String getTargetPopulation() {
                     return targetPopulation;
                 }
 
@@ -12205,7 +12205,7 @@ public class Sources {
                  * Sets the value of the targetPopulation property.
                  * 
                  */
-                public void setTargetPopulation(byte value) {
+                public void setTargetPopulation(String value) {
                     this.targetPopulation = value;
                 }
 
@@ -12354,8 +12354,8 @@ public class Sources {
              *         &lt;element name="RHYBCPStatusID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="StatusDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
-             *         &lt;element name="FYSBYouth" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-             *         &lt;element name="ReasonNoServices" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="FYSBYouth" type="{http://www.w3.org/2001/XMLSchema}String"/>
+             *         &lt;element name="ReasonNoServices" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -12389,7 +12389,7 @@ public class Sources {
                 @XmlElement(name = "RunawayYouth")
                 protected String runawayYouth;
                 @XmlElement(name = "ReasonNoServices")
-                protected byte reasonNoServices;
+                protected String reasonNoServices;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -12473,7 +12473,7 @@ public class Sources {
                  * Gets the value of the reasonNoServices property.
                  * 
                  */
-                public byte getReasonNoServices() {
+                public String getReasonNoServices() {
                     return reasonNoServices;
                 }
 
@@ -12481,7 +12481,7 @@ public class Sources {
                  * Sets the value of the reasonNoServices property.
                  * 
                  */
-                public void setReasonNoServices(byte value) {
+                public void setReasonNoServices(String value) {
                     this.reasonNoServices = value;
                 }
                 
@@ -12588,7 +12588,7 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="MoveInDateID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="InPermanentHousing" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="InPermanentHousing" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="MoveInDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -12785,9 +12785,9 @@ public class Sources {
              *         &lt;element name="RecordType" type="{http://www.w3.org/2001/XMLSchema}short"/>
              *         &lt;element name="TypeProvided" type="{http://www.w3.org/2001/XMLSchema}short"/>
              *         &lt;element name="OtherTypeProvided" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="SubTypeProvided" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="SubTypeProvided" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="FAAmount" type="{http://www.w3.org/2001/XMLSchema}float"/>
-             *         &lt;element name="ReferralOutcome" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="ReferralOutcome" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
@@ -12827,11 +12827,11 @@ public class Sources {
                 @XmlElement(name = "OtherTypeProvided", required = true)
                 protected String otherTypeProvided;
                 @XmlElement(name = "SubTypeProvided")
-                protected byte subTypeProvided;
+                protected String subTypeProvided;
                 @XmlElement(name = "FAAmount")
                 protected float faAmount;
                 @XmlElement(name = "ReferralOutcome")
-                protected byte referralOutcome;
+                protected String referralOutcome;
                 @XmlAttribute(name = "dateCreated")
                 @XmlSchemaType(name = "dateTime")
                 protected XMLGregorianCalendar dateCreated;
@@ -12973,7 +12973,7 @@ public class Sources {
                  * Gets the value of the subTypeProvided property.
                  * 
                  */
-                public byte getSubTypeProvided() {
+                public String getSubTypeProvided() {
                     return subTypeProvided;
                 }
 
@@ -12981,7 +12981,7 @@ public class Sources {
                  * Sets the value of the subTypeProvided property.
                  * 
                  */
-                public void setSubTypeProvided(byte value) {
+                public void setSubTypeProvided(String value) {
                     this.subTypeProvided = value;
                 }
 
@@ -13005,7 +13005,7 @@ public class Sources {
                  * Gets the value of the referralOutcome property.
                  * 
                  */
-                public byte getReferralOutcome() {
+                public String getReferralOutcome() {
                     return referralOutcome;
                 }
 
@@ -13013,7 +13013,7 @@ public class Sources {
                  * Sets the value of the referralOutcome property.
                  * 
                  */
-                public void setReferralOutcome(byte value) {
+                public void setReferralOutcome(String value) {
                     this.referralOutcome = value;
                 }
 
@@ -13105,7 +13105,7 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="SiteID" type="{http://www.w3.org/2001/XMLSchema}short"/>
              *         &lt;element name="CoCCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="PrincipalSite" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="PrincipalSite" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *         &lt;element name="Address" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="City" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="State" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -13140,7 +13140,7 @@ public class Sources {
                 @XmlElement(name = "CoCCode", required = true)
                 protected String coCCode;
                 @XmlElement(name = "PrincipalSite")
-                protected byte principalSite;
+                protected String principalSite;
                 @XmlElement(name = "Address", required = true)
                 protected String address;
                 @XmlElement(name = "City", required = true)
@@ -13202,7 +13202,7 @@ public class Sources {
                  * Gets the value of the principalSite property.
                  * 
                  */
-                public byte getPrincipalSite() {
+                public String getPrincipalSite() {
                     return principalSite;
                 }
 
@@ -13210,7 +13210,7 @@ public class Sources {
                  * Sets the value of the principalSite property.
                  * 
                  */
-                public void setPrincipalSite(byte value) {
+                public void setPrincipalSite(String value) {
                     this.principalSite = value;
                 }
 
@@ -13405,7 +13405,7 @@ public class Sources {
              *       &lt;sequence>
              *         &lt;element name="WorstHousingSituationID" type="{http://www.w3.org/2001/XMLSchema}string"/>
              *         &lt;element name="enrollmentID" type="{http://www.w3.org/2001/XMLSchema}string"/>
-             *         &lt;element name="WorstHousingSituation" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+             *         &lt;element name="WorstHousingSituation" type="{http://www.w3.org/2001/XMLSchema}String"/>
              *       &lt;/sequence>
              *       &lt;attribute name="dateCreated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
              *       &lt;attribute name="dateUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime" />

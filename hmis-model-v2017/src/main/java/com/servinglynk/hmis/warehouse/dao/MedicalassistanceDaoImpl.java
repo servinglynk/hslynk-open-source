@@ -53,16 +53,16 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 					medicalassistanceModel = getModelObject(domain, medicalAssistance,data,modelMap);
 					medicalassistanceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateCreated()));
 					medicalassistanceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateUpdated()));
-					medicalassistanceModel.setAdap(MedicalassistanceAdapEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getADAP())));
-					medicalassistanceModel.setHivaidsassistance(MedicalassistanceHivaidsassistanceEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getHIVAIDSAssistance())));
-					medicalassistanceModel.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoADAPReason())));
-					medicalassistanceModel.setNohivaidsassistancereason(MedicalassistanceNohivaidsassistancereasonEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getNoHIVAIDSAssistanceReason())));
+					medicalassistanceModel.setAdap(MedicalassistanceAdapEnum.lookupEnum((medicalAssistance.getADAP())));
+					medicalassistanceModel.setHivaidsassistance(MedicalassistanceHivaidsassistanceEnum.lookupEnum((medicalAssistance.getHIVAIDSAssistance())));
+					medicalassistanceModel.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum((medicalAssistance.getNoADAPReason())));
+					medicalassistanceModel.setNohivaidsassistancereason(MedicalassistanceNohivaidsassistancereasonEnum.lookupEnum((medicalAssistance.getNoHIVAIDSAssistanceReason())));
 					
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, medicalAssistance.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					medicalassistanceModel.setEnrollmentid(enrollmentModel);
 					medicalassistanceModel.setExport(exportEntity);
 					medicalassistanceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(medicalAssistance.getInformationDate()));
-					medicalassistanceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(medicalAssistance.getDataCollectionStage())));
+					medicalassistanceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((medicalAssistance.getDataCollectionStage())));
 					performSaveOrUpdate(medicalassistanceModel);
 				}catch(Exception e){
 					String errorMessage = "Exception beause of the medicalAssistance::"+medicalAssistance.getMedicalAssistanceID() +" Exception ::"+e.getMessage();
