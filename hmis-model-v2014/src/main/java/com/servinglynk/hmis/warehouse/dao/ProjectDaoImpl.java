@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -22,6 +23,8 @@ import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectResidentialaffiliationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
+import com.servinglynk.hmis.warehouse.model.base.GlobalProjectEntity;
+import com.servinglynk.hmis.warehouse.model.base.GlobalProjectMapEntity;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
@@ -69,13 +72,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					model.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 					model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 					model.setExport(exportEntity);
-					if(model.isRecordToBoInserted()) {
-						com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
-						BeanUtils.copyProperties(model, baseProject, new String[] {"organizationid"});
-						baseProject.setSchemaYear(2014);
-						factory.getBaseProjectDao().createProject(baseProject);
-					}
-					
+					manageGolbalProjects(model,domain.getUpload().getProjectGroupCode(), domain.getUserId(), "2014");
 					performSaveOrUpdate(model);
 				} catch(Exception e) {
 					String errorMessage = "Failure in Project:::"+project.toString()+ " with exception"+e.getLocalizedMessage();
@@ -97,6 +94,36 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2014.Project.class.getSimpleName(), domain,exportEntity);
 	}
 	
+	
+	public void manageGolbalProjects(com.servinglynk.hmis.warehouse.model.v2014.Project project,String projectGroupCode,UUID userId,String schemaYear) {
+		GlobalProjectEntity entity = factory.getGlobalProjectDao().getGlobalProject(project.getProjectname(),project.getSourceSystemId());
+		if(entity==null) {
+			entity = new GlobalProjectEntity();
+			entity.setProjectCommonName(project.getProjectcommonname());
+			entity.setProjectName(project.getProjectname());
+			entity.setId(project.getId());
+			//entity.setDescription(description);
+			entity.setDateCreated(LocalDateTime.now());
+			entity.setDateUpdated(LocalDateTime.now());
+			entity.setUser(userId);
+			entity.setProjectGroupCode(projectGroupCode);
+			factory.getGlobalProjectDao().create(entity);
+		} else {
+			GlobalProjectMapEntity entity2 = factory.getGlobalProjectDao().getProjectMap(entity.getId(), schemaYear);
+			  if(entity2==null) {
+				  GlobalProjectMapEntity mapEntity = new GlobalProjectMapEntity();
+				  mapEntity.setDateCreated(LocalDateTime.now());
+				  mapEntity.setDateUpdated(LocalDateTime.now());
+				  mapEntity.setProjectGroupCode(projectGroupCode);
+				  mapEntity.setProjectId(project.getId());
+				  mapEntity.setSource(schemaYear);
+				  mapEntity.setGlobalProject(entity);
+				  mapEntity.setUser(userId);
+				  factory.getGlobalProjectDao().addProjectToGlobalProject(mapEntity);
+			  }
+		}
+	}
+
 	public com.servinglynk.hmis.warehouse.model.v2014.Project getModelObject(ExportDomain domain,Project project ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2014.Project modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
@@ -174,4 +201,14 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			}
 				
 		}
+
+	@Override
+	public com.servinglynk.hmis.warehouse.model.v2014.Project checkProjectExists(String projectName, String sourceSystemId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Project.class);
+		criteria.add(Restrictions.eq("projectname", projectName));
+		criteria.add(Restrictions.eq("sourceSystemId", sourceSystemId));
+		List<com.servinglynk.hmis.warehouse.model.v2014.Project> projects = (List<com.servinglynk.hmis.warehouse.model.v2014.Project>) findByCriteria(criteria);
+		if(projects.isEmpty()) return null;
+		return projects.get(0);
+	}
 }

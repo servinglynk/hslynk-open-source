@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.GlobalProject;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.enums.ProjectContinuumprojectEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
@@ -26,6 +27,8 @@ public class ProjectConverter extends BaseConverter {
        entity.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(model.getTargetPopulation().toString()));
      //  entity.setProjectGroupCode(model.getProjectGroup());
        entity.setSource("2014");
+       if(model.getSourceSystemId()!=null)
+    	   entity.setSourceSystemId(model.getSourceSystemId());
        return entity;    
    }
 
@@ -52,6 +55,7 @@ public class ProjectConverter extends BaseConverter {
        project.setTrackingMethod(Integer.parseInt(entity.getTrackingmethod().getValue()));
        
        project.setProjectGroup(entity.getProjectGroupCode());
+       project.setSourceSystemId(entity.getSourceSystemId());
        copyBeanProperties(entity, project);
        return project;
    }
@@ -80,9 +84,20 @@ public class ProjectConverter extends BaseConverter {
        
        project.setProjectGroup(entity.getProjectGroupCode());
        project.setSource(entity.getSource());
+       project.setSourceSystemId(entity.getSourceSystemId());
        copyBeanProperties(entity, project);
        return project;
    }
+   
+   public static GlobalProject modelToGlobalProject(Project project) {
+	   GlobalProject globalProject = new GlobalProject();
+	   globalProject.setId(project.getProjectId());
+	   globalProject.setProjectCommonName(project.getProjectCommonName());
+	   globalProject.setProjectName(project.getProjectName());
+	   globalProject.setSourceSystemId(project.getSourceSystemId());
+	   return globalProject;
+   }
+
 
 
 }

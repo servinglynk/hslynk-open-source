@@ -60,7 +60,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				com.servinglynk.hmis.warehouse.model.v2017.Exit exitModel = null;
 				try {
 					exitModel = getModelObject(domain, exit, data, modelMap);
-					exitModel.setDestination(ExitDestinationEnum.lookupEnum(BasicDataGenerator.getStringValue(exit.getDestination())));
+					exitModel.setDestination(ExitDestinationEnum.lookupEnum((exit.getDestination())));
 					exitModel.setOtherdestination(exit.getOtherDestination());
 					exitModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
 					exitModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));

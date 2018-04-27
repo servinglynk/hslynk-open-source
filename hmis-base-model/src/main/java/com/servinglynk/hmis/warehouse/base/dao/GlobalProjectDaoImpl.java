@@ -133,4 +133,25 @@ public class GlobalProjectDaoImpl extends QueryExecutorImpl implements GlobalPro
 		}
 		
 	}
+
+	@Override
+	public GlobalProjectEntity getGlobalProject(String projectName, String sourceSystemId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(GlobalProjectEntity.class);
+		criteria.add(Restrictions.eq("projectName", projectName));
+		criteria.add(Restrictions.eq("sourceSystemId", sourceSystemId));
+		List<GlobalProjectEntity> entities = (List<GlobalProjectEntity>) findByCriteria(criteria);
+		if(entities.isEmpty()) return null;
+		return entities.get(0);
+	}
+
+	@Override
+	public GlobalProjectMapEntity getProjectMap(UUID globalProjectId,String schemaYear) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(GlobalProjectMapEntity.class);
+		criteria.createAlias("globalProject","globalProject");
+		criteria.add(Restrictions.eq("globalProject.id", globalProjectId));
+		criteria.add(Restrictions.eq("source", schemaYear));
+		List<GlobalProjectMapEntity> entities = (List<GlobalProjectMapEntity>) findByCriteria(criteria);
+		if(entities.isEmpty()) return null;
+		return entities.get(0);
+	}
 }

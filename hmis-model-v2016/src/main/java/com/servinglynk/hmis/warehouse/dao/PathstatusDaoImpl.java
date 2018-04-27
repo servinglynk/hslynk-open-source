@@ -46,7 +46,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 				Pathstatus pathstatusModel = null;
 				try {
 					pathstatusModel = getModelObject(domain, pathStatus,data,modelMap);
-					pathstatusModel.setClientEnrolledInPath( new Long(BasicDataGenerator.getStringValue(pathStatus.getClientEnrolledInPATH())));
+					pathstatusModel.setClientEnrolledInPath( new Long((pathStatus.getClientEnrolledInPATH())));
 					pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
 					pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
 					pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));

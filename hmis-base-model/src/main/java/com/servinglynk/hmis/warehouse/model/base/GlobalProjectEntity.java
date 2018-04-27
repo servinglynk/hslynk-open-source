@@ -17,6 +17,7 @@ public class GlobalProjectEntity extends HMISModel {
 	private String projectName;
 	private String projectCommonName;
 	private String description;
+	private String sourceSystemId;
 	
 	private List<GlobalProjectMapEntity> projects;
 	private List<GlobalProjectUserEnity> users;
@@ -70,5 +71,13 @@ public class GlobalProjectEntity extends HMISModel {
 	}
 	public void setUsers(List<GlobalProjectUserEnity> users) {
 		this.users = users;
+	}
+	
+	@Column(name="source_system_id")
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
 	}
 }

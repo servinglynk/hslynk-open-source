@@ -3199,7 +3199,7 @@ public class Sources {
                 @XmlElement(name = "ContactDate", required = true)
                 protected XMLGregorianCalendar contactDate;
                 @XmlElement(name = "ContactLocation")
-                protected byte contactLocation;
+                protected String contactLocation;
                 @XmlAttribute
                 protected XMLGregorianCalendar dateCreated;
                 @XmlAttribute
@@ -3283,7 +3283,7 @@ public class Sources {
                  * Gets the value of the contactLocation property.
                  * 
                  */
-                public byte getContactLocation() {
+                public String getContactLocation() {
                     return contactLocation;
                 }
 
@@ -3291,7 +3291,7 @@ public class Sources {
                  * Sets the value of the contactLocation property.
                  * 
                  */
-                public void setContactLocation(byte value) {
+                public void setContactLocation(String value) {
                     this.contactLocation = value;
                 }
 

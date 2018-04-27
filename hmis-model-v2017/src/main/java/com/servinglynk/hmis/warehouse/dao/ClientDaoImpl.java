@@ -94,9 +94,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 							.getDOB()));
 					clientModel
 							.setDobDataQuality(ClientDobDataQualityEnum
-									.lookupEnum(BasicDataGenerator
-											.getStringValue(client
-													.getDOBDataQuality())));
+									.lookupEnum(client
+													.getDOBDataQuality()));
 					clientModel.setEthnicity(ClientEthnicityEnum
 							.lookupEnum(String.valueOf(client.getEthnicity())));
 					clientModel.setGender(ClientGenderEnum.lookupEnum(String
@@ -110,27 +109,23 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 
 					clientModel
 							.setNameDataQuality(ClientNameDataQualityEnum
-									.lookupEnum(BasicDataGenerator
-											.getStringValue(client
-													.getNameDataQuality())));
+									.lookupEnum(client
+													.getNameDataQuality()));
 					clientModel.setNameSuffix(client.getNameSuffix());
 //					clientModel.setOtherGender(client.getOtherGender());
 					clientModel.setRace(ClientRaceEnum
-							.lookupEnum(BasicDataGenerator
-									.getStringValue(client.getRace())));
+							.lookupEnum(client.getRace()));
 					if (client.getSSN() != null) {
 						clientModel.setSsn(client.getSSN().getValue());
 					}
 					clientModel
 							.setSsnDataQuality(ClientSsnDataQualityEnum
-									.lookupEnum(BasicDataGenerator
-											.getStringValue(client
-													.getSSNDataQuality())));
+									.lookupEnum(client
+													.getSSNDataQuality()));
 					clientModel
 							.setVeteranStatus(ClientVeteranStatusEnum
-									.lookupEnum(BasicDataGenerator
-											.getStringValue(client
-													.getVeteranStatus())));
+									.lookupEnum(client
+													.getVeteranStatus()));
 					clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 					clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 					clientModel.setExport(exportEntity);
@@ -183,9 +178,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					.valueOf(client.getGender())));
 			model
 			.setSsnDataQuality(ClientSsnDataQualityEnum
-					.lookupEnum(BasicDataGenerator
-							.getStringValue(client
-									.getSSNDataQuality())));
+					.lookupEnum(client
+									.getSSNDataQuality()));
 			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 		}
 		if(modelFromDB == null) {

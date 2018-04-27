@@ -22,5 +22,6 @@ public interface GlobalProjectService {
 	void removeUserToGlobalProject(UUID globalProjectId,UUID userId);
 	GlobalProjectUsers getGlobalProjectUsers(UUID globalProjectId);
 	Boolean checkGlobalProjectUser(List<UUID> projectids, UUID accountId);
-
+	
+	void manageGlobalProjects(GlobalProject baseProject,String schemaYear,Account account);
 }
