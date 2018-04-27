@@ -46,6 +46,12 @@ public class ReportData {
 	List<String> projectsHHWithOutChildren  =  new ArrayList<String>();
 	List<String> projectsUnknownHouseHold  =  new ArrayList<String>();
 	
+	
+	private BigInteger totPersonsContacted = BigInteger.ZERO;
+	private BigInteger tpcFirstContactedHumanHabitation= BigInteger.ZERO;
+	private BigInteger tpcFirstContacteRSS = BigInteger.ZERO;
+	private BigInteger tpcFirstContactedNRSS = BigInteger.ZERO;
+	private BigInteger tpcFirstContactedPlaceMissing = BigInteger.ZERO;
 	/**
 	 * @return the schema
 	 */
@@ -390,4 +396,66 @@ public class ReportData {
 	public void setDateOfEngagements(List<DateOfEngagementModel> dateOfEngagements) {
 		this.dateOfEngagements = dateOfEngagements;
 	}
+	/**
+	 * @return the totPersonsContacted
+	 */
+	public BigInteger getTotPersonsContacted() {
+		return totPersonsContacted;
+	}
+	/**
+	 * @param totPersonsContacted the totPersonsContacted to set
+	 */
+	public void setTotPersonsContacted(BigInteger totPersonsContacted) {
+		this.totPersonsContacted = totPersonsContacted;
+	}
+	/**
+	 * @return the tpcFirstContactedHumanHabitation
+	 */
+	public BigInteger getTpcFirstContactedHumanHabitation() {
+		return tpcFirstContactedHumanHabitation;
+	}
+	/**
+	 * @param tpcFirstContactedHumanHabitation the tpcFirstContactedHumanHabitation to set
+	 */
+	public void setTpcFirstContactedHumanHabitation(BigInteger tpcFirstContactedHumanHabitation) {
+		this.tpcFirstContactedHumanHabitation = tpcFirstContactedHumanHabitation;
+	}
+	/**
+	 * @return the tpcFirstContacteRSS
+	 */
+	public BigInteger getTpcFirstContacteRSS() {
+		return tpcFirstContacteRSS;
+	}
+	/**
+	 * @param tpcFirstContacteRSS the tpcFirstContacteRSS to set
+	 */
+	public void setTpcFirstContacteRSS(BigInteger tpcFirstContacteRSS) {
+		this.tpcFirstContacteRSS = tpcFirstContacteRSS;
+	}
+	/**
+	 * @return the tpcFirstContactedNRSS
+	 */
+	public BigInteger getTpcFirstContactedNRSS() {
+		return tpcFirstContactedNRSS;
+	}
+	/**
+	 * @param tpcFirstContactedNRSS the tpcFirstContactedNRSS to set
+	 */
+	public void setTpcFirstContactedNRSS(BigInteger tpcFirstContactedNRSS) {
+		this.tpcFirstContactedNRSS = tpcFirstContactedNRSS;
+	}
+	/**
+	 * @return the tpcFirstContactedPlaceMissing
+	 */
+	public BigInteger getTpcFirstContactedPlaceMissing() {
+		return tpcFirstContactedPlaceMissing;
+	}
+	/**
+	 * @param tpcFirstContactedPlaceMissing the tpcFirstContactedPlaceMissing to set
+	 */
+	public void setTpcFirstContactedPlaceMissing(BigInteger tpcFirstContactedPlaceMissing) {
+		this.tpcFirstContactedPlaceMissing = tpcFirstContactedPlaceMissing;
+	}
+	
+	
 }

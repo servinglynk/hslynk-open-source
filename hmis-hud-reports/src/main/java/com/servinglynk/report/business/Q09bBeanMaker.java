@@ -35,41 +35,11 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 		data.setDateOfEngagements(filteredDOE);
 		Q09bDataBean q09BNumberOfPersonsEngaged = new Q09bDataBean();
 		
-	
-		
-		q09BNumberOfPersonsEngaged.setEngFirstContactHumanHabitation(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setEng2to5FirstContactHumanHabitation(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setEng6to9FirstContactHumanHabitation(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setEng10FirstContactHumanHabitation(BigInteger.valueOf(0));
-		
-		q09BNumberOfPersonsEngaged.setRoeFirstContactHumanHabitation(BigInteger.valueOf(0));
-		
-		
-		q09BNumberOfPersonsEngaged.setEngFirstContactNRSS(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setEng2to5FirstContactNRSS(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setEng6to9FirstContactNRSS(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setEng10FirstContactNRSS(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setTpeFirstContactNRSS(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setRoeFirstContactNRSS(BigInteger.valueOf(0));
-		
-		
 //		q09BNumberOfPersonsEngaged.setEngFirstContactRSS(BigInteger.valueOf(0));
 //		q09BNumberOfPersonsEngaged.setEng2to5FirstContactRSS(BigInteger.valueOf(0));
 //		q09BNumberOfPersonsEngaged.setEng6to9FirstContactRSS(BigInteger.valueOf(0));
 //		q09BNumberOfPersonsEngaged.setEng10FirstContactRSS(BigInteger.valueOf(0));
 //		q09BNumberOfPersonsEngaged.setRoeFirstContactRSS(BigInteger.valueOf(0));
-		
-		
-		q09BNumberOfPersonsEngaged.setEngFirstContactPlaceMissing(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setEng2to5FirstContactPlaceMissing(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setEng6to9FirstContactPlaceMissing(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setEng10FirstContactPlaceMissing(BigInteger.valueOf(0));
-		q09BNumberOfPersonsEngaged.setRoeFirstContactPlaceMissing(BigInteger.valueOf(0));
-		
-	//	q09BNumberOfPersonsEngaged.setTpeFirstContactHumanHabitation(BigInteger.valueOf(0));
-//		q09BNumberOfPersonsEngaged.setTpeFirstContactRSS(BigInteger.valueOf(0));
-//		q09BNumberOfPersonsEngaged.setTpeFirstContactPlaceMissing(BigInteger.valueOf(0));
-		
 		
 		if(CollectionUtils.isNotEmpty(filteredContacts)) {
 			   Map<String, Long> totalContacts = filteredContacts.stream().collect(Collectors.groupingBy(ContactModel::getEnrollmentId, Collectors.counting()));
@@ -80,19 +50,15 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 				   List<Long> total6and9 = values.parallelStream().filter(count -> count >= 6 && count <=9).collect(Collectors.toList());
 				   List<Long> total10up = values.parallelStream().filter(count -> count >= 10).collect(Collectors.toList());
 					 
-				   q09aNumberPersonsContactedDataBean.setTotContactedOnce(BigInteger.valueOf(totalOnce != null ?totalOnce.size() :0));
-				   q09aNumberPersonsContactedDataBean.setTotContacted2to5Times(BigInteger.valueOf(total2and5 != null ? total2and5.size() : 0));
-				   q09aNumberPersonsContactedDataBean.setTotContacted6to9Times(BigInteger.valueOf(total6and9 != null ? total6and9.size() : 0));
-				   q09aNumberPersonsContactedDataBean.setTotContacted10orMore(BigInteger.valueOf(total10up != null ? total10up.size() : 0));
-				   q09aNumberPersonsContactedDataBean.setTotPersonsContacted(BigInteger.valueOf(totalContacts != null ? totalContacts.size() : 0));
-				   
 					q09BNumberOfPersonsEngaged.setTotEngagedAfter1Contract(BigInteger.valueOf(totalOnce != null ?totalOnce.size() :0));
 					q09BNumberOfPersonsEngaged.setTotEngagedAfter2to5Contract(BigInteger.valueOf(total2and5 != null ? total2and5.size() : 0));
 					q09BNumberOfPersonsEngaged.setTotEngagedAfter6to9Contract(BigInteger.valueOf(total6and9 != null ? total6and9.size() : 0));
 					q09BNumberOfPersonsEngaged.setTotEngagedAfter10orMoreContract(BigInteger.valueOf(total10up != null ? total10up.size() : 0));
 					q09BNumberOfPersonsEngaged.setTotPersonsEngaged(BigInteger.valueOf(totalContacts != null ? totalContacts.size() : 0));
-				
-					q09BNumberOfPersonsEngaged.setTotRateOfEngagement(BigInteger.valueOf(0));
+					BigInteger totPersonsContacted = data.getTotPersonsContacted();
+					if(totPersonsContacted != BigInteger.ZERO && totalContacts.size() !=0) {
+						q09BNumberOfPersonsEngaged.setTotRateOfEngagement(totPersonsContacted.divide(q09BNumberOfPersonsEngaged.getTotPersonsEngaged()));
+					}
 			   }
 			   
 		}
@@ -121,11 +87,17 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 					List<Long> total2and5 = values.parallelStream().filter(count -> count >= 2 && count <=5).collect(Collectors.toList());
 					List<Long> total6and9 = values.parallelStream().filter(count -> count >= 6 && count <=9).collect(Collectors.toList());
 					List<Long> total10up = values.parallelStream().filter(count -> count >= 10).collect(Collectors.toList());
-					q09aNumberPersonsContactedDataBean.setCoFirstContactHumanHabitation(BigInteger.valueOf(totalOnce != null ? totalOnce.size() :0 ));
-					q09aNumberPersonsContactedDataBean.setC2to5FirstContactedHumanHabitation(BigInteger.valueOf(total2and5 != null ? total2and5.size() :0));
-					q09aNumberPersonsContactedDataBean.setC6to9FirstContactedHumanHabitation(BigInteger.valueOf(total6and9 != null ?total6and9.size() : 0));
-					q09aNumberPersonsContactedDataBean.setC10orMoreFirstContactedHumanHabitation(BigInteger.valueOf(total10up != null ? total10up.size() : 0));
-					q09aNumberPersonsContactedDataBean.setTpcFirstContactedHumanHabitation(BigInteger.valueOf(stayingOnStreets.size()));
+					
+					q09BNumberOfPersonsEngaged.setEngFirstContactHumanHabitation(BigInteger.valueOf(totalOnce != null ?totalOnce.size() :0));
+					q09BNumberOfPersonsEngaged.setEng2to5FirstContactHumanHabitation(BigInteger.valueOf(total2and5 != null ? total2and5.size() : 0));
+					q09BNumberOfPersonsEngaged.setEng6to9FirstContactHumanHabitation(BigInteger.valueOf(total6and9 != null ? total6and9.size() : 0));
+					q09BNumberOfPersonsEngaged.setEng10FirstContactHumanHabitation(BigInteger.valueOf(total10up != null ? total10up.size() : 0));
+					q09BNumberOfPersonsEngaged.setTpeFirstContactHumanHabitation(BigInteger.valueOf(stayingOnStreets.size()));
+					
+					BigInteger totPersonsContacted = data.getTpcFirstContactedHumanHabitation();
+					if(totPersonsContacted != BigInteger.ZERO && stayingOnStreets.size() !=0) {
+						q09BNumberOfPersonsEngaged.setRoeFirstContactHumanHabitation(totPersonsContacted.divide(q09BNumberOfPersonsEngaged.getTpeFirstContactHumanHabitation()));
+					}
 			   }
 		}
 	
@@ -139,11 +111,15 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 					List<Long> total6and9 = values.parallelStream().filter(count -> count >= 6 && count <=9).collect(Collectors.toList());
 					List<Long> total10up = values.parallelStream().filter(count -> count >= 10).collect(Collectors.toList());
 				
-					q09aNumberPersonsContactedDataBean.setCoFirstContactNRSS(BigInteger.valueOf(totalOnce != null ? totalOnce.size() :0 ));
-					q09aNumberPersonsContactedDataBean.setC2to5FirstContactedNRSS(BigInteger.valueOf(total2and5 != null ? total2and5.size() : 0));
-					q09aNumberPersonsContactedDataBean.setC6to9FirstContactedNRSS(BigInteger.valueOf(total6and9 != null ? total6and9.size() :0 ));
-					q09aNumberPersonsContactedDataBean.setC10orMoreFirstContactedNRSS(BigInteger.valueOf(total10up != null ? total10up.size() :0 ));
-					q09aNumberPersonsContactedDataBean.setTpcFirstContactedNRSS(BigInteger.valueOf(notStayingOnStreets.size()));
+					q09BNumberOfPersonsEngaged.setEngFirstContactNRSS(BigInteger.valueOf(totalOnce != null ? totalOnce.size() :0 ));
+					q09BNumberOfPersonsEngaged.setEng2to5FirstContactNRSS(BigInteger.valueOf(total2and5 != null ? total2and5.size() : 0));
+					q09BNumberOfPersonsEngaged.setEng6to9FirstContactNRSS(BigInteger.valueOf(total6and9 != null ? total6and9.size() :0));
+					q09BNumberOfPersonsEngaged.setEng10FirstContactNRSS(BigInteger.valueOf(total10up != null ? total10up.size() :0));
+					q09BNumberOfPersonsEngaged.setTpeFirstContactNRSS(BigInteger.valueOf(notStayingOnStreets.size()));
+					BigInteger totPersonsContacted = data.getTpcFirstContactedNRSS();
+					if(totPersonsContacted != BigInteger.ZERO && notStayingOnStreets.size() !=0) {
+						q09BNumberOfPersonsEngaged.setRoeFirstContactNRSS(totPersonsContacted.divide(q09BNumberOfPersonsEngaged.getTpeFirstContactNRSS()));
+					}
 			   	}
 		}
 		
@@ -156,11 +132,15 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 					List<Long> total6and9 = values.parallelStream().filter(count -> count >= 6 && count <=9).collect(Collectors.toList());
 					List<Long> total10up = values.parallelStream().filter(count -> count >= 10).collect(Collectors.toList());
 				
-					q09aNumberPersonsContactedDataBean.setCoFirstContactPlaceMissing(BigInteger.valueOf(totalOnce != null ? totalOnce.size() :0));
-					q09aNumberPersonsContactedDataBean.setC2to5FirstContactedPlaceMissing(BigInteger.valueOf(total2and5 != null ?total2and5.size() :0));
-					q09aNumberPersonsContactedDataBean.setC6to9FirstContactedPlaceMissing(BigInteger.valueOf(total6and9 != null ?total6and9.size() :0));
-					q09aNumberPersonsContactedDataBean.setC10orMoreFirstContactedPlaceMissing(BigInteger.valueOf(total10up != null ? total10up.size() :0));
-					q09aNumberPersonsContactedDataBean.setTpcFirstContactedPlaceMissing(BigInteger.valueOf(unabletoDetermine.size()));
+					q09BNumberOfPersonsEngaged.setEngFirstContactPlaceMissing(BigInteger.valueOf(totalOnce != null ? totalOnce.size() :0));
+					q09BNumberOfPersonsEngaged.setEng2to5FirstContactPlaceMissing(BigInteger.valueOf(total2and5 != null ?total2and5.size() :0));
+					q09BNumberOfPersonsEngaged.setEng6to9FirstContactPlaceMissing(BigInteger.valueOf(total6and9 != null ?total6and9.size() :0));
+					q09BNumberOfPersonsEngaged.setEng10FirstContactPlaceMissing(BigInteger.valueOf(total10up != null ? total10up.size() :0));
+					q09BNumberOfPersonsEngaged.setTpeFirstContactPlaceMissing(BigInteger.valueOf(unabletoDetermine.size()));
+					BigInteger totPersonsContacted = data.getTpcFirstContactedPlaceMissing();
+					if(totPersonsContacted != BigInteger.ZERO && unabletoDetermine.size() !=0) {
+						q09BNumberOfPersonsEngaged.setRoeFirstContactPlaceMissing(totPersonsContacted.divide(q09BNumberOfPersonsEngaged.getTpeFirstContactPlaceMissing()));
+					}
 				   }
 		}
 		return Arrays.asList(q09BNumberOfPersonsEngaged);

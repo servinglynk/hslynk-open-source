@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 public class Q09aDataBean {
 	
+	
 	private BigInteger totContactedOnce;
 	private BigInteger coFirstContactHumanHabitation;
 	private BigInteger coFirstContactNRSS;

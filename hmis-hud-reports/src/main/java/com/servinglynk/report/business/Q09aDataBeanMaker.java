@@ -47,6 +47,7 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 				   q09aNumberPersonsContactedDataBean.setTotContacted6to9Times(BigInteger.valueOf(total6and9 != null ? total6and9.size() : 0));
 				   q09aNumberPersonsContactedDataBean.setTotContacted10orMore(BigInteger.valueOf(total10up != null ? total10up.size() : 0));
 				   q09aNumberPersonsContactedDataBean.setTotPersonsContacted(BigInteger.valueOf(totalContacts != null ? totalContacts.size() : 0));
+				   data.setTotPersonsContacted(BigInteger.valueOf(totalContacts != null ? totalContacts.size() : 0));
 			   }
 			   
 		}
@@ -80,6 +81,7 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 					q09aNumberPersonsContactedDataBean.setC6to9FirstContactedHumanHabitation(BigInteger.valueOf(total6and9 != null ?total6and9.size() : 0));
 					q09aNumberPersonsContactedDataBean.setC10orMoreFirstContactedHumanHabitation(BigInteger.valueOf(total10up != null ? total10up.size() : 0));
 					q09aNumberPersonsContactedDataBean.setTpcFirstContactedHumanHabitation(BigInteger.valueOf(stayingOnStreets.size()));
+					data.setTpcFirstContactedHumanHabitation(BigInteger.valueOf(stayingOnStreets.size()));
 			   }
 		}
 	
@@ -98,6 +100,7 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 					q09aNumberPersonsContactedDataBean.setC6to9FirstContactedNRSS(BigInteger.valueOf(total6and9 != null ? total6and9.size() :0 ));
 					q09aNumberPersonsContactedDataBean.setC10orMoreFirstContactedNRSS(BigInteger.valueOf(total10up != null ? total10up.size() :0 ));
 					q09aNumberPersonsContactedDataBean.setTpcFirstContactedNRSS(BigInteger.valueOf(notStayingOnStreets.size()));
+					data.setTpcFirstContactedNRSS(BigInteger.valueOf(notStayingOnStreets.size()));
 			   	}
 		}
 		
@@ -115,6 +118,7 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 					q09aNumberPersonsContactedDataBean.setC6to9FirstContactedPlaceMissing(BigInteger.valueOf(total6and9 != null ?total6and9.size() :0));
 					q09aNumberPersonsContactedDataBean.setC10orMoreFirstContactedPlaceMissing(BigInteger.valueOf(total10up != null ? total10up.size() :0));
 					q09aNumberPersonsContactedDataBean.setTpcFirstContactedPlaceMissing(BigInteger.valueOf(unabletoDetermine.size()));
+					data.setTpcFirstContactedPlaceMissing(q09aNumberPersonsContactedDataBean.getTpcFirstContactedPlaceMissing());
 				   }
 		}
 	
