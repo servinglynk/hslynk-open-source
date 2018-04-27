@@ -10319,6 +10319,7 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "inventoryID",
                 "coCCode",
+                "projectID",
                 "householdType",
                 "bedType",
                 "availability",
@@ -10341,6 +10342,8 @@ public class Sources {
                 protected String inventoryID;
                 @XmlElement(name = "CoCCode", required = true)
                 protected String coCCode;
+                @XmlElement(name = "projectID")
+                protected String projectID;
                 @XmlElement(name = "HouseholdType")
                 protected String householdType;
                 @XmlElement(name = "BedType")
@@ -10456,7 +10459,22 @@ public class Sources {
                     this.coCCode = value;
                 }
 
+                
                 /**
+				 * @return the projectID
+				 */
+				public String getProjectID() {
+					return projectID;
+				}
+
+				/**
+				 * @param projectID the projectID to set
+				 */
+				public void setProjectID(String projectID) {
+					this.projectID = projectID;
+				}
+
+				/**
                  * Gets the value of the householdType property.
                  * 
                  */
