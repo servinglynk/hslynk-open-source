@@ -159,7 +159,7 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 			if(contactDate.compareTo(projectStartDate) >= 0 && contactDate.compareTo(data.getReportEndDate()) <=0)  {
 				Date dateOfEngagement = dateOfEngagementMap.get(contact.getEnrollmentId());
 				Date dateOfExit = exitMap.get(contact.getEnrollmentId());
-				if((dateOfEngagement != null && contactDate.compareTo(dateOfEngagement) <=0) 
+				if((dateOfEngagement != null && contactDate.compareTo(dateOfEngagement) <=0  && dateOfEngagement.compareTo(data.getReportEndDate()) <= 0 ) 
 						&& ((dateOfExit == null) && contactDate.compareTo(dateOfExit) <= 0))  {
 					seperatedContacts.add(contact);
 				}
