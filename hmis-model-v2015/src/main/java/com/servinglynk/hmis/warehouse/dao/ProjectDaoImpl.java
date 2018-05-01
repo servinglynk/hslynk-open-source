@@ -123,12 +123,22 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			entity.setProjectCommonName(project.getProjectcommonname());
 			entity.setProjectName(project.getProjectname());
 			entity.setId(project.getId());
-			//entity.setDescription(description);
+			entity.setDescription(project.getProjectname());
 			entity.setDateCreated(LocalDateTime.now());
 			entity.setDateUpdated(LocalDateTime.now());
 			entity.setUser(userId);
 			entity.setProjectGroupCode(projectGroupCode);
 			factory.getGlobalProjectDao().create(entity);
+			
+			GlobalProjectMapEntity mapEntity = new GlobalProjectMapEntity();
+			mapEntity.setDateCreated(LocalDateTime.now());
+			mapEntity.setDateUpdated(LocalDateTime.now());
+			mapEntity.setProjectGroupCode(projectGroupCode);
+			mapEntity.setUser(userId);
+			mapEntity.setProjectId(project.getId());
+			mapEntity.setSource(schemaYear);
+			mapEntity.setGlobalProject(entity);
+			factory.getGlobalProjectDao().addProjectToGlobalProject(mapEntity);
 		} else {
 			GlobalProjectMapEntity entity2 = factory.getGlobalProjectDao().getProjectMap(entity.getId(), schemaYear);
 			  if(entity2==null) {
@@ -139,6 +149,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				  mapEntity.setProjectId(project.getId());
 				  mapEntity.setSource(schemaYear);
 				  mapEntity.setGlobalProject(entity);
+				  mapEntity.setProjectId(project.getId());
 				  mapEntity.setUser(userId);
 				  factory.getGlobalProjectDao().addProjectToGlobalProject(mapEntity);
 			  }

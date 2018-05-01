@@ -35,7 +35,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class, getProjectGroupCode(domain));
 		List<Services> services = export.getServices();
-		Long contactCount =0L;
+		Long contactCount = 0L;
 		if (services != null && services.size() > 0) {
 			for (Services serviceFaReferrals : services) {
 				com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral serviceFaReferralModel = null;
