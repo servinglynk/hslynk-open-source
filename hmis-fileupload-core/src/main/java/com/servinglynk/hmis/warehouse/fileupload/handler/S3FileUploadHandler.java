@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.servinglynk.hmis.warehouse.fileupload.common.BaseRegistry;
 import com.servinglynk.hmis.warehouse.fileupload.entity.UploadLineEntity;
@@ -18,11 +19,14 @@ public class S3FileUploadHandler extends BaseRegistry implements FileUploadHandl
 
 
 	public void uploadDocument(UploadLineEntity entity, MultipartFile multipart) throws IOException {
-		String key =this.getRemoteFileName(multipart.getOriginalFilename());
+		/*String key =this.getRemoteFileName(multipart.getOriginalFilename());
 		File file=new File(key);
-		multipart.transferTo(file);
-        getS3Client().putObject(new PutObjectRequest(entity.getBucketName(), key, file));
-        entity.setFileName(key);
+		multipart.transferTo(file);*/
+		ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(multipart.getSize());
+		metadata.setContentType(entity.getContentType());
+        getS3Client().putObject(new PutObjectRequest(entity.getBucketName(), entity.getFileName(), multipart.getInputStream(),metadata));
+       // entity.setFileName(key);
         daoFactory.getUploadLineDao().save(entity);
 	}
 
