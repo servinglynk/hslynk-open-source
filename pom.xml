@@ -32,7 +32,7 @@
 		</pluginManagement>
 	</build>
 	<modules>
-  	    
+  	     <module>hmis-admin</module>
 		<module>hmis-core-client</module>
 		<module>hmis-s3-client</module>
 		<module>hmis-core-common</module>
@@ -70,5 +70,6 @@
 		<module>hmis-upload-service</module>
 		<module>hmis-client-dedup</module>
 		<module>hmis-globalapi</module>
+		<module>hmis-fileupload-core</module>
 	</modules>
 </project>

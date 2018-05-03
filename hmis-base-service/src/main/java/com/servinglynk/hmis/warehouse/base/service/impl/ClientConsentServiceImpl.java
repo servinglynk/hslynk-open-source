@@ -1,20 +1,26 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.converter.ClientConsentConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.GlobalProjectConveter;
+import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProject;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProjects;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.model.Document;
+import com.servinglynk.hmis.warehouse.model.Documents;
+import com.servinglynk.hmis.warehouse.model.UploadHeader;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentProjectMapEntity;
 import com.servinglynk.hmis.warehouse.model.base.GlobalProjectEntity;
@@ -118,6 +124,47 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 		ClientConsentProjectMapEntity entity = daoFactory.getClientConsentDao().getClientConsentProjectMap(clientConsentId, globalProjectId);		
 		if(entity == null) throw new ResourceNotFoundException("Global Project not associated with selected client Consent ");
 		daoFactory.getClientConsentDao().deleteConsentProjectMap(entity);
+	}
+
+	@Transactional
+	public void saveConsentDocument(MultipartFile multipartFile, UUID clientid,UUID consentId,Account loginUser) throws Exception {
+		ClientConsentEntity entity = daoFactory.getClientConsentDao().getClientConsentId(consentId);
+		if(entity == null) throw new ResourceNotFoundException(" Client Consent not found "+consentId);
+		UploadHeader header = new UploadHeader();
+		header.setUploadType("CONSENT_UPLOAD");
+		header.setBucketName(loginUser.getProjectGroup().getBucketName());
+		if(entity.getConsentDocument()!=null)	header.setUploadFileId(entity.getConsentDocument());
+		
+		fileUploadServiceFactory.getFileUploadService().uploadDocument(multipartFile, header);
+		if(entity.getConsentDocument()==null)
+			 entity.setConsentDocument(header.getUploadFileId());
+		daoFactory.getClientConsentDao().update(entity);
+	}
+	
+	@Transactional
+	public Documents getConsentDocuments(UUID clientid, UUID consentid) {
+		ClientConsentEntity entity = daoFactory.getClientConsentDao().getClientConsentId(consentid);
+		if(entity == null) throw new ResourceNotFoundException(" Client Consent not found "+consentid);
+		if(entity.getConsentDocument()==null) throw new ResourceNotFoundException("No documents for selected client consent");
+		
+		return fileUploadServiceFactory.getFileUploadService().getDocuments(entity.getConsentDocument());
+	}
+	
+	@Transactional
+	public void deleteConsentDocument(UUID clientid, UUID consentid,UUID documentId) {
+		ClientConsentEntity entity = daoFactory.getClientConsentDao().getClientConsentId(consentid);
+		if(entity == null) throw new ResourceNotFoundException(" Client Consent not found "+consentid);
+		if(entity.getConsentDocument()==null) throw new ResourceNotFoundException("No documents for selected client consent");
+		fileUploadServiceFactory.getFileUploadService().deleteDocument(documentId);
+	}
+	
+	@Transactional
+	public Document downloadConsentDocument(UUID clientid, UUID consentid,UUID documentId) throws Exception {
+		ClientConsentEntity entity = daoFactory.getClientConsentDao().getClientConsentId(consentid);
+		if(entity == null) throw new ResourceNotFoundException(" Client Consent not found "+consentid);
+		if(entity.getConsentDocument()==null) throw new ResourceNotFoundException("No documents for selected client consent");
+
+		return fileUploadServiceFactory.getFileUploadService().downloadDocument(documentId);
 	}
 	
 }
