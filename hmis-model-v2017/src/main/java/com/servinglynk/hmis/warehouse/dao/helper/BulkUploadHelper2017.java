@@ -1069,8 +1069,8 @@ public class BulkUploadHelper2017 {
 	      for(Inventory invntry : inventory) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory();
 
-	    	  inventoryModel.setAvailability(getByte(invntry.getAvailability()));
-	    	  inventoryModel.setBedType(getByte(invntry.getBedType()));
+	    	  inventoryModel.setAvailability(invntry.getAvailability());
+	    	  inventoryModel.setBedType(invntry.getBedType());
 	    	  inventoryModel.setProjectID(invntry.getProjectID());
 	    	  inventoryModel.setDateCreated(getXMLGregorianCalendar(invntry.getDateCreated()));
 	    	  inventoryModel.setDateUpdated(getXMLGregorianCalendar(invntry.getDateUpdated()));
