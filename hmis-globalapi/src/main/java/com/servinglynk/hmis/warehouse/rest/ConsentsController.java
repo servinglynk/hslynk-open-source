@@ -105,7 +105,7 @@ public class ConsentsController extends ControllerBase {
 	@RequestMapping(method=RequestMethod.GET,value="/clients/{clientid}/consents/{consentid}/documents")
 	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_CLIENT_CONSENTS")
 	public Documents getConsentDocuments(@PathVariable("clientid") UUID clientid,
-			@PathVariable("consentid") UUID consentid) {
+			@PathVariable("consentid") UUID consentid) throws Exception {
 		return serviceFactory.getClientConsentService().getConsentDocuments(clientid,consentid);
 	}
 	

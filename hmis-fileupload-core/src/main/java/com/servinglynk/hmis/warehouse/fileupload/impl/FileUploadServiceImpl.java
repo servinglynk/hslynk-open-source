@@ -154,7 +154,7 @@ public class FileUploadServiceImpl extends BaseRegistry implements FileUploadSer
 		List<UploadLineEntity> entities = daoFactory.getUploadLineDao().findByUploadHeader(entity);
 		for(UploadLineEntity lineEntity : entities) {
 			Document document = new Document();
-			document.setFileName(lineEntity.getFileName());
+			document.setFileName(lineEntity.getFileOriginalName());
 			document.setMimeType(lineEntity.getContentType());
 			document.setSize(lineEntity.getFileSize());
 			document.setDocumentId(lineEntity.getId());

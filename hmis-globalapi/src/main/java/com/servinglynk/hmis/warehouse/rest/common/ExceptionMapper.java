@@ -151,7 +151,13 @@ public class ExceptionMapper {
 			r.setErrorCode(ERR_CODE_ACCESS_DENIED);
 			r.setErrorMessage(ex.getMessage());
 
-		} catch (IllegalBusinessStateException ex) {
+		}catch(ResourceNotFoundException ex ) {
+			logger.info("ResourceNotFoundException: " + ex.getMessage(), ex);
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorCode("RESOURCE_NOT_FOUND");
+			r.setErrorMessage(ex.getMessage());
+		}	catch (IllegalBusinessStateException ex) {
+		
 
 			logger.info("IllegalBusinessStateException: " + ex.getMessage(), ex);
 			r.setStatusCode(HttpServletResponse.SC_FORBIDDEN);
@@ -165,7 +171,13 @@ public class ExceptionMapper {
 			r.setErrorCode(ERR_CODE_MISSING_PARAMETER);
 			r.setErrorMessage(ex.getMessage());
 
-		} catch(ClientNotFoundException ex){
+		} catch(org.apache.commons.fileupload.FileUploadException ex) {
+			logger.info("FileUploadException: " + ex.getMessage(), ex);
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+			r.setErrorCode("FILE_UPLOAD_EXCEPTION");
+			r.setErrorMessage(ex.getMessage());
+		}
+		catch(ClientNotFoundException ex){
 			logger.info("ClientNotFoundException: " + ex.getMessage(), ex);
 			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
 			r.setErrorCode(ERR_CODE_CLIENT_NOT_FOUND);
