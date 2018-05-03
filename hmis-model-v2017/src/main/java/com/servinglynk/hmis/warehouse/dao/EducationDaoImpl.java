@@ -47,9 +47,8 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 				educationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(education.getDateUpdated()));
 				educationModel
 				.setLastgradecompleted(LastgradecompletedLastgradecompletedEnum
-						.lookupEnum(BasicDataGenerator
-								.getStringValue(education
-										.getLastGradeCompleted())));
+						.lookupEnum(education
+										.getLastGradeCompleted()));
 				educationModel.setSchoolStatus(
 						SchoolStatusEnum
 						.lookupEnum(education.getSchoolStatus()));
@@ -57,7 +56,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 				educationModel.setEnrollmentid(enrollmentModel);
 				educationModel.setExport(exportEntity);
 				educationModel.setInformationDate(BasicDataGenerator.getLocalDateTime(education.getInformationDate()));
-//				educationModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(education.getDataCollectionStage())));
+//				educationModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((education.getDataCollectionStage())));
 				
 				performSaveOrUpdate(educationModel);
 			}

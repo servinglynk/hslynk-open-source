@@ -39,15 +39,15 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				Domesticviolence domesticviolenceModel = null;
 				try {
 					domesticviolenceModel = getModelObject(domain, domesticViolence,data,modelMap);
-					domesticviolenceModel.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDomesticViolenceVictim())));
-					domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getWhenOccurred())));
+					domesticviolenceModel.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum((domesticViolence.getDomesticViolenceVictim())));
+					domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum((domesticViolence.getWhenOccurred())));
 					domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
 					domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, domesticViolence.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					domesticviolenceModel.setExport(exportEntity);
 					domesticviolenceModel.setEnrollmentid(enrollmentModel);
 					domesticviolenceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(domesticViolence.getInformationDate()));
-					domesticviolenceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(domesticViolence.getDataCollectionStage())));
+					domesticviolenceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((domesticViolence.getDataCollectionStage())));
 					performSaveOrUpdate(domesticviolenceModel);
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the Domesticviolence::"+domesticViolence.getDomesticViolenceID() +" Exception ::"+e.getMessage();

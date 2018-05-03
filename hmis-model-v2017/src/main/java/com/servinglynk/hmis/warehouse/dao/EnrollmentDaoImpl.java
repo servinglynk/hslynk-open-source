@@ -57,11 +57,11 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				try {
 					enrollmentModel = getModelObject(domain, enrollment,data,modelMap);
 //				enrollmentModel
-//						.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment
+//						.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum((enrollment
 //								.getContinuouslyHomelessOneYear())));
-//					enrollmentModel.setHousingstatus(EnrollmentHousingstatusEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getHousingStatus())));
+//					enrollmentModel.setHousingstatus(EnrollmentHousingstatusEnum.lookupEnum((enrollment.getHousingStatus())));
 					enrollmentModel.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingCondition()));
-					enrollmentModel.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getRelationshipToHoH())));
+					enrollmentModel.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum((enrollment.getRelationshipToHoH())));
 					enrollmentModel.setLivingSituation(LivingSituationEnum.lookupEnum(enrollment.getLivingSituation()));
 					enrollmentModel.setLengthOfStay(LengthOfStayEnum.lookupEnum(enrollment.getLengthOfStay()));
 					enrollmentModel.setDateCreatedFromSource(BasicDataGenerator
@@ -74,6 +74,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment
 							.getMonthsHomelessPastThreeYears()));
 					enrollmentModel.setHouseholdid(enrollment.getHouseholdID());
+					enrollmentModel.setDatetostreetessh(BasicDataGenerator
+							.getLocalDateTime(enrollment.getDateToStreetESSH()));
 //				enrollmentModel
 //						.setMonthshomelessthistime(EnrollmentMonthshomelessthistimeEnum.lookupEnum(BasicDataGenerator
 //								.getStringValue(enrollment

@@ -11,6 +11,7 @@ public class GlobalProject extends ClientModel {
 	private String projectName;
 	private String projectCommonName;
 	private String description;
+	private String sourceSystemId;
 	private GlobalProjectsMap projects = new GlobalProjectsMap();
 	
 	public UUID getId() {
@@ -47,5 +48,10 @@ public class GlobalProject extends ClientModel {
 	public void addProject(GlobalProjectMap project) {
 		this.projects.addGlobalProject(project);
 	}
-	
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
+	}
 }

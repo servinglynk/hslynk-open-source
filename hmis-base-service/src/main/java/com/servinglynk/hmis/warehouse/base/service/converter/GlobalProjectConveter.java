@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.base.service.converter;
 
-import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProject;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProjectMap;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProjectUser;
@@ -16,6 +15,7 @@ public class GlobalProjectConveter {
 		if(model.getDescription()!=null) entity.setDescription(model.getDescription());
 		if(model.getProjectCommonName()!=null) entity.setProjectCommonName(model.getProjectCommonName());
 		if(model.getProjectName()!=null) entity.setProjectName(model.getProjectName());
+		if(model.getSourceSystemId()!=null) entity.setSourceSystemId(model.getSourceSystemId());
 		
 		return entity;
 	}

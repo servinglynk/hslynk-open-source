@@ -265,7 +265,6 @@ public class PurgeProjectGroup extends Logging {
 	        tables.add("export"); 
 	        tables.add("source");
 	        tables.add("exitRHY");
-	        tables.add("exitPath");
 	        return tables;
 	    }
 		/***
@@ -275,7 +274,8 @@ public class PurgeProjectGroup extends Logging {
 		public List<String> getBaseTables() {
 			List<String> tables = new ArrayList<>();
 			tables.add("client");
-			tables.add("project");
+			tables.add("hmis_global_project");
+			tables.add("hmis_global_project_map");
 			return tables;
 		}
 		
@@ -285,7 +285,7 @@ public class PurgeProjectGroup extends Logging {
 		props.generatePropValues();
 		
 		PurgeProjectGroup view = new PurgeProjectGroup(logger);
-	   // view.purge("IL0009");
+	    view.purge("CP0004");
 	}
 
 }

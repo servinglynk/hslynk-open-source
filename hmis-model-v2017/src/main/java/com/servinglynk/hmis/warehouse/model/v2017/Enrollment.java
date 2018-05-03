@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
@@ -64,7 +65,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private Set<Dateofengagement> dateofengagements = new HashSet<Dateofengagement>();
 
 	/** Field mapping. */
-	private Integer datetostreetessh;
+	private LocalDateTime datetostreetessh;
 	/** Field mapping. */
 	private Set<Disabilities> disabilitieses = new HashSet<Disabilities>();
 
@@ -274,7 +275,8 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * Return the value associated with the column: datetostreetessh.
 	 * @return A Integer object (this.datetostreetessh)
 	 */
-	public Integer getDatetostreetessh() {
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	public LocalDateTime getDatetostreetessh() {
 		return this.datetostreetessh;
 
 	}
@@ -285,7 +287,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * Set the value related to the column: datetostreetessh.
 	 * @param datetostreetessh the datetostreetessh value you wish to set
 	 */
-	public void setDatetostreetessh(final Integer datetostreetessh) {
+	public void setDatetostreetessh(final LocalDateTime datetostreetessh) {
 		this.datetostreetessh = datetostreetessh;
 	}
 

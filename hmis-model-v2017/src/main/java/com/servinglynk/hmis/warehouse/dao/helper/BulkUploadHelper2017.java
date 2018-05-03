@@ -379,9 +379,9 @@ public class BulkUploadHelper2017 {
 	      if(clients !=null && clients.size() > 0) {
 	    	  for(Client client : clients) {
 	    		   com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client clientModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client();
-	    		   clientModel.setEthnicity(getByte(client.getEthnicity()));
+	    		   clientModel.setEthnicity((client.getEthnicity()));
 	    		   clientModel.setDOB(getXMLGregorianCalendar(client.getDob()));
-	    		   clientModel.setDOBDataQuality(getByte(client.getDobDataQuality()));
+	    		   clientModel.setDOBDataQuality((client.getDobDataQuality()));
 	    		   FirstName  firstName = new FirstName();
 	    		   firstName.setValue(client.getFirstName());
 	    		   clientModel.setFirstName(firstName);
@@ -391,37 +391,37 @@ public class BulkUploadHelper2017 {
 	    		   MiddleName middleName = new MiddleName();
 	    		   middleName.setValue(client.getMiddleName());
 	    		   clientModel.setMiddleName(middleName);
-	    		   clientModel.setGender(getByte(client.getGender()));
-	    		   clientModel.setNameDataQuality(getByte(client.getNameDataQuality()));
+	    		   clientModel.setGender((client.getGender()));
+	    		   clientModel.setNameDataQuality((client.getNameDataQuality()));
 	    		   clientModel.setNameSuffix(client.getNameSuffix());
 	    		   clientModel.setPersonalID(client.getPersonalID());
-	    		   clientModel.setRace(getByte(client.getRaceNone()));
+	    		   clientModel.setRace((client.getRaceNone()));
 	    		   SSN ssn = new SSN();
 	    		   ssn.setValue(client.getSsn());
 	    		   clientModel.setSSN(ssn);
-	    		   clientModel.setSSNDataQuality(getByte(client.getSsnDataQuality()));
+	    		   clientModel.setSSNDataQuality((client.getSsnDataQuality()));
 	    		   clientModel.setUserID(client.getUserID());
-	    		   clientModel.setVeteranStatus(getByte(client.getVeteranStatus()));
+	    		   clientModel.setVeteranStatus((client.getVeteranStatus()));
 	    		   clientModel.setDateCreated(getXMLGregorianCalendar(client.getDateCreated()));
 	    		   clientModel.setDateUpdated(getXMLGregorianCalendar(client.getDateUpdated()));
 	    		   clientList.add(clientModel);
 	    		   
 	    		   ClientVeteranInfo veteranInfoModel = new ClientVeteranInfo();
-	    		   veteranInfoModel.setAfghanistanOEF(getByte(client.getAfghanistanOEF()));
+	    		   veteranInfoModel.setAfghanistanOEF((client.getAfghanistanOEF()));
 	    		   veteranInfoModel.setDateCreated(getXMLGregorianCalendar(client.getDateCreated()));
 	    		   veteranInfoModel.setDateUpdated(getXMLGregorianCalendar(client.getDateUpdated()));
-	    		   veteranInfoModel.setDesertStorm(getByte(client.getDesertStorm()));
-	    		   veteranInfoModel.setDischargeStatus(getByte(client.getDischargeStatus()));
-	    		   veteranInfoModel.setIraqOIF(getByte(client.getIraqOIF()));
-	    		   veteranInfoModel.setIraqOND(getByte(client.getIraqOND()));
-	    		   veteranInfoModel.setKoreanWar(getByte(client.getKoreanWar()));
-	    		   veteranInfoModel.setMilitaryBranch(getByte(client.getMilitaryBranch()));
-	    		   veteranInfoModel.setOtherTheater(getByte(client.getOtherTheater()));
+	    		   veteranInfoModel.setDesertStorm((client.getDesertStorm()));
+	    		   veteranInfoModel.setDischargeStatus((client.getDischargeStatus()));
+	    		   veteranInfoModel.setIraqOIF((client.getIraqOIF()));
+	    		   veteranInfoModel.setIraqOND((client.getIraqOND()));
+	    		   veteranInfoModel.setKoreanWar((client.getKoreanWar()));
+	    		   veteranInfoModel.setMilitaryBranch((client.getMilitaryBranch()));
+	    		   veteranInfoModel.setOtherTheater((client.getOtherTheater()));
 	    		   veteranInfoModel.setPersonalID(client.getPersonalID());
 	    		   veteranInfoModel.setUserID(client.getUserID());
 	    		   veteranInfoModel.setClientVeteranInfoID(client.getPersonalID());
-	    		   veteranInfoModel.setVietnamWar(getByte(client.getVietnamWar()));
-	    		   veteranInfoModel.setWorldWarII(getByte(client.getWorldWarII()));
+	    		   veteranInfoModel.setVietnamWar((client.getVietnamWar()));
+	    		   veteranInfoModel.setWorldWarII((client.getWorldWarII()));
 	    		   if (client.getYearEnteredService()!=null && !"".equals(client.getYearEnteredService()) ) {
 	    			   veteranInfoModel.setYearEnteredService(Short.valueOf(client.getYearEnteredService()));
 	    		   }
@@ -449,22 +449,22 @@ public class BulkUploadHelper2017 {
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities> disabilitiesList = new ArrayList<Sources.Source.Export.Disabilities>();
 	      for(Disabilities disability : disabilities) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities disabilitiesModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities();
-	    	  disabilitiesModel.setDataCollectionStage(getByte(disability.getDataCollectionStage()));
+	    	  disabilitiesModel.setDataCollectionStage((disability.getDataCollectionStage()));
 	    	  disabilitiesModel.setDateCreated(getXMLGregorianCalendar(disability.getDateCreated()));
 	    	  disabilitiesModel.setDateUpdated(getXMLGregorianCalendar(disability.getDateUpdated()));
 	    	  disabilitiesModel.setTCellCount(disability.getTCellCount());
 	    	  disabilitiesModel.setTCellCountAvailable(disability.getTCellCountAvailable());
 	    	  disabilitiesModel.setTCellSource(disability.getTCellSource());
 	    	  disabilitiesModel.setDisabilitiesID(disability.getDisabilitiesID());
-	    	  disabilitiesModel.setDisabilityResponse(getByte(disability.getDisabilityResponse()));
-	    	  disabilitiesModel.setDisabilityType(getByte(disability.getDisabilityType()));
+	    	  disabilitiesModel.setDisabilityResponse((disability.getDisabilityResponse()));
+	    	  disabilitiesModel.setDisabilityType((disability.getDisabilityType()));
 	    	  disabilitiesModel.setInformationDate(getXMLGregorianCalendar(disability.getInformationDate()));
 	    	  disabilitiesModel.setEnrollmentID(disability.getEnrollmentID());
 	    	  disabilitiesModel.setUserID(disability.getUserID());
-	    	  disabilitiesModel.setIndefiniteAndImpairsIndependence(getByte(disability.getIndefiniteAndImpairs()));
+	    	  disabilitiesModel.setIndefiniteAndImpairsIndependence((disability.getIndefiniteAndImpairs()));
 	    	  disabilitiesModel.setViralLoad(getIntValue(disability.getViralLoad()));
 	    	  disabilitiesModel.setViralLoadAvailable(disability.getViralLoadAvailable());
-	    	  disabilitiesModel.setViralLoadSource(getByte(disability.getViralLoadSource()));
+	    	  disabilitiesModel.setViralLoadSource((disability.getViralLoadSource()));
 	    	  disabilitiesList.add(disabilitiesModel);
 	      }
 	      sources.getSource().getExport().setDisabilities(disabilitiesList);
@@ -487,27 +487,27 @@ public class BulkUploadHelper2017 {
 	    	  for(EmployementEducation  employementEducationCSV : employementEdu) {
 	    		  if(employementEducationCSV !=null) {
 	    			  Employment employmentModel = new Employment();
-	    			  employmentModel.setDataCollectionStage(getByte(employementEducationCSV.getDataCollectionStage()));
+	    			  employmentModel.setDataCollectionStage((employementEducationCSV.getDataCollectionStage()));
 	    			  employmentModel.setDateCreated(getXMLGregorianCalendar(employementEducationCSV.getDateCreated()));
 	    			  employmentModel.setDateUpdated(getXMLGregorianCalendar(employementEducationCSV.getDateUpdated()));
-	    			  employmentModel.setEmployed(getByte(employementEducationCSV.getEmployed()));
+	    			  employmentModel.setEmployed((employementEducationCSV.getEmployed()));
 	    			  employmentModel.setEmploymentID(employementEducationCSV.getEmploymentEducationID());
-	    			  employmentModel.setEmploymentType(getByte(employementEducationCSV.getEmploymentType()));
+	    			  employmentModel.setEmploymentType((employementEducationCSV.getEmploymentType()));
 	    			  employmentModel.setInformationDate(getXMLGregorianCalendar(employementEducationCSV.getInformationDate()));
-	    			  employmentModel.setNotEmployedReason(getByte(employementEducationCSV.getNotEmployedReason()));
+	    			  employmentModel.setNotEmployedReason((employementEducationCSV.getNotEmployedReason()));
 	    			  employmentModel.setEnrollmentID(employementEducationCSV.getEnrollmentyID());
 	    			  employmentModel.setUserID(employementEducationCSV.getUserID());
 	    			  employmentList.add(employmentModel);
 	    			  
 	    			  Education educationModel = new Education();
-	    			  educationModel.setDataCollectionStage(getByte(employementEducationCSV.getDataCollectionStage()));
+	    			  educationModel.setDataCollectionStage((employementEducationCSV.getDataCollectionStage()));
 	    			  educationModel.setDateCreated(getXMLGregorianCalendar(employementEducationCSV.getDateCreated()));
 	    			  educationModel.setDateUpdated(getXMLGregorianCalendar(employementEducationCSV.getDateCreated()));
 	    			  educationModel.setEnrollmentID(employementEducationCSV.getEnrollmentyID());
 	    			  educationModel.setEducationID(employementEducationCSV.getEmploymentEducationID());
 	    			  educationModel.setInformationDate(getXMLGregorianCalendar(employementEducationCSV.getInformationDate()));
 	    			  educationModel.setSchoolStatus(employementEducationCSV.getSchoolStatus());
-	    			  educationModel.setLastGradeCompleted(getByte(employementEducationCSV.getLastGradeCompleted()));
+	    			  educationModel.setLastGradeCompleted((employementEducationCSV.getLastGradeCompleted()));
 	    			  educationList.add(educationModel);
 	    		  }
 	    		  sources.getSource().getExport().setEmployment(employmentList);
@@ -552,7 +552,7 @@ public class BulkUploadHelper2017 {
 	    	  enrollmentModel.setMonthsHomelessPastThreeYears(enroll.getMonthsHomelessPastThreeYears());
 	    	  enrollmentModel.setPersonalID(enroll.getPersonalID());
 	    	  enrollmentModel.setProjectID(enroll.getProjectID());
-	    	  enrollmentModel.setRelationshipToHoH(getByte(enroll.getRelationshipToHoH()));
+	    	  enrollmentModel.setRelationshipToHoH((enroll.getRelationshipToHoH()));
 	    	  enrollmentModel.setTimesHomelessPastThreeYears(enroll.getTimesHomelessPastThreeYears());
 	    	  enrollmentModel.setUserID(enroll.getUserID());
 	    	  enrollmentList.add(enrollmentModel);
@@ -593,7 +593,7 @@ public class BulkUploadHelper2017 {
 	    	  rhybcpstatusModel.setEligibleForRHY(enroll.getEligibleForRHY());
 	    	  rhybcpstatusModel.setStatusDate(getXMLGregorianCalendar(enroll.getDateOfBCPStatus()));
 	    	  rhybcpstatusModel.setRunawayYouth(enroll.getRunawayYouth());
-	    	  rhybcpstatusModel.setReasonNoServices(getByte(enroll.getReasonNoServices()));
+	    	  rhybcpstatusModel.setReasonNoServices((enroll.getReasonNoServices()));
 	    	  rhybcpstatusModel.setRHYBCPStatusID(enroll.getEnrollmentID());
 	    	  rhybcpstatusModel.setUserID(enroll.getUserID());
 	    	  rhybcpStatusList.add(rhybcpstatusModel);
@@ -616,11 +616,11 @@ public class BulkUploadHelper2017 {
 	    	  
 	    	  EntryRHY entryRHY = new EntryRHY();
 	
-	    	  entryRHY.setAlcoholDrugAbuseFam(getByte(enroll.getAlcoholDrugAbuseFam()));
-	    		    	  entryRHY.setChildWelfareMonths(getByte(enroll.getChildWelfareMonths()));
-	    	  entryRHY.setChildWelfareYears(getByte(enroll.getChildWelfareYears()));
+	    	  entryRHY.setAlcoholDrugAbuseFam((enroll.getAlcoholDrugAbuseFam()));
+	    		    	  entryRHY.setChildWelfareMonths((enroll.getChildWelfareMonths()));
+	    	  entryRHY.setChildWelfareYears((enroll.getChildWelfareYears()));
 	    	  
-	    	  entryRHY.setCountOutreachReferralApproaches(getByte(enroll.getCountOutreachReferralApproaches()));
+	    	  entryRHY.setCountOutreachReferralApproaches((enroll.getCountOutreachReferralApproaches()));
 	    	  entryRHY.setEntryRHYID(enroll.getEnrollmentID());
 	    	  entryRHYList.add(entryRHY);
 	    	  
@@ -664,7 +664,7 @@ public class BulkUploadHelper2017 {
 	      List<EnrollmentCoC> enrollmentCoc = enrollmentCocReader.readAll();
 	      for(EnrollmentCoC enrollCoC : enrollmentCoc) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC enrollmentCocModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EnrollmentCoC();
-	    	  enrollmentCocModel.setDataCollectionStage(getByte(enrollCoC.getDataCollectionStage()));
+	    	  enrollmentCocModel.setDataCollectionStage((enrollCoC.getDataCollectionStage()));
 	    	  enrollmentCocModel.setDateCreated(getXMLGregorianCalendar(enrollCoC.getDateCreated()));
 	    	  enrollmentCocModel.setDateUpdated(getXMLGregorianCalendar(enrollCoC.getDateUpdated()));
 	    	  enrollmentCocModel.setEnrollmentCoCID(enrollCoC.getEnrollmentCOCID());
@@ -700,7 +700,7 @@ public class BulkUploadHelper2017 {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit exitModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Exit();
 	    	  exitModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
 	    	  exitModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
-	    	  exitModel.setDestination(getByte(ext.getDestination()));
+	    	  exitModel.setDestination((ext.getDestination()));
 	    	  exitModel.setExitDate(getXMLGregorianCalendar(ext.getExitDate()));
 	    	  exitModel.setExitID(ext.getExitID());
 	    	  exitModel.setOtherDestination(ext.getOtherDestination());
@@ -710,7 +710,7 @@ public class BulkUploadHelper2017 {
 	    	  sources.getSource().getExport().getExit().add(exitModel);
 	    	  
 	    	  HousingAssessmentDisposition housingAssessmentDispositionModel = new HousingAssessmentDisposition();
-	    	  housingAssessmentDispositionModel.setAssessmentDisposition(getByte(ext.getAssessmentDisposition()));
+	    	  housingAssessmentDispositionModel.setAssessmentDisposition((ext.getAssessmentDisposition()));
 	    	  housingAssessmentDispositionModel.setDateCreated(getXMLGregorianCalendar(ext.getDateCreated()));
 	    	  housingAssessmentDispositionModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
 	    	  housingAssessmentDispositionModel.setExitID(ext.getExitID());
@@ -748,8 +748,8 @@ public class BulkUploadHelper2017 {
 	    	  exitHousingAssessmentModel.setUserID(ext.getUserID());
 	    	  exitHousingAssessmentModel.setExitHousingAssessmentID(ext.getExitID());
 	    	  exitHousingAssessmentModel.setExitID(ext.getExitID());
-	    	  exitHousingAssessmentModel.setHousingAssessment(getByte(ext.getHousingAssessment()));
-	    	  exitHousingAssessmentModel.setSubsidyInformation(getByte(ext.getSubsidyInformation()));
+	    	  exitHousingAssessmentModel.setHousingAssessment((ext.getHousingAssessment()));
+	    	  exitHousingAssessmentModel.setSubsidyInformation((ext.getSubsidyInformation()));
 	    	  exitHousingAssessmentList.add(exitHousingAssessmentModel);
 	    	  
 	    	  ExitRHY exitRHYModel = new ExitRHY();
@@ -832,7 +832,7 @@ public class BulkUploadHelper2017 {
 	    	  funderModel.setDateCreated(getXMLGregorianCalendar(fund.getDateCreated()));
 	    	  funderModel.setDateUpdated(getXMLGregorianCalendar(fund.getDateUpdated()));
 	    	  funderModel.setEndDate(getXMLGregorianCalendar(fund.getEndDate()));
-	    	  funderModel.setFunder(getByte(fund.getFunder()));
+	    	  funderModel.setFunder((fund.getFunder()));
 	    	  funderModel.setFunderID(fund.getFunderID());
 	    	  funderModel.setGrantID(fund.getGrantID());
 	    	  funderModel.setProjectID(fund.getProjectID());
@@ -859,11 +859,11 @@ public class BulkUploadHelper2017 {
 	      List<DomesticViolence> domesticViolenceList = new ArrayList<DomesticViolence>();
 	      for(HealthAndDV healthDV : healthAndDV) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus healthStatus = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HealthStatus();
-	    	  healthStatus.setDataCollectionStage(getByte(healthDV.getDataCollectionStage()));
+	    	  healthStatus.setDataCollectionStage((healthDV.getDataCollectionStage()));
 	    	  healthStatus.setDateCreated(getXMLGregorianCalendar(healthDV.getDateCreated()));
 	    	  healthStatus.setDateUpdated(getXMLGregorianCalendar(healthDV.getDateUpdated()));
 	    	  healthStatus.setDueDate(getXMLGregorianCalendar(healthDV.getDueDate()));
-	    	  healthStatus.setHealthStatus(getByte(healthDV.getGeneralHealthStatus()));
+	    	  healthStatus.setHealthStatus((healthDV.getGeneralHealthStatus()));
 	    	  healthStatus.setHealthStatusID(healthDV.getHealthAndDVID());
 	    	//  healthStatus.setHealthCategory(); TODO: Need to fing out Health Category
 	    	  healthStatus.setInformationDate(getXMLGregorianCalendar(healthDV.getInformationDate()));
@@ -872,15 +872,15 @@ public class BulkUploadHelper2017 {
 	    	  healthStatusList.add(healthStatus);
 	    	  
 	    	   DomesticViolence domesticViolenceModel = new DomesticViolence();
-			      domesticViolenceModel.setDataCollectionStage(getByte(healthDV.getDataCollectionStage()));
+			      domesticViolenceModel.setDataCollectionStage((healthDV.getDataCollectionStage()));
 			      domesticViolenceModel.setDateCreated(getXMLGregorianCalendar(healthDV.getDateCreated()));
 			      domesticViolenceModel.setDateUpdated(getXMLGregorianCalendar(healthDV.getDateUpdated()));
 			      domesticViolenceModel.setDomesticViolenceID(healthDV.getHealthAndDVID());
-			      domesticViolenceModel.setDomesticViolenceVictim(getByte(healthDV.getDomesticViolenceVictim()));
+			      domesticViolenceModel.setDomesticViolenceVictim((healthDV.getDomesticViolenceVictim()));
 			      domesticViolenceModel.setInformationDate(getXMLGregorianCalendar(healthDV.getInformationDate()));
 			      domesticViolenceModel.setEnrollmentID(healthDV.getProjectEntryID());
 			      domesticViolenceModel.setUserID(healthDV.getUserID());
-			      domesticViolenceModel.setWhenOccurred(getByte(healthDV.getWhenOccurred()));
+			      domesticViolenceModel.setWhenOccurred((healthDV.getWhenOccurred()));
 			      domesticViolenceList.add(domesticViolenceModel);
 		    	  
 	      }
@@ -907,29 +907,29 @@ public class BulkUploadHelper2017 {
 	      for(IncomeBenefits incomeBnfts : incomeBenefits) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources incomeBenefitsModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.IncomeAndSources();
 	    	  
-	    	  incomeBenefitsModel.setAlimony(getByte(incomeBnfts.getAlimony()));
+	    	  incomeBenefitsModel.setAlimony(incomeBnfts.getAlimony());
 	    	  if(incomeBnfts.getAlimonyAmount()!=null && !"".equals(incomeBnfts.getAlimonyAmount())){
 	    		  incomeBenefitsModel.setAlimonyAmount(getFloatValue(incomeBnfts.getAlimonyAmount()));
 	    	  }
-	    	  incomeBenefitsModel.setChildSupport(getByte(incomeBnfts.getChildSupport()));
+	    	  incomeBenefitsModel.setChildSupport(incomeBnfts.getChildSupport());
 	    	  if(incomeBnfts.getChildSupportAmount()!=null && !"".equals(incomeBnfts.getChildSupportAmount())){
 	    		  incomeBenefitsModel.setChildSupportAmount(getFloatValue(incomeBnfts.getChildSupportAmount()));
 	    	  }
-	    	  incomeBenefitsModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
+	    	  incomeBenefitsModel.setDataCollectionStage((incomeBnfts.getDataCollectionStage()));
 	    	  incomeBenefitsModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
 	    	  incomeBenefitsModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
-	    	  incomeBenefitsModel.setEarned(getByte(incomeBnfts.getEarned()));
+	    	  incomeBenefitsModel.setEarned((incomeBnfts.getEarned()));
 	    	  if(incomeBnfts.getEarnedAmount()!=null && !"".equals(incomeBnfts.getEarnedAmount())){
 	    		  incomeBenefitsModel.setEarnedAmount(getFloatValue(incomeBnfts.getEarnedAmount()));
 	    	  }
-	    	  incomeBenefitsModel.setGA(getByte(incomeBnfts.getGA()));
+	    	  incomeBenefitsModel.setGA((incomeBnfts.getGA()));
 	    	  if(incomeBnfts.getGAAmount()!=null && !"".equals(incomeBnfts.getGAAmount())){
 	    		  incomeBenefitsModel.setGAAmount(getFloatValue(incomeBnfts.getGAAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setIncomeAndSourcesID(incomeBnfts.getIncomeBenefitsID());
-	    	  incomeBenefitsModel.setIncomeFromAnySource(getByte(incomeBnfts.getIncomeFromAnySource()));
+	    	  incomeBenefitsModel.setIncomeFromAnySource((incomeBnfts.getIncomeFromAnySource()));
 	    	  incomeBenefitsModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
-	    	  incomeBenefitsModel.setOtherSource(getByte(incomeBnfts.getOtherIncomeSource()));
+	    	  incomeBenefitsModel.setOtherSource((incomeBnfts.getOtherIncomeSource()));
 	    	  if(incomeBnfts.getOtherIncomeAmount()!=null && !"".equals(incomeBnfts.getOtherIncomeAmount())){
 	    		  incomeBenefitsModel.setOtherAmount(getFloatValue(incomeBnfts.getOtherIncomeAmount()));
 	    	  }
@@ -938,7 +938,7 @@ public class BulkUploadHelper2017 {
 	    	  if(incomeBnfts.getPensionAmount()!=null && !"".equals(incomeBnfts.getPensionAmount())){
 	    		  incomeBenefitsModel.setPensionAmount(getFloatValue(incomeBnfts.getPensionAmount()));
 	    	  }
-	    	  incomeBenefitsModel.setPrivateDisability(getByte(incomeBnfts.getPrivateDisability()));
+	    	  incomeBenefitsModel.setPrivateDisability(incomeBnfts.getPrivateDisability());
 	    	  if(incomeBnfts.getPrivateDisabilityAmount()!=null && !"".equals(incomeBnfts.getPrivateDisabilityAmount())){
 	    		  incomeBenefitsModel.setPrivateDisabilityAmount(getFloatValue(incomeBnfts.getPrivateDisabilityAmount()));
 	    	  }
@@ -951,32 +951,32 @@ public class BulkUploadHelper2017 {
 	    	  if(incomeBnfts.getSSDIAmount()!=null && !"".equals(incomeBnfts.getSSDIAmount())){
 	    		  incomeBenefitsModel.setSSDIAmount(getFloatValue(incomeBnfts.getSSDIAmount()));
 	    	  }
-	    	  incomeBenefitsModel.setSSI(getByte(incomeBnfts.getSSI()));
+	    	  incomeBenefitsModel.setSSI((incomeBnfts.getSSI()));
 	    	  if(incomeBnfts.getSSIAmount()!=null && !"".equals(incomeBnfts.getSSIAmount())){
 	    		  incomeBenefitsModel.setSSIAmount(getFloatValue(incomeBnfts.getSSIAmount()));
 	    	  }
-	    	  incomeBenefitsModel.setTANF(getByte(incomeBnfts.getTANF()));
+	    	  incomeBenefitsModel.setTANF((incomeBnfts.getTANF()));
 	    	  if(incomeBnfts.getTANFAmount()!=null && !"".equals(incomeBnfts.getTANFAmount())){
 	    		  incomeBenefitsModel.setTANFAmount(getFloatValue(incomeBnfts.getTANFAmount()));
 	    	  }
 	    	  if(incomeBnfts.getTotalMonthlyIncome()!=null && !"".equals(incomeBnfts.getTotalMonthlyIncome())){
 	    		  incomeBenefitsModel.setTotalMonthlyIncome(getFloatValue(incomeBnfts.getTotalMonthlyIncome()));
 	    	  }
-	    	  incomeBenefitsModel.setUnemployment(getByte(incomeBnfts.getUnemployment()));
+	    	  incomeBenefitsModel.setUnemployment(incomeBnfts.getUnemployment());
 	    	  if(incomeBnfts.getUnemploymentAmount()!=null && !"".equals(incomeBnfts.getUnemploymentAmount())){
 	    		  incomeBenefitsModel.setUnemploymentAmount(getFloatValue(incomeBnfts.getUnemploymentAmount()));
 	    	  }
 	    	  incomeBenefitsModel.setUserID(incomeBnfts.getUserID());
-	    	  incomeBenefitsModel.setVADisabilityNonService(getByte(incomeBnfts.getVADisabilityNonService()));
+	    	  incomeBenefitsModel.setVADisabilityNonService(incomeBnfts.getVADisabilityNonService());
 	    	  if(incomeBnfts.getVADisabilityNonServiceAmount()!=null && !"".equals(incomeBnfts.getVADisabilityNonServiceAmount())){
 	    		  incomeBenefitsModel.setVADisabilityNonServiceAmount(getFloatValue(incomeBnfts.getVADisabilityNonServiceAmount()));
 	    	  }
-	    	  incomeBenefitsModel.setVADisabilityService(getByte(incomeBnfts.getVADisabilityService()));
+	    	  incomeBenefitsModel.setVADisabilityService((incomeBnfts.getVADisabilityService()));
 	    	  if(incomeBnfts.getVADisabilityServiceAmount()!=null && !"".equals(incomeBnfts.getVADisabilityServiceAmount())){
 	    		  incomeBenefitsModel.setVADisabilityServiceAmount(getFloatValue(incomeBnfts.getVADisabilityServiceAmount()));
 	    	  }
 	    	  
-	    	  incomeBenefitsModel.setWorkersComp(getByte(incomeBnfts.getWorkersComp()));
+	    	  incomeBenefitsModel.setWorkersComp((incomeBnfts.getWorkersComp()));
 	    	  if(incomeBnfts.getWorkersCompAmount()!=null && !"".equals(incomeBnfts.getWorkersCompAmount())){
 	    		  incomeBenefitsModel.setWorkersCompAmount(getFloatValue(incomeBnfts.getWorkersCompAmount()));
 	    	  }
@@ -991,57 +991,57 @@ public class BulkUploadHelper2017 {
 	    	  ConnectionWithSOARList.add(connectionWithSOAR);
 	    	  
 	    	  NonCashBenefits noncashbenefitsModel = new NonCashBenefits();
-	    	  noncashbenefitsModel.setBenefitsFromAnySource(getByte(incomeBnfts.getBenefitsFromAnySource()));
-	    	  noncashbenefitsModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
+	    	  noncashbenefitsModel.setBenefitsFromAnySource((incomeBnfts.getBenefitsFromAnySource()));
+	    	  noncashbenefitsModel.setDataCollectionStage((incomeBnfts.getDataCollectionStage()));
 	    	  noncashbenefitsModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
 	    	  noncashbenefitsModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
 	    	  noncashbenefitsModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
 	    	  noncashbenefitsModel.setNonCashBenefitsID(incomeBnfts.getIncomeBenefitsID());
-	    	  noncashbenefitsModel.setOtherSource(getByte(incomeBnfts.getOtherBenefitsSource()));
+	    	  noncashbenefitsModel.setOtherSource((incomeBnfts.getOtherBenefitsSource()));
 	    	  nonCashBenefitsList.add(noncashbenefitsModel);
 	    	  
 	    	  HealthInsurance healthinsuranceModel = new HealthInsurance();
-	    	  healthinsuranceModel.setCOBRA(getByte(incomeBnfts.getCOBRA()));
-	    	  healthinsuranceModel.setOtherInsurance(getByte(incomeBnfts.getOtherInsurance()));
+	    	  healthinsuranceModel.setCOBRA((incomeBnfts.getCOBRA()));
+	    	  healthinsuranceModel.setOtherInsurance((incomeBnfts.getOtherInsurance()));
 	    	  healthinsuranceModel.setOtherInsuranceIdentify(incomeBnfts.getOtherIncomeSourceIdentify());
-	    	  healthinsuranceModel.setIndianHealthServices(getByte(incomeBnfts.getIndianHealthServices()));
+	    	  healthinsuranceModel.setIndianHealthServices((incomeBnfts.getIndianHealthServices()));
 	    	  healthinsuranceModel.setNoIndianHealthServicesReason(incomeBnfts.getNoIndianHealthServicesReason());
-	    	  healthinsuranceModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
+	    	  healthinsuranceModel.setDataCollectionStage((incomeBnfts.getDataCollectionStage()));
 	    	  healthinsuranceModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
 	    	  healthinsuranceModel.setDateDeleted(getXMLGregorianCalendar(incomeBnfts.getDateDeleted()));
 	    	  healthinsuranceModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
-	    	  healthinsuranceModel.setEmployerProvided(getByte(incomeBnfts.getEmployerProvided()));
+	    	  healthinsuranceModel.setEmployerProvided((incomeBnfts.getEmployerProvided()));
 	    	  healthinsuranceModel.setHealthInsuranceID(incomeBnfts.getIncomeBenefitsID());
 	    	  healthinsuranceModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
-	    	  healthinsuranceModel.setInsuranceFromAnySource(getByte(incomeBnfts.getIncomeFromAnySource()));
-	    	  healthinsuranceModel.setMedicaid(getByte(incomeBnfts.getMedicaid()));
-	    	  healthinsuranceModel.setMedicare(getByte(incomeBnfts.getMedicare()));
-	    	  healthinsuranceModel.setNoCOBRAReason(getByte(incomeBnfts.getNoCOBRAReason()));
-	    	  healthinsuranceModel.setNoEmployerProvidedReason(getByte(incomeBnfts.getNoEmployerProvidedReason()));
-	    	  healthinsuranceModel.setNoMedicareReason(getByte(incomeBnfts.getNoMedicareReason()));
-	    	  healthinsuranceModel.setNoMedicaidReason(getByte(incomeBnfts.getNoMedicaidReason()));
-	    	  healthinsuranceModel.setNoPrivatePayReason(getByte(incomeBnfts.getNoPrivatePayReason()));
-	    	  healthinsuranceModel.setNoSCHIPReason(getByte(incomeBnfts.getNoSCHIPReason()));
-	    	  healthinsuranceModel.setNoStateHealthInsReason(getByte(incomeBnfts.getNoStateHealthInsReason()));
-	    	  healthinsuranceModel.setNoVAMedReason(getByte(incomeBnfts.getNoVAMedReason()));
-	    	  healthinsuranceModel.setPrivatePay(getByte(incomeBnfts.getPrivatePay()));
+	    	  healthinsuranceModel.setInsuranceFromAnySource((incomeBnfts.getIncomeFromAnySource()));
+	    	  healthinsuranceModel.setMedicaid((incomeBnfts.getMedicaid()));
+	    	  healthinsuranceModel.setMedicare((incomeBnfts.getMedicare()));
+	    	  healthinsuranceModel.setNoCOBRAReason((incomeBnfts.getNoCOBRAReason()));
+	    	  healthinsuranceModel.setNoEmployerProvidedReason((incomeBnfts.getNoEmployerProvidedReason()));
+	    	  healthinsuranceModel.setNoMedicareReason((incomeBnfts.getNoMedicareReason()));
+	    	  healthinsuranceModel.setNoMedicaidReason((incomeBnfts.getNoMedicaidReason()));
+	    	  healthinsuranceModel.setNoPrivatePayReason((incomeBnfts.getNoPrivatePayReason()));
+	    	  healthinsuranceModel.setNoSCHIPReason((incomeBnfts.getNoSCHIPReason()));
+	    	  healthinsuranceModel.setNoStateHealthInsReason((incomeBnfts.getNoStateHealthInsReason()));
+	    	  healthinsuranceModel.setNoVAMedReason((incomeBnfts.getNoVAMedReason()));
+	    	  healthinsuranceModel.setPrivatePay((incomeBnfts.getPrivatePay()));
 	    	  healthinsuranceModel.setEnrollmentID(incomeBnfts.getEnrollmentID());
-	    	  healthinsuranceModel.setSCHIP(getByte(incomeBnfts.getSCHIP()));
-	    	  healthinsuranceModel.setStateHealthIns(getByte(incomeBnfts.getStateHealthIns()));
+	    	  healthinsuranceModel.setSCHIP((incomeBnfts.getSCHIP()));
+	    	  healthinsuranceModel.setStateHealthIns((incomeBnfts.getStateHealthIns()));
 	    	  healthinsuranceModel.setUserID(incomeBnfts.getUserID());
-	    	  healthinsuranceModel.setVAMedicalServices(getByte(incomeBnfts.getVAMedicalServices()));
+	    	  healthinsuranceModel.setVAMedicalServices((incomeBnfts.getVAMedicalServices()));
 	    	  sources.getSource().getExport().getHealthInsurance().add(healthinsuranceModel);
 	    	  
 	    	  MedicalAssistance medicalassistanceModel = new MedicalAssistance();
-	    	  medicalassistanceModel.setADAP(getByte(incomeBnfts.getADAP()));
-	    	  medicalassistanceModel.setDataCollectionStage(getByte(incomeBnfts.getDataCollectionStage()));
+	    	  medicalassistanceModel.setADAP((incomeBnfts.getADAP()));
+	    	  medicalassistanceModel.setDataCollectionStage((incomeBnfts.getDataCollectionStage()));
 	    	  medicalassistanceModel.setDateCreated(getXMLGregorianCalendar(incomeBnfts.getDateCreated()));
 	    	  medicalassistanceModel.setDateUpdated(getXMLGregorianCalendar(incomeBnfts.getDateUpdated()));
-	    	  medicalassistanceModel.setHIVAIDSAssistance(getByte(incomeBnfts.getHIVAIDSAssistance()));
+	    	  medicalassistanceModel.setHIVAIDSAssistance((incomeBnfts.getHIVAIDSAssistance()));
 	    	  medicalassistanceModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
 	    	  medicalassistanceModel.setMedicalAssistanceID(incomeBnfts.getIncomeBenefitsID());
-	    	  medicalassistanceModel.setNoADAPReason(getByte(incomeBnfts.getNoADAPReason()));
-	    	  medicalassistanceModel.setNoHIVAIDSAssistanceReason(getByte(incomeBnfts.getNoHIVAIDSAssistanceReason()));
+	    	  medicalassistanceModel.setNoADAPReason((incomeBnfts.getNoADAPReason()));
+	    	  medicalassistanceModel.setNoHIVAIDSAssistanceReason((incomeBnfts.getNoHIVAIDSAssistanceReason()));
 	    	  medicalassistanceModel.setEnrollmentID(incomeBnfts.getEnrollmentID());
 	    	  medicalassistanceModel.setUserID(incomeBnfts.getUserID());
 	    	  medicalAssistanceList.add(medicalassistanceModel);
@@ -1068,12 +1068,13 @@ public class BulkUploadHelper2017 {
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory> inventoryList = new ArrayList<Sources.Source.Export.Inventory>();
 	      for(Inventory invntry : inventory) {
 	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory inventoryModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Inventory();
-	    	  inventoryModel.setAvailability(getByte(invntry.getAvailability()));
-	    	  inventoryModel.setBedType(getByte(invntry.getBedType()));
+	    	  inventoryModel.setProjectID(invntry.getProjectID());
+	    	  inventoryModel.setAvailability((invntry.getAvailability()));
+	    	  inventoryModel.setBedType((invntry.getBedType()));
 	    	  inventoryModel.setDateCreated(getXMLGregorianCalendar(invntry.getDateCreated()));
 	    	  inventoryModel.setDateUpdated(getXMLGregorianCalendar(invntry.getDateUpdated()));
 	    	  inventoryModel.setHMISParticipatingBeds(Integer.parseInt(invntry.getHMISParticipatingBeds()));
-	    	  inventoryModel.setHouseholdType(getByte(invntry.getHouseholdType()));
+	    	  inventoryModel.setHouseholdType((invntry.getHouseholdType()));
 	    	  inventoryModel.setInformationDate(getXMLGregorianCalendar(invntry.getInformationDate()));
 	    	  inventoryModel.setInventoryEndDate(getXMLGregorianCalendar(invntry.getInventoryEndDate()));
 	    	  inventoryModel.setInventoryID(invntry.getInventoryID());
@@ -1088,10 +1089,10 @@ public class BulkUploadHelper2017 {
 	    	  if(invntry.getBedInventory() !=null && !"".equals(invntry.getBedInventory() )) {
 		    	  bedInventory.setBedInventory(Short.valueOf(invntry.getBedInventory()));  
 	    	  }
-	    	  bedInventory.setCHBedInventory(getByte(invntry.getCHBedInventory()));
-	    	  bedInventory.setVetBedInventory(getByte(invntry.getVetBedInventory()));
-	    	  bedInventory.setYouthAgeGroup(getByte(invntry.getYouthAgeGroup()));
-	    	  bedInventory.setYouthBedInventory(getByte(invntry.getYouthBedInventory()));
+	    	  bedInventory.setCHBedInventory((invntry.getCHBedInventory()));
+	    	  bedInventory.setVetBedInventory((invntry.getVetBedInventory()));
+	    	  bedInventory.setYouthAgeGroup((invntry.getYouthAgeGroup()));
+	    	  bedInventory.setYouthBedInventory((invntry.getYouthBedInventory()));
 	    	  
 	    	  inventoryModel.setBedInventory(bedInventory);
 	    	  inventoryList.add(inventoryModel);
@@ -1151,8 +1152,8 @@ public class BulkUploadHelper2017 {
 	    	  projectModel.setProjectName(prjt.getProjectName());
 	    	  projectModel.setProjectType(prjt.getProjectType());
 	    	  projectModel.setResidentialAffiliation(prjt.getResidentialAffiliation());
-	    	  projectModel.setTargetPopulation(getByte(prjt.getTargetPopulation()));
-	    	  projectModel.setTrackingMethod(getByte(prjt.getTrackingMethod()));
+	    	  projectModel.setTargetPopulation((prjt.getTargetPopulation()));
+	    	  projectModel.setTrackingMethod((prjt.getTrackingMethod()));
 	    	  projectModel.setUserID(prjt.getUserID());
 	    	  
 	    	  sources.getSource().getExport().getProject().add(projectModel);
@@ -1198,25 +1199,40 @@ public class BulkUploadHelper2017 {
 	                      new AnnotationEntryParser<Services>(Services.class, vpp)).build();
 	      List<Services> services = servicesReader.readAll();
 	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services> servicesList = new ArrayList<Sources.Source.Export.Services>();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact> contactList = new ArrayList<Sources.Source.Export.Contact>();
 	      for(Services srvcs : services) {
-	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services servicesModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services();
-	    	  servicesModel.setDateCreated(getXMLGregorianCalendar(srvcs.getDateCreated()));
-	    	  servicesModel.setDateProvided(getXMLGregorianCalendar(srvcs.getDateProvided()));
-	    	  servicesModel.setDateUpdated(getXMLGregorianCalendar(srvcs.getDateUpdated()));
-	    	  if(srvcs.getFAAmount()!=null && !"".equals(srvcs.getFAAmount())){
-	    		  servicesModel.setFAAmount(Float.valueOf(srvcs.getFAAmount()));
+	    	  if(StringUtils.isNotEmpty(srvcs.getRecordType()) && StringUtils.equals("13", srvcs.getRecordType())) {
+	    		  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact contactModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact();
+	    		  contactModel.setDateCreated(getXMLGregorianCalendar(srvcs.getDateCreated()));
+	    		  contactModel.setDateUpdated(getXMLGregorianCalendar(srvcs.getDateUpdated()));
+		    	  contactModel.setEnrollmentID(srvcs.getProjectEntryID());
+		    	  contactModel.setUserID(srvcs.getUserID());
+		    	  contactModel.setContactDate(getXMLGregorianCalendar(srvcs.getDateProvided()));
+		    	  contactModel.setContactID(srvcs.getServicesID());
+		    	  contactModel.setContactLocation(srvcs.getTypeProvided());
+		    	  contactList.add(contactModel);
+	    	  }else {
+	    		  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services servicesModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services();
+		    	  servicesModel.setDateCreated(getXMLGregorianCalendar(srvcs.getDateCreated()));
+		    	  servicesModel.setDateProvided(getXMLGregorianCalendar(srvcs.getDateProvided()));
+		    	  servicesModel.setDateUpdated(getXMLGregorianCalendar(srvcs.getDateUpdated()));
+		    	  if(srvcs.getFAAmount()!=null && !"".equals(srvcs.getFAAmount())){
+		    		  servicesModel.setFAAmount(Float.valueOf(srvcs.getFAAmount()));
+		    	  }
+		    	  servicesModel.setOtherTypeProvided(srvcs.getOtherTypeProvided());
+		    	  servicesModel.setEnrollmentID(srvcs.getProjectEntryID());
+		    	  servicesModel.setRecordType(srvcs.getRecordType());
+		    	  servicesModel.setReferralOutcome((srvcs.getReferralOutcome()));
+		    	  servicesModel.setServicesID(srvcs.getServicesID());
+		    	  servicesModel.setSubTypeProvided((srvcs.getSubTypeProvided()));
+		    	  servicesModel.setTypeProvided(srvcs.getTypeProvided() != null ? Short.parseShort(srvcs.getTypeProvided()) : 0);
+		    	  servicesModel.setUserID(srvcs.getUserID());
+		    	  servicesList.add(servicesModel);
 	    	  }
-	    	  servicesModel.setOtherTypeProvided(srvcs.getOtherTypeProvided());
-	    	  servicesModel.setEnrollmentID(srvcs.getProjectEntryID());
-	    	  servicesModel.setRecordType(srvcs.getRecordType());
-	    	  servicesModel.setReferralOutcome(getByte(srvcs.getReferralOutcome()));
-	    	  servicesModel.setServicesID(srvcs.getServicesID());
-	    	  servicesModel.setSubTypeProvided(getByte(srvcs.getSubTypeProvided()));
-	    	  servicesModel.setTypeProvided(getByte(srvcs.getTypeProvided()));
-	    	  servicesModel.setUserID(srvcs.getUserID());
-	    	  servicesList.add(servicesModel);
+	    	
 	      }
 	      sources.getSource().getExport().setServices(servicesList);
+	      sources.getSource().getExport().setContact(contactList);
 	  }
 	 
 	 /**
@@ -1246,7 +1262,7 @@ public class BulkUploadHelper2017 {
 	    	  if(ste.getGeocode() !=null && !"".equals(ste.getGeocode())) {
 	    		  siteModel.setGeocode(parseInt(ste.getGeocode()).intValue());  
 	    	  }
-	    	  siteModel.setPrincipalSite(getByte(ste.getPrincipalSite()));
+	    	  siteModel.setPrincipalSite((ste.getPrincipalSite()));
 	    	  
 	    	  if(ste.getCoCCode()!=null && !"".equals(ste.getCoCCode())){
 	    		  siteModel.setCoCCode(ste.getCoCCode());

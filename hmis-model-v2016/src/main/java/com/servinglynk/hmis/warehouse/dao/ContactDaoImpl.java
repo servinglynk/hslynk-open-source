@@ -50,7 +50,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 				try {
 					contactModel = getModelObject(domain, contacts, data, modelMap);
 					contactModel.setContactDate(BasicDataGenerator.getLocalDateTime(contacts.getContactDate()));
-					contactModel.setContactLocation(ContactLocationEnum.lookupEnum(BasicDataGenerator.getStringValue(contacts
+					contactModel.setContactLocation(ContactLocationEnum.lookupEnum((contacts
 							.getContactLocation())));
 					contactModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(contacts.getDateCreated()));
 					contactModel.setDateUpdated(LocalDateTime.now());

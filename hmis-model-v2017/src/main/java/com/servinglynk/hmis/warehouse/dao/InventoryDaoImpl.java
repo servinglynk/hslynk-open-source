@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Coc;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -55,11 +56,11 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				com.servinglynk.hmis.warehouse.model.v2017.Inventory inventoryModel = null;
 				try {
 					inventoryModel = getModelObject(domain, inventory,data,modelMap);
-					inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailability())));
-					inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getBedType())));
+					inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum((inventory.getAvailability())));
+					inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum((inventory.getBedType())));
 					inventoryModel.setChBedInventory(inventory.getChBedInventory());
 					inventoryModel.setHmisparticipatingbeds(inventory.getHMISParticipatingBeds() );
-					inventoryModel.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getHouseholdType())));
+					inventoryModel.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum((inventory.getHouseholdType())));
 					inventoryModel.setInformationdate(BasicDataGenerator.getLocalDateTime(inventory.getInformationDate()));
 					inventoryModel.setInventoryenddate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryEndDate()));
 					inventoryModel.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryStartDate()));
@@ -75,6 +76,8 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					inventoryModel.setSync(false);
 					Coc coc = (Coc) getModel(Coc.class,inventory.getCoCCode(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					inventoryModel.setCoc(coc);
+					Project project = (Project) getModel(Project.class,inventory.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					inventoryModel.setProjectid(project);
 					performSaveOrUpdate(inventoryModel);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the inventory::"+inventory.getInventoryID() +" Exception ::"+e.getMessage();

@@ -1802,7 +1802,7 @@ CREATE TABLE "v2017".enrollment
 	losunderthreshold "v2017".no_yes, 
 	previousStreetESSH "v2017".no_yes,
 	disablingCondition "v2017".five_val_dk_refused,
-	dateToStreetESSH integer,
+	dateToStreetESSH timestamp,
 	timesHomelesspastthreeyears "v2017".times_homeless_past_3_years,
 	monthsHomelessPastThreeYears "v2017".months_homeless_past_3_years,
 	projectid uuid,
@@ -3025,3 +3025,19 @@ PRIMARY KEY ("id")
 )
 WITH (OIDS=FALSE)
 ;
+
+
+
+
+ALTER TABLE v2017.enrollment 
+DROP COLUMN dateToStreetESSH;
+
+ALTER TABLE v2017.enrollment
+add COLUMN dateToStreetESSH  timestamp;
+
+ALTER TABLE v2017.inventory
+add column projectid uuid; 
+
+ALTER TABLE inventory 
+ADD CONSTRAINT inventory_project_fk FOREIGN KEY (projectid) REFERENCES v2017.project (id);
+
