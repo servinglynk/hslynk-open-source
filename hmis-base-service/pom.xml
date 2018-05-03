@@ -31,6 +31,11 @@
 	</properties>
 
 	<dependencies>
+			<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-fileupload-core</artifactId>
+			<version>2.0</version>
+		</dependency>
 		<dependency>
 		<groupId>commons-lang</groupId>
 		<artifactId>commons-lang</artifactId>

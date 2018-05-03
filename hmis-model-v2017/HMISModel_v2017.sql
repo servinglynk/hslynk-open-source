@@ -3039,5 +3039,6 @@ ALTER TABLE v2017.inventory
 add column projectid uuid; 
 
 ALTER TABLE v2017.inventory 
+
 ADD CONSTRAINT inventory_project_fk FOREIGN KEY (projectid) REFERENCES v2017.project (id);
 

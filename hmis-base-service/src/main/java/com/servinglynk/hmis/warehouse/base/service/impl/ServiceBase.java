@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
 import com.servinglynk.hmis.warehouse.base.service.Service;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
+import com.servinglynk.hmis.warehouse.fileupload.service.FileUploadServiceFactory;
 import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 
 public abstract class ServiceBase implements Service {
@@ -24,6 +25,9 @@ public abstract class ServiceBase implements Service {
 
 	@Autowired
 	protected BaseServiceFactory serviceFactory;
+	
+	@Autowired
+	protected FileUploadServiceFactory fileUploadServiceFactory;		
 
 	public BaseDaoFactoryImpl getParentDaoFactory() {
 		return daoFactory;

@@ -56,11 +56,11 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				com.servinglynk.hmis.warehouse.model.v2017.Inventory inventoryModel = null;
 				try {
 					inventoryModel = getModelObject(domain, inventory,data,modelMap);
-					inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getAvailability())));
-					inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getBedType())));
+					inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum((inventory.getAvailability())));
+					inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum((inventory.getBedType())));
 					inventoryModel.setChBedInventory(inventory.getChBedInventory());
 					inventoryModel.setHmisparticipatingbeds(inventory.getHMISParticipatingBeds() );
-					inventoryModel.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum(BasicDataGenerator.getStringValue(inventory.getHouseholdType())));
+					inventoryModel.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum((inventory.getHouseholdType())));
 					inventoryModel.setInformationdate(BasicDataGenerator.getLocalDateTime(inventory.getInformationDate()));
 					inventoryModel.setInventoryenddate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryEndDate()));
 					inventoryModel.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryStartDate()));

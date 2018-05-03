@@ -798,8 +798,15 @@ public class BasicDataGenerator {
 		}
 		return null;
 	}
-
 	public static Integer getIntegerValue(Byte value)
+	{
+		if(value!=null)
+		{
+			return new Integer(String.valueOf(value));
+		}
+		return null;
+	}
+	public static Integer getIntegerValue(String value)
 	{
 		if(value!=null)
 		{

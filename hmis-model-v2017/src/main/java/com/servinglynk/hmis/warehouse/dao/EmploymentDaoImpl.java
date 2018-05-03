@@ -50,15 +50,15 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 					employmentModel = getModelObject(domain, employment, data, modelMap);
 					employmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateCreated()));
 					employmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
-					employmentModel.setEmployed(EmploymentEmployedEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmployed())));
-					employmentModel.setEmploymentType(EmploymentEmploymentTypeEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getEmploymentType())));;
-					employmentModel.setNotEmployedReason(EmploymentNotEmployedReasonEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getNotEmployedReason())));
+					employmentModel.setEmployed(EmploymentEmployedEnum.lookupEnum((employment.getEmployed())));
+					employmentModel.setEmploymentType(EmploymentEmploymentTypeEnum.lookupEnum((employment.getEmploymentType())));;
+					employmentModel.setNotEmployedReason(EmploymentNotEmployedReasonEnum.lookupEnum((employment.getNotEmployedReason())));
 					employmentModel.setInformationDate(BasicDataGenerator.getLocalDateTime(employment.getInformationDate()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, employment.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					employmentModel.setEnrollmentid(enrollmentModel);
 					employmentModel.setExport(exportEntity);
 					employmentModel.setInformationDate(BasicDataGenerator.getLocalDateTime(employment.getInformationDate()));
-					employmentModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(BasicDataGenerator.getStringValue(employment.getDataCollectionStage())));
+					employmentModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((employment.getDataCollectionStage())));
 
 					performSaveOrUpdate(employmentModel);
 				}catch(Exception e) {

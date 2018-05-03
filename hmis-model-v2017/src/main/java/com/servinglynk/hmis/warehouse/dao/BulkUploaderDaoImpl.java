@@ -174,7 +174,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		} catch (Exception e) {
 			e.printStackTrace();
 			upload.setStatus(UploadStatus.ERROR.getStatus());
-			upload.setDescription(!"null".equals(String.valueOf(e.getCause()))  ? String.valueOf(e.getCause()) : e.getMessage());
+			upload.setDescription("Cause::"+e.getCause() + "Message::"+e.getMessage());
 			saveError(upload);
 		}
 		finally {

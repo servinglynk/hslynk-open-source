@@ -1,0 +1,922 @@
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Disabling triggers...
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO] Purging 2014 schema...CP0004
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleting table: last_perm_address with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleted table: last_perm_address
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleting table: percent_ami with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleted table: percent_ami
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleting table: lastgradecompleted with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleted table: lastgradecompleted
+2018-04-29 23:04:31 main PurgeProjectGroup [INFO]  Deleting table: schoolstatus with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleted table: schoolstatus
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleted table: site
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleting table: rhybcpstatus with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleted table: rhybcpstatus
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleting table: sexualorientation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleted table: sexualorientation
+2018-04-29 23:04:32 main PurgeProjectGroup [INFO]  Deleting table: formerwardjuvenilejustice with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleted table: formerwardjuvenilejustice
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleting table: lastpermanentaddress with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleted table: lastpermanentaddress
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleting table: percentami with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleted table: percentami
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleting table: youthcriticalissues with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleted table: youthcriticalissues
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleting table: formerwardchildwelfare with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleted table: formerwardchildwelfare
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleting table: referralsource with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleted table: referralsource
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleting table: commercialsexualexploitation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleted table: commercialsexualexploitation
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleted table: residentialmoveindate
+2018-04-29 23:04:33 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:34 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:04:34 main PurgeProjectGroup [INFO]  Deleting table: services with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:34 main PurgeProjectGroup [INFO]  Deleted table: services
+2018-04-29 23:04:34 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:34 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:04:34 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:34 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:04:34 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleting table: exitplansactions with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleted table: exitplansactions
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleting table: familyreunification with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleted table: familyreunification
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleting table: connectionwithsoar with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleted table: connectionwithsoar
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleting table: projectcompletionstatus with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleted table: projectcompletionstatus
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleting table: worsthousingsituation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleted table: worsthousingsituation
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleting table: projectcoc with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleted table: projectcoc
+2018-04-29 23:04:35 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleting table: sync with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleted table: sync
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleting table: veteran_info with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleted table: veteran_info
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:04:36 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_error with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:04:41 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_error
+2018-04-29 23:04:41 main PurgeProjectGroup [INFO] 2014 schema purged for ...CP0004
+2018-04-29 23:04:41 main PurgeProjectGroup [INFO] Purging 2015 schema...CP0004
+2018-04-29 23:04:41 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:41 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:04:41 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:41 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:04:41 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:42 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:04:42 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:42 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:04:42 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:42 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:04:42 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:45 main PurgeProjectGroup [INFO]  Deleted table: site
+2018-04-29 23:04:45 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:46 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:04:46 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:46 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:04:46 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:47 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:04:47 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:47 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:04:47 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:49 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:04:49 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:55 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:04:55 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:55 main PurgeProjectGroup [INFO]  Deleted table: residentialmoveindate
+2018-04-29 23:04:55 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:04:55 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:04:55 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:07:17 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:07:17 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:08:53 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:08:53 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:00 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:09:00 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:00 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:09:00 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:00 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:09:00 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:14 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:09:14 main PurgeProjectGroup [INFO]  Deleting table: coc with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:17 main PurgeProjectGroup [INFO]  Deleted table: coc
+2018-04-29 23:09:17 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:18 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:09:18 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:18 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:09:18 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:21 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:09:21 main PurgeProjectGroup [INFO]  Deleting table: sync with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:21 main PurgeProjectGroup [INFO]  Deleted table: sync
+2018-04-29 23:09:21 main PurgeProjectGroup [INFO]  Deleting table: client_veteran_info with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:21 main PurgeProjectGroup [INFO]  Deleted table: client_veteran_info
+2018-04-29 23:09:21 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:31 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:09:31 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:31 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload
+2018-04-29 23:09:31 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_activity with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_activity
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO]  Deleting table: exitRHY with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO]  Deleted table: exitRHY
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO]  Deleting table: exitPath with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO]  Deleted table: exitPath
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO] 2015 schema purged for ...CP0004
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO] Purging 2016 schema...CP0004
+2018-04-29 23:09:32 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:33 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:09:33 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:33 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:09:33 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:37 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:09:37 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleted table: site
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:09:38 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:41 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:09:41 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:44 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:09:44 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:44 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:09:44 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:44 main PurgeProjectGroup [INFO]  Deleted table: residentialmoveindate
+2018-04-29 23:09:44 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:45 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:09:45 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:58 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:09:58 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:59 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:09:59 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:09:59 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:09:59 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:00 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:10:00 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:00 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:10:00 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:01 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:10:01 main PurgeProjectGroup [INFO]  Deleting table: coc with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleted table: coc
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleting table: client_veteran_info with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleted table: client_veteran_info
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_activity with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_activity
+2018-04-29 23:10:02 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_error with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:03 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_error
+2018-04-29 23:10:03 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:03 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:10:03 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:03 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:10:03 main PurgeProjectGroup [INFO]  Deleting table: exitRHY with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:06 main PurgeProjectGroup [INFO]  Deleted table: exitRHY
+2018-04-29 23:10:06 main PurgeProjectGroup [INFO]  Deleting table: exitPath with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:10:10 main PurgeProjectGroup [INFO]  Deleted table: exitPath
+2018-04-29 23:10:10 main PurgeProjectGroup [INFO] 2016 schema purged for ...CP0004
+2018-04-29 23:10:10 main PurgeProjectGroup [INFO] Purging base schema...CP0004
+2018-04-29 23:10:10 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::base for projectGroup ::: CP0004
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO]  Deleting table: hmis_global_project with in schema ::base for projectGroup ::: CP0004
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO]  Deleted table: hmis_global_project
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO]  Deleting table: hmis_global_project_map with in schema ::base for projectGroup ::: CP0004
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO]  Deleted table: hmis_global_project_map
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO] 2017 schema purged for ...CP0004
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO] Purging base schema...CP0004
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:10:11 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:10:12 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:10:13 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleting table: coc with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleted table: coc
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:10:14 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleting table: client_veteran_info with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleted table: client_veteran_info
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_activity with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_activity
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_error with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_error
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleting table: exitRHY with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleted table: exitRHY
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO]  Deleting table: exitPath with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:10:15 main PurgeProjectGroup [INFO] Base schema purged for ...CP0004
+2018-04-29 23:15:39 main PurgeProjectGroup [INFO]  Disabling triggers...
+2018-04-29 23:15:39 main PurgeProjectGroup [INFO] Purging 2014 schema...CP0004
+2018-04-29 23:15:39 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:40 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:15:40 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:40 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:15:40 main PurgeProjectGroup [INFO]  Deleting table: last_perm_address with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:41 main PurgeProjectGroup [INFO]  Deleted table: last_perm_address
+2018-04-29 23:15:41 main PurgeProjectGroup [INFO]  Deleting table: percent_ami with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:41 main PurgeProjectGroup [INFO]  Deleted table: percent_ami
+2018-04-29 23:15:41 main PurgeProjectGroup [INFO]  Deleting table: lastgradecompleted with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:41 main PurgeProjectGroup [INFO]  Deleted table: lastgradecompleted
+2018-04-29 23:15:41 main PurgeProjectGroup [INFO]  Deleting table: schoolstatus with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:41 main PurgeProjectGroup [INFO]  Deleted table: schoolstatus
+2018-04-29 23:15:41 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:44 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:15:44 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:45 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:15:45 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:45 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:15:45 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:45 main PurgeProjectGroup [INFO]  Deleted table: site
+2018-04-29 23:15:45 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:45 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:15:45 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:45 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:15:45 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleting table: rhybcpstatus with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleted table: rhybcpstatus
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleting table: sexualorientation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleted table: sexualorientation
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleting table: formerwardjuvenilejustice with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleted table: formerwardjuvenilejustice
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleting table: lastpermanentaddress with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleted table: lastpermanentaddress
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleting table: percentami with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleted table: percentami
+2018-04-29 23:15:49 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:50 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:15:50 main PurgeProjectGroup [INFO]  Deleting table: youthcriticalissues with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:50 main PurgeProjectGroup [INFO]  Deleted table: youthcriticalissues
+2018-04-29 23:15:50 main PurgeProjectGroup [INFO]  Deleting table: formerwardchildwelfare with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:50 main PurgeProjectGroup [INFO]  Deleted table: formerwardchildwelfare
+2018-04-29 23:15:50 main PurgeProjectGroup [INFO]  Deleting table: referralsource with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:50 main PurgeProjectGroup [INFO]  Deleted table: referralsource
+2018-04-29 23:15:50 main PurgeProjectGroup [INFO]  Deleting table: commercialsexualexploitation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:51 main PurgeProjectGroup [INFO]  Deleted table: commercialsexualexploitation
+2018-04-29 23:15:51 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:53 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:15:53 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:53 main PurgeProjectGroup [INFO]  Deleted table: residentialmoveindate
+2018-04-29 23:15:53 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:54 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:15:54 main PurgeProjectGroup [INFO]  Deleting table: services with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:15:59 main PurgeProjectGroup [INFO]  Deleted table: services
+2018-04-29 23:15:59 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:06 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:16:06 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:10 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:16:10 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:16 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:16:16 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:16 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:16:16 main PurgeProjectGroup [INFO]  Deleting table: exitplansactions with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:16 main PurgeProjectGroup [INFO]  Deleted table: exitplansactions
+2018-04-29 23:16:16 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:17 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:16:17 main PurgeProjectGroup [INFO]  Deleting table: familyreunification with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:17 main PurgeProjectGroup [INFO]  Deleted table: familyreunification
+2018-04-29 23:16:17 main PurgeProjectGroup [INFO]  Deleting table: connectionwithsoar with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:17 main PurgeProjectGroup [INFO]  Deleted table: connectionwithsoar
+2018-04-29 23:16:17 main PurgeProjectGroup [INFO]  Deleting table: projectcompletionstatus with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:17 main PurgeProjectGroup [INFO]  Deleted table: projectcompletionstatus
+2018-04-29 23:16:17 main PurgeProjectGroup [INFO]  Deleting table: worsthousingsituation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:18 main PurgeProjectGroup [INFO]  Deleted table: worsthousingsituation
+2018-04-29 23:16:18 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:19 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:16:19 main PurgeProjectGroup [INFO]  Deleting table: projectcoc with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:19 main PurgeProjectGroup [INFO]  Deleted table: projectcoc
+2018-04-29 23:16:19 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:19 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:16:19 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:20 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:16:20 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:20 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:16:20 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:20 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:16:20 main PurgeProjectGroup [INFO]  Deleting table: sync with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleted table: sync
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleting table: veteran_info with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleted table: veteran_info
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:16:22 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_error with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:16:27 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_error
+2018-04-29 23:16:27 main PurgeProjectGroup [INFO] 2014 schema purged for ...CP0004
+2018-04-29 23:16:27 main PurgeProjectGroup [INFO] Purging 2015 schema...CP0004
+2018-04-29 23:16:27 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:28 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:16:28 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:28 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:16:28 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:29 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:16:29 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:29 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:16:29 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:29 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:16:29 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:29 main PurgeProjectGroup [INFO]  Deleted table: site
+2018-04-29 23:16:29 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:30 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:16:30 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:30 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:16:30 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:31 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:16:31 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:32 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:16:32 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:33 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:16:33 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:37 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:16:37 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:38 main PurgeProjectGroup [INFO]  Deleted table: residentialmoveindate
+2018-04-29 23:16:38 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:16:38 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:16:38 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:18:24 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:18:24 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:02 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:19:02 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:02 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:19:02 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:02 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:19:02 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:02 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:19:02 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:03 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:19:03 main PurgeProjectGroup [INFO]  Deleting table: coc with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleted table: coc
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleting table: sync with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleted table: sync
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleting table: client_veteran_info with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleted table: client_veteran_info
+2018-04-29 23:19:04 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:07 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:19:07 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:07 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload
+2018-04-29 23:19:07 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_activity with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_activity
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO]  Deleting table: exitRHY with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO]  Deleted table: exitRHY
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO]  Deleting table: exitPath with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO]  Deleted table: exitPath
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO] 2015 schema purged for ...CP0004
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO] Purging 2016 schema...CP0004
+2018-04-29 23:19:08 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:09 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:19:09 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:09 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:19:09 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:19 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:19:19 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleted table: site
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:19:20 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:30 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:19:30 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:38 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:19:38 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:38 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:19:38 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:41 main PurgeProjectGroup [INFO]  Deleted table: residentialmoveindate
+2018-04-29 23:19:41 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:43 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:19:43 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:19:59 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:19:59 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:08 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:20:08 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:08 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:20:08 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:12 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:20:12 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:12 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:20:12 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleting table: coc with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleted table: coc
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleting table: client_veteran_info with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleted table: client_veteran_info
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_activity with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_activity
+2018-04-29 23:20:17 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_error with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:18 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_error
+2018-04-29 23:20:18 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:18 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:20:18 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:18 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:20:18 main PurgeProjectGroup [INFO]  Deleting table: exitRHY with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:21 main PurgeProjectGroup [INFO]  Deleted table: exitRHY
+2018-04-29 23:20:21 main PurgeProjectGroup [INFO]  Deleting table: exitPath with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleted table: exitPath
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO] 2016 schema purged for ...CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO] Purging base schema...CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::base for projectGroup ::: CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleting table: hmis_global_project with in schema ::base for projectGroup ::: CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleted table: hmis_global_project
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleting table: hmis_global_project_map with in schema ::base for projectGroup ::: CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleted table: hmis_global_project_map
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO] 2017 schema purged for ...CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO] Purging base schema...CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:20:25 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:20:26 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:27 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:20:27 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:27 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:28 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:20:28 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:28 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:20:28 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:30 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:20:30 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:32 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:20:32 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:32 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:20:32 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:32 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:20:32 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:32 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:20:32 main PurgeProjectGroup [INFO]  Deleting table: coc with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:32 main PurgeProjectGroup [INFO]  Deleted table: coc
+2018-04-29 23:20:32 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleting table: client_veteran_info with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleted table: client_veteran_info
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_activity with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_activity
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_error with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_error
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleting table: exitRHY with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO]  Deleted table: exitRHY
+2018-04-29 23:20:33 main PurgeProjectGroup [INFO] Base schema purged for ...CP0004
+2018-04-29 23:36:12 main PurgeProjectGroup [INFO]  Disabling triggers...
+2018-04-29 23:36:13 main PurgeProjectGroup [INFO] Purging 2014 schema...CP0004
+2018-04-29 23:36:13 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:13 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:36:13 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:13 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:36:13 main PurgeProjectGroup [INFO]  Deleting table: last_perm_address with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:14 main PurgeProjectGroup [INFO]  Deleted table: last_perm_address
+2018-04-29 23:36:14 main PurgeProjectGroup [INFO]  Deleting table: percent_ami with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:14 main PurgeProjectGroup [INFO]  Deleted table: percent_ami
+2018-04-29 23:36:14 main PurgeProjectGroup [INFO]  Deleting table: lastgradecompleted with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:14 main PurgeProjectGroup [INFO]  Deleted table: lastgradecompleted
+2018-04-29 23:36:14 main PurgeProjectGroup [INFO]  Deleting table: schoolstatus with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:15 main PurgeProjectGroup [INFO]  Deleted table: schoolstatus
+2018-04-29 23:36:15 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleted table: site
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:36:16 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:18 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:36:18 main PurgeProjectGroup [INFO]  Deleting table: rhybcpstatus with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:18 main PurgeProjectGroup [INFO]  Deleted table: rhybcpstatus
+2018-04-29 23:36:18 main PurgeProjectGroup [INFO]  Deleting table: sexualorientation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:18 main PurgeProjectGroup [INFO]  Deleted table: sexualorientation
+2018-04-29 23:36:18 main PurgeProjectGroup [INFO]  Deleting table: formerwardjuvenilejustice with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:18 main PurgeProjectGroup [INFO]  Deleted table: formerwardjuvenilejustice
+2018-04-29 23:36:18 main PurgeProjectGroup [INFO]  Deleting table: lastpermanentaddress with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:18 main PurgeProjectGroup [INFO]  Deleted table: lastpermanentaddress
+2018-04-29 23:36:18 main PurgeProjectGroup [INFO]  Deleting table: percentami with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:19 main PurgeProjectGroup [INFO]  Deleted table: percentami
+2018-04-29 23:36:19 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:19 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:36:19 main PurgeProjectGroup [INFO]  Deleting table: youthcriticalissues with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:19 main PurgeProjectGroup [INFO]  Deleted table: youthcriticalissues
+2018-04-29 23:36:19 main PurgeProjectGroup [INFO]  Deleting table: formerwardchildwelfare with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:19 main PurgeProjectGroup [INFO]  Deleted table: formerwardchildwelfare
+2018-04-29 23:36:19 main PurgeProjectGroup [INFO]  Deleting table: referralsource with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:20 main PurgeProjectGroup [INFO]  Deleted table: referralsource
+2018-04-29 23:36:20 main PurgeProjectGroup [INFO]  Deleting table: commercialsexualexploitation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:20 main PurgeProjectGroup [INFO]  Deleted table: commercialsexualexploitation
+2018-04-29 23:36:20 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:21 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:36:21 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:21 main PurgeProjectGroup [INFO]  Deleted table: residentialmoveindate
+2018-04-29 23:36:21 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:21 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:36:21 main PurgeProjectGroup [INFO]  Deleting table: services with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:23 main PurgeProjectGroup [INFO]  Deleted table: services
+2018-04-29 23:36:23 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:26 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:36:26 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:28 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:36:28 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:30 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:36:30 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:30 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:36:30 main PurgeProjectGroup [INFO]  Deleting table: exitplansactions with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleted table: exitplansactions
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleting table: familyreunification with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleted table: familyreunification
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleting table: connectionwithsoar with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleted table: connectionwithsoar
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleting table: projectcompletionstatus with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleted table: projectcompletionstatus
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleting table: worsthousingsituation with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleted table: worsthousingsituation
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:36:31 main PurgeProjectGroup [INFO]  Deleting table: projectcoc with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:32 main PurgeProjectGroup [INFO]  Deleted table: projectcoc
+2018-04-29 23:36:32 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:32 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:36:32 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:32 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:36:32 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:32 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:36:32 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:32 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:36:32 main PurgeProjectGroup [INFO]  Deleting table: sync with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleted table: sync
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleting table: veteran_info with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleted table: veteran_info
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:36:33 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_error with in schema ::v2014 for projectGroup ::: CP0004
+2018-04-29 23:36:34 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_error
+2018-04-29 23:36:34 main PurgeProjectGroup [INFO] 2014 schema purged for ...CP0004
+2018-04-29 23:36:34 main PurgeProjectGroup [INFO] Purging 2015 schema...CP0004
+2018-04-29 23:36:34 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:35 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:36:35 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:35 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:36:35 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:36 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:36:36 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:36 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:36:36 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:36 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:36:36 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:37 main PurgeProjectGroup [INFO]  Deleted table: site
+2018-04-29 23:36:37 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:37 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:36:37 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:37 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:36:37 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:39 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:36:39 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:39 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:36:39 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:40 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:36:40 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:40 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:36:40 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:41 main PurgeProjectGroup [INFO]  Deleted table: residentialmoveindate
+2018-04-29 23:36:41 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:36:41 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:36:41 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:37:54 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:37:54 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:33 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:38:33 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:35 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:38:35 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:35 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:38:35 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:35 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:38:35 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:47 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:38:47 main PurgeProjectGroup [INFO]  Deleting table: coc with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:48 main PurgeProjectGroup [INFO]  Deleted table: coc
+2018-04-29 23:38:48 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:49 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:38:49 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:49 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:38:49 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:50 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:38:50 main PurgeProjectGroup [INFO]  Deleting table: sync with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:50 main PurgeProjectGroup [INFO]  Deleted table: sync
+2018-04-29 23:38:50 main PurgeProjectGroup [INFO]  Deleting table: client_veteran_info with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:50 main PurgeProjectGroup [INFO]  Deleted table: client_veteran_info
+2018-04-29 23:38:50 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:59 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:38:59 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:38:59 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload
+2018-04-29 23:38:59 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_activity with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_activity
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO]  Deleting table: exitRHY with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO]  Deleted table: exitRHY
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO]  Deleting table: exitPath with in schema ::v2015 for projectGroup ::: CP0004
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO]  Deleted table: exitPath
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO] 2015 schema purged for ...CP0004
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO] Purging 2016 schema...CP0004
+2018-04-29 23:39:00 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:01 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:39:01 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:03 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:39:03 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:03 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:39:03 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:07 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:39:07 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:07 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:39:07 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:08 main PurgeProjectGroup [INFO]  Deleted table: site
+2018-04-29 23:39:08 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:08 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:39:08 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:08 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:39:08 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:08 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:39:08 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:08 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:39:08 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:09 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:39:09 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:09 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:39:09 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:10 main PurgeProjectGroup [INFO]  Deleted table: residentialmoveindate
+2018-04-29 23:39:10 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:10 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:39:10 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:11 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:39:11 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:14 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:39:14 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:14 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:39:14 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:15 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:39:15 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:15 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:39:15 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:15 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:39:15 main PurgeProjectGroup [INFO]  Deleting table: coc with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:15 main PurgeProjectGroup [INFO]  Deleted table: coc
+2018-04-29 23:39:15 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleting table: client_veteran_info with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleted table: client_veteran_info
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_activity with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_activity
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_error with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_error
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:39:16 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:17 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:39:17 main PurgeProjectGroup [INFO]  Deleting table: exitRHY with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:18 main PurgeProjectGroup [INFO]  Deleted table: exitRHY
+2018-04-29 23:39:18 main PurgeProjectGroup [INFO]  Deleting table: exitPath with in schema ::v2016 for projectGroup ::: CP0004
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleted table: exitPath
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO] 2016 schema purged for ...CP0004
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO] Purging base schema...CP0004
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::base for projectGroup ::: CP0004
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleting table: hmis_global_project with in schema ::base for projectGroup ::: CP0004
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleted table: hmis_global_project
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleting table: hmis_global_project_map with in schema ::base for projectGroup ::: CP0004
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleted table: hmis_global_project_map
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO] 2017 schema purged for ...CP0004
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO] Purging base schema...CP0004
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleting table: path_status with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleted table: path_status
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleting table: rhybcp_status with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleted table: rhybcp_status
+2018-04-29 23:39:20 main PurgeProjectGroup [INFO]  Deleting table: employment with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleted table: employment
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleting table: health_status with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleted table: health_status
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleting table: affiliation with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleted table: affiliation
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleting table: site with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleting table: inventory with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleted table: inventory
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleting table: funder with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleted table: funder
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleting table: enrollment_coc with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleted table: enrollment_coc
+2018-04-29 23:39:21 main PurgeProjectGroup [INFO]  Deleting table: medicalassistance with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleted table: medicalassistance
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleting table: domesticviolence with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleted table: domesticviolence
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleting table: disabilities with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleted table: disabilities
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleting table: residentialmoveindate with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleting table: dateofengagement with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleted table: dateofengagement
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleting table: incomeandsources with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleted table: incomeandsources
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleting table: noncashbenefits with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleted table: noncashbenefits
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleting table: healthinsurance with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleted table: healthinsurance
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleting table: exithousingassessment with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleted table: exithousingassessment
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleting table: housingassessmentdisposition with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleted table: housingassessmentdisposition
+2018-04-29 23:39:22 main PurgeProjectGroup [INFO]  Deleting table: exit with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: exit
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: coc with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: coc
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: project with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: project
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: enrollment with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: enrollment
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: organization with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: organization
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: client_veteran_info with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: client_veteran_info
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: client with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: client
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_activity with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_activity
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: bulk_upload_error with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: bulk_upload_error
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: export with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: export
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: source with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleted table: source
+2018-04-29 23:39:23 main PurgeProjectGroup [INFO]  Deleting table: exitRHY with in schema ::v2017 for projectGroup ::: CP0004
+2018-04-29 23:39:24 main PurgeProjectGroup [INFO]  Deleted table: exitRHY
+2018-04-29 23:39:24 main PurgeProjectGroup [INFO] Base schema purged for ...CP0004
