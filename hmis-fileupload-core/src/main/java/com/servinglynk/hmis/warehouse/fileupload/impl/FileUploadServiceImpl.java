@@ -98,6 +98,7 @@ public class FileUploadServiceImpl extends BaseRegistry implements FileUploadSer
 			uploadLineEntity.setFileSize(file.getSize());
 			uploadLineEntity.setContentType(fileType);
 			uploadLineEntity.setBucketName(content.getBucketName());
+			uploadLineEntity.setFileName(this.getRemoteFileName(file.getOriginalFilename()));
 			
 			fileUploadHandlerFactory.getFileUploadHandler(uploadType.getStorageType()).uploadDocument(uploadLineEntity,
 					file);
@@ -105,6 +106,13 @@ public class FileUploadServiceImpl extends BaseRegistry implements FileUploadSer
 			
 			return content;
 
+	}
+	
+	public String getRemoteFileName(String uploadedFileName) {
+		String fileExtension = uploadedFileName.substring(uploadedFileName.lastIndexOf(".")+1);
+		String fileName =uploadedFileName.substring(0,uploadedFileName.lastIndexOf("."));
+//		System.out.println("File Name "+fileName + " File Extension "+fileExtension);
+		return fileName+"_"+System.currentTimeMillis()+"."+fileExtension;
 	}
 
 	@Override

@@ -135,9 +135,9 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 		header.setBucketName(loginUser.getProjectGroup().getBucketName());
 		if(entity.getConsentDocument()!=null)	header.setUploadFileId(entity.getConsentDocument());
 		
-		fileUploadServiceFactory.getFileUploadService().uploadDocument(multipartFile, header);
+		UploadHeader upload = fileUploadServiceFactory.getFileUploadService().uploadDocument(multipartFile, header);
 		if(entity.getConsentDocument()==null)
-			 entity.setConsentDocument(header.getUploadFileId());
+			 entity.setConsentDocument(upload.getUploadFileId());
 		daoFactory.getClientConsentDao().update(entity);
 	}
 	
