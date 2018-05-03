@@ -218,7 +218,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q09aNumberPersonsContactedList, "Q9a.jrxml", "Q9a.csv");
 			}
 			
-			List<Q09bDataBean> q09bNumberofPersonsEngagedList = Q09bBeanMaker.getQ09bNumberofPersonsEngagedList();
+			List<Q09bDataBean> q09bNumberofPersonsEngagedList = Q09bBeanMaker.getQ09bNumberofPersonsEngagedList(data);
 			homePageDataBean.setQ09bNumberofPersonsEngagedDataBean(q09bNumberofPersonsEngagedList);
 			if(q09bNumberofPersonsEngagedList!=null){
 				CSVGenerator.buildReport(q09bNumberofPersonsEngagedList, "Q9b.jrxml", "Q9b.csv");
