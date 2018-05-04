@@ -91,9 +91,9 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 		List<String> otherClients = new ArrayList<>();
 		adultsOther.parallelStream().forEach(client-> { otherClients.add(client.getPersonalID()); });
 		
-		List<EnrollmentModel> adultsWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && adultsOther.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
-		List<EnrollmentModel> adultsWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && adultsOther.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
-		List<EnrollmentModel> adultsFemaleUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && adultsOther.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		List<EnrollmentModel> adultsWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && otherClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		List<EnrollmentModel> adultsWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && otherClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		List<EnrollmentModel> adultsFemaleUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && otherClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
 		
 		q10AGenderOfAdults.setTotOther(BigInteger.valueOf(adultsOther.size()));
 		q10AGenderOfAdults.setOtherWOC(BigInteger.valueOf(adultsWOC != null ? adultsWOC.size() :0));
@@ -101,21 +101,53 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 		q10AGenderOfAdults.setOtherUHHT(BigInteger.valueOf(adultsFemaleUHHT != null ?adultsFemaleUHHT.size():0));
 	}
 
+	List<ClientModel> clientDk = adults.parallelStream().filter(client->StringUtils.equals("8",client.getGender()) || StringUtils.equals("9",client.getGender())).collect(Collectors.toList());
+	if(CollectionUtils.isNotEmpty(clientDk)) {
+		List<String> dkClients = new ArrayList<>();
+		clientDk.parallelStream().forEach(client-> { dkClients.add(client.getPersonalID()); });
+		List<EnrollmentModel> adultsWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && dkClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		List<EnrollmentModel> adultsWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && dkClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		List<EnrollmentModel> adultsFemaleUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && dkClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		
+		q10AGenderOfAdults.setTotDontKnowRefused(BigInteger.valueOf(dkClients.size()));
+		q10AGenderOfAdults.setDkrWOC(BigInteger.valueOf(adultsWOC != null ?adultsWOC.size() :0));
+		q10AGenderOfAdults.setDkrWCA(BigInteger.valueOf(adultsWCA != null ?adultsWCA.size() :0));
+		q10AGenderOfAdults.setDkrUHHT(BigInteger.valueOf(adultsFemaleUHHT != null ?adultsFemaleUHHT.size() :0));
+	}
+
+	List<ClientModel> clientMissing = adults.parallelStream().filter(client->StringUtils.equals("99",client.getGender())).collect(Collectors.toList());
+	if(CollectionUtils.isNotEmpty(clientMissing)) {
+		List<String> missingInfoClients = new ArrayList<>();
+		clientMissing.parallelStream().forEach(client-> { missingInfoClients.add(client.getPersonalID()); });
+		List<EnrollmentModel> adultsWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && clientMissing.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		List<EnrollmentModel> adultsWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && clientMissing.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		List<EnrollmentModel> adultsFemaleUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && clientMissing.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		
+		q10AGenderOfAdults.setTotInfoMissing(BigInteger.valueOf(clientMissing != null ?clientMissing.size() :0));
+		q10AGenderOfAdults.setInfomiisingWOC(BigInteger.valueOf(adultsWOC != null ?adultsWOC.size() :0));
+		q10AGenderOfAdults.setInfomiisingWCA(BigInteger.valueOf(adultsWCA != null ? adultsWCA.size() :0));
+		q10AGenderOfAdults.setInfomiisingUHHT(BigInteger.valueOf(adultsFemaleUHHT != null ? adultsFemaleUHHT.size() :0));
+	}
+	BigInteger totSubTotal = getBigIntValue(q10AGenderOfAdults.getTotDontKnowRefused()).add(getBigIntValue(q10AGenderOfAdults.getTotFemale())).add(getBigIntValue(q10AGenderOfAdults.getTotInfoMissing()))
+			.add(getBigIntValue(q10AGenderOfAdults.getTotInfoMissing())).add(getBigIntValue(q10AGenderOfAdults.getTotMale())).add(getBigIntValue(q10AGenderOfAdults.getTotOther())).add(getBigIntValue(q10AGenderOfAdults.getTotTransgenderFM()))
+			.add(getBigIntValue(q10AGenderOfAdults.getTotTransgenderMF()));
 	
-	q10AGenderOfAdults.setTotDontKnowRefused(BigInteger.valueOf(0));
-	q10AGenderOfAdults.setDkrWOC(BigInteger.valueOf(0));
-	q10AGenderOfAdults.setDkrWCA(BigInteger.valueOf(0));
-	q10AGenderOfAdults.setDkrUHHT(BigInteger.valueOf(0));
+	BigInteger subtotalWOC = getBigIntValue(q10AGenderOfAdults.getDkrWOC()).add(getBigIntValue(q10AGenderOfAdults.getMaleWOC()))
+			.add(getBigIntValue(q10AGenderOfAdults.getFemaleWOC())).add(getBigIntValue(q10AGenderOfAdults.getInfomiisingWOC()))
+			.add(q10AGenderOfAdults.getOtherWOC()).add(q10AGenderOfAdults.getTransgenderFMWOC())
+			.add(q10AGenderOfAdults.getTransgenderMFWOC());
+			
+	BigInteger subtotalWCA = 	q10AGenderOfAdults.getDkrWCA().add(q10AGenderOfAdults.getMaleWCA()).add(q10AGenderOfAdults.getFemaleWCA())
+			.add(q10AGenderOfAdults.getInfomiisingWCA()).add(q10AGenderOfAdults.getOtherWCA()).add(q10AGenderOfAdults.getTransgenderFMWCA())
+			.add(q10AGenderOfAdults.getTransgenderMFWCA());
 	
-	q10AGenderOfAdults.setTotInfoMissing(BigInteger.valueOf(0));
-	q10AGenderOfAdults.setInfomiisingWOC(BigInteger.valueOf(0));
-	q10AGenderOfAdults.setInfomiisingWCA(BigInteger.valueOf(0));
-	q10AGenderOfAdults.setInfomiisingUHHT(BigInteger.valueOf(0));
-	
-	q10AGenderOfAdults.setTotSubtotal(data.getNumOfAdults());
-	q10AGenderOfAdults.setSubtotalWOC(BigInteger.valueOf(0));
-	q10AGenderOfAdults.setSubtotalWCA(BigInteger.valueOf(0));
-	q10AGenderOfAdults.setSubtotalUHHT(BigInteger.valueOf(0));
+	BigInteger subtotalUHHT = q10AGenderOfAdults.getDkrUHHT().add(q10AGenderOfAdults.getFemaleUHHT()).add(q10AGenderOfAdults.getMaleUHHT())
+				.add(q10AGenderOfAdults.getInfomiisingUHHT()).add(q10AGenderOfAdults.getOtherUHHT()).add(q10AGenderOfAdults.getTransgenderFMUHHT())
+				.add(q10AGenderOfAdults.getTransgenderMFUHHT());
+	q10AGenderOfAdults.setTotSubtotal(totSubTotal);
+	q10AGenderOfAdults.setSubtotalWOC(subtotalWOC);
+	q10AGenderOfAdults.setSubtotalWCA(subtotalWCA);
+	q10AGenderOfAdults.setSubtotalUHHT(subtotalUHHT);
 
 	return Arrays.asList(q10AGenderOfAdults);
 }

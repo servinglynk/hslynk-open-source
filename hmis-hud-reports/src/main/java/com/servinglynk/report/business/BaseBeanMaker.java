@@ -49,6 +49,12 @@ public class BaseBeanMaker {
 		
 	}
 	
+	public static BigInteger getBigIntValue(BigInteger value) {
+		if(value != null) {
+			return value;
+		}
+		return getDefaultValue();
+	}
 	public static BigInteger getDefaultValue() {
 		return BigInteger.valueOf(0);
 	}
