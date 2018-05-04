@@ -235,7 +235,7 @@ public class BaseBeanMaker {
 				@SuppressWarnings("deprecation")
 				LocalDate dateOfBirth = LocalDate.of(dob.getYear(), dob.getMonth(), dob.getDay());
 				Period p = Period.between(dateOfBirth, currentDate);
-				if(p.getYears() > 18 )
+				if(p.getYears() >= 18 )
 					return true;
 				else 
 					return false;
