@@ -247,6 +247,19 @@ public class BaseBeanMaker {
 	
 	}
 	
+	public static int getAge(Date dob) {
+		try {
+			LocalDate currentDate = LocalDate.now();
+			if(dob !=null) {
+				@SuppressWarnings("deprecation")
+				LocalDate dateOfBirth = LocalDate.of(dob.getYear(), dob.getMonth(), dob.getDay());
+				Period p = Period.between(dateOfBirth, currentDate);
+				return p.getYears();
+			}
+		}catch(Exception e) {
+		}
+		return 0;
+	}
 	
 	public static void populateProject(String schema,String id, HomePageDataBean homePageDataBean) {
 		ResultSet resultSet = null;
