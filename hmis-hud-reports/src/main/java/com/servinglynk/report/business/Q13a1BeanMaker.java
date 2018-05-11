@@ -5,10 +5,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q13a1DataBean;
+import com.servinglynk.report.bean.ReportData;
 
-public class Q13a1BeanMaker {
+public class Q13a1BeanMaker extends BaseBeanMaker {
 	
-	public static List<Q13a1DataBean> getQ13a1PhysicalAndMentalHealthConditionsAtEntryList(){
+	
+	public static List<Q13a1DataBean> getQ13a1PhysicalAndMentalHealthConditionsAtEntryList(ReportData data){
+		
+		
+		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
+		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
+		List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
+		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 		
 		Q13a1DataBean q13a1PhysicalMntlHealthCondTableBean = new Q13a1DataBean();
 		

@@ -1,10 +1,6 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,8 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.servinglynk.hive.connection.ImpalaConnection;
-import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aDataBean;
@@ -33,6 +27,7 @@ import com.servinglynk.report.bean.Q09bDataBean;
 import com.servinglynk.report.bean.Q10aDataBean;
 import com.servinglynk.report.bean.Q10bDataBean;
 import com.servinglynk.report.bean.Q10cDataBean;
+import com.servinglynk.report.bean.Q10dDataBean;
 import com.servinglynk.report.bean.Q11AgeDataBean;
 import com.servinglynk.report.bean.Q12aRaceDataBean;
 import com.servinglynk.report.bean.Q12bEthnicityDataBean;
@@ -241,6 +236,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			if(q10CGPMIList!=null){
 				CSVGenerator.buildReport(q10CGPMIList, "Q10c.jrxml","Q10c.csv");
 			}
+			List<Q10dDataBean> q10dGPMIList= Q10dBeanMaker.getQ10DGARList(data);
+			homePageDataBean.setQ10dGenderByAgeRangesDataBean(q10dGPMIList);
+			if(q10CGPMIList!=null){
+				CSVGenerator.buildReport(q10dGPMIList, "Q10d.jrxml","Q10d.csv");
+			}
 			
 			List<Q11AgeDataBean> q11AgeList = Q11BeanMaker.getQ11AgeList(data);
 			homePageDataBean.setQ11AgeDataBean(q11AgeList);
@@ -260,7 +260,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q12bEthnicityList, "Q12b.jrxml", "Q12b.csv");
 			}
 			
-			List<Q13a1DataBean> q13a1PhysicalAndMentalHealthConditionsAtEntryList= Q13a1BeanMaker.getQ13a1PhysicalAndMentalHealthConditionsAtEntryList();
+			List<Q13a1DataBean> q13a1PhysicalAndMentalHealthConditionsAtEntryList= Q13a1BeanMaker.getQ13a1PhysicalAndMentalHealthConditionsAtEntryList(data);
 			homePageDataBean.setQ13a1PhysicalAndMentalHealthConditionsAtEntryDataBean(q13a1PhysicalAndMentalHealthConditionsAtEntryList);
 			if(q13a1PhysicalAndMentalHealthConditionsAtEntryList!=null){
 				CSVGenerator.buildReport(q13a1PhysicalAndMentalHealthConditionsAtEntryList, "Q13a1.jrxml", "Q13a1.csv");

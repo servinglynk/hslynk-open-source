@@ -46,7 +46,6 @@ public class BaseBeanMaker {
 		}catch(Exception e) {
 			return false;
 		}
-		
 	}
 	
 	public static BigInteger getBigIntValue(BigInteger value) {

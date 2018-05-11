@@ -40,6 +40,7 @@ public class HomePageDataBean {
 	private List<Q10aDataBean> q10aGenderOfAdultsDataBean;
 	private List<Q10bDataBean> q10bGenderOfChildrenDataBean;
 	private List<Q10cDataBean> q10cGenderOfPersonsMissingAgeInformationDataBean;
+	private List<Q10dDataBean> q10dGenderByAgeRangesDataBean;
 	private List<Q11AgeDataBean> q11AgeDataBean;
 	private List<Q12aRaceDataBean> q12aRaceDataBean;
 	private List<Q12bEthnicityDataBean> q12bEthnicityDataBean;
@@ -295,6 +296,19 @@ public class HomePageDataBean {
 	public void setQ10cGenderOfPersonsMissingAgeInformationDataBean(
 			List<Q10cDataBean> q10cGenderOfPersonsMissingAgeInformationDataBean) {
 		this.q10cGenderOfPersonsMissingAgeInformationDataBean = q10cGenderOfPersonsMissingAgeInformationDataBean;
+	}
+	/**
+	 * @return the q10dGenderByAgeRangesDataBean
+	 */
+	public List<Q10dDataBean> getQ10dGenderByAgeRangesDataBean() {
+		return q10dGenderByAgeRangesDataBean;
+	}
+	/**
+	 * @param q10dGenderByAgeRangesDataBean the q10dGenderByAgeRangesDataBean to set
+	 */
+	public void setQ10dGenderByAgeRangesDataBean(
+			List<Q10dDataBean> q10dGenderByAgeRangesDataBean) {
+		this.q10dGenderByAgeRangesDataBean = q10dGenderByAgeRangesDataBean;
 	}
 	public List<Q11AgeDataBean> getQ11AgeDataBean() {
 		return q11AgeDataBean;
