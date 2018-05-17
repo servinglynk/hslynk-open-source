@@ -272,7 +272,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q13a2NumberOfConditionsAtEntryList, "Q13a2.jrxml", "Q13a2.csv");
 			}
 			
-			List<Q13b1DataBean> q13b1PhysicalAndMentalHealthConditionsAtExitList = Q13b1BeanMaker.getQ13b1PhysicalAndMentalHealthConditionsAtExitList();
+			List<Q13b1DataBean> q13b1PhysicalAndMentalHealthConditionsAtExitList = Q13b1BeanMaker.getQ13b1PhysicalAndMentalHealthConditionsAtExitList(data);
 			homePageDataBean.setQ13b1PhysicalAndMentalHealthConditionsAtExitDataBean(q13b1PhysicalAndMentalHealthConditionsAtExitList);
 			if(q13b1PhysicalAndMentalHealthConditionsAtExitList!=null){
 				CSVGenerator.buildReport(q13b1PhysicalAndMentalHealthConditionsAtExitList, "Q13b1.jrxml", "Q13b1.csv");

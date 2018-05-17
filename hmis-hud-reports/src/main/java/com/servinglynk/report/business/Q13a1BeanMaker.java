@@ -32,7 +32,7 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
 		// Developmental Disability -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='6'
 		
 		Q13a1DataBean q13a1Bean = new Q13a1DataBean();
-		String mentalHealthQuery = " select enrollment_id from disabilities where datacollectionstage =1 and disabilitytype='9' ";
+		String mentalHealthQuery = " select enrollment_id from disabilities where datacollectionstage = '1' and disabilitytype='9' ";
 		
 		List<String> mentalHealthList = getEnrollmentFromDisabilities(data.getSchema(), mentalHealthQuery);
 		List<EnrollmentModel> enrollments = data.getEnrollments();   
