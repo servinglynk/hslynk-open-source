@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.servinglynk.report.bean.Q13b1DataBean;
-import com.servinglynk.report.bean.Q13b1DataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.EnrollmentModel;
 

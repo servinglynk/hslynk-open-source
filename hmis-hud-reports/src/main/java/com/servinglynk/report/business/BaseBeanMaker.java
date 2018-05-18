@@ -12,7 +12,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
@@ -122,6 +122,37 @@ public class BaseBeanMaker {
 		}
 		return models;
 	}
+	
+	public static List<String> getEnrollmentFromDisabilitiesWithInformationDate(String schema,String query,Date reportEndDate) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<String>  models = new ArrayList<String>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(query,schema));
+			statement.setDate(1, reportEndDate);
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.add(resultSet.getString(1));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	
 	
 	public static List<ContactModel> getContacts(final String schema) {
 		ResultSet resultSet = null;
