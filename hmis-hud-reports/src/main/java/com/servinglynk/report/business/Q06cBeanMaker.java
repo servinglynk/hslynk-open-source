@@ -22,7 +22,7 @@ public class Q06cBeanMaker {
 		
 		Q06cDataBean q06cDataBean =new Q06cDataBean();
 		List<ExitModel> exits = data.getExits();
-		exits.parallelStream().forEach(exit -> { 
+		exits.parallelStream().forEach(exit -> {
 			
 			if(StringUtils.equals("8", exit.getDestination()) || StringUtils.equals("9", exit.getDestination()) || StringUtils.equals("30", exit.getDestination())
 					|| StringUtils.equals("99", exit.getDestination())

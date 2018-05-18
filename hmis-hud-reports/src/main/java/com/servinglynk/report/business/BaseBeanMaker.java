@@ -21,6 +21,7 @@ import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.ContactModel;
 import com.servinglynk.report.model.DateOfEngagementModel;
+import com.servinglynk.report.model.DomesticViolenceModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
@@ -153,6 +154,64 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
+	public static List<String> getDomesticViolenceByVictim(final String schema,final String victim) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<String>  models = new ArrayList<String>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM,schema));
+			statement.setString(1, victim);
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.add(resultSet.getString("project_entry_id"));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	
+	public static List<String> getDomesticViolenceByVictimDK(final String schema) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<String>  models = new ArrayList<String>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK,schema));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.add(resultSet.getString("project_entry_id"));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
 	
 	public static List<ContactModel> getContacts(final String schema) {
 		ResultSet resultSet = null;

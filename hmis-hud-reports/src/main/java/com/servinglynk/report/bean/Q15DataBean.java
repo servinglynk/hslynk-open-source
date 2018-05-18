@@ -2,7 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q15ResidencePriorToProgramEntryDataBean {
+public class Q15DataBean {
 	
 	private BigInteger q15HomeLessSituationsTotal;
 	private BigInteger q15HomeLessSituationsWithoutChildren;

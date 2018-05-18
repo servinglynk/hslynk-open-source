@@ -5,6 +5,8 @@ public static String GET_PROJECT_BY_ID= "select * from %s.project where project_
 public static String GET_ORG_BY_ID= "select * from %s.organization where organization_id = ?";
 public static String GET_ALL_CLIENTS = "select * from %s.client";
 public static String GET_ALL_CONTACTS = "select * from %s.contact";
+public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM = "select project_entry_id from %s.domesticviolence where domesticviolencevictim = ?";
+public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK = "select project_entry_id from %s.domesticviolence where domesticviolencevictim in ('8','9') ";
 public static String GET_ALL_DOE = "select * from %s.dateofengagement";
 public static String GET_ALL_ENROLLMENTS = "select * from %s.enrollment";
 public static String GET_ALL_EXITS = "select * from %s.exit";

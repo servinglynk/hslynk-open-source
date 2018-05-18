@@ -37,9 +37,9 @@ import com.servinglynk.report.bean.Q13b1DataBean;
 import com.servinglynk.report.bean.Q13b2DataBean;
 import com.servinglynk.report.bean.Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
 import com.servinglynk.report.bean.Q13c2NumberOfConditionsForStayerDataBean;
-import com.servinglynk.report.bean.Q14aDomesticViolenceHistoryDataBean;
+import com.servinglynk.report.bean.Q14aDataBean;
 import com.servinglynk.report.bean.Q14bPersonsFleeingDomesticViolenceDataBean;
-import com.servinglynk.report.bean.Q15ResidencePriorToProgramEntryDataBean;
+import com.servinglynk.report.bean.Q15DataBean;
 import com.servinglynk.report.bean.Q16CashIncomeRangesDataBean;
 import com.servinglynk.report.bean.Q17CashIncomeSourcesDataBean;
 import com.servinglynk.report.bean.Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
@@ -296,7 +296,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q13c2NumberOfConditionsForStayerList, "Q13c2.jrxml","Q13c2.csv");
 			}
 			
-			List<Q14aDomesticViolenceHistoryDataBean> q14aDomesticViolenceHistoryList= Q14aBeanMaker.getQ14aDomesticViolenceHistoryList(data);
+			List<Q14aDataBean> q14aDomesticViolenceHistoryList= Q14aBeanMaker.getQ14aDomesticViolenceHistoryList(data);
 			homePageDataBean.setQ14aDomesticViolenceHistoryDataBean(q14aDomesticViolenceHistoryList);
 			if(q14aDomesticViolenceHistoryList!=null){
 				CSVGenerator.buildReport(q14aDomesticViolenceHistoryList, "Q14a.jrxml", "Q14a.csv");
@@ -308,7 +308,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q14bPersonsFleeingDomesticViolenceList, "Q14b.jrxml", "Q14b.csv");
 			}
 			
-			List<Q15ResidencePriorToProgramEntryDataBean> q15ResidencePriorToProgramEntryList = Q15BeanMaker.getQ15ResidencePriorToProgramEntryList(data);
+			List<Q15DataBean> q15ResidencePriorToProgramEntryList = Q15BeanMaker.getQ15ResidencePriorToProgramEntryList(data);
 			homePageDataBean.setQ15ResidencePriorToProgramEntryDataBean(q15ResidencePriorToProgramEntryList);
 			if(q15ResidencePriorToProgramEntryList !=null){
 				CSVGenerator.buildReport(q15ResidencePriorToProgramEntryList,"Q15.jrxml", "Q15.csv");

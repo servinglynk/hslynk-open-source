@@ -50,9 +50,9 @@ public class HomePageDataBean {
 	private List<Q13b2DataBean> q13b2NumberOfConditionsAtExitDataBean;
 	private List<Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean> q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
 	private List<Q13c2NumberOfConditionsForStayerDataBean> q13c2NumberOfConditionsForStayerDataBean;
-	private List<Q14aDomesticViolenceHistoryDataBean> q14aDomesticViolenceHistoryDataBean;
+	private List<Q14aDataBean> q14aDomesticViolenceHistoryDataBean;
 	private List<Q14bPersonsFleeingDomesticViolenceDataBean> q14bPersonsFleeingDomesticViolenceDataBean;
-	private List<Q15ResidencePriorToProgramEntryDataBean> q15ResidencePriorToProgramEntryDataBean;
+	private List<Q15DataBean> q15ResidencePriorToProgramEntryDataBean;
 	private List<Q16CashIncomeRangesDataBean> q16CashIncomeRangesDataBean;
 	private List<Q17CashIncomeSourcesDataBean> q17CashIncomeSourcesDataBean;
 	private List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
@@ -371,11 +371,11 @@ public class HomePageDataBean {
 			List<Q13c2NumberOfConditionsForStayerDataBean> q13c2NumberOfConditionsForStayerDataBean) {
 		this.q13c2NumberOfConditionsForStayerDataBean = q13c2NumberOfConditionsForStayerDataBean;
 	}
-	public List<Q14aDomesticViolenceHistoryDataBean> getQ14aDomesticViolenceHistoryDataBean() {
+	public List<Q14aDataBean> getQ14aDomesticViolenceHistoryDataBean() {
 		return q14aDomesticViolenceHistoryDataBean;
 	}
 	public void setQ14aDomesticViolenceHistoryDataBean(
-			List<Q14aDomesticViolenceHistoryDataBean> q14aDomesticViolenceHistoryDataBean) {
+			List<Q14aDataBean> q14aDomesticViolenceHistoryDataBean) {
 		this.q14aDomesticViolenceHistoryDataBean = q14aDomesticViolenceHistoryDataBean;
 	}
 	public List<Q14bPersonsFleeingDomesticViolenceDataBean> getQ14bPersonsFleeingDomesticViolenceDataBean() {
@@ -385,11 +385,11 @@ public class HomePageDataBean {
 			List<Q14bPersonsFleeingDomesticViolenceDataBean> q14bPersonsFleeingDomesticViolenceDataBean) {
 		this.q14bPersonsFleeingDomesticViolenceDataBean = q14bPersonsFleeingDomesticViolenceDataBean;
 	}
-	public List<Q15ResidencePriorToProgramEntryDataBean> getQ15ResidencePriorToProgramEntryDataBean() {
+	public List<Q15DataBean> getQ15ResidencePriorToProgramEntryDataBean() {
 		return q15ResidencePriorToProgramEntryDataBean;
 	}
 	public void setQ15ResidencePriorToProgramEntryDataBean(
-			List<Q15ResidencePriorToProgramEntryDataBean> q15ResidencePriorToProgramEntryDataBean) {
+			List<Q15DataBean> q15ResidencePriorToProgramEntryDataBean) {
 		this.q15ResidencePriorToProgramEntryDataBean = q15ResidencePriorToProgramEntryDataBean;
 	}
 	public List<Q16CashIncomeRangesDataBean> getQ16CashIncomeRangesDataBean() {
