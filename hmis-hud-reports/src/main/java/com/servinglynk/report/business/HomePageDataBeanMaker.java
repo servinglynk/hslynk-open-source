@@ -38,7 +38,7 @@ import com.servinglynk.report.bean.Q13b2DataBean;
 import com.servinglynk.report.bean.Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
 import com.servinglynk.report.bean.Q13c2NumberOfConditionsForStayerDataBean;
 import com.servinglynk.report.bean.Q14aDataBean;
-import com.servinglynk.report.bean.Q14bPersonsFleeingDomesticViolenceDataBean;
+import com.servinglynk.report.bean.Q14bDataBean;
 import com.servinglynk.report.bean.Q15DataBean;
 import com.servinglynk.report.bean.Q16CashIncomeRangesDataBean;
 import com.servinglynk.report.bean.Q17CashIncomeSourcesDataBean;
@@ -302,7 +302,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q14aDomesticViolenceHistoryList, "Q14a.jrxml", "Q14a.csv");
 			}
 			
-			List<Q14bPersonsFleeingDomesticViolenceDataBean> q14bPersonsFleeingDomesticViolenceList = Q14bBeanMaker.getQ14bPersonsFleeingDomesticViolenceList();
+			List<Q14bDataBean> q14bPersonsFleeingDomesticViolenceList = Q14bBeanMaker.getQ14bPersonsFleeingDomesticViolenceList();
 			homePageDataBean.setQ14bPersonsFleeingDomesticViolenceDataBean(q14bPersonsFleeingDomesticViolenceList);
 			if(q14bPersonsFleeingDomesticViolenceList!=null){
 				CSVGenerator.buildReport(q14bPersonsFleeingDomesticViolenceList, "Q14b.jrxml", "Q14b.csv");

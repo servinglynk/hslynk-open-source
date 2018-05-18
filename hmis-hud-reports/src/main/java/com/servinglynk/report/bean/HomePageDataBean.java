@@ -51,7 +51,7 @@ public class HomePageDataBean {
 	private List<Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean> q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
 	private List<Q13c2NumberOfConditionsForStayerDataBean> q13c2NumberOfConditionsForStayerDataBean;
 	private List<Q14aDataBean> q14aDomesticViolenceHistoryDataBean;
-	private List<Q14bPersonsFleeingDomesticViolenceDataBean> q14bPersonsFleeingDomesticViolenceDataBean;
+	private List<Q14bDataBean> q14bPersonsFleeingDomesticViolenceDataBean;
 	private List<Q15DataBean> q15ResidencePriorToProgramEntryDataBean;
 	private List<Q16CashIncomeRangesDataBean> q16CashIncomeRangesDataBean;
 	private List<Q17CashIncomeSourcesDataBean> q17CashIncomeSourcesDataBean;
@@ -378,11 +378,11 @@ public class HomePageDataBean {
 			List<Q14aDataBean> q14aDomesticViolenceHistoryDataBean) {
 		this.q14aDomesticViolenceHistoryDataBean = q14aDomesticViolenceHistoryDataBean;
 	}
-	public List<Q14bPersonsFleeingDomesticViolenceDataBean> getQ14bPersonsFleeingDomesticViolenceDataBean() {
+	public List<Q14bDataBean> getQ14bPersonsFleeingDomesticViolenceDataBean() {
 		return q14bPersonsFleeingDomesticViolenceDataBean;
 	}
 	public void setQ14bPersonsFleeingDomesticViolenceDataBean(
-			List<Q14bPersonsFleeingDomesticViolenceDataBean> q14bPersonsFleeingDomesticViolenceDataBean) {
+			List<Q14bDataBean> q14bPersonsFleeingDomesticViolenceDataBean) {
 		this.q14bPersonsFleeingDomesticViolenceDataBean = q14bPersonsFleeingDomesticViolenceDataBean;
 	}
 	public List<Q15DataBean> getQ15ResidencePriorToProgramEntryDataBean() {
