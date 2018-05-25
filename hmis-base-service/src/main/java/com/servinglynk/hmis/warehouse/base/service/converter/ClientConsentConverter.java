@@ -16,6 +16,7 @@ public class ClientConsentConverter {
 		entity.setClientId(model.getClientId());
 		entity.setStartTime(LocalDateTime.ofInstant(model.getStartTime().toInstant(), ZoneId.systemDefault()));
 		entity.setEndTime(LocalDateTime.ofInstant(model.getEndTime().toInstant(), ZoneId.systemDefault()));
+		entity.setConsentGroupId(model.getConsentGroupId());
 	//	entity.setConsentDocument(model.getConsentDocumentLink());
 		return entity;
 	}
@@ -27,6 +28,7 @@ public class ClientConsentConverter {
 		model.setEndTime(Date.from(entity.getEndTime().atZone(ZoneId.systemDefault()).toInstant()));
 	//	model.setConsentDocumentLink(entity.getConsentDocument());
 		model.setStatus(entity.getStatus());
+		model.setConsentGroupId(entity.getConsentGroupId());
 		model.setId(entity.getId());
 		
 		return model;
