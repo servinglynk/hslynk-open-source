@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -36,6 +35,8 @@ public class ClientConsentEntity extends HMISModel {
 	
 
 	private UUID consentDocument;
+	
+	private String consentGroupId;
 	
 
 	private List<ClientConsentProjectMapEntity> consentProjects;
@@ -102,5 +103,13 @@ public class ClientConsentEntity extends HMISModel {
 	}
 	public void setConsentProjects(List<ClientConsentProjectMapEntity> consentProjects) {
 		this.consentProjects = consentProjects;
+	}
+	
+	@Column(name="CONSENT_GROUP_ID")
+	public String getConsentGroupId() {
+		return consentGroupId;
+	}
+	public void setConsentGroupId(String consentGroupId) {
+		this.consentGroupId = consentGroupId;
 	}	
 }
