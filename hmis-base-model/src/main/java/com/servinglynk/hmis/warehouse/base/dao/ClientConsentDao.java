@@ -43,4 +43,5 @@ public interface ClientConsentDao  extends QueryExecutor {
 	Long searchConsentsCount(String consentGroupId);
 	List<ClientConsentEntity> searchClients(String consentGroupId, Integer startIndex, Integer maxItems);
 	Long searchClientsCount(String consentGroupId);
+	List<UUID> searchClients(String consentGroupId);
 }

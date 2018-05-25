@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
 import com.servinglynk.hmis.warehouse.core.model.Session;
@@ -41,13 +42,14 @@ public class SearchController
 
 	  if(maxItems>50) maxItems =50;
 	  
-	  return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,exclude,session);
+	  return this.serviceFactory.getSearchService().performSearch(new SearchRequest(),searchterm, sort, order, startIndex, maxItems,exclude,session);
   }
   
   @RequestMapping(method=RequestMethod.GET,value="/searchall/{searchentity}")
   @APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=true, checkTrustedApp=true)
 	  public SearchResults baseSearch( @PathVariable("searchentity") String searchentity,
 			  @RequestParam(value="q", required=false,defaultValue="") String searchterm, 
+			  @RequestParam(value="consentGroupId",required=false) String consentGroupId,
 			  @RequestParam(value="sort", required=false,defaultValue="id") String sort, 
 			  @RequestParam(value="order", required=false,defaultValue="asc") String order, 
 			  @RequestParam(value="startIndex", required=false,defaultValue="0") Integer startIndex, 
@@ -59,10 +61,12 @@ public class SearchController
 					   if( maxItems >50 )  maxItems = 50;
 				
 						  Session session = sessionHelper.getSession(request);
+						  SearchRequest searchRequest = new SearchRequest();
+						  searchRequest.addSearchParam("consentGroupId",consentGroupId);
 		if(searchentity.equalsIgnoreCase("projects")){
 			return serviceFactory.getBaseSearchService().performProjectSearch(searchterm, sort, order, startIndex, maxItems, exclude, session);
 		}
-		return this.serviceFactory.getBaseSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,exclude,session);
+		return this.serviceFactory.getBaseSearchService().performSearch(searchRequest,searchterm, sort, order, startIndex, maxItems,exclude,session);
 		
 	  }
   

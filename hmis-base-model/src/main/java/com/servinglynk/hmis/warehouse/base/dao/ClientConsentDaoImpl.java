@@ -178,9 +178,23 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 			projectionList.add(Projections.distinct(Projections.property("clientId")),"clientId");
 			criteria.setProjection(projectionList);
 			criteria.setResultTransformer(Transformers.aliasToBean(ClientConsentEntity.class));
-		List<ClientConsentEntity> entities = (List<ClientConsentEntity>) findByCriteria(criteria,startIndex,maxItems);
+			if(startIndex!=null && maxItems!=null) {
+				return (List<ClientConsentEntity>) findByCriteria(criteria,startIndex,maxItems);
+			}else {
+				return (List<ClientConsentEntity>) findByCriteria(criteria);
+			}
 		
-		return entities;
+		
+	}
+	
+	public List<UUID> searchClients(String consentGroupId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
+	      criteria.add(Restrictions.eq("consentGroupId", consentGroupId));
+			ProjectionList projectionList = Projections.projectionList();
+			projectionList.add(Projections.distinct(Projections.property("clientId")),"clientId");
+			criteria.setProjection(projectionList);
+			
+		return (List<UUID>) findByCriteria(criteria);	
 	}
 	
 	public Long searchClientsCount(String consentGroupId) {
