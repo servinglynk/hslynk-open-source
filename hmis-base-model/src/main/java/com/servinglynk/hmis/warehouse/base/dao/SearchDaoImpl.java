@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -31,16 +32,21 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.search.query.dsl.TermMatchingContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.Sort;
 import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
 import com.servinglynk.hmis.warehouse.model.base.Project;
 
 public class SearchDaoImpl
   extends QueryExecutorImpl
   implements SearchDao
 {
+	@Autowired
+	ClientConsentDao clientConsentDao;
+	
   public List<?> search(SearchRequest searchVO)
   {
     Session session = getCurrentSession();
@@ -102,6 +108,11 @@ public class SearchDaoImpl
 	  DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 	  Date date=null;
 	  
+		 if(!searchRequest.getClients().isEmpty()) {
+			  Criterion consentGroup = Restrictions.in("id",searchRequest.getClients());
+			 criteria.add(consentGroup);
+		 }
+	  
 	try {
 		date = formatter.parse(searchRequest.getFreeText());
 		date.setHours(0);
@@ -126,7 +137,7 @@ public class SearchDaoImpl
 			    sorting.setField("dateUpdated");
 			    searchRequest.setSort(sorting);
 		  }catch (Exception ex) {
-				  
+				 
 				  Criterion firstName = Restrictions.ilike("firstName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 				  Criterion lastName = Restrictions.ilike("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 				  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
@@ -161,6 +172,18 @@ public class SearchDaoImpl
   
   
   public List<?> searchData(SearchRequest searchRequest){
+	  
+	  if(searchRequest.getSearchParams().get("consentGroupId")!=null) {
+		  String consentGroupId = (String) searchRequest.getSearchParams().get("consentGroupId");
+		   List<UUID> consents =  clientConsentDao.searchClients(consentGroupId);
+		 if(consents.isEmpty()) {
+			 searchRequest.getPagination().setTotal(0);
+			 return new ArrayList<>();
+		 }else {
+			 searchRequest.setClients(consents);
+		 }
+	  }
+	  
 	  searchRequest.getPagination().setTotal((int) countRows(this.prepareCriteria(searchRequest)));
 	  
 	  

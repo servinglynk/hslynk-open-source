@@ -1,7 +1,9 @@
 package com.servinglynk.hmis.warehouse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class SearchRequest
@@ -13,6 +15,10 @@ public class SearchRequest
   Class<?> searchEntity;
   String freeText;
 String projectGroupCode;
+
+List<UUID> clients = new ArrayList<>();
+
+private Map<String, Object> searchParams= new HashMap<String,Object>();
   
   public SortedPagination getPagination()
   {
@@ -79,6 +85,22 @@ public String getProjectGroupCode() {
 public void setProjectGroupCode(String projectGroupCode) {
 	this.projectGroupCode = projectGroupCode;
 }
+public Map<String, Object> getSearchParams() {
+	return searchParams;
+}
+public void setSearchParams(Map<String, Object> searchParams) {
+	this.searchParams = searchParams;
+}
 
+public void addSearchParam(String paramName,Object paramValue){
+	this.searchParams.put(paramName, paramValue);
+}
 
+public List<UUID> getClients() {
+	return clients;
+}
+
+public void setClients(List<UUID> clients) {
+	this.clients = clients;
+}
 }

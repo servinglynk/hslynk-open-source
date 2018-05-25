@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
 import com.servinglynk.hmis.warehouse.core.model.Session;
@@ -36,7 +37,8 @@ public class SearchController
     if (maxItems == null) {
       maxItems = Integer.valueOf(50);
     }
-    return this.serviceFactory.getSearchService().performSearch(searchterm, sort, order, startIndex, maxItems,null,session);
+    SearchRequest searchvo = new SearchRequest();
+    return this.serviceFactory.getSearchService().performSearch(searchvo,searchterm, sort, order, startIndex, maxItems,null,session);
   }
   
   @RequestMapping(method=RequestMethod.POST, value="/index")
