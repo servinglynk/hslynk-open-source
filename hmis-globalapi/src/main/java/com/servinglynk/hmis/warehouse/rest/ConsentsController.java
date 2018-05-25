@@ -147,21 +147,21 @@ public class ConsentsController extends ControllerBase {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET,value="/search/consents")
-	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_CLIENT_CONSENTS")
+	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_ALL_CONSENTS")
 	public ClientConsents searchConsents(@RequestParam(value="consentGroupId",required=true) String consentGroupId,
 			@RequestParam(value="startIndex",defaultValue="0",required=true) Integer startIndex,
 			@RequestParam(value="maxItems",defaultValue="30",required=true) Integer maxItems) {
 		return serviceFactory.getClientConsentService().searchConsents(consentGroupId,startIndex,maxItems);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/search/clients")
-	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_CLIENT_CONSENTS")
+/*	@RequestMapping(method=RequestMethod.GET,value="/search/clients")
+	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_ALL_CLIENT")
 	public BaseClients searchClients(@RequestParam(value="consentGroupId",required=true) String consentGroupId,
 			@RequestParam(value="startIndex",defaultValue="0",required=true) Integer startIndex,
 			@RequestParam(value="maxItems",defaultValue="30",required=true) Integer maxItems) {
 		return serviceFactory.getClientConsentService().searchClients(consentGroupId,startIndex,maxItems);
 	}
 
-	
+*/	
 	
 }
