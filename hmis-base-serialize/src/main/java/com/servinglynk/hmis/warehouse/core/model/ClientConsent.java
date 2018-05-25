@@ -28,6 +28,8 @@ public class ClientConsent extends ClientModel {
 	private String consentDocumentLink;
 	private String entityGroup;
 	
+	private String consentGroupId;
+	
 //	private GlobalProjects globalProjects=new GlobalProjects();
 	
 	private List<GlobalProject> globalProjects = new ArrayList<GlobalProject>();
@@ -97,5 +99,11 @@ public class ClientConsent extends ClientModel {
 	
 	public void addGlobalProject(GlobalProject globalProject) {
 		this.globalProjects.add(globalProject);
+	}
+	public String getConsentGroupId() {
+		return consentGroupId;
+	}
+	public void setConsentGroupId(String consentGroupId) {
+		this.consentGroupId = consentGroupId;
 	}
 }

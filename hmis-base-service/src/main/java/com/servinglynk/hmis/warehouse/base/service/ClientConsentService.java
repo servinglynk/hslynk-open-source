@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.servinglynk.hmis.warehouse.core.model.Account;
+import com.servinglynk.hmis.warehouse.core.model.BaseClients;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProjects;
@@ -37,5 +38,11 @@ public interface ClientConsentService {
 	void deleteConsentDocument(UUID clientid, UUID consentid,UUID documentId);
 	
 	Document downloadConsentDocument(UUID clientid, UUID consentid,UUID documentId) throws Exception ;
+
+	ClientConsents searchConsents(String consentGroupId,Integer startIndex,Integer maxItems);
+
+	BaseClients searchClients(String consentGroupId, Integer startIndex, Integer maxItems);
+
+	void updateProjectToClientConsent(UUID clientConsentId, GlobalProjects globalProjects);
 
 }
