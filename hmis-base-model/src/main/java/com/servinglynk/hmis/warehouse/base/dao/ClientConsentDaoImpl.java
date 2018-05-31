@@ -1,19 +1,15 @@
 package com.servinglynk.hmis.warehouse.base.dao;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.omg.CORBA.OMGVMCID;
+import org.hibernate.transform.Transformers;
 
-import com.servinglynk.hmis.warehouse.enums.UuidUserType;
 import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
 import com.servinglynk.hmis.warehouse.model.base.ClientConsentProjectMapEntity;
@@ -159,5 +155,54 @@ public class ClientConsentDaoImpl extends QueryExecutorImpl implements ClientCon
 		
 		List<ClientConsentProjectMapEntity> entities = (List<ClientConsentProjectMapEntity>) findByCriteria(criteria);
 		return entities;
+	}
+
+	@Override
+	public List<ClientConsentEntity> searchConsents(String consentGroupId,Integer startIndex,Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
+	      criteria.add(Restrictions.eq("consentGroupId", consentGroupId));
+		return (List<ClientConsentEntity>) findByCriteria(criteria,startIndex,maxItems);
+	}
+	
+	public Long searchConsentsCount(String consentGroupId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
+	      criteria.add(Restrictions.eq("consentGroupId", consentGroupId));
+		return countRows(criteria);
+	}
+
+	@Override
+	public List<ClientConsentEntity> searchClients(String consentGroupId, Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
+	      criteria.add(Restrictions.eq("consentGroupId", consentGroupId));
+			ProjectionList projectionList = Projections.projectionList();
+			projectionList.add(Projections.distinct(Projections.property("clientId")),"clientId");
+			criteria.setProjection(projectionList);
+			criteria.setResultTransformer(Transformers.aliasToBean(ClientConsentEntity.class));
+			if(startIndex!=null && maxItems!=null) {
+				return (List<ClientConsentEntity>) findByCriteria(criteria,startIndex,maxItems);
+			}else {
+				return (List<ClientConsentEntity>) findByCriteria(criteria);
+			}
+		
+		
+	}
+	
+	public List<UUID> searchClients(String consentGroupId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
+	      criteria.add(Restrictions.eq("consentGroupId", consentGroupId));
+			ProjectionList projectionList = Projections.projectionList();
+			projectionList.add(Projections.distinct(Projections.property("clientId")),"clientId");
+			criteria.setProjection(projectionList);
+			
+		return (List<UUID>) findByCriteria(criteria);	
+	}
+	
+	public Long searchClientsCount(String consentGroupId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientConsentEntity.class);
+	      criteria.add(Restrictions.eq("consentGroupId", consentGroupId));
+			ProjectionList projectionList = Projections.projectionList();
+			projectionList.add(Projections.distinct(Projections.property("clientId")),"clientId");
+			criteria.setProjection(projectionList);
+		return countRows(criteria);
 	}
 }

@@ -29,9 +29,9 @@ public class SearchServiceImpl
   }
   
   @Transactional
-  public SearchResults performSearch(String freeText, String sort, String order, Integer startIndex, Integer maxItems,String exclude,Session session)
+  public SearchResults performSearch(SearchRequest searchVo,String freeText, String sort, String order, Integer startIndex, Integer maxItems,String exclude,Session session)
   {
-    SearchRequest searchVo = new SearchRequest();
+    //SearchRequest searchVo = new SearchRequest();
     
     Sort sorting = new Sort();
     sorting.setOrder(order);

@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.rest;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.UUID;
@@ -19,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
+import com.servinglynk.hmis.warehouse.core.model.BaseClients;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProjects;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.model.Document;
 import com.servinglynk.hmis.warehouse.model.Documents;
-import com.servinglynk.hmis.warehouse.model.UploadHeader;
 
 @RestController
 public class ConsentsController extends ControllerBase {
@@ -68,11 +67,19 @@ public class ConsentsController extends ControllerBase {
 		return serviceFactory.getClientConsentService().getClientConsents(clientId,startIndex,maxItems);
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT,value="/clients/{clientid}/consents/{consentid}/projects")
+	@RequestMapping(method=RequestMethod.POST,value="/clients/{clientid}/consents/{consentid}/projects")
 	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_CLIENT_CONSENTS")
 	public void addClientConsentProjects(@PathVariable("clientid") UUID clientId,@PathVariable("consentid")  UUID clientConsentId,
 				@RequestBody GlobalProjects globalProjects) {
 		serviceFactory.getClientConsentService().addProjectToClientConsent(clientConsentId, globalProjects);
+	}
+	
+	
+	@RequestMapping(method=RequestMethod.PUT,value="/clients/{clientid}/consents/{consentid}/projects")
+	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_CLIENT_CONSENTS")
+	public void upadteClientConsentProjects(@PathVariable("clientid") UUID clientId,@PathVariable("consentid")  UUID clientConsentId,
+				@RequestBody GlobalProjects globalProjects) {
+		serviceFactory.getClientConsentService().updateProjectToClientConsent(clientConsentId, globalProjects);
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE,value="/clients/{clientid}/consents/{consentid}/projects/{globalProjectId}")
@@ -138,7 +145,23 @@ public class ConsentsController extends ControllerBase {
 		}
 		
 	}
-
 	
+	@RequestMapping(method=RequestMethod.GET,value="/search/consents")
+	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_ALL_CONSENTS")
+	public ClientConsents searchConsents(@RequestParam(value="consentGroupId",required=true) String consentGroupId,
+			@RequestParam(value="startIndex",defaultValue="0",required=true) Integer startIndex,
+			@RequestParam(value="maxItems",defaultValue="30",required=true) Integer maxItems) {
+		return serviceFactory.getClientConsentService().searchConsents(consentGroupId,startIndex,maxItems);
+	}
+	
+/*	@RequestMapping(method=RequestMethod.GET,value="/search/clients")
+	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="GET_ALL_CLIENT")
+	public BaseClients searchClients(@RequestParam(value="consentGroupId",required=true) String consentGroupId,
+			@RequestParam(value="startIndex",defaultValue="0",required=true) Integer startIndex,
+			@RequestParam(value="maxItems",defaultValue="30",required=true) Integer maxItems) {
+		return serviceFactory.getClientConsentService().searchClients(consentGroupId,startIndex,maxItems);
+	}
+
+*/	
 	
 }

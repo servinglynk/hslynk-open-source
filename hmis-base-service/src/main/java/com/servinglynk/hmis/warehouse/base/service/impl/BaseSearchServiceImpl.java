@@ -32,10 +32,10 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 	  }
 	  
 	  @Transactional
-	  public SearchResults performSearch(String freeText, String sort, String order, Integer startIndex,
+	  public SearchResults performSearch(SearchRequest searchVo,String freeText, String sort, String order, Integer startIndex,
 			  Integer maxItems,String exclude,Session session)
 	  {
-	    SearchRequest searchVo = new SearchRequest();
+	    // searchVo = new SearchRequest();
 	    boolean dedupIdFilter = false;
 	    try{
 	    	UUID.fromString(freeText);

@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +12,8 @@ import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.converter.ClientConsentConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.GlobalProjectConveter;
 import com.servinglynk.hmis.warehouse.core.model.Account;
+import com.servinglynk.hmis.warehouse.core.model.BaseClient;
+import com.servinglynk.hmis.warehouse.core.model.BaseClients;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsents;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProject;
@@ -34,6 +35,7 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 		entity.setStatus("APPROVED");
 		entity.setProjectGroupCode(session.getAccount().getProjectGroup().getProjectGroupCode());
 		entity.setUser(session.getAccount().getAccountId());
+		entity.setConsentGroupId(clientConsent.getConsentGroupId());
 		entity.setDateCreated(LocalDateTime.now());
 		daoFactory.getClientConsentDao().createClientConsent(entity);	
 		
@@ -119,6 +121,29 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 		}
 	}
 	
+	
+
+	@Transactional
+	public void updateProjectToClientConsent(UUID clientConsentId, GlobalProjects globalProjects) {
+		ClientConsentEntity entity = daoFactory.getClientConsentDao().getClientConsentId(clientConsentId);
+		if(entity == null) throw new ResourceNotFoundException(" Client Consent not found "+clientConsentId);
+		List<ClientConsentProjectMapEntity> mappings =  daoFactory.getClientConsentDao().getClientConsentProjectMap(entity.getId());
+		for(ClientConsentProjectMapEntity mapping : mappings) {
+			daoFactory.getClientConsentDao().deleteConsentProjectMap(mapping);
+		}
+		for(GlobalProject globalProject : globalProjects.getGlobalProjects()) {
+			GlobalProjectEntity globalProjectEntity = daoFactory.getGlobalProjectDao().getById(globalProject.getId());
+			if(globalProjectEntity!=null) {
+				ClientConsentProjectMapEntity projectMapEntity = new ClientConsentProjectMapEntity();
+				projectMapEntity.setClientConsent(entity);
+				projectMapEntity.setGlobalProject(globalProjectEntity);
+				projectMapEntity.setUser(getUser());
+				projectMapEntity.setProjectGroupCode(getProjectGroup());
+				daoFactory.getClientConsentDao().createConsentProjectMap(projectMapEntity);
+			}
+		}
+	}
+	
 	@Transactional
 	public void removeProjectFromClientConsent(UUID clientConsentId,UUID globalProjectId) {
 		ClientConsentProjectMapEntity entity = daoFactory.getClientConsentDao().getClientConsentProjectMap(clientConsentId, globalProjectId);		
@@ -166,5 +191,44 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 
 		return fileUploadServiceFactory.getFileUploadService().downloadDocument(documentId);
 	}
+
+	@Transactional
+	public ClientConsents searchConsents(String consentGroupId,Integer startIndex,Integer maxItems) {
+		ClientConsents consents = new ClientConsents(); 
+		List<ClientConsentEntity> entities = daoFactory.getClientConsentDao().searchConsents(consentGroupId,startIndex,maxItems);
+		for(ClientConsentEntity entity : entities) {
+			consents.addClientConsent(ClientConsentConverter.entityToModel(entity));
+		}
+		
+		Long count =daoFactory.getClientConsentDao().searchConsentsCount(consentGroupId);
+		SortedPagination pagination = new SortedPagination();
+		pagination.setFrom(startIndex);
+		pagination.setReturned(entities.size());
+		pagination.setTotal((count.intValue()) );
+		consents.setPagination(pagination);
+		
+		return consents;
+	}
+
+	@Transactional
+	public BaseClients searchClients(String consentGroupId, Integer startIndex, Integer maxItems) {
+		BaseClients clients = new BaseClients(); 
+		List<ClientConsentEntity> entities = daoFactory.getClientConsentDao().searchClients(consentGroupId,startIndex,maxItems);
+		for(ClientConsentEntity entity : entities) {
+			BaseClient client = new BaseClient();
+			client.setClientId(entity.getClientId());
+			clients.addClient(client); 
+		}
+		
+		Long count =daoFactory.getClientConsentDao().searchClientsCount(consentGroupId);
+		SortedPagination pagination = new SortedPagination();
+		pagination.setFrom(startIndex);
+		pagination.setReturned(entities.size());
+		pagination.setTotal((count.intValue()) );
+		clients.setPagination(pagination);
+		
+		return clients;
+	}
+
 	
 }

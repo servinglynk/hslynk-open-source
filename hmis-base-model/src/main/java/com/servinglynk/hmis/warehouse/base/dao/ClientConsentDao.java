@@ -39,4 +39,9 @@ public interface ClientConsentDao  extends QueryExecutor {
 	
 	ClientConsentProjectMapEntity getClientConsentProjectMap(UUID clientConsentId,UUID globalProjectId);
 	List<ClientConsentProjectMapEntity> getClientConsentProjectMap(UUID clientConsentId);
+	List<ClientConsentEntity> searchConsents(String consentGroupId,Integer startIndex,Integer maxItems);
+	Long searchConsentsCount(String consentGroupId);
+	List<ClientConsentEntity> searchClients(String consentGroupId, Integer startIndex, Integer maxItems);
+	Long searchClientsCount(String consentGroupId);
+	List<UUID> searchClients(String consentGroupId);
 }
