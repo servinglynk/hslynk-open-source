@@ -285,7 +285,9 @@ public class PurgeProjectGroup extends Logging {
 		props.generatePropValues();
 		
 		PurgeProjectGroup view = new PurgeProjectGroup(logger);
-	    view.purge("CP0004");
+
+	   // view.purge("IL0009");
+
 	}
 
 }

@@ -1,9 +1,8 @@
 package com.servinglynk.hmis.warehouse.base.dao;
 
-import com.servinglynk.hmis.warehouse.SearchRequest;
-import com.servinglynk.hmis.warehouse.model.base.Project;
-
 import java.util.List;
+
+import com.servinglynk.hmis.warehouse.SearchRequest;
 
 public interface SearchDao
 {
@@ -11,5 +10,4 @@ public interface SearchDao
   
   public abstract boolean indexing(String indexClassList);
 
- List<Project> projectSearch(SearchRequest searchVo, boolean b);
 }

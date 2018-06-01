@@ -63,9 +63,6 @@ public class SearchController
 						  Session session = sessionHelper.getSession(request);
 						  SearchRequest searchRequest = new SearchRequest();
 						  searchRequest.addSearchParam("consentGroupId",consentGroupId);
-		if(searchentity.equalsIgnoreCase("projects")){
-			return serviceFactory.getBaseSearchService().performProjectSearch(searchterm, sort, order, startIndex, maxItems, exclude, session);
-		}
 		return this.serviceFactory.getBaseSearchService().performSearch(searchRequest,searchterm, sort, order, startIndex, maxItems,exclude,session);
 		
 	  }

@@ -52,7 +52,6 @@ import com.servinglynk.hmis.warehouse.service.SiteService;
 import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
 import com.servinglynk.hmis.warehouse.service.WorstHousingSituationService;
 import com.servinglynk.hmis.warehouse.service.YouthCriticalIssuesService;
-import com.servinglynk.hmis.warehouse.service.impl.SearchServiceImpl;
 
 @Component
 public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements ParentServiceFactory {

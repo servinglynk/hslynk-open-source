@@ -1,10 +1,8 @@
 package com.servinglynk.hmis.warehouse.base.service.converter;
 
 
-import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.base.ProjectProjectGroupMapEntity;
 
 public class ProjectGroupConverter {
 
@@ -16,13 +14,7 @@ public class ProjectGroupConverter {
 		projectGroup.setProjectGroupId(projectGroupEntity.getId());
 		projectGroup.setBucketName(projectGroupEntity.getBucketName());
 		projectGroup.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
-		projectGroup.setSenderEmail(projectGroupEntity.getSenderEmail());
-		
-		for(ProjectProjectGroupMapEntity entity : projectGroupEntity.getProjectGroupMapEntities()){
-			BaseProject project = ProjectConverter.entityToModel(entity.getProject());
-			projectGroup.addProject(project);
-		}
-		
+		projectGroup.setSenderEmail(projectGroupEntity.getSenderEmail());		
 		return projectGroup;
 	}
 	

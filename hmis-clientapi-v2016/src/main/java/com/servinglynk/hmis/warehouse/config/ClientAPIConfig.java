@@ -29,7 +29,6 @@ import com.servinglynk.hmis.warehouse.rest.OrganizationsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsControllerV2;
 import com.servinglynk.hmis.warehouse.rest.QuestionsController;
-import com.servinglynk.hmis.warehouse.rest.SearchController;
 
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
@@ -95,11 +94,7 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 	 public ProjectsController projectsController(){
 		 return new ProjectsController();
 	 }
-	 
-	 @Bean
-	 public SearchController searchController(){
-		 return new SearchController();
-	 }
+
 	 
 	 @Bean
 	 public BulkUploadErrorActivityController bulkUploadErrorActivityController() {

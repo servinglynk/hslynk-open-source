@@ -1,12 +1,10 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,15 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.AwsS3Client;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
-import com.servinglynk.hmis.warehouse.base.service.converter.ProjectConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.ProjectGroupConverter;
-import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroups;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.base.ProjectProjectGroupMapEntity;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectGroupNotFoundException;
-import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
 
 public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroupService {
 	
@@ -48,16 +42,6 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		daoFactory.getProjectGroupDao().createProjectGroup(projectGroupEntity);
 		AwsS3Client client = new AwsS3Client(accessKey,secretKey);
 		client.createBucket(projectGroupEntity.getBucketName(), "");
-		for(BaseProject baseProject : projectGroup.getProjects()){
-			ProjectProjectGroupMapEntity entity = new ProjectProjectGroupMapEntity();
-			entity.setProjectGroupEntity(projectGroupEntity);
-			com.servinglynk.hmis.warehouse.model.base.Project pProject = daoFactory.getBaseProjectDao().getProjectById(baseProject.getProjectId());
-			if(pProject == null) throw new ProjectNotFoundException();
-			entity.setProject(pProject);
-			entity.setInsertAt(LocalDateTime.now());
-			entity.setInsertBy(caller);
-			daoFactory.getProjectGroupDao().addProjectToProjectGroup(entity);
-		}
 		projectGroup.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
 		projectGroup.setProjectGroupId(projectGroupEntity.getId());
 		return projectGroup;
@@ -72,10 +56,6 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 	        List<ProjectGroupEntity> entities = daoFactory.getProjectGroupDao().getAllProjectGroups(startIndex,maxItems);
 	        for(ProjectGroupEntity entity : entities){
 	        	projectGroup = ProjectGroupConverter.entityToModel(entity);
-	        	
-	        	for(ProjectProjectGroupMapEntity ppgme :  entity.getProjectGroupMapEntities()){
-	    			projectGroup.addProject(ProjectConverter.entityToModel(ppgme.getProject()));
- 		}
 	        	projects.addProjectGroup(projectGroup);
 	        }
 	        long count = daoFactory.getProjectGroupDao().getProjectGroupCount();
@@ -97,24 +77,7 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		ProjectGroupConverter.modelToEntity(projectGroup,projectGroupEntity);
 		//projectGroupEntity.setInsertAt(new Date());
 		//projectGroupEntity.setInsertBy(caller);
-		daoFactory.getProjectGroupDao().updateProjectGroup(projectGroupEntity);
-		
-		for(ProjectProjectGroupMapEntity entity :  projectGroupEntity.getProjectGroupMapEntities()){
-			daoFactory.getProjectGroupDao().deleteProjectGroupMap(entity);
-		}
-		
-		
-		for(BaseProject baseProject : projectGroup.getProjects()){
-			ProjectProjectGroupMapEntity entity = new ProjectProjectGroupMapEntity();
-			entity.setProjectGroupEntity(projectGroupEntity);
-			com.servinglynk.hmis.warehouse.model.base.Project pProject = daoFactory.getBaseProjectDao().getProjectById(baseProject.getProjectId());
-			if(pProject == null) throw new ProjectNotFoundException();
-			entity.setProject(pProject);
-			entity.setInsertAt(LocalDateTime.now());
-			entity.setInsertBy(caller);
-			daoFactory.getProjectGroupDao().addProjectToProjectGroup(entity);
-		}
-		
+		daoFactory.getProjectGroupDao().updateProjectGroup(projectGroupEntity);		
 		projectGroup.setProjectGroupId(projectGroupEntity.getId());
 		return projectGroup;
 	}
@@ -125,13 +88,7 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupById(projectGroupId);
 		if(projectGroupEntity == null) throw new ProjectGroupNotFoundException();	
-		
-		for(ProjectProjectGroupMapEntity entity :  projectGroupEntity.getProjectGroupMapEntities()){
-			daoFactory.getProjectGroupDao().deleteProjectGroupMap(entity);
-		}
-		
-		daoFactory.getProjectGroupDao().deleteProjectGroup(projectGroupEntity);
-		
+		daoFactory.getProjectGroupDao().deleteProjectGroup(projectGroupEntity);		
 		return new ProjectGroup();
 	}
 	
@@ -141,10 +98,6 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupById(projectgroupid);
 		if(projectGroupEntity == null) throw new ProjectGroupNotFoundException();	
 		projectGroup = ProjectGroupConverter.entityToModel(projectGroupEntity);
-		for(ProjectProjectGroupMapEntity entity :  projectGroupEntity.getProjectGroupMapEntities()){
-			projectGroup.addProject(ProjectConverter.entityToModel(entity.getProject()));
-		}
-		
 		return projectGroup;
 	}
 	
