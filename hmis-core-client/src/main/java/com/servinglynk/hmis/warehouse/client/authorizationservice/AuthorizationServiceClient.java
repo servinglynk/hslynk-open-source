@@ -61,7 +61,7 @@ public class AuthorizationServiceClient extends CoreClientBase implements IAutho
 		restTemplate.setMessageConverters(messageConverters);
 
 		HttpEntity entity = new HttpEntity(headers);
-		 ResponseEntity<ApiMethodAuthorizationCheck> response = restTemplate.exchange("http://hmisns.aws.hmislynk.com:8080/hmis-user-service/rest/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,ApiMethodAuthorizationCheck.class);
+		 ResponseEntity<ApiMethodAuthorizationCheck> response = restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-user-service/rest/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,ApiMethodAuthorizationCheck.class);
 
 		return response.getBody();
 	}

@@ -134,7 +134,7 @@ public class MigrateProjectData {
 			query = query + "null," ;		
 		}
 		
-		query = query + "'"+projectMap.getProjectGroupCode()+"', '"+globalProjectId+"');" + 
+		query = query + "'"+projectMap.getProjectGroupCode()+"', '"+globalProjectId+"')" + 
 				" ";
 		
 		System.out.println(" "+query+";");
