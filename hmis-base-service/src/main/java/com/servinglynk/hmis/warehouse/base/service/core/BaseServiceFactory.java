@@ -15,7 +15,6 @@ import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
-import com.servinglynk.hmis.warehouse.base.service.ProjectService;
 import com.servinglynk.hmis.warehouse.base.service.RoleService;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.SessionService;
@@ -44,7 +43,6 @@ public interface BaseServiceFactory {
 	ProjectGroupService getProjectGroupService();
 	BulkUploadService getBulkUploadService();
 	SearchService getBaseSearchService();
-	ProjectService getBaseProjectService();
 	HealthService getHealthService();
 	ClientConsentService getClientConsentService();
 	ClientDataElementsService getClientDataElementsService();

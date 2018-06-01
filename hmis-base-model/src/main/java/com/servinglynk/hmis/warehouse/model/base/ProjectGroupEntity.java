@@ -33,9 +33,6 @@ public class ProjectGroupEntity  {
     
     private String senderEmail;
     
-    List<ProjectProjectGroupMapEntity> projectGroupMapEntities = new ArrayList<ProjectProjectGroupMapEntity>();
-
-   
     @javax.persistence.Id
     @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
     @GeneratedValue(generator = "uuid-gen")
@@ -84,13 +81,6 @@ public class ProjectGroupEntity  {
 	}
 	public void setSkipuseridentifers(boolean skipuseridentifers) {
 		this.skipuseridentifers = skipuseridentifers;
-	}
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="projectGroupEntity")
-	public List<ProjectProjectGroupMapEntity> getProjectGroupMapEntities() {
-		return projectGroupMapEntities;
-	}
-	public void setProjectGroupMapEntities(List<ProjectProjectGroupMapEntity> projectGroupMapEntities) {
-		this.projectGroupMapEntities = projectGroupMapEntities;
 	}
 	@Column(name="sender_email")
 	public String getSenderEmail() {

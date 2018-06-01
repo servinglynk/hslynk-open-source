@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
@@ -43,7 +42,6 @@ import com.servinglynk.hmis.warehouse.service.impl.ProjectcocServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.QuestionServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
-import com.servinglynk.hmis.warehouse.service.impl.SearchServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ServicefareferralServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SiteServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.VeteranInfoServiceImpl;
@@ -231,10 +229,6 @@ public class ServiceConfig  {
 		return new ExithousingassessmentServiceImpl();
 	}
 	
-	@Bean
-	public SearchServiceImpl searchService(){
-		return new SearchServiceImpl();
-	}
 	 
 	 @Bean BulkUploadErrorActivityServiceImpl bulkUploadErrorActivityService() {
 		 return new BulkUploadErrorActivityServiceImpl();

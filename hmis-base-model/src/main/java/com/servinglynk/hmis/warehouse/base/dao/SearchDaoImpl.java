@@ -3,8 +3,6 @@ package com.servinglynk.hmis.warehouse.base.dao;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,11 +10,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.SortField;
 import org.hibernate.CacheMode;
-import org.hibernate.Criteria;
 import org.hibernate.FlushMode;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
@@ -37,8 +33,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.Sort;
 import com.servinglynk.hmis.warehouse.model.base.Client;
-import com.servinglynk.hmis.warehouse.model.base.ClientConsentEntity;
-import com.servinglynk.hmis.warehouse.model.base.Project;
 
 public class SearchDaoImpl
   extends QueryExecutorImpl
@@ -328,39 +322,4 @@ public class SearchDaoImpl
 	  fullTextSession.index(indexObject);
 	  tx.commit();
   }
-
-
-	@Override
-	public List<Project> projectSearch(SearchRequest searchRequest, boolean b) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Project.class);
-		Criterion projectId=null;
-		try{
-			projectId = Restrictions.eq("id", UUID.fromString(searchRequest.getFreeText()));
-		
-		}catch (Exception e) {
-		
-		}
-
-		Criterion projectName = Restrictions.ilike("projectname", searchRequest.getFreeText(), MatchMode.ANYWHERE);
-		Criterion projectCommonName = Restrictions.ilike("projectcommonname", searchRequest.getFreeText(),
-				MatchMode.ANYWHERE);
-
-	    if(projectId!=null)	
-	    	criteria.add(Restrictions.or(projectId, projectName, projectCommonName));
-	    else
-	    	criteria.add(Restrictions.or(projectName, projectCommonName));
-	    
-		//criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
-
-		searchRequest.getPagination().setTotal((int) countRows(criteria));
-
-		if (searchRequest.getSort().getOrder().equals("asc"))
-			criteria.addOrder(Order.asc(searchRequest.getSort().getField()));
-		else
-			criteria.addOrder(Order.desc(searchRequest.getSort().getField()));
-
-		return (List<Project>) findByCriteria(criteria, searchRequest.getPagination().getFrom(),
-				searchRequest.getPagination().getMaximum());
-	}
-  
 }

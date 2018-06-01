@@ -8,7 +8,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.base.ProjectProjectGroupMapEntity;
 
 public class ProjectGroupDaoImpl extends BaseDaoImpl implements ProjectGroupDao {
 
@@ -58,21 +57,4 @@ public class ProjectGroupDaoImpl extends BaseDaoImpl implements ProjectGroupDao 
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity.class);
 	       return (List<com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity>) findByCriteria(criteria,startIndex,maxItems);
 	   }
-	   
-	   @Override
-		public ProjectProjectGroupMapEntity addProjectToProjectGroup(ProjectProjectGroupMapEntity projectGroupMapEntity) {
-					insert(projectGroupMapEntity);
-			return projectGroupMapEntity;
-		}
-
-		@Override
-		public void deleteProjectToProjectGroup(
-				ProjectProjectGroupMapEntity projectGroupMapEntity) {
-						delete(projectGroupMapEntity);
-		}
-		
-		
-		public void deleteProjectGroupMap(ProjectProjectGroupMapEntity entity){
-			delete(entity);
-		}
 }

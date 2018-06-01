@@ -61,10 +61,7 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	private HmisBulkUploadDao hmisBulkUploadDao;
 	@Autowired
 	private BulkUploaderWorkerDao bulkUploaderWorkerDao;
-	
-	@Autowired
-	private ProjectDao baseProjectDao;
-	
+
 	@Autowired private SearchDao searchDao;
 	
 	@Autowired private HealthDao healthDao;
@@ -258,12 +255,6 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setSearchDao(SearchDao searchDao) {
 		this.searchDao = searchDao;
-	}
-	public ProjectDao getBaseProjectDao() {
-		return baseProjectDao;
-	}
-	public void setBaseProjectDao(ProjectDao projectDao) {
-		this.baseProjectDao = projectDao;
 	}
 	public HealthDao getHealthDao() {
 		return healthDao;

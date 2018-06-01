@@ -10,8 +10,4 @@ public abstract interface SearchService
   
   public  SearchResults performSearch(SearchRequest searchVo,String freeText, String sort, String order, Integer startIndex, Integer maxItems,String exclude, Session session);
 
- SearchResults performProjectSearch(String searchterm, String sort, String order, Integer startIndex,
-		Integer maxItems, String exclude, Session session);
-
-
 }

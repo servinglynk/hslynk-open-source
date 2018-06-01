@@ -2,8 +2,6 @@ package com.servinglynk.hmis.warehouse.config;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +34,6 @@ import com.servinglynk.hmis.warehouse.rest.SearchController;
 		com.servinglynk.hmis.warehouse.service.config.ServiceConfig.class,
 		com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
 		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class,
-		com.servinglynk.hmis.warehouse.fileupload.config.FileUploadConfig.class,
 		com.servinglynk.hmis.warehouse.config.WebDBPoolConfig.class})
 @EnableWebMvc
 @EnableTransactionManagement
