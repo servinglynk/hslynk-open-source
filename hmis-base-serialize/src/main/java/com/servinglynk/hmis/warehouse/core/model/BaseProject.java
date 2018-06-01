@@ -2,7 +2,12 @@ package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.UUID;
 
-public class BaseProject extends ClientModel {
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("project")
+public class BaseProject 
+//extends ClientModel 
+{
 
 
 	private UUID projectId;
