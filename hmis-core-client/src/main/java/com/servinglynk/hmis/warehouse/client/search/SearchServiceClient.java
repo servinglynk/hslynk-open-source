@@ -32,13 +32,20 @@ public class SearchServiceClient extends CoreClientBase implements ISearchServic
 		restTemplate = new RestTemplate();
 
 		HttpEntity entity = new HttpEntity(headers);
-
-		StringBuffer URI = new StringBuffer(
-				"http://hmiselb.aws.hmislynk.com/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
+		StringBuffer URI = new StringBuffer();
+		if (request.getSearchEntity().equalsIgnoreCase("projects")) {
+		 URI = new StringBuffer(
+				"http://hmisns.aws.hmislynk.com:8080/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
 		for (Map.Entry<String, Object> entry : request.getSearchParams().entrySet()) {
 			URI.append("&" + entry.getKey() + "=" + entry.getValue());
 		}
-
+		}else {
+			 URI = new StringBuffer(
+					"http://hmisns.aws.hmislynk.com:8080/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
+			for (Map.Entry<String, Object> entry : request.getSearchParams().entrySet()) {
+				URI.append("&" + entry.getKey() + "=" + entry.getValue());
+			}
+		}
 		ResponseEntity<String> response = restTemplate.exchange(URI.toString(), HttpMethod.GET, entity, String.class);
 
 		ObjectMapper mapper = new ObjectMapper();

@@ -12,7 +12,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
-import com.servinglynk.hmis.warehouse.base.service.APIAccessService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
@@ -34,7 +33,6 @@ import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl
 import com.servinglynk.hmis.warehouse.base.service.impl.PermissionSetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ProfileServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ProjectGroupServiceImpl;
-import com.servinglynk.hmis.warehouse.base.service.impl.ProjectServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.RoleServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.SessionServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.TrustedAppServiceImpl;
@@ -51,7 +49,8 @@ import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableAsync
-@Import({com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
+@Import({com.servinglynk.hmis.warehouse.client.config.SpringConfig.class,	
+	com.servinglynk.hmis.warehouse.fileupload.config.FileUploadConfig.class})
 public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 
 
@@ -206,11 +205,6 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public BaseSearchServiceImpl baseSearchService(){
 		 return new BaseSearchServiceImpl();
-	 }
-	 
-	 @Bean
-	 public ProjectServiceImpl baseProjectService(){
-		 return new ProjectServiceImpl();
 	 }
 	 
 	 @Bean

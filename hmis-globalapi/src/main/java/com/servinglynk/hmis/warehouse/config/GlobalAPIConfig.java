@@ -29,7 +29,7 @@ import com.servinglynk.hmis.warehouse.rest.NotificationsController;
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
 		com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
-		com.servinglynk.hmis.warehouse.fileupload.config.FileUploadConfig.class,
+	//	com.servinglynk.hmis.warehouse.fileupload.config.FileUploadConfig.class,
 		 com.servinglynk.hmis.warehouse.base.dao.config.HibernateConfig.class,
 		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
 @EnableWebMvc

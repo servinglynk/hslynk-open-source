@@ -20,6 +20,8 @@ import com.servinglynk.hmis.warehouse.client.baseclients.BaseClientServiceImpl;
 import com.servinglynk.hmis.warehouse.client.model.SearchRequest;
 import com.servinglynk.hmis.warehouse.client.notificationservice.INotificationServiceClient;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
+import com.servinglynk.hmis.warehouse.client.projects.ProjectSearchClient;
+import com.servinglynk.hmis.warehouse.client.projects.ProjectSearchClientImpl;
 import com.servinglynk.hmis.warehouse.client.reportservice.IReportServiceClient;
 import com.servinglynk.hmis.warehouse.client.reportservice.ReportServiceClient;
 import com.servinglynk.hmis.warehouse.client.search.ISearchServiceClient;
@@ -73,6 +75,11 @@ public class SpringConfig {
 	@Bean
 	public ISearchServiceClient searchServiceClient() {
 		return new SearchServiceClient();
+	}
+	
+	@Bean
+	public ProjectSearchClient projectSearchClient() {
+		return new ProjectSearchClientImpl();
 	}
 
 }

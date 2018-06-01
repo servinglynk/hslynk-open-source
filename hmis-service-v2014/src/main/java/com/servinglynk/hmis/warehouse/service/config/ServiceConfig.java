@@ -4,15 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
-import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
-import com.servinglynk.hmis.warehouse.base.service.impl.BulkUploadServiceImpl;
 import com.servinglynk.hmis.warehouse.dao.SyncListDao;
 import com.servinglynk.hmis.warehouse.dao.SyncListDaoImpl;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.BulkUploadErrorActivityServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.CommercialSexualExploitationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ConnectionwithsoarServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DateofengagementServiceImpl;
@@ -48,7 +46,6 @@ import com.servinglynk.hmis.warehouse.service.impl.ReferralsourceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ResidentialmoveindateServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SchoolstatusServiceImpl;
-import com.servinglynk.hmis.warehouse.service.impl.SearchServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ServicesServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SexualorientationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SharingRuleServiceImpl;
@@ -278,10 +275,6 @@ public class ServiceConfig  {
 		 return new ClientServiceImpl();
 	 }
 	 
-	 @Bean
-	 public SearchServiceImpl searchService(){
-		 return new SearchServiceImpl();
-	 }
 	 
 	 @Bean BulkUploadErrorActivityServiceImpl bulkUploadErrorActivityService() {
 		 return new BulkUploadErrorActivityServiceImpl();

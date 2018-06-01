@@ -23,7 +23,6 @@ public interface BaseDaoFactory {
 	ClientDao getHmisClientDao();
 	BulkUploaderWorkerDao getBulkUploaderWorkerDao();
 	SearchDao getSearchDao();
-	ProjectDao getBaseProjectDao();
 	HealthDao getHealthDao();	
 	ClientConsentDao getClientConsentDao();
 	ClientDataElementDao getClientDataElementDao();
