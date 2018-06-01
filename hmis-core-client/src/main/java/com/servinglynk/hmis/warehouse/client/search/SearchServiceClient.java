@@ -35,13 +35,13 @@ public class SearchServiceClient extends CoreClientBase implements ISearchServic
 		StringBuffer URI = new StringBuffer();
 		if (request.getSearchEntity().equalsIgnoreCase("projects")) {
 		 URI = new StringBuffer(
-				"http://hmisns.aws.hmislynk.com:8080/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
+				"http://hhmiselb.aws.hmislynk.com/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
 		for (Map.Entry<String, Object> entry : request.getSearchParams().entrySet()) {
 			URI.append("&" + entry.getKey() + "=" + entry.getValue());
 		}
 		}else {
 			 URI = new StringBuffer(
-					"http://hmisns.aws.hmislynk.com:8080/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
+					"http://hmiselb.aws.hmislynk.com/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
 			for (Map.Entry<String, Object> entry : request.getSearchParams().entrySet()) {
 				URI.append("&" + entry.getKey() + "=" + entry.getValue());
 			}

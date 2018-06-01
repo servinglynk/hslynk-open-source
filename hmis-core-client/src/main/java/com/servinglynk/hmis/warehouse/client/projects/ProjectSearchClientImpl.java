@@ -37,7 +37,7 @@ public class ProjectSearchClientImpl extends CoreClientBase implements ProjectSe
 				
 
 		StringBuffer URI = new StringBuffer(
-				"http://hmisns.aws.hmislynk.com:8080/hmis-clientapi-v"+schemaYear+"/rest/projects/" + projectId);
+				"http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+schemaYear+"/rest/projects/" + projectId);
 		ResponseEntity<String> response = restTemplate.exchange(URI.toString(), HttpMethod.GET, entity, String.class);
 
 		ObjectMapper mapper = new ObjectMapper();
