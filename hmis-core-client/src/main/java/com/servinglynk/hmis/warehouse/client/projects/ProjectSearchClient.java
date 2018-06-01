@@ -1,11 +1,10 @@
 package com.servinglynk.hmis.warehouse.client.projects;
 
-import java.util.List;
-
 import com.servinglynk.hmis.warehouse.client.model.SearchRequest;
+import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 
 public interface ProjectSearchClient {
 
-	List<?> search(SearchRequest request) throws Exception;
+	BaseProject search(SearchRequest request) throws Exception;
 	
 }
