@@ -35,8 +35,8 @@ import com.servinglynk.report.bean.Q13a1DataBean;
 import com.servinglynk.report.bean.Q13a2DataBean;
 import com.servinglynk.report.bean.Q13b1DataBean;
 import com.servinglynk.report.bean.Q13b2DataBean;
-import com.servinglynk.report.bean.Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
-import com.servinglynk.report.bean.Q13c2NumberOfConditionsForStayerDataBean;
+import com.servinglynk.report.bean.Q13c1DataBean;
+import com.servinglynk.report.bean.Q13c2DataBean;
 import com.servinglynk.report.bean.Q14aDataBean;
 import com.servinglynk.report.bean.Q14bDataBean;
 import com.servinglynk.report.bean.Q15DataBean;
@@ -284,13 +284,13 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q13b2NumberOfConditionsAtExitList,"Q13b2.jrxml","Q13b2.csv");
 			}
 			
-			List<Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean> q13c1PhysicalAndMentalHealthConditionsForStayersList = Q13c1BeanMaker.getQ13c1PhysicalAndMentalHealthConditionsForStayersList();
+			List<Q13c1DataBean> q13c1PhysicalAndMentalHealthConditionsForStayersList = Q13c1BeanMaker.getQ13c1PhysicalAndMentalHealthConditionsForStayersList();
 			homePageDataBean.setQ13c1PhysicalAndMentalHealthConditionsForStayersDataBean(q13c1PhysicalAndMentalHealthConditionsForStayersList);
 			if(q13c1PhysicalAndMentalHealthConditionsForStayersList!=null){
 				CSVGenerator.buildReport(q13c1PhysicalAndMentalHealthConditionsForStayersList, "Q13c1.jrxml", "Q13c1.csv");
 			}
 			
-			List<Q13c2NumberOfConditionsForStayerDataBean> q13c2NumberOfConditionsForStayerList = Q13c2BeanMaker.getQ13c2NumberOfConditionsForStayerList(data);
+			List<Q13c2DataBean> q13c2NumberOfConditionsForStayerList = Q13c2BeanMaker.getQ13c2NumberOfConditionsForStayerList(data);
 			homePageDataBean.setQ13c2NumberOfConditionsForStayerDataBean(q13c2NumberOfConditionsForStayerList);
 			if(q13c2NumberOfConditionsForStayerList!=null){
 				CSVGenerator.buildReport(q13c2NumberOfConditionsForStayerList, "Q13c2.jrxml","Q13c2.csv");

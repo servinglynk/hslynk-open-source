@@ -2,7 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q13c2NumberOfConditionsForStayerDataBean {
+public class Q13c2DataBean {
 	
 	private BigInteger q13c2NoneTotal;
 	private BigInteger q13c2NoneWithoutChildren;

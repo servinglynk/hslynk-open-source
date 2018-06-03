@@ -48,8 +48,8 @@ public class HomePageDataBean {
 	private List<Q13a2DataBean> q13a2NumberOfConditionsAtEntryDataBean;
 	private List<Q13b1DataBean> q13b1PhysicalAndMentalHealthConditionsAtExitDataBean;
 	private List<Q13b2DataBean> q13b2NumberOfConditionsAtExitDataBean;
-	private List<Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean> q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
-	private List<Q13c2NumberOfConditionsForStayerDataBean> q13c2NumberOfConditionsForStayerDataBean;
+	private List<Q13c1DataBean> q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
+	private List<Q13c2DataBean> q13c2NumberOfConditionsForStayerDataBean;
 	private List<Q14aDataBean> q14aDomesticViolenceHistoryDataBean;
 	private List<Q14bDataBean> q14bPersonsFleeingDomesticViolenceDataBean;
 	private List<Q15DataBean> q15ResidencePriorToProgramEntryDataBean;
@@ -357,18 +357,18 @@ public class HomePageDataBean {
 			List<Q13b2DataBean> q13b2NumberOfConditionsAtExitDataBean) {
 		this.q13b2NumberOfConditionsAtExitDataBean = q13b2NumberOfConditionsAtExitDataBean;
 	}
-	public List<Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean> getQ13c1PhysicalAndMentalHealthConditionsForStayersDataBean() {
+	public List<Q13c1DataBean> getQ13c1PhysicalAndMentalHealthConditionsForStayersDataBean() {
 		return q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
 	}
 	public void setQ13c1PhysicalAndMentalHealthConditionsForStayersDataBean(
-			List<Q13c1PhysicalAndMentalHealthConditionsForStayersDataBean> q13c1PhysicalAndMentalHealthConditionsForStayersDataBean) {
+			List<Q13c1DataBean> q13c1PhysicalAndMentalHealthConditionsForStayersDataBean) {
 		this.q13c1PhysicalAndMentalHealthConditionsForStayersDataBean = q13c1PhysicalAndMentalHealthConditionsForStayersDataBean;
 	}
-	public List<Q13c2NumberOfConditionsForStayerDataBean> getQ13c2NumberOfConditionsForStayerDataBean() {
+	public List<Q13c2DataBean> getQ13c2NumberOfConditionsForStayerDataBean() {
 		return q13c2NumberOfConditionsForStayerDataBean;
 	}
 	public void setQ13c2NumberOfConditionsForStayerDataBean(
-			List<Q13c2NumberOfConditionsForStayerDataBean> q13c2NumberOfConditionsForStayerDataBean) {
+			List<Q13c2DataBean> q13c2NumberOfConditionsForStayerDataBean) {
 		this.q13c2NumberOfConditionsForStayerDataBean = q13c2NumberOfConditionsForStayerDataBean;
 	}
 	public List<Q14aDataBean> getQ14aDomesticViolenceHistoryDataBean() {

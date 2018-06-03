@@ -21,6 +21,7 @@ import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.ContactModel;
 import com.servinglynk.report.model.DateOfEngagementModel;
+import com.servinglynk.report.model.DisabilitiesModel;
 import com.servinglynk.report.model.DomesticViolenceModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
@@ -152,6 +153,63 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
+	public static List<DisabilitiesModel> getEnrollmentFromDisabilitiesCount(String schema,String query) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<DisabilitiesModel>  models = new ArrayList<DisabilitiesModel>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(query,schema));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.add(new DisabilitiesModel(resultSet.getString(1),resultSet.getInt(2)));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	public static List<DisabilitiesModel> getEnrollmentFromDisabilitiesCountWithDate(String schema,String query,Date reportEndDate) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<DisabilitiesModel>  models = new ArrayList<DisabilitiesModel>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(query,schema));
+			statement.setDate(1, reportEndDate);
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.add(new DisabilitiesModel(resultSet.getString(1),resultSet.getInt(2)));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
 	public static List<String> getEnrollmentFromDisabilitiesWithInformationDate(String schema,String query,Date reportEndDate) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
