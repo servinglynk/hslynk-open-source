@@ -155,7 +155,7 @@ public class SyncSchema extends Logging {
                     }
                 } else {
                     Put p = new Put(Bytes.toBytes(key));
-                    for (int i = 1; i < metaData.getColumnCount(); i++) {
+                    for (int i = 1; i <= metaData.getColumnCount(); i++) {
                         String column = metaData.getColumnName(i);
                         String value = resultSet.getString(i);
                         if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
