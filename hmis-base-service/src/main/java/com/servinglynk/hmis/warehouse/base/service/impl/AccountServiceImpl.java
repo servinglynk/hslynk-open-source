@@ -143,7 +143,8 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				throw new AccessDeniedException("Login user does not have project group.");
 			}
 		}
-
+		
+		pAccount.setProjectGroupCode(pAccount.getProjectGroupEntity().getProjectGroupCode());
 		daoFactory.getAccountDao().createAccount(pAccount);
 		daoFactory.getAccountDao().createUserRole(userRoleMapEntity);
 
