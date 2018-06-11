@@ -372,6 +372,11 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 					detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getAccount().getProjectGroupEntity().getProjectGroupCode()));
 					detachedCriteria.add(Restrictions.eq("deleted", false));
 				}
+			}else if(clz.getSimpleName().equals("HmisUser")) {
+				SessionEntity entity = (SessionEntity) authentication.getPrincipal();
+				System.out.println(entity.getAccount().getProjectGroupEntity().getProjectGroupCode());
+				detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getAccount().getProjectGroupEntity().getProjectGroupCode()));
+
 			}
 		return detachedCriteria;
 		}catch(Exception e){
