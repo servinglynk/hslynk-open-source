@@ -363,9 +363,17 @@ public class HmisUser  {
 	}
 	
 	
-	
-		
-	
+	protected String projectGroupCode;
+
+	@Column(name="project_group_code")
+	public String getProjectGroupCode() {
+		return projectGroupCode;
+	}
+
+	public void setProjectGroupCode(String projectGroupCode) {
+		this.projectGroupCode = projectGroupCode;
+	}
+
 	/** Return the type of this class. Useful for when dealing with proxies.
 	* @return Defining class.
 	*/

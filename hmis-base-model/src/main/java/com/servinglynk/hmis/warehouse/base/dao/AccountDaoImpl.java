@@ -42,15 +42,10 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	public HmisUser findByUserId(UUID userId){
 		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
 		criteria.add(Restrictions.eq("id", userId));
-		try{
-			SecurityContext context =  SecurityContextHolder.getContext();
-			Authentication authentication =  context.getAuthentication();
-			SessionEntity entity = (SessionEntity) authentication.getPrincipal();
-			criteria.add(Restrictions.eq("projectGroupEntity", entity.getAccount().getProjectGroupEntity()));
-		}catch (Exception e) {
+		List<HmisUser> hmisUsers = (List<HmisUser>) findByCriteria(criteria);
+		if(!hmisUsers.isEmpty()) return hmisUsers.get(0);
+		return null;
 
-		}
-		return (HmisUser) get(HmisUser.class,userId);
 	}
 	
 	@SuppressWarnings("unchecked")
