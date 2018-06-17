@@ -36,119 +36,130 @@ public class ActiveListView  extends Logging {
 		syncHBaseImport.createHBASETable(tableName, logger);
 	}
 	
+	
 	 private void syncTable(String hbaseTable, String projectGroupCode,String postgresTable) {
 	       // log.info("Start sync for table: " + postgresTable);
-	        HTable htable;
 	        ResultSet resultSet;
+	        HTable htable;
 	        PreparedStatement statement;
 	        Connection connection;
-	        try {
-	            htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
-	            connection = SyncPostgresProcessor.getConnection();
-	            statement = connection.prepareStatement("SELECT client_id,deleted,ignore_match_process,survey_score,date_updated,client_dedup_id FROM housing_inventory.eligible_clients where project_group_code=?");
-	            statement.setString(1, projectGroupCode);
-	            resultSet = statement.executeQuery();
-	            
-	            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
-	            List<String> existingKeysInPostgres = new ArrayList<>();
+	        try {   
+	     	      htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
+	     	      StringBuilder builder  = new StringBuilder();
+	     	      builder.append(" SELECT t.client_dedup_id,t.client_id,deleted,t.ignore_match_process,survey_score,survey_date FROM housing_inventory.eligible_clients t ");
+	     	      builder.append(" inner join (  ");
+	     	      builder.append("	  select client_dedup_id,max(survey_date) as maxDate from housing_inventory.eligible_clients tm ");
+	     	      builder.append("	  where tm.project_group_code= ? ");
+	     	      builder.append(" and deleted=false group by client_dedup_id ) tm ");
+	     	      builder.append(" on  t.client_dedup_id = tm.client_dedup_id ");
+	     	      builder.append(" and t.survey_date = tm.maxDate and t.project_group_code=? ");
+	     	      builder.append(" order by t.client_dedup_id,survey_score asc" );
+	     	      connection = SyncPostgresProcessor.getConnection();
+		          statement = connection.prepareStatement(builder.toString());
+		          statement.setString(1, projectGroupCode);
+		          statement.setString(2, projectGroupCode);
+		          resultSet = statement.executeQuery();
+		            
+	     	      List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
+	               List<String> existingKeysInPostgres = new ArrayList<>();
 
-	            List<Put> putsToUpdate = new ArrayList<>();
-	            List<Put> putsToInsert = new ArrayList<>();
-	            List<String> putsToDelete = new ArrayList<>();
-	            while (resultSet.next()) {
-	                Boolean markedForDelete = false;
-	                try{
-	                    resultSet.getBoolean("deleted");
-	                }catch (Exception ex){
-	                    logger.debug("table does not contained 'deleted' column", ex);
-	                }
-	                String key = resultSet.getString("client_id");
-	                if(StringUtils.isBlank(key)){
-	                    continue;
-	                }
+	               List<Put> putsToUpdate = new ArrayList<>();
+	               List<Put> putsToInsert = new ArrayList<>();
+	               List<String> putsToDelete = new ArrayList<>();
+	               while (resultSet.next()) {
+	                   Boolean markedForDelete = false;
+	                   try{
+	                   	markedForDelete = resultSet.getBoolean("deleted");
+	                   }catch (Exception ex){
+	                       logger.debug("table does not contained 'deleted' column", ex);
+	                   }
+	                   String key = resultSet.getString("client_dedup_id");
+	                   if(StringUtils.isBlank(key)){
+	                       continue;
+	                   }
+	                   String clientId= (String)resultSet.getString("client_id");
+	                   if (markedForDelete) {
+	                       if (existingKeysInHbase.contains(key)) {
+	                           putsToDelete.add(key);
+	                           if (putsToDelete.size() > syncHBaseImport.batchSize) {
+	                               syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
+	                               putsToDelete.clear();
+	                           }
+	                       } else {
+	                           log.debug("Skip row with key: " + key);
+	                           continue;
+	                       }
+	                   } else {
+	                   	 Put p = new Put(Bytes.toBytes(key));
+	                   	 addColumn("ignore_match_process",String.valueOf(resultSet.getBoolean("ignore_match_process")), key, p);
+	                   	 addColumn("client_id",clientId, key, p);
+	                   	 addColumn("survey_score",String.valueOf(resultSet.getInt("survey_score")), key, p);
+	                   	 Survey survey = getLastestSurveyByClient(clientId, projectGroupCode);
+	                   	 if(survey == null || survey.getSurveyId() == null) {
+	                   		 survey = getLastestSurveyByClientFromSectionScore(clientId, projectGroupCode);
+	                   	 }
+	                   	 if(survey !=null && survey.getSurveyId() !=null) {
+	                   		 String surveyId =  String.valueOf(survey.getSurveyId());
+	                   		 addColumn("survey_id",surveyId, key, p);
+	                   		 addColumn("survey_title",survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", " "), key, p);
+	                   		 addColumn("survey_date",getCreatedAtString(survey.getSurveyDate()), key, p);
+	                   	 }
+	                   	 
+	                   	 Client client = getClientByID((String)resultSet.getString("client_id"));
+	                   	 if(client !=null) {
+	                   		 addColumn("first_name",client.getFirstName(), key, p);
+	     	                	 addColumn("last_name",client.getLastName(), key, p);
+	     	                	 addColumn("email",client.getEmail(),key,p);
+	     	                	 addColumn("phone",client.getPhone(),key,p);
+	     	                	 if(client.getDob() !=null) {
+	     	                		 Date dob = client.getDob();
+	     	                		 LocalDate birthday = dob.toLocalDate();
+	     	                		 LocalDate now = LocalDate.now();
+	     	                		 long age = birthday.until(now, ChronoUnit.YEARS);
+	     		                	 addColumn("age",String.valueOf(age),key,p);
+	     	                	 }
+	                   	 }
+	                   	 String notes = getNotes(clientId);
+	                   	 if(StringUtils.isNotBlank(notes)) {
+	                   		 addColumn("notes",notes,key,p);
+	                   	 }
+	                   	 
+	                       if (existingKeysInHbase.contains(key)) {
+	                           putsToUpdate.add(p);
+	                           if (putsToUpdate.size() > syncHBaseImport.batchSize) {
+	                               htable.put(putsToUpdate);
+	                               putsToUpdate.clear();
+	                           }
+	                       } else {
+	                           putsToInsert.add(p);
+	                           if (putsToInsert.size() > syncHBaseImport.batchSize) {
+	                               htable.put(putsToInsert);
+	                               putsToInsert.clear();
+	                           }
+	                       }
+	                   }
+	                   existingKeysInPostgres.add(key);
+	               }
+	               existingKeysInHbase.forEach(key -> {
+	                   if(!existingKeysInPostgres.contains(key)){
+	                       putsToDelete.add(key);
+	                   }
+	               });
 
-	                if (markedForDelete) {
-	                    if (existingKeysInHbase.contains(key)) {
-	                        putsToDelete.add(key);
-	                        if (putsToDelete.size() > syncHBaseImport.batchSize) {
-	                            syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
-	                            putsToDelete.clear();
-	                        }
-	                    } else {
-	                        log.debug("Skip row with key: " + key);
-	                        continue;
-	                    }
-	                } else {
-	                	 Put p = new Put(Bytes.toBytes(key));
-	                	 addColumn("ignore_match_process",String.valueOf(resultSet.getBoolean("ignore_match_process")), key, p);
-	                	 addColumn("dedup_client_id",(String)resultSet.getString("client_dedup_id"), key, p);
-	                	 addColumn("survey_score",String.valueOf(resultSet.getInt("survey_score")), key, p);
-	                	 Survey survey = getLastestSurveyByClient(key, projectGroupCode);
-	                	 if(survey == null || survey.getSurveyId() == null) {
-	                		 survey = getLastestSurveyByClientFromSectionScore(key, projectGroupCode);
-	                	 }
-	                	 if(survey !=null && survey.getSurveyId() !=null) {
-	                		 String surveyId =  String.valueOf(survey.getSurveyId());
-	                		 addColumn("survey_id",surveyId, key, p);
-	                		 addColumn("survey_title",survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", " "), key, p);
-	                		 addColumn("survey_date",getCreatedAtString(survey.getSurveyDate()), key, p);
-	                	 }
-	                	 
-	                	 Client client = getClientByID(key);
-	                	 if(client !=null) {
-	                		 addColumn("first_name",client.getFirstName(), key, p);
-		                	 addColumn("last_name",client.getLastName(), key, p);
-		                	 addColumn("email",client.getEmail(),key,p);
-		                	 addColumn("phone",client.getPhone(),key,p);
-		                	 if(client.getDob() !=null) {
-		                		 Date dob = client.getDob();
-		                		 LocalDate birthday = dob.toLocalDate();
-		                		 LocalDate now = LocalDate.now();
-		                		 long age = birthday.until(now, ChronoUnit.YEARS);
-			                	 addColumn("age",String.valueOf(age),key,p);
-		                	 }
-	                	 }
-	                	 String notes = getNotes(key);
-	                	 if(StringUtils.isNotBlank(notes)) {
-	                		 addColumn("notes",notes,key,p);
-	                	 }
-	                	 
-	                    if (existingKeysInHbase.contains(key)) {
-	                        putsToUpdate.add(p);
-	                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
-	                            htable.put(putsToUpdate);
-	                            putsToUpdate.clear();
-	                        }
-	                    } else {
-	                        putsToInsert.add(p);
-	                        if (putsToInsert.size() > syncHBaseImport.batchSize) {
-	                            htable.put(putsToInsert);
-	                            putsToInsert.clear();
-	                        }
-	                    }
-	                }
-	                existingKeysInPostgres.add(key);
-	            }
-	            existingKeysInHbase.forEach(key -> {
-	                if(!existingKeysInPostgres.contains(key)){
-	                    putsToDelete.add(key);
-	                }
-	            });
+	               logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
+	               if (putsToDelete.size() > 0) {
+	                   syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
+	               }
 
-	            logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
-	            if (putsToDelete.size() > 0) {
-	                syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
-	            }
+	               logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
+	               if (putsToInsert.size() > 0) {
+	                   htable.put(putsToInsert);
+	               }
 
-	            logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
-	            if (putsToInsert.size() > 0) {
-	                htable.put(putsToInsert);
-	            }
-
-	            logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
-	            if (putsToUpdate.size() > 0) {
-	                htable.put(putsToUpdate);
-	            }
+	               logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
+	               if (putsToUpdate.size() > 0) {
+	                   htable.put(putsToUpdate);
+	               }
 
 	        } catch (Exception ex) {
 	            logger.error("Exception:::"+ex.getMessage());
@@ -158,6 +169,10 @@ public class ActiveListView  extends Logging {
 	        log.info("Sync done for table: " + postgresTable);
 	    }
 	 
+	 
+	 private void processDedupClients(String dedupClientId,String hbaseTable, String projectGroupCode,String postgresTable) {
+	   
+	 }
 	 private String getNotes(String key) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
@@ -283,7 +298,7 @@ public class ActiveListView  extends Logging {
 		String[] split = projectGroupCodes.split(",");
 		List<String> projectGroups = new ArrayList<>(Arrays.asList(split));
          for (String projectGroupCode :projectGroups) {
-        	 String tableName ="active_list_"+projectGroupCode;
+        	 String tableName ="new_active_list_"+projectGroupCode;
              createHbaseTable(tableName);
              logger.info("Processing active list for project group code"+projectGroupCode);
              syncTable(tableName, projectGroupCode, "eligible_clients");
