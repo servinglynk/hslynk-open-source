@@ -4,12 +4,12 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q16CashIncomeRangesDataBean;
+import com.servinglynk.report.bean.Q16DataBean;
 import com.servinglynk.report.bean.ReportData;
 
 public class Q16BeanMaker {
 	
-	public static List<Q16CashIncomeRangesDataBean> getQ16CashIncomeRangesList(ReportData data){
+	public static List<Q16DataBean> getQ16CashIncomeRangesList(ReportData data){
 		
 		/*List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel>  enrollments = data.getEnrollments();
@@ -21,7 +21,7 @@ public class Q16BeanMaker {
 		
 		int stayers = clients !=null && exits != null ? clients.size() - exits.size() : 0;*/
 		
-		Q16CashIncomeRangesDataBean q16Bean = new Q16CashIncomeRangesDataBean();
+		Q16DataBean q16Bean = new Q16DataBean();
 		
 		q16Bean.setQ16NoIncomeIncomeAtEntry(BigInteger.valueOf(0));
 		q16Bean.setQ16NoIncomeIncomeAtExitforLeavers(BigInteger.valueOf(0));

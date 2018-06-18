@@ -40,7 +40,7 @@ import com.servinglynk.report.bean.Q13c2DataBean;
 import com.servinglynk.report.bean.Q14aDataBean;
 import com.servinglynk.report.bean.Q14bDataBean;
 import com.servinglynk.report.bean.Q15DataBean;
-import com.servinglynk.report.bean.Q16CashIncomeRangesDataBean;
+import com.servinglynk.report.bean.Q16DataBean;
 import com.servinglynk.report.bean.Q17CashIncomeSourcesDataBean;
 import com.servinglynk.report.bean.Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
 import com.servinglynk.report.bean.Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean;
@@ -314,7 +314,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q15ResidencePriorToProgramEntryList,"Q15.jrxml", "Q15.csv");
 			}
 			
-			List<Q16CashIncomeRangesDataBean> q16CashIncomeRangesList = Q16BeanMaker.getQ16CashIncomeRangesList(data);
+			List<Q16DataBean> q16CashIncomeRangesList = Q16BeanMaker.getQ16CashIncomeRangesList(data);
 			homePageDataBean.setQ16CashIncomeRangesDataBean(q16CashIncomeRangesList);
 			if(q16CashIncomeRangesList!=null){
 				CSVGenerator.buildReport(q16CashIncomeRangesList, "Q16.jrxml", "Q16.csv");		

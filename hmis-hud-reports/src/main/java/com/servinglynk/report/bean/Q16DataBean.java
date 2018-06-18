@@ -2,7 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 
-public class Q16CashIncomeRangesDataBean {
+public class Q16DataBean {
 	
 	private BigInteger q16NoIncomeIncomeAtEntry;
 	private BigInteger q16NoIncomeIncomeAtLatestFollowupforStayers;

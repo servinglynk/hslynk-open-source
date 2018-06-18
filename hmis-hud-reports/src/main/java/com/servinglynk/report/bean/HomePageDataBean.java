@@ -53,7 +53,7 @@ public class HomePageDataBean {
 	private List<Q14aDataBean> q14aDomesticViolenceHistoryDataBean;
 	private List<Q14bDataBean> q14bPersonsFleeingDomesticViolenceDataBean;
 	private List<Q15DataBean> q15ResidencePriorToProgramEntryDataBean;
-	private List<Q16CashIncomeRangesDataBean> q16CashIncomeRangesDataBean;
+	private List<Q16DataBean> q16CashIncomeRangesDataBean;
 	private List<Q17CashIncomeSourcesDataBean> q17CashIncomeSourcesDataBean;
 	private List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
 	private List<Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean> q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean;
@@ -392,11 +392,11 @@ public class HomePageDataBean {
 			List<Q15DataBean> q15ResidencePriorToProgramEntryDataBean) {
 		this.q15ResidencePriorToProgramEntryDataBean = q15ResidencePriorToProgramEntryDataBean;
 	}
-	public List<Q16CashIncomeRangesDataBean> getQ16CashIncomeRangesDataBean() {
+	public List<Q16DataBean> getQ16CashIncomeRangesDataBean() {
 		return q16CashIncomeRangesDataBean;
 	}
 	public void setQ16CashIncomeRangesDataBean(
-			List<Q16CashIncomeRangesDataBean> q16CashIncomeRangesDataBean) {
+			List<Q16DataBean> q16CashIncomeRangesDataBean) {
 		this.q16CashIncomeRangesDataBean = q16CashIncomeRangesDataBean;
 	}
 	public List<Q17CashIncomeSourcesDataBean> getQ17CashIncomeSourcesDataBean() {
