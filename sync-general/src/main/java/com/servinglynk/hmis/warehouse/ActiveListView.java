@@ -46,14 +46,14 @@ public class ActiveListView  extends Logging {
 	        try {   
 	     	      htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
 	     	      StringBuilder builder  = new StringBuilder();
-	     	      builder.append(" SELECT t.client_dedup_id,t.client_id,deleted,t.ignore_match_process,survey_score,survey_date FROM housing_inventory.eligible_clients t ");
+	     	      builder.append(" SELECT distinct on (t.client_dedup_id) t.client_dedup_id,t.client_id,t.deleted,t.ignore_match_process,survey_score,survey_date FROM housing_inventory.eligible_clients t ");
 	     	      builder.append(" inner join (  ");
 	     	      builder.append("	  select client_dedup_id,max(survey_date) as maxDate from housing_inventory.eligible_clients tm ");
 	     	      builder.append("	  where tm.project_group_code= ? ");
-	     	      builder.append(" and deleted=false group by client_dedup_id ) tm ");
+	     	      builder.append(" group by client_dedup_id ) tm ");
 	     	      builder.append(" on  t.client_dedup_id = tm.client_dedup_id ");
 	     	      builder.append(" and t.survey_date = tm.maxDate and t.project_group_code=? ");
-	     	      builder.append(" order by t.client_dedup_id,survey_score asc" );
+	     	      builder.append(" order by t.client_dedup_id,survey_score desc" );
 	     	      connection = SyncPostgresProcessor.getConnection();
 		          statement = connection.prepareStatement(builder.toString());
 		          statement.setString(1, projectGroupCode);
@@ -91,37 +91,37 @@ public class ActiveListView  extends Logging {
 	                       }
 	                   } else {
 	                   	 Put p = new Put(Bytes.toBytes(key));
-	                   	 addColumn("ignore_match_process",String.valueOf(resultSet.getBoolean("ignore_match_process")), key, p);
-	                   	 addColumn("client_id",clientId, key, p);
-	                   	 addColumn("survey_score",String.valueOf(resultSet.getInt("survey_score")), key, p);
+	                   	 addColumn("ignore_match_process",String.valueOf(resultSet.getBoolean("ignore_match_process")), key, p,existingKeysInHbase);
+	                   	 addColumn("client_id",clientId, key, p,existingKeysInHbase);
+	                   	 addColumn("survey_score",String.valueOf(resultSet.getInt("survey_score")), key, p,existingKeysInHbase);
 	                   	 Survey survey = getLastestSurveyByClient(clientId, projectGroupCode);
 	                   	 if(survey == null || survey.getSurveyId() == null) {
 	                   		 survey = getLastestSurveyByClientFromSectionScore(clientId, projectGroupCode);
 	                   	 }
 	                   	 if(survey !=null && survey.getSurveyId() !=null) {
 	                   		 String surveyId =  String.valueOf(survey.getSurveyId());
-	                   		 addColumn("survey_id",surveyId, key, p);
-	                   		 addColumn("survey_title",survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", " "), key, p);
-	                   		 addColumn("survey_date",getCreatedAtString(survey.getSurveyDate()), key, p);
+	                   		 addColumn("survey_id",surveyId, key, p,existingKeysInHbase);
+	                   		 addColumn("survey_title",survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", " "), key, p,existingKeysInHbase);
+	                   		 addColumn("survey_date",getCreatedAtString(survey.getSurveyDate()), key, p,existingKeysInHbase);
 	                   	 }
 	                   	 
 	                   	 Client client = getClientByID((String)resultSet.getString("client_id"));
 	                   	 if(client !=null) {
-	                   		 addColumn("first_name",client.getFirstName(), key, p);
-	     	                	 addColumn("last_name",client.getLastName(), key, p);
-	     	                	 addColumn("email",client.getEmail(),key,p);
-	     	                	 addColumn("phone",client.getPhone(),key,p);
+	                   		 addColumn("first_name",client.getFirstName(), key, p,existingKeysInHbase);
+	     	                	 addColumn("last_name",client.getLastName(), key, p,existingKeysInHbase);
+	     	                	 addColumn("email",client.getEmail(),key,p,existingKeysInHbase);
+	     	                	 addColumn("phone",client.getPhone(),key,p,existingKeysInHbase);
 	     	                	 if(client.getDob() !=null) {
 	     	                		 Date dob = client.getDob();
 	     	                		 LocalDate birthday = dob.toLocalDate();
 	     	                		 LocalDate now = LocalDate.now();
 	     	                		 long age = birthday.until(now, ChronoUnit.YEARS);
-	     		                	 addColumn("age",String.valueOf(age),key,p);
+	     		                	 addColumn("age",String.valueOf(age),key,p,existingKeysInHbase);
 	     	                	 }
 	                   	 }
 	                   	 String notes = getNotes(clientId);
 	                   	 if(StringUtils.isNotBlank(notes)) {
-	                   		 addColumn("notes",notes,key,p);
+	                   		 addColumn("notes",notes,key,p,existingKeysInHbase);
 	                   	 }
 	                   	 
 	                       if (existingKeysInHbase.contains(key)) {
@@ -149,16 +149,19 @@ public class ActiveListView  extends Logging {
 	               logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
 	               if (putsToDelete.size() > 0) {
 	                   syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
+	                   putsToDelete.clear();
 	               }
 
 	               logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
 	               if (putsToInsert.size() > 0) {
 	                   htable.put(putsToInsert);
+	                   putsToInsert.clear();
 	               }
 
 	               logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
 	               if (putsToUpdate.size() > 0) {
 	                   htable.put(putsToUpdate);
+	                   putsToUpdate.clear();
 	               }
 
 	        } catch (Exception ex) {
@@ -192,9 +195,24 @@ public class ActiveListView  extends Logging {
 			return notes;
 	}
 
-	public void addColumn(String column, String value,String key,Put p) {
+	public void addColumn(String column, String value,String key,Put p,List<String> existingKeysInHbase) {
 		 if(StringUtils.isNotBlank(value)) {
-			  p.addColumn(Bytes.toBytes("CF"),
+			if(existingKeysInHbase.contains(key)) {
+				  p.add(Bytes.toBytes("CF"),
+		                  Bytes.toBytes(column),
+		                  Bytes.toBytes(value));
+			}else {
+				p.addColumn(Bytes.toBytes("CF"),
+		                  Bytes.toBytes(column),
+		                  Bytes.toBytes(value));
+			}
+			  
+		 }
+	 }
+	
+	public void updateColumn(String column, String value,String key,Put p) {
+		 if(StringUtils.isNotBlank(value)) {
+			  p.add(Bytes.toBytes("CF"),
 	                  Bytes.toBytes(column),
 	                  Bytes.toBytes(value));
 		 }
@@ -298,7 +316,7 @@ public class ActiveListView  extends Logging {
 		String[] split = projectGroupCodes.split(",");
 		List<String> projectGroups = new ArrayList<>(Arrays.asList(split));
          for (String projectGroupCode :projectGroups) {
-        	 String tableName ="new_active_list_"+projectGroupCode;
+        	 String tableName ="active_list_"+projectGroupCode;
              createHbaseTable(tableName);
              logger.info("Processing active list for project group code"+projectGroupCode);
              syncTable(tableName, projectGroupCode, "eligible_clients");
