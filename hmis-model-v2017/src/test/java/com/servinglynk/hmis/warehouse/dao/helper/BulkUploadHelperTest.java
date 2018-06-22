@@ -24,7 +24,7 @@ public class BulkUploadHelperTest {
 
 
 	@Test
-	public void testXMLUpload() throws JAXBException, IOException {
+	public void testXMLUpload() throws Exception {
 		URL path = BulkUploadHelperTest.class.getResource("2017.xml");
 //		System.out.println(path);
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
@@ -38,16 +38,21 @@ public class BulkUploadHelperTest {
 	}
 
 	@Test
-	public void testCsvZip() throws JAXBException, IOException {
+	public void testCsvZip() {
 		//URL path = BulkUploadHelperTest.class.getResource("2017.xml");
 //		System.out.println(path);
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
 		//upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
-		upload.setInputpath("/Users/sdolia/Downloads/Archive.zip");
+		upload.setInputpath("/Users/sdolia/Downloads/HMISTestKit.zip");
 		com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp = new com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
-		sources = helper.getSourcesFromFiles(upload,projectGrp,false);
+		try {
+			sources = helper.getSourcesFromFiles(upload,projectGrp,false);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		assertNotNull(sources);
 	}
 	

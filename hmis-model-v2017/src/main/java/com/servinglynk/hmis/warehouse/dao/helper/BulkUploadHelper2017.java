@@ -101,10 +101,9 @@ public class BulkUploadHelper2017 {
 	 * Gets the source object from the upload location.
 	 * @param upload
 	 * @return sources
-	 * @throws JAXBException 
-	 * @throws IOException 
+	 * @throws Exception 
 	 */
-	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity,Boolean isFileFromS3) throws JAXBException, IOException {
+	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity,Boolean isFileFromS3) throws Exception {
 			String inputPath = upload.getInputpath();
 			// download file to temp folder
 			String tempFile = upload.getInputpath();
@@ -213,8 +212,9 @@ public class BulkUploadHelper2017 {
 	 * containing csv files.
 	 * @param upload
 	 * @return
+	 * @throws Exception 
 	 */
-	public Sources getSourcesForZipFile(String fileName) {
+	public Sources getSourcesForZipFile(String fileName) throws Exception {
 		Sources sources = new Sources();
 		Source source = sources.getSource();
 		if(source == null) {
@@ -1059,7 +1059,7 @@ public class BulkUploadHelper2017 {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydrateInventory(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateInventory(BufferedReader csvFile, Sources sources) throws Exception {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Inventory> inventoryReader = new CSVReaderBuilder<Inventory>(csvFile).strategy(strategy).entryParser(
@@ -1092,7 +1092,6 @@ public class BulkUploadHelper2017 {
 	    	  }
 	    	  bedInventory.setCHBedInventory((invntry.getCHBedInventory()));
 	    	  bedInventory.setVetBedInventory((invntry.getVetBedInventory()));
-	    	  bedInventory.setYouthAgeGroup((invntry.getYouthAgeGroup()));
 	    	  bedInventory.setYouthBedInventory((invntry.getYouthBedInventory()));
 	    	  
 	    	  inventoryModel.setBedInventory(bedInventory);

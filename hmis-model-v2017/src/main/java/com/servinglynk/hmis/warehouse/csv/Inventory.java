@@ -15,36 +15,34 @@ public class Inventory {
 	@MapToColumn(column=4)
 	private String HouseholdType;
 	@MapToColumn(column=5)
-	private String BedType;
-	@MapToColumn(column=6)
 	private String Availability;
-	@MapToColumn(column=7)
+	@MapToColumn(column=6)
 	private String UnitInventory;
-	@MapToColumn(column=8)
+	@MapToColumn(column=7)
 	private String BedInventory;
-	@MapToColumn(column=9)
+	@MapToColumn(column=8)
 	private String CHBedInventory;
-	@MapToColumn(column=10)
+	@MapToColumn(column=9)
 	private String VetBedInventory;
-	@MapToColumn(column=11)
+	@MapToColumn(column=10)
 	private String YouthBedInventory;
+	@MapToColumn(column=11)
+	private String BedType;
 	@MapToColumn(column=12)
-	private String YouthAgeGroup;
-	@MapToColumn(column=13)
 	private String InventoryStartDate;
-	@MapToColumn(column=14)
+	@MapToColumn(column=13)
 	private String InventoryEndDate;
-	@MapToColumn(column=15)
+	@MapToColumn(column=14)
 	private String HMISParticipatingBeds;
-	@MapToColumn(column=16)
+	@MapToColumn(column=15)
 	private String DateCreated;
-	@MapToColumn(column=17)
+	@MapToColumn(column=16)
 	private String DateUpdated;
-	@MapToColumn(column=18)
+	@MapToColumn(column=17)
 	private String UserID;
-	@MapToColumn(column=19)
+	@MapToColumn(column=18)
 	private String DateDeleted;
-	@MapToColumn(column=20)
+	@MapToColumn(column=19)
 	private String ExportID;
 	
 	
@@ -131,12 +129,6 @@ public class Inventory {
 	}
 	public void setYouthBedInventory(String youthBedInventory) {
 		YouthBedInventory = youthBedInventory;
-	}
-	public String getYouthAgeGroup() {
-		return YouthAgeGroup;
-	}
-	public void setYouthAgeGroup(String youthAgeGroup) {
-		YouthAgeGroup = youthAgeGroup;
 	}
 	public String getHMISParticipatingBeds() {
 		return HMISParticipatingBeds;

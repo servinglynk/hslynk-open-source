@@ -286,7 +286,7 @@ public class PurgeProjectGroup extends Logging {
 		
 		PurgeProjectGroup view = new PurgeProjectGroup(logger);
 
-	    view.purge("BD0005");
+	    view.purge("CP0004");
 
 	}
 
