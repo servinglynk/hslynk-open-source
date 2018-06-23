@@ -70,5 +70,6 @@
 		<module>hmis-client-dedup</module>
 		<module>hmis-globalapi</module>
 		<module>hmis-fileupload-core</module>
+		<module>hmis-admin</module>
 	</modules>
 </project>
