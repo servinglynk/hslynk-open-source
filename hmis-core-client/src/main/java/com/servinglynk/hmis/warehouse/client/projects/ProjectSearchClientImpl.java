@@ -42,10 +42,8 @@ public class ProjectSearchClientImpl extends CoreClientBase implements ProjectSe
 
 /*		StringBuffer URI = new StringBuffer(
 				"http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+schemaYear+"/rest/projects/" + projectId);*/
-		StringBuffer URI = new StringBuffer(
-				"http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+schemaYear+"/rest/projects/" + projectId);
-		
-		ResponseEntity<String> response = restTemplate.exchange(URI.toString(), HttpMethod.GET, entity, String.class);
+	 	String url = buildURL(getURL("project.search.url"),schemaYear,projectId.toString());
+		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 		
 		
 		System.out.println("response "+response.getBody());

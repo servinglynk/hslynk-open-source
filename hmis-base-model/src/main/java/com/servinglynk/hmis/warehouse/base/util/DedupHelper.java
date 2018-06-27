@@ -48,7 +48,7 @@ public class DedupHelper {
 	    	headers.setContentType(mediaType);
 	        headers.set("OPENEMPI_SESSION_KEY", sessionKey);
 	     //   String url = env.getRequiredProperty(OPENEMPI_HOST)+"dedup";
-	        String url = "http://hmiselb.aws.hmislynk.com/hmis-client-dedup/rest/api/v1/dedup";
+	        String url = env.getProperty("dedup.client.generate.url");
 	        Person person = new Person();
 	        person.setGivenName(client.getFirstName());
 	        person.setFamilyName(client.getLastName());
@@ -103,7 +103,7 @@ public class DedupHelper {
 	public String getAuthenticationHeader() {
 			RestTemplate restTemplate = new RestTemplate();
 		    //String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";
-			String url = "http://hmiselb.aws.hmislynk.com/hmis-client-dedup/rest/api/v1/authenticate";
+			String url = env.getProperty("dedup.client.authenticate.url");
 	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
 	        AuthenticationRequest AuthenticationRequest = new AuthenticationRequest();
 	        AuthenticationRequest.setPassword("admin");

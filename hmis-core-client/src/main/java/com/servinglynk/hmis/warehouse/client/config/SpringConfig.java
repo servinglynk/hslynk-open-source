@@ -1,23 +1,19 @@
 package com.servinglynk.hmis.warehouse.client.config;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.servinglynk.hmis.warehouse.client.authorizationservice.AuthorizationServiceClient;
 import com.servinglynk.hmis.warehouse.client.authorizationservice.IAuthorizationClient;
-import com.servinglynk.hmis.warehouse.client.baseclients.BaseClientService;
 import com.servinglynk.hmis.warehouse.client.baseclients.BaseClientServiceImpl;
-import com.servinglynk.hmis.warehouse.client.model.SearchRequest;
 import com.servinglynk.hmis.warehouse.client.notificationservice.INotificationServiceClient;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.client.projects.ProjectSearchClient;
@@ -81,5 +77,4 @@ public class SpringConfig {
 	public ProjectSearchClient projectSearchClient() {
 		return new ProjectSearchClientImpl();
 	}
-
 }

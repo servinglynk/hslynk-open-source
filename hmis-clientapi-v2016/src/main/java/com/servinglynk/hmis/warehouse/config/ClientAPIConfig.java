@@ -28,6 +28,7 @@ import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.OrganizationsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsControllerV2;
+import com.servinglynk.hmis.warehouse.rest.PropertyController;
 import com.servinglynk.hmis.warehouse.rest.QuestionsController;
 
 @Configuration
@@ -80,11 +81,11 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 		return new OrganizationsController();
 	}
 	
-//	@Bean
-//	PropertyController propertyController(){
-//		return new PropertyController();
-//	}
-//	
+	@Bean
+	PropertyController propertyController(){
+		return new PropertyController();
+	}
+	
 	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_CLIENTAPI");

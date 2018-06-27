@@ -50,9 +50,10 @@ public class ClientConsentCheckService extends CoreClientBase implements IClient
 		restTemplate.setMessageConverters(messageConverters);
 
 		HttpEntity entity = new HttpEntity(headers);
-//		 ResponseEntity<Boolean> response = restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-user-service/rest/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,Boolean.class);
+		
+		String url = buildURL(getURL("check.client.consent.for.user.url"),clientId.toString());
 
-		 ResponseEntity<String> response = restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-globalapi/rest//clients/"+clientId+"/checkUserConsent",HttpMethod.GET,entity ,String.class);
+		 ResponseEntity<String> response = restTemplate.exchange(url,HttpMethod.GET,entity ,String.class);
 		
 		 if(response.getStatusCode().equals("200"))
 			 return new Boolean(response.getBody());

@@ -56,7 +56,8 @@ public class NotificationServiceClient extends CoreClientBase implements INotifi
 		restTemplate.setMessageConverters(messageConverters);
 		
       	HttpEntity<Notification> requestEntity = new HttpEntity<Notification>(notification, headers);
-		Notification responseEntity = restTemplate.postForObject("http://hmisns.aws.hmislynk.com:8080/hmis-notification-service/rest/notifications", notification, Notification.class);
+      	String url = buildURL(getURL("notification.service.url"));
+		Notification responseEntity = restTemplate.postForObject(url, notification, Notification.class);
 		return responseEntity;
 	}
 	

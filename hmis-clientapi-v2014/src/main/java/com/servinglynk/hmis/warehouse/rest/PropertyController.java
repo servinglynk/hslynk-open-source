@@ -13,7 +13,7 @@ import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.Property;
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
 
-@RestController()
+@RestController
 @RequestMapping("/properties")
 public class PropertyController {
 	
