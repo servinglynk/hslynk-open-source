@@ -5,14 +5,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
-import com.servinglynk.hmis.warehouse.service.ClientService;
-import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
+import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.service.ClientService;
+import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 
 public class ClientServiceImpl extends ServiceBase implements ClientService {
@@ -57,8 +59,18 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	com.servinglynk.hmis.warehouse.model.base.Client pClient = daoFactory.getHmisClientDao().getClientById(clientId);
 
 		if(pClient == null ) throw new ClientNotFoundException();
-
 		daoFactory.getHmisClientDao().deleteClient(pClient);
+		List<Enrollment> enrollments = daoFactory.getEnrollmentDao().getEnrollmentsByClientId(clientId, 0, 200);
+		if(CollectionUtils.isNotEmpty(enrollments)) {
+			for(Enrollment enrollment : enrollments) {
+				daoFactory.getEnrollmentDao().deleteEnrollment(enrollment);
+			}
+		}
+		com.servinglynk.hmis.warehouse.model.base.Client baseClient = daoFactory.getHmisClientDao().getClientById(clientId);
+
+		if(pClient == null ) throw new ClientNotFoundException();
+
+		daoFactory.getHmisClientDao().deleteClient(baseClient);
 		return new Client();
 	}
 
