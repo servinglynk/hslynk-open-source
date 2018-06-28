@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.service.impl;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
@@ -13,6 +14,7 @@ import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
+import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 
 public class ClientServiceImpl extends ServiceBase implements ClientService {
@@ -58,6 +60,12 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		com.servinglynk.hmis.warehouse.model.v2016.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
 		
 		if(pClient == null ) throw new ClientNotFoundException();
+		
+		Set<Enrollment> enrollments = pClient.getEnrollments();
+		for(Enrollment enrollment : enrollments) {
+			daoFactory.getEnrollmentDao().delete(enrollment);
+		}
+		
 		daoFactory.getClientDao().deleteClient(pClient);
 	com.servinglynk.hmis.warehouse.model.base.Client baseClient = daoFactory.getHmisClientDao().getClientById(clientId);
 
