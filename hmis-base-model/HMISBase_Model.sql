@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS  base.client;
 DROP TABLE IF EXISTS  base.bulk_upload;
 DROP TABLE IF EXISTS  base.bulk_upload_activity;
 DROP TABLE IF EXISTS  base.client_tracker;
-drop table if exists "base".project;
+drop table if exists "base".base_project;
 
 DROP TYPE IF EXISTS "base".gender;
 
@@ -1283,7 +1283,7 @@ WITH (
   OIDS=FALSE
 );
 
-CREATE TABLE  "base".project
+CREATE TABLE  "base".base_project
 (
   id uuid NOT NULL,
   continuumproject "base".no_yes,
