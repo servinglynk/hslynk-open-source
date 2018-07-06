@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Enrollments;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
-import com.servinglynk.hmis.warehouse.model.v2016.Client;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.converter.EnrollmentConveter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ProjectcocNotFoundException;
 
 public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentService {
 
@@ -74,8 +74,6 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		if(pEnrollment == null) throw new EnrollmentNotFound();
 
 		daoFactory.getEnrollmentDao().deleteEnrollment(pEnrollment);
-		Client client = pEnrollment.getClient();
-		daoFactory.getClientDao().deleteClient(client);
 		return new com.servinglynk.hmis.warehouse.core.model.Enrollment();
 	}
 
