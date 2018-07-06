@@ -1074,7 +1074,7 @@ public class BulkUploadHelper2017 {
 	    	  inventoryModel.setProjectID(invntry.getProjectID());
 	    	  inventoryModel.setDateCreated(getXMLGregorianCalendar(invntry.getDateCreated()));
 	    	  inventoryModel.setDateUpdated(getXMLGregorianCalendar(invntry.getDateUpdated()));
-	    	  inventoryModel.setHMISParticipatingBeds(Integer.parseInt(invntry.getHMISParticipatingBeds()));
+	    	  inventoryModel.setHMISParticipatingBeds(StringUtils.isNotBlank(invntry.getHMISParticipatingBeds()) ? Integer.parseInt(invntry.getHMISParticipatingBeds()) : 0);
 	    	  inventoryModel.setHouseholdType((invntry.getHouseholdType()));
 	    	  inventoryModel.setInformationDate(getXMLGregorianCalendar(invntry.getInformationDate()));
 	    	  inventoryModel.setInventoryEndDate(getXMLGregorianCalendar(invntry.getInventoryEndDate()));

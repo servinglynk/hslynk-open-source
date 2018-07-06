@@ -234,7 +234,7 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	 * @return A String object (this.lastPermanentStreet)
 	 */
 	@Basic( optional = true )
-	@Column( name = "last_permanent_street", length = 50  )
+	@Column( name = "last_permanent_street", length = 500  )
 	public String getLastPermanentStreet() {
 		return this.lastPermanentStreet;
 		
