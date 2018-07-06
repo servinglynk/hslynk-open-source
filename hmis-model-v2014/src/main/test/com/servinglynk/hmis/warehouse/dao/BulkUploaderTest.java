@@ -38,7 +38,7 @@ import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 @TransactionConfiguration(defaultRollback=true,transactionManager="transactionManager") 
 public class BulkUploaderTest {
 	
-	@Autowired
+	@Autowired	
 	BulkUploaderDao dao; 
 	
 	@Autowired

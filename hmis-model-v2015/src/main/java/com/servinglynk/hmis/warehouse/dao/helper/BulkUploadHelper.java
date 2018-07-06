@@ -1115,11 +1115,11 @@ public class BulkUploadHelper {
 	    	  }
 	    	  servicesModel.setOtherTypeProvided(srvcs.getOtherTypeProvided());
 	    	  servicesModel.setProjectEntryID(srvcs.getProjectEntryID());
-	    	  servicesModel.setRecordType(getByte(srvcs.getRecordType()));
+	    	  servicesModel.setRecordType(srvcs.getRecordType());
 	    	  servicesModel.setReferralOutcome(getByte(srvcs.getReferralOutcome()));
 	    	  servicesModel.setServicesID(srvcs.getServicesID());
 	    	  servicesModel.setSubTypeProvided(getByte(srvcs.getSubTypeProvided()));
-	    	  servicesModel.setTypeProvided(getByte(srvcs.getTypeProvided()));
+	    	  servicesModel.setTypeProvided(srvcs.getTypeProvided());
 	    	  servicesModel.setUserID(srvcs.getUserID());
 	    	  servicesList.add(servicesModel);
 	      }
@@ -1205,8 +1205,12 @@ public class BulkUploadHelper {
 		  }
 		  
 		  GregorianCalendar cal = new GregorianCalendar();
-
-		  cal.setTime(dob);
+		  if(dob != null && dob !=null) {
+			  cal.setTime(dob);
+		  }else {
+			  return null;
+		  }
+		  
 		  XMLGregorianCalendar xmlDate2=null;
 		try {
 			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
