@@ -33,15 +33,15 @@ public class Reporter {
         
     private void exportToPDF(boolean sageReport) {
         try {         
-//        	Properties props = new Properties();
-//    		props.generatePropValues();
+        	Properties props = new Properties();
+    		props.generatePropValues();
         	ClassLoader classLoader = Reporter.class.getClassLoader();
 			File file = new File(classLoader.getResource("homePage.jrxml").getFile());
 //			System.out.println("File Path --> " + file);
 			InputStream inputStream = new FileInputStream(file);
-			List<HomePageDataBean> dataBeanList = new ArrayList<HomePageDataBean>();
+		//	List<HomePageDataBean> dataBeanList = new ArrayList<HomePageDataBean>();
 //        	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
-        //	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",sageReport, new Date(), new Date());
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",sageReport, new Date(), new Date());
         	if(sageReport) {
         		//System.out.println("----Inside condition-------");
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
