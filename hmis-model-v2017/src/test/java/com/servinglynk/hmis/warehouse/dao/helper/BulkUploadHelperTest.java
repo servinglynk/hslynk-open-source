@@ -44,7 +44,7 @@ public class BulkUploadHelperTest {
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
 		//upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
-		upload.setInputpath("/Users/sdolia/github/HSLynk-Deployment/01-Project-Initiation/hmis-data/CoC/CA0464/Archive.zip");
+		upload.setInputpath("/Users/sdolia/github/HSLynk-Deployment/01-Project-Initiation/hmis-data/CoC/CA0797/2017/archive-etoclient350-2018-Jul-02-165436-170.zip");
 		com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp = new com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
 		try {

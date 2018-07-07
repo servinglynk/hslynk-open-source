@@ -1225,7 +1225,7 @@ public class BulkUploadHelper2017 {
 		    	  servicesModel.setReferralOutcome((srvcs.getReferralOutcome()));
 		    	  servicesModel.setServicesID(srvcs.getServicesID());
 		    	  servicesModel.setSubTypeProvided((srvcs.getSubTypeProvided()));
-		    	  servicesModel.setTypeProvided(srvcs.getTypeProvided() != null ? Short.parseShort(srvcs.getTypeProvided()) : 0);
+		    	  servicesModel.setTypeProvided(StringUtils.isNotBlank(srvcs.getTypeProvided()) ? Short.parseShort(srvcs.getTypeProvided()) : 0);
 		    	  servicesModel.setUserID(srvcs.getUserID());
 		    	  servicesList.add(servicesModel);
 	    	  }
