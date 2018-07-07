@@ -29,34 +29,6 @@ public class Q06aDataBean extends ReportBean{
 	private BigInteger genderInfoMissing;
 	private BigInteger genderPercentageErrorRate;
 	private BigInteger overAllPercentage;
-	
-	
-	public Q06aDataBean() {
-		this.nameCDK = BigInteger.ZERO;
-		this.nameInfoMissing = BigInteger.ZERO;
-		this.nameDataIssue = BigInteger.ZERO;
-		this.namePercentageErrorRate = BigInteger.ZERO;
-		this.ssnCDK = BigInteger.ZERO;
-		this.ssnInfoMissing = BigInteger.ZERO;
-		this.ssnDataIssue = BigInteger.ZERO;
-		this.ssnPercentageErrorRate = BigInteger.ZERO;
-		this.dobCDK = BigInteger.ZERO;
-		this.dobInfoMissing = BigInteger.ZERO;
-		this.dobDataIssue = BigInteger.ZERO;
-		this.dobPercentageErrorRate = BigInteger.ZERO;
-		this.raceCDK = BigInteger.ZERO;
-		this.raceInfoMissing = BigInteger.ZERO;
-		this.raceDataIssue = BigInteger.ZERO;
-		this.racePercentageErrorRate = BigInteger.ZERO;
-		this.ethnicityCDK = BigInteger.ZERO;
-		this.ethnicityInfoMissing = BigInteger.ZERO;
-		this.ethnicityDataIssue = BigInteger.ZERO;
-		this.ethnicityPercentageErrorRate = BigInteger.ZERO;
-		this.genderCDK = BigInteger.ZERO;
-		this.genderInfoMissing = BigInteger.ZERO;
-		this.genderPercentageErrorRate = BigInteger.ZERO;
-		this.overAllPercentage = BigInteger.ZERO;
-	}
 	public BigInteger getNameCDK() {
 		return nameCDK;
 	}

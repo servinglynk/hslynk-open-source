@@ -629,7 +629,7 @@ public class BaseBeanMaker {
 			List<ProjectModel>  models = new ArrayList<ProjectModel>();
 			try {
 				connection = ImpalaConnection.getConnection();
-				statement = connection.prepareStatement(String.format(ReportQuery.GET_PROJECTS_BY_COC,schema));
+				statement = connection.prepareStatement(String.format(ReportQuery.GET_PROJECTS_BY_COC,schema,schema));
 				statement.setString(1, cocId);
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {

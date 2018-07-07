@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9e06b684-bc08-4d5e-8091-a0420585e0f7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="162"/>
 	<field name="q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
@@ -117,7 +117,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[   Category]]></text>
+					<text><![CDATA[Number of Adults By Income Category]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="d0d4dd1d-a644-4bc5-a155-d06ab6fe7ba6"/>
@@ -131,7 +131,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Number of adults at entry]]></text>
+					<text><![CDATA[Number of Adults at Start]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="c851a560-cf39-461b-9370-fcac0dd4c917"/>
@@ -145,7 +145,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  Number of adults at followup (Stayers)]]></text>
+					<text><![CDATA[Number of Adults at Annual Assessment (Stayers)]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="d8b9a4ba-feca-4c2e-ab32-febb922aa079"/>
@@ -159,7 +159,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Number of adults at exit (leavers)]]></text>
+					<text><![CDATA[Number of Adults at Exit (Leavers)]]></text>
 				</staticText>
 			</band>
 			<band height="26">
@@ -175,7 +175,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. Adults with only earned income]]></text>
+					<text><![CDATA[   a. Adults with Only Earned Income (i.e., Employment Income)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="7a0305cb-6f5f-41d4-b171-2b9d2bd7a2d1"/>
@@ -227,7 +227,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b. Adults with only other income]]></text>
+					<text><![CDATA[   b. Adults with Only Other Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="0b1ebe11-c821-40f4-80b3-c6c4761036c5"/>
@@ -279,7 +279,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. Adults with both earned and other income]]></text>
+					<text><![CDATA[   c. Adults with Both Earned and Other Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="39" uuid="ee529b74-1fdf-46a0-a32b-181c929b6b39"/>
@@ -331,7 +331,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. Adults with no income]]></text>
+					<text><![CDATA[   d. Adults with No Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="6ae40614-52af-4371-8146-b9ff81c59ab1"/>
@@ -383,7 +383,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Adults with Client Doesn't Know/Client Refused income information]]></text>
+					<text><![CDATA[   e. Adults with Client Doesn't Know/Client Refused Income Information]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="61" uuid="86a886b2-d456-451f-995c-3acf7a1b9672"/>
@@ -435,7 +435,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   f. Adults with missing income information]]></text>
+					<text><![CDATA[   f. Adults with Missing Income Information]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="951cd527-d9be-4f28-bba4-d3d07cc755dc"/>
@@ -539,8 +539,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   h. Number of adult stayers
-without required annual assessment]]></text>
+					<text><![CDATA[   h. Number of adult stayers without required annual assessment]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="79" uuid="5ec3a994-4071-4c17-b450-9d25d78bce3b"/>
@@ -708,7 +707,7 @@ without required annual assessment]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   k. Adults with income information at entry AND follow-up/exit]]></text>
+					<text><![CDATA[   k. Adults with Income Information at Start and Annual Assessment/Exit]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="39" uuid="7eadde76-1f68-44b8-b0cf-74df08646f78"/>

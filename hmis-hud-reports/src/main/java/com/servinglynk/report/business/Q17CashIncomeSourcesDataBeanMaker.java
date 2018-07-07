@@ -4,13 +4,14 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q17CashIncomeSourcesDataBean;
+import com.servinglynk.report.bean.Q17DataBean;
+import com.servinglynk.report.bean.ReportData;
 
 public class Q17CashIncomeSourcesDataBeanMaker {
 	
-	public static List<Q17CashIncomeSourcesDataBean> getQ17CashIncomeSourcesList(){
+	public static List<Q17DataBean> getQ17CashIncomeSourcesList(ReportData data){
 		
-		Q17CashIncomeSourcesDataBean q17CashIncomeSourcesDataBeanTable =new Q17CashIncomeSourcesDataBean();
+		Q17DataBean q17CashIncomeSourcesDataBeanTable =new Q17DataBean();
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtEntry(BigInteger.valueOf(0));
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(0));

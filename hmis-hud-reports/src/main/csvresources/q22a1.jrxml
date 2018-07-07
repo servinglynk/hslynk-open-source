@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f85be7c5-a275-45a5-8b4e-cf42765e139a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="39"/>
 	<field name="q22a1A30DaysOrLessTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1A30DaysOrLessTotal]]></fieldDescription>
 	</field>
@@ -30,7 +30,6 @@
 	<field name="q22a1C61To90DaysStayers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1C61To90DaysStayers]]></fieldDescription>
 	</field>
-	
 	<field name="q22a1D91To180DaysTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1D91To180DaysTotal]]></fieldDescription>
 	</field>
@@ -40,7 +39,6 @@
 	<field name="q22a1D91To180DaysStayers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1D91To180DaysStayers]]></fieldDescription>
 	</field>
-	
 	<field name="q22a1E181To365DaysTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1E181To365DaysTotal]]></fieldDescription>
 	</field>
@@ -50,7 +48,6 @@
 	<field name="q22a1E181To365DaysStayers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1E181To365DaysStayers]]></fieldDescription>
 	</field>
-	
 	<field name="q22a1F366To730DaysTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1F366To730DaysTotal]]></fieldDescription>
 	</field>
@@ -60,7 +57,6 @@
 	<field name="q22a1F366To730DaysStayers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1F366To730DaysStayers]]></fieldDescription>
 	</field>
-	
 	<field name="q22a1G731To1095DaysTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1G731To1095DaysTotal]]></fieldDescription>
 	</field>
@@ -70,7 +66,6 @@
 	<field name="q22a1G731To1095DaysStayers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1G731To1095DaysStayers]]></fieldDescription>
 	</field>
-	
 	<field name="q22a1H1096To1460DaysTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1H1096To1460DaysTotal]]></fieldDescription>
 	</field>
@@ -80,7 +75,6 @@
 	<field name="q22a1H1096To1460DaysStayers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1H1096To1460DaysStayers]]></fieldDescription>
 	</field>
-	
 	<field name="q22a1I1461To1825DaysTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1I1461To1825DaysTotal]]></fieldDescription>
 	</field>
@@ -90,7 +84,6 @@
 	<field name="q22a1I1461To1825DaysStayers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1I1461To1825DaysStayers]]></fieldDescription>
 	</field>
-	
 	<field name="q22a1JMoreThan1825DaysTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1JMoreThan1825DaysTotal]]></fieldDescription>
 	</field>
@@ -100,7 +93,6 @@
 	<field name="q22a1JMoreThan1825DaysStayers" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1JMoreThan1825DaysStayers]]></fieldDescription>
 	</field>
-	
 	<field name="q22a1KInfoMissingTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q22a1KInfoMissingTotal]]></fieldDescription>
 	</field>
@@ -335,7 +327,6 @@
 					<textFieldExpression><![CDATA[$F{q22a1C61To90DaysTotal}]]></textFieldExpression>
 				</textField>
 			</band>
-			
 			<band height="26">
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="18e953eb-f481-4a58-ac80-e6d73526d317"/>
@@ -388,7 +379,6 @@
 					<textFieldExpression><![CDATA[$F{q22a1D91To180DaysTotal}]]></textFieldExpression>
 				</textField>
 			</band>
-			
 			<band height="26">
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="39a59fef-99f7-40f9-96a0-9cca4a54a068"/>
@@ -466,7 +456,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   f. 366 to 730 days (1 – 2 yrs.)]]></text>
+					<text><![CDATA[   f. 366 to 730 days (1 - 2 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="db50a6c6-273f-4bc9-bef6-c8430411abc4"/>
@@ -518,7 +508,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   g. 731 to 1095 days (2 – 3 yrs.)]]></text>
+					<text><![CDATA[   g. 731 to 1095 days (2 - 3 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="d406a782-ea29-42d7-823e-ce477332f6e7"/>
@@ -570,7 +560,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   h. 1096 to 1460 days (3 – 4 yrs.)]]></text>
+					<text><![CDATA[   h. 1096 to 1460 days (3 - 4 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="f2cbc4a9-693c-457b-aba3-260ef448dab9"/>
@@ -622,7 +612,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   i. 1461 to 1825 days (4 – 5 yrs.)]]></text>
+					<text><![CDATA[   i. 1461 to 1825 days (4 - 5 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="d16bce3c-2316-4d0f-81a5-007fa96a8534"/>

@@ -69,7 +69,13 @@ public class Q25iExitDestinationVeteransDataBean {
 	private BigInteger q25iA10StayingOrLivingWithFriendsPermanentWithChildAndAdults;
 	private BigInteger q25iA10StayingOrLivingWithFriendsPermanentWithOnlyChild;
 	private BigInteger q25iA10StayingOrLivingWithFriendsPermanentUnknownHouseHold;
-		
+	
+	private BigInteger q25iA11RentalByClientTotal;
+	private BigInteger q25iA11RentalByClientWithoutChild;
+	private BigInteger q25iA11RentalByClientWithChildAndAdults;
+	private BigInteger q25iA11RentalByClientWithOnlyChild;
+	private BigInteger q25iA11RentalByClientUnknownHouseHold;
+	
 	private BigInteger q25iAzTotTotal;
 	private BigInteger q25iAzTotWithoutChild;
 	private BigInteger q25iAzTotWithChildAndAdults;
@@ -249,6 +255,72 @@ public class Q25iExitDestinationVeteransDataBean {
 	private BigInteger q25iPercentageWithChildAndAdults;
 	private BigInteger q25iPercentageWithOnlyChild;
 	private BigInteger q25iPercentageUnknownHouseHold;
+	
+	
+	/**
+	 * @return the q25iA11RentalByClientTotal
+	 */
+	public BigInteger getQ25iA11RentalByClientTotal() {
+		return q25iA11RentalByClientTotal;
+	}
+	/**
+	 * @param q25iA11RentalByClientTotal the q25iA11RentalByClientTotal to set
+	 */
+	public void setQ25iA11RentalByClientTotal(BigInteger q25iA11RentalByClientTotal) {
+		this.q25iA11RentalByClientTotal = q25iA11RentalByClientTotal;
+	}
+	/**
+	 * @return the q25iA11RentalByClientWithoutChild
+	 */
+	public BigInteger getQ25iA11RentalByClientWithoutChild() {
+		return q25iA11RentalByClientWithoutChild;
+	}
+	/**
+	 * @param q25iA11RentalByClientWithoutChild the q25iA11RentalByClientWithoutChild to set
+	 */
+	public void setQ25iA11RentalByClientWithoutChild(
+			BigInteger q25iA11RentalByClientWithoutChild) {
+		this.q25iA11RentalByClientWithoutChild = q25iA11RentalByClientWithoutChild;
+	}
+	/**
+	 * @return the q25iA11RentalByClientWithChildAndAdults
+	 */
+	public BigInteger getQ25iA11RentalByClientWithChildAndAdults() {
+		return q25iA11RentalByClientWithChildAndAdults;
+	}
+	/**
+	 * @param q25iA11RentalByClientWithChildAndAdults the q25iA11RentalByClientWithChildAndAdults to set
+	 */
+	public void setQ25iA11RentalByClientWithChildAndAdults(
+			BigInteger q25iA11RentalByClientWithChildAndAdults) {
+		this.q25iA11RentalByClientWithChildAndAdults = q25iA11RentalByClientWithChildAndAdults;
+	}
+	/**
+	 * @return the q25iA11RentalByClientWithOnlyChild
+	 */
+	public BigInteger getQ25iA11RentalByClientWithOnlyChild() {
+		return q25iA11RentalByClientWithOnlyChild;
+	}
+	/**
+	 * @param q25iA11RentalByClientWithOnlyChild the q25iA11RentalByClientWithOnlyChild to set
+	 */
+	public void setQ25iA11RentalByClientWithOnlyChild(
+			BigInteger q25iA11RentalByClientWithOnlyChild) {
+		this.q25iA11RentalByClientWithOnlyChild = q25iA11RentalByClientWithOnlyChild;
+	}
+	/**
+	 * @return the q25iA11RentalByClientUnknownHouseHold
+	 */
+	public BigInteger getQ25iA11RentalByClientUnknownHouseHold() {
+		return q25iA11RentalByClientUnknownHouseHold;
+	}
+	/**
+	 * @param q25iA11RentalByClientUnknownHouseHold the q25iA11RentalByClientUnknownHouseHold to set
+	 */
+	public void setQ25iA11RentalByClientUnknownHouseHold(
+			BigInteger q25iA11RentalByClientUnknownHouseHold) {
+		this.q25iA11RentalByClientUnknownHouseHold = q25iA11RentalByClientUnknownHouseHold;
+	}
 	public BigInteger getQ25iA01MovedFromOneHOPWATotal() {
 		return q25iA01MovedFromOneHOPWATotal;
 	}

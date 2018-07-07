@@ -69,6 +69,12 @@ public class Q23aExitDestinationMoreThan90DaysDataBean {
 	private BigInteger q23A10StayingOrLivingWithFriendsPermanentWithChildAndAdults;
 	private BigInteger q23A10StayingOrLivingWithFriendsPermanentWithOnlyChild;
 	private BigInteger q23A10StayingOrLivingWithFriendsPermanentUnknownHouseHold;
+	
+	private BigInteger q23A13RentalByClientRRHSubsidyTotal;
+	private BigInteger q23A13RentalByClientRRHSubsidyWithoutChild;
+	private BigInteger q23A13RentalByClientRRHSubsidyUnknownHouseHold;
+	private BigInteger q23A13RentalByClientRRHSubsidyWithOnlyChild;
+	private BigInteger q23A13RentalByClientRRHSubsidyWithChildAndAdults;
 		
 	private BigInteger q23AzTotTotal;
 	private BigInteger q23AzTotWithoutChild;
@@ -249,6 +255,73 @@ public class Q23aExitDestinationMoreThan90DaysDataBean {
 	private BigInteger q23TotPersonsExistWithChildAndAdults;
 	private BigInteger q23TotPersonsExistWithOnlyChild;
 	private BigInteger q23TotPersonsExistUnknownHouseHold;
+	
+	
+	/**
+	 * @return the q23A13RentalByClientRRHSubsidyTotal
+	 */
+	public BigInteger getQ23A13RentalByClientRRHSubsidyTotal() {
+		return q23A13RentalByClientRRHSubsidyTotal;
+	}
+	/**
+	 * @param q23a13RentalByClientRRHSubsidyTotal the q23A13RentalByClientRRHSubsidyTotal to set
+	 */
+	public void setQ23A13RentalByClientRRHSubsidyTotal(
+			BigInteger q23a13RentalByClientRRHSubsidyTotal) {
+		q23A13RentalByClientRRHSubsidyTotal = q23a13RentalByClientRRHSubsidyTotal;
+	}
+	/**
+	 * @return the q23A13RentalByClientRRHSubsidyWithoutChild
+	 */
+	public BigInteger getQ23A13RentalByClientRRHSubsidyWithoutChild() {
+		return q23A13RentalByClientRRHSubsidyWithoutChild;
+	}
+	/**
+	 * @param q23a13RentalByClientRRHSubsidyWithoutChild the q23A13RentalByClientRRHSubsidyWithoutChild to set
+	 */
+	public void setQ23A13RentalByClientRRHSubsidyWithoutChild(
+			BigInteger q23a13RentalByClientRRHSubsidyWithoutChild) {
+		q23A13RentalByClientRRHSubsidyWithoutChild = q23a13RentalByClientRRHSubsidyWithoutChild;
+	}
+	/**
+	 * @return the q23A13RentalByClientRRHSubsidyUnknownHouseHold
+	 */
+	public BigInteger getQ23A13RentalByClientRRHSubsidyUnknownHouseHold() {
+		return q23A13RentalByClientRRHSubsidyUnknownHouseHold;
+	}
+	/**
+	 * @param q23a13RentalByClientRRHSubsidyUnknownHouseHold the q23A13RentalByClientRRHSubsidyUnknownHouseHold to set
+	 */
+	public void setQ23A13RentalByClientRRHSubsidyUnknownHouseHold(
+			BigInteger q23a13RentalByClientRRHSubsidyUnknownHouseHold) {
+		q23A13RentalByClientRRHSubsidyUnknownHouseHold = q23a13RentalByClientRRHSubsidyUnknownHouseHold;
+	}
+	/**
+	 * @return the q23A13RentalByClientRRHSubsidyWithOnlyChild
+	 */
+	public BigInteger getQ23A13RentalByClientRRHSubsidyWithOnlyChild() {
+		return q23A13RentalByClientRRHSubsidyWithOnlyChild;
+	}
+	/**
+	 * @param q23a13RentalByClientRRHSubsidyWithOnlyChild the q23A13RentalByClientRRHSubsidyWithOnlyChild to set
+	 */
+	public void setQ23A13RentalByClientRRHSubsidyWithOnlyChild(
+			BigInteger q23a13RentalByClientRRHSubsidyWithOnlyChild) {
+		q23A13RentalByClientRRHSubsidyWithOnlyChild = q23a13RentalByClientRRHSubsidyWithOnlyChild;
+	}
+	/**
+	 * @return the q23A13RentalByClientRRHSubsidyWithChildAndAdults
+	 */
+	public BigInteger getQ23A13RentalByClientRRHSubsidyWithChildAndAdults() {
+		return q23A13RentalByClientRRHSubsidyWithChildAndAdults;
+	}
+	/**
+	 * @param q23a13RentalByClientRRHSubsidyWithChildAndAdults the q23A13RentalByClientRRHSubsidyWithChildAndAdults to set
+	 */
+	public void setQ23A13RentalByClientRRHSubsidyWithChildAndAdults(
+			BigInteger q23a13RentalByClientRRHSubsidyWithChildAndAdults) {
+		q23A13RentalByClientRRHSubsidyWithChildAndAdults = q23a13RentalByClientRRHSubsidyWithChildAndAdults;
+	}
 	public BigInteger getQ23A01MovedFromOneHOPWATotal() {
 		return q23A01MovedFromOneHOPWATotal;
 	}

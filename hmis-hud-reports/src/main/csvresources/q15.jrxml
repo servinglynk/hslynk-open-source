@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="615141f9-6d0f-4780-b2ee-8b913ba7c4b4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="161"/>
+	<property name="ireport.y" value="546"/>
 	<field name="q15HomeLessSituationsTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q15HomeLessSituationsTotal]]></fieldDescription>
 	</field>
@@ -498,7 +498,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Living arrangement on the night before program entry]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="c3747005-9ddd-43fd-83d3-4cc726bd337c"/>
@@ -600,7 +600,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a1. Emergency shelter]]></text>
+					<text><![CDATA[   a1. Emergency shelter, including hotel or motel paid for with emergency shelter voucher]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="909d9b68-9fcb-4ae4-8e47-942746147e5a"/>
@@ -676,7 +676,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a2. Transitional housing for homeless persons]]></text>
+					<text><![CDATA[   a2. Transitional housing for homeless persons (including homeless youth)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="c7e1aac6-38d9-4e47-b41f-49bf906b3a28"/>
@@ -752,7 +752,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a3. Place not meant for human habitation]]></text>
+					<text><![CDATA[   a3. Place not meant for habitation]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="1fe92f56-7b64-4fa7-9e01-b427cf61d6c7"/>
@@ -980,7 +980,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   az. Total]]></text>
+					<text><![CDATA[   az. Subtotal]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="44d8f61f-e6d6-45dd-8ad0-b5596ebd72c5"/>
@@ -1072,7 +1072,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[    b1. Psychiatric facility]]></text>
+					<text><![CDATA[    b1. Psychiatric hospital or other psychiatric facility]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="fa8b4691-7ba5-410a-93f0-6988806707c2"/>
@@ -1224,7 +1224,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b3. Hospital (non-psychiatric)]]></text>
+					<text><![CDATA[   b3. Hospital or other residential non-psychiatric medical facility]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d3f2c073-d3b3-45fa-b66d-f711f17b2b81"/>
@@ -1605,7 +1605,7 @@ homeless criteria]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   bz. Total]]></text>
+					<text><![CDATA[   bz. Subtotal]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="a1bb6804-0e79-4ccb-b543-7d9d0b7a21e5"/>
@@ -1697,7 +1697,7 @@ homeless criteria]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c01. PH for formerly homeless persons]]></text>
+					<text><![CDATA[   c01. Permanent housing (other than RRH) for formerly homeless persons]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="41" uuid="0610d73a-2e6b-48ff-a286-dc94b3510e67"/>
@@ -1773,7 +1773,7 @@ homeless criteria]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c02. Owned by client, no subsidy]]></text>
+					<text><![CDATA[   c02. Owned by client, no ongoing housing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="adefe402-0a46-4987-a0c2-3264024e3e8f"/>
@@ -1849,7 +1849,7 @@ homeless criteria]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c03. Owned by client, with subsidy]]></text>
+					<text><![CDATA[   c03. Owned by client, with ongoing housing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="24819bb1-a2f3-473d-86e5-394e4a9bb2d1"/>
@@ -1925,7 +1925,7 @@ homeless criteria]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c04. Rental by client, no subsidy]]></text>
+					<text><![CDATA[   c04. Rental by client, no ongoing housing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="b3686fec-1e68-476d-ae5b-b399da9f5690"/>
@@ -2153,7 +2153,7 @@ homeless criteria]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c07. Rental by client with other subsidy]]></text>
+					<text><![CDATA[   c07. Rental by client, with other housing subsidy (including RRH)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="febf2c17-9c17-45cf-8232-5e086483e4fd"/>
@@ -2305,7 +2305,7 @@ homeless criteria]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c09. Staying or living with friend(s)]]></text>
+					<text><![CDATA[   c09. Staying or living in a friend’s room, apartment or house]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="aec2b3d5-7fcb-4aeb-be76-0ac1ccb16fd2"/>
@@ -2457,7 +2457,7 @@ homeless criteria]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c11. Client Doesn’t Know/Client Refused]]></text>
+					<text><![CDATA[   c11. Client Doesnt Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="68e8431b-370f-457d-bcf8-d58554445288"/>
@@ -2609,7 +2609,7 @@ homeless criteria]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   cz. Total]]></text>
+					<text><![CDATA[   cz. Subtotal]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="efd9c3dc-71a4-4388-8c10-2564af0489bd"/>
