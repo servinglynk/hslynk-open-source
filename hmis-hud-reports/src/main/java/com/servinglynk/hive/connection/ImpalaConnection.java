@@ -1,7 +1,9 @@
 package com.servinglynk.hive.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.servinglynk.hmis.warehouse.Properties;
 
@@ -29,4 +31,23 @@ public class ImpalaConnection {
 		}
 		return connection;
 	}
+	
+public static void main (String args[]) throws Exception {
+	Properties props = new Properties();
+	props.generatePropValues();
+	props.printProps();
+	Connection con = getConnection();
+	Statement stmt = con.createStatement();
+
+	ResultSet rs = stmt.executeQuery("select personalid from mo0010.client limit 10");
+
+	System.out.println("\n== Begin Query Results ======================");
+
+	// print the results to the console
+	while (rs.next()) {
+		// the example query returns one String column
+		System.out.println(rs.getString(1));
+	}
+	System.out.println("== End Query Results =======================\n\n");
+}
 }

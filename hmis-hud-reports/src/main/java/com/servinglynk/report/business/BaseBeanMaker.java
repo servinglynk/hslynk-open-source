@@ -558,7 +558,7 @@ public class BaseBeanMaker {
 			}
 			return models;
 		}
-		public static List<EnrollmentModel> getEnrollmentsByCocId(String schema,String  cocId,Date reportStartDate, Date reportEndDate) {
+		public static List<EnrollmentModel> getEnrollmentsByCocId(String schema,String  cocId,java.util.Date reportStartDate, java.util.Date reportEndDate) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
 			Connection connection = null;

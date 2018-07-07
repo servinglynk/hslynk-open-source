@@ -47,7 +47,7 @@ public class Properties {
 
     public void printProps() {
         System.out.println(IMPALA_DRIVER_URL);
-        System.out.println(HBASE_MASTER);
+        //System.out.println(HBASE_MASTER);
         System.out.println(HBASE_ZOOKEEPER_QUORUM);
         System.out.println(HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT);
     }
