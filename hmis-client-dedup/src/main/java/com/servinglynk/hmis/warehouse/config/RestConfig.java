@@ -3,9 +3,13 @@ package com.servinglynk.hmis.warehouse.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
@@ -16,8 +20,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.DedupController;
+import com.servinglynk.hmis.warehouse.rest.OrganizationsController;
+import com.servinglynk.hmis.warehouse.rest.PropertyController;
 import com.servinglynk.hmis.warehouse.rest.service.DedupService;
 import com.servinglynk.hmis.warehouse.rest.service.DedupServiceImpl;
 
@@ -74,4 +81,18 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	public DedupService dedupService() {
 		return new DedupServiceImpl();
 	}
+	
+	@Autowired
+	Environment env;
+	
+	@Bean
+	public PropertyReaderServiceImpl propertyReaderService(){
+		return new PropertyReaderServiceImpl();
+	}
+	
+		
+	 @PostConstruct
+	 public void initializeDatabasePropertySourceUsage() {
+		 propertyReaderService().loadProperties("HMIS_CLIENT_DEDUP");
+	 }
 }
