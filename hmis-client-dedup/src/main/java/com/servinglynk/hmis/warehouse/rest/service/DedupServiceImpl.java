@@ -23,6 +23,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -37,12 +39,15 @@ import com.servinglynk.hmis.warehouse.util.AuthenticationRequest;
 
 public class DedupServiceImpl implements DedupService{
 	private static final String OPENEMPI_SESSION_KEY_HEADER = "OPENEMPI_SESSION_KEY";
-	private static final String OPENEMPI_HOST = "http://openempi.aws.hmislynk.com:8080/openempi-webapp-web-2.2.9/";
+//	private static final String OPENEMPI_HOST = "http://openempi.aws.hmislynk.com:8080/openempi-webapp-web-2.2.9/";
 	final static Logger logger = Logger.getLogger(DedupServiceImpl.class);
+	
+	@Autowired
+	Environment environment;
 	
 	public String authenticate(AuthenticationRequest authRequest) {
 		RestTemplate restTemplate = new RestTemplate();
-		String url = OPENEMPI_HOST+"openempi-ws-rest/security-resource/authenticate";       
+		String url = environment.getProperty("openempi.service.url")+"openempi-ws-rest/security-resource/authenticate";       
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON); 
         HttpEntity<AuthenticationRequest> entity = new HttpEntity<AuthenticationRequest>(authRequest, headers); 
@@ -59,7 +64,7 @@ public class DedupServiceImpl implements DedupService{
 			MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
 			headers.setContentType(mediaType);
 	        headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
-	        String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/addPerson";
+	        String url = environment.getProperty("openempi.service.url")+"openempi-ws-rest/person-manager-resource/addPerson";
 	       // requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
 	        HttpEntity<Person> entityHttp = new HttpEntity<Person>(person, headers); 
 	        ResponseEntity<Person> responseObject = restTemplate.exchange(url, HttpMethod.PUT, entityHttp, Person.class);
@@ -72,7 +77,7 @@ public class DedupServiceImpl implements DedupService{
 		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
 		headers.setContentType(mediaType);
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
-        String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/updatePerson";
+        String url = environment.getProperty("openempi.service.url")+"openempi-ws-rest/person-manager-resource/updatePerson";
        // requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
         HttpEntity<Person> entityHttp = new HttpEntity<Person>(person, headers); 
         ResponseEntity<Person> responseObject = restTemplate.exchange(url, HttpMethod.PUT, entityHttp, Person.class);
@@ -88,7 +93,7 @@ public class DedupServiceImpl implements DedupService{
 		MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
 		headers.setContentType(mediaType);
         headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
-        String url = OPENEMPI_HOST+"openempi-ws-rest/person-query-resource/findPersonsByAttributes";
+        String url = environment.getProperty("openempi.service.url")+"openempi-ws-rest/person-query-resource/findPersonsByAttributes";
         HttpEntity<Object> entityHttp = new HttpEntity<Object>(parsePersonObjectToXMLString(person), headers); 
         ResponseEntity<Object> responseObject = restTemplate.exchange(url, HttpMethod.POST, entityHttp, Object.class);
         LinkedHashMap<Object, Object> persons = (LinkedHashMap<Object, Object>) responseObject.getBody();
