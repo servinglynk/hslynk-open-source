@@ -23,8 +23,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.DedupController;
-import com.servinglynk.hmis.warehouse.rest.OrganizationsController;
-import com.servinglynk.hmis.warehouse.rest.PropertyController;
 import com.servinglynk.hmis.warehouse.rest.service.DedupService;
 import com.servinglynk.hmis.warehouse.rest.service.DedupServiceImpl;
 
