@@ -1,18 +1,29 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
+import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q17DataBean;
 import com.servinglynk.report.bean.ReportData;
 
-public class Q17CashIncomeSourcesDataBeanMaker {
+public class Q17CashIncomeSourcesDataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q17DataBean> getQ17CashIncomeSourcesList(ReportData data){
 		
 		Q17DataBean q17CashIncomeSourcesDataBeanTable =new Q17DataBean();
 		
+		String entryQuery = " select  count(*) cnt from %s.incomeandsources in, %s.enrollment e where in.datacollectionstage=? and  e.project_entry_id=in.enrollment_id  "+
+		" and information_date = e.entry_date "+
+		" and ageatentry >=18 "+
+		" and information_date >= report_start_date "+
+		" and information_date <= report_end_date";
+		int incomeCnt = getIncomeCnt(data.getSchema(), entryQuery+ "", "1");
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtEntry(BigInteger.valueOf(0));
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(0));
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(0));
@@ -81,6 +92,37 @@ public class Q17CashIncomeSourcesDataBeanMaker {
 		
 		
 		return Arrays.asList(q17CashIncomeSourcesDataBeanTable);
+	}
+	
+	public static int getIncomeCnt(String schema,String query,String datacollectionStage) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		int count =0;
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(query,schema));
+			statement.setString(1, datacollectionStage);
+			resultSet = statement.executeQuery();
+			
+		 while(resultSet.next()) {
+			 count = resultSet.getInt(1);
+	     }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return count;
 	}
 
 }
