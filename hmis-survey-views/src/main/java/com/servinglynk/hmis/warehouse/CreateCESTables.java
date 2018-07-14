@@ -18,7 +18,6 @@ public class CreateCESTables {
 		for(String projectGroup : split) {
 			cesTables.createTable("CESTables.sql",projectGroup);
 			cesTables.createTable("HiveSQLCreateTable.sql",projectGroup);
-			cesTables.createTable("HiveSQLCreateTable_v2015.sql",projectGroup);
 		}
 	}
 	
