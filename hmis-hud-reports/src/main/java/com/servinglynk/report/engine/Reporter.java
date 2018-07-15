@@ -41,7 +41,12 @@ public class Reporter {
 			InputStream inputStream = new FileInputStream(file);
 		//	List<HomePageDataBean> dataBeanList = new ArrayList<HomePageDataBean>();
 //        	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("mo0010","01630ab0-2eeb-4e75-87b7-11d8f260ebb5",sageReport, new Date(), new Date());
+			
+			List<String> projects = new ArrayList<>();
+			projects.add("84dc0df1-b27b-4b6d-b033-73101882e3f9");
+			projects.add("c5f456cc-fec4-4d02-ad06-ad6dd5a50c65");
+			projects.add("c8419a7a-bab6-42e4-b533-f47cd8a61837");
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("cp0004",null,sageReport, new Date(), new Date(),projects);
         	if(sageReport) {
         		//System.out.println("----Inside condition-------");
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);

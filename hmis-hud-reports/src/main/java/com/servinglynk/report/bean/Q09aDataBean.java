@@ -4,277 +4,193 @@ import java.math.BigInteger;
 
 public class Q09aDataBean {
 	
+	
 	private BigInteger totContactedOnce;
-	private BigInteger coFirstContactNotStaying;
-	private BigInteger coFirstContactStaying;
-	private BigInteger coFirstContactWorkerUnableToDetermine;
+	private BigInteger coFirstContactHumanHabitation;
+	private BigInteger coFirstContactNRSS;
+	private BigInteger coFirstContactRSS;
+	private BigInteger coFirstContactPlaceMissing;
 	private BigInteger totContacted2to5Times;
-	private BigInteger c2to5FirstContactedNotStaying;
-	private BigInteger c2to5FirstContactStaying;
-	private BigInteger c2to5FirstContactedWorkerUnableToDetermine;
+	private BigInteger c2to5FirstContactedHumanHabitation;
+	private BigInteger c2to5FirstContactedNRSS;
+	private BigInteger c2to5FirstContactedRSS;
+	private BigInteger c2to5FirstContactedPlaceMissing;
 	private BigInteger totContacted6to9Times;
-	private BigInteger c6to9FirstContactedNotStaying;
-	private BigInteger c6to9FirstContactedWorkerUnableToDetermine;
+	private BigInteger c6to9FirstContactedHumanHabitation;
+	private BigInteger c6to9FirstContactedNRSS;
+	private BigInteger c6to9FirstContactedPlaceMissing;
 	private BigInteger totContacted10orMore;
-	private BigInteger c6to9FirstContactStaying;
-	private BigInteger c10orMoreFirstContactedNotStaying;
-	private BigInteger c10orMoreFirstContactStaying;
-	private BigInteger c10orMoreFirstContactedWorkerUnableToDetermine;
+	private BigInteger c6to9FirstContactedRSS;
+	private BigInteger c10orMoreFirstContactedHumanHabitation;
+	private BigInteger c10orMoreFirstContactedNRSS;
+	private BigInteger c10orMoreFirstContactedRSS;
+	private BigInteger c10orMoreFirstContactedPlaceMissing;
 	private BigInteger totPersonsContacted;
-	private BigInteger tpcFirstContactedNotStaying;
-	private BigInteger tpcFirstContactStaying;
-	private BigInteger tpcFirstContactedWorkerUnableToDetermine;
-	/**
-	 * @return the totContactedOnce
-	 */
+	private BigInteger tpcFirstContactedHumanHabitation;
+	private BigInteger tpcFirstContacteRSS;
+	private BigInteger tpcFirstContactedNRSS;
+	private BigInteger tpcFirstContactedPlaceMissing;
 	public BigInteger getTotContactedOnce() {
 		return totContactedOnce;
 	}
-	/**
-	 * @param totContactedOnce the totContactedOnce to set
-	 */
 	public void setTotContactedOnce(BigInteger totContactedOnce) {
 		this.totContactedOnce = totContactedOnce;
 	}
-	/**
-	 * @return the coFirstContactNotStaying
-	 */
-	public BigInteger getCoFirstContactNotStaying() {
-		return coFirstContactNotStaying;
+	public BigInteger getCoFirstContactHumanHabitation() {
+		return coFirstContactHumanHabitation;
 	}
-	/**
-	 * @param coFirstContactNotStaying the coFirstContactNotStaying to set
-	 */
-	public void setCoFirstContactNotStaying(BigInteger coFirstContactNotStaying) {
-		this.coFirstContactNotStaying = coFirstContactNotStaying;
+	public void setCoFirstContactHumanHabitation(
+			BigInteger coFirstContactHumanHabitation) {
+		this.coFirstContactHumanHabitation = coFirstContactHumanHabitation;
 	}
-	/**
-	 * @return the coFirstContactStaying
-	 */
-	public BigInteger getCoFirstContactStaying() {
-		return coFirstContactStaying;
+	public BigInteger getCoFirstContactNRSS() {
+		return coFirstContactNRSS;
 	}
-	/**
-	 * @param coFirstContactStaying the coFirstContactStaying to set
-	 */
-	public void setCoFirstContactStaying(BigInteger coFirstContactStaying) {
-		this.coFirstContactStaying = coFirstContactStaying;
+	public void setCoFirstContactNRSS(BigInteger coFirstContactNRSS) {
+		this.coFirstContactNRSS = coFirstContactNRSS;
 	}
-	/**
-	 * @return the coFirstContactWorkerUnableToDetermine
-	 */
-	public BigInteger getCoFirstContactWorkerUnableToDetermine() {
-		return coFirstContactWorkerUnableToDetermine;
+	public BigInteger getCoFirstContactRSS() {
+		return coFirstContactRSS;
 	}
-	/**
-	 * @param coFirstContactWorkerUnableToDetermine the coFirstContactWorkerUnableToDetermine to set
-	 */
-	public void setCoFirstContactWorkerUnableToDetermine(
-			BigInteger coFirstContactWorkerUnableToDetermine) {
-		this.coFirstContactWorkerUnableToDetermine = coFirstContactWorkerUnableToDetermine;
+	public void setCoFirstContactRSS(BigInteger coFirstContactRSS) {
+		this.coFirstContactRSS = coFirstContactRSS;
 	}
-	/**
-	 * @return the totContacted2to5Times
-	 */
+	public BigInteger getCoFirstContactPlaceMissing() {
+		return coFirstContactPlaceMissing;
+	}
+	public void setCoFirstContactPlaceMissing(BigInteger coFirstContactPlaceMissing) {
+		this.coFirstContactPlaceMissing = coFirstContactPlaceMissing;
+	}
 	public BigInteger getTotContacted2to5Times() {
 		return totContacted2to5Times;
 	}
-	/**
-	 * @param totContacted2to5Times the totContacted2to5Times to set
-	 */
 	public void setTotContacted2to5Times(BigInteger totContacted2to5Times) {
 		this.totContacted2to5Times = totContacted2to5Times;
 	}
-	/**
-	 * @return the c2to5FirstContactedNotStaying
-	 */
-	public BigInteger getC2to5FirstContactedNotStaying() {
-		return c2to5FirstContactedNotStaying;
+	public BigInteger getC2to5FirstContactedHumanHabitation() {
+		return c2to5FirstContactedHumanHabitation;
 	}
-	/**
-	 * @param c2to5FirstContactedNotStaying the c2to5FirstContactedNotStaying to set
-	 */
-	public void setC2to5FirstContactedNotStaying(
-			BigInteger c2to5FirstContactedNotStaying) {
-		this.c2to5FirstContactedNotStaying = c2to5FirstContactedNotStaying;
+	public void setC2to5FirstContactedHumanHabitation(
+			BigInteger c2to5FirstContactedHumanHabitation) {
+		this.c2to5FirstContactedHumanHabitation = c2to5FirstContactedHumanHabitation;
 	}
-	/**
-	 * @return the c2to5FirstContactStaying
-	 */
-	public BigInteger getC2to5FirstContactStaying() {
-		return c2to5FirstContactStaying;
+	public BigInteger getC2to5FirstContactedNRSS() {
+		return c2to5FirstContactedNRSS;
 	}
-	/**
-	 * @param c2to5FirstContactStaying the c2to5FirstContactStaying to set
-	 */
-	public void setC2to5FirstContactStaying(BigInteger c2to5FirstContactStaying) {
-		this.c2to5FirstContactStaying = c2to5FirstContactStaying;
+	public void setC2to5FirstContactedNRSS(BigInteger c2to5FirstContactedNRSS) {
+		this.c2to5FirstContactedNRSS = c2to5FirstContactedNRSS;
 	}
-	/**
-	 * @return the c2to5FirstContactedWorkerUnableToDetermine
-	 */
-	public BigInteger getC2to5FirstContactedWorkerUnableToDetermine() {
-		return c2to5FirstContactedWorkerUnableToDetermine;
+	public BigInteger getC2to5FirstContactedRSS() {
+		return c2to5FirstContactedRSS;
 	}
-	/**
-	 * @param c2to5FirstContactedWorkerUnableToDetermine the c2to5FirstContactedWorkerUnableToDetermine to set
-	 */
-	public void setC2to5FirstContactedWorkerUnableToDetermine(
-			BigInteger c2to5FirstContactedWorkerUnableToDetermine) {
-		this.c2to5FirstContactedWorkerUnableToDetermine = c2to5FirstContactedWorkerUnableToDetermine;
+	public void setC2to5FirstContactedRSS(BigInteger c2to5FirstContactedRSS) {
+		this.c2to5FirstContactedRSS = c2to5FirstContactedRSS;
 	}
-	/**
-	 * @return the totContacted6to9Times
-	 */
+	public BigInteger getC2to5FirstContactedPlaceMissing() {
+		return c2to5FirstContactedPlaceMissing;
+	}
+	public void setC2to5FirstContactedPlaceMissing(
+			BigInteger c2to5FirstContactedPlaceMissing) {
+		this.c2to5FirstContactedPlaceMissing = c2to5FirstContactedPlaceMissing;
+	}
 	public BigInteger getTotContacted6to9Times() {
 		return totContacted6to9Times;
 	}
-	/**
-	 * @param totContacted6to9Times the totContacted6to9Times to set
-	 */
 	public void setTotContacted6to9Times(BigInteger totContacted6to9Times) {
 		this.totContacted6to9Times = totContacted6to9Times;
 	}
-	/**
-	 * @return the c6to9FirstContactedNotStaying
-	 */
-	public BigInteger getC6to9FirstContactedNotStaying() {
-		return c6to9FirstContactedNotStaying;
+	public BigInteger getC6to9FirstContactedHumanHabitation() {
+		return c6to9FirstContactedHumanHabitation;
 	}
-	/**
-	 * @param c6to9FirstContactedNotStaying the c6to9FirstContactedNotStaying to set
-	 */
-	public void setC6to9FirstContactedNotStaying(
-			BigInteger c6to9FirstContactedNotStaying) {
-		this.c6to9FirstContactedNotStaying = c6to9FirstContactedNotStaying;
+	public void setC6to9FirstContactedHumanHabitation(
+			BigInteger c6to9FirstContactedHumanHabitation) {
+		this.c6to9FirstContactedHumanHabitation = c6to9FirstContactedHumanHabitation;
 	}
-	/**
-	 * @return the c6to9FirstContactedWorkerUnableToDetermine
-	 */
-	public BigInteger getC6to9FirstContactedWorkerUnableToDetermine() {
-		return c6to9FirstContactedWorkerUnableToDetermine;
+	public BigInteger getC6to9FirstContactedNRSS() {
+		return c6to9FirstContactedNRSS;
 	}
-	/**
-	 * @param c6to9FirstContactedWorkerUnableToDetermine the c6to9FirstContactedWorkerUnableToDetermine to set
-	 */
-	public void setC6to9FirstContactedWorkerUnableToDetermine(
-			BigInteger c6to9FirstContactedWorkerUnableToDetermine) {
-		this.c6to9FirstContactedWorkerUnableToDetermine = c6to9FirstContactedWorkerUnableToDetermine;
+	public void setC6to9FirstContactedNRSS(BigInteger c6to9FirstContactedNRSS) {
+		this.c6to9FirstContactedNRSS = c6to9FirstContactedNRSS;
 	}
-	/**
-	 * @return the totContacted10orMore
-	 */
+	public BigInteger getC6to9FirstContactedPlaceMissing() {
+		return c6to9FirstContactedPlaceMissing;
+	}
+	public void setC6to9FirstContactedPlaceMissing(
+			BigInteger c6to9FirstContactedPlaceMissing) {
+		this.c6to9FirstContactedPlaceMissing = c6to9FirstContactedPlaceMissing;
+	}
 	public BigInteger getTotContacted10orMore() {
 		return totContacted10orMore;
 	}
-	/**
-	 * @param totContacted10orMore the totContacted10orMore to set
-	 */
 	public void setTotContacted10orMore(BigInteger totContacted10orMore) {
 		this.totContacted10orMore = totContacted10orMore;
 	}
-	/**
-	 * @return the c6to9FirstContactStaying
-	 */
-	public BigInteger getC6to9FirstContactStaying() {
-		return c6to9FirstContactStaying;
+	public BigInteger getC6to9FirstContactedRSS() {
+		return c6to9FirstContactedRSS;
 	}
-	/**
-	 * @param c6to9FirstContactStaying the c6to9FirstContactStaying to set
-	 */
-	public void setC6to9FirstContactStaying(BigInteger c6to9FirstContactStaying) {
-		this.c6to9FirstContactStaying = c6to9FirstContactStaying;
+	public void setC6to9FirstContactedRSS(BigInteger c6to9FirstContactedRSS) {
+		this.c6to9FirstContactedRSS = c6to9FirstContactedRSS;
 	}
-	/**
-	 * @return the c10orMoreFirstContactedNotStaying
-	 */
-	public BigInteger getC10orMoreFirstContactedNotStaying() {
-		return c10orMoreFirstContactedNotStaying;
+	public BigInteger getC10orMoreFirstContactedHumanHabitation() {
+		return c10orMoreFirstContactedHumanHabitation;
 	}
-	/**
-	 * @param c10orMoreFirstContactedNotStaying the c10orMoreFirstContactedNotStaying to set
-	 */
-	public void setC10orMoreFirstContactedNotStaying(
-			BigInteger c10orMoreFirstContactedNotStaying) {
-		this.c10orMoreFirstContactedNotStaying = c10orMoreFirstContactedNotStaying;
+	public void setC10orMoreFirstContactedHumanHabitation(
+			BigInteger c10orMoreFirstContactedHumanHabitation) {
+		this.c10orMoreFirstContactedHumanHabitation = c10orMoreFirstContactedHumanHabitation;
 	}
-	/**
-	 * @return the c10orMoreFirstContactStaying
-	 */
-	public BigInteger getC10orMoreFirstContactStaying() {
-		return c10orMoreFirstContactStaying;
+	public BigInteger getC10orMoreFirstContactedNRSS() {
+		return c10orMoreFirstContactedNRSS;
 	}
-	/**
-	 * @param c10orMoreFirstContactStaying the c10orMoreFirstContactStaying to set
-	 */
-	public void setC10orMoreFirstContactStaying(
-			BigInteger c10orMoreFirstContactStaying) {
-		this.c10orMoreFirstContactStaying = c10orMoreFirstContactStaying;
+	public void setC10orMoreFirstContactedNRSS(
+			BigInteger c10orMoreFirstContactedNRSS) {
+		this.c10orMoreFirstContactedNRSS = c10orMoreFirstContactedNRSS;
 	}
-	/**
-	 * @return the c10orMoreFirstContactedWorkerUnableToDetermine
-	 */
-	public BigInteger getC10orMoreFirstContactedWorkerUnableToDetermine() {
-		return c10orMoreFirstContactedWorkerUnableToDetermine;
+	public BigInteger getC10orMoreFirstContactedRSS() {
+		return c10orMoreFirstContactedRSS;
 	}
-	/**
-	 * @param c10orMoreFirstContactedWorkerUnableToDetermine the c10orMoreFirstContactedWorkerUnableToDetermine to set
-	 */
-	public void setC10orMoreFirstContactedWorkerUnableToDetermine(
-			BigInteger c10orMoreFirstContactedWorkerUnableToDetermine) {
-		this.c10orMoreFirstContactedWorkerUnableToDetermine = c10orMoreFirstContactedWorkerUnableToDetermine;
+	public void setC10orMoreFirstContactedRSS(BigInteger c10orMoreFirstContactedRSS) {
+		this.c10orMoreFirstContactedRSS = c10orMoreFirstContactedRSS;
 	}
-	/**
-	 * @return the totPersonsContacted
-	 */
+	public BigInteger getC10orMoreFirstContactedPlaceMissing() {
+		return c10orMoreFirstContactedPlaceMissing;
+	}
+	public void setC10orMoreFirstContactedPlaceMissing(
+			BigInteger c10orMoreFirstContactedPlaceMissing) {
+		this.c10orMoreFirstContactedPlaceMissing = c10orMoreFirstContactedPlaceMissing;
+	}
 	public BigInteger getTotPersonsContacted() {
 		return totPersonsContacted;
 	}
-	/**
-	 * @param totPersonsContacted the totPersonsContacted to set
-	 */
 	public void setTotPersonsContacted(BigInteger totPersonsContacted) {
 		this.totPersonsContacted = totPersonsContacted;
 	}
-	/**
-	 * @return the tpcFirstContactedNotStaying
-	 */
-	public BigInteger getTpcFirstContactedNotStaying() {
-		return tpcFirstContactedNotStaying;
+	public BigInteger getTpcFirstContactedHumanHabitation() {
+		return tpcFirstContactedHumanHabitation;
 	}
-	/**
-	 * @param tpcFirstContactedNotStaying the tpcFirstContactedNotStaying to set
-	 */
-	public void setTpcFirstContactedNotStaying(
-			BigInteger tpcFirstContactedNotStaying) {
-		this.tpcFirstContactedNotStaying = tpcFirstContactedNotStaying;
+	public void setTpcFirstContactedHumanHabitation(
+			BigInteger tpcFirstContactedHumanHabitation) {
+		this.tpcFirstContactedHumanHabitation = tpcFirstContactedHumanHabitation;
 	}
-	/**
-	 * @return the tpcFirstContactStaying
-	 */
-	public BigInteger getTpcFirstContactStaying() {
-		return tpcFirstContactStaying;
+	public BigInteger getTpcFirstContacteRSS() {
+		return tpcFirstContacteRSS;
 	}
-	/**
-	 * @param tpcFirstContactStaying the tpcFirstContactStaying to set
-	 */
-	public void setTpcFirstContactStaying(BigInteger tpcFirstContactStaying) {
-		this.tpcFirstContactStaying = tpcFirstContactStaying;
+	public void setTpcFirstContacteRSS(BigInteger tpcFirstContacteRSS) {
+		this.tpcFirstContacteRSS = tpcFirstContacteRSS;
 	}
-	/**
-	 * @return the tpcFirstContactedWorkerUnableToDetermine
-	 */
-	public BigInteger getTpcFirstContactedWorkerUnableToDetermine() {
-		return tpcFirstContactedWorkerUnableToDetermine;
+	public BigInteger getTpcFirstContactedNRSS() {
+		return tpcFirstContactedNRSS;
 	}
-	/**
-	 * @param tpcFirstContactedWorkerUnableToDetermine the tpcFirstContactedWorkerUnableToDetermine to set
-	 */
-	public void setTpcFirstContactedWorkerUnableToDetermine(
-			BigInteger tpcFirstContactedWorkerUnableToDetermine) {
-		this.tpcFirstContactedWorkerUnableToDetermine = tpcFirstContactedWorkerUnableToDetermine;
+	public void setTpcFirstContactedNRSS(BigInteger tpcFirstContactedNRSS) {
+		this.tpcFirstContactedNRSS = tpcFirstContactedNRSS;
 	}
-
-
+	public BigInteger getTpcFirstContactedPlaceMissing() {
+		return tpcFirstContactedPlaceMissing;
+	}
+	public void setTpcFirstContactedPlaceMissing(
+			BigInteger tpcFirstContactedPlaceMissing) {
+		this.tpcFirstContactedPlaceMissing = tpcFirstContactedPlaceMissing;
+	}
+	
+	
 
 }

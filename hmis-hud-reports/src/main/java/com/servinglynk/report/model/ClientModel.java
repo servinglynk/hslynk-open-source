@@ -1,6 +1,6 @@
 package com.servinglynk.report.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class ClientModel extends BaseModel{
 	public ClientModel() {

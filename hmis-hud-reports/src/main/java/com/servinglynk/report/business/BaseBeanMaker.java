@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
@@ -565,7 +566,7 @@ public class BaseBeanMaker {
 			List<EnrollmentModel>  models = new ArrayList<EnrollmentModel>();
 			try {
 				connection = ImpalaConnection.getConnection();
-				statement = connection.prepareStatement(String.format(ReportQuery.GET_ENROLLMENTS_BY_COC_ID,schema));
+				statement = connection.prepareStatement(String.format(ReportQuery.GET_ENROLLMENTS_BY_COC_ID,schema,schema));
 				statement.setString(1, cocId);
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
@@ -621,7 +622,46 @@ public class BaseBeanMaker {
 			return models;
 		}
 
-		
+		public static List<ProjectModel> getProjects(String schema,List<String> projects) {
+			ResultSet resultSet = null;
+			Statement statement = null;
+			Connection connection = null;
+			List<ProjectModel>  models = new ArrayList<ProjectModel>();
+			try {
+				connection = ImpalaConnection.getConnection();
+				statement = connection.createStatement();
+				String query = String.format(ReportQuery.GET_PROJECTS,schema);
+				StringBuilder builder = new StringBuilder(query);
+				int i=1;
+				for(String project : projects) {
+					builder.append("\""+ project +"\"");
+					if(i != projects.size()) {
+						builder.append(",");
+					}
+					i++;
+				}
+				builder.append(")");
+				resultSet = statement.executeQuery(builder.toString());
+			 while(resultSet.next()) {
+				 ProjectModel model = new ProjectModel(resultSet.getString("projectname"), resultSet.getString("projectType"), resultSet.getString("project_id"),resultSet.getString("organizationid"),resultSet.getString("trackingmethod"));
+				 models.add(model);
+			 }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (statement != null) {
+					try {
+						statement.close();
+						//connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			return models;
+		}
 		public static List<ProjectModel> getProjectsByCoc(String schema,String cocId) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
@@ -663,11 +703,11 @@ public class BaseBeanMaker {
 				statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_EXITS,schema));
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
-				 ExitModel model = new ExitModel( resultSet.getString("exit.exit_id"), resultSet.getString("exit.destination"), 
+				 ExitModel model = new ExitModel( resultSet.getString("exit_id"), resultSet.getString("destination"), 
 						 resultSet.getString("destination_desc"), 
 						 resultSet.getDate("exitdate"), 
 						 resultSet.getString("otherdestination"), 
-						 resultSet.getString("project_entry_id"), resultSet.getString("exit.source_system_id"), resultSet.getDate("exit.date_created_from_source"));
+						 resultSet.getString("project_entry_id"), resultSet.getString("source_system_id"), resultSet.getDate("date_created_from_source"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {

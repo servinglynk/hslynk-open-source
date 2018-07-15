@@ -21,8 +21,11 @@ public class Q17CashIncomeSourcesDataBeanMaker extends BaseBeanMaker {
 		String entryQuery = " select  count(*) cnt from %s.incomeandsources in, %s.enrollment e where in.datacollectionstage=? and  e.project_entry_id=in.enrollment_id  "+
 		" and information_date = e.entry_date "+
 		" and ageatentry >=18 "+
-		" and information_date >= report_start_date "+
-		" and information_date <= report_end_date";
+		" and information_date >= ? "+
+		" and information_date <= ?";	
+		
+		
+		
 		int incomeCnt = getIncomeCnt(data.getSchema(), entryQuery+ "", "1");
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtEntry(BigInteger.valueOf(0));
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(0));

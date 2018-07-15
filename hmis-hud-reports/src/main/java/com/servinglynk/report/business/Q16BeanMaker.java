@@ -16,7 +16,7 @@ import com.servinglynk.report.bean.ReportData;
 
 public class Q16BeanMaker extends BaseBeanMaker {
 	
-	public static List<Q16DataBean> getQ16CashIncomeRangesList(ReportData data) throws SQLException{
+	public static List<Q16DataBean> getQ16CashIncomeRangesList(ReportData data) {
 		
 		/*List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel>  enrollments = data.getEnrollments();

@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aDataBean;
@@ -86,7 +88,7 @@ import com.servinglynk.report.model.ProjectModel;
 
 public class HomePageDataBeanMaker extends BaseBeanMaker {
 	
-			public static List<HomePageDataBean> getHomePageDataList(String schema,String cocId,boolean sageReport,Date reportStartDate, Date reportEndDate){
+			public static List<HomePageDataBean> getHomePageDataList(String schema,String cocId,boolean sageReport,Date reportStartDate, Date reportEndDate, List<String> projectList){
 				
 	       
 			HomePageDataBean homePageDataBean = new HomePageDataBean();
@@ -102,8 +104,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setHomePageView("Aggregate / summary");
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
-			
-			List<ProjectModel> projects = getProjectsByCoc(schema,cocId);
+			List<ProjectModel> projects = new ArrayList<>();
+			if(StringUtils.isNotBlank(cocId)) {
+				projects = getProjectsByCoc(schema,cocId);
+			}
+			projects = getProjects(schema,projectList);
 			
 			List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projects.get(0).getProjectId(),data);
 			if(sageReport) {
@@ -111,7 +116,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			}
 			
 			List<EnrollmentModel> enrollments = getEnrollmentsByCocId(schema, cocId,reportStartDate, reportEndDate);
-			data.setSchema(schema);
+			data.setSchema(schema);	
 			data.setProjectId(cocId);
 			data.setEnrollments(enrollments);
 			List<ClientModel> allClients = getClients(schema);
