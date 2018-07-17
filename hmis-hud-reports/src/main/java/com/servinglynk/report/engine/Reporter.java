@@ -56,7 +56,6 @@ public class Reporter {
     		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
     		    JasperExportManager.exportReportToPdfFile(jasperPrint, "HMISREPORT_06072018.pdf"); 
         	}
-     
         } catch (Exception e) {
             logger.error(e, e);
         }

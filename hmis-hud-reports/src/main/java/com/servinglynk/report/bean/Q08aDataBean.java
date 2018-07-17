@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 public class Q08aDataBean {
 
-	private BigInteger overAllTotHouseHolds;
+	private BigInteger overAllTotHouseHolds = BigInteger.ZERO;
 	private BigInteger totHhWithoutChild;
 	private BigInteger totHhWithChildAndAdults;
 	private BigInteger totHhWothOnlyChild;

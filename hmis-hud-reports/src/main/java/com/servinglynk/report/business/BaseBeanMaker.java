@@ -540,7 +540,7 @@ public class BaseBeanMaker {
 				statement = connection.prepareStatement(String.format(ReportQuery.GET_INCOMEANDSOURCE,schema));
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
-				 IncomeAndSourceModel model = new IncomeAndSourceModel( resultSet.getString("incomeandsources.datacollectionstage"),resultSet.getString("incomeandsources.project_entry_id"));
+				 IncomeAndSourceModel model = new IncomeAndSourceModel( resultSet.getString("datacollectionstage"),resultSet.getString("project_entry_id"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {
@@ -622,6 +622,79 @@ public class BaseBeanMaker {
 			return models;
 		}
 
+		public static List<EnrollmentModel> getEnrollmentsByProjectcId(String schema,List<String>  projects,java.util.Date reportStartDate, java.util.Date reportEndDate) {
+			ResultSet resultSet = null;
+			Statement statement = null;
+			Connection connection = null;
+			List<EnrollmentModel>  models = new ArrayList<EnrollmentModel>();
+			try {
+				connection = ImpalaConnection.getConnection();
+				statement = connection.createStatement();
+				String query = String.format(ReportQuery.GET_ENROLLMENTS_PROJECT_ID,schema);
+				StringBuilder builder = new StringBuilder(query);
+				int i=1;
+				for(String project : projects) {
+					builder.append("\""+ project +"\"");
+					if(i != projects.size()) {
+						builder.append(",");
+					}
+					i++;
+				}
+				builder.append(")");
+				resultSet = statement.executeQuery(builder.toString());
+			 while(resultSet.next()) {
+				 EnrollmentModel model = new EnrollmentModel(resultSet.getString("project_entry_id"), 
+						// resultSet.getString("enrollment.continuouslyhomelessoneyear"),
+						 null,
+						 resultSet.getString("disablingcondition"), 
+						 resultSet.getDate("entrydate"), 
+						 resultSet.getString("householdid"), 
+						 resultSet.getString("housingstatus"), 
+						 resultSet.getString("housingstatus_desc"), 
+						 resultSet.getString("monthshomelesspastthreeyears"), 
+						 resultSet.getString("monthshomelesspastthreeyears_desc"), 
+						// resultSet.getString("monthshomelessthistime"), 
+						 null,
+						 resultSet.getString("otherresidenceprior"), 
+						 resultSet.getString("project_id"), 
+						 resultSet.getString("relationshiptohoh"), 
+						 resultSet.getString("relationshiptohoh_desc"), 
+						 resultSet.getString("residenceprior"), 
+						 resultSet.getString("residenceprior_desc"), 
+						 resultSet.getString("residencepriorlengthofstay"), 
+						 resultSet.getString("residencepriorlengthofstay_desc"), 
+						// resultSet.getString("statusdocumented"), 
+						 null,
+						 resultSet.getString("timeshomelesspastthreeyears"), 
+						 resultSet.getString("timeshomelesspastthreeyears_desc"), 
+						 resultSet.getString("ageatentry"), 
+						 resultSet.getString("client_id"), 
+						// resultSet.getInt("yearshomeless"), 
+						 0,
+						 (Boolean)resultSet.getBoolean("chronichomeless"), 
+						 resultSet.getString("source_system_id"),
+						 resultSet.getDate("date_created_from_source"),
+						 resultSet.getString("livingSituation"),
+						 resultSet.getDate("datetostreetessh"));
+				 models.add(model);
+			 }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (statement != null) {
+					try {
+						statement.close();
+						//connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			return models;
+		}
+		
 		public static List<ProjectModel> getProjects(String schema,List<String> projects) {
 			ResultSet resultSet = null;
 			Statement statement = null;
@@ -707,7 +780,7 @@ public class BaseBeanMaker {
 						 resultSet.getString("destination_desc"), 
 						 resultSet.getDate("exitdate"), 
 						 resultSet.getString("otherdestination"), 
-						 resultSet.getString("project_entry_id"), resultSet.getString("source_system_id"), resultSet.getDate("date_created_from_source"));
+						 resultSet.getString("enrollment_id"), resultSet.getString("source_system_id"), resultSet.getDate("date_created_from_source"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {

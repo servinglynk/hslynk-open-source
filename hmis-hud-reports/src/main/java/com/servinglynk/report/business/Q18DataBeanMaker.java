@@ -7,7 +7,7 @@ import java.util.List;
 import com.servinglynk.report.bean.Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
 import com.servinglynk.report.bean.ReportData;
 
-public class Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBeanMaker {
+public class Q18DataBeanMaker {
 
 	public static List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(ReportData data){
 		

@@ -107,15 +107,23 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<ProjectModel> projects = new ArrayList<>();
 			if(StringUtils.isNotBlank(cocId)) {
 				projects = getProjectsByCoc(schema,cocId);
+			}else {
+				projects = getProjects(schema,projectList);
 			}
-			projects = getProjects(schema,projectList);
+			
 			
 			List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projects.get(0).getProjectId(),data);
 			if(sageReport) {
 				CSVGenerator.buildReport(q04aDataBeanList, "Q4a.jrxml", "Q4a.csv");
 			}
 			
-			List<EnrollmentModel> enrollments = getEnrollmentsByCocId(schema, cocId,reportStartDate, reportEndDate);
+			List<EnrollmentModel> enrollments =  new ArrayList<>();
+			
+			if(StringUtils.isNotBlank(cocId)) {
+				enrollments = getEnrollmentsByCocId(schema, cocId,reportStartDate, reportEndDate);
+			}else {
+				enrollments = getEnrollmentsByProjectcId(schema, projectList,reportStartDate, reportEndDate);
+			}
 			data.setSchema(schema);	
 			data.setProjectId(cocId);
 			data.setEnrollments(enrollments);
@@ -325,31 +333,31 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q16CashIncomeRangesList, "Q16.jrxml", "Q16.csv");		
 			}
 			
-			List<Q17DataBean> q17CashIncomeSourcesList= Q17CashIncomeSourcesDataBeanMaker.getQ17CashIncomeSourcesList(data);
+			List<Q17DataBean> q17CashIncomeSourcesList= Q17DataBeanMaker.getQ17CashIncomeSourcesList(data);
 			homePageDataBean.setQ17CashIncomeSourcesDataBean(q17CashIncomeSourcesList);
 			if(q17CashIncomeSourcesList!=null){
 				CSVGenerator.buildReport(q17CashIncomeSourcesList, "Q17.jrxml","Q17.csv");
 			}
 			
-			List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q18ClientCashIncomeCategoryEarnedOtherIncomeList= Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBeanMaker.getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(data);
+			List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q18ClientCashIncomeCategoryEarnedOtherIncomeList= Q18DataBeanMaker.getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(data);
 			homePageDataBean.setQ18ClientCashIncomeCategoryEarnedOtherIncomeDataBean(q18ClientCashIncomeCategoryEarnedOtherIncomeList);
 			if(q18ClientCashIncomeCategoryEarnedOtherIncomeList!=null){
 				CSVGenerator.buildReport(q18ClientCashIncomeCategoryEarnedOtherIncomeList, "Q18.jrxml","Q18.csv");
 			}
 			
-			List<Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean> q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList = Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanMaker.getQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList();
+			List<Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean> q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList = Q19a1DataBeanMaker.getQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList();
 			homePageDataBean.setQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBean(q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList);
 			if(q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList!=null){
 				CSVGenerator.buildReport(q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList, "Q19a1.jrxml", "Q19a1.csv");
 			}
 			
-			List<Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a2ClientCashIncomeChangeIncomeSourceByEntryList = Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBeanMaker.getQ19a2ClientCashIncomeChangeIncomeSourceByEntryList();
+			List<Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a2ClientCashIncomeChangeIncomeSourceByEntryList = Q19a2DataBeanMaker.getQ19a2ClientCashIncomeChangeIncomeSourceByEntryList();
 			homePageDataBean.setQ19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean(q19a2ClientCashIncomeChangeIncomeSourceByEntryList);
 			if(q19a2ClientCashIncomeChangeIncomeSourceByEntryList!=null){
 				CSVGenerator.buildReport(q19a2ClientCashIncomeChangeIncomeSourceByEntryList, "Q19a2.jrxml", "Q19a2.csv");
 			}
 			
-			List<Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a3ClientCashIncomeChangeIncomeSourceByEntryList = Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBeanMaker.getQ19a3ClientCashIncomeChangeIncomeSourceByEntryList();
+			List<Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a3ClientCashIncomeChangeIncomeSourceByEntryList = Q19a3DataBeanMaker.getQ19a3ClientCashIncomeChangeIncomeSourceByEntryList();
 	        homePageDataBean.setQ19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean(q19a3ClientCashIncomeChangeIncomeSourceByEntryList);
 	        if(q19a3ClientCashIncomeChangeIncomeSourceByEntryList!=null){
 	        	CSVGenerator.buildReport(q19a3ClientCashIncomeChangeIncomeSourceByEntryList, "Q19a3.jrxml", "Q19a3.csv");

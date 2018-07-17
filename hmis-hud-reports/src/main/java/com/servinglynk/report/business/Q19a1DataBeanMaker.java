@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean;
 
-public class Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanMaker {
+public class Q19a1DataBeanMaker {
 	
 	public static List<Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean> getQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList(){
 		

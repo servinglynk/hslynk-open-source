@@ -12,7 +12,7 @@ import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q17DataBean;
 import com.servinglynk.report.bean.ReportData;
 
-public class Q17CashIncomeSourcesDataBeanMaker extends BaseBeanMaker {
+public class Q17DataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q17DataBean> getQ17CashIncomeSourcesList(ReportData data){
 		
