@@ -4,18 +4,20 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-import com.servinglynk.report.bean.Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
+import com.servinglynk.report.bean.Q18DataBean;
 import com.servinglynk.report.bean.ReportData;
 
-public class Q18DataBeanMaker {
+public class Q18DataBeanMaker extends BaseBeanMaker {
 
-	public static List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(ReportData data){
+	public static List<Q18DataBean> getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(ReportData data){
 		
-		Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean q18ClientCashIncomeCategoryEarnedOtherIncomeTableData = new Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean();
+		Q18DataBean q18ClientCashIncomeCategoryEarnedOtherIncomeTableData = new Q18DataBean();
+		
 		
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtEntry(BigInteger.valueOf(0));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit(BigInteger.valueOf(0));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18AdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup(BigInteger.valueOf(0));
+		
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18AdultsWithDKRNumberOfAdultsAtEntry(BigInteger.valueOf(0));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18AdultsWithDKRNumberOfAdultsAtExit(BigInteger.valueOf(0));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18AdultsWithDKRNumberOfAdultsAtFollowup(BigInteger.valueOf(0));
@@ -46,12 +48,6 @@ public class Q18DataBeanMaker {
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18OneOrMoreSourceofIncomeNumberOfAdultsAtEntry(BigInteger.valueOf(0));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18OneOrMoreSourceofIncomeNumberOfAdultsAtExit(BigInteger.valueOf(0));
 		q18ClientCashIncomeCategoryEarnedOtherIncomeTableData.setQ18OneOrMoreSourceofIncomeNumberOfAdultsAtFollowup(BigInteger.valueOf(0));
-		
-		
-		
-		
-		
-		
 		
 		return Arrays.asList(q18ClientCashIncomeCategoryEarnedOtherIncomeTableData);
 	}

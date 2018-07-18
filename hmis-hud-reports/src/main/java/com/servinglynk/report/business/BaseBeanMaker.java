@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.HomePageDataBean;
@@ -49,6 +51,13 @@ public class BaseBeanMaker {
 		}catch(Exception e) {
 			return false;
 		}
+	}
+	
+	protected static String formatQuery(String query, String schema) {
+		if(StringUtils.isNotBlank(query)) {
+			return query.replaceAll("%s", schema);
+		}
+		return null;
 	}
 	
 	public static BigInteger getBigIntValue(BigInteger value) {

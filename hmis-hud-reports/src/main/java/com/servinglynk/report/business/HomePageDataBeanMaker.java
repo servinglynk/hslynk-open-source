@@ -44,7 +44,7 @@ import com.servinglynk.report.bean.Q14bDataBean;
 import com.servinglynk.report.bean.Q15DataBean;
 import com.servinglynk.report.bean.Q16DataBean;
 import com.servinglynk.report.bean.Q17DataBean;
-import com.servinglynk.report.bean.Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
+import com.servinglynk.report.bean.Q18DataBean;
 import com.servinglynk.report.bean.Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean;
 import com.servinglynk.report.bean.Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
@@ -339,7 +339,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				CSVGenerator.buildReport(q17CashIncomeSourcesList, "Q17.jrxml","Q17.csv");
 			}
 			
-			List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q18ClientCashIncomeCategoryEarnedOtherIncomeList= Q18DataBeanMaker.getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(data);
+			List<Q18DataBean> q18ClientCashIncomeCategoryEarnedOtherIncomeList= Q18DataBeanMaker.getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(data);
 			homePageDataBean.setQ18ClientCashIncomeCategoryEarnedOtherIncomeDataBean(q18ClientCashIncomeCategoryEarnedOtherIncomeList);
 			if(q18ClientCashIncomeCategoryEarnedOtherIncomeList!=null){
 				CSVGenerator.buildReport(q18ClientCashIncomeCategoryEarnedOtherIncomeList, "Q18.jrxml","Q18.csv");
