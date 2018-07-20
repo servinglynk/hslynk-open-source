@@ -12,6 +12,8 @@ public class Properties {
     public static String POSTGRESQL_DB_PORT;
     public static String POSTGRESQL_DB_DATABASE;
     public static String POSTGRESQL_DB_USERNAME;
+    public static String INCLUDE_TABLES;
+    public static String EXCLUDE_TABLES;
     public static String POSTGRESQL_DB_PASSWORD;
     public static String HBASE_MASTER;
     public static String HBASE_ZOOKEEPER_QUORUM;
@@ -43,6 +45,8 @@ public class Properties {
             POSTGRESQL_DB_DATABASE = prop.getProperty("posgresql.db.database");
             POSTGRESQL_DB_USERNAME = prop.getProperty("posgresql.db.username");
             POSTGRESQL_DB_PASSWORD = prop.getProperty("posgresql.db.password");
+            EXCLUDE_TABLES = prop.getProperty("posgresql.db.excludetables");
+            INCLUDE_TABLES = prop.getProperty("posgresql.db.includetables");
             HBASE_MASTER = prop.getProperty("hbase.master");
             HBASE_ZOOKEEPER_QUORUM = prop.getProperty("hbase.zookeeper.quorum");
             HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = prop.getProperty("hbase.zookeeper.property.clientPort", "2181");
