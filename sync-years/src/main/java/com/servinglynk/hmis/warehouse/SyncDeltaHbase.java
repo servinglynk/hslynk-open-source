@@ -1,11 +1,13 @@
 package com.servinglynk.hmis.warehouse;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -189,7 +191,7 @@ public class SyncDeltaHbase extends Logging {
         PreparedStatement statement;
         Connection connection;
         String message ="";
-        Map<String, String> clientDedupMap = new HashMap<>();
+        Map<String, DedupClientDob> clientDedupMap = new HashMap<>();
         try {
         	connection = SyncPostgresProcessor.getConnection();
         	if(StringUtils.equals("enrollment", postgresTable)) {
@@ -248,12 +250,17 @@ public class SyncDeltaHbase extends Logging {
                                 p.addColumn(Bytes.toBytes("CF"),
                                         Bytes.toBytes(column),
                                         Bytes.toBytes(value));
-                                
-                                if(StringUtils.equals("client_id", column)) {
-                                	if(clientDedupMap.get(value) !=null) {
-                                		p.addColumn(Bytes.toBytes("CF"),
-                                                Bytes.toBytes("dedup_client_id"),
-                                                Bytes.toBytes(clientDedupMap.get(value)));
+                                if((StringUtils.equals("client", postgresTable) && StringUtils.equals("dob", column)) || StringUtils.equals("client_id", column)) {
+                                	DedupClientDob dedupClientDob = clientDedupMap.get(key);
+                                	if(dedupClientDob != null) {
+                                			if(StringUtils.isNotBlank(dedupClientDob.getDedupClientId())) {
+                                				p.addColumn(Bytes.toBytes("CF"),
+                                                        Bytes.toBytes("dedup_client_id"),
+                                                        Bytes.toBytes(dedupClientDob.getDedupClientId()));
+                                			}
+                                			p.addColumn(Bytes.toBytes("CF"),
+                                                    Bytes.toBytes("ageatentry"),
+                                                    Bytes.toBytes(String.valueOf(dedupClientDob.getAge())));
                                 	}
                                 }
                                 // Add a new column for description for enums
@@ -352,20 +359,22 @@ public class SyncDeltaHbase extends Logging {
 		 *
 		 * @return Map<String,String>
 		 */
-		public static Map<String, String> loadDedupClientMap(String schema,String projectGroupCode) {
+		public static Map<String, DedupClientDob> loadDedupClientMap(String schema,String projectGroupCode) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
 			Connection connection = null;
-			Map<String, String> clientDedupClientMap = new HashMap<String, String>();
+			Map<String, DedupClientDob> clientDedupClientMap = new HashMap<String, DedupClientDob>();
 			try {
 				connection = SyncPostgresProcessor.getConnection();
-				statement = connection.prepareStatement("SELECT id,dedup_client_id FROM " + schema + ".client where project_group_code=?");
+				statement = connection.prepareStatement("SELECT id,dedup_client_id,convert_from(dob_decrypt(dob),'UTF-8') as dob FROM " + schema + ".client where project_group_code=?");
 				statement.setString(1, projectGroupCode);
 				resultSet = statement.executeQuery();
 				while (resultSet.next()) {
 					UUID id = (UUID) resultSet.getObject(1);
 					UUID dedupClientId = (UUID) resultSet.getObject(2);
-					clientDedupClientMap.put(id.toString(), dedupClientId !=null ?dedupClientId.toString() : null );
+					String dob = (String) resultSet.getObject(3);
+					DedupClientDob dedupDob = new DedupClientDob(dedupClientId !=null ?dedupClientId.toString() : null, getAge(dob));
+					clientDedupClientMap.put(id.toString(), dedupDob );
 				}
 				return clientDedupClientMap;
 			} catch (SQLException e) {
@@ -385,7 +394,21 @@ public class SyncDeltaHbase extends Logging {
 			return null;
 		}
 		
-    private String getDescriptionForHmisType(final Map<String, String> hmisTypes, String key) {
+    public static int getAge(String dob) {
+		try {
+			LocalDate currentDate = LocalDate.now();
+			if(dob !=null) {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				@SuppressWarnings("deprecation")
+				LocalDate dateOfBirth = LocalDate.parse(dob.substring(0,10),formatter);
+				Period p = Period.between(dateOfBirth, currentDate);
+				return p.getYears();
+			}
+		}catch(Exception e) {
+		}
+		return 0;
+	}
+	private String getDescriptionForHmisType(final Map<String, String> hmisTypes, String key) {
     	return hmisTypes.get(key);
     }
 
@@ -464,5 +487,14 @@ public class SyncDeltaHbase extends Logging {
             e.printStackTrace();
         }
     }
+    
+
+    public static void main(String args[]) {
+        String date = "1970-01-01 00:00:00.000000 +00:00:00";
+    	//default, ISO_LOCAL_DATE
+
+        System.out.println(getAge(date));
+    }
+
    
 }
