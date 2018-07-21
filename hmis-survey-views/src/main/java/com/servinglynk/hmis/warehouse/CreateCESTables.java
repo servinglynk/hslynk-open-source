@@ -140,7 +140,11 @@ public class CreateCESTables  extends Logging {
 	              }else  if(columnTypeName.contains("date") || columnTypeName.contains("time")) {
 	            	  firstPart.append(column +" timestamp ,");
 	            	  addMiddlePart(middlePart, column);
-	              }else {
+	              }else  if(columnTypeName.contains("int") || columnTypeName.contains("float") || columnTypeName.contains("numeric")) {
+	            	  firstPart.append(column +" bigint ,");
+	            	  addMiddlePart(middlePart, column);
+	              }
+	              else {
 	            	  firstPart.append(column +" string ,");
 	            	  addMiddlePart(middlePart, column);
 	              }
