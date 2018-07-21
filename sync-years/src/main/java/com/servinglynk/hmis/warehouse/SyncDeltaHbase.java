@@ -194,7 +194,7 @@ public class SyncDeltaHbase extends Logging {
         Map<String, DedupClientDob> clientDedupMap = new HashMap<>();
         try {
         	connection = SyncPostgresProcessor.getConnection();
-        	if(StringUtils.equals("enrollment", postgresTable)) {
+        	if(StringUtils.equals("enrollment", postgresTable) || StringUtils.equals("client", postgresTable)) {
             	clientDedupMap = loadDedupClientMap(syncSchema, projectGroupCode);
             }
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
