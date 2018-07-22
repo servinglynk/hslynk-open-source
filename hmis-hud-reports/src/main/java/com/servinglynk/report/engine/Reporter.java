@@ -43,10 +43,21 @@ public class Reporter {
 //        	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
 			
 			List<String> projects = new ArrayList<>();
-			projects.add("84dc0df1-b27b-4b6d-b033-73101882e3f9");
-			projects.add("c5f456cc-fec4-4d02-ad06-ad6dd5a50c65");
-			projects.add("c8419a7a-bab6-42e4-b533-f47cd8a61837");
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("cp0004",null,sageReport, new Date(), new Date(),projects);
+			projects.add("4055e079-fbef-42cd-9f58-43a90be60b47");
+			projects.add("468b31e4-3492-4043-a917-53b66b3cf617");
+			projects.add("538948f4-3c13-4907-9174-2078c4408ce7");
+			
+			projects.add("5cc34dce-e603-4cb6-8d95-4cd3fb164098");
+			projects.add("5e63e036-50fc-4ce1-bc88-6b61bbedd539");
+			projects.add("8ce3bcf7-cea0-4735-9330-bb7f04b71a40");
+			
+			projects.add("913f65e5-d9d0-4312-b0ee-d94920bed6c2");
+			projects.add("c31f3f53-0b9f-480e-8da8-ffe8c7b931ed");
+			projects.add("e6ccebeb-2b03-47aa-96dc-e63b9d2c4fc1");
+			
+			
+			
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("sr0012",null,sageReport, new Date(), new Date(),projects);
         	if(sageReport) {
         		//System.out.println("----Inside condition-------");
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);

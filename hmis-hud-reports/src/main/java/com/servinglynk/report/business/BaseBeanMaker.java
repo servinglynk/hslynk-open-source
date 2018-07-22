@@ -377,12 +377,12 @@ public class BaseBeanMaker {
 			statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_CLIENTS,schema));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
-			 ClientModel model = new ClientModel(resultSet.getString("personalid"), resultSet.getString("dedup_client_id"), 
+			 ClientModel model = new ClientModel(resultSet.getString("id"), resultSet.getString("dedup_client_id"), 
 					 resultSet.getString("name_data_quality"),resultSet.getString("name_data_quality_desc"), 
 					 resultSet.getString("ssn_data_quality"), resultSet.getString("ssn_data_quality_desc"), 
 					 null,resultSet.getString("dob_data_quality"), 
 					 resultSet.getString("dob_data_quality_desc"), resultSet.getString("gender"), 
-					 resultSet.getString("gender_desc"), resultSet.getString("other_gender"), resultSet.getString("ethnicity"), 
+					 resultSet.getString("gender_desc"), null, resultSet.getString("ethnicity"), 
 					 resultSet.getString("ethnicity_desc"), resultSet.getString("race"), resultSet.getString("race_desc"), 
 					 resultSet.getString("veteran_status"), resultSet.getString("source_system_id"));
 			 models.add(model);
@@ -549,7 +549,7 @@ public class BaseBeanMaker {
 				statement = connection.prepareStatement(String.format(ReportQuery.GET_INCOMEANDSOURCE,schema));
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
-				 IncomeAndSourceModel model = new IncomeAndSourceModel( resultSet.getString("datacollectionstage"),resultSet.getString("project_entry_id"));
+				 IncomeAndSourceModel model = new IncomeAndSourceModel( resultSet.getString("datacollectionstage"),resultSet.getString("enrollmentid"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {
@@ -591,14 +591,14 @@ public class BaseBeanMaker {
 						 resultSet.getString("monthshomelesspastthreeyears_desc"), 
 						// resultSet.getString("monthshomelessthistime"), 
 						 null,
-						 resultSet.getString("otherresidenceprior"), 
-						 resultSet.getString("project_id"), 
+						 null, 
+						 resultSet.getString("projectid"), 
 						 resultSet.getString("relationshiptohoh"), 
 						 resultSet.getString("relationshiptohoh_desc"), 
-						 resultSet.getString("residenceprior"), 
-						 resultSet.getString("residenceprior_desc"), 
-						 resultSet.getString("residencepriorlengthofstay"), 
-						 resultSet.getString("residencepriorlengthofstay_desc"), 
+						null, 
+						null, 
+						 resultSet.getString("lengthofstay"), 
+						 resultSet.getString("lengthofstay_desc"), 
 						// resultSet.getString("statusdocumented"), 
 						 null,
 						 resultSet.getString("timeshomelesspastthreeyears"), 
@@ -652,20 +652,20 @@ public class BaseBeanMaker {
 				builder.append(")");
 				resultSet = statement.executeQuery(builder.toString());
 			 while(resultSet.next()) {
-				 EnrollmentModel model = new EnrollmentModel(resultSet.getString("project_entry_id"), 
+				 EnrollmentModel model = new EnrollmentModel(resultSet.getString("id"), 
 						// resultSet.getString("enrollment.continuouslyhomelessoneyear"),
 						 null,
 						 resultSet.getString("disablingcondition"), 
 						 resultSet.getDate("entrydate"), 
 						 resultSet.getString("householdid"), 
-						 resultSet.getString("housingstatus"), 
-						 resultSet.getString("housingstatus_desc"), 
+						 null, 
+						 null, 
 						 resultSet.getString("monthshomelesspastthreeyears"), 
 						 resultSet.getString("monthshomelesspastthreeyears_desc"), 
 						// resultSet.getString("monthshomelessthistime"), 
 						 null,
-						 resultSet.getString("otherresidenceprior"), 
-						 resultSet.getString("project_id"), 
+						 null, 
+						 resultSet.getString("projectid"), 
 						 resultSet.getString("relationshiptohoh"), 
 						 resultSet.getString("relationshiptohoh_desc"), 
 						 resultSet.getString("residenceprior"), 
@@ -683,7 +683,7 @@ public class BaseBeanMaker {
 						 (Boolean)resultSet.getBoolean("chronichomeless"), 
 						 resultSet.getString("source_system_id"),
 						 resultSet.getDate("date_created_from_source"),
-						 resultSet.getString("livingSituation"),
+						 resultSet.getString("livingsituation"),
 						 resultSet.getDate("datetostreetessh"));
 				 models.add(model);
 			 }
@@ -785,11 +785,11 @@ public class BaseBeanMaker {
 				statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_EXITS,schema));
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
-				 ExitModel model = new ExitModel( resultSet.getString("exit_id"), resultSet.getString("destination"), 
+				 ExitModel model = new ExitModel( resultSet.getString("id"), resultSet.getString("destination"), 
 						 resultSet.getString("destination_desc"), 
 						 resultSet.getDate("exitdate"), 
 						 resultSet.getString("otherdestination"), 
-						 resultSet.getString("enrollment_id"), resultSet.getString("source_system_id"), resultSet.getDate("date_created_from_source"));
+						 resultSet.getString("enrollmentid"), resultSet.getString("source_system_id"), resultSet.getDate("date_created_from_source"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {
