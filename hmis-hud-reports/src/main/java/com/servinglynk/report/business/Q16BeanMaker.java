@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q16DataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.DataCollectionStage;
 
 public class Q16BeanMaker extends BaseBeanMaker {
 	
@@ -30,11 +31,11 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		
 		String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-		" vadisabilityserviceamount,workerscompamount from %s.incomeandsources in, enrollment e where in.datacollectionstage=? and  e.project_entry_id=in.enrollment_id "+
+		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id from %s.incomeandsources in, enrollment e where in.datacollectionstage=? and  e.id=in.enrollmentid "+
 		" and information_date >= e.entry_date ";
-		List<Float> incomeAtEntry = getIncome(data.getSchema(), query, "1");
-		List<Float> incomeAtExit = getIncome(data.getSchema(), query, "3");
-		List<Float> incomeAtStayers = getIncome(data.getSchema(), query, "5");
+		List<Float> incomeAtEntry = getIncome(data.getSchema(), query, DataCollectionStage.ENTRY.getCode());
+		List<Float> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode());
+		List<Float> incomeAtStayers = getIncome(data.getSchema(), query, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
 		
 		String clientDKE = "select count(*) as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9') and datacollectionstage=?";
 		
