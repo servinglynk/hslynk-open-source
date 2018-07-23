@@ -348,7 +348,7 @@ public class BaseBeanMaker {
 			statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_DOE,schema));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
-			 DateOfEngagementModel model = new DateOfEngagementModel(resultSet.getString("dateofengagement_id"),resultSet.getString("project_entry_id"), resultSet.getDate("dateofengagement"), resultSet.getString("source_system_id"));
+			 DateOfEngagementModel model = new DateOfEngagementModel(resultSet.getString("id"),resultSet.getString("enrollmentid"), resultSet.getDate("dateofengagement"), resultSet.getString("source_system_id"));
 			 models.add(model);
 		 }
 		} catch (SQLException e) {
@@ -668,10 +668,10 @@ public class BaseBeanMaker {
 						 resultSet.getString("projectid"), 
 						 resultSet.getString("relationshiptohoh"), 
 						 resultSet.getString("relationshiptohoh_desc"), 
-						 resultSet.getString("residenceprior"), 
-						 resultSet.getString("residenceprior_desc"), 
-						 resultSet.getString("residencepriorlengthofstay"), 
-						 resultSet.getString("residencepriorlengthofstay_desc"), 
+						 null, 
+						 null, 
+						 resultSet.getString("lengthofstay"), 
+						 resultSet.getString("lengthofstay_desc"), 
 						// resultSet.getString("statusdocumented"), 
 						 null,
 						 resultSet.getString("timeshomelesspastthreeyears"), 

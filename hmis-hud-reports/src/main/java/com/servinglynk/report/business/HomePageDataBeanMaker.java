@@ -94,10 +94,14 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			HomePageDataBean homePageDataBean = new HomePageDataBean();
 			
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			Date date = new Date();
 			ReportData data = new ReportData();
-//			homePageDataBean.setHomePageStartDate(dateFormat.format(dateFormat.format(reportStartDate)/*"1/1/2015"*/));
-//			homePageDataBean.setHomePageEndDate(dateFormat.format(dateFormat.format(reportEndDate)/*"11/10/2016"*/));
+			try {
+				data.setReportStartDate(new java.sql.Date(dateFormat.parse("01/01/2017").getTime()));
+				data.setReportEndDate(new java.sql.Date(dateFormat.parse("11/10/2018").getTime()));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			homePageDataBean.setHomePageProjects("APR - Services Only");
 			homePageDataBean.setHomePageHomeLess("Everyone");
 			homePageDataBean.setHomePageGrants("all grants");

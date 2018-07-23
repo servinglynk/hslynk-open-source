@@ -19,8 +19,8 @@ public static String NAME_DATE_QUALITY_DNE_REFUSED ="select count(*) %s.from cli
 public static String NAME_DATE_QUALITY_DNC ="select count(*) from %s.client where name_data_quality in ('99')";
 public static String SSN_DATE_QUALITY_DNE_REFUSED ="select count(*) from %s.client where ssn_data_quality in ('8','9')";
 public static String SSN_DATE_QUALITY_DNC ="select count(*) from %s.client where ssn_data_quality in ('99')";
-public static String PROJECT_WITH_HOUSEHOLD_WITHOUT_CHILDREN ="select project_id,household_type from %s.inventory where household_type='1'";
-public static String PROJECT_WITH_HOUSEHOLD_WITH_ONE_ADULT_CHILD ="select project_id,household_type from %s.inventory where household_type='3'";
-public static String PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN ="select project_id,household_type from %s.inventory where household_type='4'";
-public static String PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN ="select project_id,household_type from %s.inventory where household_type is null";
+public static String PROJECT_WITH_HOUSEHOLD_WITHOUT_CHILDREN ="select projectid,householdtype from %s.inventory where 	householdtype='1'";
+public static String PROJECT_WITH_HOUSEHOLD_WITH_ONE_ADULT_CHILD ="select projectid,householdtype from %s.inventory where 	householdtype='3'";
+public static String PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN ="select projectid,householdtype from %s.inventory where 	householdtype='4'";
+public static String PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN ="select projectid,householdtype from %s.inventory where 	householdtype is null";
 }

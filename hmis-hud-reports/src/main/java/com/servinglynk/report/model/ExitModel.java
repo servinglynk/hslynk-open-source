@@ -1,6 +1,6 @@
 package com.servinglynk.report.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class ExitModel extends BaseModel {
 		private String exitid;

@@ -144,6 +144,7 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 	BigInteger subtotalUHHT = q10AGenderOfAdults.getDkrUHHT().add(q10AGenderOfAdults.getFemaleUHHT()).add(q10AGenderOfAdults.getMaleUHHT())
 				.add(q10AGenderOfAdults.getInfomiisingUHHT()).add(q10AGenderOfAdults.getOtherUHHT()).add(q10AGenderOfAdults.getTransgenderFMUHHT())
 				.add(q10AGenderOfAdults.getTransgenderMFUHHT());
+	
 	q10AGenderOfAdults.setTotSubtotal(totSubTotal);
 	q10AGenderOfAdults.setSubtotalWOC(subtotalWOC);
 	q10AGenderOfAdults.setSubtotalWCA(subtotalWCA);
