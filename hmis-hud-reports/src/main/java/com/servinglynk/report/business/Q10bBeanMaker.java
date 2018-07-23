@@ -136,16 +136,16 @@ public class Q10bBeanMaker extends BaseBeanMaker {
 		
 		BigInteger subtotalWOC = getBigIntValue(q10bGenderOfChildren.getChildDkrWOC()).add(getBigIntValue(q10bGenderOfChildren.getChildMaleWOC()))
 				.add(getBigIntValue(q10bGenderOfChildren.getChildFemaleWOC())).add(getBigIntValue(q10bGenderOfChildren.getChildInfomiisingWOC()))
-				.add(q10bGenderOfChildren.getChildOtherWOC()).add(q10bGenderOfChildren.getChildTransgenderFMWOC())
-				.add(q10bGenderOfChildren.getChildTransgenderMFWOC());
+				.add(getBigIntValue(q10bGenderOfChildren.getChildOtherWOC())).add(getBigIntValue(q10bGenderOfChildren.getChildTransgenderFMWOC()))
+				.add(getBigIntValue(q10bGenderOfChildren.getChildTransgenderMFWOC()));
 				
-		BigInteger subtotalWCA = 	q10bGenderOfChildren.getChildDkrWCA().add(q10bGenderOfChildren.getChildMaleWCA()).add(q10bGenderOfChildren.getChildFemaleWCA())
-				.add(q10bGenderOfChildren.getChildInfomiisingWCA()).add(q10bGenderOfChildren.getChildOtherWCA()).add(q10bGenderOfChildren.getChildTransgenderFMWCA())
-				.add(q10bGenderOfChildren.getChildTransgenderMFWCA());
+		BigInteger subtotalWCA = 	getBigIntValue(q10bGenderOfChildren.getChildDkrWCA()).add(getBigIntValue(q10bGenderOfChildren.getChildMaleWCA())).add(getBigIntValue(q10bGenderOfChildren.getChildFemaleWCA()))
+				.add(getBigIntValue(q10bGenderOfChildren.getChildInfomiisingWCA())).add(getBigIntValue(q10bGenderOfChildren.getChildOtherWCA())).add(getBigIntValue(q10bGenderOfChildren.getChildTransgenderFMWCA()))
+				.add(getBigIntValue(q10bGenderOfChildren.getChildTransgenderMFWCA()));
 		
-		BigInteger subtotalUHHT = q10bGenderOfChildren.getChildDkrUHHT().add(q10bGenderOfChildren.getChildFemaleUHHT()).add(q10bGenderOfChildren.getChildMaleUHHT())
-					.add(q10bGenderOfChildren.getChildInfomiisingUHHT()).add(q10bGenderOfChildren.getChildOtherUHHT()).add(q10bGenderOfChildren.getChildTransgenderFMUHHT())
-					.add(q10bGenderOfChildren.getChildTransgenderMFUHHT());
+		BigInteger subtotalUHHT = getBigIntValue(q10bGenderOfChildren.getChildDkrUHHT()).add(getBigIntValue(q10bGenderOfChildren.getChildFemaleUHHT())).add(getBigIntValue(q10bGenderOfChildren.getChildMaleUHHT()))
+					.add(getBigIntValue(q10bGenderOfChildren.getChildInfomiisingUHHT())).add(getBigIntValue(q10bGenderOfChildren.getChildOtherUHHT())).add(getBigIntValue(q10bGenderOfChildren.getChildTransgenderFMUHHT()))
+					.add(getBigIntValue(q10bGenderOfChildren.getChildTransgenderMFUHHT()));
 		q10bGenderOfChildren.setTotChildSubtotal(totSubTotal);
 		q10bGenderOfChildren.setChildSubtotalWOC(subtotalWOC);
 		q10bGenderOfChildren.setChildSubtotalWCA(subtotalWCA);

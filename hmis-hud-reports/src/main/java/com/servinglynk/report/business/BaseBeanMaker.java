@@ -261,7 +261,7 @@ public class BaseBeanMaker {
 			statement.setString(1, victim);
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
-			 models.add(resultSet.getString("project_entry_id"));
+			 models.add(resultSet.getString("enrollmentid"));
 		 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -290,7 +290,7 @@ public class BaseBeanMaker {
 			statement = connection.prepareStatement(String.format(ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK,schema));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
-			 models.add(resultSet.getString("project_entry_id"));
+			 models.add(resultSet.getString("enrollmentid"));
 		 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -319,7 +319,7 @@ public class BaseBeanMaker {
 			statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_CONTACTS,schema));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
-			 ContactModel model = new ContactModel(resultSet.getString("contact_id"), resultSet.getString("project_entry_id"), resultSet.getDate("contact_date"), resultSet.getString("contact_location"), resultSet.getString("source_system_id"));
+			 ContactModel model = new ContactModel(resultSet.getString("id"), resultSet.getString("enrollmentid"), resultSet.getDate("contact_date"), resultSet.getString("contact_location"), resultSet.getString("source_system_id"));
 			 models.add(model);
 		 }
 		} catch (SQLException e) {

@@ -17,7 +17,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 	public static List<Q13a2DataBean> getQ13a2NumberOfConditionsAtEntryList(ReportData data){
 		
 		Q13a2DataBean q13a2Bean = new Q13a2DataBean();
-		String query ="select project_entry_id,count(project_entry_id) as cnt from disabilities where datacollectionstage='1' and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) group by project_entry_id";
+		String query ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage='1' and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) group by enrollmentid";
 		
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
@@ -114,7 +114,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 	    	q13a2Bean.setQ13a2Condition3PlusUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
 		}
 		
-		String noneQuery ="select project_entry_id,count(project_entry_id) as cnt from disabilities where datacollectionstage='1' and disabilityresponse='0'  group by project_entry_id";
+		String noneQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage='1' and disabilityresponse='0'  group by enrollmentid";
 		List<DisabilitiesModel> disabilitiesNone = getEnrollmentFromDisabilitiesCount(data.getSchema(), noneQuery);
 		if(CollectionUtils.isNotEmpty(disabilitiesNone)) {
 			List<DisabilitiesModel> withChildren = disabilitiesNone.parallelStream().filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id())).collect(Collectors.toList());
@@ -141,7 +141,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 		}
 		
 		
-		String unknownQuery ="select project_entry_id,count(project_entry_id) as cnt from disabilities where datacollectionstage='1' and ( disabilityresponse='8' or disabilityresponse='9')  group by project_entry_id";
+		String unknownQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage='1' and ( disabilityresponse='8' or disabilityresponse='9')  group by enrollmentid";
 		List<DisabilitiesModel> disabilitiesUnknown = getEnrollmentFromDisabilitiesCount(data.getSchema(), unknownQuery);
 		if(CollectionUtils.isNotEmpty(disabilitiesUnknown)) {
 			List<DisabilitiesModel> withChildren = disabilitiesNone.parallelStream().filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id())).collect(Collectors.toList());
@@ -168,7 +168,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 		}
 		
 		
-		String infoMissingQuery ="select project_entry_id,count(project_entry_id) as cnt from disabilities where datacollectionstage='1' and disabilityresponse='99'  group by project_entry_id";
+		String infoMissingQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage='1' and disabilityresponse='99'  group by enrollmentid";
 		List<DisabilitiesModel> disabilitiesMissing = getEnrollmentFromDisabilitiesCount(data.getSchema(), infoMissingQuery);
 		if(CollectionUtils.isNotEmpty(disabilitiesMissing)) {
 			List<DisabilitiesModel> withChildren = disabilitiesMissing.parallelStream().filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id())).collect(Collectors.toList());

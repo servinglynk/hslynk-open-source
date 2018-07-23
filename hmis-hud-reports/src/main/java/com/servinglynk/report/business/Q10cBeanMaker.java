@@ -136,16 +136,16 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 			
 			BigInteger subtotalWOC = getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getDkrMAIWOC()).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getMaleMAIWOC()))
 					.add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getFemaleMAIWOC())).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getInfomissingMAIWOC()))
-					.add(q10cGenderofPersonsMissingAgeInformation.getOtherMAIWOC()).add(q10cGenderofPersonsMissingAgeInformation.getTransgenderFMMAIWOC())
-					.add(q10cGenderofPersonsMissingAgeInformation.getTransgenderMFMAIWOC());
+					.add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getOtherMAIWOC())).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getTransgenderFMMAIWOC()))
+					.add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getTransgenderMFMAIWOC()));
 					
-			BigInteger subtotalWCA = 	q10cGenderofPersonsMissingAgeInformation.getDkrMAIWCA().add(q10cGenderofPersonsMissingAgeInformation.getMaleMAIWCA()).add(q10cGenderofPersonsMissingAgeInformation.getFemaleMAIWCA())
-					.add(q10cGenderofPersonsMissingAgeInformation.getInfomissingMAIWCA()).add(q10cGenderofPersonsMissingAgeInformation.getOtherMAIWCA()).add(q10cGenderofPersonsMissingAgeInformation.getTransgenderFMMAIWCA())
-					.add(q10cGenderofPersonsMissingAgeInformation.getTransgenderMFMAIWCA());
+			BigInteger subtotalWCA = 	getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getDkrMAIWCA()).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getMaleMAIWCA())).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getFemaleMAIWCA()))
+					.add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getInfomissingMAIWCA())).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getOtherMAIWCA())).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getTransgenderFMMAIWCA()))
+					.add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getTransgenderMFMAIWCA()));
 			
-			BigInteger subtotalUHHT = q10cGenderofPersonsMissingAgeInformation.getDkrMAIUHHT().add(q10cGenderofPersonsMissingAgeInformation.getFemaleMAIUHHT()).add(q10cGenderofPersonsMissingAgeInformation.getMaleMAIUHHT())
-						.add(q10cGenderofPersonsMissingAgeInformation.getInfomissingMAIUHHT()).add(q10cGenderofPersonsMissingAgeInformation.getOtherMAIUHHT()).add(q10cGenderofPersonsMissingAgeInformation.getTransgenderFMMAIUHHT())
-						.add(q10cGenderofPersonsMissingAgeInformation.getTransgenderMFMAIUHHT());
+			BigInteger subtotalUHHT = getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getDkrMAIUHHT()).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getFemaleMAIUHHT())).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getMaleMAIUHHT()))
+						.add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getInfomissingMAIUHHT())).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getOtherMAIUHHT())).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getTransgenderFMMAIUHHT()))
+						.add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getTransgenderMFMAIUHHT()));
 			
 			q10cGenderofPersonsMissingAgeInformation.setTotMAISubtotal(totSubTotal);
 			q10cGenderofPersonsMissingAgeInformation.setSubtotalMAIWOC(subtotalWOC);
