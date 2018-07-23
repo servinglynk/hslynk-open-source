@@ -18,6 +18,9 @@ public class ReportData {
 	private String projectId;
 	private Date reportStartDate;
 	private Date reportEndDate;
+	private boolean sageReport;
+	private boolean capterReport;
+	private boolean aprReport;
 	private List<ClientModel> clients = new ArrayList<ClientModel>();
 	private List<ProjectModel> projects = new ArrayList<ProjectModel>();
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
@@ -456,6 +459,41 @@ public class ReportData {
 	public void setTpcFirstContactedPlaceMissing(BigInteger tpcFirstContactedPlaceMissing) {
 		this.tpcFirstContactedPlaceMissing = tpcFirstContactedPlaceMissing;
 	}
-	
+	/**
+	 * @return the sageReport
+	 */
+	public boolean isSageReport() {
+		return sageReport;
+	}
+	/**
+	 * @param sageReport the sageReport to set
+	 */
+	public void setSageReport(boolean sageReport) {
+		this.sageReport = sageReport;
+	}
+	/**
+	 * @return the capterReport
+	 */
+	public boolean isCapterReport() {
+		return capterReport;
+	}
+	/**
+	 * @param capterReport the capterReport to set
+	 */
+	public void setCapterReport(boolean capterReport) {
+		this.capterReport = capterReport;
+	}
+	/**
+	 * @return the aprReport
+	 */
+	public boolean isAprReport() {
+		return aprReport;
+	}
+	/**
+	 * @param aprReport the aprReport to set
+	 */
+	public void setAprReport(boolean aprReport) {
+		this.aprReport = aprReport;
+	}
 	
 }

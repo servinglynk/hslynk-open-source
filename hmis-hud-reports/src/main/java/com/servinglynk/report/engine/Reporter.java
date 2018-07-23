@@ -35,13 +35,7 @@ public class Reporter {
         try {         
         	Properties props = new Properties();
     		props.generatePropValues();
-        	ClassLoader classLoader = Reporter.class.getClassLoader();
-			File file = new File(classLoader.getResource("homePage.jrxml").getFile());
-//			System.out.println("File Path --> " + file);
-			InputStream inputStream = new FileInputStream(file);
-		//	List<HomePageDataBean> dataBeanList = new ArrayList<HomePageDataBean>();
-//        	HomePageDataBeanMaker homePageDataBeanMaker = new HomePageDataBeanMaker();
-			
+        
 			List<String> projects = new ArrayList<>();
 			projects.add("4055e079-fbef-42cd-9f58-43a90be60b47");
 			projects.add("468b31e4-3492-4043-a917-53b66b3cf617");
@@ -55,13 +49,13 @@ public class Reporter {
 			projects.add("c31f3f53-0b9f-480e-8da8-ffe8c7b931ed");
 			projects.add("e6ccebeb-2b03-47aa-96dc-e63b9d2c4fc1");
 			
-			
-			
         	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("sr0012",null,sageReport, new Date(), new Date(),projects);
-        	if(sageReport) {
-        		//System.out.println("----Inside condition-------");
+        	if(!sageReport) {
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
                 Map parameters = new HashMap();
+            	ClassLoader classLoader = Reporter.class.getClassLoader();
+    			File file = new File(classLoader.getResource("homePage.jrxml").getFile());
+    			InputStream inputStream = new FileInputStream(file);
     		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
     		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
     		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
@@ -96,7 +90,7 @@ public class Reporter {
         
         
      public static void main(String[] args) {
-    	 boolean sageReport=true;
+    	 boolean sageReport=false;
         Reporter main = new Reporter();
         main.exportToPDF(sageReport);
     }
