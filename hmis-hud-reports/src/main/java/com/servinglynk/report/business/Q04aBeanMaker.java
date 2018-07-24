@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q04aDataBean;
@@ -18,7 +20,9 @@ public class Q04aBeanMaker {
 	
 			public static List<Q04aDataBean> getQ04aDataBeanList(String schema, String projectId,ReportData data) {
 				Q04aDataBean q04aDataBean = new Q04aDataBean(); 
-				populateProject(schema, projectId, q04aDataBean,data);
+				if(StringUtils.isNotBlank(projectId)) {
+					populateProject(schema, projectId, q04aDataBean,data);
+				}
 				return Arrays.asList(q04aDataBean);
 			}
 			public static void populateProject(String schema,String id, Q04aDataBean q04aDataBean,ReportData data ) {

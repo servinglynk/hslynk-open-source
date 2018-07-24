@@ -4,49 +4,49 @@ import java.math.BigInteger;
 
 public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean {
 	
-	private BigInteger q25fAdultsWithOnlyEarnedIncomeAtEntry;
-	private BigInteger q25fAdultsWithOnlyEarnedIncomeStayers;
-	private BigInteger q25fAdultsWithOnlyEarnedIncomeLeavers;
+	private BigInteger q25fAdultsWithOnlyEarnedIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithOnlyEarnedIncomeStayers=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithOnlyEarnedIncomeLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25fAdultsWithOnlyOtherIncomeAtEntry;
-	private BigInteger q25fAdultsWithOnlyOtherIncomeStayers;
-	private BigInteger q25fAdultsWithOnlyOtherIncomeLeavers;
+	private BigInteger q25fAdultsWithOnlyOtherIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithOnlyOtherIncomeStayers=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithOnlyOtherIncomeLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25fAdultsWithBothEarnedAndOtherAtEntry;
-	private BigInteger q25fAdultsWithBothEarnedAndOtherStayers;
-	private BigInteger q25fAdultsWithBothEarnedAndOtherLeavers;
+	private BigInteger q25fAdultsWithBothEarnedAndOtherAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithBothEarnedAndOtherStayers=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithBothEarnedAndOtherLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25fAdultsWithNoIncomeAtEntry;
-	private BigInteger q25fAdultsWithNoIncomeStayers;
-	private BigInteger q25fAdultsWithNoIncomeLeavers;
+	private BigInteger q25fAdultsWithNoIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithNoIncomeStayers=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithNoIncomeLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25fAdultsWithDontRefusedIncomeAtEntry;
-	private BigInteger q25fAdultsWithDontRefusedIncomeStayers;
-	private BigInteger q25fAdultsWithDontRefusedIncomeLeavers;
+	private BigInteger q25fAdultsWithDontRefusedIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithDontRefusedIncomeStayers=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithDontRefusedIncomeLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25fAdultsWithMissingInomeInfoAtEntry;
-	private BigInteger q25fAdultsWithMissingInomeInfoStayers;
-	private BigInteger q25fAdultsWithMissingInomeInfoLeavers;
+	private BigInteger q25fAdultsWithMissingInomeInfoAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithMissingInomeInfoStayers=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithMissingInomeInfoLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25fNumberOfAdultStayersNotYetRequiredAtEntry;
-	private BigInteger q25fNumberOfAdultStayersNotYetRequiredStayers;
-	private BigInteger q25fNumberOfAdultStayersNotYetRequiredLeavers;
+	private BigInteger q25fNumberOfAdultStayersNotYetRequiredAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25fNumberOfAdultStayersNotYetRequiredStayers=BigInteger.valueOf(0);
+	private BigInteger q25fNumberOfAdultStayersNotYetRequiredLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25fNumberOfAdultStayersWithoutRequiredAtEntry;
-	private BigInteger q25fNumberOfAdultStayersWithoutRequiredStayers;
-	private BigInteger q25fNumberOfAdultStayersWithoutRequiredLeavers;
+	private BigInteger q25fNumberOfAdultStayersWithoutRequiredAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25fNumberOfAdultStayersWithoutRequiredStayers=BigInteger.valueOf(0);
+	private BigInteger q25fNumberOfAdultStayersWithoutRequiredLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25fTotalAdultsAtEntry;
-	private BigInteger q25fTotalAdultsStayers;
-	private BigInteger q25fTotalAdultsLeavers;
+	private BigInteger q25fTotalAdultsAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25fTotalAdultsStayers=BigInteger.valueOf(0);
+	private BigInteger q25fTotalAdultsLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25f1OrMoreSourceOfIncomeAtEntry;
-	private BigInteger q25f1OrMoreSourceOfIncomeStayers;
-	private BigInteger q25f1OrMoreSourceOfIncomeLeavers;
+	private BigInteger q25f1OrMoreSourceOfIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25f1OrMoreSourceOfIncomeStayers=BigInteger.valueOf(0);
+	private BigInteger q25f1OrMoreSourceOfIncomeLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25fAdultsWithIncomeInfoAtEntry;
-	private BigInteger q25fAdultsWithIncomeInfoStayers;
-	private BigInteger q25fAdultsWithIncomeInfoLeavers;
+	private BigInteger q25fAdultsWithIncomeInfoAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithIncomeInfoStayers=BigInteger.valueOf(0);
+	private BigInteger q25fAdultsWithIncomeInfoLeavers=BigInteger.valueOf(0);
 	public BigInteger getQ25fAdultsWithOnlyEarnedIncomeAtEntry() {
 		return q25fAdultsWithOnlyEarnedIncomeAtEntry;
 	}

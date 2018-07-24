@@ -26,7 +26,6 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 		Q06bDataBean q06bDataBean = new Q06bDataBean();
 		List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel> enrollments = data.getEnrollments();
-		ProjectModel project = data.getProject();
 		Long numOfClients = Long.valueOf(clients.size());
 		clients.parallelStream().forEach(client -> { 
 			

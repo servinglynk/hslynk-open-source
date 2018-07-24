@@ -4,22 +4,22 @@ import java.math.BigInteger;
 
 public class Q05aDataBean extends ReportBean {
 	
-	private BigInteger totNumOfPersonServed;
-	private BigInteger numOfAdults;
-	private BigInteger numOfChildren;
-	private BigInteger numOfPersonsWithUnknownAge;
-	private BigInteger totNoOfLeavers;
-	private BigInteger totNoOfStayers;
-	private BigInteger totNoOfAdultStayers;
-	private BigInteger totNoOfAdultLeavers;
-	private BigInteger noOfVeterans;
-	private BigInteger noOfChronicallyHomelessPersons;
-	private BigInteger noOfAdultHeadsOfHousehold;
-	private BigInteger noOfChildHeadsOfHousehold;
-	private BigInteger numOfParentingYouthUnderAge25WithChildren;
-	private BigInteger numOfAdultandHeadOfHHLeavers;
-	private BigInteger numOfYouthUnderAge25;
-	private BigInteger numOfHeadsOfHHandAdults365Days;
+	private BigInteger totNumOfPersonServed=BigInteger.valueOf(0);
+	private BigInteger numOfAdults=BigInteger.valueOf(0);
+	private BigInteger numOfChildren=BigInteger.valueOf(0);
+	private BigInteger numOfPersonsWithUnknownAge=BigInteger.valueOf(0);
+	private BigInteger totNoOfLeavers=BigInteger.valueOf(0);
+	private BigInteger totNoOfStayers=BigInteger.valueOf(0);
+	private BigInteger totNoOfAdultStayers=BigInteger.valueOf(0);
+	private BigInteger totNoOfAdultLeavers=BigInteger.valueOf(0);
+	private BigInteger noOfVeterans=BigInteger.valueOf(0);
+	private BigInteger noOfChronicallyHomelessPersons=BigInteger.valueOf(0);
+	private BigInteger noOfAdultHeadsOfHousehold=BigInteger.valueOf(0);
+	private BigInteger noOfChildHeadsOfHousehold=BigInteger.valueOf(0);
+	private BigInteger numOfParentingYouthUnderAge25WithChildren=BigInteger.valueOf(0);
+	private BigInteger numOfAdultandHeadOfHHLeavers=BigInteger.valueOf(0);
+	private BigInteger numOfYouthUnderAge25=BigInteger.valueOf(0);
+	private BigInteger numOfHeadsOfHHandAdults365Days=BigInteger.valueOf(0);
 	
 	public BigInteger getTotNumOfPersonServed() {
 		return totNumOfPersonServed;

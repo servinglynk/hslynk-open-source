@@ -4,50 +4,50 @@ import java.math.BigInteger;
 
 public class Q25dAgeVeteransDataBean {
 
-	private BigInteger q25d18To24Total;
-	private BigInteger q25d18To24WithoutChildren;
-	private BigInteger q25d18To24WithChildAndAdults;
-	private BigInteger q25d18To24UnknownHouseHold;
+	private BigInteger q25d18To24Total=BigInteger.valueOf(0);
+	private BigInteger q25d18To24WithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25d18To24WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25d18To24UnknownHouseHold=BigInteger.valueOf(0);
 
-	private BigInteger q25d25To34Total;
-	private BigInteger q25d25To34WithoutChildren;
-	private BigInteger q25d25To34WithChildAndAdults;
-	private BigInteger q25d25To34UnknownHouseHold;
+	private BigInteger q25d25To34Total=BigInteger.valueOf(0);
+	private BigInteger q25d25To34WithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25d25To34WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25d25To34UnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25d35To44Total;
-	private BigInteger q25d35To44WithoutChildren;
-	private BigInteger q25d35To44WithChildAndAdults;
-	private BigInteger q25d35To44UnknownHouseHold;
+	private BigInteger q25d35To44Total=BigInteger.valueOf(0);
+	private BigInteger q25d35To44WithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25d35To44WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25d35To44UnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25d45To54Total;
-	private BigInteger q25d45To54WithoutChildren;
-	private BigInteger q25d45To54WithChildAndAdults;
-	private BigInteger q25d45To54UnknownHouseHold;
+	private BigInteger q25d45To54Total=BigInteger.valueOf(0);
+	private BigInteger q25d45To54WithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25d45To54WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25d45To54UnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25d55To61Total;
-	private BigInteger q25d55To61WithoutChildren;
-	private BigInteger q25d55To61WithChildAndAdults;
-	private BigInteger q25d55To61UnknownHouseHold;
+	private BigInteger q25d55To61Total=BigInteger.valueOf(0);
+	private BigInteger q25d55To61WithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25d55To61WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25d55To61UnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25d62PlusTotal;
-	private BigInteger q25d62PlusWithoutChildren;
-	private BigInteger q25d62PlusWithChildAndAdults;
-	private BigInteger q25d62PlusUnknownHouseHold;
+	private BigInteger q25d62PlusTotal=BigInteger.valueOf(0);
+	private BigInteger q25d62PlusWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25d62PlusWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25d62PlusUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25dDKRTotal;
-	private BigInteger q25dDKRWithoutChildren;
-	private BigInteger q25dDKRWithChildAndAdults;
-	private BigInteger q25dDKRUnknownHouseHold;
+	private BigInteger q25dDKRTotal=BigInteger.valueOf(0);
+	private BigInteger q25dDKRWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25dDKRWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25dDKRUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25dInformationMissingTotal;
-	private BigInteger q25dInformationMissingWithoutChildren;
-	private BigInteger q25dInformationMissingWithChildAndAdults;
-	private BigInteger q25dInformationMissingUnknownHouseHold;
+	private BigInteger q25dInformationMissingTotal=BigInteger.valueOf(0);
+	private BigInteger q25dInformationMissingWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25dInformationMissingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25dInformationMissingUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25dTotTotal;
-	private BigInteger q25dTotWithoutChildren;
-	private BigInteger q25dTotWithChildAndAdults;
-	private BigInteger q25dTotUnknownHouseHold;
+	private BigInteger q25dTotTotal=BigInteger.valueOf(0);
+	private BigInteger q25dTotWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25dTotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25dTotUnknownHouseHold=BigInteger.valueOf(0);
 	public BigInteger getQ25d18To24Total() {
 		return q25d18To24Total;
 	}

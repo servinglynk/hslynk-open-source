@@ -4,53 +4,54 @@ import java.math.BigInteger;
 
 public class Q22a2LengthOfParticipationESGProjectsDataBean {
 	
-	private BigInteger q22a2A30DaysOrLessTotal;
-	private BigInteger q22a2A30DaysOrLessLeavers;
-	private BigInteger q22a2A30DaysOrLessStayers;
+	private BigInteger q22a2A30DaysOrLessTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2A30DaysOrLessLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2A30DaysOrLessStayers=BigInteger.valueOf(0);
 		
-	private BigInteger q22a2B31To60DaysTotal;
-	private BigInteger q22a2B31To60DaysLeavers;
-	private BigInteger q22a2B31To60DaysStayers;
+	private BigInteger q22a2B31To60DaysTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2B31To60DaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2B31To60DaysStayers=BigInteger.valueOf(0);
 		
-	private BigInteger q22a2C61To90DaysTotal;
-	private BigInteger q22a2C61To90DaysLeavers;
-	private BigInteger q22a2C61To90DaysStayers;
+	private BigInteger q22a2C61To90DaysTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2C61To90DaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2C61To90DaysStayers=BigInteger.valueOf(0);
 	
-	private BigInteger q22a2D91To180DaysTotal;
-	private BigInteger q22a2D91To180DaysLeavers;
-	private BigInteger q22a2D91To180DaysStayers;
+	private BigInteger q22a2D91To180DaysTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2D91To180DaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2D91To180DaysStayers=BigInteger.valueOf(0);
 		
-	private BigInteger q22a2E181To365DaysTotal;
-	private BigInteger q22a2E181To365DaysLeavers;
-	private BigInteger q22a2E181To365DaysStayers;
+	private BigInteger q22a2E181To365DaysTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2E181To365DaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2E181To365DaysStayers=BigInteger.valueOf(0);
 		
-	private BigInteger q22a2F366To730DaysTotal;
-	private BigInteger q22a2F366To730DaysLeavers;
-	private BigInteger q22a2F366To730DaysStayers;
+	private BigInteger q22a2F366To730DaysTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2F366To730DaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2F366To730DaysStayers=BigInteger.valueOf(0);
 			
-	private BigInteger q22a2G731To1095DaysTotal;
-	private BigInteger q22a2G731To1095DaysLeavers;
-	private BigInteger q22a2G731To1095DaysStayers;
+	private BigInteger q22a2G731To1095DaysTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2G731To1095DaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2G731To1095DaysStayers=BigInteger.valueOf(0);
 		
-	private BigInteger q22a2H1096To1460DaysTotal;
-	private BigInteger q22a2H1096To1460DaysLeavers;
-	private BigInteger q22a2H1096To1460DaysStayers;
+	private BigInteger q22a2H1096To1460DaysTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2H1096To1460DaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2H1096To1460DaysStayers=BigInteger.valueOf(0);
 		
-	private BigInteger q22a2I1461To1825DaysTotal;
-	private BigInteger q22a2I1461To1825DaysLeavers;
-	private BigInteger q22a2I1461To1825DaysStayers;
+	private BigInteger q22a2I1461To1825DaysTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2I1461To1825DaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2I1461To1825DaysStayers=BigInteger.valueOf(0);
 		
-	private BigInteger q22a2JMoreThan1825DaysTotal;
-	private BigInteger q22a2JMoreThan1825DaysLeavers;
-	private BigInteger q22a2JMoreThan1825DaysStayers;
+	private BigInteger q22a2JMoreThan1825DaysTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2JMoreThan1825DaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2JMoreThan1825DaysStayers=BigInteger.valueOf(0);
 		
-	private BigInteger q22a2KInfoMissingTotal;
-	private BigInteger q22a2KInfoMissingLeavers;
-	private BigInteger q22a2KInfoMissingStayers;
+	private BigInteger q22a2KInfoMissingTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2KInfoMissingLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2KInfoMissingStayers=BigInteger.valueOf(0);
 		
-	private BigInteger q22a2LTotTotal;
-	private BigInteger q22a2LTotLeavers;
-	private BigInteger q22a2LTotStayers;
+	private BigInteger q22a2LTotTotal=BigInteger.valueOf(0);
+	private BigInteger q22a2LTotLeavers=BigInteger.valueOf(0);
+	private BigInteger q22a2LTotStayers=BigInteger.valueOf(0);
+
 	public BigInteger getQ22a2A30DaysOrLessTotal() {
 		return q22a2A30DaysOrLessTotal;
 	}

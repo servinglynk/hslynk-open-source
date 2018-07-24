@@ -4,35 +4,35 @@ import java.math.BigInteger;
 
 public class Q25aNumberOfVeteransDataBean {
 	
-	private BigInteger q25aChronicallyHomelessVeteranTotal;
-	private BigInteger q25aChronicallyHomelessVeteranWithoutChildren;
-	private BigInteger q25aChronicallyHomelessVeteranWithChildAndAdults;
-	private BigInteger q25aChronicallyHomelessVeteranUnknownHouseHold;
+	private BigInteger q25aChronicallyHomelessVeteranTotal=BigInteger.valueOf(0);
+	private BigInteger q25aChronicallyHomelessVeteranWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25aChronicallyHomelessVeteranWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25aChronicallyHomelessVeteranUnknownHouseHold=BigInteger.valueOf(0);
 			
-	private BigInteger q25aNonChronicallyHomelessVeteranTotal;
-	private BigInteger q25aNonChronicallyHomelessVeteranWithoutChildren;
-	private BigInteger q25aNonChronicallyHomelessVeteranWithChildAndAdults;
-	private BigInteger q25aNonChronicallyHomelessVeteranUnknownHouseHold;
+	private BigInteger q25aNonChronicallyHomelessVeteranTotal=BigInteger.valueOf(0);
+	private BigInteger q25aNonChronicallyHomelessVeteranWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25aNonChronicallyHomelessVeteranWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25aNonChronicallyHomelessVeteranUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25aNotVeteranTotal;
-	private BigInteger q25aNotVeteranWithoutChildren;
-	private BigInteger q25aNotVeteranWithChildAndAdults;
-	private BigInteger q25aNotVeteranUnknownHouseHold;
+	private BigInteger q25aNotVeteranTotal=BigInteger.valueOf(0);
+	private BigInteger q25aNotVeteranWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25aNotVeteranWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25aNotVeteranUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25aClientRefusedTotal;
-	private BigInteger q25aClientRefusedWithoutChildren;
-	private BigInteger q25aClientRefusedWithChildAndAdults;
-	private BigInteger q25aClientRefusedUnknownHouseHold;
+	private BigInteger q25aClientRefusedTotal=BigInteger.valueOf(0);
+	private BigInteger q25aClientRefusedWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25aClientRefusedWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25aClientRefusedUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25aDataNotCollectedTotal;
-	private BigInteger q25aDataNotCollectedWithoutChildren;
-	private BigInteger q25aDataNotCollectedWithChildAndAdults;
-	private BigInteger q25aDataNotCollectedUnknownHouseHold;
+	private BigInteger q25aDataNotCollectedTotal=BigInteger.valueOf(0);
+	private BigInteger q25aDataNotCollectedWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25aDataNotCollectedWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25aDataNotCollectedUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25aTotTotal;
-	private BigInteger q25aTotWithoutChildren;
-	private BigInteger q25aTotWithChildAndAdults;
-	private BigInteger q25aTotUnknownHouseHold;
+	private BigInteger q25aTotTotal=BigInteger.valueOf(0);
+	private BigInteger q25aTotWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25aTotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25aTotUnknownHouseHold=BigInteger.valueOf(0);
 	public BigInteger getQ25aChronicallyHomelessVeteranTotal() {
 		return q25aChronicallyHomelessVeteranTotal;
 	}

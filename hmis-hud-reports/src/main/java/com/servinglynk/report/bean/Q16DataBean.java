@@ -4,57 +4,60 @@ import java.math.BigInteger;
 
 public class Q16DataBean {
 	
-	private BigInteger q16NoIncomeIncomeAtEntry;
-	private BigInteger q16NoIncomeIncomeAtLatestFollowupforStayers;
-	private BigInteger q16NoIncomeIncomeAtExitforLeavers;
+
+	private BigInteger q16NoIncomeIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q16NoIncomeIncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q16NoIncomeIncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q161To150IncomeAtEntry;
-	private BigInteger q161To150IncomeAtLatestFollowupforStayers;
-	private BigInteger q161To150IncomeAtExitforLeavers;
+	private BigInteger q161To150IncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q161To150IncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q161To150IncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q16151To250IncomeAtEntry;
-	private BigInteger q16151To250IncomeAtLatestFollowupforStayers;
-	private BigInteger q16151To250IncomeAtExitforLeavers;
+	private BigInteger q16151To250IncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q16151To250IncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q16151To250IncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q16251To500IncomeAtEntry;
-	private BigInteger q16251To500IncomeAtLatestFollowupforStayers;
-	private BigInteger q16251To500IncomeAtExitforLeavers;
+	private BigInteger q16251To500IncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q16251To500IncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q16251To500IncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q16501To1000IncomeAtEntry;
-	private BigInteger q16501To1000IncomeAtLatestFollowupforStayers;
-	private BigInteger q16501To1000IncomeAtExitforLeavers;
+	private BigInteger q16501To1000IncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q16501To1000IncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q16501To1000IncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q161001To1500IncomeAtEntry;
-	private BigInteger q161001To1500IncomeAtLatestFollowupforStayers;
-	private BigInteger q161001To1500IncomeAtExitforLeavers;
+	private BigInteger q161001To1500IncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q161001To1500IncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q161001To1500IncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q161501To2000IncomeAtEntry;
-	private BigInteger q161501To2000IncomeAtLatestFollowupforStayers;
-	private BigInteger q161501To2000IncomeAtExitforLeavers;
+	private BigInteger q161501To2000IncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q161501To2000IncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q161501To2000IncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q162000PlusIncomeAtEntry;
-	private BigInteger q162000PlusIncomeAtLatestFollowupforStayers;
-	private BigInteger q162000PlusIncomeAtExitforLeavers;
+	private BigInteger q162000PlusIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q162000PlusIncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q162000PlusIncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q16ClientDoesntKnowIncomeAtEntry;
-	private BigInteger q16ClientDoesntKnowIncomeAtLatestFollowupforStayers;
-	private BigInteger q16ClientDoesntKnowIncomeAtExitforLeavers;
+	private BigInteger q16ClientDoesntKnowIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q16ClientDoesntKnowIncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q16ClientDoesntKnowIncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q16DataNotCollectedIncomeAtEntry;
-	private BigInteger q16DataNotCollectedIncomeAtLatestFollowupforStayers;
-	private BigInteger q16DataNotCollectedIncomeAtExitforLeavers;
+	private BigInteger q16DataNotCollectedIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q16DataNotCollectedIncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q16DataNotCollectedIncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q16NumberOfAdultStayersNotYetRequiredIncomeAtEntry;
-	private BigInteger q16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers;
-	private BigInteger q16NumberOfAdultStayersNotYetRequiredIncomeAtExitforLeavers;
+	private BigInteger q16NumberOfAdultStayersNotYetRequiredIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q16NumberOfAdultStayersNotYetRequiredIncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q16NumberOfAdultStayersWithoutRequiredIncomeAtEntry;
-	private BigInteger q16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers;
-	private BigInteger q16NumberOfAdultStayersWithoutRequiredIncomeAtExitforLeavers;
+	private BigInteger q16NumberOfAdultStayersWithoutRequiredIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q16NumberOfAdultStayersWithoutRequiredIncomeAtExitforLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q16TotalAdultsIncomeAtEntry;
-	private BigInteger q16TotalAdultsIncomeAtLatestFollowupforStayers;
-	private BigInteger q16TotalAdultsIncomeAtExitforLeavers;
+	private BigInteger q16TotalAdultsIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q16TotalAdultsIncomeAtLatestFollowupforStayers=BigInteger.valueOf(0);
+	private BigInteger q16TotalAdultsIncomeAtExitforLeavers=BigInteger.valueOf(0);
+	
+	
 	public BigInteger getQ16NoIncomeIncomeAtEntry() {
 		return q16NoIncomeIncomeAtEntry;
 	}

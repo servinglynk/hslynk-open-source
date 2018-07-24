@@ -5,16 +5,17 @@ import java.math.BigInteger;
 
 public class Q06bDataBean extends ReportBean{
 
-	private BigInteger veteranStatusErrorCount;
-	private BigInteger veteranStatusErrorRate;
-	private BigInteger pedErrorCount;
-	private BigInteger pedErrorRate;
-	private BigInteger relationshipHHErrorCount;
-	private BigInteger relationshipHHErrorRate;
-	private BigInteger clientLocationErrorCount;
-	private BigInteger clientLocationErrorRate;
-	private BigInteger disablingCondErrorCount;
-	private BigInteger disablingCondErrorRate;
+	private BigInteger veteranStatusErrorCount=BigInteger.valueOf(0);
+	private BigInteger veteranStatusErrorRate=BigInteger.valueOf(0);
+	private BigInteger pedErrorCount=BigInteger.valueOf(0);
+	private BigInteger pedErrorRate=BigInteger.valueOf(0);
+	private BigInteger relationshipHHErrorCount=BigInteger.valueOf(0);
+	private BigInteger relationshipHHErrorRate=BigInteger.valueOf(0);
+	private BigInteger clientLocationErrorCount=BigInteger.valueOf(0);
+	private BigInteger clientLocationErrorRate=BigInteger.valueOf(0);
+	private BigInteger disablingCondErrorCount=BigInteger.valueOf(0);
+	private BigInteger disablingCondErrorRate=BigInteger.valueOf(0);
+	
 	public BigInteger getVeteranStatusErrorCount() {
 		return veteranStatusErrorCount;
 	}

@@ -58,6 +58,9 @@ public class Reporter {
     			InputStream inputStream = new FileInputStream(file);
     		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
     		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+    		    
+    		    
+    		 
     		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
     		    JasperExportManager.exportReportToPdfFile(jasperPrint, "HMISREPORT_06072018.pdf"); 
         	}
@@ -65,31 +68,15 @@ public class Reporter {
             logger.error(e, e);
         }
     }
-     
-       /* private void exportToPDF() {
-            try {         
-            	
-            	InputStream inputStream = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report_P1_28012017.jrxml");
-            	InputStream inputStreamP2 =new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report_P2_28012017.jrxml");
-               
-                
-            	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList();
-                JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
-                
-                Map parameters = new HashMap();
-        
-    		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-    		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-    		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
-    		    JasperExportManager.exportReportToPdfFile(jasperPrint, "C:/workspace/hmis-hud-reports/src/main/resources/HMIS_REPORT_27012017.pdf"); 
-     
-            } catch (Exception e) {
-                logger.error(e, e);
-            }
-        }   */ 
-        
-        
-     public static void main(String[] args) {
+
+        public static void main(String[] args) throws Exception {
+//        	ClassLoader classLoader = Reporter.class.getClassLoader();
+//        	   File file1 = new File(classLoader.getResource("q21_Health_Insurance.jrxml").getFile());
+//   			InputStream inputStream1 = new FileInputStream(file1);
+//   		    JasperDesign jasperDesign1 = JRXmlLoader.load(inputStream1);
+//   		    JasperReport jasperReport1 = JasperCompileManager.compileReportToFile("q21_Health_Insurance.jrxml","q21_Health_Insurance.jasper");
+//   		    
+   		    
     	 boolean sageReport=false;
         Reporter main = new Reporter();
         main.exportToPDF(sageReport);

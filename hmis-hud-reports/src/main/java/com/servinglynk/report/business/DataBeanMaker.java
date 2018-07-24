@@ -888,6 +888,7 @@ public class DataBeanMaker {
 				.setTotContacted10orMore(totContacted10orMore);
 		q09ANumberOfPersonsContacted
 				.setTotPersonsContacted(totPersonsContacted);
+		/*
 		q09ANumberOfPersonsContacted
 				.setCoFirstContactHumanHabitation(coFirstContactHumanHabitation);
 		q09ANumberOfPersonsContacted.setCoFirstContactNRSS(coFirstContactNRSS);
@@ -926,7 +927,7 @@ public class DataBeanMaker {
 				.setTpcFirstContacteRSS(tpcFirstContacteRSS);
 		q09ANumberOfPersonsContacted
 				.setTpcFirstContactedPlaceMissing(tpcFirstContactedPlaceMissing);
-
+	*/
 		return q09ANumberOfPersonsContacted;
 	}
 

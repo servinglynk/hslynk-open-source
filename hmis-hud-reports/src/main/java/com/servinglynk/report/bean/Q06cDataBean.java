@@ -4,14 +4,15 @@ import java.math.BigInteger;
 
 public class Q06cDataBean {
 	
-	private BigInteger destinationStatusErrorCount;
-	private BigInteger destinationStatusErrorRate;
-	private BigInteger iseErrorCount;
-	private BigInteger iseErrorRate;
-	private BigInteger isaaErrorCount;
-	private BigInteger isaaErrorRate;
-	private BigInteger isaeErrorCount;
-	private BigInteger isaeErrorRate;
+	private BigInteger destinationStatusErrorCount=BigInteger.valueOf(0);
+	private BigInteger destinationStatusErrorRate=BigInteger.valueOf(0);
+	private BigInteger iseErrorCount=BigInteger.valueOf(0);
+	private BigInteger iseErrorRate=BigInteger.valueOf(0);
+	private BigInteger isaaErrorCount=BigInteger.valueOf(0);
+	private BigInteger isaaErrorRate=BigInteger.valueOf(0);
+	private BigInteger isaeErrorCount=BigInteger.valueOf(0);
+	private BigInteger isaeErrorRate=BigInteger.valueOf(0);
+	
 	public BigInteger getDestinationStatusErrorCount() {
 		return destinationStatusErrorCount;
 	}

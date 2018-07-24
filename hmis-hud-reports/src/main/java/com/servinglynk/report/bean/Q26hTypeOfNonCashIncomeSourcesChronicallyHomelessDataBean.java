@@ -4,29 +4,29 @@ import java.math.BigInteger;
 
 public class Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBean {
 	
-	private BigInteger q26hSupplementalNutritionalATANFChildCareServicesstanceAtEntry;
-	private BigInteger q26hSupplementalNutritionalATANFChildCareServicesstanceStayers;
-	private BigInteger q26hSupplementalNutritionalATANFChildCareServicesstanceLeavers;
+	private BigInteger q26hSupplementalNutritionalATANFChildCareServicesstanceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q26hSupplementalNutritionalATANFChildCareServicesstanceStayers=BigInteger.valueOf(0);
+	private BigInteger q26hSupplementalNutritionalATANFChildCareServicesstanceLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q26hWICAtEntry;
-	private BigInteger q26hWICStayers;
-	private BigInteger q26hWICLeavers;
+	private BigInteger q26hWICAtEntry=BigInteger.valueOf(0);
+	private BigInteger q26hWICStayers=BigInteger.valueOf(0);
+	private BigInteger q26hWICLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q26hTANFChildCareServicesAtEntry;
-	private BigInteger q26hTANFChildCareServicesStayers;
-	private BigInteger q26hTANFChildCareServicesLeavers;
+	private BigInteger q26hTANFChildCareServicesAtEntry=BigInteger.valueOf(0);
+	private BigInteger q26hTANFChildCareServicesStayers=BigInteger.valueOf(0);
+	private BigInteger q26hTANFChildCareServicesLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q26hTANFTransportationServicesAtEntry;
-	private BigInteger q26hTANFTransportationServicesStayers;
-	private BigInteger q26hTANFTransportationServicesLeavers;
+	private BigInteger q26hTANFTransportationServicesAtEntry=BigInteger.valueOf(0);
+	private BigInteger q26hTANFTransportationServicesStayers=BigInteger.valueOf(0);
+	private BigInteger q26hTANFTransportationServicesLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q26hOtherTANFFundedServicesAtEntry;
-	private BigInteger q26hOtherTANFFundedServicesStayers;
-	private BigInteger q26hOtherTANFFundedServicesLeavers;
+	private BigInteger q26hOtherTANFFundedServicesAtEntry=BigInteger.valueOf(0);
+	private BigInteger q26hOtherTANFFundedServicesStayers=BigInteger.valueOf(0);
+	private BigInteger q26hOtherTANFFundedServicesLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q26hOtherSourceAtEntry;
-	private BigInteger q26hOtherSourceStayers;
-	private BigInteger q26hOtherSourceLeavers;
+	private BigInteger q26hOtherSourceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q26hOtherSourceStayers=BigInteger.valueOf(0);
+	private BigInteger q26hOtherSourceLeavers=BigInteger.valueOf(0);
 	public BigInteger getQ26hSupplementalNutritionalATANFChildCareServicesstanceAtEntry() {
 		return q26hSupplementalNutritionalATANFChildCareServicesstanceAtEntry;
 	}

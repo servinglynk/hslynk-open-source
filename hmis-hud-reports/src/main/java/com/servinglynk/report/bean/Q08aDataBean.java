@@ -4,11 +4,11 @@ import java.math.BigInteger;
 
 public class Q08aDataBean {
 
-	private BigInteger overAllTotHouseHolds = BigInteger.ZERO;
-	private BigInteger totHhWithoutChild;
-	private BigInteger totHhWithChildAndAdults;
-	private BigInteger totHhWothOnlyChild;
-	private BigInteger totHhUnknownHhType;
+	private BigInteger overAllTotHouseHolds=BigInteger.valueOf(0);
+	private BigInteger totHhWithoutChild=BigInteger.valueOf(0);
+	private BigInteger totHhWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger totHhWothOnlyChild=BigInteger.valueOf(0);
+	private BigInteger totHhUnknownHhType=BigInteger.valueOf(0);
 	public BigInteger getOverAllTotHouseHolds() {
 		return overAllTotHouseHolds;
 	}

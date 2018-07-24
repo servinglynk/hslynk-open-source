@@ -5,30 +5,30 @@ import java.math.BigInteger;
 
 public class Q06aDataBean extends ReportBean{
 	
-	private BigInteger nameCDK;
-	private BigInteger nameInfoMissing;
-	private BigInteger nameDataIssue;
-	private BigInteger namePercentageErrorRate;
-	private BigInteger ssnCDK;
-	private BigInteger ssnInfoMissing;
-	private BigInteger ssnDataIssue;
-	private BigInteger ssnPercentageErrorRate;
-	private BigInteger dobCDK;
-	private BigInteger dobInfoMissing;
-	private BigInteger dobDataIssue;
-	private BigInteger dobPercentageErrorRate;
-	private BigInteger raceCDK;
-	private BigInteger raceInfoMissing;
-	private BigInteger raceDataIssue;
-	private BigInteger racePercentageErrorRate;
-	private BigInteger ethnicityCDK;
-	private BigInteger ethnicityInfoMissing;
-	private BigInteger ethnicityDataIssue;
-	private BigInteger ethnicityPercentageErrorRate;
-	private BigInteger genderCDK;
-	private BigInteger genderInfoMissing;
-	private BigInteger genderPercentageErrorRate;
-	private BigInteger overAllPercentage;
+	private BigInteger nameCDK=BigInteger.valueOf(0);
+	private BigInteger nameInfoMissing=BigInteger.valueOf(0);
+	private BigInteger nameDataIssue=BigInteger.valueOf(0);
+	private BigInteger namePercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger ssnCDK=BigInteger.valueOf(0);
+	private BigInteger ssnInfoMissing=BigInteger.valueOf(0);
+	private BigInteger ssnDataIssue=BigInteger.valueOf(0);
+	private BigInteger ssnPercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger dobCDK=BigInteger.valueOf(0);
+	private BigInteger dobInfoMissing=BigInteger.valueOf(0);
+	private BigInteger dobDataIssue=BigInteger.valueOf(0);
+	private BigInteger dobPercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger raceCDK=BigInteger.valueOf(0);
+	private BigInteger raceInfoMissing=BigInteger.valueOf(0);
+	private BigInteger raceDataIssue=BigInteger.valueOf(0);
+	private BigInteger racePercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger ethnicityCDK=BigInteger.valueOf(0);
+	private BigInteger ethnicityInfoMissing=BigInteger.valueOf(0);
+	private BigInteger ethnicityDataIssue=BigInteger.valueOf(0);
+	private BigInteger ethnicityPercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger genderCDK=BigInteger.valueOf(0);
+	private BigInteger genderInfoMissing=BigInteger.valueOf(0);
+	private BigInteger genderPercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger overAllPercentage=BigInteger.valueOf(0);
 	public BigInteger getNameCDK() {
 		return nameCDK;
 	}

@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:/workspace/hmis-hud-reports-csv_v2/src/main/pdfresources/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<field name="homePageStartDate" class="java.lang.String">
 		<fieldDescription><![CDATA[homePageStartDate]]></fieldDescription>

@@ -5,95 +5,95 @@ import java.math.BigInteger;
 
 public class Q24HomelessnessPreventionHousingAssessmentAtExitDataBean {
 	
-	private BigInteger q24AbleToMaintainWithoutSubsidyTotal;
-	private BigInteger q24AbleToMaintainWithoutSubsidyWithoutChild;
-	private BigInteger q24AbleToMaintainWithoutSubsidyWithChildAndAdults;
-	private BigInteger q24AbleToMaintainWithoutSubsidyWithOnlyChild;
-	private BigInteger q24AbleToMaintainWithoutSubsidyUnknownHouseHold;
+	private BigInteger q24AbleToMaintainWithoutSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainWithoutSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainWithoutSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainWithoutSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainWithoutSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24AbleToMaintainWithSubsidyTotal;
-	private BigInteger q24AbleToMaintainWithSubsidyWithoutChild;
-	private BigInteger q24AbleToMaintainWithSubsidyWithChildAndAdults;
-	private BigInteger q24AbleToMaintainWithSubsidyWithOnlyChild;
-	private BigInteger q24AbleToMaintainWithSubsidyUnknownHouseHold;
+	private BigInteger q24AbleToMaintainWithSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainWithSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainWithSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainWithSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainWithSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24AbleToMaintainOngoingSubsidyTotal;
-	private BigInteger q24AbleToMaintainOngoingSubsidyWithoutChild;
-	private BigInteger q24AbleToMaintainOngoingSubsidyWithChildAndAdults;
-	private BigInteger q24AbleToMaintainOngoingSubsidyWithOnlyChild;
-	private BigInteger q24AbleToMaintainOngoingSubsidyUnknownHouseHold;
+	private BigInteger q24AbleToMaintainOngoingSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainOngoingSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainOngoingSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainOngoingSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainOngoingSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24AbleToMaintainOtherThanSubsidyTotal;
-	private BigInteger q24AbleToMaintainOtherThanSubsidyWithoutChild;
-	private BigInteger q24AbleToMaintainOtherThanSubsidyWithChildAndAdults;
-	private BigInteger q24AbleToMaintainOtherThanSubsidyWithOnlyChild;
-	private BigInteger q24AbleToMaintainOtherThanSubsidyUnknownHouseHold;
+	private BigInteger q24AbleToMaintainOtherThanSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainOtherThanSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainOtherThanSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainOtherThanSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24AbleToMaintainOtherThanSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24MovedWithOngoingSubsidyTotal;
-	private BigInteger q24MovedWithOngoingSubsidyWithoutChild;
-	private BigInteger q24MovedWithOngoingSubsidyWithChildAndAdults;
-	private BigInteger q24MovedWithOngoingSubsidyWithOnlyChild;
-	private BigInteger q24MovedWithOngoingSubsidyUnknownHouseHold;
+	private BigInteger q24MovedWithOngoingSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q24MovedWithOngoingSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24MovedWithOngoingSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24MovedWithOngoingSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24MovedWithOngoingSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24MovedWithoutOngoingSubsidyTotal;
-	private BigInteger q24MovedWithoutOngoingSubsidyWithoutChild;
-	private BigInteger q24MovedWithoutOngoingSubsidyWithChildAndAdults;
-	private BigInteger q24MovedWithoutOngoingSubsidyWithOnlyChild;
-	private BigInteger q24MovedWithoutOngoingSubsidyUnknownHouseHold;
+	private BigInteger q24MovedWithoutOngoingSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q24MovedWithoutOngoingSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24MovedWithoutOngoingSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24MovedWithoutOngoingSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24MovedWithoutOngoingSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24MovedTemporaryBasisTotal;
-	private BigInteger q24MovedTemporaryBasisWithoutChild;
-	private BigInteger q24MovedTemporaryBasisWithChildAndAdults;
-	private BigInteger q24MovedTemporaryBasisWithOnlyChild;
-	private BigInteger q24MovedTemporaryBasisUnknownHouseHold;
+	private BigInteger q24MovedTemporaryBasisTotal=BigInteger.valueOf(0);
+	private BigInteger q24MovedTemporaryBasisWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24MovedTemporaryBasisWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24MovedTemporaryBasisWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24MovedTemporaryBasisUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24MovedPermenantBasisTotal;
-	private BigInteger q24MovedPermenantBasisWithoutChild;
-	private BigInteger q24MovedPermenantBasisWithChildAndAdults;
-	private BigInteger q24MovedPermenantBasisWithOnlyChild;
-	private BigInteger q24MovedPermenantBasisUnknownHouseHold;
+	private BigInteger q24MovedPermenantBasisTotal=BigInteger.valueOf(0);
+	private BigInteger q24MovedPermenantBasisWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24MovedPermenantBasisWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24MovedPermenantBasisWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24MovedPermenantBasisUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24MovedToTransitionalTotal;
-	private BigInteger q24MovedToTransitionalWithoutChild;
-	private BigInteger q24MovedToTransitionalWithChildAndAdults;
-	private BigInteger q24MovedToTransitionalWithOnlyChild;
-	private BigInteger q24MovedToTransitionalUnknownHouseHold;
+	private BigInteger q24MovedToTransitionalTotal=BigInteger.valueOf(0);
+	private BigInteger q24MovedToTransitionalWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24MovedToTransitionalWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24MovedToTransitionalWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24MovedToTransitionalUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24ClientBecameHomelessTotal;
-	private BigInteger q24ClientBecameHomelessWithoutChild;
-	private BigInteger q24ClientBecameHomelessWithChildAndAdults;
-	private BigInteger q24ClientBecameHomelessWithOnlyChild;
-	private BigInteger q24ClientBecameHomelessUnknownHouseHold;
+	private BigInteger q24ClientBecameHomelessTotal=BigInteger.valueOf(0);
+	private BigInteger q24ClientBecameHomelessWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24ClientBecameHomelessWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24ClientBecameHomelessWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24ClientBecameHomelessUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24ClientWenToJailTotal;
-	private BigInteger q24ClientWenToJailWithoutChild;
-	private BigInteger q24ClientWenToJailWithChildAndAdults;
-	private BigInteger q24ClientWenToJailWithOnlyChild;
-	private BigInteger q24ClientWenToJailUnknownHouseHold;
+	private BigInteger q24ClientWenToJailTotal=BigInteger.valueOf(0);
+	private BigInteger q24ClientWenToJailWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24ClientWenToJailWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24ClientWenToJailWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24ClientWenToJailUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24ClientDiedTotal;
-	private BigInteger q24ClientDiedWithoutChild;
-	private BigInteger q24ClientDiedWithChildAndAdults;
-	private BigInteger q24ClientDiedWithOnlyChild;
-	private BigInteger q24ClientDiedUnknownHouseHold;
+	private BigInteger q24ClientDiedTotal=BigInteger.valueOf(0);
+	private BigInteger q24ClientDiedWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24ClientDiedWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24ClientDiedWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24ClientDiedUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24ClientDoesntKnowTotal;
-	private BigInteger q24ClientDoesntKnowWithoutChild;
-	private BigInteger q24ClientDoesntKnowWithChildAndAdults;
-	private BigInteger q24ClientDoesntKnowWithOnlyChild;
-	private BigInteger q24ClientDoesntKnowUnknownHouseHold;
+	private BigInteger q24ClientDoesntKnowTotal=BigInteger.valueOf(0);
+	private BigInteger q24ClientDoesntKnowWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24ClientDoesntKnowWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24ClientDoesntKnowWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24ClientDoesntKnowUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24DataNotCollectedTotal;
-	private BigInteger q24DataNotCollectedWithoutChild;
-	private BigInteger q24DataNotCollectedWithChildAndAdults;
-	private BigInteger q24DataNotCollectedWithOnlyChild;
-	private BigInteger q24DataNotCollectedUnknownHouseHold;
+	private BigInteger q24DataNotCollectedTotal=BigInteger.valueOf(0);
+	private BigInteger q24DataNotCollectedWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24DataNotCollectedWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24DataNotCollectedWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24DataNotCollectedUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q24TotTotal;
-	private BigInteger q24TotWithoutChild;
-	private BigInteger q24TotWithChildAndAdults;
-	private BigInteger q24TotWithOnlyChild;
-	private BigInteger q24TotUnknownHouseHold;
+	private BigInteger q24TotTotal=BigInteger.valueOf(0);
+	private BigInteger q24TotWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q24TotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q24TotWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q24TotUnknownHouseHold=BigInteger.valueOf(0);
 	/**
 	 * @return the q24AbleToMaintainWithoutSubsidyTotal
 	 */

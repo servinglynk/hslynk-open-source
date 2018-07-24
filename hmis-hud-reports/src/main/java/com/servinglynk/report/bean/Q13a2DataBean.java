@@ -4,53 +4,53 @@ import java.math.BigInteger;
 
 public class Q13a2DataBean {
 	
-	private BigInteger q13a2NoneTotal;
-	private BigInteger q13a2NoneWithoutChildren;
-	private BigInteger q13a2NoneWithChildAndAdults;
-	private BigInteger q13a2NoneWithOnlychildren;
-	private BigInteger q13a2NoneUnknowHousehold;
+	private BigInteger q13a2NoneTotal=BigInteger.valueOf(0);
+	private BigInteger q13a2NoneWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13a2NoneWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2NoneWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13a2NoneUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13a2Condition1Total;
-	private BigInteger q13a2Condition1WithoutChildren;
-	private BigInteger q13a2Condition1WithChildAndAdults;
-	private BigInteger q13a2Condition1WithOnlychildren;
-	private BigInteger q13a2Condition1UnknowHousehold;
+	private BigInteger q13a2Condition1Total=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition1WithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition1WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition1WithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition1UnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13a2Condition2Total;
-	private BigInteger q13a2Condition2WithoutChildren;
-	private BigInteger q13a2Condition2WithChildAndAdults;
-	private BigInteger q13a2Condition2WithOnlychildren;
-	private BigInteger q13a2Condition2UnknowHousehold;
+	private BigInteger q13a2Condition2Total=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition2WithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition2WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition2WithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition2UnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13a2Condition3PlusTotal;
-	private BigInteger q13a2Condition3PlusWithoutChildren;
-	private BigInteger q13a2Condition3PlusWithChildAndAdults;
-	private BigInteger q13a2Condition3PlusWithOnlychildren;
-	private BigInteger q13a2Condition3PlusUnknowHousehold;
+	private BigInteger q13a2Condition3PlusTotal=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition3PlusWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition3PlusWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition3PlusWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition3PlusUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13a2ConditionUnknownTotal;
-	private BigInteger q13a2ConditionUnknownWithoutChildren;
-	private BigInteger q13a2ConditionUnknownWithChildAndAdults;
-	private BigInteger q13a2ConditionUnknownWithOnlychildren;
-	private BigInteger q13a2ConditionUnknownUnknowHousehold;
+	private BigInteger q13a2ConditionUnknownTotal=BigInteger.valueOf(0);
+	private BigInteger q13a2ConditionUnknownWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13a2ConditionUnknownWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2ConditionUnknownWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13a2ConditionUnknownUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13a2DontKnowRefusedTotal;
-	private BigInteger q13a2DontKnowRefusedWithoutChildren;
-	private BigInteger q13a2DontKnowRefusedWithChildAndAdults;
-	private BigInteger q13a2DontKnowRefusedWithOnlychildren;
-	private BigInteger q13a2DontKnowRefusedUnknowHousehold;
+	private BigInteger q13a2DontKnowRefusedTotal=BigInteger.valueOf(0);
+	private BigInteger q13a2DontKnowRefusedWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13a2DontKnowRefusedWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2DontKnowRefusedWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13a2DontKnowRefusedUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13a2InformationmissingTotal;
-	private BigInteger q13a2InformationmissingWithoutChildren;
-	private BigInteger q13a2InformationmissingWithChildAndAdults;
-	private BigInteger q13a2InformationmissingWithOnlychildren;
-	private BigInteger q13a2InformationmissingUnknowHousehold;
+	private BigInteger q13a2InformationmissingTotal=BigInteger.valueOf(0);
+	private BigInteger q13a2InformationmissingWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13a2InformationmissingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2InformationmissingWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13a2InformationmissingUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13a2TotalSummed;
-	private BigInteger q13a2TotalWithoutChildren;
-	private BigInteger q13a2TotalWithChildAndAdults;
-	private BigInteger q13a2TotalWithOnlychildren;
-	private BigInteger q13a2TotalUnknowHousehold;
+	private BigInteger q13a2TotalSummed=BigInteger.valueOf(0);
+	private BigInteger q13a2TotalWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13a2TotalWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2TotalWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13a2TotalUnknowHousehold=BigInteger.valueOf(0);
 	public BigInteger getQ13a2NoneTotal() {
 		return q13a2NoneTotal;
 	}

@@ -4,59 +4,59 @@ import java.math.BigInteger;
 
 public class Q12aRaceDataBean {
 
-	private BigInteger q12aWhiteTotal;
-	private BigInteger q12aWhiteWithoutChildren;
-	private BigInteger q12aWhiteWithChildrenAndAdults;
-	private BigInteger q12aWhiteWithOnlyChildren;
-	private BigInteger q12aWhiteWithUnkownhouseholdtype;
+	private BigInteger q12aWhiteTotal=BigInteger.valueOf(0);
+	private BigInteger q12aWhiteWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q12aWhiteWithChildrenAndAdults=BigInteger.valueOf(0);
+	private BigInteger q12aWhiteWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q12aWhiteWithUnkownhouseholdtype=BigInteger.valueOf(0);
 	
-	private BigInteger q12aBlckAfrnAmrnTotal;
-	private BigInteger q12aBlckAfrnAmrnWithoutChildren;
-	private BigInteger q12aBlckAfrnAmrnWithChildrenAndAdults;
-	private BigInteger q12aBlckAfrnAmrnWithOnlyChildren;
-	private BigInteger q12aBlckAfrnAmrnWithUnkownhouseholdtype;
+	private BigInteger q12aBlckAfrnAmrnTotal=BigInteger.valueOf(0);
+	private BigInteger q12aBlckAfrnAmrnWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q12aBlckAfrnAmrnWithChildrenAndAdults=BigInteger.valueOf(0);
+	private BigInteger q12aBlckAfrnAmrnWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q12aBlckAfrnAmrnWithUnkownhouseholdtype=BigInteger.valueOf(0);
 	
-	private BigInteger q12aAsianTotal;
-	private BigInteger q12aAsianWithoutChildren;
-	private BigInteger q12aAsianWithChildrenAndAdults;
-	private BigInteger q12aAsianWithOnlyChildren;
-	private BigInteger q12aAsianUnkownhouseholdtype;
+	private BigInteger q12aAsianTotal=BigInteger.valueOf(0);
+	private BigInteger q12aAsianWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q12aAsianWithChildrenAndAdults=BigInteger.valueOf(0);
+	private BigInteger q12aAsianWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q12aAsianUnkownhouseholdtype=BigInteger.valueOf(0);
 	
-	private BigInteger q12aAmericanIndianTotal;
-	private BigInteger q12aAmericanIndianWithoutChildren;
-	private BigInteger q12aAmericanIndianWithChildrenAndAdults;
-	private BigInteger q12aAmericanIndianWithOnlyChildren;
-	private BigInteger q12aAmericanIndianUnkownhouseholdtype;
+	private BigInteger q12aAmericanIndianTotal=BigInteger.valueOf(0);
+	private BigInteger q12aAmericanIndianWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q12aAmericanIndianWithChildrenAndAdults=BigInteger.valueOf(0);
+	private BigInteger q12aAmericanIndianWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q12aAmericanIndianUnkownhouseholdtype=BigInteger.valueOf(0);
 	
-	private BigInteger q12aNativeHawalianTotal;
-	private BigInteger q12aNativeHawalianWithoutChildren;
-	private BigInteger q12aNativeHawalianWithChildrenAndAdults;
-	private BigInteger q12aNativeHawalianWithOnlyChildren;
-	private BigInteger q12aNativeHawalianUnkownhouseholdtype;
+	private BigInteger q12aNativeHawalianTotal=BigInteger.valueOf(0);
+	private BigInteger q12aNativeHawalianWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q12aNativeHawalianWithChildrenAndAdults=BigInteger.valueOf(0);
+	private BigInteger q12aNativeHawalianWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q12aNativeHawalianUnkownhouseholdtype=BigInteger.valueOf(0);
 	
-	private BigInteger q12aMultipleRacesTotal;
-	private BigInteger q12aMultipleRacesWithoutChildren;
-	private BigInteger q12aMultipleRacesWithChildrenAndAdults;
-	private BigInteger q12aMultipleRacesWithOnlyChildren;
-	private BigInteger q12aMultipleRacesUnkownhouseholdtype;
+	private BigInteger q12aMultipleRacesTotal=BigInteger.valueOf(0);
+	private BigInteger q12aMultipleRacesWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q12aMultipleRacesWithChildrenAndAdults=BigInteger.valueOf(0);
+	private BigInteger q12aMultipleRacesWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q12aMultipleRacesUnkownhouseholdtype=BigInteger.valueOf(0);
 	
-	private BigInteger q12aDontKnowRacesTotal;
-	private BigInteger q12aDontKnowRacesWithoutChildren;
-	private BigInteger q12aDontKnowRacesWithChildrenAndAdults;
-	private BigInteger q12aDontKnowRacesWithOnlyChildren;
-	private BigInteger q12aDontKnowRacesUnkownhouseholdtype;
+	private BigInteger q12aDontKnowRacesTotal=BigInteger.valueOf(0);
+	private BigInteger q12aDontKnowRacesWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q12aDontKnowRacesWithChildrenAndAdults=BigInteger.valueOf(0);
+	private BigInteger q12aDontKnowRacesWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q12aDontKnowRacesUnkownhouseholdtype=BigInteger.valueOf(0);
 	
-	private BigInteger q12aInformationMissingTotal;
-	private BigInteger q12aInformationMissingWithoutChildren;
-	private BigInteger q12aInformationMissingWithChildrenAndAdults;
-	private BigInteger q12aInformationMissingWithOnlyChildren;
-	private BigInteger q12aInformationMissingUnkownhouseholdtype;
+	private BigInteger q12aInformationMissingTotal=BigInteger.valueOf(0);
+	private BigInteger q12aInformationMissingWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q12aInformationMissingWithChildrenAndAdults=BigInteger.valueOf(0);
+	private BigInteger q12aInformationMissingWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q12aInformationMissingUnkownhouseholdtype=BigInteger.valueOf(0);
 	
-	private BigInteger q12aTotalSummed;
-	private BigInteger q12aTotalWithoutChildren;
-	private BigInteger q12aTotalWithChildrenAndAdults;
-	private BigInteger q12aTotalWithOnlyChildren;
-	private BigInteger q12aTotalUnkownhouseholdtype;
+	private BigInteger q12aTotalSummed=BigInteger.valueOf(0);
+	private BigInteger q12aTotalWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q12aTotalWithChildrenAndAdults=BigInteger.valueOf(0);
+	private BigInteger q12aTotalWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q12aTotalUnkownhouseholdtype=BigInteger.valueOf(0);
 	public BigInteger getQ12aWhiteTotal() {
 		return q12aWhiteTotal;
 	}

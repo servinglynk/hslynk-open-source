@@ -2,6 +2,7 @@ package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageDataBean {
@@ -24,7 +25,7 @@ public class HomePageDataBean {
 	private String q04aProjectId;
 	private String q04aProjectName;
 	
-	private List<Q05aDataBean> q05aHMISComparableDBDataQualityDataBean;
+	private List<Q05aDataBean> q05aHMISComparableDBDataQualityDataBean = new ArrayList<>();
 	private List<Q06aDataBean> q06aReportValidationsTableDataBean;
 	private List<Q06bDataBean> q06bNumberOfPersonsServedDataBean;
 	private List<Q06cDataBean> q06cPointInTimeCountPersonsLastWednesdayDataBean;
@@ -35,7 +36,7 @@ public class HomePageDataBean {
 	private List<Q07bDataBean> q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
 	private List<Q08aDataBean> q08aDataBean;
 	private List<Q08bDataBean> q08bDataBean;
-	private List<Q09aDataBean> qQ09aNumberPersonsContactedDataBean;
+	private List<Q09aDataBean> q09aNumberPersonsContactedDataBean;
 	private List<Q09bDataBean> q09bNumberofPersonsEngagedDataBean;
 	private List<Q10aDataBean> q10aGenderOfAdultsDataBean;
 	private List<Q10bDataBean> q10bGenderOfChildrenDataBean;
@@ -63,9 +64,13 @@ public class HomePageDataBean {
 	private List<Q20bNumberOfNonCashBenefitSourcesDataBean> q20bNumberOfNonCashBenefitSourcesDataBean;
 	private List<Q21HealthInsuranceDataBean> q21HealthInsuranceDataBean;
 	private List<Q22a1LengthOfParticipationCoCProjectsDataBean> q22a1LengthOfParticipationCoCProjectsDataBean;
+	private List<Q22a2LengthOfParticipationESGProjectsDataBean> q22a2LengthOfParticipationESGProjectsDataBean;
 	private List<Q22bAverageAndMedianLengthOfParticipationInDaysDataBean> q22bAverageAndMedianLengthOfParticipationInDaysDataBean;
+	private List<Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean> q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean;
+	private List<Q22dLengthOfParticipationByHouseholdTypeDataBean> q22dLengthOfParticipationByHouseholdTypeDataBean;
 	private List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysDataBean;
 	private List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessDataBean;
+	private List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitDataBean;
 	private List<Q25aNumberOfVeteransDataBean> q25aNumberOfVeteransDataBean;
 	private List<Q25bNumberOfVeteranHouseholdsDataBean> q25bNumberOfVeteranHouseholdsDataBean;
 	private List<Q25cGenderVeteransDataBean> q25cGenderVeteransDataBean;
@@ -94,6 +99,62 @@ public class HomePageDataBean {
 	private List<Q29cPerformanceMeasuresStreetOutreachProgramsDataBean> q29cPerformanceMeasuresStreetOutreachProgramsDataBean;
 	private List<Q29dPerformanceMeasuresSupportiveServiceOnlyDataBean> q29dPerformanceMeasuresSupportiveServiceOnlyDataBean;
 	private List<Q29ePerformanceMeasuresSafeHavensDataBean> q29ePerformanceMeasuresSafeHavensDataBean;
+	
+	
+	
+	
+	/**
+	 * @return the q24HomelessnessPreventionHousingAssessmentAtExitDataBean
+	 */
+	public List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> getQ24HomelessnessPreventionHousingAssessmentAtExitDataBean() {
+		return q24HomelessnessPreventionHousingAssessmentAtExitDataBean;
+	}
+	/**
+	 * @param q24HomelessnessPreventionHousingAssessmentAtExitDataBean the q24HomelessnessPreventionHousingAssessmentAtExitDataBean to set
+	 */
+	public void setQ24HomelessnessPreventionHousingAssessmentAtExitDataBean(
+			List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitDataBean) {
+		this.q24HomelessnessPreventionHousingAssessmentAtExitDataBean = q24HomelessnessPreventionHousingAssessmentAtExitDataBean;
+	}
+	/**
+	 * @return the q22dLengthOfParticipationByHouseholdTypeDataBean
+	 */
+	public List<Q22dLengthOfParticipationByHouseholdTypeDataBean> getQ22dLengthOfParticipationByHouseholdTypeDataBean() {
+		return q22dLengthOfParticipationByHouseholdTypeDataBean;
+	}
+	/**
+	 * @param q22dLengthOfParticipationByHouseholdTypeDataBean the q22dLengthOfParticipationByHouseholdTypeDataBean to set
+	 */
+	public void setQ22dLengthOfParticipationByHouseholdTypeDataBean(
+			List<Q22dLengthOfParticipationByHouseholdTypeDataBean> q22dLengthOfParticipationByHouseholdTypeDataBean) {
+		this.q22dLengthOfParticipationByHouseholdTypeDataBean = q22dLengthOfParticipationByHouseholdTypeDataBean;
+	}
+	/**
+	 * @return the q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean
+	 */
+	public List<Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean> getQ22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean() {
+		return q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean;
+	}
+	/**
+	 * @param q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean the q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean to set
+	 */
+	public void setQ22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean(
+			List<Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean> q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean) {
+		this.q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean = q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean;
+	}
+	/**
+	 * @return the q22a2LengthOfParticipationESGProjectsDataBean
+	 */
+	public List<Q22a2LengthOfParticipationESGProjectsDataBean> getQ22a2LengthOfParticipationESGProjectsDataBean() {
+		return q22a2LengthOfParticipationESGProjectsDataBean;
+	}
+	/**
+	 * @param q22a2LengthOfParticipationESGProjectsDataBean the q22a2LengthOfParticipationESGProjectsDataBean to set
+	 */
+	public void setQ22a2LengthOfParticipationESGProjectsDataBean(
+			List<Q22a2LengthOfParticipationESGProjectsDataBean> q22a2LengthOfParticipationESGProjectsDataBean) {
+		this.q22a2LengthOfParticipationESGProjectsDataBean = q22a2LengthOfParticipationESGProjectsDataBean;
+	}
 	public String getHomePageStartDate() {
 		return homePageStartDate;
 	}
@@ -262,12 +323,20 @@ public class HomePageDataBean {
 	public void setQ08bDataBean(List<Q08bDataBean> q08bDataBean) {
 		this.q08bDataBean = q08bDataBean;
 	}
-	public List<Q09aDataBean> getqQ09aNumberPersonsContactedDataBean() {
-		return qQ09aNumberPersonsContactedDataBean;
+	
+	
+	/**
+	 * @return the q09aNumberPersonsContactedDataBean
+	 */
+	public List<Q09aDataBean> getQ09aNumberPersonsContactedDataBean() {
+		return q09aNumberPersonsContactedDataBean;
 	}
-	public void setqQ09aNumberPersonsContactedDataBean(
-			List<Q09aDataBean> qQ09aNumberPersonsContactedDataBean) {
-		this.qQ09aNumberPersonsContactedDataBean = qQ09aNumberPersonsContactedDataBean;
+	/**
+	 * @param q09aNumberPersonsContactedDataBean the q09aNumberPersonsContactedDataBean to set
+	 */
+	public void setQ09aNumberPersonsContactedDataBean(
+			List<Q09aDataBean> q09aNumberPersonsContactedDataBean) {
+		this.q09aNumberPersonsContactedDataBean = q09aNumberPersonsContactedDataBean;
 	}
 	public List<Q09bDataBean> getQ09bNumberofPersonsEngagedDataBean() {
 		return q09bNumberofPersonsEngagedDataBean;
@@ -297,6 +366,8 @@ public class HomePageDataBean {
 			List<Q10cDataBean> q10cGenderOfPersonsMissingAgeInformationDataBean) {
 		this.q10cGenderOfPersonsMissingAgeInformationDataBean = q10cGenderOfPersonsMissingAgeInformationDataBean;
 	}
+	
+	
 	/**
 	 * @return the q10dGenderByAgeRangesDataBean
 	 */
@@ -310,6 +381,7 @@ public class HomePageDataBean {
 			List<Q10dDataBean> q10dGenderByAgeRangesDataBean) {
 		this.q10dGenderByAgeRangesDataBean = q10dGenderByAgeRangesDataBean;
 	}
+	
 	public List<Q11AgeDataBean> getQ11AgeDataBean() {
 		return q11AgeDataBean;
 	}

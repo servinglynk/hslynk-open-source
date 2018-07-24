@@ -4,65 +4,65 @@ import java.math.BigInteger;
 
 public class Q26dAgeOfChronicallyHomelessPersonsDataBean {
 	
-	private BigInteger q26d0To17Total;
-	private BigInteger q26d0To17WithoutChild;
-	private BigInteger q26d0To17WithChildAndAdults;
-	private BigInteger q26d0To17WithOnlyChild;
-	private BigInteger q26d0To17UnknownHouseholdType;
+	private BigInteger q26d0To17Total=BigInteger.valueOf(0);
+	private BigInteger q26d0To17WithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26d0To17WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26d0To17WithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26d0To17UnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26d18To24Total;
-	private BigInteger q26d18To24WithoutChild;
-	private BigInteger q26d18To24WithChildAndAdults;
-	private BigInteger q26d18To24WithOnlyChild;
-	private BigInteger q26d18To24UnknownHouseholdType;
+	private BigInteger q26d18To24Total=BigInteger.valueOf(0);
+	private BigInteger q26d18To24WithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26d18To24WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26d18To24WithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26d18To24UnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26d25To34Total;
-	private BigInteger q26d25To34WithoutChild;
-	private BigInteger q26d25To34WithChildAndAdults;
-	private BigInteger q26d25To34WithOnlyChild;
-	private BigInteger q26d25To34UnknownHouseholdType;
+	private BigInteger q26d25To34Total=BigInteger.valueOf(0);
+	private BigInteger q26d25To34WithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26d25To34WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26d25To34WithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26d25To34UnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26d35To44Total;
-	private BigInteger q26d35To44WithoutChild;
-	private BigInteger q26d35To44WithChildAndAdults;
-	private BigInteger q26d35To44WithOnlyChild;
-	private BigInteger q26d35To44UnknownHouseholdType;
+	private BigInteger q26d35To44Total=BigInteger.valueOf(0);
+	private BigInteger q26d35To44WithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26d35To44WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26d35To44WithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26d35To44UnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26d45To54Total;
-	private BigInteger q26d45To54WithoutChild;
-	private BigInteger q26d45To54WithChildAndAdults;
-	private BigInteger q26d45To54WithOnlyChild;
-	private BigInteger q26d45To54UnknownHouseholdType;
+	private BigInteger q26d45To54Total=BigInteger.valueOf(0);
+	private BigInteger q26d45To54WithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26d45To54WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26d45To54WithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26d45To54UnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26d55To61Total;
-	private BigInteger q26d55To61WithoutChild;
-	private BigInteger q26d55To61WithChildAndAdults;
-	private BigInteger q26d55To61WithOnlyChild;
-	private BigInteger q26d55To61UnknownHouseholdType;
+	private BigInteger q26d55To61Total=BigInteger.valueOf(0);
+	private BigInteger q26d55To61WithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26d55To61WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26d55To61WithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26d55To61UnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26d62PlusTotal;
-	private BigInteger q26d62PlusWithoutChild;
-	private BigInteger q26d62PlusWithChildAndAdults;
-	private BigInteger q26d62PlusWithOnlyChild;
-	private BigInteger q26d62PlusUnknownHouseholdType;
+	private BigInteger q26d62PlusTotal=BigInteger.valueOf(0);
+	private BigInteger q26d62PlusWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26d62PlusWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26d62PlusWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26d62PlusUnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26dDKRTotal;
-	private BigInteger q26dDKRWithoutChild;
-	private BigInteger q26dDKRWithChildAndAdults;
-	private BigInteger q26dDKRWithOnlyChild;
-	private BigInteger q26dDKRUnknownHouseholdType;
+	private BigInteger q26dDKRTotal=BigInteger.valueOf(0);
+	private BigInteger q26dDKRWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26dDKRWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26dDKRWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26dDKRUnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26dInformationMissingTotal;
-	private BigInteger q26dInformationMissingWithoutChild;
-	private BigInteger q26dInformationMissingWithChildAndAdults;
-	private BigInteger q26dInformationMissingWithOnlyChild;
-	private BigInteger q26dInformationMissingUnknownHouseholdType;
+	private BigInteger q26dInformationMissingTotal=BigInteger.valueOf(0);
+	private BigInteger q26dInformationMissingWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26dInformationMissingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26dInformationMissingWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26dInformationMissingUnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26dSubtotalTotal;
-	private BigInteger q26dSubtotalWithoutChild;
-	private BigInteger q26dSubtotalWithChildAndAdults;
-	private BigInteger q26dSubtotalWithOnlyChild;
-	private BigInteger q26dSubtotalUnknownHouseholdType;
+	private BigInteger q26dSubtotalTotal=BigInteger.valueOf(0);
+	private BigInteger q26dSubtotalWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26dSubtotalWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26dSubtotalWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26dSubtotalUnknownHouseholdType=BigInteger.valueOf(0);
 	public BigInteger getQ26d0To17Total() {
 		return q26d0To17Total;
 	}
