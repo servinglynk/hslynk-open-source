@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
@@ -32,7 +33,7 @@ import com.servinglynk.report.model.IncomeAndSourceModel;
 import com.servinglynk.report.model.ProjectModel;
 
 public class BaseBeanMaker {
-	
+	protected static Logger logger = Logger.getLogger(BaseBeanMaker.class);
 	protected static Date chCutoffDate = new Date(2016, 10, 1);
 
 	public static boolean isChild(Date dob) {

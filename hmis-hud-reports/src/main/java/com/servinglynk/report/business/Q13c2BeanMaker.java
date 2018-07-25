@@ -19,12 +19,12 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 
 	public static List<Q13c2DataBean> getQ13c2NumberOfConditionsForStayerList(ReportData data){
 		
-		List<ClientModel> clients = data.getClients();
-		List<ExitModel> exits = data.getExits();
-		
 		Q13c2DataBean q13c2Bean = new Q13c2DataBean();
 		
-		
+		try {
+
+			List<ClientModel> clients = data.getClients();
+			List<ExitModel> exits = data.getExits();	
 		String query ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage in ('1','2','5') and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) and information_date <= ? group by enrollmentid";
 		
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
@@ -149,7 +149,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 		}
 		
 		
-		String unknownQuery ="select enrollmentid,count(enrollmentid) as cnt from disabilities where datacollectionstage in ('1','2','5') and ( disabilityresponse='8' or disabilityresponse='9') and information_date <= ?  group by enrollmentid";
+		String unknownQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage in ('1','2','5') and ( disabilityresponse='8' or disabilityresponse='9') and information_date <= ?  group by enrollmentid";
 		List<DisabilitiesModel> disabilitiesUnknown = getEnrollmentFromDisabilitiesCountWithDate(data.getSchema(), unknownQuery,sqlDate);
 		if(CollectionUtils.isNotEmpty(disabilitiesUnknown)) {
 			List<DisabilitiesModel> withChildren = disabilitiesNone.parallelStream().filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id())).collect(Collectors.toList());
@@ -206,7 +206,9 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
     	q13c2Bean.setQ13c2TotalWithChildAndAdults(totalWCA);
     	q13c2Bean.setQ13c2TotalWithOnlychildren(totalWithOnlyChild);
     	q13c2Bean.setQ13c2TotalUnknowHousehold(totalUHHT);
-    	
+	} catch (Exception e) {
+		logger.error("Error in Q13c2BeanMaker:" + e);
+	}
     	return Arrays.asList(q13c2Bean);
 	}
 	

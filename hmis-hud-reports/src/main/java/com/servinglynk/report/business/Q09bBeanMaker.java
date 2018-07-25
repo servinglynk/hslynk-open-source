@@ -24,7 +24,8 @@ import com.servinglynk.report.model.ExitModel;
 public class Q09bBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q09bDataBean> getQ09bNumberofPersonsEngagedList(ReportData data){
-		
+		Q09bDataBean q09BNumberOfPersonsEngaged = new Q09bDataBean();
+		try {
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		List<ContactModel> contacts = getContacts(data.getSchema());
 		List<String> enrollmentIds = data.getEnrollmentIds();
@@ -33,7 +34,7 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 		data.setContacts(filteredContacts);
 		List<DateOfEngagementModel> filteredDOE = dateOfEngagements.parallelStream().filter(doe -> enrollmentIds.contains(doe.getEnrollmentId())).collect(Collectors.toList());
 		data.setDateOfEngagements(filteredDOE);
-		Q09bDataBean q09BNumberOfPersonsEngaged = new Q09bDataBean();
+
 		
 //		q09BNumberOfPersonsEngaged.setEngFirstContactRSS(BigInteger.valueOf(0));
 //		q09BNumberOfPersonsEngaged.setEng2to5FirstContactRSS(BigInteger.valueOf(0));
@@ -143,6 +144,9 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 					}
 				   }
 		}
+	} catch (Exception e) {
+		logger.error("Error in Q09bDataBeanMaker:" + e);
+	}
 		return Arrays.asList(q09BNumberOfPersonsEngaged);
 	}
 	

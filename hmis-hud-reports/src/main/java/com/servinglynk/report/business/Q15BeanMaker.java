@@ -16,10 +16,11 @@ public class Q15BeanMaker extends BaseBeanMaker {
 	
 	public static List<Q15DataBean> getQ15ResidencePriorToProgramEntryList(ReportData data) {
 		
-		int overallTot = data.getNumOfAdults().intValue() + data.getNoOfChildHeadsOfHousehold().intValue();
 		
 		Q15DataBean q15Bean = new Q15DataBean();
-		
+		try {
+		int overallTot = data.getNumOfAdults().intValue() + data.getNoOfChildHeadsOfHousehold().intValue();
+			
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
@@ -697,6 +698,9 @@ public class Q15BeanMaker extends BaseBeanMaker {
 		q15Bean.setQ15DTotalWithChildOnly(otherLocationTotalWithOnlyChild.add(institutionalSettinTotalWithOnlyChild).add(homelessSitualtionTotalWithOnlyChild));
 		q15Bean.setQ15DTotalUnknownHousehold(otherLocationTotalUHHT.add(institutionalSettingTotalUHHT).add(homelessSitualtionTotalUHHT));
 
+	} catch (Exception e) {
+		logger.error("Error in Q15BeanMaker:" + e);
+	}
 		return Arrays.asList(q15Bean);
 	}
 

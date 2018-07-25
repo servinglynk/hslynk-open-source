@@ -14,10 +14,11 @@ import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 
-public class Q12bBeanMaker {
+public class Q12bBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q12bEthnicityDataBean> getQ12bEthnicityList(ReportData data){
-		
+		Q12bEthnicityDataBean q12bEthnicityDataBean = new Q12bEthnicityDataBean();
+		try {
 		List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		BigInteger  totalUHHT = BigInteger.ZERO;
@@ -36,7 +37,6 @@ public class Q12bBeanMaker {
 		List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 		
-		Q12bEthnicityDataBean q12bEthnicityDataBean = new Q12bEthnicityDataBean();
 		if(CollectionUtils.isNotEmpty(nonHispanicNonLatino)) {
 			
 			List<String> filteredClients = new ArrayList<>();
@@ -145,7 +145,9 @@ public class Q12bBeanMaker {
 		q12bEthnicityDataBean.setQ12bTotalWithChildrenAndAdults(totalWCA);
 		q12bEthnicityDataBean.setQ12bTotalWithOnlyChildren(totalWithOnlyChild);
 		q12bEthnicityDataBean.setQ12bTotalUnkownhouseholdtype(totalUHHT);
-		
+	} catch (Exception e) {
+		logger.error("Error in Q12bBeanMaker:" + e);
+	}
 		return Arrays.asList(q12bEthnicityDataBean);
 		
 	}

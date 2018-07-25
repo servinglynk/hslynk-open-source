@@ -28,11 +28,12 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
 		
 		int stayers = clients !=null && exits != null ? clients.size() - exits.size() : 0;*/
-		
+		Q16DataBean q16Bean = new Q16DataBean();
+		try {
 		String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id from %s.incomeandsources in, enrollment e where in.datacollectionstage=? and  e.id=in.enrollmentid "+
-		" and information_date >= e.entry_date ";
+		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage=? and  e.id=i.enrollmentid "+
+		" and i.information_date >= e.entrydate ";
 		List<Float> incomeAtEntry = getIncome(data.getSchema(), query, DataCollectionStage.ENTRY.getCode());
 		List<Float> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode());
 		List<Float> incomeAtStayers = getIncome(data.getSchema(), query, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
@@ -41,7 +42,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		
 		String clientDNC = "select count(*) as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('99') and datacollectionstage=?";
 		
-		Q16DataBean q16Bean = new Q16DataBean();
+	
 		List<Float> incomeAtEntryWith0 = incomeAtEntry.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
 		List<Float> incomeAtExitWith0 = incomeAtExit.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
 		List<Float> incomeAtStayersWith0 = incomeAtStayers.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
@@ -127,7 +128,9 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		q16Bean.setQ16TotalAdultsIncomeAtEntry(data.getNumOfAdults());
 		q16Bean.setQ16TotalAdultsIncomeAtExitforLeavers(data.getTotNoOfAdultLeavers());
 		q16Bean.setQ16TotalAdultsIncomeAtLatestFollowupforStayers(data.getTotNoOfAdultStayers());
-		
+	} catch (Exception e) {
+		logger.error("Error in Q16BeanMaker:" + e);
+	}
 		return Arrays.asList(q16Bean);
 	}
 
@@ -139,7 +142,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		Connection connection = null;
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
+			statement = connection.prepareStatement(formatQuery(query,schema));
 			statement.setString(1, datacollectionStage);
 			resultSet = statement.executeQuery();
 			

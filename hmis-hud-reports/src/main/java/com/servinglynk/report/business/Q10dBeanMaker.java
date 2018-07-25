@@ -15,7 +15,8 @@ import com.servinglynk.report.model.ClientModel;
 public class Q10dBeanMaker extends BaseBeanMaker {
 
 	public static List<Q10dDataBean> getQ10DGARList(ReportData data){
-		
+		Q10dDataBean q10dGenderByAgeRanges= new Q10dDataBean();
+		try {
 		List<ClientModel> clients = data.getClients();
 		List<ClientModel> female = clients.parallelStream().filter(client->StringUtils.equals("1",client.getGender())).collect(Collectors.toList());
 		List<ClientModel> male = clients.parallelStream().filter(client->StringUtils.equals("0",client.getGender())).collect(Collectors.toList());
@@ -34,7 +35,6 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 		BigInteger cdrSubTotal = BigInteger.ZERO;
 		BigInteger dncSubTotal = BigInteger.ZERO;
 		
-		Q10dDataBean q10dGenderByAgeRanges= new Q10dDataBean();
 		if(CollectionUtils.isNotEmpty(male)) {
 			q10dGenderByAgeRanges.setQ10dTotMale(BigInteger.valueOf(male.size()));
 			List<ClientModel> clientsUnder18 = male.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
@@ -265,6 +265,9 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 		q10dGenderByAgeRanges.setQ10dCDRSubTotal(cdrSubTotal);
 		q10dGenderByAgeRanges.setQ10dDNCSubTotal(dncSubTotal);
 			
+	} catch (Exception e) {
+		logger.error("Error in Q10dDataBeanMaker:" + e);
+	}
 	return Arrays.asList(q10dGenderByAgeRanges);
 	
 }

@@ -15,8 +15,8 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
 	
 	
 	public static List<Q13a1DataBean> getQ13a1PhysicalAndMentalHealthConditionsAtEntryList(ReportData data){
-		
-		
+		Q13a1DataBean q13a1Bean = new Q13a1DataBean();
+		try {
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 		List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
@@ -31,7 +31,6 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
 		// Physical Disability -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='5'
 		// Developmental Disability -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='6'
 		
-		Q13a1DataBean q13a1Bean = new Q13a1DataBean();
 		String mentalHealthQuery = " select enrollmentid from %s.disabilities where datacollectionstage = '1' and disabilitytype='9' ";
 		
 		List<String> mentalHealthList = getEnrollmentFromDisabilities(data.getSchema(), mentalHealthQuery);
@@ -160,7 +159,9 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
         	q13a1Bean.setQ13a1PhysicalDisabilityWithOnlychildren(BigInteger.valueOf(withChildren != null ?withChildren.size():0));
         	q13a1Bean.setQ13a1PhysicalDisabilityUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
     	}
-		
+	} catch (Exception e) {
+		logger.error("Error in Q13a1BeanMaker:" + e);
+	}
 		return Arrays.asList(q13a1Bean);
 	}
 

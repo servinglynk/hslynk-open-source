@@ -58,8 +58,6 @@ public class Reporter {
     			InputStream inputStream = new FileInputStream(file);
     		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
     		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-    		    
-    		    
     		 
     		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
     		    JasperExportManager.exportReportToPdfFile(jasperPrint, "HMISREPORT_06072018.pdf"); 
@@ -77,7 +75,7 @@ public class Reporter {
 //   		    JasperReport jasperReport1 = JasperCompileManager.compileReportToFile("q21_Health_Insurance.jrxml","q21_Health_Insurance.jasper");
 //   		    
    		    
-    	 boolean sageReport=false;
+    	 boolean sageReport=true;
         Reporter main = new Reporter();
         main.exportToPDF(sageReport);
     }

@@ -17,8 +17,8 @@ import com.servinglynk.report.model.EnrollmentModel;
 public class Q11BeanMaker extends BaseBeanMaker {
 	
 	public static List<Q11AgeDataBean> getQ11AgeList(ReportData data){
-
-		
+		Q11AgeDataBean q11AgeDataBean = new Q11AgeDataBean();
+		try {
 				List<ClientModel> clients = data.getClients();
 				List<EnrollmentModel> enrollments = data.getEnrollments();
 				List<ClientModel> under5Tot = clients.parallelStream().filter(client -> getAge(client.getDob()) < 5).collect(Collectors.toList());
@@ -44,7 +44,6 @@ public class Q11BeanMaker extends BaseBeanMaker {
 				BigInteger	totalWOC = BigInteger.ZERO;
 				BigInteger  totOverallTotal = BigInteger.ZERO;
 				
-				Q11AgeDataBean q11AgeDataBean = new Q11AgeDataBean();
 				if(CollectionUtils.isNotEmpty(under5Tot)) {
 					List<String> filteredClients = new ArrayList<>();
 					under5Tot.parallelStream().forEach(client-> { filteredClients.add(client.getPersonalID()); });
@@ -284,7 +283,9 @@ public class Q11BeanMaker extends BaseBeanMaker {
 	    		q11AgeDataBean.setTotOverallTotal(totOverallTotal);
 	    		
 	    		q11AgeDataBean.setTotMAISubtotal(data.getTotNumOfPersonServed());
-	    		
+	} catch (Exception e) {
+		logger.error("Error in Q11BeanMaker:" + e);
+	}
 	         	return Arrays.asList(q11AgeDataBean);
 		
 	}

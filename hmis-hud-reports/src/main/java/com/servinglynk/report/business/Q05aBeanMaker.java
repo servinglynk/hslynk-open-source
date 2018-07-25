@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.servinglynk.report.bean.Q05aDataBean;
 import com.servinglynk.report.bean.ReportData;
@@ -15,7 +16,7 @@ import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 
 public class Q05aBeanMaker extends BaseBeanMaker {
-	
+	private static Logger logger = Logger.getLogger(Q05aBeanMaker.class);
 	public static List<Q05aDataBean> getQ05aBeanData(ReportData data){
 		Q05aDataBean bean = new Q05aDataBean();
 		try {
@@ -82,9 +83,8 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			data.setNumOfHeadsOfHHandAdults365Days(bean.getNumOfHeadsOfHHandAdults365Days()); // Refers --> Heads of households and adult stayers in the project 365 days or more
 			
 		}catch(Exception e) {
-			//logger.error();
+			logger.error("Error in Q05aBeanMaker:"+e);
 		}
-	
 		
         return Arrays.asList(bean);
     }

@@ -14,9 +14,11 @@ import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 
-public class Q12aBeanMaker {
+public class Q12aBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q12aRaceDataBean> getQ12aRaceList(ReportData data){
+		Q12aRaceDataBean q12aRaceDataBean = new Q12aRaceDataBean();
+		try {
 		String[] multipleRacesEnum = new String[] {"1", "2", "3", "4", "5"};
 		List<String> multipleRacesList = Arrays.asList(multipleRacesEnum);
 		List<ClientModel> clients = data.getClients();
@@ -39,9 +41,6 @@ public class Q12aBeanMaker {
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 		List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
-		
-		
-		Q12aRaceDataBean q12aRaceDataBean = new Q12aRaceDataBean();
 		
 		if(CollectionUtils.isNotEmpty(white)) {
 			List<String> filteredClients = new ArrayList<>();
@@ -249,7 +248,9 @@ public class Q12aBeanMaker {
     	q12aRaceDataBean.setQ12aTotalWithChildrenAndAdults(totalWCA);
     	q12aRaceDataBean.setQ12aTotalWithOnlyChildren(totalWithOnlyChild);
     	q12aRaceDataBean.setQ12aTotalWithoutChildren(totalWOC);
-
+	} catch (Exception e) {
+		logger.error("Error in Q12aDataBeanMaker:" + e);
+	}
 		return Arrays.asList(q12aRaceDataBean);
 		
 	}

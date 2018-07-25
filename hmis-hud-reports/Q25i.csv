@@ -11,7 +11,7 @@ children",  Unknown household type
    a08. Permanent housing (other than ,0,0,0,0,0
 "   a09. Staying or living with family, permanent tenure",0,0,0,0,0
 "   a10. Staying or living with friends, permanent tenure",0,0,0,0,0
-"   a11. Rental by client, with RRH or equivalent subsidy",null,null,null,null,null
+"   a11. Rental by client, with RRH or equivalent subsidy",0,0,0,0,0
    az. Subtotal,0,0,0,0,0
    b. Temporary Destinations,,,,,
 "   b1. Emergency shelter, including hotel or motel paid for with

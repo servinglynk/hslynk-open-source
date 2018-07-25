@@ -19,8 +19,7 @@ public class Q10bBeanMaker extends BaseBeanMaker {
 	public static List<Q10bDataBean> getQ10bGenderOfChildrenList(ReportData data){
     	
 		Q10bDataBean q10bGenderOfChildren = new Q10bDataBean();
-		
-		
+		try {
 		List<ClientModel> clients = data.getClients();
 		List<ClientModel> children = clients.parallelStream().filter(client -> !isAdult(client.getDob())).collect(Collectors.toList());
 		List<ClientModel> childrenMale = children.parallelStream().filter(client->StringUtils.equals("1",client.getGender())).collect(Collectors.toList());
@@ -150,7 +149,9 @@ public class Q10bBeanMaker extends BaseBeanMaker {
 		q10bGenderOfChildren.setChildSubtotalWOC(subtotalWOC);
 		q10bGenderOfChildren.setChildSubtotalWCA(subtotalWCA);
 		q10bGenderOfChildren.setChildSubtotalUHHT(subtotalUHHT);
-		
+	} catch (Exception e) {
+		logger.error("Error in Q10bDataBeanMaker:" + e);
+	}
     	return Arrays.asList(q10bGenderOfChildren);
     	
     }

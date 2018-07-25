@@ -3,7 +3,7 @@
    b. 1 condition,169,0,0,0,0
    c. 2 conditions,146,0,0,0,0
    d. 3+ conditions,375,0,0,0,0
-   e. Condition unknown,null,null,null,null,null
-   f. Client Doesn't Know/Client Refused,null,null,null,null,null
+   e. Condition unknown,0,0,0,0,0
+   f. Client Doesn't Know/Client Refused,13,0,0,0,0
    g. Data Not Collected,205,0,0,0,0
-   h. Total,719,0,0,0,0
+   h. Total,705,0,0,0,0

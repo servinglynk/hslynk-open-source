@@ -16,7 +16,7 @@ public class Q13b1BeanMaker extends BaseBeanMaker {
 	public static List<Q13b1DataBean> getQ13b1PhysicalAndMentalHealthConditionsAtExitList(ReportData data){
 		
 		Q13b1DataBean q13b1Bean = new Q13b1DataBean();
-		
+		try {
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 		List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
@@ -159,7 +159,9 @@ public class Q13b1BeanMaker extends BaseBeanMaker {
         	q13b1Bean.setQ13b1PhysicalDisabilityWithOnlychildren(BigInteger.valueOf(withChildren != null ?withChildren.size():0));
         	q13b1Bean.setQ13b1PhysicalDisabilityUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
     	}
-		
+		} catch (Exception e) {
+			logger.error("Error in Q13b1BeanMaker:" + e);
+		}
 		return Arrays.asList(q13b1Bean);
 	}
 

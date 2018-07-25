@@ -14,7 +14,8 @@ import com.servinglynk.report.model.EnrollmentModel;
 public class Q14aBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q14aDataBean> getQ14aDomesticViolenceHistoryList(ReportData data) {
-		
+		Q14aDataBean q14aBean= new Q14aDataBean();
+		try {
 		int overallTot = data.getNumOfAdults() .intValue()+ data.getNoOfChildHeadsOfHousehold().intValue();
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
@@ -31,7 +32,7 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 		BigInteger withOneAdultChildSize = BigInteger.ZERO;
 		BigInteger unknownHouseHoldSize = BigInteger.ZERO;
 		
-		Q14aDataBean q14aBean= new Q14aDataBean();
+		
 		List<String> domesticViolenceByVictimYes = getDomesticViolenceByVictim(data.getSchema(), "1");
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimYes)) {
 			q14aBean.setQ14aYesTotal(BigInteger.valueOf(domesticViolenceByVictimYes.size()));
@@ -126,7 +127,9 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 		q14aBean.setQ14aTotalWithChildAndAdults(withOneAdultChildSize);
 		q14aBean.setQ14aTotalWithOnlychildren(withChildrenSize);
 		q14aBean.setQ14aTotalUnknowHousehold(unknownHouseHoldSize);
-		
+	} catch (Exception e) {
+		logger.error("Error in Q14aBeanMaker:" + e);
+	}
 		return Arrays.asList(q14aBean);
 		
 	}

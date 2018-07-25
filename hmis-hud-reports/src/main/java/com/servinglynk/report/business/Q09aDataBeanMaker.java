@@ -23,7 +23,8 @@ import com.servinglynk.report.model.ExitModel;
 public class Q09aDataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q09aDataBean> getQ09aNumberPersonsContactedList(ReportData data){
-		
+		Q09aDataBean q09aNumberPersonsContactedDataBean=new Q09aDataBean();
+		try {
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		List<ContactModel> contacts = getContacts(data.getSchema());
 		List<String> enrollmentIds = data.getEnrollmentIds();
@@ -32,7 +33,7 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 		data.setContacts(filteredContacts);
 		List<DateOfEngagementModel> filteredDOE = dateOfEngagements.parallelStream().filter(doe -> enrollmentIds.contains(doe.getEnrollmentId())).collect(Collectors.toList());
 		data.setDateOfEngagements(filteredDOE);
-		Q09aDataBean q09aNumberPersonsContactedDataBean=new Q09aDataBean();
+		
 		if(CollectionUtils.isNotEmpty(filteredContacts)) {
 			   Map<String, Long> totalContacts = filteredContacts.stream().collect(Collectors.groupingBy(ContactModel::getEnrollmentId, Collectors.counting()));
 			   if(totalContacts != null) {
@@ -127,7 +128,9 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 //		q09aNumberPersonsContactedDataBean.setC10orMoreFirstContactedRSS(BigInteger.valueOf(0));
 //		q09aNumberPersonsContactedDataBean.setCoFirstContactRSS(BigInteger.valueOf(0));
 //		q09aNumberPersonsContactedDataBean.setTpcFirstContacteRSS(BigInteger.valueOf(0));
-		
+	} catch (Exception e) {
+		logger.error("Error in Q09aDataBeanMaker:" + e);
+	}
 		return Arrays.asList(q09aNumberPersonsContactedDataBean);
 	}
 	/** a. [date of contact] >= [project start date]   == get all the enrollments where date of contact is greater than project start date

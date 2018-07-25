@@ -12,7 +12,6 @@ import com.servinglynk.report.bean.Q06bDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
-import com.servinglynk.report.model.ProjectModel;
 
 
 public class Q06bBeanMaker  extends BaseBeanMaker {
@@ -24,6 +23,7 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 	
 	public static List<Q06bDataBean> getQ06bNumberOfPersonsServedTableList(ReportData data){
 		Q06bDataBean q06bDataBean = new Q06bDataBean();
+		try {
 		List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		Long numOfClients = Long.valueOf(clients.size());
@@ -65,6 +65,9 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 		q06bDataBean.setDisablingCondErrorCount(BigInteger.valueOf(disablingCondErrorCount));
 		q06bDataBean.setDisablingCondErrorRate(BigInteger.valueOf(disablingCondErrorCount/numOfClients));
 		
+		}catch(Exception e) {
+			logger.error("Error in Q06bBeanMaker:"+e);
+		}
 		return Arrays.asList(q06bDataBean);
 	}
 

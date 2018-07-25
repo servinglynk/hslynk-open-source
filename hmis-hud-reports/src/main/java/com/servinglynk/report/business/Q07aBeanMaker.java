@@ -17,6 +17,8 @@ import com.servinglynk.report.model.EnrollmentModel;
 public class Q07aBeanMaker extends BaseBeanMaker {
 	
         public static List<Q07aDataBean> getQ07aHouseholdsServeList(ReportData data) {
+        	Q07aDataBean q07aHouseholdsServed = new Q07aDataBean();
+        	try {
         	List<String> projectsHHWithChildren  = getProjectsForHouseHoldType(data.getSchema(), ReportQuery.PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN);
         	List<String> projectsHHWithOneAdultChild  = getProjectsForHouseHoldType(data.getSchema(), ReportQuery.PROJECT_WITH_HOUSEHOLD_WITH_ONE_ADULT_CHILD);
         	List<String> projectsHHWithOutChildren  = getProjectsForHouseHoldType(data.getSchema(), ReportQuery.PROJECT_WITH_HOUSEHOLD_WITHOUT_CHILDREN);
@@ -95,7 +97,7 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         	int totWithChildAndAdults = adultWithOneAdultChildCount +childClientWithOneAdultChildCount+ageUnknownClientWithOneAdultChildCount+ageDncClientsWithOutChildrenCount;
         	int totWithOnlychildren =  adultWithOutChildrenCount +childWithOnlyChildrenCount+ageUnknownWithOnlyChildrenCount+ageDncClientsOnlyChildrenCount;
         	int totUnknownHousehold = adultUnknownHHTypeCount + childClientsUnknownHHTypeCount+ageDncClientsOnlyChildrenCount+ageDncClientsUnknownHHTypeCount;
-        	Q07aDataBean q07aHouseholdsServed = new Q07aDataBean();
+        	
             //select count(*) from client c where personalID
         	q07aHouseholdsServed.setAdultsTotal(data.getNumOfAdults());
         	q07aHouseholdsServed.setAdultsWithOutChildren(BigInteger.valueOf(adultWithOutChildrenCount));
@@ -127,7 +129,9 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         	q07aHouseholdsServed.setTotWithChildAndAdults(BigInteger.valueOf(totWithChildAndAdults));
         	q07aHouseholdsServed.setTotWithOnlychildren(BigInteger.valueOf(totWithOnlychildren));
         	q07aHouseholdsServed.setTotUnknownHousehold(BigInteger.valueOf(totUnknownHousehold));
-        		
+        } catch (Exception e) {
+			logger.error("Error in Q07aBeanMaker:" + e);
+		}
         	return Arrays.asList(q07aHouseholdsServed);
         }
         

@@ -127,6 +127,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				data.setSchema(schema);	
 				data.setProjectId(cocId);
 				data.setEnrollments(enrollments);
+				data.setSageReport(sageReport);
 				List<ClientModel> allClients = getClients(schema);
 				List<String> clientIds = new ArrayList<String>(); 
 				List<String> enrollmentIds = new ArrayList<String>(); 

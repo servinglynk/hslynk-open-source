@@ -10,8 +10,8 @@
    Permanent housing (other than RRH) for ,0,0,0,0,0
 "   Staying or living with family, ",0,0,0,0,0
 "   Staying or living with friends, ",0,0,0,0,0
-"   Rental by client, with RRH or ",null,null,0,0,0
-   SubTotal,0,0,null,null,null
+"   Rental by client, with RRH or ",0,0,0,0,0
+   SubTotal,0,0,0,0,0
   Temporary Destinations,,,,,
 "   Emergency shelter, including hotel or motel paid for with emergency shelter voucher",0,0,0,0,0
    Moved from one HOPWA funded project to HOPWA TH,0,0,0,0,0

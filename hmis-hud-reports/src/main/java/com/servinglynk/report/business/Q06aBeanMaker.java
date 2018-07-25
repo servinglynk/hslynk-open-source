@@ -10,7 +10,7 @@ import com.servinglynk.report.bean.Q06aDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 
-public class Q06aBeanMaker {
+public class Q06aBeanMaker extends BaseBeanMaker {
 	public static Long nameCDK = 0L;
 	public static  Long nameInfoMissing = 0L;
 	public static  Long nameDataIssue = 0L;
@@ -141,8 +141,8 @@ public class Q06aBeanMaker {
 			q06aBean.setGenderInfoMissing(BigInteger.valueOf(genderInfoMissing));
 			q06aBean.setGenderPercentageErrorRate(BigInteger.valueOf((genderCDK+genderInfoMissing)/numOfClients));
 			q06aBean.setOverAllPercentage(BigInteger.valueOf(1));
-		} catch(Exception e) {
-			
+		}catch(Exception e) {
+			logger.error("Error in Q06aBeanMaker:"+e);
 		}
 		
         return Arrays.asList(q06aBean);

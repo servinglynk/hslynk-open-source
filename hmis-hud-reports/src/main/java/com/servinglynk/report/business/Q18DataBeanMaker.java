@@ -31,10 +31,11 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 //
 //		
 
+		try {
 		String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources in, enrollment e where in.datacollectionstage=? and  e.id=in.enrollmentid "+
-		" and information_date >= e.entry_date ";
+		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage=? and  e.id=i.enrollmentid "+
+		" and i.information_date >= e.entrydate ";
 		
 		List<IncomeSourceModel> incomeAtEntry = getIncome(data.getSchema(), query , DataCollectionStage.ENTRY.getCode());
 		List<IncomeSourceModel> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode());
@@ -122,7 +123,9 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		q18eData.setQ18OneOrMoreSourceofIncomeNumberOfAdultsAtEntry(BigInteger.valueOf(oneOrMoreIncomeAtEntry != null ? oneOrMoreIncomeAtEntry.size() :0));
 		q18eData.setQ18OneOrMoreSourceofIncomeNumberOfAdultsAtExit(BigInteger.valueOf(oneOrMoreIncomeAtsAtExit != null ? oneOrMoreIncomeAtsAtExit.size() :0));
 		q18eData.setQ18OneOrMoreSourceofIncomeNumberOfAdultsAtFollowup(BigInteger.valueOf(oneOrMoreIncomeAtAnnualAssesment != null ? oneOrMoreIncomeAtAnnualAssesment.size() :0));
-		
+		} catch (Exception e) {
+			logger.error("Error in Q18BeanMaker:" + e);
+		}
 		return Arrays.asList(q18eData);
 	}
 	
@@ -135,7 +138,7 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		Connection connection = null;
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
+			statement = connection.prepareStatement(formatQuery(query,schema));
 			statement.setString(1, datacollectionStage);
 			resultSet = statement.executeQuery();
 			
