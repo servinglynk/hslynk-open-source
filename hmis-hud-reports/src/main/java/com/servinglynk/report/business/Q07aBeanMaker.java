@@ -18,6 +18,7 @@ public class Q07aBeanMaker extends BaseBeanMaker {
 	
         public static List<Q07aDataBean> getQ07aHouseholdsServeList(ReportData data) {
         	Q07aDataBean q07aHouseholdsServed = new Q07aDataBean();
+        	if(data.isLiveMode()) {
         	try {
         	List<String> projectsHHWithChildren  = getProjectsForHouseHoldType(data.getSchema(), ReportQuery.PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN);
         	List<String> projectsHHWithOneAdultChild  = getProjectsForHouseHoldType(data.getSchema(), ReportQuery.PROJECT_WITH_HOUSEHOLD_WITH_ONE_ADULT_CHILD);
@@ -132,6 +133,7 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         } catch (Exception e) {
 			logger.error("Error in Q07aBeanMaker:" + e);
 		}
+        }
         	return Arrays.asList(q07aHouseholdsServed);
         }
         

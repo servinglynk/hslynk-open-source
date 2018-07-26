@@ -24,6 +24,7 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q09aDataBean> getQ09aNumberPersonsContactedList(ReportData data){
 		Q09aDataBean q09aNumberPersonsContactedDataBean=new Q09aDataBean();
+		if(data.isLiveMode()) {
 		try {
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		List<ContactModel> contacts = getContacts(data.getSchema());
@@ -130,6 +131,7 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 //		q09aNumberPersonsContactedDataBean.setTpcFirstContacteRSS(BigInteger.valueOf(0));
 	} catch (Exception e) {
 		logger.error("Error in Q09aDataBeanMaker:" + e);
+	}
 	}
 		return Arrays.asList(q09aNumberPersonsContactedDataBean);
 	}

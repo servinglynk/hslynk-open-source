@@ -43,6 +43,7 @@ public class Q06aBeanMaker extends BaseBeanMaker {
 	 */
 	public static List<Q06aDataBean> getBeanData(ReportData data){
 		Q06aDataBean q06aBean = new Q06aDataBean();
+		if(data.isLiveMode()) {
 		try {
 			List<ClientModel> clients = data.getClients();
 			Long numOfClients = Long.valueOf(clients.size());
@@ -144,7 +145,7 @@ public class Q06aBeanMaker extends BaseBeanMaker {
 		}catch(Exception e) {
 			logger.error("Error in Q06aBeanMaker:"+e);
 		}
-		
+		}
         return Arrays.asList(q06aBean);
     }
 }

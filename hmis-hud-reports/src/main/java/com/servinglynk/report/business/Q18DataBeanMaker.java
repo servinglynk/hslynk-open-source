@@ -30,7 +30,7 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 //				" and i.information_date >= e.entrydate and i.information_date >= ? and i.information_date <= ? and e.ageatentry >= 18 ";
 //
 //		
-
+		if(data.isLiveMode()) {
 		try {
 		String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
@@ -125,6 +125,7 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		q18eData.setQ18OneOrMoreSourceofIncomeNumberOfAdultsAtFollowup(BigInteger.valueOf(oneOrMoreIncomeAtAnnualAssesment != null ? oneOrMoreIncomeAtAnnualAssesment.size() :0));
 		} catch (Exception e) {
 			logger.error("Error in Q18BeanMaker:" + e);
+		}
 		}
 		return Arrays.asList(q18eData);
 	}

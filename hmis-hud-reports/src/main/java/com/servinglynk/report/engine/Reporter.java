@@ -75,7 +75,7 @@ public class Reporter {
 //   		    JasperReport jasperReport1 = JasperCompileManager.compileReportToFile("q21_Health_Insurance.jrxml","q21_Health_Insurance.jasper");
 //   		    
    		    
-    	 boolean sageReport=true;
+    	 boolean sageReport=false;
         Reporter main = new Reporter();
         main.exportToPDF(sageReport);
     }

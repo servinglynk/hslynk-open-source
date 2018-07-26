@@ -18,6 +18,7 @@ public class Q12bBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q12bEthnicityDataBean> getQ12bEthnicityList(ReportData data){
 		Q12bEthnicityDataBean q12bEthnicityDataBean = new Q12bEthnicityDataBean();
+		if(data.isLiveMode()) {
 		try {
 		List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel> enrollments = data.getEnrollments();
@@ -147,6 +148,7 @@ public class Q12bBeanMaker extends BaseBeanMaker {
 		q12bEthnicityDataBean.setQ12bTotalUnkownhouseholdtype(totalUHHT);
 	} catch (Exception e) {
 		logger.error("Error in Q12bBeanMaker:" + e);
+	}
 	}
 		return Arrays.asList(q12bEthnicityDataBean);
 		

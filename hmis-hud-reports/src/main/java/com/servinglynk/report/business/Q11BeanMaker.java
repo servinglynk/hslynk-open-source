@@ -18,6 +18,7 @@ public class Q11BeanMaker extends BaseBeanMaker {
 	
 	public static List<Q11AgeDataBean> getQ11AgeList(ReportData data){
 		Q11AgeDataBean q11AgeDataBean = new Q11AgeDataBean();
+		if(data.isLiveMode()) {
 		try {
 				List<ClientModel> clients = data.getClients();
 				List<EnrollmentModel> enrollments = data.getEnrollments();
@@ -285,6 +286,7 @@ public class Q11BeanMaker extends BaseBeanMaker {
 	    		q11AgeDataBean.setTotMAISubtotal(data.getTotNumOfPersonServed());
 	} catch (Exception e) {
 		logger.error("Error in Q11BeanMaker:" + e);
+	}
 	}
 	         	return Arrays.asList(q11AgeDataBean);
 		

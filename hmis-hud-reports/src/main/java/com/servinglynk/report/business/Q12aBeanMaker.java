@@ -18,6 +18,7 @@ public class Q12aBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q12aRaceDataBean> getQ12aRaceList(ReportData data){
 		Q12aRaceDataBean q12aRaceDataBean = new Q12aRaceDataBean();
+		if(data.isLiveMode()) {
 		try {
 		String[] multipleRacesEnum = new String[] {"1", "2", "3", "4", "5"};
 		List<String> multipleRacesList = Arrays.asList(multipleRacesEnum);
@@ -250,6 +251,7 @@ public class Q12aBeanMaker extends BaseBeanMaker {
     	q12aRaceDataBean.setQ12aTotalWithoutChildren(totalWOC);
 	} catch (Exception e) {
 		logger.error("Error in Q12aDataBeanMaker:" + e);
+	}
 	}
 		return Arrays.asList(q12aRaceDataBean);
 		

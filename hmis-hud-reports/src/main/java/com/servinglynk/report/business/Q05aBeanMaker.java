@@ -19,6 +19,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 	private static Logger logger = Logger.getLogger(Q05aBeanMaker.class);
 	public static List<Q05aDataBean> getQ05aBeanData(ReportData data){
 		Q05aDataBean bean = new Q05aDataBean();
+		if(data.isLiveMode()) {
 		try {
 			List<ClientModel> clients = data.getClients();
 			List<EnrollmentModel>  enrollments = data.getEnrollments();
@@ -85,7 +86,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 		}catch(Exception e) {
 			logger.error("Error in Q05aBeanMaker:"+e);
 		}
-		
+		}
         return Arrays.asList(bean);
     }
 }

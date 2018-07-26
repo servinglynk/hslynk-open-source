@@ -16,6 +16,7 @@ public class Q13b1BeanMaker extends BaseBeanMaker {
 	public static List<Q13b1DataBean> getQ13b1PhysicalAndMentalHealthConditionsAtExitList(ReportData data){
 		
 		Q13b1DataBean q13b1Bean = new Q13b1DataBean();
+		if(data.isLiveMode()) {
 		try {
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
@@ -162,6 +163,7 @@ public class Q13b1BeanMaker extends BaseBeanMaker {
 		} catch (Exception e) {
 			logger.error("Error in Q13b1BeanMaker:" + e);
 		}
+	}
 		return Arrays.asList(q13b1Bean);
 	}
 

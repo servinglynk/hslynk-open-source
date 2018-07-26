@@ -19,6 +19,7 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 	public static List<Q10aDataBean> getQ10AGenderOfAdultsList(ReportData data){
 		
 		Q10aDataBean q10AGenderOfAdults = new Q10aDataBean();
+		if(data.isLiveMode()) {
 		try{
 		List<ClientModel> clients = data.getClients();
 		List<ClientModel> adults = clients.parallelStream().filter(client -> isAdult(client.getDob())).collect(Collectors.toList());
@@ -152,6 +153,7 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 		q10AGenderOfAdults.setSubtotalUHHT(subtotalUHHT);
 	} catch (Exception e) {
 		logger.error("Error in Q010aDataBeanMaker:" + e);
+	}
 	}
 	return Arrays.asList(q10AGenderOfAdults);
 }

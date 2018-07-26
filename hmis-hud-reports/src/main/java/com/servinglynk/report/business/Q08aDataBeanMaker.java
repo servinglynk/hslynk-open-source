@@ -16,6 +16,7 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 
 	public static List<Q08aDataBean> getQ08aDataBeanList(ReportData data) {
 		Q08aDataBean q08aDataBean = new Q08aDataBean();
+		if(data.isLiveMode()) {
 		try {
 			List<String> projectsHHWithChildren = getProjectsForHouseHoldType(data.getSchema(),
 					ReportQuery.PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN);
@@ -83,6 +84,7 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 		} catch (Exception e) {
 			logger.error("Error in Q08aDataBeanMaker:" + e);
 		}
+	}
 		return Arrays.asList(q08aDataBean);
 	}
 

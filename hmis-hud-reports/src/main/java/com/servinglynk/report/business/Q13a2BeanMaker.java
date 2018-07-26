@@ -17,6 +17,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 	public static List<Q13a2DataBean> getQ13a2NumberOfConditionsAtEntryList(ReportData data){
 		
 		Q13a2DataBean q13a2Bean = new Q13a2DataBean();
+		if(data.isLiveMode()) {
 		try{
 		String query ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage='1' and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) group by enrollmentid";
 		
@@ -202,6 +203,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 	} catch (Exception e) {
 		logger.error("Error in Q13a2BeanMaker:" + e);
 	}
+		}
     	return Arrays.asList(q13a2Bean);
     
 		

@@ -14,6 +14,7 @@ public class Q08bDataBeanMaker extends BaseBeanMaker {
 	public static List<Q08bDataBean> getQ08bDataBeanList(ReportData data){
 		
 		Q08bDataBean q08bDataBean	= new Q08bDataBean();
+		if(data.isLiveMode()) {
 		try {
 		List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
@@ -74,6 +75,7 @@ public class Q08bDataBeanMaker extends BaseBeanMaker {
 		q08bDataBean.setHhCountOctWoc(BigInteger.valueOf(enrollmentOctoberHHWithOutChildren != null ? enrollmentOctoberHHWithOutChildren.size() : getDefaultIntValue()));		
 	} catch (Exception e) {
 		logger.error("Error in Q08bDataBeanMaker:" + e);
+	}
 	}
 		return Arrays.asList(q08bDataBean);
 	}

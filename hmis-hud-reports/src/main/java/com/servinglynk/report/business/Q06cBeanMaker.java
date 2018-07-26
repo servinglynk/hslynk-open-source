@@ -21,6 +21,7 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 	public static List<Q06cDataBean> getQ06cPointInTimeCountPersonsLastWednesdayList(ReportData data) {
 
 		Q06cDataBean q06cDataBean = new Q06cDataBean();
+		if(data.isLiveMode()) {
 		try {
 			List<ExitModel> exits = data.getExits();
 			exits.parallelStream().forEach(exit -> {
@@ -67,6 +68,7 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 				q06cDataBean.setIsaeErrorRate(BigInteger.valueOf(data.getTotNoOfAdultLeavers().intValue()));
 		} catch (Exception e) {
 			logger.error("Error in Q06bBeanMaker:" + e);
+		}
 		}
 		return Arrays.asList(q06cDataBean);
 	}

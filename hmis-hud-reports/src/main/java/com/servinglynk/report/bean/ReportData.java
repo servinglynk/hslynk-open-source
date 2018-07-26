@@ -21,6 +21,7 @@ public class ReportData {
 	private boolean sageReport;
 	private boolean capterReport;
 	private boolean aprReport;
+	private boolean liveMode;
 	private List<ClientModel> clients = new ArrayList<ClientModel>();
 	private List<ProjectModel> projects = new ArrayList<ProjectModel>();
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
@@ -494,6 +495,18 @@ public class ReportData {
 	 */
 	public void setAprReport(boolean aprReport) {
 		this.aprReport = aprReport;
+	}
+	/**
+	 * @return the liveMode
+	 */
+	public boolean isLiveMode() {
+		return liveMode;
+	}
+	/**
+	 * @param liveMode the liveMode to set
+	 */
+	public void setLiveMode(boolean liveMode) {
+		this.liveMode = liveMode;
 	}
 	
 }

@@ -18,6 +18,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 		
 		
 		Q15DataBean q15Bean = new Q15DataBean();
+		if(data.isLiveMode()) {
 		try {
 		int overallTot = data.getNumOfAdults().intValue() + data.getNoOfChildHeadsOfHousehold().intValue();
 			
@@ -700,6 +701,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 
 	} catch (Exception e) {
 		logger.error("Error in Q15BeanMaker:" + e);
+	}
 	}
 		return Arrays.asList(q15Bean);
 	}

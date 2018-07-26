@@ -19,6 +19,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 	public static List<Q10cDataBean> getQ10CGPMIList(ReportData data){
 		
 		Q10cDataBean q10cGenderofPersonsMissingAgeInformation = new Q10cDataBean();
+		if(data.isLiveMode()) {
 		try{
 		String[] missing = new String[] {"8","9","99"};
 		List<String> missingList = Arrays.asList(missing);
@@ -154,6 +155,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 			q10cGenderofPersonsMissingAgeInformation.setSubtotalMAIUHHT(subtotalUHHT);
 	} catch (Exception e) {
 		logger.error("Error in Q10cDataBeanMaker:" + e);
+	}
 	}
 	return Arrays.asList(q10cGenderofPersonsMissingAgeInformation);
 	

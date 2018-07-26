@@ -109,41 +109,46 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setHomePageView("Aggregate / summary");
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
-			
+			data.setSageReport(sageReport);
+			data.setSchema(schema);	
 			List<ProjectModel> projects = new ArrayList<>();
-			try {
-				if(StringUtils.isNotBlank(cocId)) {
-					projects = getProjectsByCoc(schema,cocId);
-				}else {
-					projects = getProjects(schema,projectList);
+			if(data.isLiveMode()) {
+				
+				try {
+					if(StringUtils.isNotBlank(cocId)) {
+						projects = getProjectsByCoc(schema,cocId);
+					}else {
+						projects = getProjects(schema,projectList);
+					}
+					List<EnrollmentModel> enrollments =  new ArrayList<>();
+					
+					if(StringUtils.isNotBlank(cocId)) {
+						enrollments = getEnrollmentsByCocId(schema, cocId,reportStartDate, reportEndDate);
+					}else {
+						enrollments = getEnrollmentsByProjectcId(schema, projectList,reportStartDate, reportEndDate);
+					}
+					
+					data.setProjectId(cocId);
+					data.setEnrollments(enrollments);
+					
+					List<ClientModel> allClients = getClients(schema);
+					List<String> clientIds = new ArrayList<String>(); 
+					List<String> enrollmentIds = new ArrayList<String>(); 
+					enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID()); enrollmentIds.add(enrollment.getProjectEntryID());});
+					List<ClientModel> clients = allClients.parallelStream().filter(client -> clientIds.contains(client.getPersonalID())).collect(Collectors.toList());
+					data.setClients(clients);
+					List<ExitModel> allExits = getAllExits(schema);
+					List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
+					data.setExits(filteredExits);
+					List<IncomeAndSourceModel> incomeAndSources = getIncomeAndSource(schema);
+					List<IncomeAndSourceModel> filtereIncomeAndSources = incomeAndSources.parallelStream().filter(incomeAndSource -> enrollmentIds.contains(incomeAndSource.getProjectEntryId())).collect(Collectors.toList());
+					data.setIncomeAndSources(filtereIncomeAndSources);
+					
+				}catch(Exception e) {
+					
 				}
-				List<EnrollmentModel> enrollments =  new ArrayList<>();
-				
-				if(StringUtils.isNotBlank(cocId)) {
-					enrollments = getEnrollmentsByCocId(schema, cocId,reportStartDate, reportEndDate);
-				}else {
-					enrollments = getEnrollmentsByProjectcId(schema, projectList,reportStartDate, reportEndDate);
-				}
-				data.setSchema(schema);	
-				data.setProjectId(cocId);
-				data.setEnrollments(enrollments);
-				data.setSageReport(sageReport);
-				List<ClientModel> allClients = getClients(schema);
-				List<String> clientIds = new ArrayList<String>(); 
-				List<String> enrollmentIds = new ArrayList<String>(); 
-				enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID()); enrollmentIds.add(enrollment.getProjectEntryID());});
-				List<ClientModel> clients = allClients.parallelStream().filter(client -> clientIds.contains(client.getPersonalID())).collect(Collectors.toList());
-				data.setClients(clients);
-				List<ExitModel> allExits = getAllExits(schema);
-				List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
-				data.setExits(filteredExits);
-				List<IncomeAndSourceModel> incomeAndSources = getIncomeAndSource(schema);
-				List<IncomeAndSourceModel> filtereIncomeAndSources = incomeAndSources.parallelStream().filter(incomeAndSource -> enrollmentIds.contains(incomeAndSource.getProjectEntryId())).collect(Collectors.toList());
-				data.setIncomeAndSources(filtereIncomeAndSources);
-				
-			}catch(Exception e) {
-				
 			}
+			
 			
 			if(CollectionUtils.isNotEmpty(projects)) {
 				List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projects.get(0).getProjectId(),data);

@@ -21,6 +21,7 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 	public static List<Q17DataBean> getQ17CashIncomeSourcesList(ReportData data){
 		
 		Q17DataBean q17CashIncomeSourcesDataBeanTable =new Q17DataBean();
+		if(data.isLiveMode()) {
 		try{
 		String entryQuery = " select count(dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage=? and  e.id=i.enrollmentid "+ 
 							" and i.information_date >= e.entrydate and i.information_date >= ? and i.information_date <= ? and e.ageatentry >= 18 ";
@@ -183,7 +184,7 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 	} catch (Exception e) {
 		logger.error("Error in Q17BeanMaker:" + e);
 	}
-
+		}
 		return Arrays.asList(q17CashIncomeSourcesDataBeanTable);
 	}
 	

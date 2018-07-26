@@ -20,7 +20,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 	public static List<Q13c2DataBean> getQ13c2NumberOfConditionsForStayerList(ReportData data){
 		
 		Q13c2DataBean q13c2Bean = new Q13c2DataBean();
-		
+		if(data.isLiveMode()) {
 		try {
 
 			List<ClientModel> clients = data.getClients();
@@ -208,6 +208,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
     	q13c2Bean.setQ13c2TotalUnknowHousehold(totalUHHT);
 	} catch (Exception e) {
 		logger.error("Error in Q13c2BeanMaker:" + e);
+	}
 	}
     	return Arrays.asList(q13c2Bean);
 	}

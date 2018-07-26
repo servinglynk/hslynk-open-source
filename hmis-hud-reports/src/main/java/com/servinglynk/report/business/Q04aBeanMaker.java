@@ -20,8 +20,10 @@ public class Q04aBeanMaker {
 	
 			public static List<Q04aDataBean> getQ04aDataBeanList(String schema, String projectId,ReportData data) {
 				Q04aDataBean q04aDataBean = new Q04aDataBean(); 
-				if(StringUtils.isNotBlank(projectId)) {
+				if(data.isLiveMode()) {
+					if(StringUtils.isNotBlank(projectId)) {
 					populateProject(schema, projectId, q04aDataBean,data);
+					}
 				}
 				return Arrays.asList(q04aDataBean);
 			}

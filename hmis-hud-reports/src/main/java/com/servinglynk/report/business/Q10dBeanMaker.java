@@ -16,6 +16,7 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 
 	public static List<Q10dDataBean> getQ10DGARList(ReportData data){
 		Q10dDataBean q10dGenderByAgeRanges= new Q10dDataBean();
+		if(data.isLiveMode()) {
 		try {
 		List<ClientModel> clients = data.getClients();
 		List<ClientModel> female = clients.parallelStream().filter(client->StringUtils.equals("1",client.getGender())).collect(Collectors.toList());
@@ -267,6 +268,7 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 			
 	} catch (Exception e) {
 		logger.error("Error in Q10dDataBeanMaker:" + e);
+	}
 	}
 	return Arrays.asList(q10dGenderByAgeRanges);
 	

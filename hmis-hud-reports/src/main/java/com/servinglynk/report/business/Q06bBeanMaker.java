@@ -23,6 +23,7 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 	
 	public static List<Q06bDataBean> getQ06bNumberOfPersonsServedTableList(ReportData data){
 		Q06bDataBean q06bDataBean = new Q06bDataBean();
+		if(data.isLiveMode()) {
 		try {
 		List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel> enrollments = data.getEnrollments();
@@ -67,6 +68,7 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 		
 		}catch(Exception e) {
 			logger.error("Error in Q06bBeanMaker:"+e);
+		}
 		}
 		return Arrays.asList(q06bDataBean);
 	}

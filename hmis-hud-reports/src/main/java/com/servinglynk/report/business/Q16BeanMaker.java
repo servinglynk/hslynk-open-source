@@ -29,6 +29,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		
 		int stayers = clients !=null && exits != null ? clients.size() - exits.size() : 0;*/
 		Q16DataBean q16Bean = new Q16DataBean();
+		if(data.isLiveMode()) {
 		try {
 		String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
@@ -131,6 +132,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 	} catch (Exception e) {
 		logger.error("Error in Q16BeanMaker:" + e);
 	}
+		}
 		return Arrays.asList(q16Bean);
 	}
 

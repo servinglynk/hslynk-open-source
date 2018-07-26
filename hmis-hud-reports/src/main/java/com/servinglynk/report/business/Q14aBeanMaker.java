@@ -15,6 +15,7 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q14aDataBean> getQ14aDomesticViolenceHistoryList(ReportData data) {
 		Q14aDataBean q14aBean= new Q14aDataBean();
+		if(data.isLiveMode()) {
 		try {
 		int overallTot = data.getNumOfAdults() .intValue()+ data.getNoOfChildHeadsOfHousehold().intValue();
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
@@ -129,6 +130,7 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 		q14aBean.setQ14aTotalUnknowHousehold(unknownHouseHoldSize);
 	} catch (Exception e) {
 		logger.error("Error in Q14aBeanMaker:" + e);
+	}
 	}
 		return Arrays.asList(q14aBean);
 		

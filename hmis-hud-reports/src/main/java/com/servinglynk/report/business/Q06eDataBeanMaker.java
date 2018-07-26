@@ -27,6 +27,7 @@ public class Q06eDataBeanMaker extends BaseBeanMaker {
 	public static List<Q06eDataBean> getQ06eDataBeanList(ReportData data){
 		
 		Q06eDataBean q06eDataBean =new Q06eDataBean();
+		if(data.isLiveMode()) {
 		try {
 			List<EnrollmentModel> enrollments = data.getEnrollments();
 			List<EnrollmentModel>  filteredEnrollments = enrollments.parallelStream().filter(enrollment ->enrollment.getEntrydate() != null && (enrollment.getEntrydate().compareTo(data.getReportStartDate()) > 0) && enrollment.getEntrydate().compareTo(data.getReportStartDate()) < 0).collect(Collectors.toList());
@@ -80,7 +81,7 @@ public class Q06eDataBeanMaker extends BaseBeanMaker {
 		}catch(Exception e) {
 			logger.error("Error in Q06eDataBeanMaker:"+e);
 		}
-		
+		}
 		return Arrays.asList(q06eDataBean);
 	}
 	

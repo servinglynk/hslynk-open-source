@@ -38,6 +38,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 	 */
 	public static List<Q07bDataBean> getQ07bPointInTimeCountHouseholdsLastWednesdayList(ReportData data) {
 		Q07bDataBean q07bDataBean = new Q07bDataBean();
+		if(data.isLiveMode()) {
 		try {
 			List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 			List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
@@ -179,6 +180,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 		} catch (Exception e) {
 			logger.error("Error in Q07bBeanMaker:" + e);
 		}
+	}
 		return Arrays.asList(q07bDataBean);
 	}
 
