@@ -195,7 +195,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		}
 		Boolean found = true;
 		if (modelMap != null && modelMap.size() > 0) {
-			HmisBaseModel model = modelMap.get(sourceId);
+			HmisBaseModel model = modelMap.get(sourceId.trim());
 			if (model == null) {
 				found = false;
 			} else {

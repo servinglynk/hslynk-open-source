@@ -225,7 +225,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				if(!forAPI && clientModelFromDB !=null) {
 					modelMatch(clientModelFromDB, clientModel);
 				}
-//				clientModel.setDedupClientId(dedupId);
+				clientModel.setDedupClientId(dedupId);
 			}
 		}else {
 			if(clientModelFromDB !=null) {
