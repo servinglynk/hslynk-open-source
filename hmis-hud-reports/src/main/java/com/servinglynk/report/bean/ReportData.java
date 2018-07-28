@@ -26,6 +26,7 @@ public class ReportData {
 	private List<ProjectModel> projects = new ArrayList<ProjectModel>();
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
 	private List<ExitModel> exits = new ArrayList<ExitModel>();
+	private List<EnrollmentModel> adultStayers = new ArrayList<>();
 	private List<ContactModel> contacts = new ArrayList<>();
 	private List<DateOfEngagementModel> dateOfEngagements = new ArrayList<>();
 	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
@@ -507,6 +508,18 @@ public class ReportData {
 	 */
 	public void setLiveMode(boolean liveMode) {
 		this.liveMode = liveMode;
+	}
+	/**
+	 * @return the adultStayers
+	 */
+	public List<EnrollmentModel> getAdultStayers() {
+		return adultStayers;
+	}
+	/**
+	 * @param adultStayers the adultStayers to set
+	 */
+	public void setAdultStayers(List<EnrollmentModel> adultStayers) {
+		this.adultStayers = adultStayers;
 	}
 	
 }

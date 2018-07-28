@@ -2,18 +2,23 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q16DataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
+import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q16BeanMaker extends BaseBeanMaker {
 	
@@ -37,6 +42,14 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		" and i.information_date >= e.entrydate ";
 		List<Float> incomeAtEntry = getIncome(data.getSchema(), query, DataCollectionStage.ENTRY.getCode());
 		List<Float> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode());
+		List<EnrollmentModel> adultStayers = data.getAdultStayers();
+		if(CollectionUtils.isNotEmpty(adultStayers)) {
+			Map<String, Date> enrollmentsByDataCollectionStage = getEnrollmentsByDataCollectionStage(data.getSchema(), DataCollectionStage.ANNUAL_ASSESMENT.getCode());
+			List<EnrollmentModel> filtersAdults = adultStayers.parallelStream().filter(enrollment -> enrollmentsByDataCollectionStage.get(enrollment.getProjectEntryID()) == null  ).collect(Collectors.toList());
+			List<EnrollmentModel> adults = adultStayers.parallelStream().filter(enrollment ->).collect(Collectors.toList());
+			
+		}
+	
 		List<Float> incomeAtStayers = getIncome(data.getSchema(), query, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
 		
 		String clientDKE = "select count(*) as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9') and datacollectionstage=?";
@@ -199,5 +212,8 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		}
 		return count;
 	}
+	
+	
+	
 	
 }

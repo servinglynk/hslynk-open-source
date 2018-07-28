@@ -17,7 +17,8 @@ public class EnrollmentModel extends BaseModel {
 			String timeshomelesspastthreeyears,
 			String timeshomelesspastthreeyears_desc, String yearshomeless,
 			String personalID, int ageatentry, boolean chronichomeless,
-			String enrollment_source_system_id,Date dateCreatedFromSource, String livingSituation,Date datetostreetessh) {
+			String enrollment_source_system_id,Date dateCreatedFromSource, String livingSituation,Date datetostreetessh,
+			String dedupClientId) {
 		super();
 		this.projectEntryID = projectEntryID;
 		this.continuouslyhomelessoneyear = continuouslyhomelessoneyear;
@@ -48,6 +49,7 @@ public class EnrollmentModel extends BaseModel {
 		this.enrollment_source_system_id = enrollment_source_system_id;
 		this.livingSituation = livingSituation;
 		this.datetostreetessh = datetostreetessh;
+		this.dedupClientId = dedupClientId;
 	}
 	private String projectEntryID;
 	private String continuouslyhomelessoneyear;
@@ -78,6 +80,7 @@ public class EnrollmentModel extends BaseModel {
 	private String enrollment_source_system_id;
 	private String livingSituation;
 	private Date datetostreetessh;
+	private String dedupClientId;
 	/**
 	 * @return the projectEntryID
 	 */
@@ -411,4 +414,17 @@ public class EnrollmentModel extends BaseModel {
 	public void setDatetostreetessh(Date datetostreetessh) {
 		this.datetostreetessh = datetostreetessh;
 	}
+	/**
+	 * @return the dedupClientId
+	 */
+	public String getDedupClientId() {
+		return dedupClientId;
+	}
+	/**
+	 * @param dedupClientId the dedupClientId to set
+	 */
+	public void setDedupClientId(String dedupClientId) {
+		this.dedupClientId = dedupClientId;
+	}
+	
 }

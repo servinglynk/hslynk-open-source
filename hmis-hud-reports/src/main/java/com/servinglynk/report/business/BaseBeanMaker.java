@@ -13,8 +13,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -477,6 +479,19 @@ public class BaseBeanMaker {
 		return 0;
 	}
 	
+	public static int getYearBetweenDates(Date fromDate,Date toDate) {
+		try {
+			if(fromDate !=null && toDate != null) {
+				@SuppressWarnings("deprecation")
+				LocalDate fromLocalDate = LocalDate.of(fromDate.getYear(), fromDate.getMonth(), fromDate.getDay());
+				LocalDate toLocalDate = LocalDate.of(toDate.getYear(), toDate.getMonth(), toDate.getDay());
+				Period p = Period.between(fromLocalDate, toLocalDate);
+				return p.getYears();
+			}
+		}catch(Exception e) {
+		}
+		return 0;
+	}
 	public static void populateProject(String schema,String id, HomePageDataBean homePageDataBean) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
@@ -580,7 +595,7 @@ public class BaseBeanMaker {
 				statement.setString(1, cocId);
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
-				 EnrollmentModel model = new EnrollmentModel(resultSet.getString("project_entry_id"), 
+				 EnrollmentModel model = new EnrollmentModel(resultSet.getString("id"), 
 						// resultSet.getString("enrollment.continuouslyhomelessoneyear"),
 						 null,
 						 resultSet.getString("disablingcondition"), 
@@ -612,7 +627,8 @@ public class BaseBeanMaker {
 						 resultSet.getString("source_system_id"),
 						 resultSet.getDate("date_created_from_source"),
 						 resultSet.getString("livingSituation"),
-						 resultSet.getDate("datetostreetessh"));
+						 resultSet.getDate("datetostreetessh"),
+						 resultSet.getString("dedup_client_id"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {
@@ -685,7 +701,8 @@ public class BaseBeanMaker {
 						 resultSet.getString("source_system_id"),
 						 resultSet.getDate("date_created_from_source"),
 						 resultSet.getString("livingsituation"),
-						 resultSet.getDate("datetostreetessh"));
+						 resultSet.getDate("datetostreetessh"),
+						 resultSet.getString("dedup_client_id"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {
@@ -810,6 +827,39 @@ public class BaseBeanMaker {
 			return models;
 		}
 
-	
+		 public static Map<String,Date>  getEnrollmentsByDataCollectionStage(String schema,String datacollectionStage) {
+				String  query= " SELECT e.id,ecoc.information_date from %s.enrollment e, %s.enrollment_coc ecoc where e.id = ecoc.enrollmentid and ecoc.datacollectionstage='5'  ";
+				ResultSet resultSet = null;
+				PreparedStatement statement = null;
+				Connection connection = null;
+				Map<String,Date> annualAssesments = new HashMap<>();
+				try {
+					connection = ImpalaConnection.getConnection();
+					statement = connection.prepareStatement(formatQuery(query,schema));
+					statement.setString(1, datacollectionStage);
+					resultSet = statement.executeQuery();
+					
+				 while(resultSet.next()) {
+					 String dedupClientId =(String)resultSet.getObject(1);
+					 Date informationDate = resultSet.getDate(2);
+					 annualAssesments.put(dedupClientId, informationDate);
+			     }
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (statement != null) {
+						try {
+							statement.close();
+							//connection.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+					return annualAssesments;
+			    }
+				
 	
 }
