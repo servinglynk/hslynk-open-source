@@ -2,23 +2,18 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
-
-import org.apache.commons.collections.CollectionUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q16DataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
-import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q16BeanMaker extends BaseBeanMaker {
 	
@@ -30,9 +25,17 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		List<ClientModel> children = clients.parallelStream().filter(client -> Q05aBeanMaker.isChild(client.getDob())).collect(Collectors.toList());
 		List<ClientModel> ageUnknown = clients.parallelStream().filter(client -> client.getDob() == null).collect(Collectors.toList());
 		List<ExitModel> exits = data.getExits();
-		List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
-		
+		List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals(DataCollectionStage.ENTRY.getCode(),client.getVeteran_status())).collect(Collectors.toList());
 		int stayers = clients !=null && exits != null ? clients.size() - exits.size() : 0;*/
+		/*
+		 * select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, 
+		 socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, 
+		 vadisabilityserviceamount,workerscompamount,e.dedup_client_id from incomeandsources i, enrollment e where e.id=i.enrollmentid 
+		 and i.information_date >= e.entrydate and e.entrydate <= '2015-06-24 00:00:00'
+        and   e.id not in ( select enrollmentid from exit  where  exitdate >= '2015-06-24 00:00:00' ) 
+        and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  
+        
+		 */
 		Q16DataBean q16Bean = new Q16DataBean();
 		if(data.isLiveMode()) {
 		try {
@@ -42,21 +45,45 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		" and i.information_date >= e.entrydate ";
 		List<Float> incomeAtEntry = getIncome(data.getSchema(), query, DataCollectionStage.ENTRY.getCode());
 		List<Float> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode());
-		List<EnrollmentModel> adultStayers = data.getAdultStayers();
-		if(CollectionUtils.isNotEmpty(adultStayers)) {
-			Map<String, Date> enrollmentsByDataCollectionStage = getEnrollmentsByDataCollectionStage(data.getSchema(), DataCollectionStage.ANNUAL_ASSESMENT.getCode());
-			List<EnrollmentModel> filtersAdults = adultStayers.parallelStream().filter(enrollment -> enrollmentsByDataCollectionStage.get(enrollment.getProjectEntryID()) == null  ).collect(Collectors.toList());
-			List<EnrollmentModel> adults = adultStayers.parallelStream().filter(enrollment ->).collect(Collectors.toList());
-			
-		}
-	
-		List<Float> incomeAtStayers = getIncome(data.getSchema(), query, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
 		
-		String clientDKE = "select count(*) as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9') and datacollectionstage=?";
+		String assesmentQuery = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+		 " socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount,  "+
+		 " vadisabilityserviceamount,workerscompamount,e.dedup_client_id from incomeandsources i, enrollment e where e.id=i.enrollmentid  "+
+		 "  and i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
+		 " and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
+		 " and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
+       
+		List<Float> incomeAtStayers = getIncomeForAnnualAssesment(data.getSchema(), assesmentQuery, data);
 		
-		String clientDNC = "select count(*) as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('99') and datacollectionstage=?";
+		String clientDKE = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9') and datacollectionstage=? ";
 		
-	
+		String clientDNC = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('99') and datacollectionstage=? ";
+		
+		String clientAnnualAssesmentDKE = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9')"+
+				"  and i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
+				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
+				" and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
+		
+		
+		String clientAnnualAssesmentDNC = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource='99'"+
+				"  and i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
+				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
+				" and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
+		
+		String notRequiredAnnualAssesment = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where "+
+				"   i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
+				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
+				" and   e.id in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
+		
+		String withOutRequiredAnnualAssesment = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where "+
+				"   i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
+				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
+				" and   e.id in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  union all "+
+				" select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where "+
+				"   i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
+				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
+				" and   e.id in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 ) ";
+		
 		List<Float> incomeAtEntryWith0 = incomeAtEntry.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
 		List<Float> incomeAtExitWith0 = incomeAtExit.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
 		List<Float> incomeAtStayersWith0 = incomeAtStayers.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
@@ -123,17 +150,18 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		q16Bean.setQ162000PlusIncomeAtExitforLeavers(BigInteger.valueOf(incomeAtExitWith2001 != null ?incomeAtExitWith2001.size():0));
 		q16Bean.setQ162000PlusIncomeAtLatestFollowupforStayers(BigInteger.valueOf(incomeAtStayersWith2001 != null ?incomeAtStayersWith2001.size():0));
 		
-		q16Bean.setQ16ClientDoesntKnowIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDKE, "1")));
-		q16Bean.setQ16ClientDoesntKnowIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDKE, "3")));
-		q16Bean.setQ16ClientDoesntKnowIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDKE, "5")));
+		q16Bean.setQ16ClientDoesntKnowIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDKE, DataCollectionStage.ENTRY.getCode())));
+		q16Bean.setQ16ClientDoesntKnowIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDKE, DataCollectionStage.EXIT.getCode())));
+		q16Bean.setQ16ClientDoesntKnowIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientAnnualAssesmentDKE, data)));
 		
-		q16Bean.setQ16DataNotCollectedIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDNC, "1")));
-		q16Bean.setQ16DataNotCollectedIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDNC, "3")));
-		q16Bean.setQ16DataNotCollectedIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDNC, "3")));
+		q16Bean.setQ16DataNotCollectedIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDNC, DataCollectionStage.ENTRY.getCode())));
+		q16Bean.setQ16DataNotCollectedIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDNC, DataCollectionStage.EXIT.getCode())));
+		q16Bean.setQ16DataNotCollectedIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientAnnualAssesmentDNC, data)));
+		
 		
 		q16Bean.setQ16NumberOfAdultStayersNotYetRequiredIncomeAtEntry(BigInteger.valueOf(0));
 		q16Bean.setQ16NumberOfAdultStayersNotYetRequiredIncomeAtExitforLeavers(BigInteger.valueOf(0));
-		q16Bean.setQ16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers(BigInteger.valueOf(0));
+		q16Bean.setQ16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), notRequiredAnnualAssesment, data)));
 		
 		q16Bean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtEntry(BigInteger.valueOf(0));
 		q16Bean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtExitforLeavers(BigInteger.valueOf(0));
@@ -213,6 +241,108 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		return count;
 	}
 	
+	public static int getIncomeCnt(String schema,String query,ReportData data) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		int count =0;
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(query,schema));
+			statement.setDate(1, data.getReportStartDate());
+			statement.setDate(2, data.getReportEndDate());
+			resultSet = statement.executeQuery();
+			
+		 while(resultSet.next()) {
+			 count = resultSet.getInt(1);
+	     }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return count;
+	}
+	
+	public static int getClientCntWithOutRequiredAnnualAssesment(String schema,String query,ReportData data) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		int count =0;
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(query,schema));
+			statement.setDate(1, data.getReportStartDate());
+			statement.setDate(2, data.getReportEndDate());
+			statement.setDate(3, data.getReportStartDate());
+			statement.setDate(4, data.getReportEndDate());
+			resultSet = statement.executeQuery();
+			
+		 while(resultSet.next()) {
+			 count = resultSet.getInt(1);
+	     }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return count;
+	}
+	
+	
+	
+	
+	public static List<Float> getIncomeForAnnualAssesment(String schema,String query,ReportData data) {
+		List<Float> incomes = new ArrayList<>();
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(query,schema));
+			statement.setDate(1, data.getReportStartDate());
+			statement.setDate(2, data.getReportEndDate());
+			resultSet = statement.executeQuery();
+			
+		 while(resultSet.next()) {
+			 incomes.add(resultSet.getFloat(1)+resultSet.getFloat(2)+resultSet.getFloat(3)+resultSet.getFloat(4)+resultSet.getFloat(5)+resultSet.getFloat(6)+resultSet.getFloat(7)+
+					 resultSet.getFloat(8)+resultSet.getFloat(9)+resultSet.getFloat(10)+resultSet.getFloat(11)+resultSet.getFloat(12)+resultSet.getFloat(13)+resultSet.getFloat(14)+resultSet.getFloat(15));
+
+	     }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return incomes;
+	}
 	
 	
 	
