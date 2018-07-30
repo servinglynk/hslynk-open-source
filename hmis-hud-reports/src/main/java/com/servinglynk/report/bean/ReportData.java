@@ -45,6 +45,8 @@ public class ReportData {
 	private BigInteger numOfAdultandHeadOfHHLeavers;
 	private BigInteger numOfYouthUnderAge25;
 	private BigInteger numOfHeadsOfHHandAdults365Days;
+	private BigInteger numOfAdultStayersNotRequiredAnnualAssesment=BigInteger.valueOf(0);
+	private BigInteger numOfAdultStayersWithoutRequiredAnnualAssesment=BigInteger.valueOf(0);
 	List<String> enrollmentIds = new ArrayList<String>();
 	List<String> projectsHHWithChildren = new ArrayList<String>();
 	List<String> projectsHHWithOneAdultChild  =  new ArrayList<String>();
@@ -520,6 +522,31 @@ public class ReportData {
 	 */
 	public void setAdultStayers(List<EnrollmentModel> adultStayers) {
 		this.adultStayers = adultStayers;
+	}
+	/**
+	 * @return the numOfAdultStayersNotRequiredAnnualAssesment
+	 */
+	public BigInteger getNumOfAdultStayersNotRequiredAnnualAssesment() {
+		return numOfAdultStayersNotRequiredAnnualAssesment;
+	}
+	/**
+	 * @param numOfAdultStayersNotRequiredAnnualAssesment the numOfAdultStayersNotRequiredAnnualAssesment to set
+	 */
+	public void setNumOfAdultStayersNotRequiredAnnualAssesment(BigInteger numOfAdultStayersNotRequiredAnnualAssesment) {
+		this.numOfAdultStayersNotRequiredAnnualAssesment = numOfAdultStayersNotRequiredAnnualAssesment;
+	}
+	/**
+	 * @return the numOfAdultStayersWithoutRequiredAnnualAssesment
+	 */
+	public BigInteger getNumOfAdultStayersWithoutRequiredAnnualAssesment() {
+		return numOfAdultStayersWithoutRequiredAnnualAssesment;
+	}
+	/**
+	 * @param numOfAdultStayersWithoutRequiredAnnualAssesment the numOfAdultStayersWithoutRequiredAnnualAssesment to set
+	 */
+	public void setNumOfAdultStayersWithoutRequiredAnnualAssesment(
+			BigInteger numOfAdultStayersWithoutRequiredAnnualAssesment) {
+		this.numOfAdultStayersWithoutRequiredAnnualAssesment = numOfAdultStayersWithoutRequiredAnnualAssesment;
 	}
 	
 }

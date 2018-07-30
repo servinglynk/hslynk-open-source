@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
+import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q16DataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
@@ -46,14 +47,8 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		List<Float> incomeAtEntry = getIncome(data.getSchema(), query, DataCollectionStage.ENTRY.getCode());
 		List<Float> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode());
 		
-		String assesmentQuery = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
-		 " socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount,  "+
-		 " vadisabilityserviceamount,workerscompamount,e.dedup_client_id from incomeandsources i, enrollment e where e.id=i.enrollmentid  "+
-		 "  and i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
-		 " and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
-		 " and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
-       
-		List<Float> incomeAtStayers = getIncomeForAnnualAssesment(data.getSchema(), assesmentQuery, data);
+		
+		List<Float> incomeAtStayers = getIncomeForAnnualAssesment(data.getSchema(), ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY, data);
 		
 		String clientDKE = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9') and datacollectionstage=? ";
 		
@@ -165,8 +160,10 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		
 		q16Bean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtEntry(BigInteger.valueOf(0));
 		q16Bean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtExitforLeavers(BigInteger.valueOf(0));
-		q16Bean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers(BigInteger.valueOf(0));
+		q16Bean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getClientCntWithOutRequiredAnnualAssesment(data.getSchema(), withOutRequiredAnnualAssesment, data)));
 
+		data.setNumOfAdultStayersNotRequiredAnnualAssesment(q16Bean.getQ16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers());
+		data.setNumOfAdultStayersWithoutRequiredAnnualAssesment(q16Bean.getQ16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers());
 		q16Bean.setQ16TotalAdultsIncomeAtEntry(data.getNumOfAdults());
 		q16Bean.setQ16TotalAdultsIncomeAtExitforLeavers(data.getTotNoOfAdultLeavers());
 		q16Bean.setQ16TotalAdultsIncomeAtLatestFollowupforStayers(data.getTotNoOfAdultStayers());
