@@ -5,6 +5,7 @@ import static java.time.temporal.TemporalAdjusters.previousOrSame;
 
 import java.math.BigInteger;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,11 +24,11 @@ import org.apache.log4j.Logger;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.HomePageDataBean;
+import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.ContactModel;
 import com.servinglynk.report.model.DateOfEngagementModel;
 import com.servinglynk.report.model.DisabilitiesModel;
-import com.servinglynk.report.model.DomesticViolenceModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
@@ -860,6 +860,72 @@ public class BaseBeanMaker {
 				}
 					return annualAssesments;
 			    }
-				
+		 
+		 
+		 public static int getIncomeCnt(ReportData data,String query,String datacollectionStage) {
+				ResultSet resultSet = null;
+				PreparedStatement statement = null;
+				Connection connection = null;
+				int count =0;
+				try {
+					connection = ImpalaConnection.getConnection();
+					statement = connection.prepareStatement(formatQuery(query,data.getSchema()));
+					statement.setDate(1, data.getReportStartDate());
+					statement.setDate(2, data.getReportEndDate());
+					statement.setString(3, datacollectionStage);
+					resultSet = statement.executeQuery();
+					
+				 while(resultSet.next()) {
+					 count = resultSet.getInt(1);
+			     }
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (statement != null) {
+						try {
+							statement.close();
+							//connection.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				return count;
+			}
+		 public static int getIncomeForAnnualAssesment(ReportData data,String query,String datacollectionStage) {
+				ResultSet resultSet = null;
+				PreparedStatement statement = null;
+				Connection connection = null;
+				int count =0;
+				try {
+					connection = ImpalaConnection.getConnection();
+					statement = connection.prepareStatement(formatQuery(query,data.getSchema()));
+					statement.setDate(1, data.getReportStartDate());
+					statement.setDate(2, data.getReportEndDate());
+					statement.setDate(3, data.getReportEndDate());
+					statement.setString(4, datacollectionStage);
+					resultSet = statement.executeQuery();
+					
+				 while(resultSet.next()) {
+					 count = resultSet.getInt(1);
+			     }
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (statement != null) {
+						try {
+							statement.close();
+							//connection.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				return count;
+			}	
 	
 }
