@@ -7,16 +7,16 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.servinglynk.report.bean.Q13a2DataBean;
+import com.servinglynk.report.bean.Q13a2NumberOfConditionsAtEntryDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DisabilitiesModel;
 import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q13a2BeanMaker extends BaseBeanMaker {
 	
-	public static List<Q13a2DataBean> getQ13a2NumberOfConditionsAtEntryList(ReportData data){
+	public static List<Q13a2NumberOfConditionsAtEntryDataBean> getQ13a2NumberOfConditionsAtEntryList(ReportData data){
 		
-		Q13a2DataBean q13a2Bean = new Q13a2DataBean();
+		Q13a2NumberOfConditionsAtEntryDataBean q13a2Bean = new Q13a2NumberOfConditionsAtEntryDataBean();
 		if(data.isLiveMode()) {
 		try{
 		String query ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage='1' and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) group by enrollmentid";

@@ -9,15 +9,15 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ReportQuery;
-import com.servinglynk.report.bean.Q07aDataBean;
+import com.servinglynk.report.bean.Q07aHouseholdsServedDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q07aBeanMaker extends BaseBeanMaker {
 	
-        public static List<Q07aDataBean> getQ07aHouseholdsServeList(ReportData data) {
-        	Q07aDataBean q07aHouseholdsServed = new Q07aDataBean();
+        public static List<Q07aHouseholdsServedDataBean> getQ07aHouseholdsServeList(ReportData data) {
+        	Q07aHouseholdsServedDataBean q07aHouseholdsServed = new Q07aHouseholdsServedDataBean();
         	if(data.isLiveMode()) {
         	try {
         	List<String> projectsHHWithChildren  = getProjectsForHouseHoldType(data.getSchema(), ReportQuery.PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN);

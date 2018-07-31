@@ -8,14 +8,14 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.report.bean.Q10dDataBean;
+import com.servinglynk.report.bean.Q10dGenderByAgeRangesDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 
 public class Q10dBeanMaker extends BaseBeanMaker {
 
-	public static List<Q10dDataBean> getQ10DGARList(ReportData data){
-		Q10dDataBean q10dGenderByAgeRanges= new Q10dDataBean();
+	public static List<Q10dGenderByAgeRangesDataBean> getQ10DGARList(ReportData data){
+		Q10dGenderByAgeRangesDataBean q10dGenderByAgeRanges= new Q10dGenderByAgeRangesDataBean();
 		if(data.isLiveMode()) {
 		try {
 		List<ClientModel> clients = data.getClients();

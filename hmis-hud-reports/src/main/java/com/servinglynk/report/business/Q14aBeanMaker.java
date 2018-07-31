@@ -7,14 +7,14 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.servinglynk.report.bean.Q14aDataBean;
+import com.servinglynk.report.bean.Q14aDomesticViolenceHistoryDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q14aBeanMaker extends BaseBeanMaker {
 	
-	public static List<Q14aDataBean> getQ14aDomesticViolenceHistoryList(ReportData data) {
-		Q14aDataBean q14aBean= new Q14aDataBean();
+	public static List<Q14aDomesticViolenceHistoryDataBean> getQ14aDomesticViolenceHistoryList(ReportData data) {
+		Q14aDomesticViolenceHistoryDataBean q14aBean= new Q14aDomesticViolenceHistoryDataBean();
 		if(data.isLiveMode()) {
 		try {
 		int overallTot = data.getNumOfAdults() .intValue()+ data.getNoOfChildHeadsOfHousehold().intValue();

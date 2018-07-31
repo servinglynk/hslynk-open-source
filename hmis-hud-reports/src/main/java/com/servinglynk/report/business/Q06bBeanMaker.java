@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.report.bean.Q06bDataBean;
+import com.servinglynk.report.bean.Q06bNumberOfPersonsServedDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
@@ -21,8 +21,8 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 	public static Long clientLocationErrorCount = 0L;
 	public static Long disablingCondErrorCount = 0L;
 	
-	public static List<Q06bDataBean> getQ06bNumberOfPersonsServedTableList(ReportData data){
-		Q06bDataBean q06bDataBean = new Q06bDataBean();
+	public static List<Q06bNumberOfPersonsServedDataBean> getQ06bNumberOfPersonsServedTableList(ReportData data){
+		Q06bNumberOfPersonsServedDataBean q06bDataBean = new Q06bNumberOfPersonsServedDataBean();
 		if(data.isLiveMode()) {
 		try {
 		List<ClientModel> clients = data.getClients();

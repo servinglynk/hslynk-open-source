@@ -5,17 +5,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.report.bean.Q07bDataBean;
+import com.servinglynk.report.bean.Q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
-import com.servinglynk.report.model.ProjectModel;
 
 public class Q07bBeanMaker extends BaseBeanMaker {
 	;
@@ -36,8 +32,8 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 	 * @param data
 	 * @return
 	 */
-	public static List<Q07bDataBean> getQ07bPointInTimeCountHouseholdsLastWednesdayList(ReportData data) {
-		Q07bDataBean q07bDataBean = new Q07bDataBean();
+	public static List<Q07bPointInTimeCountHouseholdsLastWednesdayDataBean> getQ07bPointInTimeCountHouseholdsLastWednesdayList(ReportData data) {
+		Q07bPointInTimeCountHouseholdsLastWednesdayDataBean q07bDataBean = new Q07bPointInTimeCountHouseholdsLastWednesdayDataBean();
 		if(data.isLiveMode()) {
 		try {
 			List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();

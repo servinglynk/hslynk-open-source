@@ -7,15 +7,15 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.servinglynk.report.bean.Q13b1DataBean;
+import com.servinglynk.report.bean.Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q13b1BeanMaker extends BaseBeanMaker {
 	
-	public static List<Q13b1DataBean> getQ13b1PhysicalAndMentalHealthConditionsAtExitList(ReportData data){
+	public static List<Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean> getQ13b1PhysicalAndMentalHealthConditionsAtExitList(ReportData data){
 		
-		Q13b1DataBean q13b1Bean = new Q13b1DataBean();
+		Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean q13b1Bean = new Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean();
 		if(data.isLiveMode()) {
 		try {
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();

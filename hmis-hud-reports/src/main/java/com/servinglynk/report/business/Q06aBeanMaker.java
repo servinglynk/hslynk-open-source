@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.report.bean.Q06aDataBean;
+import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 
@@ -41,8 +41,8 @@ public class Q06aBeanMaker extends BaseBeanMaker {
 	 * @param data
 	 * @return
 	 */
-	public static List<Q06aDataBean> getBeanData(ReportData data){
-		Q06aDataBean q06aBean = new Q06aDataBean();
+	public static List<Q06aReportValidationsTableDataBean> getBeanData(ReportData data){
+		Q06aReportValidationsTableDataBean q06aBean = new Q06aReportValidationsTableDataBean();
 		if(data.isLiveMode()) {
 		try {
 			List<ClientModel> clients = data.getClients();

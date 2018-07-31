@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.servinglynk.report.bean.Q13c2DataBean;
-import com.servinglynk.report.bean.Q13c2DataBean;
+import com.servinglynk.report.bean.Q13c2NumberOfConditionsForStayerDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.DisabilitiesModel;
@@ -17,9 +16,9 @@ import com.servinglynk.report.model.ExitModel;
 
 public class Q13c2BeanMaker extends BaseBeanMaker {
 
-	public static List<Q13c2DataBean> getQ13c2NumberOfConditionsForStayerList(ReportData data){
+	public static List<Q13c2NumberOfConditionsForStayerDataBean> getQ13c2NumberOfConditionsForStayerList(ReportData data){
 		
-		Q13c2DataBean q13c2Bean = new Q13c2DataBean();
+		Q13c2NumberOfConditionsForStayerDataBean q13c2Bean = new Q13c2NumberOfConditionsForStayerDataBean();
 		if(data.isLiveMode()) {
 		try {
 

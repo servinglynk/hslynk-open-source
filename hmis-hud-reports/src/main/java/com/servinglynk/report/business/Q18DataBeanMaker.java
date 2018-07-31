@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
-import com.servinglynk.report.bean.Q18DataBean;
+import com.servinglynk.report.bean.Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.IncomeSourceModel;
@@ -23,9 +23,9 @@ import com.servinglynk.report.model.NoYesEnum;
 
 public class Q18DataBeanMaker extends BaseBeanMaker {
 
-	public static List<Q18DataBean> getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(ReportData data){
+	public static List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(ReportData data){
 		
-		Q18DataBean q18eData = new Q18DataBean();
+		Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean q18eData = new Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean();
 //		
 //		String query = " select count(dedup_client_id)  from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='1' and  e.project_entry_id=i.enrollmentid "+ 
 //				" and i.information_date >= e.entrydate and i.information_date >= ? and i.information_date <= ? and e.ageatentry >= 18 ";
@@ -42,7 +42,7 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		
 		List<IncomeSourceModel> incomeAtEntry = getIncome(data.getSchema(), query , DataCollectionStage.ENTRY.getCode());
 		List<IncomeSourceModel> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode());
-		List<IncomeSourceModel> incomeAtAnnualAssesment = getIncomeForAnnualAssesment(data, ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
+		List<IncomeSourceModel> incomeAtAnnualAssesment = getQ18IncomeForAnnualAssesment(data, ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
 		
 		q18eData.setQ18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry(BigInteger.valueOf(incomeAtEntry !=null ?incomeAtEntry.size() :0 ));
 		q18eData.setQ18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit(BigInteger.valueOf(incomeAtExit != null ? incomeAtExit.size() : 0 ));
@@ -178,7 +178,7 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		return incomes;
 	}
 	
-	public static List<IncomeSourceModel> getIncomeForAnnualAssesment(ReportData data,String query,String datacollectionStage) {
+	public static List<IncomeSourceModel> getQ18IncomeForAnnualAssesment(ReportData data,String query,String datacollectionStage) {
 		List<IncomeSourceModel> incomes = new ArrayList<>();
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;

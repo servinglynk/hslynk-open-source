@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
-import com.servinglynk.report.bean.Q16DataBean;
+import com.servinglynk.report.bean.Q16CashIncomeRangesDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
 
 public class Q16BeanMaker extends BaseBeanMaker {
 	
-	public static List<Q16DataBean> getQ16CashIncomeRangesList(ReportData data) {
+	public static List<Q16CashIncomeRangesDataBean> getQ16CashIncomeRangesList(ReportData data) {
 		
 		/*List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel>  enrollments = data.getEnrollments();
@@ -37,7 +37,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
         and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  
         
 		 */
-		Q16DataBean q16Bean = new Q16DataBean();
+		Q16CashIncomeRangesDataBean q16Bean = new Q16CashIncomeRangesDataBean();
 		if(data.isLiveMode()) {
 		try {
 		String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+

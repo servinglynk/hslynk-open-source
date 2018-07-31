@@ -9,16 +9,16 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.report.bean.Q10bDataBean;
+import com.servinglynk.report.bean.Q10bGenderOfChildrenDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q10bBeanMaker extends BaseBeanMaker {
 
-	public static List<Q10bDataBean> getQ10bGenderOfChildrenList(ReportData data){
+	public static List<Q10bGenderOfChildrenDataBean> getQ10bGenderOfChildrenList(ReportData data){
     	
-		Q10bDataBean q10bGenderOfChildren = new Q10bDataBean();
+		Q10bGenderOfChildrenDataBean q10bGenderOfChildren = new Q10bGenderOfChildrenDataBean();
 		if(data.isLiveMode()) {
 		try {
 		List<ClientModel> clients = data.getClients();

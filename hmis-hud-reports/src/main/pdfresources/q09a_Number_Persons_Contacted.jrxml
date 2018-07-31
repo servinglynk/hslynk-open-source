@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc999e7d-ee71-4834-a8c3-3aa1ef3289d6">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="4"/>
+	<property name="ireport.y" value="0"/>
 	<field name="totContactedOnce" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[totContactedOnce]]></fieldDescription>
 	</field>
@@ -65,7 +65,7 @@
 	</field>
 	<group name="Group5">
 		<groupFooter>
-		<band height="25">
+			<band height="25">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCCFF" uuid="b02bbc8e-1e0a-4b9d-9268-3760fa69784d"/>
 					<box>
@@ -195,7 +195,9 @@
 						<bottomPen lineWidth="0.5"/>
 						<rightPen lineWidth="0.5"/>
 					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[First contact - WAS staying on Streets, ES, or SH]]></text>
 				</staticText>
 			</band>

@@ -13,15 +13,15 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
-import com.servinglynk.report.bean.Q17DataBean;
+import com.servinglynk.report.bean.Q17CashIncomeSourcesDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
 
 public class Q17DataBeanMaker extends BaseBeanMaker {
 	
-	public static List<Q17DataBean> getQ17CashIncomeSourcesList(ReportData data){
+	public static List<Q17CashIncomeSourcesDataBean> getQ17CashIncomeSourcesList(ReportData data){
 		
-		Q17DataBean q17CashIncomeSourcesDataBeanTable =new Q17DataBean();
+		Q17CashIncomeSourcesDataBean q17CashIncomeSourcesDataBeanTable =new Q17CashIncomeSourcesDataBean();
 		if(data.isLiveMode()) {
 		try{
 		String entryQuery = " select count(dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e where   e.id=i.enrollmentid "+ 

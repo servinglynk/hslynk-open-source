@@ -8,16 +8,16 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.report.bean.Q15DataBean;
+import com.servinglynk.report.bean.Q15ResidencePriorToProgramEntryDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q15BeanMaker extends BaseBeanMaker {
 	
-	public static List<Q15DataBean> getQ15ResidencePriorToProgramEntryList(ReportData data) {
+	public static List<Q15ResidencePriorToProgramEntryDataBean> getQ15ResidencePriorToProgramEntryList(ReportData data) {
 		
 		
-		Q15DataBean q15Bean = new Q15DataBean();
+		Q15ResidencePriorToProgramEntryDataBean q15Bean = new Q15ResidencePriorToProgramEntryDataBean();
 		if(data.isLiveMode()) {
 		try {
 		int overallTot = data.getNumOfAdults().intValue() + data.getNoOfChildHeadsOfHousehold().intValue();

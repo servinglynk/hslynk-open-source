@@ -68,8 +68,6 @@ public class Q21HealthInsuranceDataBean {
 	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtLatestStayers=BigInteger.valueOf(0);
 	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtExitLeavers=BigInteger.valueOf(0);
 
-	private BigInteger q21INoHealthInsuranceAtEntry;
-	
 	
 	public BigInteger getQ21AMedicaidHealthInsuranceAtEntry() {
 		return q21AMedicaidHealthInsuranceAtEntry;

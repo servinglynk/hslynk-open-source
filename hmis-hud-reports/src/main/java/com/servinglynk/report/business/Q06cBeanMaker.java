@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.report.bean.Q06cDataBean;
+import com.servinglynk.report.bean.Q06cPointInTimeCountPersonsLastWednesdayDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
@@ -18,9 +18,9 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 	public static Long isaaErrorCount = 0L;
 	public static Long isaeErrorCount = 0L;
 
-	public static List<Q06cDataBean> getQ06cPointInTimeCountPersonsLastWednesdayList(ReportData data) {
+	public static List<Q06cPointInTimeCountPersonsLastWednesdayDataBean> getQ06cPointInTimeCountPersonsLastWednesdayList(ReportData data) {
 
-		Q06cDataBean q06cDataBean = new Q06cDataBean();
+		Q06cPointInTimeCountPersonsLastWednesdayDataBean q06cDataBean = new Q06cPointInTimeCountPersonsLastWednesdayDataBean();
 		if(data.isLiveMode()) {
 		try {
 			List<ExitModel> exits = data.getExits();
