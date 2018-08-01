@@ -927,5 +927,33 @@ public class BaseBeanMaker {
 				}
 				return count;
 			}	
+		 
+		 public static boolean isNullOrNegative(String value) {
+			 if(StringUtils.isEmpty(value) || (StringUtils.equals("0", value))) {
+				 return true;
+			 }
+			 return false;
+		 }
 	
+		 public static boolean isPositive(String value) {
+			 if(StringUtils.equals("1", value)) {
+				 return true;
+			 }
+			 return false;
+		 }
+		 
+		 public static boolean didNotKnowOrRefused(String value) {
+			 if(StringUtils.equals("8", value) || StringUtils.equals("9", value) ) {
+				 return true;
+			 }
+			 return false;
+		 }
+		 
+		 public static boolean dataNotCollected(String value) {
+			 if(StringUtils.equals("99", value)) {
+				 return true;
+			 }
+			 return false;
+		 }
 }
+
