@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
-import com.servinglynk.report.bean.Q20aTypeOfNonCashBenefitSourcesDataBean;
 import com.servinglynk.report.bean.Q20bNumberOfNonCashBenefitSourcesDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
@@ -31,15 +31,15 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 			  " and i.information_date = e.entrydate and i.information_date <= ? and i.information_date >= ? "+
 			  " and e.ageatentry >=18  and i.datacollectionstage = '1' ";
 		       
-		String  exitQuery = " select  nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource,e.dedup_client_id  as dedup_client_id from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb where e.id=i.enrollmentid  "+
+		String  exitQuery = " select  nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource,e.dedup_client_id  as dedup_client_id from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where e.id=i.enrollmentid  "+
 				      " and nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
 				  " and i.information_date = ext.extdate and i.information_date <= ? and i.information_date >= ? "+
 				  " and e.ageatentry >=18  and i.datacollectionstage = '3' ";
 			       
 		String stayersQuery = " select  nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource,e.dedup_client_id  as dedup_client_id from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb where e.id=i.enrollmentid  "+
 						" and i.information_date >= e.entrydate and i.information_date >= ? and i.information_date <= ? and e.ageatentry >= 18 "+
-					" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate >= ?  )   "+
-					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 ) ";
+					" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= ?  )   "+
+					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 ) ";
 			try {
 				if(data.isLiveMode()) {
 					List<NonCashModel> entryNonCashBenefits = getNonCashBenefit(data, entryQuery,DataCollectionStage.ENTRY.getCode());
@@ -100,7 +100,9 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 				statement = connection.prepareStatement(formatQuery(query,data.getSchema()));
 				statement.setDate(1, data.getReportStartDate());
 				statement.setDate(2, data.getReportEndDate());
-				statement.setDate(3, data.getReportEndDate());
+				if(StringUtils.equals(datacollectionStage, DataCollectionStage.ANNUAL_ASSESMENT.getCode())) {
+					statement.setDate(3, data.getReportEndDate());
+				} 
 				resultSet = statement.executeQuery();
 				
 			 while(resultSet.next()) {

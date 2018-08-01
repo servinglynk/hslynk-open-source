@@ -56,19 +56,19 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		
 		String clientAnnualAssesmentDKE = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9')"+
 				"  and i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
-				" and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
+				" and   e.id not in ( select enrollmentid from exit  where  exitdate <= ? )  "+
+				" and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  ";
 		
 		
 		String clientAnnualAssesmentDNC = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource='99'"+
 				"  and i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
-				" and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
+				" and   e.id not in ( select enrollmentid from exit  where  exitdate <= ? )  "+
+				" and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  ";
 		
 		String notRequiredAnnualAssesment = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where "+
 				"   i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
-				" and   e.id in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
+				" and   e.id not in ( select enrollmentid from exit  where  exitdate <= ? )  "+
+				" and   e.id in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  ";
 		
 		String withOutRequiredAnnualAssesment = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where "+
 				"   i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+

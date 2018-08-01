@@ -7,12 +7,14 @@ import java.util.List;
 import com.servinglynk.report.bean.Q22a1LengthOfParticipationCoCProjectsDataBean;
 import com.servinglynk.report.bean.ReportData;
 
-public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker {
+public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBeanMaker {
 
 	public static List<Q22a1LengthOfParticipationCoCProjectsDataBean> getQ22a1LengthOfParticipationCoCProjectsList(ReportData data){
 		
-		Q22a1LengthOfParticipationCoCProjectsDataBean q22a1LengthOfParticipationCoCProjectsTable = new Q22a1LengthOfParticipationCoCProjectsDataBean();
-		
+	Q22a1LengthOfParticipationCoCProjectsDataBean q22a1LengthOfParticipationCoCProjectsTable = new Q22a1LengthOfParticipationCoCProjectsDataBean();
+		try {
+			if(data.isLiveMode()) {
+				
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1A30DaysOrLessTotal(BigInteger.valueOf(0));
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1A30DaysOrLessLeavers(BigInteger.valueOf(0));
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1A30DaysOrLessStayers(BigInteger.valueOf(0));
@@ -60,10 +62,13 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker {
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotTotal(data.getTotNumOfPersonServed());
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotLeavers(BigInteger.valueOf(0));
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotStayers(BigInteger.valueOf(0));
-						
+			}
+		}catch(Exception e) {
+			logger.error("Error in Q22aBeanMaker:" + e);
+		}
 		
 		return Arrays.asList(q22a1LengthOfParticipationCoCProjectsTable);
-		
 	}
-	
 }
+	
+	

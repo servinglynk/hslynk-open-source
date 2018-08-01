@@ -28,9 +28,9 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 							" and i.information_date >= e.entrydate and i.information_date >= ? and i.information_date <= ?  and i.datacollectionstage=? and e.ageatentry >= 18 ";
 	
 		String annualAssesmentQuery = " select count(distinct(dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e where   e.id=i.enrollmentid "+ 
-				" and i.information_date >= e.entrydate and i.information_date >= ? and e.ageatentry >= 18 "+
-				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
-				" and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage=? and datediff(now(),information_date) < 365 )  ";
+				" and i.information_date >= e.entrydate and i.information_date >= ? and i.information_date <= ?  and e.ageatentry >= 18 "+
+				" and   e.id not in ( select enrollmentid from exit  where  exitdate <= ? )  "+
+				" and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage=? and datediff(now(),information_date) > 365 )  ";
 
 		
 		int alimonyIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and alimony ='1' ", DataCollectionStage.ENTRY.getCode(),data.getReportStartDate(),data.getReportEndDate());
@@ -274,6 +274,7 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 			statement.setString(1, datacollectionStage);
 			statement.setDate(2, reportStartDate);
 			statement.setDate(3, reportEndDate);
+			statement.setDate(4, reportEndDate);
 			resultSet = statement.executeQuery();
 			
 		 while(resultSet.next()) {
