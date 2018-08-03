@@ -51,10 +51,22 @@ public class Q21HealthInsuranceDataBeanMaker extends BaseBeanMaker {
 						List<HealthInsuranceModel> medicaidHealthInsuranceAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getMedicaid()) ).collect(Collectors.toList());
 						q21HealthInsuranceDataBeanTable.setQ21AMedicaidHealthInsuranceAtEntry(BigInteger.valueOf(medicaidHealthInsuranceAtEntry != null ? medicaidHealthInsuranceAtEntry.size() : 0));
 						List<HealthInsuranceModel> medicareHealthInsuranceAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getMedicare()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> stateChildHealthInsuranceAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getStatehealthinadults()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> medicalServicesAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> employerProvidedHealthInsuranceAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getEmployerprovided()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> healthInsuranceThroughCobraAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getInsurancefromanysource()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> privatePayHealthInsuranceAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getPrivatepay()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> stateHealthInsuranceForAdultsAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getStatehealthinadults()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> indianHealthServicesProgramAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getIndianhealthservices()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> otherAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getOtherinsurance()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> noHealthInsuranceAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> clientRefusedAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> dataNotCollectedAtEntry = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
+						
 						
 						q21HealthInsuranceDataBeanTable.setQ21BMedicaidHealthInsuranceAtEntry(BigInteger.valueOf(medicareHealthInsuranceAtEntry != null ? medicareHealthInsuranceAtEntry.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21CStateChildHealthInsuranceAtEntry(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21DVAMedicalServicesAtEntry(BigInteger.valueOf(0));
+						q21HealthInsuranceDataBeanTable.setQ21CStateChildHealthInsuranceAtEntry(BigInteger.valueOf(stateChildHealthInsuranceAtEntry != null ? stateChildHealthInsuranceAtEntry.size() :0));
+						q21HealthInsuranceDataBeanTable.setQ21DVAMedicalServicesAtEntry(BigInteger.valueOf(medicalServicesAtEntry != null ? medicalServicesAtEntry.size() :0));
 						q21HealthInsuranceDataBeanTable.setQ21EEmployerProvidedHealthInsuranceAtEntry(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21FHealthInsuranceThroughCobraAtEntry(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21GPrivatePayHealthInsuranceAtEntry(BigInteger.valueOf(0));
