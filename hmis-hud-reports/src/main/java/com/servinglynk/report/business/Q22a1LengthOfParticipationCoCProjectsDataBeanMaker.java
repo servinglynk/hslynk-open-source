@@ -32,7 +32,7 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
 				
 		String leaversQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p"+
-						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and ext.exitdate >= ? and ext.exitdate <= ?) "+
+						" join  %s.exit ext  on  (ext.enrollmentid = e.id and ext.exitdate >= ? and ext.exitdate <= ?) "+
 						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
 				
@@ -51,6 +51,7 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 				List<Q22BeanModel> allStayersData = getQ22Bean(data, stayersQuery,"STAYERS");
 				
 				if(CollectionUtils.isNotEmpty(allData)) {
+					allData.forEach(q22Bean -> populateBedNights(q22Bean, data));
 					List<Q22BeanModel>  q22a130DaysOrLess = allData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() <= 30).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1D31To60Days = allData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 31 &&  q22BeanModel.getNumberOfDays() <= 60).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1D61To90Days = allData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() <= 61 && q22BeanModel.getNumberOfDays() >= 90).collect(Collectors.toList());
@@ -74,6 +75,7 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 					q22a1LengthOfParticipationCoCProjectsTable.setQ22a1KInfoMissingTotal(BigInteger.valueOf(0));
 				}
 				if(CollectionUtils.isNotEmpty(allLeaversData)) {
+					allLeaversData.forEach(q22Bean -> populateBedNights(q22Bean, data));
 					List<Q22BeanModel>  q22a130DaysOrLess = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() <= 30).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1D31To60Days = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 31 &&  q22BeanModel.getNumberOfDays() <= 60).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1D61To90Days = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() <= 61 && q22BeanModel.getNumberOfDays() >= 90).collect(Collectors.toList());
@@ -100,6 +102,7 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 				}
 				
 				if(CollectionUtils.isNotEmpty(allStayersData)) {
+					allStayersData.forEach(q22Bean -> populateBedNights(q22Bean, data));
 					List<Q22BeanModel>  q22a130DaysOrLess = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() <= 30).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1D31To60Days = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 31 &&  q22BeanModel.getNumberOfDays() <= 60).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1D61To90Days = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() <= 61 && q22BeanModel.getNumberOfDays() >= 90).collect(Collectors.toList());
@@ -123,7 +126,9 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 					q22a1LengthOfParticipationCoCProjectsTable.setQ22a1JMoreThan1825DaysStayers(BigInteger.valueOf(0));
 					q22a1LengthOfParticipationCoCProjectsTable.setQ22a1KInfoMissingStayers(BigInteger.valueOf(0));
 				}
-
+				data.setLeaversLengthofStay(allLeaversData);
+				data.setStayersLengthofStay(allStayersData);
+				data.setAllDataLenghtofStay(allData);
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotTotal(data.getTotNumOfPersonServed());
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotLeavers(BigInteger.valueOf(allLeaversData != null ? allLeaversData.size() : 0));
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotStayers(BigInteger.valueOf(allStayersData != null ? allStayersData.size() :0));

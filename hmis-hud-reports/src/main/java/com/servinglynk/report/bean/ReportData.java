@@ -1,8 +1,8 @@
 package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.servinglynk.report.model.ClientModel;
@@ -12,6 +12,7 @@ import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
 import com.servinglynk.report.model.ProjectModel;
+import com.servinglynk.report.model.Q22BeanModel;
 
 public class ReportData {
 	private String schema;
@@ -31,6 +32,9 @@ public class ReportData {
 	private List<ContactModel> contacts = new ArrayList<>();
 	private List<DateOfEngagementModel> dateOfEngagements = new ArrayList<>();
 	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
+	private  List<Q22BeanModel> stayersLengthofStay = new ArrayList<>();
+	private  List<Q22BeanModel> leaversLengthofStay = new ArrayList<>();
+	private List<Q22BeanModel> allDataLenghtofStay = new ArrayList<>();
 	private ProjectModel project;
 	private BigInteger totNumOfPersonServed;
 	private BigInteger numOfAdults;
@@ -562,5 +566,40 @@ public class ReportData {
 			BigInteger numOfAdultStayersWithoutRequiredAnnualAssesment) {
 		this.numOfAdultStayersWithoutRequiredAnnualAssesment = numOfAdultStayersWithoutRequiredAnnualAssesment;
 	}
-	
+	/**
+	 * @return the stayersLengthofStay
+	 */
+	public List<Q22BeanModel> getStayersLengthofStay() {
+		return stayersLengthofStay;
+	}
+	/**
+	 * @param stayersLengthofStay the stayersLengthofStay to set
+	 */
+	public void setStayersLengthofStay(List<Q22BeanModel> stayersLengthofStay) {
+		this.stayersLengthofStay = stayersLengthofStay;
+	}
+	/**
+	 * @return the leaversLengthofStay
+	 */
+	public List<Q22BeanModel> getLeaversLengthofStay() {
+		return leaversLengthofStay;
+	}
+	/**
+	 * @param leaversLengthofStay the leaversLengthofStay to set
+	 */
+	public void setLeaversLengthofStay(List<Q22BeanModel> leaversLengthofStay) {
+		this.leaversLengthofStay = leaversLengthofStay;
+	}
+	/**
+	 * @return the allDataLenghtofStay
+	 */
+	public List<Q22BeanModel> getAllDataLenghtofStay() {
+		return allDataLenghtofStay;
+	}
+	/**
+	 * @param allDataLenghtofStay the allDataLenghtofStay to set
+	 */
+	public void setAllDataLenghtofStay(List<Q22BeanModel> allDataLenghtofStay) {
+		this.allDataLenghtofStay = allDataLenghtofStay;
+	}
 }
