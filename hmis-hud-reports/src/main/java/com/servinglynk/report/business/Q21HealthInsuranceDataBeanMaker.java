@@ -189,4 +189,3 @@ public class Q21HealthInsuranceDataBeanMaker extends BaseBeanMaker {
 		}	
 	
 }
-}

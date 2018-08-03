@@ -117,13 +117,20 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			data.setSchema(schema);	
 			List<ProjectModel> projects = new ArrayList<>();
 			if(data.isLiveMode()) {
-				
 				try {
 					if(StringUtils.isNotBlank(cocId)) {
 						projects = getProjectsByCoc(schema,cocId);
 					}else {
 						projects = getProjects(schema,projectList);
 					}
+					List<String> projectDatas = new ArrayList<>();
+					for(ProjectModel project : projects) {
+						if(project != null && StringUtils.isNotBlank(project.getProjectId())) {
+							projectDatas.add(project.getProjectId());
+						}
+					}
+					data.setProjectIds(projectDatas);
+					
 					List<EnrollmentModel> enrollments =  new ArrayList<>();
 					
 					if(StringUtils.isNotBlank(cocId)) {
@@ -330,7 +337,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 	        homePageDataBean.setQ20bNumberOfNonCashBenefitSourcesDataBean(q20bNumberOfNonCashBenefitSourcesList);
 	        CSVGenerator.buildReport(q20bNumberOfNonCashBenefitSourcesList, "Q20b.jrxml", "Q20b.csv",data);
 			
-	        List<Q21HealthInsuranceDataBean> q21HealthInsuranceList= Q21HealthInsuranceDataBeanMaker.getQ21HealthInsuranceList();
+	        List<Q21HealthInsuranceDataBean> q21HealthInsuranceList= Q21HealthInsuranceDataBeanMaker.getQ21HealthInsuranceList(data);
 	        homePageDataBean.setQ21HealthInsuranceDataBean(q21HealthInsuranceList);
 	        CSVGenerator.buildReport(q21HealthInsuranceList, "Q21.jrxml","Q21.csv",data);
 	        

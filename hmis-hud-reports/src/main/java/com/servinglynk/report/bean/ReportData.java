@@ -22,6 +22,7 @@ public class ReportData {
 	private boolean capterReport;
 	private boolean aprReport;
 	private boolean liveMode;
+	private List<String> projectIds;
 	private List<ClientModel> clients = new ArrayList<ClientModel>();
 	private List<ProjectModel> projects = new ArrayList<ProjectModel>();
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
@@ -59,6 +60,19 @@ public class ReportData {
 	private BigInteger tpcFirstContacteRSS = BigInteger.ZERO;
 	private BigInteger tpcFirstContactedNRSS = BigInteger.ZERO;
 	private BigInteger tpcFirstContactedPlaceMissing = BigInteger.ZERO;
+	
+	/**
+	 * @return the projectIds
+	 */
+	public List<String> getProjectIds() {
+		return projectIds;
+	}
+	/**
+	 * @param projectIds the projectIds to set
+	 */
+	public void setProjectIds(List<String> projectIds) {
+		this.projectIds = projectIds;
+	}
 	/**
 	 * @return the schema
 	 */
