@@ -96,6 +96,8 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	private BulkUploadErrorDao bulkUploadErrorDao;
 	
 	@Autowired private QuestionDao questionDao;
+	
+	@Autowired private HmisTypeDao hmisTypeDao; 
 
 	/**
 	 * @return the bulkUploaderDao
@@ -627,4 +629,14 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setQuestionDao(QuestionDao questionDao) {
 		this.questionDao = questionDao;
 	}
+
+	public HmisTypeDao getHmisTypeDao() {
+		return hmisTypeDao;
+	}
+
+	public void setHmisTypeDao(HmisTypeDao hmisTypeDao) {
+		this.hmisTypeDao = hmisTypeDao;
+	}
+	
+	
 }
