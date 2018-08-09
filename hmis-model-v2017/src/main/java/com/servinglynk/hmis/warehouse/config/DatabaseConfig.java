@@ -52,6 +52,7 @@ import com.servinglynk.hmis.warehouse.dao.ExportDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.FunderDao;
 import com.servinglynk.hmis.warehouse.dao.FunderDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.GeographyDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.HMISTypeDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HealthStatusDao;
 import com.servinglynk.hmis.warehouse.dao.HealthStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HealthinsuranceDao;
@@ -358,5 +359,10 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public QuestionDaoImpl questionDao() {
 		return new QuestionDaoImpl();
+	}
+	
+	@Bean
+	public HMISTypeDaoImpl hmisTypeDao() {
+		return new HMISTypeDaoImpl();
 	}
 }

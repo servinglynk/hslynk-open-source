@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
@@ -27,6 +28,7 @@ import com.servinglynk.hmis.warehouse.service.impl.ExithousingassessmentServiceI
 import com.servinglynk.hmis.warehouse.service.impl.ExitrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.FunderServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.GeographyServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.HMISTypeServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthinsuranceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HousingAssessmentDispositionServiceImpl;
@@ -253,5 +255,10 @@ public class ServiceConfig  {
 	 @Bean
 	 public ProjectServiceImplV2 projectServiceV2() {
 		 return new ProjectServiceImplV2();
+	 }
+	 
+	 @Bean
+	 public HMISTypeServiceImpl hmisTypeService() {
+		 return new HMISTypeServiceImpl();
 	 }
 }
