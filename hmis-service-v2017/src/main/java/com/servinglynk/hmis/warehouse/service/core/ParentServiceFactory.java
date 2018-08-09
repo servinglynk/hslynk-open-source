@@ -23,6 +23,7 @@ import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
 import com.servinglynk.hmis.warehouse.service.GeographyService;
+import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
@@ -89,4 +90,5 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	QuestionService getQuestionService();
 	EnrollmentServiceV2 getEnrollmentServiceV2();
 	ProjectServiceV2 getProjectServiceV2();
+	HMISTypeService getHmisTypeService();
 }

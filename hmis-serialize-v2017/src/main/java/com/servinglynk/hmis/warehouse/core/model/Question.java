@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("question")
@@ -25,6 +22,10 @@ public class Question extends ClientModel {
 	private String questionType;
 
 	private String picklistGroupName;
+	
+	//private HMISTypes pickList;
+	
+	private List<HMISType> pickList;
 
 	private String hudQuestionId;
 	
@@ -105,4 +106,25 @@ public class Question extends ClientModel {
 		if(this.links==null) this.links = new ArrayList<ActionLink>();
 		this.links.add(link);		
 	}
+
+	public List<HMISType> getPickList() {
+		return pickList;
+	}
+
+	public void setPickList(List<HMISType> pickList) {
+		this.pickList = pickList;
+	}
+	
+	public void addPickList(HMISType hmisType) {
+		if(this.pickList ==null) pickList = new ArrayList<HMISType>();
+		this.pickList.add(hmisType);;
+	}
+
+	/*public HMISTypes getPickList() {
+		return pickList;
+	}
+
+	public void setPickList(HMISTypes pickList) {
+		this.pickList = pickList;
+	}*/
 }

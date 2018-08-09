@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
+import com.servinglynk.hmis.warehouse.core.model.HMISType;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
@@ -26,6 +27,7 @@ import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
 import com.servinglynk.hmis.warehouse.service.GeographyService;
+import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
@@ -85,6 +87,7 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public BulkUploadErrorActivityService bulkUploadErrorActivityService;
 	@Autowired public QuestionService questionService;
 	@Autowired private EnrollmentServiceV2 enrollmentServiceV2;
+	@Autowired private HMISTypeService hmisTypeService;
 	
 	public RhybcpstatusService getRhybcpstatusService() {
 		return rhybcpstatusService;
@@ -451,5 +454,12 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	public void setProjectServiceV2(ProjectServiceV2 projectServiceV2) {
 		this.projectServiceV2 = projectServiceV2;
 	}
-	
+
+	public HMISTypeService getHmisTypeService() {
+		return hmisTypeService;
+	}
+
+	public void setHmisTypeService(HMISTypeService hmisTypeService) {
+		this.hmisTypeService = hmisTypeService;
+	}
 }
