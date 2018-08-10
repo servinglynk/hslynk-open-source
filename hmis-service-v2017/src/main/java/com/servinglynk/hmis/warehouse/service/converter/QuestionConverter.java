@@ -8,7 +8,7 @@ public class QuestionConverter   {
 
 
 
-   public static Question entityToModel (QuestionEntity entity) {
+   public static Question entityToModel (QuestionEntity entity, Boolean includepicklist) {
        Question model = new Question();
        model.setQuestionId(entity.getId());
        model.setQuestionDescription(entity.getQuestionDescription());
@@ -16,11 +16,14 @@ public class QuestionConverter   {
        model.setQuestionDataType(entity.getQuestionDataType());
        model.setQuestionType(entity.getQuestionType());
        model.setHudQuestionId(entity.getHudQuestionId());
-      // model.setPicklistGroupName(entity.getPicklistGroupName());
-    //  if(entity.getPicklistGroupName()!=null) model.addLink(new ActionLink("pickList", "/hmis-clientapi/rest/v2017/hmistypes/"+entity.getPicklistGroupName()+"/values"));
-      if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate()));
+       if(!includepicklist) {
+         model.setPicklistGroupName(entity.getPicklistGroupName());
+         if(entity.getPicklistGroupName()!=null) model.addLink(new ActionLink("pickList", "/hmis-clientapi/rest/v2017/hmistypes/"+entity.getPicklistGroupName()+"/values"));
+       }
+       if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate()));
       return model;
    }
 
 
 }
+  

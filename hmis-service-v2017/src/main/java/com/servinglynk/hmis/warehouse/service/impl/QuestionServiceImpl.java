@@ -20,12 +20,12 @@ import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundExceptio
 public class QuestionServiceImpl extends ServiceBase implements QuestionService  {
 
    @Transactional
-   public Questions getAllQuestions(String displayText, String description,Integer startIndex, Integer maxItems){
+   public Questions getAllQuestions(String displayText,Boolean includepicklist, String description,Integer startIndex, Integer maxItems){
        Questions Questions = new Questions();
         List<QuestionEntity> entities = daoFactory.getQuestionDao().getAllQuestionEntities(displayText, description,startIndex,maxItems);
         for(QuestionEntity entity : entities){
-        	Question question = QuestionConverter.entityToModel(entity);
-        	if(entity.getPicklistGroupName()!=null) {
+        	Question question = QuestionConverter.entityToModel(entity,includepicklist);
+        	if(entity.getPicklistGroupName()!=null & includepicklist) {
         		HMISTypes pickList =serviceFactory.getHmisTypeService().getDataElements(entity.getPicklistGroupName());
         		for(HMISType hmisType : pickList.getHmisTypes()) {
         			question.addPickList(hmisType);
@@ -46,15 +46,16 @@ public class QuestionServiceImpl extends ServiceBase implements QuestionService 
    }
 	
    @Transactional
-	public Question getQuestionsHudId(String hudQuestionId) {
+	public Question getQuestionsHudId(Boolean includepicklist,String hudQuestionId) {
 	   QuestionEntity questionEntity = daoFactory.getQuestionDao().getQuestionsHudId(hudQuestionId);
 	   if(questionEntity==null) throw new ResourceNotFoundException("No question found with selected hudQuestionId "+hudQuestionId);
-	   Question question = QuestionConverter.entityToModel(questionEntity);
-	   
+	   Question question = QuestionConverter.entityToModel(questionEntity,includepicklist);
+	   if(questionEntity.getPicklistGroupName()!=null & includepicklist) {
    		HMISTypes pickList =serviceFactory.getHmisTypeService().getDataElements(questionEntity.getPicklistGroupName());
    		for(HMISType hmisType : pickList.getHmisTypes()) {
 			question.addPickList(hmisType);
 		}
+	   }
    			
    	return question;
 	}
