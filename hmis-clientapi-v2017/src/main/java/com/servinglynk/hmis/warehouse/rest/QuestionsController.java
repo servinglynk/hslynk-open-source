@@ -25,18 +25,20 @@ public class QuestionsController extends ControllerBase {
                        @RequestParam(value="maxItems", required=false) Integer maxItems,
               			@RequestParam(value="text",required=false) String displayText,
             			@RequestParam(value="name",required=false) String description,
+            			@RequestParam(value="includepicklist",required=false,defaultValue="false") Boolean includepicklist,
                        HttpServletRequest request) throws Exception {
            if (startIndex == null) startIndex =0;
            if (maxItems == null || maxItems > 200) maxItems =200;
-        return serviceFactory.getQuestionService().getAllQuestions(displayText,description,startIndex,maxItems); 
+        return serviceFactory.getQuestionService().getAllQuestions(displayText,includepicklist,description,startIndex,maxItems); 
    }
    
    @RequestMapping(method=RequestMethod.GET,value="/{hudQuestionId:.+}")
    @APIMapping(value="SURVEY_API_GET_ALL_QUESTION",checkTrustedApp=true,checkSessionToken=true)
    public Question getQuestionsHudId(
                        @PathVariable(value="hudQuestionId") String hudQuestionId,
+                       @RequestParam(value="includepicklist",required=false,defaultValue="false") Boolean includepicklist,
                        HttpServletRequest request) throws Exception {
-        return serviceFactory.getQuestionService().getQuestionsHudId(hudQuestionId); 
+        return serviceFactory.getQuestionService().getQuestionsHudId(includepicklist,hudQuestionId); 
    }
 
 }
