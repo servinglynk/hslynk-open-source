@@ -4,7 +4,7 @@ import com.servinglynk.hmis.warehouse.core.model.Question;
 import com.servinglynk.hmis.warehouse.core.model.Questions;
 public interface QuestionService {
 
-   Questions getAllQuestions(String displayText, String description,Integer startIndex, Integer maxItems);
+   Questions getAllQuestions(String displayText, Boolean includepicklist, String description,Integer startIndex, Integer maxItems);
 
-Question getQuestionsHudId(String hudQuestionId);
+Question getQuestionsHudId(Boolean includepicklist, String hudQuestionId);
 }
