@@ -857,6 +857,34 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destinati
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination','9','Client refused','ACTIVE');   											    
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination','99','Data not collected','ACTIVE'); 
 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','1','Emergency shelter, including hotel or motel paid for with emergency shelter voucher','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','2','Transitional housing for homeless persons (including homeless youth)','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','3','Permanent housing (other than RRH) for formerly homeless persons','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','4','Psychiatric hospital or other psychiatric facility','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','5','Substance abuse treatment facility or detox center','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','6','Hospital or other residential non-psychiatric medical facility','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','7','Jail, prison or juvenile detention facility','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','8','Client does not know','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','9','Client refused','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','12','Staying or living in a family members room, apartment or house','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','13','Staying or living in a friends room, apartment or house','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','14','Hotel or motel paid for without emergency shelter voucher','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','15','Foster care home or foster care group homes','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','16','Place not meant for habitation (e.g., a vehicle, an abandoned building, bus/train/subway station/airport or anywhere outside)','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','17','Other','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','18','Safe Haven','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','19','Rental by client, with VASH subsidy','ACTIVE'); 
+ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','20','Rental by client, with other housing subsidy (including RRH)','ACTIVE'); 
+ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','21','Owned by client, with ongoing housing subsidy ','ACTIVE'); 
+ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','22','Rental by client, no ongoing housing subsidy','ACTIVE'); 
+ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','23','Owned by client, no ongoing housing subsidy','ACTIVE'); 
+ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','24','Long-term care facility or nursing home','ACTIVE'); 
+ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','25','Rental by client, with GPD TIP subsidy','ACTIVE'); 
+ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','26','Residential project or halfway house with no homeless criteria','ACTIVE'); 
+ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','27','Interim housing','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','99','Data not collected','ACTIVE'); 
+
+
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('funder','ACTIVE','1','HUD:CoC – Homelessness Prevention (High Performing Comm. Only)'); 
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('funder','ACTIVE','2','HUD:CoC – Permanent Supportive Housing');
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('funder','ACTIVE','3','HUD:CoC – Rapid Re-Housing');
@@ -1248,15 +1276,15 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('housingTy
   INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','200','4.14  Bed night','ACTIVE');
   INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('record_type','210','V8 HUD-VASH Voucher Tracking','ACTIVE');
   
-     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','2','More than one week, but less than one month'); 
-     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','3','One to three months'); 
-     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','4','More than three months, but less than one year');  
-     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','5','One year or longer'); 
-     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','8','Client doesn''t know'); 
-     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','9','Client refused');
-    INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','10','One day or less');
-    INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePriorlengthofstay','ACTIVE','11','Two days to one week'); 
-   INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('residencePriorlengthofstay','99','Data not collected','ACTIVE'); 
+     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('lengthOfStay','ACTIVE','2','More than one week, but less than one month'); 
+     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('lengthOfStay','ACTIVE','3','One to three months'); 
+     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('lengthOfStay','ACTIVE','4','More than three months, but less than one year');  
+     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('lengthOfStay','ACTIVE','5','One year or longer'); 
+     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('lengthOfStay','ACTIVE','8','Client doesn''t know'); 
+     INSERT INTO "v2017".hmis_type (name,status,value,description) values ('lengthOfStay','ACTIVE','9','Client refused');
+    INSERT INTO "v2017".hmis_type (name,status,value,description) values ('lengthOfStay','ACTIVE','10','One day or less');
+    INSERT INTO "v2017".hmis_type (name,status,value,description) values ('lengthOfStay','ACTIVE','11','Two days to one week'); 
+   INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('lengthOfStay','99','Data not collected','ACTIVE'); 
  
          INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ssn_data_quality','1','Full SSN reported','ACTIVE');
         INSERT INTO "v2017".hmis_type (name,value,description,status) values   ('ssn_data_quality','2','Approximate or partial SSN reported','ACTIVE');
@@ -3041,4 +3069,49 @@ add column projectid uuid;
 ALTER TABLE v2017.inventory 
 
 ADD CONSTRAINT inventory_project_fk FOREIGN KEY (projectid) REFERENCES v2017.project (id);
+
+ALTER TABLE v2017.enrollment DROP COLUMN projectentryid;
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad36','Relationship to Head of Household','Relationship to Head of Household',
+'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'relationshiptohoh',
+false,'3.15.1','/v2017/hmistypes/relationshiptohoh/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad37','Living Situation','Living Situation','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'livingSituation',false,'3.917.1','/v2017/hmistypes/livingSituation/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad38','Length Of Stay','Living Situation','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'lengthOfStay',false,'3.917.2','/v2017/hmistypes/lengthOfStay/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad39','Los Under Threshold','Los Under Threshold','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'lengthOfStay',false,'3.917.2','/v2017/hmistypes/losunderthreshold/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad40','Previous Street ESSH','Previous Street ESSH','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'previousStreetESSH',false,'3.917.2','/v2017/hmistypes/previousStreetESSH/values');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad41','Times Homeless Past Three Years','Times Homeless Past Three Years','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'timesHomelesspastthreeyears',false,'3.917.2','/v2017/hmistypes/timesHomelesspastthreeyears/values');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad42','Months Homeless Past Three Years','Months Homeless Past Three Years','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'monthsHomelessPastThreeYears',false,'3.917.2','/v2017/hmistypes/monthsHomelessPastThreeYears/values');
+
+
+
+
+
+
+
+
+
+
+
 

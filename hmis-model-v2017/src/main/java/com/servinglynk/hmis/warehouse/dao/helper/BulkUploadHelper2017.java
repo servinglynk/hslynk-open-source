@@ -101,10 +101,9 @@ public class BulkUploadHelper2017 {
 	 * Gets the source object from the upload location.
 	 * @param upload
 	 * @return sources
-	 * @throws JAXBException 
-	 * @throws IOException 
+	 * @throws Exception 
 	 */
-	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity,Boolean isFileFromS3) throws JAXBException, IOException {
+	public Sources getSourcesFromFiles(BulkUpload upload,ProjectGroupEntity projectGroupEntity,Boolean isFileFromS3) throws Exception {
 			String inputPath = upload.getInputpath();
 			// download file to temp folder
 			String tempFile = upload.getInputpath();
@@ -213,8 +212,9 @@ public class BulkUploadHelper2017 {
 	 * containing csv files.
 	 * @param upload
 	 * @return
+	 * @throws Exception 
 	 */
-	public Sources getSourcesForZipFile(String fileName) {
+	public Sources getSourcesForZipFile(String fileName) throws Exception {
 		Sources sources = new Sources();
 		Source source = sources.getSource();
 		if(source == null) {
@@ -1059,7 +1059,7 @@ public class BulkUploadHelper2017 {
 	   * @param sources
 	   * @throws IOException
 	   */
-	  protected void hydrateInventory(BufferedReader csvFile, Sources sources) throws IOException {
+	  protected void hydrateInventory(BufferedReader csvFile, Sources sources) throws Exception {
 		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
 	      ValueProcessorProvider vpp = new ValueProcessorProvider();
 	      CSVReader<Inventory> inventoryReader = new CSVReaderBuilder<Inventory>(csvFile).strategy(strategy).entryParser(
@@ -1074,7 +1074,7 @@ public class BulkUploadHelper2017 {
 	    	  inventoryModel.setProjectID(invntry.getProjectID());
 	    	  inventoryModel.setDateCreated(getXMLGregorianCalendar(invntry.getDateCreated()));
 	    	  inventoryModel.setDateUpdated(getXMLGregorianCalendar(invntry.getDateUpdated()));
-	    	  inventoryModel.setHMISParticipatingBeds(Integer.parseInt(invntry.getHMISParticipatingBeds()));
+	    	  inventoryModel.setHMISParticipatingBeds(StringUtils.isNotBlank(invntry.getHMISParticipatingBeds()) ? Integer.parseInt(invntry.getHMISParticipatingBeds()) : 0);
 	    	  inventoryModel.setHouseholdType((invntry.getHouseholdType()));
 	    	  inventoryModel.setInformationDate(getXMLGregorianCalendar(invntry.getInformationDate()));
 	    	  inventoryModel.setInventoryEndDate(getXMLGregorianCalendar(invntry.getInventoryEndDate()));
@@ -1092,7 +1092,6 @@ public class BulkUploadHelper2017 {
 	    	  }
 	    	  bedInventory.setCHBedInventory((invntry.getCHBedInventory()));
 	    	  bedInventory.setVetBedInventory((invntry.getVetBedInventory()));
-	    	  bedInventory.setYouthAgeGroup((invntry.getYouthAgeGroup()));
 	    	  bedInventory.setYouthBedInventory((invntry.getYouthBedInventory()));
 	    	  
 	    	  inventoryModel.setBedInventory(bedInventory);
@@ -1226,7 +1225,7 @@ public class BulkUploadHelper2017 {
 		    	  servicesModel.setReferralOutcome((srvcs.getReferralOutcome()));
 		    	  servicesModel.setServicesID(srvcs.getServicesID());
 		    	  servicesModel.setSubTypeProvided((srvcs.getSubTypeProvided()));
-		    	  servicesModel.setTypeProvided(srvcs.getTypeProvided() != null ? Short.parseShort(srvcs.getTypeProvided()) : 0);
+		    	  servicesModel.setTypeProvided(StringUtils.isNotBlank(srvcs.getTypeProvided()) ? Short.parseShort(srvcs.getTypeProvided()) : 0);
 		    	  servicesModel.setUserID(srvcs.getUserID());
 		    	  servicesList.add(servicesModel);
 	    	  }

@@ -8,6 +8,7 @@ import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
+import com.servinglynk.hmis.warehouse.base.service.GenericEnrollmentService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalEnrollmentService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalProjectService;
 import com.servinglynk.hmis.warehouse.base.service.HealthService;
@@ -50,4 +51,5 @@ public interface BaseServiceFactory {
 	HMISNotificationsService getHmisNotificationsService();
 	GlobalEnrollmentService getGlobalEnrollmentService();
 	GlobalProjectService getGlobalProjectService();
+	GenericEnrollmentService getGenericEnrollmentService();
 }

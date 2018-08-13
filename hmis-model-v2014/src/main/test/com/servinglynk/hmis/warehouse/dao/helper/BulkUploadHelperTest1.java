@@ -44,13 +44,23 @@ public class BulkUploadHelperTest1 {
 		
 	}
 	
-
+	
+	@Test
+	public void testXMLUpload1() throws JAXBException, IOException {
+		//URL path = BulkUploadHelper.class.getResource("CSV_files.zip");
+		BulkUpload upload = new BulkUpload();
+		upload.setInputpath("/Users/sdolia/Downloads/HUD_4_0_1_4012_127.xml");
+		ProjectGroupEntity projectGrp = new ProjectGroupEntity();
+		projectGrp.setSkipuseridentifers(true);
+		sources = helper.getSourcesFromFiles(upload,projectGrp,false);
+		assertNotNull(sources);
+	}
 
 	@Test
 	public void testCVSUpload() throws JAXBException, IOException {
 		//URL path = BulkUploadHelper.class.getResource("CSV_files.zip");
 		BulkUpload upload = new BulkUpload();
-		upload.setInputpath("/Users/sdolia/Downloads/CSV_files.zip");
+		upload.setInputpath("/Users/sdolia/Downloads/cta_live_hud2014elements_14921_8322129668389476154.zip");
 		ProjectGroupEntity projectGrp = new ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
 		sources = helper.getSourcesFromFiles(upload,projectGrp,false);

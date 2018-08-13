@@ -12830,9 +12830,9 @@ public class Sources {
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar dateProvided;
                 @XmlElement(name = "RecordType")
-                protected short recordType;
+                protected String recordType;
                 @XmlElement(name = "TypeProvided")
-                protected short typeProvided;
+                protected String typeProvided;
                 @XmlElement(name = "OtherTypeProvided", required = true)
                 protected String otherTypeProvided;
                 @XmlElement(name = "SubTypeProvided")
@@ -12926,7 +12926,7 @@ public class Sources {
                  * Gets the value of the recordType property.
                  * 
                  */
-                public short getRecordType() {
+                public String getRecordType() {
                     return recordType;
                 }
 
@@ -12934,7 +12934,7 @@ public class Sources {
                  * Sets the value of the recordType property.
                  * 
                  */
-                public void setRecordType(short value) {
+                public void setRecordType(String value) {
                     this.recordType = value;
                 }
 
@@ -12942,7 +12942,7 @@ public class Sources {
                  * Gets the value of the typeProvided property.
                  * 
                  */
-                public short getTypeProvided() {
+                public String getTypeProvided() {
                     return typeProvided;
                 }
 
@@ -12950,7 +12950,7 @@ public class Sources {
                  * Sets the value of the typeProvided property.
                  * 
                  */
-                public void setTypeProvided(short value) {
+                public void setTypeProvided(String value) {
                     this.typeProvided = value;
                 }
 

@@ -31,4 +31,21 @@
  Drop Table rhybcp_status;
  Drop Table service_fa_referral;
  Drop Table site;
+ drop table affiliation;
+drop table  commercialsexualexploitation;
+drop table  connectionwithsoar;
+drop table  familyreunification;
+drop table  formerwardchildwelfare;
+drop table  formerwardjuvenilejustice;
+drop table  lastgradecompleted;
+drop table  lastpermanentaddress;
+drop table  percent_ami;
+drop table  projectcompletionstatus;
+drop table  referralsource;
+ drop table schoolstatus;
+drop table  services;
+drop table  sexualorientation;
+drop table  veteran_info;
+ drop table worsthousingsituation;
+ drop table youthcriticalissues;
 

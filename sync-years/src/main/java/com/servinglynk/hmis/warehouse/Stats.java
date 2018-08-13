@@ -47,7 +47,7 @@ public class Stats {
         return tables;
     }
 	
-	public static int getTableCount(String tableName,String projGrpCode,String schema) {
+	public static Long getTableCount(String tableName,String projGrpCode,String schema) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         Connection connection = null;
@@ -64,18 +64,18 @@ public class Stats {
             resultSet = statement.executeQuery();
             while (resultSet.next()){
             	//System.out.println("Table Name :"+tableName + " count: "+resultSet.getInt(1));
-            	return  resultSet.getInt(1);
+            	return  resultSet.getLong(1);
             }
         }catch (Exception ex){
             //ex.printStackTrace();
-            return 0;
+            return 0L;
         }
-        return 0;
+        return 0L;
 		
 	}
 	
 	public static void main(String args[]) throws Exception {
-		int count =0;
+		Long count =0L;
 		  Logger logger = Logger.getLogger(Stats.class.getName());
 	        Properties props = new Properties();
 	        props.generatePropValues("application.conf");
@@ -90,17 +90,15 @@ public class Stats {
 		schemas.add("housing_inventory");
 		schemas.add("notificationdb");
 		List<String> projectGroups = new ArrayList<>();
-		projectGroups.add("BD0005");
-		projectGroups.add("HO0002");
-		projectGroups.add("MO0010");
-		projectGroups.add("MC0005");
+//		projectGroups.add("HO0002");
+//		projectGroups.add("MO0010");
+//		projectGroups.add("MC0005");
 		projectGroups.add("SR0012");
-		projectGroups.add("IL0009");
-		
+		projectGroups.add("SA0005");
 		for(String projectGroupCode : projectGroups) {
 			for(String schema : schemas) {
 				List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);
-				count =0;
+				count =0L;
 				for(String tableName : allTablesFromPostgres) {
 					if(!tableName.equals("sync"))
 						count = count + getTableCount(tableName, projectGroupCode, schema);

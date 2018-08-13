@@ -55,6 +55,22 @@ public class BulkUploadHelperTest {
 		
 	}
 	
+	
+	@Test
+	public void testZipUpload() throws JAXBException, IOException {
+	//	URL path = BulkUploadHelperTest.class.getResource("2015.xml");
+//		System.out.println(path);
+		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
+		//upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
+		upload.setProjectGroupCode("PG0001");
+		//upload.setInputpath("/Users/sdolia/Downloads/cta_live_hud2015elements_14920_3251599739479946659.zip");
+		upload.setInputpath("/Users/sdolia/Downloads/cta_live_hud2014elements_14921_8322129668389476154.zip");
+		
+		com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp = new com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity();
+		projectGrp.setSkipuseridentifers(true);
+		sources = helper.getSourcesFromFiles(upload,projectGrp,false);
+		assertNotNull(sources);
+	}
 
 
 	@Test

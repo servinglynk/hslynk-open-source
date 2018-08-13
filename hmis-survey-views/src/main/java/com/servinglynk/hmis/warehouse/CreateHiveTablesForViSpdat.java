@@ -106,16 +106,9 @@ public class CreateHiveTablesForViSpdat {
 		 Set<String> disinctSurveys = getDisinctSurveys("survey");
 		 for(String surveyId : disinctSurveys) {
 			 Survey survey = getSurveyById("survey", surveyId);
-<<<<<<< HEAD:sync-general/src/main/java/com/servinglynk/hmis/warehouse/CreateHiveTablesForViSpdat.java
 			 if(StringUtils.equals("HO0002",survey.getProjectGroupCode())) {
 				 StringBuilder builder = new StringBuilder();
-				 builder.append("CREATE EXTERNAL TABLE IF NOT EXISTS "+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase());
-=======
-			 String projectGroupCodes = Properties.PROJECT_GROUPS;
-			 if(projectGroupCodes.contains(survey.getProjectGroupCode())) {
-				 StringBuilder builder = new StringBuilder();
 				 builder.append("CREATE EXTERNAL TABLE IF NOT EXISTS "+survey.getProjectGroupCode()+"."+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase());
->>>>>>> 422_423_sync_service_fa:hmis-survey-views/src/main/java/com/servinglynk/hmis/warehouse/CreateHiveTablesForViSpdat.java
 				 builder.append("(submission_id string,client_id string,survey_date  timestamp ");
 				 List<String> disinctQuestions = getDisinctQuestions("survey", survey.getSurveyId());
 				 for(String questionId : disinctQuestions) {

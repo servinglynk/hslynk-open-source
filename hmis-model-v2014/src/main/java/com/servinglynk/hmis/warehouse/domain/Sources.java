@@ -7181,7 +7181,8 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "enrollmentCoCID",
                 "projectEntryID",
-                "projectCoCID"
+                "projectCoCID",
+                "cocCode"
             })
             public static class EnrollmentCoC {
 

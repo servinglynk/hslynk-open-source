@@ -126,8 +126,6 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private Set<Pathstatus> pathStatuses = new HashSet<Pathstatus>();
 
 	/** Field mapping. */
-	private java.util.UUID projectentryid;
-	/** Field mapping. */
 	private Project projectid;
 	/** Field mapping. */
 	private EnrollmentRelationshiptohohEnum relationshiptohoh;
