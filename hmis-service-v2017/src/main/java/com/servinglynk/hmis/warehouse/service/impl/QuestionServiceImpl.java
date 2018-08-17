@@ -1,10 +1,14 @@
 package com.servinglynk.hmis.warehouse.service.impl; 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.io.JsonStringEncoder;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.HMISType;
 import com.servinglynk.hmis.warehouse.core.model.HMISTypes;
@@ -18,20 +22,28 @@ import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundExceptio
 
 @Component
 public class QuestionServiceImpl extends ServiceBase implements QuestionService  {
+	
+	ObjectMapper mapper = new ObjectMapper();
 
    @Transactional
-   public Questions getAllQuestions(String displayText,Boolean includepicklist, String description,Integer startIndex, Integer maxItems){
+   public Questions getAllQuestions(String displayText,Boolean includepicklist, String description,Integer startIndex, Integer maxItems) throws Exception {
        Questions Questions = new Questions();
         List<QuestionEntity> entities = daoFactory.getQuestionDao().getAllQuestionEntities(displayText, description,startIndex,maxItems);
         for(QuestionEntity entity : entities){
         	Question question = QuestionConverter.entityToModel(entity,includepicklist);
-        	if(entity.getPicklistGroupName()!=null & includepicklist) {
+        	if(entity.getPicklistGroupName()!=null) {
+        		Map<String, String> pickListValues = new HashMap<String,String>();
         		HMISTypes pickList =serviceFactory.getHmisTypeService().getDataElements(entity.getPicklistGroupName());
-        		for(HMISType hmisType : pickList.getHmisTypes()) {
-        			question.addPickList(hmisType);
-        		}
         		
+        		for(HMISType hmisType : pickList.getHmisTypes()) {
+        			if(includepicklist) question.addPickList(hmisType);
+        			pickListValues.put(hmisType.getValue(), hmisType.getDescription());
+        		}
+        		JsonStringEncoder e = JsonStringEncoder.getInstance();
+        		if(!pickList.getHmisTypes().isEmpty())
+        			question.setPickListValues(String.valueOf(e.quoteAsString(mapper.writeValueAsString(pickListValues))));
         	}
+        
            Questions.addQuestion(question);
         }
         long count = daoFactory.getQuestionDao().getQuestionEntitysCount(displayText, description);
