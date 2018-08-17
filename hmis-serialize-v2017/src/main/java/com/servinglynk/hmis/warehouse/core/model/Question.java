@@ -23,6 +23,8 @@ public class Question extends ClientModel {
 
 	private String picklistGroupName;
 	
+	private String pickListValues;
+	
 	//private HMISTypes pickList;
 	
 	private List<HMISType> pickList;
@@ -120,6 +122,14 @@ public class Question extends ClientModel {
 		this.pickList.add(hmisType);;
 	}
 
+	public String getPickListValues() {
+		return pickListValues;
+	}
+
+	public void setPickListValues(String pickListValues) {
+		this.pickListValues = pickListValues;
+	}
+
 	/*public HMISTypes getPickList() {
 		return pickList;
 	}
@@ -127,4 +137,5 @@ public class Question extends ClientModel {
 	public void setPickList(HMISTypes pickList) {
 		this.pickList = pickList;
 	}*/
+	
 }
