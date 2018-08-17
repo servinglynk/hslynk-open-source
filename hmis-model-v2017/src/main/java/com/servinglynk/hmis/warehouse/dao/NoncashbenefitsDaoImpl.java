@@ -73,7 +73,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 					noncashbenefitsModel.setExport(exportEntity);
 					noncashbenefitsModel.setInformationDate(BasicDataGenerator.getLocalDateTime(nonCashBenefits.getInformationDate()));
 					noncashbenefitsModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((nonCashBenefits.getDataCollectionStage())));
-					performSaveOrUpdate(noncashbenefitsModel);
+					performSaveOrUpdate(noncashbenefitsModel,domain);
 				} catch(Exception e){
 					String errorMessage = "Exception beause of the nonCashBenefits::"+nonCashBenefits.getNonCashBenefitsID() +" Exception ::"+e.getMessage();
 					if(noncashbenefitsModel != null){
@@ -100,6 +100,10 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits) getModel(com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits.class, noncashbenefits.getNonCashBenefitsID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits();

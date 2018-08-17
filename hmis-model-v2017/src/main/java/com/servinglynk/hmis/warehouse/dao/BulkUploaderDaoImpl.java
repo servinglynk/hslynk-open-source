@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.UnmarshalException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Appender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,11 +104,14 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setExport(export);
 			domain.setUpload(upload);
 			domain.setSource(source);
+			if(StringUtils.equals("RELOAD", upload.getDescription())) {
+				domain.setReUpload(true);
+			}
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
-			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null); // DONE
-			logger.info("Staging Source table.........");
-			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null); // Done
-			
+//			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null); // DONE
+//			logger.info("Staging Source table.........");
+//			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null); // Done
+//			
 			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Export.class, getProjectGroupCode(domain));
 			startNanos = System.nanoTime();
 			logger.info("Starting processing of Client table");
@@ -560,6 +564,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			export = source.getExport();
 		} catch (Exception ex) {
 			throw new Exception("HUD File Uploaded is in an invalid Format : Unable to get export from source", ex);
+		}
+		if(StringUtils.equals("RELOAD", upload.getDescription())) {
+			domain.setReUpload(true);
 		}
 		domain.setExport(export);
 		domain.setUpload(upload);

@@ -54,7 +54,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 					Exit exit = (Exit) getModel(Exit.class,housingAssessmentDisposition.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					housingassessmentdispositionModel.setExitid(exit);
 					housingassessmentdispositionModel.setExport(exportEntity);
-					performSaveOrUpdate(housingassessmentdispositionModel);
+					performSaveOrUpdate(housingassessmentdispositionModel,domain);
 				}catch(Exception e){
 					String errorMessage = "Exception beause of the housingAssessmentDisposition::"+housingAssessmentDisposition.getHousingAssessmentDispositionID() +" Exception ::"+e.getMessage();
 					if(housingassessmentdispositionModel != null){
@@ -80,6 +80,10 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition.class, housingassessmentdisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition();

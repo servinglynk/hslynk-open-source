@@ -55,7 +55,7 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 						geographyModel.setState(expGeographies.getState());
 						geographyModel.setZip(expGeographies.getZip());
 						
-						performSaveOrUpdate(geographyModel);
+						performSaveOrUpdate(geographyModel,domain);
 					}catch(Exception e ){
 						String errorMessage = "Exception beause of the Geography ::"+expGeographies.getGeographyID() +" Exception ::"+e.getMessage();
 						if(geographyModel != null){
@@ -81,6 +81,10 @@ public class GeographyDaoImpl extends ParentDaoImpl implements GeographyDao {
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Geography) getModel(com.servinglynk.hmis.warehouse.model.v2017.Geography.class, expGeography.getGeographyID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
+
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Geography();
 			modelFromDB.setId(UUID.randomUUID());

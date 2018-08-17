@@ -24,6 +24,7 @@ public class ExportDomain {
 	private BulkUpload upload;
 	private UUID userId;
 	private UUID exportId;
+	private boolean reUpload;
 	
 	public Export getExport() {
 		return export;
@@ -66,4 +67,20 @@ public class ExportDomain {
 	public void setExportId(UUID exportId) {
 		this.exportId = exportId;
 	}
+
+	/**
+	 * @return the reUpload
+	 */
+	public boolean isReUpload() {
+		return reUpload;
+	}
+
+	/**
+	 * @param reUpload the reUpload to set
+	 */
+	public void setReUpload(boolean reUpload) {
+		this.reUpload = reUpload;
+	}
+	
+	
 }

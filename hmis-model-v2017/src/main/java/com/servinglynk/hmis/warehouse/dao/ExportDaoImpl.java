@@ -36,7 +36,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			com.servinglynk.hmis.warehouse.model.v2017.Source sourceEntity = (com.servinglynk.hmis.warehouse.model.v2017.Source) getModel(com.servinglynk.hmis.warehouse.model.v2017.Source.class, domain.getSource().getSourceID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
 			exportModel.setSource(sourceEntity);
 			domain.setExportId(exportModel.getId());
-			performSaveOrUpdate(exportModel);
+			performSaveOrUpdate(exportModel,domain);
 		}catch (Exception ex){
 			String errorMessage = "Exception because of the export::"+exportModel.getId() +" Exception ::"+ex.getMessage();
 			if(exportModel != null){
@@ -61,6 +61,9 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 		if(!isFullRefresh(domain))
 			exportModel = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class, export.getExportID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
+		if(domain.isReUpload() && exportModel != null) {
+			return exportModel;
+		}
 		if(exportModel == null) {
 			exportModel = new com.servinglynk.hmis.warehouse.model.v2017.Export();
 			exportModel.setId(UUID.randomUUID());

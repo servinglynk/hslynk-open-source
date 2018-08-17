@@ -91,7 +91,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 					healthinsuranceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthInsurance.getInformationDate()));
 					healthinsuranceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((healthInsurance.getDataCollectionStage())));
 					healthinsuranceModel.setExport(exportEntity);
-					performSaveOrUpdate(healthinsuranceModel);
+					performSaveOrUpdate(healthinsuranceModel,domain);
 				} catch(Exception e){
 					String errorMessage = "Exception beause of the healthInsurance::"+healthInsurance.getHealthInsuranceID() +" Exception ::"+e.getMessage();
 					if(healthinsuranceModel != null){
@@ -117,6 +117,10 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance) getModel(com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance.class, healthinsurance.getHealthInsuranceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance();

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc.class, getProjectGroupCode(domain));
-		if(enrollmentCoCs!=null)
+		if(CollectionUtils.isNotEmpty(enrollmentCoCs))
 		{
 			for(EnrollmentCoC enrollmentCoc : enrollmentCoCs)
 			{
@@ -62,7 +63,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 					enrollmentCocModel.setExport(exportEntity);
 					enrollmentCocModel.setInformationDate(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getInformationDate()));
 					enrollmentCocModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((enrollmentCoc.getDataCollectionStage())));
-					performSaveOrUpdate(enrollmentCocModel);
+					performSaveOrUpdate(enrollmentCocModel,domain);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollmentCoc::"+enrollmentCoc.getEnrollmentCoCID() +" Exception ::"+e.getMessage();
 					if(enrollmentCocModel != null){
@@ -89,6 +90,9 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc) getModel(com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc.class, enrollmentCoc.getEnrollmentCoCID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc();
 			modelFromDB.setId(UUID.randomUUID());

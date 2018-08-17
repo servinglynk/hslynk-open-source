@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence.class, getProjectGroupCode(domain));
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();
-		if(domesticViolenceList!=null && !domesticViolenceList.isEmpty())
+		if(CollectionUtils.isNotEmpty(domesticViolenceList))
 		{
 			for(DomesticViolence domesticViolence : domesticViolenceList)
 			{
@@ -48,7 +49,7 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 					domesticviolenceModel.setEnrollmentid(enrollmentModel);
 					domesticviolenceModel.setInformationDate(BasicDataGenerator.getLocalDateTime(domesticViolence.getInformationDate()));
 					domesticviolenceModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((domesticViolence.getDataCollectionStage())));
-					performSaveOrUpdate(domesticviolenceModel);
+					performSaveOrUpdate(domesticviolenceModel,domain);
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the Domesticviolence::"+domesticViolence.getDomesticViolenceID() +" Exception ::"+e.getMessage();
 					if(domesticviolenceModel != null){
@@ -74,6 +75,10 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence) getModel(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence();

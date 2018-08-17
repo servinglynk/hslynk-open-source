@@ -80,7 +80,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 					projectModel.setExport(exportEntity);
 					manageGolbalProjects(projectModel, domain.getUpload().getProjectGroupCode(), domain.getUserId(), "2017");
-					performSaveOrUpdate(projectModel);
+					performSaveOrUpdate(projectModel,domain);
 				}catch(Exception e) {
 					String errorMessage = "Exception because of the project::"+project.getProjectID() +" Exception ::"+e.getMessage();
 					if(projectModel != null){
@@ -146,6 +146,10 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Project) getModel(com.servinglynk.hmis.warehouse.model.v2017.Project.class, project.getProjectID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Project();

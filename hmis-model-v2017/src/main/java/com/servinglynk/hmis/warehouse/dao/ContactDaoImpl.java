@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Contact.class, getProjectGroupCode(domain));
 		Data data = new Data();
-		if (contact != null && contact.size() > 0) {
+		if (CollectionUtils.isNotEmpty(contact)) {
 			for (Contact contacts : contact) {
 				com.servinglynk.hmis.warehouse.model.v2017.Contact contactModel = null;
 				try {
@@ -60,7 +61,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 					contactModel.setExport(exportEntity);
 					contactModel.setEnrollmentid(enrollment);
 					contactModel.setSync(false);
-					performSaveOrUpdate(contactModel);
+					performSaveOrUpdate(contactModel,domain);
 				} catch (Exception e) {
 					String errorMessage = "Exception beause of the Contact::" + contacts.getContactID() + " Exception ::" + e.getMessage();
 					if (contactModel != null) {
@@ -102,6 +103,10 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Contact) getModel(com.servinglynk.hmis.warehouse.model.v2017.Contact.class, contact.getContactID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Contact();

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -36,7 +37,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement.class, getProjectGroupCode(domain));
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
-		if(dateOfEngagements!=null &&!dateOfEngagements.isEmpty())
+		if(CollectionUtils.isNotEmpty(dateOfEngagements))
 		{
 			for(DateOfEngagement dateOfEngagement: dateOfEngagements)
 			{
@@ -49,7 +50,7 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				 dateOfEngagementModel.setExport(exportEntity);
 				 dateOfEngagementModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateCreated()));
 				 dateOfEngagementModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateUpdated()));
-				 performSaveOrUpdate(dateOfEngagementModel);
+				 performSaveOrUpdate(dateOfEngagementModel,domain);
 			 } catch(Exception e) {
 				 String errorMessage = "Exception beause of the Dateofengagement::"+dateOfEngagement.getDateOfEngagementID() +" Exception ::"+e.getMessage();
 				 if(dateOfEngagementModel != null){
@@ -76,6 +77,10 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement.class, dateofengagement.getDateOfEngagementID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement();

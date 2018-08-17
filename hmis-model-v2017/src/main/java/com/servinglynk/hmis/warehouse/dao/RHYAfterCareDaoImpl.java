@@ -51,7 +51,7 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 						rhyAfterCareModel.setExitid(exit);
 						rhyAfterCareModel.setAfterCareDate(BasicDataGenerator.getLocalDateTime(rhyAfterCare.getAfterCareDate()));
 						
-						performSaveOrUpdate(rhyAfterCareModel);
+						performSaveOrUpdate(rhyAfterCareModel,domain);
 					}catch(Exception e ){
 						String errorMessage = "Exception beause of the RHYAfterCare ::"+rhyAfterCare.getRhyAfterCareID() +" Exception ::"+e.getMessage();
 						if(rhyAfterCareModel != null){
@@ -76,6 +76,10 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 		com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare modelFromDB = null;
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare) getModel(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class, expRhyAfterCare.getRhyAfterCareID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare();

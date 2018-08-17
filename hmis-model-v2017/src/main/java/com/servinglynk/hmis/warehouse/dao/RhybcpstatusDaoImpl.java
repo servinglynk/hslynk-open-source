@@ -61,7 +61,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, rhybcpStatus.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					rhybcpstatusModel.setEnrollmentid(enrollmentModel);
 					rhybcpstatusModel.setExport(exportEntity);
-					performSaveOrUpdate(rhybcpstatusModel);
+					performSaveOrUpdate(rhybcpstatusModel,domain);
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the rhybcpStatus::"+rhybcpStatus.getRHYBCPStatusID() +" Exception ::"+e.getMessage();
 					if(rhybcpstatusModel != null){
@@ -88,6 +88,10 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus) getModel(com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus.class, rhybcpStatus.getRHYBCPStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus();

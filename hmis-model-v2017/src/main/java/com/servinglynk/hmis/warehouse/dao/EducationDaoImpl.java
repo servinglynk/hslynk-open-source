@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Education.class, getProjectGroupCode(domain));
-		if(educationList!=null && !educationList.isEmpty())
+		if(CollectionUtils.isNotEmpty(educationList))
 		{
 			for(Education education : educationList)
 			{
@@ -56,9 +57,8 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 				educationModel.setEnrollmentid(enrollmentModel);
 				educationModel.setExport(exportEntity);
 				educationModel.setInformationDate(BasicDataGenerator.getLocalDateTime(education.getInformationDate()));
-//				educationModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((education.getDataCollectionStage())));
-				
-				performSaveOrUpdate(educationModel);
+				educationModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((education.getDataCollectionStage())));
+				performSaveOrUpdate(educationModel,domain);
 			}
 		}
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Education.class.getSimpleName(), domain,exportEntity);
@@ -68,6 +68,10 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Education) getModel(com.servinglynk.hmis.warehouse.model.v2017.Education.class, education.getEducationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Education();
