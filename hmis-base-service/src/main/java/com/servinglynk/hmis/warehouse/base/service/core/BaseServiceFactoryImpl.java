@@ -11,6 +11,7 @@ import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
+import com.servinglynk.hmis.warehouse.base.service.GenericEnrollmentService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalEnrollmentService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalProjectService;
 import com.servinglynk.hmis.warehouse.base.service.HealthService;
@@ -83,6 +84,8 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	@Autowired private GlobalEnrollmentService globalEnrollmentService;
 	
 	@Autowired private GlobalProjectService globalProjectService;
+	
+	@Autowired private GenericEnrollmentService genericEnrollmentService;
 	
 	
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -263,4 +266,12 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	public void setGlobalProjectService(GlobalProjectService globalProjectService) {
 		this.globalProjectService = globalProjectService;
 	}
+
+	public GenericEnrollmentService getGenericEnrollmentService() {
+		return genericEnrollmentService;
+	}
+
+	public void setGenericEnrollmentService(GenericEnrollmentService genericEnrollmentService) {
+		this.genericEnrollmentService = genericEnrollmentService;
+	}	
 }

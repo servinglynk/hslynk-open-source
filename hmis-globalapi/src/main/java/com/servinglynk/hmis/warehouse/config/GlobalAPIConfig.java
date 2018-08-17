@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImp
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.ConsentsController;
+import com.servinglynk.hmis.warehouse.rest.GenericEnrollmentsController;
 import com.servinglynk.hmis.warehouse.rest.GlobalEnrollmentsController;
 import com.servinglynk.hmis.warehouse.rest.GlobalProjectsController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
@@ -104,5 +105,10 @@ public class GlobalAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public GlobalProjectsController globalProjectsController() {
 		 return new GlobalProjectsController();
+	 }
+	 
+	 @Bean
+	 public GenericEnrollmentsController genericEnrollmentsController() {
+		 return new GenericEnrollmentsController();
 	 }
 }
