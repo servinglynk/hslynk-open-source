@@ -37,11 +37,8 @@ public class QuestionServiceImpl extends ServiceBase implements QuestionService 
         		
         		for(HMISType hmisType : pickList.getHmisTypes()) {
         			if(includepicklist) question.addPickList(hmisType);
-        			pickListValues.put(hmisType.getValue(), hmisType.getDescription());
+        			question.getPickListValues().put(hmisType.getValue(), hmisType.getDescription());
         		}
-        		JsonStringEncoder e = JsonStringEncoder.getInstance();
-        		if(!pickList.getHmisTypes().isEmpty())
-        			question.setPickListValues(String.valueOf(e.quoteAsString(mapper.writeValueAsString(pickListValues))));
         	}
         
            Questions.addQuestion(question);
@@ -65,7 +62,8 @@ public class QuestionServiceImpl extends ServiceBase implements QuestionService 
 	   if(questionEntity.getPicklistGroupName()!=null & includepicklist) {
    		HMISTypes pickList =serviceFactory.getHmisTypeService().getDataElements(questionEntity.getPicklistGroupName());
    		for(HMISType hmisType : pickList.getHmisTypes()) {
-			question.addPickList(hmisType);
+			if(includepicklist) question.addPickList(hmisType);
+			question.getPickListValues().put(hmisType.getValue(), hmisType.getDescription());
 		}
 	   }
    			
