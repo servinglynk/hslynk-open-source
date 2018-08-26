@@ -23,6 +23,20 @@ public class QuestionConverter   {
        if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate()));
       return model;
    }
+   
+   
+   public static Question entityToModelV2 (QuestionEntity entity, Boolean includepicklist) {
+       Question model = new Question();
+       model.setQuestionId(entity.getId());
+       model.setQuestionDescription(entity.getQuestionDescription());
+       model.setDisplayText(entity.getDisplayText());
+       model.setQuestionDataType(entity.getQuestionDataType());
+       model.setQuestionType(entity.getQuestionType());
+       model.setHudQuestionId(entity.getHudQuestionId());
+         model.setPicklistGroupName(entity.getPicklistGroupName());
+       if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate()));
+      return model;
+   }
 
 
 }
