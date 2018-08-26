@@ -37,6 +37,9 @@ public class Question extends ClientModel {
 	
 	private List<ActionLink> links;
 
+	private HudQuestionDefinition definition;
+	
+	
 	public UUID getQuestionId() {
 		return questionId;
 	}
@@ -135,6 +138,14 @@ public class Question extends ClientModel {
 		this.pickListValues = pickListValues;
 	}
 
+	public HudQuestionDefinition getDefinition() {
+		return definition;
+	}
+
+	public void setDefinition(HudQuestionDefinition definition) {
+		this.definition = definition;
+	}
+
 	/*public HMISTypes getPickList() {
 		return pickList;
 	}
@@ -142,5 +153,4 @@ public class Question extends ClientModel {
 	public void setPickList(HMISTypes pickList) {
 		this.pickList = pickList;
 	}*/
-	
 }
