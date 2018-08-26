@@ -1,9 +1,12 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("question")
@@ -23,7 +26,8 @@ public class Question extends ClientModel {
 
 	private String picklistGroupName;
 	
-	private String pickListValues;
+	@JsonProperty("options")
+	private Map<String, String> pickListValues;
 	
 	//private HMISTypes pickList;
 	
@@ -33,6 +37,9 @@ public class Question extends ClientModel {
 	
 	private List<ActionLink> links;
 
+	private HudQuestionDefinition definition;
+	
+	
 	public UUID getQuestionId() {
 		return questionId;
 	}
@@ -122,12 +129,21 @@ public class Question extends ClientModel {
 		this.pickList.add(hmisType);;
 	}
 
-	public String getPickListValues() {
+	public Map<String, String> getPickListValues() {
+		if(this.pickListValues==null) this.pickListValues = new HashMap<String,String>();
 		return pickListValues;
 	}
 
-	public void setPickListValues(String pickListValues) {
+	public void setPickListValues(Map<String, String> pickListValues) {
 		this.pickListValues = pickListValues;
+	}
+
+	public HudQuestionDefinition getDefinition() {
+		return definition;
+	}
+
+	public void setDefinition(HudQuestionDefinition definition) {
+		this.definition = definition;
 	}
 
 	/*public HMISTypes getPickList() {
@@ -137,5 +153,4 @@ public class Question extends ClientModel {
 	public void setPickList(HMISTypes pickList) {
 		this.pickList = pickList;
 	}*/
-	
 }

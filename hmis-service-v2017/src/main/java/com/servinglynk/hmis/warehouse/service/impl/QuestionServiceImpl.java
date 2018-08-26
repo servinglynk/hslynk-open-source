@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.HMISType;
 import com.servinglynk.hmis.warehouse.core.model.HMISTypes;
+import com.servinglynk.hmis.warehouse.core.model.HudQuestionDefinition;
 import com.servinglynk.hmis.warehouse.core.model.Question;
 import com.servinglynk.hmis.warehouse.core.model.Questions;
 import com.servinglynk.hmis.warehouse.model.v2017.QuestionEntity;
@@ -37,11 +38,8 @@ public class QuestionServiceImpl extends ServiceBase implements QuestionService 
         		
         		for(HMISType hmisType : pickList.getHmisTypes()) {
         			if(includepicklist) question.addPickList(hmisType);
-        			pickListValues.put(hmisType.getValue(), hmisType.getDescription());
+        			question.getPickListValues().put(hmisType.getValue(), hmisType.getDescription());
         		}
-        		JsonStringEncoder e = JsonStringEncoder.getInstance();
-        		if(!pickList.getHmisTypes().isEmpty())
-        			question.setPickListValues(String.valueOf(e.quoteAsString(mapper.writeValueAsString(pickListValues))));
         	}
         
            Questions.addQuestion(question);
@@ -65,10 +63,65 @@ public class QuestionServiceImpl extends ServiceBase implements QuestionService 
 	   if(questionEntity.getPicklistGroupName()!=null & includepicklist) {
    		HMISTypes pickList =serviceFactory.getHmisTypeService().getDataElements(questionEntity.getPicklistGroupName());
    		for(HMISType hmisType : pickList.getHmisTypes()) {
-			question.addPickList(hmisType);
+			if(includepicklist) question.addPickList(hmisType);
+			question.getPickListValues().put(hmisType.getValue(), hmisType.getDescription());
 		}
 	   }
    			
    	return question;
 	}
+   
+   
+   @Transactional
+	public Question getQuestionsHudIdV2(Boolean includepicklist,String hudQuestionId) {
+	   QuestionEntity questionEntity = daoFactory.getQuestionDao().getQuestionsHudId(hudQuestionId);
+	   if(questionEntity==null) throw new ResourceNotFoundException("No question found with selected hudQuestionId "+hudQuestionId);
+	   Question question = QuestionConverter.entityToModelV2(questionEntity,includepicklist);
+	   if(questionEntity.getPicklistGroupName()!=null & includepicklist) {
+   		HMISTypes pickList =serviceFactory.getHmisTypeService().getDataElements(questionEntity.getPicklistGroupName());
+   		for(HMISType hmisType : pickList.getHmisTypes()) {
+			if(includepicklist) question.addPickList(hmisType);
+			question.getPickListValues().put(hmisType.getValue(), hmisType.getDescription());
+		}
+    	HudQuestionDefinition definition = new HudQuestionDefinition();
+    	definition.setOptions(question.getPickListValues());
+    	definition.setQuestionType(question.getQuestionType());
+    	definition.setTitle(question.getDisplayText());
+    	question.setDefinition(definition);
+    	question.setPickListValues(null);
+	   }
+   			
+   	return question;
+	}
+   
+   @Transactional
+   public Questions getAllQuestionsV2(String displayText,Boolean includepicklist, String description,Integer startIndex, Integer maxItems) throws Exception {
+       Questions questions = new Questions();
+        List<QuestionEntity> entities = daoFactory.getQuestionDao().getAllQuestionEntities(displayText, description,startIndex,maxItems);
+        for(QuestionEntity entity : entities){
+        	Question question = QuestionConverter.entityToModelV2(entity,includepicklist);
+        	if(entity.getPicklistGroupName()!=null) {
+        		HMISTypes pickList =serviceFactory.getHmisTypeService().getDataElements(entity.getPicklistGroupName());
+        		for(HMISType hmisType : pickList.getHmisTypes()) {
+        			question.getPickListValues().put(hmisType.getValue(), hmisType.getDescription());
+        		}
+        	}
+        	HudQuestionDefinition definition = new HudQuestionDefinition();
+        	definition.setOptions(question.getPickListValues());
+        	definition.setQuestionType(question.getQuestionType());
+        	definition.setTitle(question.getDisplayText());
+        	question.setDefinition(definition);
+        	question.setPickListValues(null);
+        	questions.addQuestion(question);
+        }
+        long count = daoFactory.getQuestionDao().getQuestionEntitysCount(displayText, description);
+        SortedPagination pagination = new SortedPagination();
+ 
+        pagination.setFrom(startIndex);
+        pagination.setReturned(questions.getQuestions().size());
+        pagination.setTotal((int)count);
+        pagination.setMaximum(200);
+        questions.setPagination(pagination);
+        return questions; 
+   }
 }
