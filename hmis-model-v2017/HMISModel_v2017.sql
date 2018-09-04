@@ -73,6 +73,7 @@ DROP TYPE IF EXISTS "v2017".no_adap_reason;
 DROP TYPE IF EXISTS "v2017".no_health_insurance_reason;
 DROP TYPE IF EXISTS "v2017".no_medical_assistance_reason;
 DROP TYPE IF EXISTS "v2017".not_employed_reason;
+DROP TYPE IF EXISTS "v2017".projectcompletionstatus;
 DROP TYPE IF EXISTS "v2017".no_yes;
 DROP TYPE IF EXISTS "v2017".no_yes_refused;
 DROP TYPE IF EXISTS "v2017".path_how_confirmed;	
@@ -177,6 +178,13 @@ CREATE TYPE "v2017".not_employed_reason  AS ENUM (
 '2',
 '3',
 '99');
+CREATE TYPE "v2017".projectcompletionstatus  AS ENUM (	
+'1',
+'2',
+'3',
+'99');
+
+
 CREATE TYPE "v2017".no_yes  AS ENUM (	
 '0',
 '1',
@@ -479,10 +487,7 @@ CREATE TYPE "v2017".written_after_care_plan  AS ENUM ('0','1','2','99');
 CREATE TYPE "v2017".assistance_main_stream_benefits  AS ENUM ('0','1','2','99');
 CREATE TYPE "v2017".permanent_housing_placement  AS ENUM ('0','1','2','99');
 CREATE TYPE "v2017".temp_shelter_placement  AS ENUM ('0','1','2','99');
-CREATE TYPE "v2017".exit_counseling  AS ENUM ('0','1','2','99');
-CREATE TYPE "v2017".further_followup_services  AS ENUM ('0','1','2','99');
 CREATE TYPE "v2017".scheduled_followup_contacts  AS ENUM ('0','1','2','99');
-CREATE TYPE "v2017".resource_package  AS ENUM ('0','1','2','99');
 CREATE TYPE "v2017".other_aftercare_plan_or_action  AS ENUM ('0','1','2','99');
 CREATE TYPE "v2017".family_reunification_achieved  AS ENUM ('0','1','8','9','99');
 
@@ -495,7 +500,6 @@ CREATE TYPE "v2017".alcohol_drug_abuse_youth AS ENUM ('0','1','99');
 CREATE TYPE "v2017".abuse_and_neglect_family_mbr AS ENUM ('0','1','99');
 CREATE TYPE "v2017".abuse_and_neglect_youth AS ENUM ('0','1','99');
 CREATE TYPE "v2017".mental_disability_family_mbr AS ENUM ('0','1','99');
-CREATE TYPE "v2017".mental_disability_youth AS ENUM ('0','1','99');
 CREATE TYPE "v2017".physical_disability_family_mbr AS ENUM ('0','1','99');
 CREATE TYPE "v2017".physical_disability_youth AS ENUM ('0','1','99');
 CREATE TYPE "v2017".health_issues_family_mbr AS ENUM ('0','1','99');
@@ -505,10 +509,7 @@ CREATE TYPE "v2017".mental_health_issues_youth AS ENUM ('0','1','99');
 CREATE TYPE "v2017".unemployement_family_mbr AS ENUM ('0','1','99');
 CREATE TYPE "v2017".school_educational_issues_youth AS ENUM ('0','1','99');
 CREATE TYPE "v2017".school_education_issues_family_mbr AS ENUM ('0','1','99');
-CREATE TYPE "v2017".unemployment_youth AS ENUM ('0','1','99');
 CREATE TYPE "v2017".incarcerated_parent AS ENUM ('0','1','99');
-CREATE TYPE "v2017".housing_issues_family_mbr AS ENUM ('0','1','99');
-CREATE TYPE "v2017".housing_issues_youth AS ENUM ('0','1','99');
 CREATE TYPE "v2017".sexual_orientation_gender_identity_Youth AS ENUM ('0','1','99');
 CREATE TYPE "v2017".sexual_orientatiion_gender_identity_family_mbr AS ENUM ('0','1','99');
 
@@ -548,10 +549,199 @@ WITH (
   OIDS=FALSE
 );
 
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad81','RunawayYouth','RunawayYouth','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'runaway_youth',false,'R2.B','/v2017/hmistypes/EligibleForRHY/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad87','JuvenileJusticeMonths','JuvenileJusticeMonths','STRING','INTEGER',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'months_juvenile_justice',false,'R12.B','/v2017/hmistypes/JuvenileJusticeMonths/values');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad93','CountOutreachReferralApproaches','CountOutreachReferralApproaches','STRING','INTEGER',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'count_out_reach_referral_approaches',false,'R1.A','/v2017/hmistypes/CountOutreachReferralApproaches/values');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad97','HPScreeningScore','HPScreeningScore','STRING','INTEGER',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'hp_screen_score',false,'V7.20','/v2017/hmistypes/HPScreeningScore/values');
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf71','ThresholdScore','ThresholdScore','STRING','INTEGER',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'thresholdscore',false,'V7.21','/v2017/hmistypes/ThresholdScore/values');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad98','ExchangeForSex','ExchangeForSex','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'exchage_for_sex',false,'R15.1','/v2017/hmistypes/ExchangeForSex/values');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('labor_exploit_past_three_months','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('labor_exploit_past_three_months','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('labor_exploit_past_three_months','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf92','Earned','Earned','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'earned',false,'4.2.3','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('earned','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('earned','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('earned','99','Data not collected','ACTIVE');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('after_provided','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('after_provided','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('after_provided','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf86','AfterCareProvided','AfterCareProvided','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'after_provided',false,'R20.2','/v2017/hmistypes/AfterCareProvided/values');
+
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf87','EmailSocialMedia','EmailSocialMedia','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'email_social_media',false,'R20.A','/v2017/exits/{exitid}/rhyaftercares/{rhyaftercareid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('email_social_media','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('email_social_media','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('email_social_media','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf96','VADisabilityService','VADisabilityService','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'vadisabilityservice',false,'4.2.7','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vadisabilityservice','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vadisabilityservice','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vadisabilityservice','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf97','VADisabilityNonService','VADisabilityNonService','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'vadisabilitynonservice',false,'4.2.8','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vadisabilitynonservice','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vadisabilitynonservice','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vadisabilitynonservice','99','Data not collected','ACTIVE');
+
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf98','PrivateDisability','PrivateDisability','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'privatedisability',false,'4.2.9','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('privatedisability','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('privatedisability','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('privatedisability','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf99','WorkersComp','WorkersComp','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'workerscomp',false,'4.2.10','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('workerscomp','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('workerscomp','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('workerscomp','99','Data not collected','ACTIVE');
+
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf88','Telephone','Telephone','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'telephone',false,'R20.A','/v2017/exits/{exitid}/rhyaftercares/{rhyaftercareid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('telephone','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('telephone','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('telephone','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf93','SSI','SSI','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'ssi',false,'4.2.5','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ssi','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ssi','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ssi','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf94','SSDI','SSDI','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'ssdi',false,'4.2.6','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ssdi','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ssdi','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ssdi','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf91','InPersonIndividual','InPersonIndividual','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'in_person_individual',false,'R20.A','/v2017/exits/{exitid}/rhyaftercares/{rhyaftercareid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('in_person_individual','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('in_person_individual','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('in_person_individual','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf91','InPersonGroup','InPersonGroup','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'in_person_group',false,'R20.A','/v2017/exits/{exitid}/rhyaftercares/{rhyaftercareid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('in_person_group','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('in_person_group','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('in_person_group','99','Data not collected','ACTIVE');
+
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('exchage_for_sex','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('exchage_for_sex','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('exchage_for_sex','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf70','LaborExploitPastThreeMonths','LaborExploitPastThreeMonths','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'labor_exploit_past_three_months',false,'R16.B','/v2017/hmistypes/LaborExploitPastThreeMonths/values');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('labor_exploit_past_three_months','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('labor_exploit_past_three_months','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('labor_exploit_past_three_months','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf72','AskedOrForcedToExchangeForSexPastThreeMonths','AskedOrForcedToExchangeForSexPastThreeMonths','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'asked_or_forced_to_exchange_for_sex_past_three_months',false,'R15.D','/v2017/hmistypes/AskedOrForcedToExchangeForSexPastThreeMonths/values');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','0','Not available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','1','Available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','2','Undetectable','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','99','Data not collected','ACTIVE');
+
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('runaway_youth','0','Not available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('runaway_youth','1','Available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('runaway_youth','2','Undetectable','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('runaway_youth','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('runaway_youth','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('runaway_youth','99','Data not collected','ACTIVE');
+
+
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','1','Medical Report','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','2','Client Report','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','3','Other','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tcellcountsource','99','Data not collected','ACTIVE');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('eligible_for_rhy','0','Not available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('eligible_for_rhy','1','Available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('eligible_for_rhy','2','Undetectable','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('eligible_for_rhy','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('eligible_for_rhy','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('eligible_for_rhy','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad80','EligibleForRHY','EligibleForRHY','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'eligible_for_rhy',false,'R2.2','/v2017/hmistypes/EligibleForRHY/values');
+
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_source','1','Medical Report','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_source','2','Client Report','ACTIVE');
@@ -565,7 +755,17 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_loa
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('viral_load_available','99','Data not collected','ACTIVE');
 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('worst_housing_situation','0','Not available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('worst_housing_situation','1','Available','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('worst_housing_situation','2','Undetectable','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('worst_housing_situation','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('worst_housing_situation','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('worst_housing_situation','99','Data not collected','ACTIVE');
 
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad79','WorstHousingSituation','WorstHousingSituation','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'worst_housing_situation',false,'U1.1','/v2017/hmistypes/WorstHousingSituation/values');
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('literalHomelessHistory','0','4 or more times or total of at least 12 months in past three years','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('literalHomelessHistory','1','2-3 times in past three years','ACTIVE');
@@ -587,9 +787,36 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('zeroincom
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('zeroincome','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('zeroincome','99','Data not collected','ACTIVE');
 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('client_enrolled_in_path','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('client_enrolled_in_path','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('client_enrolled_in_path','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad78','ClientEnrolledInPATH','ClientEnrolledInPATH','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'client_enrolled_in_path',false,'P3.2','/v2017/hmistypes/ClientEnrolledInPATH/values');
+
+
+
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('residentialaffiliation','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('residentialaffiliation','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('residentialaffiliation','99','Data not collected','ACTIVE');
+
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('financialchange','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('financialchange','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('financialchange','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad94','UrgentReferral','UrgentReferral','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'urgent_referral',false,'V7.1','/v2017/hmistypes/UrgentReferral/values');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('urgent_referral','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('urgent_referral','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('urgent_referral','99','Data not collected','ACTIVE');
+
+
+
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('evictionhistory','0','4 or more prior rental evictions','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('evictionhistory','1','2-3 prior rental evictions','ACTIVE');
@@ -605,6 +832,11 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('subsidyat
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('subsidyatrisk','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('subsidyatrisk','99','Data not collected','ACTIVE');
 
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad95','DisabledHoH','DisabledHoH','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'disablehoh',false,'V7.10','/v2017/hmistypes/DisabledHoH/values');
+
+
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('disablehoh','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('disablehoh','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('disablehoh','99','Data not collected','ACTIVE');
@@ -616,6 +848,11 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('criminalr
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('sexoffender','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('sexoffender','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('sexoffender','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad96','DependentUnder6','DependentUnder6','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'dependendunder6',false,'V7.13','/v2017/hmistypes/DependentUnder6/values');
+
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('dependendunder6','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('dependendunder6','1','Yes','ACTIVE');
@@ -659,36 +896,6 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('previousS
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('previousStreetESSH','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('previousStreetESSH','99','Data not collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ervisits','0','0','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ervisits','1','1-2','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ervisits','2','3-5','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ervisits','3','6-10','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ervisits','4','11-20','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ervisits','5','More than 20','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ervisits','8','Client doesn''t know','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ervisits','9','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ervisits','99','Data not collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('jailnights','0','0','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('jailnights','1','1-2','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('jailnights','2','3-5','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('jailnights','3','6-10','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('jailnights','4','11-20','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('jailnights','5','More than 20','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('jailnights','8','Client doesn''t know','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('jailnights','9','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('jailnights','99','Data not collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hospitalnights','0','0','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hospitalnights','1','1-2','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hospitalnights','2','3-5','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hospitalnights','3','6-10','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hospitalnights','4','11-20','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hospitalnights','5','More than 20','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hospitalnights','8','Client doesn''t know','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hospitalnights','9','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hospitalnights','99','Data not collected','ACTIVE');
-
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('world_war_2','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('world_war_2','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('world_war_2','8','Client doesn''t know','ACTIVE');
@@ -701,23 +908,194 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('korean_wa
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('korean_war','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('korean_war','99','Data not collected','ACTIVE');
 
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('disablingCondition','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('disablingCondition','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('disablingCondition','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('disablingCondition','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('disablingCondition','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad77','Disabling Condition','Disabling Condition','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'disablingCondition',false,'3.8','/v2017/hmistypes/disablingCondition/values');
+
+
+
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vietnam_war','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vietnam_war','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vietnam_war','8','Client doesn''t know','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vietnam_war','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vietnam_war','99','Data not collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('desertstorm','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('desertstorm','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('desertstorm','8','Client doesn''t know','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('desertstorm','9','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('desertstorm','99','Data not collected','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('desert_storm','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('desert_storm','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('desert_storm','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('desert_storm','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('desert_storm','99','Data not collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('iraq_oif','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('iraq_oif','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('iraq_oif','8','Client doesn''t know','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('iraq_oif','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('iraq_oif','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('bed_inventory','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('bed_inventory','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('bed_inventory','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('bed_inventory','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('bed_inventory','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ch_bed_inventory','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ch_bed_inventory','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ch_bed_inventory','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ch_bed_inventory','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ch_bed_inventory','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad57','CHBedInventory','CHBedInventory','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'ch_bed_inventory',false,'2.7.7','/v2017/hmistypes/ch_bed_inventory/values');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vet_bed_inventory','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vet_bed_inventory','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vet_bed_inventory','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vet_bed_inventory','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vet_bed_inventory','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf74','CounselingReceived','CounselingReceived','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'counseling_received',false,'R18.1','/v2017/hmistypes/CounselingReceived/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf75','IndividualCounseling','IndividualCounseling','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'individual_counseling',false,'R18.A','/v2017/hmistypes/IndividualCounseling/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf76','FamilyCounseling','FamilyCounseling','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'family_counseling',false,'R18.A','/v2017/hmistypes/FamilyCounseling/values');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf77','GroupCounseling','GroupCounseling','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'group_counseling',false,'R18.A','/v2017/hmistypes/GroupCounseling/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf78','PostExitCounselingPlan','PostExitCounselingPlan','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'post_exit_counseling_plan',false,'R18.3','/v2017/hmistypes/PostExitCounselingPlan/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf79','SessionCountAtExit','SessionCountAtExit','STRING','INTEGER',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'session_count_at_exit',false,'R18.B','/v2017/hmistypes/SessionCountAtExit/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf80','SessionsInPlan','SessionsInPlan','STRING','INTEGER',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'sessions_in_plan',false,'R18.2','/v2017/hmistypes/SessionsInPlan/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf81','DestinationSafeClient','DestinationSafeClient','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'destination_safe_client',false,'R19.1','/v2017/hmistypes/DestinationSafeClient/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf82','DestinationSafeWorker','DestinationSafeWorker','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'destination_safe_worker',false,'R19.2','/v2017/hmistypes/DestinationSafeWorker/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf83','PosAdultConnections','PosAdultConnections','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'pos_adult_connections',false,'R19.3','/v2017/hmistypes/PosAdultConnections/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf84','PosPeerConnections','PosPeerConnections','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'pos_peer_connections',false,'R19.4','/v2017/hmistypes/PosPeerConnections/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf85','PosCommunityConnections','PosCommunityConnections','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'pos_community_connections',false,'R19.5','/v2017/hmistypes/PosCommunityConnections/values');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('counseling_received','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('counseling_received','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('counseling_received','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('counseling_received','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('counseling_received','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('individual_counseling','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('individual_counseling','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('individual_counseling','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('individual_counseling','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('individual_counseling','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('family_counseling','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('family_counseling','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('family_counseling','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('family_counseling','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('family_counseling','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('group_counseling','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('group_counseling','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('group_counseling','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('group_counseling','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('group_counseling','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('post_exit_counseling_plan','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('post_exit_counseling_plan','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('post_exit_counseling_plan','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('post_exit_counseling_plan','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('post_exit_counseling_plan','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination_safe_client','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination_safe_client','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination_safe_client','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination_safe_client','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination_safe_client','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination_safe_worker','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination_safe_worker','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination_safe_worker','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination_safe_worker','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination_safe_worker','99','Data not collected','ACTIVE');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_adult_connections','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_adult_connections','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_adult_connections','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_adult_connections','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_adult_connections','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_peer_connections','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_peer_connections','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_peer_connections','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_peer_connections','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_peer_connections','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_community_connections','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_community_connections','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_community_connections','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_community_connections','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pos_community_connections','99','Data not collected','ACTIVE');
+
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('youth_bed_inventory','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('youth_bed_inventory','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('youth_bed_inventory','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('youth_bed_inventory','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('youth_bed_inventory','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad34','YouthBedInventory','YouthBedInventory','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'youth_bed_inventory',false,'2.7.11','/v2017/hmistypes/youth_bed_inventory/values');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hmisparticipatingbeds','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hmisparticipatingbeds','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hmisparticipatingbeds','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hmisparticipatingbeds','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hmisparticipatingbeds','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad65','HMISParticipatingBeds','HMISParticipatingBeds','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'hmisparticipatingbeds',false,'2.7.13','/v2017/hmistypes/hmisparticipatingbeds/values');
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('iraq_ond','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('iraq_ond','1','Yes','ACTIVE');
@@ -937,6 +1315,7 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSit
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('health_category','ACTIVE','27','General Health Status');
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('health_category','ACTIVE','28','Dental Health Status');
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('health_category','ACTIVE','29','Mental Health Status');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('health_category','ACTIVE','30','Pregnancy Status');
   
    INSERT INTO "v2017".hmis_type (name,status,value,description) values ('health_status','ACTIVE','1','Excellent');
    INSERT INTO "v2017".hmis_type (name,status,value,description) values ('health_status','ACTIVE','2','Very good');
@@ -964,10 +1343,6 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSit
     INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('housingassessment','9','Client refused','ACTIVE');
  INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('housingassessment','99','Data not collected','ACTIVE');	
 
-INSERT INTO "v2017".hmis_type (name,status,value,description) values ('incarceratedparentstatus','ACTIVE','1','One parent / legal guardian is incarcerated');
-INSERT INTO "v2017".hmis_type (name,status,value,description) values ('incarceratedparentstatus','ACTIVE','2','One parent / legal guardian is incarcerated');
-INSERT INTO "v2017".hmis_type (name,status,value,description) values ('incarceratedparentstatus','ACTIVE','3','The only parent / legal guardian is incarcerated');
-INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('incarceratedparentstatus','99','Data not collected','ACTIVE');	
 
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('juvenilejusticeyears','ACTIVE','1','Less than one year');
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('juvenilejusticeyears','ACTIVE','2','1 to 2 years');
@@ -1006,25 +1381,6 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('childwelf
     INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','8','Client does not know','ACTIVE');
     INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','9','Client refused','ACTIVE');
     INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','99','Data not collected','ACTIVE');
-    
-    INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','100','0 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','101','1 month');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','102','2 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','103','3 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','104','4 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','105','5 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','106','6 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','107','7 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','108','8 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','109','9 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','110','10 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','111','11 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','112','12 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','7','More than 12 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessThisTime','ACTIVE','1','More than 12 months');
-    INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','8','Client does not know','ACTIVE');
-    INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','9','Client refused','ACTIVE');
-    INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('monthsHomelessThisTime','99','Data not collected','ACTIVE');
     
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('name_data_quality','ACTIVE','1','Full name reported'); 
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('name_data_quality','ACTIVE','2','Partial, street name, or code name reported');  
@@ -1118,19 +1474,6 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('not_emplo
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('not_employed_reason','ACTIVE','3','Not looking for work');
 INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('not_employed_reason','99','Data not collected','ACTIVE');  
 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('pathhowconfirmed','ACTIVE','1','Unconfirmed; presumptive or self-report');
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('pathhowconfirmed','ACTIVE','2','Confirmed through assessment and clinical evaluation'); 
- INSERT INTO "v2017".hmis_type (name,status,value,description) values ('pathhowconfirmed','ACTIVE','3','Confirmed by prior evaluation or clinical records');
-INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('pathhowconfirmed','99','Data not collected','ACTIVE');   
-
-INSERT INTO "v2017".hmis_type (name,status,value,description) values ('pathsmiinformation','ACTIVE','0','No');
-INSERT INTO "v2017".hmis_type (name,status,value,description) values ('pathsmiinformation','ACTIVE','1','Unconfirmed; presumptive or self-report');
-INSERT INTO "v2017".hmis_type (name,status,value,description) values ('pathsmiinformation','ACTIVE','2','Confirmed through assessment and clinical evaluation'); 
-INSERT INTO "v2017".hmis_type (name,status,value,description) values ('pathsmiinformation','ACTIVE','3','Confirmed by prior evaluation or clinical records');
-INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('pathsmiinformation','8','Client does not know','ACTIVE'); 
-INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('pathsmiinformation','9','Client refused','ACTIVE');  
-INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('pathsmiinformation','99','Data not collected','ACTIVE');  
- 
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('projectcompletionstatus','ACTIVE','1','Completed project');
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('projectcompletionstatus','ACTIVE','2','Youth voluntarily left early'); 
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('projectcompletionstatus','ACTIVE','3','Youth was expelled or otherwise involuntarily discharged from project');
@@ -1184,10 +1527,6 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('housingTy
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','162','RHY referral');
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('projecttype','ACTIVE','200','Bed night');
   
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referraloutcome','ACTIVE','1','Attained');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referraloutcome','ACTIVE','2','Not Attained');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referraloutcome','ACTIVE','3','Unkown');
- 
  
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','1','Self-Referral');
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','2','Individual: Parent/Guardian');
@@ -1237,16 +1576,7 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('housingTy
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('relationshiptohoh','ACTIVE','5','Other: non-relation member');
   
   
-   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','1','Emergency shelter, including hotel or motel paid for with emergency shelter voucher');
-   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','2','Transitional housing for homeless persons (including homeless youth)');
-   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','3','Permanent housing for formerly homeless persons (such as: CoC project; HUD legacy programs; or HOPWA PH)'); 
-   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','4','Psychiatric hospital or other psychiatric facility');
-   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','5','Substance abuse treatment facility or detox center');
-   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','6','Hospital or other residential non-psychiatric medical facility');
-   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','7','Jail, prison or juvenile detention facility'); 
-   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','8','Client does not know');
-   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('residencePrior','ACTIVE','9','Client refused'); 
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','12','Staying or living in a family member’s room, apartment or house');          
+   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','12','Staying or living in a family member’s room, apartment or house');          
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','13','Staying or living in a friend’s room, apartment or house');
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','14','Hotel or motel paid for without emergency shelter voucher'); 
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('referral_source','ACTIVE','15','Foster care home or foster care group home');                         
@@ -1312,7 +1642,11 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('housingTy
 	INSERT INTO "v2017".hmis_type  (name,value,description,status) values  ('timesHomelesspastthreeyears','9','Client refused','ACTIVE');
 	INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('timesHomelesspastthreeyears','99','Data not collected','ACTIVE');
 		       
-	
+	insert into v2017.question(id,question_descriptiobn,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad67','DOBDataQuality','DOBDataQuality','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'dob_data_quality',false,'3.3.2','/v2017/hmistypes/dob_data_quality/values');
+
+
 	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('trackingmethod','0','Entry/Exit Date','ACTIVE');
 	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('trackingmethod','3','Night-by-Night','ACTIVE');
 	
@@ -1324,22 +1658,6 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('housingTy
 	INSERT INTO "v2017".hmis_type (name,value,description,status) values  ('whenoccurred','8','Client does not know','ACTIVE');
 	INSERT INTO "v2017".hmis_type  (name,value,description,status) values  ('whenoccurred','9','Client refused','ACTIVE');
 	INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('whenoccurred','99','Data not collected','ACTIVE');
-	
-	
-	
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('housingstatus','1','Category 1 - Homeless','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('housingstatus','2','Category 2 - At imminent risk of losing housing','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('housingstatus','3','At-risk of homelessness','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('housingstatus','4','Stably Housed','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('housingstatus','5','Category 3 - Homeless only under other federal statutes','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('housingstatus','6','Category 4 - Fleeing domestic violence','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values  ('housingstatus','8','Client does not know','ACTIVE');
-	INSERT INTO "v2017".hmis_type  (name,value,description,status) values  ('housingstatus','9','Client refused','ACTIVE');
-	INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('housingstatus','99','Data not collected','ACTIVE');
-	
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('youth_age_group','1','Only under age 18','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('youth_age_group','2','Only ages 18 to 24','ACTIVE'); 
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('youth_age_group','3','Only youth under age 24 (both of the above)','ACTIVE');
 	
 	
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('veteran_status','0','No','ACTIVE');
@@ -1360,7 +1678,7 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('percenta
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('percentami','3','Greater than 50%','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('percentami','99','Data not collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('connection_with_soar','0','No%','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('connection_with_soar','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('connection_with_soar','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('connection_with_soar','8','Client doesnt know','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('connection_with_soar','9','Client refused','ACTIVE');
@@ -1369,57 +1687,6 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('connecti
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('contact_location','1','Place not meant for habitation','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('contact_location','2','Service setting, non-residential','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('contact_location','3','Service setting, residential','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('written_after_care_plan','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('written_after_care_plan','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('written_after_care_plan','2','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('written_after_care_plan','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('assistance_main_stream_benefits','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('assistance_main_stream_benefits','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('assistance_main_stream_benefits','2','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('assistance_main_stream_benefits','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('permanent_housing_placement','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('permanent_housing_placement','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('permanent_housing_placement','2','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('permanent_housing_placement','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('temp_shelter_placement','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('temp_shelter_placement','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('temp_shelter_placement','2','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('temp_shelter_placement','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exit_counseling','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exit_counseling','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exit_counseling','2','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exit_counseling','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('further_followup_services','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('further_followup_services','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('further_followup_services','2','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('further_followup_services','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('scheduled_followup_contacts','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('scheduled_followup_contacts','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('scheduled_followup_contacts','2','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('scheduled_followup_contacts','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('resource_package','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('resource_package','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('resource_package','2','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('resource_package','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('other_aftercare_plan_or_action','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('other_aftercare_plan_or_action','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('other_aftercare_plan_or_action','2','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('other_aftercare_plan_or_action','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('family_reunification_achieved','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('family_reunification_achieved','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('family_reunification_achieved','8','Client doesnt know','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('family_reunification_achieved','9','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('family_reunification_achieved','99','Data Not Collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('project_completion_status','1','Completed project','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('project_completion_status','2','Youth voluntarily left early','ACTIVE');
@@ -1434,105 +1701,93 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_ex
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','6','4.37B only: Unknown/disappeared','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','99','both 4.37A and 4.37B: Data not collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('active_military_parent','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('active_military_parent','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('active_military_parent','99','Data Not Collected','ACTIVE');
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad92','InsufficientIncome','InsufficientIncome','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'insufficient_income_to_support_youth',false,'R13.22','/v2017/hmistypes/InsufficientIncome/values');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('house_hold_dynamics','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('house_hold_dynamics','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('house_hold_dynamics','99','Data Not Collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('insufficient_income_to_support_youth','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('insufficient_income_to_support_youth','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('insufficient_income_to_support_youth','99','Data Not Collected','ACTIVE');
 
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad91','AlcoholDrugAbuseFam','AlcoholDrugAbuseFam','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'alcohol_drug_abuse_family_mbr',false,'R13.21','/v2017/hmistypes/AlcoholDrugAbuseFam/values');
+
+
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_family_mbr','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_family_mbr','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_family_mbr','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_youth','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_youth','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('alcohol_drug_abuse_youth','99','Data Not Collected','ACTIVE');
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad90','PhysicalDisabilityFam','PhysicalDisabilityFam','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'physical_disability_family_mbr',false,'R13.21','/v2017/hmistypes/PhysicalDisabilityFam/values');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('abuse_and_neglect_family_mbr','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('abuse_and_neglect_family_mbr','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('abuse_and_neglect_family_mbr','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('abuse_and_neglect_youth','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('abuse_and_neglect_youth','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('abuse_and_neglect_youth','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_disability_family_mbr','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_disability_family_mbr','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_disability_family_mbr','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_disability_youth','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_disability_youth','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_disability_youth','99','Data Not Collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('physical_disability_family_mbr','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('physical_disability_family_mbr','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('physical_disability_family_mbr','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('physical_disability_youth','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('physical_disability_youth','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('physical_disability_youth','99','Data Not Collected','ACTIVE');
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad89','MentalHealthIssuesFam','MentalHealthIssuesFam','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'mental_health_issues_family_mbrily_mbr',false,'R13.11','/v2017/hmistypes/MentalHealthIssuesFam/values');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('health_issues_family_mbr','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('health_issues_family_mbr','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('health_issues_family_mbr','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('health_issues_youth','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('health_issues_youth','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('health_issues_youth','99','Data Not Collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_health_issues_family_mbrily_mbr','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_health_issues_family_mbrily_mbr','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_health_issues_family_mbrily_mbr','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_health_issues_youth','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_health_issues_youth','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('mental_health_issues_youth','99','Data Not Collected','ACTIVE');
-
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('unemployement_family_mbr','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('unemployement_family_mbr','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('unemployement_family_mbr','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('school_educational_issues_youth','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('school_educational_issues_youth','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('school_educational_issues_youth','99','Data Not Collected','ACTIVE');
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad88','UnemploymentFam','UnemploymentFam','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'unemployement_family_mbr',false,'R13.9','/v2017/hmistypes/UnemploymentFam/values');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('school_education_issues_family_mbr','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('school_education_issues_family_mbr','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('school_education_issues_family_mbr','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('unemployment_youth','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('unemployment_youth','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('unemployment_youth','99','Data Not Collected','ACTIVE');
+
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('incarcerated_parent','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('incarcerated_parent','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('incarcerated_parent','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('housing_issues_family_mbr','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('housing_issues_family_mbr','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('housing_issues_family_mbr','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('housing_issues_youth','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('housing_issues_youth','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('housing_issues_youth','99','Data Not Collected','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation','1','Heterosexual','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation','2','Gay','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation','3','Lesbian','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation','4','Bisexual','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation','5','Questioning / Unsure','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation_gender_identity_Youth','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation_gender_identity_Youth','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientation_gender_identity_Youth','99','Data Not Collected','ACTIVE');
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad82','SexualOrientation','SexualOrientation','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'sexual_orientation',false,'R3.1','/v2017/hmistypes/SexualOrientation/values');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientatiion_gender_identity_family_mbr','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientatiion_gender_identity_family_mbr','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientatiion_gender_identity_family_mbr','99','Data Not Collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('years_child_welfr_forest_care','1','Less than one year','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('years_child_welfr_forest_care','2','Less than one year','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('years_child_welfr_forest_care','3','3 to 5 or more years','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad84','ChildWelfareYears','ChildWelfareYears','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'years_child_welfr_forest_care',false,'R11.A','/v2017/hmistypes/ChildWelfareYears/values');
+
+
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('months_child_welfr_forest_care','1','Less than one year','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('months_child_welfr_forest_care','2','Less than one year','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('months_child_welfr_forest_care','3','3 to 5 or more years','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad85','ChildWelfareMonths','ChildWelfareMonths','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'months_child_welfr_forest_care',false,'R11.B','/v2017/hmistypes/ChildWelfareMonths/values');
+
+
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('years_juvenile_justice','1','Less than one year','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('years_juvenile_justice','2','Less than one year','ACTIVE');
@@ -1544,17 +1799,22 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('formerly
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('formerly_ward_child_welfr_forest_care','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('formerly_ward_child_welfr_forest_care','99','Data Not Collected','ACTIVE');
 
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad83','FormerWardChildWelfare','FormerWardChildWelfare','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'formerly_ward_child_welfr_forest_care',false,'R11.1','/v2017/hmistypes/FormerWardChildWelfare/values');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad86','FormerWardJuvenileJustice','FormerWardJuvenileJustice','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'formerly_ward_of_juvenile_justice',false,'R12.1','/v2017/hmistypes/FormerWardJuvenileJustice/values');
+
+
+
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('formerly_ward_of_juvenile_justice','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('formerly_ward_of_juvenile_justice','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('formerly_ward_of_juvenile_justice','8','Client doesnt know','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('formerly_ward_of_juvenile_justice','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('formerly_ward_of_juvenile_justice','99','Data Not Collected','ACTIVE');
-
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex_past_3_months','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex_past_3_months','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex_past_3_months','8','Client doesnt know','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex_past_3_months','9','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex_past_3_months','99','Data Not Collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exchange_for_sex_past_three_months','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exchange_for_sex_past_three_months','1','Yes','ACTIVE');
@@ -1568,6 +1828,12 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('coerced_
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('coerced_to_continue_work','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('coerced_to_continue_work','99','Data Not Collected','ACTIVE');
 
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf73','WorkplacePromiseDifference','WorkplacePromiseDifference','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'work_place_promise_difference',false,'R16.2','/v2017/hmistypes/WorkplacePromiseDifference/values');
+
+
+
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('work_place_promise_difference','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('work_place_promise_difference','1','Yes','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('work_place_promise_difference','8','Client doesnt know','ACTIVE');
@@ -1580,11 +1846,6 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('work_pla
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('work_place_violence_threats','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('work_place_violence_threats','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('incarcerated_parent_status','1','One parent / legal guardian is incarcerated','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('incarcerated_parent_status','2','One parent / legal guardian is incarcerated','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('incarcerated_parent_status','3','The only parent / legal guardian is incarceratedt','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('incarcerated_parent_status','99','Data Not Collected','ACTIVE');
-
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','1','1-3','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','2','4-7','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','3','8-11','ACTIVE');
@@ -1593,15 +1854,17 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('count_of
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('count_of_exchange_for_sex','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex','8','Client doesnt know','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex','9','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_of_forced_to_exchange_for_sex','99','Data Not Collected','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex','99','Data Not Collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('geography_type','1','Urban','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('geography_type','2','Suburban','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('geography_type','3','Rural','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('geography_type','99','Data not collected','ACTIVE');
+
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','1','Accomplished goals and/or obtained services and no longer needs CM','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('cm_exit_reason','2','Transferred to another HUD-VASH program site','ACTIVE');
@@ -1712,7 +1975,7 @@ CREATE TABLE  "v2017".project
 	  projectname text,
 	  continuumproject "v2017".no_yes,
 	  projecttype "v2017".project_type,
-	  residentialaffiliation integer,
+	  residentialaffiliation integer, --Sandeep change to to no_yes
 	  operatingstartdate timestamp,
 	  operatingenddate timestamp,
 	  trackingmethod "v2017".tracking_method,
@@ -1867,7 +2130,7 @@ CREATE TABLE "v2017".path_status
 (
   "id" uuid NOT NULL,
   "date_of_status" timestamp,
-  "client_enrolled_in_path" bigint,
+  "client_enrolled_in_path" bigint, --sandeep change this to fk-5
   "reason_not_enrolled"  "v2017".reason_not_enrolled,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
@@ -1957,7 +2220,7 @@ CREATE TABLE "v2017".entryRHY
 	"incarcerated_parent" "v2017".incarcerated_parent,
 	"formerly_ward_of_juvenile_justice" "v2017".formerly_ward_of_juvenile_justice,
 	"years_juvenile_justice" "v2017".years_juvenile_justice,
-	"months_juvenile_justice" integer, 
+	"months_juvenile_justice" integer, -- Sandeep change this to yes no
 	"formerly_ward_child_welfr_forest_care" "v2017".formerly_ward_child_welfr_forest_care,
 	"years_child_welfr_forest_care" "v2017".years_child_welfr_forest_care,
 	months_child_welfr_forest_care integer,
@@ -2234,17 +2497,17 @@ create table "v2017".inventory
   bedtype "v2017".bed_type,
   availabilty "v2017".availability,
   unitinventory integer,
-  bed_inventory integer,
-  ch_bed_inventory integer,
-  vet_bed_inventory integer,
-  youth_bed_inventory integer,
+  bed_inventory integer, -- Sandeep need to change this to five_val_dk_refused
+  ch_bed_inventory integer, -- Sandeep need to change this to five_val_dk_refused
+  vet_bed_inventory integer, -- Sandeep need to change this to five_val_dk_refused
+  youth_bed_inventory integer,-- Sandeep need to change this to five_val_dk_refused
   --youth_age_group integer,
   facility_bed_inventory integer,
   voucher_bed_inventory integer,
   other_bed_inventory integer,
   inventorystartdate timestamp,
   inventoryenddate timestamp,
-  hmisparticipatingbeds integer,
+  hmisparticipatingbeds integer, --Sandeep change this to five_val_dk_refused
   --project_coc_id uuid,
   coc_id uuid,
   "project_group_code" character varying(8),
@@ -2380,7 +2643,7 @@ create table "v2017".domesticviolence
   "domesticviolencevictim" "v2017".five_val_dk_refused,
   "enrollmentid" uuid,
   "whenoccurred" "v2017".when_dom_violence_occurred,
-  currently_fleeing integer,
+  currently_fleeing integer, --Sandeep no_yes
   information_date timestamp,
   "datacollectionstage" "v2017".datacollectionstage,
   "project_group_code" character varying(8),
@@ -2508,7 +2771,7 @@ with (
 create table  "v2017".entryRHSP
 (
   	"id" uuid not null,
-	worst_housing_situation integer,
+	worst_housing_situation integer, -- This needs fk
 	"enrollmentid" uuid,
 	"project_group_code" character varying(8),
 	"date_created" timestamp,
@@ -2678,9 +2941,9 @@ create table "v2017".healthinsurance
   "noschipreason" "v2017".no_health_insurance_reason,
   "vamedicalservices" "v2017".no_yes,
   "novamedreason" "v2017".no_health_insurance_reason,
-  "employerprovided" integer,
+  "employerprovided" integer, --Sandeep change this to noYes
   "noemployerprovidedreason" "v2017".no_health_insurance_reason,
-  "cobra" integer,
+  "cobra" integer, --Sandeep 
   "nocobrareason" "v2017".no_health_insurance_reason,
   "privatepay" "v2017".no_yes,
   "noprivatepayreason" "v2017".no_health_insurance_reason,
@@ -2781,6 +3044,7 @@ create table "v2017".exitRHY
 	asked_or_forced_to_exchange_for_sex_past_three_months "v2017".no_yes,
 	work_place_violence_threats "v2017".no_yes,
 	work_place_promise_difference "v2017".no_yes,
+	projectcompletionstatus "v2017".projectcompletionstatus, -- Sandeep alter statement to add this column.
 	coerced_to_continue_work "v2017".no_yes,
 	labor_exploit_past_three_months "v2017".no_yes,
 	counseling_received "v2017".no_yes,
@@ -3104,14 +3368,461 @@ insert into v2017.question(id,question_description,display_text,question_data_ty
 ('024c9acd-d3e1-4cc4-9800-a9db85edad42','Months Homeless Past Three Years','Months Homeless Past Three Years','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
 true,'monthsHomelessPastThreeYears',false,'3.917.2','/v2017/hmistypes/monthsHomelessPastThreeYears/values');
 
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad68','YearEnteredService','YearEnteredService','STRING','INTEGER',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'year_entrd_service',false,'V1.1','/v2017/hmistypes/year_entrd_service/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad66','YearSeparated','YearSeparated','STRING','INTEGER',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'year_seperated',false,'V1.2','/v2017/hmistypes/year_seperated/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad70','WorldWarII','WorldWarII','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'world_war_2',false,'V1.2','/v2017/hmistypes/world_war_2/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad71','KoreanWar','KoreanWar','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'korean_war',false,'V1.4','/v2017/hmistypes/korean_war/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad73','DesertStorm','DesertStorm','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'desert_storm',false,'V1.6','/v2017/hmistypes/desert_storm/values');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad72','AfghanistanOEF','AfghanistanOEF','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'afghanistan_oef',false,'V1.7','/v2017/hmistypes/afghanistan_oef/values');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad74','IraqOIF','IraqOIF','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'iraq_oif',false,'V1.8','/v2017/hmistypes/iraq_oif/values');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad75','IraqOND','IraqOND','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'iraq_ond',false,'V1.9','/v2017/hmistypes/iraq_ond/values');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf60','Temporary Assistance for Needy Families ','Temporary Assistance for Needy Families ','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'tanf',false,'4.2.11','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanf','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanf','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanf','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf61','General Assistance ','General Assistance','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'ga',false,'4.2.12','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ga','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ga','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('ga','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf40','Retirement Income from Social Security','Retirement Income from Social Security','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'socsecretirement',false,'4.2.13','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('socsecretirement','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('socsecretirement','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('socsecretirement','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf41','Pension or retirement income from a former job','Pension or retirement income from a former job','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'pension',false,'4.2.14','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pension','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pension','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pension','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf42','Child support','Child support','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'childsupport',false,'4.2.15','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('childsupport','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('childsupport','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('childsupport','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf43','Alimony and other spousal support','Alimony and other spousal support','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'alimony',false,'4.2.16','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('alimony','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('alimony','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('alimony','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf44','Other Income Source','Other Income Source','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'othersource',false,'4.2.17','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('othersource','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('othersource','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('othersource','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf45','Non-Cash Benefits from Any Source','Non-Cash Benefits from Any Source','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'benefitsfromanysource',false,'4.3.2','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('benefitsfromanysource','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('benefitsfromanysource','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('benefitsfromanysource','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('benefitsfromanysource','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('benefitsfromanysource','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf46','Income from Any Source','Income Benefits from Any Source','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'incomefromanysource',false,'4.3.2','/{clientid}/enrollments/{enrollmentid}/incomeandsources/{incomeAndSourceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('incomefromanysource','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('incomefromanysource','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('incomefromanysource','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('incomefromanysource','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('incomefromanysource','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf47','Supplemental Nutrition Assistance Program','Supplemental Nutrition Assistance Program','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'snap',false,'4.3.3','/clients/{clientid}/enrollments/{enrollmentid}/noncashbenefits/{noncashbenefitid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('snap','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('snap','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('snap','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('snap','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('snap','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf48','Special Supplemental Nutrition Program for Women, Infants, and Children','Special Supplemental Nutrition Program for Women, Infants, and Children','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'wic',false,'4.3.4','/clients/{clientid}/enrollments/{enrollmentid}/noncashbenefits/{noncashbenefitid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('wic','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('wic','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('wic','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('wic','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('wic','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf48','Special Supplemental Nutrition Program for Women, Infants, and Children','Special Supplemental Nutrition Program for Women, Infants, and Children','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'tanfchildcare',false,'4.3.5','/clients/{clientid}/enrollments/{enrollmentid}/noncashbenefits/{noncashbenefitid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanfchildcare','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanfchildcare','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanfchildcare','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanfchildcare','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanfchildcare','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf49','TANF transportation services','TANF transportation services','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'tanftransportation',false,'4.3.6','/clients/{clientid}/enrollments/{enrollmentid}/noncashbenefits/{noncashbenefitid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanftransportation','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanftransportation','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanftransportation','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanftransportation','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('tanftransportation','99','Data not collected','ACTIVE');
 
 
 
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf50','Other TANF-funded services','Other TANF-funded services','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'othertanf',false,'4.3.6','/clients/{clientid}/enrollments/{enrollmentid}/noncashbenefits/{noncashbenefitid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('othertanf','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('othertanf','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('othertanf','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('othertanf','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('othertanf','99','Data not collected','ACTIVE');
 
 
 
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf51','Other source','Other source','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'othersource',false,'4.3.9','/clients/{clientid}/enrollments/{enrollmentid}/noncashbenefits/{noncashbenefitid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf52','Other source','Other source','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'insurancefromanysource',false,'4.4.2','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('insurancefromanysource','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('insurancefromanysource','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('insurancefromanysource','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('insurancefromanysource','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('insurancefromanysource','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf53','MEDICAID','MEDICAID','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'medicaid',false,'4.4.3','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('medicaid','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('medicaid','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('medicaid','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('medicaid','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('medicaid','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf54','MEDICARE','MEDICARE','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'medicare',false,'4.4.4','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('medicare','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('medicare','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('medicare','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('medicare','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('medicare','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf55','State Health Insurance for Adults','State Health Insurance for Adults','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'schip',false,'4.4.5','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('schip','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('schip','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('schip','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('schip','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('schip','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf56','State Health Insurance for Adults','State Health Insurance for Adults','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'vamedicalservices',false,'4.4.6','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vamedicalservices','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vamedicalservices','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vamedicalservices','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vamedicalservices','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('vamedicalservices','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf57','Employer – Provided Health Insurance','Employer – Provided Health Insurance','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'employerprovided',false,'4.4.7','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('employerprovided','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('employerprovided','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('employerprovided','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('employerprovided','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('employerprovided','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf58','Private Pay Health Insurance','Private Pay Health Insurance','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'cobra',false,'4.4.8','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('cobra','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('cobra','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('cobra','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('cobra','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('cobra','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf59','Private Pay Health Insurance','Private Pay Health Insurance','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'privatepay',false,'4.4.9','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('privatepay','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('privatepay','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('privatepay','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('privatepay','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('privatepay','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf20','State Health Insurance for Adults','State Health Insurance for Adults','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'statehealthinadults',false,'4.4.10','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('statehealthinadults','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('statehealthinadults','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('statehealthinadults','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('statehealthinadults','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('statehealthinadults','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf21','Indian Health Services Program','Indian Health Services Program','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'indianhealthservices',false,'4.4.11','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('indianhealthservices','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('indianhealthservices','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('indianhealthservices','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('indianhealthservices','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('indianhealthservices','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf22','Reason not insured under Indian Health Services Program','Reason not insured under Indian Health Services Program','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'noindianhealthservicesreason',false,'4.4.11A','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+
+INSERT INTO "v2017".hmis_type (name,status,value,description) values ('noindianhealthservicesreason','ACTIVE','1','Applied; decision pending');
+INSERT INTO "v2017".hmis_type (name,status,value,description) values ('noindianhealthservicesreason','ACTIVE','2','Applied; client not eligible');    
+INSERT INTO "v2017".hmis_type (name,status,value,description) values ('noindianhealthservicesreason','ACTIVE','3','Client did not apply');
+INSERT INTO "v2017".hmis_type (name,status,value,description) values ('noindianhealthservicesreason','ACTIVE','4','Insurance type N/A for this client');
+INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('noindianhealthservicesreason','8','Client does not know','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('noindianhealthservicesreason','9','Client refused','ACTIVE');  
+INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('noindianhealthservicesreason','99','Data not collected','ACTIVE');  
 
 
 
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf23','Other insurance','Other insurance','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'other_insurance',false,'4.4.12','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
 
 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('other_insurance','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('other_insurance','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('other_insurance','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('other_insurance','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('other_insurance','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf24','HIV/AIDS','HIV/AIDS','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'hivaidsassistance',false,'W3.2','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hivaidsassistance','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hivaidsassistance','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hivaidsassistance','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hivaidsassistance','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hivaidsassistance','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf25','Receiving AIDS Drug Assistance Program','Receiving AIDS Drug Assistance Program','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'adap',false,'W3.3','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('adap','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('adap','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('adap','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('adap','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('adap','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf26','Connection with SOAR','Connection with SOAR','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'connection_with_soar',false,'P4.1','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf27','Domestic Violence Victim/Survivor','Domestic Violence Victim/Survivor','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'domesticviolencevictim',false,'4.11.2','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('domesticviolencevictim','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('domesticviolencevictim','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('domesticviolencevictim','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('domesticviolencevictim','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('domesticviolencevictim','99','Data not collected','ACTIVE');
+
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf28','Are you currently fleeing?','Are you currently fleeing?','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'currently_fleeing',false,'4.11.B','/clients/{clientid}/enrollments/{enrollmentid}/healthinsurances/{healthinsuranceid}');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('currently_fleeing','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('currently_fleeing','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('currently_fleeing','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('currently_fleeing','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('currently_fleeing','99','Data not collected','ACTIVE');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf29','General Health Status','General Health Status','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'health_category',false,'R8.1','/clients/{clientid}/enrollments/{enrollmentid}/healthstatuses/{healthstatusid}');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf30','Dental Health Status','Dental Health Status','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'health_category',false,'R8.1','/clients/{clientid}/enrollments/{enrollmentid}/healthstatuses/{healthstatusid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf31','Mental Health Status','Mental Health Status','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'health_category',false,'R9.1','/clients/{clientid}/enrollments/{enrollmentid}/healthstatuses/{healthstatusid}');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf32','Pregnancy Status','Pregnancy Status','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'health_category',false,'R10.1','/clients/{clientid}/enrollments/{enrollmentid}/healthstatuses/{healthstatusid}');
+
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf33','Last grade completed','Last grade completed','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'lastgradecompleted',false,'R4.1','/clients/{clientid}/enrollments/{enrollmentid}/educations/{educationid}');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','1','Less than Grade 5','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','2','Grades 5-6','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','3','Grades 7-8','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','4','Grades 9-11','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','5','Grade 12','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','6','School program does not have grade levels','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','7','GED','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','10','Some college','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','11','Associate''s degree','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','12','Bachelor''s degree','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','13','Graduate degree','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','14','Vocational certification','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('lastgradecompleted','99','Data not collected','ACTIVE');
+
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('school_status','1','Attending school regularly','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('school_status','2','Attending school irregularly','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('school_status','3','Graduated from high school','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('school_status','4','Obtained GED','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('school_status','5','Dropped out','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('school_status','6','Suspended','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('school_status','7','Expelled','ACTIVE');			
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('school_status','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('school_status','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('school_status','99','Data not collected','ACTIVE');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf34','School status','School status','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'school_status',false,'R5.1','/clients/{clientid}/enrollments/{enrollmentid}/educations/{educationid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf35','Employed','Employed','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'employed',false,'R6.2','/clients/{clientid}/enrollments/{enrollmentid}/employments/{employmentid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf36','Type of Employment','Type of Employment','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'employment_type',false,'R6.A','/clients/{clientid}/enrollments/{enrollmentid}/employments/{employmentid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf37','Why Not Employed','Why Not Employed','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'not_employed_reason',false,'R6.B','/clients/{clientid}/enrollments/{enrollmentid}/employments/{employmentid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf38','T-Cell (CD4) Count Available','T-Cell (CD4) Count Available','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'tcellcountavailable',false,'W4.2','/clients/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilityid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf39','T-cell Count','T-cell Count','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'tcellcount',false,'W4.A','/clients/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilityid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf10','T-cell Source','T-cell Source','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'tcellcountsource',false,'W4.B','/clients/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilityid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf11','Viral Load Information Available','Viral Load Information Available','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'viral_load_available',false,'W4.3','/clients/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilityid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf12','Viral Load','Viral Load ','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'viral_load',false,'W4.C','/clients/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilityid}');
+
+insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
+('024c9acd-d3e1-4cc4-9800-a9db85edaf14','Viral Load Source','Viral Load Source','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
+true,'viral_load_source',false,'W4.D','/clients/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilityid}');
+
+
+update v2017.question set 
+hud_question_id='4.12.2A',
+update_url_template='/clients/{clientid}/enrollments/{enrollmentid}/contacts/{contactid}' ,
+question_description='Contact location',
+display_text='Contact location'
+where picklist_group_name='contact_location'
