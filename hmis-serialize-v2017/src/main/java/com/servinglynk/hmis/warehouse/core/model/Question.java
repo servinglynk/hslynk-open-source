@@ -39,6 +39,8 @@ public class Question extends ClientModel {
 
 	private HudQuestionDefinition definition;
 	
+	private String uriObjectField;
+	
 	
 	public UUID getQuestionId() {
 		return questionId;
@@ -146,6 +148,14 @@ public class Question extends ClientModel {
 		this.definition = definition;
 	}
 
+	public String getUriObjectField() {
+		return uriObjectField;
+	}
+
+	public void setUriObjectField(String uriObjectField) {
+		this.uriObjectField = uriObjectField;
+	}
+
 	/*public HMISTypes getPickList() {
 		return pickList;
 	}
@@ -153,4 +163,5 @@ public class Question extends ClientModel {
 	public void setPickList(HMISTypes pickList) {
 		this.pickList = pickList;
 	}*/
+	
 }

@@ -21,6 +21,7 @@ public class QuestionConverter   {
          if(entity.getPicklistGroupName()!=null) model.addLink(new ActionLink("pickList", "/hmis-clientapi/rest/v2017/hmistypes/"+entity.getPicklistGroupName()+"/values"));
        }
        if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate()));
+       if(entity.getUriObjectField()!=null) model.setUriObjectField(entity.getUriObjectField());
       return model;
    }
    
@@ -35,6 +36,7 @@ public class QuestionConverter   {
        model.setHudQuestionId(entity.getHudQuestionId());
          model.setPicklistGroupName(entity.getPicklistGroupName());
        if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate()));
+       if(entity.getUriObjectField()!=null) model.setUriObjectField(entity.getUriObjectField());
       return model;
    }
 
