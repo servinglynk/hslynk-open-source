@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
 
 
@@ -46,7 +47,7 @@ public class Pathstatus extends HmisBaseModel implements Cloneable, Serializable
 
 
 	/** Field mapping. */
-	private Long clientEnrolledInPath;
+	private NoYesEnum clientEnrolledInPath;
 	/** Field mapping. */
 	private LocalDateTime dateOfStatus;
 	/** Field mapping. */
@@ -111,8 +112,9 @@ public class Pathstatus extends HmisBaseModel implements Cloneable, Serializable
 	 * @return A Long object (this.clientEnrolledInPath)
 	 */
 	@Basic( optional = true )
+	@Type(type="com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Column( name = "client_enrolled_in_path"  )
-	public Long getClientEnrolledInPath() {
+	public NoYesEnum getClientEnrolledInPath() {
 		return this.clientEnrolledInPath;
 
 	}
@@ -123,7 +125,7 @@ public class Pathstatus extends HmisBaseModel implements Cloneable, Serializable
 	 * Set the value related to the column: clientEnrolledInPath.
 	 * @param clientEnrolledInPath the clientEnrolledInPath value you wish to set
 	 */
-	public void setClientEnrolledInPath(final Long clientEnrolledInPath) {
+	public void setClientEnrolledInPath(final NoYesEnum clientEnrolledInPath) {
 		this.clientEnrolledInPath = clientEnrolledInPath;
 	}
 

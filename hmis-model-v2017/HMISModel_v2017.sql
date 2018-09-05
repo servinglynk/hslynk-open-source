@@ -1975,7 +1975,7 @@ CREATE TABLE  "v2017".project
 	  projectname text,
 	  continuumproject "v2017".no_yes,
 	  projecttype "v2017".project_type,
-	  residentialaffiliation integer, --Sandeep change to to no_yes
+	  residentialaffiliation "v2017".no_yes,
 	  operatingstartdate timestamp,
 	  operatingenddate timestamp,
 	  trackingmethod "v2017".tracking_method,
@@ -2130,7 +2130,7 @@ CREATE TABLE "v2017".path_status
 (
   "id" uuid NOT NULL,
   "date_of_status" timestamp,
-  "client_enrolled_in_path" bigint, --sandeep change this to fk-5
+  "client_enrolled_in_path" "v2017".no_yes,
   "reason_not_enrolled"  "v2017".reason_not_enrolled,
   "enrollmentid" uuid,
   "project_group_code" character varying(8),
@@ -2220,7 +2220,7 @@ CREATE TABLE "v2017".entryRHY
 	"incarcerated_parent" "v2017".incarcerated_parent,
 	"formerly_ward_of_juvenile_justice" "v2017".formerly_ward_of_juvenile_justice,
 	"years_juvenile_justice" "v2017".years_juvenile_justice,
-	"months_juvenile_justice" integer, -- Sandeep change this to yes no
+	"months_juvenile_justice" integer,
 	"formerly_ward_child_welfr_forest_care" "v2017".formerly_ward_child_welfr_forest_care,
 	"years_child_welfr_forest_care" "v2017".years_child_welfr_forest_care,
 	months_child_welfr_forest_care integer,
@@ -3044,7 +3044,6 @@ create table "v2017".exitRHY
 	asked_or_forced_to_exchange_for_sex_past_three_months "v2017".no_yes,
 	work_place_violence_threats "v2017".no_yes,
 	work_place_promise_difference "v2017".no_yes,
-	projectcompletionstatus "v2017".projectcompletionstatus, -- Sandeep alter statement to add this column.
 	coerced_to_continue_work "v2017".no_yes,
 	labor_exploit_past_three_months "v2017".no_yes,
 	counseling_received "v2017".no_yes,
@@ -3826,3 +3825,14 @@ update_url_template='/clients/{clientid}/enrollments/{enrollmentid}/contacts/{co
 question_description='Contact location',
 display_text='Contact location'
 where picklist_group_name='contact_location'
+
+ALTER TABLE v2017.project ALTER COLUMN residentialaffiliation "v2017".no_yes;
+ALTER TABLE v2017.path_status ALTER COLUMN client_enrolled_in_path "v2017".no_yes;
+
+ALTER TABLE v2017.project ALTER COLUMN residentialaffiliation "v2017".no_yes;
+ALTER TABLE v2017.project ALTER COLUMN residentialaffiliation "v2017".no_yes;
+ALTER TABLE v2017.project ALTER COLUMN residentialaffiliation "v2017".no_yes;
+
+
+
+
