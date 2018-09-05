@@ -43,6 +43,9 @@ public class QuestionEntity  implements Cloneable, Serializable {
 	@Column(name="update_url_template")
 	private String updateURLTemplate;
 	
+	@Column(name="uri_object_field")
+	private String uriObjectField;
+	
 	public UUID getId() {
 		return id;
 	}
@@ -91,5 +94,11 @@ public class QuestionEntity  implements Cloneable, Serializable {
 	}
 	public void setUpdateURLTemplate(String updateURLTemplate) {
 		this.updateURLTemplate = updateURLTemplate;
+	}
+	public String getUriObjectField() {
+		return uriObjectField;
+	}
+	public void setUriObjectField(String uriObjectField) {
+		this.uriObjectField = uriObjectField;
 	}
 }
