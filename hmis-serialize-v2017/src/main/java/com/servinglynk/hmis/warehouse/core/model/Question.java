@@ -41,6 +41,8 @@ public class Question extends ClientModel {
 	
 	private String uriObjectField;
 	
+	private String updateUriTemplate;
+	
 	
 	public UUID getQuestionId() {
 		return questionId;
@@ -156,6 +158,14 @@ public class Question extends ClientModel {
 		this.uriObjectField = uriObjectField;
 	}
 
+	public String getUpdateUriTemplate() {
+		return updateUriTemplate;
+	}
+
+	public void setUpdateUriTemplate(String updateUriTemplate) {
+		this.updateUriTemplate = updateUriTemplate;
+	}
+
 	/*public HMISTypes getPickList() {
 		return pickList;
 	}
@@ -163,5 +173,5 @@ public class Question extends ClientModel {
 	public void setPickList(HMISTypes pickList) {
 		this.pickList = pickList;
 	}*/
-	
+
 }
