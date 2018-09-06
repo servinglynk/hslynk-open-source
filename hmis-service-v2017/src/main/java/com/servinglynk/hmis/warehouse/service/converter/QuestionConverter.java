@@ -20,8 +20,9 @@ public class QuestionConverter   {
          model.setPicklistGroupName(entity.getPicklistGroupName());
          if(entity.getPicklistGroupName()!=null) model.addLink(new ActionLink("pickList", "/hmis-clientapi/rest/v2017/hmistypes/"+entity.getPicklistGroupName()+"/values"));
        }
-       if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate()));
+//       if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate(),entity.getUriObjectField()));
        if(entity.getUriObjectField()!=null) model.setUriObjectField(entity.getUriObjectField());
+       if(entity.getUpdateURLTemplate()!=null) model.setUpdateUriTemplate(entity.getUpdateURLTemplate());
       return model;
    }
    
@@ -35,8 +36,9 @@ public class QuestionConverter   {
        model.setQuestionType(entity.getQuestionType());
        model.setHudQuestionId(entity.getHudQuestionId());
          model.setPicklistGroupName(entity.getPicklistGroupName());
-       if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate()));
+//       if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate(),entity.getUriObjectField()));
        if(entity.getUriObjectField()!=null) model.setUriObjectField(entity.getUriObjectField());
+       if(entity.getUpdateURLTemplate()!=null) model.setUpdateUriTemplate(entity.getUpdateURLTemplate());
       return model;
    }
 
