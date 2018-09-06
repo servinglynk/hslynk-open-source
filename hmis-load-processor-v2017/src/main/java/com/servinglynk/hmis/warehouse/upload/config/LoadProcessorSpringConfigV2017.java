@@ -17,6 +17,7 @@ import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorker;
 import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorkerChildren;
 import com.servinglynk.hmis.warehouse.upload.service.ExitWorker;
 import com.servinglynk.hmis.warehouse.upload.service.ExitWorkerChildren;
+import com.servinglynk.hmis.warehouse.upload.service.ReRunWorker;
 
 @Configuration
 @EnableScheduling
@@ -58,6 +59,11 @@ public class LoadProcessorSpringConfigV2017 {
 	@Bean
 	public BulkUploaderWorkerDaoImpl getBulkUploaderWorkerDao(){
 		return new BulkUploaderWorkerDaoImpl();
+	}
+
+	@Bean
+	public ReRunWorker reRunWorker(){
+		return new ReRunWorker();
 	}
 	
 }
