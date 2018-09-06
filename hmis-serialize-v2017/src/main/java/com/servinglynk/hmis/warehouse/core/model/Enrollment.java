@@ -3,32 +3,75 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("enrollment")
 public class Enrollment extends ClientModel {
 	
 	private UUID enrollmentId;
+	
+	@JsonProperty("continuouslyHomelessOneYear")
 	private Integer continuouslyhomelessoneyear;
+	
+	@JsonProperty("disablingCondition")
 	private Integer  disablingcondition;
+	
+	@JsonProperty("entryDate")
 	private Date  entrydate;
+	
+	@JsonProperty("dateToStreetESSH")
 	private Date  dateToStreetESSH;
+	
+	@JsonProperty("householdId")
 	private String  householdid;
+	
+	@JsonProperty("monthsHomelessPastThreeYears")
 	private Integer  monthshomelesspastthreeyears;
+	
+	@JsonProperty("monthsHomelessThisTime")
 	private Integer  monthshomelessthistime;
+	
+	@JsonProperty("personalId")
 	private UUID  	personalid;
+	
+	@JsonProperty("projectEntryId")
 	private UUID  	projectentryid;
+	
+	@JsonProperty("projectId")
 	private UUID  	projectid;
+	
+	@JsonProperty("relationshipToHOH")
 	private Integer  relationshiptohoh;
+	
+	@JsonProperty("residencePrior")
 	private Integer  residenceprior;
+	
+	@JsonProperty("statusdocumented")
 	private Integer  statusdocumented;
+	
+	@JsonProperty("lengthOfStay")
 	private Integer lengthOfStay;
+	
+	@JsonProperty("livingSituation")
 	private Integer livingSituation;
+	
+	@JsonProperty("timesHomelessPastThreeYears")
 	private Integer  timeshomelesspastthreeyears;
+	
+	@JsonProperty("yearsHomeless")
 	private int  yearshomeless;
+	
+	@JsonProperty("clientId")
 	private UUID  clientId;
+	
+	@JsonProperty("losUnderThreshold")
 	private Integer losunderthreshold;
+	
+	@JsonProperty("previousStreetESSH")
 	private Integer previousStreetESSH;
+	
+	@JsonProperty("source")
 	private String source;
 	
 	public Enrollment(){
