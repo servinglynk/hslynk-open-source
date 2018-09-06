@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+@JsonRootName("rhyAfterCare")
 public class RhyAfterCare extends ClientModel{
 
 	private java.util.UUID rhyAfterCareId; 

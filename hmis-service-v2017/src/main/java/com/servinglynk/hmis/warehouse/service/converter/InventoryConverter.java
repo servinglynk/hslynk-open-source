@@ -12,6 +12,8 @@ public class InventoryConverter extends BaseConverter {
        entity.setId(model.getInventoryId());
        if(model.getAvailabilty()!=null)
        entity.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum(model.getAvailabilty().toString()));
+       if(model.getBedinventory()!=null)
+           entity.setBedInventory(model.getBedinventory());
        if(model.getBedtype()!=null)
        entity.setBedtype(InventoryBedtypeEnum.lookupEnum(model.getBedtype().toString()));
        if(model.getHmisparticipatingbeds()!=null)

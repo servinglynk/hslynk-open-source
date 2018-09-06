@@ -16,7 +16,7 @@ public class Inventory extends ClientModel{
 
       private Integer availabilty;
 
-      private UUID bedinventory;
+      private Integer bedinventory;
 
       private Integer bedtype;
 
@@ -73,10 +73,10 @@ public class Inventory extends ClientModel{
       public void setAvailabilty(Integer availabilty){
           this.availabilty = availabilty;
       }
-      public UUID getBedinventory(){
+      public Integer getBedinventory(){
           return bedinventory;
       }
-      public void setBedinventory(UUID bedinventory){
+      public void setBedinventory(Integer bedinventory){
           this.bedinventory = bedinventory;
       }
       public Integer getBedtype(){
