@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("entryssvf")
@@ -10,6 +11,7 @@ public class Entryssvf extends ClientModel{
 
       private UUID entryssvfId;
 
+      @JsonProperty("percentAmi")
       private Integer percentami;
 
       private String lastPermanentStreet;
@@ -21,30 +23,46 @@ public class Entryssvf extends ClientModel{
       private String lastPermanentZip;
 
       private Integer addressDataQuality;
-
+  	@JsonProperty("hpScreenScore")
       private Integer hpScreenScore;
-
+	@JsonProperty("vamcStaction")
       private String vamcStaction;
   	private Integer timeToHousingLoss;
+  	@JsonProperty("zeroIncome")
   	private Integer zeroincome;
+  	@JsonProperty("annualPercentAmi")
   	private Integer annualpercentami;
+	@JsonProperty("financialChange")
   	private Integer financialchange;
+	@JsonProperty("householdChange")
   	private Integer householdchange;
+  	@JsonProperty("evictionHistory")
   	private Integer evictionhistory;
+  	@JsonProperty("subsidyAtRisk")
   	private Integer subsidyatrisk;
+  	@JsonProperty("literalHomelessHistory")
   	private Integer literalhomelesshistory;
+  	@JsonProperty("disableHoh")
   	private Integer disablehoh;
+  	@JsonProperty("criminalRecord")
   	private Integer criminalrecord;
+  	@JsonProperty("sexOffender")
   	private Integer sexoffender;
+  	@JsonProperty("dependendUnder6")
   	private Integer dependendunder6;
+  	@JsonProperty("singleParent")
   	private Integer singleparent;
+  	@JsonProperty("hh5Plus")
   	private Integer hh5plus;
+  	@JsonProperty("iraqAfghanistan")
   	private Integer iraqafghanistan;
   	private Integer femvet;
+  	@JsonProperty("thresholdScore")
   	private Integer thresholdscore;
   	private Integer ervisits;
   	private Integer jailnights;
   	private Integer hospitalnights;
+  	private Integer urgentReferral;
 
 
 
@@ -342,6 +360,10 @@ public class Entryssvf extends ClientModel{
 	public void setHospitalnights(Integer hospitalnights) {
 		this.hospitalnights = hospitalnights;
 	}
-      
-
- }
+	public Integer getUrgentReferral() {
+		return urgentReferral;
+	}
+	public void setUrgentReferral(Integer urgentReferral) {
+		this.urgentReferral = urgentReferral;
+	}
+}

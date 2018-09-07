@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -14,14 +15,16 @@ public class Funder extends ClientModel{
 
     @JsonSerialize(using=JsonDateSerializer.class)
     @JsonDeserialize(using=JsonDateDeserializer.class)
+    @JsonProperty("endDate")
     private LocalDateTime enddate;
 
     private Integer funder;
-
+    @JsonProperty("grantId")
     private UUID grantid;
     
     @JsonSerialize(using=JsonDateSerializer.class)
     @JsonDeserialize(using=JsonDateDeserializer.class)
+    @JsonProperty("startDate")
     private LocalDateTime startdate;
 
 
