@@ -2501,7 +2501,7 @@ create table  "v2017".funder
   "id"  uuid not null,
   "enddate" timestamp,
   "funder" "v2017".federal_partner_components,
-  "grantid" uuid,
+  "grantid" text, --Sandeep Alter and change the column to text
   "projectid" uuid,
   "startdate" timestamp,
   "project_group_code" character varying(8),
@@ -3782,3 +3782,6 @@ update_url_template='/clients/{clientid}/enrollments/{enrollmentid}/contacts/{co
 question_description='Contact location',
 display_text='Contact location'
 where picklist_group_name='contact_location'
+
+Alter table  
+
