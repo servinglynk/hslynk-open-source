@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonRootName("healthstatus")
+@JsonRootName("healthStatus")
 public class Healthstatus extends ClientModel{
 
 

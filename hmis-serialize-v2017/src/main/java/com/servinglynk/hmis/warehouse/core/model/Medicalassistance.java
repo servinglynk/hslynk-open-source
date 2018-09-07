@@ -1,15 +1,14 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonRootName("medicalassistance")
+@JsonRootName("medicalAssistance")
 public class Medicalassistance extends ClientModel{
 
 
@@ -19,12 +18,15 @@ public class Medicalassistance extends ClientModel{
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
+                     
+      @JsonProperty("hivAIDSAssistance")
       private Integer hivaidsassistance;
 
+      @JsonProperty("nohivaidsAssistanceReason")
       private Integer nohivaidsassistancereason;
 
       private Integer adap;
-
+      @JsonProperty("noadaPreason")
       private Integer noadapreason;
 
       

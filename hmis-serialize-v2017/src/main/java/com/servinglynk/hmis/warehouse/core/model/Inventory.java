@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -15,18 +16,26 @@ public class Inventory extends ClientModel{
       private UUID inventoryId;
 
       private Integer availabilty;
-
+      //it should be an integer
+      @JsonProperty("bedInventory")
       private UUID bedinventory;
-
+      
+      private Integer cocCode;
+      
+      @JsonProperty("bedType")
       private Integer bedtype;
 
+      @JsonProperty("hmisParticipatingBeds")
       private Integer hmisparticipatingbeds;
-
+      @JsonProperty("houseHoldType")
       private Integer householdtype;
       
+      @JsonProperty("chBedInventory")
       private Integer chbedinventory;
       
+      @JsonProperty("vetBedInventory")
       private Integer vetbedinventory;
+      @JsonProperty("youthBedInventory")
       private Integer youthbedinventory;
       
       public Integer getChbedinventory() {
@@ -51,13 +60,19 @@ public class Inventory extends ClientModel{
 
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)
+      @JsonProperty("inventoryEndDate")
       private LocalDateTime inventoryenddate;
 
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)
+      @JsonProperty("inventoryStartDate")
       private LocalDateTime inventorystartdate;
-
+      @JsonProperty("unitInventory")
       private Integer unitinventory;
+      
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
+      private LocalDateTime informationDate;
 
 
 
@@ -115,5 +130,17 @@ public class Inventory extends ClientModel{
       public void setUnitinventory(Integer unitinventory){
           this.unitinventory = unitinventory;
       }
-
+	public Integer getCocCode() {
+		return cocCode;
+	}
+	public void setCocCode(Integer cocCode) {
+		this.cocCode = cocCode;
+	}
+	public LocalDateTime getInformationDate() {
+		return informationDate;
+	}
+	public void setInformationDate(LocalDateTime informationDate) {
+		this.informationDate = informationDate;
+	}
+	
  }

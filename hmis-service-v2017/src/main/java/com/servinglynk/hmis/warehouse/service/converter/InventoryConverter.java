@@ -32,6 +32,10 @@ public class InventoryConverter extends BaseConverter {
        entity.setVetBedInventory(model.getVetbedinventory());
        if(model.getYouthbedinventory()!=null)
        entity.setYouthBedInventory(model.getYouthbedinventory());
+       
+       if(model.getInformationDate()!=null)
+    	   	entity.setInformationdate(model.getInformationDate());
+       
        return entity;
    }
 
@@ -62,6 +66,7 @@ public class InventoryConverter extends BaseConverter {
        model.setYouthbedinventory(entity.getYouthBedInventory());
        if(entity.getVetBedInventory()!=null)
        model.setVetbedinventory(entity.getVetBedInventory());
+       if(entity.getInformationdate()!=null) model.setInformationDate(entity.getInformationdate());
        copyBeanProperties(entity, model);
        return model;
    }

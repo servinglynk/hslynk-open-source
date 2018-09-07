@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("incomeAndSource")
@@ -12,11 +13,12 @@ public class IncomeAndSource extends ClientModel{
       private UUID incomeAndSourceId;
 
       private Integer alimony;
-
+      
+      @JsonProperty("alimonyAmount")
       private float alimonyamount;
 
       private Integer childsupport;
-
+      @JsonProperty("childSupportAmount")
       private float childsupportamount;
 
       private Integer earned;
@@ -32,11 +34,12 @@ public class IncomeAndSource extends ClientModel{
       private Integer othersource;
 
       private float othersourceamount;
-
+      @JsonProperty("otherSourceIdentify")
       private String othersourceidentify;
 
       private Integer pension;
 
+      @JsonProperty("pensionAmount")
       private float pensionamount;
 
       private Integer privatedisability;
@@ -65,8 +68,10 @@ public class IncomeAndSource extends ClientModel{
 
       private float unemploymentamount;
 
+      @JsonProperty("vaDisabilityNonService")
       private Integer vadisabilitynonservice;
-
+      
+      @JsonProperty("vaDisabilityNonServiceAmount")
       private float vadisabilitynonserviceamount;
 
       private Integer vadisabilityservice;
