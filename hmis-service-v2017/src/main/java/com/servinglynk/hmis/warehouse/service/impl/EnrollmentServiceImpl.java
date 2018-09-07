@@ -47,17 +47,19 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment updateEnrollment(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
 		com.servinglynk.hmis.warehouse.model.v2017.Client pClient = daoFactory.getClientDao().getClientById(clientId);
-		if(pClient==null) throw new ClientNotFoundException();
-
-		com.servinglynk.hmis.warehouse.model.v2017.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
-		if(pProject==null) throw new ProjectNotFoundException();
-
 		com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
 		if(pEnrollment == null) throw new EnrollmentNotFound();
-
+		
+		if(pClient==null) throw new ClientNotFoundException();
 		EnrollmentConveter.modelToEntity(enrollment, pEnrollment);
+		
+		if(enrollment.getProjectid()!=null) {
+			com.servinglynk.hmis.warehouse.model.v2017.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
+			if(pProject==null) throw new ProjectNotFoundException();
+			pEnrollment.setProject(pProject);
+		}
+		
 		pEnrollment.setClient(pClient);
-		pEnrollment.setProject(pProject);
 	 	pEnrollment.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
 		pEnrollment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
