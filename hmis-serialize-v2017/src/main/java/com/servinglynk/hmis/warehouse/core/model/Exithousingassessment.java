@@ -3,17 +3,19 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.util.Date;
 import java.util.UUID;
 
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("exithousingassessment")
+@JsonRootName("exitHousingAssessment")
 public class Exithousingassessment extends ClientModel{
 
 
       private UUID exithousingassessmentId;
 
+      @JsonProperty("housingAssessment")
       private Integer housingassessment;
 
+      @JsonProperty("subsidyInformation")
       private Integer subsidyinformation;
 
 

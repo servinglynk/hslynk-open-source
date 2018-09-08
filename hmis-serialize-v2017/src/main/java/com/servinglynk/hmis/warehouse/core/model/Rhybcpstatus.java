@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.thoughtworks.xstream.mapper.LocalConversionMapper;
 
-@JsonRootName("rhybcpstatus")
+@JsonRootName("rhybcpStatus")
 public class Rhybcpstatus extends ClientModel{
 
 

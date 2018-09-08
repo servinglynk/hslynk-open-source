@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("site")
@@ -13,7 +14,7 @@ public class Site extends ClientModel{
       private String address;
 
       private String city;
-
+      @JsonProperty("geoCode")
       private Integer geocode;
 
       private Integer principalsite;

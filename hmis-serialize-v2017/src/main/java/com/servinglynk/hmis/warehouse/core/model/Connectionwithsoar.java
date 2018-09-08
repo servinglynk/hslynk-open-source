@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("connectionwithsoar")
@@ -9,7 +10,7 @@ public class Connectionwithsoar extends ClientModel{
 
 
       private UUID connectionwithsoarId;
-
+      @JsonProperty("connectionWithSoar")
       private Integer connectionwithsoar;
 
 

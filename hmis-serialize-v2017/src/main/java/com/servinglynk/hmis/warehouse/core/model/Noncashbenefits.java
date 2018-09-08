@@ -3,20 +3,22 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("noncashbenefits")
+@JsonRootName("noncashBenefits")
 public class Noncashbenefits extends ClientModel{
 
 
       private UUID noncashbenefitsID;
 
+      @JsonProperty("benefitsFromAnySource")
       private Integer benefitsfromanysource;
-
+      @JsonProperty("otherSource")
       private Integer othersource;
 
       private String othersourceidentify;
-
+      @JsonProperty("otherTanf")
       private Integer othertanf;
 
       private Integer rentalassistanceongoing;
@@ -24,9 +26,9 @@ public class Noncashbenefits extends ClientModel{
       private Integer rentalassistancetemp;
 
       private Integer snap;
-
+      @JsonProperty("tanfChildcare")
       private Integer tanfchildcare;
-
+      @JsonProperty("tanfTransportation")
       private Integer tanftransportation;
 
       private Integer wic;
