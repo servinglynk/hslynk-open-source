@@ -46,7 +46,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 						vashExitReasonModel.setExport(exportEntity);
 						com.servinglynk.hmis.warehouse.model.v2017.Exit exit = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class,expVASHExitReason.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						vashExitReasonModel.setExitid(exit);
-						performSaveOrUpdate(vashExitReasonModel);
+						performSaveOrUpdate(vashExitReasonModel,domain);
 					}catch(Exception e ){
 						String errorMessage = "Exception beause of the VASHExitReasons ::"+expVASHExitReason.getVashExitReasonID() +" Exception ::"+e.getMessage();
 						if(vashExitReasonModel != null){
@@ -71,6 +71,10 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 		com.servinglynk.hmis.warehouse.model.v2017.VashExitReason modelFromDB = null;
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.VashExitReason) getModel(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason.class, expVASHExitReason.getVashExitReasonID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.VashExitReason();

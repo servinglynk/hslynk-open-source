@@ -103,7 +103,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 					incomeAndSourcesModel.setExport(exportEntity);
 					incomeAndSourcesModel.setInformationDate(BasicDataGenerator.getLocalDateTime(incomeAndSources.getInformationDate()));
 					incomeAndSourcesModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((incomeAndSources.getDataCollectionStage())));
-					performSaveOrUpdate(incomeAndSourcesModel);
+					performSaveOrUpdate(incomeAndSourcesModel,domain);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the incomeAndSources::"+incomeAndSources.getIncomeAndSourcesID() +" Exception ::"+e.getMessage();
 					if(incomeAndSourcesModel != null){
@@ -129,6 +129,10 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources) getModel(com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources.class, incomeandsources.getIncomeAndSourcesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources();

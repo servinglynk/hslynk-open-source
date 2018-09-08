@@ -15,6 +15,7 @@ public enum UploadStatus {
 	C_EXIT("C_EXIT"),
 	C_CLIENT("C_CLIENT"),
 	ERROR("ERROR"),
+	RELOAD("RELOAD"),
 	/** OLD from 2015 **/
 	CORE("CORE"),
 	PROJCHILD("PROJCHILD"),

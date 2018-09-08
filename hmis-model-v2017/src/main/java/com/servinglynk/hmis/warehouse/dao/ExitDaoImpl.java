@@ -68,7 +68,7 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, exit.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					exitModel.setEnrollmentid(enrollmentModel);
 					exitModel.setExport(exportEntity);
-					performSaveOrUpdate(exitModel);
+					performSaveOrUpdate(exitModel,domain);
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the exit::"+exit.getExitID() +" Exception ::"+e.getMessage();
 					if(exitModel != null){
@@ -94,6 +94,10 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class, exit.getExitID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Exit();

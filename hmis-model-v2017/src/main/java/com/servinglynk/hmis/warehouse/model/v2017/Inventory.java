@@ -57,6 +57,8 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	/** Field mapping. */
 	private Integer chBedInventory;
 	/** Field mapping. */
+	private Integer bedInventory;
+	/** Field mapping. */
 	private Coc coc;
 	/** Field mapping. */
 	private Project projectid;
@@ -170,6 +172,27 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	 */
 	public void setChBedInventory(final Integer chBedInventory) {
 		this.chBedInventory = chBedInventory;
+	}
+	
+	 /**
+	 * Return the value associated with the column: chBedInventory.
+	 * @return A Integer object (this.chBedInventory)
+	 */
+	@Basic( optional = true )
+	@Column( name = "bed_inventory"  )
+	public Integer getBedInventory() {
+		return this.bedInventory;
+
+	}
+
+
+
+	 /**
+	 * Set the value related to the column: chBedInventory.
+	 * @param chBedInventory the chBedInventory value you wish to set
+	 */
+	public void setBedInventory(final Integer bedInventory) {
+		this.bedInventory = bedInventory;
 	}
 
 	 /**

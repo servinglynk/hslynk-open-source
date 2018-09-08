@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				.getEnrollment();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, getProjectGroupCode(domain));
 		Map<String,HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
-		if (enrollments != null && enrollments.size() > 0) {
+		if (CollectionUtils.isNotEmpty(enrollments)) {
 			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment  :  enrollments)
 			{
 				com.servinglynk.hmis.warehouse.model.v2017.Enrollment enrollmentModel = null;
@@ -92,7 +93,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					// Very important logic needs to come here via a Microservice call.
 					enrollmentModel.setClient(client);
 					enrollmentModel.setExport(exportEntity);
-					performSaveOrUpdate(enrollmentModel);
+					performSaveOrUpdate(enrollmentModel, domain);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollment::"+enrollment.getEnrollmentID() +" Exception ::"+e.getMessage();
 					if(enrollmentModel != null){
@@ -119,6 +120,10 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, enrollment.getEnrollmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
+		if(domain.isReUpload() && modelFromDB != null) 
+		{
+			return modelFromDB;
+		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
 			modelFromDB.setId(UUID.randomUUID());
@@ -126,6 +131,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		}
 		com.servinglynk.hmis.warehouse.model.v2017.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+		model.setId(modelFromDB.getId());
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,enrollment.getEnrollmentID(),data);

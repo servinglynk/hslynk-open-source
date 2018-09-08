@@ -49,7 +49,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 						//exportEntity.addAffiliation(affiliationModel);
 						affiliationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateCreated()));
 						affiliationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
-						performSaveOrUpdate(affiliationModel);
+						performSaveOrUpdate(affiliationModel,domain);
 					} catch(Exception e) {
 						String errorMessage = "Error occured with "+affiliation.getAffiliationID() + " Execption :::"+e.getLocalizedMessage();
 						if(affiliationModel != null){
@@ -76,6 +76,10 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			// We always insert for a Full refresh and update if the record exists for Delta refresh
 			if(!isFullRefresh(domain))
 				modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Affiliation) getModel(com.servinglynk.hmis.warehouse.model.v2017.Affiliation.class, affiliation.getAffiliationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			if(domain.isReUpload() && modelFromDB != null) 
+			{
+				return modelFromDB;
+			}
 			com.servinglynk.hmis.warehouse.model.v2017.Affiliation model = null;
 			if(modelFromDB == null) {
 				model = new com.servinglynk.hmis.warehouse.model.v2017.Affiliation();

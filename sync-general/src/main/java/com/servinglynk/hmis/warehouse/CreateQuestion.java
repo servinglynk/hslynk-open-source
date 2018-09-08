@@ -18,6 +18,8 @@ import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import com.google.common.base.CaseFormat;
+
 public class CreateQuestion extends Logging {
 	 Logger logger = Logger.getLogger(CreateQuestion.class.getName());
 	public static int batchSize = 1000;
@@ -54,6 +56,75 @@ public class CreateQuestion extends Logging {
         }
         return responses;
     }
+    
+    public  String getQuestionByName(String schemaName, String desc,boolean useLower ) throws Exception{
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;		
+        Connection connection = null;
+        String returnName = null;
+        try{
+            connection = SyncPostgresProcessor.getConnection();
+            String nameQuery = useLower ? " lower(picklist_group_name) " : " picklist_group_name ";
+            statement = connection.prepareStatement("select hud_question_id from "+schemaName+".question where " +nameQuery+" = ? ");
+            statement.setString(1, desc.trim().toLowerCase());
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+            	returnName = resultSet.getString(1);
+            	break;
+            }
+        }catch (Exception ex){
+            throw ex;
+        }
+        return returnName;
+    }
+    
+    public  String getHmisTypeByName(String schemaName, String name,boolean useLower ) throws Exception{
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;		
+        Connection connection = null;
+        String returnName = null;
+        try{
+            connection = SyncPostgresProcessor.getConnection();
+            String nameQuery = useLower ? " lower(name) " : " name ";
+            statement = connection.prepareStatement("select name from "+schemaName+".hmis_type where " +nameQuery+" = ? ");
+            statement.setString(1, name.trim().toLowerCase());
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+            	returnName = resultSet.getString(1);
+            	break;
+            }
+        }catch (Exception ex){
+            throw ex;
+        }
+        return returnName;
+    }
+    
+    public  void updateQuestion(String schemaName,String hudName,String hudId,String hudNameWithUnderscore){
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("update "+schemaName+".question set hud_question_id =?,question_description=?,display_text=? where picklist_group_name = ? and hud_question_id is null ");
+            statement.setString(1,hudId);
+            statement.setString(2,hudName);
+            statement.setString(3,hudName);
+            statement.setString(4,hudNameWithUnderscore);
+            statement.executeUpdate();
+        }catch (SQLException ex) {
+            logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+
+        } finally {
+
+            try {
+                if (statement != null) {
+                	statement.close();
+                }
+            } catch (SQLException ex) {
+            	logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+            }
+        }
+    }
+
     
 	  public  void insertQuestion(String schemaName,String hudName,String hudId,String dataType){
 	        PreparedStatement statement = null;
@@ -160,9 +231,42 @@ public class CreateQuestion extends Logging {
 				for(String line : lists) {
 					if(StringUtils.isNotBlank(line)) {
 						String[] split = line.split(",");
-						if(!StringUtils.contains(split[2].trim(),"I")) {
-							question.insertQuestion(schemaName, split[1].trim(), split[0].trim(),split[2].trim());
+						if(StringUtils.contains(split[2].trim(),"I")) {
+							String hudNameWithUnderscore = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, split[1].trim());
+//							
+//							String hmisTypeByName = question.getHmisTypeByName(schemaName, hudNameWithUnderscore,false);
+//							if(StringUtils.isBlank(hmisTypeByName)) {
+//								 hmisTypeByName = question.getHmisTypeByName(schemaName, split[1].toLowerCase().trim(),true);
+//							}
+//							if(StringUtils.isBlank(hmisTypeByName)) {
+//								 hmisTypeByName = question.getHmisTypeByName(schemaName, hudNameWithUnderscore.trim(),true);
+//								 if(StringUtils.isNotBlank(hmisTypeByName)) {
+//									 hmisTypeByName = question.getQuestionByName(schemaName, split[1].trim(), true);
+//									 System.out.println("Fount with _ but not in question"+hudNameWithUnderscore);
+//								 }
+//							}
+							String hudQuestionId  = question.getQuestionByName(schemaName, hudNameWithUnderscore, true);
+							if(StringUtils.isBlank(hudQuestionId)) {
+								hudQuestionId =  question.getHmisTypeByName(schemaName, split[1].trim(),true);
+							}
+							if(StringUtils.isBlank(hudQuestionId)) {
+								System.out.println(" updating...:::"+ split[1].trim()+ " File value:"+split[0].trim() );
+							}
+							
+//							if(StringUtils.isNotBlank(hudQuestionId)) {
+//								String same= "NotSame";
+//								if(StringUtils.equalsIgnoreCase(hudQuestionId, split[0].trim())) {
+//									same = "::Same";
+//								}
+//						    	System.out.println(" updating...:::"+ split[1].trim()+ " DB Value ::"+hudQuestionId + " File value:"+split[0].trim() +":::"+same);
+//								//question.updateQuestion(schemaName,hmisTypeByName , split[0].trim(),hudNameWithUnderscore);
+//							}else {
+//								System.out.println(" hmis type missing:::"+ split[1].trim());
+//							}
 						}
+//						if(!StringUtils.contains(split[2].trim(),"I")) {
+//							question.insertQuestion(schemaName, split[1].trim(), split[0].trim(),split[2].trim());
+//						}
 					}
 				}
 			} catch (Exception e) {

@@ -45,7 +45,7 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements MoveindateDao {
 						moveindateModel.setDateCreated(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateCreated()));
 						moveindateModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateUpdated()));
 						
-						performSaveOrUpdate(moveindateModel);
+						performSaveOrUpdate(moveindateModel,domain);
 					}catch(Exception e ){
 						String errorMessage = "Exception beause of the MoveInDate::"+expMoveindates.getMoveInDateID() +" Exception ::"+e.getMessage();
 						if(moveindateModel != null){
@@ -71,6 +71,10 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements MoveindateDao {
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Moveindate) getModel(com.servinglynk.hmis.warehouse.model.v2017.Moveindate.class, expMoveInDate.getMoveInDateID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Moveindate();

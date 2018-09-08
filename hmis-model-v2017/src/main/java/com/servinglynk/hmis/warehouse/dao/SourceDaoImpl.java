@@ -44,7 +44,7 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			sourceModel.setSourcecontactlast(source.getSourceContactLast());
 			sourceModel.setSourceid(String.valueOf(source.getSourceID()));
 			sourceModel.setSourcename(source.getSourceName());
-			performSaveOrUpdate(sourceModel);
+			performSaveOrUpdate(sourceModel,domain);
 		}catch (Exception ex){
 			String errorMessage = "Exception because of the source::"+source.getSourceID() +" Exception ::"+ex.getMessage();
 			if(sourceModel != null){
@@ -69,6 +69,11 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			sourceModel = (com.servinglynk.hmis.warehouse.model.v2017.Source) getModel(com.servinglynk.hmis.warehouse.model.v2017.Source.class, source.getSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		
+		if(domain.isReUpload() && sourceModel != null) {
+			return sourceModel;
+		}
 		
 		if(sourceModel == null) {
 			sourceModel = new com.servinglynk.hmis.warehouse.model.v2017.Source();

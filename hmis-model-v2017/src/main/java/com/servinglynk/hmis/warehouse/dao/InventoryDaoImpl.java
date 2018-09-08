@@ -50,6 +50,8 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	    com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
+		
 		List<Inventory> inventories = export.getInventory();
 		if (inventories != null && inventories.size() > 0) {
 			for (Inventory inventory : inventories) {
@@ -76,9 +78,9 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					inventoryModel.setSync(false);
 					Coc coc = (Coc) getModel(Coc.class,inventory.getCoCCode(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					inventoryModel.setCoc(coc);
-					Project project = (Project) getModel(Project.class,inventory.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					Project project = (Project) getModel(Project.class,inventory.getProjectID(),getProjectGroupCode(domain),true,projectModelMap, domain.getUpload().getId());
 					inventoryModel.setProjectid(project);
-					performSaveOrUpdate(inventoryModel);
+					performSaveOrUpdate(inventoryModel,domain);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the inventory::"+inventory.getInventoryID() +" Exception ::"+e.getMessage();
 					if(inventoryModel != null){
@@ -104,6 +106,9 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class, inventory.getInventoryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Inventory();
 			modelFromDB.setId(UUID.randomUUID());

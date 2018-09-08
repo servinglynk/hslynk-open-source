@@ -127,7 +127,7 @@ public class SyncDeltaHbase extends Logging {
                     final String tempName = tableName;
                     logger.info("[" + tempName + "] Processing table : " + tempName);
                         try {
-                            syncTable(tempName, tempName + "_" + projectGroupCode, hmisTypes, projectGroupCode,delta);
+                            syncTable(tempName, tempName + "_" + projectGroupCode, hmisTypes, projectGroupCode,delta, logger);
                         } catch (Exception ex) {
                             logger.error(ex);
                         }
@@ -184,7 +184,7 @@ public class SyncDeltaHbase extends Logging {
 	}
 
 	
-    private void syncTable(String postgresTable, String hbaseTable,  Map<String, String> hmisTypes,String projectGroupCode,boolean delta) {
+    private void syncTable(String postgresTable, String hbaseTable,  Map<String, String> hmisTypes,String projectGroupCode,boolean delta,Logger logger) {
         log.info("Start sync for table: " + postgresTable);
         HTable htable;
         ResultSet resultSet;
@@ -195,7 +195,7 @@ public class SyncDeltaHbase extends Logging {
         try {
         	connection = SyncPostgresProcessor.getConnection();
         	if(StringUtils.equals("enrollment", postgresTable) || StringUtils.equals("client", postgresTable)) {
-            	clientDedupMap = loadDedupClientMap(syncSchema, projectGroupCode);
+            	clientDedupMap = loadDedupClientMap(syncSchema, projectGroupCode,logger);
             }
             htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
             boolean empty = true;
@@ -242,27 +242,29 @@ public class SyncDeltaHbase extends Logging {
                     } else {
                         ResultSetMetaData metaData = resultSet.getMetaData();
                         Put p = new Put(Bytes.toBytes(key));
+                        
                         for (int i = 1; i < metaData.getColumnCount(); i++) {
                             String column = metaData.getColumnName(i);
                             String value = resultSet.getString(i);
                             String columnTypeName = metaData.getColumnTypeName(i);
+                            if(StringUtils.equals("client_id", column) && StringUtils.isNotBlank(value)) {
+                            	DedupClientDob dedupClientDob = clientDedupMap.get(value);
+                            	if(dedupClientDob != null && dedupClientDob.getDedupClientId() !=null) {
+                            			if(StringUtils.isNotBlank(dedupClientDob.getDedupClientId())) {
+                            				p.addColumn(Bytes.toBytes("CF"),
+                                                    Bytes.toBytes("dedup_client_id"),
+                                                    Bytes.toBytes(dedupClientDob.getDedupClientId()));
+                            			}
+                                			p.addColumn(Bytes.toBytes("CF"),
+                                                    Bytes.toBytes("ageatentry"),
+                                                    Bytes.toBytes(String.valueOf(dedupClientDob.getAge())));
+                            	}
+                            }
                             if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
                                 p.addColumn(Bytes.toBytes("CF"),
                                         Bytes.toBytes(column),
                                         Bytes.toBytes(value));
-                                if((StringUtils.equals("client", postgresTable) && StringUtils.equals("dob", column)) || StringUtils.equals("client_id", column)) {
-                                	DedupClientDob dedupClientDob = clientDedupMap.get(key);
-                                	if(dedupClientDob != null) {
-                                			if(StringUtils.isNotBlank(dedupClientDob.getDedupClientId())) {
-                                				p.addColumn(Bytes.toBytes("CF"),
-                                                        Bytes.toBytes("dedup_client_id"),
-                                                        Bytes.toBytes(dedupClientDob.getDedupClientId()));
-                                			}
-                                			p.addColumn(Bytes.toBytes("CF"),
-                                                    Bytes.toBytes("ageatentry"),
-                                                    Bytes.toBytes(String.valueOf(dedupClientDob.getAge())));
-                                	}
-                                }
+                      
                                 // Add a new column for description for enums
                                 if(columnTypeName.contains(syncSchema)) {
                                 	String description = getDescriptionForHmisType(hmisTypes, column.toLowerCase().trim()+"_"+value.trim());
@@ -359,7 +361,7 @@ public class SyncDeltaHbase extends Logging {
 		 *
 		 * @return Map<String,String>
 		 */
-		public static Map<String, DedupClientDob> loadDedupClientMap(String schema,String projectGroupCode) {
+		public static Map<String, DedupClientDob> loadDedupClientMap(String schema,String projectGroupCode, Logger logger) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
 			Connection connection = null;

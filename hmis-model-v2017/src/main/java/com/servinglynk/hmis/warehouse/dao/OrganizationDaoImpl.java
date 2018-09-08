@@ -57,7 +57,7 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 					 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
 					 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 					 organizationModel.setExport(exportEntity);
-					 performSaveOrUpdate(organizationModel);
+					 performSaveOrUpdate(organizationModel,domain);
 				 } catch(Exception e){
 					 String errorMessage = "Exception because of the organization::"+organization.getOrganizationID() +" Exception ::"+e.getMessage();
 					 if(organizationModel != null){
@@ -83,6 +83,10 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Organization) getModel(com.servinglynk.hmis.warehouse.model.v2017.Organization.class, organization.getOrganizationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Organization();

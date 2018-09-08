@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -37,7 +38,7 @@ public class ConnectionWithSoarDaoImpl extends ParentDaoImpl implements Connecti
 		 com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		 Data data =new Data();
 		 Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar.class, getProjectGroupCode(domain));
-		 if(connectionWithSoars != null && !connectionWithSoars.isEmpty())
+		 if(CollectionUtils.isNotEmpty(connectionWithSoars))
 		 {
 			 for(ConnectionWithSOAR connectionWithSOAR : connectionWithSoars)
 			 {
@@ -51,7 +52,7 @@ public class ConnectionWithSoarDaoImpl extends ParentDaoImpl implements Connecti
 					 Enrollment enrollment = (Enrollment) getModel(ConnectionWithSoar.class, connectionWithSOAR.getEnrollmentID(), getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 				     connectionWithSoarModel.setEnrollmentid(enrollment);
 					connectionWithSoarModel.setExport(exportEntity);
-					 performSaveOrUpdate(connectionWithSoarModel);
+					 performSaveOrUpdate(connectionWithSoarModel,domain);
 				 } catch(Exception e){
 					 String errorMessage = "Exception because of the connectionWithSoar::"+connectionWithSOAR.getConnectionWithSOARID() +" Exception ::"+e.getMessage();
 					 if(connectionWithSoarModel != null){
@@ -77,6 +78,10 @@ public class ConnectionWithSoarDaoImpl extends ParentDaoImpl implements Connecti
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar) getModel(com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar.class, connectionWithSoar.getConnectionWithSOARID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar();

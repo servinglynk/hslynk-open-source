@@ -90,11 +90,12 @@ public class Stats {
 		schemas.add("housing_inventory");
 		schemas.add("notificationdb");
 		List<String> projectGroups = new ArrayList<>();
-//		projectGroups.add("HO0002");
-//		projectGroups.add("MO0010");
-//		projectGroups.add("MC0005");
+		projectGroups.add("HO0002");
+		projectGroups.add("MO0010");
+		projectGroups.add("MC0005");
 		projectGroups.add("SR0012");
 		projectGroups.add("SA0005");
+		projectGroups.add("SB0006");
 		for(String projectGroupCode : projectGroups) {
 			for(String schema : schemas) {
 				List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);

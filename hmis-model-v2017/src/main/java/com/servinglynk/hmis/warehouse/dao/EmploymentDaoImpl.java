@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Employment.class, getProjectGroupCode(domain));
-		if(employmentList!=null && !employmentList.isEmpty())
+		if(CollectionUtils.isNotEmpty(employmentList))
 		{
 			for(Employment employment : employmentList)
 			{
@@ -60,7 +61,7 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 					employmentModel.setInformationDate(BasicDataGenerator.getLocalDateTime(employment.getInformationDate()));
 					employmentModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((employment.getDataCollectionStage())));
 
-					performSaveOrUpdate(employmentModel);
+					performSaveOrUpdate(employmentModel,domain);
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the Employment::"+employment.getEmploymentID() +" Exception ::"+e.getMessage();
 					if(employmentModel != null){
@@ -86,6 +87,9 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2017.Employment.class, employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Employment();
 			modelFromDB.setId(UUID.randomUUID());

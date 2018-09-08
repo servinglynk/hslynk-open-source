@@ -54,7 +54,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, pathStatus.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					pathstatusModel.setEnrollmentid(enrollmentModel);
 					pathstatusModel.setExport(exportEntity);
-					performSaveOrUpdate(pathstatusModel);
+					performSaveOrUpdate(pathstatusModel,domain);
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the pathStatus::"+pathStatus.getPathStatusID() +" Exception ::"+e.getMessage();
 					if(pathstatusModel != null){
@@ -80,6 +80,10 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Pathstatus) getModel(com.servinglynk.hmis.warehouse.model.v2017.Pathstatus.class, pathstatus.getPathStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Pathstatus();

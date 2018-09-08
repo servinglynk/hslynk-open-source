@@ -38,23 +38,25 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @param export
 	 */
 	public void hydrateBulkUploadActivityStaging(Long i, Long j , Long ignore,String className,ExportDomain domain,Export export ) {
-		BulkUploadActivity activity = new BulkUploadActivity();
-		activity.setBulkUploadId(domain.getUpload().getId());
-		activity.setDateCreated(LocalDateTime.now());
-		activity.setDateUpdated(LocalDateTime.now());
-		activity.setTableName(className);
-		activity.setDeleted(false);
-		activity.setProjectGroupCode(domain.getUpload().getProjectGroupCode());
-		activity.setExport(export);
-		activity.setRecordsProcessed(i+j+ignore);
-		activity.setInserted(i);
-		activity.setUpdated(j);
-		activity.setDescription("Saving "+className +" to staging" );
-		insertOrUpdate(activity); 		
-		getCurrentSession().flush();
-        getCurrentSession().clear();
-        Long totalProcessed = i+j+ignore;
-        logger.info("Processed"+totalProcessed+" in "+ className+" table with "+i+" inserts and "+j+" updates and "+ignore+ " are ignored");
+		if(!domain.isReUpload()) {
+			BulkUploadActivity activity = new BulkUploadActivity();
+			activity.setBulkUploadId(domain.getUpload().getId());
+			activity.setDateCreated(LocalDateTime.now());
+			activity.setDateUpdated(LocalDateTime.now());
+			activity.setTableName(className);
+			activity.setDeleted(false);
+			activity.setProjectGroupCode(domain.getUpload().getProjectGroupCode());
+			activity.setExport(export);
+			activity.setRecordsProcessed(i+j+ignore);
+			activity.setInserted(i);
+			activity.setUpdated(j);
+			activity.setDescription("Saving "+className +" to staging" );
+			insertOrUpdate(activity); 		
+			getCurrentSession().flush();
+	        getCurrentSession().clear();
+	        Long totalProcessed = i+j+ignore;
+	        logger.info("Processed"+totalProcessed+" in "+ className+" table with "+i+" inserts and "+j+" updates and "+ignore+ " are ignored");
+		}
 	}
 		/***
 		 * Gets the project group code for a Bulk Upload
@@ -274,17 +276,23 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * Perform a Save or Update depending on the pojo.
 	 * @param model
 	 */
-	protected void performSaveOrUpdate(HmisBaseModel model) {
-		if(model.isIgnored()) {
-			logger.info("Ignoring this record because is already exists:::"+model.toString());
-			return;
+	protected void performSaveOrUpdate(HmisBaseModel model,ExportDomain domain) {
+		if(domain.isReUpload()) {
+			model.setDateUpdated(LocalDateTime.now());
+			getCurrentSession().update(model);
 		}
-		model.setDateUpdated(LocalDateTime.now());
-		if(!model.isRecordToBoInserted()) {
-			update(model);
-		}else{
-			model.setDateCreated(LocalDateTime.now());
-			insert(model);
+		else {
+			if(model.isIgnored()) {
+				logger.info("Ignoring this record because is already exists:::"+model.toString());
+				return;
+			}
+			model.setDateUpdated(LocalDateTime.now());
+			if(!model.isRecordToBoInserted()) {
+				update(model);
+			}else{
+				model.setDateCreated(LocalDateTime.now());
+				insert(model);
+			}
 		}
 	}
 

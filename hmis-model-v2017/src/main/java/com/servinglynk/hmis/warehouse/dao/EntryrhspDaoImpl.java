@@ -9,16 +9,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp;
+import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -31,8 +35,8 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 	    com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class, getProjectGroupCode(domain));
-//		List<EntryRHSP> entryRhsps = export.getEntryRHSP();
-	/*	if (entryRhsps != null && entryRhsps.size() > 0) {
+		List<EntryRHSP> entryRhsps = export.getEntryRHSP();
+		if (CollectionUtils.isNotEmpty(entryRhsps)) {
 			for (EntryRHSP entryRhsp : entryRhsps) {
 				com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp entryRhspModel = null;
 				try {
@@ -46,11 +50,11 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 					entryRhspModel.setExport(exportEntity);
 					entryRhspModel.setSync(false);
 					entryRhspModel.setDeleted(false);
-					performSaveOrUpdate(entryRhspModel);
+					performSaveOrUpdate(entryRhspModel,domain);
 				} catch(Exception e) {
 					 String errorMessage = "Exception beause of the entryRhsp::"+entryRhsp.getEntryRHSPID() +" Exception ::"+e.getMessage();
 					if(entryRhspModel != null){
-						Error2016 error = new Error2016();
+						Error2017 error = new Error2017();
 						error.model_id = entryRhspModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
@@ -63,7 +67,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 					logger.error(errorMessage);
 				}
 			}
-	   } */
+	   } 
 		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class.getSimpleName(), domain,exportEntity);
 	}
 
@@ -89,6 +93,9 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp) getModel(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class, entryrhsp.getEntryRHSPID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp();
 			modelFromDB.setId(UUID.randomUUID());
