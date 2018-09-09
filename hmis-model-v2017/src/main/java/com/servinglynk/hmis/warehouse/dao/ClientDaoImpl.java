@@ -398,8 +398,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		List<String> projectGroupCodes = new ArrayList<String>();
 		projectGroupCodes.add("MO0010");
 		projectGroupCodes.add("HO0002");
-		projectGroupCodes.add("IL0009");
-		projectGroupCodes.add("BD0005");
+		projectGroupCodes.add("SA0005");
+		projectGroupCodes.add("SB0006");
+		projectGroupCodes.add("SR0012");
+		projectGroupCodes.add("MC0005");
+		
 		criteria.add(Restrictions.in("projectGroupCode", projectGroupCodes));
 		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2017.Client>) findByCriteria(criteria);
 		return clients;
@@ -412,17 +415,22 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	    if(basClient == null) {
 	    	basClient = new  com.servinglynk.hmis.warehouse.model.base.Client();
 	    	BeanUtils.copyProperties(client, basClient, new String[] {"enrollments","veteranInfoes"});
-	    	basClient.setSchemaYear("2014");
+	    	basClient.setSchemaYear("2017");
 	     }
-	     String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
-	     logger.info("Calling Dedup Service for "+client.getFirstName());
-		 client.setDateUpdated(LocalDateTime.now());
-		 client.setDedupClientId(UUID.fromString(dedupedId));
-		 getCurrentSession().update(client);
-		 basClient.setDedupClientId(UUID.fromString(dedupedId));
-		 basClient.setDateUpdated(LocalDateTime.now());
-		 insert(basClient);
-		 getCurrentSession().flush();
-		 getCurrentSession().clear();
+	    try{
+	    	 String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
+		     logger.info("Calling Dedup Service for "+client.getFirstName());
+			 client.setDateUpdated(LocalDateTime.now());
+			 client.setDedupClientId(UUID.fromString(dedupedId));
+			 getCurrentSession().update(client);
+			 basClient.setDedupClientId(UUID.fromString(dedupedId));
+			 basClient.setDateUpdated(LocalDateTime.now());
+			 insert(basClient);
+			 getCurrentSession().flush();
+			 getCurrentSession().clear();
+	    }catch(Exception e) {
+	    	logger.error("Error populate dedup id for client: "+client.getId() + " name :"+ client.getFirstName(),e);
+	    }
+	    
 	}
 }

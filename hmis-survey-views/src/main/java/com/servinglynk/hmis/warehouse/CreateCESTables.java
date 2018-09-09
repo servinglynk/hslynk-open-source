@@ -32,21 +32,28 @@ public class CreateCESTables  extends Logging {
 		String projectGroups = Properties.PROJECT_GROUPS;
 		String[] split = projectGroups.split(",");
 		for(String projectGroup : split) {
-//			cesTables.createTable("CESTables.sql",projectGroup);
-//			cesTables.createTable("HiveSQLCreateTable.sql",projectGroup);
-//			cesTables.createTable("HiveSQLCreateTable_v2015.sql",projectGroup);
+			cesTables.createTable("CESTables.sql",projectGroup);
+			cesTables.createHiveTables("survey", projectGroup);
+			cesTables.createHiveTables("housing_inventory", projectGroup);
 			cesTables.createHiveTables("v2017", projectGroup);
+			cesTables.createHiveTables("v2017", projectGroup);
+			cesTables.createHiveTables("v2016", projectGroup);
+			cesTables.createHiveTables("v2015", projectGroup);
+			cesTables.createHiveTables("v2014", projectGroup);
 		}
-		
 	}
 	
-	 public void createHiveTables(String schema,String projectGroupCode) throws Exception {
-		 List<String> tables = getTablesToSync(schema);
+	 public void createHiveTables(String schema,String projectGroupCode) {
+		 List<String> tables  = new ArrayList<>();
+		 try {
+			 tables = getTablesToSync(schema);
+		 }catch (Exception e) {
+			 
+		 }
 		 for(String tableName : tables) {
 			 String sql = createHiveViews(schema, tableName, projectGroupCode);
 			 System.out.println(sql+";");
-	//		 dropHiveTable("drop table "+projectGroupCode+"."+tableName);
-	//		 createHiveTable(sql);
+			 createHiveTable(sql);
 		 }
 	}
 

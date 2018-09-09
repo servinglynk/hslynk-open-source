@@ -137,7 +137,7 @@ public class BulkUploaderTest {
 			
 			System.out.println("Path -- >>> "+path);
 			BulkUpload bullkUpload = new BulkUpload();
-			bullkUpload.setInputpath(path.getPath());
+			bullkUpload.setInputpath("/Users/sdolia/Downloads/CSV_files.zip");
 			bullkUpload.setProjectGroupCode("PG0001");
 			FileAppender appender = new FileAppender();
 			appender.setName("" + bullkUpload.getId());
@@ -146,10 +146,11 @@ public class BulkUploaderTest {
 			appender.setAppend(true);
 			appender.setLayout(new PatternLayout());
 			appender.activateOptions();
-			bullkUpload.setId(1L);
+			bullkUpload.setId(248L);
+			bullkUpload.setYear(2017L);
 			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 			bullkUpload.setProjectGroupCode("PG0001");
-			BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity,appender,false);
+			BulkUpload upload = factory.getBulkUploaderDao().processBase(bullkUpload,projectGrpEntity,appender,false);
 			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
 				
 					

@@ -113,9 +113,9 @@ public class BulkUploadController extends ControllerBase{
          else if(StringUtils.equals("411", version))
         	 year = "2015";
          else if(StringUtils.equals("51", version))
-        	 year = "2015";
-         else if(StringUtils.equals("611", version))
         	 year = "2016";
+         else if(StringUtils.equals("611", version))
+        	 year = "2017";
         	 
 		if(StringUtils.isEmpty(year)) {
 			throw new IllegalArgumentException("Year cannot be null.");

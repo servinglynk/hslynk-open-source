@@ -25,7 +25,8 @@ hmis-admin/*.iml
 hmis-admin/target
 hmis-admin/node_modules/
 hmis-admin/bin
-
+hmis-admin/package-lock.json
+hmis-admin/src/main/webapp/script/hmis-admin.min.js
 hmis-authorization-service/target/*
 hmis-authorization-service/bin/*
 hmis-authorization-service/.settings/*
