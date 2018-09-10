@@ -18,7 +18,6 @@ import org.apache.log4j.Logger;
 public class CreateCESTables  extends Logging {
 	private String includeTables;
     private String excludeTables;
-    private static boolean isPrimaryKeyPopulated =false;
     final static Logger logger = Logger.getLogger(CreateCESTables.class);
 	
 	public CreateCESTables() {
@@ -36,11 +35,11 @@ public class CreateCESTables  extends Logging {
 			cesTables.createTable("CESTables.sql",projectGroup);
 			cesTables.createHiveTables("survey", projectGroup,false);
 			cesTables.createHiveTables("housing_inventory", projectGroup,false);
-			cesTables.createHiveTables("v2017", projectGroup,false);
-			cesTables.createHiveTables("v2017", projectGroup,false);
-			cesTables.createHiveTables("v2016", projectGroup,false);
-			cesTables.createHiveTables("v2015", projectGroup,false);
-			cesTables.createHiveTables("v2014", projectGroup,false);
+			cesTables.createHiveTables("v2017", projectGroup,true);
+			cesTables.createHiveTables("v2017", projectGroup,true);
+			cesTables.createHiveTables("v2016", projectGroup,true);
+			cesTables.createHiveTables("v2015", projectGroup,true);
+			cesTables.createHiveTables("v2014", projectGroup,true);
 		}
 	}
 	
@@ -135,11 +134,9 @@ public class CreateCESTables  extends Logging {
 	      StringBuilder middlePart = new StringBuilder(" )  STORED BY \"org.apache.hadoop.hive.hbase.HBaseStorageHandler\"  WITH SERDEPROPERTIES   (\"hbase.columns.mapping\" = \"");
 	      StringBuilder lastPart = new StringBuilder(") TBLPROPERTIES (\"hbase.table.name\" = \""+tableName+"_"+projectGroupCode+"\") ");
 	      try {
-			  String primaryKey = SyncPostgresProcessor.getPrimaryKey(schema, tableName);
 	    	  connection = SyncPostgresProcessor.getConnection();
 	    	  statement = connection.prepareStatement("select * from "+schema+"."+tableName +" limit 1");
 		      resultSet = statement.executeQuery();
-		      isPrimaryKeyPopulated = false;
 			  ResultSetMetaData metaData = resultSet.getMetaData();
 	          for (int i = 1; i < metaData.getColumnCount(); i++) {
 	              String column = metaData.getColumnName(i);
@@ -179,7 +176,7 @@ public class CreateCESTables  extends Logging {
 //	          }
 	          // add a column for the year field.
 	          if(hmisschema) {
-	        	   firstPart.append("year string ");
+	        	   firstPart.append("year BIGINT ");
 	         	    middlePart.append("CF:year\"");
 	          }else {
 	        	  firstPart =  firstPart.deleteCharAt(firstPart.toString().length() - 1);
@@ -198,7 +195,6 @@ public class CreateCESTables  extends Logging {
 		 if(StringUtils.equalsIgnoreCase("id", column)) {
 			 builder.append("");
 			 builder.append(":key,");
-			 isPrimaryKeyPopulated = true;
 		 }else {
 			 builder.append("CF:"+column+", ");
 		 }

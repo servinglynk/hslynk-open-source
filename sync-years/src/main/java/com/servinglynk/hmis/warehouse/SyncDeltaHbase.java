@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -144,7 +145,9 @@ public class SyncDeltaHbase extends Logging {
         if(StringUtils.isNotBlank(commonTables)) {
         	String[] split = commonTables.split(",");
         	for (String tableName : split) {
-        		syncCommonTable(tableName, tableName, logger);
+        		String hbaseTable =tableName+"_"+syncSchema;
+        		syncHBaseImport.createHBASETable(hbaseTable, logger);
+        		syncCommonTable(tableName, hbaseTable, logger);
         	}
         }
     
@@ -216,11 +219,14 @@ public class SyncDeltaHbase extends Logging {
               List<String> putsToDelete = new ArrayList<>();
               while (resultSet.next()) {
                   String key = resultSet.getString("id");
-                      ResultSetMetaData metaData = resultSet.getMetaData();
-                      Put p = new Put(Bytes.toBytes(key));
-                      for (int i = 1; i < metaData.getColumnCount(); i++) {
-                          String column = metaData.getColumnName(i);
-                          String value = resultSet.getString(i);
+               	Map<String, String> columnMap = SyncPostgresProcessor.getColumnsForTable(postgresTable, syncSchema);
+                Put p = new Put(Bytes.toBytes(key));
+                if(columnMap != null) {
+                Set<String> columns =  columnMap.keySet();
+                for (String column : columns) {
+                    String columnTypeName = columnMap.get(column);
+                    String value = getValue(resultSet,column, columnTypeName);
+                          
                           if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
                               p.addColumn(Bytes.toBytes("CF"),
                                       Bytes.toBytes(column),
@@ -241,6 +247,7 @@ public class SyncDeltaHbase extends Logging {
                           }
                       }
                   deleteCount += putsToDelete.size();
+                }
               }
               logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
               if (putsToDelete.size() > 0) {
@@ -266,9 +273,43 @@ public class SyncDeltaHbase extends Logging {
         }
 
         log.info("Sync done for table: " + postgresTable);
-
-		
 	}
+	
+	
+	private void syncCommonTableTest(String postgresTable, String hbaseTable,Logger logger) {
+        log.info("Start sync for table: " + postgresTable);
+        ResultSet resultSet;
+        PreparedStatement statement;
+        Connection connection;
+        String message ="";
+        try {
+        	 connection = SyncPostgresProcessor.getConnection();
+        	 String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable ;
+             statement = connection.prepareStatement(sql);
+             resultSet = statement.executeQuery();
+        	 
+              while (resultSet.next()) {
+                  String key = resultSet.getString("id");
+               	Map<String, String> columnMap = SyncPostgresProcessor.getColumnsForTable(postgresTable, syncSchema);
+                if(columnMap != null) {
+                Set<String> columns =  columnMap.keySet();
+                for (String column : columns) {
+                    String columnTypeName = columnMap.get(column);
+                    String value = getValue(resultSet,column, columnTypeName);
+                    System.out.println("Column :"+column +" value:"+value);
+                 }
+                }
+              }
+          SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,projectGroupCode);
+        }catch (Exception ex) {
+            logger.error(ex);
+            SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "ERROR", "Error in sync process "+ex.getMessage(),projectGroupCode);
+        }
+
+        log.info("Sync done for table: " + postgresTable);
+	}
+	
+	
     private void syncTable(String postgresTable, String hbaseTable,  Map<String, String> hmisTypes,String projectGroupCode,boolean delta,Logger logger) {
         log.info("Start sync for table: " + postgresTable);
         HTable htable;
@@ -325,13 +366,13 @@ public class SyncDeltaHbase extends Logging {
                             continue;
                         }
                     } else {
-                        ResultSetMetaData metaData = resultSet.getMetaData();
+                    	Map<String, String> columnMap = SyncPostgresProcessor.getColumnsForTable(postgresTable, syncSchema);
                         Put p = new Put(Bytes.toBytes(key));
-                        
-                        for (int i = 1; i < metaData.getColumnCount(); i++) {
-                            String column = metaData.getColumnName(i);
-                            String value = resultSet.getString(i);
-                            String columnTypeName = metaData.getColumnTypeName(i);
+                        if(columnMap != null) {
+                        Set<String> columns =  columnMap.keySet();
+                        for (String column : columns) {
+                            String columnTypeName = columnMap.get(column);
+                            String value = getValue(resultSet,column, columnTypeName);
                             if(StringUtils.equals("client_id", column) && StringUtils.isNotBlank(value)) {
                             	DedupClientDob dedupClientDob = clientDedupMap.get(value);
                             	if(dedupClientDob != null && dedupClientDob.getDedupClientId() !=null) {
@@ -360,7 +401,7 @@ public class SyncDeltaHbase extends Logging {
                                 	}
                                 }
                             }
-                        }
+                        } 
                         p.addColumn(Bytes.toBytes("CF"),
                                 Bytes.toBytes("year"),
                                 Bytes.toBytes(String.valueOf(syncSchema.substring(1, syncSchema.length()))));
@@ -379,6 +420,7 @@ public class SyncDeltaHbase extends Logging {
                         }
                     }
                     existingKeysInPostgres.add(key);
+                  }
                 }
                 deleteCount += putsToDelete.size();
                 logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
@@ -412,7 +454,31 @@ public class SyncDeltaHbase extends Logging {
     }
     
     
-    public static int getRecordCount(String projectGroupCode,String syncSchema,String postgresTable) {
+    private static String getValue(ResultSet resultSet, String column, String columnTypeName) {
+    	try {
+    		Object object = resultSet.getObject(column);
+        	if(object !=null) {
+        		return  object.toString();
+        	}
+    	}catch(Exception e) {
+    		// eat the exception
+    	}
+    	
+    	return null;
+//    	if(StringUtils.equalsIgnoreCase("boolean", columnTypeName)) {
+//    		Boolean bool = (Boolean) resultSet.getBoolean(column);
+//    		return  bool!= null ? bool.toString() : null;
+//    	}
+//    	if(StringUtils.equalsIgnoreCase("integer", columnTypeName)) {
+//    		 int intValue = resultSet.getInt(column);
+//    		return esultSet.getInt(column)) : null;
+//    	}	
+//    		
+//    	case "timestamp":
+//    	case "date":
+	}
+
+	public static int getRecordCount(String projectGroupCode,String syncSchema,String postgresTable) {
     	ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
@@ -576,11 +642,12 @@ public class SyncDeltaHbase extends Logging {
     }
     
 
-    public static void main(String args[]) {
-        String date = "1970-01-01 00:00:00.000000 +00:00:00";
-    	//default, ISO_LOCAL_DATE
-
-        System.out.println(getAge(date));
+    public static void main(String args[]) throws Exception {
+    	 Logger logger = Logger.getLogger(SyncLiveDelta.class.getName());
+         Properties props = new Properties();
+         props.generatePropValues("application.conf");
+         props.printProps();
+         new SyncDeltaHbase(VERSION.V2017, logger, Status.LIVE, true).syncCommonTableTest("question", "question", logger);
     }
 
    

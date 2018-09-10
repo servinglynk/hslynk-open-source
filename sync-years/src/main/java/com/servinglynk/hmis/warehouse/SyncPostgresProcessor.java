@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +34,31 @@ public class SyncPostgresProcessor extends Logging{
         }
         return connection;
     }
+    
+    public static Map<String,String> getColumnsForTable(String tableName, String schema) {
+    	Map<String,String> columns = new HashMap<>();
+         ResultSet resultSet = null;
+         PreparedStatement statement = null;
+         Connection connection = null;
+         try{
+         	  logger.info("Host name"+Properties.POSTGRESQL_DB_HOST);
+               logger.info("POSTGRESQL_DB_PORT"+Properties.POSTGRESQL_DB_PORT);
+               logger.info("POSTGRESQL_DB_DATABASE"+Properties.POSTGRESQL_DB_DATABASE);
+               logger.info("POSTGRESQL_DB_USERNAME"+Properties.POSTGRESQL_DB_USERNAME);
+               logger.info("POSTGRESQL_DB_PASSWORD"+Properties.POSTGRESQL_DB_PASSWORD);
+             connection = getConnection();
+             statement = connection.prepareStatement("select column_name,data_type from information_schema.columns where table_schema=? and table_name=?");
+             statement.setString(1, schema);
+             statement.setString(2, tableName);
+             resultSet = statement.executeQuery();
+             while (resultSet.next()){
+            	 columns.put(resultSet.getString("column_name"),resultSet.getString("data_type"));
+             }
+         }catch (Exception ex){
+             logger.error(" Error getting metadata for table "+tableName + "schema :"+schema);
+         }
+         return columns;
+	}
 
     public static List<String> getAllTablesFromPostgres(String schemaName) throws Exception{
         List<String> tables = new ArrayList<>();
