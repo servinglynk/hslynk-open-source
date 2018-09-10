@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonRootName("pathstatus")
+@JsonRootName("pathStatus")
 public class Pathstatus extends ClientModel{
 
 

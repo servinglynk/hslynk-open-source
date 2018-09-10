@@ -65,6 +65,8 @@ public class EntryssvfConverter  extends BaseConverter {
     	   entity.setFemvet(NoYesEnum.lookupEnum(model.getFemvet()+""));
        if(model.getThresholdscore()!=null)
     	   entity.setThresholdscore(model.getThresholdscore());
+       if(model.getUrgentReferral()!=null)
+			entity.setUrgentReferral(NoYesEnum.lookupEnum(model.getUpdatedTime()+""));
        return entity;
    }
 
@@ -123,6 +125,8 @@ public class EntryssvfConverter  extends BaseConverter {
         	   model.setFemvet(Integer.parseInt(entity.getFemvet().getValue()));
            if(entity.getThresholdscore()!=null)
         	   model.setThresholdscore(entity.getThresholdscore());
+           if(entity.getUrgentReferral()!=null)
+        	   	model.setUrgentReferral(Integer.parseInt(entity.getUrgentReferral().getValue()));
        return model;
    }
 

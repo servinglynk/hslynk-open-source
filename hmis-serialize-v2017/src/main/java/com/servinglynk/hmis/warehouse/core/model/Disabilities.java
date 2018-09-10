@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -18,19 +18,19 @@ public class Disabilities extends ClientModel{
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
-
+      @JsonProperty("disabilityType")
       private Integer disabilitytype;
 
       private Integer disabilityresponse;
 
       private Integer indefiniteandimpairs;
-
+      @JsonProperty("tCellCountAvailable")
       private Integer tcellcountavailable;
-
+      @JsonProperty("tCellCount")
       private Integer tcellcount;
-
+      @JsonProperty("tCellCountSource")
       private String tcellcountsource;
-
+      @JsonProperty("viralLoadAvailable")
       private Integer viralLoadAvailable;
 
       private Integer viralLoad;

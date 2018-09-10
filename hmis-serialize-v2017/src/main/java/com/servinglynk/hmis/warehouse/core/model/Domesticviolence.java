@@ -1,21 +1,20 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("domesticviolence")
+@JsonRootName("domesticViolence")
 public class Domesticviolence extends ClientModel{
 
 
       private UUID domesticviolenceId;
-
+      @JsonProperty("domesticViolenceVictim")
       private Integer domesticviolencevictim;
 
+      @JsonProperty("whenOccurred")
       private Integer whenoccurred;
 
       private Integer currentlyFleeing;

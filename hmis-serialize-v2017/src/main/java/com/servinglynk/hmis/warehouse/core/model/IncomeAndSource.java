@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("incomeAndSource")
@@ -14,67 +15,73 @@ public class IncomeAndSource extends ClientModel{
       private Integer alimony;
 
       private float alimonyamount;
-
+      @JsonProperty("childSupport")
       private Integer childsupport;
 
       private float childsupportamount;
 
       private Integer earned;
-
+      @JsonProperty("earnedAmount")
       private float earnedamount;
 
       private Integer ga;
-
+      @JsonProperty("gaAmount")
       private float gaamount;
-
+      @JsonProperty("incomeFromAnySource")
       private Integer incomefromanysource;
-
+      @JsonProperty("otherSource")
       private Integer othersource;
-
+      @JsonProperty("otherSourceAmount")
       private float othersourceamount;
 
+      @JsonProperty("otherSourceIdentify")
       private String othersourceidentify;
 
       private Integer pension;
 
       private float pensionamount;
-
+      @JsonProperty("privateDisability")
       private Integer privatedisability;
-
+      @JsonProperty("privateDisabilityAmount")
       private float privatedisabilityamount;
 
+      @JsonProperty("socsecRetirement")
       private Integer socsecretirement;
-
+      
+      @JsonProperty("socSecRetirementAmount")
       private float socsecretirementamount;
 
       private Integer ssdi;
-
+      @JsonProperty("ssdiAmount")
       private float ssdiamount;
 
       private Integer ssi;
-
+      @JsonProperty("ssiAmount")
       private float ssiamount;
 
       private Integer tanf;
-
+      @JsonProperty("tanfAmount")
       private float tanfamount;
-
+      @JsonProperty("totalMonthlyIncome")
       private float totalmonthlyincome;
 
       private Integer unemployment;
 
+      @JsonProperty("unemploymentAmount")
       private float unemploymentamount;
-
+      @JsonProperty("vaDisabilityNonService")
       private Integer vadisabilitynonservice;
-
+      @JsonProperty("vaDisabilityNonServiceAmount")
       private float vadisabilitynonserviceamount;
-
+      @JsonProperty("vaDisabilityService")
       private Integer vadisabilityservice;
-
+      
+      @JsonProperty("vaDisabilityServiceAmount")
       private float vadisabilityserviceamount;
-
+      @JsonProperty("workersComp")
       private Integer workerscomp;
 
+      @JsonProperty("workersCompAmount")
       private float workerscompamount;
 
       private LocalDateTime informationDate;

@@ -3,46 +3,51 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("healthinsurance")
+@JsonRootName("healthInsurance")
 public class Healthinsurance extends ClientModel{
 
 
       private UUID healthinsuranceId;
-
+      @JsonProperty("insuranceFromAnySource")
       private Integer insurancefromanysource;
 
       private Integer medicaid;
-
+      @JsonProperty("noMedicaidReason")
       private Integer nomedicaidreason;
 
       private Integer medicare;
-
+      @JsonProperty("noMedicareReason")
       private Integer nomedicarereason;
 
       private Integer schip;
 
+      @JsonProperty("noschiPreason")
       private Integer noschipreason;
 
+      @JsonProperty("vaMedicalServices")
       private Integer vamedicalservices;
-
+      @JsonProperty("novaMedReason")
       private Integer novamedreason;
-
+      @JsonProperty("employerProvided")
       private Integer employerprovided;
-
+      @JsonProperty("noEmployerProvidedReason")
       private Integer noemployerprovidedreason;
 
       private Integer cobra;
-
+      @JsonProperty("noCobraReason")
       private Integer nocobrareason;
-
+      @JsonProperty("privatePay")
       private Integer privatepay;
 
+      @JsonProperty("noPrivatePayReason")
       private Integer noprivatepayreason;
 
+      @JsonProperty("stateHealthInAdults")
       private Integer statehealthinadults;
-      
+      @JsonProperty("noStateHealthInsReason")
       private Integer nostatehealthinsreason;
 
       private Integer otherInsurance;
