@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 public class SyncPostgresProcessor extends Logging{
@@ -47,7 +48,10 @@ public class SyncPostgresProcessor extends Logging{
             statement = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='"+schemaName+"'");
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                tables.add(resultSet.getString("table_name"));
+            	String tableName = resultSet.getString("table_name");
+            	if(StringUtils.equalsIgnoreCase(tableName, "question") || StringUtils.equalsIgnoreCase(tableName, "hmis_type")) {
+            		 tables.add(tableName);
+            	}
             }
 
         }catch (Exception ex){

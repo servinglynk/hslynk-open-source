@@ -108,13 +108,12 @@ public class CreateHiveTablesForViSpdat {
 			String[] split = projectGroups.split(",");
 			for(String projectGroup : split) {
 				hmisCESTables.createTable("CESTables.sql",projectGroup);
-				hmisCESTables.createHiveTables("survey", projectGroup);
-				hmisCESTables.createHiveTables("housing_inventory", projectGroup);
-				hmisCESTables.createHiveTables("v2017", projectGroup);
-				hmisCESTables.createHiveTables("v2017", projectGroup);
-				hmisCESTables.createHiveTables("v2016", projectGroup);
-				hmisCESTables.createHiveTables("v2015", projectGroup);
-				hmisCESTables.createHiveTables("v2014", projectGroup);
+				hmisCESTables.createHiveTables("survey", projectGroup,false);
+				hmisCESTables.createHiveTables("housing_inventory", projectGroup,false);
+				hmisCESTables.createHiveTables("v2017", projectGroup,true);
+				hmisCESTables.createHiveTables("v2016", projectGroup,true);
+				hmisCESTables.createHiveTables("v2015", projectGroup,true);
+				hmisCESTables.createHiveTables("v2014", projectGroup,true);
 			}
 			createViSpdatViews();
 	}

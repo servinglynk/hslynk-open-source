@@ -14,6 +14,7 @@ public class Properties {
     public static String HBASE_MASTER;
     public static String HBASE_ZOOKEEPER_QUORUM;
     public static String HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT="2181";
+    public static String COMMON_TABLES;
     
     public static String SLIM_TABLES;
     public static String SYNC_2017_SCHEMA;
@@ -58,6 +59,7 @@ public class Properties {
             HBASE_ZOOKEEPER_QUORUM = prop.getProperty("hbase.zookeeper.quorum");
             HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = prop.getProperty("hbase.zookeeper.property.clientPort", "2181");
             
+            COMMON_TABLES = prop.getProperty("common.tables");
             SLIM_TABLES =  prop.getProperty("slim.tables");
             SYNC_2017_SCHEMA = prop.getProperty("sync2017.schema");
             SYNC_2017_INCLUDE_TABLES = prop.getProperty("sync2017.includetables");
@@ -98,6 +100,7 @@ public class Properties {
         System.out.println(POSTGRESQL_DB_USERNAME);
         System.out.println(POSTGRESQL_DB_PASSWORD);
         System.out.println(HBASE_MASTER);
+        System.out.println(COMMON_TABLES);
         System.out.println(HBASE_ZOOKEEPER_QUORUM);
         System.out.println(HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT);
         System.out.println(SYNC_2016_SCHEMA);
