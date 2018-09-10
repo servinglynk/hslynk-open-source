@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse;
 public class DedupClientDob {
 
 	private String dedupClientId;
-	private int age;
+	private int age=0;
 	
 	public DedupClientDob(String dedupClientId, int age) {
 		super();

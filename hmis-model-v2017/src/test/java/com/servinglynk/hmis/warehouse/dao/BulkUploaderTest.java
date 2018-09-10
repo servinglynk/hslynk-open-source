@@ -109,8 +109,8 @@ public class BulkUploaderTest {
 	{
 				URL path = BulkUploaderTest.class.getResource("2017.xml");
 				BulkUpload upload = new BulkUpload();
-				upload.setInputpath("/Users/sdolia/Downloads/Archive.zip");
-				upload.setId(3L);
+				upload.setInputpath("/Users/sdolia/Downloads/santabarbara_live_hudcsv61_15077_4783674151274166719.zip");
+				
 				FileAppender appender = new FileAppender();
 				appender.setName("" + upload.getId());
 				appender.setFile("logs/" + upload.getId() + ".log");
@@ -118,12 +118,16 @@ public class BulkUploaderTest {
 				appender.setAppend(true);
 				appender.setLayout(new PatternLayout());
 				appender.activateOptions();
+				upload.setDescription("RELOAD");
+				upload.setYear(2017L);
 				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
 		//		URL path = BulkUploadHelperTest.class.getResource("2016.xml");
 		//		upload.setInputpath(path.getPath());
-				upload.setProjectGroupCode("SR0012");
-				upload.setId(390L);
+				upload.setProjectGroupCode("SB0006");
+				upload.setId(414L);
+				upload.setYear(2017L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+				projectGrpEntity.setProjectGroupCode("SB0006");
 				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
 	}
 		@Test
@@ -133,7 +137,7 @@ public class BulkUploaderTest {
 			
 			System.out.println("Path -- >>> "+path);
 			BulkUpload bullkUpload = new BulkUpload();
-			bullkUpload.setInputpath(path.getPath());
+			bullkUpload.setInputpath("/Users/sdolia/Downloads/CSV_files.zip");
 			bullkUpload.setProjectGroupCode("PG0001");
 			FileAppender appender = new FileAppender();
 			appender.setName("" + bullkUpload.getId());
@@ -142,10 +146,11 @@ public class BulkUploaderTest {
 			appender.setAppend(true);
 			appender.setLayout(new PatternLayout());
 			appender.activateOptions();
-			bullkUpload.setId(1L);
+			bullkUpload.setId(248L);
+			bullkUpload.setYear(2017L);
 			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 			bullkUpload.setProjectGroupCode("PG0001");
-			BulkUpload upload = factory.getBulkUploaderDao().performBulkUpload(bullkUpload,projectGrpEntity,appender,false);
+			BulkUpload upload = factory.getBulkUploaderDao().processBase(bullkUpload,projectGrpEntity,appender,false);
 			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
 				
 					

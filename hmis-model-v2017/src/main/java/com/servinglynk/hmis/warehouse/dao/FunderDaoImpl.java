@@ -54,7 +54,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 					Project project = (Project) getModel(Project.class,funder.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					funderModel.setProjectid(project);
 					funderModel.setExport(exportEntity);
-					performSaveOrUpdate(funderModel);
+					performSaveOrUpdate(funderModel,domain);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the funder::"+funder.getFunderID() +" Exception ::"+e.getMessage();
 					if(funderModel != null){
@@ -80,6 +80,10 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Funder) getModel(com.servinglynk.hmis.warehouse.model.v2017.Funder.class, funder.getFunderID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Funder();

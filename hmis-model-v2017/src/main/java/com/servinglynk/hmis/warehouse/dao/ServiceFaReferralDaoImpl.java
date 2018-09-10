@@ -50,7 +50,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 				    	  contactModel.setContactDate(BasicDataGenerator.getLocalDateTime((serviceFaReferrals.getDateProvided())));
 				    	  contactModel.setSourceSystemId(serviceFaReferrals.getServicesID());
 				    	  contactModel.setContactLocation(ContactLocationEnum.lookupEnum(String.valueOf(serviceFaReferrals.getTypeProvided())));
-				    	  performSaveOrUpdate(contactModel);
+				    	  performSaveOrUpdate(contactModel,domain);
 				    	  contactCount++;
 					  }else {
 							serviceFaReferralModel = getModelObject(domain, serviceFaReferrals,data,modelMap);
@@ -68,7 +68,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 							serviceFaReferralModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateUpdated()));
 							serviceFaReferralModel.setExport(exportEntity);
 							serviceFaReferralModel.setSync(false);
-							performSaveOrUpdate(serviceFaReferralModel);
+							performSaveOrUpdate(serviceFaReferralModel,domain);
 					  }
 				} catch (Exception e){
 					String errorMessage = "Exception beause of the serviceFaReferrals::"+serviceFaReferrals.getServicesID() +" Exception ::"+e.getMessage();
@@ -97,6 +97,10 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral) getModel(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class, services.getServicesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral();

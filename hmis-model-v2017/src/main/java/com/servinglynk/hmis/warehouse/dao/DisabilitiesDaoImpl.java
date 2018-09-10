@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -47,7 +48,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		Export export = domain.getExport();
 		List<Disabilities> disabilitiesList = export.getDisabilities();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Disabilities.class, getProjectGroupCode(domain));
-		if(disabilitiesList!=null && disabilitiesList.size() > 0 )
+		if(CollectionUtils.isNotEmpty(disabilitiesList))
 		{
 			for(Disabilities disabilities : disabilitiesList)
 			{
@@ -67,7 +68,7 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 					disabilitiesModel.setInformationDate(BasicDataGenerator.getLocalDateTime(disabilities.getInformationDate()));
 					disabilitiesModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((disabilities.getDataCollectionStage())));
 					disabilitiesModel.setExport(exportEntity);
-					performSaveOrUpdate(disabilitiesModel);
+					performSaveOrUpdate(disabilitiesModel,domain);
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the Disabilities::"+disabilities.getDisabilitiesID() +" Exception ::"+e.getMessage();
 					if(disabilitiesModel != null){
@@ -94,6 +95,9 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2017.Disabilities.class, disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Disabilities();
 			modelFromDB.setId(UUID.randomUUID());

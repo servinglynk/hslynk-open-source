@@ -16,7 +16,6 @@ public class Inventory extends ClientModel{
       private UUID inventoryId;
 
       private Integer availabilty;
-      //it should be an integer
       @JsonProperty("bedInventory")
       private UUID bedinventory;
       
@@ -88,10 +87,10 @@ public class Inventory extends ClientModel{
       public void setAvailabilty(Integer availabilty){
           this.availabilty = availabilty;
       }
-      public UUID getBedinventory(){
+      public Integer getBedinventory(){
           return bedinventory;
       }
-      public void setBedinventory(UUID bedinventory){
+      public void setBedinventory(Integer bedinventory){
           this.bedinventory = bedinventory;
       }
       public Integer getBedtype(){

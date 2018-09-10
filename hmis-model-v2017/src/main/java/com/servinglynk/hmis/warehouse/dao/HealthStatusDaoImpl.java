@@ -59,7 +59,7 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 					healthStatusModel.setExport(exportEntity);
 					healthStatusModel.setInformationDate(BasicDataGenerator.getLocalDateTime(healthStatus.getInformationDate()));
 					healthStatusModel.setDataCollectionStage(DataCollectionStageEnum.lookupEnum((healthStatus.getDataCollectionStage())));
-					performSaveOrUpdate(healthStatusModel);
+					performSaveOrUpdate(healthStatusModel,domain);
 				}catch(Exception e){
 					String errorMessage = "Exception beause of the healthStatus::"+healthStatus.getHealthStatusID() +" Exception ::"+e.getMessage();
 					if(healthStatusModel != null){
@@ -91,6 +91,10 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.HealthStatus) getModel(com.servinglynk.hmis.warehouse.model.v2017.HealthStatus.class, healthStatus.getHealthStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.HealthStatus();

@@ -1,3 +1,4 @@
+
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.text.DateFormat;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -40,7 +42,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
 		List<CoC> cocs = export.getCoC();
-		if (cocs != null && cocs.size() > 0) {
+		if (CollectionUtils.isNotEmpty(cocs)) {
 			for (CoC coc : cocs) {
 				com.servinglynk.hmis.warehouse.model.v2017.Coc cocModel = null;
 				try {
@@ -51,7 +53,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 					cocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateCreated()));
 					cocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
 					cocModel.setExport(exportEntity);
-					performSaveOrUpdate(cocModel);
+					performSaveOrUpdate(cocModel,domain);
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the Coc::"+coc.getCoCCode() +" Exception ::"+e.getMessage();
 					if(cocModel != null){
@@ -78,6 +80,10 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Coc) getModel(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, coc.getCoCCode(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Coc();

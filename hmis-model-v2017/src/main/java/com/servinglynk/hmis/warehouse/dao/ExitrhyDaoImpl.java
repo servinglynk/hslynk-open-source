@@ -58,7 +58,7 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 					exitrhyModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhy.getDateUpdated()));
 					exitrhyModel.setExport(exportEntity);
 					exitrhyModel.setSync(false);
-					performSaveOrUpdate(exitrhyModel);
+					performSaveOrUpdate(exitrhyModel,domain);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the exitrhy::"+exitrhy.getExitRHYID() +" Exception ::"+e.getMessage();
 					if(exitrhyModel != null){
@@ -99,6 +99,10 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Exitrhy) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exitrhy.class, exitrhy.getExitRHYID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Exitrhy();

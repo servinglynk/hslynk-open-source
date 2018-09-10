@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		Data data = new Data();
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo.class, getProjectGroupCode(domain));
-		if (veteranInfoList != null && !veteranInfoList.isEmpty()) {
+		if (CollectionUtils.isNotEmpty(veteranInfoList)) {
 			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo veteranInfo : veteranInfoList) {
 				com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo vInfo = null;
 				try {
@@ -95,7 +96,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 						com.servinglynk.hmis.warehouse.model.v2017.Client client = (com.servinglynk.hmis.warehouse.model.v2017.Client) getModel(com.servinglynk.hmis.warehouse.model.v2017.Client.class, veteranInfo.getPersonalID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
 						vInfo.setClient(client);
 						vInfo.setExport(exportEntity);
-						performSaveOrUpdate(vInfo);
+						performSaveOrUpdate(vInfo,domain);
 					}
 				} catch (Exception e) {
 					String errorMessage = "Exception because of the client::" + veteranInfo.getClientVeteranInfoID() + " Exception ::" + e.getMessage();
@@ -122,7 +123,9 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo.class, clientVeteranInfo.getClientVeteranInfoID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
-		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo();
 			modelFromDB.setId(UUID.randomUUID());

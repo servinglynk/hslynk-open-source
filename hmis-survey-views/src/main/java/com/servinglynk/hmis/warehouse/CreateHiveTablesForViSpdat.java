@@ -103,10 +103,26 @@ public class CreateHiveTablesForViSpdat {
 	public static void main(String args[]) throws Exception {
 		 Properties props = new Properties();
 		 props.generatePropValues();
+		 CreateCESTables hmisCESTables = new CreateCESTables();
+		 String projectGroups = Properties.PROJECT_GROUPS;
+			String[] split = projectGroups.split(",");
+			for(String projectGroup : split) {
+				hmisCESTables.createTable("CESTables.sql",projectGroup);
+				hmisCESTables.createHiveTables("survey", projectGroup);
+				hmisCESTables.createHiveTables("housing_inventory", projectGroup);
+				hmisCESTables.createHiveTables("v2017", projectGroup);
+				hmisCESTables.createHiveTables("v2017", projectGroup);
+				hmisCESTables.createHiveTables("v2016", projectGroup);
+				hmisCESTables.createHiveTables("v2015", projectGroup);
+				hmisCESTables.createHiveTables("v2014", projectGroup);
+			}
+			createViSpdatViews();
+	}
+	
+	public static void createViSpdatViews() throws Exception {
 		 Set<String> disinctSurveys = getDisinctSurveys("survey");
 		 for(String surveyId : disinctSurveys) {
 			 Survey survey = getSurveyById("survey", surveyId);
-			 if(StringUtils.equals("HO0002",survey.getProjectGroupCode())) {
 				 StringBuilder builder = new StringBuilder();
 				 builder.append("CREATE EXTERNAL TABLE IF NOT EXISTS "+survey.getProjectGroupCode()+"."+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase());
 				 builder.append("(submission_id string,client_id string,survey_date  timestamp ");
@@ -134,16 +150,7 @@ public class CreateHiveTablesForViSpdat {
 				 builder.append("\") TBLPROPERTIES (\"hbase.table.name\" = \""+tableName+"\")");
 				 System.out.println(builder.toString());
 				 createHiveTable(builder.toString());
-			 }
 	     }
-		 CreateCESTables hmisCESTables = new CreateCESTables();
-		 String projectGroups = Properties.PROJECT_GROUPS;
-			String[] split = projectGroups.split(",");
-			for(String projectGroup : split) {
-				hmisCESTables.createTable("CESTables.sql",projectGroup);
-				hmisCESTables.createTable("HiveSQLCreateTable.sql",projectGroup);
-				hmisCESTables.createTable("HiveSQLCreateTable_v2015.sql",projectGroup);
-			}
 	}
 	
 	public static void createHiveTable(String sql) {

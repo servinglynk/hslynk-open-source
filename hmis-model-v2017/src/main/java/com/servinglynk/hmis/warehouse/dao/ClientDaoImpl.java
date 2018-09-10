@@ -19,6 +19,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -79,7 +80,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 		Boolean skipClientIdentifier = projectGroupEntity != null && projectGroupEntity.isSkipuseridentifers();
 		List<Client> clients = export.getClient();
-		if (clients != null && clients.size() > 0) {
+		if (CollectionUtils.isNotEmpty(clients)) {
 			for (Client client : clients) {
 				com.servinglynk.hmis.warehouse.model.v2017.Client clientModel = null;
 				try {
@@ -130,7 +131,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 					clientModel.setExport(exportEntity);
 					//makes a microservice all to the dedup micro service
-					performSaveOrUpdate(clientModel);
+					performSaveOrUpdate(clientModel,domain);
 					
 					// Inserting client in base schema	
 					if(!clientModel.isIgnored()) {
@@ -167,6 +168,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain)) {
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Client) getModel(com.servinglynk.hmis.warehouse.model.v2017.Client.class, client.getPersonalID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		}
+		if(domain.isReUpload() && modelFromDB != null) 
+		{
+			return modelFromDB;
 		}
 		com.servinglynk.hmis.warehouse.model.v2017.Client model = new com.servinglynk.hmis.warehouse.model.v2017.Client(); 
 		if(client != null) {
@@ -393,8 +398,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		List<String> projectGroupCodes = new ArrayList<String>();
 		projectGroupCodes.add("MO0010");
 		projectGroupCodes.add("HO0002");
-		projectGroupCodes.add("IL0009");
-		projectGroupCodes.add("BD0005");
+		projectGroupCodes.add("SA0005");
+		projectGroupCodes.add("SB0006");
+		projectGroupCodes.add("SR0012");
+		projectGroupCodes.add("MC0005");
+		
 		criteria.add(Restrictions.in("projectGroupCode", projectGroupCodes));
 		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2017.Client>) findByCriteria(criteria);
 		return clients;
@@ -407,17 +415,22 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	    if(basClient == null) {
 	    	basClient = new  com.servinglynk.hmis.warehouse.model.base.Client();
 	    	BeanUtils.copyProperties(client, basClient, new String[] {"enrollments","veteranInfoes"});
-	    	basClient.setSchemaYear("2014");
+	    	basClient.setSchemaYear("2017");
 	     }
-	     String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
-	     logger.info("Calling Dedup Service for "+client.getFirstName());
-		 client.setDateUpdated(LocalDateTime.now());
-		 client.setDedupClientId(UUID.fromString(dedupedId));
-		 getCurrentSession().update(client);
-		 basClient.setDedupClientId(UUID.fromString(dedupedId));
-		 basClient.setDateUpdated(LocalDateTime.now());
-		 insert(basClient);
-		 getCurrentSession().flush();
-		 getCurrentSession().clear();
+	    try{
+	    	 String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
+		     logger.info("Calling Dedup Service for "+client.getFirstName());
+			 client.setDateUpdated(LocalDateTime.now());
+			 client.setDedupClientId(UUID.fromString(dedupedId));
+			 getCurrentSession().update(client);
+			 basClient.setDedupClientId(UUID.fromString(dedupedId));
+			 basClient.setDateUpdated(LocalDateTime.now());
+			 insert(basClient);
+			 getCurrentSession().flush();
+			 getCurrentSession().clear();
+	    }catch(Exception e) {
+	    	logger.error("Error populate dedup id for client: "+client.getId() + " name :"+ client.getFirstName(),e);
+	    }
+	    
 	}
 }

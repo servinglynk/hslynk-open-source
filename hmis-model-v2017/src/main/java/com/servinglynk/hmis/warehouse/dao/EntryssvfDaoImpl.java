@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class, getProjectGroupCode(domain));
 		List<EntrySSVF> entrySSVFs = export.getEntrySSVF();
-		if (entrySSVFs != null && entrySSVFs.size() > 0) {
+		if (CollectionUtils.isNotEmpty(entrySSVFs)) {
 			for (EntrySSVF entrySSVF : entrySSVFs) {
 				com.servinglynk.hmis.warehouse.model.v2017.Entryssvf entrySsvfModel = null;
 				try {
@@ -81,7 +82,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 					entrySsvfModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entrySSVF.getDateUpdated()));
 					entrySsvfModel.setExport(exportEntity);
 					entrySsvfModel.setSync(false);
-					performSaveOrUpdate(entrySsvfModel);
+					performSaveOrUpdate(entrySsvfModel, domain);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the entryRhy::"+entrySSVF.getEntrySSVFID() +" Exception ::"+e.getMessage();
 					if(entrySsvfModel != null){
@@ -107,7 +108,9 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Entryssvf) getModel(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class, entryssvf.getEntrySSVFID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
-		
+		if(domain.isReUpload() && modelFromDB != null) {
+			return modelFromDB;
+		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Entryssvf();
 			modelFromDB.setId(UUID.randomUUID());
