@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 public class CreateCESTables  extends Logging {
 	private String includeTables;
     private String excludeTables;
+    private static boolean isPrimaryKeyPopulated =false;
     final static Logger logger = Logger.getLogger(CreateCESTables.class);
 	
 	public CreateCESTables() {
@@ -29,21 +30,21 @@ public class CreateCESTables  extends Logging {
 		 Properties props = new Properties();
 		 props.generatePropValues();
 		CreateCESTables cesTables = new CreateCESTables();
-		String projectGroups = Properties.PROJECT_GROUPS;
-		String[] split = projectGroups.split(",");
-		for(String projectGroup : split) {
+		
+		List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes(logger);
+		for(String projectGroup : allProjectGroupCodes) {
 			cesTables.createTable("CESTables.sql",projectGroup);
-			cesTables.createHiveTables("survey", projectGroup);
-			cesTables.createHiveTables("housing_inventory", projectGroup);
-			cesTables.createHiveTables("v2017", projectGroup);
-			cesTables.createHiveTables("v2017", projectGroup);
-			cesTables.createHiveTables("v2016", projectGroup);
-			cesTables.createHiveTables("v2015", projectGroup);
-			cesTables.createHiveTables("v2014", projectGroup);
+			cesTables.createHiveTables("survey", projectGroup,false);
+			cesTables.createHiveTables("housing_inventory", projectGroup,false);
+			cesTables.createHiveTables("v2017", projectGroup,false);
+			cesTables.createHiveTables("v2017", projectGroup,false);
+			cesTables.createHiveTables("v2016", projectGroup,false);
+			cesTables.createHiveTables("v2015", projectGroup,false);
+			cesTables.createHiveTables("v2014", projectGroup,false);
 		}
 	}
 	
-	 public void createHiveTables(String schema,String projectGroupCode) {
+	 public void createHiveTables(String schema,String projectGroupCode,boolean hmisschema) {
 		 List<String> tables  = new ArrayList<>();
 		 try {
 			 tables = getTablesToSync(schema);
@@ -51,7 +52,7 @@ public class CreateCESTables  extends Logging {
 			 
 		 }
 		 for(String tableName : tables) {
-			 String sql = createHiveViews(schema, tableName, projectGroupCode);
+			 String sql = createHiveViews(schema, tableName, projectGroupCode,hmisschema);
 			 System.out.println(sql+";");
 			 createHiveTable(sql);
 		 }
@@ -126,7 +127,7 @@ public class CreateCESTables  extends Logging {
 		  }
 	 
 	 
-	 public static String createHiveViews(String schema,String tableName,String projectGroupCode) {
+	 public static String createHiveViews(String schema,String tableName,String projectGroupCode,boolean hmisschema) {
 		  ResultSet resultSet;
 	      PreparedStatement statement;
 	      Connection connection;
@@ -134,9 +135,11 @@ public class CreateCESTables  extends Logging {
 	      StringBuilder middlePart = new StringBuilder(" )  STORED BY \"org.apache.hadoop.hive.hbase.HBaseStorageHandler\"  WITH SERDEPROPERTIES   (\"hbase.columns.mapping\" = \"");
 	      StringBuilder lastPart = new StringBuilder(") TBLPROPERTIES (\"hbase.table.name\" = \""+tableName+"_"+projectGroupCode+"\") ");
 	      try {
+			  String primaryKey = SyncPostgresProcessor.getPrimaryKey(schema, tableName);
 	    	  connection = SyncPostgresProcessor.getConnection();
 	    	  statement = connection.prepareStatement("select * from "+schema+"."+tableName +" limit 1");
 		      resultSet = statement.executeQuery();
+		      isPrimaryKeyPopulated = false;
 			  ResultSetMetaData metaData = resultSet.getMetaData();
 	          for (int i = 1; i < metaData.getColumnCount(); i++) {
 	              String column = metaData.getColumnName(i);
@@ -155,23 +158,35 @@ public class CreateCESTables  extends Logging {
 	            	  firstPart.append(column +" string ,");
 	            	  addMiddlePart(middlePart, column);
 	              }
-	              if (StringUtils.isNotEmpty(column)) {
+	              if (StringUtils.isNotEmpty(column) && hmisschema) {
 	            	  //If a table has a column called client_id then make sure you add dedup_client_id to it too.
 	                  if(StringUtils.equals("client_id", column)) {
 	                	  firstPart.append("dedup_client_id string ,");
 		            	  addMiddlePart(middlePart, "dedup_client_id");
 	                  }
 	                  // Add a new column for description for enums
-	                  if(columnTypeName.contains(schema)) {
-	                	  firstPart.append(column+"_desc string ,");
-		            	  addMiddlePart(middlePart, column+"_desc ");
+	                  if(hmisschema) {
+		                  if(columnTypeName.contains(schema)) {
+		                	  firstPart.append(column+"_desc string ,");
+			            	  addMiddlePart(middlePart, column+"_desc ");
+		                  }
 	                  }
 	             }
 	          }
+//	          if(!isPrimaryKeyPopulated && StringUtils.isNotBlank(primaryKey)) {
+//	        	  firstPart.append("id string,");
+//	        	  middlePart.append("CF:"+primaryKey);
+//	          }
 	          // add a column for the year field.
-              firstPart.append("year string ");
-        	  middlePart.append("CF:year\"");
-	          
+	          if(hmisschema) {
+	        	   firstPart.append("year string ");
+	         	    middlePart.append("CF:year\"");
+	          }else {
+	        	  firstPart =  firstPart.deleteCharAt(firstPart.toString().length() - 1);
+	        	  middlePart =  middlePart.deleteCharAt(middlePart.toString().length() - 2);
+	        	  middlePart.append("\"");
+	          }
+	     
 	      } catch (Exception e) {
 	    	  // Need to take the print stack trace out
 	    	  e.printStackTrace();
@@ -183,12 +198,16 @@ public class CreateCESTables  extends Logging {
 		 if(StringUtils.equalsIgnoreCase("id", column)) {
 			 builder.append("");
 			 builder.append(":key,");
+			 isPrimaryKeyPopulated = true;
 		 }else {
 			 builder.append("CF:"+column+", ");
 		 }
 		 
 	 }
 	 
+	 
+	
+			 
 	 public static void dropHiveTable(String sql) {
 			Connection connection;
 			try {

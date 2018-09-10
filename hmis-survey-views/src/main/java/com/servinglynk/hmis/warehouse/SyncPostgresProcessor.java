@@ -41,7 +41,7 @@ public class SyncPostgresProcessor extends Logging{
         List<String> projectGroupCodes = new ArrayList<String>();
         try {
             connection = getConnection();
-            statement = connection.prepareStatement("SELECT distinct(project_group_code) FROM base.hmis_project_group where project_group_code not in ('TE0008','MO0006','TE0011','JP0005','FI0009','BA0007','PG0001','TE0003','CP0004')");
+            statement = connection.prepareStatement("SELECT distinct(project_group_code) FROM base.hmis_project_group where active=true");
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
             	projectGroupCodes.add(resultSet.getString(1));
@@ -72,7 +72,7 @@ public class SyncPostgresProcessor extends Logging{
         
         try {
             connection = getConnection();
-              statement = connection.prepareStatement("SELECT project_group_code,id FROM base.hmis_project_group where project_group_code not in ('TE0008','MO0006','TE0011','JP0005','FI0009','BA0007','PG0001','TE0003','CP0004')");
+              statement = connection.prepareStatement("SELECT project_group_code,id FROM base.hmis_project_group where active=true");
           //  statement = connection.prepareStatement("SELECT project_group_code,id FROM base.hmis_project_group where project_group_code  in ('MO0010')");
 
             resultSet = statement.executeQuery();
@@ -97,6 +97,38 @@ public class SyncPostgresProcessor extends Logging{
         }
         return null;
     }
+    
+    public static String getPrimaryKey(String schemaName, String tableName) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        Connection connection = null;
+        
+        try {
+            connection = getConnection();
+              statement = connection.prepareStatement("  select column_name from information_schema.columns where table_schema=? and ordinal_position=1 and column_name <> 'id' and table_name=?");
+              statement.setString(1, schemaName);
+              statement.setString(2, tableName);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+            	return resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            logger.error(e);
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                    //connection.close();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    logger.error(e);
+                }
+            }
+        }
+        return null;
+    }
+  
     public static List<String> getAllTablesFromPostgres(String schemaName) throws Exception{
         List<String> tables = new ArrayList<>();
         ResultSet resultSet = null;
