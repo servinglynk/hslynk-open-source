@@ -6,11 +6,11 @@ import com.servinglynk.hmis.warehouse.PaginatedModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("healthinsurances")
+@JsonRootName("healthInsurances")
 public class Healthinsurances extends PaginatedModel{
 
 
-       @JsonProperty("healthinsurances") 
+       @JsonProperty("healthInsurances") 
        List<Healthinsurance>healthinsurances = new ArrayList<Healthinsurance>();
        public List<Healthinsurance> getHealthinsurances() {
            return healthinsurances;
