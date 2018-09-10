@@ -17,7 +17,7 @@ public class Inventory extends ClientModel{
 
       private Integer availabilty;
       @JsonProperty("bedInventory")
-      private UUID bedinventory;
+      private Integer bedinventory;
       
       private Integer cocCode;
       
