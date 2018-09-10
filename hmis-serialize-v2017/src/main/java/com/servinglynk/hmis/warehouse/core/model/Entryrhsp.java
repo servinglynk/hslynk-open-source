@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("entryrhsp")
+@JsonRootName("entryRhsp")
 public class Entryrhsp extends ClientModel{
 
 

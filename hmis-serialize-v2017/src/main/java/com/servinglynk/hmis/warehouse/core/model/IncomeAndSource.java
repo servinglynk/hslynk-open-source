@@ -18,6 +18,7 @@ public class IncomeAndSource extends ClientModel{
       @JsonProperty("childSupport")
       private Integer childsupport;
 
+      @JsonProperty("childSupportAmount")
       private float childsupportamount;
 
       private Integer earned;
@@ -39,6 +40,7 @@ public class IncomeAndSource extends ClientModel{
 
       private Integer pension;
 
+      @JsonProperty("pensionAmount")
       private float pensionamount;
       @JsonProperty("privateDisability")
       private Integer privatedisability;
@@ -62,6 +64,8 @@ public class IncomeAndSource extends ClientModel{
       private Integer tanf;
       @JsonProperty("tanfAmount")
       private float tanfamount;
+      
+      
       @JsonProperty("totalMonthlyIncome")
       private float totalmonthlyincome;
 
@@ -69,15 +73,19 @@ public class IncomeAndSource extends ClientModel{
 
       @JsonProperty("unemploymentAmount")
       private float unemploymentamount;
+      
       @JsonProperty("vaDisabilityNonService")
       private Integer vadisabilitynonservice;
+      
       @JsonProperty("vaDisabilityNonServiceAmount")
       private float vadisabilitynonserviceamount;
+      
       @JsonProperty("vaDisabilityService")
       private Integer vadisabilityservice;
       
       @JsonProperty("vaDisabilityServiceAmount")
       private float vadisabilityserviceamount;
+      
       @JsonProperty("workersComp")
       private Integer workerscomp;
 
@@ -85,6 +93,7 @@ public class IncomeAndSource extends ClientModel{
       private float workerscompamount;
 
       private LocalDateTime informationDate;
+      
       private Integer dataCollectionStage;
 
       public LocalDateTime getInformationDate() {

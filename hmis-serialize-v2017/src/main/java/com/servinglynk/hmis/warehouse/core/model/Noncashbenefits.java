@@ -6,10 +6,10 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("noncashBenefits")
+@JsonRootName("nonashBenefits")
 public class Noncashbenefits extends ClientModel{
 
-
+	 @JsonProperty("noncashbenefitsID")
       private UUID noncashbenefitsID;
 
       @JsonProperty("benefitsFromAnySource")
@@ -17,12 +17,15 @@ public class Noncashbenefits extends ClientModel{
       @JsonProperty("otherSource")
       private Integer othersource;
 
+      @JsonProperty("otherSourceIdentify")
       private String othersourceidentify;
       @JsonProperty("otherTanf")
       private Integer othertanf;
-
+      
+      @JsonProperty("rentalAssistanceOngoing")
       private Integer rentalassistanceongoing;
 
+      @JsonProperty("rentalAssistanceTemp")
       private Integer rentalassistancetemp;
 
       private Integer snap;
