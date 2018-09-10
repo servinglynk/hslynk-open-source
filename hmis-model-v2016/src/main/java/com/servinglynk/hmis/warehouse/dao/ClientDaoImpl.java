@@ -399,12 +399,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		criteria.add(Restrictions.isNull("dedupClientId"));
 		criteria.add(Restrictions.isNotNull("firstName"));
 		criteria.add(Restrictions.isNotNull("lastName"));
-		List<String> projectGroupCodes = new ArrayList<String>();
-		projectGroupCodes.add("MO0010");
-		projectGroupCodes.add("HO0002");
-		projectGroupCodes.add("IL0009");
-		projectGroupCodes.add("BD0005");
-		criteria.add(Restrictions.in("projectGroupCode", projectGroupCodes));
+		List<String> allActiveProjectGroupCodes = daoFactory.getProjectGroupDao().getAllActiveProjectGroupCodes();
+		criteria.add(Restrictions.in("projectGroupCode", allActiveProjectGroupCodes));
 		List<com.servinglynk.hmis.warehouse.model.v2016.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2016.Client>) findByCriteria(criteria);
 		return clients;
 	}
