@@ -6,11 +6,11 @@ import com.servinglynk.hmis.warehouse.PaginatedModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("pathstatuses")
+@JsonRootName("pathStatuses")
 public class Pathstatuses extends PaginatedModel{
 
 
-       @JsonProperty("pathstatuses") 
+       @JsonProperty("pathStatuses") 
        List<Pathstatus>pathstatuses = new ArrayList<Pathstatus>();
        public List<Pathstatus> getPathstatuses() {
            return pathstatuses;

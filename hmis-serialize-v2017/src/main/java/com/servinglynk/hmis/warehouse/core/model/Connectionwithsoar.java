@@ -5,7 +5,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("connectionwithsoar")
+@JsonRootName("connectionWithSoar")
 public class Connectionwithsoar extends ClientModel{
 
 

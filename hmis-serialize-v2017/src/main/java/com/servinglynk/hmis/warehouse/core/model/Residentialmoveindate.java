@@ -9,12 +9,13 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonRootName("residentialmoveindate")
+@JsonRootName("residentialMoveinDate")
 public class Residentialmoveindate extends ClientModel{
 
-
+		@JsonProperty("residentialMoveinDateId")
       private UUID residentialmoveindateId;
-
+		
+		@JsonProperty("inPermanentHousing")
       private Integer inpermanenthousing;
 
       @JsonSerialize(using=JsonDateSerializer.class)

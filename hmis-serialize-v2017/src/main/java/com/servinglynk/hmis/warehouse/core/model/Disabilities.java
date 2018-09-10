@@ -21,8 +21,10 @@ public class Disabilities extends ClientModel{
       @JsonProperty("disabilityType")
       private Integer disabilitytype;
 
+      @JsonProperty("disabilityResponse")
       private Integer disabilityresponse;
 
+      @JsonProperty("indefiniteandImpairs")
       private Integer indefiniteandimpairs;
       @JsonProperty("tCellCountAvailable")
       private Integer tcellcountavailable;
