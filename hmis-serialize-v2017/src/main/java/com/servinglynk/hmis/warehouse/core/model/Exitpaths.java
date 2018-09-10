@@ -6,11 +6,11 @@ import com.servinglynk.hmis.warehouse.PaginatedModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("exitpaths")
+@JsonRootName("exitPaths")
 public class Exitpaths extends PaginatedModel{
 
 
-       @JsonProperty("exitpaths") 
+       @JsonProperty("exitPaths") 
        List<Exitpath>exitpaths = new ArrayList<Exitpath>();
        public List<Exitpath> getExitpaths() {
            return exitpaths;

@@ -6,7 +6,7 @@ import com.servinglynk.hmis.warehouse.PaginatedModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("rhybcpstatuses")
+@JsonRootName("rhybcpStatuses")
 public class Rhybcpstatuses extends PaginatedModel{
 
 

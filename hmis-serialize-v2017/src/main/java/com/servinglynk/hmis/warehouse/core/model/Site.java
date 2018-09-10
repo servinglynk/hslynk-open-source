@@ -16,7 +16,8 @@ public class Site extends ClientModel{
       private String city;
       @JsonProperty("geoCode")
       private Integer geocode;
-
+      
+      @JsonProperty("principalSite")
       private Integer principalsite;
 
       private String state;

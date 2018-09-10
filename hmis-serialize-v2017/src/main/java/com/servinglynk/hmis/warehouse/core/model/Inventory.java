@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,6 +25,7 @@ public class Inventory extends ClientModel{
 
       @JsonProperty("hmisParticipatingBeds")
       private Integer hmisparticipatingbeds;
+      
       @JsonProperty("houseHoldType")
       private Integer householdtype;
       
@@ -34,6 +34,7 @@ public class Inventory extends ClientModel{
       
       @JsonProperty("vetBedInventory")
       private Integer vetbedinventory;
+      
       @JsonProperty("youthBedInventory")
       private Integer youthbedinventory;
       

@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("exitrhy")
@@ -10,6 +11,7 @@ public class Exitrhy extends ClientModel{
 
     private UUID exitrhyId;
   	private Integer earlyExitReason;
+  	@JsonProperty("exitId")
   	private UUID exitid;
   	private Integer projectCompletionStatus;
   	private Integer exchangeForSex;

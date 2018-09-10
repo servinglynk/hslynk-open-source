@@ -5,10 +5,11 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("projectcoc")
+@JsonRootName("projectCoc")
 public class Projectcoc extends ClientModel{
 
 
+	@JsonProperty("projectCocId")
       private UUID projectcocId;
       @JsonProperty("cocCode")
       private String coccode;
