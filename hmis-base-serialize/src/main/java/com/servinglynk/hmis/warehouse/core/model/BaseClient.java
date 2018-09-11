@@ -31,7 +31,7 @@ public class BaseClient extends ClientModel {
 	private Integer ethnicity;
 	private Integer gender;
 	private String otherGender;
-	private String veteranStatus;
+	private Integer veteranStatus;
 	private String sourceSystemId;
 	private String link;
 	private String projectGroupCode;
@@ -159,10 +159,10 @@ public class BaseClient extends ClientModel {
 	public void setOtherGender(String otherGender) {
 		this.otherGender = otherGender;
 	}
-	public String getVeteranStatus() {
+	public Integer getVeteranStatus() {
 		return veteranStatus;
 	}
-	public void setVeteranStatus(String veteranStatus) {
+	public void setVeteranStatus(Integer veteranStatus) {
 		this.veteranStatus = veteranStatus;
 	}	
 	public String getSourceSystemId() {
