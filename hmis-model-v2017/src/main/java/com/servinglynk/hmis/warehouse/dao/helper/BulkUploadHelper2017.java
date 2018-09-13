@@ -7,6 +7,11 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +40,7 @@ import javax.xml.validation.SchemaFactory;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
@@ -77,7 +83,6 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntrySSVF;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExportPeriod;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Geography;
@@ -97,6 +102,48 @@ import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 @Component
 public class BulkUploadHelper2017 {
 	
+	
+    public static int batchSize = 1000;
+    private static Connection connection = null;
+    static final Logger logger = Logger.getLogger(BulkUploadHelper2017.class);
+    static Connection getConnection() throws SQLException {
+        if (connection == null) {
+            connection = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/hmis",
+                    "postgres",
+                    "");
+        }
+        if (connection.isClosed()) {
+            throw new SQLException("connection could not initiated");
+        }
+        return connection;
+    }
+    
+    public void hydrateAppleTable(String zipFile,String csvFile,String sourceSystemId,String dateUpdatedFromSource){
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("insert into base.apple (zip_file,file_name,source_system_id,date_updated_from_source)  values (?,?,?,?)");
+            statement.setString(1, zipFile);
+            statement.setString(2,csvFile);
+            statement.setString(3,sourceSystemId);
+            statement.setString(4, dateUpdatedFromSource);
+            statement.executeUpdate();
+        }catch (SQLException ex) {
+            logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+
+        } finally {
+
+            try {
+                if (statement != null) {
+                	statement.close();
+                }
+            } catch (SQLException ex) {
+            	logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+            }
+        }
+    }
 	/**
 	 * Gets the source object from the upload location.
 	 * @param upload
@@ -220,6 +267,7 @@ public class BulkUploadHelper2017 {
 			sources.setSource(newSource);
 			newSource.setExport(new Sources.Source.Export());
 		}
+		sources.getSource().setSourceName(fileName);
 		try {
 			ZipFile zf = new ZipFile(fileName);
 		      Enumeration entries = zf.entries();
@@ -329,6 +377,7 @@ public class BulkUploadHelper2017 {
 		    		  geographyModel.setInformationDate(getXMLGregorianCalendar(geography.getInformationDate()));
 		    		  geographyModel.setUserID(geography.getUserID());
 		    		  geographyModel.setZip(geography.getZIP());
+		    		  hydrateAppleTable( sources.getSource().getSourceName(), "Geography.csv", geography.getGeographyID(),geography.getDateUpdated() );
 		    		  geographyList.add(geographyModel);
 		    	  }
 		      }
@@ -361,6 +410,7 @@ public class BulkUploadHelper2017 {
 	    		  affiliationModel.setProjectID(affiliation.getProjectID());
 	    		  affiliationModel.setResProjectID(affiliation.getResProjectID());
 	    		  affiliationModel.setUserID(affiliation.getUserID());
+	    		  hydrateAppleTable( sources.getSource().getSourceName(), "Affiliation.csv", affiliation.getAffiliationID(),affiliation.getDateUpdated() );
 	    		  affiliationList.add(affiliationModel);
 	    	  }
 	      }
@@ -448,6 +498,7 @@ public class BulkUploadHelper2017 {
 	    		   if (client.getYearSeparated()!=null && !"".equals(client.getYearSeparated()) ) {
 	    			   veteranInfoModel.setYearSeparated(Short.valueOf(client.getYearSeparated()));
 	    		   }
+	    		   hydrateAppleTable( sources.getSource().getSourceName(), "Client.csv", client.getPersonalID(),client.getDateUpdated());
 	    		   veteranInfoList.add(veteranInfoModel);
 	    	  }
 	    	  sources.getSource().getExport().setClients(clientList);
@@ -489,11 +540,12 @@ public class BulkUploadHelper2017 {
 	    	  disabilitiesModel.setViralLoad(getIntValue(disability.getViralLoad()));
 	    	  disabilitiesModel.setViralLoadAvailable(disability.getViralLoadAvailable());
 	    	  disabilitiesModel.setViralLoadSource((disability.getViralLoadSource()));
+	    	  hydrateAppleTable( sources.getSource().getSourceName(), "Disabilities.csv", disability.getDisabilitiesID(),disability.getDateUpdated());
 	    	  disabilitiesList.add(disabilitiesModel);
 	      }
 	      sources.getSource().getExport().setDisabilities(disabilitiesList);
 	  }catch(Exception e) {
-	   	  throw new Exception("Client.csv Invalid file format : "+e.getMessage(),e);
+	   	  throw new Exception("Disabilities.csv Invalid file format : "+e.getMessage(),e);
 	     }
 	  }
 	 /**
@@ -537,6 +589,7 @@ public class BulkUploadHelper2017 {
 	    			  educationModel.setSchoolStatus(employementEducationCSV.getSchoolStatus());
 	    			  educationModel.setLastGradeCompleted((employementEducationCSV.getLastGradeCompleted()));
 	    			  educationList.add(educationModel);
+	    			  hydrateAppleTable( sources.getSource().getSourceName(), "EmploymentEducation.csv", employementEducationCSV.getEmploymentEducationID(),employementEducationCSV.getDateUpdated());
 	    		  }
 	    		  sources.getSource().getExport().setEmployment(employmentList);
 	    		  sources.getSource().getExport().setEducation(educationList);
@@ -666,6 +719,8 @@ public class BulkUploadHelper2017 {
 		    	  entryRHSP.setUserID(enroll.getUserID());
 		    	  entryRHSPList.add(entryRHSP);
 		    	  
+		    	  hydrateAppleTable( sources.getSource().getSourceName(), "Enrollment.csv", enroll.getEnrollmentID(),enroll.getDateUpdated());
+
 		    	  /**
 		    	   * ContinuouslyHomelessOneYear, MonthsHomelessThisTime, StatusDocumented, YearsHomeless --> These fields are missing in CSV Pojo file of Enrollment.
 		    	   * 
@@ -708,6 +763,8 @@ public class BulkUploadHelper2017 {
 		    	  enrollmentCocModel.setCocCode(enrollCoC.getCoCCode());
 		    	  enrollmentCocModel.setEnrollmentID(enrollCoC.getProjectEntryID());
 		    	  enrollmentCocModel.setUserID(enrollCoC.getUserID());
+		    	  hydrateAppleTable( sources.getSource().getSourceName(), "EnrollmentCoC.csv", enrollCoC.getEnrollmentCOCID(),enrollCoC.getDateUpdated());
+
 		    	  sources.getSource().getExport().getEnrollmentCoC().add(enrollmentCocModel);
 		      }
 	  }catch(Exception e) {
@@ -819,6 +876,7 @@ public class BulkUploadHelper2017 {
 	    	  exitRHYModel.setDateUpdated(getXMLGregorianCalendar(ext.getDateUpdated()));
 	    	  exitRHYModel.setUserID(ext.getUserID());
 	    	  exitRhyList.add(exitRHYModel);
+	    	  hydrateAppleTable( sources.getSource().getSourceName(), "Exit.csv", ext.getExitID(),ext.getDateUpdated());
 	      }
 	      sources.getSource().getExport().setHousingAssessmentDisposition(housingAssessmentDispositionList);
 	      sources.getSource().getExport().setExitHousingAssessment(exitHousingAssessmentList);
@@ -886,6 +944,7 @@ public class BulkUploadHelper2017 {
 	    	  funderModel.setStartDate(getXMLGregorianCalendar(fund.getStartDate()));
 	    	  funderModel.setUserID(fund.getUserID());
 	    	  sources.getSource().getExport().getFunder().add(funderModel);
+	    	  hydrateAppleTable( sources.getSource().getSourceName(), "Funder.csv", fund.getFunderID(),fund.getDateUpdated());
 	      }
 	      }catch(Exception e) {
 		   	  throw new Exception("Funder.csv Invalid file format : "+e.getMessage(),e);
@@ -932,6 +991,8 @@ public class BulkUploadHelper2017 {
 			      domesticViolenceModel.setUserID(healthDV.getUserID());
 			      domesticViolenceModel.setWhenOccurred((healthDV.getWhenOccurred()));
 			      domesticViolenceList.add(domesticViolenceModel);
+			      
+			      hydrateAppleTable( sources.getSource().getSourceName(), "HealthAndDV.csv", healthDV.getHealthAndDVID(),healthDV.getDateUpdated());
 		    	  
 	      }
 	      sources.getSource().getExport().setHealthStatus(healthStatusList);
@@ -1100,6 +1161,9 @@ public class BulkUploadHelper2017 {
 	    	  medicalassistanceModel.setUserID(incomeBnfts.getUserID());
 	    	  medicalAssistanceList.add(medicalassistanceModel);
 	    	  incomeBenefitsList.add(incomeBenefitsModel);
+		      
+		      hydrateAppleTable( sources.getSource().getSourceName(), "IncomeBenefits.csv", incomeBnfts.getIncomeBenefitsID(),incomeBnfts.getDateUpdated());
+	    
 	      }
 	      sources.getSource().getExport().setIncomeAndSources(incomeBenefitsList);
 	      sources.getSource().getExport().setNonCashBenefits(nonCashBenefitsList);
@@ -1154,6 +1218,8 @@ public class BulkUploadHelper2017 {
 	    	  bedInventory.setYouthBedInventory((invntry.getYouthBedInventory()));
 	    	  
 	    	  inventoryModel.setBedInventory(bedInventory);
+	    	  hydrateAppleTable( sources.getSource().getSourceName(), "Inventory.csv", invntry.getInventoryID(),invntry.getDateUpdated());
+	  	    
 	    	  inventoryList.add(inventoryModel);
 	      }
 	      sources.getSource().getExport().setInventory(inventoryList);
@@ -1185,7 +1251,8 @@ public class BulkUploadHelper2017 {
 		    	  organizationModel.setOrganizationID(orgtn.getOrganizationID());
 		    	  organizationModel.setOrganizationName(orgtn.getOrganizationName());
 		    	  organizationModel.setUserID(orgtn.getUserID());
-		    	  
+		     	  hydrateAppleTable( sources.getSource().getSourceName(), "Organization.csv", orgtn.getOrganizationID(),orgtn.getDateUpdated());
+			  	    
 		    	  organizationList.add(organizationModel);
 		      }
 		      sources.getSource().getExport().setOrganization(organizationList);
@@ -1222,7 +1289,8 @@ public class BulkUploadHelper2017 {
 	    	  projectModel.setTargetPopulation((prjt.getTargetPopulation()));
 	    	  projectModel.setTrackingMethod((prjt.getTrackingMethod()));
 	    	  projectModel.setUserID(prjt.getUserID());
-	    	  
+	     	  hydrateAppleTable( sources.getSource().getSourceName(), "Project.csv", prjt.getProjectID(),prjt.getDateUpdated());
+		  	   
 	    	  sources.getSource().getExport().getProject().add(projectModel);
 	      }
 	  }catch(Exception e) {
@@ -1251,6 +1319,8 @@ public class BulkUploadHelper2017 {
 	    	 cocModel.setDateUpdated(getXMLGregorianCalendar(prjtCoC.getDateUpdated()));
 	    	 cocModel.setUserID(prjtCoC.getUserID());
 	    	  projectCoCList.add(cocModel);
+	    	  hydrateAppleTable( sources.getSource().getSourceName(), "Coc.csv", prjtCoC.getProjectCocID(),prjtCoC.getDateUpdated());
+		  	   
 	    	  sources.getSource().getExport().getCoC().add(cocModel);
 	      }
 	  }catch(Exception e) {
@@ -1301,6 +1371,7 @@ public class BulkUploadHelper2017 {
 		    	  servicesModel.setSubTypeProvided((srvcs.getSubTypeProvided()));
 		    	  servicesModel.setTypeProvided(StringUtils.isNotBlank(srvcs.getTypeProvided()) ? Short.parseShort(srvcs.getTypeProvided()) : 0);
 		    	  servicesModel.setUserID(srvcs.getUserID());
+		    	  hydrateAppleTable( sources.getSource().getSourceName(), "Services.csv", srvcs.getServicesID(),srvcs.getDateUpdated());
 		    	  servicesList.add(servicesModel);
 	    	  }
 	    	
@@ -1356,7 +1427,7 @@ public class BulkUploadHelper2017 {
 	    	  if(ste.getZIP() !=null && !"".equals(ste.getZIP())) {
 	    		  siteModel.setZIP((parseInt(ste.getZIP()).intValue()));  
 	    	  }
-	    	  
+	    	  hydrateAppleTable( sources.getSource().getSourceName(), "Site.csv", ste.getSiteID(),ste.getDateUpdated());
 	    	  siteList.add(siteModel);
 	      }
 	      sources.getSource().getExport().setSite(siteList);

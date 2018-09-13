@@ -284,6 +284,14 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		else {
 			if(model.isIgnored()) {
 				logger.info("Ignoring this record because is already exists:::"+model.toString());
+				Error2017 error = new Error2017();
+				error.bulk_upload_ui = domain.getUpload().getId();
+				error.project_group_code = domain.getUpload().getProjectGroupCode();
+				error.source_system_id = model.getSourceSystemId();
+				error.type = ErrorType.IGNORE;
+				error.error_description = domain.getUpload().getInputpath();
+				error.date_created = model.getDateUpdatedFromSource();
+				performSave(error);
 				return;
 			}
 			model.setDateUpdated(LocalDateTime.now());
