@@ -41,11 +41,6 @@ public class SyncPostgresProcessor extends Logging{
          PreparedStatement statement = null;
          Connection connection = null;
          try{
-         	  logger.info("Host name"+Properties.POSTGRESQL_DB_HOST);
-               logger.info("POSTGRESQL_DB_PORT"+Properties.POSTGRESQL_DB_PORT);
-               logger.info("POSTGRESQL_DB_DATABASE"+Properties.POSTGRESQL_DB_DATABASE);
-               logger.info("POSTGRESQL_DB_USERNAME"+Properties.POSTGRESQL_DB_USERNAME);
-               logger.info("POSTGRESQL_DB_PASSWORD"+Properties.POSTGRESQL_DB_PASSWORD);
              connection = getConnection();
              statement = connection.prepareStatement("select column_name,data_type from information_schema.columns where table_schema=? and table_name=?");
              statement.setString(1, schema);

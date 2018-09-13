@@ -116,6 +116,25 @@ public class SyncPostgresProcessor extends Logging{
         return tables;
     }
     
+    public static Map<String,String> getColumnsForTable(String tableName, String schema) {
+    	Map<String,String> columns = new HashMap<>();
+         ResultSet resultSet = null;
+         PreparedStatement statement = null;
+         Connection connection = null;
+         try{
+             connection = getConnection();
+             statement = connection.prepareStatement("select column_name,data_type from information_schema.columns where table_schema=? and table_name=?");
+             statement.setString(1, schema);
+             statement.setString(2, tableName);
+             resultSet = statement.executeQuery();
+             while (resultSet.next()){
+            	 columns.put(resultSet.getString("column_name"),resultSet.getString("data_type"));
+             }
+         }catch (Exception ex){
+             logger.error(" Error getting metadata for table "+tableName + "schema :"+schema);
+         }
+         return columns;
+	}
     public static void hydrateSyncTable(String schemaName,String tableName,String status,String message,String projectGroupCode){
         PreparedStatement statement = null;
         Connection connection = null;

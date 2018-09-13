@@ -68,6 +68,7 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	private InventoryHouseholdtypeEnum householdtype;
 	/** Field mapping. */
 	private java.util.UUID id;
+	private String cocCode;
 	/** Field mapping. */
 	private LocalDateTime informationdate;
 	/** Field mapping. */

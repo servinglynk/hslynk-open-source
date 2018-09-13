@@ -7,6 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
@@ -105,7 +106,7 @@ public class SyncSchema extends Logging {
             Long updateCount =0L;
             Long deleteCount =0L;
             while(true) {
-            	int limit = 20000;
+            	int limit = 50000;
             	String deltaQuery = "";
             	if(delta) {
             		deltaQuery=" and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  desc limit 1 ) ";
@@ -137,7 +138,6 @@ public class SyncSchema extends Logging {
 	                    markedForDelete = false;
 	                }
                 }
-                ResultSetMetaData metaData = resultSet.getMetaData();
                 String key = resultSet.getString("id");
                 if(key.trim() == ""){
                     continue;
@@ -154,10 +154,12 @@ public class SyncSchema extends Logging {
                         continue;
                     }
                 } else {
+                	Map<String, String> columnMap = SyncPostgresProcessor.getColumnsForTable(postgresTable, syncSchema);
                     Put p = new Put(Bytes.toBytes(key));
-                    for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                        String column = metaData.getColumnName(i);
-                        String value = resultSet.getString(i);
+                    Set<String> columns =  columnMap.keySet();
+                    for (String column : columns) {
+                        String columnTypeName = columnMap.get(column);
+                        String value = getValue(resultSet,column, columnTypeName);
                         if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
                             p.addColumn(Bytes.toBytes("CF"),
                                     Bytes.toBytes(column),
@@ -210,6 +212,29 @@ public class SyncSchema extends Logging {
     log.info("Sync done for table: " + postgresTable);
     }
 
+    private static String getValue(ResultSet resultSet, String column, String columnTypeName) {
+    	try {
+    		Object object = resultSet.getObject(column);
+        	if(object !=null) {
+        		return  object.toString();
+        	}
+    	}catch(Exception e) {
+    		// eat the exception
+    	}
+    	
+    	return null;
+//    	if(StringUtils.equalsIgnoreCase("boolean", columnTypeName)) {
+//    		Boolean bool = (Boolean) resultSet.getBoolean(column);
+//    		return  bool!= null ? bool.toString() : null;
+//    	}
+//    	if(StringUtils.equalsIgnoreCase("integer", columnTypeName)) {
+//    		 int intValue = resultSet.getInt(column);
+//    		return esultSet.getInt(column)) : null;
+//    	}	
+//    		
+//    	case "timestamp":
+//    	case "date":
+	}
     public void syncBase(boolean delta) {
     	   Map<UUID,String> projectGroups = SyncPostgresProcessor.getAllProjectGroupId(logger);
     	   String postgresTable = "hmis_user";
@@ -342,6 +367,6 @@ public class SyncSchema extends Logging {
 		props.printProps();
 		SyncSchema sync = new SyncSchema(logger);
 		sync.syncBase(true);
-		sync.sync(true);
+		sync.sync(false);
     }
 }

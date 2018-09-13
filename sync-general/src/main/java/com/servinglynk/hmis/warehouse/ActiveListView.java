@@ -312,10 +312,8 @@ public class ActiveListView  extends Logging {
          appender.setLayout(new PatternLayout());
          appender.activateOptions();
          logger.addAppender(appender);
-     	String projectGroupCodes = Properties.PROJECT_GROUP_CODE;
-		String[] split = projectGroupCodes.split(",");
-		List<String> projectGroups = new ArrayList<>(Arrays.asList(split));
-         for (String projectGroupCode :projectGroups) {
+         List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes(logger);
+         for (String projectGroupCode :allProjectGroupCodes) {
         	 String tableName ="active_list_"+projectGroupCode;
              createHbaseTable(tableName);
              logger.info("Processing active list for project group code"+projectGroupCode);

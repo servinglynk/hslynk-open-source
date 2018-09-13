@@ -104,16 +104,15 @@ public class CreateHiveTablesForViSpdat {
 		 Properties props = new Properties();
 		 props.generatePropValues();
 		 CreateCESTables hmisCESTables = new CreateCESTables();
-		 String projectGroups = Properties.PROJECT_GROUPS;
-			String[] split = projectGroups.split(",");
-			for(String projectGroup : split) {
+		 List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
+			for(String projectGroup : allProjectGroupCodes) {
 				hmisCESTables.createTable("CESTables.sql",projectGroup);
 				hmisCESTables.createHiveTables("survey", projectGroup,false);
 				hmisCESTables.createHiveTables("housing_inventory", projectGroup,false);
-				hmisCESTables.createHiveTables("v2017", projectGroup,true);
-				hmisCESTables.createHiveTables("v2016", projectGroup,true);
-				hmisCESTables.createHiveTables("v2015", projectGroup,true);
-				hmisCESTables.createHiveTables("v2014", projectGroup,true);
+//				hmisCESTables.createHiveTables("v2017", projectGroup,true);
+//				hmisCESTables.createHiveTables("v2016", projectGroup,true);
+//				hmisCESTables.createHiveTables("v2015", projectGroup,true);
+//				hmisCESTables.createHiveTables("v2014", projectGroup,true);
 			}
 			createViSpdatViews();
 	}

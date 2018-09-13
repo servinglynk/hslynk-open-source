@@ -34,7 +34,7 @@ public class SyncPostgresProcessor extends Logging{
         return connection;
     }
     
-    public static List<String> getAllProjectGroupCodes(Logger logger) {
+    public static List<String> getAllProjectGroupCodes() {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         Connection connection = null;
