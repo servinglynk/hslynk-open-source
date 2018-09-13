@@ -86,7 +86,9 @@ public class ClientConverter {
 	    if(pClient.getPhoneNumber()!=null)
 	    		client.setPhoneNumber(pClient.getPhoneNumber());
 	    if(pClient.getEmailAddress()!=null)
-	    		client.setEmailAddress(pClient.getEmailAddress());	    
+	    		client.setEmailAddress(pClient.getEmailAddress());
+	    if(pClient.getVeteranStatus()!=null)
+	    	 client.setVeteranStatus(Integer.parseInt(pClient.getVeteranStatus().getValue()));
 //		copyBeanProperties(pClient,client);
 	return client;
 	}
