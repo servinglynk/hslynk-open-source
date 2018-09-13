@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="hmis_type",catalog="hmis",schema="v2016")
+@Table(name="hmis_type",catalog="hmis",schema="v2017")
 public class HMISTypeModel {
 
 	private Long id;
