@@ -6,27 +6,41 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.model.Q22BeanModel;
 
 public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean> getQ22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanList(ReportData data){
 		Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean q22cBean = new Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean();
 		
+		String allQuery = " select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p"+
+				" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id) "+
+				" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
+				" order by e.dedup_client_id,p.operatingstartdate asc ";
+		
+		String leaversQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p"+
+						" join  %s.exit ext  on  (ext.enrollmentid = e.id and ext.exitdate >= ? and ext.exitdate <= ?) "+
+						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
+						" order by e.dedup_client_id,p.operatingstartdate asc ";
+				
+		String stayersQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate, from %s.enrollment e join %s.project p  on (e.projectid = p.id %p"+
+						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and  e.entrydate <= ? and (ext.exitdate is null  or ext.exitdate > ?) ) "+
+						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
+						" order by e.dedup_client_id,p.operatingstartdate asc ";
 
-		String query = " select e.dedup_client_id  from enrollment e join project p  on (e.projectid = p.id and p.projecttype in ('13','3') and p.id ='5cc34dce-e603-4cb6-8d95-4cd3fb164098' ) "+
+
+		String query = " select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate from enrollment e join project p  on (e.projectid = p.id and p.projecttype in ('13','3') and p.id ='5cc34dce-e603-4cb6-8d95-4cd3fb164098' ) "+
 				  " join  enrollment e1 on  (e.householdid = e1.householdid  and e1.relationshiptohoh ='1') "+
-			      " join moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  '2016-06-24 00:00:00' and  mid.moveindate<='2018-06-24 00:00:00') "+
+			      " join moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  '2016-06-24 00:00:00'  and  mid.moveindate<='2018-06-24 00:00:00') "+
 					" order by e.dedup_client_id "+
 					" union all "+    
-					" select e.dedup_client_id  from enrollment e join project p  on (e.projectid = p.id and p.projecttype in ('13','3') and p.id ='5cc34dce-e603-4cb6-8d95-4cd3fb164098' ) "+
+					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate  from enrollment e join project p  on (e.projectid = p.id and p.projecttype in ('13','3') and p.id ='5cc34dce-e603-4cb6-8d95-4cd3fb164098' ) "+
 					" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= '2016-06-24 00:00:00'  and ext.exitdate <='2018-06-24 00:00:00') "+
 					" where e.id not in  (select enrollmentid from moveindate where moveindate >= '2016-06-24 00:00:00'  and moveindate <='2018-06-24 00:00:00') "+
 					" order by e.dedup_client_id ";		
 		         
 		try {
 			if(data.isLiveMode()) {
-				List<String> allData = getDistinctDedupClient(data, allQuery, "ALL");
+				List<String> allData = getDistinctDedupClient(data, query, "ALL");
 				q22cBean.setQ22c7DaysLessTotal(BigInteger.valueOf(0));
 				q22cBean.setQ22c7DaysLessWithoutChildren(BigInteger.valueOf(0));
 				q22cBean.setQ22c7DaysLessWithChildAndAdults(BigInteger.valueOf(0));
@@ -94,6 +108,10 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 		return Arrays.asList(q22cBean);
 		
 		
+	}
+
+	private static List<String> getDistinctDedupClient(ReportData data, String query, String string) {
+		return null;
 	}
 
 }
