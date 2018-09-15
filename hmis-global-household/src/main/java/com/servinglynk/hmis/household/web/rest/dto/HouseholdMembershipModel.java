@@ -25,6 +25,7 @@ public class HouseholdMembershipModel implements Serializable {
     private UUID householdMembershipId;
 
 
+    @JsonProperty("genericClientId")
     private UUID globalClientId;
     
 	@JsonDeserialize(using=JsonDateDeserializer.class)
@@ -37,11 +38,12 @@ public class HouseholdMembershipModel implements Serializable {
 
     private String relationshipToHeadOfHousehold;
 
+    @JsonProperty("genericHouseholdId")
     private UUID globalHouseholdId;
     
     private UUID userId;
     
-    @NotNull(message="Global client is required.")
+    @NotNull(message="Generic client is required.")
     private UUID dedupClientId;
     
     @JsonProperty(access=Access.WRITE_ONLY)

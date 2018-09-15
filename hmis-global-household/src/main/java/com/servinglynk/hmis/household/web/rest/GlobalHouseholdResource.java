@@ -38,7 +38,7 @@ import com.servinglynk.hmis.warehouse.annotations.APIMapping;
  * REST controller for managing GlobalHousehold.
  */
 @RestController
-@RequestMapping("/global-households")
+@RequestMapping("/generic-households")
 public class GlobalHouseholdResource extends BaseResource  {
 
     private final Logger log = LoggerFactory.getLogger(GlobalHouseholdResource.class);

@@ -23,6 +23,7 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperServiceDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.GenericEnrollmentDao;
 import com.servinglynk.hmis.warehouse.base.dao.GenericEnrollmentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.GlobalEnrollmentDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.GlobalHouseHoldDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.GlobalProjectDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HMISNotificationsDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HealthDaoImpl;
@@ -279,5 +280,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public GenericEnrollmentDaoImpl genericEnrollmentDao() {
 		return new GenericEnrollmentDaoImpl();
+	}
+	
+	@Bean
+	public GlobalHouseHoldDaoImpl globalHouseHoldDao() {
+		return new GlobalHouseHoldDaoImpl();
 	}
 }
