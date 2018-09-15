@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +56,11 @@ public class BaseBeanMaker {
 			return false;
 		}
 	}
+	
+	 protected static long subtractDate(Date from, Date to) {
+		 long between = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
+		 return between;
+	 }
 	
 	protected static String formatQuery(String query, String schema) {
 		if(StringUtils.isNotBlank(query)) {

@@ -195,12 +195,6 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 		return date2;
 	}
 	 
-	 private static long subtractDate(Date from, Date to) {
-		 long between = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
-		 return between;
-	 }
-	 
-
 	public static List<Q22BeanModel> getQ22Bean(ReportData data,String query,String reportType) {
 		 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
 			ResultSet resultSet = null;

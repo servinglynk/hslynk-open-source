@@ -81,6 +81,12 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 					BigInteger.valueOf(clientsWithOnlyChildren != null ? clientsWithOnlyChildren.size() : 0));
 			q08aDataBean.setTotHhWithChildAndAdults(
 					BigInteger.valueOf(clientWithOneAdultChild != null ? clientWithOneAdultChild.size() : 0));
+			
+			data.setOverAllTotHouseHolds(q08aDataBean.getOverAllTotHouseHolds());
+			data.setTotHhWithoutChild(q08aDataBean.getTotHhWithoutChild());
+			data.setTotHhUnknownHhType(q08aDataBean.getTotHhUnknownHhType());
+			data.setTotHhWothOnlyChild(q08aDataBean.getTotHhWothOnlyChild());
+			data.setTotHhWithChildAndAdults(q08aDataBean.getTotHhWithChildAndAdults());
 		} catch (Exception e) {
 			logger.error("Error in Q08aDataBeanMaker:" + e);
 		}
