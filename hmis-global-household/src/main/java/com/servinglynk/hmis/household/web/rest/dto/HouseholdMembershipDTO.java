@@ -25,6 +25,7 @@ public class HouseholdMembershipDTO implements Serializable {
     private UUID householdMembershipId;
 
     @NotNull(message="Global client is required.")
+    @JsonProperty("genericClientId")
     private UUID globalClientId;
     
 	@JsonDeserialize(using=JsonDateDeserializer.class)
@@ -37,6 +38,7 @@ public class HouseholdMembershipDTO implements Serializable {
 
     private String relationshipToHeadOfHousehold;
 
+    @JsonProperty("genericHouseholdId")
     private UUID globalHouseholdId;
     
     private UUID userId;
