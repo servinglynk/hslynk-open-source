@@ -13,5 +13,7 @@ public interface ProjectGroupDao extends BaseDao {
 	ProjectGroupEntity getProjectGroupById(UUID projectGroupId);
 	ProjectGroupEntity getProjectGroupByGroupCode(String projectGroupCode);
 	List<com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity> getAllProjectGroups(Integer startIndex, Integer maxItems);
-	long getProjectGroupCount();	
+	long getProjectGroupCount();
+	List<ProjectGroupEntity> getAllActiveProjectGroups();
+	List<String> getAllActiveProjectGroupCodes();	
 }

@@ -31,6 +31,8 @@ public class ProjectGroupEntity  {
     
     private boolean skipuseridentifers;
     
+/*    private boolean active;*/
+    
     private String senderEmail;
     
     @javax.persistence.Id
@@ -82,6 +84,14 @@ public class ProjectGroupEntity  {
 	public void setSkipuseridentifers(boolean skipuseridentifers) {
 		this.skipuseridentifers = skipuseridentifers;
 	}
+/*	@Column(name="active")
+	public boolean isActitve() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}*/
+	
 	@Column(name="sender_email")
 	public String getSenderEmail() {
 		return senderEmail;

@@ -10,6 +10,7 @@ import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.base.service.GenericEnrollmentService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalEnrollmentService;
+import com.servinglynk.hmis.warehouse.base.service.GlobalHouseHoldService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalProjectService;
 import com.servinglynk.hmis.warehouse.base.service.HealthService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
@@ -52,4 +53,5 @@ public interface BaseServiceFactory {
 	GlobalEnrollmentService getGlobalEnrollmentService();
 	GlobalProjectService getGlobalProjectService();
 	GenericEnrollmentService getGenericEnrollmentService();
+	GlobalHouseHoldService getGlobalHouseHoldService();
 }

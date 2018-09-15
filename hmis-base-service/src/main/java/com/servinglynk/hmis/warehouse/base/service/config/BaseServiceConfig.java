@@ -27,6 +27,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.ClientDataElementsServic
 import com.servinglynk.hmis.warehouse.base.service.impl.DeveloperCompanyServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.GenericEnrollmentServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.GlobalEnrollmentServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.GlobalHouseHoldServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.GlobalProjectServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.HMISNotificationsServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.HealthServiceImpl;
@@ -247,5 +248,11 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 public GenericEnrollmentServiceImpl genericEnrollmentService() {
 		 return new GenericEnrollmentServiceImpl();
 	 }
+	 
+	 @Bean
+	 public GlobalHouseHoldServiceImpl globalHouseHoldService() {
+		 return new GlobalHouseHoldServiceImpl();
+	 }
+	 
 	 
 }

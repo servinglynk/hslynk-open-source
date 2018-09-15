@@ -9,9 +9,12 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 public class SyncPostgresProcessor extends Logging{
@@ -31,6 +34,26 @@ public class SyncPostgresProcessor extends Logging{
         }
         return connection;
     }
+    
+    public static Map<String,String> getColumnsForTable(String tableName, String schema) {
+    	Map<String,String> columns = new HashMap<>();
+         ResultSet resultSet = null;
+         PreparedStatement statement = null;
+         Connection connection = null;
+         try{
+             connection = getConnection();
+             statement = connection.prepareStatement("select column_name,data_type from information_schema.columns where table_schema=? and table_name=?");
+             statement.setString(1, schema);
+             statement.setString(2, tableName);
+             resultSet = statement.executeQuery();
+             while (resultSet.next()){
+            	 columns.put(resultSet.getString("column_name"),resultSet.getString("data_type"));
+             }
+         }catch (Exception ex){
+             logger.error(" Error getting metadata for table "+tableName + "schema :"+schema);
+         }
+         return columns;
+	}
 
     public static List<String> getAllTablesFromPostgres(String schemaName) throws Exception{
         List<String> tables = new ArrayList<>();
@@ -47,7 +70,10 @@ public class SyncPostgresProcessor extends Logging{
             statement = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='"+schemaName+"'");
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                tables.add(resultSet.getString("table_name"));
+            	String tableName = resultSet.getString("table_name");
+            	if(StringUtils.equalsIgnoreCase(tableName, "question") || StringUtils.equalsIgnoreCase(tableName, "hmis_type")) {
+            		 tables.add(tableName);
+            	}
             }
 
         }catch (Exception ex){
@@ -63,7 +89,7 @@ public class SyncPostgresProcessor extends Logging{
         List<String> projectGroupCodes = new ArrayList<String>();
         try {
             connection = getConnection();
-            statement = connection.prepareStatement("SELECT distinct(project_group_code) FROM base.hmis_project_group where project_group_code not in ('IL0009','BD0005','TE0008','MO0006','TE0011','JP0005','FI0009','BA0007','PG0001','TE0003')");
+            statement = connection.prepareStatement("SELECT distinct(project_group_code) FROM base.hmis_project_group where active=true");
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
             	projectGroupCodes.add(resultSet.getString(1));

@@ -1333,7 +1333,7 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('childwelf
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','110','10 months');
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','111','11 months');
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','112','12 months');
-  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','7','More than 12 months');
+  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','113','More than 12 months');
   INSERT INTO "v2017".hmis_type (name,status,value,description) values ('monthsHomelessPastThreeYears','ACTIVE','1','More than 12 months');
     INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','8','Client does not know','ACTIVE');
     INSERT INTO "v2017".hmis_type (name,value,description,status)  values ('monthsHomelessPastThreeYears','9','Client refused','ACTIVE');
