@@ -20,5 +20,9 @@ public class JsonDateTimeSerializer extends JsonSerializer<LocalDateTime> {
 	String formattedDate = dateFormat.format(Date.from(date.atZone(ZoneId.systemDefault()).toInstant()));
 	gen.writeString(formattedDate);
 	}
+	
+	public static void main(String args[]) {
+		System.out.println(dateFormat.format(new Date()));
+	}
 
 }
