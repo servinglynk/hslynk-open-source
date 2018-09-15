@@ -84,6 +84,9 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	
 	@Autowired private GenericEnrollmentDao  genericEnrollmentDao;
 	
+	
+	@Autowired private GlobalHouseHoldDao globalHouseHoldDao;
+	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
 	}
@@ -317,5 +320,11 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setGenericEnrollmentDao(GenericEnrollmentDao genericEnrollmentDao) {
 		this.genericEnrollmentDao = genericEnrollmentDao;
+	}
+	public GlobalHouseHoldDao getGlobalHouseHoldDao() {
+		return globalHouseHoldDao;
+	}
+	public void setGlobalHouseHoldDao(GlobalHouseHoldDao globalHouseHoldDao) {
+		this.globalHouseHoldDao = globalHouseHoldDao;
 	}
 }

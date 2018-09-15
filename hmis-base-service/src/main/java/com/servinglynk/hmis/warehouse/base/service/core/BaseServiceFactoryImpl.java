@@ -13,6 +13,7 @@ import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
 import com.servinglynk.hmis.warehouse.base.service.GenericEnrollmentService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalEnrollmentService;
+import com.servinglynk.hmis.warehouse.base.service.GlobalHouseHoldService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalProjectService;
 import com.servinglynk.hmis.warehouse.base.service.HealthService;
 import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
@@ -86,6 +87,8 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	@Autowired private GlobalProjectService globalProjectService;
 	
 	@Autowired private GenericEnrollmentService genericEnrollmentService;
+	
+	@Autowired private GlobalHouseHoldService globalHouseHoldService;
 	
 	
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -273,5 +276,13 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setGenericEnrollmentService(GenericEnrollmentService genericEnrollmentService) {
 		this.genericEnrollmentService = genericEnrollmentService;
+	}
+
+	public GlobalHouseHoldService getGlobalHouseHoldService() {
+		return globalHouseHoldService;
+	}
+
+	public void setGlobalHouseHoldService(GlobalHouseHoldService globalHouseHoldService) {
+		this.globalHouseHoldService = globalHouseHoldService;
 	}	
 }

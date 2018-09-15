@@ -23,6 +23,7 @@ import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.ConsentsController;
 import com.servinglynk.hmis.warehouse.rest.GenericEnrollmentsController;
 import com.servinglynk.hmis.warehouse.rest.GlobalEnrollmentsController;
+import com.servinglynk.hmis.warehouse.rest.GlobalHouseholdsController;
 import com.servinglynk.hmis.warehouse.rest.GlobalProjectsController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.NotificationsController;
@@ -70,10 +71,10 @@ public class GlobalAPIConfig extends WebMvcConfigurerAdapter {
 		return new PropertyReaderServiceImpl();
 	}
 	
-	 @PostConstruct
+/*	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_GLOBAL_API");
-	 }
+	 }*/
 		
 	 @Bean
 	 public HealthController healthController(){
@@ -111,4 +112,10 @@ public class GlobalAPIConfig extends WebMvcConfigurerAdapter {
 	 public GenericEnrollmentsController genericEnrollmentsController() {
 		 return new GenericEnrollmentsController();
 	 }
+	 
+	 @Bean
+	 public GlobalHouseholdsController globalHouseholdsController() {
+		 return new GlobalHouseholdsController();
+	 }
+	 
 }

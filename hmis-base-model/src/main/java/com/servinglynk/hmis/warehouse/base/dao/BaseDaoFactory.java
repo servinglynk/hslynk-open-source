@@ -33,4 +33,5 @@ public interface BaseDaoFactory {
 	GlobalEnrollmentDao getGlobalEnrollmentDao();
 	GlobalProjectDao getGlobalProjectDao();
 	GenericEnrollmentDao getGenericEnrollmentDao();
+	GlobalHouseHoldDao getGlobalHouseHoldDao();
 }
