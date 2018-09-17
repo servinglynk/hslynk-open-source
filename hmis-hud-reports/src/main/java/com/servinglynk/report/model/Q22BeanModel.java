@@ -14,6 +14,7 @@ public class Q22BeanModel extends BaseModel {
 	private Date bedNightDate;
 	private long numberOfDays=0;
 	private boolean dataNotCollected ;
+	private String destination;
 	
 	
 	public Q22BeanModel(String dedupClientId, String trackingMethod, String projectType, Date operatingStartDate,Date exitdate,Date entrydate,Date moveInDate,Date bedNightDate) {
@@ -147,5 +148,16 @@ public class Q22BeanModel extends BaseModel {
 	public void setBedNightDate(Date bedNightDate) {
 		this.bedNightDate = bedNightDate;
 	}
-	
+	/**
+	 * @return the destination
+	 */
+	public String getDestination() {
+		return destination;
+	}
+	/**
+	 * @param destination the destination to set
+	 */
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
 }

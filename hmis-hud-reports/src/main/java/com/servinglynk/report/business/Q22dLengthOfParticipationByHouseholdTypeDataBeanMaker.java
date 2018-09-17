@@ -33,11 +33,11 @@ public class Q22dLengthOfParticipationByHouseholdTypeDataBeanMaker extends BaseB
 		try {
 			if(data.isLiveMode()) {
 				
-				List<Q22BeanModel> allData = getQ22Bean(data, query, null,true);
-				List<Q22BeanModel> withoutChildren = getQ22Bean(data, query, data.getProjectsHHWithOutChildren(),false);
-				List<Q22BeanModel> withChildAndAdults = getQ22Bean(data, query, data.getProjectsHHWithOneAdultChild(),false);
-				List<Q22BeanModel> withChildren = getQ22Bean(data, query, data.getProjectsHHWithChildren(),false);
-				List<Q22BeanModel> unknown = getQ22Bean(data, query, data.getProjectsUnknownHouseHold(),false);
+				List<Q22BeanModel> allData = getQ22BeanLengthOfStay(data, query, null,true,false);
+				List<Q22BeanModel> withoutChildren = getQ22BeanLengthOfStay(data, query, data.getProjectsHHWithOutChildren(),false,false);
+				List<Q22BeanModel> withChildAndAdults = getQ22BeanLengthOfStay(data, query, data.getProjectsHHWithOneAdultChild(),false,false);
+				List<Q22BeanModel> withChildren = getQ22BeanLengthOfStay(data, query, data.getProjectsHHWithChildren(),false,false);
+				List<Q22BeanModel> unknown = getQ22BeanLengthOfStay(data, query, data.getProjectsUnknownHouseHold(),false,false);
 				
 				List<Q22BeanModel>  q22Bean7DaysOrLessAllData = allData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() <= 7).collect(Collectors.toList());
 				List<Q22BeanModel>  q22Bean7DaysOrLessWithoutChildren = withoutChildren.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() <= 7).collect(Collectors.toList());
@@ -203,59 +203,5 @@ public class Q22dLengthOfParticipationByHouseholdTypeDataBeanMaker extends BaseB
 		return Arrays.asList(q22dLengthOfParticipationByHouseholdTypeTable);
 	}
 	
-	public static List<Q22BeanModel> getQ22Bean(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects) {
-		 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
-			ResultSet resultSet = null;
-			PreparedStatement statement = null;
-			String projectQuery = " and p.id in ( ";
-			StringBuilder builder = new StringBuilder(projectQuery);
-			Connection connection = null;
-			try {
-				connection = ImpalaConnection.getConnection();
-				 List<String> projectIds = data.getProjectIds();
-				 if(CollectionUtils.isNotEmpty(projectIds)) {
-					 int count = 0;
-					 for(String project : projectIds) {
-						 if ((filteredProjectIds !=null && filteredProjectIds.contains(project)) || allProjects) {
-							 builder.append("'"+project+"'");
-							 if(count != projectIds.size()) {
-								 builder.append(",");
-							 }
-						 }
-					 }
-				 }
-				 builder.append(" ) ");
-				String newQuery = query.replace("%p", builder.toString());
-				statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema()));
-				statement.setDate(1, data.getReportStartDate());
-				statement.setDate(2, data.getReportEndDate());
-				resultSet = statement.executeQuery();
-				
-			 while(resultSet.next()) {
-				 Date entryDate = resultSet.getDate("entrydate");
-				 Date moveinDate = resultSet.getDate("moveindate");
-				 
-				 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), null,null, 
-						 null,resultSet.getDate("exitdate"),entryDate,moveinDate,resultSet.getDate("dateprovided") );
-				 bean.setNumberOfDays(subtractDate(entryDate, moveinDate));
-				 q22Beans.add(bean);
-			 
-			 }
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (statement != null) {
-					try {
-						statement.close();
-						//connection.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-			return q22Beans;
-		}	
 
 }

@@ -139,62 +139,7 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 		return Arrays.asList(q22a1LengthOfParticipationCoCProjectsTable);
 	}
 	
-	public static void populateBedNights(Q22BeanModel model, ReportData data) {
-		String[] method1 = new String[] { "2", "4", "6", "7", "8", "11", "12", "14"};
-		List<String> method1List = Arrays.asList(method1);
-		String[] method3 = new String[] {"3", "9", "10", "13" };
-		List<String> method3List = Arrays.asList(method3);
-		Date reportStartDate = data.getReportStartDate();
-		Date reportEndDate = data.getReportEndDate();
-		if((StringUtils.equals("1",model.getProjectType()) && StringUtils.equals(model.getTrackingMethod(), "0")) || 
-			(StringUtils.isNotEmpty(model.getProjectType()) &&	method1List.contains(model.getProjectType()))) {
-			    /*** Bed nights = [minimum of ( [project exit date], [report end date] + 1) ]
-						– [maximum of ( [project start date], [report start date] ) ] 
-			    **/
-			   model.setNumberOfDays(subtractDate(getMinimumDate(model.getExitdate(),reportEndDate),getMaximumDate(model.getEntrydate(), reportStartDate)));
-		}
-		if(StringUtils.equals("1",model.getProjectType()) && StringUtils.equals(model.getTrackingMethod(), "3")) {
-			/***
-			 * [bed night date] must be:
-				>= [project start date]
-				and < [project exit date] or [project exit date] is null
-				and >= [report start date]
-				and <= [report end date]
-			 */
-			String bedNightsQuery = " select count(sfr.id) from enrollment e join project p  on (e.projectid = p.id and e.dedup_client_id=?  %p"+
-					" join service_fa_referral sfr  on  (sfr.enrollmentid = e.id and record_type='200' and dateprovided >= e.entrydate  and dateprovided >= ? and dateprovided <= ?) "+
-				    " join exit ext on (sfr.dateprovided < ext.exitdate or ext.exitdate is null) ";
-
-			// May be have another query to get the correct bed nights count.
-			model.setNumberOfDays(getBedNights(bedNightsQuery, data, model.getDedupClientId()));
-		}
-		
-		if(StringUtils.isNotEmpty(model.getProjectType()) && method3List.contains(model.getProjectType())) {
-			model.setNumberOfDays(subtractDate(getMinimumDate(model.getExitdate(),reportEndDate),getMaximumDate(model.getMoveInDate(), reportStartDate)));
-		}
-		
-	}
 	
-	public static Date addDays(Date date, int days) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DATE, days);
-        return new Date(c.getTimeInMillis());
-    }
-	 private static Date getMinimumDate(Date date1, Date date2) {
-		 if(date1.before(date1)) {
-			 return addDays(date1,1);
-		 }
-		return addDays(date2,1);
-	}
-	 
-	 private static Date getMaximumDate(Date date1, Date date2) {
-		 if(date1.after(date1)) {
-			 return date1;
-		 }
-		return date2;
-	}
-	 
 	public static List<Q22BeanModel> getQ22Bean(ReportData data,String query,String reportType) {
 		 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
 			ResultSet resultSet = null;
@@ -246,53 +191,7 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 			}
 			return q22Beans;
 		}	
-	
-	
-	    public static long getBedNights(String query, ReportData data, String dedupClientId) {
-	    	long bedNights = 0;
-	    	ResultSet resultSet = null;
-			PreparedStatement statement = null;
-			String projectQuery = " and p.id in ( ";
-			StringBuilder builder = new StringBuilder(projectQuery);
-			Connection connection = null;
-			try {
-				connection = ImpalaConnection.getConnection();
-				 List<String> projectIds = data.getProjectIds();
-				 if(CollectionUtils.isNotEmpty(projectIds)) {
-					 int count = 0;
-					 for(String project : projectIds) {
-						 builder.append("'"+project+"'");
-						 if(count != projectIds.size()) {
-							 builder.append(",");
-						 }
-					 }
-				 }
-				 builder.append(" ) ");
-				String newQuery = query.replace("%p", builder.toString());
-				statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema()));
-				statement.setString(1, dedupClientId);
-				statement.setDate(2, data.getReportStartDate());
-				statement.setDate(3, data.getReportEndDate());
-				resultSet = statement.executeQuery();
-				 while(resultSet.next()) {
-					 bedNights = resultSet.getLong(1);
-					 }
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (statement != null) {
-					try {
-						statement.close();
-						//connection.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-			return bedNights;
-	    }
+
 }
 	
 	

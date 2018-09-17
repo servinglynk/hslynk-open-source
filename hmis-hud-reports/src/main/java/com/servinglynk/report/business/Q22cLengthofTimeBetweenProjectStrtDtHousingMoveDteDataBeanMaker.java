@@ -26,11 +26,11 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 		
 		String query = " select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p"+
 				  " join  %s.enrollment e1 on  (e.householdid = e1.householdid  and e1.relationshiptohoh ='1') "+
-			      " left outer join %s.moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  '2016-06-24 00:00:00'  and  mid.moveindate<='2018-06-24 00:00:00') "+
+			      " left outer join %s.moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  ?  and  mid.moveindate<= ?) "+
 					" order by e.dedup_client_id ";
 		String exitedQuery = 		  
 					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate  from enrollment e join project p  on (e.projectid = p.id  %p"+
-					" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= '2016-06-24 00:00:00'  and ext.exitdate <='2018-06-24 00:00:00') "+
+					" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= ?  and ext.exitdate <= ?) "+
 					" join moveindate mid on (e.id = mid.enrollmentid) "+
 					" order by e.dedup_client_id ";		
 		try {
