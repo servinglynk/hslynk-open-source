@@ -172,11 +172,11 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 				q23bExitDestination90DaysOrLessTable.setQ23BAzTotUnknownHouseHold(BigInteger.valueOf(subTotal1Unknown));
 				// Permanent Housing sub total above
 				
-//				q23bExitDestination90DaysOrLessTable.setQ23BBTemporaryDestinationsTotal();
-//				q23bExitDestination90DaysOrLessTable.setQ23BBTemporaryDestinationsWithoutChild();
-//				q23bExitDestination90DaysOrLessTable.setQ23BBTemporaryDestinationsWithChildAndAdults();
-//				q23bExitDestination90DaysOrLessTable.setQ23BBTemporaryDestinationsWithOnlyChild();
-//				q23bExitDestination90DaysOrLessTable.setQ23BBTemporaryDestinationsUnknownHouseHold();
+//				q23bExitDestination90DaysOrLessTable.setQ23BBTemporaryDestinationsTotal(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BBTemporaryDestinationsWithoutChild(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BBTemporaryDestinationsWithChildAndAdults(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BBTemporaryDestinationsWithOnlyChild(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BBTemporaryDestinationsUnknownHouseHold(BigInteger.valueOf(0));
 
 				int allTotal16 = getDestination(allData, numOfDays, "1");
 				int allTotal17 = getDestination(allData, numOfDays, "27");
@@ -223,184 +223,184 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 				int unknown22 = getDestination(unknown, numOfDays, "18");
 				int unknown23 = getDestination(unknown, numOfDays, "14");
 				//16
-				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterTotal(BigInteger.valueOf(allTotal16));
+				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterWithoutChild(BigInteger.valueOf(withoutChildren16));
+				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterWithChildAndAdults(BigInteger.valueOf(withChildAndAdult16));
+				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterWithOnlyChild(BigInteger.valueOf(withChildren16));
+				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterUnknownHouseHold(BigInteger.valueOf(unknown16));
 				//17
-				q23bExitDestination90DaysOrLessTable.setQ23BB2MovedFromOneHOPWATotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BB2MovedFromOneHOPWAWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB2MovedFromOneHOPWAWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BB2MovedFromOneHOPWAWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB2MovedFromOneHOPWAUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BB2MovedFromOneHOPWATotal(BigInteger.valueOf(allTotal17));
+				q23bExitDestination90DaysOrLessTable.setQ23BB2MovedFromOneHOPWAWithoutChild(BigInteger.valueOf(withoutChildren17));
+				q23bExitDestination90DaysOrLessTable.setQ23BB2MovedFromOneHOPWAWithChildAndAdults(BigInteger.valueOf(withChildAndAdult17));
+				q23bExitDestination90DaysOrLessTable.setQ23BB2MovedFromOneHOPWAWithOnlyChild(BigInteger.valueOf(withChildren17));
+				q23bExitDestination90DaysOrLessTable.setQ23BB2MovedFromOneHOPWAUnknownHouseHold(BigInteger.valueOf(unknown17));
 				//18
-				q23bExitDestination90DaysOrLessTable.setQ23BB3TransitionalHousingForHomeLessTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BB3TransitionalHousingForHomeLessWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB3TransitionalHousingForHomeLessWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BB3TransitionalHousingForHomeLessWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB3TransitionalHousingForHomeLessUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BB3TransitionalHousingForHomeLessTotal(BigInteger.valueOf(allTotal18));
+				q23bExitDestination90DaysOrLessTable.setQ23BB3TransitionalHousingForHomeLessWithoutChild(BigInteger.valueOf(withoutChildren18));
+				q23bExitDestination90DaysOrLessTable.setQ23BB3TransitionalHousingForHomeLessWithChildAndAdults(BigInteger.valueOf(withChildAndAdult18));
+				q23bExitDestination90DaysOrLessTable.setQ23BB3TransitionalHousingForHomeLessWithOnlyChild(BigInteger.valueOf(withChildren18));
+				q23bExitDestination90DaysOrLessTable.setQ23BB3TransitionalHousingForHomeLessUnknownHouseHold(BigInteger.valueOf(unknown18));
 				//19
-				q23bExitDestination90DaysOrLessTable.setQ23BB4StayingWithFamilyTemporaryTenureTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BB4StayingWithFamilyTemporaryTenureWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB4StayingWithFamilyTemporaryTenureWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BB4StayingWithFamilyTemporaryTenureWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB4StayingWithFamilyTemporaryTenureUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BB4StayingWithFamilyTemporaryTenureTotal(BigInteger.valueOf(allTotal19));
+				q23bExitDestination90DaysOrLessTable.setQ23BB4StayingWithFamilyTemporaryTenureWithoutChild(BigInteger.valueOf(withoutChildren19));
+				q23bExitDestination90DaysOrLessTable.setQ23BB4StayingWithFamilyTemporaryTenureWithChildAndAdults(BigInteger.valueOf(withChildAndAdult19));
+				q23bExitDestination90DaysOrLessTable.setQ23BB4StayingWithFamilyTemporaryTenureWithOnlyChild(BigInteger.valueOf(withChildren19));
+				q23bExitDestination90DaysOrLessTable.setQ23BB4StayingWithFamilyTemporaryTenureUnknownHouseHold(BigInteger.valueOf(unknown19));
 				//20
-				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureTotal(BigInteger.valueOf(allTotal20));
+				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureWithoutChild(BigInteger.valueOf(withoutChildren20));
+				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureWithChildAndAdults(BigInteger.valueOf(withChildAndAdult20));
+				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureWithOnlyChild(BigInteger.valueOf(withChildren20));
+				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureUnknownHouseHold(BigInteger.valueOf(unknown20));
 				//21
-				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationUnknownHouseHold(BigInteger.valueOf(0));
 				//22
-				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenUnknownHouseHold(BigInteger.valueOf(0));
 				//23
-				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientUnknownHouseHold(BigInteger.valueOf(0));
 				
 				//24
-				q23bExitDestination90DaysOrLessTable.setQ23BBzTotTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BBzTotUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BBzTotTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BBzTotUnknownHouseHold(BigInteger.valueOf(0));
 				// Temp Housing sub total above
 				
 				//Sandeep TODO : need to remove the below  row or it can be empty string.
-//				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsTotal();
-//				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsWithoutChild();
-//				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsWithChildAndAdults();
-//				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsWithOnlyChild();
-//				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsUnknownHouseHold();
+//				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsTotal(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsWithoutChild(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsWithChildAndAdults(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsWithOnlyChild(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsUnknownHouseHold(BigInteger.valueOf(0));
 				
 				//26
-				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareUnknownHouseHold(BigInteger.valueOf(0));
 				//27
-				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherUnknownHouseHold(BigInteger.valueOf(0));
 				//28
-				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityUnknownHouseHold(BigInteger.valueOf(0));
 				//29
-				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherUnknownHouseHold(BigInteger.valueOf(0));
 				//30
-				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionUnknownHouseHold(BigInteger.valueOf(0));
 				//31
-				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeUnknownHouseHold(BigInteger.valueOf(0));
 				//32
-				q23bExitDestination90DaysOrLessTable.setQ23BCzTotTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BCzTotUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BCzTotTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BCzTotUnknownHouseHold(BigInteger.valueOf(0));
 				
 				// 33  No data needs to be populdated for 33...
-//				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsTotal();
-//				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsWithoutChild();
-//				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsWithChildAndAdults();
-//				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsWithOnlyChild();
-//				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsUnknownHouseHold();
+//				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsTotal(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsWithoutChild(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsWithChildAndAdults(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsWithOnlyChild(BigInteger.valueOf(0));
+//				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsUnknownHouseHold(BigInteger.valueOf(0));
 //				
 				// Other Destination sub total above
 				//34
-				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseUnknownHouseHold(BigInteger.valueOf(0));
 				//35
-				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedUnknownHouseHold(BigInteger.valueOf(0));
 				//36
-				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherUnknownHouseHold(BigInteger.valueOf(0));
 				//37
-				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRUnknownHouseHold(BigInteger.valueOf(0));
 				//38
-				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingUnknownHouseHold(BigInteger.valueOf(0));
 				//39
-				q23bExitDestination90DaysOrLessTable.setQ23BDzTotTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BDzTotUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BDzTotTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BDzTotUnknownHouseHold(BigInteger.valueOf(0));
 				
 				//40
-				q23bExitDestination90DaysOrLessTable.setQ23BETotTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BETotWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BETotWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BETotWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BETotUnknownHouseHold();
+				q23bExitDestination90DaysOrLessTable.setQ23BETotTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BETotWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BETotWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BETotWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BETotUnknownHouseHold(BigInteger.valueOf(0));
 				
 				//41
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistUnknownHouseHold();
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistTotal();
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistTotal(BigInteger.valueOf(0));
 				//42
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsTotal();
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsUnknownHouseHold();
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsWithChildAndAdults();
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsTotal(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsDstnsWithChildAndAdults(BigInteger.valueOf(0));
 				
 				// percentage below.
 				//43
-				q23bExitDestination90DaysOrLessTable.setQ23BPercentageWithChildAndAdults();
-				q23bExitDestination90DaysOrLessTable.setQ23BPercentageUnknownHouseHold();
-				q23bExitDestination90DaysOrLessTable.setQ23BPercentageWithOnlyChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BPercentageWithoutChild();
-				q23bExitDestination90DaysOrLessTable.setQ23BPercentageTotal();
+				q23bExitDestination90DaysOrLessTable.setQ23BPercentageWithChildAndAdults(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BPercentageUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BPercentageWithOnlyChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BPercentageWithoutChild(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BPercentageTotal(BigInteger.valueOf(0));
 		
 			}	}catch(Exception e){
 				logger.error("Error in Q22dLengthOfParticipationByHouseholdTypeDataBeanMaker:" + e);
