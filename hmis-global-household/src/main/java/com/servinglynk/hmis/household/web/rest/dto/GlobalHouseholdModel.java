@@ -22,6 +22,7 @@ import com.servinglynk.hmis.warehouse.core.model.JsonDateTimeSerializer;
 @ValidateDedupId(clientIdField="headOfHouseholdId",linkField="link",dedupClientIdField="dedupClientId")
 public class GlobalHouseholdModel implements Serializable {
 
+	@JsonProperty("genericHouseholdId")
     private UUID globalHouseholdId;
 
     
