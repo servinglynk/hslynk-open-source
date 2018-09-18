@@ -10,6 +10,6 @@ public class SyncMainAllSchemas {
 		props.generatePropValues();
 		props.printProps();
 		new SyncSchema(logger).syncBase(true);
-	    new SyncSchema(logger).sync(true);
+	    new SyncSchema(logger).sync(false);
 	}
 }

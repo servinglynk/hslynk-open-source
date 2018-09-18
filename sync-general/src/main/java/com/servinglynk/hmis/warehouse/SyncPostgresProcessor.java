@@ -116,6 +116,25 @@ public class SyncPostgresProcessor extends Logging{
         return tables;
     }
     
+    public static String getPrimaryKeyColumn(String tableName, String schema) {
+    	 String primaryKey = "";
+         ResultSet resultSet = null;
+         PreparedStatement statement = null;
+         Connection connection = null;
+         try{
+             connection = getConnection();
+             statement = connection.prepareStatement("select column_name from information_schema.columns where table_schema=? and table_name=? and ordinal_position=1");
+             statement.setString(1, schema);
+             statement.setString(2, tableName);
+             resultSet = statement.executeQuery();
+             while (resultSet.next()){
+            	 primaryKey = resultSet.getString("column_name");
+             }
+         }catch (Exception ex){
+             logger.error(" Error getting metadata for table "+tableName + "schema :"+schema);
+         }
+         return primaryKey;
+	}
     public static Map<String,String> getColumnsForTable(String tableName, String schema) {
     	Map<String,String> columns = new HashMap<>();
          ResultSet resultSet = null;
