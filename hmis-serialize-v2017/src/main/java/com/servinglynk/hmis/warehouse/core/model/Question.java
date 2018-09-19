@@ -43,6 +43,7 @@ public class Question extends ClientModel {
 	
 	private String updateUriTemplate;
 	
+	private Long questionGroupId;
 	
 	public UUID getQuestionId() {
 		return questionId;
@@ -166,6 +167,14 @@ public class Question extends ClientModel {
 		this.updateUriTemplate = updateUriTemplate;
 	}
 
+	public Long getQuestionGroupId() {
+		return questionGroupId;
+	}
+
+	public void setQuestionGroupId(Long questionGroupId) {
+		this.questionGroupId = questionGroupId;
+	}
+
 	/*public HMISTypes getPickList() {
 		return pickList;
 	}
@@ -173,5 +182,4 @@ public class Question extends ClientModel {
 	public void setPickList(HMISTypes pickList) {
 		this.pickList = pickList;
 	}*/
-
 }

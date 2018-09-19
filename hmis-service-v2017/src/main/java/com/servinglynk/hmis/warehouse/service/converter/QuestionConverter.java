@@ -23,6 +23,7 @@ public class QuestionConverter   {
 //       if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate(),entity.getUriObjectField()));
        if(entity.getUriObjectField()!=null) model.setUriObjectField(entity.getUriObjectField());
        if(entity.getUpdateURLTemplate()!=null) model.setUpdateUriTemplate(entity.getUpdateURLTemplate());
+       if(entity.getQuestionGroupId()!=null) model.setQuestionGroupId(entity.getQuestionGroupId());
       return model;
    }
    
@@ -39,6 +40,7 @@ public class QuestionConverter   {
 //       if(entity.getUpdateURLTemplate()!=null) model.addLink(new ActionLink("updateUriTemplate", entity.getUpdateURLTemplate(),entity.getUriObjectField()));
        if(entity.getUriObjectField()!=null) model.setUriObjectField(entity.getUriObjectField());
        if(entity.getUpdateURLTemplate()!=null) model.setUpdateUriTemplate(entity.getUpdateURLTemplate());
+       if(entity.getQuestionGroupId()!=null) model.setQuestionGroupId(entity.getQuestionGroupId());
       return model;
    }
 
