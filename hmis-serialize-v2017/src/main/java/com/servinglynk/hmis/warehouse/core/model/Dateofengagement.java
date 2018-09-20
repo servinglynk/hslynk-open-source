@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonRootName("dateofengagement")
+@JsonRootName("dateOfEngagement")
 public class Dateofengagement extends ClientModel{
 
-
+	 @JsonProperty("dateOfEngagementId")
       private UUID dateofengagementId;
 
       @JsonSerialize(using=JsonDateSerializer.class)
