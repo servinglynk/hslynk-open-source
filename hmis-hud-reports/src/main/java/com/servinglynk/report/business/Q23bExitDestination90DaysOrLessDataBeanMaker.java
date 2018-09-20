@@ -1,6 +1,7 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +19,7 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 		Q23bExitDestination90DaysOrLessDataBean q23bExitDestination90DaysOrLessTable = new Q23bExitDestination90DaysOrLessDataBean();
 	
 		String query = 		  
-				" select distinct(e.dedup_client_id ),,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate,e1.destination  from enrollment e join project p  on (e.projectid = p.id  %p"+
+				" select distinct(e.dedup_client_id ),p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate,e1.destination  from enrollment e join project p  on (e.projectid = p.id  %p"+
 				" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= ?  and ext.exitdate <= ?) "+
 				" join moveindate mid on (e.id = mid.enrollmentid) "+
 				" join enrollment e1 on (e.householdid = e1.householdid and e1.relationshipToHoH='1') "+
@@ -156,11 +157,11 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 				q23bExitDestination90DaysOrLessTable.setQ23BA10StayingOrLivingWithFriendsPermanentWithOnlyChild(BigInteger.valueOf(withChildren12));
 				q23bExitDestination90DaysOrLessTable.setQ23BA10StayingOrLivingWithFriendsPermanentUnknownHouseHold(BigInteger.valueOf(unknown12));
 				
-				int subTotal1AllData = allTotal3 + allTotal4+ allTotal5+ allTotal6+ allTotal7 + allTotal8 + allTotal9 + allTotal10 + allTotal11 + allTotal12 + allTotal3;
-				int subTotal1WithoutChild = withoutChildren3 + withoutChildren4+ withoutChildren5+ withoutChildren6+ withoutChildren7 + withoutChildren8 + withoutChildren9 + withoutChildren10 + withoutChildren11 + withoutChildren12 + withoutChildren3;
-				int subTotal1WithChildAndAdults = withChildAndAdults3 + withChildAndAdults4+ withChildAndAdults5+ withChildAndAdults6+ withChildAndAdults7 + withChildAndAdults8 + withChildAndAdults9 + withChildAndAdults10 + withChildAndAdults11 + withChildAndAdults12 + withChildAndAdults3;
-				int subTotal1WithChildren = withChildren3 + withChildren4+ withChildren5+ withChildren6+ withChildren7 + withChildren8 + withChildren9 + withChildren10 + withChildren11 + withChildren12 + withChildren3;
-				int subTotal1Unknown = unknown3 + unknown4+ unknown5+ unknown6+ unknown7 + unknown8 + unknown9 + unknown10 + unknown11 + unknown12 + unknown3;
+				int subTotal1AllData = allTotal3 + allTotal4+ allTotal5+ allTotal6+ allTotal7 + allTotal8 + allTotal9 + allTotal10 + allTotal11 + allTotal12 + allTotal13;
+				int subTotal1WithoutChild = withoutChildren3 + withoutChildren4+ withoutChildren5+ withoutChildren6+ withoutChildren7 + withoutChildren8 + withoutChildren9 + withoutChildren10 + withoutChildren11 + withoutChildren12 + withoutChildren13;
+				int subTotal1WithChildAndAdults = withChildAndAdults3 + withChildAndAdults4+ withChildAndAdults5+ withChildAndAdults6+ withChildAndAdults7 + withChildAndAdults8 + withChildAndAdults9 + withChildAndAdults10 + withChildAndAdults11 + withChildAndAdults12 + withChildAndAdults13;
+				int subTotal1WithChildren = withChildren3 + withChildren4+ withChildren5+ withChildren6+ withChildren7 + withChildren8 + withChildren9 + withChildren10 + withChildren11 + withChildren12 + withChildren13;
+				int subTotal1Unknown = unknown3 + unknown4+ unknown5+ unknown6+ unknown7 + unknown8 + unknown9 + unknown10 + unknown11 + unknown12 + unknown13;
 				
 				
 				//Sandeep TODO :  Missing row for # 13 Rental by client, with RRH or equivalent subsidy
@@ -222,6 +223,13 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 				int unknown21 = getDestination(unknown, numOfDays, "16");
 				int unknown22 = getDestination(unknown, numOfDays, "18");
 				int unknown23 = getDestination(unknown, numOfDays, "14");
+				
+				int subTotal2AllData =  allTotal16+ allTotal17 + allTotal18 + allTotal19 + allTotal20 + allTotal21 + allTotal22 + allTotal23;
+				int subTotal2WithoutChild =  withoutChildren16+ withoutChildren17 + withoutChildren18 + withoutChildren19 + withoutChildren20 + withoutChildren21 + withoutChildren22 + withoutChildren23;
+				int subTotal2WithChildAndAdults = withChildAndAdult16 + withChildAndAdult17 + withChildAndAdult18 + withChildAndAdult19 + withChildAndAdult20 + withChildAndAdult21 + withChildAndAdult22 + withChildAndAdult23;
+				int subTotal2WithChildren =  withChildren16+ withChildren17 + withChildren18 + withChildren19 + withChildren20 + withChildren21 + withChildren22 + withChildren23;
+				int subTotal2Unknown = unknown16+ unknown17 + unknown18 + unknown19 + unknown20 + unknown21 + unknown22 + unknown23;
+				
 				//16
 				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterTotal(BigInteger.valueOf(allTotal16));
 				q23bExitDestination90DaysOrLessTable.setQ23BB1EmergencyShelterWithoutChild(BigInteger.valueOf(withoutChildren16));
@@ -253,30 +261,30 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureWithOnlyChild(BigInteger.valueOf(withChildren20));
 				q23bExitDestination90DaysOrLessTable.setQ23BB5StayingWithFriendsTemporaryTenureUnknownHouseHold(BigInteger.valueOf(unknown20));
 				//21
-				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationTotal(BigInteger.valueOf(allTotal21));
+				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithoutChild(BigInteger.valueOf(withoutChildren21));
+				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithChildAndAdults(BigInteger.valueOf(withChildAndAdult21));
+				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationWithOnlyChild(BigInteger.valueOf(withChildren21));
+				q23bExitDestination90DaysOrLessTable.setQ23BB6PlaceNotMeantForHumanHabitationUnknownHouseHold(BigInteger.valueOf(unknown21));
 				//22
-				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenTotal(BigInteger.valueOf(allTotal22));
+				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithoutChild(BigInteger.valueOf(withoutChildren22));
+				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithChildAndAdults(BigInteger.valueOf(withChildAndAdult22));
+				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenWithOnlyChild(BigInteger.valueOf(withChildren22));
+				q23bExitDestination90DaysOrLessTable.setQ23BB7SafeHavenUnknownHouseHold(BigInteger.valueOf(unknown22));
 				//23
-				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientTotal(BigInteger.valueOf(allTotal23));
+				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithoutChild(BigInteger.valueOf(withoutChildren23));
+				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithChildAndAdults(BigInteger.valueOf(withChildAndAdult23));
+				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientWithOnlyChild(BigInteger.valueOf(withChildren23));
+				q23bExitDestination90DaysOrLessTable.setQ23BB8HotelOrMotelPaidByClientUnknownHouseHold(BigInteger.valueOf(unknown23));
 				
 				//24
-				q23bExitDestination90DaysOrLessTable.setQ23BBzTotTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BBzTotUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BBzTotTotal(BigInteger.valueOf(subTotal2AllData));
+				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithoutChild(BigInteger.valueOf(subTotal2WithoutChild));
+				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithChildAndAdults(BigInteger.valueOf(subTotal2WithChildAndAdults));
+				q23bExitDestination90DaysOrLessTable.setQ23BBzTotWithOnlyChild(BigInteger.valueOf(subTotal2WithChildren));
+				q23bExitDestination90DaysOrLessTable.setQ23BBzTotUnknownHouseHold(BigInteger.valueOf(subTotal2Unknown));
 				// Temp Housing sub total above
 				
 				//Sandeep TODO : need to remove the below  row or it can be empty string.
@@ -286,48 +294,91 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 //				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsWithOnlyChild(BigInteger.valueOf(0));
 //				q23bExitDestination90DaysOrLessTable.setQ23BCInstitutionalSettingsUnknownHouseHold(BigInteger.valueOf(0));
 				
+				
+				int allTotal26 = getDestination(allData, numOfDays, "15");
+				int allTotal27 = getDestination(allData, numOfDays, "4");
+				int allTotal28 = getDestination(allData, numOfDays, "5");
+				int allTotal29 = getDestination(allData, numOfDays, "6");
+				int allTotal30 = getDestination(allData, numOfDays, "7");
+				int allTotal31 = getDestination(allData, numOfDays, "25");
+				
+				int withoutChildren26 = getDestination(withoutChildren, numOfDays, "15");
+				int withoutChildren27 = getDestination(withoutChildren, numOfDays, "4");
+				int withoutChildren28 = getDestination(withoutChildren, numOfDays, "5");
+				int withoutChildren29 = getDestination(withoutChildren, numOfDays, "6");
+				int withoutChildren30 = getDestination(withoutChildren, numOfDays, "7");
+				int withoutChildren31 = getDestination(withoutChildren, numOfDays, "25");
+				
+				int withChildAndAdult26 = getDestination(withChildAndAdults, numOfDays, "15");
+				int withChildAndAdult27 = getDestination(withChildAndAdults, numOfDays, "4");
+				int withChildAndAdult28 = getDestination(withChildAndAdults, numOfDays, "5");
+				int withChildAndAdult29 = getDestination(withChildAndAdults, numOfDays, "6");
+				int withChildAndAdult30 = getDestination(withChildAndAdults, numOfDays, "7");
+				int withChildAndAdult31 = getDestination(withChildAndAdults, numOfDays, "25");
+				
+				int withChildren26 = getDestination(withChildren, numOfDays, "15");
+				int withChildren27 = getDestination(withChildren, numOfDays, "4");
+				int withChildren28 = getDestination(withChildren, numOfDays, "5");
+				int withChildren29 = getDestination(withChildren, numOfDays, "6");
+				int withChildren30 = getDestination(withChildren, numOfDays, "7");
+				int withChildren31 = getDestination(withChildren, numOfDays, "25");
+				
+				int unknown26 = getDestination(unknown, numOfDays, "15");
+				int unknown27 = getDestination(unknown, numOfDays, "4");
+				int unknown28 = getDestination(unknown, numOfDays, "5");
+				int unknown29 = getDestination(unknown, numOfDays, "6");
+				int unknown30 = getDestination(unknown, numOfDays, "7");
+				int unknown31 = getDestination(unknown, numOfDays, "25");
+				
+				int subTotal3AllData =  allTotal26+ allTotal27 + allTotal28 + allTotal29 + allTotal30 + allTotal31 ;
+				int subTotal3WithoutChild =  withoutChildren26+ withoutChildren27 + withoutChildren28 + withoutChildren29 + withoutChildren30 + withoutChildren31 ;
+				int subTotal3WithChildAndAdults = withChildAndAdult26 + withChildAndAdult27 + withChildAndAdult28 + withChildAndAdult29 + withChildAndAdult30 + withChildAndAdult31 ;
+				int subTotal3WithChildren =  withChildren26+ withChildren27 + withChildren28 + withChildren29 + withChildren30 + withChildren31 ;
+				int subTotal3Unknown = unknown26+ unknown27 + unknown28 + unknown29 + unknown30 + unknown31 ;
+				
 				//26
-				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareTotal(BigInteger.valueOf(allTotal26));
+				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithoutChild(BigInteger.valueOf(withoutChildren26));
+				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithChildAndAdults(BigInteger.valueOf(withChildAndAdult26));
+				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareWithOnlyChild(BigInteger.valueOf(withChildren26));
+				q23bExitDestination90DaysOrLessTable.setQ23BC1FosterCareHomeOrGroupFosterCareUnknownHouseHold(BigInteger.valueOf(unknown26));
 				//27
-				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherTotal(BigInteger.valueOf(allTotal27));
+				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithoutChild(BigInteger.valueOf(withoutChildren27));
+				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithChildAndAdults(BigInteger.valueOf(withChildAndAdult27));
+				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherWithOnlyChild(BigInteger.valueOf(withChildren27));
+				q23bExitDestination90DaysOrLessTable.setQ23BC2PsychiatricHospitalOrOtherUnknownHouseHold(BigInteger.valueOf(unknown27));
 				//28
-				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityTotal(BigInteger.valueOf(allTotal28));
+				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithoutChild(BigInteger.valueOf(withoutChildren28));
+				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithChildAndAdults(BigInteger.valueOf(withChildAndAdult28));
+				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityWithOnlyChild(BigInteger.valueOf(withChildren28));
+				q23bExitDestination90DaysOrLessTable.setQ23BC3SubstanceAbuseTreatmentFacilityUnknownHouseHold(BigInteger.valueOf(unknown28));
 				//29
-				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherTotal(BigInteger.valueOf(allTotal29));
+				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithoutChild(BigInteger.valueOf(withoutChildren29));
+				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithChildAndAdults(BigInteger.valueOf(withChildAndAdult29));
+				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherWithOnlyChild(BigInteger.valueOf(withChildren29));
+				q23bExitDestination90DaysOrLessTable.setQ23BC4HospitalOrOtherUnknownHouseHold(BigInteger.valueOf(unknown29));
 				//30
-				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionTotal(BigInteger.valueOf(allTotal30));
+				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithoutChild(BigInteger.valueOf(withoutChildren30));
+				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithChildAndAdults(BigInteger.valueOf(withChildAndAdult30));
+				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionWithOnlyChild(BigInteger.valueOf(withChildren30));
+				q23bExitDestination90DaysOrLessTable.setQ23BC5JailPrisonOrJuvenileDetentionUnknownHouseHold(BigInteger.valueOf(unknown30));
 				//31
-				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeTotal(BigInteger.valueOf(allTotal31));
+				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithoutChild(BigInteger.valueOf(withoutChildren31));
+				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithChildAndAdults(BigInteger.valueOf(withChildAndAdult31));
+				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeWithOnlyChild(BigInteger.valueOf(withChildren31));
+				q23bExitDestination90DaysOrLessTable.setQ23BC6LongTermCareFacilityOrNursingHomeUnknownHouseHold(BigInteger.valueOf(unknown31));
+				
 				//32
-				q23bExitDestination90DaysOrLessTable.setQ23BCzTotTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BCzTotUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BCzTotTotal(BigInteger.valueOf(subTotal3AllData));
+				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithoutChild(BigInteger.valueOf(subTotal3WithoutChild));
+				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithChildAndAdults(BigInteger.valueOf(subTotal3WithChildAndAdults));
+				q23bExitDestination90DaysOrLessTable.setQ23BCzTotWithOnlyChild(BigInteger.valueOf(subTotal3WithChildren));
+				q23bExitDestination90DaysOrLessTable.setQ23BCzTotUnknownHouseHold(BigInteger.valueOf(subTotal3Unknown));
 				
 				// 33  No data needs to be populdated for 33...
 //				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsTotal(BigInteger.valueOf(0));
@@ -336,53 +387,130 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 //				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsWithOnlyChild(BigInteger.valueOf(0));
 //				q23bExitDestination90DaysOrLessTable.setQ23BDOtherDestinationsUnknownHouseHold(BigInteger.valueOf(0));
 //				
+				
+				int allTotal34 = getDestination(allData, numOfDays, "29");
+				int allTotal35 = getDestination(allData, numOfDays, "24");
+				int allTotal36 = getDestination(allData, numOfDays, "17");
+				int allTotal37 = getDestination(allData, numOfDays, "8","9");
+				int allTotal38 = getDestination(allData, numOfDays, "30","99");
+				
+				int withoutChildren34 = getDestination(withoutChildren, numOfDays, "29");
+				int withoutChildren35 = getDestination(withoutChildren, numOfDays, "24");
+				int withoutChildren36 = getDestination(withoutChildren, numOfDays, "17");
+				int withoutChildren37 = getDestination(withoutChildren, numOfDays, "8","9");
+				int withoutChildren38 = getDestination(withoutChildren, numOfDays, "30","99");
+				
+				int withChildAndAdult34 = getDestination(withChildAndAdults, numOfDays, "29");
+				int withChildAndAdult35 = getDestination(withChildAndAdults, numOfDays, "24");
+				int withChildAndAdult36 = getDestination(withChildAndAdults, numOfDays, "17");
+				int withChildAndAdult37 = getDestination(withChildAndAdults, numOfDays, "8","9");
+				int withChildAndAdult38 = getDestination(withChildAndAdults, numOfDays, "30","99");
+				
+				int withChildren34 = getDestination(withChildren, numOfDays, "29");
+				int withChildren35 = getDestination(withChildren, numOfDays, "24");
+				int withChildren36 = getDestination(withChildren, numOfDays, "17");
+				int withChildren37 = getDestination(withChildren, numOfDays,"8","9");
+				int withChildren38 = getDestination(withChildren, numOfDays, "30","99");
+				
+				int unknown34 = getDestination(unknown, numOfDays, "29");
+				int unknown35 = getDestination(unknown, numOfDays, "24");
+				int unknown36 = getDestination(unknown, numOfDays, "17");
+				int unknown37 = getDestination(unknown, numOfDays, "8","9");
+				int unknown38 = getDestination(unknown, numOfDays, "30","99");
+				
+				
+				int subTotal4AllData =  allTotal34+ allTotal35 + allTotal36 + allTotal37 + allTotal38 ;
+				int subTotal4WithoutChild =  withoutChildren34+ withoutChildren35 + withoutChildren36 + withoutChildren37 + withoutChildren38  ;
+				int subTotal4WithChildAndAdults = withChildAndAdult34 + withChildAndAdult35 + withChildAndAdult36 + withChildAndAdult37 + withChildAndAdult38 ;
+				int subTotal4WithChildren =  withChildren34+ withChildren35  + withChildren36 + withChildren37 + withChildren38 ;
+				int subTotal4Unknown = unknown34+ unknown35 + unknown36 + unknown37 + unknown38 ;
+				
 				// Other Destination sub total above
 				//34
-				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseTotal(BigInteger.valueOf(allTotal34));
+				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithoutChild(BigInteger.valueOf(withoutChildren34));
+				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithChildAndAdults(BigInteger.valueOf(withChildAndAdult34));
+				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseWithOnlyChild(BigInteger.valueOf(withChildren34));
+				q23bExitDestination90DaysOrLessTable.setQ23BD1ResidentialProjectorHalfwayHouseUnknownHouseHold(BigInteger.valueOf(unknown34));
 				//35
-				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedTotal(BigInteger.valueOf(allTotal35));
+				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithoutChild(BigInteger.valueOf(withoutChildren35));
+				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithChildAndAdults(BigInteger.valueOf(withChildAndAdult36));
+				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedWithOnlyChild(BigInteger.valueOf(withChildren35));
+				q23bExitDestination90DaysOrLessTable.setQ23BD2DeceasedUnknownHouseHold(BigInteger.valueOf(unknown35));
 				//36
-				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherTotal(BigInteger.valueOf(allTotal36));
+				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithoutChild(BigInteger.valueOf(withoutChildren36));
+				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithChildAndAdults(BigInteger.valueOf(withChildAndAdult36));
+				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherWithOnlyChild(BigInteger.valueOf(withChildren36));
+				q23bExitDestination90DaysOrLessTable.setQ23BD3OtherUnknownHouseHold(BigInteger.valueOf(unknown36));
 				//37
-				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRTotal(BigInteger.valueOf(allTotal37));
+				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithoutChild(BigInteger.valueOf(withoutChildren37));
+				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithChildAndAdults(BigInteger.valueOf(withChildAndAdult37));
+				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRWithOnlyChild(BigInteger.valueOf(withChildren37));
+				q23bExitDestination90DaysOrLessTable.setQ23BD4DKRUnknownHouseHold(BigInteger.valueOf(unknown37));
 				//38
-				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingTotal(BigInteger.valueOf(allTotal38));
+				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithoutChild(BigInteger.valueOf(withoutChildren38));
+				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithChildAndAdults(BigInteger.valueOf(withChildAndAdult38));
+				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingWithOnlyChild(BigInteger.valueOf(withChildren38));
+				q23bExitDestination90DaysOrLessTable.setQ23BD5InfoMissingUnknownHouseHold(BigInteger.valueOf(unknown38));
+
 				//39
-				q23bExitDestination90DaysOrLessTable.setQ23BDzTotTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BDzTotUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BDzTotTotal(BigInteger.valueOf(subTotal4AllData));
+				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithoutChild(BigInteger.valueOf(subTotal4WithoutChild));
+				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithChildAndAdults(BigInteger.valueOf(subTotal4WithChildAndAdults));
+				q23bExitDestination90DaysOrLessTable.setQ23BDzTotWithOnlyChild(BigInteger.valueOf(subTotal4WithChildren));
+				q23bExitDestination90DaysOrLessTable.setQ23BDzTotUnknownHouseHold(BigInteger.valueOf(subTotal4Unknown));
 				
+				int totalAllData = subTotal1AllData + subTotal2AllData + subTotal3AllData + subTotal4AllData ;
+				int totalWithoutChild = subTotal1WithoutChild + subTotal2WithoutChild + subTotal3WithoutChild + subTotal4WithoutChild;
+				int totalWithChildAndAdults = subTotal1WithChildAndAdults + subTotal2WithChildAndAdults + subTotal3WithChildAndAdults + subTotal4WithChildAndAdults;
+				int totalWithChildren = subTotal1WithChildren + subTotal2WithChildren + subTotal3WithChildren + subTotal4WithChildren;
+				int totalUnknown = subTotal1Unknown + subTotal2Unknown + subTotal3Unknown + subTotal4Unknown ;
 				//40
-				q23bExitDestination90DaysOrLessTable.setQ23BETotTotal(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BETotWithoutChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BETotWithChildAndAdults(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BETotWithOnlyChild(BigInteger.valueOf(0));
-				q23bExitDestination90DaysOrLessTable.setQ23BETotUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BETotTotal(BigInteger.valueOf(totalAllData));
+				q23bExitDestination90DaysOrLessTable.setQ23BETotWithoutChild(BigInteger.valueOf(totalWithoutChild));
+				q23bExitDestination90DaysOrLessTable.setQ23BETotWithChildAndAdults(BigInteger.valueOf(totalWithChildAndAdults));
+				q23bExitDestination90DaysOrLessTable.setQ23BETotWithOnlyChild(BigInteger.valueOf(totalWithChildren));
+				q23bExitDestination90DaysOrLessTable.setQ23BETotUnknownHouseHold(BigInteger.valueOf(totalUnknown));
+				
+				List<String> positiveDestinationTypes = new ArrayList<String>();
+				positiveDestinationTypes.add("26");
+				positiveDestinationTypes.add("11");
+				positiveDestinationTypes.add("21");
+				positiveDestinationTypes.add("10");
+				positiveDestinationTypes.add("19");
+				positiveDestinationTypes.add("28");
+				positiveDestinationTypes.add("20");
+				positiveDestinationTypes.add("3");
+				positiveDestinationTypes.add("22");
+				positiveDestinationTypes.add("23");
+				positiveDestinationTypes.add("31");
+				
+				List<String> tempInstDestinationTypes = new ArrayList<String>();
+				tempInstDestinationTypes.add("1");
+				tempInstDestinationTypes.add("15");
+				tempInstDestinationTypes.add("14");
+				tempInstDestinationTypes.add("7");
+				tempInstDestinationTypes.add("27");
+				tempInstDestinationTypes.add("16");
+				tempInstDestinationTypes.add("4");
+				tempInstDestinationTypes.add("29");
+				tempInstDestinationTypes.add("18");
+				tempInstDestinationTypes.add("12");
+				tempInstDestinationTypes.add("13");
+				tempInstDestinationTypes.add("5");
+				tempInstDestinationTypes.add("2");
+				tempInstDestinationTypes.add("25");
+			
+				int destinationByDestinationTypeAllData = getDestinationByDestinationType(allData, numOfDays, positiveDestinationTypes);
+				int destinationByProjectTypeAllData = getDestinationByProjectType(allData, numOfDays, tempInstDestinationTypes, "6");
+				int positiveHousingAllData = destinationByDestinationTypeAllData + destinationByProjectTypeAllData ;
 				
 				//41
-				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistUnknownHouseHold(BigInteger.valueOf(0));
+				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistUnknownHouseHold(BigInteger.valueOf(positiveHousingAllData));
 				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithOnlyChild(BigInteger.valueOf(0));
 				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithChildAndAdults(BigInteger.valueOf(0));
 				q23bExitDestination90DaysOrLessTable.setQ23BTotPersonsExistWithoutChild(BigInteger.valueOf(0));
@@ -418,4 +546,27 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 		 return 0;
 	}
 
+	public static int  getDestination (List<Q22BeanModel> q22Beans , int numOfDays, String destination1,String destination2) {
+		if(CollectionUtils.isNotEmpty(q22Beans)) {
+			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() > numOfDays  && ( StringUtils.equals(destination1, q22BeanModel.getDestination())  || StringUtils.equals(destination2, q22BeanModel.getDestination()) )).collect(Collectors.toList());
+			return q22Bean7DaysOrLessAllData.size();
+		}
+		 return 0;
+	}
+	
+	public static int  getDestinationByDestinationType(List<Q22BeanModel> q22Beans , int numOfDays, List<String> destinations) {
+		if(CollectionUtils.isNotEmpty(q22Beans)) {
+			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() > numOfDays  && ( destinations.contains(q22BeanModel.getDestination()))).collect(Collectors.toList());
+			return q22Bean7DaysOrLessAllData.size();
+		}
+		 return 0;
+	}
+	
+	public static int  getDestinationByProjectType(List<Q22BeanModel> q22Beans , int numOfDays, List<String> destinations,String projectType) {
+		if(CollectionUtils.isNotEmpty(q22Beans)) {
+			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() > numOfDays  && ( destinations.contains(q22BeanModel.getDestination())) && StringUtils.equals(projectType, q22BeanModel.getProjectType()) ).collect(Collectors.toList());
+			return q22Bean7DaysOrLessAllData.size();
+		}
+		 return 0;
+	}
 }
