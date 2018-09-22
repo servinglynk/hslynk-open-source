@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 public class JsonDateDeserializer extends JsonDeserializer<LocalDateTime> {
 
 	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm"); 
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	@Override
 	public LocalDateTime deserialize(JsonParser jp, DeserializationContext ctxt)
