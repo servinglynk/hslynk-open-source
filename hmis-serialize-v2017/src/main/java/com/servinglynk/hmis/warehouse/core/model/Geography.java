@@ -3,10 +3,14 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("geography")
 public class Geography extends ClientModel{
 	private java.util.UUID id;
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
 	private LocalDateTime informationDate;
 	private String geoCode;
 	private String address1;
