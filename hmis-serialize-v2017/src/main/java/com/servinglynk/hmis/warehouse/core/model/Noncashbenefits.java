@@ -5,8 +5,10 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonRootName("nonashBenefits")
+@JsonRootName("noncashBenefits")
 public class Noncashbenefits extends ClientModel{
 
 	 @JsonProperty("noncashbenefitsID")
@@ -36,7 +38,8 @@ public class Noncashbenefits extends ClientModel{
 
       private Integer wic;
 
-
+      @JsonDeserialize(using=JsonDateDeserializer.class)
+      @JsonSerialize(using=JsonDateSerializer.class)
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
 

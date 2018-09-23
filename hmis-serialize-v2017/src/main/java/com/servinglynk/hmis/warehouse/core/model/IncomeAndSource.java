@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("incomeAndSource")
 public class IncomeAndSource extends ClientModel{
@@ -92,6 +94,8 @@ public class IncomeAndSource extends ClientModel{
       @JsonProperty("workersCompAmount")
       private float workerscompamount;
 
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
       
       private Integer dataCollectionStage;
