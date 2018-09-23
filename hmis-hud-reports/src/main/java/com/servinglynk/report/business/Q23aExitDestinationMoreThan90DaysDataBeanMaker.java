@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.servinglynk.report.bean.Q23aExitDestinationMoreThan90DaysDataBean;
 
-public class Q23ExitDestinationMoreThan90DaysDataBeanMaker {
+public class Q23aExitDestinationMoreThan90DaysDataBeanMaker {
 	
 	public static List<Q23aExitDestinationMoreThan90DaysDataBean> getQ23ExitDestinationMoreThan90DaysList(){
 		
