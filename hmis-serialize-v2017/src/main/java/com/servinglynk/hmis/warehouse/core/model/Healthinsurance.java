@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonRootName("healthInsurance")
 public class Healthinsurance extends ClientModel{
 
-
+		@JsonProperty("healthInsuranceId")
       private UUID healthinsuranceId;
       @JsonProperty("insuranceFromAnySource")
       private Integer insurancefromanysource;

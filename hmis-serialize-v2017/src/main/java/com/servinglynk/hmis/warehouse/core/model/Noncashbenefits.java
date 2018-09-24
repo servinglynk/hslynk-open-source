@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonRootName("noncashBenefits")
 public class Noncashbenefits extends ClientModel{
 
-	 @JsonProperty("noncashbenefitsID")
+	 @JsonProperty("noncashBenefitsId")
       private UUID noncashbenefitsID;
 
       @JsonProperty("benefitsFromAnySource")
