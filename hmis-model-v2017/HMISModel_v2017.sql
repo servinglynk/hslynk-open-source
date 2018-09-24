@@ -1503,7 +1503,7 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_o
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('sexual_orientatiion_gender_identity_family_mbr','99','Data Not Collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('years_child_welfr_forest_care','1','Less than one year','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('years_child_welfr_forest_care','2','Less than one year','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('years_child_welfr_forest_care','2','1 to 2 years','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('years_child_welfr_forest_care','3','3 to 5 or more years','ACTIVE');
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('years_juvenile_justice','1','Less than one year','ACTIVE');

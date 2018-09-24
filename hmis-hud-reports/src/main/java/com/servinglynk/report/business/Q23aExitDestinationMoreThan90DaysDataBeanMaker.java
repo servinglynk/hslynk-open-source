@@ -15,7 +15,7 @@ import com.servinglynk.report.model.Q22BeanModel;
 
 public class Q23aExitDestinationMoreThan90DaysDataBeanMaker  extends BaseBeanMaker {
 	public static int numOfDays = 90;
-	public static List<Q23aExitDestinationMoreThan90DaysDataBean> getQ23bExitDestination90DaysOrMoreList(ReportData data){
+	public static List<Q23aExitDestinationMoreThan90DaysDataBean> getQ23ExitDestinationMoreThan90DaysList(ReportData data){
 		Q23aExitDestinationMoreThan90DaysDataBean q23aExitDestinationMoreThan90DaysDataBean = new Q23aExitDestinationMoreThan90DaysDataBean();
 	
 		String query = 		  

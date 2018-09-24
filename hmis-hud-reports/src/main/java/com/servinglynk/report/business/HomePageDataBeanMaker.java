@@ -359,20 +359,20 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			CSVGenerator.buildReport(q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanList,"Q22c.jrxml","Q22c.csv",data);
 
 			
-			List<Q22dLengthOfParticipationByHouseholdTypeDataBean> q22dLengthOfParticipationByHouseholdTypeDataBeanList = Q22dLengthOfParticipationByHouseholdTypeDataBeanMaker.getQ22dLengthOfParticipationByHouseholdTypeDataBeanList();
+			List<Q22dLengthOfParticipationByHouseholdTypeDataBean> q22dLengthOfParticipationByHouseholdTypeDataBeanList = Q22dLengthOfParticipationByHouseholdTypeDataBeanMaker.getQ22dLengthOfParticipationByHouseholdTypeDataBeanList(data);
 			homePageDataBean.setQ22dLengthOfParticipationByHouseholdTypeDataBean(q22dLengthOfParticipationByHouseholdTypeDataBeanList);
 			CSVGenerator.buildReport(q22dLengthOfParticipationByHouseholdTypeDataBeanList,"Q22d.jrxml","Q22d.csv",data);
 
 			
-			List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysList = Q23aExitDestinationMoreThan90DaysDataBeanMaker.getQ23ExitDestinationMoreThan90DaysList();
+			List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysList = Q23aExitDestinationMoreThan90DaysDataBeanMaker.getQ23ExitDestinationMoreThan90DaysList(data);
 			homePageDataBean.setQ23ExitDestinationMoreThan90DaysDataBean(q23ExitDestinationMoreThan90DaysList);
 			CSVGenerator.buildReport(q23ExitDestinationMoreThan90DaysList, "Q23a.jrxml","Q23a.csv",data);
 			
-			List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessList= Q23bExitDestination90DaysOrLessDataBeanMaker.getQ23bExitDestination90DaysOrLessList();
+			List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessList= Q23bExitDestination90DaysOrLessDataBeanMaker.getQ23bExitDestination90DaysOrLessList(data);
 			homePageDataBean.setQ23bExitDestination90DaysOrLessDataBean(q23bExitDestination90DaysOrLessList);
 			CSVGenerator.buildReport(q23bExitDestination90DaysOrLessList, "Q23b.jrxml","Q23b.csv",data);
 			
-			List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitList= Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker.getQ24HomelessnessPreventionHousingAssessmentAtExitList();
+			List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitList= Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker.getQ24HomelessnessPreventionHousingAssessmentAtExitList(data);
 			homePageDataBean.setQ24HomelessnessPreventionHousingAssessmentAtExitDataBean(q24HomelessnessPreventionHousingAssessmentAtExitList);
 			CSVGenerator.buildReport(q24HomelessnessPreventionHousingAssessmentAtExitList, "Q24.jrxml","Q24.csv",data);
 			
