@@ -168,14 +168,18 @@ public class ClientsController extends ControllerBase {
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_ENROLLMENT_BY_ID", checkSessionToken = true, checkTrustedApp = true)
 	public Enrollment getClientEnrollmentById(@PathVariable("clientid") UUID clientId,
-			@PathVariable("enrollmentid") UUID enrollmentId, HttpServletRequest request) throws Exception {
-		return serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			@PathVariable("enrollmentid") UUID enrollmentId,
+			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,	
+			HttpServletRequest request) throws Exception {
+		return serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,includeChildLinks);
 	}
 	
 	@RequestMapping(value="/enrollments/{enrollmentid}",method=RequestMethod.GET)
 	@APIMapping(value="GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
-	public Enrollment getEnrollmentById(@PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
-		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId);
+	public Enrollment getEnrollmentById(@PathVariable("enrollmentid") UUID enrollmentId ,
+			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,	
+			HttpServletRequest request) throws Exception {
+		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId,includeChildLinks);
 	}
 	
 	@RequestMapping(value = "/{clientid}/enrollments", method = RequestMethod.GET)
