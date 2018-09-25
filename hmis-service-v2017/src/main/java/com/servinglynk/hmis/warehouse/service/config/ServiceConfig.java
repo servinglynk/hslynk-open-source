@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.service.EnrollmentLinksService;
 import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
@@ -18,6 +19,7 @@ import com.servinglynk.hmis.warehouse.service.impl.DomesticviolenceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EducationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EmploymentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentCocServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EnrollmentLinksServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImplV2;
 import com.servinglynk.hmis.warehouse.service.impl.EntryrhspServiceImpl;
@@ -260,5 +262,10 @@ public class ServiceConfig  {
 	 @Bean
 	 public HMISTypeServiceImpl hmisTypeService() {
 		 return new HMISTypeServiceImpl();
+	 }
+	 
+	 @Bean
+	 public EnrollmentLinksServiceImpl enrollmentLinksService() {
+		 return new EnrollmentLinksServiceImpl();
 	 }
 }

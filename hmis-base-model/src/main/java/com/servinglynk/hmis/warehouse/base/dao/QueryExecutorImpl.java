@@ -344,8 +344,10 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 	public List<?> findByCriteria(DetachedCriteria detachedCriteria,Integer firstResult,Integer maxResults){
 		addingConditionsToCriteria(detachedCriteria);
 		Criteria criteria = detachedCriteria.getExecutableCriteria(getCurrentSession());
-		criteria.setFirstResult(firstResult);
-		criteria.setMaxResults(maxResults);		
+		if(firstResult!=null && maxResults!=null) {
+			criteria.setFirstResult(firstResult);
+			criteria.setMaxResults(maxResults);		
+		}
 		return criteria.list();
 		
 	}

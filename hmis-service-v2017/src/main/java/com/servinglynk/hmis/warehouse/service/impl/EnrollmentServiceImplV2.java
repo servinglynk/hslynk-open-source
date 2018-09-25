@@ -1,23 +1,18 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
+import com.servinglynk.hmis.warehouse.core.model.EnrollmentCocs;
 import com.servinglynk.hmis.warehouse.core.model.Enrollments;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
-import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentServiceV2;
 import com.servinglynk.hmis.warehouse.service.converter.EnrollmentConveter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
-import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
-import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
-import com.servinglynk.hmis.warehouse.service.exception.ProjectcocNotFoundException;
 
 public class EnrollmentServiceImplV2 extends ServiceBase implements EnrollmentServiceV2 {
 
@@ -64,5 +59,11 @@ public class EnrollmentServiceImplV2 extends ServiceBase implements EnrollmentSe
 
 
 		return enrollments;
+	}
+	
+	
+	public void generateLinks(UUID enrollmentId) {
+		EnrollmentCocs enrollmentCocs = serviceFactory.getEnrollmentCocService().getAllEnrollmentEnrollmentCocs(enrollmentId, null, null);
+		
 	}
 }

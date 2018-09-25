@@ -1,6 +1,8 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -73,6 +75,12 @@ public class Enrollment extends ClientModel {
 	
 	@JsonProperty("source")
 	private String source;
+	
+	EnrollmentEntryLinks entryLinks;
+	
+	EnrollmentLinks enrollmentLinks;
+	
+	List<ExitActionLink> exitLinks;
 	
 	public Enrollment(){
 		
@@ -268,4 +276,29 @@ public class Enrollment extends ClientModel {
 	public void setSource(String source) {
 		this.source = source;
 	}
+
+	public EnrollmentEntryLinks getEntryLinks() {
+		return entryLinks;
+	}
+
+	public void setEntryLinks(EnrollmentEntryLinks entryLinks) {
+		this.entryLinks = entryLinks;
+	}
+
+	public EnrollmentLinks getEnrollmentLinks() {
+		return enrollmentLinks;
+	}
+
+	public void setEnrollmentLinks(EnrollmentLinks enrollmentLinks) {
+		this.enrollmentLinks = enrollmentLinks;
+	}
+
+	public List<ExitActionLink> getExitLinks() {
+		return exitLinks;
+	}
+
+	public void setExitLinks(List<ExitActionLink> exitLinks) {
+		this.exitLinks = exitLinks;
+	}
+
 }
