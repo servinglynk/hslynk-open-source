@@ -25,9 +25,9 @@ public static String PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN ="select projectid,hou
 public static String PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN ="select projectid,householdtype from %s.inventory where 	householdtype is null";
 public static String REQUIRED_ANNUAL_ASSESMENT_QUERY= "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		 " socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount,  "+
-		 " vadisabilityserviceamount,workerscompamount,e.dedup_client_id from incomeandsources i, enrollment e where e.id=i.enrollmentid  "+
+		 " vadisabilityserviceamount,workerscompamount,e.dedup_client_id from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  "+
 		 "  and i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
-		 " and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
-		 " and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
+		 " and   e.id not in ( select enrollmentid from %s.exit  where  exitdate >= ? )  "+
+		 " and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
       
 }

@@ -50,34 +50,34 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		
 		List<Float> incomeAtStayers = getIncomeForAnnualAssesment(data.getSchema(), ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY, data);
 		
-		String clientDKE = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9') and datacollectionstage=? ";
+		String clientDKE = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('8','9') and datacollectionstage=? ";
 		
-		String clientDNC = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('99') and datacollectionstage=? ";
+		String clientDNC = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('99') and datacollectionstage=? ";
 		
 		String clientAnnualAssesmentDKE = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9')"+
 				"  and i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from exit  where  exitdate <= ? )  "+
-				" and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  ";
+				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= ? )  "+
+				" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  ";
 		
 		
 		String clientAnnualAssesmentDNC = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource='99'"+
 				"  and i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from exit  where  exitdate <= ? )  "+
-				" and   e.id not in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  ";
+				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= ? )  "+
+				" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  ";
 		
 		String notRequiredAnnualAssesment = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where "+
 				"   i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from exit  where  exitdate <= ? )  "+
-				" and   e.id in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  ";
+				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= ? )  "+
+				" and   e.id in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  ";
 		
 		String withOutRequiredAnnualAssesment = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where "+
 				"   i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
-				" and   e.id in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  union all "+
+				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate >= ? )  "+
+				" and   e.id in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  union all "+
 				" select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources where "+
 				"   i.information_date >= e.entrydate and e.entrydate <= ?   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from exit  where  exitdate >= ? )  "+
-				" and   e.id in ( select enrollmentid from enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 ) ";
+				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate >= ? )  "+
+				" and   e.id in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 ) ";
 		
 		List<Float> incomeAtEntryWith0 = incomeAtEntry.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
 		List<Float> incomeAtExitWith0 = incomeAtExit.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
@@ -187,8 +187,8 @@ public class Q16BeanMaker extends BaseBeanMaker {
 			resultSet = statement.executeQuery();
 			
 		 while(resultSet.next()) {
-			 incomes.add(resultSet.getFloat(1)+resultSet.getFloat(2)+resultSet.getFloat(3)+resultSet.getFloat(4)+resultSet.getFloat(5)+resultSet.getFloat(6)+resultSet.getFloat(7)+
-			 resultSet.getFloat(8)+resultSet.getFloat(9)+resultSet.getFloat(10)+resultSet.getFloat(11)+resultSet.getFloat(12)+resultSet.getFloat(13)+resultSet.getFloat(14)+resultSet.getFloat(15));
+			 incomes.add(getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
+			 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15));
 		 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -214,7 +214,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		int count =0;
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
+			statement = connection.prepareStatement(formatQuery(query,schema));
 			statement.setString(1, datacollectionStage);
 			resultSet = statement.executeQuery();
 			
@@ -245,7 +245,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		int count =0;
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
+			statement = connection.prepareStatement(formatQuery(query,schema));
 			statement.setDate(1, data.getReportStartDate());
 			statement.setDate(2, data.getReportEndDate());
 			resultSet = statement.executeQuery();
@@ -277,7 +277,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		int count =0;
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
+			statement = connection.prepareStatement(formatQuery(query,schema));
 			statement.setDate(1, data.getReportStartDate());
 			statement.setDate(2, data.getReportEndDate());
 			statement.setDate(3, data.getReportStartDate());
@@ -314,14 +314,14 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		Connection connection = null;
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
+			statement = connection.prepareStatement(formatQuery(query,schema));
 			statement.setDate(1, data.getReportStartDate());
 			statement.setDate(2, data.getReportEndDate());
 			resultSet = statement.executeQuery();
 			
 		 while(resultSet.next()) {
-			 incomes.add(resultSet.getFloat(1)+resultSet.getFloat(2)+resultSet.getFloat(3)+resultSet.getFloat(4)+resultSet.getFloat(5)+resultSet.getFloat(6)+resultSet.getFloat(7)+
-					 resultSet.getFloat(8)+resultSet.getFloat(9)+resultSet.getFloat(10)+resultSet.getFloat(11)+resultSet.getFloat(12)+resultSet.getFloat(13)+resultSet.getFloat(14)+resultSet.getFloat(15));
+			 incomes.add(getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
+					 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15));
 
 	     }
 		} catch (SQLException e) {
@@ -341,6 +341,20 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		return incomes;
 	}
 	
+	
+	private static Float getFloatValue(ResultSet resultSet , int index) {
+		try {
+			Float value = (Float)resultSet.getFloat(index);
+			if(value != null) {
+				return value;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new Float(0);
+	}
 	
 	
 }

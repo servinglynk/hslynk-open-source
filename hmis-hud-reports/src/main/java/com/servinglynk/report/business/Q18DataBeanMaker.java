@@ -186,7 +186,9 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.prepareStatement(formatQuery(query,data.getSchema()));
-			statement.setString(1, datacollectionStage);
+			//statement.setString(1, datacollectionStage);
+			statement.setDate(1, data.getReportStartDate());
+			statement.setDate(2, data.getReportEndDate());
 			resultSet = statement.executeQuery();
 			
 		 while(resultSet.next()) {
