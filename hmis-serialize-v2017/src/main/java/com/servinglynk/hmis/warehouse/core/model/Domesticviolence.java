@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonRootName("domesticViolence")
 public class Domesticviolence extends ClientModel{
 
-
+	@JsonProperty("domesticViolenceId")
       private UUID domesticviolenceId;
       @JsonProperty("domesticViolenceVictim")
       private Integer domesticviolencevictim;
