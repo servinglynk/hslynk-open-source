@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("exitHousingAssessment")
 public class Exithousingassessment extends ClientModel{
 
-
+	@JsonProperty("exitHousingAssessmentId")
       private UUID exithousingassessmentId;
 
       @JsonProperty("housingAssessment")
