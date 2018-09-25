@@ -715,6 +715,42 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('asked_or_
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('asked_or_forced_to_exchange_for_sex_past_three_months','99','Data not collected','ACTIVE');
 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('physicalDisability','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('physicalDisability','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('physicalDisability','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('physicalDisability','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('physicalDisability','99','Data not collected','ACTIVE');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('developmentalDisability','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('developmentalDisability','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('developmentalDisability','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('developmentalDisability','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('developmentalDisability','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('chronicHealthCondition','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('chronicHealthCondition','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('chronicHealthCondition','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('chronicHealthCondition','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('chronicHealthCondition','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hivAids','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hivAids','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hivAids','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hivAids','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hivAids','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('mentalHealthProblem','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('mentalHealthProblem','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('mentalHealthProblem','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('mentalHealthProblem','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('mentalHealthProblem','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('substanceAbuse','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('substanceAbuse','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('substanceAbuse','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('substanceAbuse','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('substanceAbuse','99','Data not collected','ACTIVE');
 
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('runaway_youth','0','Not available','ACTIVE');
@@ -770,6 +806,7 @@ true,'worst_housing_situation',false,'U1.1','/v2017/hmistypes/WorstHousingSituat
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('literalHomelessHistory','0','4 or more times or total of at least 12 months in past three years','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('literalHomelessHistory','1','2-3 times in past three years','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('literalHomelessHistory','2','1 time in past three years','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('literalHomelessHistory','3','None (0 points)','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('literalHomelessHistory','99','Data not collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('annualpercentami','0','0-14% of AMI for household size','ACTIVE');
@@ -1175,7 +1212,7 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('destinati
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('destination','ACTIVE','27','Moved from one HOPWA funded project to HOPWA TH');
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('destination','ACTIVE','11','Owned by client, no ongoing housing subsidy');
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('destination','ACTIVE','21','Owned by client, with ongoing housing subsidy');
-INSERT INTO "v2017".hmis_type (name,status,value,description) values ('destination','ACTIVE','3','Permanent housing for formerly homeless persons (such as: CoC project; or HUD legacy programs; or HOPWA PH)');
+INSERT INTO "v2017".hmis_type (name,status,value,description) values ('destination','ACTIVE','3','Permanent housing (other than RRH) for formerly homeless persons');
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('destination','ACTIVE','16','Place not meant for habitation (e.g., a vehicle, an abandoned building, bus/train/subway station/airport or anywhere outside)');
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('destination','ACTIVE','4','Psychiatric hospital or other psychiatric facility');
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('destination','ACTIVE','10','Rental by client, no ongoing housing subsidy');	
@@ -1195,6 +1232,8 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('destinati
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination','8','Client doesn''t know','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination','9','Client refused','ACTIVE');   											    
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination','99','Data not collected','ACTIVE'); 
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('destination','31','Rental by client, with RRH or equivalent subsidy','ACTIVE');
+ 
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','1','Emergency shelter, including hotel or motel paid for with emergency shelter voucher','ACTIVE'); 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSituation','2','Transitional housing for homeless persons (including homeless youth)','ACTIVE'); 
@@ -1258,7 +1297,16 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSit
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('funder','ACTIVE','32','VA:Compensated Work Therapy Transitional Residence');
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('funder','ACTIVE','33','VA:Supportive Services for Veteran Families');
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('funder','ACTIVE','34','N/A');
-
+	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('funder','35','HUD:  Pay for Success','ACTIVE');
+	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('funder','36','HUD:  Public and Indian Housing (PIH) Programs','ACTIVE');
+	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('funder','37','VA:  Grant Per Diem – Bridge Housing','ACTIVE');
+	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('funder','38','VA:  Grant Per Diem – Low Demand','ACTIVE');
+	INSERT INTO "v2017".hmis_type (name,value,description,status) values  ('funder','39','VA:  Grant Per Diem – Hospital to Housing','ACTIVE');
+	INSERT INTO "v2017".hmis_type  (name,value,description,status) values  ('funder','40','VA:  Grant Per Diem – Clinical Treatment','ACTIVE');
+	INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('funder','41','VA:  Grant Per Diem – Service Intensive Transitional Housing','ACTIVE');
+	INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('funder','42','VA:  Grant Per Diem – Transition in Place','ACTIVE');
+		
+	
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','1','Out of age range');
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','2','Ward of the State – Immediate Reunification');
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','3','Ward of the Criminal Justice System – Immediate Reunification');
@@ -1589,12 +1637,36 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('housingTy
    	INSERT INTO "v2017".hmis_type (name,status,value,description) values ('targetpopulation','ACTIVE','3','HIV Persons with HIV/AIDS');
    	INSERT INTO "v2017".hmis_type (name,status,value,description) values ('targetpopulation','ACTIVE','4','NA Not Applicable');
    	
-	
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','0','0 (not homeless - Prevention only)','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','1','1 (homeless only this time)','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','2','2','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','3','3','ACTIVE');
-	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','4','4 or more','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('generalHealthStatus','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('generalHealthStatus','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('generalHealthStatus','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('generalHealthStatus','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('generalHealthStatus','99','Data not collected','ACTIVE');
+
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pregnancyStatus','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pregnancyStatus','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pregnancyStatus','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pregnancyStatus','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('pregnancyStatus','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('dentalHealthStatus','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('dentalHealthStatus','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('dentalHealthStatus','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('dentalHealthStatus','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('dentalHealthStatus','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('mentalHealthStatus','0','No','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('mentalHealthStatus','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('mentalHealthStatus','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('mentalHealthStatus','9','Client refused','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('mentalHealthStatus','99','Data not collected','ACTIVE');
+
+
+	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','1','One time','ACTIVE');
+	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','2','Two times','ACTIVE');
+	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','3','Three times','ACTIVE');
+	INSERT INTO "v2017".hmis_type (name,value,description,status) values ('timesHomelesspastthreeyears','4','Four or more time​s','ACTIVE');
 	INSERT INTO "v2017".hmis_type (name,value,description,status) values  ('timesHomelesspastthreeyears','8','Client does not know','ACTIVE');
 	INSERT INTO "v2017".hmis_type  (name,value,description,status) values  ('timesHomelesspastthreeyears','9','Client refused','ACTIVE');
 	INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('timesHomelesspastthreeyears','99','Data not collected','ACTIVE');
@@ -2452,6 +2524,7 @@ create table "v2017".inventory
    id uuid not null,
   householdtype "v2017".house_hold_type,
   bedtype "v2017".bed_type,
+  coccode text,
   availabilty "v2017".availability,
   unitinventory integer,
   bed_inventory integer, -- Sandeep need to change this to five_val_dk_refused
