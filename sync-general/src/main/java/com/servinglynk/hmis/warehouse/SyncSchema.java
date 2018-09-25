@@ -138,8 +138,15 @@ public class SyncSchema extends Logging {
 	                    markedForDelete = false;
 	                }
                 }
-                String key = resultSet.getString("id");
-                if(key.trim() == ""){
+                String key = "";
+                try {
+                	 key = resultSet.getString("id");
+                }catch(Exception e) {
+                	String primaryKey = SyncPostgresProcessor.getPrimaryKeyColumn(postgresTable, syncSchema);
+                	key = resultSet.getString(primaryKey);
+                }
+               
+                if(StringUtils.isBlank(key)){
                     continue;
                 }
                 if (markedForDelete) {
