@@ -18,7 +18,7 @@ public class Inventory extends ClientModel{
       @JsonProperty("bedInventory")
       private Integer bedinventory;
       
-      private Integer cocCode;
+      private String cocCode;
       
       @JsonProperty("bedType")
       private Integer bedtype;
@@ -130,10 +130,10 @@ public class Inventory extends ClientModel{
       public void setUnitinventory(Integer unitinventory){
           this.unitinventory = unitinventory;
       }
-	public Integer getCocCode() {
+	public String getCocCode() {
 		return cocCode;
 	}
-	public void setCocCode(Integer cocCode) {
+	public void setCocCode(String cocCode) {
 		this.cocCode = cocCode;
 	}
 	public LocalDateTime getInformationDate() {
