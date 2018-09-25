@@ -17,8 +17,7 @@ import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
+import java.util.zip.ZipFile;import javax.persistence.PrimaryKeyJoinColumn;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -1181,7 +1180,7 @@ public class BulkUploadHelper2017 {
 		    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization organizationModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization();
 		    	  organizationModel.setDateCreated(getXMLGregorianCalendar(orgtn.getDateCreated()));
 		    	  organizationModel.setDateUpdated(getXMLGregorianCalendar(orgtn.getDateUpdated()));
-	//	    	  organizationModel.setOrganizationCommonName(orgtn.getOrganizationCommonName());
+//		    	  organizationModel.setOrganizationCommonName(orgtn.getOrganizationCommonName());
 		    	  organizationModel.setOrganizationID(orgtn.getOrganizationID());
 		    	  organizationModel.setOrganizationName(orgtn.getOrganizationName());
 		    	  organizationModel.setUserID(orgtn.getUserID());
@@ -1222,6 +1221,10 @@ public class BulkUploadHelper2017 {
 	    	  projectModel.setTargetPopulation((prjt.getTargetPopulation()));
 	    	  projectModel.setTrackingMethod((prjt.getTrackingMethod()));
 	    	  projectModel.setUserID(prjt.getUserID());
+	    	  projectModel.setHousingType(prjt.getHousingType());
+	    	  projectModel.setVictimServicesProvider(prjt.getVictimServicesProvider());
+	    	  projectModel.setOperatingEndDate(getXMLGregorianCalendar(prjt.getOperatingEndDate()));
+	    	  projectModel.setOperatingStartDate(getXMLGregorianCalendar(prjt.getOperatingStartDate()));
 	    	  
 	    	  sources.getSource().getExport().getProject().add(projectModel);
 	      }
