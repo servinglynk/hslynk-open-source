@@ -88,7 +88,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment getEnrollmentByClientIdAndEnrollmentId(
 			UUID enrollmentId, UUID clientId) {
-		return this.getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+		return this.getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false);
 	}
 
 	@Transactional
