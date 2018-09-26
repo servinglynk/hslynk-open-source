@@ -13,9 +13,9 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstay
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
-import com.servinglynk.hmis.warehouse.model.v2016.Disabilities;
-import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2016.ServiceFaReferral;
+import com.servinglynk.hmis.warehouse.model.v2017.Disabilities;
+import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral;
 
 @Component
 public class ChronicHomelessCalcHelper{
@@ -39,46 +39,46 @@ public class ChronicHomelessCalcHelper{
 					return validateDiffInDays(enrollment,enrollment.getEntrydate());
 				}
 				
-			    if(EnrollmentResidencepriorEnum.ONE.equals(enrollment.getResidenceprior())
-					  || EnrollmentResidencepriorEnum.SIXTEEN.equals(enrollment.getResidenceprior())
-					  || EnrollmentResidencepriorEnum.EIGHTEEN.equals(enrollment.getResidenceprior())
-					  || EnrollmentResidencepriorEnum.TWENTY_SEVEN.equals(enrollment.getResidenceprior())) {
+			    if(EnrollmentResidencepriorEnum.ONE.equals(enrollment.getLivingSituation())
+					  || EnrollmentResidencepriorEnum.SIXTEEN.equals(enrollment.getLivingSituation())
+					  || EnrollmentResidencepriorEnum.EIGHTEEN.equals(enrollment.getLivingSituation())
+					  || EnrollmentResidencepriorEnum.TWENTY_SEVEN.equals(enrollment.getLivingSituation())) {
 						return validateDiffInDays(enrollment,enrollment.getEntrydate());
 				}
 			    
-			    if(EnrollmentResidencepriorEnum.FIFTEEN.equals(enrollment.getResidenceprior())
-							|| EnrollmentResidencepriorEnum.SIX.equals(enrollment.getResidenceprior())
-							|| EnrollmentResidencepriorEnum.SEVEN.equals(enrollment.getResidenceprior())
-							|| EnrollmentResidencepriorEnum.TWENTY_FOUR.equals(enrollment.getResidenceprior())
-							|| EnrollmentResidencepriorEnum.FOUR.equals(enrollment.getResidenceprior())
-							|| EnrollmentResidencepriorEnum.FIVE.equals(enrollment.getResidenceprior())) {
-						if(enrollment.getResidencepriorlengthofstay() !=null 
-								&& ( EnrollmentResidencepriorlengthofstayEnum.TWO.equals(enrollment.getResidencepriorlengthofstay()) 
-								  || EnrollmentResidencepriorlengthofstayEnum.THREE.equals(enrollment.getResidencepriorlengthofstay()) 
-								  || EnrollmentResidencepriorlengthofstayEnum.TEN.equals(enrollment.getResidencepriorlengthofstay()) 
-								  || EnrollmentResidencepriorlengthofstayEnum.ELEVEN.equals(enrollment.getResidencepriorlengthofstay()))) {
+			    if(EnrollmentResidencepriorEnum.FIFTEEN.equals(enrollment.getLivingSituation())
+							|| EnrollmentResidencepriorEnum.SIX.equals(enrollment.getLivingSituation())
+							|| EnrollmentResidencepriorEnum.SEVEN.equals(enrollment.getLivingSituation())
+							|| EnrollmentResidencepriorEnum.TWENTY_FOUR.equals(enrollment.getLivingSituation())
+							|| EnrollmentResidencepriorEnum.FOUR.equals(enrollment.getLivingSituation())
+							|| EnrollmentResidencepriorEnum.FIVE.equals(enrollment.getLivingSituation())) {
+						if(enrollment.getLengthOfStay() !=null 
+								&& ( EnrollmentResidencepriorlengthofstayEnum.TWO.equals(enrollment.getLengthOfStay()) 
+								  || EnrollmentResidencepriorlengthofstayEnum.THREE.equals(enrollment.getLengthOfStay()) 
+								  || EnrollmentResidencepriorlengthofstayEnum.TEN.equals(enrollment.getLengthOfStay()) 
+								  || EnrollmentResidencepriorlengthofstayEnum.ELEVEN.equals(enrollment.getLengthOfStay()))) {
 							return oNightBeforeESSH(enrollment);
 						}
 				}
 
-			    if(EnrollmentResidencepriorEnum.THREE.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.TWO.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.TWELVE.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.THIRTEEN.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.FOURTEEN.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.NINTEEN.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.TWENTY.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.TWENTY_ONE.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.TWENTY_TWO.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.TWENTY_THREE.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.TWENTY_FIVE.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.TWENTY_SIX.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.EIGHT.equals(enrollment.getResidenceprior()) 
-						|| EnrollmentResidencepriorEnum.NINE.equals(enrollment.getResidenceprior())
-						|| EnrollmentResidencepriorEnum.NINTY_NINE.equals(enrollment.getResidenceprior())) {
-						if(enrollment.getResidencepriorlengthofstay() !=null 
-								&& ( EnrollmentResidencepriorlengthofstayEnum.TEN.equals(enrollment.getResidencepriorlengthofstay()) 
-								  || EnrollmentResidencepriorlengthofstayEnum.ELEVEN.equals(enrollment.getResidencepriorlengthofstay()) )) {
+			    if(EnrollmentResidencepriorEnum.THREE.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.TWO.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.TWELVE.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.THIRTEEN.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.FOURTEEN.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.NINTEEN.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.TWENTY.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.TWENTY_ONE.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.TWENTY_TWO.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.TWENTY_THREE.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.TWENTY_FIVE.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.TWENTY_SIX.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.EIGHT.equals(enrollment.getLivingSituation()) 
+						|| EnrollmentResidencepriorEnum.NINE.equals(enrollment.getLivingSituation())
+						|| EnrollmentResidencepriorEnum.NINTY_NINE.equals(enrollment.getLivingSituation())) {
+						if(enrollment.getLengthOfStay() !=null 
+								&& ( EnrollmentResidencepriorlengthofstayEnum.TEN.equals(enrollment.getLengthOfStay()) 
+								  || EnrollmentResidencepriorlengthofstayEnum.ELEVEN.equals(enrollment.getLengthOfStay()) )) {
 									return oNightBeforeESSH(enrollment);
 						     }
 			    	}

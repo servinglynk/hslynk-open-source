@@ -591,6 +591,7 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('earned','
 
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('after_provided','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('after_provided','1','Yes','ACTIVE');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('after_provided','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type (name,value,description,status) values ('after_provided','99','Data not collected','ACTIVE');
 
 
@@ -1105,13 +1106,6 @@ insert into v2017.question(id,question_description,display_text,question_data_ty
 true,'youth_bed_inventory',false,'2.7.11','/v2017/hmistypes/youth_bed_inventory/values');
 
 
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hmisparticipatingbeds','0','No','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hmisparticipatingbeds','1','Yes','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hmisparticipatingbeds','8','Client doesn''t know','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hmisparticipatingbeds','9','Client refused','ACTIVE');
-INSERT INTO "v2017".hmis_type (name,value,description,status) values ('hmisparticipatingbeds','99','Data not collected','ACTIVE');
-
-
 insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
 ('024c9acd-d3e1-4cc4-9800-a9db85edad65','HMISParticipatingBeds','HMISParticipatingBeds','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
 true,'hmisparticipatingbeds',false,'2.7.13','/v2017/hmistypes/hmisparticipatingbeds/values');
@@ -1157,6 +1151,7 @@ INSERT INTO "v2017".hmis_type (name,status,value,description) values ('assessmen
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','12','Applicant declined referral/acceptance');
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','13','Applicant terminated assessment prior to completion');
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('assessmentdisposition','ACTIVE','14','Other/specify');
+INSERT INTO "v2017".hmis_type (name,value,description,status) values ('assessmentdisposition','99','Data not collected','ACTIVE');
 
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('availabilty','ACTIVE','1','Year-round');
 INSERT INTO "v2017".hmis_type (name,status,value,description) values ('availabilty','ACTIVE','2','Seasonal');
@@ -1722,13 +1717,13 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('project_
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('project_completion_status','3','Youth was expelled or otherwise involuntarily discharged from project','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('project_completion_status','99','Data Not Collected','ACTIVE');
 
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','1','if 4.37A: Left for other opportunities – Independent living *OR* if 4.37B: Criminal activity/destruction of property/violence','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','2','if 4.37A: Left for other opportunities - Education *OR* if 4.37B: Non-compliance with project rules','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','3','if 4.37A: Left for other opportunities - Military *OR* if 4.37B: Non-payment of rent/occupancy charge','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','4','if 4.37A: Left for other opportunities - Other *OR* if 4.37B: Reached maximum time allowed by project','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','5','if 4.37A: Needs could not be met by project *OR* if 4.37B: Project terminated','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','6','4.37B only: Unknown/disappeared','ACTIVE');
-INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','99','both 4.37A and 4.37B: Data not collected','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','1','Criminal activity/destruction of property/violence','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','2','Non-compliance with project rules','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','3','Non-payment of rent/occupancy charge','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','4','Reached maximum time allowed by project','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','5','Project terminated','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','6','Unknown/disappeared','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('early_exit_reason','99','Data not collected','ACTIVE');
 
 insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
 ('024c9acd-d3e1-4cc4-9800-a9db85edad92','InsufficientIncome','InsufficientIncome','STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
@@ -1850,6 +1845,11 @@ INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exchange
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exchange_for_sex_past_three_months','8','Client doesnt know','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exchange_for_sex_past_three_months','9','Client refused','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exchange_for_sex_past_three_months','99','Data Not Collected','ACTIVE');
+
+
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exchange_for_sex','8','Client doesnt know','ACTIVE');
+INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('exchange_for_sex','9','Client refused','ACTIVE');
+
 
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('coerced_to_continue_work','0','No','ACTIVE');
 INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('coerced_to_continue_work','1','Yes','ACTIVE');
