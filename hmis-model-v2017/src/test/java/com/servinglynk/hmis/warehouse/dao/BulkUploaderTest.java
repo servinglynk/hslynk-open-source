@@ -130,6 +130,11 @@ public class BulkUploaderTest {
 				projectGrpEntity.setProjectGroupCode("SB0006");
 				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
 	}
+	
+	@Test
+	public void calculateChronicHomeless() {
+		 factory.getBulkUploaderDao().calculateChronicHomelessness("MO0010");
+	}
 		@Test
 		public void testCSVZip() throws Exception
 		{

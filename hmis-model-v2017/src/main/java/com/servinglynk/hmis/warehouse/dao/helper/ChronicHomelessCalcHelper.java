@@ -11,6 +11,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
+import com.servinglynk.hmis.warehouse.enums.LivingSituationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Disabilities;
@@ -39,19 +40,24 @@ public class ChronicHomelessCalcHelper{
 					return validateDiffInDays(enrollment,enrollment.getEntrydate());
 				}
 				
-			    if(EnrollmentResidencepriorEnum.ONE.equals(enrollment.getLivingSituation())
-					  || EnrollmentResidencepriorEnum.SIXTEEN.equals(enrollment.getLivingSituation())
-					  || EnrollmentResidencepriorEnum.EIGHTEEN.equals(enrollment.getLivingSituation())
-					  || EnrollmentResidencepriorEnum.TWENTY_SEVEN.equals(enrollment.getLivingSituation())) {
+				if(!LivingSituationEnum.EIGHT.equals(enrollment.getLivingSituation())  && 
+				   !LivingSituationEnum.NINE.equals(enrollment.getLivingSituation())   &&
+				   !LivingSituationEnum.NINTY_NINE.equals(enrollment.getLivingSituation())) {
+					
+			    if(LivingSituationEnum.ONE.equals(enrollment.getLivingSituation())
+					  || LivingSituationEnum.SIXTEEN.equals(enrollment.getLivingSituation())
+					  || LivingSituationEnum.EIGHTEEN.equals(enrollment.getLivingSituation())
+					  || LivingSituationEnum.TWENTY_SEVEN.equals(enrollment.getLivingSituation())) {
 						return validateDiffInDays(enrollment,enrollment.getEntrydate());
+					}
 				}
 			    
-			    if(EnrollmentResidencepriorEnum.FIFTEEN.equals(enrollment.getLivingSituation())
-							|| EnrollmentResidencepriorEnum.SIX.equals(enrollment.getLivingSituation())
-							|| EnrollmentResidencepriorEnum.SEVEN.equals(enrollment.getLivingSituation())
-							|| EnrollmentResidencepriorEnum.TWENTY_FOUR.equals(enrollment.getLivingSituation())
-							|| EnrollmentResidencepriorEnum.FOUR.equals(enrollment.getLivingSituation())
-							|| EnrollmentResidencepriorEnum.FIVE.equals(enrollment.getLivingSituation())) {
+			    if(LivingSituationEnum.FIFTEEN.equals(enrollment.getLivingSituation())
+							|| LivingSituationEnum.SIX.equals(enrollment.getLivingSituation())
+							|| LivingSituationEnum.SEVEN.equals(enrollment.getLivingSituation())
+							|| LivingSituationEnum.TWENTY_FOUR.equals(enrollment.getLivingSituation())
+							|| LivingSituationEnum.FOUR.equals(enrollment.getLivingSituation())
+							|| LivingSituationEnum.FIVE.equals(enrollment.getLivingSituation())) {
 						if(enrollment.getLengthOfStay() !=null 
 								&& ( EnrollmentResidencepriorlengthofstayEnum.TWO.equals(enrollment.getLengthOfStay()) 
 								  || EnrollmentResidencepriorlengthofstayEnum.THREE.equals(enrollment.getLengthOfStay()) 
@@ -108,7 +114,7 @@ public class ChronicHomelessCalcHelper{
 		}
 	
 	private boolean validateDiffInDays(Enrollment enrollment, LocalDateTime date) {
-		if(enrollment.getEntrydate() !=null && diffInDays(LocalDateTime.now(),date) > 365) {
+		if(enrollment.getEntrydate() !=null && diffInDays(LocalDateTime.now(),date) < 365) {
 			return true;
 		}else {
 			return validateTimesHomeless(enrollment);
