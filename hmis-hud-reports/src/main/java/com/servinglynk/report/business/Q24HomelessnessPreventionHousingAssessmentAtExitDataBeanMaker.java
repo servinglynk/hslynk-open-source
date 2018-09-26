@@ -2,7 +2,6 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +14,6 @@ import org.apache.commons.collections.CollectionUtils;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q24HomelessnessPreventionHousingAssessmentAtExitDataBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.model.Q22BeanModel;
 
 public class Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker extends BaseBeanMaker {
 	
@@ -113,7 +111,7 @@ public class Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker exten
 	}
 	
 	public static List<String> getClients(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,String housingassessment, String  subsidyInformation) {
-		 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
+		 List<String> q22Beans = new ArrayList<String>();
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
 			String projectQuery = " and p.id in ( ";
@@ -143,13 +141,10 @@ public class Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker exten
 				resultSet = statement.executeQuery();
 				
 			 while(resultSet.next()) {
-				 Date entryDate = resultSet.getDate("entrydate");
-				 Date moveinDate = resultSet.getDate("moveindate");
+				
 				 
-				 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), null,null, 
-						 null,resultSet.getDate("exitdate"),entryDate,moveinDate,resultSet.getDate("dateprovided") );
-				 bean.setNumberOfDays(subtractDate(entryDate, moveinDate));
-				 q22Beans.add(bean);
+				 String dedupClientId = resultSet.getString("dedup_client_id");
+				 q22Beans.add(dedupClientId);
 			 
 			 }
 			} catch (SQLException e) {

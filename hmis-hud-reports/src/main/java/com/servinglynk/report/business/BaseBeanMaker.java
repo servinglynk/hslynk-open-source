@@ -753,7 +753,7 @@ public class BaseBeanMaker {
 				builder.append(")");
 				resultSet = statement.executeQuery(builder.toString());
 			 while(resultSet.next()) {
-				 ProjectModel model = new ProjectModel(resultSet.getString("projectname"), resultSet.getString("projectType"), resultSet.getString("project_id"),resultSet.getString("organizationid"),resultSet.getString("trackingmethod"));
+				 ProjectModel model = new ProjectModel(resultSet.getString("projectname"), resultSet.getString("projecttype"), resultSet.getString("id"),resultSet.getString("organizationid"),resultSet.getString("trackingmethod"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {
