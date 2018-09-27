@@ -43,6 +43,8 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			data.setAdultStayers(adultStayers);
 			
 			List<EnrollmentModel> childHoh = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() < 18).collect(Collectors.toList());
+			List<EnrollmentModel> adultHoh = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
+			
 			int numberOfStayers = enrollments.size() - exits.size();
 			bean.setTotNumOfPersonServed(BigInteger.valueOf(clients !=null ? clients.size() : 0));
 			bean.setNumOfAdults(BigInteger.valueOf(adults !=null ?adults.size() : 0));
@@ -62,7 +64,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			bean.setNumOfYouthUnderAge25(BigInteger.valueOf(youthUnder25 !=null ? youthUnder25.size() : 0));
 			bean.setTotNoOfAdultLeavers(BigInteger.valueOf(adultLeavers !=null ? adultLeavers.size() : 0));
 			bean.setTotNoOfAdultStayers(BigInteger.valueOf(adultStayers !=null ? adultStayers.size() : 0));
-			
+			bean.setNoOfAdultHeadsOfHousehold(BigInteger.valueOf(adultHoh !=null ? adultHoh.size() : 0) );
 			bean.setTotNoOfLeavers(BigInteger.valueOf(exits != null ? exits.size() : 0));
 			
 			bean.setTotNoOfStayers(BigInteger.valueOf(numberOfStayers));
