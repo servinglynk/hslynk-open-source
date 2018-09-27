@@ -37,6 +37,7 @@ public class CreateCESTables  extends Logging {
 	//		cesTables.createHiveTables("survey", projectGroup,false);
 //			cesTables.createHiveTables("housing_inventory", projectGroup,false);
 			cesTables.createHiveTables("v2017", projectGroup,true);
+			cesTables.createTable("HiveHmis.sql",projectGroup);
 //			cesTables.createHiveTables("v2016", projectGroup,true);
 //			cesTables.createHiveTables("v2015", projectGroup,true);
 //			cesTables.createHiveTables("v2014", projectGroup,true);
@@ -52,9 +53,9 @@ public class CreateCESTables  extends Logging {
 		 }
 		 for(String tableName : tables) {
 			 dropHiveTable("drop table if exists "+tableName);
-			 String sql = createHiveViews(schema, tableName, projectGroupCode,hmisschema);
-			 System.out.println(sql+";");
-			 createHiveTable(sql);
+//			 String sql = createHiveViews(schema, tableName, projectGroupCode,hmisschema);
+//			 System.out.println(sql+";");
+//			 createHiveTable(sql);
 		 }
 	}
 
@@ -139,7 +140,7 @@ public class CreateCESTables  extends Logging {
 	    	  statement = connection.prepareStatement("select * from "+schema+"."+tableName +" limit 1");
 		      resultSet = statement.executeQuery();
 			  ResultSetMetaData metaData = resultSet.getMetaData();
-	          for (int i = 1; i < metaData.getColumnCount(); i++) {
+	          for (int i = 1; i <= metaData.getColumnCount(); i++) {
 	              String column = metaData.getColumnName(i);
 	              String columnTypeName = metaData.getColumnTypeName(i);
 	              if(columnTypeName.contains("bool")) {
