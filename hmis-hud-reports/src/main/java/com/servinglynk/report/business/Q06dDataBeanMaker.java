@@ -109,8 +109,8 @@ public class Q06dDataBeanMaker extends BaseBeanMaker {
 				});
 	
 				List<EnrollmentModel> adultAndHoh = enrollments.parallelStream()
-						.filter(enrollment -> enrollment.getEntrydate().compareTo(chCutoffDate) > 0
-								&& (StringUtils.equals("1", enrollment.getRelationshiptohoh())
+						.filter(enrollment -> 
+							(StringUtils.equals("1", enrollment.getRelationshiptohoh())
 										|| enrollment.getAgeatentry() > 18))
 						.collect(Collectors.toList());
 	
@@ -126,7 +126,7 @@ public class Q06dDataBeanMaker extends BaseBeanMaker {
 						.filter(enrollment -> transitionalHousingProjects.contains(enrollment.getProjectID()))
 						.collect(Collectors.toList());
 				List<EnrollmentModel> b4 = adultAndHoh.parallelStream()
-						.filter(enrollment -> permanentHousingProjects.contains(enrollment.getProjectID()))
+						.filter(enrollment -> permanentHousingProjectIds.contains(enrollment.getProjectID()))
 						.collect(Collectors.toList());
 				// Column C
 				// 15, 6, 7, 24, 4, 5

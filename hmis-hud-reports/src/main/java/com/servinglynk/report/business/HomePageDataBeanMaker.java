@@ -129,6 +129,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 							projectDatas.add(project.getProjectId());
 						}
 					}
+					data.setProjects(projects);
 					data.setProjectIds(projectDatas);
 					
 					List<EnrollmentModel> enrollments =  new ArrayList<>();

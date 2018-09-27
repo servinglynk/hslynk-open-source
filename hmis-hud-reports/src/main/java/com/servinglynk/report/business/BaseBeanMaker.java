@@ -456,24 +456,24 @@ public class BaseBeanMaker {
 	}
 	
 	
-	public static boolean isAdult(Date dob) {
-		try {
-			LocalDate currentDate = LocalDate.now();
-			if(dob !=null) {
-				@SuppressWarnings("deprecation")
-				LocalDate dateOfBirth = LocalDate.of(dob.getYear(), dob.getMonth(), dob.getDay());
-				Period p = Period.between(dateOfBirth, currentDate);
-				if(p.getYears() >= 18 )
-					return true;
-				else 
-					return false;
-			}
-			return false;
-		}catch(Exception e) {
-			return false;
-		}
-	
-	}
+//	public static boolean isAdult(Date dob) {
+//		try {
+//			LocalDate currentDate = LocalDate.now();
+//			if(dob !=null) {
+//				@SuppressWarnings("deprecation")
+//				LocalDate dateOfBirth = LocalDate.of(dob.getYear(), dob.getMonth(), dob.getDay());
+//				Period p = Period.between(dateOfBirth, currentDate);
+//				if(p.getYears() >= 18 )
+//					return true;
+//				else 
+//					return false;
+//			}
+//			return false;
+//		}catch(Exception e) {
+//			return false;
+//		}
+//	
+//	}
 	
 	public static int getAge(Date dob) {
 		try {

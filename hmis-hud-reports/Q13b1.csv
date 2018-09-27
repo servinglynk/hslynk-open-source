@@ -1,9 +1,9 @@
 ,Total,  a. Without children,  b. With children and adults,c. With only children,  d. Unknown household type
-   a. Mental illness,731,0,0,0,0
-   b. Alcohol abuse,130,0,0,0,0
-   c. Drug abuse,117,0,0,0,0
-   d. Both alcohol and drug abuse,115,0,0,0,0
-   e. Chronic health condition,623,0,0,0,0
-   f. HIV/AIDS and related diseases,729,0,0,0,0
-   g. Developmental disability,730,0,0,0,0
-   h. Physical disability,730,0,0,0,0
+   a. Mental illness,731,696,696,0,0
+   b. Alcohol abuse,130,0,111,0,0
+   c. Drug abuse,117,0,115,0,0
+   d. Both alcohol and drug abuse,115,0,114,0,0
+   e. Chronic health condition,623,0,616,0,0
+   f. HIV/AIDS and related diseases,729,0,694,0,0
+   g. Developmental disability,730,0,695,0,0
+   h. Physical disability,730,0,695,0,0

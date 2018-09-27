@@ -30,7 +30,7 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 		Long numOfClients = Long.valueOf(clients.size());
 		clients.parallelStream().forEach(client -> { 
 			
-			if(StringUtils.equals("8", client.getVeteran_status()) || StringUtils.equals("9", client.getVeteran_status()) || StringUtils.equals("9", client.getVeteran_status()) || 
+			if(StringUtils.equals("8", client.getVeteran_status()) || StringUtils.equals("9", client.getVeteran_status()) || StringUtils.equals("99", client.getVeteran_status()) || 
 				(StringUtils.equals("1", client.getVeteran_status()) && client.getDob() != null && getAge(client.getDob())  < 18 ) ) {
 				veteranStatusErrorCount++;
 			}

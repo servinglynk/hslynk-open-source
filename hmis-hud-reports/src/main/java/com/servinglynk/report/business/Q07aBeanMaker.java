@@ -32,34 +32,34 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         	
         	List<ClientModel> clients = data.getClients();
         	List<EnrollmentModel> enrollments = data.getEnrollments();
-        	List<ClientModel> adults = clients.parallelStream().filter(client -> isAdult(client.getDob())).collect(Collectors.toList());
+        	List<EnrollmentModel> adults = enrollments.parallelStream().filter(enrollment -> enrollment.getAgeatentry() > 18).collect(Collectors.toList());
             
         	List<EnrollmentModel> enrollmentsHHWithChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
         	List<String> clientIds = new ArrayList<String>(); 
         	enrollmentsHHWithChildren.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID());});
-        	List<ClientModel> adultWithChildren = adults.parallelStream().filter(adult -> clientIds.contains(adult.getPersonalID())).collect(Collectors.toList());
+        	List<EnrollmentModel> adultWithChildren = adults.parallelStream().filter(adult -> clientIds.contains(adult.getPersonalID())).collect(Collectors.toList());
         	
         	List<EnrollmentModel> enrollmentsHHWithOneAdultChild = enrollments.parallelStream().filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
         	List<String> clientsHHWithOneAdultChild = new ArrayList<String>(); 
         	enrollmentsHHWithOneAdultChild.parallelStream().forEach(enrollment -> { clientsHHWithOneAdultChild.add(enrollment.getPersonalID());});
-        	List<ClientModel> clientWithOneAdultChild = adults.parallelStream().filter(adult -> clientsHHWithOneAdultChild.contains(adult.getPersonalID())).collect(Collectors.toList());
+        	List<EnrollmentModel> clientWithOneAdultChild = adults.parallelStream().filter(adult -> clientsHHWithOneAdultChild.contains(adult.getPersonalID())).collect(Collectors.toList());
         	
         	
         	List<EnrollmentModel> enrollmentsHHWithOutChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
         	List<String> clientsHHWithOutChildren = new ArrayList<String>(); 
         	enrollmentsHHWithOutChildren.parallelStream().forEach(enrollment -> { clientsHHWithOutChildren.add(enrollment.getPersonalID());});
-        	List<ClientModel> clientsWithOutChildren = adults.parallelStream().filter(adult -> clientsHHWithOutChildren.contains(adult.getPersonalID())).collect(Collectors.toList());
+        	List<EnrollmentModel> clientsWithOutChildren = adults.parallelStream().filter(adult -> clientsHHWithOutChildren.contains(adult.getPersonalID())).collect(Collectors.toList());
         	
         	List<EnrollmentModel> enrollmentsUnknownHouseHold = enrollments.parallelStream().filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
         	List<String> clientsUnknownHouseHold = new ArrayList<String>(); 
         	enrollmentsUnknownHouseHold.parallelStream().forEach(enrollment -> { clientsUnknownHouseHold.add(enrollment.getPersonalID());});
-        	List<ClientModel> clientsUnknownHHType = adults.parallelStream().filter(adult -> clientsUnknownHouseHold.contains(adult.getPersonalID())).collect(Collectors.toList());
+        	List<EnrollmentModel> clientsUnknownHHType = adults.parallelStream().filter(adult -> clientsUnknownHouseHold.contains(adult.getPersonalID())).collect(Collectors.toList());
         	
-        	List<ClientModel> children = clients.parallelStream().filter(client -> isChild(client.getDob())).collect(Collectors.toList());
-        	List<ClientModel> childWithOnlyChildren = children.parallelStream().filter(child -> clientIds.contains(child.getPersonalID())).collect(Collectors.toList());
-        	List<ClientModel> childClientWithOneAdultChild = children.parallelStream().filter(child -> clientsHHWithOneAdultChild.contains(child.getPersonalID())).collect(Collectors.toList());
-        	List<ClientModel> childClientsWithOutChildren = children.parallelStream().filter(child -> clientsHHWithOutChildren.contains(child)).collect(Collectors.toList());
-        	List<ClientModel> childClientsUnknownHHType = children.parallelStream().filter(child -> clientsUnknownHouseHold.contains(child.getPersonalID())).collect(Collectors.toList());
+        	List<EnrollmentModel> children = enrollments.parallelStream().filter(enrollment -> enrollment.getAgeatentry() < 18).collect(Collectors.toList());
+        	List<EnrollmentModel> childWithOnlyChildren = children.parallelStream().filter(child -> clientIds.contains(child.getPersonalID())).collect(Collectors.toList());
+        	List<EnrollmentModel> childClientWithOneAdultChild = children.parallelStream().filter(child -> clientsHHWithOneAdultChild.contains(child.getPersonalID())).collect(Collectors.toList());
+        	List<EnrollmentModel> childClientsWithOutChildren = children.parallelStream().filter(child -> clientsHHWithOutChildren.contains(child)).collect(Collectors.toList());
+        	List<EnrollmentModel> childClientsUnknownHHType = children.parallelStream().filter(child -> clientsUnknownHouseHold.contains(child.getPersonalID())).collect(Collectors.toList());
         	
         	List<ClientModel> ageUnknown = clients.parallelStream().filter(client -> StringUtils.equals("9",client.getDob_data_quality()) ||  StringUtils.equals("8",client.getDob_data_quality())).collect(Collectors.toList());
         	List<ClientModel> ageUnknownWithOnlyChildren = ageUnknown.parallelStream().filter(ageUnkn -> clientIds.contains(ageUnkn.getPersonalID())).collect(Collectors.toList());
