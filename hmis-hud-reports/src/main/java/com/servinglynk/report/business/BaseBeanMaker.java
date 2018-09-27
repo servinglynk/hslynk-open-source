@@ -707,7 +707,7 @@ public class BaseBeanMaker {
 						 resultSet.getString("client_id"), 
 						// resultSet.getInt("yearshomeless"), 
 						 resultSet.getInt("ageatentry"),
-						 (Boolean)resultSet.getBoolean("chronichomeless"), 
+						 convertStringBoolean(resultSet.getString("chronichomeless")), 
 						 resultSet.getString("source_system_id"),
 						 resultSet.getDate("date_created_from_source"),
 						 resultSet.getString("livingsituation"),
@@ -966,7 +966,15 @@ public class BaseBeanMaker {
 			 return false;
 		 }
 		 
-		 
+		 private static Boolean convertStringBoolean(String value) {
+				 if(StringUtils.equals("t", value)) {
+					return Boolean.TRUE;
+				 }
+				 if(StringUtils.equals("f", value)) {
+					 return Boolean.FALSE;
+				 }
+				 return Boolean.FALSE;
+		 }
 		 protected static void populateBedNights(Q22BeanModel model, ReportData data) {
 				String[] method1 = new String[] { "2", "4", "6", "7", "8", "11", "12", "14"};
 				List<String> method1List = Arrays.asList(method1);
