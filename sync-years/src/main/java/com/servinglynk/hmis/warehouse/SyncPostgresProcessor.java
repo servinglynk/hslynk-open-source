@@ -61,17 +61,12 @@ public class SyncPostgresProcessor extends Logging{
         PreparedStatement statement = null;
         Connection connection = null;
         try{
-        	  logger.info("Host name"+Properties.POSTGRESQL_DB_HOST);
-              logger.info("POSTGRESQL_DB_PORT"+Properties.POSTGRESQL_DB_PORT);
-              logger.info("POSTGRESQL_DB_DATABASE"+Properties.POSTGRESQL_DB_DATABASE);
-              logger.info("POSTGRESQL_DB_USERNAME"+Properties.POSTGRESQL_DB_USERNAME);
-              logger.info("POSTGRESQL_DB_PASSWORD"+Properties.POSTGRESQL_DB_PASSWORD);
             connection = getConnection();
             statement = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='"+schemaName+"'");
             resultSet = statement.executeQuery();
             while (resultSet.next()){
             	String tableName = resultSet.getString("table_name");
-            	if(StringUtils.equalsIgnoreCase(tableName, "question") || StringUtils.equalsIgnoreCase(tableName, "hmis_type")) {
+            	if(!StringUtils.equalsIgnoreCase(tableName, "question") && !StringUtils.equalsIgnoreCase(tableName, "hmis_type")) {
             		 tables.add(tableName);
             	}
             }
