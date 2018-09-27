@@ -31,15 +31,16 @@ public class CreateCESTables  extends Logging {
 		CreateCESTables cesTables = new CreateCESTables();
 		
 		List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
-		for(String projectGroup : allProjectGroupCodes) {
+		String projectGroup ="SR0012";
+		//for(String projectGroup : allProjectGroupCodes) {
 			cesTables.createTable("CESTables.sql",projectGroup);
 	//		cesTables.createHiveTables("survey", projectGroup,false);
 //			cesTables.createHiveTables("housing_inventory", projectGroup,false);
-//			cesTables.createHiveTables("v2017", projectGroup,true);
+			cesTables.createHiveTables("v2017", projectGroup,true);
 //			cesTables.createHiveTables("v2016", projectGroup,true);
 //			cesTables.createHiveTables("v2015", projectGroup,true);
 //			cesTables.createHiveTables("v2014", projectGroup,true);
-		}
+	//	}
 	}
 	
 	 public void createHiveTables(String schema,String projectGroupCode,boolean hmisschema) {
@@ -50,7 +51,7 @@ public class CreateCESTables  extends Logging {
 			 
 		 }
 		 for(String tableName : tables) {
-			 dropHiveTable("drop table if exist "+tableName);
+			 dropHiveTable("drop table if exists "+tableName);
 			 String sql = createHiveViews(schema, tableName, projectGroupCode,hmisschema);
 			 System.out.println(sql+";");
 			 createHiveTable(sql);
