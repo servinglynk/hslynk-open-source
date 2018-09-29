@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonRootName("erviceFaReferral")
+@JsonRootName("serviceFaReferral")
 public class Servicefareferral extends ClientModel{
 
 		@JsonProperty("erviceFaReferralId")		

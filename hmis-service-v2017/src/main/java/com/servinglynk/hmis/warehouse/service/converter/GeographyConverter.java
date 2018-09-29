@@ -24,6 +24,8 @@ public class GeographyConverter extends BaseConverter {
 	    	   entity.setState(model.getState());
 	       if(model.getZip() !=null)
 	    	   entity.setZip(model.getZip());
+	       if(model.getCocCode() != null)
+	    	    entity.setCoccode(model.getCocCode());
 	       return entity;
 	   }
 
@@ -52,7 +54,8 @@ public class GeographyConverter extends BaseConverter {
 	    	   model.setZip(entity.getZip());
 	       if(entity.getState() !=null)
 	    	   model.setState(entity.getState());
-	       
+	       if(entity.getCoccode() != null)
+	    	    model.setCocCode(entity.getCoccode());
 	       copyBeanProperties(entity, model);
 	       return model;
 	   }

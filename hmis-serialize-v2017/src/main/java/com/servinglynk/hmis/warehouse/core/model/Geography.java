@@ -15,6 +15,7 @@ public class Geography extends ClientModel{
 	private String geoCode;
 	private String address1;
 	private String address2;
+	private String cocCode;
 	private String city;
 	private String state;
 	private String zip;
@@ -127,6 +128,16 @@ public class Geography extends ClientModel{
 	public void setGeographyType(String geographyType) {
 		this.geographyType = geographyType;
 	}
-	
-	
+	/**
+	 * @return the cocCode
+	 */
+	public String getCocCode() {
+		return cocCode;
+	}
+	/**
+	 * @param cocCode the cocCode to set
+	 */
+	public void setCocCode(String cocCode) {
+		this.cocCode = cocCode;
+	}
 }
