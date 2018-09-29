@@ -373,6 +373,14 @@ public class SyncDeltaHbase extends Logging {
                         for (String column : columns) {
                             String columnTypeName = columnMap.get(column);
                             String value = getValue(resultSet,column, columnTypeName);
+                            if(StringUtils.equals("dob",column))   {
+                            	DedupClientDob dedupClientDob = clientDedupMap.get(key);
+                            	if(dedupClientDob != null) {
+                            		p.addColumn(Bytes.toBytes("CF"),
+                                            Bytes.toBytes("age"),
+                                            Bytes.toBytes(String.valueOf(dedupClientDob.getAge())));
+                            	}
+                            }
                             if(StringUtils.equals("client_id", column) && StringUtils.isNotBlank(value)) {
                             	DedupClientDob dedupClientDob = clientDedupMap.get(value);
                             	if(dedupClientDob != null && dedupClientDob.getDedupClientId() !=null) {
