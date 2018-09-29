@@ -21,15 +21,18 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 		Q10aGenderOfAdultsDataBean q10AGenderOfAdults = new Q10aGenderOfAdultsDataBean();
 		if(data.isLiveMode()) {
 		try{
+		List<EnrollmentModel> enrollments = data.getEnrollments();
 		List<ClientModel> clients = data.getClients();
-		List<ClientModel> adults = clients.parallelStream().filter(client -> isAdult(client.getDob())).collect(Collectors.toList());
+		List<EnrollmentModel> adultsEnrollment = enrollments.parallelStream().filter(enrollment -> enrollment.getAgeatentry() > 18).collect(Collectors.toList());
+		List<String> allClients = new ArrayList<>();
+		adultsEnrollment.parallelStream().forEach(enrollment-> { allClients.add(enrollment.getPersonalID()); });
+		List<ClientModel> adults = clients.parallelStream().filter(client-> allClients.contains(client.getPersonalID()) ).collect(Collectors.toList());
 		List<ClientModel> adultsMale = adults.parallelStream().filter(client->StringUtils.equals("1",client.getGender())).collect(Collectors.toList());
 		
 		
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
-		List<EnrollmentModel> enrollments = data.getEnrollments();
 		if(CollectionUtils.isNotEmpty(adultsMale)) {
 			List<String> adultClients = new ArrayList<>();
 			adultsMale.parallelStream().forEach(client-> { adultClients.add(client.getPersonalID()); });

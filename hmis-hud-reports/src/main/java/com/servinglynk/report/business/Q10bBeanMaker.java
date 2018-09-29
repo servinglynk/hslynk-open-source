@@ -22,14 +22,18 @@ public class Q10bBeanMaker extends BaseBeanMaker {
 		if(data.isLiveMode()) {
 		try {
 		List<ClientModel> clients = data.getClients();
-		List<ClientModel> children = clients.parallelStream().filter(client -> !isAdult(client.getDob())).collect(Collectors.toList());
+		List<EnrollmentModel> enrollments = data.getEnrollments();
+		List<EnrollmentModel> adultsEnrollment = enrollments.parallelStream().filter(enrollment -> enrollment.getAgeatentry() <= 18).collect(Collectors.toList());
+		List<String> allClients = new ArrayList<>();
+		adultsEnrollment.parallelStream().forEach(enrollment-> { allClients.add(enrollment.getPersonalID()); });
+		List<ClientModel> children = clients.parallelStream().filter(client-> allClients.contains(client.getPersonalID()) ).collect(Collectors.toList());
+		
 		List<ClientModel> childrenMale = children.parallelStream().filter(client->StringUtils.equals("1",client.getGender())).collect(Collectors.toList());
 		
 		
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
-		List<EnrollmentModel> enrollments = data.getEnrollments();
 		if(CollectionUtils.isNotEmpty(childrenMale)) {
 			List<String> adultClients = new ArrayList<>();
 			childrenMale.parallelStream().forEach(client-> { adultClients.add(client.getPersonalID()); });
