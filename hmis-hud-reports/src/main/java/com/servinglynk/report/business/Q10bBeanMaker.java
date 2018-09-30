@@ -23,11 +23,7 @@ public class Q10bBeanMaker extends BaseBeanMaker {
 		try {
 		List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel> enrollments = data.getEnrollments();
-		List<EnrollmentModel> adultsEnrollment = enrollments.parallelStream().filter(enrollment -> enrollment.getAgeatentry() <= 18).collect(Collectors.toList());
-		List<String> allClients = new ArrayList<>();
-		adultsEnrollment.parallelStream().forEach(enrollment-> { allClients.add(enrollment.getPersonalID()); });
-		List<ClientModel> children = clients.parallelStream().filter(client-> allClients.contains(client.getPersonalID()) ).collect(Collectors.toList());
-		
+		List<ClientModel> children = clients.parallelStream().filter(client-> isChild(client.getAge()) ).collect(Collectors.toList());
 		List<ClientModel> childrenMale = children.parallelStream().filter(client->StringUtils.equals("1",client.getGender())).collect(Collectors.toList());
 		
 		

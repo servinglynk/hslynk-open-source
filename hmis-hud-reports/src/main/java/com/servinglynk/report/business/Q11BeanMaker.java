@@ -22,15 +22,15 @@ public class Q11BeanMaker extends BaseBeanMaker {
 		try {
 				List<ClientModel> clients = data.getClients();
 				List<EnrollmentModel> enrollments = data.getEnrollments();
-				List<ClientModel> under5Tot = clients.parallelStream().filter(client -> getAge(client.getDob()) < 5).collect(Collectors.toList());
-				List<ClientModel> clients5To12 = clients.parallelStream().filter(client -> getAge(client.getDob()) >= 5 && getAge(client.getDob()) <=12).collect(Collectors.toList());
-				List<ClientModel> clients13To17 = clients.parallelStream().filter(client ->  getAge(client.getDob()) >= 13 && getAge(client.getDob()) <=17).collect(Collectors.toList());
-				List<ClientModel> clients18To24 = clients.parallelStream().filter(client ->  getAge(client.getDob()) >= 18 && getAge(client.getDob()) <=24).collect(Collectors.toList());
-				List<ClientModel> clients25To34 = clients.parallelStream().filter(client ->  getAge(client.getDob()) >= 25 && getAge(client.getDob()) <=34).collect(Collectors.toList());
-				List<ClientModel> clients35To44 = clients.parallelStream().filter(client ->  getAge(client.getDob()) >= 35 && getAge(client.getDob()) <=44).collect(Collectors.toList());
-				List<ClientModel> clients45To54 = clients.parallelStream().filter(client ->  getAge(client.getDob()) >= 45 && getAge(client.getDob()) <=54).collect(Collectors.toList());
-				List<ClientModel> clients55To61 = clients.parallelStream().filter(client ->  getAge(client.getDob()) >= 55 && getAge(client.getDob()) <=61).collect(Collectors.toList());
-				List<ClientModel> clientsOver61 = clients.parallelStream().filter(client -> getAge(client.getDob()) > 61).collect(Collectors.toList());
+				List<ClientModel> under5Tot = clients.parallelStream().filter(client -> client.getAge() < 5 && client.getAge() !=0).collect(Collectors.toList());
+				List<ClientModel> clients5To12 = clients.parallelStream().filter(client -> client.getAge() >= 5 && client.getAge() <=12).collect(Collectors.toList());
+				List<ClientModel> clients13To17 = clients.parallelStream().filter(client ->  client.getAge() >= 13 && client.getAge() <=17).collect(Collectors.toList());
+				List<ClientModel> clients18To24 = clients.parallelStream().filter(client ->  client.getAge() >= 18 && client.getAge() <=24).collect(Collectors.toList());
+				List<ClientModel> clients25To34 = clients.parallelStream().filter(client ->  client.getAge() >= 25 && client.getAge() <=34).collect(Collectors.toList());
+				List<ClientModel> clients35To44 = clients.parallelStream().filter(client ->  client.getAge() >= 35 && client.getAge() <=44).collect(Collectors.toList());
+				List<ClientModel> clients45To54 = clients.parallelStream().filter(client ->  client.getAge() >= 45 && client.getAge() <=54).collect(Collectors.toList());
+				List<ClientModel> clients55To61 = clients.parallelStream().filter(client ->  client.getAge() >= 55 && client.getAge() <=61).collect(Collectors.toList());
+				List<ClientModel> clientsOver61 = clients.parallelStream().filter(client -> client.getAge() > 61).collect(Collectors.toList());
 				List<ClientModel> clientsDidnotknowRefused = clients.parallelStream().filter(client -> StringUtils.equals("8", client.getDob_data_quality()) && StringUtils.equals("9", client.getDob_data_quality()) ).collect(Collectors.toList());
 				List<ClientModel> clientsDNC = clients.parallelStream().filter(client -> StringUtils.equals("99", client.getDob_data_quality())).collect(Collectors.toList());
 				

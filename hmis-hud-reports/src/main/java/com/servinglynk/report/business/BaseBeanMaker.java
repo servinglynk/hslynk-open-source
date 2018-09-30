@@ -43,24 +43,19 @@ public class BaseBeanMaker {
 	protected static Logger logger = Logger.getLogger(BaseBeanMaker.class);
 	protected static Date chCutoffDate = new Date(2016, 10, 1);
 
-	public static boolean isChild(Date dob) {
-		try {
-			LocalDate currentDate = LocalDate.now();
-			if(dob !=null) {
-				@SuppressWarnings("deprecation")
-				LocalDate dateOfBirth = LocalDate.of(dob.getYear(), dob.getMonth(), dob.getDay());
-				Period p = Period.between(dateOfBirth, currentDate);
-				if(p.getYears() < 18 )
-					return true;
-				else 
-					return false;
-			}
-			return false;
-		}catch(Exception e) {
-			return false;
+	public static boolean isChild(int age) {
+		if(age < 18 && age != 0) {
+			return true;
 		}
+		return false;
 	}
 	
+	public static boolean isAdult(int age) {
+		if(age >= 18  && age !=0) {
+			return true;
+		}
+		return false;
+	 }
 	 protected static long subtractDate(Date from, Date to) {
 		 long between = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
 		 return between;
@@ -397,7 +392,7 @@ public class BaseBeanMaker {
 					 resultSet.getString("dob_data_quality_desc"), resultSet.getString("gender"), 
 					 resultSet.getString("gender_desc"), null, resultSet.getString("ethnicity"), 
 					 resultSet.getString("ethnicity_desc"), resultSet.getString("race"), resultSet.getString("race_desc"), 
-					 resultSet.getString("veteran_status"), resultSet.getString("source_system_id"));
+					 resultSet.getString("veteran_status"), resultSet.getString("source_system_id"),resultSet.getInt("age"));
 			 models.add(model);
 		 }
 		} catch (SQLException e) {
@@ -474,20 +469,6 @@ public class BaseBeanMaker {
 //		}
 //	
 //	}
-	
-	public static int getAge(Date dob) {
-		try {
-			LocalDate currentDate = LocalDate.now();
-			if(dob !=null) {
-				@SuppressWarnings("deprecation")
-				LocalDate dateOfBirth = LocalDate.of(dob.getYear(), dob.getMonth(), dob.getDay());
-				Period p = Period.between(dateOfBirth, currentDate);
-				return p.getYears();
-			}
-		}catch(Exception e) {
-		}
-		return 0;
-	}
 	
 	public static int getYearBetweenDates(Date fromDate,Date toDate) {
 		try {

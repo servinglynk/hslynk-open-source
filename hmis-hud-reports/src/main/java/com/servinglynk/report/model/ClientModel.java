@@ -13,7 +13,7 @@ public class ClientModel extends BaseModel{
 			String gender, String gender_desc, String other_gender,
 			String ethnicity, String ethnicity_desc, String race,
 			String race_desc, String veteran_status,
-			String client_source_system_id) {
+			String client_source_system_id, int age) {
 		super();
 		PersonalID = personalID;
 		this.dedup_client_id = dedup_client_id;
@@ -33,7 +33,9 @@ public class ClientModel extends BaseModel{
 		this.race_desc = race_desc;
 		this.veteran_status = veteran_status;
 		this.client_source_system_id = client_source_system_id;
+		this.age = age;
 	}
+	private int age =0;
 	private String PersonalID;
 	private String dedup_client_id;
 	private String name_data_quality;
@@ -135,6 +137,18 @@ public class ClientModel extends BaseModel{
 	 */
 	public void setDob(Date dob) {
 		this.dob = dob;
+	}
+	/**
+	 * @return the dob
+	 */
+	public int getAge() {
+		return age;
+	}
+	/**
+	 * @param dob the dob to set
+	 */
+	public void setAge(int dob) {
+		this.age = dob;
 	}
 	/**
 	 * @return the dob_data_quality

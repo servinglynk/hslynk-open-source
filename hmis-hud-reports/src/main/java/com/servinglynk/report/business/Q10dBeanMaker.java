@@ -38,12 +38,13 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 		
 		if(CollectionUtils.isNotEmpty(male)) {
 			q10dGenderByAgeRanges.setQ10dTotMale(BigInteger.valueOf(male.size()));
-			List<ClientModel> clientsUnder18 = male.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clients18to24 = male.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 18 && getAge(client.getDob()) <= 24).collect(Collectors.toList());
-			List<ClientModel> clients25to61 = male.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 25 && getAge(client.getDob()) <= 61).collect(Collectors.toList());
-			List<ClientModel> clients62Over = male.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 62).collect(Collectors.toList());
-			List<ClientModel> clientsCDR = male.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clientsDNC = male.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
+			List<ClientModel> clientsUnder18 = male.parallelStream().filter(client-> client.getAge() < 18 && client.getAge()!=0).collect(Collectors.toList());
+			List<ClientModel> clients18to24 = male.parallelStream().filter(client-> client.getAge() >= 18 && client.getAge() <= 24).collect(Collectors.toList());
+			List<ClientModel> clients25to61 = male.parallelStream().filter(client->  client.getAge() >= 25 && client.getAge() <= 61).collect(Collectors.toList());
+			List<ClientModel> clients62Over = male.parallelStream().filter(client->  client.getAge() >= 62).collect(Collectors.toList());
+			List<ClientModel> clientsCDR = male.parallelStream().filter(client -> StringUtils.equals("8", client.getDob_data_quality()) && StringUtils.equals("9", client.getDob_data_quality()) ).collect(Collectors.toList());
+			List<ClientModel> clientsDNC = male.parallelStream().filter(client -> StringUtils.equals("99", client.getDob_data_quality())).collect(Collectors.toList());
+			
 			int clientsUnder18Size = clientsUnder18 != null ? clientsUnder18.size() : 0;
 			int clients18to24Size =clients18to24 != null ? clients18to24.size() : 0;
 			int clients25to61Size =clients25to61 != null ? clients25to61.size() : 0;
@@ -68,12 +69,13 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 		}
 	
 		if(CollectionUtils.isNotEmpty(female)) {
-			List<ClientModel> clientsUnder18 = female.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clients18to24 = female.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 18 && getAge(client.getDob()) <= 24).collect(Collectors.toList());
-			List<ClientModel> clients25to61 = female.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 25 && getAge(client.getDob()) <= 61).collect(Collectors.toList());
-			List<ClientModel> clients62Over = female.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 62).collect(Collectors.toList());
-			List<ClientModel> clientsCDR = female.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clientsDNC = female.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
+			List<ClientModel> clientsUnder18 = female.parallelStream().filter(client->  client.getAge() < 18 && client.getAge() !=0).collect(Collectors.toList());
+			List<ClientModel> clients18to24 = female.parallelStream().filter(client->  client.getAge() >= 18 && client.getAge() <= 24).collect(Collectors.toList());
+			List<ClientModel> clients25to61 = female.parallelStream().filter(client->  client.getAge() >= 25 && client.getAge() <= 61).collect(Collectors.toList());
+			List<ClientModel> clients62Over = female.parallelStream().filter(client->  client.getAge() >= 62).collect(Collectors.toList());
+			List<ClientModel> clientsCDR = female.parallelStream().filter(client -> StringUtils.equals("8", client.getDob_data_quality()) && StringUtils.equals("9", client.getDob_data_quality()) ).collect(Collectors.toList());
+			List<ClientModel> clientsDNC = female.parallelStream().filter(client -> StringUtils.equals("99", client.getDob_data_quality())).collect(Collectors.toList());
+			
 			int clientsUnder18Size = clientsUnder18 != null ? clientsUnder18.size() : 0;
 			int clients18to24Size =clients18to24 != null ? clients18to24.size() : 0;
 			int clients25to61Size =clients25to61 != null ? clients25to61.size() : 0;
@@ -101,12 +103,13 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 		
 		if(CollectionUtils.isNotEmpty(transFemale)) {
 			
-			List<ClientModel> clientsUnder18 = transFemale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clients18to24 = transFemale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 18 && getAge(client.getDob()) <= 24).collect(Collectors.toList());
-			List<ClientModel> clients25to61 = transFemale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 25 && getAge(client.getDob()) <= 61).collect(Collectors.toList());
-			List<ClientModel> clients62Over = transFemale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 62).collect(Collectors.toList());
-			List<ClientModel> clientsCDR = transFemale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clientsDNC = transFemale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
+			List<ClientModel> clientsUnder18 = transFemale.parallelStream().filter(client->  client.getAge() < 18 && client.getAge()!=0).collect(Collectors.toList());
+			List<ClientModel> clients18to24 = transFemale.parallelStream().filter(client->  client.getAge() >= 18 && client.getAge() <= 24).collect(Collectors.toList());
+			List<ClientModel> clients25to61 = transFemale.parallelStream().filter(client->  client.getAge() >= 25 && client.getAge() <= 61).collect(Collectors.toList());
+			List<ClientModel> clients62Over = transFemale.parallelStream().filter(client->  client.getAge() >= 62).collect(Collectors.toList());
+			List<ClientModel> clientsCDR = transFemale.parallelStream().filter(client -> StringUtils.equals("8", client.getDob_data_quality()) && StringUtils.equals("9", client.getDob_data_quality()) ).collect(Collectors.toList());
+			List<ClientModel> clientsDNC = transFemale.parallelStream().filter(client -> StringUtils.equals("99", client.getDob_data_quality())).collect(Collectors.toList());
+			
 			int clientsUnder18Size = clientsUnder18 != null ? clientsUnder18.size() : 0;
 			int clients18to24Size =clients18to24 != null ? clients18to24.size() : 0;
 			int clients25to61Size =clients25to61 != null ? clients25to61.size() : 0;
@@ -133,12 +136,13 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 		
 		if(CollectionUtils.isNotEmpty(transMale)) {
 			
-			List<ClientModel> clientsUnder18 = transMale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clients18to24 = transMale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 18 && getAge(client.getDob()) <= 24).collect(Collectors.toList());
-			List<ClientModel> clients25to61 = transMale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 25 && getAge(client.getDob()) <= 61).collect(Collectors.toList());
-			List<ClientModel> clients62Over = transMale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 62).collect(Collectors.toList());
-			List<ClientModel> clientsCDR = transMale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clientsDNC = transMale.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
+			List<ClientModel> clientsUnder18 = transMale.parallelStream().filter(client->  client.getAge() < 18 && client.getAge() !=0).collect(Collectors.toList());
+			List<ClientModel> clients18to24 = transMale.parallelStream().filter(client->  client.getAge() >= 18 && client.getAge() <= 24).collect(Collectors.toList());
+			List<ClientModel> clients25to61 = transMale.parallelStream().filter(client->  client.getAge() >= 25 && client.getAge() <= 61).collect(Collectors.toList());
+			List<ClientModel> clients62Over = transMale.parallelStream().filter(client->  client.getAge() >= 62).collect(Collectors.toList());
+			List<ClientModel> clientsCDR = transMale.parallelStream().filter(client -> StringUtils.equals("8", client.getDob_data_quality()) && StringUtils.equals("9", client.getDob_data_quality()) ).collect(Collectors.toList());
+			List<ClientModel> clientsDNC = transMale.parallelStream().filter(client -> StringUtils.equals("99", client.getDob_data_quality())).collect(Collectors.toList());
+			
 			int clientsUnder18Size = clientsUnder18 != null ? clientsUnder18.size() : 0;
 			int clients18to24Size =clients18to24 != null ? clients18to24.size() : 0;
 			int clients25to61Size =clients25to61 != null ? clients25to61.size() : 0;
@@ -165,12 +169,13 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 		
 		if(CollectionUtils.isNotEmpty(others)) {
 			
-			List<ClientModel> clientsUnder18 = others.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clients18to24 = others.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 18 && getAge(client.getDob()) <= 24).collect(Collectors.toList());
-			List<ClientModel> clients25to61 = others.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 25 && getAge(client.getDob()) <= 61).collect(Collectors.toList());
-			List<ClientModel> clients62Over = others.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 62).collect(Collectors.toList());
-			List<ClientModel> clientsCDR = others.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clientsDNC = others.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
+			List<ClientModel> clientsUnder18 = others.parallelStream().filter(client->  client.getAge() < 18 && client.getAge() !=0).collect(Collectors.toList());
+			List<ClientModel> clients18to24 = others.parallelStream().filter(client->  client.getAge() >= 18 && client.getAge() <= 24).collect(Collectors.toList());
+			List<ClientModel> clients25to61 = others.parallelStream().filter(client->  client.getAge() >= 25 && client.getAge() <= 61).collect(Collectors.toList());
+			List<ClientModel> clients62Over = others.parallelStream().filter(client->  client.getAge() >= 62).collect(Collectors.toList());
+			List<ClientModel> clientsCDR = others.parallelStream().filter(client -> StringUtils.equals("8", client.getDob_data_quality()) && StringUtils.equals("9", client.getDob_data_quality()) ).collect(Collectors.toList());
+			List<ClientModel> clientsDNC = others.parallelStream().filter(client -> StringUtils.equals("99", client.getDob_data_quality())).collect(Collectors.toList());
+			
 			int clientsUnder18Size = clientsUnder18 != null ? clientsUnder18.size() : 0;
 			int clients18to24Size =clients18to24 != null ? clients18to24.size() : 0;
 			int clients25to61Size =clients25to61 != null ? clients25to61.size() : 0;
@@ -196,12 +201,13 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 		}
 		if(CollectionUtils.isNotEmpty(clientDk)) {
 			
-			List<ClientModel> clientsUnder18 = clientDk.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clients18to24 = clientDk.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 18 && getAge(client.getDob()) <= 24).collect(Collectors.toList());
-			List<ClientModel> clients25to61 = clientDk.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 25 && getAge(client.getDob()) <= 61).collect(Collectors.toList());
-			List<ClientModel> clients62Over = clientDk.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 62).collect(Collectors.toList());
-			List<ClientModel> clientsCDR = clientDk.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clientsDNC = clientDk.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
+			List<ClientModel> clientsUnder18 = clientDk.parallelStream().filter(client->  client.getAge() < 18  && client.getAge() !=0).collect(Collectors.toList());
+			List<ClientModel> clients18to24 = clientDk.parallelStream().filter(client->  client.getAge() >= 18 && client.getAge() <= 24).collect(Collectors.toList());
+			List<ClientModel> clients25to61 = clientDk.parallelStream().filter(client->  client.getAge() >= 25 && client.getAge() <= 61).collect(Collectors.toList());
+			List<ClientModel> clients62Over = clientDk.parallelStream().filter(client->  client.getAge() >= 62).collect(Collectors.toList());
+			List<ClientModel> clientsCDR = clientDk.parallelStream().filter(client -> StringUtils.equals("8", client.getDob_data_quality()) && StringUtils.equals("9", client.getDob_data_quality()) ).collect(Collectors.toList());
+			List<ClientModel> clientsDNC = clientDk.parallelStream().filter(client -> StringUtils.equals("99", client.getDob_data_quality())).collect(Collectors.toList());
+			
 			int clientsUnder18Size = clientsUnder18 != null ? clientsUnder18.size() : 0;
 			int clients18to24Size =clients18to24 != null ? clients18to24.size() : 0;
 			int clients25to61Size =clients25to61 != null ? clients25to61.size() : 0;
@@ -228,12 +234,15 @@ public class Q10dBeanMaker extends BaseBeanMaker {
 		
 		if(CollectionUtils.isNotEmpty(clientMissing)) {
 			
-			List<ClientModel> clientsUnder18 = clientMissing.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clients18to24 = clientMissing.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 18 && getAge(client.getDob()) <= 24).collect(Collectors.toList());
-			List<ClientModel> clients25to61 = clientMissing.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 25 && getAge(client.getDob()) <= 61).collect(Collectors.toList());
-			List<ClientModel> clients62Over = clientMissing.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) >= 62).collect(Collectors.toList());
-			List<ClientModel> clientsCDR = clientMissing.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
-			List<ClientModel> clientsDNC = clientMissing.parallelStream().filter(client-> client.getDob() != null && getAge(client.getDob()) < 18).collect(Collectors.toList());
+			List<ClientModel> clientsUnder18 = clientMissing.parallelStream().filter(client->  client.getAge() < 18 && client.getAge() !=0).collect(Collectors.toList());
+			List<ClientModel> clients18to24 = clientMissing.parallelStream().filter(client->  client.getAge() >= 18 && client.getAge() <= 24).collect(Collectors.toList());
+			List<ClientModel> clients25to61 = clientMissing.parallelStream().filter(client->  client.getAge() >= 25 && client.getAge() <= 61).collect(Collectors.toList());
+			List<ClientModel> clients62Over = clientMissing.parallelStream().filter(client->  client.getAge() >= 62).collect(Collectors.toList());
+			
+			List<ClientModel> clientsCDR = clientMissing.parallelStream().filter(client -> StringUtils.equals("8", client.getDob_data_quality()) && StringUtils.equals("9", client.getDob_data_quality()) ).collect(Collectors.toList());
+			List<ClientModel> clientsDNC = clientMissing.parallelStream().filter(client -> StringUtils.equals("99", client.getDob_data_quality())).collect(Collectors.toList());
+			
+			
 			int clientsUnder18Size = clientsUnder18 != null ? clientsUnder18.size() : 0;
 			int clients18to24Size =clients18to24 != null ? clients18to24.size() : 0;
 			int clients25to61Size =clients25to61 != null ? clients25to61.size() : 0;
