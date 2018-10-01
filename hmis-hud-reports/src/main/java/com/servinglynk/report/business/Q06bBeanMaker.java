@@ -30,8 +30,7 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 		Long numOfClients = Long.valueOf(clients.size());
 		clients.parallelStream().forEach(client -> { 
 			
-			if(StringUtils.equals("8", client.getVeteran_status()) || StringUtils.equals("9", client.getVeteran_status()) || StringUtils.equals("99", client.getVeteran_status()) || 
-				(StringUtils.equals("1", client.getVeteran_status()) && client.getDob() != null && getAge(client.getDob())  < 18 ) ) {
+			if(StringUtils.equals("8", client.getVeteran_status()) || StringUtils.equals("9", client.getVeteran_status()) || StringUtils.equals("99", client.getVeteran_status()) ) {
 				veteranStatusErrorCount++;
 			}
 		}
@@ -43,11 +42,12 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 			if(StringUtils.equals("8", enrollment.getRelationshiptohoh()) || StringUtils.equals("9", enrollment.getRelationshiptohoh())) {
 				relationShipHHErrorCount++;
 			}
-//			if(enrollment.getStart == null) {
-//				pedErrorCount++;
-//			}
+			if(enrollment.getEntrydate() == null) {
+				pedErrorCount++;
+			}
 		 }
 		);
+		
 		
 		q06bDataBean.setVeteranStatusErrorCount(BigInteger.valueOf(veteranStatusErrorCount));
 		Long numOfAdults = Long.parseLong(String.valueOf(data.getNumOfAdults()));
@@ -71,23 +71,5 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 		}
 		}
 		return Arrays.asList(q06bDataBean);
-	}
-
-	public static int getAge(Date dateOfBirth) {
-	    int age = 0;
-	    Calendar born = Calendar.getInstance();
-	    Calendar now = Calendar.getInstance();
-	    if(dateOfBirth!= null) {
-	        now.setTime(new Date());
-	        born.setTime(dateOfBirth);  
-	        if(born.after(now)) {
-	            throw new IllegalArgumentException("Can't be born in the future");
-	        }
-	        age = now.get(Calendar.YEAR) - born.get(Calendar.YEAR);             
-	        if(now.get(Calendar.DAY_OF_YEAR) < born.get(Calendar.DAY_OF_YEAR))  {
-	            age-=1;
-	        }
-	    }  
-	    return age;
 	}
 }

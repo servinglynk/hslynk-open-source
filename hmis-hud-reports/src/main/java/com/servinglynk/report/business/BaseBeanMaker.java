@@ -657,44 +657,49 @@ public class BaseBeanMaker {
 					}
 					i++;
 				}
-				builder.append(")");
+				builder.append(") order by dedup_client_id");
 				resultSet = statement.executeQuery(builder.toString());
+				String prevDedupClientId = "";
 			 while(resultSet.next()) {
-				 EnrollmentModel model = new EnrollmentModel(resultSet.getString("id"), 
-						// resultSet.getString("enrollment.continuouslyhomelessoneyear"),
-						 null,
-						 resultSet.getString("disablingcondition"), 
-						 resultSet.getDate("entrydate"), 
-						 resultSet.getString("householdid"), 
-						 null, 
-						 null, 
-						 resultSet.getString("monthshomelesspastthreeyears"), 
-						 resultSet.getString("monthshomelesspastthreeyears_desc"), 
-						// resultSet.getString("monthshomelessthistime"), 
-						 null,
-						 null, 
-						 resultSet.getString("projectid"), 
-						 resultSet.getString("relationshiptohoh"), 
-						 resultSet.getString("relationshiptohoh_desc"), 
-						 null, 
-						 null, 
-						 resultSet.getString("lengthofstay"), 
-						 resultSet.getString("lengthofstay_desc"), 
-						// resultSet.getString("statusdocumented"), 
-						 null,
-						 resultSet.getString("timeshomelesspastthreeyears"), 
-						 resultSet.getString("timeshomelesspastthreeyears_desc"), 
-						 null, 
-						 resultSet.getString("client_id"), 
-						// resultSet.getInt("yearshomeless"), 
-						 resultSet.getInt("ageatentry"),
-						 convertStringBoolean(resultSet.getString("chronichomeless")), 
-						 resultSet.getString("source_system_id"),
-						 resultSet.getDate("date_created_from_source"),
-						 resultSet.getString("livingsituation"),
-						 resultSet.getDate("datetostreetessh"),
-						 resultSet.getString("dedup_client_id"));
-				 models.add(model);
+				 String dedupClientId = resultSet.getString("dedup_client_id");
+				 if(!StringUtils.equals(prevDedupClientId, dedupClientId)) {
+					 EnrollmentModel model = new EnrollmentModel(resultSet.getString("id"), 
+								// resultSet.getString("enrollment.continuouslyhomelessoneyear"),
+								 null,
+								 resultSet.getString("disablingcondition"), 
+								 resultSet.getDate("entrydate"), 
+								 resultSet.getString("householdid"), 
+								 null, 
+								 null, 
+								 resultSet.getString("monthshomelesspastthreeyears"), 
+								 resultSet.getString("monthshomelesspastthreeyears_desc"), 
+								// resultSet.getString("monthshomelessthistime"), 
+								 null,
+								 null, 
+								 resultSet.getString("projectid"), 
+								 resultSet.getString("relationshiptohoh"), 
+								 resultSet.getString("relationshiptohoh_desc"), 
+								 null, 
+								 null, 
+								 resultSet.getString("lengthofstay"), 
+								 resultSet.getString("lengthofstay_desc"), 
+								// resultSet.getString("statusdocumented"), 
+								 null,
+								 resultSet.getString("timeshomelesspastthreeyears"), 
+								 resultSet.getString("timeshomelesspastthreeyears_desc"), 
+								 null, 
+								 resultSet.getString("client_id"), 
+								// resultSet.getInt("yearshomeless"), 
+								 resultSet.getInt("ageatentry"),
+								 convertStringBoolean(resultSet.getString("chronichomeless")), 
+								 resultSet.getString("source_system_id"),
+								 resultSet.getDate("date_created_from_source"),
+								 resultSet.getString("livingsituation"),
+								 resultSet.getDate("datetostreetessh"),
+								 resultSet.getString("dedup_client_id"));
+					 prevDedupClientId = resultSet.getString("dedup_client_id");
+						 models.add(model);
+				 }
 			 }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
