@@ -228,59 +228,59 @@ public class BulkUploadHelper2017 {
 		            BufferedReader csvFile = new BufferedReader(
 		                new InputStreamReader(zf.getInputStream(ze)));
 		            
-		            switch(ze.getName()) {
-		            	case "Affiliation.csv":
+		            switch(ze.getName().toLowerCase()) {
+		            	case "affiliation.csv":
 		            		hydrateAffiliation(csvFile, sources);
 		            		break;
-		            	case "Client.csv":
+		            	case "client.csv":
 		            		hydrateClient(csvFile, sources);
 		            		break;
-		            	case "Disabilities.csv":
+		            	case "disabilities.csv":
 		            		hydrateDisabilities(csvFile, sources);
 		            		break;
-		            	case "Geography.csv":
+		            	case "geography.csv":
 		            		hydrateGeography(csvFile, sources);
 		            		break;
-		            	case "EmploymentEducation.csv":
+		            	case "employmenteducation.csv":
 		            		hydrateEmployementEducation(csvFile,sources);
 		            		break;
-		            	case "Enrollment.csv":
+		            	case "enrollment.csv":
 		            		hydrateEnrollment(csvFile, sources);
 		            		break;
-		            	case "EnrollmentCOC.csv":
+		            	case "enrollmentcoc.csv":
 		            		hydrateEnrollmentCoC(csvFile, sources);
 		            		break;
-		            	case "Exit.csv":
+		            	case "exit.csv":
 		            		hydrateExit(csvFile, sources);
 		            		break;
-		            	case "Export.csv":
+		            	case "export.csv":
 		            		hydrateExport(csvFile, sources);
 		            		break;
-		            	case "Funder.csv":
+		            	case "funder.csv":
 		            		hydrateFunder(csvFile, sources);
 		            		break;		            		
-		            	case "HealthAndDV.csv":
+		            	case "healthanddv.csv":
 		            		hydrateHealthAndDV(csvFile, sources);
 		            		break;
-		            	case "IncomeBenefits.csv":
+		            	case "incomebenefits.csv":
 		            		hydrateIncomeBenefits(csvFile, sources);
 		            		break;
-		            	case "Inventory.csv":
+		            	case "inventory.csv":
 		            		hydrateInventory(csvFile, sources);
 		            		break;
-		            	case "Organization.csv":
+		            	case "organization.csv":
 		            		hydrateOrganization(csvFile, sources);
 		            		break;
-		            	case  "Project.csv" :
+		            	case  "project.csv" :
 		            		hydrateProject(csvFile, sources);
 		            		break;
-		            	case "ProjectCOC.csv":
+		            	case "projectcoc.csv":
 		            		hydrateCoc(csvFile, sources);
 		            		break;
-		            	case "Services.csv":
+		            	case "services.csv":
 		            		hydrateServices(csvFile, sources);
 		            		break;
-		            	case "Site.csv":
+		            	case "site.csv":
 		            		hydrateSite(csvFile, sources);
 		            		break;
 		            		
@@ -703,9 +703,10 @@ public class BulkUploadHelper2017 {
 		    	  enrollmentCocModel.setDateCreated(getXMLGregorianCalendar(enrollCoC.getDateCreated()));
 		    	  enrollmentCocModel.setDateUpdated(getXMLGregorianCalendar(enrollCoC.getDateUpdated()));
 		    	  enrollmentCocModel.setEnrollmentCoCID(enrollCoC.getEnrollmentCOCID());
+		    	  enrollmentCocModel.setHouseholdID(enrollCoC.getHouseholdID());
 		    	  enrollmentCocModel.setInformationDate(getXMLGregorianCalendar(enrollCoC.getInformationDate()));
 		    	  enrollmentCocModel.setCocCode(enrollCoC.getCoCCode());
-		    	  enrollmentCocModel.setEnrollmentID(enrollCoC.getProjectEntryID());
+		    	  enrollmentCocModel.setEnrollmentID(enrollCoC.getEnrollmentID());
 		    	  enrollmentCocModel.setUserID(enrollCoC.getUserID());
 		    	  sources.getSource().getExport().getEnrollmentCoC().add(enrollmentCocModel);
 		      }
