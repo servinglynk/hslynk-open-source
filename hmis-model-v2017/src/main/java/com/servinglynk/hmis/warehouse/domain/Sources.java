@@ -3057,8 +3057,23 @@ public class Sources {
                 protected XMLGregorianCalendar dateUpdated;
                 @XmlAttribute
                 protected String userID;
+                protected String cocId;
 
                 /**
+				 * @return the cocId
+				 */
+				public String getCocId() {
+					return cocId;
+				}
+
+				/**
+				 * @param cocId the cocId to set
+				 */
+				public void setCocId(String cocId) {
+					this.cocId = cocId;
+				}
+
+				/**
                  * Gets the value of the coCCode property.
                  * 
                  * @return

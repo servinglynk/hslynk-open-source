@@ -1254,6 +1254,8 @@ public class BulkUploadHelper2017 {
 	    	 cocModel.setDateCreated(getXMLGregorianCalendar(prjtCoC.getDateCreated()));
 	    	 cocModel.setDateUpdated(getXMLGregorianCalendar(prjtCoC.getDateUpdated()));
 	    	 cocModel.setUserID(prjtCoC.getUserID());
+	    	 cocModel.setProjectID(prjtCoC.getProjectID());
+	    	 cocModel.setCocId(prjtCoC.getProjectCocID());
 	    	  projectCoCList.add(cocModel);
 	    	  sources.getSource().getExport().getCoC().add(cocModel);
 	      }

@@ -113,14 +113,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setSource(source);
 			
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
-//			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null); // DONE
-//			logger.info("Staging Source table.........");
-//			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null); // Done
-//			
+
 			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Export.class, getProjectGroupCode(domain));
 			startNanos = System.nanoTime();
-				Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, getProjectGroupCode(domain));
-				parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
+			parentDaoFactory.getCocDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 				upload.setStatus(UploadStatus.STAGING.getStatus());
 				insertOrUpdate(upload);
 		} catch (Exception e) {
@@ -176,10 +173,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setReUpload(true);
 			
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
-//			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null); // DONE
-//			logger.info("Staging Source table.........");
-//			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null); // Done
-//			
+
 			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Export.class, getProjectGroupCode(domain));
 			startNanos = System.nanoTime();
 			logger.info("Starting processing of Client table");

@@ -143,32 +143,32 @@ public class BulkUploaderTest {
 				appender.setLayout(new PatternLayout());
 				appender.activateOptions();
 				List<Long> bulkIds = new ArrayList<>();
-//				bulkIds.add(420L);
-//				bulkIds.add(419L);
-//				bulkIds.add(415L);
-//				bulkIds.add(418L);
-//				bulkIds.add(417L);
-//				bulkIds.add(416L);
-//				bulkIds.add(407L);
-//				bulkIds.add(424L);
-//				bulkIds.add(421L);
-//				bulkIds.add(422L);
-//				bulkIds.add(409L);
-//				bulkIds.add(426L);
-//				bulkIds.add(425L);
-//				bulkIds.add(423L);
-//				bulkIds.add(410L);
-//				bulkIds.add(432L);
-//				bulkIds.add(431L);L
-//				bulkIds.add(430L);
-//				bulkIds.add(428L);
-//				bulkIds.add(427L);
-//				bulkIds.add(412L);
-//				bulkIds.add(411L);
-//				bulkIds.add(429L);
-//				bulkIds.add(413L);
-//				
+				bulkIds.add(420L);
+				bulkIds.add(419L);
+				bulkIds.add(415L);
+				bulkIds.add(418L);
+				bulkIds.add(417L);
+				bulkIds.add(416L);
+				bulkIds.add(407L);
+				bulkIds.add(424L);
+				bulkIds.add(421L);
+				bulkIds.add(422L);
+				bulkIds.add(409L);
+				bulkIds.add(426L);
+				bulkIds.add(425L);
+				bulkIds.add(423L);
+				bulkIds.add(410L);
+				bulkIds.add(432L);
+				bulkIds.add(431L);
+				bulkIds.add(430L);
+				bulkIds.add(428L);
+				bulkIds.add(427L);
+				bulkIds.add(412L);
+				bulkIds.add(411L);
+				bulkIds.add(429L);
+				bulkIds.add(413L);
 				bulkIds.add(414L);
+				bulkIds.add(406L);
 				for(Long id : bulkIds) {
 					BulkUpload bulkUpload = factory.getBulkUploaderDao().performLoad(id,appender,true);
 				}
