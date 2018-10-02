@@ -27,7 +27,6 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 			exits.parallelStream().forEach(exit -> {
 
 				if (StringUtils.equals("8", exit.getDestination()) || StringUtils.equals("9", exit.getDestination())
-						|| StringUtils.equals("30", exit.getDestination())
 						|| StringUtils.equals("99", exit.getDestination())) {
 					destinationErroCount++;
 				}
