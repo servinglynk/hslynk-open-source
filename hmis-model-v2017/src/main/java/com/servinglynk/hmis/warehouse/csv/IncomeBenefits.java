@@ -2,12 +2,19 @@ package com.servinglynk.hmis.warehouse.csv;
 
 import com.googlecode.jcsv.annotations.MapToColumn;
 /***
- * IncomeBenefitsID	ProjectEntryID	PersonalID	InformationDate	IncomeFromAnySource	
- * TotalMonthlyIncome	Earned	EarnedAmount	Unemployment	UnemploymentAmount	SSI	SSIAmount	
- * SSDI	SSDIAmount	VADisabilityService	VADisabilityServiceAmount	VADisabilityNonService	VADisabilityNonServiceAmount	
- * PrivateDisability	PrivateDisabilityAmount	WorkersComp	WorkersCompAmount	TANF	TANFAmount	GA	GAAmount	SocSecRetirement	SocSecRetirementAmount	
- * Pension	PensionAmount	ChildSupport	ChildSupportAmount	Alimony	AlimonyAmount	
-										
+IncomeBenefitsID	EnrollmentID	PersonalID	InformationDate	IncomeFromAnySource	
+TotalMonthlyIncome	Earned	EarnedAmount	Unemployment	UnemploymentAmount	SSI	SSIAmount	
+SSDI	SSDIAmount	VADisabilityService	VADisabilityServiceAmount	VADisabilityNonService	VADisabilityNonServiceAmount	
+PrivateDisability	PrivateDisabilityAmount	WorkersComp	WorkersCompAmount	TANF	TANFAmount	GA	GAAmount	
+SocSecRetirement	SocSecRetirementAmount	Pension	PensionAmount	ChildSupport	ChildSupportAmount	Alimony	AlimonyAmount	
+OtherIncomeSource	OtherIncomeAmount	OtherIncomeSourceIdentify	BenefitsFromAnySource	SNAP	WIC	TANFChildCare	
+TANFTransportation	OtherTANF	OtherBenefitsSource	OtherBenefitsSourceIdentify	InsuranceFromAnySource	Medicaid	NoMedicaidReason	
+Medicare	NoMedicareReason	SCHIP	NoSCHIPReason	VAMedicalServices	NoVAMedReason	EmployerProvided	
+NoEmployerProvidedReason	COBRA	NoCOBRAReason	PrivatePay	NoPrivatePayReason	StateHealthIns	NoStateHealthInsReason	
+IndianHealthServices	NoIndianHealthServicesReason	OtherInsurance	OtherInsuranceIdentify	HIVAIDSAssistance	
+NoHIVAIDSAssistanceReason	ADAP	NoADAPReason	ConnectionWithSOAR	DataCollectionStage	DateCreated	DateUpdated	UserID	
+DateDeleted	ExportID			
+		
  * @author sdolia
  *
  */
@@ -24,146 +31,147 @@ public class IncomeBenefits {
 	private String IncomeFromAnySource;
 	@MapToColumn(column=5)
 	private String TotalMonthlyIncome;
-	private String Earned;
 	@MapToColumn(column=6)
-	private String EarnedAmount;
+	private String Earned;
 	@MapToColumn(column=7)
-	private String Unemployment;
+	private String EarnedAmount;
 	@MapToColumn(column=8)
-	private String UnemploymentAmount;
+	private String Unemployment;
 	@MapToColumn(column=9)
-	private String SSI;
+	private String UnemploymentAmount;
 	@MapToColumn(column=10)
-	private String SSIAmount;
+	private String SSI;
 	@MapToColumn(column=11)
-	private String SSDI;
+	private String SSIAmount;
 	@MapToColumn(column=12)
-	private String SSDIAmount;
+	private String SSDI;
 	@MapToColumn(column=13)
-	private String VADisabilityService;
+	private String SSDIAmount;
 	@MapToColumn(column=14)
-	private String VADisabilityServiceAmount;
+	private String VADisabilityService;
 	@MapToColumn(column=15)
-	private String VADisabilityNonService;
+	private String VADisabilityServiceAmount;
 	@MapToColumn(column=16)
-	private String VADisabilityNonServiceAmount;
+	private String VADisabilityNonService;
 	@MapToColumn(column=17)
-	private String PrivateDisability;
+	private String VADisabilityNonServiceAmount;
 	@MapToColumn(column=18)
-	private String PrivateDisabilityAmount;
+	private String PrivateDisability;
 	@MapToColumn(column=19)
-	private String WorkersComp;
+	private String PrivateDisabilityAmount;
 	@MapToColumn(column=20)
-	private String WorkersCompAmount;
+	private String WorkersComp;
 	@MapToColumn(column=21)
-	private String TANF;
+	private String WorkersCompAmount;
 	@MapToColumn(column=22)
-	private String TANFAmount;
+	private String TANF;
 	@MapToColumn(column=23)
-	private String GA;
+	private String TANFAmount;
 	@MapToColumn(column=24)
-	private String GAAmount;
+	private String GA;
 	@MapToColumn(column=25)
-	private String SocSecRetirement;
+	private String GAAmount;
 	@MapToColumn(column=26)
-	private String SocSecRetirementAmount;
+	private String SocSecRetirement;
 	@MapToColumn(column=27)
-	private String Pension;
+	private String SocSecRetirementAmount;
 	@MapToColumn(column=28)
-	private String PensionAmount;
+	private String Pension;
 	@MapToColumn(column=29)
-	private String ChildSupport;
+	private String PensionAmount;
 	@MapToColumn(column=30)
-	private String ChildSupportAmount;
+	private String ChildSupport;
 	@MapToColumn(column=31)
-	private String Alimony;
+	private String ChildSupportAmount;
 	@MapToColumn(column=32)
-	private String AlimonyAmount;
+	private String Alimony;
 	@MapToColumn(column=33)
-	private String OtherIncomeSource;
+	private String AlimonyAmount;
 	@MapToColumn(column=34)
-	private String OtherIncomeAmount;
+	private String OtherIncomeSource;
 	@MapToColumn(column=35)
-	private String OtherIncomeSourceIdentify;
+	private String OtherIncomeAmount;
 	@MapToColumn(column=36)
-	private String BenefitsFromAnySource;
+	private String OtherIncomeSourceIdentify;
 	@MapToColumn(column=37)
-	private String SNAP;
+	private String BenefitsFromAnySource;
 	@MapToColumn(column=38)
-	private String WIC;
+	private String SNAP;
 	@MapToColumn(column=39)
-	private String TANFChildCare;
+	private String WIC;
 	@MapToColumn(column=40)
-	private String TANFTransportation;
+	private String TANFChildCare;
 	@MapToColumn(column=41)
-	private String OtherTANF;
+	private String TANFTransportation;
 	@MapToColumn(column=42)
-	private String OtherBenefitsSource;
+	private String OtherTANF;
 	@MapToColumn(column=43)
-	private String OtherBenefitsSourceIdentify;
+	private String OtherBenefitsSource;
 	@MapToColumn(column=44)
-	private String InsuranceFromAnySource;
+	private String OtherBenefitsSourceIdentify;
 	@MapToColumn(column=45)
-	private String Medicaid;
+	private String InsuranceFromAnySource;
 	@MapToColumn(column=46)
-	private String NoMedicaidReason;
+	private String Medicaid;
 	@MapToColumn(column=47)
-	private String Medicare;
+	private String NoMedicaidReason;
 	@MapToColumn(column=48)
-	private String NoMedicareReason;
+	private String Medicare;
 	@MapToColumn(column=49)
-	private String SCHIP;
+	private String NoMedicareReason;
 	@MapToColumn(column=50)
-	private String NoSCHIPReason;
+	private String SCHIP;
 	@MapToColumn(column=51)
-	private String VAMedicalServices;
+	private String NoSCHIPReason;
 	@MapToColumn(column=52)
-	private String NoVAMedReason;
+	private String VAMedicalServices;
 	@MapToColumn(column=53)
-	private String EmployerProvided;
+	private String NoVAMedReason;
 	@MapToColumn(column=54)
-	private String NoEmployerProvidedReason;
+	private String EmployerProvided;
 	@MapToColumn(column=55)
-	private String COBRA;
+	private String NoEmployerProvidedReason;
 	@MapToColumn(column=56)
-	private String NoCOBRAReason;
+	private String COBRA;
 	@MapToColumn(column=57)
-	private String PrivatePay;
+	private String NoCOBRAReason;
 	@MapToColumn(column=58)
-	private String NoPrivatePayReason;
+	private String PrivatePay;
 	@MapToColumn(column=59)
-	private String StateHealthIns	;
+	private String NoPrivatePayReason;
 	@MapToColumn(column=60)
-	private String NoStateHealthInsReason;
+	private String StateHealthIns	;
 	@MapToColumn(column=61)
-	private String IndianHealthServices;
+	private String NoStateHealthInsReason;
 	@MapToColumn(column=62)
-	private String NoIndianHealthServicesReason;
+	private String IndianHealthServices;
 	@MapToColumn(column=63)
-	private String OtherInsurance;
+	private String NoIndianHealthServicesReason;
 	@MapToColumn(column=64)
-	private String OtherInsuranceIdentify;
+	private String OtherInsurance;
 	@MapToColumn(column=65)
-	private String HIVAIDSAssistance;
+	private String OtherInsuranceIdentify;
 	@MapToColumn(column=66)
-	private String NoHIVAIDSAssistanceReason;
+	private String HIVAIDSAssistance;
 	@MapToColumn(column=67)
-	private String ADAP;
+	private String NoHIVAIDSAssistanceReason;
 	@MapToColumn(column=68)
-	private String NoADAPReason;
+	private String ADAP;
 	@MapToColumn(column=69)
-	private String ConnectionWithSOAR;
+	private String NoADAPReason;
 	@MapToColumn(column=70)
-	private String DataCollectionStage;
+	private String ConnectionWithSOAR;
 	@MapToColumn(column=71)
-	private String DateCreated;
+	private String DataCollectionStage;
 	@MapToColumn(column=72)
-	private String DateUpdated;
+	private String DateCreated;
 	@MapToColumn(column=73)
-	private String UserID;
+	private String DateUpdated;
 	@MapToColumn(column=74)
-	private String DateDeleted;
+	private String UserID;
 	@MapToColumn(column=75)
+	private String DateDeleted;
+	@MapToColumn(column=76)
 	private String ExportID;
 	public String getIncomeBenefitsID() {
 		return IncomeBenefitsID;

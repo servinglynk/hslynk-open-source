@@ -111,13 +111,22 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setExport(export);
 			domain.setUpload(upload);
 			domain.setSource(source);
-			
+			domain.setReUpload(true);
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 
 			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Export.class, getProjectGroupCode(domain));
 			startNanos = System.nanoTime();
-			Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
-			parentDaoFactory.getCocDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
+			
+			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, getProjectGroupCode(domain));
+			
+			parentDaoFactory.getIncomeandsourcesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getMedicalassistanceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getNoncashbenefitsDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getPathstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			parentDaoFactory.getConnectionWithSoarDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
+		
+			
 				upload.setStatus(UploadStatus.STAGING.getStatus());
 				insertOrUpdate(upload);
 		} catch (Exception e) {
