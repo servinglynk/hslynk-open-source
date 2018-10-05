@@ -20,8 +20,8 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q25cGenderVeteransDataBean> getQ25cGenderVeteransList(ReportData data){
 		
-		String query = "select distinct(e.dedup_client_id)  from enrollment e join project p  on (e.projectid = p.id   %p"+
-			     " join client c on (e.client_id = c.id and e.entrydate  >=  ? and  e.entrydate<=?) "+ 
+		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p"+
+			     " join %s.client c on (e.client_id = c.id and e.entrydate  >=  ? and  e.entrydate<=?) "+ 
 			     " where  1=1 ";
 				Q25cGenderVeteransDataBean q25cGenderVeteranTable = new Q25cGenderVeteransDataBean();
 				try {
@@ -65,7 +65,6 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						List<String> transgenderMaleToFemaleWithChildAndAdults = getClients(data, query, projectsHHWithOneAdultChild, false, "1", "2");
 						List<String> transgenderMaleToFemaleUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, "1", "2");
 						
-						
 						int transgenderMaleToFemaleSize = getSize(transgenderMaleToFemale);
 						int transgenderMaleToFemaleWithoutChildrenSize = getSize(transgenderMaleToFemaleWithoutChildren);
 						int transgenderMaleToFemaleWithChildAndAdultsSize = getSize(transgenderMaleToFemaleWithChildAndAdults);
@@ -80,7 +79,6 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						List<String> transgendereFemaleToMaleWithoutChildren = getClients(data, query, projectsHHWithOutChildren, false, "1", "3");
 						List<String> transgendereFemaleToMaleithChildAndAdults = getClients(data, query, projectsHHWithOneAdultChild, false, "1", "3");
 						List<String> transgendereFemaleToMaleUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, "1", "3");
-						
 						
 						int transgendereFemaleToMaleSize = getSize(transgendereFemaleToMale);
 						int transgendereFemaleToMaleWithoutChildrenSize = getSize(transgendereFemaleToMaleWithoutChildren);
@@ -107,22 +105,45 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						q25cGenderVeteranTable.setQ25cOtherWithChildAndAdults(BigInteger.valueOf(otherWithChildAndAdultsSize));
 						q25cGenderVeteranTable.setQ25cOtherUnknownHouseHold(BigInteger.valueOf(otherUnknownHouseHoldSize));
 						
-						List dk =  getClients(data, query, null, true, "1", "8");
+						List<String> dk =  getClients(data, query, null, true, "1", "8");
+						List<String> dkWithoutChildren =  getClients(data, query, projectsHHWithOutChildren, false, "1", "8");
+						List<String> dkWithChildAndAdults =  getClients(data, query, projectsHHWithOneAdultChild, false, "1", "8");
+						List<String> dkUnknownHouseHold =  getClients(data, query, projectsUnknownHouseHold, false, "1", "8");
 						
-						q25cGenderVeteranTable.setQ25cDKRTotal(BigInteger.valueOf(0));
-						q25cGenderVeteranTable.setQ25cDKRWithoutChildren(BigInteger.valueOf(0));
-						q25cGenderVeteranTable.setQ25cDKRWithChildAndAdults(BigInteger.valueOf(0));
-						q25cGenderVeteranTable.setQ25cDKRUnknownHouseHold(BigInteger.valueOf(0));
+						int dkSize = getSize(dk);
+						int dkWithoutChildrenSize = getSize(dkWithoutChildren);
+						int dkWithChildAndAdultsSize = getSize(dkWithChildAndAdults);
+						int dkUnknownHouseHoldSize = getSize(dkUnknownHouseHold);
+						
+						q25cGenderVeteranTable.setQ25cDKRTotal(BigInteger.valueOf(dkSize));
+						q25cGenderVeteranTable.setQ25cDKRWithoutChildren(BigInteger.valueOf(dkWithoutChildrenSize));
+						q25cGenderVeteranTable.setQ25cDKRWithChildAndAdults(BigInteger.valueOf(dkWithChildAndAdultsSize));
+						q25cGenderVeteranTable.setQ25cDKRUnknownHouseHold(BigInteger.valueOf(dkUnknownHouseHoldSize));
 		
-						q25cGenderVeteranTable.setQ25cInformationMissingTotal(BigInteger.valueOf(0));
-						q25cGenderVeteranTable.setQ25cInformationMissingWithoutChildren(BigInteger.valueOf(0));
-						q25cGenderVeteranTable.setQ25cInformationMissingWithChildAndAdults(BigInteger.valueOf(0));
-						q25cGenderVeteranTable.setQ25cInformationMissingUnknownHouseHold(BigInteger.valueOf(0));
-									
-						q25cGenderVeteranTable.setQ25cTotTotal(BigInteger.valueOf(0));
-						q25cGenderVeteranTable.setQ25cTotWithoutChildren(BigInteger.valueOf(0));
-						q25cGenderVeteranTable.setQ25cTotWithChildAndAdults(BigInteger.valueOf(0));
-						q25cGenderVeteranTable.setQ25cTotUnknownHouseHold(BigInteger.valueOf(0));
+						List<String> informationMissing =  getClients(data, query, null, true, "1", "99");
+						List<String> informationMissingWithoutChildren =  getClients(data, query, projectsHHWithOutChildren, false, "1", "99");
+						List<String> informationMissingWithChildAndAdults =  getClients(data, query, projectsHHWithOneAdultChild, false, "1", "99");
+						List<String> informationMissingUnknownHouseHold =  getClients(data, query, projectsUnknownHouseHold, false, "1", "99");
+						
+						int informationMissingSize = getSize(informationMissing);
+						int informationMissingWithoutChildrenSize = getSize(informationMissingWithoutChildren);
+						int informationMissingWithChildAndAdultsSize = getSize(informationMissingWithChildAndAdults);
+						int informationMissingUnknownHouseHoldSize = getSize(informationMissingUnknownHouseHold);
+						
+						q25cGenderVeteranTable.setQ25cInformationMissingTotal(BigInteger.valueOf(informationMissingSize));
+						q25cGenderVeteranTable.setQ25cInformationMissingWithoutChildren(BigInteger.valueOf(informationMissingWithoutChildrenSize));
+						q25cGenderVeteranTable.setQ25cInformationMissingWithChildAndAdults(BigInteger.valueOf(informationMissingWithChildAndAdultsSize));
+						q25cGenderVeteranTable.setQ25cInformationMissingUnknownHouseHold(BigInteger.valueOf(informationMissingUnknownHouseHoldSize));
+								
+						int total = maleSize + femaleSize + transgenderMaleToFemaleSize + transgendereFemaleToMaleSize + otherSize + dkSize + informationMissingSize ;
+						int withOutChildren = maleWithoutChildrenSize + femaleWithoutChildrenSize + transgenderMaleToFemaleWithoutChildrenSize + transgendereFemaleToMaleWithoutChildrenSize + otherWithoutChildrenSize + dkWithoutChildrenSize + otherWithoutChildrenSize ;
+						int withChildAndAdults =maleWithChildAndAdultsSize + femaleWithChildAndAdultsSize + transgenderMaleToFemaleWithChildAndAdultsSize + transgendereFemaleToMaleWithChildAndAdultsSize + otherWithChildAndAdultsSize + dkWithChildAndAdultsSize + informationMissingWithChildAndAdultsSize;
+						int unknownHouseHold = maleUnknownHouseHoldSize + femaleUnknownHouseHoldSize + transgenderMaleToFemaleUnknownHouseHoldSize + transgendereFemaleToMaleUnknownHouseHoldSize + otherUnknownHouseHoldSize + dkUnknownHouseHoldSize + informationMissingUnknownHouseHoldSize;
+						
+						q25cGenderVeteranTable.setQ25cTotTotal(BigInteger.valueOf(total));
+						q25cGenderVeteranTable.setQ25cTotWithoutChildren(BigInteger.valueOf(withOutChildren));
+						q25cGenderVeteranTable.setQ25cTotWithChildAndAdults(BigInteger.valueOf(withChildAndAdults));
+						q25cGenderVeteranTable.setQ25cTotUnknownHouseHold(BigInteger.valueOf(unknownHouseHold));
 					}
 			}catch(Exception e){
 						logger.error("Error in Q25aNumberOfVeteransDataBeanMaker:" + e);
