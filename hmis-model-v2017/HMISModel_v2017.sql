@@ -3969,6 +3969,6 @@ false,'4.8.2A','/v2017/clients/{clientid}/enrollments/{enrollmentid}/disabilitie
 
 insert into v2017.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template,uri_object_field) values
 ('024c9acd-d3e1-4cc4-9800-a9db85edad28','Substance Abuse Problem','Substance Abuse Problem',
-'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'indefiniteandimpairs',
-false,'4.10.2A','/v2017/clients/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilityid}','disabilities.indefiniteandImpairs');
+'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'disabilityresponse',
+false,'4.10.2','/v2017/clients/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilityid}','disabilities.disabilityresponse');
 
