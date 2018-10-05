@@ -68,6 +68,13 @@ public class BaseBeanMaker {
 		return null;
 	}
 	
+	public static int getSize(List list) {
+		if(CollectionUtils.isNotEmpty(list)) {
+			return list.size();
+		}
+		return 0;
+	}
+	
 	public static BigInteger getBigIntValue(BigInteger value) {
 		if(value != null) {
 			return value;
