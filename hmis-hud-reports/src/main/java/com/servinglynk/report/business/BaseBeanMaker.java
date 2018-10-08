@@ -153,15 +153,15 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
-	public static List<String> getEnrollmentFromDisabilities(String schema,String query) {
+	public static List<String> getEnrollmentFromDisabilities(String schema,ReportData data,String query) {
 		ResultSet resultSet = null;
-		PreparedStatement statement = null;
+		Statement statement = null;
 		Connection connection = null;
 		List<String>  models = new ArrayList<String>();
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
-			resultSet = statement.executeQuery();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(formatQuery(query, schema, data));
 		 while(resultSet.next()) {
 			 models.add(resultSet.getString(1));
 		 }
@@ -182,15 +182,15 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
-	public static List<DisabilitiesModel> getEnrollmentFromDisabilitiesCount(String schema,String query) {
+	public static List<DisabilitiesModel> getEnrollmentFromDisabilitiesCount(String schema,ReportData data, String query) {
 		ResultSet resultSet = null;
-		PreparedStatement statement = null;
+		Statement statement = null;
 		Connection connection = null;
 		List<DisabilitiesModel>  models = new ArrayList<DisabilitiesModel>();
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
-			resultSet = statement.executeQuery();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(formatQuery(query, schema, data));
 		 while(resultSet.next()) {
 			 models.add(new DisabilitiesModel(resultSet.getString(1),resultSet.getInt(2)));
 		 }
@@ -210,16 +210,15 @@ public class BaseBeanMaker {
 		}
 		return models;
 	}
-	public static List<DisabilitiesModel> getEnrollmentFromDisabilitiesCountWithDate(String schema,String query,Date reportEndDate) {
+	public static List<DisabilitiesModel> getEnrollmentFromDisabilitiesCountWithDate(String schema,String query,ReportData data) {
 		ResultSet resultSet = null;
-		PreparedStatement statement = null;
+		Statement statement = null;
 		Connection connection = null;
 		List<DisabilitiesModel>  models = new ArrayList<DisabilitiesModel>();
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
-			statement.setDate(1, reportEndDate);
-			resultSet = statement.executeQuery();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(formatQuery(query,schema,data));
 		 while(resultSet.next()) {
 			 models.add(new DisabilitiesModel(resultSet.getString(1),resultSet.getInt(2)));
 		 }
@@ -239,16 +238,15 @@ public class BaseBeanMaker {
 		}
 		return models;
 	}
-	public static List<String> getEnrollmentFromDisabilitiesWithInformationDate(String schema,String query,Date reportEndDate) {
+	public static List<String> getEnrollmentFromDisabilitiesWithInformationDate(String schema,ReportData data,String query) {
 		ResultSet resultSet = null;
-		PreparedStatement statement = null;
+		Statement statement = null;
 		Connection connection = null;
 		List<String>  models = new ArrayList<String>();
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
-			statement.setDate(1, reportEndDate);
-			resultSet = statement.executeQuery();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(formatQuery(query,schema,data));
 		 while(resultSet.next()) {
 			 models.add(resultSet.getString(1));
 		 }

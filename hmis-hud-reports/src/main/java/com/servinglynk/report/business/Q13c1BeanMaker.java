@@ -33,9 +33,8 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
 	// Physical Disability -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='5'
 	// Developmental Disability -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='6'
 	
-	String mentalHealthQuery = " select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5') and information_date <= ? and disabilitytype='9' ";
-	 java.sql.Date sqlDate = new java.sql.Date(data.getReportEndDate().getTime());
-	List<String> mentalHealthList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), mentalHealthQuery, sqlDate);
+	String mentalHealthQuery = " select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5')  and information_date >= :startDate and information_date <=:endDate and disabilitytype='9' ";
+	List<String> mentalHealthList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), data, mentalHealthQuery);
 	List<EnrollmentModel> enrollments = data.getEnrollments();   
 	List<EnrollmentModel> enrollmentsHHWithChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 	List<EnrollmentModel> enrollmentsHHWithOutChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
@@ -55,8 +54,8 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
     	q13c1Bean.setQ13c1MentalIllnessUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
 	}
 	
-	String alcoholQuery = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5') and information_date <= ? and disabilitytype='10' and disabilityresponse='1' ";
-	List<String> alcoholList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), alcoholQuery,sqlDate);
+	String alcoholQuery = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5')  and information_date >= :startDate and information_date <=:endDate and disabilitytype='10' and disabilityresponse='1' ";
+	List<String> alcoholList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data,alcoholQuery);
 	if(CollectionUtils.isNotEmpty(alcoholList)) {
 		
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> alcoholList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -70,8 +69,8 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
     	q13c1Bean.setQ13c1AlcoholAbuseWithOnlychildren(BigInteger.valueOf(withChildren != null ?withChildren.size():0));
     	q13c1Bean.setQ13c1AlcoholAbuseUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
 	}
-	String drugQuery = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5') and information_date <= ? and disabilitytype='10' and disabilityresponse='2'";
- 	List<String> drugList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), drugQuery,sqlDate);
+	String drugQuery = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5')  and information_date >= :startDate and information_date <=:endDate and disabilitytype='10' and disabilityresponse='2'";
+ 	List<String> drugList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, drugQuery);
 	if(CollectionUtils.isNotEmpty(drugList)) {
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> drugList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> drugList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -86,8 +85,8 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
 	}
 	
 	
-	String alcoholAndDrugQuery = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5') and information_date <= ? and disabilitytype='10' and disabilityresponse='3' ";
-	List<String> alcoholAndDrugList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), alcoholAndDrugQuery,sqlDate);
+	String alcoholAndDrugQuery = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5') and information_date >= :startDate and information_date <=:endDate and disabilitytype='10' and disabilityresponse='3' ";
+	List<String> alcoholAndDrugList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, alcoholAndDrugQuery);
 	if(CollectionUtils.isNotEmpty(alcoholAndDrugList)) {
  		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -101,8 +100,8 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
     	q13c1Bean.setQ13c1BothAlcoholAndDrugAbuseUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
     	
 	}
-	String chronicHealthCondition = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5') and information_date <= ? and disabilitytype='7' ";
-	List<String> chronicHealthConditionList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), chronicHealthCondition,sqlDate);
+	String chronicHealthCondition = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5')  and information_date >= :startDate and information_date <=:endDate and disabilitytype='7' ";
+	List<String> chronicHealthConditionList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, chronicHealthCondition);
 	if(CollectionUtils.isNotEmpty(chronicHealthConditionList)) {	
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> chronicHealthConditionList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> chronicHealthConditionList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -116,8 +115,8 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
     	q13c1Bean.setQ13c1ChronicHealthConditionUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
 	}
 	
-	String hivaids = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5') and information_date <= ? and disabilitytype='8' ";
-	List<String> hivaidsList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), hivaids,sqlDate);
+	String hivaids = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5')  and information_date >= :startDate and information_date <=:endDate and disabilitytype='8' ";
+	List<String> hivaidsList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, hivaids);
 	if(CollectionUtils.isNotEmpty(hivaidsList)) {
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> hivaidsList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> hivaidsList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -131,8 +130,8 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
     	q13c1Bean.setQ13c1HIVRelatedDiseasesUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
 	}
 	
-	String developmentDisability = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5') and information_date <= ? and disabilitytype='6' ";
-	List<String> developmentDisabilityList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), developmentDisability,sqlDate);
+	String developmentDisability = "select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5')  and information_date >= :startDate and information_date <=:endDate and disabilitytype='6' ";
+	List<String> developmentDisabilityList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, developmentDisability);
 	if(CollectionUtils.isNotEmpty(developmentDisabilityList)) {
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> developmentDisabilityList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> developmentDisabilityList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -147,8 +146,8 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
 	}
 
 	
-	String physicalDisabilitiy = " select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5') and information_date <= ? and disabilitytype='5' ";
-	List<String> physicalDisabilitiyList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), physicalDisabilitiy,sqlDate);
+	String physicalDisabilitiy = " select enrollmentid from %s.disabilities where datacollectionstage in ('1','2','5')  and information_date >= :startDate and information_date <=:endDate and disabilitytype='5' ";
+	List<String> physicalDisabilitiyList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, physicalDisabilitiy);
 	if(CollectionUtils.isNotEmpty(physicalDisabilitiyList)) {
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> physicalDisabilitiyList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> physicalDisabilitiyList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
