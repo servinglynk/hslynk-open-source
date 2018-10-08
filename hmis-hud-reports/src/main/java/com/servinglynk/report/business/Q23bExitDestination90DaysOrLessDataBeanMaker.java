@@ -20,7 +20,7 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 	
 		String query = 		  
 				" select distinct(e.dedup_client_id ),p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate,e1.destination  from enrollment e join project p  on (e.projectid = p.id  %p"+
-				" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= ?  and ext.exitdate <= ?) "+
+				" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
 				" join moveindate mid on (e.id = mid.enrollmentid) "+
 				" join enrollment e1 on (e.householdid = e1.householdid and e1.relationshipToHoH='1') "+
 				" order by e.dedup_client_id ";	

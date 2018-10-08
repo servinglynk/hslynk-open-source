@@ -381,7 +381,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ25aNumberOfVeteransDataBean(q25aNumberOfVeteransList);
 			CSVGenerator.buildReport(q25aNumberOfVeteransList, "Q25a.jrxml","Q25a.csv",data);
 			
-			List<Q25bNumberOfVeteranHouseholdsDataBean> q25bNumberOfVeteranHouseholdsList= Q25bNumberOfVeteranHouseholdsDataBeanMaker.getQ25bNumberOfVeteranHouseholdsList();
+			List<Q25bNumberOfVeteranHouseholdsDataBean> q25bNumberOfVeteranHouseholdsList= Q25bNumberOfVeteranHouseholdsDataBeanMaker.getQ25bNumberOfVeteranHouseholdsList(data);
 			homePageDataBean.setQ25bNumberOfVeteranHouseholdsDataBean(q25bNumberOfVeteranHouseholdsList);
 			CSVGenerator.buildReport(q25bNumberOfVeteranHouseholdsList, "Q25b.jrxml","Q25b.csv",data);
 			
@@ -393,7 +393,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ25dAgeVeteransDataBean(q25dAgeVeteransList);
 			CSVGenerator.buildReport(q25dAgeVeteransList, "Q25d.jrxml","Q25d.csv",data);
 			
-			List<Q25ePhysicalAndMentalHealthConditionsVeteransDataBean> q25ePhysicalAndMentalHealthConditionsVeteransList = Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker.getQ25ePhysicalAndMentalHealthConditionsVeteransList();
+			List<Q25ePhysicalAndMentalHealthConditionsVeteransDataBean> q25ePhysicalAndMentalHealthConditionsVeteransList = Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker.getQ25ePhysicalAndMentalHealthConditionsVeteransList(data);
 			homePageDataBean.setQ25ePhysicalAndMentalHealthConditionsVeteransDataBean(q25ePhysicalAndMentalHealthConditionsVeteransList);
 			CSVGenerator.buildReport(q25ePhysicalAndMentalHealthConditionsVeteransList, "Q25e.jrxml","Q25e.csv",data);
 			

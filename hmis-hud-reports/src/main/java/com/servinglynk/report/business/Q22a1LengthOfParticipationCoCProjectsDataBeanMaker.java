@@ -2,15 +2,11 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -143,7 +139,7 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 	public static List<Q22BeanModel> getQ22Bean(ReportData data,String query,String reportType) {
 		 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
 			ResultSet resultSet = null;
-			PreparedStatement statement = null;
+			Statement statement = null;
 			String projectQuery = " and p.id in ( ";
 			StringBuilder builder = new StringBuilder(projectQuery);
 			Connection connection = null;
@@ -161,15 +157,15 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 				 }
 				 builder.append(" ) ");
 				String newQuery = query.replace("%p", builder.toString());
-				statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema()));
-				if(StringUtils.equals("LEAVERS", reportType) ) {
-					statement.setDate(1, data.getReportStartDate());
-					statement.setDate(2, data.getReportEndDate());
-				}else if(StringUtils.equals("STAYERS", reportType) ) {
-					statement.setDate(1, data.getReportEndDate());
-					statement.setDate(2, data.getReportEndDate());
-				}
-				resultSet = statement.executeQuery();
+				statement = connection.createStatement();
+//				if(StringUtils.equals("LEAVERS", reportType) ) {
+//					statement.setDate(1, data.getReportStartDate());
+//					statement.setDate(2, data.getReportEndDate());
+//				}else if(StringUtils.equals("STAYERS", reportType) ) {
+//					statement.setDate(1, data.getReportEndDate());
+//					statement.setDate(2, data.getReportEndDate());
+//				}
+				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 				
 			 while(resultSet.next()) {
 				 q22Beans.add(new Q22BeanModel(resultSet.getString("dedup_client_id"), resultSet.getString("projecttype"), resultSet.getString("trackingmethod"), 

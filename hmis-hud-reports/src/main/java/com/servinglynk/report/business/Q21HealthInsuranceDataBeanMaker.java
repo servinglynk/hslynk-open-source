@@ -2,9 +2,9 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,19 +27,19 @@ public class Q21HealthInsuranceDataBeanMaker extends BaseBeanMaker {
 		String entryQuery = " select  i.insurancefromanysource as insurancefromanysource , i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
 				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices "+
 				   "i.other_insurance as other_insurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e where e.id=i.enrollmentid  "+
-				  " and i.information_date = e.entrydate and i.information_date <= ? and i.information_date >= ? "+
+				  " and i.information_date = e.entrydate and i.information_date <= :startDate and i.information_date >= :endDate "+
 				  " and e.ageatentry >=18  and i.datacollectionstage = '1' ";
 			       
 			String  exitQuery = " select  i.insurancefromanysource as insurancefromanysource , i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
 				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices "+
 				   "i.other_insurance as other_insurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e,%s.exit ext where e.id=i.enrollmentid  "+
 				  " and e.id = ext.enrollmentid"+
-					  " and i.information_date = ext.extdate and i.information_date <= ? and i.information_date >= ? "+
+					  " and i.information_date = ext.extdate and i.information_date <= :startDate and i.information_date >= :endDate "+
 					  " and e.ageatentry >=18  and i.datacollectionstage = '3' ";
 				       
 			String stayersQuery = " select  nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource,e.dedup_client_id  as dedup_client_id from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb where e.id=i.enrollmentid  "+
-							" and i.information_date >= e.entrydate and i.information_date >= ? and i.information_date <= ? and e.ageatentry >= 18 "+
-						" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= ?  )   "+
+							" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :startDate and e.ageatentry >= 18 "+
+						" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= :endDate  )   "+
 						" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 ) ";   
 				
 			try {
@@ -177,18 +177,16 @@ public class Q21HealthInsuranceDataBeanMaker extends BaseBeanMaker {
 	 public static List<HealthInsuranceModel> getHealthInsuranceModel(ReportData data,String query,String datacollectionStage) {
 		 List<HealthInsuranceModel> healthInsuranceModels = new ArrayList<HealthInsuranceModel>();
 			ResultSet resultSet = null;
-			PreparedStatement statement = null;
+			Statement statement = null;
 			Connection connection = null;
 			try {
 				connection = ImpalaConnection.getConnection();
-				statement = connection.prepareStatement(formatQuery(query,data.getSchema()));
-				statement.setDate(1, data.getReportStartDate());
-				statement.setDate(2, data.getReportEndDate());
+				statement = connection.createStatement();
 				if(StringUtils.equals(datacollectionStage, DataCollectionStage.ANNUAL_ASSESMENT.getCode())) {
-					statement.setDate(3, data.getReportEndDate());
+					//statement.setDate(3, data.getReportEndDate());
 				}
 					
-				resultSet = statement.executeQuery();
+				resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
 				
 			 while(resultSet.next()) {
 				 healthInsuranceModels.add(new HealthInsuranceModel(resultSet.getString("insurancefromanysource"), resultSet.getString("medicaid"), resultSet.getString("medicare"), 

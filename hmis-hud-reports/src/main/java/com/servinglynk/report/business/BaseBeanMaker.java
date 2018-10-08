@@ -61,8 +61,12 @@ public class BaseBeanMaker {
 		 return between;
 	 }
 	
-	protected static String formatQuery(String query, String schema) {
+	protected static String formatQuery(String query, String schema,ReportData data) {
 		if(StringUtils.isNotBlank(query)) {
+			query = query.replaceAll(":datacollectionstage", "'"+ data.getQueryDataCollectionStage()+"'");
+			query = query.replaceAll(":startDate", "'"+ data.getReportStartDate()+"'");
+			query = query.replaceAll(":endDate", "'"+ data.getReportEndDate()+"'");
+			query = query.replaceAll(":dedupClientId", data.getQueryDedupClientId());
 			return query.replaceAll("%s", schema);
 		}
 		return null;
@@ -830,17 +834,17 @@ public class BaseBeanMaker {
 			return models;
 		}
 
-		 public static Map<String,Date>  getEnrollmentsByDataCollectionStage(String schema,String datacollectionStage) {
-				String  query= " SELECT e.id,ecoc.information_date from %s.enrollment e, %s.enrollment_coc ecoc where e.id = ecoc.enrollmentid and ecoc.datacollectionstage='5'  ";
+		 public static Map<String,Date>  getEnrollmentsByDataCollectionStage(String schema,String datacollectionStage,ReportData data) {
+				String  query= " SELECT e.id,ecoc.information_date from %s.enrollment e, %s.enrollment_coc ecoc where e.id = ecoc.enrollmentid and ecoc.datacollectionstage='5' and ecoc.information_date >= :startDate and  ecoc.information_date <=:endDate   ";
 				ResultSet resultSet = null;
-				PreparedStatement statement = null;
+				Statement statement = null;
 				Connection connection = null;
 				Map<String,Date> annualAssesments = new HashMap<>();
 				try {
 					connection = ImpalaConnection.getConnection();
-					statement = connection.prepareStatement(formatQuery(query,schema));
-					statement.setString(1, datacollectionStage);
-					resultSet = statement.executeQuery();
+					statement = connection.createStatement();
+					data.setQueryDataCollectionStage(datacollectionStage);
+					resultSet = statement.executeQuery(formatQuery(query, schema, data));
 					
 				 while(resultSet.next()) {
 					 String dedupClientId =(String)resultSet.getObject(1);
@@ -867,16 +871,14 @@ public class BaseBeanMaker {
 		 
 		 public static int getIncomeCnt(ReportData data,String query,String datacollectionStage) {
 				ResultSet resultSet = null;
-				PreparedStatement statement = null;
+				Statement statement = null;
 				Connection connection = null;
 				int count =0;
 				try {
 					connection = ImpalaConnection.getConnection();
-					statement = connection.prepareStatement(formatQuery(query,data.getSchema()));
-					statement.setDate(1, data.getReportStartDate());
-					statement.setDate(2, data.getReportEndDate());
-					statement.setString(3, datacollectionStage);
-					resultSet = statement.executeQuery();
+					statement = connection.createStatement();
+					
+					resultSet = statement.executeQuery(formatQuery(query,data.getSchema(), data));
 					
 				 while(resultSet.next()) {
 					 count = resultSet.getInt(1);
@@ -899,17 +901,14 @@ public class BaseBeanMaker {
 			}
 		 public static int getIncomeForAnnualAssesment(ReportData data,String query,String datacollectionStage) {
 				ResultSet resultSet = null;
-				PreparedStatement statement = null;
+				Statement statement = null;
 				Connection connection = null;
 				int count =0;
 				try {
 					connection = ImpalaConnection.getConnection();
-					statement = connection.prepareStatement(formatQuery(query,data.getSchema()));
-					statement.setDate(1, data.getReportStartDate());
-					statement.setDate(2, data.getReportEndDate());
-					statement.setDate(3, data.getReportEndDate());
-					statement.setString(4, datacollectionStage);
-					resultSet = statement.executeQuery();
+					statement = connection.createStatement();
+					data.setQueryDataCollectionStage(datacollectionStage);
+					resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
 					
 				 while(resultSet.next()) {
 					 count = resultSet.getInt(1);
@@ -991,7 +990,7 @@ public class BaseBeanMaker {
 						and <= [report end date]
 					 */
 					String bedNightsQuery = " select count(sfr.id) from enrollment e join project p  on (e.projectid = p.id and e.dedup_client_id=?  %p"+
-							" join service_fa_referral sfr  on  (sfr.enrollmentid = e.id and record_type='200' and dateprovided >= e.entrydate  and dateprovided >= ? and dateprovided <= ?) "+
+							" join service_fa_referral sfr  on  (sfr.enrollmentid = e.id and record_type='200' and dateprovided >= e.entrydate  and dateprovided >= :startDate and dateprovided <= :endDate) "+
 						    " join exit ext on (sfr.dateprovided < ext.exitdate or ext.exitdate is null) ";
 
 					// May be have another query to get the correct bed nights count.
@@ -1028,7 +1027,7 @@ public class BaseBeanMaker {
 			    public static long getBedNights(String query, ReportData data, String dedupClientId) {
 			    	long bedNights = 0;
 			    	ResultSet resultSet = null;
-					PreparedStatement statement = null;
+					Statement statement = null;
 					String projectQuery = " and p.id in ( ";
 					StringBuilder builder = new StringBuilder(projectQuery);
 					Connection connection = null;
@@ -1046,11 +1045,10 @@ public class BaseBeanMaker {
 						 }
 						 builder.append(" ) ");
 						String newQuery = query.replace("%p", builder.toString());
-						statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema()));
-						statement.setString(1, dedupClientId);
-						statement.setDate(2, data.getReportStartDate());
-						statement.setDate(3, data.getReportEndDate());
-						resultSet = statement.executeQuery();
+						statement = connection.createStatement();
+						data.setQueryDedupClientId(dedupClientId);
+					
+						resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 						 while(resultSet.next()) {
 							 bedNights = resultSet.getLong(1);
 							 }
@@ -1078,7 +1076,7 @@ public class BaseBeanMaker {
 			    public static List<Q22BeanModel> getQ22BeanLengthOfStay(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,boolean withDestination) {
 					 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
 						ResultSet resultSet = null;
-						PreparedStatement statement = null;
+						Statement statement = null;
 						String projectQuery = " and p.id in ( ";
 						StringBuilder builder = new StringBuilder(projectQuery);
 						Connection connection = null;
@@ -1098,12 +1096,8 @@ public class BaseBeanMaker {
 							 }
 							 builder.append(" ) ");
 							String newQuery = query.replace("%p", builder.toString());
-							statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema()));
-							statement.setDate(1, data.getReportStartDate());
-							statement.setDate(2, data.getReportEndDate());
-							statement.setDate(3, data.getReportStartDate());
-							statement.setDate(4, data.getReportEndDate());
-							resultSet = statement.executeQuery();
+							statement = connection.createStatement();
+							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 							
 						 while(resultSet.next()) {
 							 Date entryDate = resultSet.getDate("entrydate");

@@ -19,10 +19,11 @@ public class ImpalaConnection {
 	            ex.printStackTrace();
 	        }
 
-	        // get connection
-	        System.out.println("connecting to db");
+	       
 		if (connection == null) {
 			connection = DriverManager.getConnection(Properties.IMPALA_DRIVER_URL, Properties.IMPALA_USERNAME, Properties.IMPALA_PASSWORD);
+			 // get connection
+	        System.out.println("connecting to db");
 	        // create statement
 
 		}

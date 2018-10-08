@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,13 +36,13 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		try {
 		String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage=? and  e.id=i.enrollmentid "+
-		" and i.information_date >= e.entrydate ";
+		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
+		" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate ";
 
 				
 		
-		List<IncomeSourceModel> incomeAtEntry = getIncome(data.getSchema(), query , DataCollectionStage.ENTRY.getCode());
-		List<IncomeSourceModel> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode());
+		List<IncomeSourceModel> incomeAtEntry = getIncome(data.getSchema(), query , DataCollectionStage.ENTRY.getCode(),data);
+		List<IncomeSourceModel> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode(),data);
 		List<IncomeSourceModel> incomeAtAnnualAssesment = getQ18IncomeForAnnualAssesment(data, ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
 		
 		q18eData.setQ18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry(BigInteger.valueOf(incomeAtEntry !=null ?incomeAtEntry.size() :0 ));
@@ -64,9 +65,9 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		q18eData.setQ18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit(BigInteger.valueOf(bothEarnedAndOtherIncomeAtsAtExit != null ? bothEarnedAndOtherIncomeAtsAtExit.size() :0));
 		q18eData.setQ18AdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup(BigInteger.valueOf(bothEarnedAndOtherIncomeAtAnnualAssesment != null ?bothEarnedAndOtherIncomeAtAnnualAssesment.size() :0));
 		
-		List<IncomeSourceModel> noearnedIncomeAtEntry = getIncome(data.getSchema(), query+" and ( earnedamount = 0 or  earnedamount is null ) " , DataCollectionStage.ENTRY.getCode());
-		List<IncomeSourceModel> noearnedIncomeAtExit = getIncome(data.getSchema(), query+" and ( earnedamount = 0 or  earnedamount is null) ", DataCollectionStage.EXIT.getCode());
-		List<IncomeSourceModel> noearnedIncomeAtAnnualAssesment = getIncome(data.getSchema(), ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY+" and (  earnedamount = 0 or  earnedamount is null )  ", DataCollectionStage.ANNUAL_ASSESMENT.getCode());
+		List<IncomeSourceModel> noearnedIncomeAtEntry = getIncome(data.getSchema(), query+" and ( earnedamount = 0 or  earnedamount is null ) " , DataCollectionStage.ENTRY.getCode(),data);
+		List<IncomeSourceModel> noearnedIncomeAtExit = getIncome(data.getSchema(), query+" and ( earnedamount = 0 or  earnedamount is null) ", DataCollectionStage.EXIT.getCode(),data);
+		List<IncomeSourceModel> noearnedIncomeAtAnnualAssesment = getIncome(data.getSchema(), ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY+" and (  earnedamount = 0 or  earnedamount is null )  ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 		
 		
 		List<IncomeSourceModel> otherIncomeAtEntry = noearnedIncomeAtEntry.parallelStream().filter(income ->  (income.getOtherIncome() != null  && income.getOtherIncome().floatValue() > 0)).collect(Collectors.toList());
@@ -135,16 +136,16 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 	
 	
 	
-	public static List<IncomeSourceModel> getIncome(String schema,String query,String datacollectionStage) {
+	public static List<IncomeSourceModel> getIncome(String schema,String query,String datacollectionStage,ReportData data) {
 		List<IncomeSourceModel> incomes = new ArrayList<>();
 		ResultSet resultSet = null;
-		PreparedStatement statement = null;
+		Statement statement = null;
 		Connection connection = null;
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(formatQuery(query,schema));
-			statement.setString(1, datacollectionStage);
-			resultSet = statement.executeQuery();
+			statement = connection.createStatement();
+			data.setQueryDataCollectionStage(datacollectionStage);
+			resultSet = statement.executeQuery(formatQuery(query,schema,data));
 			
 		 while(resultSet.next()) {
 			 float totalIncome = resultSet.getFloat(1)+resultSet.getFloat(2)+resultSet.getFloat(3)+resultSet.getFloat(4)+resultSet.getFloat(5)+resultSet.getFloat(6)+resultSet.getFloat(7)+
@@ -181,15 +182,13 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 	public static List<IncomeSourceModel> getQ18IncomeForAnnualAssesment(ReportData data,String query,String datacollectionStage) {
 		List<IncomeSourceModel> incomes = new ArrayList<>();
 		ResultSet resultSet = null;
-		PreparedStatement statement = null;
+		Statement statement = null;
 		Connection connection = null;
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(formatQuery(query,data.getSchema()));
-			//statement.setString(1, datacollectionStage);
-			statement.setDate(1, data.getReportStartDate());
-			statement.setDate(2, data.getReportEndDate());
-			resultSet = statement.executeQuery();
+			statement = connection.createStatement();
+			data.setQueryDataCollectionStage(datacollectionStage);
+			resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
 			
 		 while(resultSet.next()) {
 			 float totalIncome = resultSet.getFloat(1)+resultSet.getFloat(2)+resultSet.getFloat(3)+resultSet.getFloat(4)+resultSet.getFloat(5)+resultSet.getFloat(6)+resultSet.getFloat(7)+
@@ -223,18 +222,16 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		return incomes;
 	}
 	
-	public static int getIncomeCnt(String schema,String query,String datacollectionStage,Date reportStartDate, Date reportEndDate) {
+	public static int getIncomeCnt(String schema,String query,String datacollectionStage,ReportData data) {
 		ResultSet resultSet = null;
-		PreparedStatement statement = null;
+		Statement statement = null;
 		Connection connection = null;
 		int count =0;
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(formatQuery(query,schema));
-			statement.setString(1, datacollectionStage);
-			statement.setDate(2, reportStartDate);
-			statement.setDate(3, reportEndDate);
-			resultSet = statement.executeQuery();
+			statement = connection.createStatement();
+			data.setQueryDataCollectionStage(datacollectionStage);
+			resultSet = statement.executeQuery(formatQuery(query,schema,data));
 			
 		 while(resultSet.next()) {
 			 count = resultSet.getInt(1);

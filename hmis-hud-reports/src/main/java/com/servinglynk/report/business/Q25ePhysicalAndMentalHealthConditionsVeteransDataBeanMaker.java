@@ -5,13 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.servinglynk.report.bean.Q25ePhysicalAndMentalHealthConditionsVeteransDataBean;
+import com.servinglynk.report.bean.ReportData;
 
-public class Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker {
+public class Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker extends BaseBeanMaker {
 	
-	public static List<Q25ePhysicalAndMentalHealthConditionsVeteransDataBean> getQ25ePhysicalAndMentalHealthConditionsVeteransList(){
+	public static List<Q25ePhysicalAndMentalHealthConditionsVeteransDataBean> getQ25ePhysicalAndMentalHealthConditionsVeteransList(ReportData data){
 		
 		Q25ePhysicalAndMentalHealthConditionsVeteransDataBean q25ePhysicalAndMentalHealthConditionsVeteransTable = new Q25ePhysicalAndMentalHealthConditionsVeteransDataBean();
-		
+		try {
+			if(data.isLiveMode()) {
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eMentalIllnessAtEntry(BigInteger.valueOf(0));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eMentalIllnessStayers(BigInteger.valueOf(0));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eMentalIllnessLeavers(BigInteger.valueOf(0));
@@ -43,7 +45,11 @@ public class Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker {
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25ePhysicalDisabilityAtEntry(BigInteger.valueOf(0));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25ePhysicalDisabilityStayers(BigInteger.valueOf(0));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25ePhysicalDisabilityLeavers(BigInteger.valueOf(0));
-						
+			}
+		}catch(Exception e){
+			logger.error("Error in Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker:" + e);
+		}
+			
 				return Arrays.asList(q25ePhysicalAndMentalHealthConditionsVeteransTable);
 	}
 

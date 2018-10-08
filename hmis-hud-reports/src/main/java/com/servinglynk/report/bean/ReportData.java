@@ -52,6 +52,10 @@ public class ReportData {
 	private BigInteger numOfHeadsOfHHandAdults365Days;
 	private BigInteger numOfAdultStayersNotRequiredAnnualAssesment=BigInteger.valueOf(0);
 	private BigInteger numOfAdultStayersWithoutRequiredAnnualAssesment=BigInteger.valueOf(0);
+	private String queryDataCollectionStage;
+	private String queryDedupClientId;
+	
+	
 	List<String> enrollmentIds = new ArrayList<String>();
 	List<String> projectsHHWithChildren = new ArrayList<String>();
 	List<String> projectsHHWithOneAdultChild  =  new ArrayList<String>();
@@ -70,6 +74,32 @@ public class ReportData {
 	private BigInteger totHhWithChildAndAdults=BigInteger.valueOf(0);
 	private BigInteger totHhWothOnlyChild=BigInteger.valueOf(0);
 	private BigInteger totHhUnknownHhType=BigInteger.valueOf(0);
+	
+	/**
+	 * @return the queryDataCollectionStage
+	 */
+	public String getQueryDataCollectionStage() {
+		return queryDataCollectionStage;
+	}
+	/**
+	 * @param queryDataCollectionStage the queryDataCollectionStage to set
+	 */
+	public void setQueryDataCollectionStage(String queryDataCollectionStage) {
+		this.queryDataCollectionStage = queryDataCollectionStage;
+	}
+	
+	/**
+	 * @return the queryDedupClientId
+	 */
+	public String getQueryDedupClientId() {
+		return queryDedupClientId;
+	}
+	/**
+	 * @param queryDedupClientId the queryDedupClientId to set
+	 */
+	public void setQueryDedupClientId(String queryDedupClientId) {
+		this.queryDedupClientId = queryDedupClientId;
+	}
 	public BigInteger getOverAllTotHouseHolds() {
 		return overAllTotHouseHolds;
 	}

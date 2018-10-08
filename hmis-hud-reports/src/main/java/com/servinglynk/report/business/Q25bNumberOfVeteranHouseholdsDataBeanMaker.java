@@ -2,9 +2,9 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +21,7 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 	public static List<Q25bNumberOfVeteranHouseholdsDataBean> getQ25bNumberOfVeteranHouseholdsList(ReportData data){
 		
 		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p"+
-			     " join %s.client c on (e.client_id = c.id and e.entrydate  >=  ? and  e.entrydate<=?) "+ 
+			     " join %s.client c on (e.client_id = c.id and e.entrydate  >=  :startDate and  e.entrydate<= :endDate) "+ 
 			     " where  1=1 " ;
 				Q25bNumberOfVeteranHouseholdsDataBean q25bNumberOfVeteranHouseholdsDataBean = new Q25bNumberOfVeteranHouseholdsDataBean();
 				try {
@@ -125,7 +125,7 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 	public static List<String> getClients(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,String veteranStatus, String  chronichomeless) {
 		 List<String> q22Beans = new ArrayList<String>();
 			ResultSet resultSet = null;
-			PreparedStatement statement = null;
+			Statement statement = null;
 			String projectQuery = " and p.id in ( ";
 			StringBuilder builder = new StringBuilder(projectQuery);
 			Connection connection = null;
@@ -156,10 +156,8 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 					newQuery = newQuery + " and chronichomeless ='"+chronichomeless+"' ";
 				}
 				
-				statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema()));
-				statement.setDate(1, data.getReportStartDate());
-				statement.setDate(2, data.getReportEndDate());
-				resultSet = statement.executeQuery();
+				statement = connection.createStatement();
+				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 				
 			 while(resultSet.next()) {
 				

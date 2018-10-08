@@ -3,16 +3,15 @@ package com.servinglynk.report.business;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean;
@@ -214,7 +213,7 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 	public static List<Q22BeanModel> getQ22Bean(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects) {
 		 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
 			ResultSet resultSet = null;
-			PreparedStatement statement = null;
+			Statement statement = null;
 			String projectQuery = " and p.id in ( ";
 			StringBuilder builder = new StringBuilder(projectQuery);
 			Connection connection = null;
@@ -234,12 +233,8 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 				 }
 				 builder.append(" ) ");
 				String newQuery = query.replace("%p", builder.toString());
-				statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema()));
-				statement.setDate(1, data.getReportStartDate());
-				statement.setDate(2, data.getReportEndDate());
-				statement.setDate(3, data.getReportStartDate());
-				statement.setDate(4, data.getReportEndDate());
-				resultSet = statement.executeQuery();
+				statement = connection.createStatement();
+				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 				
 			 while(resultSet.next()) {
 				 Date entryDate = resultSet.getDate("entrydate");
