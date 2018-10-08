@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -135,7 +136,7 @@ public class Question extends ClientModel {
 	}
 
 	public Map<String, String> getPickListValues() {
-		if(this.pickListValues==null) this.pickListValues = new HashMap<String,String>();
+		if(this.pickListValues==null) this.pickListValues = new LinkedHashMap<String,String>();
 		return pickListValues;
 	}
 

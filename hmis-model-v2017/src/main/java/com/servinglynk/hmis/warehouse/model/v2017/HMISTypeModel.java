@@ -14,6 +14,8 @@ public class HMISTypeModel {
 	private String value;
 	private String description;
 	private String status;
+	private Long sortOrder;
+	
 	
 	@Id
 	@Column(name="id")
@@ -50,5 +52,14 @@ public class HMISTypeModel {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	@Column(name="sort_order")
+	public Long getSortOrder() {
+		return sortOrder;
+	}
+	public void setSortOrder(Long sortOrder) {
+		this.sortOrder = sortOrder;
 	}	
+	
 }
