@@ -198,37 +198,6 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		return Arrays.asList(q17CashIncomeSourcesDataBeanTable);
 	}
 	
-	public static List<String> getClients(String schema,String query,ReportData data) {
-		ResultSet resultSet = null;
-		List<String> enrollments = new ArrayList<>();
-		Statement statement = null;
-		Connection connection = null;
-		try {
-			connection = ImpalaConnection.getConnection();
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
-			
-		 while(resultSet.next()) {
-			 enrollments.add(resultSet.getString(1));
-	     }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-					//connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return enrollments;
-	}
-	
-	
 	public static int getIncomeCnt(String schema,String query,String datacollectionStage,ReportData data) {
 		ResultSet resultSet = null;
 		Statement statement = null;
