@@ -11,7 +11,7 @@ import com.servinglynk.report.bean.Q22a2LengthOfParticipationESGProjectsDataBean
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.Q22BeanModel;
 
-public class Q22a2LengthOfParticipationESGProjectsDataBeanMaker extends BaseBeanMaker {
+public class Q22a2BeanMaker extends BaseBeanMaker {
 
 	public static List<Q22a2LengthOfParticipationESGProjectsDataBean> getQ22a2LengthOfParticipationESGProjectsList(ReportData data){
 		

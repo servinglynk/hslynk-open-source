@@ -18,7 +18,7 @@ import com.servinglynk.report.bean.Q22a1LengthOfParticipationCoCProjectsDataBean
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.Q22BeanModel;
 
-public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBeanMaker {
+public class Q22a1BeanMaker extends BaseBeanMaker {
 
   	
 	public static List<Q22a1LengthOfParticipationCoCProjectsDataBean> getQ22a1LengthOfParticipationCoCProjectsList(ReportData data){
@@ -37,8 +37,6 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
 
-		
-	
 	Q22a1LengthOfParticipationCoCProjectsDataBean q22a1LengthOfParticipationCoCProjectsTable = new Q22a1LengthOfParticipationCoCProjectsDataBean();
 		try {
 			if(data.isLiveMode()) {

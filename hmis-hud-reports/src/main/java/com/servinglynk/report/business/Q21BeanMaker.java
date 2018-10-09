@@ -19,7 +19,7 @@ import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.HealthInsuranceModel;
 
-public class Q21HealthInsuranceDataBeanMaker extends BaseBeanMaker {
+public class Q21BeanMaker extends BaseBeanMaker {
 
 	public static List<Q21HealthInsuranceDataBean> getQ21HealthInsuranceList(ReportData data){
 		

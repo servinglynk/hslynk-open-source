@@ -338,15 +338,15 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 	        homePageDataBean.setQ20bNumberOfNonCashBenefitSourcesDataBean(q20bNumberOfNonCashBenefitSourcesList);
 	        CSVGenerator.buildReport(q20bNumberOfNonCashBenefitSourcesList, "Q20b.jrxml", "Q20b.csv",data);
 			
-	        List<Q21HealthInsuranceDataBean> q21HealthInsuranceList= Q21HealthInsuranceDataBeanMaker.getQ21HealthInsuranceList(data);
+	        List<Q21HealthInsuranceDataBean> q21HealthInsuranceList= Q21BeanMaker.getQ21HealthInsuranceList(data);
 	        homePageDataBean.setQ21HealthInsuranceDataBean(q21HealthInsuranceList);
 	        CSVGenerator.buildReport(q21HealthInsuranceList, "Q21.jrxml","Q21.csv",data);
 	        
-	        List<Q22a1LengthOfParticipationCoCProjectsDataBean> q22a1LengthOfParticipationCoCProjectsList = Q22a1LengthOfParticipationCoCProjectsDataBeanMaker.getQ22a1LengthOfParticipationCoCProjectsList(data);
+	        List<Q22a1LengthOfParticipationCoCProjectsDataBean> q22a1LengthOfParticipationCoCProjectsList = Q22a1BeanMaker.getQ22a1LengthOfParticipationCoCProjectsList(data);
 			homePageDataBean.setQ22a1LengthOfParticipationCoCProjectsDataBean(q22a1LengthOfParticipationCoCProjectsList);
 			CSVGenerator.buildReport(q22a1LengthOfParticipationCoCProjectsList,"Q22a1.jrxml","Q22a1.csv",data);
 			
-			List<Q22a2LengthOfParticipationESGProjectsDataBean> q22a2LengthOfParticipationESGProjectsDataBeanList = Q22a2LengthOfParticipationESGProjectsDataBeanMaker.getQ22a2LengthOfParticipationESGProjectsList(data);
+			List<Q22a2LengthOfParticipationESGProjectsDataBean> q22a2LengthOfParticipationESGProjectsDataBeanList = Q22a2BeanMaker.getQ22a2LengthOfParticipationESGProjectsList(data);
 			homePageDataBean.setQ22a2LengthOfParticipationESGProjectsDataBean(q22a2LengthOfParticipationESGProjectsDataBeanList);
 			CSVGenerator.buildReport(q22a2LengthOfParticipationESGProjectsDataBeanList,"Q22a2.jrxml","Q22a2.csv",data);
 			
