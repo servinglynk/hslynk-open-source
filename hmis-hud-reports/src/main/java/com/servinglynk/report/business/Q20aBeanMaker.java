@@ -11,7 +11,9 @@ import com.servinglynk.report.model.DataCollectionStage;
 public class Q20aBeanMaker extends BaseBeanMaker {
 
 	public static List<Q20aTypeOfNonCashBenefitSourcesDataBean> getQ20aTypeOfNonCashBenefitSourcesList(ReportData data){
-		
+		/********
+		 * Any changes here needs change to Q25h
+		 */
 		Q20aTypeOfNonCashBenefitSourcesDataBean q20aTypeOfNonCashBenefitSourcesTable = new Q20aTypeOfNonCashBenefitSourcesDataBean();
 		String entryQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i,%s.enrollment e, %s.noncashbenefits nb where e.id=i.enrollmentid  "+
 		      "   and nb.enrollmentid = e.id "+
