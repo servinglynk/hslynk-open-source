@@ -28,12 +28,12 @@ public class Q22a1LengthOfParticipationCoCProjectsDataBeanMaker extends BaseBean
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
 				
 		String leaversQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p"+
-						" join  %s.exit ext  on  (ext.enrollmentid = e.id and ext.exitdate >= ? and ext.exitdate <= ?) "+
+						" join  %s.exit ext  on  (ext.enrollmentid = e.id and ext.exitdate >= :startDate and ext.exitdate <= :endDate) "+
 						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
 				
 		String stayersQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate, from %s.enrollment e join %s.project p  on (e.projectid = p.id %p"+
-						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and  e.entrydate <= ? and (ext.exitdate is null  or ext.exitdate > ?) ) "+
+						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and  e.entrydate <= :startDate and (ext.exitdate is null  or ext.exitdate > :endDate) ) "+
 						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
 

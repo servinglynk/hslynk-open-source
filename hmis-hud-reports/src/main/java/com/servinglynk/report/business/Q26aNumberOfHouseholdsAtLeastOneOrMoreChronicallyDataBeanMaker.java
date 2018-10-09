@@ -12,11 +12,17 @@ public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker exte
 	public static List<Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean> getQ26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList(ReportData data){
 		
 		Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable = new Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean();
-		String chronicHomelessQuery ="select distinct(dedup_client_id) from %s.enrollment e,%s.client c where c.id =e.client_id and c.veteran_status ='1' and e.chronichomeless='true' ";
-		String noChronicHomelessQuery ="select distinct(dedup_client_id) from enrollment e,%s.client c where c.id =e.client_id and c.veteran_status ='1' and e.chronichomeless='false' ";
-		String dnKChHomelessQuery ="select distinct(dedup_client_id) from enrollment e,%s.client c where c.id =e.client_id and c.veteran_status ='1' and e.disablingcondition in ('8','9') ";
-		String dnCChHomelessQuery ="select distinct(dedup_client_id) from enrollment e,%s.client c where c.id =e.client_id and c.veteran_status ='1' and e.disablingcondition ='99' ";
+		String chronicHomelessQuery ="select distinct(dedup_client_id) from %s.enrollment e,%s.client c,%.project p  where c.id =e.client_id and c.veteran_status ='1' and e.chronichomeless='true' and e.projectid = p.id %p";
+		String noChronicHomelessQuery ="select distinct(dedup_client_id) from enrollment e,%s.client c,%.project p  where c.id =e.client_id and c.veteran_status ='1' and e.chronichomeless='false' and e.projectid = p.id %p";
+		String dnKChHomelessQuery ="select distinct(dedup_client_id) from enrollment e,%s.client c,%.project p  where c.id =e.client_id and c.veteran_status ='1' and e.disablingcondition in ('8','9') and e.projectid = p.id %p";
+		String dnCChHomelessQuery ="select distinct(dedup_client_id) from enrollment e,%s.client c,%.project p  where c.id =e.client_id and c.veteran_status ='1' and e.disablingcondition ='99' and e.projectid = p.id %p";
+		
 		int chSize = getSize(getClients(data.getSchema(), chronicHomelessQuery, data));
+		String chWithoutChildQuery ="select distinct(dedup_client_id) from %s.enrollment e,%s.client c,%.project p  where c.id =e.client_id and c.veteran_status ='1' and e.chronichomeless='true' and e.projectid = p.id %p";
+		String chChildAndAdultsQuery="select distinct(dedup_client_id) from %s.enrollment e,%s.client c,%.project p  where c.id =e.client_id and c.veteran_status ='1' and e.chronichomeless='true' and e.projectid = p.id %p";
+		String chWithOnlyChildQuery ="select distinct(dedup_client_id) from %s.enrollment e,%s.client c,%.project p  where c.id =e.client_id and c.veteran_status ='1' and e.chronichomeless='true' and e.projectid = p.id %p";
+		
+	
 		q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aChronicallyHomelessTotal(BigInteger.valueOf(chSize));
 		q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aChronicallyHomelessWithoutChild(BigInteger.valueOf(0));
 		q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aChronicallyHomelessWithChildAndAdults(BigInteger.valueOf(0));

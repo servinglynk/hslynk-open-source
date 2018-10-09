@@ -413,7 +413,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ25iExitDestinationVeteransDataBean(q25iExitDestinationVeteransList);
 			CSVGenerator.buildReport(q25iExitDestinationVeteransList, "Q25i.jrxml","Q25i.csv",data);
 			
-			List<Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean> q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList = Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker.getQ26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList();
+			List<Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean> q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList = Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker.getQ26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList(data);
 			homePageDataBean.setQ26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean(q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList);
 			CSVGenerator.buildReport(q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyList, "Q26a.jrxml","Q26a.csv",data);
 			
