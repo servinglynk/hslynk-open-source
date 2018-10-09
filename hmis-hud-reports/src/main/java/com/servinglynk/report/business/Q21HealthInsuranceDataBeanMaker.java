@@ -25,15 +25,15 @@ public class Q21HealthInsuranceDataBeanMaker extends BaseBeanMaker {
 		
 		Q21HealthInsuranceDataBean q21HealthInsuranceDataBeanTable = new Q21HealthInsuranceDataBean();
 		String entryQuery = " select  i.insurancefromanysource as insurancefromanysource , i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
-				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices "+
+				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices, "+
 				   "i.other_insurance as other_insurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e where e.id=i.enrollmentid  "+
 				  " and i.information_date = e.entrydate and i.information_date <= :startDate and i.information_date >= :endDate "+
 				  " and e.ageatentry >=18  and i.datacollectionstage = '1' ";
 			       
 			String  exitQuery = " select  i.insurancefromanysource as insurancefromanysource , i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
-				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices "+
+				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices, "+
 				   "i.other_insurance as other_insurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e,%s.exit ext where e.id=i.enrollmentid  "+
-				  " and e.id = ext.enrollmentid"+
+				  " and e.id = ext.enrollmentid "+
 					  " and i.information_date = ext.extdate and i.information_date <= :startDate and i.information_date >= :endDate "+
 					  " and e.ageatentry >=18  and i.datacollectionstage = '3' ";
 				       
