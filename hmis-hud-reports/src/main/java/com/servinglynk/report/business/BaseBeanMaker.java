@@ -1157,5 +1157,50 @@ public class BaseBeanMaker {
 					return enrollments;
 				}
 			 
+			    public static List<String> getClients(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects) {
+					 List<String> clients = new ArrayList<String>();
+						ResultSet resultSet = null;
+						Statement statement = null;
+						String projectQuery = " and p.id in ( ";
+						StringBuilder builder = new StringBuilder(projectQuery);
+						Connection connection = null;
+						try {
+							connection = ImpalaConnection.getConnection();
+							 List<String> projectIds = data.getProjectIds();
+							 if(CollectionUtils.isNotEmpty(projectIds)) {
+								 int count = 0;
+								 for(String project : projectIds) {
+									 if ((filteredProjectIds !=null && filteredProjectIds.contains(project)) || allProjects) {
+										 builder.append("'"+project+"'");
+										 if(count != projectIds.size()) {
+											 builder.append(",");
+										 }
+									 }
+								 }
+							 }
+							 builder.append(" ) ");
+							String newQuery = query.replace("%p", builder.toString());
+							statement = connection.createStatement();
+							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
+							
+						 while(resultSet.next()) {
+							 clients.add(resultSet.getString(1));
+						 }
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+							if (statement != null) {
+								try {
+									statement.close();
+									//connection.close();
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						}
+						return clients;
+					}	
 }
 
