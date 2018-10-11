@@ -37,7 +37,7 @@ public class CreateCESTables  extends Logging {
 	//		cesTables.createHiveTables("survey", projectGroup,false);
 //			cesTables.createHiveTables("housing_inventory", projectGroup,false);
 			cesTables.createHiveTables("v2017", projectGroup,true);
-			cesTables.createTable("HiveHmis.sql",projectGroup);
+			cesTables.createTable("HiveSQLCreateTable.sql",projectGroup);
 //			cesTables.createHiveTables("v2016", projectGroup,true);
 //			cesTables.createHiveTables("v2015", projectGroup,true);
 //			cesTables.createHiveTables("v2014", projectGroup,true);

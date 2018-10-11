@@ -12,6 +12,8 @@ import java.util.TreeSet;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * A class providing methods for generating random data for basic data types.
  *
@@ -808,7 +810,7 @@ public class BasicDataGenerator {
 	}
 	public static Integer getIntegerValue(String value)
 	{
-		if(value!=null)
+		if(StringUtils.isNotBlank(value))
 		{
 			return new Integer(String.valueOf(value));
 		}
@@ -816,7 +818,7 @@ public class BasicDataGenerator {
 	}
 	public static LocalDateTime getLocalDateTime(XMLGregorianCalendar value)
 	{
-		if(value!=null)
+		if(value!=null && !"".equals(value))
 		{
 			try {
 				return value.toGregorianCalendar().toZonedDateTime().toLocalDateTime();

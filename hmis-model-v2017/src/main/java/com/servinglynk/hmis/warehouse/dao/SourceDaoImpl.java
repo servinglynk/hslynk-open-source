@@ -71,7 +71,13 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			sourceModel = (com.servinglynk.hmis.warehouse.model.v2017.Source) getModel(com.servinglynk.hmis.warehouse.model.v2017.Source.class, source.getSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		
-		if(domain.isReUpload() && sourceModel != null) {
+		if(domain.isReUpload()) {
+			if(sourceModel != null) {
+				return sourceModel;
+			}
+			sourceModel = new com.servinglynk.hmis.warehouse.model.v2017.Source();
+			sourceModel.setId(UUID.randomUUID());
+			sourceModel.setRecordToBeInserted(true);
 			return sourceModel;
 		}
 		

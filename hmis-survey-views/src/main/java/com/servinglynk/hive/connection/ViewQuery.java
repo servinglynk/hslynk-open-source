@@ -1,7 +1,7 @@
 package com.servinglynk.hive.connection;
 
 public class ViewQuery {
-public static String GET_DISTINCT_SURVEY=	"select distinct(survey_id) from survey.response where submission_id is not null and client_id is not null";
+public static String GET_DISTINCT_SURVEY=	"select distinct(survey_id) from survey.response where submission_id is not null and client_id is not null and project_group_code= ?";
 public static String GET_DISPLAY_TEXT_FROM_QUESTION =	"select display_text from survey.question where id= ?";
 public static String GET_DISTINCT_QUESTIONS_FOR_SURVEY =	"select distinct(question_id) from survey.response where survey_id = ?";
 public static String GET_DISTICNT_CLIENT_FOR_SURVEY = "select distinct(client_id) from survey.response where survey_id = ?";

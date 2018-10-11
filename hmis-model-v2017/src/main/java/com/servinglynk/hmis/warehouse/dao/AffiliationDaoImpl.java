@@ -76,8 +76,13 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			// We always insert for a Full refresh and update if the record exists for Delta refresh
 			if(!isFullRefresh(domain))
 				modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Affiliation) getModel(com.servinglynk.hmis.warehouse.model.v2017.Affiliation.class, affiliation.getAffiliationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
-			if(domain.isReUpload() && modelFromDB != null) 
-			{
+			if(domain.isReUpload()) {
+				if(modelFromDB != null) {
+					return modelFromDB;
+				}
+				modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Affiliation();
+				modelFromDB.setId(UUID.randomUUID());
+				modelFromDB.setRecordToBeInserted(true);
 				return modelFromDB;
 			}
 			com.servinglynk.hmis.warehouse.model.v2017.Affiliation model = null;

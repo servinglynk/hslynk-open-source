@@ -643,6 +643,7 @@ public class BulkUploadHelper2017 {
 		    	  entrySSVFModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 		    	  entrySSVFModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 		    	  entrySSVFModel.setUserID(enroll.getUserID());
+		    	  entrySSVFModel.setEntrySSVFID(enroll.getEnrollmentID());
 		    	  entrySSVFList.add(entrySSVFModel);
 		    	  
 		    	  EntryRHY entryRHY = new EntryRHY();
@@ -650,16 +651,16 @@ public class BulkUploadHelper2017 {
 		    	  entryRHY.setAlcoholDrugAbuseFam((enroll.getAlcoholDrugAbuseFam()));
 		    		    	  entryRHY.setChildWelfareMonths((enroll.getChildWelfareMonths()));
 		    	  entryRHY.setChildWelfareYears((enroll.getChildWelfareYears()));
-		    	  
+		    	  entryRHY.setEnrollmentID(enroll.getEnrollmentID());
 		    	  entryRHY.setCountOutreachReferralApproaches((enroll.getCountOutreachReferralApproaches()));
 		    	  entryRHY.setEntryRHYID(enroll.getEnrollmentID());
 		    	  entryRHYList.add(entryRHY);
 		    	  
 		    	  
 		    	  EntryRHSP entryRHSP = new EntryRHSP();
-		    	  entryRHSP.setWorstHousingSituation(enroll.getWorstHousingSituation());
-		    	  entryRHSP.setProjectID(enroll.getProjectID());
 		    	  entryRHSP.setEntryRHSPID(enroll.getEnrollmentID());
+		    	  entryRHSP.setWorstHousingSituation(enroll.getWorstHousingSituation());
+		    	  entryRHSP.setEnrollmentID(enroll.getEnrollmentID());
 		    	  entryRHSP.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 		    	  entryRHSP.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 		    	  entryRHSP.setUserID(enroll.getUserID());
@@ -1305,7 +1306,7 @@ public class BulkUploadHelper2017 {
 		    	  servicesModel.setReferralOutcome((srvcs.getReferralOutcome()));
 		    	  servicesModel.setServicesID(srvcs.getServicesID());
 		    	  servicesModel.setSubTypeProvided((srvcs.getSubTypeProvided()));
-		    	  servicesModel.setTypeProvided(StringUtils.isNotBlank(srvcs.getTypeProvided()) ? Short.parseShort(srvcs.getTypeProvided()) : 0);
+		    	  servicesModel.setTypeProvided(srvcs.getTypeProvided());
 		    	  servicesModel.setUserID(srvcs.getUserID());
 		    	  servicesList.add(servicesModel);
 	    	  }

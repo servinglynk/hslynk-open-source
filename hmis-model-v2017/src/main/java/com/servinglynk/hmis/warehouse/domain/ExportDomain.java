@@ -25,6 +25,8 @@ public class ExportDomain {
 	private UUID userId;
 	private UUID exportId;
 	private boolean reUpload;
+	private boolean reloadAll;
+	
 	
 	public Export getExport() {
 		return export;
@@ -81,6 +83,19 @@ public class ExportDomain {
 	public void setReUpload(boolean reUpload) {
 		this.reUpload = reUpload;
 	}
-	
+
+	/**
+	 * @return the reloadAll
+	 */
+	public boolean isReloadAll() {
+		return reloadAll;
+	}
+
+	/**
+	 * @param reloadAll the reloadAll to set
+	 */
+	public void setReloadAll(boolean reloadAll) {
+		this.reloadAll = reloadAll;
+	}
 	
 }
