@@ -20,7 +20,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q25cGenderVeteransDataBean> getQ25cGenderVeteransList(ReportData data){
 		
-		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p"+
+		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p ) "+
 			     " join %s.client c on (e.client_id = c.id and e.entrydate  >=  :startDate and  e.entrydate<=:endDate) "+ 
 			     " where  1=1 ";
 				Q25cGenderVeteransDataBean q25cGenderVeteranTable = new Q25cGenderVeteransDataBean();
@@ -173,8 +173,14 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						 }
 					 }
 				 }
+				 builder.deleteCharAt(builder.length()-1);
 				 builder.append(" ) ");
-				String newQuery = query.replace("%p", builder.toString());
+				String newQuery = query;
+				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+					 newQuery = query.replace("%p", builder.toString());
+				 }else {
+					 newQuery = query.replace("%p", ")");
+				 }
 				
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
@@ -186,7 +192,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 					newQuery = newQuery + " and gender ='"+gender+"' ";
 				}
 				if(StringUtils.equals("8", veteranStatus)) {
-					newQuery = newQuery + " and gender  in ('8','9)' ";
+					newQuery = newQuery + " and gender  in ('8','9) ";
 				}
 				
 				statement = connection.createStatement();

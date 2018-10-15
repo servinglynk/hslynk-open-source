@@ -17,17 +17,17 @@ public class Q25hTypeOfNonCashIncomeSourcesVeteransDataBeanMaker extends BaseBea
 		/********
 		 * Any changes here needs change to Q25h
 		 */
-		String entryQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i,%s.enrollment e, %s.noncashbenefits nb,%c.client c where e.id=i.enrollmentid  "+
+		String entryQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.incomeandsources i,%s.enrollment e, %s.noncashbenefits nb,%s.client c where e.id=i.enrollmentid  "+
 		      "   and nb.enrollmentid = e.id and c.id = e.client_id and c.veteran_status='1' "+
 			  " and i.information_date = e.entrydate and i.information_date <= :startDate and i.information_date >= :endDate "+
 			  " and e.ageatentry >=18  and i.datacollectionstage = :datacollectionstage ";
 		       
-		String exitQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb,%s.exit ext,%c.client c  where e.id=i.enrollmentid  "+
+		String exitQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb,%s.exit ext,%s.client c  where e.id=i.enrollmentid  "+
 			      "   and nb.enrollmentid = e.id and e.id = ext.enrollmentid  and c.id = e.client_id and c.veteran_status='1'  "+
 				  " and i.information_date = ext.exitdate and i.information_date <= :startDate and i.information_date >= :endDate "+
 				  " and e.ageatentry >=18  and i.datacollectionstage = :datacollectionstage ";
 			       
-		String stayersQuery = " select count(distinct(dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e, %s.noncashbenefits nb,%c.client c where   e.id=i.enrollmentid "+
+		String stayersQuery = " select count(distinct(e.dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e, %s.noncashbenefits nb,%s.client c where   e.id=i.enrollmentid "+
 					"   and nb.enrollmentid = e.id  and c.id = e.client_id and c.veteran_status='1' "+
 					" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 "+
 					" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= :endDate  )   "+

@@ -20,7 +20,7 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 		Q25iExitDestinationVeteransDataBean q25iExitDestinationVeteransTable = new Q25iExitDestinationVeteransDataBean();
 		
 		String query = 		  
-				" select distinct(e.dedup_client_id ),p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate,e1.destination  from enrollment e join project p  on (e.projectid = p.id  %p"+
+				" select distinct(e.dedup_client_id ),p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate,e1.destination  from enrollment e join project p  on (e.projectid = p.id  %p ) "+
 				" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
 				" join client c on (c.id = e.client_id and c.veteran_status= '1') " +
 				" join moveindate mid on (e.id = mid.enrollmentid) "+

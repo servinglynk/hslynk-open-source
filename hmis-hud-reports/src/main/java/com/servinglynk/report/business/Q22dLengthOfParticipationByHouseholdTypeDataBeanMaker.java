@@ -22,7 +22,7 @@ public class Q22dLengthOfParticipationByHouseholdTypeDataBeanMaker extends BaseB
 	
 	public static List<Q22dLengthOfParticipationByHouseholdTypeDataBean> getQ22dLengthOfParticipationByHouseholdTypeDataBeanList(ReportData data){
 	
-		String query = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate, from %s.enrollment e join %s.project p  on (e.projectid = p.id %p"+
+		String query = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate, from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
 				" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and  e.entrydate <= :startDate and (ext.exitdate is null  or ext.exitdate > :endDate) ) "+
 				" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 				" order by e.dedup_client_id,p.operatingstartdate asc ";

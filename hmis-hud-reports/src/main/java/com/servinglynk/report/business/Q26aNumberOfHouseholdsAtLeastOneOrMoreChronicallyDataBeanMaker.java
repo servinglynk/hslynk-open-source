@@ -28,10 +28,10 @@ public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker exte
 				List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 				List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 				
-				String chronicHomelessQuery ="select distinct(householdid) from %s.enrollment e,%s.client c,%.project p  where c.id =e.client_id and e.chronichomeless='true' and e.projectid = p.id %p";
-				String noChronicHomelessQuery ="select distinct(householdid) from enrollment e,%s.client c,%.project p  where c.id =e.client_id and e.chronichomeless='false' and e.projectid = p.id %p";
-				String dnKChHomelessQuery ="select distinct(householdid) from enrollment e,%s.client c,%.project p  where c.id =e.client_id  and e.disablingcondition in ('8','9') and e.projectid = p.id %p";
-				String dnCChHomelessQuery ="select distinct(householdid) from enrollment e,%s.client c,%.project p  where c.id =e.client_id and e.disablingcondition ='99' and e.projectid = p.id %p";
+				String chronicHomelessQuery ="select distinct(householdid) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless='true' and e.projectid = p.id %p ) ";
+				String noChronicHomelessQuery ="select distinct(householdid) from enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless='false' and e.projectid = p.id %p ) ";
+				String dnKChHomelessQuery ="select distinct(householdid) from enrollment e,%s.client c,%s.project p  where c.id =e.client_id  and e.disablingcondition in ('8','9') and e.projectid = p.id %p ) ";
+				String dnCChHomelessQuery ="select distinct(householdid) from enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition ='99' and e.projectid = p.id %p ) ";
 				
 				int chSize = getSize(getClients(data, chronicHomelessQuery, null, true));
 				int chWithoutChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOutChildren, false));

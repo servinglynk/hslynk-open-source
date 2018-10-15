@@ -30,7 +30,7 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 				String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 						" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
 						" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources i, %s.enrollment e,%s.client c  where  e.client_id = c.id  and c.veteran_status= '1' and i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
-						" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and and e.ageatentry >= 18 ";
+						" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 ";
 
 								
 						

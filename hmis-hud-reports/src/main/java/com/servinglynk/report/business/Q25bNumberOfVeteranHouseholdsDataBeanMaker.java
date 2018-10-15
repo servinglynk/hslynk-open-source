@@ -20,7 +20,7 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q25bNumberOfVeteranHouseholdsDataBean> getQ25bNumberOfVeteranHouseholdsList(ReportData data){
 		
-		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p"+
+		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p ) "+
 			     " join %s.client c on (e.client_id = c.id and e.entrydate  >=  :startDate and  e.entrydate<= :endDate) "+ 
 			     " where  1=1 " ;
 				Q25bNumberOfVeteranHouseholdsDataBean q25bNumberOfVeteranHouseholdsDataBean = new Q25bNumberOfVeteranHouseholdsDataBean();
@@ -143,14 +143,20 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 						 }
 					 }
 				 }
+				 builder.deleteCharAt(builder.length()-1);
 				 builder.append(" ) ");
-				String newQuery = query.replace("%p", builder.toString());
-				
+				String newQuery = query;
+				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+					 newQuery = query.replace("%p", builder.toString());
+				 }
+				 else {
+					 newQuery = query.replace("%p", ")");
+				 }
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
 				}
 				if(StringUtils.equals("8", veteranStatus)) {
-					newQuery = newQuery + " and veteran_status  in ('8','9)' ";
+					newQuery = newQuery + " and veteran_status  in ('8','9) ";
 				}
 				if(StringUtils.isNotBlank(chronichomeless)) {
 					newQuery = newQuery + " and chronichomeless ='"+chronichomeless+"' ";

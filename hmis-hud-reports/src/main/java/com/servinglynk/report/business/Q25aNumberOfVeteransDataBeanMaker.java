@@ -21,7 +21,7 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q25aNumberOfVeteransDataBean> getQ25aNumberOfVeteransList(ReportData data){
 		
-		String query = "select distinct(e.dedup_client_id)  from enrollment e join project p  on (e.projectid = p.id   %p"+
+		String query = "select distinct(e.dedup_client_id)  from enrollment e join project p  on (e.projectid = p.id   %p ) "+
 			     " join client c on (e.client_id = c.id and e.entrydate  >=  :startDate and  e.entrydate<=:endDate) "+ 
 			     " where 1=1  " ;
 				Q25aNumberOfVeteransDataBean q25aNumberOfVeteransTable = new Q25aNumberOfVeteransDataBean();
@@ -143,8 +143,14 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 						 }
 					 }
 				 }
+				 builder.deleteCharAt(builder.length()-1);
 				 builder.append(" ) ");
-				String newQuery = query.replace("%p", builder.toString());
+				String newQuery = query;
+				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+					 newQuery = query.replace("%p", builder.toString());
+				 }else {
+					 newQuery = query.replace("%p", ")");
+				 }
 				
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;

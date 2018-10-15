@@ -19,7 +19,7 @@ import com.servinglynk.report.bean.ReportData;
 public class Q25dAgeVeteransDataBeanMaker extends BaseBeanMaker {
 
 	public static List<Q25dAgeVeteransDataBean> getQ25dAgeVeteransList(ReportData data){
-		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p"+
+		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p ) "+
 			     " join %s.client c on (e.client_id = c.id and e.entrydate  >=  :startDate and  e.entrydate<=:endDate) "+ 
 			     " where  c.veteran_status='1'  ";
 
@@ -189,14 +189,20 @@ public class Q25dAgeVeteransDataBeanMaker extends BaseBeanMaker {
 						 }
 					 }
 				 }
+				 builder.deleteCharAt(builder.length()-1);
 				 builder.append(" ) ");
-				String newQuery = query.replace("%p", builder.toString());
+				String newQuery = query;
+				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+					 newQuery = query.replace("%p", builder.toString());
+				 }else {
+					 newQuery = query.replace("%p", ")");
+				 }
 				
 				if(StringUtils.isNotBlank(dobdataquality) && !StringUtils.equals("8", dobdataquality)) {
 					newQuery = newQuery + " and c.dob_data_quality ='"+dobdataquality+"' ";
 				}
 				if(StringUtils.equals("8", dobdataquality)) {
-					newQuery = newQuery + " and c.dob_data_quality  in ('8','9)' ";
+					newQuery = newQuery + " and c.dob_data_quality  in ('8','9) ";
 				}
 				if(StringUtils.isBlank(dobdataquality)) {
 					if(startAge !=0) {

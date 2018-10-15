@@ -23,12 +23,12 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 	public static List<Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean> getQ22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanList(ReportData data){
 		Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean q22cBean = new Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean();
 		
-		String query = " select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p"+
+		String query = " select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
 				  " join  %s.enrollment e1 on  (e.householdid = e1.householdid  and e1.relationshiptohoh ='1') "+
 			      " left outer join %s.moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  :endDate  and  mid.moveindate<= :endDate) "+
 					" order by e.dedup_client_id ";
 		String exitedQuery = 		  
-					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate  from enrollment e join project p  on (e.projectid = p.id  %p"+
+					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate  from enrollment e join project p  on (e.projectid = p.id  %p ) "+
 					" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
 					" join moveindate mid on (e.id = mid.enrollmentid) "+
 					" order by e.dedup_client_id ";		
@@ -231,8 +231,14 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 						 }
 					 }
 				 }
+				 builder.deleteCharAt(builder.length()-1);
 				 builder.append(" ) ");
-				String newQuery = query.replace("%p", builder.toString());
+				 String newQuery = query;
+				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+					 newQuery = query.replace("%p", builder.toString());
+				 }else {
+					 newQuery = query.replace("%p", ")");
+				 }
 				statement = connection.createStatement();
 				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 				

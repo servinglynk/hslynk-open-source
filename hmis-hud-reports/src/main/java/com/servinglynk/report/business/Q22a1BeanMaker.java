@@ -22,17 +22,17 @@ public class Q22a1BeanMaker extends BaseBeanMaker {
 
   	
 	public static List<Q22a1LengthOfParticipationCoCProjectsDataBean> getQ22a1LengthOfParticipationCoCProjectsList(ReportData data){
-		String allQuery = " select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p"+
+		String allQuery = " select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
 						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id) "+
 						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
 				
-		String leaversQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p"+
+		String leaversQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
 						" join  %s.exit ext  on  (ext.enrollmentid = e.id and ext.exitdate >= :startDate and ext.exitdate <= :endDate) "+
 						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
 				
-		String stayersQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate, from %s.enrollment e join %s.project p  on (e.projectid = p.id %p"+
+		String stayersQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate, from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
 						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and  e.entrydate <= :startDate and (ext.exitdate is null  or ext.exitdate > :endDate) ) "+
 						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
@@ -153,8 +153,14 @@ public class Q22a1BeanMaker extends BaseBeanMaker {
 						 }
 					 }
 				 }
+				 builder.deleteCharAt(builder.length()-1);
 				 builder.append(" ) ");
-				String newQuery = query.replace("%p", builder.toString());
+				String newQuery = query;
+				 if(CollectionUtils.isNotEmpty(projectIds)) {
+					 newQuery = query.replace("%p", builder.toString());
+				 }else {
+					 newQuery = query.replace("%p", ")");
+				 }
 				statement = connection.createStatement();
 //				if(StringUtils.equals("LEAVERS", reportType) ) {
 //					statement.setDate(1, data.getReportStartDate());

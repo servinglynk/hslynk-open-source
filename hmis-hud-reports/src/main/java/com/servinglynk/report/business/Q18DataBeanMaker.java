@@ -37,7 +37,7 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
 		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
-		" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and and e.ageatentry >= 18 ";
+		" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 ";
 
 				
 		

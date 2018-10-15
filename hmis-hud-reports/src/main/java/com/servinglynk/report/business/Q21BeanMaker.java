@@ -34,7 +34,7 @@ public class Q21BeanMaker extends BaseBeanMaker {
 				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices, "+
 				   "i.other_insurance as other_insurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e,%s.exit ext where e.id=i.enrollmentid  "+
 				  " and e.id = ext.enrollmentid "+
-					  " and i.information_date = ext.extdate and i.information_date <= :startDate and i.information_date >= :endDate "+
+					  " and i.information_date = ext.exitdate and i.information_date <= :startDate and i.information_date >= :endDate "+
 					  " and e.ageatentry >=18  and i.datacollectionstage = '3' ";
 				       
 			String stayersQuery = " select  nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource,e.dedup_client_id  as dedup_client_id from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb where e.id=i.enrollmentid  "+
@@ -182,10 +182,9 @@ public class Q21BeanMaker extends BaseBeanMaker {
 			try {
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
-				if(StringUtils.equals(datacollectionStage, DataCollectionStage.ANNUAL_ASSESMENT.getCode())) {
-					//statement.setDate(3, data.getReportEndDate());
-				}
-					
+//				if(StringUtils.equals(datacollectionStage, DataCollectionStage.ANNUAL_ASSESMENT.getCode())) {
+//					//statement.setDate(3, data.getReportEndDate());
+//				}
 				resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
 				
 			 while(resultSet.next()) {

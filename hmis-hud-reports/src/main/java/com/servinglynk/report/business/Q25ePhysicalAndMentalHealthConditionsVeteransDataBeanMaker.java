@@ -24,9 +24,9 @@ public class Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker extends 
 		Q25ePhysicalAndMentalHealthConditionsVeteransDataBean q25ePhysicalAndMentalHealthConditionsVeteransTable = new Q25ePhysicalAndMentalHealthConditionsVeteransDataBean();
 		try {
 			if(data.isLiveMode()) {
-				String query = " select distinct(dedup_client_id) from %s.disabilities d,%s.enrollment e, %s.client c  where e.id = d.enrollmentid and e.client_id = c.id  and c.veteran_status='1' and d.datacollectionstage = '1' and d.information_date >= :startDate and d.information_date <= :endDate ";
-				String queryExit = " select distinct(dedup_client_id) from %s.disabilities d, %s.enrollment e, %s.exit ext,%s.client c   where e.id = d.enrollmentid and e.client_id = c.id  and c.veteran_status='1' and e.id=ext.enrollmentid and d.datacollectionstage = '3' and d.information_date >= :startDate and d.information_date <= :endDate ";
-				String queryStayers = " select distinct(dedup_client_id) from %s.disabilities d, %s.enrollment e,%s.client c  where e.id = d.enrollmentid and e.client_id = c.id  and c.veteran_status='1' and d.datacollectionstage = '4' and d.information_date >= :startDate and d.information_date <= :endDate ";
+				String query = " select distinct(e.dedup_client_id) from %s.disabilities d,%s.enrollment e, %s.client c  where e.id = d.enrollmentid and e.client_id = c.id  and c.veteran_status='1' and d.datacollectionstage = '1' and d.information_date >= :startDate and d.information_date <= :endDate ";
+				String queryExit = " select distinct(e.dedup_client_id) from %s.disabilities d, %s.enrollment e, %s.exit ext,%s.client c   where e.id = d.enrollmentid and e.client_id = c.id  and c.veteran_status='1' and e.id=ext.enrollmentid and d.datacollectionstage = '3' and d.information_date >= :startDate and d.information_date <= :endDate ";
+				String queryStayers = " select distinct(e.dedup_client_id) from %s.disabilities d, %s.enrollment e,%s.client c  where e.id = d.enrollmentid and e.client_id = c.id  and c.veteran_status='1' and d.datacollectionstage = '4' and d.information_date >= :startDate and d.information_date <= :endDate ";
 				
 				List<String> enrollmentFromDisabilities = getEnrollmentFromDisabilities(data.getSchema(), data, query+" and d.disabilitytype='9' ");
 				List<String> enrollmentFromDisabilitiesExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+"  and d.disabilitytype='9' ");

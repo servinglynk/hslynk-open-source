@@ -31,7 +31,7 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 			String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 			" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
 			" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources i, %s.enrollment e,%s.client c  where  e.client_id = c.id  and c.veteran_status= '1' and i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
-			" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and and e.ageatentry >= 18 ";
+			" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 ";
 
 					
 			
@@ -122,7 +122,7 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 			q18eData.setQ25f1OrMoreSourceOfIncomeLeavers(BigInteger.valueOf(oneOrMoreIncomeAtsAtExit != null ? oneOrMoreIncomeAtsAtExit.size() :0));
 			q18eData.setQ25f1OrMoreSourceOfIncomeStayers(BigInteger.valueOf(oneOrMoreIncomeAtAnnualAssesment != null ? oneOrMoreIncomeAtAnnualAssesment.size() :0));
 			} catch (Exception e) {
-				logger.error("Error in Q18BeanMaker:" + e);
+				logger.error("Error in Q25fBeanMaker:" + e);
 			}
 			}
 			return Arrays.asList(q18eData);

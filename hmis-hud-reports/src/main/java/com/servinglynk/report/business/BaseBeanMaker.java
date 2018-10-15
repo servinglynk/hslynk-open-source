@@ -987,7 +987,7 @@ public class BaseBeanMaker {
 						and >= [report start date]
 						and <= [report end date]
 					 */
-					String bedNightsQuery = " select count(sfr.id) from enrollment e join project p  on (e.projectid = p.id and e.dedup_client_id=?  %p"+
+					String bedNightsQuery = " select count(sfr.id) from enrollment e join project p  on (e.projectid = p.id and e.dedup_client_id=?  %p ) "+
 							" join service_fa_referral sfr  on  (sfr.enrollmentid = e.id and record_type='200' and dateprovided >= e.entrydate  and dateprovided >= :startDate and dateprovided <= :endDate) "+
 						    " join exit ext on (sfr.dateprovided < ext.exitdate or ext.exitdate is null) ";
 
@@ -1041,8 +1041,14 @@ public class BaseBeanMaker {
 								 }
 							 }
 						 }
+						 builder.deleteCharAt(builder.length() -1);
 						 builder.append(" ) ");
-						String newQuery = query.replace("%p", builder.toString());
+						String newQuery = query;
+						 if(CollectionUtils.isNotEmpty(projectIds)) {
+							 newQuery = query.replace("%p", builder.toString());
+						 }else {
+							 newQuery = query.replace("%p", ")");
+						 }
 						statement = connection.createStatement();
 						data.setQueryDedupClientId(dedupClientId);
 					
@@ -1092,8 +1098,15 @@ public class BaseBeanMaker {
 									 }
 								 }
 							 }
+							 builder.deleteCharAt(builder.length()-1);
 							 builder.append(" ) ");
-							String newQuery = query.replace("%p", builder.toString());
+							String newQuery = query;
+							 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+								 newQuery = query.replace("%p", builder.toString());
+							 }else {
+								 newQuery = query.replace("%p", ")");
+							 }
+							
 							statement = connection.createStatement();
 							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 							
@@ -1179,7 +1192,12 @@ public class BaseBeanMaker {
 								 }
 							 }
 							 builder.append(" ) ");
-							String newQuery = query.replace("%p", builder.toString());
+							String newQuery = query;
+							 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+								 newQuery = query.replace("%p", builder.toString());
+							 }else {
+								 newQuery = query.replace("%p", ")");
+							 }
 							statement = connection.createStatement();
 							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 							

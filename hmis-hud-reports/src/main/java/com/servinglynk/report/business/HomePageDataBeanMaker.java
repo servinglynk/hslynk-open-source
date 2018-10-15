@@ -253,11 +253,13 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<Q10cGenderOfPersonsMissingAgeInformationDataBean> q10CGPMIList= Q10cBeanMaker.getQ10CGPMIList(data);
 			homePageDataBean.setQ10cGenderOfPersonsMissingAgeInformationDataBean(q10CGPMIList);
 			CSVGenerator.buildReport(q10CGPMIList, "Q10c.jrxml","Q10c.csv",data);
-			
-			List<Q10dGenderByAgeRangesDataBean> q10dGPMIList= Q10dBeanMaker.getQ10DGARList(data);
-			homePageDataBean.setQ10dGenderByAgeRangesDataBean(q10dGPMIList);
-			CSVGenerator.buildReport(q10dGPMIList, "Q10d.jrxml","Q10d.csv",data);
-			
+			if(1==2) {
+				List<Q10dGenderByAgeRangesDataBean> q10dGPMIList= Q10dBeanMaker.getQ10DGARList(data);
+				homePageDataBean.setQ10dGenderByAgeRangesDataBean(q10dGPMIList);
+				CSVGenerator.buildReport(q10dGPMIList, "Q10d.jrxml","Q10d.csv",data);
+				
+			}
+		
 			List<Q11AgeDataBean> q11AgeList = Q11BeanMaker.getQ11AgeList(data);
 			homePageDataBean.setQ11AgeDataBean(q11AgeList);
 			CSVGenerator.buildReport(q11AgeList, "Q11.jrxml", "Q11.csv",data);
@@ -345,10 +347,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 	        List<Q22a1LengthOfParticipationCoCProjectsDataBean> q22a1LengthOfParticipationCoCProjectsList = Q22a1BeanMaker.getQ22a1LengthOfParticipationCoCProjectsList(data);
 			homePageDataBean.setQ22a1LengthOfParticipationCoCProjectsDataBean(q22a1LengthOfParticipationCoCProjectsList);
 			CSVGenerator.buildReport(q22a1LengthOfParticipationCoCProjectsList,"Q22a1.jrxml","Q22a1.csv",data);
-			
-			List<Q22a2LengthOfParticipationESGProjectsDataBean> q22a2LengthOfParticipationESGProjectsDataBeanList = Q22a2BeanMaker.getQ22a2LengthOfParticipationESGProjectsList(data);
-			homePageDataBean.setQ22a2LengthOfParticipationESGProjectsDataBean(q22a2LengthOfParticipationESGProjectsDataBeanList);
-			CSVGenerator.buildReport(q22a2LengthOfParticipationESGProjectsDataBeanList,"Q22a2.jrxml","Q22a2.csv",data);
+			if(1==2) {
+				List<Q22a2LengthOfParticipationESGProjectsDataBean> q22a2LengthOfParticipationESGProjectsDataBeanList = Q22a2BeanMaker.getQ22a2LengthOfParticipationESGProjectsList(data);
+				homePageDataBean.setQ22a2LengthOfParticipationESGProjectsDataBean(q22a2LengthOfParticipationESGProjectsDataBeanList);
+				CSVGenerator.buildReport(q22a2LengthOfParticipationESGProjectsDataBeanList,"Q22a2.jrxml","Q22a2.csv",data);
+			}
 			
 			
 			List<Q22bAverageAndMedianLengthOfParticipationInDaysDataBean> q22bAverageAndMedianLengthOfParticipationInDaysList = Q22bAverageAndMedianLengthOfParticipationInDaysDataBeanMaker.getQ22bAverageAndMedianLengthOfParticipationInDaysList(data);
@@ -359,11 +362,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean(q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanList);
 			CSVGenerator.buildReport(q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanList,"Q22c.jrxml","Q22c.csv",data);
 
-			
+			if(1==2) {
 			List<Q22dLengthOfParticipationByHouseholdTypeDataBean> q22dLengthOfParticipationByHouseholdTypeDataBeanList = Q22dLengthOfParticipationByHouseholdTypeDataBeanMaker.getQ22dLengthOfParticipationByHouseholdTypeDataBeanList(data);
 			homePageDataBean.setQ22dLengthOfParticipationByHouseholdTypeDataBean(q22dLengthOfParticipationByHouseholdTypeDataBeanList);
 			CSVGenerator.buildReport(q22dLengthOfParticipationByHouseholdTypeDataBeanList,"Q22d.jrxml","Q22d.csv",data);
-
+			}
 			
 			List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysList = Q23aExitDestinationMoreThan90DaysDataBeanMaker.getQ23ExitDestinationMoreThan90DaysList(data);
 			homePageDataBean.setQ23ExitDestinationMoreThan90DaysDataBean(q23ExitDestinationMoreThan90DaysList);
@@ -372,11 +375,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessList= Q23bExitDestination90DaysOrLessDataBeanMaker.getQ23bExitDestination90DaysOrLessList(data);
 			homePageDataBean.setQ23bExitDestination90DaysOrLessDataBean(q23bExitDestination90DaysOrLessList);
 			CSVGenerator.buildReport(q23bExitDestination90DaysOrLessList, "Q23b.jrxml","Q23b.csv",data);
-			
-			List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitList= Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker.getQ24HomelessnessPreventionHousingAssessmentAtExitList(data);
-			homePageDataBean.setQ24HomelessnessPreventionHousingAssessmentAtExitDataBean(q24HomelessnessPreventionHousingAssessmentAtExitList);
-			CSVGenerator.buildReport(q24HomelessnessPreventionHousingAssessmentAtExitList, "Q24.jrxml","Q24.csv",data);
-			
+			if(1==2) {
+				List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitList= Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker.getQ24HomelessnessPreventionHousingAssessmentAtExitList(data);
+				homePageDataBean.setQ24HomelessnessPreventionHousingAssessmentAtExitDataBean(q24HomelessnessPreventionHousingAssessmentAtExitList);
+				CSVGenerator.buildReport(q24HomelessnessPreventionHousingAssessmentAtExitList, "Q24.jrxml","Q24.csv",data);
+			}
 			List<Q25aNumberOfVeteransDataBean> q25aNumberOfVeteransList = Q25aNumberOfVeteransDataBeanMaker.getQ25aNumberOfVeteransList(data);	
 			homePageDataBean.setQ25aNumberOfVeteransDataBean(q25aNumberOfVeteransList);
 			CSVGenerator.buildReport(q25aNumberOfVeteransList, "Q25a.jrxml","Q25a.csv",data);
@@ -429,19 +432,19 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ26dAgeOfChronicallyHomelessPersonsDataBean(q26dAgeOfChronicallyHomelessPersonsList);
 			CSVGenerator.buildReport(q26dAgeOfChronicallyHomelessPersonsList, "Q26d.jrxml","Q26d.csv",data);
 			
-			List<Q26ePhysicalAndMentalHealthConditionsChronicallyDataBean> q26ePhysicalAndMentalHealthConditionsChronicallyList= Q26ePhysicalAndMentalHealthConditionsChronicallyDataBeanMaker.getQ26ePhysicalAndMentalHealthConditionsChronicallyList();
+			List<Q26ePhysicalAndMentalHealthConditionsChronicallyDataBean> q26ePhysicalAndMentalHealthConditionsChronicallyList= Q26ePhysicalAndMentalHealthConditionsChronicallyDataBeanMaker.getQ26ePhysicalAndMentalHealthConditionsChronicallyList(data);
 			homePageDataBean.setQ26ePhysicalAndMentalHealthConditionsChronicallyDataBean(q26ePhysicalAndMentalHealthConditionsChronicallyList);
 			CSVGenerator.buildReport(q26ePhysicalAndMentalHealthConditionsChronicallyList, "Q26e.jrxml","Q26e.csv",data);
 			
-			List<Q26fClientCashIncomeChronicallyHomelessPersonsDataBean> q26fClientCashIncomeChronicallyHomelessPersonsList= Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker.getQ26fClientCashIncomeChronicallyHomelessPersonsList();
+			List<Q26fClientCashIncomeChronicallyHomelessPersonsDataBean> q26fClientCashIncomeChronicallyHomelessPersonsList= Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker.getQ26fClientCashIncomeChronicallyHomelessPersonsList(data);
 			homePageDataBean.setQ26fClientCashIncomeChronicallyHomelessPersonsDataBean(q26fClientCashIncomeChronicallyHomelessPersonsList);
 			CSVGenerator.buildReport(q26fClientCashIncomeChronicallyHomelessPersonsList, "Q26f.jrxml","Q26f.csv",data);
 			
-			List<Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBean> q26gTypeOfCashIncomeSourcesChronicallyHomelessList = Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker.getQ26gTypeOfCashIncomeSourcesChronicallyHomelessList();
+			List<Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBean> q26gTypeOfCashIncomeSourcesChronicallyHomelessList = Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker.getQ26gTypeOfCashIncomeSourcesChronicallyHomelessList(data);
 			homePageDataBean.setQ26gTypeOfCashIncomeSourcesChronicallyHomelessDataBean(q26gTypeOfCashIncomeSourcesChronicallyHomelessList);
 			CSVGenerator.buildReport(q26gTypeOfCashIncomeSourcesChronicallyHomelessList, "Q26g.jrxml","Q26g.csv",data);
 			
-			List<Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBean> q26hTypeOfNonCashIncomeSourcesChronicallyHomelessList = Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBeanMaker.getQ26hTypeOfNonCashIncomeSourcesChronicallyHomelessList();
+			List<Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBean> q26hTypeOfNonCashIncomeSourcesChronicallyHomelessList = Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBeanMaker.getQ26hTypeOfNonCashIncomeSourcesChronicallyHomelessList(data);
 			homePageDataBean.setQ26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBean(q26hTypeOfNonCashIncomeSourcesChronicallyHomelessList);
 			CSVGenerator.buildReport(q26hTypeOfNonCashIncomeSourcesChronicallyHomelessList, "Q26h.jrxml","Q26h.csv",data);
 			

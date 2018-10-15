@@ -21,7 +21,7 @@ public class Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker exten
 	public static List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> getQ24HomelessnessPreventionHousingAssessmentAtExitList(ReportData data){
 		Q24HomelessnessPreventionHousingAssessmentAtExitDataBean q24HomelessnessPreventionHousingAssessmentAtExitTable = new Q24HomelessnessPreventionHousingAssessmentAtExitDataBean();
 			
-		String query ="select distinct(e.dedup_client_id)  from enrollment e join %s.project p  on (e.projectid = p.id  %p"+			
+		String query ="select distinct(e.dedup_client_id)  from enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+			
 						" join %s.exit ext on (e.id = ext.enrollmentid and ext.exitdate  >=  :startDate and  ext.exitdate<= :endDate) "+
 					    " join %s.exithousingassessment eha on (ext.id = eha.exitid %h) "+
 					    " order by e.dedup_client_id  ";
@@ -234,9 +234,14 @@ public class Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker exten
 						 }
 					 }
 				 }
-				 builder.deleteCharAt(builder.length());
+				 builder.deleteCharAt(builder.length()-1);
 				 builder.append(" ) ");
-				String newQuery = query.replace("%p", builder.toString());
+				String newQuery = query;
+				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+					 newQuery = query.replace("%p", builder.toString());
+				 }else {
+					 newQuery = query.replace("%p", ")");
+				 }
 				if(StringUtils.isNotBlank(housingassessment) && !StringUtils.equals("8", housingassessment)) {
 					newQuery = newQuery.replace("%h"," and housingassessment ='"+housingassessment+"'");
 				}
