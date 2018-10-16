@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -1047,7 +1048,7 @@ public class BaseBeanMaker {
 						 if(CollectionUtils.isNotEmpty(projectIds)) {
 							 newQuery = query.replace("%p", builder.toString());
 						 }else {
-							 newQuery = query.replace("%p", ")");
+							 newQuery = query.replace("%p", " ");
 						 }
 						statement = connection.createStatement();
 						data.setQueryDedupClientId(dedupClientId);
@@ -1104,7 +1105,7 @@ public class BaseBeanMaker {
 							 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
 								 newQuery = query.replace("%p", builder.toString());
 							 }else {
-								 newQuery = query.replace("%p", ")");
+								 newQuery = query.replace("%p", " ");
 							 }
 							
 							statement = connection.createStatement();
@@ -1123,6 +1124,65 @@ public class BaseBeanMaker {
 							 q22Beans.add(bean);
 						 
 						 }
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+							if (statement != null) {
+								try {
+									statement.close();
+									//connection.close();
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						}
+						return q22Beans;
+					}	
+			    
+			    
+			    public static List<Q22BeanModel> getQ22Bean(ReportData data,String query,String reportType) {
+					 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
+						ResultSet resultSet = null;
+						Statement statement = null;
+						String projectQuery = " and p.id in ( ";
+						StringBuilder builder = new StringBuilder(projectQuery);
+						Connection connection = null;
+						try {
+							connection = ImpalaConnection.getConnection();
+							 List<String> projectIds = data.getProjectIds();
+							 if(CollectionUtils.isNotEmpty(projectIds)) {
+								 int count = 0;
+								 for(String project : projectIds) {
+									 builder.append("'"+project+"'");
+									 if(count != projectIds.size()) {
+										 builder.append(",");
+									 }
+								 }
+							 }
+							 builder.deleteCharAt(builder.length()-1);
+							 builder.append(" ) ");
+							String newQuery = query;
+							 if(CollectionUtils.isNotEmpty(projectIds)) {
+								 newQuery = query.replace("%p", builder.toString());
+							 }else {
+								 newQuery = query.replace("%p", " ");
+							 }
+							statement = connection.createStatement();
+//							if(StringUtils.equals("LEAVERS", reportType) ) {
+//								statement.setDate(1, data.getReportStartDate());
+//								statement.setDate(2, data.getReportEndDate());
+//							}else if(StringUtils.equals("STAYERS", reportType) ) {
+//								statement.setDate(1, data.getReportEndDate());
+//								statement.setDate(2, data.getReportEndDate());
+//							}
+							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
+							
+						 while(resultSet.next()) {
+							 q22Beans.add(new Q22BeanModel(resultSet.getString("dedup_client_id"), resultSet.getString("projecttype"), resultSet.getString("trackingmethod"), 
+									 resultSet.getDate("operatingstartdate"),resultSet.getDate("exitdate"),resultSet.getDate("entrydate"),resultSet.getDate("moveindate"),null));
+							 }
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -1191,12 +1251,13 @@ public class BaseBeanMaker {
 									 }
 								 }
 							 }
+							 builder.deleteCharAt(builder.length() -1 );
 							 builder.append(" ) ");
 							String newQuery = query;
 							 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
 								 newQuery = query.replace("%p", builder.toString());
 							 }else {
-								 newQuery = query.replace("%p", ")");
+								 newQuery = query.replace("%p", " ");
 							 }
 							statement = connection.createStatement();
 							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
@@ -1220,5 +1281,60 @@ public class BaseBeanMaker {
 						}
 						return clients;
 					}	
+			    
+			    
+			    
+
+				public static int  getDestination (List<Q22BeanModel> q22Beans , String destination) {
+					if(CollectionUtils.isNotEmpty(q22Beans)) {
+						List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> StringUtils.equals(destination, q22BeanModel.getDestination())).collect(Collectors.toList());
+						return q22Bean7DaysOrLessAllData.size();
+					}
+					 return 0;
+				}
+
+				public static int  getDestination (List<Q22BeanModel> q22Beans , String destination1,String destination2) {
+					if(CollectionUtils.isNotEmpty(q22Beans)) {
+						List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel ->  ( StringUtils.equals(destination1, q22BeanModel.getDestination())  || StringUtils.equals(destination2, q22BeanModel.getDestination()) )).collect(Collectors.toList());
+						return q22Bean7DaysOrLessAllData.size();
+					}
+					 return 0;
+				}
+				
+				public static int  getDestinationByDestinationType(List<Q22BeanModel> q22Beans , List<String> destinations) {
+					if(CollectionUtils.isNotEmpty(q22Beans)) {
+						List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel ->  ( destinations.contains(q22BeanModel.getDestination()))).collect(Collectors.toList());
+						return q22Bean7DaysOrLessAllData.size();
+					}
+					 return 0;
+				}
+				
+				public static int  getDestinationByProjectType(List<Q22BeanModel> q22Beans , List<String> destinations,String projectType) {
+					if(CollectionUtils.isNotEmpty(q22Beans)) {
+						List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel ->  ( destinations.contains(q22BeanModel.getDestination())) && StringUtils.equals(projectType, q22BeanModel.getProjectType()) ).collect(Collectors.toList());
+						return q22Bean7DaysOrLessAllData.size();
+					}
+					 return 0;
+				}
+				
+				public static int  getDestinationByProjectTypes(List<Q22BeanModel> q22Beans , List<String> destinations,List<String> projectTypes) {
+					if(CollectionUtils.isNotEmpty(q22Beans)) {
+						List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel ->  ( destinations.contains(q22BeanModel.getDestination())) && projectTypes.contains(q22BeanModel.getProjectType()) ).collect(Collectors.toList());
+						return q22Bean7DaysOrLessAllData.size();
+					}
+					 return 0;
+				}
+				
+				public static long  divide(int destination41 , int destination40,int destination42) {
+					if(destination41 == 0){
+						 return 0;
+					}
+					int subTotal = (destination40 - destination42);
+					if(subTotal <= 0) {
+						return 0;
+					}
+					long percentage = destination41/subTotal;
+					return percentage;
+				}
 }
 

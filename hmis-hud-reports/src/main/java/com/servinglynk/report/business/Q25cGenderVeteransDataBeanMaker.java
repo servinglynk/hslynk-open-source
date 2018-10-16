@@ -179,20 +179,20 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
 					 newQuery = query.replace("%p", builder.toString());
 				 }else {
-					 newQuery = query.replace("%p", ")");
+					 newQuery = query.replace("%p", " ");
 				 }
 				
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
 				}
 				if(StringUtils.equals("8", veteranStatus)) {
-					newQuery = newQuery + " and veteran_status  in ('8','9)' ";
+					newQuery = newQuery + " and veteran_status  in ('8','9') ";
 				}
 				if(StringUtils.isNotBlank(gender) && !StringUtils.equals("8", gender)) {
 					newQuery = newQuery + " and gender ='"+gender+"' ";
 				}
 				if(StringUtils.equals("8", veteranStatus)) {
-					newQuery = newQuery + " and gender  in ('8','9) ";
+					newQuery = newQuery + " and gender  in ('8','9') ";
 				}
 				
 				statement = connection.createStatement();

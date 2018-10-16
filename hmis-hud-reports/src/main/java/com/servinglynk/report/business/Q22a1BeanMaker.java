@@ -32,7 +32,7 @@ public class Q22a1BeanMaker extends BaseBeanMaker {
 						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
 				
-		String stayersQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate, from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
+		String stayersQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
 						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and  e.entrydate <= :startDate and (ext.exitdate is null  or ext.exitdate > :endDate) ) "+
 						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 						" order by e.dedup_client_id,p.operatingstartdate asc ";
@@ -128,69 +128,13 @@ public class Q22a1BeanMaker extends BaseBeanMaker {
 				q22a1LengthOfParticipationCoCProjectsTable.setQ22a1LTotStayers(BigInteger.valueOf(allStayersData != null ? allStayersData.size() :0));
 			}
 		}catch(Exception e) {
-			logger.error("Error in Q22aBeanMaker:" + e);
+			logger.error("Error in Q22a1BeanMaker:" + e);
 		}
 		return Arrays.asList(q22a1LengthOfParticipationCoCProjectsTable);
 	}
 	
 	
-	public static List<Q22BeanModel> getQ22Bean(ReportData data,String query,String reportType) {
-		 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
-			ResultSet resultSet = null;
-			Statement statement = null;
-			String projectQuery = " and p.id in ( ";
-			StringBuilder builder = new StringBuilder(projectQuery);
-			Connection connection = null;
-			try {
-				connection = ImpalaConnection.getConnection();
-				 List<String> projectIds = data.getProjectIds();
-				 if(CollectionUtils.isNotEmpty(projectIds)) {
-					 int count = 0;
-					 for(String project : projectIds) {
-						 builder.append("'"+project+"'");
-						 if(count != projectIds.size()) {
-							 builder.append(",");
-						 }
-					 }
-				 }
-				 builder.deleteCharAt(builder.length()-1);
-				 builder.append(" ) ");
-				String newQuery = query;
-				 if(CollectionUtils.isNotEmpty(projectIds)) {
-					 newQuery = query.replace("%p", builder.toString());
-				 }else {
-					 newQuery = query.replace("%p", ")");
-				 }
-				statement = connection.createStatement();
-//				if(StringUtils.equals("LEAVERS", reportType) ) {
-//					statement.setDate(1, data.getReportStartDate());
-//					statement.setDate(2, data.getReportEndDate());
-//				}else if(StringUtils.equals("STAYERS", reportType) ) {
-//					statement.setDate(1, data.getReportEndDate());
-//					statement.setDate(2, data.getReportEndDate());
-//				}
-				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
-				
-			 while(resultSet.next()) {
-				 q22Beans.add(new Q22BeanModel(resultSet.getString("dedup_client_id"), resultSet.getString("projecttype"), resultSet.getString("trackingmethod"), 
-						 resultSet.getDate("operatingstartdate"),resultSet.getDate("exitdate"),resultSet.getDate("entrydate"),resultSet.getDate("moveindate"),resultSet.getDate("dateprovided") ));
-				 }
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (statement != null) {
-					try {
-						statement.close();
-						//connection.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-			return q22Beans;
-		}	
+	
 
 }
 	

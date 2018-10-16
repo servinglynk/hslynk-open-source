@@ -28,7 +28,7 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 			      " left outer join %s.moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  :endDate  and  mid.moveindate<= :endDate) "+
 					" order by e.dedup_client_id ";
 		String exitedQuery = 		  
-					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate  from enrollment e join project p  on (e.projectid = p.id  %p ) "+
+					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from enrollment e join project p  on (e.projectid = p.id  %p ) "+
 					" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
 					" join moveindate mid on (e.id = mid.enrollmentid) "+
 					" order by e.dedup_client_id ";		
@@ -237,7 +237,7 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
 					 newQuery = query.replace("%p", builder.toString());
 				 }else {
-					 newQuery = query.replace("%p", ")");
+					 newQuery = query.replace("%p", " ");
 				 }
 				statement = connection.createStatement();
 				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));

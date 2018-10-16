@@ -195,14 +195,14 @@ public class Q25dAgeVeteransDataBeanMaker extends BaseBeanMaker {
 				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
 					 newQuery = query.replace("%p", builder.toString());
 				 }else {
-					 newQuery = query.replace("%p", ")");
+					 newQuery = query.replace("%p", " ");
 				 }
 				
 				if(StringUtils.isNotBlank(dobdataquality) && !StringUtils.equals("8", dobdataquality)) {
 					newQuery = newQuery + " and c.dob_data_quality ='"+dobdataquality+"' ";
 				}
 				if(StringUtils.equals("8", dobdataquality)) {
-					newQuery = newQuery + " and c.dob_data_quality  in ('8','9) ";
+					newQuery = newQuery + " and c.dob_data_quality  in ('8','9') ";
 				}
 				if(StringUtils.isBlank(dobdataquality)) {
 					if(startAge !=0) {

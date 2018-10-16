@@ -150,13 +150,13 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 					 newQuery = query.replace("%p", builder.toString());
 				 }
 				 else {
-					 newQuery = query.replace("%p", ")");
+					 newQuery = query.replace("%p", " ");
 				 }
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
 				}
 				if(StringUtils.equals("8", veteranStatus)) {
-					newQuery = newQuery + " and veteran_status  in ('8','9) ";
+					newQuery = newQuery + " and veteran_status  in ('8','9') ";
 				}
 				if(StringUtils.isNotBlank(chronichomeless)) {
 					newQuery = newQuery + " and chronichomeless ='"+chronichomeless+"' ";

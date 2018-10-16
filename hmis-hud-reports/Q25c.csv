@@ -1,9 +1,9 @@
 ,Total,  Without children,  With children and adults,  Unknown household type
-   a. Male,6,0,6,6
-   b. Female,0,0,0,0
+   a. Male,46,1,46,46
+   b. Female,2,0,2,2
    c. Trans Female (MTF or Male to ,0,0,0,0
    d. Trans Male (FTM or Female to Male),0,0,0,0
    e. Gender Non-Conforming (i.e. not exclusively male or ,0,0,0,0
-  f. Client Doesn't Know/Client Refused,7,0,7,7
-  g. Data Not Collected,1,0,1,1
-  h. Total,14,0,14,14
+  f. Client Doesn't Know/Client Refused,50,1,50,50
+  g. Data Not Collected,2,0,2,2
+  h. Total,100,2,100,100

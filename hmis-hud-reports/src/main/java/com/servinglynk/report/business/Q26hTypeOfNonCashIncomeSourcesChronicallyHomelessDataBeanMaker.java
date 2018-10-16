@@ -18,7 +18,7 @@ public class Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBeanMaker exte
 		/********
 		 * Any changes here needs change to Q26h
 		 */
-		String entryQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i,%s.enrollment e, %s.noncashbenefits nb,%s.client c where e.id=i.enrollmentid  "+
+		String entryQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.incomeandsources i,%s.enrollment e, %s.noncashbenefits nb,%s.client c where e.id=i.enrollmentid  "+
 		      "   and nb.enrollmentid = e.id and c.id = e.client_id and e.chronichomeless='true' "+
 			  " and i.information_date = e.entrydate and i.information_date <= :startDate and i.information_date >= :endDate "+
 			  " and e.ageatentry >=18  and i.datacollectionstage = :datacollectionstage ";

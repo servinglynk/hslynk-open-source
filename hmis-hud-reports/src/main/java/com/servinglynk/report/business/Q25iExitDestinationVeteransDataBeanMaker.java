@@ -20,11 +20,11 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 		Q25iExitDestinationVeteransDataBean q25iExitDestinationVeteransTable = new Q25iExitDestinationVeteransDataBean();
 		
 		String query = 		  
-				" select distinct(e.dedup_client_id ),p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate,e1.destination  from enrollment e join project p  on (e.projectid = p.id  %p ) "+
-				" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
-				" join client c on (c.id = e.client_id and c.veteran_status= '1') " +
-				" join moveindate mid on (e.id = mid.enrollmentid) "+
-				" join enrollment e1 on (e.householdid = e1.householdid and e1.relationshipToHoH='1') "+
+				" select distinct(e.dedup_client_id ),p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate,e1.destination  from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
+				" join %s.exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
+				" join %s.client c on (c.id = e.client_id and c.veteran_status= '1') " +
+				" join %s.moveindate mid on (e.id = mid.enrollmentid) "+
+				" join %s.enrollment e1 on (e.householdid = e1.householdid and e1.relationshipToHoH='1') "+
 				" order by e.dedup_client_id ";	
 		
 		try {
@@ -364,7 +364,7 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				q25iExitDestinationVeteransTable.setQ25iC4HospitalOrOtherResidentialUnknownHouseHold(BigInteger.valueOf(unknown29));
 				//30
 				q25iExitDestinationVeteransTable.setQ25iC5JailPrisonOrUvenileDetentionTotal(BigInteger.valueOf(allTotal30));
-				q25iExitDestinationVeteransTable.setQ25iC5JailPrisonOrUvenileDetentionTotal(BigInteger.valueOf(withoutChildren30));
+				q25iExitDestinationVeteransTable.setQ25iC5JailPrisonOrUvenileDetentionWithoutChild(BigInteger.valueOf(withoutChildren30));
 				q25iExitDestinationVeteransTable.setQ25iC5JailPrisonOrUvenileDetentionWithChildAndAdults(BigInteger.valueOf(withChildAndAdult30));
 				q25iExitDestinationVeteransTable.setQ25iC5JailPrisonOrUvenileDetentionWithOnlyChild(BigInteger.valueOf(withChildren30));
 				q25iExitDestinationVeteransTable.setQ25iC5JailPrisonOrUvenileDetentionUnknownHouseHold(BigInteger.valueOf(unknown30));
@@ -587,59 +587,6 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 			}
 			return Arrays.asList(q25iExitDestinationVeteransTable);
 	
-	}
-	
-	
-	public static int  getDestination (List<Q22BeanModel> q22Beans , String destination) {
-		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> StringUtils.equals(destination, q22BeanModel.getDestination())).collect(Collectors.toList());
-			return q22Bean7DaysOrLessAllData.size();
-		}
-		 return 0;
-	}
-
-	public static int  getDestination (List<Q22BeanModel> q22Beans , String destination1,String destination2) {
-		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel ->  ( StringUtils.equals(destination1, q22BeanModel.getDestination())  || StringUtils.equals(destination2, q22BeanModel.getDestination()) )).collect(Collectors.toList());
-			return q22Bean7DaysOrLessAllData.size();
-		}
-		 return 0;
-	}
-	
-	public static int  getDestinationByDestinationType(List<Q22BeanModel> q22Beans , List<String> destinations) {
-		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel ->  ( destinations.contains(q22BeanModel.getDestination()))).collect(Collectors.toList());
-			return q22Bean7DaysOrLessAllData.size();
-		}
-		 return 0;
-	}
-	
-	public static int  getDestinationByProjectType(List<Q22BeanModel> q22Beans , List<String> destinations,String projectType) {
-		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel ->  ( destinations.contains(q22BeanModel.getDestination())) && StringUtils.equals(projectType, q22BeanModel.getProjectType()) ).collect(Collectors.toList());
-			return q22Bean7DaysOrLessAllData.size();
-		}
-		 return 0;
-	}
-	
-	public static int  getDestinationByProjectTypes(List<Q22BeanModel> q22Beans , List<String> destinations,List<String> projectTypes) {
-		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel ->  ( destinations.contains(q22BeanModel.getDestination())) && projectTypes.contains(q22BeanModel.getProjectType()) ).collect(Collectors.toList());
-			return q22Bean7DaysOrLessAllData.size();
-		}
-		 return 0;
-	}
-	
-	public static long  divide(int destination41 , int destination40,int destination42) {
-		if(destination41 == 0){
-			 return 0;
-		}
-		int subTotal = (destination40 - destination42);
-		if(subTotal <= 0) {
-			return 0;
-		}
-		long percentage = destination41/subTotal;
-		return percentage;
 	}
 }
 

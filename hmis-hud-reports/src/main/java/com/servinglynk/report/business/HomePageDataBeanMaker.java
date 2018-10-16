@@ -460,7 +460,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ27cGenderYouthDataBean(q27cGenderYouthList);
 			CSVGenerator.buildReport(q27cGenderYouthList, "Q27c.jrxml","Q27c.csv",data);
 			
-			List<Q27dResidencePriorToEntryYouthDataBean> q27dResidencePriorToEntryYouthList= Q27dResidencePriorToEntryYouthDataBeanMaker.getQ27dResidencePriorToEntryYouthList();
+			List<Q27dResidencePriorToEntryYouthDataBean> q27dResidencePriorToEntryYouthList= Q27dResidencePriorToEntryYouthDataBeanMaker.getQ27dResidencePriorToEntryYouthList(data);
 			homePageDataBean.setQ27dResidencePriorToEntryYouthDataBean(q27dResidencePriorToEntryYouthList);
 			CSVGenerator.buildReport(q27dResidencePriorToEntryYouthList, "Q27d.jrxml","Q27d.csv",data);
 			
@@ -468,7 +468,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ27eLengthOfParticipationYouthDataBean(q27eLengthOfParticipationYouthList);
 			CSVGenerator.buildReport(q27eLengthOfParticipationYouthList, "Q27e.jrxml","Q27e.csv",data);
 			
-			List<Q27fExitDestinationYouthDataBean> q27fExitDestinationYouthList = Q27fExitDestinationYouthDataBeanMaker.getQ27fExitDestinationYouthList();
+			List<Q27fExitDestinationYouthDataBean> q27fExitDestinationYouthList = Q27fExitDestinationYouthDataBeanMaker.getQ27fExitDestinationYouthList(data);
 			homePageDataBean.setQ27fExitDestinationYouthDataBean(q27fExitDestinationYouthList);
 			CSVGenerator.buildReport(q27fExitDestinationYouthList, "Q27f.jrxml","Q27f.csv",data);
 			

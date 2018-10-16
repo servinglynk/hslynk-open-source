@@ -240,13 +240,13 @@ public class Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker exten
 				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
 					 newQuery = query.replace("%p", builder.toString());
 				 }else {
-					 newQuery = query.replace("%p", ")");
+					 newQuery = query.replace("%p", " ");
 				 }
 				if(StringUtils.isNotBlank(housingassessment) && !StringUtils.equals("8", housingassessment)) {
 					newQuery = newQuery.replace("%h"," and housingassessment ='"+housingassessment+"'");
 				}
 				if(StringUtils.equals("8", housingassessment)) {
-					newQuery = newQuery.replace("%h"," and housingassessment  in ('8','9)' ");
+					newQuery = newQuery.replace("%h"," and housingassessment  in ('8','9') ");
 				}
 				if(StringUtils.isNotBlank(subsidyInformation)) {
 					newQuery = newQuery.replace("%h"," and subsidyinformation ='"+subsidyInformation+"'");
