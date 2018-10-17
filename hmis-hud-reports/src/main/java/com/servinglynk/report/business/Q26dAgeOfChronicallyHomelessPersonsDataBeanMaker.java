@@ -18,15 +18,15 @@ public class Q26dAgeOfChronicallyHomelessPersonsDataBeanMaker extends BaseBeanMa
 			List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 			List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 			
-			String chless17Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age < 17 and e.chronichomeless='true' and e.projectid = p.id %p ) ";
-			String ch18To24Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 18 and c.age <= 24 and e.chronichomeless='true' and e.projectid = p.id %p ) ";
-			String ch25To34Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 25 and c.age <= 34 and e.chronichomeless='true' and e.projectid = p.id %p ) ";
-			String ch35To44Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 35 and c.age <= 44 and e.chronichomeless='true' and e.projectid = p.id %p ) ";
-			String ch45To54Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 45 and c.age <= 54 and e.chronichomeless='true' and e.projectid = p.id %p ) ";
-			String ch55To61Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 55 and c.age <= 61 and e.chronichomeless='true' and e.projectid = p.id %p ) ";
-			String ch62PlusQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 62 and e.chronichomeless='true' and e.projectid = p.id %p ) ";
-			String chDKNQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.dob_data_quality in ('8','9') and e.chronichomeless='true' and e.projectid = p.id %p ) ";
-			String chDNCQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.dob_data_quality='99' and e.chronichomeless='true' and e.projectid = p.id %p ) ";
+			String chless17Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age < 17 and e.chronichomeless='true' and e.projectid = p.id %p  ";
+			String ch18To24Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 18 and c.age <= 24 and e.chronichomeless='true' and e.projectid = p.id %p  ";
+			String ch25To34Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 25 and c.age <= 34 and e.chronichomeless='true' and e.projectid = p.id %p ";
+			String ch35To44Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 35 and c.age <= 44 and e.chronichomeless='true' and e.projectid = p.id %p ";
+			String ch45To54Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 45 and c.age <= 54 and e.chronichomeless='true' and e.projectid = p.id %p ";
+			String ch55To61Query ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 55 and c.age <= 61 and e.chronichomeless='true' and e.projectid = p.id %p ";
+			String ch62PlusQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.age >= 62 and e.chronichomeless='true' and e.projectid = p.id %p ";
+			String chDKNQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.dob_data_quality in ('8','9') and e.chronichomeless='true' and e.projectid = p.id %p ";
+			String chDNCQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.dob_data_quality='99' and e.chronichomeless='true' and e.projectid = p.id %p ";
 			
 			if(data.isLiveMode()) {
 				int chless17Size = getSize(getClients(data, chless17Query, null, true));

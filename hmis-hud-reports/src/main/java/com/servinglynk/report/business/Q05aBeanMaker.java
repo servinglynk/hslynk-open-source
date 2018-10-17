@@ -60,7 +60,10 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			bean.setNumOfHeadsOfHHandAdults365Days(BigInteger.valueOf(adultStayersHoh365Days !=null ? adultStayersHoh365Days.size() : 0));
 			//TODO : Sandeep need to calculate this.
 			// Number of parenting youth under age 25 with children
-			bean.setNumOfParentingYouthUnderAge25WithChildren(BigInteger.valueOf(1));
+			String parent18To24YouthQuery = " select distinct(e.dedup_client_id) from %s.enrollment e, %s.enrollment e1,%s.project p where e.householdid = e1.householdid and  e.ageatentry >=18 and e.ageatentry <= 24 and e.relationshiptohoh='1'  and e1.relationshiptohoh='2' %p ";
+			int parent18To24Size= getSize(getClients(data, parent18To24YouthQuery, null, true));
+		
+			bean.setNumOfParentingYouthUnderAge25WithChildren(BigInteger.valueOf(parent18To24Size));
 			bean.setNumOfYouthUnderAge25(BigInteger.valueOf(youthUnder25 !=null ? youthUnder25.size() : 0));
 			bean.setTotNoOfAdultLeavers(BigInteger.valueOf(adultLeavers !=null ? adultLeavers.size() : 0));
 			bean.setTotNoOfAdultStayers(BigInteger.valueOf(adultStayers !=null ? adultStayers.size() : 0));

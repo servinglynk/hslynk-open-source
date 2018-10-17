@@ -170,20 +170,20 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			}
 			
 			
-			data.setTotNumOfPersonServed(BigInteger.valueOf(15));  //Refers --> Total number of persons served 
-			data.setNumOfAdults(BigInteger.valueOf(11)); //Refers --> Number of adults (age 18 or over)
-			data.setNumOfChildren(BigInteger.valueOf(4)); //Refers --> Number of children (under age 18)
-			data.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(0)); // Refers --> Number of persons with unknown age
-			data.setTotNoOfAdultLeavers(BigInteger.valueOf(3)); //Refers --> Number of adult leavers
-			data.setNumOfAdultandHeadOfHHLeavers(BigInteger.valueOf(3)); // Refers --> Number of adult and head of household leavers
-			data.setTotNoOfAdultStayers(BigInteger.valueOf(8)); // Refers --> Number of adult stayers
-			data.setNoOfChronicallyHomelessPersons(BigInteger.valueOf(0)); // Refers --> Number of chronically homeless persons
-			data.setNumOfYouthUnderAge25(BigInteger.valueOf(0)); // Refers --> Number of youth under age 25
-			data.setNumOfParentingYouthUnderAge25WithChildren(BigInteger.valueOf(0)); // Refers --> Number of parenting youth under age 25 with children
-			data.setNoOfAdultHeadsOfHousehold(BigInteger.valueOf(10)); //Refers --> Number of adult heads of household
-			data.setNoOfChildHeadsOfHousehold(BigInteger.valueOf(0)); // Refers --> Number of child and unknown-age Heads of household
-			data.setNumOfHeadsOfHHandAdults365Days(BigInteger.valueOf(1)); // Refers --> Heads of households and adult stayers in the project 365 days or more
-			
+//			data.setTotNumOfPersonServed(BigInteger.valueOf(15));  //Refers --> Total number of persons served 
+//			data.setNumOfAdults(BigInteger.valueOf(11)); //Refers --> Number of adults (age 18 or over)
+//			data.setNumOfChildren(BigInteger.valueOf(4)); //Refers --> Number of children (under age 18)
+//			data.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(0)); // Refers --> Number of persons with unknown age
+//			data.setTotNoOfAdultLeavers(BigInteger.valueOf(3)); //Refers --> Number of adult leavers
+//			data.setNumOfAdultandHeadOfHHLeavers(BigInteger.valueOf(3)); // Refers --> Number of adult and head of household leavers
+//			data.setTotNoOfAdultStayers(BigInteger.valueOf(8)); // Refers --> Number of adult stayers
+//			data.setNoOfChronicallyHomelessPersons(BigInteger.valueOf(0)); // Refers --> Number of chronically homeless persons
+//			data.setNumOfYouthUnderAge25(BigInteger.valueOf(0)); // Refers --> Number of youth under age 25
+//			data.setNumOfParentingYouthUnderAge25WithChildren(BigInteger.valueOf(0)); // Refers --> Number of parenting youth under age 25 with children
+//			data.setNoOfAdultHeadsOfHousehold(BigInteger.valueOf(10)); //Refers --> Number of adult heads of household
+//			data.setNoOfChildHeadsOfHousehold(BigInteger.valueOf(0)); // Refers --> Number of child and unknown-age Heads of household
+//			data.setNumOfHeadsOfHHandAdults365Days(BigInteger.valueOf(1)); // Refers --> Heads of households and adult stayers in the project 365 days or more
+//			
 			/*List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aReportValidationsTableList(data);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
 			if(q05aHMISCDDQDataList != null) {

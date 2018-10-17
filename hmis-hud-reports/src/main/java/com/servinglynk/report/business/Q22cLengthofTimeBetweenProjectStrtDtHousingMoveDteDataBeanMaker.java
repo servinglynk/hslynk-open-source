@@ -23,14 +23,15 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 	public static List<Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean> getQ22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanList(ReportData data){
 		Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean q22cBean = new Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean();
 		
-		String query = " select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
+		String query = " select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
 				  " join  %s.enrollment e1 on  (e.householdid = e1.householdid  and e1.relationshiptohoh ='1') "+
+				   "left outer join %s.exit ext on ( e.id = ext.enrollmentid ) "+
 			      " left outer join %s.moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  :endDate  and  mid.moveindate<= :endDate) "+
 					" order by e.dedup_client_id ";
 		String exitedQuery = 		  
-					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from enrollment e join project p  on (e.projectid = p.id  %p ) "+
-					" join exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
-					" join moveindate mid on (e.id = mid.enrollmentid) "+
+					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
+					" join %s.exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
+					" join %s.moveindate mid on (e.id = mid.enrollmentid) "+
 					" order by e.dedup_client_id ";		
 		try {
 			if(data.isLiveMode()) {
@@ -247,7 +248,7 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 				 Date moveinDate = resultSet.getDate("moveindate");
 				 
 				 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), null,null, 
-						 null,resultSet.getDate("exitdate"),entryDate,moveinDate,resultSet.getDate("dateprovided") );
+						 null,resultSet.getDate("exitdate"),entryDate,moveinDate, null );
 				 bean.setNumberOfDays(subtractDate(entryDate, moveinDate));
 				 q22Beans.add(bean);
 			 

@@ -1116,7 +1116,7 @@ public class BaseBeanMaker {
 							 Date moveinDate = resultSet.getDate("moveindate");
 							 
 							 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), null,null, 
-									 null,resultSet.getDate("exitdate"),entryDate,moveinDate,resultSet.getDate("dateprovided") );
+									 null,resultSet.getDate("exitdate"),entryDate,moveinDate,null);
 							 populateBedNights(bean, data);
 							 if(withDestination) {
 								 bean.setDestination(resultSet.getString("destination"));
