@@ -29,7 +29,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 				List<EnrollmentModel> adultStayers = data.getAdultStayers();
 				String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 						" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-						" vadisabilityserviceamount,workerscompamount,incomefromanysource  as incomefromanysource,datacollectionstage from %s.incomeandsources i, %s.enrollment e,%s.project p where    e.id=i.enrollmentid ";
+						" vadisabilityserviceamount,workerscompamount,incomefromanysource  as incomefromanysource,datacollectionstage from %s.incomeandsources i, %s.enrollment e,%s.project p  where    e.id=i.enrollmentid ";
 				
 				if(CollectionUtils.isNotEmpty(adultStayers)) {
 					StringBuilder builder = new StringBuilder(" e.id in (");
@@ -47,7 +47,10 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 					List<IncomeSourceModel> incomes = getIncome(data.getSchema(), query+builder.toString(), data);
 					if(CollectionUtils.isNotEmpty(incomes)){
 						List<IncomeSourceModel> earnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && income.getEarnedIncome() != null && income.getEarnedIncome().floatValue() >0).collect(Collectors.toList());
-						List<IncomeSourceModel> earnedIncomeATEntryButNotAtAA = earnedIncomeAtEntry.parallelStream().filter(income -> !StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
+						for(IncomeSourceModel income : earnedIncomeAtEntry) {
+							
+						}
+						List<IncomeSourceModel> earnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
 						
 						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(BigInteger.valueOf(0));
 						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(0));
@@ -92,7 +95,8 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 						
 						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(BigInteger.valueOf(0));
 						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(0));
-						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(0));
+						
+						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(getSize(earnedIncomeATEntryButNotAtAA)));
 						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomePercent(BigInteger.valueOf(0));
 						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomePerformanceMeasures(BigInteger.valueOf(0));
 						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndIncreasedDollar(BigInteger.valueOf(0));
