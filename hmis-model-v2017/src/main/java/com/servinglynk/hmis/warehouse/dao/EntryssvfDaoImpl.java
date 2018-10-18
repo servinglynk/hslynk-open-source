@@ -64,8 +64,8 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 					entrySsvfModel.setHh5plus(NoYesEnum.lookupEnum(entrySSVF.getHh5Plus()));
 					entrySsvfModel.setIraqafghanistan(NoYesEnum.lookupEnum(entrySSVF.getIraqAfghanistan()));
 					entrySsvfModel.setFemvet(NoYesEnum.lookupEnum(entrySSVF.getFemVet()));
-					entrySsvfModel.setHpScreeningScore(Integer.parseInt(entrySSVF.getHpsScreeningScore()));
-					entrySsvfModel.setThresholdscore(Integer.parseInt(entrySSVF.getThresholdScore()));
+					entrySsvfModel.setHpScreeningScore(BasicDataGenerator.getIntegerValue(entrySSVF.getHpsScreeningScore()));
+					entrySsvfModel.setThresholdscore(BasicDataGenerator.getIntegerValue(entrySSVF.getThresholdScore()));
 //					entrySsvfModel.setErvisits(CrisisServicesUseEnum.lookupEnum(entrySSVF.geteRVisits()));
 //					entrySsvfModel.setJailnights(CrisisServicesUseEnum.lookupEnum(entrySSVF.getJailNights()));
 //					entrySsvfModel.setHospitalnights(CrisisServicesUseEnum.lookupEnum(entrySSVF.getHospitalNights()));

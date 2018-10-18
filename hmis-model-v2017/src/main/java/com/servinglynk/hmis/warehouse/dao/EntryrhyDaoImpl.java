@@ -100,7 +100,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 					String juvenileJusticeMonths = entryRhys.getJuvenileJusticeMonths();
 					if(StringUtils.isNotEmpty(juvenileJusticeMonths)) {
 						try {
-							entryRhyModel.setMonthsJuvenileJustice(Integer.parseInt(juvenileJusticeMonths));
+							entryRhyModel.setMonthsJuvenileJustice(BasicDataGenerator.getIntegerValue(juvenileJusticeMonths));
 						}catch (NumberFormatException e) {
 							
 						}

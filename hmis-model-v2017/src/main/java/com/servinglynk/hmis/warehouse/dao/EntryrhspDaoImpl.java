@@ -41,7 +41,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 				com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp entryRhspModel = null;
 				try {
 					entryRhspModel = getModelObject(domain, entryRhsp,data,modelMap);
-					entryRhspModel.setWorstHousingSituation(Integer.parseInt(entryRhsp.getWorstHousingSituation()));
+					entryRhspModel.setWorstHousingSituation(BasicDataGenerator.getIntegerValue(entryRhsp.getWorstHousingSituation()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhsp.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					entryRhspModel.setEnrollmentid(enrollmentModel);
 					entryRhspModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsp.getDateCreated()));

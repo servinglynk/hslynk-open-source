@@ -29,19 +29,13 @@ public class CreateCESTables  extends Logging {
 		 Properties props = new Properties();
 		 props.generatePropValues();
 		CreateCESTables cesTables = new CreateCESTables();
-		
-		List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
+	//	List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
 		String projectGroup ="SR0012";
+		cesTables.createTable("desc.sql",projectGroup);
 		//for(String projectGroup : allProjectGroupCodes) {
-			cesTables.createTable("CESTables.sql",projectGroup);
-	//		cesTables.createHiveTables("survey", projectGroup,false);
-//			cesTables.createHiveTables("housing_inventory", projectGroup,false);
-			cesTables.createHiveTables("v2017", projectGroup,true);
-			cesTables.createTable("HiveSQLCreateTable.sql",projectGroup);
-//			cesTables.createHiveTables("v2016", projectGroup,true);
-//			cesTables.createHiveTables("v2015", projectGroup,true);
-//			cesTables.createHiveTables("v2014", projectGroup,true);
-	//	}
+//			cesTables.createTable("CESTables.sql",projectGroup);
+//			cesTables.createHiveTables("v2017", projectGroup,true);
+//			cesTables.createTable("HiveSQLCreateTable.sql",projectGroup);
 	}
 	
 	 public void createHiveTables(String schema,String projectGroupCode,boolean hmisschema) {
@@ -226,7 +220,11 @@ public class CreateCESTables  extends Logging {
 			Statement stmt = connection.createStatement();
 			// execute statement
 			System.out.println(" Create Query::"+ sql);
-			stmt.execute(sql);
+			ResultSet resultSet = stmt.executeQuery(sql);
+			while(resultSet.next()) {
+				System.out.println(resultSet.getString(1)+","+ resultSet.getString(2)+","+resultSet.getString(3));
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();	
