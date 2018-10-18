@@ -142,10 +142,10 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 							resultSet = statement.executeQuery(formatQuery(query,schema,data));
 							
 						 while(resultSet.next()) {
-							 float totalIncome = resultSet.getFloat(1)+resultSet.getFloat(2)+resultSet.getFloat(3)+resultSet.getFloat(4)+resultSet.getFloat(5)+resultSet.getFloat(6)+resultSet.getFloat(7)+
-							 resultSet.getFloat(8)+resultSet.getFloat(9)+resultSet.getFloat(10)+resultSet.getFloat(11)+resultSet.getFloat(12)+resultSet.getFloat(13)+resultSet.getFloat(14)+resultSet.getFloat(15);
+							 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
+							 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
 							 BigInteger totIncome = new BigInteger(String.valueOf(totalIncome));
-							 float earned = resultSet.getFloat(3);
+							 int earned = getFloatValue(resultSet,3);
 							 String earnedIncome = String.valueOf(earned);
 							 BigInteger earnedIncomeBigInt = new BigInteger(earnedIncome);
 							 String dedupClientId = (String) resultSet.getObject(16);
@@ -185,10 +185,10 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 							resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
 							
 						 while(resultSet.next()) {
-							 float totalIncome = resultSet.getFloat(1)+resultSet.getFloat(2)+resultSet.getFloat(3)+resultSet.getFloat(4)+resultSet.getFloat(5)+resultSet.getFloat(6)+resultSet.getFloat(7)+
-							 resultSet.getFloat(8)+resultSet.getFloat(9)+resultSet.getFloat(10)+resultSet.getFloat(11)+resultSet.getFloat(12)+resultSet.getFloat(13)+resultSet.getFloat(14)+resultSet.getFloat(15);
+							 float totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
+							 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
 							 BigInteger totIncome = new BigInteger(String.valueOf(totalIncome));
-							 float earned = resultSet.getFloat(3);
+							 float earned = getFloatValue(resultSet,3);
 							 String earnedIncome = String.valueOf(earned);
 							 BigInteger earnedIncomeBigInt = new BigInteger(earnedIncome);
 							 String dedupClientId = (String) resultSet.getObject(16);

@@ -60,8 +60,10 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 			q06cDataBean.setIsaaErrorCount(BigInteger.valueOf(isaaErrorCount));
 			if (data.getNumOfHeadsOfHHandAdults365Days() != null
 					&& data.getNumOfHeadsOfHHandAdults365Days().intValue() != 0)
-				q06cDataBean.setIsaaErrorRate(
-						BigInteger.valueOf(isaaErrorCount / data.getNumOfHeadsOfHHandAdults365Days().intValue()));
+				if(data.getNumOfHeadsOfHHandAdults365Days() != null) {
+					q06cDataBean.setIsaaErrorRate(
+							BigInteger.valueOf(isaaErrorCount / data.getNumOfHeadsOfHHandAdults365Days().intValue()));
+				}
 			q06cDataBean.setIsaeErrorCount(BigInteger.valueOf(isaeErrorCount));
 			if (data.getTotNoOfAdultLeavers() != null && data.getTotNoOfAdultLeavers().intValue() != 0)
 				q06cDataBean.setIsaeErrorRate(BigInteger.valueOf(data.getTotNoOfAdultLeavers().intValue()));

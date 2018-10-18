@@ -394,10 +394,13 @@ public class BaseBeanMaker {
 		List<ClientModel>  models = new ArrayList<ClientModel>();
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(formatQuery(ReportQuery.GET_ALL_CLIENTS,schema,data));
+			statement = connection.prepareStatement(formatQuery(getQueryForProjectDB(data, ReportQuery.GET_ALL_CLIENTS),schema,data));
 			resultSet = statement.executeQuery();
-		 while(resultSet.next()) {
-			 ClientModel model = new ClientModel(resultSet.getString("id"), resultSet.getString("dedup_client_id"), 
+			String prevDedupClientId = "";
+			while(resultSet.next()) {
+		    String dedupClientId = resultSet.getString("dedup_client_id");
+			if(!StringUtils.equals(prevDedupClientId, dedupClientId)) {
+			 ClientModel model = new ClientModel(resultSet.getString("id"),dedupClientId , 
 					 resultSet.getString("name_data_quality"),resultSet.getString("name_data_quality_desc"), 
 					 resultSet.getString("ssn_data_quality"), resultSet.getString("ssn_data_quality_desc"), 
 					 null,resultSet.getString("dob_data_quality"), 
@@ -406,7 +409,9 @@ public class BaseBeanMaker {
 					 resultSet.getString("ethnicity_desc"), resultSet.getString("race"), resultSet.getString("race_desc"), 
 					 resultSet.getString("veteran_status"), resultSet.getString("source_system_id"),resultSet.getInt("age"));
 			 models.add(model);
-		 }
+		     }
+			prevDedupClientId = dedupClientId;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

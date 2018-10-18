@@ -141,7 +141,7 @@ public class Q06aBeanMaker extends BaseBeanMaker {
 			q06aBean.setGenderCDK(BigInteger.valueOf(genderCDK));
 			q06aBean.setGenderInfoMissing(BigInteger.valueOf(genderInfoMissing));
 			q06aBean.setGenderPercentageErrorRate(BigInteger.valueOf((genderCDK+genderInfoMissing)/numOfClients));
-			q06aBean.setOverAllPercentage(BigInteger.valueOf(1));
+			q06aBean.setOverAllPercentage(BigInteger.valueOf(0));
 		}catch(Exception e) {
 			logger.error("Error in Q06aBeanMaker:"+e);
 		}

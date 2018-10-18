@@ -3,7 +3,9 @@ package com.servinglynk.hive.connection;
 public class ReportQuery {
 public static String GET_PROJECT_BY_ID= "select * from %s.project where id = ? ";
 public static String GET_ORG_BY_ID= "select * from %s.organization where id = ?";
-public static String GET_ALL_CLIENTS = "select * from %s.client";
+public static String GET_ALL_CLIENTS = " select c.id,c.dedup_client_id,name_data_quality,name_data_quality_desc,ssn_data_quality,ssn_data_quality_desc,dob_data_quality, "+
+					  " dob_data_quality_desc,gender,gender_desc,ethnicity,ethnicity_desc,race,race_desc,veteran_status,c.source_system_id,c.age "+
+					 " from %s.client c,%s.enrollment e, %s.project p where e.client_id=c.id and e.projectid= p.id and entrydate >=:startDate and entrydate <= :endDate %p  order by c.dedup_client_id";
 public static String GET_ALL_CONTACTS = "select * from %s.contact";
 public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM = "select enrollmentid from %s.domesticviolence where domesticviolencevictim = ?";
 public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK = "select enrollmentid from %s.domesticviolence where domesticviolencevictim in ('8','9') ";

@@ -58,13 +58,17 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 		}
 		
 		q06bDataBean.setPedErrorCount(BigInteger.valueOf(pedErrorCount));
-		q06bDataBean.setPedErrorRate(BigInteger.valueOf(pedErrorCount/numOfClients));
+		if(numOfClients !=0) {
+			q06bDataBean.setPedErrorRate(BigInteger.valueOf(pedErrorCount/numOfClients));
+		}
 		q06bDataBean.setRelationshipHHErrorCount(BigInteger.valueOf(relationShipHHErrorCount));
-		q06bDataBean.setRelationshipHHErrorRate(BigInteger.valueOf(relationShipHHErrorCount/numOfClients));
+		if(numOfClients !=0)
+			q06bDataBean.setRelationshipHHErrorRate(BigInteger.valueOf(relationShipHHErrorCount/numOfClients));
 		q06bDataBean.setClientLocationErrorCount(BigInteger.valueOf(0));
 		q06bDataBean.setClientLocationErrorRate(BigInteger.valueOf(0));
 		q06bDataBean.setDisablingCondErrorCount(BigInteger.valueOf(disablingCondErrorCount));
-		q06bDataBean.setDisablingCondErrorRate(BigInteger.valueOf(disablingCondErrorCount/numOfClients));
+		if(numOfClients !=0)
+			q06bDataBean.setDisablingCondErrorRate(BigInteger.valueOf(disablingCondErrorCount/numOfClients));
 		
 		}catch(Exception e) {
 			logger.error("Error in Q06bBeanMaker:"+e);

@@ -261,12 +261,20 @@ public class Q06dDataBeanMaker extends BaseBeanMaker {
 				int g3Value = g3 != null ? g3.size() : 0;
 				int g4Value = g4 != null ? g4.size() : 0;
 	
-				int b5Value = b2Value + b3Value + b4Value;
-	
 				int h2Value = b2Value != 0 ? (c2Value + d2Value + e2Value + f2Value + g2Value) / b2Value : 0;
 				int h3Value = b3Value != 0 ? (c3Value + d3Value + e3Value + f3Value + g3Value) / b3Value : 0;
 				int h4Value = b4Value != 0 ? (c4Value + d4Value + e4Value + f4Value + g4Value) / b4Value : 0;
 	
+				int b5Value = b2Value + b3Value + b4Value;
+				int c5Value = c2Value + c3Value + c4Value;
+				int d5Value = d2Value + d3Value + d4Value;
+				
+				int e5Value = e2Value + e3Value + e4Value;
+				int f5Value = f2Value + f3Value + f4Value;
+				int g5Value = g2Value + g3Value + g4Value;
+				int h5Value = h2Value + h3Value + h4Value;
+				
+				
 				q06dDataBean.setEsshCountOfTotalRecords(BigInteger.valueOf(b2Value));
 				q06dDataBean.setEsshMissingTimeInInstitution(BigInteger.valueOf(c2Value));
 				q06dDataBean.setEsshMissingTimeInHousing(BigInteger.valueOf(d2Value));
@@ -290,12 +298,12 @@ public class Q06dDataBeanMaker extends BaseBeanMaker {
 				q06dDataBean.setPhPercentOfRecords(BigInteger.valueOf(h4Value));
 	
 				q06dDataBean.setTotalCountOfTotalRecords(BigInteger.valueOf(b5Value));
-				q06dDataBean.setTotalMissingTimeInInstitution(BigInteger.valueOf(0));
-				q06dDataBean.setTotalMissingTimeInHousing(BigInteger.valueOf(0));
-				q06dDataBean.setTotalApproximateDateStarted(BigInteger.valueOf(0));
-				q06dDataBean.setTotalnumberOfTimesDKR(BigInteger.valueOf(0));
-				q06dDataBean.setTotalNumberOfMonthsDKR(BigInteger.valueOf(0));
-				q06dDataBean.setTotalPercentOfRecords(BigInteger.valueOf(0));
+				q06dDataBean.setTotalMissingTimeInInstitution(BigInteger.valueOf(c5Value));
+				q06dDataBean.setTotalMissingTimeInHousing(BigInteger.valueOf(d5Value));
+				q06dDataBean.setTotalApproximateDateStarted(BigInteger.valueOf(e5Value));
+				q06dDataBean.setTotalnumberOfTimesDKR(BigInteger.valueOf(f5Value));
+				q06dDataBean.setTotalNumberOfMonthsDKR(BigInteger.valueOf(g5Value));
+				q06dDataBean.setTotalPercentOfRecords(BigInteger.valueOf(h5Value));
 			} catch (Exception e) {
 				logger.error("Error in Q06dDataBeanMaker:" + e);
 			}

@@ -8,6 +8,7 @@ public class IncomeSourceModel extends BaseModel {
 	private String dedupClientId;
 	private BigInteger otherIncome;
 	private String incomefromanysource;
+	private String dataCollectionStage;
 	public IncomeSourceModel(BigInteger incomeAmount, BigInteger earnedIncome,BigInteger otherIncome, String dedupClientId,String incomefromanysource) {
 		super();
 		this.incomeAmount = incomeAmount;
@@ -16,6 +17,20 @@ public class IncomeSourceModel extends BaseModel {
 		this.dedupClientId = dedupClientId;
 		this.incomefromanysource = incomefromanysource;
 	}
+	/**
+	 * @return the dataCollectionStage
+	 */
+	public String getDataCollectionStage() {
+		return dataCollectionStage;
+	}
+
+	/**
+	 * @param dataCollectionStage the dataCollectionStage to set
+	 */
+	public void setDataCollectionStage(String dataCollectionStage) {
+		this.dataCollectionStage = dataCollectionStage;
+	}
+
 	/**
 	 * @return the incomeAmount
 	 */
