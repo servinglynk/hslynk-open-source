@@ -183,10 +183,11 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
+			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
 		 while(resultSet.next()) {
-			 incomes.add(getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
-			 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15));
+			 int total = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
+			 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
+			 incomes.add(new Float(total));
 		 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -214,7 +215,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
+			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
 			
 		 while(resultSet.next()) {
 			 count = resultSet.getInt(1);
@@ -245,7 +246,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
+			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
 			
 		 while(resultSet.next()) {
 			 count = resultSet.getInt(1);
@@ -276,7 +277,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
 			
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
+			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
 			
 		 while(resultSet.next()) {
 			 count = resultSet.getInt(1);
@@ -298,9 +299,6 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		return count;
 	}
 	
-	
-	
-	
 	public static List<Float> getIncomeForAnnualAssesment(String schema,String query,ReportData data) {
 		List<Float> incomes = new ArrayList<>();
 		ResultSet resultSet = null;
@@ -309,11 +307,12 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
-			
+			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
 		 while(resultSet.next()) {
-			 incomes.add(getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
-					 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15));
+			 int total = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
+					 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
+			 
+			 incomes.add(new Float(total));
 
 	     }
 		} catch (SQLException e) {
@@ -331,22 +330,5 @@ public class Q16BeanMaker extends BaseBeanMaker {
 			}
 		}
 		return incomes;
-	}
-	
-	
-	private static Float getFloatValue(ResultSet resultSet , int index) {
-		try {
-			Float value = (Float)resultSet.getFloat(index);
-			if(value != null) {
-				return value;
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new Float(0);
-	}
-	
-	
+	}	
 }

@@ -37,6 +37,7 @@ import com.servinglynk.report.model.DisabilitiesModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
+import com.servinglynk.report.model.IncomeSourceModel;
 import com.servinglynk.report.model.ProjectModel;
 import com.servinglynk.report.model.Q22BeanModel;
 
@@ -69,6 +70,7 @@ public class BaseBeanMaker {
 			query = query.replaceAll(":endDate", "'"+ data.getReportEndDate()+"'");
 			query = query.replaceAll(":dedupClientId", data.getQueryDedupClientId());
 			return query.replaceAll("%s", schema);
+			
 		}
 		return null;
 	}
@@ -385,14 +387,14 @@ public class BaseBeanMaker {
 		}
 		return models;
 	}
-	public static List<ClientModel> getClients(String schema) {
+	public static List<ClientModel> getClients(String schema,ReportData data) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
 		List<ClientModel>  models = new ArrayList<ClientModel>();
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_CLIENTS,schema));
+			statement = connection.prepareStatement(formatQuery(ReportQuery.GET_ALL_CLIENTS,schema,data));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
 			 ClientModel model = new ClientModel(resultSet.getString("id"), resultSet.getString("dedup_client_id"), 
@@ -585,14 +587,14 @@ public class BaseBeanMaker {
 			}
 			return models;
 		}
-		public static List<EnrollmentModel> getEnrollmentsByCocId(String schema,String  cocId,java.util.Date reportStartDate, java.util.Date reportEndDate) {
+		public static List<EnrollmentModel> getEnrollmentsByCocId(String schema,String  cocId, ReportData data) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
 			Connection connection = null;
 			List<EnrollmentModel>  models = new ArrayList<EnrollmentModel>();
 			try {
 				connection = ImpalaConnection.getConnection();
-				statement = connection.prepareStatement(String.format(ReportQuery.GET_ENROLLMENTS_BY_COC_ID,schema,schema));
+				statement = connection.prepareStatement(formatQuery(ReportQuery.GET_ENROLLMENTS_BY_COC_ID,schema,data));
 				statement.setString(1, cocId);
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
@@ -649,7 +651,7 @@ public class BaseBeanMaker {
 			return models;
 		}
 
-		public static List<EnrollmentModel> getEnrollmentsByProjectcId(String schema,List<String>  projects,java.util.Date reportStartDate, java.util.Date reportEndDate) {
+		public static List<EnrollmentModel> getEnrollmentsByProjectcId(String schema,List<String>  projects,ReportData data) {
 			ResultSet resultSet = null;
 			Statement statement = null;
 			Connection connection = null;
@@ -657,7 +659,7 @@ public class BaseBeanMaker {
 			try {
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
-				String query = String.format(ReportQuery.GET_ENROLLMENTS_PROJECT_ID,schema);
+				String query = formatQuery(ReportQuery.GET_ENROLLMENTS_PROJECT_ID,schema, data);
 				StringBuilder builder = new StringBuilder(query);
 				int i=1;
 				for(String project : projects) {
@@ -799,14 +801,14 @@ public class BaseBeanMaker {
 			return models;
 		}
 		
-		public static List<ExitModel> getAllExits(String schema) {
+		public static List<ExitModel> getAllExits(String schema,ReportData data) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
 			Connection connection = null;
 			List<ExitModel>  models = new ArrayList<ExitModel>();
 			try {
 				connection = ImpalaConnection.getConnection();
-				statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_EXITS,schema));
+				statement = connection.prepareStatement(formatQuery(ReportQuery.GET_ALL_EXITS,schema,data));
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
 				 ExitModel model = new ExitModel( resultSet.getString("id"), resultSet.getString("destination"), 
@@ -1022,38 +1024,42 @@ public class BaseBeanMaker {
 				return date2;
 			}
 			 
+			  public static String getQueryForProjectDB(ReportData data,String query){
+					String projectQuery = " and p.id in ( ";
+					StringBuilder builder = new StringBuilder(projectQuery);
+				  List<String> projectIds = data.getProjectIds();
+					 if(CollectionUtils.isNotEmpty(projectIds)) {
+						 int count = 0;
+						 for(String project : projectIds) {
+							 builder.append("'"+project+"'");
+							 if(count != projectIds.size()) {
+								 builder.append(",");
+							 }
+						 }
+					 }
+					 builder.deleteCharAt(builder.length() -1);
+					 builder.append(" ) ");
+					String newQuery = query;
+					 if(CollectionUtils.isNotEmpty(projectIds)) {
+						 newQuery = query.replace("%p", builder.toString());
+					 }else {
+						 newQuery = query.replace("%p", " ");
+					 }
+					 return newQuery;
+			  }
 				
 			    public static long getBedNights(String query, ReportData data, String dedupClientId) {
 			    	long bedNights = 0;
 			    	ResultSet resultSet = null;
 					Statement statement = null;
-					String projectQuery = " and p.id in ( ";
-					StringBuilder builder = new StringBuilder(projectQuery);
+				
 					Connection connection = null;
 					try {
 						connection = ImpalaConnection.getConnection();
-						 List<String> projectIds = data.getProjectIds();
-						 if(CollectionUtils.isNotEmpty(projectIds)) {
-							 int count = 0;
-							 for(String project : projectIds) {
-								 builder.append("'"+project+"'");
-								 if(count != projectIds.size()) {
-									 builder.append(",");
-								 }
-							 }
-						 }
-						 builder.deleteCharAt(builder.length() -1);
-						 builder.append(" ) ");
-						String newQuery = query;
-						 if(CollectionUtils.isNotEmpty(projectIds)) {
-							 newQuery = query.replace("%p", builder.toString());
-						 }else {
-							 newQuery = query.replace("%p", " ");
-						 }
 						statement = connection.createStatement();
 						data.setQueryDedupClientId(dedupClientId);
 					
-						resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
+						resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),data.getSchema(),data));
 						 while(resultSet.next()) {
 							 bedNights = resultSet.getLong(1);
 							 }
@@ -1336,5 +1342,19 @@ public class BaseBeanMaker {
 					long percentage = destination41/subTotal;
 					return percentage;
 				}
+				
+				
+				public static int getFloatValue(ResultSet resultSet , int index) {
+					try {
+						Float value = (Float)resultSet.getFloat(index);
+						if(value != null) {
+							return value.intValue();
+						}
+						
+					} catch (SQLException e) {
+						return 0;
+					}
+					return 0;	
+				}				
 }
 

@@ -135,21 +135,21 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 					List<EnrollmentModel> enrollments =  new ArrayList<>();
 					
 					if(StringUtils.isNotBlank(cocId)) {
-						enrollments = getEnrollmentsByCocId(schema, cocId,reportStartDate, reportEndDate);
+						enrollments = getEnrollmentsByCocId(schema, cocId,data);
 					}else {
-						enrollments = getEnrollmentsByProjectcId(schema, projectList,reportStartDate, reportEndDate);
+						enrollments = getEnrollmentsByProjectcId(schema, projectList,data);
 					}
 					
 					data.setProjectId(cocId);
 					data.setEnrollments(enrollments);
 					
-					List<ClientModel> allClients = getClients(schema);
+					List<ClientModel> allClients = getClients(schema,data);
 					List<String> clientIds = new ArrayList<String>(); 
 					List<String> enrollmentIds = new ArrayList<String>(); 
 					enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getPersonalID()); enrollmentIds.add(enrollment.getProjectEntryID());});
 					List<ClientModel> clients = allClients.parallelStream().filter(client -> clientIds.contains(client.getPersonalID())).collect(Collectors.toList());
 					data.setClients(clients);
-					List<ExitModel> allExits = getAllExits(schema);
+					List<ExitModel> allExits = getAllExits(schema, data);
 					List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
 					data.setExits(filteredExits);
 					List<IncomeAndSourceModel> incomeAndSources = getIncomeAndSource(schema);
@@ -320,7 +320,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ18ClientCashIncomeCategoryEarnedOtherIncomeDataBean(q18ClientCashIncomeCategoryEarnedOtherIncomeList);
 			CSVGenerator.buildReport(q18ClientCashIncomeCategoryEarnedOtherIncomeList, "Q18.jrxml","Q18.csv",data);
 			
-			List<Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean> q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList = Q19a1DataBeanMaker.getQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList();
+			List<Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean> q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList = Q19a1DataBeanMaker.getQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList(data);
 			homePageDataBean.setQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBean(q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList);
 			CSVGenerator.buildReport(q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList, "Q19a1.jrxml", "Q19a1.csv",data);
 			

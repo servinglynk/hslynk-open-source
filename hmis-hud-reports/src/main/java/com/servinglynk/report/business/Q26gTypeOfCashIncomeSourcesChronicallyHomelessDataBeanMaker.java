@@ -158,7 +158,7 @@ public class Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker extends
 			q26gDataBean.setQ26gWorkerCompensationStayers(BigInteger.valueOf(workerscompIncomeAtAnnualAssesment));
 			
 			
-			String adultsIncomeQuery = " select dedup_client_id  from %s.incomeandsources i, %s.enrollment e,%s.client c where  e.client_id = c.id and i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+ 
+			String adultsIncomeQuery = " select e.dedup_client_id  from %s.incomeandsources i, %s.enrollment e,%s.client c where  e.client_id = c.id and i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+ 
 					" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate order by dedup_client_id ";
 			data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());
 			List<String> enrollmentsAtEnrty = getClients(data.getSchema(), adultsIncomeQuery,data);

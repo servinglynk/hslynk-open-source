@@ -2,8 +2,6 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,7 +34,7 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		try {
 		String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
+		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources i, %s.enrollment e,%s.project p where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid  and e.projectid = p.id %p "+
 		" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 ";
 
 				
@@ -145,13 +143,13 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
 			data.setQueryDataCollectionStage(datacollectionStage);
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
+			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
 			
 		 while(resultSet.next()) {
-			 float totalIncome = resultSet.getFloat(1)+resultSet.getFloat(2)+resultSet.getFloat(3)+resultSet.getFloat(4)+resultSet.getFloat(5)+resultSet.getFloat(6)+resultSet.getFloat(7)+
-			 resultSet.getFloat(8)+resultSet.getFloat(9)+resultSet.getFloat(10)+resultSet.getFloat(11)+resultSet.getFloat(12)+resultSet.getFloat(13)+resultSet.getFloat(14)+resultSet.getFloat(15);
+			 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
+			 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
 			 BigInteger totIncome = new BigInteger(String.valueOf(totalIncome));
-			 float earned = resultSet.getFloat(3);
+			 int earned = getFloatValue(resultSet,3);
 			 String earnedIncome = String.valueOf(earned);
 			 BigInteger earnedIncomeBigInt = new BigInteger(earnedIncome);
 			 String dedupClientId = (String) resultSet.getObject(16);
@@ -188,13 +186,13 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
 			data.setQueryDataCollectionStage(datacollectionStage);
-			resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
+			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),data.getSchema(),data));
 			
 		 while(resultSet.next()) {
-			 float totalIncome = resultSet.getFloat(1)+resultSet.getFloat(2)+resultSet.getFloat(3)+resultSet.getFloat(4)+resultSet.getFloat(5)+resultSet.getFloat(6)+resultSet.getFloat(7)+
-			 resultSet.getFloat(8)+resultSet.getFloat(9)+resultSet.getFloat(10)+resultSet.getFloat(11)+resultSet.getFloat(12)+resultSet.getFloat(13)+resultSet.getFloat(14)+resultSet.getFloat(15);
+			 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
+			 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
 			 BigInteger totIncome = new BigInteger(String.valueOf(totalIncome));
-			 float earned = resultSet.getFloat(3);
+			 int earned = getFloatValue(resultSet,3);
 			 String earnedIncome = String.valueOf(earned);
 			 BigInteger earnedIncomeBigInt = new BigInteger(earnedIncome);
 			 String dedupClientId = (String) resultSet.getObject(16);
@@ -221,7 +219,6 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		}
 		return incomes;
 	}
-	
 	public static int getIncomeCnt(String schema,String query,String datacollectionStage,ReportData data) {
 		ResultSet resultSet = null;
 		Statement statement = null;
@@ -231,7 +228,7 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
 			data.setQueryDataCollectionStage(datacollectionStage);
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
+			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
 			
 		 while(resultSet.next()) {
 			 count = resultSet.getInt(1);
