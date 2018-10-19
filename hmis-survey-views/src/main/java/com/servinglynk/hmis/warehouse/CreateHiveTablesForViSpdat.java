@@ -108,7 +108,7 @@ public class CreateHiveTablesForViSpdat {
 		 List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
 			for(String projectGroup : allProjectGroupCodes) {
 				hmisCESTables.createTable("CESTables.sql",projectGroup);
-				hmisCESTables.createTable("HiveSQLCreateTable.sql",projectGroup);
+				hmisCESTables.createTable("HiveHmis.sql",projectGroup);
 				createViSpdatViews(projectGroup);
 			}
 	}
@@ -123,7 +123,7 @@ public class CreateHiveTablesForViSpdat {
 				 builder.append("(submission_id string,client_id string,survey_date  timestamp ");
 				 List<String> disinctQuestions = getDisinctQuestions("survey", survey.getSurveyId());
 				 for(String questionId : disinctQuestions) {
-					 if(StringUtils.isNotBlank(questionId)) {
+					 if(StringUtils.isNotBlank(questionId) && !StringUtils.equals("null", questionId)) {
 						  String displayText = getQuestionDisplayTextByQuestionID("survey", UUID.fromString(questionId));
 							if(StringUtils.isNotBlank(displayText)) {
 								String columnName = displayText;

@@ -30,12 +30,13 @@ public class CreateCESTables  extends Logging {
 		 props.generatePropValues();
 		CreateCESTables cesTables = new CreateCESTables();
 	//	List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
-		String projectGroup ="SR0012";
-		cesTables.createTable("desc.sql",projectGroup);
+		String projectGroup ="MO0010";
+	//	cesTables.createTable("desc.sql",projectGroup);
 		//for(String projectGroup : allProjectGroupCodes) {
-//			cesTables.createTable("CESTables.sql",projectGroup);
+	//		cesTables.createTable("DropHmis.sql",projectGroup);
+			cesTables.createTable("CESTables.sql",projectGroup);
 //			cesTables.createHiveTables("v2017", projectGroup,true);
-//			cesTables.createTable("HiveSQLCreateTable.sql",projectGroup);
+			cesTables.createTable("HiveHmis.sql",projectGroup);
 	}
 	
 	 public void createHiveTables(String schema,String projectGroupCode,boolean hmisschema) {
@@ -105,10 +106,12 @@ public class CreateCESTables  extends Logging {
 
 				while (scanner.hasNextLine()) {
 					String line = scanner.nextLine();
-					String sql = line.replaceAll("ZPK0005",projectGroupCode);
-					sql = sql.replaceAll(";","");
-					
-					createHiveTable(sql);
+					if(StringUtils.isNotBlank(line) && !StringUtils.contains(line,"#")) {
+						String sql = line.replaceAll("ZPK0005","MO0010");
+						sql = sql.replaceAll("ZPK0005_NEW","MO0010_NEW");
+						sql = sql.replaceAll(";","");
+						createHiveTable(sql);
+					}
 				}
 
 				scanner.close();
@@ -220,10 +223,10 @@ public class CreateCESTables  extends Logging {
 			Statement stmt = connection.createStatement();
 			// execute statement
 			System.out.println(" Create Query::"+ sql);
-			ResultSet resultSet = stmt.executeQuery(sql);
-			while(resultSet.next()) {
-				System.out.println(resultSet.getString(1)+","+ resultSet.getString(2)+","+resultSet.getString(3));
-			}
+			stmt.execute(sql);
+//			while(resultSet.next()) {
+//				System.out.println(resultSet.getString(1)+","+ resultSet.getString(2)+","+resultSet.getString(3));
+//			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
