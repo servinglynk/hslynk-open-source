@@ -88,6 +88,7 @@ public class ClientsController extends ControllerBase {
 		serviceFactory.getClientService().createClient(client, session.getAccount().getUsername());
 		Client returnClient = new Client();
 		returnClient.setClientId(client.getClientId());
+		returnClient.setDedupClientId(client.getDedupClientId());
 		return returnClient;
 	}
 
