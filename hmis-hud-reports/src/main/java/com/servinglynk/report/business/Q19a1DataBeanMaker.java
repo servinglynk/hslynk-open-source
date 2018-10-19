@@ -46,12 +46,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 					
 					List<IncomeSourceModel> incomes = getIncome(data.getSchema(), query+builder.toString(), data);
 					if(CollectionUtils.isNotEmpty(incomes)){
-						List<IncomeSourceModel> earnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && income.getEarnedIncome() != null && income.getEarnedIncome().floatValue() >0).collect(Collectors.toList());
-						for(IncomeSourceModel income : earnedIncomeAtEntry) {
-							
-						}
-						List<IncomeSourceModel> earnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
-						
+			
 						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(BigInteger.valueOf(0));
 						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(0));
 						q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(0));
