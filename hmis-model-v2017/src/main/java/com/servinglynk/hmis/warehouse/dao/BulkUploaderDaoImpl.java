@@ -3,14 +3,20 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.UnmarshalException;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Appender;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -157,7 +163,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 		
 			if(StringUtils.equalsIgnoreCase("pcoc", upload.getDescription()) || domain.isReloadAll()) {
-				Map<String, HmisBaseModel> cocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
+				Map<String, HmisBaseModel> cocModelMap = getCocModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
 				parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
 				parentDaoFactory.getGeographyDao().hydrateStaging(domain, exportModelMap, cocModelMap);
 		    }
@@ -294,7 +300,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 		
 			if(StringUtils.equalsIgnoreCase("pcoc", upload.getDescription()) || domain.isReloadAll()) {
-				Map<String, HmisBaseModel> cocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
+				Map<String, HmisBaseModel> cocModelMap = getCocModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
 				parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
 				parentDaoFactory.getGeographyDao().hydrateStaging(domain, exportModelMap, cocModelMap);
 		    }
@@ -372,6 +378,32 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		} catch (Exception ex) {
 			logger.error(ex);
 		}
+	}
+	
+	/***
+	 * Get Models by source system id and project group code.
+	 * @param className
+	 * @param projectGroupCode
+	 * @return
+	 */
+	protected Map<String,HmisBaseModel> getCocModelMap(Class className ,String projectGroupCode) {
+		Map<String,HmisBaseModel> resultsMap = new HashMap<String, HmisBaseModel>();
+		if(projectGroupCode !=null) {
+			Criteria criteria = getCurrentSession().createCriteria(className);
+			criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode.trim()));
+			criteria.add(Restrictions.eq("deleted",false));
+			criteria.addOrder( Order.desc("dateCreated") );
+			@SuppressWarnings("unchecked")
+			List<HmisBaseModel> models = (List<HmisBaseModel>) criteria.list() ;
+			if(CollectionUtils.isNotEmpty(models)) {
+				 for(HmisBaseModel model : models ){
+					 Coc coc = (Coc) model;
+					 if(StringUtils.isNotBlank(coc.getCoccode()))
+						 resultsMap.put(coc.getCoccode(), model);
+				 }
+			}
+		}
+		return resultsMap;
 	}
 	
 	@Override

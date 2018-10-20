@@ -120,11 +120,13 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
+				hydrateCommonFields(modelFromDB, domain,healthinsurance.getHealthInsuranceID(),data);
 				return modelFromDB;
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+			hydrateCommonFields(modelFromDB, domain,healthinsurance.getHealthInsuranceID(),data);
 			return modelFromDB;
 		}
 		
