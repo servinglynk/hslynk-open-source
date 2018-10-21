@@ -17,6 +17,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,6 @@ import com.servinglynk.report.model.DisabilitiesModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
-import com.servinglynk.report.model.IncomeSourceModel;
 import com.servinglynk.report.model.ProjectModel;
 import com.servinglynk.report.model.Q22BeanModel;
 
@@ -78,6 +78,13 @@ public class BaseBeanMaker {
 	public static int getSize(List list) {
 		if(CollectionUtils.isNotEmpty(list)) {
 			return list.size();
+		}
+		return 0;
+	}
+	
+	public static int getSize(Collection collection) {
+		if(CollectionUtils.isNotEmpty(collection)) {
+			return collection.size();
 		}
 		return 0;
 	}
