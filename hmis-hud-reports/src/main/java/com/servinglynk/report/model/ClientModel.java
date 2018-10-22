@@ -16,7 +16,7 @@ public class ClientModel extends BaseModel{
 			String client_source_system_id, int age) {
 		super();
 		PersonalID = personalID;
-		this.dedup_client_id = dedup_client_id;
+		this.dedupClientId = dedup_client_id;
 		this.name_data_quality = name_data_quality;
 		this.name_data_quality_desc = name_data_quality_desc;
 		this.ssn_data_quality = ssn_data_quality;
@@ -37,7 +37,7 @@ public class ClientModel extends BaseModel{
 	}
 	private int age =0;
 	private String PersonalID;
-	private String dedup_client_id;
+	private String dedupClientId;
 	private String name_data_quality;
 	private String name_data_quality_desc; 
 	private String ssn_data_quality;
@@ -69,14 +69,14 @@ public class ClientModel extends BaseModel{
 	/**
 	 * @return the dedup_client_id
 	 */
-	public String getDedup_client_id() {
-		return dedup_client_id;
+	public String getDedupClientId() {
+		return dedupClientId;
 	}
 	/**
 	 * @param dedup_client_id the dedup_client_id to set
 	 */
-	public void setDedup_client_id(String dedup_client_id) {
-		this.dedup_client_id = dedup_client_id;
+	public void setDedupClientId(String dedup_client_id) {
+		this.dedupClientId = dedup_client_id;
 	}
 	/**
 	 * @return the name_data_quality

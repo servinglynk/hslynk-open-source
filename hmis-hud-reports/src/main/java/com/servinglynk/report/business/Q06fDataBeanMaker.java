@@ -24,7 +24,7 @@ public class Q06fDataBeanMaker extends BaseBeanMaker {
 			List<String> clientIds = new ArrayList<String>();
 			List<String> enrollmentIds = new ArrayList<String>();
 			enrollments.parallelStream().forEach(enrollment -> {
-				clientIds.add(enrollment.getPersonalID());
+				clientIds.add(enrollment.getDedupClientId());
 				enrollmentIds.add(enrollment.getProjectEntryID());
 			});
 

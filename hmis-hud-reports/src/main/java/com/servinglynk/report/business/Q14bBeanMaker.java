@@ -34,7 +34,7 @@ public class Q14bBeanMaker extends BaseBeanMaker {
 		BigInteger withOneAdultChildSize = BigInteger.ZERO;
 		BigInteger unknownHouseHoldSize = BigInteger.ZERO;
 		
-		List<String> domesticViolenceByVictimYes = getDomesticViolenceByVictim(data.getSchema(), "1");
+		List<String> domesticViolenceByVictimYes = getDomesticViolenceByVictim(data.getSchema(), "1",data);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimYes)) {
 			q14bBean.setQ14bYesTotal(BigInteger.valueOf(domesticViolenceByVictimYes.size()));
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimYes.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -57,7 +57,7 @@ public class Q14bBeanMaker extends BaseBeanMaker {
 			q14bBean.setQ14bYesUnknownHouseholdType(BigInteger.valueOf(unknownHouseHoldIntSize));
 		}
 	
-		List<String> domesticViolenceByVictimNo = getDomesticViolenceByVictim(data.getSchema(), "0");
+		List<String> domesticViolenceByVictimNo = getDomesticViolenceByVictim(data.getSchema(), "0",data);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimNo)) {
 		
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimNo.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -72,7 +72,7 @@ public class Q14bBeanMaker extends BaseBeanMaker {
 			q14bBean.setQ14bNoUnknownHouseholdType(BigInteger.valueOf(unknownHouseHold !=null ?unknownHouseHold.size() :0));
 		}
 	
-		List<String> domesticViolenceByVictimDK = getDomesticViolenceByVictimDK(data.getSchema());
+		List<String> domesticViolenceByVictimDK = getDomesticViolenceByVictimDK(data.getSchema(),data);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimDK)) {
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimDK.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 			List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimDK.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -98,7 +98,7 @@ public class Q14bBeanMaker extends BaseBeanMaker {
 		
 		
 		
-		List<String> domesticViolenceByVictimMissing = getDomesticViolenceByVictim(data.getSchema(), "99");
+		List<String> domesticViolenceByVictimMissing = getDomesticViolenceByVictim(data.getSchema(), "99",data);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimMissing)) {
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimMissing.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 			List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimMissing.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());

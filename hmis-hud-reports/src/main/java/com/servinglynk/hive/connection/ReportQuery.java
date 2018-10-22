@@ -7,8 +7,8 @@ public static String GET_ALL_CLIENTS = " select c.id,c.dedup_client_id,name_data
 					  " dob_data_quality_desc,gender,gender_desc,ethnicity,ethnicity_desc,race,race_desc,veteran_status,c.source_system_id,c.age "+
 					 " from %s.client c,%s.enrollment e, %s.project p where e.client_id=c.id and e.projectid= p.id and entrydate >=:startDate and entrydate <= :endDate %p  order by c.dedup_client_id";
 public static String GET_ALL_CONTACTS = "select * from %s.contact";
-public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM = "select enrollmentid from %s.domesticviolence where domesticviolencevictim = ?";
-public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK = "select enrollmentid from %s.domesticviolence where domesticviolencevictim in ('8','9') ";
+public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM = "select e.id as enrollmentid from %s.domesticviolence d,%s.enrollment e where e.id =d.enrollmentid and domesticviolencevictim = ";
+public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK = "select e.id as enrollmentid  from  %s.domesticviolence d,%s.enrollment e where e.id =d.enrollmentid and domesticviolencevictim in ('8','9') ";
 public static String GET_ALL_DOE = "select * from %s.dateofengagement";
 public static String GET_ALL_ENROLLMENTS = "select * from %s.enrollment";
 public static String GET_ALL_EXITS = "select * from %s.exit";
@@ -21,10 +21,10 @@ public static String NAME_DATE_QUALITY_DNE_REFUSED ="select count(*) %s.from cli
 public static String NAME_DATE_QUALITY_DNC ="select count(*) from %s.client where name_data_quality in ('99')";
 public static String SSN_DATE_QUALITY_DNE_REFUSED ="select count(*) from %s.client where ssn_data_quality in ('8','9')";
 public static String SSN_DATE_QUALITY_DNC ="select count(*) from %s.client where ssn_data_quality in ('99')";
-public static String PROJECT_WITH_HOUSEHOLD_WITHOUT_CHILDREN ="select projectid,householdtype from %s.inventory where 	householdtype='1'";
-public static String PROJECT_WITH_HOUSEHOLD_WITH_ONE_ADULT_CHILD ="select projectid,householdtype from %s.inventory where 	householdtype='3'";
-public static String PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN ="select projectid,householdtype from %s.inventory where 	householdtype='4'";
-public static String PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN ="select projectid,householdtype from %s.inventory where 	householdtype is null";
+public static String PROJECT_WITH_HOUSEHOLD_WITHOUT_CHILDREN ="select i.projectid,householdtype from %s.inventory i,%s.project p  where 	householdtype='1'  and i.projectid =p.id %p ";
+public static String PROJECT_WITH_HOUSEHOLD_WITH_ONE_ADULT_CHILD ="select i.projectid,householdtype from %s.inventory i,%s.project p  where 	householdtype='3' and  i.projectid =p.id %p  ";
+public static String PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN ="select i.projectid,householdtype from %s.inventory i,%s.project p where 	householdtype='4' and i.projectid =p.id %p ";
+public static String PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN ="select i.projectid,householdtype from %s.inventory i,%s.project p  where 	householdtype is null  and i.projectid =p.id %p ";
 public static String REQUIRED_ANNUAL_ASSESMENT_QUERY= "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		 " socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount,  "+
 		 " vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource from %s.incomeandsources i, %s.enrollment e, %s.project p where e.id=i.enrollmentid  "+

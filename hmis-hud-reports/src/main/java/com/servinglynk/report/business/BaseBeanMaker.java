@@ -106,14 +106,14 @@ public class BaseBeanMaker {
 		 return LocalDate.of(year, month, 1).with(lastDayOfMonth()).with(previousOrSame(DayOfWeek.WEDNESDAY));
 	  }
 	
-	public static List<String> getProjectsForHouseHoldType(String schema,String query) {
+	public static List<String> getProjectsForHouseHoldType(String schema,String query,ReportData data) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
 		List<String>  models = new ArrayList<String>();
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,schema));
+			statement = connection.prepareStatement(formatQuery(query, schema, data));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
 			 models.add(resultSet.getString(1));
@@ -171,7 +171,21 @@ public class BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(query, schema, data));
+			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			List<EnrollmentModel> enrollments = data.getActiveClients();
+			 if(CollectionUtils.isNotEmpty(enrollments)) {
+				 int count = 0;
+				 for(EnrollmentModel enrollment : enrollments) {
+					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 if(count != enrollments.size()) {
+						 builder.append(",");
+					 }
+				 }
+			 }
+			 builder.deleteCharAt(builder.length() -1);
+			 builder.append(" ) ");
+			String newQuery = query + builder.toString();
+			resultSet = statement.executeQuery(formatQuery(newQuery, schema, data));
 		 while(resultSet.next()) {
 			 models.add(resultSet.getString(1));
 		 }
@@ -200,7 +214,21 @@ public class BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(query, schema, data));
+			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			List<EnrollmentModel> enrollments = data.getActiveClients();
+			 if(CollectionUtils.isNotEmpty(enrollments)) {
+				 int count = 0;
+				 for(EnrollmentModel enrollment : enrollments) {
+					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 if(count != enrollments.size()) {
+						 builder.append(",");
+					 }
+				 }
+			 }
+			 builder.deleteCharAt(builder.length() -1);
+			 builder.append(" ) group by enrollmentid ");
+			String newQuery = query + builder.toString();
+			resultSet = statement.executeQuery(formatQuery(newQuery, schema, data));
 		 while(resultSet.next()) {
 			 models.add(new DisabilitiesModel(resultSet.getString(1),resultSet.getInt(2)));
 		 }
@@ -228,7 +256,21 @@ public class BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
+			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			List<EnrollmentModel> enrollments = data.getActiveClients();
+			 if(CollectionUtils.isNotEmpty(enrollments)) {
+				 int count = 0;
+				 for(EnrollmentModel enrollment : enrollments) {
+					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 if(count != enrollments.size()) {
+						 builder.append(",");
+					 }
+				 }
+			 }
+			 builder.deleteCharAt(builder.length() -1);
+			 builder.append(" )  group by enrollmentid ");
+			String newQuery = query + builder.toString();
+			resultSet = statement.executeQuery(formatQuery(newQuery,schema,data));
 		 while(resultSet.next()) {
 			 models.add(new DisabilitiesModel(resultSet.getString(1),resultSet.getInt(2)));
 		 }
@@ -256,7 +298,21 @@ public class BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
+			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			List<EnrollmentModel> enrollments = data.getActiveClients();
+			 if(CollectionUtils.isNotEmpty(enrollments)) {
+				 int count = 0;
+				 for(EnrollmentModel enrollment : enrollments) {
+					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 if(count != enrollments.size()) {
+						 builder.append(",");
+					 }
+				 }
+			 }
+			 builder.deleteCharAt(builder.length() -1);
+			 builder.append(" ) ");
+			String newQuery = query + builder.toString();
+			resultSet = statement.executeQuery(formatQuery(newQuery,schema,data));
 		 while(resultSet.next()) {
 			 models.add(resultSet.getString(1));
 		 }
@@ -277,15 +333,28 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
-	public static List<String> getDomesticViolenceByVictim(final String schema,final String victim) {
+	public static List<String> getDomesticViolenceByVictim(final String schema,final String victim,ReportData data) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
 		List<String>  models = new ArrayList<String>();
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM,schema));
-			statement.setString(1, victim);
+			StringBuilder builder = new StringBuilder( " and e.id in  ( ");
+			List<EnrollmentModel> enrollments = data.getActiveClients();
+			 if(CollectionUtils.isNotEmpty(enrollments)) {
+				 int count = 0;
+				 for(EnrollmentModel enrollment : enrollments) {
+					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 if(count != enrollments.size()) {
+						 builder.append(",");
+					 }
+				 }
+			 }
+			 builder.deleteCharAt(builder.length() -1);
+			 builder.append(" ) ");
+			 String newQuery = ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM +"'"+victim+"'"+ builder.toString();
+			statement = connection.prepareStatement(formatQuery(newQuery,schema,data));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
 			 models.add(resultSet.getString("enrollmentid"));
@@ -307,14 +376,28 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
-	public static List<String> getDomesticViolenceByVictimDK(final String schema) {
+	public static List<String> getDomesticViolenceByVictimDK(final String schema,ReportData data) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
 		List<String>  models = new ArrayList<String>();
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK,schema));
+			StringBuilder builder = new StringBuilder( " and e.id in  ( ");
+			List<EnrollmentModel> enrollments = data.getActiveClients();
+			 if(CollectionUtils.isNotEmpty(enrollments)) {
+				 int count = 0;
+				 for(EnrollmentModel enrollment : enrollments) {
+					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 if(count != enrollments.size()) {
+						 builder.append(",");
+					 }
+				 }
+			 }
+			 builder.deleteCharAt(builder.length() -1);
+			 builder.append(" ) ");
+			 String newQuery = ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK + builder.toString();
+			statement = connection.prepareStatement(formatQuery(newQuery,schema,data));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
 			 models.add(resultSet.getString("enrollmentid"));

@@ -31,7 +31,7 @@ public class Q12bBeanMaker extends BaseBeanMaker {
 		List<ClientModel> nonHispanicNonLatino = clients.parallelStream().filter(client -> StringUtils.equals("0", client.getEthnicity())).collect(Collectors.toList());
 		List<ClientModel> hispanicLatino = clients.parallelStream().filter(client -> StringUtils.equals("1", client.getEthnicity())).collect(Collectors.toList());
 		List<ClientModel> clientDKCR = clients.parallelStream().filter(client -> StringUtils.equals("8", client.getEthnicity()) || StringUtils.equals("9", client.getEthnicity())).collect(Collectors.toList());
-		List<ClientModel> clientDNC = clients.parallelStream().filter(client -> StringUtils.equals("99", client.getEthnicity())).collect(Collectors.toList());
+		List<ClientModel> clientDNC = clients.parallelStream().filter(client -> StringUtils.equals("99", client.getEthnicity()) || StringUtils.isBlank(client.getEthnicity())).collect(Collectors.toList());
 		
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
@@ -41,21 +41,21 @@ public class Q12bBeanMaker extends BaseBeanMaker {
 		if(CollectionUtils.isNotEmpty(nonHispanicNonLatino)) {
 			
 			List<String> filteredClients = new ArrayList<>();
-			nonHispanicNonLatino.parallelStream().forEach(client-> { filteredClients.add(client.getPersonalID()); });
-			List<EnrollmentModel> clientWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientWOnlyC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			nonHispanicNonLatino.parallelStream().forEach(client-> { filteredClients.add(client.getDedupClientId()); });
+			List<EnrollmentModel> clientWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientWOnlyC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 			int clientWOCSize = clientWOC != null ? clientWOC.size() : 0;
 			int clientWCASize = clientWCA != null ? clientWCA.size() : 0;
 			int clientUHHTSize = clientUHHT != null ? clientUHHT.size() : 0;
 			int clientWOnlyCSize = clientWOnlyC != null ? clientWOnlyC.size() : 0;
 		
-	    	totalUHHT.add(BigInteger.valueOf(clientUHHTSize));
-    		totalWCA.add(BigInteger.valueOf(clientWCASize));
-    		totalWithOnlyChild.add(BigInteger.valueOf(clientWOnlyCSize));
-    		totalWOC.add(BigInteger.valueOf(clientWOCSize));
-    		totOverallTotal.add(BigInteger.valueOf(nonHispanicNonLatino.size()));
+	    	totalUHHT=totalUHHT.add(BigInteger.valueOf(clientUHHTSize));
+    		totalWCA=totalWCA.add(BigInteger.valueOf(clientWCASize));
+    		totalWithOnlyChild=totalWithOnlyChild.add(BigInteger.valueOf(clientWOnlyCSize));
+    		totalWOC=totalWOC.add(BigInteger.valueOf(clientWOCSize));
+    		totOverallTotal=totOverallTotal.add(BigInteger.valueOf(nonHispanicNonLatino.size()));
     		
 			q12bEthnicityDataBean.setQ12bNonHispanicTotal(BigInteger.valueOf(nonHispanicNonLatino.size()));
 			q12bEthnicityDataBean.setQ12bNonHispanicWithoutChildren(BigInteger.valueOf(clientWOCSize));
@@ -66,21 +66,21 @@ public class Q12bBeanMaker extends BaseBeanMaker {
 		
 		if(CollectionUtils.isNotEmpty(hispanicLatino)) {
 			List<String> filteredClients = new ArrayList<>();
-			hispanicLatino.parallelStream().forEach(client-> { filteredClients.add(client.getPersonalID()); });
-			List<EnrollmentModel> clientWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientWOnlyC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			hispanicLatino.parallelStream().forEach(client-> { filteredClients.add(client.getDedupClientId()); });
+			List<EnrollmentModel> clientWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientWOnlyC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 			int clientWOCSize = clientWOC != null ? clientWOC.size() : 0;
 			int clientWCASize = clientWCA != null ? clientWCA.size() : 0;
 			int clientUHHTSize = clientUHHT != null ? clientUHHT.size() : 0;
 			int clientWOnlyCSize = clientWOnlyC != null ? clientWOnlyC.size() : 0;
 		
-	    	totalUHHT.add(BigInteger.valueOf(clientUHHTSize));
-    		totalWCA.add(BigInteger.valueOf(clientWCASize));
-    		totalWithOnlyChild.add(BigInteger.valueOf(clientWOnlyCSize));
-    		totalWOC.add(BigInteger.valueOf(clientWOCSize));
-    		totOverallTotal.add(BigInteger.valueOf(hispanicLatino.size()));
+	    	totalUHHT=totalUHHT.add(BigInteger.valueOf(clientUHHTSize));
+    		totalWCA=totalWCA.add(BigInteger.valueOf(clientWCASize));
+    		totalWithOnlyChild=totalWithOnlyChild.add(BigInteger.valueOf(clientWOnlyCSize));
+    		totalWOC=totalWOC.add(BigInteger.valueOf(clientWOCSize));
+    		totOverallTotal=totOverallTotal.add(BigInteger.valueOf(hispanicLatino.size()));
     		
     		
 			q12bEthnicityDataBean.setQ12bHispanicTotal(BigInteger.valueOf(hispanicLatino.size()));
@@ -93,21 +93,21 @@ public class Q12bBeanMaker extends BaseBeanMaker {
 		if(CollectionUtils.isNotEmpty(clientDKCR)) {
 			
 			List<String> filteredClients = new ArrayList<>();
-			clientDKCR.parallelStream().forEach(client-> { filteredClients.add(client.getPersonalID()); });
-			List<EnrollmentModel> clientWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientWOnlyC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			clientDKCR.parallelStream().forEach(client-> { filteredClients.add(client.getDedupClientId()); });
+			List<EnrollmentModel> clientWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientWOnlyC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 			int clientWOCSize = clientWOC != null ? clientWOC.size() : 0;
 			int clientWCASize = clientWCA != null ? clientWCA.size() : 0;
 			int clientUHHTSize = clientUHHT != null ? clientUHHT.size() : 0;
 			int clientWOnlyCSize = clientWOnlyC != null ? clientWOnlyC.size() : 0;
 		
-	    	totalUHHT.add(BigInteger.valueOf(clientUHHTSize));
-    		totalWCA.add(BigInteger.valueOf(clientWCASize));
-    		totalWithOnlyChild.add(BigInteger.valueOf(clientWOnlyCSize));
-    		totalWOC.add(BigInteger.valueOf(clientWOCSize));
-    		totOverallTotal.add(BigInteger.valueOf(clientDKCR.size()));
+	    	totalUHHT=totalUHHT.add(BigInteger.valueOf(clientUHHTSize));
+    		totalWCA=totalWCA.add(BigInteger.valueOf(clientWCASize));
+    		totalWithOnlyChild=totalWithOnlyChild.add(BigInteger.valueOf(clientWOnlyCSize));
+    		totalWOC=totalWOC.add(BigInteger.valueOf(clientWOCSize));
+    		totOverallTotal=totOverallTotal.add(BigInteger.valueOf(clientDKCR.size()));
     		
 			q12bEthnicityDataBean.setQ12bDontKnowRacesTotal(BigInteger.valueOf(clientDKCR.size()));
 			q12bEthnicityDataBean.setQ12bDontKnowRacesWithoutChildren(BigInteger.valueOf(clientWOCSize));
@@ -119,21 +119,21 @@ public class Q12bBeanMaker extends BaseBeanMaker {
 		if(CollectionUtils.isNotEmpty(clientDNC)) {
 			
 			List<String> filteredClients = new ArrayList<>();
-			clientDNC.parallelStream().forEach(client-> { filteredClients.add(client.getPersonalID()); });
-			List<EnrollmentModel> clientWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> clientWOnlyC = enrollments.parallelStream().filter(enrollment-> enrollment.getPersonalID() != null && filteredClients.contains(enrollment.getPersonalID())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			clientDNC.parallelStream().forEach(client-> { filteredClients.add(client.getDedupClientId()); });
+			List<EnrollmentModel> clientWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> clientWOnlyC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && filteredClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 			int clientWOCSize = clientWOC != null ? clientWOC.size() : 0;
 			int clientWCASize = clientWCA != null ? clientWCA.size() : 0;
 			int clientUHHTSize = clientUHHT != null ? clientUHHT.size() : 0;
 			int clientWOnlyCSize = clientWOnlyC != null ? clientWOnlyC.size() : 0;
 		
-	    	totalUHHT.add(BigInteger.valueOf(clientUHHTSize));
-    		totalWCA.add(BigInteger.valueOf(clientWCASize));
-    		totalWithOnlyChild.add(BigInteger.valueOf(clientWOnlyCSize));
-    		totalWOC.add(BigInteger.valueOf(clientWOCSize));
-    		totOverallTotal.add(BigInteger.valueOf(clientDNC.size()));
+	    	totalUHHT=totalUHHT.add(BigInteger.valueOf(clientUHHTSize));
+    		totalWCA=totalWCA.add(BigInteger.valueOf(clientWCASize));
+    		totalWithOnlyChild=totalWithOnlyChild.add(BigInteger.valueOf(clientWOnlyCSize));
+    		totalWOC=totalWOC.add(BigInteger.valueOf(clientWOCSize));
+    		totOverallTotal=totOverallTotal.add(BigInteger.valueOf(clientDNC.size()));
 			q12bEthnicityDataBean.setQ12bInformationMissingTotal(BigInteger.valueOf(clientDNC.size()));
 			q12bEthnicityDataBean.setQ12bInformationMissingWithoutChildren(BigInteger.valueOf(clientWOCSize));
 			q12bEthnicityDataBean.setQ12bInformationMissingWithChildrenAndAdults(BigInteger.valueOf(clientWCASize));

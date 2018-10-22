@@ -18,14 +18,11 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 		Q08aDataBean q08aDataBean = new Q08aDataBean();
 		if(data.isLiveMode()) {
 		try {
-			List<String> projectsHHWithChildren = getProjectsForHouseHoldType(data.getSchema(),
-					ReportQuery.PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN);
-			List<String> projectsHHWithOneAdultChild = getProjectsForHouseHoldType(data.getSchema(),
-					ReportQuery.PROJECT_WITH_HOUSEHOLD_WITH_ONE_ADULT_CHILD);
-			List<String> projectsHHWithOutChildren = getProjectsForHouseHoldType(data.getSchema(),
-					ReportQuery.PROJECT_WITH_HOUSEHOLD_WITHOUT_CHILDREN);
-			List<String> projectsUnknownHouseHold = getProjectsForHouseHoldType(data.getSchema(),
-					ReportQuery.PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN);
+		
+			List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
+			List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
+			List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
+			List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 
 			List<ClientModel> clients = data.getClients();
 			List<EnrollmentModel> enrollments = data.getEnrollments();
@@ -34,20 +31,20 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 					.collect(Collectors.toList());
 			List<String> clientIds = new ArrayList<String>();
 			enrollmentsHHWithChildren.parallelStream().forEach(enrollment -> {
-				clientIds.add(enrollment.getPersonalID());
+				clientIds.add(enrollment.getDedupClientId());
 			});
 			List<ClientModel> clientsWithOnlyChildren = clients.parallelStream()
-					.filter(adult -> clientIds.contains(adult.getPersonalID())).collect(Collectors.toList());
+					.filter(adult -> clientIds.contains(adult.getDedupClientId())).collect(Collectors.toList());
 
 			List<EnrollmentModel> enrollmentsHHWithOneAdultChild = enrollments.parallelStream()
 					.filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID()))
 					.collect(Collectors.toList());
 			List<String> clientsHHWithOneAdultChild = new ArrayList<String>();
 			enrollmentsHHWithOneAdultChild.parallelStream().forEach(enrollment -> {
-				clientsHHWithOneAdultChild.add(enrollment.getPersonalID());
+				clientsHHWithOneAdultChild.add(enrollment.getDedupClientId());
 			});
 			List<ClientModel> clientWithOneAdultChild = clients.parallelStream()
-					.filter(adult -> clientsHHWithOneAdultChild.contains(adult.getPersonalID()))
+					.filter(adult -> clientsHHWithOneAdultChild.contains(adult.getDedupClientId()))
 					.collect(Collectors.toList());
 
 			List<EnrollmentModel> enrollmentsHHWithOutChildren = enrollments.parallelStream()
@@ -55,10 +52,10 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 					.collect(Collectors.toList());
 			List<String> clientsHHWithOutChildren = new ArrayList<String>();
 			enrollmentsHHWithOutChildren.parallelStream().forEach(enrollment -> {
-				clientsHHWithOutChildren.add(enrollment.getPersonalID());
+				clientsHHWithOutChildren.add(enrollment.getDedupClientId());
 			});
 			List<ClientModel> clientsWithOutChildren = clients.parallelStream()
-					.filter(adult -> clientsHHWithOutChildren.contains(adult.getPersonalID()))
+					.filter(adult -> clientsHHWithOutChildren.contains(adult.getDedupClientId()))
 					.collect(Collectors.toList());
 
 			List<EnrollmentModel> enrollmentsUnknownHouseHold = enrollments.parallelStream()
@@ -66,10 +63,10 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 					.collect(Collectors.toList());
 			List<String> clientsUnknownHouseHold = new ArrayList<String>();
 			enrollmentsUnknownHouseHold.parallelStream().forEach(enrollment -> {
-				clientsUnknownHouseHold.add(enrollment.getPersonalID());
+				clientsUnknownHouseHold.add(enrollment.getDedupClientId());
 			});
 			List<ClientModel> clientsUnknownHHType = clients.parallelStream()
-					.filter(adult -> clientsUnknownHouseHold.contains(adult.getPersonalID()))
+					.filter(adult -> clientsUnknownHouseHold.contains(adult.getDedupClientId()))
 					.collect(Collectors.toList());
 
 			q08aDataBean.setOverAllTotHouseHolds(BigInteger.valueOf(clients != null ? clients.size() : 0));

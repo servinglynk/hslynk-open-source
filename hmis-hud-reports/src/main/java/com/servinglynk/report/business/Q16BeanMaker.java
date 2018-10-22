@@ -10,11 +10,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q16CashIncomeRangesDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
+import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q16BeanMaker extends BaseBeanMaker {
 	
@@ -183,7 +186,21 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
+			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			List<EnrollmentModel> enrollments = data.getActiveClients();
+			 if(CollectionUtils.isNotEmpty(enrollments)) {
+				 int count = 0;
+				 for(EnrollmentModel enrollment : enrollments) {
+					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 if(count != enrollments.size()) {
+						 builder.append(",");
+					 }
+				 }
+			 }
+			 builder.deleteCharAt(builder.length() -1);
+			 builder.append(" ) ");
+			String newQuery = query + builder.toString();
+			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, newQuery),schema,data));
 		 while(resultSet.next()) {
 			 int total = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
 			 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
@@ -213,9 +230,22 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		int count =0;
 		try {
 			connection = ImpalaConnection.getConnection();
-			
+			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			List<EnrollmentModel> enrollments = data.getActiveClients();
+			 if(CollectionUtils.isNotEmpty(enrollments)) {
+				 int index = 0;
+				 for(EnrollmentModel enrollment : enrollments) {
+					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 if(index != enrollments.size()) {
+						 builder.append(",");
+					 }
+				 }
+			 }
+			 builder.deleteCharAt(builder.length() -1);
+			 builder.append(" ) ");
+			String newQuery = query + builder.toString();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
+			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, newQuery),schema,data));
 			
 		 while(resultSet.next()) {
 			 count = resultSet.getInt(1);
@@ -243,7 +273,6 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		Connection connection = null;
 		int count =0;
 		try {
-			connection = ImpalaConnection.getConnection();
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));

@@ -49,16 +49,22 @@ public class Reporter {
 			projects.add("c31f3f53-0b9f-480e-8da8-ffe8c7b931ed");
 			projects.add("e6ccebeb-2b03-47aa-96dc-e63b9d2c4fc1");
 			
+			ClassLoader classLoader = Reporter.class.getClassLoader();
+			File file = new File(classLoader.getResource("Q12a.jrxml").getFile());
+			InputStream inputStream = new FileInputStream(file);
+		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+		    String jasperReport = JasperCompileManager.compileReportToFile("/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/src/main/csvresources/Q12a.jrxml");
+		    
         	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("sr0012",null,sageReport, new Date(), new Date(),projects);
         	if(!sageReport) {
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
                 Map parameters = new HashMap();
-            	ClassLoader classLoader = Reporter.class.getClassLoader();
-    			File file = new File(classLoader.getResource("pdfGenerator.jrxml").getFile());
-    			InputStream inputStream = new FileInputStream(file);
-    		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-    		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-    		 
+//            	ClassLoader classLoader = Reporter.class.getClassLoader();
+//    			File file = new File(classLoader.getResource("pdfGenerator.jrxml").getFile());
+//    			InputStream inputStream = new FileInputStream(file);
+//    		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+//    		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+//    		 
     		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
     		    JasperExportManager.exportReportToPdfFile(jasperPrint, "HMISREPORT_testing.pdf"); 
         	}

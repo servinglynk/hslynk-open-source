@@ -19,7 +19,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 		Q13a2NumberOfConditionsAtEntryDataBean q13a2Bean = new Q13a2NumberOfConditionsAtEntryDataBean();
 		if(data.isLiveMode()) {
 		try{
-		String query ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage='1' and information_date >= :startDate and information_date <=:endDate and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) group by enrollmentid";
+		String query ="select enrollmentid,count(enrollmentid) as cnt from  %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and datacollectionstage='1' and information_date >= :startDate and information_date <=:endDate and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) ";
 		
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
@@ -116,7 +116,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 	    	q13a2Bean.setQ13a2Condition3PlusUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
 		}
 		
-		String noneQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage='1'  and information_date >= :startDate and information_date <=:endDate and disabilityresponse='0'  group by enrollmentid";
+		String noneQuery ="select enrollmentid,count(enrollmentid) as cnt from  %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and datacollectionstage='1'  and information_date >= :startDate and information_date <=:endDate and disabilityresponse='0' ";
 		List<DisabilitiesModel> disabilitiesNone = getEnrollmentFromDisabilitiesCount(data.getSchema(),data, noneQuery);
 		if(CollectionUtils.isNotEmpty(disabilitiesNone)) {
 			List<DisabilitiesModel> withChildren = disabilitiesNone.parallelStream().filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id())).collect(Collectors.toList());
@@ -143,7 +143,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 		}
 		
 		
-		String unknownQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage='1'  and information_date >= :startDate and information_date <=:endDate and ( disabilityresponse='8' or disabilityresponse='9')  group by enrollmentid";
+		String unknownQuery ="select enrollmentid,count(enrollmentid) as cnt from  %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and  datacollectionstage='1'  and information_date >= :startDate and information_date <=:endDate and ( disabilityresponse='8' or disabilityresponse='9')  ";
 		List<DisabilitiesModel> disabilitiesUnknown = getEnrollmentFromDisabilitiesCount(data.getSchema(),data, unknownQuery);
 		if(CollectionUtils.isNotEmpty(disabilitiesUnknown)) {
 			List<DisabilitiesModel> withChildren = disabilitiesNone.parallelStream().filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id())).collect(Collectors.toList());
@@ -170,7 +170,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 		}
 		
 		
-		String infoMissingQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage='1'  and information_date >= :startDate and information_date <=:endDate and disabilityresponse='99'  group by enrollmentid";
+		String infoMissingQuery ="select enrollmentid,count(enrollmentid) as cnt from  %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and  datacollectionstage='1'  and information_date >= :startDate and information_date <=:endDate and disabilityresponse='99' ";
 		List<DisabilitiesModel> disabilitiesMissing = getEnrollmentFromDisabilitiesCount(data.getSchema(), data ,infoMissingQuery);
 		if(CollectionUtils.isNotEmpty(disabilitiesMissing)) {
 			List<DisabilitiesModel> withChildren = disabilitiesMissing.parallelStream().filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id())).collect(Collectors.toList());

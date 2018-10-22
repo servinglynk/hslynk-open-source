@@ -30,6 +30,7 @@ public class ReportData {
 	private List<ExitModel> exits = new ArrayList<ExitModel>();
 	private List<EnrollmentModel> adultStayers = new ArrayList<>();
 	private List<EnrollmentModel> adultLeavers = new ArrayList<>();
+	private List<EnrollmentModel> activeClients = new ArrayList<>();
 	private List<ContactModel> contacts = new ArrayList<>();
 	private List<DateOfEngagementModel> dateOfEngagements = new ArrayList<>();
 	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
@@ -618,6 +619,18 @@ public class ReportData {
 	 */
 	public void setAdultLeavers(List<EnrollmentModel> adultLeavers) {
 		this.adultLeavers = adultLeavers;
+	}
+	/**
+	 * @return the activeClients
+	 */
+	public List<EnrollmentModel> getActiveClients() {
+		return activeClients;
+	}
+	/**
+	 * @param activeClients the activeClients to set
+	 */
+	public void setActiveClients(List<EnrollmentModel> activeClients) {
+		this.activeClients = activeClients;
 	}
 	/**
 	 * @return the numOfAdultStayersNotRequiredAnnualAssesment

@@ -34,7 +34,7 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 		BigInteger unknownHouseHoldSize = BigInteger.ZERO;
 		
 		
-		List<String> domesticViolenceByVictimYes = getDomesticViolenceByVictim(data.getSchema(), "1");
+		List<String> domesticViolenceByVictimYes = getDomesticViolenceByVictim(data.getSchema(), "1",data);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimYes)) {
 			q14aBean.setQ14aYesTotal(BigInteger.valueOf(domesticViolenceByVictimYes.size()));
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimYes.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -46,10 +46,10 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			withChildrenSize.add(BigInteger.valueOf(withChildrenIntSize));
-			withOutChildrenSize.add(BigInteger.valueOf(withOutChildrenIntSize));
-			withOneAdultChildSize.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			unknownHouseHoldSize.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			withChildrenSize=withChildrenSize.add(BigInteger.valueOf(withChildrenIntSize));
+			withOutChildrenSize=withOutChildrenSize.add(BigInteger.valueOf(withOutChildrenIntSize));
+			withOneAdultChildSize=withOneAdultChildSize.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			unknownHouseHoldSize=unknownHouseHoldSize.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q14aBean.setQ14aYesWithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
 			q14aBean.setQ14aYesWithChildAndAdults(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -57,7 +57,7 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 			q14aBean.setQ14aYesUnknownHouseholdType(BigInteger.valueOf(unknownHouseHoldIntSize));
 		}
 	
-		List<String> domesticViolenceByVictimNo = getDomesticViolenceByVictim(data.getSchema(), "0");
+		List<String> domesticViolenceByVictimNo = getDomesticViolenceByVictim(data.getSchema(), "0",data);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimNo)) {
 		
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimNo.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -72,7 +72,7 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 			q14aBean.setQ14aNoUnknownHouseholdType(BigInteger.valueOf(unknownHouseHold !=null ?unknownHouseHold.size() :0));
 		}
 	
-		List<String> domesticViolenceByVictimDK = getDomesticViolenceByVictimDK(data.getSchema());
+		List<String> domesticViolenceByVictimDK = getDomesticViolenceByVictimDK(data.getSchema(),data);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimDK)) {
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimDK.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 			List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimDK.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -84,10 +84,10 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			withChildrenSize.add(BigInteger.valueOf(withChildrenIntSize));
-			withOutChildrenSize.add(BigInteger.valueOf(withOutChildrenIntSize));
-			withOneAdultChildSize.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			unknownHouseHoldSize.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			withChildrenSize=withChildrenSize.add(BigInteger.valueOf(withChildrenIntSize));
+			withOutChildrenSize=withOutChildrenSize.add(BigInteger.valueOf(withOutChildrenIntSize));
+			withOneAdultChildSize=withOneAdultChildSize.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			unknownHouseHoldSize=unknownHouseHoldSize.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q14aBean.setQ14aDKRTotal(BigInteger.valueOf(domesticViolenceByVictimDK.size()));
 			q14aBean.setQ14aDKRWithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
@@ -98,7 +98,7 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 		
 		
 		
-		List<String> domesticViolenceByVictimMissing = getDomesticViolenceByVictim(data.getSchema(), "99");
+		List<String> domesticViolenceByVictimMissing = getDomesticViolenceByVictim(data.getSchema(), "99",data);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimMissing)) {
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimMissing.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 			List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimMissing.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -110,10 +110,10 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			withChildrenSize.add(BigInteger.valueOf(withChildrenIntSize));
-			withOutChildrenSize.add(BigInteger.valueOf(withOutChildrenIntSize));
-			withOneAdultChildSize.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			unknownHouseHoldSize.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			withChildrenSize=withChildrenSize.add(BigInteger.valueOf(withChildrenIntSize));
+			withOutChildrenSize=withOutChildrenSize.add(BigInteger.valueOf(withOutChildrenIntSize));
+			withOneAdultChildSize=withOneAdultChildSize.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			unknownHouseHoldSize=unknownHouseHoldSize.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q14aBean.setQ14aInformationMissingTotal(BigInteger.valueOf(domesticViolenceByVictimMissing.size()));
 			q14aBean.setQ14aInformationMissingWithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));

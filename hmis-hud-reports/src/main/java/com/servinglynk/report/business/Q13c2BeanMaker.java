@@ -24,7 +24,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 
 			List<ClientModel> clients = data.getClients();
 			List<ExitModel> exits = data.getExits();	
-		String query ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage in ('1','2','5') and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) and information_date <= :endDate group by enrollmentid";
+		String query ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and datacollectionstage in ('1','2','5') and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) and information_date <= :endDate ";
 		
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
@@ -121,7 +121,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 	    	q13c2Bean.setQ13c2Condition3PlusUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
 		}
 		
-		String noneQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage in ('1','2','5') and disabilityresponse='0' and information_date <= :endDate  group by enrollmentid";
+		String noneQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and  datacollectionstage in ('1','2','5') and disabilityresponse='0' and information_date <= :endDate  ";
 		List<DisabilitiesModel> disabilitiesNone = getEnrollmentFromDisabilitiesCountWithDate(data.getSchema(), noneQuery, data);
 		if(CollectionUtils.isNotEmpty(disabilitiesNone)) {
 			List<DisabilitiesModel> withChildren = disabilitiesNone.parallelStream().filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id())).collect(Collectors.toList());
@@ -148,7 +148,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 		}
 		
 		
-		String unknownQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage in ('1','2','5') and ( disabilityresponse='8' or disabilityresponse='9') and information_date <= :endDate  group by enrollmentid";
+		String unknownQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and datacollectionstage in ('1','2','5') and ( disabilityresponse='8' or disabilityresponse='9') and information_date <= :endDate  ";
 		List<DisabilitiesModel> disabilitiesUnknown = getEnrollmentFromDisabilitiesCountWithDate(data.getSchema(), unknownQuery,data);
 		if(CollectionUtils.isNotEmpty(disabilitiesUnknown)) {
 			List<DisabilitiesModel> withChildren = disabilitiesNone.parallelStream().filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id())).collect(Collectors.toList());
@@ -175,7 +175,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 		}
 		
 		
-		String infoMissingQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities where datacollectionstage in ('1','2','5') and disabilityresponse='99' and information_date <= :endDate group by enrollmentid";
+		String infoMissingQuery ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and datacollectionstage in ('1','2','5') and disabilityresponse='99' and information_date <= :endDate ";
 		List<DisabilitiesModel> disabilitiesMissing = getEnrollmentFromDisabilitiesCountWithDate(data.getSchema(), infoMissingQuery,data);
 		if(CollectionUtils.isNotEmpty(disabilitiesMissing)) {
 			List<DisabilitiesModel> withChildren = disabilitiesMissing.parallelStream().filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id())).collect(Collectors.toList());
