@@ -36,6 +36,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			List<String> enrollmentsFromExit = new ArrayList<>();
 			exits.parallelStream().forEach(exit -> { enrollmentsFromExit.add(exit.getProjectEntryID());} );
 			List<EnrollmentModel> adultLeavers = enrollments.parallelStream().filter(enrollment -> enrollmentsFromExit.contains(enrollment.getProjectEntryID()) && enrollment.getAgeatentry() > 18).collect(Collectors.toList());
+			data.setAdultLeavers(adultLeavers);
 			List<EnrollmentModel> adultStayers = enrollments.parallelStream().filter(enrollment -> !enrollmentsFromExit.contains(enrollment.getProjectEntryID()) && enrollment.getAgeatentry() > 18).collect(Collectors.toList());
 			List<EnrollmentModel> adultStayersHoh365Days = adultStayers.parallelStream().filter(enrollment -> inProjectForMoreThan365Days(enrollment.getEntrydate()) && StringUtils.equals("1", enrollment.getRelationshiptohoh())).collect(Collectors.toList());
 			List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
