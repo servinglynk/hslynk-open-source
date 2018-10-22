@@ -73,7 +73,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			
 			bean.setTotNoOfStayers(BigInteger.valueOf(numberOfStayers));
 			
-			bean.setTotNumOfPersonServed(BigInteger.valueOf(clients.size()));
+			//bean.setTotNumOfPersonServed(BigInteger.valueOf(clients.size()));
 			
 			
 			data.setTotNumOfPersonServed(bean.getTotNumOfPersonServed());  //Refers --> Total number of persons served 

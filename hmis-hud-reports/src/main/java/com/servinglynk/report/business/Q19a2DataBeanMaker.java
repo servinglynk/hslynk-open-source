@@ -37,7 +37,7 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 						" vadisabilityserviceamount,workerscompamount,incomefromanysource  as incomefromanysource,datacollectionstage from %s.incomeandsources i, %s.enrollment e,%s.project p  where    e.id=i.enrollmentid ";
 				
 				if(CollectionUtils.isNotEmpty(adultLeavers)) {
-					StringBuilder builder = new StringBuilder(" e.id in (");
+					StringBuilder builder = new StringBuilder(" and e.id in (");
 					for(EnrollmentModel model : adultLeavers){
 						if(StringUtils.isNotBlank(model.getProjectEntryID())) {
 							builder.append("'");

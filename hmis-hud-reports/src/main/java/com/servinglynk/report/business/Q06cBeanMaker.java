@@ -51,7 +51,10 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 				}
 			});
 			q06cDataBean.setDestinationStatusErrorCount(BigInteger.valueOf(destinationErroCount));
-			q06cDataBean.setDestinationStatusErrorRate(BigInteger.valueOf(destinationErroCount / exits.size()));
+			int exitCount = exits.size();
+			if(exitCount !=0)
+				q06cDataBean.setDestinationStatusErrorRate(BigInteger.valueOf(destinationErroCount / exitCount));
+			
 			q06cDataBean.setIseErrorCount(BigInteger.valueOf(iseErrorCount));
 			if (data.getNoOfAdultHeadsOfHousehold() != null && data.getNoOfChildHeadsOfHousehold() != null)
 				q06cDataBean.setIseErrorRate(

@@ -36,7 +36,7 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 						
 						List<IncomeSourceModel> incomeAtEntry = getIncome(data.getSchema(), query , DataCollectionStage.ENTRY.getCode(),data);
 						List<IncomeSourceModel> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode(),data);
-						List<IncomeSourceModel> incomeAtAnnualAssesment = getQ18IncomeForAnnualAssesment(data, ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
+						List<IncomeSourceModel> incomeAtAnnualAssesment = getQ18IncomeForAnnualAssesment(data, formatQuery(ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY, data.getSchema(), data), DataCollectionStage.ANNUAL_ASSESMENT.getCode());
 						
 						q18eData.setQ26fAdultsWithIncomeInfoAtEntryAtEntry(BigInteger.valueOf(getSize(incomeAtEntry)));
 						q18eData.setQ26fAdultsWithIncomeInfoAtEntryLeavers(BigInteger.valueOf(getSize(incomeAtExit)));

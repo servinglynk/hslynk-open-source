@@ -31,10 +31,10 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 						List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 						
 						
-						List<String> chronicHomelessVeteran = getClients(data, query, null, true, "1", "true");
-						List<String> chronicHomelessVeteranWithoutChildren = getClients(data, query, projectsHHWithOutChildren, false, "1", "true");
-						List<String> chronicHomelessVeteranWithChildAndAdults = getClients(data, query, projectsHHWithOneAdultChild, false, "1", "true");
-						List<String> chronicHomelessVeteranUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, "1", "true");
+						List<String> chronicHomelessVeteran = getClients(data, query, null, true, "1", Boolean.TRUE);
+						List<String> chronicHomelessVeteranWithoutChildren = getClients(data, query, projectsHHWithOutChildren, false, "1", Boolean.TRUE);
+						List<String> chronicHomelessVeteranWithChildAndAdults = getClients(data, query, projectsHHWithOneAdultChild, false, "1", Boolean.TRUE);
+						List<String> chronicHomelessVeteranUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, "1", Boolean.TRUE);
 						int chVeteran = chronicHomelessVeteran != null ? chronicHomelessVeteran.size() : 0;
 						int chVeteranWithoutChildren = chronicHomelessVeteranWithoutChildren != null ? chronicHomelessVeteranWithoutChildren.size() : 0;
 						int chVeteranWithChildAndAdults = chronicHomelessVeteranWithChildAndAdults != null ? chronicHomelessVeteranWithChildAndAdults.size() : 0;
@@ -45,10 +45,10 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 						q25bNumberOfVeteranHouseholdsDataBean.setQ25bChronicallyHomelessVeteranWithChildAndAdults(BigInteger.valueOf(chVeteranWithChildAndAdults));
 						q25bNumberOfVeteranHouseholdsDataBean.setQ25bChronicallyHomelessVeteranUnknownHouseHold(BigInteger.valueOf(chVeteranUnknownHouseHold));
 		
-						List<String> nonChronicHomelessVeteran = getClients(data, query, null, true, "1", "false");
-						List<String> nonChronicHomelessVeteranWithoutChildren = getClients(data, query, projectsHHWithOutChildren, false, "1", "false");
-						List<String> nonChronicHomelessVeteranWithChildAndAdults = getClients(data, query, projectsHHWithOneAdultChild, false, "1", "false");
-						List<String> nonChronicHomelessVeteranUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, "1", "false");
+						List<String> nonChronicHomelessVeteran = getClients(data, query, null, true, "1", Boolean.FALSE);
+						List<String> nonChronicHomelessVeteranWithoutChildren = getClients(data, query, projectsHHWithOutChildren, false, "1", Boolean.FALSE);
+						List<String> nonChronicHomelessVeteranWithChildAndAdults = getClients(data, query, projectsHHWithOneAdultChild, false, "1", Boolean.FALSE);
+						List<String> nonChronicHomelessVeteranUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, "1", Boolean.FALSE);
 						int nonChVeteran = nonChronicHomelessVeteran != null ? nonChronicHomelessVeteran.size() : 0 ;
 						int nonChVeteranWithoutChildren = nonChronicHomelessVeteranWithoutChildren != null ? nonChronicHomelessVeteranWithoutChildren.size() : 0;
 						int nonChVeteranWithChildAndAdults = nonChronicHomelessVeteranWithChildAndAdults != null ? nonChronicHomelessVeteranWithChildAndAdults.size() : 0;	
@@ -122,7 +122,7 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 	}
 	
 	
-	public static List<String> getClients(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,String veteranStatus, String  chronichomeless) {
+	public static List<String> getClients(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,String veteranStatus, Boolean  chronichomeless) {
 		 List<String> q22Beans = new ArrayList<String>();
 			ResultSet resultSet = null;
 			Statement statement = null;
@@ -158,8 +158,8 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 				if(StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status  in ('8','9') ";
 				}
-				if(StringUtils.isNotBlank(chronichomeless)) {
-					newQuery = newQuery + " and chronichomeless ='"+chronichomeless+"' ";
+				if(chronichomeless != null) {
+					newQuery = newQuery + " and chronichomeless ="+chronichomeless;
 				}
 				
 				statement = connection.createStatement();

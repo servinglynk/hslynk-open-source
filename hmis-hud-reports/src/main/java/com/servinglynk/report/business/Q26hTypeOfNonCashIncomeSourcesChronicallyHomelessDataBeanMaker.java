@@ -19,17 +19,17 @@ public class Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBeanMaker exte
 		 * Any changes here needs change to Q26h
 		 */
 		String entryQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.incomeandsources i,%s.enrollment e, %s.noncashbenefits nb,%s.client c where e.id=i.enrollmentid  "+
-		      "   and nb.enrollmentid = e.id and c.id = e.client_id and e.chronichomeless='true' "+
+		      "   and nb.enrollmentid = e.id and c.id = e.client_id and e.chronichomeless=true "+
 			  " and i.information_date = e.entrydate and i.information_date <= :startDate and i.information_date >= :endDate "+
 			  " and e.ageatentry >=18  and i.datacollectionstage = :datacollectionstage ";
 		       
 		String exitQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb,%s.exit ext,%s.client c  where e.id=i.enrollmentid  "+
-			      "   and nb.enrollmentid = e.id and e.id = ext.enrollmentid  and c.id = e.client_id and e.chronichomeless='true'  "+
+			      "   and nb.enrollmentid = e.id and e.id = ext.enrollmentid  and c.id = e.client_id and e.chronichomeless=true  "+
 				  " and i.information_date = ext.exitdate and i.information_date <= :startDate and i.information_date >= :endDate "+
 				  " and e.ageatentry >=18  and i.datacollectionstage = :datacollectionstage ";
 			       
 		String stayersQuery = " select count(distinct(e.dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e, %s.noncashbenefits nb,%s.client c where   e.id=i.enrollmentid "+
-					"   and nb.enrollmentid = e.id  and c.id = e.client_id and e.chronichomeless='true' "+
+					"   and nb.enrollmentid = e.id  and c.id = e.client_id and e.chronichomeless=true "+
 					" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 "+
 					" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= :endDate  )   "+
 					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 ) ";

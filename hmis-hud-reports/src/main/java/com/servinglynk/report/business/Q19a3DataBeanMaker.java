@@ -32,13 +32,17 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 		if(data.isLiveMode()) {
 			try {
 				List<EnrollmentModel> adultLeavers = data.getAdultLeavers();
+				List<EnrollmentModel>  adultStayers = data.getAdultStayers();
+				List<EnrollmentModel> adultStayersAndLeavers = new ArrayList<>();
+				adultStayersAndLeavers.addAll(adultStayers);
+				adultStayersAndLeavers.addAll(adultLeavers);
 				String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 						" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
 						" vadisabilityserviceamount,workerscompamount,incomefromanysource  as incomefromanysource,datacollectionstage from %s.incomeandsources i, %s.enrollment e,%s.project p  where    e.id=i.enrollmentid ";
 				
-				if(CollectionUtils.isNotEmpty(adultLeavers)) {
-					StringBuilder builder = new StringBuilder(" e.id in (");
-					for(EnrollmentModel model : adultLeavers){
+				if(CollectionUtils.isNotEmpty(adultStayersAndLeavers)) {
+					StringBuilder builder = new StringBuilder(" and e.id in (");
+					for(EnrollmentModel model : adultStayersAndLeavers){
 						if(StringUtils.isNotBlank(model.getProjectEntryID())) {
 							builder.append("'");
 							builder.append(model.getProjectEntryID());

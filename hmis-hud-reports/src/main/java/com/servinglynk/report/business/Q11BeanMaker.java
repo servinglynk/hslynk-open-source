@@ -31,8 +31,8 @@ public class Q11BeanMaker extends BaseBeanMaker {
 				List<ClientModel> clients45To54 = clients.parallelStream().filter(client ->  client.getAge() >= 45 && client.getAge() <=54).collect(Collectors.toList());
 				List<ClientModel> clients55To61 = clients.parallelStream().filter(client ->  client.getAge() >= 55 && client.getAge() <=61).collect(Collectors.toList());
 				List<ClientModel> clientsOver61 = clients.parallelStream().filter(client -> client.getAge() > 61).collect(Collectors.toList());
-				List<ClientModel> clientsDidnotknowRefused = clients.parallelStream().filter(client -> StringUtils.equals("8", client.getDob_data_quality()) && StringUtils.equals("9", client.getDob_data_quality()) ).collect(Collectors.toList());
-				List<ClientModel> clientsDNC = clients.parallelStream().filter(client -> StringUtils.equals("99", client.getDob_data_quality())).collect(Collectors.toList());
+				List<ClientModel> clientsDidnotknowRefused = clients.parallelStream().filter(client -> client.getAge() ==0 && StringUtils.equals("8", client.getDob_data_quality()) && StringUtils.equals("9", client.getDob_data_quality()) ).collect(Collectors.toList());
+				List<ClientModel> clientsDNC = clients.parallelStream().filter(client -> client.getAge() ==0 && StringUtils.equals("99", client.getDob_data_quality())).collect(Collectors.toList());
 				
 				List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 				List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();

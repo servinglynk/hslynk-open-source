@@ -25,7 +25,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 		List<String> missingList = Arrays.asList(missing);
 	  	
 			List<ClientModel> clients = data.getClients();
-			List<ClientModel> mai = clients.parallelStream().filter(client -> client.getDob() == null || ( client.getDob_data_quality() !=null && missingList.contains(client.getDob_data_quality()))).collect(Collectors.toList());
+			List<ClientModel> mai = clients.parallelStream().filter(client -> client.getAge()==0).collect(Collectors.toList());
 			List<ClientModel> maiMale = mai.parallelStream().filter(client->StringUtils.equals("1",client.getGender())).collect(Collectors.toList());
 			
 			List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();

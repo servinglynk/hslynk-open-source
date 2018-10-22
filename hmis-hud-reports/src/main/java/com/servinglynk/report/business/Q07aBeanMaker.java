@@ -61,13 +61,13 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         	List<EnrollmentModel> childClientsWithOutChildren = children.parallelStream().filter(child -> clientsHHWithOutChildren.contains(child)).collect(Collectors.toList());
         	List<EnrollmentModel> childClientsUnknownHHType = children.parallelStream().filter(child -> clientsUnknownHouseHold.contains(child.getPersonalID())).collect(Collectors.toList());
         	
-        	List<ClientModel> ageUnknown = clients.parallelStream().filter(client -> StringUtils.equals("9",client.getDob_data_quality()) ||  StringUtils.equals("8",client.getDob_data_quality())).collect(Collectors.toList());
+        	List<ClientModel> ageUnknown = clients.parallelStream().filter(client -> (StringUtils.equals("9",client.getDob_data_quality()) ||  StringUtils.equals("8",client.getDob_data_quality()) && client.getAge() ==0)).collect(Collectors.toList());
         	List<ClientModel> ageUnknownWithOnlyChildren = ageUnknown.parallelStream().filter(ageUnkn -> clientIds.contains(ageUnkn.getPersonalID())).collect(Collectors.toList());
         	List<ClientModel> ageUnknownClientWithOneAdultChild = ageUnknown.parallelStream().filter(ageUnkn -> clientsHHWithOneAdultChild.contains(ageUnkn.getPersonalID())).collect(Collectors.toList());
         	List<ClientModel> ageUnknownClientsWithOutChildren = ageUnknown.parallelStream().filter(ageUnkn -> clientsHHWithOutChildren.contains(ageUnkn)).collect(Collectors.toList());
         	List<ClientModel> ageUnknownClientsUnknownHHType = ageUnknown.parallelStream().filter(ageUnkn -> clientsUnknownHouseHold.contains(ageUnkn.getPersonalID())).collect(Collectors.toList());
         	
-        	List<ClientModel> ageDnc = clients.parallelStream().filter(client -> StringUtils.equals("99",client.getDob_data_quality())).collect(Collectors.toList());
+        	List<ClientModel> ageDnc = clients.parallelStream().filter(client -> StringUtils.equals("99",client.getDob_data_quality()) && client.getAge() ==0 ).collect(Collectors.toList());
         	List<ClientModel> ageDncClientsOnlyChildren = ageDnc.parallelStream().filter(ageDnotCollected -> clientIds.contains(ageDnotCollected.getPersonalID())).collect(Collectors.toList());
         	List<ClientModel> ageDncClientWithOneAdultChild = ageDnc.parallelStream().filter(ageDnotCollected -> clientsHHWithOneAdultChild.contains(ageDnotCollected.getPersonalID())).collect(Collectors.toList());
         	List<ClientModel> ageDncClientsWithOutChildren = ageDnc.parallelStream().filter(ageDnotCollected -> clientsHHWithOutChildren.contains(ageDnotCollected)).collect(Collectors.toList());
@@ -94,9 +94,9 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         	int ageDncClientsOnlyChildrenCount = ageDncClientsOnlyChildren != null ? ageDncClientsOnlyChildren.size() :0;
         	int ageDncClientsUnknownHHTypeCount = ageDncClientsUnknownHHType != null ? ageDncClientsUnknownHHType.size() :0;
         	
-        	int totWithOutChildren = adultWithOutChildrenCount +childClientsWithOutChildrenCount +ageUnknownClientsWithOutChildrenCount+ageDncCount;
+        	int totWithOutChildren = adultWithOutChildrenCount +childClientsWithOutChildrenCount +ageUnknownClientsWithOutChildrenCount+ageDncClientsWithOutChildrenCount;
         	int totWithChildAndAdults = adultWithOneAdultChildCount +childClientWithOneAdultChildCount+ageUnknownClientWithOneAdultChildCount+ageDncClientsWithOutChildrenCount;
-        	int totWithOnlychildren =  adultWithOutChildrenCount +childWithOnlyChildrenCount+ageUnknownWithOnlyChildrenCount+ageDncClientsOnlyChildrenCount;
+        	int totWithOnlychildren =  adultWithChildrenCount +childWithOnlyChildrenCount+ageUnknownWithOnlyChildrenCount+ageDncClientsOnlyChildrenCount;
         	int totUnknownHousehold = adultUnknownHHTypeCount + childClientsUnknownHHTypeCount+ageDncClientsOnlyChildrenCount+ageDncClientsUnknownHHTypeCount;
         	
             //select count(*) from client c where personalID
