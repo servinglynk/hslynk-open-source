@@ -65,6 +65,16 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 			List<EnrollmentModel> withOneAdultChild = enrollmentsHHWithOneAdultChild.parallelStream().filter(enrollment -> domesticViolenceByVictimNo.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 			List<EnrollmentModel> unknownHouseHold = enrollmentsUnknownHouseHold.parallelStream().filter(enrollment -> domesticViolenceByVictimNo.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 			
+			int withOutChildrenIntSize = withOutChildren != null ?withOutChildren.size() :0 ;
+			int withOneAdultChildIntSize = withOneAdultChild != null ?withOneAdultChild.size() :0;
+			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
+			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
+			
+			withChildrenSize=withChildrenSize.add(BigInteger.valueOf(withChildrenIntSize));
+			withOutChildrenSize=withOutChildrenSize.add(BigInteger.valueOf(withOutChildrenIntSize));
+			withOneAdultChildSize=withOneAdultChildSize.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			unknownHouseHoldSize=unknownHouseHoldSize.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			
 			q14aBean.setQ14aNoTotal(BigInteger.valueOf(domesticViolenceByVictimNo.size()));
 			q14aBean.setQ14aNoWithoutChildren(BigInteger.valueOf(withOutChildren != null ?withOutChildren.size() :0));
 			q14aBean.setQ14aNoWithChildAndAdults(BigInteger.valueOf(withOneAdultChild != null ?withOneAdultChild.size() :0));

@@ -182,7 +182,7 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 							connection = ImpalaConnection.getConnection();
 							statement = connection.createStatement();
 							data.setQueryDataCollectionStage(datacollectionStage);
-							resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
+							resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),data.getSchema(),data));
 							
 						 while(resultSet.next()) {
 							 float totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
