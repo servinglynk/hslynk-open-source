@@ -69,8 +69,9 @@ public class BaseBeanMaker {
 			query = query.replaceAll(":startDate", "'"+ data.getReportStartDate()+"'");
 			query = query.replaceAll(":endDate", "'"+ data.getReportEndDate()+"'");
 			query = query.replaceAll(":dedupClientId", data.getQueryDedupClientId());
-			return query.replaceAll("%s", schema);
-			
+			query = query.replaceAll("%s", schema);
+			System.out.println(query);
+			return query;
 		}
 		return null;
 	}

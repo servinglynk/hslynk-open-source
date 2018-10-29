@@ -17,6 +17,7 @@ import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q20bNumberOfNonCashBenefitSourcesDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
+import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.NonCashModel;
 
 public class Q20bBeanMaker extends BaseBeanMaker {
@@ -98,6 +99,21 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 			try {
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
+				List<EnrollmentModel> enrollments = data.getEnrollments();
+				if(CollectionUtils.isNotEmpty(enrollments)) {
+					StringBuilder builder = new StringBuilder(" and e.id in (");
+					for(EnrollmentModel model : enrollments){
+						if(StringUtils.isNotBlank(model.getProjectEntryID())) {
+							builder.append("'");
+							builder.append(model.getProjectEntryID());
+							builder.append("'");
+							builder.append(",");
+						}
+					}
+					builder.deleteCharAt(builder.length()-1);
+					builder.append(" ) " );
+					query = query + builder.toString();
+				}
 				
 				if(StringUtils.equals(datacollectionStage, DataCollectionStage.ANNUAL_ASSESMENT.getCode())) {
 					//statement.setDate(3, data.getReportEndDate());

@@ -101,7 +101,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			ReportData data = new ReportData();
 			data.setLiveMode(true);
 			try {
-				data.setReportStartDate(new java.sql.Date(dateFormat.parse("01/01/2017").getTime()));
+				data.setReportStartDate(new java.sql.Date(dateFormat.parse("01/01/2015").getTime()));
 				data.setReportEndDate(new java.sql.Date(dateFormat.parse("11/10/2018").getTime()));
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -145,8 +145,9 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 					
 					List<ClientModel> allClients = getClients(schema,data);
 					List<String> clientIds = new ArrayList<String>(); 
+					allClients.parallelStream().forEach(client ->  { clientIds.add(client.getDedupClientId()); });
 					List<String> enrollmentIds = new ArrayList<String>(); 
-					enrollments.parallelStream().forEach(enrollment -> { clientIds.add(enrollment.getDedupClientId()); enrollmentIds.add(enrollment.getProjectEntryID());});
+					enrollments.parallelStream().forEach(enrollment -> { enrollmentIds.add(enrollment.getProjectEntryID());});
 					List<ClientModel> clients = allClients.parallelStream().filter(client -> clientIds.contains(client.getDedupClientId())).collect(Collectors.toList());
 					data.setClients(clients);
 					List<ExitModel> allExits = getAllExits(schema, data);
