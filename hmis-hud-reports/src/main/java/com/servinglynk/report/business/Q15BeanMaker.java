@@ -394,7 +394,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(pshforHomelessPerson.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(pshforHomelessPerson.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -420,7 +420,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(ownedByclientNoSubsidy.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(ownedByclientNoSubsidy.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -445,7 +445,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(ownedByclientWithSubsidy.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(ownedByclientWithSubsidy.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -471,7 +471,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientNoSubsidy.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientNoSubsidy.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -496,7 +496,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithVASHSubsidy.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithVASHSubsidy.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -521,7 +521,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithGPDTIPSubsidy.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithGPDTIPSubsidy.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -547,7 +547,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithOtherSubsidy.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithOtherSubsidy.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -572,7 +572,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(hotelOrMotel.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(hotelOrMotel.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -598,7 +598,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(stayingOrLivingWithFriends.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(stayingOrLivingWithFriends.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -623,7 +623,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(stayingOrLivingWithFamily.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(stayingOrLivingWithFamily.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -648,7 +648,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(dontRefusedWith.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(dontRefusedWith.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
@@ -674,7 +674,7 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			otherLocationOverallTotal.add(BigInteger.valueOf(informationMissing.size()));
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(informationMissing.size()));
 			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
 			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
 			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
