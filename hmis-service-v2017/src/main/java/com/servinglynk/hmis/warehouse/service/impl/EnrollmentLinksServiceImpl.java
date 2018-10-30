@@ -1,11 +1,18 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +51,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	Map<String,Map<String, List<UUID>>> data = new HashMap<>();
 		
 	public void linksGroupByDate(LocalDateTime dateTime,String entity,UUID id) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
 		String date = formatter.format(dateTime);
 		
@@ -81,7 +88,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	
 	
 	public void linksDateGroup(LocalDateTime dateTime, UUID id,Map<String,List<UUID>> data) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
 		String date = formatter.format(dateTime);
 		if(data.get(date)!=null) {
@@ -109,7 +116,6 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 
 			data.put(date, ids);
 		}
-		
 
 	}
 
@@ -169,8 +175,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		
 		
 		
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Entryrhsp> data = daoFactory.getEntryrhspDao().getAllEnrollmentEntryrhsps(enrollmentId, null,null);
 		for(Entryrhsp entity : data) {
 				this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -188,8 +194,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	
 	public Map<String,List<ActionLink>> getEntryrhysLinks(UUID clientId,UUID enrollmentId) {
 		
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 
 		List<Entryrhy> data = daoFactory.getEntryrhyDao().getAllEnrollmentEntryrhys(enrollmentId, null,null);
 		for(Entryrhy entity : data) {
@@ -208,8 +214,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	
 	@SuppressWarnings("unchecked")
 	public Map<String,List<ActionLink>> getEntryssvfsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Entryssvf> data = daoFactory.getEntryssvfDao().getAllEnrollmentEntryssvfs(enrollmentId, null,null);
 		for(Entryssvf entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -227,8 +233,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	}
 	
 	public Map<String,List<ActionLink>> getEnrollmentcocsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<EnrollmentCoc> data = daoFactory.getEnrollmentCocDao().getAllEnrollmentEnrollmentCocs(enrollmentId, null,null);
 		for(EnrollmentCoc entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -246,8 +252,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 
 	}
 	public Map<String,List<ActionLink>> getEducationsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Education> data = daoFactory.getEducationDao().getAllEnrollmentEducations(enrollmentId, null,null);
 		for(Education entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -265,8 +271,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 
 	}
 	public Map<String,List<ActionLink>> getContactsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Contact> data = daoFactory.getContactDao().getAllEnrollmentContacts(enrollmentId, null,null);
 		for(Contact entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -284,8 +290,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 
 	}
 	public Map<String,List<ActionLink>> getDateOfEngagementsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Dateofengagement> data = daoFactory.getDateofengagementDao().getAllEnrollmentDateofengagements(enrollmentId, null,null);
 		for(Dateofengagement entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -303,8 +309,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 
 	}
 	public Map<String,List<ActionLink>> getDisabilitiesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Disabilities> data = daoFactory.getDisabilitiesDao().getAllEnrollmentDisabilitiess(enrollmentId, null,null);
 		for(Disabilities entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -321,8 +327,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 
 	}
 	public Map<String,List<ActionLink>> getDomesticViolencesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Domesticviolence> data = daoFactory.getDomesticviolenceDao().getAllEnrollmentDomesticViolences(enrollmentId, null,null);
 		for(Domesticviolence entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -339,8 +345,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 
 	}
 	public Map<String,List<ActionLink>> getEmploymentsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Employment> data = daoFactory.getEmploymentDao().getAllEnrollmentEmployments(enrollmentId, null,null);
 		for(Employment entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -357,8 +363,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 
 	}
 	public Map<String,List<ActionLink>> getHealthinsurancesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Healthinsurance> data = daoFactory.getHealthinsuranceDao().getAllEnrollmentHealthInsurances(enrollmentId, null,null);
 		for(Healthinsurance entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -374,8 +380,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	return dateLinks;
 	}
 	public Map<String,List<ActionLink>> getHealthStatusesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<HealthStatus> data = daoFactory.getHealthStatusDao().getAllEnrollmentHealthStatuses(enrollmentId, null,null);
 		for(HealthStatus entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -392,8 +398,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			
 	}
 	public Map<String,List<ActionLink>> getIncomeandsourcesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Incomeandsources> data = daoFactory.getIncomeandsourcesDao().getAllEnrollmentIncomeAndSources(enrollmentId, null,null);
 		for(Incomeandsources entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -409,8 +415,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	return dateLinks;
 	}
 	public Map<String,List<ActionLink>> getMedicalassistancesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Medicalassistance> data = daoFactory.getMedicalassistanceDao().getAllEnrollmentMedicalassistances(enrollmentId, null,null);
 		for(Medicalassistance entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -426,8 +432,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	return dateLinks;
 	}
 	public Map<String,List<ActionLink>> getNoncashbenefitsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Noncashbenefits> data = daoFactory.getNoncashbenefitsDao().getAllEnrollmentNoncashbenefits(enrollmentId, null,null);
 		for(Noncashbenefits entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -445,8 +451,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 
 	}
 	public Map<String,List<ActionLink>> getResidentialMoveinDatesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Moveindate> data = daoFactory.getResidentialmoveindateDao().getAllEnrollmentResidentialmoveindates(enrollmentId, null,null);
 		for(Moveindate entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -462,8 +468,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	return dateLinks;
 	}
 	public Map<String,List<ActionLink>> getPathstatusesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Pathstatus> data = daoFactory.getPathstatusDao().getAllEnrollmentPathstatuss(enrollmentId, null,null);
 		for(Pathstatus entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -479,8 +485,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	return dateLinks;
 	}
 	public Map<String,List<ActionLink>> getServiceFaReferralsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<ServiceFaReferral> data = daoFactory.getServiceFaReferralDao().getAllEnrollmentServiceFaReferrals(enrollmentId, null,null);
 		for(ServiceFaReferral entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -503,7 +509,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<Exit> data = daoFactory.getExitDao().getAllEnrollmentExits(enrollmentId, null, null);
 		Map<String,List<ExitActionLink>> dateLinks = new HashMap<String,List<ExitActionLink>>();
 		
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		for(Exit entity : data) {
 				this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
 		}
@@ -536,8 +542,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	}
 	
 	Map<String,List<ActionLink>> getExitHousingAssessmentsLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Exithousingassessment> data = daoFactory.getExithousingassessmentDao().getAllExitExithousingassessments(exitId, null,null);
 		for(Exithousingassessment entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -555,8 +561,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	}
 	
 	Map<String,List<ActionLink>> getHousingAssessmentDispositionsLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Housingassessmentdisposition> data = daoFactory.getHousingassessmentdispositionDao().getAllExitHousingAssessmentDispositions(exitId, null,null);
 		for(Housingassessmentdisposition entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -583,8 +589,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	}*/
 	
 	Map<String,List<ActionLink>> getExitrhysLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
-		Map<String,List<ActionLink>> dateLinks = new HashMap<String,List<ActionLink>>();
-		Map<String,List<UUID>> content = new HashMap<>();
+		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
+		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
 		List<Exitrhy> data = daoFactory.getExitrhyDao().getAllExitExitrhys(exitId, null,null);
 		for(Exitrhy entity : data) {
 			this.linksDateGroup(entity.getDateCreated(), entity.getId(),content);		
@@ -600,7 +606,18 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	return dateLinks;
 
 	}
-	
+
+	class DateComparator implements Comparator<String> {
+        DateFormat f = new SimpleDateFormat("MM-dd-yyyy");//or your pattern
+        @Override
+        public int compare(String o1, String o2) {
+            try {
+                return f.parse(o1).compareTo(f.parse(o2));
+            } catch (ParseException e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
+    }
 	
 	
 }
