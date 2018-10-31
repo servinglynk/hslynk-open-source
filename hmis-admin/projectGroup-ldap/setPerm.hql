@@ -1,1 +1,0 @@
-grant role ${hiveconf:db_role} to group ${hiveconf:group};
