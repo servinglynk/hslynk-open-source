@@ -51,7 +51,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	Map<String,Map<String, List<UUID>>> data = new HashMap<>();
 		
 	public void linksGroupByDate(LocalDateTime dateTime,String entity,UUID id) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
 
 		String date = formatter.format(dateTime);
 		
@@ -88,7 +88,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	
 	
 	public void linksDateGroup(LocalDateTime dateTime, UUID id,Map<String,List<UUID>> data) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
 
 		String date = formatter.format(dateTime);
 		if(data.get(date)!=null) {
@@ -608,7 +608,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	}
 
 	class DateComparator implements Comparator<String> {
-        DateFormat f = new SimpleDateFormat("MM-dd-yyyy");//or your pattern
+        DateFormat f = new SimpleDateFormat("MM-dd-yyyy HH:mm");//or your pattern
         @Override
         public int compare(String o1, String o2) {
             try {
