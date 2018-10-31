@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -80,7 +81,9 @@ public class Enrollment extends ClientModel {
 	
 	EnrollmentLinks enrollmentLinks;
 	
-	List<ExitActionLink> exitLinks;
+	Map<String,List<ExitActionLink>> exitLinks;
+	
+
 	
 	public Enrollment(){
 		
@@ -293,12 +296,21 @@ public class Enrollment extends ClientModel {
 		this.enrollmentLinks = enrollmentLinks;
 	}
 
-	public List<ExitActionLink> getExitLinks() {
+	public Map<String, List<ExitActionLink>> getExitLinks() {
+		return exitLinks;
+	}
+
+	public void setExitLinks(Map<String, List<ExitActionLink>> exitLinks) {
+		this.exitLinks = exitLinks;
+	}
+
+/*	public List<ExitActionLink> getExitLinks() {
 		return exitLinks;
 	}
 
 	public void setExitLinks(List<ExitActionLink> exitLinks) {
 		this.exitLinks = exitLinks;
-	}
+	}*/
 
+	
 }

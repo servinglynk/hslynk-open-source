@@ -1,17 +1,19 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExitActionLink {
 
 	private String rel;
 	private String href;
 	
-	List<ActionLink> exitHousingAssessments = new ArrayList<>();
-	List<ActionLink> housingAssessmentDispositions = new ArrayList<>();
-	List<ActionLink> exitPaths = new ArrayList<>();
-	List<ActionLink> exitrhys = new ArrayList<>();
+	Map<String,List<ActionLink>> exitHousingAssessments = new HashMap<>();
+	Map<String,List<ActionLink>> housingAssessmentDispositions = new HashMap<>();
+	Map<String,List<ActionLink>> exitPaths = new HashMap<>();
+	Map<String,List<ActionLink>> exitrhys = new HashMap<>();
 	
 	public String getRel() {
 		return rel;
@@ -29,28 +31,29 @@ public class ExitActionLink {
 		this.rel = rel;
 		this.href = href;
 	}
-	public List<ActionLink> getExitHousingAssessments() {
+	
+	public Map<String, List<ActionLink>> getExitHousingAssessments() {
 		return exitHousingAssessments;
 	}
-	public void setExitHousingAssessments(List<ActionLink> exitHousingAssessments) {
+	public void setExitHousingAssessments(Map<String, List<ActionLink>> exitHousingAssessments) {
 		this.exitHousingAssessments = exitHousingAssessments;
 	}
-	public List<ActionLink> getHousingAssessmentDispositions() {
+	public Map<String, List<ActionLink>> getHousingAssessmentDispositions() {
 		return housingAssessmentDispositions;
 	}
-	public void setHousingAssessmentDispositions(List<ActionLink> housingAssessmentDispositions) {
+	public void setHousingAssessmentDispositions(Map<String, List<ActionLink>> housingAssessmentDispositions) {
 		this.housingAssessmentDispositions = housingAssessmentDispositions;
 	}
-	public List<ActionLink> getExitPaths() {
+	public Map<String, List<ActionLink>> getExitPaths() {
 		return exitPaths;
 	}
-	public void setExitPaths(List<ActionLink> exitPaths) {
+	public void setExitPaths(Map<String, List<ActionLink>> exitPaths) {
 		this.exitPaths = exitPaths;
 	}
-	public List<ActionLink> getExitrhys() {
+	public Map<String, List<ActionLink>> getExitrhys() {
 		return exitrhys;
 	}
-	public void setExitrhys(List<ActionLink> exitrhys) {
+	public void setExitrhys(Map<String, List<ActionLink>> exitrhys) {
 		this.exitrhys = exitrhys;
 	}
 }
