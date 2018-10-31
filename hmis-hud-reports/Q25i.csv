@@ -19,28 +19,28 @@ emergency shelter voucher",0,0,0,0,0
    b2. Moved from one HOPWA funded project to HOPWA TH,0,0,0,0,0
 "  b3. Transitional housing for homeless persons (including homeless
 ",0,0,0,0,0
-"   b4. Staying or living with family,temporary tenure",1,0,1,1,1
+"   b4. Staying or living with family,temporary tenure",0,0,0,0,0
 "   b5. Staying or living with friends,temporary tenure",0,0,0,0,0
   b6. Place not meant for human habitation,0,0,0,0,0
    b7. Safe Haven,0,0,0,0,0
    b8. Hotel or motel paid by client,0,0,0,0,0
-   bz. Subtotal,1,0,1,1,1
+   bz. Subtotal,0,0,0,0,0
    c. Institutional Settings,,,,,
   c1. Foster care home or group foster care ,0,0,0,0,0
   c2. Psychiatric hospital or other psychiatric facility,0,0,0,0,0
    c3. Substance abuse treatment facility or detox center,0,0,0,0,0
    c4. Hospital or other residential non-psychiatric medical facility,0,0,0,0,0
-"  c5. Jail,prison or juvenile detention ",1,0,1,1,1
-  c6. Long-term care facility or nursing ,1,0,1,1,1
-   cz. Subtotal,2,0,2,2,2
+"  c5. Jail,prison or juvenile detention ",0,0,0,0,0
+  c6. Long-term care facility or nursing ,0,0,0,0,0
+   cz. Subtotal,0,0,0,0,0
    d. Other Destinations,,,,,
   d1. Residential project or halfway house with no homeless criteria,0,0,0,0,0
-   d2. Deceased,0,0,5,0,0
-   d3. Other,5,0,5,5,5
+   d2. Deceased,0,0,0,0,0
+   d3. Other,0,0,0,0,0
    d4. Client Doesn’t Know/Client Refused,0,0,0,0,0
-   d5. Data Not Collected (no exit ,2,0,2,2,2
-  dz. Total,7,0,7,7,7
-   e. Total,10,0,10,10,10
+   d5. Data Not Collected (no exit ,0,0,0,0,0
+  dz. Total,0,0,0,0,0
+   e. Total,0,0,0,0,0
   f1. Total persons exiting to positive housing destinations,0,0,0,0,0
 "  f2. Total persons whose destinations excluded them from the
 ",0,0,0,0,0

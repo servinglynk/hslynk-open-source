@@ -54,15 +54,15 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 			   
 		}
 		Map<String,Date> enrollmentMap = new HashMap<>();
-		enrollments.parallelStream().forEach(enrollment-> enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate()));
+		enrollments.forEach(enrollment-> enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate()));
 		Map<String,Date> dateOfEngagementMap = new HashMap<>();
-		dateOfEngagements.parallelStream().forEach(doe-> dateOfEngagementMap.put(doe.getEnrollmentId(), doe.getDateOfEngagement()));
+		dateOfEngagements.forEach(doe-> dateOfEngagementMap.put(doe.getEnrollmentId(), doe.getDateOfEngagement()));
 		List<ExitModel> exits = data.getExits();
 		Map<String,Date> exitMap = new HashMap<>();
-		exits.parallelStream().forEach(exit-> exitMap.put(exit.getProjectEntryID(), exit.getExitdate()));
+		exits.forEach(exit-> exitMap.put(exit.getProjectEntryID(), exit.getExitdate()));
 		
 		List<ContactModel> seperatedContacts = new ArrayList<>();
-		filteredContacts.parallelStream().forEach(
+		filteredContacts.forEach(
 				contact ->  { filterContacts(contact, seperatedContacts,enrollmentMap,dateOfEngagementMap,exitMap,data); }
 				);
 		

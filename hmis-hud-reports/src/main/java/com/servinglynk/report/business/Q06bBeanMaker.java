@@ -2,8 +2,6 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -28,14 +26,14 @@ public class Q06bBeanMaker  extends BaseBeanMaker {
 		List<ClientModel> clients = data.getClients();
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		Long numOfClients = Long.valueOf(clients.size());
-		clients.parallelStream().forEach(client -> { 
+		clients.forEach(client -> { 
 			
 			if(StringUtils.equals("8", client.getVeteran_status()) || StringUtils.equals("9", client.getVeteran_status()) || StringUtils.equals("99", client.getVeteran_status()) ) {
 				veteranStatusErrorCount++;
 			}
 		}
 		);
-		enrollments.parallelStream().forEach(enrollment -> { 
+		enrollments.forEach(enrollment -> { 
 			if(StringUtils.equals("8", enrollment.getDisablingcondition()) || StringUtils.equals("9", enrollment.getDisablingcondition())) {
 				disablingCondErrorCount++;
 			}

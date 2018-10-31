@@ -144,12 +144,15 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 					data.setEnrollments(enrollments);
 					
 					List<ClientModel> allClients = getClients(schema,data);
-					List<String> clientIds = new ArrayList<String>(); 
-					allClients.parallelStream().forEach(client ->  { clientIds.add(client.getDedupClientId()); });
 					List<String> enrollmentIds = new ArrayList<String>(); 
-					enrollments.parallelStream().forEach(enrollment -> { enrollmentIds.add(enrollment.getProjectEntryID());});
-					List<ClientModel> clients = allClients.parallelStream().filter(client -> clientIds.contains(client.getDedupClientId())).collect(Collectors.toList());
-					data.setClients(clients);
+					if(CollectionUtils.isNotEmpty(enrollments)) {
+						for(EnrollmentModel enrollment : enrollments) {
+							enrollmentIds.add(enrollment.getProjectEntryID());
+						}
+					}
+				//	enrollments.forEach(enrollment -> { enrollmentIds.add(enrollment.getProjectEntryID());});
+					
+					data.setClients(allClients);
 					List<ExitModel> allExits = getAllExits(schema, data);
 					List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
 					data.setExits(filteredExits);

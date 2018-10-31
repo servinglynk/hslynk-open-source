@@ -34,7 +34,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 			List<EnrollmentModel> enrollments = data.getEnrollments();
 			if(CollectionUtils.isNotEmpty(maiMale)) {
 				List<String> adultClients = new ArrayList<>();
-				maiMale.parallelStream().forEach(client-> { adultClients.add(client.getDedupClientId()); });
+				maiMale.forEach(client-> { adultClients.add(client.getDedupClientId()); });
 				List<EnrollmentModel> maiWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 				List<EnrollmentModel> maiWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdult.contains(enrollment.getProjectID())).collect(Collectors.toList());
 				List<EnrollmentModel> maiMaleUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
@@ -47,7 +47,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 			List<ClientModel> maiFeMale = mai.parallelStream().filter(client->StringUtils.equals("0",client.getGender())).collect(Collectors.toList());
 			if(CollectionUtils.isNotEmpty(maiFeMale)) {
 				List<String> adultFemaleClients = new ArrayList<>();
-				maiFeMale.parallelStream().forEach(client-> { adultFemaleClients.add(client.getDedupClientId()); });
+				maiFeMale.forEach(client-> { adultFemaleClients.add(client.getDedupClientId()); });
 				
 				List<EnrollmentModel> maiWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultFemaleClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 				List<EnrollmentModel> maiWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultFemaleClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdult.contains(enrollment.getProjectID())).collect(Collectors.toList());
@@ -62,7 +62,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 			List<ClientModel> maiTransMale = mai.parallelStream().filter(client->StringUtils.equals("2",client.getGender())).collect(Collectors.toList());
 			if(CollectionUtils.isNotEmpty(maiTransMale)) {
 				List<String> maiTransClients = new ArrayList<>();
-				maiTransMale.parallelStream().forEach(client-> { maiTransClients.add(client.getDedupClientId()); });
+				maiTransMale.forEach(client-> { maiTransClients.add(client.getDedupClientId()); });
 				
 				List<EnrollmentModel> maiWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && maiTransClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 				List<EnrollmentModel> maiWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && maiTransClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdult.contains(enrollment.getProjectID())).collect(Collectors.toList());
@@ -78,7 +78,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 			List<ClientModel> maiTransFeMale = mai.parallelStream().filter(client->StringUtils.equals("3",client.getGender())).collect(Collectors.toList());
 			if(CollectionUtils.isNotEmpty(maiTransFeMale)) {
 				List<String> maiTransClients = new ArrayList<>();
-				maiTransFeMale.parallelStream().forEach(client-> { maiTransClients.add(client.getDedupClientId()); });
+				maiTransFeMale.forEach(client-> { maiTransClients.add(client.getDedupClientId()); });
 				
 				List<EnrollmentModel> maiWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && maiTransClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 				List<EnrollmentModel> maiWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && maiTransClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdult.contains(enrollment.getProjectID())).collect(Collectors.toList());
@@ -93,7 +93,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 			List<ClientModel> maiOther = mai.parallelStream().filter(client->StringUtils.equals("4",client.getGender())).collect(Collectors.toList());
 			if(CollectionUtils.isNotEmpty(maiOther)) {
 				List<String> otherClients = new ArrayList<>();
-				maiOther.parallelStream().forEach(client-> { otherClients.add(client.getDedupClientId()); });
+				maiOther.forEach(client-> { otherClients.add(client.getDedupClientId()); });
 				
 				List<EnrollmentModel> maiWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && otherClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 				List<EnrollmentModel> maiWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && otherClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdult.contains(enrollment.getProjectID())).collect(Collectors.toList());
@@ -108,7 +108,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 			List<ClientModel> clientDk = mai.parallelStream().filter(client->StringUtils.equals("8",client.getGender()) || StringUtils.equals("9",client.getGender())).collect(Collectors.toList());
 			if(CollectionUtils.isNotEmpty(clientDk)) {
 				List<String> dkClients = new ArrayList<>();
-				clientDk.parallelStream().forEach(client-> { dkClients.add(client.getDedupClientId()); });
+				clientDk.forEach(client-> { dkClients.add(client.getDedupClientId()); });
 				List<EnrollmentModel> maiWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && dkClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 				List<EnrollmentModel> maiWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && dkClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdult.contains(enrollment.getProjectID())).collect(Collectors.toList());
 				List<EnrollmentModel> maiFemaleUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && dkClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
@@ -122,7 +122,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 			List<ClientModel> clientMissing = mai.parallelStream().filter(client->StringUtils.equals("99",client.getGender())).collect(Collectors.toList());
 			if(CollectionUtils.isNotEmpty(clientMissing)) {
 				List<String> missingInfoClients = new ArrayList<>();
-				clientMissing.parallelStream().forEach(client-> { missingInfoClients.add(client.getDedupClientId()); });
+				clientMissing.forEach(client-> { missingInfoClients.add(client.getDedupClientId()); });
 				List<EnrollmentModel> maiWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && clientMissing.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 				List<EnrollmentModel> maiWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && clientMissing.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdult.contains(enrollment.getProjectID())).collect(Collectors.toList());
 				List<EnrollmentModel> maiFemaleUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && clientMissing.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());

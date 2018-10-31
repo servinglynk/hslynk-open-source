@@ -31,7 +31,7 @@ public class Q06eDataBeanMaker extends BaseBeanMaker {
 		try {
 			List<EnrollmentModel> enrollments = data.getEnrollments();
 			List<EnrollmentModel>  filteredEnrollments = enrollments.parallelStream().filter(enrollment ->enrollment.getEntrydate() != null && (enrollment.getEntrydate().compareTo(data.getReportStartDate()) > 0) && enrollment.getEntrydate().compareTo(data.getReportEndDate()) < 0).collect(Collectors.toList());
-			filteredEnrollments.parallelStream().forEach(enrollment -> { 
+			filteredEnrollments.forEach(enrollment -> { 
 			    long diff = enrollment.getEntrydate().getTime() - enrollment.getDateCreatedFromSource().getTime();
 			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 				if(enrollment.getEntrydate().compareTo(enrollment.getDateCreatedFromSource()) ==0) {
@@ -50,7 +50,7 @@ public class Q06eDataBeanMaker extends BaseBeanMaker {
 			List<ExitModel> exits = data.getExits();
 			List<ExitModel>  filteredExits = exits.parallelStream().filter(exit -> exit.getExitdate() != null && (exit.getExitdate().compareTo(data.getReportStartDate()) > 0) && (exit.getExitdate().compareTo(data.getReportEndDate()) > 0)).collect(Collectors.toList());
 			
-			filteredExits.parallelStream().forEach(exit -> { 
+			filteredExits.forEach(exit -> { 
 			    long diff = exit.getExitdate().getTime() - exit.getDateCreatedFromSource().getTime();
 			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 				if(exit.getExitdate().compareTo(exit.getDateCreatedFromSource()) ==0) {

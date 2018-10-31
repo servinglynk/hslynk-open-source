@@ -24,7 +24,7 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 		if(data.isLiveMode()) {
 		try {
 			List<ExitModel> exits = data.getExits();
-			exits.parallelStream().forEach(exit -> {
+			exits.forEach(exit -> {
 
 				if (StringUtils.equals("8", exit.getDestination()) || StringUtils.equals("9", exit.getDestination())
 						|| StringUtils.equals("99", exit.getDestination())) {
@@ -32,19 +32,19 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 				}
 			});
 			List<IncomeAndSourceModel> incomeAndSources = data.getIncomeAndSources();
-			incomeAndSources.parallelStream().forEach(incomeAndSource -> {
+			incomeAndSources.forEach(incomeAndSource -> {
 
 				if (StringUtils.equals("1", incomeAndSource.getDataCollectionStage())) {
 					iseErrorCount++;
 				}
 			});
-			incomeAndSources.parallelStream().forEach(incomeAndSource -> {
+			incomeAndSources.forEach(incomeAndSource -> {
 
 				if (StringUtils.equals("3", incomeAndSource.getDataCollectionStage())) {
 					isaeErrorCount++;
 				}
 			});
-			incomeAndSources.parallelStream().forEach(incomeAndSource -> {
+			incomeAndSources.forEach(incomeAndSource -> {
 
 				if (StringUtils.equals("5", incomeAndSource.getDataCollectionStage())) {
 					isaaErrorCount++;

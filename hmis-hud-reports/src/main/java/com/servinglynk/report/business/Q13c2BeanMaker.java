@@ -9,10 +9,8 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.servinglynk.report.bean.Q13c2NumberOfConditionsForStayerDataBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.DisabilitiesModel;
 import com.servinglynk.report.model.EnrollmentModel;
-import com.servinglynk.report.model.ExitModel;
 
 public class Q13c2BeanMaker extends BaseBeanMaker {
 
@@ -22,8 +20,6 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 		if(data.isLiveMode()) {
 		try {
 
-			List<ClientModel> clients = data.getClients();
-			List<ExitModel> exits = data.getExits();	
 		String query ="select enrollmentid,count(enrollmentid) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and datacollectionstage in ('1','2','5') and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) and information_date <= :endDate ";
 		
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();

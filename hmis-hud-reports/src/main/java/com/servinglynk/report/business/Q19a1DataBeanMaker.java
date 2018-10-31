@@ -119,10 +119,10 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		List<IncomeSourceModel> earnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && income.getEarnedIncome() != null && income.getEarnedIncome().floatValue() >0).collect(Collectors.toList());
 		
 		Map<String,BigInteger>  earnedIncomeMapAtEntry = new HashMap<>();
-		earnedIncomeAtEntry.parallelStream().forEach(incomeAndSource ->  {earnedIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), incomeAndSource.getEarnedIncome()); earnedIncomeTotal.add(incomeAndSource.getEarnedIncome()); } );
+		earnedIncomeAtEntry.forEach(incomeAndSource ->  {earnedIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), incomeAndSource.getEarnedIncome()); earnedIncomeTotal.add(incomeAndSource.getEarnedIncome()); } );
 		
 		Map<String,BigInteger>  earnedIncomeMapAtAA = new HashMap<>();
-		earnedIncomeATEntryButNotAtAA.parallelStream().forEach(incomeAndSource -> { earnedIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), incomeAndSource.getEarnedIncome()); });
+		earnedIncomeATEntryButNotAtAA.forEach(incomeAndSource -> { earnedIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), incomeAndSource.getEarnedIncome()); });
 		
 		Set<String> earnedKeySetAtEntry = earnedIncomeMapAtEntry.keySet();
 		int earnedIncomeAtStartWithOutAA = 0;
@@ -241,10 +241,10 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		List<IncomeSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && income.getOtherIncome() != null && income.getOtherIncome().floatValue() >0).collect(Collectors.toList());
 		
 		Map<String,BigInteger>  otherIncomeMapAtEntry = new HashMap<>();
-		otherIncomeAtEntry.parallelStream().forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), incomeAndSource.getOtherIncome()); otherIncomeTotal.add(incomeAndSource.getOtherIncome()); } );
+		otherIncomeAtEntry.forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), incomeAndSource.getOtherIncome()); otherIncomeTotal.add(incomeAndSource.getOtherIncome()); } );
 		
 		Map<String,BigInteger>  otherIncomeMapAtAA = new HashMap<>();
-		otherIncomeATEntryButNotAtAA.parallelStream().forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), incomeAndSource.getOtherIncome()); });
+		otherIncomeATEntryButNotAtAA.forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), incomeAndSource.getOtherIncome()); });
 		
 		Set<String> otherKeySetAtEntry = otherIncomeMapAtEntry.keySet();
 		int otherIncomeAtStartWithOutAA = 0;
@@ -363,10 +363,10 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 		List<IncomeSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && income.getIncomeAmount() != null && income.getIncomeAmount().floatValue() >0).collect(Collectors.toList());
 		
 		Map<String,BigInteger>  otherIncomeMapAtEntry = new HashMap<>();
-		otherIncomeAtEntry.parallelStream().forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), incomeAndSource.getOtherIncome()); overallIncomeTotal.add(incomeAndSource.getIncomeAmount()); } );
+		otherIncomeAtEntry.forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), incomeAndSource.getOtherIncome()); overallIncomeTotal.add(incomeAndSource.getIncomeAmount()); } );
 		
 		Map<String,BigInteger>  otherIncomeMapAtAA = new HashMap<>();
-		otherIncomeATEntryButNotAtAA.parallelStream().forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), incomeAndSource.getOtherIncome()); });
+		otherIncomeATEntryButNotAtAA.forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), incomeAndSource.getOtherIncome()); });
 		
 		Set<String> otherKeySetAtEntry = otherIncomeMapAtEntry.keySet();
 		int otherIncomeAtStartWithOutAA = 0;

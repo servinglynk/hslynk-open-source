@@ -24,7 +24,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			List<ClientModel> clients = data.getClients();
 			List<EnrollmentModel>  enrollments = data.getEnrollments();
 			List<String> enrollmentIds = new ArrayList<>();
-			enrollments.parallelStream().forEach(enrollment -> {enrollmentIds.add(enrollment.getProjectEntryID());});
+			enrollments.forEach(enrollment -> {enrollmentIds.add(enrollment.getProjectEntryID());});
 			data.setEnrollmentIds(enrollmentIds);
 			List<EnrollmentModel> adults = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
 			List<EnrollmentModel> children = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() < 18 && enrollment.getAgeatentry() !=0 ).collect(Collectors.toList());
@@ -34,7 +34,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			List<EnrollmentModel> chronicHomeless = enrollments.parallelStream().filter(enrollment -> enrollment.isChronichomeless()).collect(Collectors.toList());
 			List<ExitModel> exits = data.getExits();
 			List<String> enrollmentsFromExit = new ArrayList<>();
-			exits.parallelStream().forEach(exit -> { enrollmentsFromExit.add(exit.getProjectEntryID());} );
+			exits.forEach(exit -> { enrollmentsFromExit.add(exit.getProjectEntryID());} );
 			List<EnrollmentModel> adultLeavers = enrollments.parallelStream().filter(enrollment -> enrollmentsFromExit.contains(enrollment.getProjectEntryID()) && enrollment.getAgeatentry() > 18).collect(Collectors.toList());
 			data.setAdultLeavers(adultLeavers);
 			List<EnrollmentModel> activeClients = enrollments.parallelStream().filter(enrollment -> !enrollmentsFromExit.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());

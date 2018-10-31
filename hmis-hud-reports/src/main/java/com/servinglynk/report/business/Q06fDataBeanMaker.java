@@ -23,7 +23,7 @@ public class Q06fDataBeanMaker extends BaseBeanMaker {
 			List<EnrollmentModel> enrollments = data.getEnrollments();
 			List<String> clientIds = new ArrayList<String>();
 			List<String> enrollmentIds = new ArrayList<String>();
-			enrollments.parallelStream().forEach(enrollment -> {
+			enrollments.forEach(enrollment -> {
 				clientIds.add(enrollment.getDedupClientId());
 				enrollmentIds.add(enrollment.getProjectEntryID());
 			});
@@ -36,10 +36,10 @@ public class Q06fDataBeanMaker extends BaseBeanMaker {
 							|| StringUtils.equals("4", project.getProjectType()))
 					.collect(Collectors.toList());
 			List<String> projectIds = new ArrayList<String>();
-			filteredProjects.parallelStream().forEach(project -> {
+			filteredProjects.forEach(project -> {
 				projectIds.add(project.getProjectId());
 			});
-			enrollments.parallelStream().forEach(enrollment -> {
+			enrollments.forEach(enrollment -> {
 				long diff = enrollment.getEntrydate().getTime() - data.getReportEndDate().getTime();
 				long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 				if (projectIds.contains(enrollment.getProjectID()) && days >= 90) {

@@ -47,7 +47,7 @@ public class Q06aBeanMaker extends BaseBeanMaker {
 		try {
 			List<ClientModel> clients = data.getClients();
 			Long numOfClients = Long.valueOf(clients.size());
-			clients.parallelStream().forEach(client -> { 
+			clients.forEach(client -> { 
 				
 				if(StringUtils.equals("8", client.getName_data_quality()) || StringUtils.equals("9", client.getName_data_quality()))  {
 					nameCDK++;
