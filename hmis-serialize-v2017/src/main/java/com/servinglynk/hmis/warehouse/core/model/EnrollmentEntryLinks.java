@@ -8,7 +8,7 @@ public class EnrollmentEntryLinks {
 	
 	Map<String, List<ActionLink>> rhsps = new HashMap<>();
 
-	Map<String, List<ActionLink>> entryrhys = new HashMap<>();
+	Map<String,Map<String, List<ActionLink>>> entryrhys = new HashMap<>();
 	Map<String, List<ActionLink>> entryssvfs = new HashMap<>();
 	
 	public Map<String, List<ActionLink>> getRhsps() {
@@ -17,10 +17,10 @@ public class EnrollmentEntryLinks {
 	public void setRhsps(Map<String, List<ActionLink>> rhsps) {
 		this.rhsps = rhsps;
 	}
-	public Map<String, List<ActionLink>> getEntryrhys() {
+	public Map<String,Map<String, List<ActionLink>>> getEntryrhys() {
 		return entryrhys;
 	}
-	public void setEntryrhys(Map<String, List<ActionLink>> entryrhys) {
+	public void setEntryrhys(Map<String,Map<String, List<ActionLink>>> entryrhys) {
 		this.entryrhys = entryrhys;
 	}
 	public Map<String, List<ActionLink>> getEntryssvfs() {
