@@ -110,7 +110,7 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 			q18eData.setQ25fNumberOfAdultStayersWithoutRequiredStayers(data.getNumOfAdultStayersWithoutRequiredAnnualAssesment());
 			
 			
-			q18eData.setQ25fTotalAdultsAtEntry(data.getNumOfAdults());
+			q18eData.setQ25fTotalAdultsAtEntry(BigInteger.valueOf(getSize(data.getVeterans())));
 			q18eData.setQ25fTotalAdultsLeavers(data.getTotNoOfAdultLeavers());
 			q18eData.setQ25fTotalAdultsStayers(data.getTotNoOfAdultStayers());
 			
@@ -140,12 +140,11 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 				statement = connection.createStatement();
 				data.setQueryDataCollectionStage(datacollectionStage);
 				resultSet = statement.executeQuery(formatQuery(query,schema,data));
-				
 			 while(resultSet.next()) {
-				 float totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
+				 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
 				 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
 				 BigInteger totIncome = new BigInteger(String.valueOf(totalIncome));
-				 float earned = getFloatValue(resultSet,3);
+				 int earned = getFloatValue(resultSet,3);
 				 String earnedIncome = String.valueOf(earned);
 				 BigInteger earnedIncomeBigInt = new BigInteger(earnedIncome);
 				 String dedupClientId = (String) resultSet.getObject(16);

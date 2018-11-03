@@ -48,9 +48,9 @@ public class Q04aBeanMaker {
 				 }
 					
 					q04aDataBean.setQ04aProjectName("projectname");
-					 q04aDataBean.setQ04aHmisProjectType("projecttype_desc");
+					 q04aDataBean.setQ04aHmisProjectType("1");
 					 q04aDataBean.setQ04aProjectId("source_system_id");
-					 q04aDataBean.setQ04aMethodOfTracking("trackingmethod_desc");
+					 q04aDataBean.setQ04aMethodOfTracking("1");
 					 q04aDataBean.setQ04aIdentityProjectId(BigInteger.ZERO);
 					 q04aDataBean.setQ04aHmisProjectIdService(BigInteger.ZERO);
 					

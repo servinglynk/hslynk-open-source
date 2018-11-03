@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean;
@@ -235,7 +236,7 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 				 builder.deleteCharAt(builder.length()-1);
 				 builder.append(" ) ");
 				 String newQuery = query;
-				 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+				 if(StringUtils.contains("%p",query)) {
 					 newQuery = query.replace("%p", builder.toString());
 				 }else {
 					 newQuery = query.replace("%p", " ");

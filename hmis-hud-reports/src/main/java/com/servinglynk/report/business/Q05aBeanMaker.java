@@ -44,7 +44,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
 			List<EnrollmentModel> adultHohWithLeavers = adultLeavers.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() > 18).collect(Collectors.toList());
 			data.setAdultStayers(adultStayers);
-			
+			data.setVeterans(veterans);
 			List<EnrollmentModel> childHoh = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() < 18 && enrollment.getAgeatentry() !=0).collect(Collectors.toList());
 			List<EnrollmentModel> adultHoh = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
 			

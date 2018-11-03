@@ -31,6 +31,7 @@ public class ReportData {
 	private List<EnrollmentModel> adultStayers = new ArrayList<>();
 	private List<EnrollmentModel> adultLeavers = new ArrayList<>();
 	private List<EnrollmentModel> activeClients = new ArrayList<>();
+	private List<ClientModel> veterans = new ArrayList<>();
 	private List<ContactModel> contacts = new ArrayList<>();
 	private List<DateOfEngagementModel> dateOfEngagements = new ArrayList<>();
 	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
@@ -693,4 +694,17 @@ public class ReportData {
 	public void setAllDataLenghtofStay(List<Q22BeanModel> allDataLenghtofStay) {
 		this.allDataLenghtofStay = allDataLenghtofStay;
 	}
+	/**
+	 * @return the veterans
+	 */
+	public List<ClientModel> getVeterans() {
+		return veterans;
+	}
+	/**
+	 * @param veterans the veterans to set
+	 */
+	public void setVeterans(List<ClientModel> veterans) {
+		this.veterans = veterans;
+	}
+	
 }

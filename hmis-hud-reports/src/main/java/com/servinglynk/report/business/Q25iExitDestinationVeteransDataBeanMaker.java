@@ -24,8 +24,7 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				" join %s.exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
 				" join %s.client c on (c.id = e.client_id and c.veteran_status= '1') " +
 				" join %s.moveindate mid on (e.id = mid.enrollmentid) "+
-				" join %s.enrollment e1 on (e.householdid = e1.householdid and e1.relationshipToHoH='1') "+
-				" order by e.dedup_client_id ";	
+				" join %s.enrollment e1 on (e.householdid = e1.householdid and e1.relationshipToHoH='1') where 1=1  ";
 		
 		try {
 			if(data.isLiveMode()) {

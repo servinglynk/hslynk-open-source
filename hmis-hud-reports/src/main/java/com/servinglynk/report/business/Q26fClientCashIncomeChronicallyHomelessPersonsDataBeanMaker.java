@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
@@ -17,6 +18,7 @@ import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q26fClientCashIncomeChronicallyHomelessPersonsDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
+import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.IncomeSourceModel;
 import com.servinglynk.report.model.NoYesEnum;
 
@@ -30,7 +32,7 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 				String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 						" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
 						" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources i, %s.enrollment e,%s.client c  where  e.client_id = c.id  and c.veteran_status= '1' and i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
-						" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 ";
+						" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 and e.chronichomeless=true ";
 
 								
 						
@@ -139,7 +141,23 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 							connection = ImpalaConnection.getConnection();
 							statement = connection.createStatement();
 							data.setQueryDataCollectionStage(datacollectionStage);
-							resultSet = statement.executeQuery(formatQuery(query,schema,data));
+							 String newQueryWithEnrollments = query;
+							 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
+								List<EnrollmentModel> enrollments = data.getAdultLeavers();
+								 if(CollectionUtils.isNotEmpty(enrollments)) {
+									 int count = 0;
+									 for(EnrollmentModel enrollment : enrollments) {
+										 builderWithEnrollments.append("'"+enrollment.getProjectEntryID()+"'");
+										 if(count != enrollments.size()) {
+											 builderWithEnrollments.append(",");
+										 }
+									 }
+								 }
+								 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
+								 builderWithEnrollments.append(" ) ");
+								
+								 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
+							resultSet = statement.executeQuery(formatQuery(newQueryWithEnrollments,schema,data));
 							
 						 while(resultSet.next()) {
 							 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
@@ -185,10 +203,10 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 							resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),data.getSchema(),data));
 							
 						 while(resultSet.next()) {
-							 float totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
+							 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
 							 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
 							 BigInteger totIncome = new BigInteger(String.valueOf(totalIncome));
-							 float earned = getFloatValue(resultSet,3);
+							 int earned = getFloatValue(resultSet,3);
 							 String earnedIncome = String.valueOf(earned);
 							 BigInteger earnedIncomeBigInt = new BigInteger(earnedIncome);
 							 String dedupClientId = (String) resultSet.getObject(16);
@@ -215,36 +233,4 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 						}
 						return incomes;
 					}
-					
-					public static int getIncomeCnt(String schema,String query,String datacollectionStage,ReportData data) {
-						ResultSet resultSet = null;
-						Statement statement = null;
-						Connection connection = null;
-						int count =0;
-						try {
-							connection = ImpalaConnection.getConnection();
-							statement = connection.createStatement();
-							data.setQueryDataCollectionStage(datacollectionStage);
-							resultSet = statement.executeQuery(formatQuery(query,schema,data));
-							
-						 while(resultSet.next()) {
-							 count = resultSet.getInt(1);
-					     }
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} finally {
-							if (statement != null) {
-								try {
-									statement.close();
-									//connection.close();
-								} catch (SQLException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-						}
-						return count;
-					}
-					
 				}

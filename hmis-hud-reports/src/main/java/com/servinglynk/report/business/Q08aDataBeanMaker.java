@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.servinglynk.report.bean.Q08aDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
@@ -22,9 +24,9 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 			List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 			List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 			List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
-
-			List<ClientModel> clients = data.getClients();
-			List<EnrollmentModel> enrollments = data.getEnrollments();
+			List<EnrollmentModel> allEnrollments = data.getEnrollments();
+			List<EnrollmentModel> enrollments = allEnrollments.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
+			
 			List<EnrollmentModel> enrollmentsHHWithChildren = enrollments.parallelStream()
 					.filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID()))
 					.collect(Collectors.toList());
@@ -43,7 +45,7 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 					.filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID()))
 					.collect(Collectors.toList());
 		
-			q08aDataBean.setOverAllTotHouseHolds(BigInteger.valueOf(clients != null ? clients.size() : 0));
+			q08aDataBean.setOverAllTotHouseHolds(BigInteger.valueOf(getSize(enrollments)));
 			q08aDataBean.setTotHhWithoutChild(
 					BigInteger.valueOf(getSize(enrollmentsHHWithOutChildren)));
 			q08aDataBean.setTotHhUnknownHhType(

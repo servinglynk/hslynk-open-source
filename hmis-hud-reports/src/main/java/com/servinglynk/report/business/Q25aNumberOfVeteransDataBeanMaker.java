@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q25aNumberOfVeteransDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 	
@@ -110,7 +111,7 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 						int nonChVeteranUnknown= chVeteranUnknownHouseHold + nonChVeteranUnknownHouseHold + nonChVeteranWithChildAndAdults +notVeteranUnknownHouseHoldSize + clientRefusedUnknownHouseHoldSize + dncUnknownHouseHoldSize ;
 						
 						
-						q25aNumberOfVeteransTable.setQ25aTotTotal(BigInteger.valueOf(total));
+						q25aNumberOfVeteransTable.setQ25aTotTotal(BigInteger.valueOf(getSize(data.getVeterans())));
 						q25aNumberOfVeteransTable.setQ25aTotWithoutChildren(BigInteger.valueOf(nonChWithoutChildren));
 						q25aNumberOfVeteransTable.setQ25aTotWithChildAndAdults(BigInteger.valueOf(nonnonChVeteranWithoutChild));
 						q25aNumberOfVeteransTable.setQ25aTotUnknownHouseHold(BigInteger.valueOf(nonChVeteranUnknown));
@@ -151,6 +152,21 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 				 }else {
 					 newQuery = query.replace("%p", " ");
 				 }
+				 
+				 StringBuilder enrollmentBuilder = new StringBuilder(" and e.id in  ( ");
+					List<EnrollmentModel> enrollments = data.getActiveClients();
+					 if(CollectionUtils.isNotEmpty(enrollments)) {
+						 int index = 0;
+						 for(EnrollmentModel enrollment : enrollments) {
+							 enrollmentBuilder.append("'"+enrollment.getProjectEntryID()+"'");
+							 if(index != enrollments.size()) {
+								 enrollmentBuilder.append(",");
+							 }
+						 }
+					 }
+					 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+					 enrollmentBuilder.append(" ) ");
+					 newQuery = newQuery + enrollmentBuilder.toString();
 				
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;

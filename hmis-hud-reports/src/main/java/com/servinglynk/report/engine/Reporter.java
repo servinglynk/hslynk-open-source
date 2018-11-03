@@ -50,10 +50,10 @@ public class Reporter {
 			projects.add("e6ccebeb-2b03-47aa-96dc-e63b9d2c4fc1");
 			
 			ClassLoader classLoader = Reporter.class.getClassLoader();
-			File file = new File(classLoader.getResource("Q12a.jrxml").getFile());
+			File file = new File(classLoader.getResource("q13c2.jrxml").getFile());
 			InputStream inputStream = new FileInputStream(file);
 		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-		    String jasperReport = JasperCompileManager.compileReportToFile("/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/src/main/csvresources/Q12a.jrxml");
+		    String jasperReport = JasperCompileManager.compileReportToFile("/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/src/main/csvresources/q13c2.jrxml");
 		    
         	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList("sr0012",null,sageReport, new Date(), new Date(),projects);
         	if(!sageReport) {

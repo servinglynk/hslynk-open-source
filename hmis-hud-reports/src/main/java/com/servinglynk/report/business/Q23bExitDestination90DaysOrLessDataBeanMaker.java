@@ -22,16 +22,15 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 				" select distinct(e.dedup_client_id ),p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate,ext.destination  from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
 				" join %s.exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
 				" join %s.moveindate mid on (e.id = mid.enrollmentid) "+
-				" join %s.enrollment e1 on (e.householdid = e1.householdid and e1.relationshipToHoH='1') "+
-				" order by e.dedup_client_id ";	
+				" join %s.enrollment e1 on (e.householdid = e1.householdid and e1.relationshipToHoH='1') ";
 		
 		try {
 			if(data.isLiveMode()) {
-				List<Q22BeanModel> allData = getQ22BeanLengthOfStay(data, query, null,true,true);
-				List<Q22BeanModel> withoutChildren = getQ22BeanLengthOfStay(data, query, data.getProjectsHHWithOutChildren(),false,true);
-				List<Q22BeanModel> withChildAndAdults = getQ22BeanLengthOfStay(data, query, data.getProjectsHHWithOneAdultChild(),false,true);
-				List<Q22BeanModel> withChildren = getQ22BeanLengthOfStay(data, query, data.getProjectsHHWithChildren(),false,true);
-				List<Q22BeanModel> unknown = getQ22BeanLengthOfStay(data, query, data.getProjectsUnknownHouseHold(),false,true);
+				List<Q22BeanModel> allData = getQ22BeanLengthOfStayForExit(data, query, null,true,true);
+				List<Q22BeanModel> withoutChildren = getQ22BeanLengthOfStayForExit(data, query, data.getProjectsHHWithOutChildren(),false,true);
+				List<Q22BeanModel> withChildAndAdults = getQ22BeanLengthOfStayForExit(data, query, data.getProjectsHHWithOneAdultChild(),false,true);
+				List<Q22BeanModel> withChildren = getQ22BeanLengthOfStayForExit(data, query, data.getProjectsHHWithChildren(),false,true);
+				List<Q22BeanModel> unknown = getQ22BeanLengthOfStayForExit(data, query, data.getProjectsUnknownHouseHold(),false,true);
 				//3
 				int allTotal3 = getDestination(allData, numOfDays, "26");
 				int allTotal4 = getDestination(allData, numOfDays, "11");
@@ -470,7 +469,7 @@ public class Q23bExitDestination90DaysOrLessDataBeanMaker extends BaseBeanMaker 
 				int totalWithChildren = subTotal1WithChildren + subTotal2WithChildren + subTotal3WithChildren + subTotal4WithChildren;
 				int totalUnknown = subTotal1Unknown + subTotal2Unknown + subTotal3Unknown + subTotal4Unknown ;
 				//40
-				q23bExitDestination90DaysOrLessTable.setQ23BETotTotal(BigInteger.valueOf(totalAllData));
+				q23bExitDestination90DaysOrLessTable.setQ23BETotTotal(BigInteger.valueOf(getSize(data.getAdultLeavers())));
 				q23bExitDestination90DaysOrLessTable.setQ23BETotWithoutChild(BigInteger.valueOf(totalWithoutChild));
 				q23bExitDestination90DaysOrLessTable.setQ23BETotWithChildAndAdults(BigInteger.valueOf(totalWithChildAndAdults));
 				q23bExitDestination90DaysOrLessTable.setQ23BETotWithOnlyChild(BigInteger.valueOf(totalWithChildren));

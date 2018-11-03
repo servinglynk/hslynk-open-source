@@ -7,9 +7,9 @@
 "   f. $1,001 - $1,500",0,0,0
 "   g. $1,501 - $2,000",0,0,0
 "   h. $2,001+",0,0,0
-   i. Client Doesn't Know/Client Refused,742,0,0
-   j. Data Not Collected,742,0,0
+   i. Client Doesn't Know/Client Refused,0,0,0
+   j. Data Not Collected,0,0,0
    k. Number of adult stayers not yet required to have an annual assessment,0,0,0
 "  l. Number of adult stayers without required annual
 assessment",0,0,0
-   n. Total adults,56,60,4
+   n. Total adults,0,0,0

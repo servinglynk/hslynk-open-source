@@ -22,8 +22,7 @@ public class Q27fExitDestinationYouthDataBeanMaker extends BaseBeanMaker{
 				" join %s.client c on (c.id = e.client_id ) " +
 				" join %s.moveindate mid on (e.id = mid.enrollmentid) "+
 				" join %s.enrollment e1 on (e.householdid = e1.householdid and e1.relationshipToHoH='1') "+
-				" where c.age >= 18 and c.age <= 24 "+  //added a check for youth
-				" order by e.dedup_client_id ";	
+				" where c.age >= 18 and c.age <= 24 ";  //added a check for youth
 		
 		try {
 			if(data.isLiveMode()) {

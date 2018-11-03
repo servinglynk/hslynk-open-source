@@ -196,7 +196,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 	    	q13c2Bean.setQ13c2InformationmissingWithOnlychildren(BigInteger.valueOf(withChildrenIntSize));
 	    	q13c2Bean.setQ13c2InformationmissingUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
 		}
-    	q13c2Bean.setQ13c2TotalSummed(data.getTotNumOfPersonServed());
+    	q13c2Bean.setQ13c2TotalSummed(BigInteger.valueOf(getSize(data.getActiveClients())));
     	q13c2Bean.setQ13c2TotalWithoutChildren(totalWOC);
     	q13c2Bean.setQ13c2TotalWithChildAndAdults(totalWCA);
     	q13c2Bean.setQ13c2TotalWithOnlychildren(totalWithOnlyChild);

@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q25cGenderVeteransDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 	
@@ -140,7 +141,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						int withChildAndAdults =maleWithChildAndAdultsSize + femaleWithChildAndAdultsSize + transgenderMaleToFemaleWithChildAndAdultsSize + transgendereFemaleToMaleWithChildAndAdultsSize + otherWithChildAndAdultsSize + dkWithChildAndAdultsSize + informationMissingWithChildAndAdultsSize;
 						int unknownHouseHold = maleUnknownHouseHoldSize + femaleUnknownHouseHoldSize + transgenderMaleToFemaleUnknownHouseHoldSize + transgendereFemaleToMaleUnknownHouseHoldSize + otherUnknownHouseHoldSize + dkUnknownHouseHoldSize + informationMissingUnknownHouseHoldSize;
 						
-						q25cGenderVeteranTable.setQ25cTotTotal(BigInteger.valueOf(total));
+						q25cGenderVeteranTable.setQ25cTotTotal(BigInteger.valueOf(getSize(data.getVeterans())));
 						q25cGenderVeteranTable.setQ25cTotWithoutChildren(BigInteger.valueOf(withOutChildren));
 						q25cGenderVeteranTable.setQ25cTotWithChildAndAdults(BigInteger.valueOf(withChildAndAdults));
 						q25cGenderVeteranTable.setQ25cTotUnknownHouseHold(BigInteger.valueOf(unknownHouseHold));
@@ -181,6 +182,20 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 				 }else {
 					 newQuery = query.replace("%p", " ");
 				 }
+				 StringBuilder enrollmentBuilder = new StringBuilder(" and e.id in  ( ");
+					List<EnrollmentModel> enrollments = data.getActiveClients();
+					 if(CollectionUtils.isNotEmpty(enrollments)) {
+						 int index = 0;
+						 for(EnrollmentModel enrollment : enrollments) {
+							 enrollmentBuilder.append("'"+enrollment.getProjectEntryID()+"'");
+							 if(index != enrollments.size()) {
+								 enrollmentBuilder.append(",");
+							 }
+						 }
+					 }
+					 builder.deleteCharAt(enrollmentBuilder.length() -1);
+					 builder.append(" ) ");
+					 newQuery = newQuery + enrollmentBuilder.toString();
 				
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;

@@ -26,12 +26,12 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		if(data.isLiveMode()) {
 		try{
 		String entryQuery = " select count(dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e where   e.id=i.enrollmentid "+ 
-							" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate  and i.datacollectionstage=:datacollectionstage and e.ageatentry >= 18 ";
+							" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate  and i.datacollectionstage=:datacollectionstage and e.ageatentry >= 18   ";
 	
 		String annualAssesmentQuery = " select count(distinct(dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e where   e.id=i.enrollmentid "+ 
 				" and i.information_date >= e.entrydate and i.datacollectionstage=:datacollectionstage  and i.information_date >= :startDate and i.information_date <= :endDate  and e.ageatentry >= 18 "+
 				" and   e.id not in ( select enrollmentid from %s.exit  where exitdate <= :startDate )  "+
-				" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 )  ";
+				" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 )    ";
 
 		
 		int alimonyIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and alimony ='1' ", DataCollectionStage.ENTRY.getCode(),data);
@@ -160,7 +160,7 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		
 		
 		String adultsIncomeQuery = " select dedup_client_id  from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+ 
-				" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate order by dedup_client_id ";
+				" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate    order by dedup_client_id ";
 		data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());
 		List<String> enrollmentsAtEnrty = getClients(data.getSchema(), adultsIncomeQuery,data);
 		data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());
@@ -197,38 +197,6 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		}
 		return Arrays.asList(q17CashIncomeSourcesDataBeanTable);
 	}
-	
-	public static int getIncomeCnt(String schema,String query,String datacollectionStage,ReportData data) {
-		ResultSet resultSet = null;
-		Statement statement = null;
-		Connection connection = null;
-		int count =0;
-		try {
-			connection = ImpalaConnection.getConnection();
-			statement = connection.createStatement();
-			data.setQueryDataCollectionStage(datacollectionStage);
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
-			
-		 while(resultSet.next()) {
-			 count = resultSet.getInt(1);
-	     }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-					//connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return count;
-	}
-	
 	
 	public static int getIncomeCntForAnnualAssesment(String schema,String query,String datacollectionStage,ReportData data) {
 		ResultSet resultSet = null;
