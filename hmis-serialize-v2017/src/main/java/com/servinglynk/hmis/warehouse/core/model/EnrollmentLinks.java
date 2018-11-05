@@ -1,38 +1,37 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class EnrollmentLinks {
 	
-	Map<String,List<ActionLink>> enrollmentcocs = new HashMap<>();
-	Map<String,List<ActionLink>> educations = new HashMap<>();
+	Map<String,Map<String,List<ActionLink>>> enrollmentcocs = new HashMap<>();
+	Map<String,Map<String,List<ActionLink>>> educations = new HashMap<>();
 	Map<String,List<ActionLink>> contacts = new HashMap<>();
 	Map<String,List<ActionLink>> dateOfEngagements = new HashMap<>();
-	Map<String,List<ActionLink>> disabilities = new HashMap<>();
-	Map<String,List<ActionLink>> domesticViolences = new HashMap<>();
-	Map<String,List<ActionLink>> employments = new HashMap<>();
-	Map<String,List<ActionLink>> healthinsurances = new HashMap<>();
-	Map<String,List<ActionLink>> healthStatuses = new HashMap<>();
-	Map<String,List<ActionLink>> incomeandsources = new HashMap<>();
-	Map<String,List<ActionLink>> medicalassistances = new HashMap<>();
-	Map<String,List<ActionLink>> noncashbenefits = new HashMap<>();
+	Map<String,Map<String,List<ActionLink>>> disabilities = new HashMap<>();
+	Map<String,Map<String,List<ActionLink>>> domesticViolences = new HashMap<>();
+	Map<String,Map<String,List<ActionLink>>> employments = new HashMap<>();
+	Map<String,Map<String,List<ActionLink>>> healthinsurances = new HashMap<>();
+	Map<String,Map<String,List<ActionLink>>> healthStatuses = new HashMap<>();
+	Map<String,Map<String,List<ActionLink>>> incomeandsources = new HashMap<>();
+	Map<String,Map<String,List<ActionLink>>> medicalassistances = new HashMap<>();
+	Map<String,Map<String,List<ActionLink>>> noncashbenefits = new HashMap<>();
 	Map<String,List<ActionLink>> residentialMoveinDates = new HashMap<>();
 	Map<String,List<ActionLink>> pathstatuses = new HashMap<>();
 	Map<String,List<ActionLink>> serviceFaReferrals = new HashMap<>();
 	
-	public Map<String, List<ActionLink>> getEnrollmentcocs() {
+	public Map<String,Map<String,List<ActionLink>>> getEnrollmentcocs() {
 		return enrollmentcocs;
 	}
-	public void setEnrollmentcocs(Map<String, List<ActionLink>> enrollmentcocs) {
+	public void setEnrollmentcocs(Map<String,Map<String,List<ActionLink>>> enrollmentcocs) {
 		this.enrollmentcocs = enrollmentcocs;
 	}
-	public Map<String, List<ActionLink>> getEducations() {
+	public Map<String,Map<String,List<ActionLink>>> getEducations() {
 		return educations;
 	}
-	public void setEducations(Map<String, List<ActionLink>> educations) {
+	public void setEducations(Map<String,Map<String,List<ActionLink>>> educations) {
 		this.educations = educations;
 	}
 	public Map<String, List<ActionLink>> getContacts() {
@@ -47,52 +46,52 @@ public class EnrollmentLinks {
 	public void setDateOfEngagements(Map<String, List<ActionLink>> dateOfEngagements) {
 		this.dateOfEngagements = dateOfEngagements;
 	}
-	public Map<String, List<ActionLink>> getDisabilities() {
+	public Map<String,Map<String, List<ActionLink>>> getDisabilities() {
 		return disabilities;
 	}
-	public void setDisabilities(Map<String, List<ActionLink>> disabilities) {
+	public void setDisabilities(Map<String,Map<String, List<ActionLink>>> disabilities) {
 		this.disabilities = disabilities;
 	}
-	public Map<String, List<ActionLink>> getDomesticViolences() {
+	public Map<String,Map<String,List<ActionLink>>> getDomesticViolences() {
 		return domesticViolences;
 	}
-	public void setDomesticViolences(Map<String, List<ActionLink>> domesticViolences) {
+	public void setDomesticViolences(Map<String,Map<String,List<ActionLink>>> domesticViolences) {
 		this.domesticViolences = domesticViolences;
 	}
-	public Map<String, List<ActionLink>> getEmployments() {
+	public Map<String,Map<String,List<ActionLink>>> getEmployments() {
 		return employments;
 	}
-	public void setEmployments(Map<String, List<ActionLink>> employments) {
+	public void setEmployments(Map<String,Map<String,List<ActionLink>>> employments) {
 		this.employments = employments;
 	}
-	public Map<String, List<ActionLink>> getHealthinsurances() {
+	public Map<String,Map<String,List<ActionLink>>> getHealthinsurances() {
 		return healthinsurances;
 	}
-	public void setHealthinsurances(Map<String, List<ActionLink>> healthinsurances) {
+	public void setHealthinsurances(Map<String,Map<String,List<ActionLink>>> healthinsurances) {
 		this.healthinsurances = healthinsurances;
 	}
-	public Map<String, List<ActionLink>> getHealthStatuses() {
+	public Map<String,Map<String,List<ActionLink>>> getHealthStatuses() {
 		return healthStatuses;
 	}
-	public void setHealthStatuses(Map<String, List<ActionLink>> healthStatuses) {
+	public void setHealthStatuses(Map<String,Map<String,List<ActionLink>>> healthStatuses) {
 		this.healthStatuses = healthStatuses;
 	}
-	public Map<String, List<ActionLink>> getIncomeandsources() {
+	public Map<String,Map<String,List<ActionLink>>> getIncomeandsources() {
 		return incomeandsources;
 	}
-	public void setIncomeandsources(Map<String, List<ActionLink>> incomeandsources) {
+	public void setIncomeandsources(Map<String,Map<String,List<ActionLink>>> incomeandsources) {
 		this.incomeandsources = incomeandsources;
 	}
-	public Map<String, List<ActionLink>> getMedicalassistances() {
+	public Map<String,Map<String,List<ActionLink>>> getMedicalassistances() {
 		return medicalassistances;
 	}
-	public void setMedicalassistances(Map<String, List<ActionLink>> medicalassistances) {
+	public void setMedicalassistances(Map<String,Map<String,List<ActionLink>>> medicalassistances) {
 		this.medicalassistances = medicalassistances;
 	}
-	public Map<String, List<ActionLink>> getNoncashbenefits() {
+	public Map<String,Map<String,List<ActionLink>>> getNoncashbenefits() {
 		return noncashbenefits;
 	}
-	public void setNoncashbenefits(Map<String, List<ActionLink>> noncashbenefits) {
+	public void setNoncashbenefits(Map<String,Map<String,List<ActionLink>>> noncashbenefits) {
 		this.noncashbenefits = noncashbenefits;
 	}
 	public Map<String, List<ActionLink>> getResidentialMoveinDates() {
