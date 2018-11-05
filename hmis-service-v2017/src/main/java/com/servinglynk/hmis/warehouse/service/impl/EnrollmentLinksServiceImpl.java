@@ -242,7 +242,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<Entryrhy> data = daoFactory.getEntryrhyDao().getAllEnrollmentEntryrhys(enrollmentId, null,null);
 		for(Entryrhy entity : data) {
 			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(entity.getDateCreated(),"noStageGroup", entity.getId(),content);
+				this.groupByDataCollectionStage(entity.getDateCreated(),"unspecified_stage", entity.getId(),content);
 			}else {
 				this.groupByDataCollectionStage(entity.getDateCreated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);
 			}
@@ -290,7 +290,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<EnrollmentCoc> data = daoFactory.getEnrollmentCocDao().getAllEnrollmentEnrollmentCocs(enrollmentId, null,null);
 		for(EnrollmentCoc entity : data) {
 			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(entity.getDateCreated(),"noStageGroup", entity.getId(),content);
+				this.groupByDataCollectionStage(entity.getDateCreated(),"unspecified_stage", entity.getId(),content);
 			}else {
 			this.groupByDataCollectionStage(entity.getDateCreated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);
 			}
@@ -318,7 +318,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<Education> data = daoFactory.getEducationDao().getAllEnrollmentEducations(enrollmentId, null,null);
 		for(Education entity : data) {
 			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(entity.getDateCreated(),"noStageGroup", entity.getId(),content);
+				this.groupByDataCollectionStage(entity.getDateCreated(),"unspecified_stage", entity.getId(),content);
 			}else {
 				this.groupByDataCollectionStage(entity.getDateCreated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);	
 			}
@@ -403,7 +403,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<Disabilities> data = daoFactory.getDisabilitiesDao().getAllEnrollmentDisabilitiess(enrollmentId, null,null);
 		for(Disabilities entity : data) {
 			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(entity.getDateCreated(),"noStageGroup", entity.getId(),content);
+				this.groupByDataCollectionStage(entity.getDateCreated(),"unspecified_stage", entity.getId(),content);
 			} else {
 				this.groupByDataCollectionStage(entity.getDateCreated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);
 			}
@@ -443,7 +443,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			if(entity.getDataCollectionStage()!=null) {
 				this.groupByDataCollectionStage(entity.getDateCreated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);
 			}else {
-				this.groupByDataCollectionStage(entity.getDateCreated(),"noStageGroup", entity.getId(),content);
+				this.groupByDataCollectionStage(entity.getDateCreated(),"unspecified_stage", entity.getId(),content);
 			}
 		}
 		
@@ -469,7 +469,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<Employment> data = daoFactory.getEmploymentDao().getAllEnrollmentEmployments(enrollmentId, null,null);
 		for(Employment entity : data) {
 			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(entity.getDateCreated(),"noStageGroup", entity.getId(),content);	
+				this.groupByDataCollectionStage(entity.getDateCreated(),"unspecified_stage", entity.getId(),content);	
 			}else {
 				this.groupByDataCollectionStage(entity.getDateCreated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);	
 			}
@@ -497,7 +497,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<Healthinsurance> data = daoFactory.getHealthinsuranceDao().getAllEnrollmentHealthInsurances(enrollmentId, null,null);
 		for(Healthinsurance entity : data) {
 			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(entity.getDateCreated(),"noStageGroup", entity.getId(),content);
+				this.groupByDataCollectionStage(entity.getDateCreated(),"unspecified_stage", entity.getId(),content);
 			}else {
 				this.groupByDataCollectionStage(entity.getDateCreated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);		
 			}
@@ -525,7 +525,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<HealthStatus> data = daoFactory.getHealthStatusDao().getAllEnrollmentHealthStatuses(enrollmentId, null,null);
 		for(HealthStatus entity : data) {
 			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(entity.getDateCreated(),"noStageGroup", entity.getId(),content);	
+				this.groupByDataCollectionStage(entity.getDateCreated(),"unspecified_stage", entity.getId(),content);	
 			}else {
 				this.groupByDataCollectionStage(entity.getDateCreated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);		
 			}
@@ -554,7 +554,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<Incomeandsources> data = daoFactory.getIncomeandsourcesDao().getAllEnrollmentIncomeAndSources(enrollmentId, null,null);
 		for(Incomeandsources entity : data) {
 			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(entity.getDateCreated(),"noStageGroup", entity.getId(),content);	
+				this.groupByDataCollectionStage(entity.getDateCreated(),"unspecified_stage", entity.getId(),content);	
 			}else {
 				this.groupByDataCollectionStage(entity.getDateCreated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);
 			}
@@ -606,7 +606,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<Noncashbenefits> data = daoFactory.getNoncashbenefitsDao().getAllEnrollmentNoncashbenefits(enrollmentId, null,null);
 		for(Noncashbenefits entity : data) {
 			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(entity.getDateCreated(),"noStageGroup", entity.getId(),content);	
+				this.groupByDataCollectionStage(entity.getDateCreated(),"unspecified_stage", entity.getId(),content);	
 			}else {
 				this.groupByDataCollectionStage(entity.getDateCreated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);	
 			}
