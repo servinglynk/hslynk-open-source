@@ -141,7 +141,7 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 							connection = ImpalaConnection.getConnection();
 							statement = connection.createStatement();
 							data.setQueryDataCollectionStage(datacollectionStage);
-							 String newQueryWithEnrollments = query;
+							String newQueryWithEnrollments = query;
 							 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
 								List<EnrollmentModel> enrollments = data.getAdultLeavers();
 								 if(CollectionUtils.isNotEmpty(enrollments)) {
@@ -157,7 +157,7 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 								 builderWithEnrollments.append(" ) ");
 								
 								 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
-							resultSet = statement.executeQuery(formatQuery(newQueryWithEnrollments,schema,data));
+							resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, newQueryWithEnrollments),schema,data));
 							
 						 while(resultSet.next()) {
 							 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+

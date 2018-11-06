@@ -59,8 +59,11 @@ public class BaseBeanMaker {
 		return false;
 	 }
 	 protected static long subtractDate(Date from, Date to) {
-		 long between = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
-		 return between;
+		 if(from != null && to != null) {
+			 long between = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
+			 return between;
+		 }
+		 return 0;
 	 }
 	
 	 protected static String joinEnrollmentIds(String query,ReportData data) {

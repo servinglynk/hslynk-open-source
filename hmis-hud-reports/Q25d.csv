@@ -1,10 +1,10 @@
 ,Total,  Without children,  With children and adults,  Unknown household type
    a. 18 - 24,0,0,0,0
-   b. 25 - 34,0,0,0,0
-   c. 35 - 44,0,0,0,0
-   d. 45 - 54,0,0,0,0
-   e. 55 - 61,0,0,0,0
-  f. 62+,0,0,0,0
+   b. 25 - 34,5,0,5,5
+   c. 35 - 44,8,0,8,8
+   d. 45 - 54,25,0,25,25
+   e. 55 - 61,42,2,42,42
+  f. 62+,84,3,84,84
   g. Client Doesn't Know/Client Refused,0,0,0,0
-  h. Data Not Collected,0,0,0,0
-  i. Total,0,0,0,0
+  h. Data Not Collected,33,1,33,33
+  i. Total,197,6,192,197

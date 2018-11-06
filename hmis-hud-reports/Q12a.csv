@@ -1,10 +1,10 @@
    Race,Total,  a. Without children,  b. With children and adults,c. With only children,  d. Unknown household type
-   a. White,0,0,0,0,0
-   b. Black or African-American,0,0,0,0,0
+   a. White,22,22,0,0,0
+   b. Black or African-American,37,37,0,0,0
    c. Asian,0,0,0,0,0
    d. American Indian or Alaska Native ,0,0,0,0,0
    e. Native Hawaiian or Other Pacific ,0,0,0,0,0
    f. Multiple races,0,0,0,0,0
-   g. Client Doesn't Know/Client Refused,0,0,0,0,0
+   g. Client Doesn't Know/Client Refused,1,1,0,0,0
    h. Data Not Collected,0,0,0,0,0
-   i. Total,0,0,0,0,0
+   i. Total,60,60,0,0,0

@@ -1,8 +1,8 @@
-Organization name,null
-Organization ID,null
-Project name,null
-Project ID,null
-HMIS Project Type,null
-Method of tracking ES,null
-"If HMIS Project ID = 6 (S Only), is the Services Only (HMIS Project Type 6) affiliated with a residential project?",null
-Identify the Project ID's of the housing projects this project is affiliated with,null
+Organization name,Skid Row Housing Trust
+Organization ID,76
+Project name,projectname
+Project ID,source_system_id
+HMIS Project Type,1
+Method of tracking ES,1
+"If HMIS Project ID = 6 (S Only), is the Services Only (HMIS Project Type 6) affiliated with a residential project?",0
+Identify the Project ID's of the housing projects this project is affiliated with,0

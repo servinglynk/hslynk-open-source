@@ -8,10 +8,10 @@
 "   Rental by client, with GPD TIP housing ",0,0,0,0,0
 "   Rental by client, with other ongoing ",0,0,0,0,0
    Permanent housing (other than RRH) for ,0,0,0,0,0
-"   Staying or living with family, ",0,0,0,0,0
+"   Staying or living with family, ",1,1,1,1,1
 "   Staying or living with friends, ",0,0,0,0,0
-"   Rental by client, with RRH or ",0,0,0,0,0
-   SubTotal,0,0,0,0,0
+"   Rental by client, with RRH or ",0,0,1,1,1
+   SubTotal,1,1,0,0,0
   Temporary Destinations,,,,,
 "   Emergency shelter, including hotel or motel paid for
 with emergency shelter voucher",0,0,0,0,0
@@ -37,10 +37,10 @@ homeless youth)",0,0,0,0,0
    Deceased,0,0,0,0,0
    Other,0,0,0,0,0
    Client Doesn’t Know/Client Refused,0,0,0,0,0
-   Data Not Collected (no exit interview ,0,0,0,0,0
-   Subtotal,0,0,0,0,0
-   Total,0,0,0,0,0
-   Total persons exiting to positive housing destinations,0,0,0,0,0
+   Data Not Collected (no exit interview ,2,2,2,2,2
+   Subtotal,2,2,2,2,2
+   Total,4,3,3,3,3
+   Total persons exiting to positive housing destinations,1,1,1,1,1
 "   Total persons whose destinations excluded them from
 the calculation",0,0,0,0,0
    Percentage,0,0,0,0,0

@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
@@ -139,7 +140,7 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
 				data.setQueryDataCollectionStage(datacollectionStage);
-				resultSet = statement.executeQuery(formatQuery(query,schema,data));
+				resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
 			 while(resultSet.next()) {
 				 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
 				 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
@@ -181,7 +182,20 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
 				data.setQueryDataCollectionStage(datacollectionStage);
-				resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
+				 List<String> projectIds = data.getProjectIds();
+				 String projectQuery = " and p.id in ( ";
+				 StringBuilder builder = new StringBuilder(projectQuery);
+				 if(CollectionUtils.isNotEmpty(projectIds)) {
+					 for(String project : projectIds) {
+							 builder.append("'"+project+"'");
+							 builder.append(",");
+					 }
+				 }
+				 builder.deleteCharAt(builder.length()-1);
+				 builder.append(" ) ");
+				String newQuery = query;
+				newQuery = query.replace("%p", builder.toString());
+				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 				
 			 while(resultSet.next()) {
 				 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
@@ -224,7 +238,8 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
 				data.setQueryDataCollectionStage(datacollectionStage);
-				resultSet = statement.executeQuery(formatQuery(query,schema,data));
+				
+				resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
 				
 			 while(resultSet.next()) {
 				 count = resultSet.getInt(1);
