@@ -19,12 +19,12 @@ public static List<Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean> ge
 			List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 			List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 			
-			String chronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless=true and e.projectid = p.id %p  ";
-			String noChronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id  and e.chronichomeless=false and e.projectid = p.id %p  ";
-			String dnKChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition in ('8','9') and e.projectid = p.id %p ";
-			String dnCChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition ='99' and e.projectid = p.id %p  ";
+			String chronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless=true and e.projectid = p.id %p and entrydate>=:startDate and entrydate <= :endDate ";
+			String noChronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id  and e.chronichomeless=false and e.projectid = p.id %p  and entrydate>=:startDate and entrydate <= :endDate";
+			String dnKChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition in ('8','9') and e.projectid = p.id %p and entrydate>=:startDate and entrydate <= :endDate ";
+			String dnCChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition ='99' and e.projectid = p.id %p and entrydate>=:startDate and entrydate <= :endDate  ";
 			
-			int chSize = getSize(getClients(data, chronicHomelessQuery, null, true));
+			int chSize = getSize(getClients(data, chronicHomelessQuery, data.getProjectIds(), true));
 			int chWithoutChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOutChildren, false));
 			int chChildAndAdultsSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOneAdultChild, false));
 			int chWithOnlyChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithChildren, false));

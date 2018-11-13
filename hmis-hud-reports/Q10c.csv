@@ -1,10 +1,10 @@
 ,Total,  Without children,  With children and adults,"With only
 children",  Unknown household type
-   Male,0,0,0,0,0
+   Male,1,1,0,0,0
    Female,0,0,0,0,0
    Trans Female (MTF or Male to Female),0,0,0,0,0
    Trans Male (FTM or Female to Male),0,0,0,0,0
    Gender Non-Conforming (i.e. not exclusively male or ,0,0,0,0,0
   Client Doesn't Know/Client Refused,0,0,0,0,0
   Data Not Collected,0,0,0,0,0
-  Subtotal,0,0,0,0,0
+  Subtotal,1,1,0,0,0

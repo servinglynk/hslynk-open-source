@@ -20,7 +20,6 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 		
 		if(data.isLiveMode()) {
 			try {
-			int overallTot = data.getNumOfAdults().intValue() + data.getNoOfChildHeadsOfHousehold().intValue();
 				
 			List<EnrollmentModel> unfilteredEnrollments = data.getEnrollments();
 			List<EnrollmentModel> enrollments = unfilteredEnrollments.parallelStream().filter(enrollment -> enrollment.getAgeatentry() >= 18 && enrollment.getAgeatentry() <=25 && StringUtils.equals("1", enrollment.getRelationshiptohoh()) ).collect(Collectors.toList());
@@ -55,11 +54,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				homelessSitualtionOverallTotal.add(BigInteger.valueOf(emergencyShelter.size()));
-				homelessSitualtionTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				homelessSitualtionTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				homelessSitualtionTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				homelessSitualtionTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				homelessSitualtionOverallTotal=homelessSitualtionOverallTotal.add(BigInteger.valueOf(emergencyShelter.size()));
+				homelessSitualtionTotalWithOnlyChild=homelessSitualtionTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				homelessSitualtionTotalWOC=homelessSitualtionTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				homelessSitualtionTotalWCA=homelessSitualtionTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				homelessSitualtionTotalWCA=homelessSitualtionTotalWCA.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dA1EmergencyShelterTotal(BigInteger.valueOf(emergencyShelter.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dA1EmergencyShelterWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -80,11 +79,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				homelessSitualtionOverallTotal.add(BigInteger.valueOf(transitionalHousing.size()));
-				homelessSitualtionTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				homelessSitualtionTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				homelessSitualtionTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				homelessSitualtionTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				homelessSitualtionOverallTotal=homelessSitualtionOverallTotal.add(BigInteger.valueOf(transitionalHousing.size()));
+				homelessSitualtionTotalWithOnlyChild=homelessSitualtionTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				homelessSitualtionTotalWOC=homelessSitualtionTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				homelessSitualtionTotalWCA=homelessSitualtionTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				homelessSitualtionTotalWCA=homelessSitualtionTotalWCA.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dA2TransitionalHousingForHomelessTotal(BigInteger.valueOf(transitionalHousing.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dA2TransitionalHousingForHomelessWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -105,11 +104,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				homelessSitualtionOverallTotal.add(BigInteger.valueOf(placeNotMeant.size()));
-				homelessSitualtionTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				homelessSitualtionTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				homelessSitualtionTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				homelessSitualtionTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				homelessSitualtionOverallTotal=homelessSitualtionOverallTotal.add(BigInteger.valueOf(placeNotMeant.size()));
+				homelessSitualtionTotalWithOnlyChild=homelessSitualtionTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				homelessSitualtionTotalWOC=homelessSitualtionTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				homelessSitualtionTotalWCA=homelessSitualtionTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				homelessSitualtionTotalWCA=homelessSitualtionTotalWCA.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dA3PlaceNotMeantForHumanHabitationTotal(BigInteger.valueOf(placeNotMeant.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dA3PlaceNotMeantForHumanHabitationWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -130,11 +129,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				homelessSitualtionOverallTotal.add(BigInteger.valueOf(safeHeaven.size()));
-				homelessSitualtionTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				homelessSitualtionTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				homelessSitualtionTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				homelessSitualtionTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				homelessSitualtionOverallTotal=homelessSitualtionOverallTotal.add(BigInteger.valueOf(safeHeaven.size()));
+				homelessSitualtionTotalWithOnlyChild=homelessSitualtionTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				homelessSitualtionTotalWOC=homelessSitualtionTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				homelessSitualtionTotalWCA=homelessSitualtionTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				homelessSitualtionTotalWCA=homelessSitualtionTotalWCA.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dA4SafeHavenTotal(BigInteger.valueOf(safeHeaven.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dA4SafeHavenWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -155,11 +154,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				homelessSitualtionOverallTotal.add(BigInteger.valueOf(interimHousing.size()));
-				homelessSitualtionTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				homelessSitualtionTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				homelessSitualtionTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				homelessSitualtionTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				homelessSitualtionOverallTotal=homelessSitualtionOverallTotal.add(BigInteger.valueOf(interimHousing.size()));
+				homelessSitualtionTotalWithOnlyChild=homelessSitualtionTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				homelessSitualtionTotalWOC=homelessSitualtionTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				homelessSitualtionTotalWCA=homelessSitualtionTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				homelessSitualtionTotalWCA=homelessSitualtionTotalWCA.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dA5InterimHousingTotal(BigInteger.valueOf(interimHousing.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dA5InterimHousingWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -201,11 +200,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				institutionalSettinOverallTotal.add(BigInteger.valueOf(psychiatricFacility.size()));
-				institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				institutionalSettinOverallTotal=institutionalSettinOverallTotal.add(BigInteger.valueOf(psychiatricFacility.size()));
+				institutionalSettinTotalWithOnlyChild=institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				institutionalSettinTotalWOC=institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				institutionalSettinTotalWCA=institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				institutionalSettingTotalUHHT=institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dB1PsychiatricFacilityTotal(BigInteger.valueOf(psychiatricFacility.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dB1PsychiatricFacilityWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -226,11 +225,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				institutionalSettinOverallTotal.add(BigInteger.valueOf(substanceAbuse.size()));
-				institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				institutionalSettinOverallTotal=institutionalSettinOverallTotal.add(BigInteger.valueOf(substanceAbuse.size()));
+				institutionalSettinTotalWithOnlyChild=institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				institutionalSettinTotalWOC=institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				institutionalSettinTotalWCA=institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				institutionalSettingTotalUHHT=institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dB2SubstanceAbuseTotal(BigInteger.valueOf(substanceAbuse.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dB2SubstanceAbuseWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -251,11 +250,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				institutionalSettinOverallTotal.add(BigInteger.valueOf(hospitalNonPhychiatric.size()));
-				institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				institutionalSettinOverallTotal=institutionalSettinOverallTotal.add(BigInteger.valueOf(hospitalNonPhychiatric.size()));
+				institutionalSettinTotalWithOnlyChild=institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				institutionalSettinTotalWOC=institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				institutionalSettinTotalWCA=institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				institutionalSettingTotalUHHT=institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dB3HospitalNonPsychiatricTotal(BigInteger.valueOf(hospitalNonPhychiatric.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dB3HospitalNonPsychiatricWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -276,11 +275,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				institutionalSettinOverallTotal.add(BigInteger.valueOf(jailPrison.size()));
-				institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				institutionalSettinOverallTotal=institutionalSettinOverallTotal.add(BigInteger.valueOf(jailPrison.size()));
+				institutionalSettinTotalWithOnlyChild=institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				institutionalSettinTotalWOC=institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				institutionalSettinTotalWCA=institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				institutionalSettingTotalUHHT=institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dB4JailPrisonOrJuvenileDetentionTotal(BigInteger.valueOf(jailPrison.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dB4JailPrisonOrJuvenileDetentionWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -301,11 +300,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				institutionalSettinOverallTotal.add(BigInteger.valueOf(fosterCarehome.size()));
-				institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				institutionalSettinOverallTotal=institutionalSettinOverallTotal.add(BigInteger.valueOf(fosterCarehome.size()));
+				institutionalSettinTotalWithOnlyChild=institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				institutionalSettinTotalWOC=institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				institutionalSettinTotalWCA=institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				institutionalSettingTotalUHHT=institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dB5FosterCareHomeOrGroupTotal(BigInteger.valueOf(fosterCarehome.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dB5FosterCareHomeOrGroupWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -326,11 +325,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				institutionalSettinOverallTotal.add(BigInteger.valueOf(longTermCareFacility.size()));
-				institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				institutionalSettinOverallTotal=institutionalSettinOverallTotal.add(BigInteger.valueOf(longTermCareFacility.size()));
+				institutionalSettinTotalWithOnlyChild=institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				institutionalSettinTotalWOC=institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				institutionalSettinTotalWCA=institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				institutionalSettingTotalUHHT=institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dB6LongTermCareFacilityTotal(BigInteger.valueOf(longTermCareFacility.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dB6LongTermCareFacilityWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -352,11 +351,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				institutionalSettinOverallTotal.add(BigInteger.valueOf(residentialProject.size()));
-				institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				institutionalSettinOverallTotal=institutionalSettinOverallTotal.add(BigInteger.valueOf(residentialProject.size()));
+				institutionalSettinTotalWithOnlyChild=institutionalSettinTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				institutionalSettinTotalWOC=institutionalSettinTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				institutionalSettinTotalWCA=institutionalSettinTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				institutionalSettingTotalUHHT=institutionalSettingTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dB7ResidentialProjectTotal(BigInteger.valueOf(residentialProject.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dB7ResidentialProjectWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -395,11 +394,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(pshforHomelessPerson.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(pshforHomelessPerson.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC1PSHForHomelessPersonsTotal(BigInteger.valueOf(pshforHomelessPerson.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC1PSHForHomelessPersonsWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -421,11 +420,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(ownedByclientNoSubsidy.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(ownedByclientNoSubsidy.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC2OwnedByClientNoSubsidyTotal(BigInteger.valueOf(ownedByclientNoSubsidy.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC2OwnedByClientNoSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -446,11 +445,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(ownedByclientWithSubsidy.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(ownedByclientWithSubsidy.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC3OwnedByClientWithSubsidyTotal(BigInteger.valueOf(ownedByclientWithSubsidy.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC3OwnedByClientWithSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -472,11 +471,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientNoSubsidy.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientNoSubsidy.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC4RentalByClientNoSubsidyTotal(BigInteger.valueOf(rentalByClientNoSubsidy.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC4RentalByClientNoSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -497,11 +496,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithVASHSubsidy.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithVASHSubsidy.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC5RentalByClientWithVASHSubsidyTotal(BigInteger.valueOf(rentalByClientWithVASHSubsidy.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC5RentalByClientWithVASHSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -522,11 +521,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithGPDTIPSubsidy.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithGPDTIPSubsidy.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC6RentalByClientWithGPDTIPSubsidyTotal(BigInteger.valueOf(rentalByClientWithGPDTIPSubsidy.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC6RentalByClientWithGPDTIPSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -548,11 +547,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithOtherSubsidy.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithOtherSubsidy.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC7RentalByClientWithOtherSubsidyTotal(BigInteger.valueOf(rentalByClientWithOtherSubsidy.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC7RentalByClientWithOtherSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -573,11 +572,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(hotelOrMotel.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(hotelOrMotel.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC8HotelOrMotelPaidByClientTotal(BigInteger.valueOf(hotelOrMotel.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC8HotelOrMotelPaidByClientWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -599,11 +598,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(stayingOrLivingWithFriends.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(stayingOrLivingWithFriends.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC9StayingOrLivingWithFriendsTotal(BigInteger.valueOf(stayingOrLivingWithFriends.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC9StayingOrLivingWithFriendsWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -624,11 +623,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(stayingOrLivingWithFamily.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(stayingOrLivingWithFamily.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC10StayingOrLivingWithFamilyTotal(BigInteger.valueOf(stayingOrLivingWithFamily.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC10StayingOrLivingWithFamilyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -649,11 +648,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(dontRefusedWith.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(dontRefusedWith.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC12DKRTotal(BigInteger.valueOf(dontRefusedWith.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC12DKRWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -675,11 +674,11 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 				int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 				int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 				
-				otherLocationOverallTotal.add(BigInteger.valueOf(informationMissing.size()));
-				otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-				otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-				otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-				otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+				otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(informationMissing.size()));
+				otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+				otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+				otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+				otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 				
 				q27dResidencePriorToEntryYouthTable.setQ27dC13InformationMissingTotal(BigInteger.valueOf(informationMissing.size()));
 				q27dResidencePriorToEntryYouthTable.setQ27dC13InformationMissingWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -694,7 +693,7 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 			q27dResidencePriorToEntryYouthTable.setQ27dCzTotWithChildOnly(otherLocationTotalWCA);
 			q27dResidencePriorToEntryYouthTable.setQ27dCzTotUnknownHouseHoldtype(otherLocationTotalUHHT);
 			
-			q27dResidencePriorToEntryYouthTable.setQ27dDTotTotal(BigInteger.valueOf(overallTot));
+			q27dResidencePriorToEntryYouthTable.setQ27dDTotTotal(BigInteger.valueOf(getSize(enrollments)));
 			q27dResidencePriorToEntryYouthTable.setQ27dDTotWithoutChild(otherLocationTotalWOC.add(institutionalSettinTotalWOC).add(homelessSitualtionTotalWOC));
 			q27dResidencePriorToEntryYouthTable.setQ27dDTotWithChildAndAdults(otherLocationTotalWCA.add(institutionalSettinTotalWCA).add(homelessSitualtionTotalWCA));
 			q27dResidencePriorToEntryYouthTable.setQ27dDTotWithChildOnly(otherLocationTotalWithOnlyChild.add(institutionalSettinTotalWithOnlyChild).add(homelessSitualtionTotalWithOnlyChild));

@@ -7,7 +7,7 @@ public static String GET_ALL_CLIENTS = " select c.id,c.dedup_client_id,name_data
 					  " dob_data_quality_desc,gender,gender_desc,ethnicity,ethnicity_desc,race,race_desc,veteran_status,c.source_system_id,c.age "+
 					 " from %s.client c,%s.enrollment e, %s.project p where e.client_id=c.id and e.projectid= p.id and entrydate >=:startDate and entrydate <= :endDate %p  order by c.dedup_client_id";
 public static String GET_ALL_CONTACTS = "select * from %s.contact";
-public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM = "select e.id as enrollmentid from %s.domesticviolence d,%s.enrollment e where e.id =d.enrollmentid and domesticviolencevictim = ";
+public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM = "select distinct(e.dedup_client_id) as dedup_client_id from %s.domesticviolence d,%s.enrollment e where e.id =d.enrollmentid and domesticviolencevictim = ";
 public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK = "select e.id as enrollmentid  from  %s.domesticviolence d,%s.enrollment e where e.id =d.enrollmentid and domesticviolencevictim in ('8','9') ";
 public static String GET_ALL_DOE = "select * from %s.dateofengagement";
 public static String GET_ALL_ENROLLMENTS = "select * from %s.enrollment";

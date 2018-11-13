@@ -111,7 +111,7 @@ public class Q26fClientCashIncomeChronicallyHomelessPersonsDataBeanMaker extends
 						q18eData.setQ26fNumberOfAdultStayersWithoutRequiredStayers(data.getNumOfAdultStayersWithoutRequiredAnnualAssesment());
 						
 						
-						q18eData.setQ26fTotalAdultsAtEntry(data.getNumOfAdults());
+						q18eData.setQ26fTotalAdultsAtEntry(BigInteger.valueOf(getSize(data.getChronicHomeLess())));
 						q18eData.setQ26fTotalAdultsLeavers(data.getTotNoOfAdultLeavers());
 						q18eData.setQ26fTotalAdultsStayers(data.getTotNoOfAdultStayers());
 						

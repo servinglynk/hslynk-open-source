@@ -1,5 +1,5 @@
    Income bracket,Income at entry,  Income at latest follow-up for stayers,Income at exit for leavers
-   a. No Income,0,0,0
+   a. No Income,0,773,0
    b. $1 - $150,0,0,0
    c. $151 - $250,0,0,0
    d. $251 - $500,0,0,0
@@ -12,4 +12,4 @@
    k. Number of adult stayers not yet required to have an annual assessment,0,0,0
 "  l. Number of adult stayers without required annual
 assessment",0,0,0
-   n. Total adults,60,56,4
+   n. Total adults,142,121,21

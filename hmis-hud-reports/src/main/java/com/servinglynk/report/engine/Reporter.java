@@ -48,6 +48,7 @@ public class Reporter {
 			projects.add("913f65e5-d9d0-4312-b0ee-d94920bed6c2");
 			projects.add("c31f3f53-0b9f-480e-8da8-ffe8c7b931ed");
 			projects.add("e6ccebeb-2b03-47aa-96dc-e63b9d2c4fc1");
+			projects.add("6eec300a-20a8-4e0f-9e00-ae8fc47fd677");
 			
 			ClassLoader classLoader = Reporter.class.getClassLoader();
 			File file = new File(classLoader.getResource("q17.jrxml").getFile());

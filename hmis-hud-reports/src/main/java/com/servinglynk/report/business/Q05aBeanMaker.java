@@ -32,6 +32,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			List<EnrollmentModel> ageUnknown = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() == 0).collect(Collectors.toList());
 			
 			List<EnrollmentModel> chronicHomeless = enrollments.parallelStream().filter(enrollment -> enrollment.isChronichomeless()).collect(Collectors.toList());
+			data.setChronicHomeLess(chronicHomeless);
 			List<ExitModel> exits = data.getExits();
 			List<String> enrollmentsFromExit = new ArrayList<>();
 			exits.forEach(exit -> { enrollmentsFromExit.add(exit.getProjectEntryID());} );

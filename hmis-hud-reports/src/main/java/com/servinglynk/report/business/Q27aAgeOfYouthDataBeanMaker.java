@@ -15,7 +15,7 @@ public class Q27aAgeOfYouthDataBeanMaker extends BaseBeanMaker {
 		try {
 			if(data.isLiveMode()) {
 				
-				String query = "select count(distinct(c.dedup_client_id)) from %s.client c, %s.enrollment e where e.client_id =c.id and e.entrydate >= :startDate and e.entrydate <= :endDate  ";
+				String query = "select count(distinct(c.dedup_client_id)) from %s.client c, %s.enrollment e,%s.project p where e.client_id =c.id and e.entrydate >= :startDate and e.entrydate <= :endDate and e.projectid=p.id  %p ";
 				List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 				List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 				List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();

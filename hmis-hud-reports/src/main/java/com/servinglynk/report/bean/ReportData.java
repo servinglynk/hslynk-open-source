@@ -32,6 +32,7 @@ public class ReportData {
 	private List<EnrollmentModel> adultLeavers = new ArrayList<>();
 	private List<EnrollmentModel> activeClients = new ArrayList<>();
 	private List<ClientModel> veterans = new ArrayList<>();
+	private List<EnrollmentModel> chronicHomeLess = new ArrayList<>();
 	private List<ContactModel> contacts = new ArrayList<>();
 	private List<DateOfEngagementModel> dateOfEngagements = new ArrayList<>();
 	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
@@ -705,6 +706,18 @@ public class ReportData {
 	 */
 	public void setVeterans(List<ClientModel> veterans) {
 		this.veterans = veterans;
+	}
+	/**
+	 * @return the chronicHomeLess
+	 */
+	public List<EnrollmentModel> getChronicHomeLess() {
+		return chronicHomeLess;
+	}
+	/**
+	 * @param chronicHomeLess the chronicHomeLess to set
+	 */
+	public void setChronicHomeLess(List<EnrollmentModel> chronicHomeLess) {
+		this.chronicHomeLess = chronicHomeLess;
 	}
 	
 }

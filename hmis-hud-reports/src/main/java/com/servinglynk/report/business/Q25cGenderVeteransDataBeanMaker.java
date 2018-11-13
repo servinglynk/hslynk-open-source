@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q25cGenderVeteransDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
@@ -182,19 +183,19 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 				 }else {
 					 newQuery = query.replace("%p", " ");
 				 }
-				 StringBuilder enrollmentBuilder = new StringBuilder(" and e.id in  ( ");
-					List<EnrollmentModel> enrollments = data.getActiveClients();
-					 if(CollectionUtils.isNotEmpty(enrollments)) {
+				 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
+					List<ClientModel> clients = data.getVeterans();
+					 if(CollectionUtils.isNotEmpty(clients)) {
 						 int index = 0;
-						 for(EnrollmentModel enrollment : enrollments) {
-							 enrollmentBuilder.append("'"+enrollment.getProjectEntryID()+"'");
-							 if(index != enrollments.size()) {
+						 for(ClientModel client : clients) {
+							 enrollmentBuilder.append("'"+client.getDedupClientId()+"'");
+							 if(index != clients.size()) {
 								 enrollmentBuilder.append(",");
 							 }
 						 }
 					 }
-					 builder.deleteCharAt(enrollmentBuilder.length() -1);
-					 builder.append(" ) ");
+					 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+					 enrollmentBuilder.append(" ) ");
 					 newQuery = newQuery + enrollmentBuilder.toString();
 				
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {

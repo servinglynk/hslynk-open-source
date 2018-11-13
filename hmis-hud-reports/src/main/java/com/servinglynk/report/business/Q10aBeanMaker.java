@@ -130,10 +130,7 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 			q10AGenderOfAdults.setInfomiisingWCA(BigInteger.valueOf(adultsWCA != null ? adultsWCA.size() :0));
 			q10AGenderOfAdults.setInfomiisingUHHT(BigInteger.valueOf(adultsFemaleUHHT != null ? adultsFemaleUHHT.size() :0));
 		}
-		BigInteger totSubTotal = getBigIntValue(q10AGenderOfAdults.getTotDontKnowRefused()).add(getBigIntValue(q10AGenderOfAdults.getTotFemale())).add(getBigIntValue(q10AGenderOfAdults.getTotInfoMissing()))
-				.add(getBigIntValue(q10AGenderOfAdults.getTotInfoMissing())).add(getBigIntValue(q10AGenderOfAdults.getTotMale())).add(getBigIntValue(q10AGenderOfAdults.getTotOther())).add(getBigIntValue(q10AGenderOfAdults.getTotTransgenderFM()))
-				.add(getBigIntValue(q10AGenderOfAdults.getTotTransgenderMF()));
-		
+		int total =getSize(adults) ;
 		BigInteger subtotalWOC = getBigIntValue(q10AGenderOfAdults.getDkrWOC()).add(getBigIntValue(q10AGenderOfAdults.getMaleWOC()))
 				.add(getBigIntValue(q10AGenderOfAdults.getFemaleWOC())).add(getBigIntValue(q10AGenderOfAdults.getInfomiisingWOC()))
 				.add(getBigIntValue((q10AGenderOfAdults.getOtherWOC())).add(getBigIntValue(q10AGenderOfAdults.getTransgenderFMWOC()))
@@ -147,7 +144,7 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 					.add(getBigIntValue(q10AGenderOfAdults.getInfomiisingUHHT())).add(getBigIntValue(q10AGenderOfAdults.getOtherUHHT())).add(getBigIntValue(q10AGenderOfAdults.getTransgenderFMUHHT()))
 					.add(getBigIntValue(q10AGenderOfAdults.getTransgenderMFUHHT()));
 		
-		q10AGenderOfAdults.setTotSubtotal(totSubTotal);
+		q10AGenderOfAdults.setTotSubtotal(BigInteger.valueOf(total));
 		q10AGenderOfAdults.setSubtotalWOC(subtotalWOC);
 		q10AGenderOfAdults.setSubtotalWCA(subtotalWCA);
 		q10AGenderOfAdults.setSubtotalUHHT(subtotalUHHT);

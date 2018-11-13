@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q25dAgeVeteransDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
 
 public class Q25dAgeVeteransDataBeanMaker extends BaseBeanMaker {
 
@@ -197,7 +198,20 @@ public class Q25dAgeVeteransDataBeanMaker extends BaseBeanMaker {
 				 }else {
 					 newQuery = query.replace("%p", " ");
 				 }
-				
+				 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
+					List<ClientModel> clients = data.getVeterans();
+					 if(CollectionUtils.isNotEmpty(clients)) {
+						 int index = 0;
+						 for(ClientModel client : clients) {
+							 enrollmentBuilder.append("'"+client.getDedupClientId()+"'");
+							 if(index != clients.size()) {
+								 enrollmentBuilder.append(",");
+							 }
+						 }
+					 }
+					 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+					 enrollmentBuilder.append(" ) ");
+					 newQuery = newQuery + enrollmentBuilder.toString();
 				if(StringUtils.isNotBlank(dobdataquality) && !StringUtils.equals("8", dobdataquality)) {
 					newQuery = newQuery + " and c.dob_data_quality ='"+dobdataquality+"' ";
 				}

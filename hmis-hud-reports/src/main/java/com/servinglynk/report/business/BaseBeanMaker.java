@@ -466,7 +466,7 @@ public class BaseBeanMaker {
 			statement = connection.prepareStatement(formatQuery(newQuery,schema,data));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
-			 models.add(resultSet.getString("enrollmentid"));
+			 models.add(resultSet.getString("dedup_client_id"));
 		 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -907,7 +907,7 @@ public class BaseBeanMaker {
 								 resultSet.getString("client_id"), 
 								// resultSet.getInt("yearshomeless"), 
 								 resultSet.getInt("ageatentry"),
-								 convertStringBoolean(resultSet.getString("chronichomeless")), 
+								 resultSet.getBoolean("chronichomeless"), 
 								 resultSet.getString("source_system_id"),
 								 resultSet.getDate("date_created_from_source"),
 								 resultSet.getString("livingsituation"),

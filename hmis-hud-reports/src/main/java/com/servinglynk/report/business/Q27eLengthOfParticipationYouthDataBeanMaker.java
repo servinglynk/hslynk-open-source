@@ -118,7 +118,7 @@ public class Q27eLengthOfParticipationYouthDataBeanMaker extends BaseBeanMaker {
 				data.setLeaversLengthofStay(allLeaversData);
 				data.setStayersLengthofStay(allStayersData);
 				data.setAllDataLenghtofStay(allData);
-				q27eLengthOfParticipationYouthTable.setQ27eTotalAtEntry(data.getTotNumOfPersonServed());
+				q27eLengthOfParticipationYouthTable.setQ27eTotalAtEntry(BigInteger.valueOf(getSize(allData)));
 				q27eLengthOfParticipationYouthTable.setQ27eTotalLeavers(BigInteger.valueOf(allLeaversData != null ? allLeaversData.size() : 0));
 				q27eLengthOfParticipationYouthTable.setQ27eTotalStayers(BigInteger.valueOf(allStayersData != null ? allStayersData.size() :0));
 			}

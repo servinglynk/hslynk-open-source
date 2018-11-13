@@ -21,7 +21,8 @@ public class Q27cGenderYouthDataBeanMaker extends BaseBeanMaker {
 		Q27cGenderYouthDataBean q27cGenderYouthTable = new Q27cGenderYouthDataBean();
 		if(data.isLiveMode()) {
 			try{
-				List<ClientModel> clients = data.getClients();
+				List<ClientModel> allClients = data.getClients();
+				List<ClientModel> clients = allClients.parallelStream().filter(client-> client.getAge() >=18 && client.getAge() <=25).collect(Collectors.toList());
 				List<ClientModel> clientsMale = clients.parallelStream().filter(client->StringUtils.equals("1",client.getGender())).collect(Collectors.toList());
 				
 				List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
