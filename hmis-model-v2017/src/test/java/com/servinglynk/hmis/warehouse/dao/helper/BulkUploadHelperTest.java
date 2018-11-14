@@ -30,7 +30,7 @@ public class BulkUploadHelperTest {
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
 		//upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
-		upload.setInputpath("/Users/sdolia/Downloads/cta_live_hudcsv61_14922_6663059050002344965.zip");
+		upload.setInputpath("/Users/sdolia/Downloads/hmis_test_kit.zip");
 		com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp = new com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
 		sources = helper.getSourcesFromFiles(upload,projectGrp,false);

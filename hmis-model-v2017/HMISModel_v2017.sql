@@ -1314,8 +1314,9 @@ INSERT INTO "v2017".hmis_type (name,value,description,status) values ('livingSit
 	INSERT INTO "v2017".hmis_type  (name,value,description,status) values  ('funder','40','VA:  Grant Per Diem – Clinical Treatment','ACTIVE');
 	INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('funder','41','VA:  Grant Per Diem – Service Intensive Transitional Housing','ACTIVE');
 	INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('funder','42','VA:  Grant Per Diem – Transition in Place','ACTIVE');
-		
-	
+	INSERT INTO "v2017".hmis_type  (name,value,description,status) values ('funder','43','HUD:CoC – Youth Homeless Demonstration Program','ACTIVE');
+			
+	 
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','1','Out of age range');
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','2','Ward of the State – Immediate Reunification');
  INSERT INTO "v2017".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','3','Ward of the Criminal Justice System – Immediate Reunification');

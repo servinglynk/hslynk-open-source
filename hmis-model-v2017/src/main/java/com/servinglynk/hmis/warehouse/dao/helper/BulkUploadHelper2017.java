@@ -227,8 +227,9 @@ public class BulkUploadHelper2017 {
 		        System.out.println("Read " + ze.getName() + "?");
 		            BufferedReader csvFile = new BufferedReader(
 		                new InputStreamReader(zf.getInputStream(ze)));
-		            
-		            switch(ze.getName().toLowerCase()) {
+		            String lowerCase = ze.getName().toLowerCase();
+		            String stripHmis=lowerCase.replace("hmis", "");
+		            switch(stripHmis) {
 		            	case "affiliation.csv":
 		            		hydrateAffiliation(csvFile, sources);
 		            		break;
