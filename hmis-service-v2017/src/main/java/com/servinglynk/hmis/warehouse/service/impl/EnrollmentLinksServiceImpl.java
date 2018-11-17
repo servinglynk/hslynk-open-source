@@ -327,7 +327,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					 
 					  for(UUID id : stageLinks.getValue()) {
 						  
@@ -375,7 +375,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					// 
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhys/"+id));
@@ -420,7 +420,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					// 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryssvfs/"+id));
 					  }
@@ -466,7 +466,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					 
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/enrollmentcocs/"+id));
@@ -513,7 +513,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 						  	actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
 //							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
@@ -558,7 +558,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					// 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/contacts/"+id));
 					  }
@@ -601,7 +601,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/dateofengagements/"+id));
 					  }
@@ -649,7 +649,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/disabilities/"+id));
 					  }
@@ -695,7 +695,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 						  
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/domesticviolences/"+id));
@@ -741,7 +741,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 				List<ActionLinks> links = new ArrayList<>();
 				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/employments/"+id));
 					  }
@@ -787,7 +787,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthinsurances/"+id));
 					  }
@@ -834,7 +834,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthstatuses/"+id));
 					  }
@@ -881,7 +881,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/incomeandsources/"+id));
 					  }
@@ -927,7 +927,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/medicalassistances/"+id));
 					  }
@@ -973,7 +973,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+id));
 					  }
@@ -1017,7 +1017,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/residentialmoveindates/"+id));
 					  }
@@ -1058,7 +1058,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/pathstatuses/"+id));
 					  }
@@ -1100,7 +1100,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/servicefareferrals/"+id));
 					  }
@@ -1198,7 +1198,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exithousingassessments/"+id));	  
 					  }
@@ -1241,7 +1241,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/housingassessmentdispositions/"+id));	
 					  }
@@ -1292,7 +1292,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 
 					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGoupBy(stageLinks.getKey());
+					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exitrhys/"+id));
 					  }
