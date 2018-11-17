@@ -115,4 +115,15 @@ public class Disabilities extends ClientModel{
 	public void setDataCollectionStage(Integer dataCollectionStage) {
 		this.dataCollectionStage = dataCollectionStage;
 	}
+	
+    @JsonSerialize(using=JsonDateTimeSerializer.class)
+	 LocalDateTime submissionDate;
+
+     public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
  }

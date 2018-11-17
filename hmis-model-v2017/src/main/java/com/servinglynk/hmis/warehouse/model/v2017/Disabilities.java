@@ -76,6 +76,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	/** Field mapping. */
 	private DataCollectionStageEnum dataCollectionStage;
 	
+	private LocalDateTime submissionDate;
 	
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -384,6 +385,18 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		this.export = export;
 	}
 
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

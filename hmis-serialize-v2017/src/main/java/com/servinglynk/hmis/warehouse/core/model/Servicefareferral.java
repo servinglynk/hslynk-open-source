@@ -31,6 +31,15 @@ public class Servicefareferral extends ClientModel{
       private BigDecimal faAmount;
 
       private Integer referralOutcome;
+      @JsonSerialize(using=JsonDateTimeSerializer.class)
+   	 LocalDateTime submissionDate;
+
+        public LocalDateTime getSubmissionDate() {
+  		return submissionDate;
+  	}
+  	public void setSubmissionDate(LocalDateTime submissionDate) {
+  		this.submissionDate = submissionDate;
+  	}
 
 
 

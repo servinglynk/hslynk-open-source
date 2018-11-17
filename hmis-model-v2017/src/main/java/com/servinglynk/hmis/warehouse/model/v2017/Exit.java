@@ -69,6 +69,9 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 	private java.util.UUID id;
 	/** Field mapping. */
 	private String otherdestination;
+	
+	private LocalDateTime submissionDate;
+	
 	/** Field mapping. */
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -383,6 +386,17 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 		this.export = export;
 	}
 
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

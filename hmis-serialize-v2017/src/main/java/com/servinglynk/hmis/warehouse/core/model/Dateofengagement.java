@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,8 +20,17 @@ public class Dateofengagement extends ClientModel{
       private LocalDateTime dateofengagement;
 
 
+     @JsonSerialize(using=JsonDateTimeSerializer.class)
+ 	 LocalDateTime submissionDate;
 
-      public UUID getDateofengagementId(){
+      public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+		
+	public UUID getDateofengagementId(){
           return dateofengagementId;
       }
       public void setDateofengagementId(UUID dateofengagementId){

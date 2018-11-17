@@ -99,6 +99,17 @@ public class IncomeAndSource extends ClientModel{
       private LocalDateTime informationDate;
       
       private Integer dataCollectionStage;
+      
+      @JsonSerialize(using=JsonDateTimeSerializer.class)
+   	 LocalDateTime submissionDate;
+
+        public LocalDateTime getSubmissionDate() {
+  		return submissionDate;
+  	}
+  	public void setSubmissionDate(LocalDateTime submissionDate) {
+  		this.submissionDate = submissionDate;
+  	}
+
 
       public LocalDateTime getInformationDate() {
 		return informationDate;

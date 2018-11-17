@@ -19,7 +19,7 @@ import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException
 public class DeveloperAccountsRestEndpoint extends ControllerBase {
 
 	@RequestMapping(value = "/{username}/owneddevelopercompanies", method = RequestMethod.GET)
-	@APIMapping(checkSessionToken=true,checkTrustedApp=true)
+	@APIMapping(checkSessionToken=true,checkTrustedApp=true,value="DCS_GET_DEVELOPER_COMPANY_ACCOUNTS")
 	public DeveloperCompanies getOwnedDeveloperCompanies(@PathVariable("username") String username, HttpServletRequest request) throws Exception {
 
 		Account account = null;
