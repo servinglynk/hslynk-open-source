@@ -23,7 +23,8 @@ public class Pathstatus extends ClientModel{
 
       private Integer reasonNotEnrolled;
 
-      @JsonSerialize(using=JsonDateTimeSerializer.class)
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
    	 LocalDateTime submissionDate;
 
         public LocalDateTime getSubmissionDate() {

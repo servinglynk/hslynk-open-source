@@ -20,7 +20,8 @@ public class Dateofengagement extends ClientModel{
       private LocalDateTime dateofengagement;
 
 
-     @JsonSerialize(using=JsonDateTimeSerializer.class)
+     @JsonSerialize(using=JsonDateSerializer.class)
+     @JsonDeserialize(using=JsonDateDeserializer.class)
  	 LocalDateTime submissionDate;
 
       public LocalDateTime getSubmissionDate() {

@@ -25,7 +25,8 @@ public class Healthstatus extends ClientModel{
       @JsonSerialize(using=JsonDateSerializer.class)
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime dueDate;
-      @JsonSerialize(using=JsonDateTimeSerializer.class)
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
    	 LocalDateTime submissionDate;
 
         public LocalDateTime getSubmissionDate() {

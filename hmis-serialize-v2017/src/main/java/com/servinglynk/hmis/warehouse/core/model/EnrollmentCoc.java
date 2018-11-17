@@ -45,7 +45,8 @@ public class EnrollmentCoc extends ClientModel{
 	public void setCocCode(String clientCoc) {
 		this.cocCode = clientCoc;
 	}
-    @JsonSerialize(using=JsonDateTimeSerializer.class)
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
 	 LocalDateTime submissionDate;
 
      public LocalDateTime getSubmissionDate() {

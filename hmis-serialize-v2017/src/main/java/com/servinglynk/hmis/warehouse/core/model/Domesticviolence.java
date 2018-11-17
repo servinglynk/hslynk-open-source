@@ -26,7 +26,8 @@ public class Domesticviolence extends ClientModel{
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
       
-      @JsonSerialize(using=JsonDateTimeSerializer.class)
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
    	 LocalDateTime submissionDate;
 
         public LocalDateTime getSubmissionDate() {

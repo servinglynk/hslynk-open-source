@@ -43,8 +43,9 @@ public class Noncashbenefits extends ClientModel{
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
       
-      @JsonSerialize(using=JsonDateTimeSerializer.class)
-   	 LocalDateTime submissionDate;
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
+      LocalDateTime submissionDate;
 
         public LocalDateTime getSubmissionDate() {
   		return submissionDate;

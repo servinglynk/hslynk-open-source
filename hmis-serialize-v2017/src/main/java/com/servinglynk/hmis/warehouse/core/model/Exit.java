@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("exit")
@@ -52,7 +53,8 @@ public class Exit extends ClientModel{
 	public void setDestination(Integer destination) {
 		this.destination = destination;
 	}
-    @JsonSerialize(using=JsonDateTimeSerializer.class)
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
 	 public LocalDateTime submissionDate;
 
      public LocalDateTime getSubmissionDate() {
