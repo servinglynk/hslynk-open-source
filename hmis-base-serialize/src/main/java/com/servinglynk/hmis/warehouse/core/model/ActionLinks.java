@@ -24,11 +24,11 @@ public class ActionLinks {
 		this.data.add(actionLink);
 	}
 
-	public String getGoupBy() {
+	public String getGroupBy() {
 		return groupBy;
 	}
 
-	public void setGoupBy(String goupedBy) {
+	public void setGroupBy(String goupedBy) {
 		this.groupBy = goupedBy;
 	}
 
