@@ -24,6 +24,7 @@ public class MedicalassistanceConverter  extends BaseConverter {
        entity.setAdap(MedicalassistanceAdapEnum.lookupEnum(model.getAdap().toString()));
  if(model.getNoadapreason()!=null)
        entity.setNoadapreason(MedicalassistanceNoadapreasonEnum.lookupEnum(model.getNoadapreason().toString()));
+ entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -44,6 +45,8 @@ if(entity.getAdap()!=null)
        model.setAdap(Integer.parseInt(entity.getAdap().getValue()));
 if(entity.getNoadapreason()!=null)
        model.setNoadapreason(Integer.parseInt(entity.getNoadapreason().getValue()));
+
+if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

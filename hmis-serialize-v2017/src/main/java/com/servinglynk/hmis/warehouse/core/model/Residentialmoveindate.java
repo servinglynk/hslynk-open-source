@@ -22,6 +22,15 @@ public class Residentialmoveindate extends ClientModel{
       @JsonDeserialize(using=JsonDateDeserializer.class)
       @JsonProperty("residentialMoveInDate")
       private LocalDateTime residentialmoveindate;
+      @JsonSerialize(using=JsonDateTimeSerializer.class)
+   	 LocalDateTime submissionDate;
+
+        public LocalDateTime getSubmissionDate() {
+  		return submissionDate;
+  	}
+  	public void setSubmissionDate(LocalDateTime submissionDate) {
+  		this.submissionDate = submissionDate;
+  	}
 
 
 

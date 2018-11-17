@@ -29,7 +29,16 @@ public class Medicalassistance extends ClientModel{
       @JsonProperty("noadaPreason")
       private Integer noadapreason;
 
-      
+      @JsonSerialize(using=JsonDateTimeSerializer.class)
+   	 LocalDateTime submissionDate;
+
+        public LocalDateTime getSubmissionDate() {
+  		return submissionDate;
+  	}
+  	public void setSubmissionDate(LocalDateTime submissionDate) {
+  		this.submissionDate = submissionDate;
+  	}
+
 
       public Integer getDataCollectionStage() {
 		return dataCollectionStage;

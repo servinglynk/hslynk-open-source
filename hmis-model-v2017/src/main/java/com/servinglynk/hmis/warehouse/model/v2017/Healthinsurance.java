@@ -109,6 +109,7 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 	/** Field mapping. */
 	private LocalDateTime informationDate;
 	private DataCollectionStageEnum dataCollectionStage;
+	private LocalDateTime submissionDate;
 	
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
@@ -680,6 +681,18 @@ public class Healthinsurance extends HmisBaseModel implements Cloneable, Seriali
 	public void setExport(final Export export) {
 		this.export = export;
 	}
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
 	
    /**
     * Deep copy.

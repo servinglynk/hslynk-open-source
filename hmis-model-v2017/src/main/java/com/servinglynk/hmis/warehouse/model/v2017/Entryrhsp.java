@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 /**
@@ -48,6 +50,9 @@ public class Entryrhsp extends HmisBaseModel implements Cloneable, Serializable 
 	/** Field mapping. */
 	/** Field mapping. */
 	private Integer worstHousingSituation;
+	
+	private LocalDateTime submissionDate;
+	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -173,6 +178,18 @@ public class Entryrhsp extends HmisBaseModel implements Cloneable, Serializable 
 	public void setExport(final Export export) {
 		this.export = export;
 	}
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

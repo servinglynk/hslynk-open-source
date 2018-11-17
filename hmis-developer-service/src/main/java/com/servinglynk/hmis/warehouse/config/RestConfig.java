@@ -94,6 +94,11 @@ public void configureMessageConverters(List<HttpMessageConverter<?>> messageConv
 		return new DeveloperServicesController();
 	}
 	
+	@Bean
+	public com.servinglynk.hmis.warehouse.rest.DeveloperAccountsRestEndpoint developerAccountsRestEndpoint() {
+		return new com.servinglynk.hmis.warehouse.rest.DeveloperAccountsRestEndpoint();
+	}
+	
 	@Autowired
 	Environment env;
 	

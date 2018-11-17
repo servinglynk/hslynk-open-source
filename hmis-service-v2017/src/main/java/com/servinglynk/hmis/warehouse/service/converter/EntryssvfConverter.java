@@ -67,6 +67,8 @@ public class EntryssvfConverter  extends BaseConverter {
     	   entity.setThresholdscore(model.getThresholdscore());
        if(model.getUrgentReferral()!=null)
 			entity.setUrgentReferral(NoYesEnum.lookupEnum(model.getUpdatedTime()+""));
+       
+		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -127,6 +129,8 @@ public class EntryssvfConverter  extends BaseConverter {
         	   model.setThresholdscore(entity.getThresholdscore());
            if(entity.getUrgentReferral()!=null)
         	   	model.setUrgentReferral(Integer.parseInt(entity.getUrgentReferral().getValue()));
+           
+           if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

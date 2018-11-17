@@ -79,7 +79,7 @@ public class HealthinsuranceConverter extends BaseConverter {
 		 if(model.getInformationDate()!=null)
 			    entity.setInformationDate(model.getInformationDate());
 
-
+			if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
 		return entity;
 	}
 
@@ -131,6 +131,9 @@ public class HealthinsuranceConverter extends BaseConverter {
 	        model.setInformationDate(entity.getInformationDate());
 	     if(entity.getDataCollectionStage() !=null)
 	         model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+	     
+	       if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
+	     
 		return model;
 	}
 

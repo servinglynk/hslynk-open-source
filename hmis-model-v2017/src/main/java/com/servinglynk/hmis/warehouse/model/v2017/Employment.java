@@ -59,6 +59,7 @@ public class Employment extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	private EmploymentNotEmployedReasonEnum notEmployedReason;
 	private DataCollectionStageEnum dataCollectionStage;
+	private LocalDateTime submissionDate;
 
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
@@ -250,7 +251,16 @@ public class Employment extends HmisBaseModel implements Cloneable, Serializable
 
 	}
 
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
 
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
 
 	 /**
 	 * Set the value related to the column: export.

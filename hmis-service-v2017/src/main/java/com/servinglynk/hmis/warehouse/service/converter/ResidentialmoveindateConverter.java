@@ -7,6 +7,7 @@ public class ResidentialmoveindateConverter  extends BaseConverter {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Moveindate();
        entity.setId(model.getResidentialmoveindateId());
        entity.setMoveindate(model.getResidentialmoveindate());
+       entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -15,6 +16,7 @@ public class ResidentialmoveindateConverter  extends BaseConverter {
        Residentialmoveindate model = new Residentialmoveindate();
        model.setResidentialmoveindateId(entity.getId());
        model.setResidentialmoveindate(entity.getMoveindate());
+       if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

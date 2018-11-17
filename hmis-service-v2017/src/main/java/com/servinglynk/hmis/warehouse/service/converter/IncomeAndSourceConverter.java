@@ -81,6 +81,7 @@ public class IncomeAndSourceConverter extends BaseConverter {
     	   	entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
        if(model.getInformationDate()!=null)
     	       entity.setInformationDate(model.getInformationDate());
+       entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -159,7 +160,8 @@ public class IncomeAndSourceConverter extends BaseConverter {
            model.setInformationDate(entity.getInformationDate());
         if(entity.getDataCollectionStage() !=null)
             model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
-
+        if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
+        
        copyBeanProperties(entity, model);
        return model;
    }

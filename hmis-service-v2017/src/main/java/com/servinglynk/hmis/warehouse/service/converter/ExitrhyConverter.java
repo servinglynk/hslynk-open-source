@@ -56,6 +56,8 @@ public class ExitrhyConverter  extends BaseConverter {
     	   entity.setPosCommunityConnections(NoYesEnum.lookupEnum(model.getPosCommunityConnections()+""));
        if(model.getPosPeerConnections() !=null)
     	   entity.setPosPeerConnections(NoYesEnum.lookupEnum(model.getPosPeerConnections()+""));
+       
+		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -109,6 +111,8 @@ public class ExitrhyConverter  extends BaseConverter {
     	   model.setPosPeerConnections(Integer.parseInt(entity.getPosPeerConnections().getValue()));
        if(entity.getPosCommunityConnections() !=null)
     	   model.setPosCommunityConnections(Integer.parseInt(entity.getPosCommunityConnections().getValue()));
+       if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
+       
        return model;
    }
 }

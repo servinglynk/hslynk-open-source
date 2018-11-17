@@ -7,6 +7,7 @@ public class DateofengagementConverter  extends BaseConverter {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement();
        entity.setId(model.getDateofengagementId());
        entity.setDateofengagement(model.getDateofengagement());
+		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -15,6 +16,8 @@ public class DateofengagementConverter  extends BaseConverter {
        Dateofengagement model = new Dateofengagement();
        model.setDateofengagementId(entity.getId());
        model.setDateofengagement(entity.getDateofengagement());
+       
+       if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

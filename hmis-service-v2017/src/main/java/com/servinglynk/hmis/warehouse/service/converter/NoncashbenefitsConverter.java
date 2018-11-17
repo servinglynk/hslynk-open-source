@@ -41,6 +41,7 @@ public class NoncashbenefitsConverter  extends BaseConverter {
 
  if(model.getInformationDate()!=null)
     entity.setInformationDate(model.getInformationDate());
+ entity.setSubmissionDate(model.getSubmissionDate());
 
        return entity;
    }
@@ -72,6 +73,8 @@ if(entity.getInformationDate()!=null)
     model.setInformationDate(entity.getInformationDate());
  if(entity.getDataCollectionStage() !=null)
      model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+ 
+ if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

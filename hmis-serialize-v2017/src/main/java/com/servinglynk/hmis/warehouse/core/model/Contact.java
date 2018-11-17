@@ -19,6 +19,15 @@ public class Contact extends ClientModel{
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime contactDate;
 
+      @JsonSerialize(using=JsonDateTimeSerializer.class)
+   	 LocalDateTime submissionDate;
+
+        public LocalDateTime getSubmissionDate() {
+  		return submissionDate;
+  	}
+  	public void setSubmissionDate(LocalDateTime submissionDate) {
+  		this.submissionDate = submissionDate;
+  	}
 
 
       public UUID getContactId(){

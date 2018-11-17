@@ -19,6 +19,7 @@ public class HealthstatusConverter  extends BaseConverter {
 		       entity.setHealthStatus(HealthStatusHealthStatusEnum.lookupEnum(model.getHealthStatus().toString()));
 		 if(model.getDueDate()!=null)
 		       entity.setDueDate(model.getDueDate());
+		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -37,6 +38,9 @@ if(entity.getHealthStatus()!=null)
        model.setHealthStatus(Integer.parseInt(entity.getHealthStatus().getValue()));
 if(entity.getDueDate()!=null)
        model.setDueDate(entity.getDueDate());
+
+if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
+
        return model;
    }
 
