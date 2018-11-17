@@ -34,6 +34,7 @@ public class AuthorizationServiceClient extends CoreClientBase implements IAutho
 	
 	@Autowired
 	CoreClientConfig coreClientConfig;
+	
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ApiMethodAuthorizationCheck checkApiAuthorization(ApiMethodAuthorizationCheck authCheck) throws Exception {
