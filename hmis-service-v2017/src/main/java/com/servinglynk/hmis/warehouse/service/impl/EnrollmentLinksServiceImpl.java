@@ -367,7 +367,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		}
 				
 		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
-			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>(new DateComparator());			
 			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
 
 				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
@@ -505,7 +505,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		
 		
 		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
-			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>(new DateComparator());			
 			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
 
 				Map<String,List<ActionLinks>> linksMap = new HashMap<>();

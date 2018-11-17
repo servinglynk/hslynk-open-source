@@ -171,7 +171,8 @@ public class Entryrhy extends ClientModel{
 	public void setMonthsJuvenileJustice(Integer monthsJuvenileJustice) {
 		this.monthsJuvenileJustice = monthsJuvenileJustice;
 	}
-    @JsonSerialize(using=JsonDateTimeSerializer.class)
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
 	 LocalDateTime submissionDate;
 
      public LocalDateTime getSubmissionDate() {

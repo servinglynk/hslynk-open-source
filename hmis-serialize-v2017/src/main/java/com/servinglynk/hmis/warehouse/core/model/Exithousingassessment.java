@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("exitHousingAssessment")
@@ -40,7 +41,8 @@ public class Exithousingassessment extends ClientModel{
       public void setSubsidyinformation(Integer subsidyinformation){
           this.subsidyinformation = subsidyinformation;
       }
-      @JsonSerialize(using=JsonDateTimeSerializer.class)
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
   	 LocalDateTime submissionDate;
 
        public LocalDateTime getSubmissionDate() {

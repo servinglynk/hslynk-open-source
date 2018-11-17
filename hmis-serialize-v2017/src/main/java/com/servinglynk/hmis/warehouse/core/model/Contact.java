@@ -19,7 +19,8 @@ public class Contact extends ClientModel{
       @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime contactDate;
 
-      @JsonSerialize(using=JsonDateTimeSerializer.class)
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
    	 LocalDateTime submissionDate;
 
         public LocalDateTime getSubmissionDate() {
