@@ -25,7 +25,7 @@ public class Q17CashIncomeSourcesDataBean {
 	private BigInteger q17PrivateDisabilityAtEntry=BigInteger.valueOf(0);
 	private BigInteger q17PrivateDisabilityAtLatestAnnualAssessmentforStayers=BigInteger.valueOf(0);
 	private BigInteger q17PrivateDisabilityAtExitforLeavers=BigInteger.valueOf(0);
-	private BigInteger q17WorkersCompensationAtEntry=BigInteger.valueOf(0);
+	private BigInteger q17WorkersCompensationAtEntry	=BigInteger.valueOf(0);
 	private BigInteger q17WorkersCompensationAtLatestAnnualAssessmentforStayers=BigInteger.valueOf(0);
 	private BigInteger q17WorkersCompensationAtExitforLeavers=BigInteger.valueOf(0);
 	private BigInteger q17TANFAtEntry=BigInteger.valueOf(0);

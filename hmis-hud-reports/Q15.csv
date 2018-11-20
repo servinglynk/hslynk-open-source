@@ -1,10 +1,10 @@
 ,Total,  Without children,  With children and adults,With only children,  Unknown household type
    a. Homeless situations,,,,,
-"   a1. Emergency shelter, including ",46,46,0,0,0
-   a2. Transitional housing for homeless ,0,0,0,0,0
-   a3. Place not meant for habitation,33,33,0,0,0
-   a4. Safe haven,0,0,0,0,0
-   a5. Interim Housing,0,0,0,0,0
+"   a1. Emergency shelter, including ",119,119,0,0,0
+   a2. Transitional housing for homeless ,15,15,0,0,0
+   a3. Place not meant for habitation,111,111,0,0,0
+   a4. Safe haven,4,4,0,0,0
+   a5. Interim Housing,4,4,0,0,0
    az. Subtotal,0,0,0,0,0
   b. Institutional Settings,,,,,
     b1. Psychiatric hospital or other ,0,0,0,0,0
@@ -17,17 +17,17 @@
 homeless criteria",0,0,0,0,0
    bz. Subtotal,0,0,0,0,0
   c. Other Locations,,,,,
-   c01. Permanent housing (other than RRH) for formerly ,57,57,0,0,0
+   c01. Permanent housing (other than RRH) for formerly ,0,0,0,0,0
 "   c02. Owned by client, no ongoing ",0,0,0,0,0
 "   c03. Owned by client, with ongoing ",0,0,0,0,0
 "   c04. Rental by client, no ongoing housing ",0,0,0,0,0
 "   c05. Rental by client, with VASH subsidy",0,0,0,0,0
    c06. Rental by client with GPD TIP subsidy,0,0,0,0,0
 "   c07. Rental by client, with other housing ",0,0,0,0,0
-"   c08. Hotel/Motel, paid by client",0,0,0,0,0
-   c09. Staying or living in a friend’s ,0,0,0,0,0
+"   c08. Hotel/Motel, paid by client",1,1,0,0,0
+   c09. Staying or living in a friend’s ,1,1,0,0,0
    c10. Staying or living with family,0,0,0,0,0
    c11. Client Doesnt Know/Client Refused,0,0,0,0,0
   c12. Data Not Collected,0,0,0,0,0
-   cz. Subtotal,57,0,0,0,0
-   d. Total,142,0,0,0,0
+   cz. Subtotal,2,0,0,0,0
+   d. Total,296,0,0,0,0

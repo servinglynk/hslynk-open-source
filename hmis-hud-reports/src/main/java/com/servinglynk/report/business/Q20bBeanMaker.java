@@ -40,7 +40,7 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 		String stayersQuery = " select  nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource,e.dedup_client_id  as dedup_client_id from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb where e.id=i.enrollmentid  "+
 						" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 "+
 					" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate < :endDate  )   "+
-					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 ) ";
+					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 ) ";
 			try {
 				if(data.isLiveMode()) {
 					List<NonCashModel> entryNonCashBenefits = getNonCashBenefit(data, entryQuery,DataCollectionStage.ENTRY.getCode());

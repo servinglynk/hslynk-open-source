@@ -1,11 +1,11 @@
   Age ranges,Total,  Without children,  With children and adults,With only children,  Unknown household type
    a. 0 - 17,0,0,0,0,0
    b. 18 - 24,0,0,0,0,0
-   c. 25 - 34,1,1,1,1,1
-   d. 35 - 44,3,3,3,3,3
-   e. 45 - 54,5,5,5,5,5
-   f. 55 - 61,2,2,2,2,2
-   g. 62+,6,6,6,6,6
+   c. 25 - 34,15,15,0,0,0
+   d. 35 - 44,13,13,0,0,0
+   e. 45 - 54,27,27,0,0,0
+   f. 55 - 61,34,34,0,0,0
+   g. 62+,22,22,0,0,0
    h. Client Doesn't Know/Client Refused,0,0,0,0,0
    i. Data Not Collected,0,0,0,0,0
-   j. Total,61,12,17,22,17
+   j. Total,39,89,27,0,0

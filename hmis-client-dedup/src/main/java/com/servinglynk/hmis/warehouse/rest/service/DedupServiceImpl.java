@@ -626,13 +626,13 @@ public class DedupServiceImpl implements DedupService{
 		System.out.println("SESSION_KEY:"+value);
 		//Fetch by First Name and Last Name
 		Person person = new Person();
-		person.setGivenName("Jesus");	
-		person.setFamilyName("Vega");
-		person.setSsn("635057848");
-		person.setDateOfBirth(impl.getDateInFormat("1966-06-14"));
+		person.setGivenName("Elias");	
+		person.setFamilyName("Perez");
+		person.setDateOfBirth(impl.getDateInFormat("1960-05-01"));
 		Person personRestult  =	impl.dedupingLogic(person, value);
 		System.out.println("PERSON_ID:"+impl.getUniqueIdentifier(personRestult.getPersonIdentifiers()));
-		
+		//56aa7550-675d-11e6-ab44-02f305dabccf
+		//56aa7550-675d-11e6-ab44-02f305dabccf
 	}
 
 }

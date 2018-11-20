@@ -14,6 +14,7 @@ import org.apache.commons.collections.CollectionUtils;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker extends BaseBeanMaker{
 	
@@ -28,10 +29,10 @@ public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker exte
 				List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 				List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 				
-				String chronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless=true and e.projectid = p.id %p  ";
-				String noChronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless=false and e.projectid = p.id %p  ";
-				String dnKChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id  and e.disablingcondition in ('8','9') and e.projectid = p.id %p  ";
-				String dnCChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition ='99' and e.projectid = p.id %p  ";
+				String chronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless=true and entrydate >=:startDate and entrydate <=:endDate and e.projectid = p.id %p  ";
+				String noChronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless=false  and entrydate >=:startDate and entrydate <=:endDate and e.projectid = p.id %p  ";
+				String dnKChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id  and e.disablingcondition in ('8','9')  and entrydate >=:startDate and entrydate <=:endDate  and e.projectid = p.id %p  ";
+				String dnCChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition ='99'  and entrydate >=:startDate and entrydate <=:endDate  and e.projectid = p.id %p  ";
 				
 				int chSize = getSize(getClients(data, chronicHomelessQuery, null, true));
 				int chWithoutChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOutChildren, false));
@@ -101,5 +102,61 @@ public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker exte
 		return Arrays.asList(q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable); 
 		
 	}
+	
+	  public static List<String> getClients(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects) {
+			 List<String> clients = new ArrayList<String>();
+				ResultSet resultSet = null;
+				Statement statement = null;
+				String projectQuery = " and p.id in ( ";
+				StringBuilder builder = new StringBuilder(projectQuery);
+				Connection connection = null;
+				try {
+					connection = ImpalaConnection.getConnection();
+					 List<String> projectIds = data.getProjectIds();
+					 if(CollectionUtils.isNotEmpty(projectIds)) {
+						 int count = 0;
+						 for(String project : projectIds) {
+							 if ((filteredProjectIds !=null && filteredProjectIds.contains(project)) || allProjects) {
+								 builder.append("'"+project+"'");
+								 if(count != projectIds.size()) {
+									 builder.append(",");
+								 }
+							 }
+						 }
+					 }
+					 builder.deleteCharAt(builder.length() -1 );
+					 builder.append(" ) ");
+					String newQuery = query;
+					 if(CollectionUtils.isNotEmpty(filteredProjectIds) || allProjects) {
+						 newQuery = query.replace("%p", builder.toString());
+					 }else {
+						 newQuery = query.replace("%p", " ");
+					 }
+					 
+					
+					statement = connection.createStatement();
+					resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
+					
+				 while(resultSet.next()) {
+					 clients.add(resultSet.getString(1));
+				 }
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (statement != null) {
+						try {
+							statement.close();
+							//connection.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				return clients;
+			}	
+	    
+	    
 	
 }

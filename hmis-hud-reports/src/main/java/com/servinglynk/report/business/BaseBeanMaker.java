@@ -1576,6 +1576,9 @@ public class BaseBeanMaker {
 			 
 			    public static List<String> getClients(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects) {
 					 List<String> clients = new ArrayList<String>();
+					 if (CollectionUtils.isEmpty(filteredProjectIds) &&  !allProjects) {
+						 return clients;
+					 	}
 						ResultSet resultSet = null;
 						Statement statement = null;
 						String projectQuery = " and p.id in ( ";
@@ -1598,30 +1601,30 @@ public class BaseBeanMaker {
 							 builder.deleteCharAt(builder.length() -1 );
 							 builder.append(" ) ");
 							String newQuery = query;
-							 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+							 if(CollectionUtils.isNotEmpty(filteredProjectIds) || allProjects) {
 								 newQuery = query.replace("%p", builder.toString());
 							 }else {
 								 newQuery = query.replace("%p", " ");
 							 }
 							 
-							 String newQueryWithEnrollments = newQuery;
-							 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
-								List<EnrollmentModel> enrollments = data.getAdultLeavers();
-								 if(CollectionUtils.isNotEmpty(enrollments)) {
-									 int count = 0;
-									 for(EnrollmentModel enrollment : enrollments) {
-										 builderWithEnrollments.append("'"+enrollment.getProjectEntryID()+"'");
-										 if(count != enrollments.size()) {
-											 builderWithEnrollments.append(",");
-										 }
-									 }
-								 }
-								 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
-								 builderWithEnrollments.append(" ) ");
-								
-								 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
+//							 String newQueryWithEnrollments = newQuery;
+//							 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
+//								List<EnrollmentModel> enrollments = data.getAdultLeavers();
+//								 if(CollectionUtils.isNotEmpty(enrollments)) {
+//									 int count = 0;
+//									 for(EnrollmentModel enrollment : enrollments) {
+//										 builderWithEnrollments.append("'"+enrollment.getProjectEntryID()+"'");
+//										 if(count != enrollments.size()) {
+//											 builderWithEnrollments.append(",");
+//										 }
+//									 }
+//								 }
+//								 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
+//								 builderWithEnrollments.append(" ) ");
+//								
+//								 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
 							statement = connection.createStatement();
-							resultSet = statement.executeQuery(formatQuery(newQueryWithEnrollments,data.getSchema(),data));
+							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 							
 						 while(resultSet.next()) {
 							 clients.add(resultSet.getString(1));

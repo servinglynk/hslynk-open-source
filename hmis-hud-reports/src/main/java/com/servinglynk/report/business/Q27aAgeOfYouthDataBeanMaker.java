@@ -1,9 +1,17 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+
+import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q27aAgeOfYouthDataBean;
 import com.servinglynk.report.bean.ReportData;
 
@@ -15,7 +23,7 @@ public class Q27aAgeOfYouthDataBeanMaker extends BaseBeanMaker {
 		try {
 			if(data.isLiveMode()) {
 				
-				String query = "select count(distinct(c.dedup_client_id)) from %s.client c, %s.enrollment e,%s.project p where e.client_id =c.id and e.entrydate >= :startDate and e.entrydate <= :endDate and e.projectid=p.id  %p ";
+				String query = "select distinct(c.dedup_client_id) from %s.client c, %s.enrollment e,%s.project p where e.client_id =c.id and e.entrydate >= :startDate and e.entrydate <= :endDate and e.projectid=p.id  %p ";
 				List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 				List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 				List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
@@ -48,7 +56,7 @@ public class Q27aAgeOfYouthDataBeanMaker extends BaseBeanMaker {
 				q27aAgeOfYoutTable.setQ27a18To24WithChildOnly(BigInteger.valueOf(a18To24WithOnlyChildSize));
 				q27aAgeOfYoutTable.setQ27a18To24UnknownHouseHoldtype(BigInteger.valueOf(a18To24UnknownHouseHoldSize));
 
-				String querydkr = " and c.dob_data_quality in ('8','9') " ;
+				String querydkr = " and c.dob_data_quality in ('8','9') and c.age <= 24 " ;
 				int dkrTotal = getSize(getClients(data, query+querydkr, null, true));
 				int dkrWithoutChildSize = getSize(getClients(data, query+querydkr, projectsHHWithOutChildren, false));
 				int dkrChildAndAdultsSize = getSize(getClients(data, query+querydkr, projectsHHWithOneAdultChild, false));
@@ -61,7 +69,7 @@ public class Q27aAgeOfYouthDataBeanMaker extends BaseBeanMaker {
 				q27aAgeOfYoutTable.setQ27aDKRWithChildOnly(BigInteger.valueOf(dkrWithOnlyChildSize));
 				q27aAgeOfYoutTable.setQ27aDKRUnknownHouseHoldtype(BigInteger.valueOf(dkrUnknownHouseHoldSize));
 
-				String querydnc = " and c.dob_data_quality = '99' " ;
+				String querydnc = " and c.dob_data_quality = '99' and c.age <= 24 " ;
 				int dncTotal = getSize(getClients(data, query+querydkr, null, true));
 				int dncWithoutChildSize = getSize(getClients(data, query+querydnc, projectsHHWithOutChildren, false));
 				int dncChildAndAdultsSize = getSize(getClients(data, query+querydnc, projectsHHWithOneAdultChild, false));
@@ -91,5 +99,5 @@ public class Q27aAgeOfYouthDataBeanMaker extends BaseBeanMaker {
 		}
 		return Arrays.asList(q27aAgeOfYoutTable);
 	}
-	
+	 
 }
