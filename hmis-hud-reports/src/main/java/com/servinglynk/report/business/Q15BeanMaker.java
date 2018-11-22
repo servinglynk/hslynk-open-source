@@ -395,10 +395,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(pshforHomelessPerson.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15PSHforHomelessPersonsTotal(BigInteger.valueOf(pshforHomelessPerson.size()));
 			q15Bean.setQ15PSHforHomelessPersonsWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -421,10 +421,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(ownedByclientNoSubsidy.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15OwnedByclientNoSubsidyTotal(BigInteger.valueOf(ownedByclientNoSubsidy.size()));
 			q15Bean.setQ15OwnedByclientNoSubsidyWithoutchild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -446,10 +446,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(ownedByclientWithSubsidy.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15OwnedByclientWithSubsidyTotal(BigInteger.valueOf(ownedByclientWithSubsidy.size()));
 			q15Bean.setQ15OwnedByclientWithSubsidyWithoutchild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -472,10 +472,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientNoSubsidy.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15RentalByClientNoSubsidyTotal(BigInteger.valueOf(rentalByClientNoSubsidy.size()));
 			q15Bean.setQ15RentalByClientNoSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -497,10 +497,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithVASHSubsidy.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15RentalByClientWithVASHSubsidyTotal(BigInteger.valueOf(rentalByClientWithVASHSubsidy.size()));
 			q15Bean.setQ15RentalByClientWithVASHSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -522,10 +522,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithGPDTIPSubsidy.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15RentalByClientWithGPDTIPSubsidyTotal(BigInteger.valueOf(rentalByClientWithGPDTIPSubsidy.size()));
 			q15Bean.setQ15RentalByClientWithGPDTIPSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -548,10 +548,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithOtherSubsidy.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15RentalByClientWithOtherSubsidyTotal(BigInteger.valueOf(rentalByClientWithOtherSubsidy.size()));
 			q15Bean.setQ15RentalByClientWithOtherSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -573,10 +573,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(hotelOrMotel.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15HotelOrMotelTotal(BigInteger.valueOf(hotelOrMotel.size()));
 			q15Bean.setQ15HotelOrMotelWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -599,10 +599,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(stayingOrLivingWithFriends.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15StayingOrLivingWithFriendsTotal(BigInteger.valueOf(stayingOrLivingWithFriends.size()));
 			q15Bean.setQ15StayingOrLivingWithFriendsWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -624,10 +624,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(stayingOrLivingWithFamily.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15StayingOrLivingWithFamilyTotal(BigInteger.valueOf(stayingOrLivingWithFamily.size()));
 			q15Bean.setQ15StayingOrLivingWithFamilyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -649,10 +649,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(dontRefusedWith.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15DontRefusedTotal(BigInteger.valueOf(dontRefusedWith.size()));
 			q15Bean.setQ15DontRefusedWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -675,10 +675,10 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
 			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(informationMissing.size()));
-			otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q15Bean.setQ15InformationMissingTotal(BigInteger.valueOf(informationMissing.size()));
 			q15Bean.setQ15InformationMissingWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
@@ -692,12 +692,16 @@ public class Q15BeanMaker extends BaseBeanMaker {
 		q15Bean.setQ15CzTotalWithChildOnly(otherLocationTotalWithOnlyChild);
 		q15Bean.setQ15CzTotalWithChildandAdult(otherLocationTotalWCA);
 		q15Bean.setQ15CzTotalUnknownHousehold(otherLocationTotalUHHT);
+		otherLocationTotalWOC=otherLocationTotalWOC.add(institutionalSettinTotalWOC).add(homelessSitualtionTotalWOC);
+		otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(institutionalSettinTotalWithOnlyChild).add(homelessSitualtionTotalWithOnlyChild);
+		otherLocationTotalUHHT=otherLocationTotalUHHT.add(institutionalSettingTotalUHHT).add(homelessSitualtionTotalUHHT);
+		otherLocationTotalWCA=otherLocationTotalWCA.add(institutionalSettinTotalWCA).add(homelessSitualtionTotalWCA);
 		
 		q15Bean.setQ15DTotalSummed(BigInteger.valueOf(overallTot));
-		q15Bean.setQ15DTotalWithoutChild(otherLocationTotalWOC.add(institutionalSettinTotalWOC).add(homelessSitualtionTotalWOC));
-		q15Bean.setQ15DTotalWithChildandAdult(otherLocationTotalWCA.add(institutionalSettinTotalWCA).add(homelessSitualtionTotalWCA));
-		q15Bean.setQ15DTotalWithChildOnly(otherLocationTotalWithOnlyChild.add(institutionalSettinTotalWithOnlyChild).add(homelessSitualtionTotalWithOnlyChild));
-		q15Bean.setQ15DTotalUnknownHousehold(otherLocationTotalUHHT.add(institutionalSettingTotalUHHT).add(homelessSitualtionTotalUHHT));
+		q15Bean.setQ15DTotalWithoutChild(otherLocationTotalWOC);
+		q15Bean.setQ15DTotalWithChildandAdult(otherLocationTotalWCA);
+		q15Bean.setQ15DTotalWithChildOnly(otherLocationTotalWOC);
+		q15Bean.setQ15DTotalUnknownHousehold(otherLocationTotalUHHT);
 
 	} catch (Exception e) {
 		logger.error("Error in Q15BeanMaker:" + e);
