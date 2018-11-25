@@ -28,11 +28,13 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 				  " join  %s.enrollment e1 on  (e.householdid = e1.householdid  and e1.relationshiptohoh ='1') "+
 				   "left outer join %s.exit ext on ( e.id = ext.enrollmentid ) "+
 			      " left outer join %s.moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  :endDate  and  mid.moveindate<= :endDate) "+
+			      " where e.entrydate >= :startDate and e.entrydate <= :endDate " +
 					" order by e.dedup_client_id ";
 		String exitedQuery = 		  
 					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
 					" join %s.exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
 					" join %s.moveindate mid on (e.id = mid.enrollmentid) "+
+					" where e.entrydate >= :startDate and e.entrydate <= :endDate " +
 					" order by e.dedup_client_id ";		
 		try {
 			if(data.isLiveMode()) {
