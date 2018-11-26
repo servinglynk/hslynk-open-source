@@ -66,7 +66,7 @@ public class Q27cGenderYouthDataBeanMaker extends BaseBeanMaker {
 					List<EnrollmentModel> clientsWC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultFemaleClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					List<EnrollmentModel> clientsUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultFemaleClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					
-					total += getSize(clientsMale) ;
+					total += getSize(clientsFeMale) ;
 					woc += getSize(clientsWOC);
 					wca += getSize(clientsWCA);
 					wc += getSize(clientsWC);
@@ -89,7 +89,7 @@ public class Q27cGenderYouthDataBeanMaker extends BaseBeanMaker {
 					List<EnrollmentModel> clientsWC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultsTransClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					List<EnrollmentModel> clientsUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultsTransClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					
-					total += getSize(clientsMale) ;
+					total += getSize(adultsTransMale) ;
 					woc += getSize(clientsWOC);
 					wca += getSize(clientsWCA);
 					wc += getSize(clientsWC);
@@ -114,7 +114,7 @@ public class Q27cGenderYouthDataBeanMaker extends BaseBeanMaker {
 					List<EnrollmentModel> clientsWC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultsTransClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					List<EnrollmentModel> clientsUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && adultsTransClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					
-					total += getSize(clientsMale) ;
+					total += getSize(adultsTransFeMale) ;
 					woc += getSize(clientsWOC);
 					wca += getSize(clientsWCA);
 					wc += getSize(clientsWC);
@@ -138,7 +138,7 @@ public class Q27cGenderYouthDataBeanMaker extends BaseBeanMaker {
 					List<EnrollmentModel> clientsWC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && otherClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					List<EnrollmentModel> clientsUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && otherClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					
-					total += getSize(clientsMale) ;
+					total += getSize(adultsOther) ;
 					woc += getSize(clientsWOC);
 					wca += getSize(clientsWCA);
 					wc += getSize(clientsWC);
@@ -161,7 +161,7 @@ public class Q27cGenderYouthDataBeanMaker extends BaseBeanMaker {
 					List<EnrollmentModel> clientsWC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && dkClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					List<EnrollmentModel> clientsUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && dkClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					
-					total += getSize(clientsMale) ;
+					total += getSize(clientDk) ;
 					woc += getSize(clientsWOC);
 					wca += getSize(clientsWCA);
 					wc += getSize(clientsWC);
@@ -183,7 +183,7 @@ public class Q27cGenderYouthDataBeanMaker extends BaseBeanMaker {
 					List<EnrollmentModel> clientsWC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && clientMissing.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					List<EnrollmentModel> clientsUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && clientMissing.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
 					
-					total += getSize(clientsMale) ;
+					total += getSize(clientMissing) ;
 					woc += getSize(clientsWOC);
 					wca += getSize(clientsWCA);
 					wc += getSize(clientsWC);

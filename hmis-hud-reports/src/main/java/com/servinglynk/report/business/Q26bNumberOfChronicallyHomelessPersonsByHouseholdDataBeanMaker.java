@@ -32,7 +32,7 @@ public static List<Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean> ge
 			String dnKChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition in ('8','9') and e.projectid = p.id %p and entrydate>=:startDate and entrydate <= :endDate ";
 			String dnCChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition ='99' and e.projectid = p.id %p and entrydate>=:startDate and entrydate <= :endDate  ";
 			
-			int chSize = getSize(getClients(data, chronicHomelessQuery, data.getProjectIds(), true));
+			int chSize = getSize(data.getChronicHomeLess());
 			int chWithoutChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOutChildren, false));
 			int chChildAndAdultsSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOneAdultChild, false));
 			int chWithOnlyChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithChildren, false));

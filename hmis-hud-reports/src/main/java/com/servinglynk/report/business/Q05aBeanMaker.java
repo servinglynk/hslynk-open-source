@@ -28,7 +28,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			data.setEnrollmentIds(enrollmentIds);
 			List<EnrollmentModel> adults = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
 			List<EnrollmentModel> children = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() < 18 && enrollment.getAgeatentry() !=0 ).collect(Collectors.toList());
-			List<EnrollmentModel> youthUnder25 = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() < 25  && enrollment.getAgeatentry() !=0).collect(Collectors.toList());
+			List<EnrollmentModel> youthUnder25 = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() >= 18 && enrollment.getAgeatentry() <= 25  && enrollment.getAgeatentry() !=0).collect(Collectors.toList());
 			List<EnrollmentModel> ageUnknown = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() == 0).collect(Collectors.toList());
 			
 			List<EnrollmentModel> chronicHomeless = enrollments.parallelStream().filter(enrollment -> enrollment.isChronichomeless()).collect(Collectors.toList());
@@ -64,7 +64,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			bean.setNumOfHeadsOfHHandAdults365Days(BigInteger.valueOf(adultStayersHoh365Days !=null ? adultStayersHoh365Days.size() : 0));
 			//TODO : Sandeep need to calculate this.
 			// Number of parenting youth under age 25 with children
-			String parent18To24YouthQuery = " select distinct(e.dedup_client_id) from %s.enrollment e, %s.enrollment e1,%s.project p where e.householdid = e1.householdid and  e.ageatentry >=18 and e.ageatentry <= 24 and e.relationshiptohoh='1'  and e1.relationshiptohoh='2' %p ";
+			String parent18To24YouthQuery = " select distinct(e.dedup_client_id) from %s.enrollment e, %s.enrollment e1,%s.project p where e.householdid = e1.householdid and  e.ageatentry >=18 and e.ageatentry <= 24 and e.relationshiptohoh='1'  and e1.relationshiptohoh='2' and e.projectid=p.id  %p ";
 			int parent18To24Size= getSize(getClients(data, parent18To24YouthQuery, null, true));
 		
 			bean.setNumOfParentingYouthUnderAge25WithChildren(BigInteger.valueOf(parent18To24Size));

@@ -33,13 +33,13 @@ public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker exte
 				String dnKChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id  and e.disablingcondition in ('8','9')  and entrydate >=:startDate and entrydate <=:endDate  and e.projectid = p.id %p  ";
 				String dnCChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition ='99'  and entrydate >=:startDate and entrydate <=:endDate  and e.projectid = p.id %p  ";
 				
-				int chSize = getSize(getClients(data, chronicHomelessQuery, null, true));
+				int chSize = getSize(data.getChronicHomeLess());
 				int chWithoutChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOutChildren, false));
 				int chChildAndAdultsSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOneAdultChild, false));
 				int chWithOnlyChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithChildren, false));
 				int chUnknownHouseHoldSize = getSize(getClients(data, chronicHomelessQuery, projectsUnknownHouseHold, false));
 				
-				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aChronicallyHomelessTotal(BigInteger.valueOf(chSize));
+				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aChronicallyHomelessTotal(BigInteger.valueOf(getSize(data.getChronicHomeLess())));
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aChronicallyHomelessWithoutChild(BigInteger.valueOf(chWithoutChildSize));
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aChronicallyHomelessWithChildAndAdults(BigInteger.valueOf(chChildAndAdultsSize));
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aChronicallyHomelessWithOnlyChild(BigInteger.valueOf(chWithOnlyChildSize));
