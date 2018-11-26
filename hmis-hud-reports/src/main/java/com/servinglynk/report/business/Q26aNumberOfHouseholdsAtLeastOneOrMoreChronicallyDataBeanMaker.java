@@ -14,7 +14,6 @@ import org.apache.commons.collections.CollectionUtils;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker extends BaseBeanMaker{
 	

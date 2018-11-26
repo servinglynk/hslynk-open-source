@@ -51,11 +51,11 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			overallTotal.add(BigInteger.valueOf(just1.size()));
-			totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			overallTotal=overallTotal.add(BigInteger.valueOf(just1.size()));
+			totalWithOnlyChild=totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			totalWOC=totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			totalWCA=totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			totalUHHT=totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q13a2Bean.setQ13a2Condition1Total(BigInteger.valueOf(just1.size()));
 	    	q13a2Bean.setQ13a2Condition1WithoutChildren(BigInteger.valueOf(withChildrenIntSize));
@@ -77,11 +77,11 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			overallTotal.add(BigInteger.valueOf(just2.size()));
-			totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			overallTotal=overallTotal.add(BigInteger.valueOf(just2.size()));
+			totalWithOnlyChild=totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			totalWOC=totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			totalWCA=totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			totalUHHT=totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q13a2Bean.setQ13a2Condition2Total(BigInteger.valueOf(just2.size()));
 	    	q13a2Bean.setQ13a2Condition2WithoutChildren(BigInteger.valueOf(withChildrenIntSize));
@@ -103,11 +103,11 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			overallTotal.add(BigInteger.valueOf(plus3.size()));
-			totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			overallTotal=overallTotal.add(BigInteger.valueOf(plus3.size()));
+			totalWithOnlyChild=totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			totalWOC=totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			totalWCA=totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			totalUHHT=totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q13a2Bean.setQ13a2Condition3PlusTotal(BigInteger.valueOf(plus3.size()));
 	    	q13a2Bean.setQ13a2Condition3PlusWithoutChildren(BigInteger.valueOf(withChildrenIntSize));
@@ -129,11 +129,11 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			overallTotal.add(BigInteger.valueOf(disabilitiesNone.size()));
-			totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			overallTotal=overallTotal.add(BigInteger.valueOf(disabilitiesNone.size()));
+			totalWithOnlyChild=totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			totalWOC=totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			totalWCA=totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			totalUHHT=totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q13a2Bean.setQ13a2NoneTotal(BigInteger.valueOf(disabilitiesNone.size()));
 	    	q13a2Bean.setQ13a2NoneWithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
@@ -156,11 +156,11 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			overallTotal.add(BigInteger.valueOf(disabilitiesUnknown.size()));
-			totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			overallTotal=overallTotal.add(BigInteger.valueOf(disabilitiesUnknown.size()));
+			totalWithOnlyChild=totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			totalWOC=totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			totalWCA=totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			totalUHHT=totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q13a2Bean.setQ13a2DontKnowRefusedTotal(BigInteger.valueOf(disabilitiesUnknown.size()));
 	    	q13a2Bean.setQ13a2DontKnowRefusedWithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
@@ -183,11 +183,11 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
 			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
 			
-			overallTotal.add(BigInteger.valueOf(disabilitiesMissing.size()));
-			totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
-			totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
-			totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
-			totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			overallTotal=overallTotal.add(BigInteger.valueOf(disabilitiesMissing.size()));
+			totalWithOnlyChild=totalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			totalWOC=totalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			totalWCA=totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			totalUHHT=totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q13a2Bean.setQ13a2InformationmissingTotal(BigInteger.valueOf(disabilitiesMissing.size()));
 	    	q13a2Bean.setQ13a2InformationmissingWithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
