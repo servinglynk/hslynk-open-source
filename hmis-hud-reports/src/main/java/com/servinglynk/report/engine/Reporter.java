@@ -67,10 +67,10 @@ public class Reporter {
 			projects.add("5cc34dce-e603-4cb6-8d95-4cd3fb164098");
 			projects.add("5d36df7a-3189-49c4-af16-af8c86c1f6d5");
 			projects.add("5e63e036-50fc-4ce1-bc88-6b61bbedd539");
-//			projects.add("5eb8c3a1-71bb-417a-8823-aa11918fa6c3");
-//			projects.add("5eecd952-4815-432c-a218-86732e125a74");
-//			projects.add("6c8529d9-94ed-4472-9176-4416867fa45d");
-//			projects.add("6eec300a-20a8-4e0f-9e00-ae8fc47fd677");
+			projects.add("5eb8c3a1-71bb-417a-8823-aa11918fa6c3");
+			projects.add("5eecd952-4815-432c-a218-86732e125a74");
+			projects.add("6c8529d9-94ed-4472-9176-4416867fa45d");
+			projects.add("6eec300a-20a8-4e0f-9e00-ae8fc47fd677");
 //			projects.add("7aa8a05c-c045-4a59-9cfb-54eb8017b9d6");
 //			projects.add("7fbdd50a-cf93-4bc6-909b-92c046b58c30");
 //			projects.add("8ce3bcf7-cea0-4735-9330-bb7f04b71a40");

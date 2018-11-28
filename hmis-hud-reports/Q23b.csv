@@ -6,41 +6,41 @@
 "   Rental by client, no ongoing housing ",1,1,1,1,1
 "   Rental by client, with VASH housing ",0,0,0,0,0
 "   Rental by client, with GPD TIP housing ",0,0,0,0,0
-"   Rental by client, with other ongoing ",7,7,7,7,7
-   Permanent housing (other than RRH) for ,1,1,1,1,1
-"   Staying or living with family, ",3,3,3,3,3
-"   Staying or living with friends, ",1,1,1,1,1
-"   Rental by client, with RRH or ",0,0,13,13,13
-   SubTotal,13,13,0,0,0
+"   Rental by client, with other ongoing ",0,0,0,0,0
+   Permanent housing (other than RRH) for ,0,0,0,0,0
+"   Staying or living with family, ",0,0,0,0,0
+"   Staying or living with friends, ",0,0,0,0,0
+"   Rental by client, with RRH or ",0,0,1,1,1
+   SubTotal,1,1,0,0,0
   Temporary Destinations,,,,,
 "   Emergency shelter, including hotel or motel paid for
-with emergency shelter voucher",2,2,2,2,2
+with emergency shelter voucher",0,0,0,0,0
    Moved from one HOPWA funded project to HOPWA TH,0,0,0,0,0
 "   Transitional housing for homeless persons (including
 homeless youth)",1,1,1,1,1
-"    Staying or living with family,temporary tenure",1,1,1,1,1
+"    Staying or living with family,temporary tenure",0,0,0,0,0
 "    Staying or living with friends,",0,0,0,0,0
-   Place not meant for human habitation,3,3,3,3,3
+   Place not meant for human habitation,1,1,1,1,1
   Safe Haven,0,0,0,0,0
 "   Hotel or motel, paid by client",0,0,0,0,0
-   Subtotal,7,7,7,7,7
+   Subtotal,2,2,2,2,2
   Institutional Settings,,,,,
    Foster care home or group foster care home,0,0,0,0,0
   Psychiatric hospital or other psychiatric facility,0,0,0,0,0
    Substance abuse treatment facility or detox center,2,2,2,2,2
    Hospital or other residential non-psychiatric medical facility,0,0,0,0,0
-"  Jail,prison or juvenile detention facility",12,12,12,12,12
+"  Jail,prison or juvenile detention facility",4,4,4,4,4
   Long-term care facility or nursing ,0,0,0,0,0
-   Subtotal,14,14,14,14,14
+   Subtotal,6,6,6,6,6
    Other Destinations,,,,,
   Residential project or halfway house with no homeless criteria,0,0,0,0,0
-   Deceased,10,10,6,10,10
-   Other,6,6,6,6,6
+   Deceased,6,6,2,6,6
+   Other,2,2,2,2,2
    Client Doesn’t Know/Client Refused,0,0,0,0,0
-   Data Not Collected (no exit interview ,17,17,17,17,17
-   Subtotal,33,33,33,33,33
-   Total,177,67,67,67,67
-   Total persons exiting to positive housing destinations,13,13,13,13,13
+   Data Not Collected (no exit interview ,11,11,11,11,11
+   Subtotal,19,19,19,19,19
+   Total,118,28,28,28,28
+   Total persons exiting to positive housing destinations,1,1,1,1,1
 "   Total persons whose destinations excluded them from
-the calculation",10,10,10,10,10
+the calculation",6,6,6,6,6
    Percentage,0,0,0,0,0
