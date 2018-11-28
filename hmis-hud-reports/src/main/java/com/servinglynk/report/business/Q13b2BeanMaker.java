@@ -26,7 +26,7 @@ public class Q13b2BeanMaker extends BaseBeanMaker{
 		List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 		
-		List<EnrollmentModel> enrollments = data.getAdultLeavers();   
+		List<EnrollmentModel> enrollments = data.getLeavers();   
 		List<EnrollmentModel> enrollmentsHHWithChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 		List<EnrollmentModel> enrollmentsHHWithOutChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 		List<EnrollmentModel> enrollmentsHHWithOneAdultChild = enrollments.parallelStream().filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());

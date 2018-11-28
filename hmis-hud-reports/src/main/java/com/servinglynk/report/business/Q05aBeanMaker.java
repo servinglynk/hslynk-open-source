@@ -28,14 +28,16 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			data.setEnrollmentIds(enrollmentIds);
 			List<EnrollmentModel> adults = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
 			List<EnrollmentModel> children = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() < 18 && enrollment.getAgeatentry() !=0 ).collect(Collectors.toList());
-			List<EnrollmentModel> youthUnder25 = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() >= 18 && enrollment.getAgeatentry() <= 25  && enrollment.getAgeatentry() !=0).collect(Collectors.toList());
+			List<EnrollmentModel> youthUnder25 = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() >= 18 && enrollment.getAgeatentry() <= 24  && enrollment.getAgeatentry() !=0).collect(Collectors.toList());
 			List<EnrollmentModel> ageUnknown = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() == 0).collect(Collectors.toList());
 			
 			List<EnrollmentModel> chronicHomeless = enrollments.parallelStream().filter(enrollment -> enrollment.isChronichomeless()).collect(Collectors.toList());
 			data.setChronicHomeLess(chronicHomeless);
 			List<ExitModel> exits = data.getExits();
 			List<String> enrollmentsFromExit = new ArrayList<>();
-			exits.forEach(exit -> { enrollmentsFromExit.add(exit.getProjectEntryID());} );
+			exits.forEach(exit -> { if(StringUtils.isNotEmpty(exit.getProjectEntryID())) { enrollmentsFromExit.add(exit.getProjectEntryID());} } );
+			List<EnrollmentModel> leavers = enrollments.parallelStream().filter(enrollment -> enrollmentsFromExit.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
+			data.setLeavers(leavers);
 			List<EnrollmentModel> adultLeavers = enrollments.parallelStream().filter(enrollment -> enrollmentsFromExit.contains(enrollment.getProjectEntryID()) && enrollment.getAgeatentry() > 18).collect(Collectors.toList());
 			data.setAdultLeavers(adultLeavers);
 			List<EnrollmentModel> activeClients = enrollments.parallelStream().filter(enrollment -> !enrollmentsFromExit.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -72,9 +74,9 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			bean.setTotNoOfAdultLeavers(BigInteger.valueOf(adultLeavers !=null ? adultLeavers.size() : 0));
 			bean.setTotNoOfAdultStayers(BigInteger.valueOf(adultStayers !=null ? adultStayers.size() : 0));
 			bean.setNoOfAdultHeadsOfHousehold(BigInteger.valueOf(adultHoh !=null ? adultHoh.size() : 0) );
-			bean.setTotNoOfLeavers(BigInteger.valueOf(exits != null ? exits.size() : 0));
+			bean.setTotNoOfLeavers(BigInteger.valueOf(getSize(leavers)));
 			
-			bean.setTotNoOfStayers(BigInteger.valueOf(numberOfStayers));
+			bean.setTotNoOfStayers(BigInteger.valueOf(getSize(activeClients)));
 			
 			//bean.setTotNumOfPersonServed(BigInteger.valueOf(clients.size()));
 			

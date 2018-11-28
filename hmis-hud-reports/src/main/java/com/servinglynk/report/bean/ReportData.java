@@ -29,7 +29,9 @@ public class ReportData {
 	private List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
 	private List<ExitModel> exits = new ArrayList<ExitModel>();
 	private List<EnrollmentModel> adultStayers = new ArrayList<>();
+	private List<EnrollmentModel> stayers = new ArrayList<>();
 	private List<EnrollmentModel> adultLeavers = new ArrayList<>();
+	private List<EnrollmentModel> leavers = new ArrayList<>();
 	private List<EnrollmentModel> activeClients = new ArrayList<>();
 	private List<ClientModel> veterans = new ArrayList<>();
 	private List<EnrollmentModel> chronicHomeLess = new ArrayList<>();
@@ -598,6 +600,19 @@ public class ReportData {
 	public void setLiveMode(boolean liveMode) {
 		this.liveMode = liveMode;
 	}
+	
+	/**
+	 * @return the stayers
+	 */
+	public List<EnrollmentModel> getStayers() {
+		return stayers;
+	}
+	/**
+	 * @param stayers the stayers to set
+	 */
+	public void setStayers(List<EnrollmentModel> stayers) {
+		this.stayers = stayers;
+	}
 	/**
 	 * @return the adultStayers
 	 */
@@ -621,6 +636,19 @@ public class ReportData {
 	 */
 	public void setAdultLeavers(List<EnrollmentModel> adultLeavers) {
 		this.adultLeavers = adultLeavers;
+	}
+	
+	/**
+	 * @return the leavers
+	 */
+	public List<EnrollmentModel> getLeavers() {
+		return leavers;
+	}
+	/**
+	 * @param leavers the leavers to set
+	 */
+	public void setLeavers(List<EnrollmentModel> leavers) {
+		this.leavers = leavers;
 	}
 	/**
 	 * @return the activeClients

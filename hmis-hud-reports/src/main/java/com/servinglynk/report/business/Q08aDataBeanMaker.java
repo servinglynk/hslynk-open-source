@@ -25,7 +25,7 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 			List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 			List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 			List<EnrollmentModel> allEnrollments = data.getEnrollments();
-			List<EnrollmentModel> enrollments = allEnrollments.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
+			List<EnrollmentModel> enrollments = allEnrollments.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() != 0).collect(Collectors.toList());
 			
 			List<EnrollmentModel> enrollmentsHHWithChildren = enrollments.parallelStream()
 					.filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID()))

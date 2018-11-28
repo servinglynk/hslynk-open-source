@@ -22,7 +22,7 @@ public class Q27dResidencePriorToEntryYouthDataBeanMaker extends BaseBeanMaker {
 			try {
 				
 			List<EnrollmentModel> unfilteredEnrollments = data.getEnrollments();
-			List<EnrollmentModel> enrollments = unfilteredEnrollments.parallelStream().filter(enrollment -> enrollment.getAgeatentry() >= 18 && enrollment.getAgeatentry() <=25 && StringUtils.equals("1", enrollment.getRelationshiptohoh()) ).collect(Collectors.toList());
+			List<EnrollmentModel> enrollments = unfilteredEnrollments.parallelStream().filter(enrollment -> enrollment.getAgeatentry() >= 18 && enrollment.getAgeatentry() <=24 && StringUtils.equals("1", enrollment.getRelationshiptohoh()) ).collect(Collectors.toList());
 			
 			List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 			List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
