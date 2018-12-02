@@ -55,6 +55,9 @@ public class Contact extends HmisBaseModel implements Cloneable, Serializable {
 	private Enrollment enrollmentid;
 	/** Field mapping. */
 	private java.util.UUID id;
+	
+	private LocalDateTime submissionDate;
+	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -199,6 +202,18 @@ public class Contact extends HmisBaseModel implements Cloneable, Serializable {
 		this.export = export;
 	}
 
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

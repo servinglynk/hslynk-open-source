@@ -12,6 +12,7 @@ public class ExithousingassessmentConverter  extends BaseConverter {
        entity.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum(model.getHousingassessment().toString()));
  if(model.getSubsidyinformation()!=null)
        entity.setSubsidyinformation(ExithousingassessmentSubsidyinformationEnum.lookupEnum(model.getSubsidyinformation().toString()));
+	if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -23,6 +24,9 @@ if(entity.getHousingassessment()!=null)
        model.setHousingassessment(Integer.parseInt(entity.getHousingassessment().getValue()));
 if(entity.getSubsidyinformation()!=null)
        model.setSubsidyinformation(Integer.parseInt(entity.getSubsidyinformation().getValue()));
+
+if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
+
        return model;
    }
 

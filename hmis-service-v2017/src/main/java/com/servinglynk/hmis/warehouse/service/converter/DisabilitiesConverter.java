@@ -39,6 +39,8 @@ public class DisabilitiesConverter  extends BaseConverter {
 	  entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
  if(model.getViralLoadSource()!=null)
        entity.setViralLoadSource(TCellOrViralLoadSourceEnum.lookupEnum(model.getViralLoadSource().toString()));
+ 
+	if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -67,6 +69,8 @@ if(entity.getViralLoad()!=null)
        model.setViralLoad(entity.getViralLoad());
 if(entity.getViralLoadSource()!=null)
        model.setViralLoadSource(entity.getViralLoadSource().getValue());
+
+if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

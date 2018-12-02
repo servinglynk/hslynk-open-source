@@ -14,6 +14,7 @@ public class ServicefareferralConverter  extends BaseConverter {
        entity.setSubTypeProvided(model.getSubTypeProvided());
        entity.setFaAmount(model.getFaAmount());
        entity.setReferralOutcome(model.getReferralOutcome());
+       entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -29,6 +30,7 @@ public class ServicefareferralConverter  extends BaseConverter {
        model.setSubTypeProvided(entity.getSubTypeProvided());
        model.setFaAmount(entity.getFaAmount());
        model.setReferralOutcome(entity.getReferralOutcome());
+       if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

@@ -14,6 +14,7 @@ public class PathstatusConverter  extends BaseConverter {
        entity.setClientEnrolledInPath(model.getClientEnrolledInPath());
  if(model.getReasonNotEnrolled()!=null)
        entity.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(model.getReasonNotEnrolled().toString()));
+ entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -26,6 +27,7 @@ public class PathstatusConverter  extends BaseConverter {
        model.setClientEnrolledInPath(entity.getClientEnrolledInPath());
 if(entity.getReasonNotEnrolled()!=null)
        model.setReasonNotEnrolled(Integer.parseInt(entity.getReasonNotEnrolled().getValue()));
+if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

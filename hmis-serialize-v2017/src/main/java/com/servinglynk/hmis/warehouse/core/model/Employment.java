@@ -26,6 +26,18 @@ public class Employment extends ClientModel{
       private Integer notEmployedReason;
 
       private Integer dataCollectionStage;
+      
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
+   	 LocalDateTime submissionDate;
+
+        public LocalDateTime getSubmissionDate() {
+  		return submissionDate;
+  	}
+  	public void setSubmissionDate(LocalDateTime submissionDate) {
+  		this.submissionDate = submissionDate;
+  	}
+
 
       public UUID getEmploymentId(){
           return employmentId;

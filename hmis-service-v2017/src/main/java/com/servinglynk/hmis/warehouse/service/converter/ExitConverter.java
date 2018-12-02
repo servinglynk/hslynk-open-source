@@ -15,6 +15,8 @@ public class ExitConverter extends BaseConverter {
        entity.setExitdate(model.getExitDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        if(model.getOtherDestination()!=null)
        entity.setOtherdestination(model.getOtherDestination());
+       
+		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -29,6 +31,7 @@ public class ExitConverter extends BaseConverter {
        exit.setDestination(Integer.parseInt(entity.getDestination().getValue()));
        if(entity.getOtherdestination()!=null)
        exit.setOtherDestination(entity.getOtherdestination());
+       if(entity.getSubmissionDate()!=null) exit.setSubmissionDate(entity.getSubmissionDate());
        copyBeanProperties(entity, exit);
        return exit;
    }
