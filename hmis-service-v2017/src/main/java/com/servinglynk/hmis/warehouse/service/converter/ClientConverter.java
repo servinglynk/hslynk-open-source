@@ -40,7 +40,7 @@ public class ClientConverter {
 		pClient.setRace(ClientRaceEnum.lookupEnum(client.getRace()+""));
 	    if(client.getSsn()!=null)
 		pClient.setSsn(client.getSsn());
-	    if(StringUtils.isEmpty(client.getSsn().replaceAll(" ", ""))) pClient.setSsn(null);
+	    if(client.getSsn()!=null && StringUtils.isEmpty(client.getSsn().replaceAll(" ", ""))) pClient.setSsn(null);
 	    if(client.getSsnDataQuality()!=null)
 		pClient.setSsnDataQuality(ClientSsnDataQualityEnum.lookupEnum(client.getSsnDataQuality()+""));
 	    if(client.getVeteranStatus()!=null)
