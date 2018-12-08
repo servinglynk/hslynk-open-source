@@ -1686,14 +1686,14 @@ public class Sources {
             @XmlType(name = "", propOrder = {
                 "entryRHSPID",
                 "worstHousingSituation",
-                "projectID"
+                "enrollmentID"
             })
             public static class EntryRHSP {
 
                 @XmlElement(name = "EntryRHSPID" , required = true)
                 protected String entryRHSPID;
-                @XmlElement(name = "ProjectID" , required = true)
-                protected String projectID;
+                @XmlElement(name = "EnrollmentID" , required = true)
+                protected String enrollmentID;
                 @XmlElement(name = "WorstHousingSituation" )
                 protected String worstHousingSituation;
                 @XmlAttribute
@@ -1729,8 +1729,8 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public String getProjectID() {
-                    return projectID;
+                public String getEnrollmentID() {
+                    return enrollmentID;
                 }
 
                 /**
@@ -1741,8 +1741,8 @@ public class Sources {
                  *     {@link String }
                  *     
                  */
-                public void setProjectID(String value) {
-                    this.projectID = value;
+                public void setEnrollmentID(String value) {
+                    this.enrollmentID = value;
                 }
 
                 /**
@@ -3057,8 +3057,23 @@ public class Sources {
                 protected XMLGregorianCalendar dateUpdated;
                 @XmlAttribute
                 protected String userID;
+                protected String cocId;
 
                 /**
+				 * @return the cocId
+				 */
+				public String getCocId() {
+					return cocId;
+				}
+
+				/**
+				 * @param cocId the cocId to set
+				 */
+				public void setCocId(String cocId) {
+					this.cocId = cocId;
+				}
+
+				/**
                  * Gets the value of the coCCode property.
                  * 
                  * @return
@@ -12823,7 +12838,7 @@ public class Sources {
                 @XmlElement(name = "RecordType")
                 protected String recordType;
                 @XmlElement(name = "TypeProvided")
-                protected short typeProvided;
+                protected String typeProvided;
                 @XmlElement(name = "OtherTypeProvided", required = true)
                 protected String otherTypeProvided;
                 @XmlElement(name = "SubTypeProvided")
@@ -12933,7 +12948,7 @@ public class Sources {
                  * Gets the value of the typeProvided property.
                  * 
                  */
-                public short getTypeProvided() {
+                public String getTypeProvided() {
                     return typeProvided;
                 }
 
@@ -12941,7 +12956,7 @@ public class Sources {
                  * Sets the value of the typeProvided property.
                  * 
                  */
-                public void setTypeProvided(short value) {
+                public void setTypeProvided(String value) {
                     this.typeProvided = value;
                 }
 

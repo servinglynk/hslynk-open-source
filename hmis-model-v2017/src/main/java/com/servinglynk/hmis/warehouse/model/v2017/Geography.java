@@ -32,6 +32,7 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 	private GeographyTypeEnum geographyType;
 	/** Field mapping. */
 	private Coc coc;
+	private String coccode;
 	/** Field mapping. */
 	protected Export export;
 	
@@ -207,13 +208,33 @@ public class Geography extends HmisBaseModel implements Cloneable, Serializable 
 		}
 
 
-
 		 /**
 		 * Set the value related to the column: coc.
 		 * @param coc the coc value you wish to set
 		 */
 		public void setCoc(final Coc coc) {
 			this.coc = coc;
+		}
+		
+		 /**
+		 * Return the value associated with the column: coccode.
+		 * @return A String object (this.coccode)
+		 */
+		@Basic( optional = true )
+		@Column
+		public String getCoccode() {
+			return this.coccode;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: coccode.
+		 * @param coccode the coccode value you wish to set
+		 */
+		public void setCoccode(final String coccode) {
+			this.coccode = coccode;
 		}
 
 	/**

@@ -38,7 +38,7 @@ public class CreateHiveTablesForViSpdat {
 	        return questions;
 	    }
 	 
-	    public static Set<String> getDisinctSurveys(String schemaName) throws Exception{
+	    public static Set<String> getDisinctSurveys(String schemaName,String projectGroupCode) throws Exception{
 	        Set<String> tables = new HashSet<>();
 	        ResultSet resultSet = null;
 	        PreparedStatement statement = null;
@@ -46,6 +46,7 @@ public class CreateHiveTablesForViSpdat {
 	        try{
 	            connection = SyncPostgresProcessor.getConnection();
 	            statement = connection.prepareStatement(ViewQuery.GET_DISTINCT_SURVEY);
+	            statement.setString(1, projectGroupCode);
 	            resultSet = statement.executeQuery();
 	            while (resultSet.next()){
 	                tables.add(resultSet.getString("survey_id"));
@@ -107,35 +108,33 @@ public class CreateHiveTablesForViSpdat {
 		 List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
 			for(String projectGroup : allProjectGroupCodes) {
 				hmisCESTables.createTable("CESTables.sql",projectGroup);
-				hmisCESTables.createHiveTables("survey", projectGroup,false);
-				hmisCESTables.createHiveTables("housing_inventory", projectGroup,false);
-//				hmisCESTables.createHiveTables("v2017", projectGroup,true);
-//				hmisCESTables.createHiveTables("v2016", projectGroup,true);
-//				hmisCESTables.createHiveTables("v2015", projectGroup,true);
-//				hmisCESTables.createHiveTables("v2014", projectGroup,true);
+				hmisCESTables.createTable("HiveHmis.sql",projectGroup);
+				createViSpdatViews(projectGroup);
 			}
-			createViSpdatViews();
 	}
 	
-	public static void createViSpdatViews() throws Exception {
-		 Set<String> disinctSurveys = getDisinctSurveys("survey");
+	public static void createViSpdatViews(String projectGroupCode) throws Exception {
+		 Set<String> disinctSurveys = getDisinctSurveys("survey",projectGroupCode);
 		 for(String surveyId : disinctSurveys) {
 			 Survey survey = getSurveyById("survey", surveyId);
+			 
 				 StringBuilder builder = new StringBuilder();
 				 builder.append("CREATE EXTERNAL TABLE IF NOT EXISTS "+survey.getProjectGroupCode()+"."+survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase());
 				 builder.append("(submission_id string,client_id string,survey_date  timestamp ");
 				 List<String> disinctQuestions = getDisinctQuestions("survey", survey.getSurveyId());
 				 for(String questionId : disinctQuestions) {
-					  String displayText = getQuestionDisplayTextByQuestionID("survey", UUID.fromString(questionId));
-						if(StringUtils.isNotBlank(displayText)) {
-							String columnName = displayText;
-							if(displayText.length() > 100) {
-								columnName = displayText.substring(0,100);
+					 if(StringUtils.isNotBlank(questionId) && !StringUtils.equals("null", questionId)) {
+						  String displayText = getQuestionDisplayTextByQuestionID("survey", UUID.fromString(questionId));
+							if(StringUtils.isNotBlank(displayText)) {
+								String columnName = displayText;
+								if(displayText.length() > 100) {
+									columnName = displayText.substring(0,100);
+								}
+								columnName = columnName.replaceAll("[^a-zA-Z0-9]", "_");
+								columnName = columnName.replaceAll(" ", "_");
+								builder.append(" ,q_"+columnName+" string ");
 							}
-							columnName = columnName.replaceAll("[^a-zA-Z0-9]", "_");
-							columnName = columnName.replaceAll(" ", "_");
-							builder.append(" ,q_"+columnName+" string ");
-						}
+					 }
 				 }
 				 builder.append(")");
 				 builder.append("STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES");

@@ -75,7 +75,7 @@ public class BulkUploadController extends ControllerBase{
 	
 	@RequestMapping(value="/{bulkUploadId}",method=RequestMethod.PUT)
 	   @APIMapping(value="API_UPDATE_BULKUPLOAD",checkTrustedApp=true,checkSessionToken=true)
-	   public void updateProject(@PathVariable( "bulkUploadId" ) String bulkUploadId,@RequestBody BulkUpload model,HttpServletRequest request) throws Exception{
+	   public void updateBulkUpload(@PathVariable( "bulkUploadId" ) String bulkUploadId,@RequestBody BulkUpload model,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	        model.setId(Long.parseLong(bulkUploadId));
 	        serviceFactory.getBulkUploadService().updateBulkUpload(model, session.getAccount().getUsername()); 
@@ -83,7 +83,7 @@ public class BulkUploadController extends ControllerBase{
 
 	   @RequestMapping(value="/{bulkUploadId}",method=RequestMethod.DELETE)
 	   @APIMapping(value="API_DELETE_BULKUPLOAD",checkTrustedApp=true,checkSessionToken=true)
-	   public void deleteProject(@PathVariable( "bulkUploadId" ) String bulkUploadId,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	   public void deleteBulkUpload(@PathVariable( "bulkUploadId" ) String bulkUploadId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	        serviceFactory.getBulkUploadService().deleteBulkUpload(Long.parseLong(bulkUploadId),session.getAccount().getUsername());
 	        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
@@ -91,7 +91,7 @@ public class BulkUploadController extends ControllerBase{
 
 	   @RequestMapping(value="/{bulkUploadId}",method=RequestMethod.GET)
 	   @APIMapping(value="API_GET_BULKUPLOAD_BY_ID",checkTrustedApp=true,checkSessionToken=true)
-	   public BulkUpload getProjectById(@PathVariable( "bulkUploadId" ) String bulkUploadId,HttpServletRequest request) throws Exception{
+	   public BulkUpload getBulkUploadById(@PathVariable( "bulkUploadId" ) String bulkUploadId,HttpServletRequest request) throws Exception{
 	        return serviceFactory.getBulkUploadService().getBulkUploadId(Long.parseLong(bulkUploadId));
 	   }
 	
@@ -114,7 +114,7 @@ public class BulkUploadController extends ControllerBase{
         	 year = "2015";
          else if(StringUtils.equals("51", version))
         	 year = "2016";
-         else if(StringUtils.equals("611", version))
+         else if(StringUtils.equals("611", version) || StringUtils.equals("612", version))
         	 year = "2017";
         	 
 		if(StringUtils.isEmpty(year)) {

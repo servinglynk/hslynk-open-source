@@ -43,7 +43,7 @@ var Service= ({
          }).error(error);
    },
     GetReports: function ($http, success) {
-	
+
         $http.get('/hmis-bulk-loader/mapper/getReportMaster').success(function (data) {
 				if(success)success(data)
 			});
@@ -85,7 +85,7 @@ var Service= ({
              }).success(function (data) {
                  if(success)success(data.BulkUploads.bulkUploads)
              });
-       },       
+       },
     GetFilesListLIVE: function ($http, success,$scope) {
     var apiurl = "/hmis-upload-service/rest/bulk-upload?status=LIVE";
        $http({
@@ -98,7 +98,7 @@ var Service= ({
        }).success(function (data) {
            if(success)success(data.BulkUploads.bulkUploads)
        });
- },        
+ },
     GetFilesListERROR: function ($http, success,$scope) {
          var apiurl = "/hmis-upload-service/rest/bulk-upload?status=ERROR";
              $http({
@@ -157,7 +157,7 @@ var Service= ({
              }).success(function (data) {
                  if(success)success(data.BulkUploads.bulkUploads)
              }).error(error);
-       },        
+       },
 CheckServiceAvailableUploadFile: function ($http,$scope, success,error) {
         $http.post('/hmis-upload-service/uploadFile',{
             headers: {
@@ -166,7 +166,7 @@ CheckServiceAvailableUploadFile: function ($http,$scope, success,error) {
                   'Accept': 'application/json;odata=verbose'}}).success(function (data) {
         if(success)success(data)
     }).error(error);
-		
+
 },
 CheckServiceAvailableAuthenticate: function ($http,$scope, success,error) {
         $http.post('/hmis-client-dedup/rest/api/v1/authenticate',{
@@ -176,7 +176,7 @@ CheckServiceAvailableAuthenticate: function ($http,$scope, success,error) {
                   'Accept': 'application/json;odata=verbose'}}).success(function (data) {
         if(success)success(data)
     }).error(error);
-		
+
 },
 LoadStatistics: function ($http,$scope, success) {
         $http.get('/hmis-upload-service/rest/bulk-upload?status=LIVE',{
@@ -184,7 +184,7 @@ LoadStatistics: function ($http,$scope, success) {
                     'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
                       'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                       'Accept': 'application/json;odata=verbose'}}).success(
-		function (data) 
+		function (data)
 		{
 			 filesCollection =data.BulkUploads.bulkUploads;
 	    	// success(data)
@@ -193,23 +193,23 @@ LoadStatistics: function ($http,$scope, success) {
 			                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
 			                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
 			                  'Accept': 'application/json;odata=verbose'}}).success(
-				function (data) 
+				function (data)
 				{
 					Array.prototype.push.apply(filesCollection, data.BulkUploads.bulkUploads);
 				// success(data)
-					
+
 					$http.get('/hmis-upload-service/rest/bulk-upload?status=ERROR',{
 				            headers: {
 				                'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
 				                  'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
 				                  'Accept': 'application/json;odata=verbose'}}).success(
-					function (data) 
+					function (data)
 					{
 						Array.prototype.push.apply(filesCollection, data.BulkUploads.bulkUploads);
 						success(filesCollection)
 				  })
 			  })
-			  
+
   	  });
 },
 logout: function ($http,$scope, success,error) {
@@ -228,11 +228,11 @@ logout: function ($http,$scope, success,error) {
 
 SaveSetting: function ($http,$scope, success,error) {
 	 var apiurl = "/hmis-user-service/rest/accounts"; // need to upate url
-     
+
         $http({
             method: 'POST',
             url: apiurl,
-            data : 
+            data :
             	{ "account":{
                     "username": $scope.emailAddress,
                     "emailAddress":$scope.emailAddress,
@@ -249,14 +249,14 @@ SaveSetting: function ($http,$scope, success,error) {
         }).success(function (data) {
             if(success)success(data)
         }).error(error);
-  		
+
 },
 submitHivePasswordForm: function ($http,$scope, success,error) {
 	 var apiurl = "/hmis-user-service/rest/accounts"; // need to upate url
        $http({
            method: 'POST',
            url: apiurl,
-           data : 
+           data :
            	{ "account":{
                    "username": $scope.emailAddress,
                    "emailAddress":$scope.emailAddress,
@@ -273,19 +273,19 @@ submitHivePasswordForm: function ($http,$scope, success,error) {
        }).success(function (data) {
            if(success)success(data)
        }).error(error);
- 		
+
 },
 SendRequestReport: function ($http,$scope, success,error) {
 	data =$scope.form;
 	 $http.get('/hmis-bulk-loader/mapper/reportMaster?report='+  data.report +'&id='+  data.project.exportID +'&email='+  data.email +'&year='+  data.year +'').success(function(){ success() }).error(error);
-  		
+
 },
 
 bulkupload: function ($http, $scope,file, success, error) {
     var apiurl = "/hmis-upload-service/rest/upload";
      var formData = new FormData();
     // formData.append("file", $scope.form.inputfile);
-     formData.append("year", $scope.form.year);
+     formData.append("version", $scope.form.version);
      formData.append("fileName", $scope.fileName);
      formData.append("bucketName", $scope.bucketName);
     $http.post(apiurl, formData, {
@@ -296,10 +296,10 @@ bulkupload: function ($http, $scope,file, success, error) {
            'Content-Type': undefined
       } //TODO change accept to multipart.
      }).success(function () { success() }).error(error);
-  		
+
     },
     bulkuploadNew: function ($http, $scope,file,progress,success, error) {
-        var apiurl = "/hmis-upload-service/rest/bulk-upload/"+$scope.form.version;							
+        var apiurl = "/hmis-upload-service/rest/bulk-upload/"+$scope.form.version;
         var formData = new FormData();
         formData.append("file", file);
         $http.post(apiurl, formData, {
@@ -310,9 +310,9 @@ bulkupload: function ($http, $scope,file, success, error) {
                'Content-Type': undefined
           } //TODO change accept to multipart.
          }).success(function () { success() }).error(error);
-      		
+
         },
-    
+
 //	GetOrganizations: function ($http, success) {
 //        $http.get('/hmis-user-service/rest/accounts').success(function (data) {
 //				if(success)success(data)
@@ -341,7 +341,7 @@ bulkupload: function ($http, $scope,file, success, error) {
 	        }).success(function (data) {
 	            if(success)success(data)
 	        });
-}, 
+},
 GetProjectGroups: function ($http,$scope, success) {
 	  var apiurl = "/hmis-user-service/rest/projectgroups?maxItems=100";
       $http({
@@ -378,7 +378,7 @@ GetEligReq: function ($http,$scope, success) {
         $http({
             method: 'POST',
             url: apiurl,
-            data : 
+            data :
             	{ "account":{
                     "username": data.username,
                     "emailAddress":data.emailAddress,
@@ -408,12 +408,12 @@ GetEligReq: function ($http,$scope, success) {
         },
     createRole : function ($http, $scope, success, error) {
         var apiurl = "/hmis-user-service/rest/roles";
-        
+
         data = $scope.form;
         $http({
             method: 'POST',
             url: apiurl,
-            data : 
+            data :
             {
             	  "role":{
             	    "roleName":data.name,
@@ -431,9 +431,9 @@ GetEligReq: function ($http,$scope, success) {
     createProjectGroup: function ($http, $scope, success, error) {
     	console.warn($scope,2);
         var apiurl = "/hmis-user-service/rest/projectgroups";
-        
+
         data = $scope.form;
-       
+
         $http({
             method: 'POST',
             url: apiurl,
@@ -559,5 +559,5 @@ GetEligReq: function ($http,$scope, success) {
 
             return utftext;
         }
-	
+
 });

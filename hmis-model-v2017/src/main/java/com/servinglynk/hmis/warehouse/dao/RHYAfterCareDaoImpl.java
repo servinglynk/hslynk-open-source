@@ -77,7 +77,13 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare) getModel(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare.class, expRhyAfterCare.getRhyAfterCareID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && modelFromDB != null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		

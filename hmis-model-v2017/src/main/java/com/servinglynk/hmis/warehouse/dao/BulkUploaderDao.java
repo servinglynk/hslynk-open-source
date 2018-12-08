@@ -24,5 +24,7 @@ public interface BulkUploaderDao {
 	public BulkUpload processExitChildren(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3);
 	public BulkUpload processEnrollmentChildren(BulkUpload upload, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3);
 	public BulkUpload processClientChildren(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender, Boolean isFileFromS3);
-
+	public void calculateChronicHomelessness(String projectGroupCode);
+	public BulkUpload performLoad(Long l, Appender appender,
+			Boolean isFileFromS3);
 }

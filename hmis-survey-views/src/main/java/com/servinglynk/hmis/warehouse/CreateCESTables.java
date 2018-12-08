@@ -29,17 +29,14 @@ public class CreateCESTables  extends Logging {
 		 Properties props = new Properties();
 		 props.generatePropValues();
 		CreateCESTables cesTables = new CreateCESTables();
-		
-		List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
-		for(String projectGroup : allProjectGroupCodes) {
+	//	List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
+		String projectGroup ="MO0010";
+	//	cesTables.createTable("desc.sql",projectGroup);
+		//for(String projectGroup : allProjectGroupCodes) {
+	//		cesTables.createTable("DropHmis.sql",projectGroup);
 			cesTables.createTable("CESTables.sql",projectGroup);
-	//		cesTables.createHiveTables("survey", projectGroup,false);
-//			cesTables.createHiveTables("housing_inventory", projectGroup,false);
 //			cesTables.createHiveTables("v2017", projectGroup,true);
-//			cesTables.createHiveTables("v2016", projectGroup,true);
-//			cesTables.createHiveTables("v2015", projectGroup,true);
-//			cesTables.createHiveTables("v2014", projectGroup,true);
-		}
+			cesTables.createTable("HiveHmis.sql",projectGroup);
 	}
 	
 	 public void createHiveTables(String schema,String projectGroupCode,boolean hmisschema) {
@@ -50,10 +47,10 @@ public class CreateCESTables  extends Logging {
 			 
 		 }
 		 for(String tableName : tables) {
-			 dropHiveTable("drop table if exist "+tableName);
-			 String sql = createHiveViews(schema, tableName, projectGroupCode,hmisschema);
-			 System.out.println(sql+";");
-			 createHiveTable(sql);
+			 dropHiveTable("drop table if exists "+tableName);
+//			 String sql = createHiveViews(schema, tableName, projectGroupCode,hmisschema);
+//			 System.out.println(sql+";");
+//			 createHiveTable(sql);
 		 }
 	}
 
@@ -109,10 +106,12 @@ public class CreateCESTables  extends Logging {
 
 				while (scanner.hasNextLine()) {
 					String line = scanner.nextLine();
-					String sql = line.replaceAll("ZPK0005",projectGroupCode);
-					sql = sql.replaceAll(";","");
-					
-					createHiveTable(sql);
+					if(StringUtils.isNotBlank(line) && !StringUtils.contains(line,"#")) {
+						String sql = line.replaceAll("ZPK0005","MO0010");
+						sql = sql.replaceAll("ZPK0005_NEW","MO0010_NEW");
+						sql = sql.replaceAll(";","");
+						createHiveTable(sql);
+					}
 				}
 
 				scanner.close();
@@ -138,7 +137,7 @@ public class CreateCESTables  extends Logging {
 	    	  statement = connection.prepareStatement("select * from "+schema+"."+tableName +" limit 1");
 		      resultSet = statement.executeQuery();
 			  ResultSetMetaData metaData = resultSet.getMetaData();
-	          for (int i = 1; i < metaData.getColumnCount(); i++) {
+	          for (int i = 1; i <= metaData.getColumnCount(); i++) {
 	              String column = metaData.getColumnName(i);
 	              String columnTypeName = metaData.getColumnTypeName(i);
 	              if(columnTypeName.contains("bool")) {
@@ -225,6 +224,10 @@ public class CreateCESTables  extends Logging {
 			// execute statement
 			System.out.println(" Create Query::"+ sql);
 			stmt.execute(sql);
+//			while(resultSet.next()) {
+//				System.out.println(resultSet.getString(1)+","+ resultSet.getString(2)+","+resultSet.getString(3));
+//			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();	

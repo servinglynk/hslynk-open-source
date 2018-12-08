@@ -278,8 +278,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 */
 	protected void performSaveOrUpdate(HmisBaseModel model,ExportDomain domain) {
 		if(domain.isReUpload()) {
+			getCurrentSession().saveOrUpdate(model);
 			model.setDateUpdated(LocalDateTime.now());
-			getCurrentSession().update(model);
 		}
 		else {
 			if(model.isIgnored()) {

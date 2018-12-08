@@ -84,6 +84,7 @@ import com.servinglynk.hmis.warehouse.dao.SourceDao;
 import com.servinglynk.hmis.warehouse.dao.SourceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.VASHExitReasonDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 
 @Configuration
 @EnableTransactionManagement
@@ -364,5 +365,10 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public HMISTypeDaoImpl hmisTypeDao() {
 		return new HMISTypeDaoImpl();
+	}
+	
+	@Bean
+	public ChronicHomelessCalcHelper chronicHomelessCalcHelper() {
+		return new ChronicHomelessCalcHelper();
 	}
 }

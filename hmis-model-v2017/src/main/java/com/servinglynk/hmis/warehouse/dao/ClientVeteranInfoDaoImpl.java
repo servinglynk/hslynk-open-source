@@ -123,13 +123,14 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo.class, clientVeteranInfo.getClientVeteranInfoID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
-		if(domain.isReUpload() && modelFromDB != null) {
-			return modelFromDB;
-		}
-		if(modelFromDB == null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+			return modelFromDB;
 		}
 		com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo model = new com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
