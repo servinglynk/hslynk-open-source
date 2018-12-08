@@ -49,6 +49,9 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	private LocalDateTime moveindate;
 	/** Field mapping. */
+	private LocalDateTime submissionDate;
+	
+	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -166,6 +169,18 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 	public void setExport(final Export export) {
 		this.export = export;
 	}
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

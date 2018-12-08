@@ -65,7 +65,8 @@ public class Medicalassistance extends HmisBaseModel implements Cloneable, Seria
 	/** Field mapping. */
 	private MedicalassistanceNohivaidsassistancereasonEnum nohivaidsassistancereason;
 	private DataCollectionStageEnum dataCollectionStage;
-
+	private LocalDateTime submissionDate;
+	
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
 	@Column
@@ -290,6 +291,18 @@ public class Medicalassistance extends HmisBaseModel implements Cloneable, Seria
 	 */
 	public void setExport(final Export export) {
 		this.export = export;
+	}
+	
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
 	}
 
    /**

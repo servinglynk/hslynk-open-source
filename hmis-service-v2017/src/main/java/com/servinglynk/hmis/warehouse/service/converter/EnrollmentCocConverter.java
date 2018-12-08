@@ -12,6 +12,8 @@ public class EnrollmentCocConverter  extends BaseConverter {
    	   if(model.getInformationDate()!=null)
    	      entity.setInformationDate(model.getInformationDate());
           entity.setCocCode(model.getCocCode());
+          
+  		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -24,6 +26,7 @@ public class EnrollmentCocConverter  extends BaseConverter {
     	   model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
          model.setCocCode(entity.getCocCode());
 
+         if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
 
        return model;
    }

@@ -56,6 +56,9 @@ public class Pathstatus extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	/** Field mapping. */
 	private PathstatusReasonnotenrolledEnum reasonNotEnrolled;
+	
+	private LocalDateTime submissionDate;
+	
 	/** Field mapping. */
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -231,6 +234,18 @@ public class Pathstatus extends HmisBaseModel implements Cloneable, Serializable
 	public void setExport(final Export export) {
 		this.export = export;
 	}
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

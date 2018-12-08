@@ -76,6 +76,7 @@ public class EntryrhyConverter  extends BaseConverter {
     	  entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
        if(model.getInformationDate()!=null)
     	  entity.setInformationDate(model.getInformationDate());
+		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -114,7 +115,7 @@ public class EntryrhyConverter  extends BaseConverter {
         	   model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
            if(entity.getInformationDate()!=null)
         	   model.setInformationDate(entity.getInformationDate());
-           
+           if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
            
        return model;
    }

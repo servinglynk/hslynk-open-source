@@ -81,7 +81,7 @@ public class Enrollment extends ClientModel {
 	
 	EnrollmentLinks enrollmentLinks;
 	
-	Map<String,List<ExitActionLink>> exitLinks;
+	Map<String,Map<String,List<ExitActionLinks>>> exitLinks;
 	
 
 	
@@ -296,11 +296,11 @@ public class Enrollment extends ClientModel {
 		this.enrollmentLinks = enrollmentLinks;
 	}
 
-	public Map<String, List<ExitActionLink>> getExitLinks() {
+	public Map<String,Map<String,List<ExitActionLinks>>> getExitLinks() {
 		return exitLinks;
 	}
 
-	public void setExitLinks(Map<String, List<ExitActionLink>> exitLinks) {
+	public void setExitLinks(Map<String,Map<String,List<ExitActionLinks>>> exitLinks) {
 		this.exitLinks = exitLinks;
 	}
 

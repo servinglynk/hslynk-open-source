@@ -10,6 +10,7 @@ public class ContactConverter  extends BaseConverter {
  if(model.getContactLocation()!=null)
        entity.setContactLocation(ContactLocationEnum.lookupEnum(model.getContactLocation().toString()));
        entity.setContactDate(model.getContactDate());
+		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -20,6 +21,7 @@ public class ContactConverter  extends BaseConverter {
        if(entity.getContactLocation()!=null)
        model.setContactLocation(Integer.parseInt(entity.getContactLocation().getValue()));
        model.setContactDate(entity.getContactDate());
+       if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

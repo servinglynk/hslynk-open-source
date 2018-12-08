@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -54,6 +55,9 @@ public class Exithousingassessment extends HmisBaseModel implements Cloneable, S
 	/** Field mapping. */
 	private ExithousingassessmentSubsidyinformationEnum subsidyinformation;
 	/** Field mapping. */
+	
+	private LocalDateTime submissionDate;
+	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -201,6 +205,17 @@ public class Exithousingassessment extends HmisBaseModel implements Cloneable, S
 		this.export = export;
 	}
 
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

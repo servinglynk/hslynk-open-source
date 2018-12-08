@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.service.converter;
 import java.time.ZoneId;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
@@ -40,6 +42,7 @@ public class ClientConverter {
 		pClient.setRace(ClientRaceEnum.lookupEnum(client.getRace()+""));
 	    if(client.getSsn()!=null)
 		pClient.setSsn(client.getSsn());
+	    if(client.getSsn()!=null && StringUtils.isEmpty(client.getSsn().replaceAll(" ", ""))) pClient.setSsn(null);
 	    if(client.getSsnDataQuality()!=null)
 		pClient.setSsnDataQuality(ClientSsnDataQualityEnum.lookupEnum(client.getSsnDataQuality()+""));
 	    if(client.getVeteranStatus()!=null)

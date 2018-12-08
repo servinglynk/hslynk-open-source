@@ -6,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +16,12 @@ import java.util.UUID;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.core.model.ActionLink;
+import com.servinglynk.hmis.warehouse.core.model.ActionLinks;
 import com.servinglynk.hmis.warehouse.core.model.EnrollmentEntryLinks;
 import com.servinglynk.hmis.warehouse.core.model.EnrollmentExitLinks;
 import com.servinglynk.hmis.warehouse.core.model.EnrollmentLinks;
 import com.servinglynk.hmis.warehouse.core.model.ExitActionLink;
+import com.servinglynk.hmis.warehouse.core.model.ExitActionLinks;
 import com.servinglynk.hmis.warehouse.model.v2017.Contact;
 import com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement;
 import com.servinglynk.hmis.warehouse.model.v2017.Disabilities;
@@ -161,7 +161,93 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	}
 	
 	
+	public void groupbyStage(String stage,Map<String,List<UUID>> data,UUID id) {
+		if(data!=null && data.get(stage)!=null) {
+			List<UUID> links =  data.get(stage);
+			links.add(id);
+			data.put(stage, links);
+		}else {
+			List<UUID> links = new ArrayList<>();
+			links.add(id);
+			data.put(stage, links);
+		}
+	}
+	
+	public void groupByDateField(String dateField,String stage,Map<String,Map<String,List<UUID>>> data,UUID id) {
+		if(data!=null && data.get(dateField)!=null) {
+			Map<String, List<UUID>> stageLinks = data.get(dateField);
+			this.groupbyStage(stage, stageLinks, id);
+			data = new HashMap<>();
+			data.put(dateField, stageLinks);
+		}else {
+		//	data = new HashMap<>();
+			Map<String, List<UUID>> stageLinks = new HashMap<>();
+			this.groupbyStage(stage, stageLinks, id);
+			data.put(dateField, stageLinks);
+		}
+	}
+	public void groupByDateField(String dateField,Map<String,List<UUID>> data,UUID id) {
+		if(data!=null && data.get(dateField)!=null) {
+			List<UUID> links =  data.get(dateField);
+			links.add(id);
+			data.put(dateField, links);
+		}else {
+			List<UUID> links = new ArrayList<>();
+			links.add(id);
+			data.put(dateField, links);
+		}
+	}
 
+	public void groupByDate1(LocalDateTime dateTime,String dateField,String stage,Map<String,Map<String,Map<String,List<UUID>>>> data,UUID id) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
+
+		String date = formatter.format(dateTime);
+		if(data.get(date)!=null) {
+			Map<String,Map<String,List<UUID>>> dateFieldGroup = data.get(date);
+			this.groupByDateField(dateField, stage, dateFieldGroup, id);
+			data.put(date, dateFieldGroup);
+		}else {
+		//	data = new HashMap<>();
+			Map<String,Map<String,List<UUID>>> dateFieldGroup = new HashMap<>();
+			this.groupByDateField(dateField, stage,dateFieldGroup, id);
+			data.put(date, dateFieldGroup);
+		}
+		
+	}
+	
+	public void groupByDate(LocalDateTime dateTime,String dateField,Map<String,Map<String,List<UUID>>> data,UUID id) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
+
+		String date = formatter.format(dateTime);
+		if(data.get(date)!=null) {
+			Map<String,List<UUID>> dateFieldGroup = data.get(date);
+			this.groupByDateField(dateField,  dateFieldGroup, id);
+			data.put(date, dateFieldGroup);
+		}else {
+		//	data = new HashMap<>();
+			Map<String,List<UUID>> dateFieldGroup = new HashMap<>();
+			this.groupByDateField(dateField, dateFieldGroup, id);
+			data.put(date, dateFieldGroup);
+		}
+		
+	}
+	
+	public void groupByStage(LocalDateTime dateTime,String dateField,String stage,Map<String,Map<String,Map<String,List<UUID>>>> data,UUID id) {
+
+		if(data.get(stage)!=null) {
+			Map<String,Map<String,List<UUID>>> datesLinks = data.get(stage);
+			this.groupByDate(dateTime, dateField,  datesLinks, id);
+			data.put(stage, datesLinks);
+		}else {
+			Map<String,Map<String,List<UUID>>> dateGroup = new HashMap<>();
+			this.groupByDate(dateTime, dateField,  dateGroup, id);
+			data.put(stage, dateGroup);
+		}
+		
+	}
+	
+
+	
 	@Transactional
 	public EnrollmentEntryLinks getEntryLinks(UUID clientId,UUID enrollmentId) {
 		EnrollmentEntryLinks entryLinks = new EnrollmentEntryLinks();		
@@ -214,565 +300,959 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		return enrollmentLinks;
 	}
 	
-	public Map<String,List<ActionLink>> getEntryRhspsLinks(UUID clientId,UUID enrollmentId) {
+	public Map<String,Map<String,List<ActionLinks>>> getEntryRhspsLinks(UUID clientId,UUID enrollmentId) {
 		
 		
 		
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Entryrhsp> data = daoFactory.getEntryrhspDao().getAllEnrollmentEntryrhsps(enrollmentId, null,null);
 		for(Entryrhsp entity : data) {
-				this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}	
 		}
-		for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-			List<ActionLink> links = new ArrayList<>();
-			  for(UUID id : entry.getValue()) {
-					links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhsps/"+id));		  
-			  }
-			  dateLinks.put(entry.getKey(),links);
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					 
+					  for(UUID id : stageLinks.getValue()) {
+						  
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhsps/"+id));		
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
+		
 		
 		return dateLinks;
 	}
 	
-	public Map<String,Map<String,List<ActionLink>>> getEntryrhysLinks(UUID clientId,UUID enrollmentId) {
+	public Map<String,Map<String,List<ActionLinks>>> getEntryrhysLinks(UUID clientId,UUID enrollmentId) {
 		
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Entryrhy> data = daoFactory.getEntryrhyDao().getAllEnrollmentEntryrhys(enrollmentId, null,null);
 		for(Entryrhy entity : data) {
 			LocalDateTime date = entity.getInformationDate();
 			if(date == null) date = entity.getDateUpdated();
-			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(date,"unspecified_stage", entity.getId(),content);
-			}else {
-				this.groupByDataCollectionStage(date,entity.getDataCollectionStage().getValue(), entity.getId(),content);
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}
-		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhys/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+				
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>(new DateComparator());			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					// 
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhys/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
 					
 		return dateLinks;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Map<String,List<ActionLink>> getEntryssvfsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
+	public Map<String,Map<String,List<ActionLinks>>> getEntryssvfsLinks(UUID clientId,UUID enrollmentId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Entryssvf> data = daoFactory.getEntryssvfDao().getAllEnrollmentEntryssvfs(enrollmentId, null,null);
 		for(Entryssvf entity : data) {
-			this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
-	}
-	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryssvfs/"+id));
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}
-	
+
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+			
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}
+		}
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					// 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryssvfs/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+		
 	return dateLinks;
 
 	}
 	
-	public Map<String,Map<String,List<ActionLink>>> getEnrollmentcocsLinks(UUID clientId,UUID enrollmentId) {
+	public Map<String,Map<String,List<ActionLinks>>> getEnrollmentcocsLinks(UUID clientId,UUID enrollmentId) {
 		
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<EnrollmentCoc> data = daoFactory.getEnrollmentCocDao().getAllEnrollmentEnrollmentCocs(enrollmentId, null,null);
 		for(EnrollmentCoc entity : data) {
 			LocalDateTime date = entity.getInformationDate();
 			if(date == null) date = entity.getDateUpdated();
-			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(date,"unspecified_stage", entity.getId(),content);
-			}else {
-				this.groupByDataCollectionStage(date,entity.getDataCollectionStage().getValue(), entity.getId(),content);
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}
 		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/enrollmentcocs/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					 
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/enrollmentcocs/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
 		
 	return dateLinks;
 	}
 	
-	public Map<String,Map<String,List<ActionLink>>> getEducationsLinks(UUID clientId,UUID enrollmentId) {
+	public Map<String,Map<String,List<ActionLinks>>> getEducationsLinks(UUID clientId,UUID enrollmentId) {
 		
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Education> data = daoFactory.getEducationDao().getAllEnrollmentEducations(enrollmentId, null,null);
 		for(Education entity : data) {
 			LocalDateTime date = entity.getInformationDate();
 			if(date == null) date = entity.getDateUpdated();
-			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(date,"unspecified_stage", entity.getId(),content);
-			}else {
-				this.groupByDataCollectionStage(date,entity.getDataCollectionStage().getValue(), entity.getId(),content);	
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}
 		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>(new DateComparator());			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+						  	actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
+//							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+					
+	return dateLinks;
+
+
+	}
+	public Map<String,Map<String,List<ActionLinks>>> getContactsLinks(UUID clientId,UUID enrollmentId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
+		List<Contact> data = daoFactory.getContactDao().getAllEnrollmentContacts(enrollmentId, null,null);
+		for(Contact entity : data) {
+
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}
+	}
+		
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					// 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/contacts/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
 			
 	return dateLinks;
 
 
 	}
-	public Map<String,List<ActionLink>> getContactsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
-		List<Contact> data = daoFactory.getContactDao().getAllEnrollmentContacts(enrollmentId, null,null);
-		for(Contact entity : data) {
-			this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
-	}
-	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/contacts/"+id));
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}
-	
-	return dateLinks;
-
-
-	}
-	public Map<String,List<ActionLink>> getDateOfEngagementsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
+	public Map<String,Map<String,List<ActionLinks>>> getDateOfEngagementsLinks(UUID clientId,UUID enrollmentId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Dateofengagement> data = daoFactory.getDateofengagementDao().getAllEnrollmentDateofengagements(enrollmentId, null,null);
 		for(Dateofengagement entity : data) {
-			this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
+
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}
 	}
-	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/dateofengagements/"+id));
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/dateofengagements/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+		
 	
 	return dateLinks;
 
 
 	}
 	
-/*	public Map<String,List<ActionLink>> getDisabilitiesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
-		List<Disabilities> data = daoFactory.getDisabilitiesDao().getAllEnrollmentDisabilitiess(enrollmentId, null,null);
-		for(Disabilities entity : data) {
-			this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
-	}
-	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/disabilities/"+id));
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}
-	
-	return dateLinks;
-	}*/
-	
-	public Map<String,Map<String,List<ActionLink>>> getDisabilitiesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+	public Map<String,Map<String,List<ActionLinks>>> getDisabilitiesLinks(UUID clientId,UUID enrollmentId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Disabilities> data = daoFactory.getDisabilitiesDao().getAllEnrollmentDisabilitiess(enrollmentId, null,null);
 		for(Disabilities entity : data) {
 			LocalDateTime date = entity.getInformationDate();
 			if(date == null) date = entity.getDateUpdated();
-			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(date,"unspecified_stage", entity.getId(),content);
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
 			} else {
-				this.groupByDataCollectionStage(date,entity.getDataCollectionStage().getValue(), entity.getId(),content);
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}
 		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/disabilities/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/disabilities/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
-		
-/*	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/disabilities/"+id));
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}*/
-		
-		
 	
 	return dateLinks;
 	}
 	
-	public Map<String,Map<String,List<ActionLink>>> getDomesticViolencesLinks(UUID clientId,UUID enrollmentId) {
+	public Map<String,Map<String,List<ActionLinks>>> getDomesticViolencesLinks(UUID clientId,UUID enrollmentId) {
 		
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Domesticviolence> data = daoFactory.getDomesticviolenceDao().getAllEnrollmentDomesticViolences(enrollmentId, null,null);
 		for(Domesticviolence entity : data) {
 			LocalDateTime date = entity.getInformationDate();
 			if(date == null) date = entity.getDateUpdated();
-			if(entity.getDataCollectionStage()!=null) {
-				this.groupByDataCollectionStage(date,entity.getDataCollectionStage().getValue(), entity.getId(),content);
-			}else {
-				this.groupByDataCollectionStage(date,"unspecified_stage", entity.getId(),content);
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}
 		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/domesticviolences/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+						  
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/domesticviolences/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
-	
+			
 	return dateLinks;
 
 	}
-	public Map<String,Map<String,List<ActionLink>>> getEmploymentsLinks(UUID clientId,UUID enrollmentId) {
+	public Map<String,Map<String,List<ActionLinks>>> getEmploymentsLinks(UUID clientId,UUID enrollmentId) {
 		
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Employment> data = daoFactory.getEmploymentDao().getAllEnrollmentEmployments(enrollmentId, null,null);
 		for(Employment entity : data) {
 			LocalDateTime date = entity.getInformationDate();
 			if(date == null) date = entity.getDateUpdated();
-			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(date,"unspecified_stage", entity.getId(),content);	
-			}else {
-				this.groupByDataCollectionStage(date,entity.getDataCollectionStage().getValue(), entity.getId(),content);	
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}
 		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/employments/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/employments/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
-			
+					
 	return dateLinks;
 
 	}
-	public Map<String,Map<String,List<ActionLink>>> getHealthinsurancesLinks(UUID clientId,UUID enrollmentId) {
+	public Map<String,Map<String,List<ActionLinks>>> getHealthinsurancesLinks(UUID clientId,UUID enrollmentId) {
 		
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Healthinsurance> data = daoFactory.getHealthinsuranceDao().getAllEnrollmentHealthInsurances(enrollmentId, null,null);
 		for(Healthinsurance entity : data) {
 			LocalDateTime date = entity.getInformationDate();
 			if(date == null) date = entity.getDateUpdated();
-			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(date,"unspecified_stage", entity.getId(),content);
-			}else {
-				this.groupByDataCollectionStage(date,entity.getDataCollectionStage().getValue(), entity.getId(),content);		
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}
 		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthinsurances/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthinsurances/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
 		
+
 	return dateLinks;
 	}
 	
-	public Map<String,Map<String,List<ActionLink>>> getHealthStatusesLinks(UUID clientId,UUID enrollmentId) {
+	public Map<String,Map<String,List<ActionLinks>>> getHealthStatusesLinks(UUID clientId,UUID enrollmentId) {
 			
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<HealthStatus> data = daoFactory.getHealthStatusDao().getAllEnrollmentHealthStatuses(enrollmentId, null,null);
 		for(HealthStatus entity : data) {
 			LocalDateTime date = entity.getInformationDate();
 			if(date == null) date = entity.getDateUpdated();
-			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(date,"unspecified_stage", entity.getId(),content);	
-			}else {
-				this.groupByDataCollectionStage(date,entity.getDataCollectionStage().getValue(), entity.getId(),content);		
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}
 		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthstatuses/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthstatuses/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
-		
+				
 	return dateLinks;
 			
 	}
 	
-	public Map<String,Map<String,List<ActionLink>>> getIncomeandsourcesLinks(UUID clientId,UUID enrollmentId) {
+	public Map<String,Map<String,List<ActionLinks>>> getIncomeandsourcesLinks(UUID clientId,UUID enrollmentId) {
 		
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Incomeandsources> data = daoFactory.getIncomeandsourcesDao().getAllEnrollmentIncomeAndSources(enrollmentId, null,null);
 		for(Incomeandsources entity : data) {
-				LocalDateTime date = entity.getInformationDate();
-				if(date == null) date = entity.getDateUpdated();
-			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(date,"unspecified_stage", entity.getId(),content);	
-			}else {
-				this.groupByDataCollectionStage(date,entity.getDataCollectionStage().getValue(), entity.getId(),content);
+			LocalDateTime date = entity.getInformationDate();
+			if(date == null) date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}
 		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/incomeandsources/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/incomeandsources/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
-	
+			
 	return dateLinks;
 	}
-	
-	public Map<String,Map<String,List<ActionLink>>> getMedicalassistancesLinks(UUID clientId,UUID enrollmentId) {
+
+	public Map<String,Map<String,List<ActionLinks>>> getMedicalassistancesLinks(UUID clientId,UUID enrollmentId) {
 		
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Medicalassistance> data = daoFactory.getMedicalassistanceDao().getAllEnrollmentMedicalassistances(enrollmentId, null,null);
 		for(Medicalassistance entity : data) {
-			this.groupByDataCollectionStage(entity.getDateUpdated(),entity.getDataCollectionStage().getValue(), entity.getId(),content);		
+			LocalDateTime date = entity.getInformationDate();
+			if(date == null) date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}
 		}
 		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/medicalassistances/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/medicalassistances/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
-	
+			
 	return dateLinks;
 	}
-	
-	public Map<String,Map<String,List<ActionLink>>> getNoncashbenefitsLinks(UUID clientId,UUID enrollmentId) {
+
+	public Map<String,Map<String,List<ActionLinks>>> getNoncashbenefitsLinks(UUID clientId,UUID enrollmentId) {
 		
-		Map<String,Map<String,List<ActionLink>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,List<UUID>>> content = new TreeMap<>();
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Noncashbenefits> data = daoFactory.getNoncashbenefitsDao().getAllEnrollmentNoncashbenefits(enrollmentId, null,null);
 		for(Noncashbenefits entity : data) {
 			LocalDateTime date = entity.getInformationDate();
 			if(date == null) date = entity.getDateUpdated();
-			if(entity.getDataCollectionStage()==null) {
-				this.groupByDataCollectionStage(date,"unspecified_stage", entity.getId(),content);	
-			}else {
-				this.groupByDataCollectionStage(date,entity.getDataCollectionStage().getValue(), entity.getId(),content);	
+			
+			String collectionStage = "unspecified_stage";
+			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			}else if(entity.getInformationDate()!=null) {
+				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}
 		
-		for(Map.Entry<String,Map<String, List<UUID>>> entry : content.entrySet()) {
-			Map<String,List<ActionLink>> stageLinks = new TreeMap<>(new DateComparator());
-			for(Map.Entry<String, List<UUID>> entry1 : entry.getValue().entrySet()) {
-				List<ActionLink> links = new ArrayList<>();
-				  for(UUID id : entry1.getValue()) {
-						links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+id));
-				  }
-				  stageLinks.put(entry1.getKey(),links);
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
 			}
-			dateLinks.put(entry.getKey(), stageLinks);
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
 		}
 			
 	return dateLinks;
 
 
 	}
-	public Map<String,List<ActionLink>> getResidentialMoveinDatesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
+	public Map<String,Map<String,List<ActionLinks>>> getResidentialMoveinDatesLinks(UUID clientId,UUID enrollmentId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Moveindate> data = daoFactory.getResidentialmoveindateDao().getAllEnrollmentResidentialmoveindates(enrollmentId, null,null);
 		for(Moveindate entity : data) {
-			this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
-	}
-	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/residentialmoveindates/"+id));
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}
-	
+
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}
+		}
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/residentialmoveindates/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+			
 	return dateLinks;
 	}
-	public Map<String,List<ActionLink>> getPathstatusesLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
+	public Map<String,Map<String,List<ActionLinks>>> getPathstatusesLinks(UUID clientId,UUID enrollmentId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Pathstatus> data = daoFactory.getPathstatusDao().getAllEnrollmentPathstatuss(enrollmentId, null,null);
 		for(Pathstatus entity : data) {
-			this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
-	}
-	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/pathstatuses/"+id));
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}
+
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}
+		}
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/pathstatuses/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+		
 	
 	return dateLinks;
 	}
-	public Map<String,List<ActionLink>> getServiceFaReferralsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
+	public Map<String,Map<String,List<ActionLinks>>> getServiceFaReferralsLinks(UUID clientId,UUID enrollmentId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<ServiceFaReferral> data = daoFactory.getServiceFaReferralDao().getAllEnrollmentServiceFaReferrals(enrollmentId, null,null);
 		for(ServiceFaReferral entity : data) {
-			this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
-	}
-	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/servicefareferrals/"+id));  
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}
+
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}
+		}
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/servicefareferrals/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+		
 	
 	return dateLinks;
 	}
 	
 	@Transactional
-	public Map<String,List<ExitActionLink>> getExitLinks(UUID clientId,UUID enrollmentId){
-		List<ExitActionLink> actionLinks = new ArrayList<ExitActionLink>();
+	public Map<String,Map<String,List<ExitActionLinks>>> getExitLinks(UUID clientId,UUID enrollmentId){
+		//List<ExitActionLink> actionLinks = new ArrayList<ExitActionLink>();
 		
 		List<Exit> data = daoFactory.getExitDao().getAllEnrollmentExits(enrollmentId, null, null);
-		Map<String,List<ExitActionLink>> dateLinks = new HashMap<String,List<ExitActionLink>>();
+		Map<String,Map<String,List<ExitActionLinks>>> dateLinks = new HashMap();
 		
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		for(Exit entity : data) {
-				this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
-		}
+			String collectionStage = "unspecified_stage";
 
-
-			for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-				List<ExitActionLink> links = new ArrayList<>();
-				  for(UUID id : entry.getValue()) {
-					  ExitActionLink actionLink = new ExitActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+id); 
-						EnrollmentExitLinks exitLinks = new EnrollmentExitLinks();
-						actionLink.setExitHousingAssessments(this.getExitHousingAssessmentsLinks(clientId, enrollmentId, id));
-						//actionLink.setExitPaths(this.getExitPathsLinks(clientId, enrollmentId, entity.getId()));
-						actionLink.setExitrhys(this.getExitrhysLinks(clientId, enrollmentId, id));
-						actionLink.setHousingAssessmentDispositions(this.getHousingAssessmentDispositionsLinks(clientId, enrollmentId, id));
-						
-						if(actionLink.getExitHousingAssessments().isEmpty())  actionLink.setExitHousingAssessments(null);
-						if(actionLink.getExitPaths().isEmpty()) actionLink.setExitPaths(null);
-						if(actionLink.getExitrhys().isEmpty()) actionLink.setExitrhys(null);
-						if(actionLink.getHousingAssessmentDispositions().isEmpty()) actionLink.setHousingAssessmentDispositions(null);
-						links.add(actionLink);
-						
-				  }
-				  dateLinks.put(entry.getKey(),links);
-				
-
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
+		}			
+			for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+				Map<String,List<ExitActionLinks>> stagesLinkMap = new TreeMap<>();			
+
+				for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+					Map<String,List<ExitActionLinks>> linksMap = new HashMap<>();
+
+					List<ExitActionLinks> links = new ArrayList<>();
+					for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+						ExitActionLinks actionLinks = new ExitActionLinks();
+						actionLinks.setGroupBy(stageLinks.getKey());
+						  for(UUID id : stageLinks.getValue()) {
+							  ExitActionLink actionLink = new ExitActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+id); 
+								EnrollmentExitLinks exitLinks = new EnrollmentExitLinks();
+								actionLink.setExitHousingAssessments(this.getExitHousingAssessmentsLinks(clientId, enrollmentId, id));
+								//actionLink.setExitPaths(this.getExitPathsLinks(clientId, enrollmentId, entity.getId()));
+								actionLink.setExitrhys(this.getExitrhysLinks(clientId, enrollmentId, id));
+								actionLink.setHousingAssessmentDispositions(this.getHousingAssessmentDispositionsLinks(clientId, enrollmentId, id));
+								
+								if(actionLink.getExitHousingAssessments().isEmpty())  actionLink.setExitHousingAssessments(null);
+								if(actionLink.getExitPaths().isEmpty()) actionLink.setExitPaths(null);
+								if(actionLink.getExitrhys().isEmpty()) actionLink.setExitrhys(null);
+								if(actionLink.getHousingAssessmentDispositions().isEmpty()) actionLink.setHousingAssessmentDispositions(null);
+								actionLinks.add(actionLink);
+						  }
+						  links.add(actionLinks);
+						  linksMap.put(stageLinks.getKey(), links);
+					}
+					stagesLinkMap.put(dateInfoLinks.getKey(), links);
+				}
+				dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+			}
+
 			
 			
 		return dateLinks;
 	}
 	
-	Map<String,List<ActionLink>> getExitHousingAssessmentsLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
+	public Map<String,Map<String,List<ActionLinks>>> getExitHousingAssessmentsLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Exithousingassessment> data = daoFactory.getExithousingassessmentDao().getAllExitExithousingassessments(exitId, null,null);
 		for(Exithousingassessment entity : data) {
-			this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
-	}
-	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exithousingassessments/"+id));	  
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}
-	
+
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}
+		}
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exithousingassessments/"+id));	  
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+			
 	return dateLinks;
 
 	}
 	
-	Map<String,List<ActionLink>> getHousingAssessmentDispositionsLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
+	public Map<String,Map<String,List<ActionLinks>>> getHousingAssessmentDispositionsLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Housingassessmentdisposition> data = daoFactory.getHousingassessmentdispositionDao().getAllExitHousingAssessmentDispositions(exitId, null,null);
 		for(Housingassessmentdisposition entity : data) {
-			this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
-	}
-	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/housingassessmentdispositions/"+id));	  
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}
-	
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}	
+		}
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/housingassessmentdispositions/"+id));	
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+			
 	return dateLinks;
 	}
 	
@@ -781,25 +1261,49 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<ActionLink> links = new ArrayList<ActionLink>();
 		List<ServiceFaReferral> data = daoFactory.get.getAllEnrollmentServiceFaReferrals(enrollmentId, null,null);
 		for(ServiceFaReferral entity : data) {
-			links.add(new ActionLink(entity.getId()+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/serviceFaReferrals/"+entity.getId()));
+			actionLinks.addLink(new ActionLink(entity.getId()+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/serviceFaReferrals/"+entity.getId()));
 		}
 		return links;
 	}*/
 	
-	Map<String,List<ActionLink>> getExitrhysLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
-		Map<String,List<ActionLink>> dateLinks = new TreeMap<String,List<ActionLink>>(new DateComparator());
-		Map<String,List<UUID>> content = new TreeMap<>(new DateComparator());
+	public Map<String,Map<String,List<ActionLinks>>> getExitrhysLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 		List<Exitrhy> data = daoFactory.getExitrhyDao().getAllExitExitrhys(exitId, null,null);
 		for(Exitrhy entity : data) {
-			this.linksDateGroup(entity.getDateUpdated(), entity.getId(),content);		
-	}
-	for(Map.Entry<String, List<UUID>> entry : content.entrySet()) {
-		List<ActionLink> links = new ArrayList<>();
-		  for(UUID id : entry.getValue()) {
-				links.add(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exitrhys/"+id));
-		  }
-		  dateLinks.put(entry.getKey(),links);
-	}
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}
+		}
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exitrhys/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+		
 	
 	return dateLinks;
 

@@ -9,6 +9,7 @@ public class EntryrhspConverter  extends BaseConverter {
        entity.setId(model.getEntryrhspId());
        if(model.getWorstHousingSituation()!=null)
        entity.setWorstHousingSituation(model.getWorstHousingSituation());
+		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -19,6 +20,8 @@ public class EntryrhspConverter  extends BaseConverter {
        model.setEntryrhspId(entity.getId());
        if(entity.getWorstHousingSituation()!=null)
        model.setWorstHousingSituation(entity.getWorstHousingSituation());
+       
+       if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

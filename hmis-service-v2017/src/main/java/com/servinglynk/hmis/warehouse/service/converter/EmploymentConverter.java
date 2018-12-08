@@ -19,6 +19,7 @@ public class EmploymentConverter  extends BaseConverter {
        entity.setEmploymentType(EmploymentEmploymentTypeEnum.lookupEnum(model.getEmploymentType().toString()));
        if(model.getNotEmployedReason()!=null)
        entity.setNotEmployedReason(EmploymentNotEmployedReasonEnum.lookupEnum(model.getNotEmployedReason().toString()));
+		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -37,6 +38,7 @@ public class EmploymentConverter  extends BaseConverter {
        model.setEmploymentType(Integer.parseInt(entity.getEmploymentType().getValue()));
        if(entity.getNotEmployedReason()!=null)
        model.setNotEmployedReason(Integer.parseInt(entity.getNotEmployedReason().getValue()));
+       if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

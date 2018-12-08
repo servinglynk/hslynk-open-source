@@ -28,6 +28,7 @@ public class ServiceApiMethodDaoImpl extends QueryExecutorImpl
 
 
 	public ServiceApiMethodEntity create(ServiceApiMethodEntity serviceApiMethod) {
+		serviceApiMethod.setId(UUID.randomUUID());
 		insert(serviceApiMethod);
 		return serviceApiMethod;
 	}
