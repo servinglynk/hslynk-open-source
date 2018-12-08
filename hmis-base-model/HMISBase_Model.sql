@@ -1407,3 +1407,5 @@ CREATE TABLE base.hmis_api_access (id UUID NOT NULL, project_group_code CHARACTE
 
 
 ALTER TABLE base.hmis_project_group ADD COLUMN active boolean default true;
+
+alter table base.bulk_upload add column hud_version varchar(100);

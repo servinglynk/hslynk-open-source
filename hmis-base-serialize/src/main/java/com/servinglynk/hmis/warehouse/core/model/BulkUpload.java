@@ -13,6 +13,7 @@ public class BulkUpload extends ClientModel{
 	private String projectGroupCode;
 	private String status;
 	private String description;
+	private String hudVersion;
 	private Long id;
 
 	public String getFileName() {
@@ -62,6 +63,18 @@ public class BulkUpload extends ClientModel{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	/**
+	 * @return the hudVersion
+	 */
+	public String getHudVersion() {
+		return hudVersion;
+	}
+	/**
+	 * @param hudVersion the hudVersion to set
+	 */
+	public void setHudVersion(String hudVersion) {
+		this.hudVersion = hudVersion;
 	}
 	
 }

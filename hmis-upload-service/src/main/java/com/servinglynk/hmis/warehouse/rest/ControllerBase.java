@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,30 @@ public abstract class ControllerBase {
 	@Autowired
 	protected TrustedAppHelper trustedAppHelper;
 	
-	
+	protected String getHudVersionFromVersion(String version) {
+		String hudVersion = "6.1.11";
+	    if(StringUtils.equals("401",version))
+	    	hudVersion = "4.0.1";
+         else if(StringUtils.equals("411", version))
+        	 hudVersion = "5.1";
+         else if(StringUtils.equals("51", version))
+        	 hudVersion = "6.1";
+         else if(StringUtils.equals("611", version) || StringUtils.equals("612", version))
+        	 hudVersion = StringUtils.equals("611", version) ? "6.1.11" : "6.1.12" ;
+	    return hudVersion;
+	}
+	protected String getYearFromVersion(String version) {
+		String year = "2017";
+	    if(StringUtils.equals("401",version))
+        	 year = "2014";
+         else if(StringUtils.equals("411", version))
+        	 year = "2015";
+         else if(StringUtils.equals("51", version))
+        	 year = "2016";
+         else if(StringUtils.equals("611", version) || StringUtils.equals("612", version))
+        	 year = "2017";
+	    return year;
+	}
 
 	public SessionHelper getSessionHelper() {
 		return sessionHelper;

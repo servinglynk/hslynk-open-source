@@ -44,6 +44,7 @@ public class BulkUpload extends HmisBaseModel {
 	private UUID exportId;
 	private Long size;
 	private Long year;
+	private String hudVersion;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -259,6 +260,23 @@ public class BulkUpload extends HmisBaseModel {
 
 	public void setYear(Long year) {
 		this.year = year;
+	}
+	
+
+	/**
+	 * @return the hudVersion
+	 */
+	@Basic( optional = true )
+	@Column( name = "hud_version"  )
+	public String getHudVersion() {
+		return hudVersion;
+	}
+
+	/**
+	 * @param hudVersion the hudVersion to set
+	 */
+	public void setHudVersion(String hudVersion) {
+		this.hudVersion = hudVersion;
 	}
 
 	/** Calculate the hashcode.

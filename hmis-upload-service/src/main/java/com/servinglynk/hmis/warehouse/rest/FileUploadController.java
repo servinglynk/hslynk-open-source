@@ -2,9 +2,9 @@ package com.servinglynk.hmis.warehouse.rest;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +30,7 @@ public class FileUploadController  extends ControllerBase {
 	 	@RequestMapping(method = RequestMethod.POST,headers = "content-type=multipart/*")
 	 	@APIMapping(value="USR_BULK_UPLOAD",checkSessionToken=true, checkTrustedApp=true)
 		public @ResponseBody
-		String uploadFileHandler(@RequestParam(value ="year", required = false) String year,
+		String uploadFileHandler(@RequestParam(value ="version", required = false) String version,
 				@RequestParam(value="fileName", required = false) String fileName,@RequestParam(value="bucketName", required = false) String bucketName,@RequestParam(value="fileSize", required = false) String fileSize, HttpServletRequest request) {
 				try {
 					logger.info("Server File Location=");
@@ -39,11 +39,13 @@ public class FileUploadController  extends ControllerBase {
 					upload.setFileName(fileName);
 					upload.setFileSize("0");
 					upload.setStatus("INITIAL");
-					if(StringUtils.isEmpty(year)) {
+					if(StringUtils.isEmpty(version)) {
 						throw new IllegalArgumentException("Year cannot be null.");
 					}else{
-						Long parseInt = Long.parseLong(year);
-						upload.setYear(parseInt);
+							 String year = getYearFromVersion(version);
+					         Long parseInt = Long.parseLong(year);
+					         upload.setYear(parseInt);
+					         upload.setHudVersion(getHudVersionFromVersion(version));
 					}
 					Account account = session.getAccount();
 					serviceFactory.getBulkUploadService().createBulkUploadEntry(upload,account);
@@ -53,5 +55,6 @@ public class FileUploadController  extends ControllerBase {
 				}
 			 	return null;
 			}
+
 	
 		}
