@@ -133,16 +133,45 @@ with (
   oids=false
 );
 
+CREATE TYPE "base".report_type AS ENUM (
+'APR',
+'AHAR',
+'CAPER');
+
+CREATE TYPE "base".report_level AS ENUM (
+'COC',
+'PROJECT');
+
+create table base.report_config_param
+( id serial NOT NULL,
+  report_config_id bigint,
+  key character varying(512) NOT NULL,
+  value character varying(512) NOT NULL,
+  status character varying(50),
+  date_created timestamp NOT NULL,
+  date_updated timestamp,
+  created_by character varying(256) NOT NULL,
+  modified_by character varying(256),
+  deleted boolean default false,
+  CONSTRAINT "PK_REPORT_CONFIG_PARAM" PRIMARY KEY (id),
+   CONSTRAINT "FK_REPORT_CONFIG_PARAM" FOREIGN KEY (report_config_id)
+      REFERENCES base.report_config (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
 
 CREATE TABLE base.report_config
 (
   id serial NOT NULL,
   name character varying(512) NOT NULL,
-  report_type character varying(512) NOT NULL,
-  report_level character varying(512) NOT NULL,
+  report_type "base".report_type,
+  report_level "base".report_level,
   status character varying(50),
   start_date  timestamp NOT NULL,
-  end_date  timestamp NOT NULL,
+  end_date  timestamp,
   coc_id uuid,
   date_created timestamp NOT NULL,
   date_updated timestamp,
