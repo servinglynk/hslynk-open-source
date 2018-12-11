@@ -39,14 +39,14 @@ import com.servinglynk.hmis.warehouse.service.LocalFileUploadService;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:database.properties")
 public class RestConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
 		PropertySourcesPlaceholderConfigurer ppc = new PropertySourcesPlaceholderConfigurer();
 		ClassPathResource locations[] = {
-				new ClassPathResource("/application.properties")};
+				new ClassPathResource("/database.properties")};
 		ppc.setLocations(locations);
 		return ppc;
 	}

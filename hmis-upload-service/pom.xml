@@ -216,33 +216,20 @@
 		</dependency>
 
 	</dependencies>
-<build>
+	<build>
+		<finalName>hmis-upload-service</finalName>
 		<plugins>
 			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
 				<configuration>
-					<additionalProjectnatures>
-						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-					</additionalProjectnatures>
-					<additionalBuildcommands>
-						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-					</additionalBuildcommands>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
-			    <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <webXml>${project.basedir}\src\main\webapp\WEB-INF\web.xml</webXml> 
-                </configuration>
-            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
@@ -251,18 +238,6 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-			
-<!-- <plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>tomcat-maven-plugin</artifactId>
-    <configuration>
-        <url>http://ec2-52-34-4-204.us-west-2.compute.amazonaws.com:8080/manager/text</url>
-        <server>TomcatServer</server>
-        <path>/hhmis-authorization-service</path>
-    </configuration>
-</plugin> -->
-
-
 		</plugins>
 	</build>
 <!-- 	<repositories>

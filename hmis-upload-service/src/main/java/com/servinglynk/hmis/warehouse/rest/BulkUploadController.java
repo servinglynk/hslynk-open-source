@@ -49,8 +49,7 @@ public class BulkUploadController extends ControllerBase{
 		 */
 	@RequestMapping(method = RequestMethod.GET)
  	@APIMapping(value="GET_USR_BULK_UPLOAD",checkSessionToken=true, checkTrustedApp=true)
-		public @ResponseBody
-		BulkUploads  getBulkUploadedFiles(@RequestParam(value ="status", required = false) String status,
+		public BulkUploads  getBulkUploadedFiles(@RequestParam(value ="status", required = false) String status,
 			    @RequestParam(value="startIndex", required=false) Integer startIndex, 
                 @RequestParam(value="maxItems", required=false) Integer maxItems,
 				HttpServletRequest request) {
