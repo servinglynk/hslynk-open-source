@@ -12,6 +12,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	@Autowired
 	private ProjectGroupDao projectGroupDao;
 	@Autowired
+	private ReportConfigDao reportConfigDao;
+	@Autowired
 	private AccountDao accountDao;
 	@Autowired
 	private VerificationDao verificationDao;
@@ -327,4 +329,11 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	public void setGlobalHouseHoldDao(GlobalHouseHoldDao globalHouseHoldDao) {
 		this.globalHouseHoldDao = globalHouseHoldDao;
 	}
+	public ReportConfigDao getReportConfigDao() {
+		return reportConfigDao;
+	}
+	public void setReportConfigDao(ReportConfigDao reportConfigDao) {
+		this.reportConfigDao = reportConfigDao;
+	}
+	
 }
