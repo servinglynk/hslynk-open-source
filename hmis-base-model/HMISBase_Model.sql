@@ -133,6 +133,30 @@ with (
   oids=false
 );
 
+
+CREATE TABLE base.report_config
+(
+  id serial NOT NULL,
+  name character varying(512) NOT NULL,
+  report_type character varying(512) NOT NULL,
+  report_level character varying(512) NOT NULL,
+  status character varying(50),
+  start_date  timestamp NOT NULL,
+  end_date  timestamp NOT NULL,
+  coc_id uuid,
+  date_created timestamp NOT NULL,
+  date_updated timestamp,
+  created_by character varying(256) NOT NULL,
+  modified_by character varying(256),
+  email_sent boolean default false,
+  deleted boolean default false,
+  CONSTRAINT "PK_REPORT_CONFIG" PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
 CREATE TABLE base.hmis_consent_message
 (
   id uuid NOT NULL,
