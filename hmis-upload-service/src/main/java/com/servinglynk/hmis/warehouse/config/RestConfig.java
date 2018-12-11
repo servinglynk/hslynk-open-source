@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
@@ -39,18 +40,9 @@ import com.servinglynk.hmis.warehouse.service.LocalFileUploadService;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling
-@PropertySource("classpath:database.properties")
+@ComponentScan("com.servinglynk.hmis.warehouse.rest")
 public class RestConfig extends WebMvcConfigurerAdapter {
 
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		PropertySourcesPlaceholderConfigurer ppc = new PropertySourcesPlaceholderConfigurer();
-		ClassPathResource locations[] = {
-				new ClassPathResource("/database.properties")};
-		ppc.setLocations(locations);
-		return ppc;
-	}
-	
 	public void configureMessageConverters(
 			List<HttpMessageConverter<?>> messageConverters) {
 
