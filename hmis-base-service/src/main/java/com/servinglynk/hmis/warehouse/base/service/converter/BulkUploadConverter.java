@@ -15,6 +15,7 @@ public class BulkUploadConverter {
 		model.setDescription(entity.getDescription());
 		model.setDateCreated(entity.getDateCreated());
 		model.setDateUpdated(entity.getDateUpdated());
+		model.setHudVersion(entity.getHudVersion());
 		model.setFileName(entity.getInputpath());
 		if(entity.getSize() !=null)
 			model.setFileSize(FileUtils.byteCountToDisplaySize(entity.getSize()));
@@ -30,6 +31,7 @@ public class BulkUploadConverter {
 		entity.setDescription(model.getDescription());
 		entity.setDateCreated(model.getDateCreated());
 		entity.setDateUpdated(model.getDateUpdated());
+		entity.setHudVersion(model.getHudVersion());
 		if(model.getFileSize() !=null)
 			entity.setSize(Long.parseLong(model.getFileSize()));
 		entity.setInputpath(model.getFileName());

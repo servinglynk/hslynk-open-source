@@ -20,7 +20,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity
 @Table(name = "bulk_upload",schema="base")
-public class BulkUpload extends HmisBaseModel {
+public class BulkUpload extends HmisBaseModel  implements Cloneable, Serializable {
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 5515655458223886905L;
 
@@ -174,7 +174,8 @@ public class BulkUpload extends HmisBaseModel {
     public BulkUpload clone() throws CloneNotSupportedException {
 		
         final BulkUpload copy = (BulkUpload)super.clone();
-
+        copy.setHudVersion(this.getHudVersion());
+        copy.setYear(this.getYear());
 		copy.setExportId(this.getExportId());
 		copy.setId(this.getId());
 		copy.setInputpath(this.getInputpath());
@@ -267,7 +268,7 @@ public class BulkUpload extends HmisBaseModel {
 	 * @return the hudVersion
 	 */
 	@Basic( optional = true )
-	@Column( name = "hud_version"  )
+	@Column( name = "hud_version" ,length=100 )
 	public String getHudVersion() {
 		return hudVersion;
 	}

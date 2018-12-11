@@ -122,6 +122,7 @@ public class BulkUploadController extends ControllerBase{
 			Long parseInt = Long.parseLong(year);
 			model.setYear(parseInt);
 		}
+		model.setHudVersion(getHudVersionFromVersion(version));
 		String username = session.getAccount().getUsername();
 		try {
 			model = serviceFactory.getBulkUploadService().createBulkUploadEntry(model,session.getAccount());
