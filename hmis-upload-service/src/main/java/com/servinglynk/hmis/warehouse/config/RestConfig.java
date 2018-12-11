@@ -105,14 +105,16 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	public AWSService aWSService() {
 		return new AWSService();
 	}
+	
 	@Bean
 	public LocalFileUploadService localFileUploadService() {
 		return new LocalFileUploadService();
 	}
 	
-	@PostConstruct
+	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
-		 propertyReaderService().loadProperties("HMIS_AUTHORIZATION_SERVICE");
+		 propertyReaderService().loadProperties("UPLOAD_SERVICE");
 	 }
+
 
 }
