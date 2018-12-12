@@ -1,12 +1,12 @@
 package com.servinglynk.hmis.warehouse.model.base;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
-import java.util.UUID;
 import java.util.WeakHashMap;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "report_config_param",schema="base")
@@ -37,8 +39,8 @@ public class ReportConfigParamEntity {
 	private String key;
 	private String value;
 	private String status;
-	private Timestamp dateCreated;
-	private Timestamp dateUpdated;
+	private LocalDateTime dateCreated;
+	private LocalDateTime dateUpdated;
 	private String createdBy;
 	private String updatedBy;
 	private boolean deleted;
@@ -95,17 +97,21 @@ public class ReportConfigParamEntity {
 		this.status = status;
 	}
 	@Column(name="date_created")
-	public Timestamp getDateCreated() {
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	public LocalDateTime getDateCreated() {
 		return dateCreated;
 	}
-	public void setDateCreated(Timestamp dateCreated) {
+	public void setDateCreated(LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 	@Column(name="date_updated")
-	public Timestamp getDateUpdated() {
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	public LocalDateTime getDateUpdated() {
 		return dateUpdated;
 	}
-	public void setDateUpdated(Timestamp dateUpdated) {
+	public void setDateUpdated(LocalDateTime dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 	@Column(name="created_by")

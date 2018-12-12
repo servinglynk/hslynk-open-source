@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +16,8 @@ public class ReportConfig extends ClientModel{
 		private String reportType;
 		private String reportLevel;
 		private boolean emailSent;
-		private Timestamp startDate;
-		private Timestamp endDate;
+		private LocalDateTime startDate;
+		private LocalDateTime endDate;
 		private Long id;
 		private String cocId;
 		private List<String> projectIds = new ArrayList<>();
@@ -63,16 +63,16 @@ public class ReportConfig extends ClientModel{
 		public void setEmailSent(boolean emailSent) {
 			this.emailSent = emailSent;
 		}
-		public Timestamp getStartDate() {
+		public LocalDateTime getStartDate() {
 			return startDate;
 		}
-		public void setStartDate(Timestamp startDate) {
+		public void setStartDate(LocalDateTime startDate) {
 			this.startDate = startDate;
 		}
-		public Timestamp getEndDate() {
+		public LocalDateTime getEndDate() {
 			return endDate;
 		}
-		public void setEndDate(Timestamp endDate) {
+		public void setEndDate(LocalDateTime endDate) {
 			this.endDate = endDate;
 		}
 		public Long getId() {

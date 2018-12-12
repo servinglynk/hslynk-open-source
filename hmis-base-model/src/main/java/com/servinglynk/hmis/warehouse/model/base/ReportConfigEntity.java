@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.base;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +19,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+
+import com.servinglynk.hmis.warehouse.enums.ReportLevelEnum;
+import com.servinglynk.hmis.warehouse.enums.ReportTypeEnum;
 
 @Entity
 @Table(name = "report_config",schema="base")
@@ -38,14 +41,14 @@ public class ReportConfigEntity {
 	/** Field mapping. */
 	private Long id;
 	private String name;
-	private String reportType;
-	private String reportLevel;
+	private ReportTypeEnum reportType;
+	private ReportLevelEnum reportLevel;
 	private String status;
-	private Timestamp startDate;
-	private Timestamp endDate;
+	private LocalDateTime startDate;
+	private LocalDateTime endDate;
 	private UUID cocId;
-	private Timestamp dateCreated;
-	private Timestamp dateUpdated;
+	private LocalDateTime dateCreated;
+	private LocalDateTime dateUpdated;
 	private String createdBy;
 	private String updatedBy;
 	private boolean emailSent;
@@ -89,10 +92,10 @@ public class ReportConfigEntity {
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.ReportTypeEnumType")
 	@Basic( optional = true )
 	@Column( name = "report_type"  )
-	public String getReportType() {
+	public ReportTypeEnum getReportType() {
 		return reportType;
 	}
-	public void setReportType(String reportType) {
+	public void setReportType(ReportTypeEnum reportType) {
 		this.reportType = reportType;
 	}
 	 /**
@@ -102,10 +105,10 @@ public class ReportConfigEntity {
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.ReportLevelEnumType")
 	@Basic( optional = true )
 	@Column( name = "report_level"  )
-	public String getReportLevel() {
+	public ReportLevelEnum getReportLevel() {
 		return reportLevel;
 	}
-	public void setReportLevel(String reportLevel) {
+	public void setReportLevel(ReportLevelEnum reportLevel) {
 		this.reportLevel = reportLevel;
 	}
 	public String getStatus() {
@@ -116,17 +119,21 @@ public class ReportConfigEntity {
 		this.status = status;
 	}
 	@Column(name = "start_date")
-	public Timestamp getStartDate() {
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Timestamp startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
 	@Column(name = "end_date")
-	public Timestamp getEndDate() {
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Timestamp endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
 	@Column(name = "coc_id")
@@ -137,17 +144,21 @@ public class ReportConfigEntity {
 		this.cocId = cocId;
 	}
 	@Column(name = "date_created")
-	public Timestamp getDateCreated() {
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	public LocalDateTime getDateCreated() {
 		return dateCreated;
 	}
-	public void setDateCreated(Timestamp dateCreated) {
+	public void setDateCreated(LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 	@Column(name = "date_updated")
-	public Timestamp getDateUpdated() {
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	public LocalDateTime getDateUpdated() {
 		return dateUpdated;
 	}
-	public void setDateUpdated(Timestamp dateUpdated) {
+	public void setDateUpdated(LocalDateTime dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 	@Column(name = "created_by")
@@ -187,7 +198,18 @@ public class ReportConfigEntity {
 	}
 	
 
-	@OneToMany(mappedBy = "reportConfig")
+	
 	private List<ReportConfigParamEntity> reportConfigParams;
+
+	@OneToMany(mappedBy = "reportConfig")
+	public List<ReportConfigParamEntity> getReportConfigParams() {
+		return reportConfigParams;
+	}
+
+	public void setReportConfigParams(List<ReportConfigParamEntity> reportConfigParams) {
+		this.reportConfigParams = reportConfigParams;
+	}
+	
+	
 	
 }
