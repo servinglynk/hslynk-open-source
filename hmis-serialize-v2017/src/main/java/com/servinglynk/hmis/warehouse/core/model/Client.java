@@ -17,7 +17,7 @@ public class Client extends ClientModel {
 	private String lastName;
 	private String nameSuffix;
 	private Integer nameDataQuality;
-	@Pattern(regexp="(^\\s+$|^[x0-9]{3}-[x0-9]{2}-[x0-9]{4}$)",message="Invalid SSN. Valid format is XXX-XX-XXXX")
+	@Pattern(regexp="(^\\s+$|^[x0-9]{3}-[x0-9]{2}-[x0-9]{4}$|^$)",message="Invalid SSN. Valid format is XXX-XX-XXXX")
 	private String ssn;
 	private Integer ssnDataQuality;
 	private Date dob;
