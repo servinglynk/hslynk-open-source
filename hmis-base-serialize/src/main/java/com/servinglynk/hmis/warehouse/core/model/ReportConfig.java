@@ -1,7 +1,7 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -16,10 +16,12 @@ public class ReportConfig extends ClientModel{
 		private String reportType;
 		private String reportLevel;
 		private boolean emailSent;
-		private LocalDateTime startDate;
-		private LocalDateTime endDate;
+		private Date startDate;
+		private Date endDate;
 		private Long id;
 		private String cocId;
+		private String createdBy;
+		private String updatedBy;
 		private List<String> projectIds = new ArrayList<>();
 		public String getName() {
 			return name;
@@ -63,16 +65,16 @@ public class ReportConfig extends ClientModel{
 		public void setEmailSent(boolean emailSent) {
 			this.emailSent = emailSent;
 		}
-		public LocalDateTime getStartDate() {
+		public Date getStartDate() {
 			return startDate;
 		}
-		public void setStartDate(LocalDateTime startDate) {
+		public void setStartDate(Date startDate) {
 			this.startDate = startDate;
 		}
-		public LocalDateTime getEndDate() {
+		public Date getEndDate() {
 			return endDate;
 		}
-		public void setEndDate(LocalDateTime endDate) {
+		public void setEndDate(Date endDate) {
 			this.endDate = endDate;
 		}
 		public Long getId() {
@@ -92,6 +94,18 @@ public class ReportConfig extends ClientModel{
 		}
 		public void setProjectIds(List<String> projectIds) {
 			this.projectIds = projectIds;
+		}
+		public String getCreatedBy() {
+			return createdBy;
+		}
+		public void setCreatedBy(String createdBy) {
+			this.createdBy = createdBy;
+		}
+		public String getUpdatedBy() {
+			return updatedBy;
+		}
+		public void setUpdatedBy(String updatedBy) {
+			this.updatedBy = updatedBy;
 		}
 
 }

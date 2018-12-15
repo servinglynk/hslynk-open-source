@@ -20,7 +20,6 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperServiceDaoImpl;
-import com.servinglynk.hmis.warehouse.base.dao.GenericEnrollmentDao;
 import com.servinglynk.hmis.warehouse.base.dao.GenericEnrollmentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.GlobalEnrollmentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.GlobalHouseHoldDaoImpl;
@@ -38,6 +37,8 @@ import com.servinglynk.hmis.warehouse.base.dao.ProjectGroupDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.PropertyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.RedirectUriDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.RefreshTokenDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ReportConfigDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ReportConfigParamDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.RoleDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.SearchDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ServiceApiMethodDaoImpl;
@@ -285,5 +286,15 @@ public class BaseDatabaseConfig {
 	@Bean
 	public GlobalHouseHoldDaoImpl globalHouseHoldDao() {
 		return new GlobalHouseHoldDaoImpl();
+	}
+	
+	@Bean
+	public ReportConfigDaoImpl reportConfigDao() {
+		return new ReportConfigDaoImpl();
+	}
+	
+	@Bean
+	public ReportConfigParamDaoImpl reportConfigParamDao() {
+		return new ReportConfigParamDaoImpl();
 	}
 }

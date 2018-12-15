@@ -369,11 +369,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	}
 	
 	@Bean
-	public ReportConfigDaoImpl reportConfigDao() {
-		return new ReportConfigDaoImpl();
-	}
-	
-	@Bean
 	public ChronicHomelessCalcHelper chronicHomelessCalcHelper() {
 		return new ChronicHomelessCalcHelper();
 	}

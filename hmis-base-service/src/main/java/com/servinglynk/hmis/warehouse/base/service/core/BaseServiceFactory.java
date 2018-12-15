@@ -17,6 +17,7 @@ import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
+import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
 import com.servinglynk.hmis.warehouse.base.service.RoleService;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.SessionService;
@@ -36,7 +37,7 @@ public interface BaseServiceFactory {
 	SessionService getSessionService();
 	VerificationService getVerificationService();
 	PasswordResetService getPasswordResetService();
-	
+	ReportConfigService getReportConfigService();
 	UsernameChangeService getUsernameChangeService();
 	ApiMethodService getApiMethodService();
 	RoleService getRoleService();

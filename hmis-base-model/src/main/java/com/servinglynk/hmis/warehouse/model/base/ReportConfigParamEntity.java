@@ -39,8 +39,8 @@ public class ReportConfigParamEntity {
 	private String key;
 	private String value;
 	private String status;
-	private LocalDateTime dateCreated;
-	private LocalDateTime dateUpdated;
+	private LocalDateTime dateCreated = LocalDateTime.now();
+	private LocalDateTime dateUpdated = LocalDateTime.now();
 	private String createdBy;
 	private String updatedBy;
 	private boolean deleted;

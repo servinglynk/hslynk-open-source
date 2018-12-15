@@ -1,26 +1,33 @@
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
-http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-    version="2.4">
-  <description>Report Service</description>
-  <context-param>
-		<param-name>webAppRootKey</param-name>
-		<param-value>reportservice.root</param-value>
-	</context-param>
-	<context-param>
-		<param-name>log4jConfigLocation</param-name>
-		<param-value>classpath:com/servinglynk/hmis/warehouse/report/log4j.xml</param-value>
-	</context-param>
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-	<listener>
-		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-	</listener>
+<web-app>
+  <display-name>Report Service</display-name>
+  
+  <servlet>
+    <servlet-name>hmis-report-service</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- we'll use AnnotationConfigWebApplicationContext instead of the default XmlWebApplicationContext... -->
+    <init-param>
+      <param-name>contextClass</param-name>
+      <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </init-param>
+
+    <!-- ... and tell it which class contains the configuration -->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>com.servinglynk.hmis.warehouse.config.RestConfig</param-value>
+    </init-param>
+
+    <load-on-startup>1</load-on-startup>
+
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>hmis-report-service</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
   
   
-<resource-ref>
-    <res-ref-name>jdbc/waferlevel</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
-</resource-ref>
 </web-app>

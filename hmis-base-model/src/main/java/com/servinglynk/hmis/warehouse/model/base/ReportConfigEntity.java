@@ -47,8 +47,8 @@ public class ReportConfigEntity {
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
 	private UUID cocId;
-	private LocalDateTime dateCreated;
-	private LocalDateTime dateUpdated;
+	private LocalDateTime dateCreated = LocalDateTime.now();
+	private LocalDateTime dateUpdated = LocalDateTime.now();
 	private String createdBy;
 	private String updatedBy;
 	private boolean emailSent;
@@ -136,7 +136,9 @@ public class ReportConfigEntity {
 	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
-	@Column(name = "coc_id")
+	@Basic( optional = true )
+	@Column( name = "coc_id"  )
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	public UUID getCocId() {
 		return cocId;
 	}

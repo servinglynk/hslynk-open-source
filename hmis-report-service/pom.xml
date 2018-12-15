@@ -1,123 +1,254 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.servinglynk.hmis.warehouse</groupId>
-  <artifactId>hmis-report-service</artifactId>
-  <version>2.0</version>
-  <packaging>war</packaging>
-  <name>Report Service</name>
-  <description>Report Service</description>
-  	<properties>
-		<parent-version>2.0</parent-version>
-	</properties>
-  
-  
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.1.1.RELEASE</version>
-	</parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>hmis-report-service</artifactId>
+	<packaging>war</packaging>
+	<name>HMIS Report Service</name>
+	<description>HMIS Report Service</description>
 
+
+	<properties>
+		<parent-version>2.0</parent-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<java-version>1.8</java-version>
+		<spring.framework.version>4.0.0.RELEASE</spring.framework.version>
+		<fasterxml.version>1.8.9</fasterxml.version>
+		<hibernate.version>4.2.0.Final</hibernate.version>
+	</properties>
 
 	<dependencies>
+		<!-- Spring dependencies -->
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-solr</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.framework.version}</version>
+
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-velocity</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.framework.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.framework.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.framework.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-report-core</artifactId>
-			<version>${parent-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.framework.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>core-client</artifactId>
-			<version>${parent-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.framework.version}</version>
 		</dependency>
-			<dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.framework.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Common dependencies -->
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.5</version>
+		</dependency>
+		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
-			<version>1.4.7</version>
+			<version>1.4.1</version>
 		</dependency>
-		
+
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1201-jdbc41</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- servlet dependencies -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Marshaling dependencies -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.3.3</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.datatype</groupId>
+    		<artifactId>jackson-datatype-jsr310</artifactId>
+    		<version>2.4.0</version>
+		</dependency>
+
+		<!-- JUnit dependencies -->
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.ws</groupId>
-			<artifactId>spring-xml</artifactId>
-			<version>1.5.9</version>
-		</dependency>
 
+		<!-- Loging dependencies -->
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.8.5</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.5</version>
 		</dependency>
 
+			<dependency>
+			 <groupId>com.servinglynk.hmis.warehouse</groupId>
+			  <artifactId>hmis-base-model</artifactId>
+			  <version>${parent-version}</version>
+			</dependency>		
+			<dependency>
+			 <groupId>com.servinglynk.hmis.warehouse</groupId>
+			  <artifactId>hmis-base-service</artifactId>
+			  <version>${parent-version}</version>
+			</dependency>		
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-base-serialize</artifactId>
+			<version>${parent-version}</version>
+		</dependency>
+		<!-- <dependency> <groupId>com.servinglynk.hmis.warehouse</groupId> <artifactId>hmis-core-model</artifactId> 
+			<version>${parent-version}</version> </dependency> -->
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-core-common</artifactId>
+			<version>${parent-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<scope>provided</scope>
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.extended</artifactId>
+			<version>3.1.0.GA</version>
 		</dependency>
-		<dependency>
-  <groupId>postgresql</groupId> 
-  <artifactId>postgresql</artifactId> 
-  <version>8.3-603.jdbc4</version> 
-  </dependency>
 	</dependencies>
-  
-  		<build>
-			<plugins>
-					<plugin>
+
+
+	<build>
+		<finalName>hmis-report-service</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-			</plugins>
-		</build>
-  
+		</plugins>
+	</build>
+
+<!-- 	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://52.37.76.153:8080/nexus/content/groups/public</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>Maven Plugin Repository</name>
+			<url>http://52.37.76.153:8080/nexus/content/groups/public</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://52.37.76.153:8080/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://52.37.76.153:8080/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement> -->
+	<parent>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+		<artifactId>servinglynk-hmis</artifactId>
+		<version>2.0</version>
+	</parent>
 </project>

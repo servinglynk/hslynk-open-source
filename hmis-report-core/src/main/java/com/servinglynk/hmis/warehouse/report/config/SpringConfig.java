@@ -44,7 +44,7 @@ import com.servinglynk.hmis.warehouse.report.service.WorkerService;
 @EnableTransactionManagement
 @ImportResource("classpath:com/servinglynk/hmis/warehouse/report/property-config.xml")
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.report.service"})
-@PropertySource("classpath:com/servinglynk/hmis/warehouse/report/report.properties")
+@PropertySource("classpath:database.properties")
 
 public class SpringConfig {
 
@@ -55,7 +55,7 @@ public class SpringConfig {
     public static PropertyPlaceholderConfigurer properties(){
         PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
         ClassPathResource[] resources = new ClassPathResource[ ]
-                { new ClassPathResource( "com/servinglynk/hmis/warehouse/report/report.properties" ) };
+                { new ClassPathResource( "database.properties" ) };
         ppc.setLocations( resources );
         ppc.setIgnoreUnresolvablePlaceholders( true );
         return ppc;

@@ -14,6 +14,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	@Autowired
 	private ReportConfigDao reportConfigDao;
 	@Autowired
+	private ReportConfigParamDao reportConfigParamDao;
+	@Autowired
 	private AccountDao accountDao;
 	@Autowired
 	private VerificationDao verificationDao;
@@ -334,6 +336,12 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setReportConfigDao(ReportConfigDao reportConfigDao) {
 		this.reportConfigDao = reportConfigDao;
+	}
+	public ReportConfigParamDao getReportConfigParamDao() {
+		return reportConfigParamDao;
+	}
+	public void setReportConfigParamDao(ReportConfigParamDao reportConfigParamDao) {
+		this.reportConfigParamDao = reportConfigParamDao;
 	}
 	
 }
