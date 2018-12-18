@@ -25,24 +25,28 @@
         <table class="table table-bordered table-hover table-striped">
           <thead>
             <tr>
-              <th>Email </th>
-              <th>Date</th>
-              <th>Year </th>
-           	  <th>Project  </th>
-              <th>Report  </th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Level</th>
+              <th>Type</th>
+           	  <th>Status</th>
+              <th>Start Date</th>
+              <th>End Date</th>
               <th class="center">Is email sent</th>
-          
+          	  <th>Date Created</th>
             </tr>
           </thead>
      <tbody>
             <tr ng-repeat="data in filtered = (list | filter:search | orderBy : predicate :reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
-              <td>{{data.email}}</td>
-              <td>{{data.created_at | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-              <td>{{data.year}}</td>
-              <td>{{data.project}}</td>
-              <td>{{data.report}}</td>
-              <td  class="center">{{data.emailsent}}</td>
-           
+              <td>{{data.id}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.reportLevel}}</td>
+              <td>{{data.reportType}}</td>
+              <td>{{data.status}}</td>
+              <td>{{data.startDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td>{{data.endDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td>{{data.emailSent}}</td>
+              <td>{{data.dateCreated | date:'yyyy-MM-dd HH:mm:ss'}}</td>
               </tr>
           </tbody>
         </table>

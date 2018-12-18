@@ -29,7 +29,8 @@ margin:0px;
 				<ul>
 					<input type="hidden" value="code" name="response_type" />
 					<input type="hidden"  name="trustedApp_id" value="MASTER_TRUSTED_APP"/>
-				 <input type="hidden"  name="redirect_uri" value="https://admin.hslynk.com/hmis-admin/#/admin/dashboard"/>
+				<!--  <input type="hidden"  name="redirect_uri" value="https://admin.hslynk.com/hmis-admin/#/admin/dashboard"/> -->
+				<input type="hidden"  name="redirect_uri" value="http://127.0.0.1:8081/hmis-admin/#/admin/dashboard"/>
 				  <!--  	<input type="hidden"  name="redirect_uri" value="https://www.hmislynk.com/hmis-admin/#/admin/dashboard"/> --> 
 					<input type="hidden" value="xyzvalue" name="state" />
 					<input type="hidden" name="access_type" value="online"/>
@@ -50,7 +51,7 @@ margin:0px;
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-animate.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
 <script src="script/angular-route-segment.js"></script>
- <script src="script/hmis-admin.min.js"></script>
+ <script src="script/hmis-admin.js"></script>
 <!-- controller and service -->
 <!-- <script src="script/app.js"></script>
 <script src="services/commonService.js"></script>

@@ -1,17 +1,20 @@
 package com.servinglynk.hmis.warehouse;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.TableExistsException;
-import org.apache.hadoop.hbase.client.*;
-import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import org.apache.hadoop.hbase.HColumnDescriptor;
+import org.apache.hadoop.hbase.HTableDescriptor;
+import org.apache.hadoop.hbase.TableExistsException;
+import org.apache.hadoop.hbase.client.Delete;
+import org.apache.hadoop.hbase.client.HBaseAdmin;
+import org.apache.hadoop.hbase.client.HTable;
+import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.hbase.client.ResultScanner;
+import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.log4j.Logger;
 
 public class SyncHBaseProcessor extends Logging {
     private HBaseAdmin admin = null;
@@ -19,7 +22,18 @@ public class SyncHBaseProcessor extends Logging {
     public SyncHBaseProcessor() throws Exception{
         admin = HbaseUtil.getAdmin();
     }
+    public void dropHBASETable(String tableName, Logger logger) {
 
+        try {
+            admin.deleteTable(tableName);
+            log.info("Table ::" + tableName + " created.");
+        } catch (TableExistsException ex) {
+            log.warn("Table :: " + tableName + " already exists.");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            logger.error(e);
+        }
+    }
     public void createHBASETable(String tableName, Logger logger) {
 
         try {
