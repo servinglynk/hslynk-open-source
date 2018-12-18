@@ -1,10 +1,10 @@
-Category,Number of adults at entry,Number of adults at follow-up (stayers),Number of adults at exit (leavers)
-  a. Adults with only earned income,0,0,0
-  b. Adults with only other income,0,0,0
-  c. Adults with both earned and other income,0,0,0
-  d. Adults with no income,0,0,0
- e. Adults with Client Doesn't Know/Client Refused income information,0,0,0
-  f. Adults with missing income information,0,0,0
-   g. Number of adult stayers not yet required to have an annual assessment,0,0,0
-  h. Number of adult stayers without required annual assessment,0,0,0
-  i. Total adults,0,0,0
+Number of Chronically Homeless Persons By Income Category,Number of Chronically Homeless Persons at Start,Number of Chronically Homeless Persons at Annual Assessment (Stayers),Number of Chronically Homeless Persons at Exit (Leavers)
+"  Chronically Homeless Persons with Only Earned Income (i.e., Employment Income)",0,0,0
+  Chronically Homeless Persons with Only Other ,0,0,0
+  Chronically Homeless Persons with Both Earned and Other Income,0,0,0
+  Chronically Homeless Persons with No Income,1,4068,1
+  Chronically Homeless Persons with Client Doesn’t Know/Client Refused Income Information,0,1,0
+  Chronically Homeless Persons with Missing Income Information,0,5,0
+  Number of Chronically Homeless Persons not yet required to have an annual assessment,0,0,0
+  Number of Chronically Homeless Persons without required annual assessment,0,0,0
+  Total Chronically Homeless Persons,100,298,118

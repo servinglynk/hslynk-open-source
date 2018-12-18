@@ -93,7 +93,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[   Currently fleeing domestic violence]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="488511b1-36a0-476f-ad6a-f53b5b19da58"/>
@@ -203,7 +203,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bYesWithoutChildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bYesWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="462" y="0" width="93" height="26" uuid="ffe38e8c-b227-4d9a-aa95-713e968477e0"/>
@@ -215,7 +215,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bYesWithChildAndAdults}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bYesUnknownHouseholdType}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="e8aa27f8-e24e-474e-a261-5a60f40d7553"/>
@@ -227,7 +227,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bYesWithOnlyChildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bYesWithoutChildren}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="97" height="26" uuid="0e84a980-cc70-45da-9aec-c25543e37206"/>
@@ -239,7 +239,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bYesUnknownHouseholdType}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bYesWithOnlyChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -279,7 +279,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bNoWithoutChildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bNoWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="462" y="0" width="93" height="26" uuid="c75823c0-7473-423a-a810-cdd1a384b998"/>
@@ -291,7 +291,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bNoWithChildAndAdults}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bNoUnknownHouseholdType}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="c8623da9-a7bb-4e0c-ac26-8a669031936d"/>
@@ -303,7 +303,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bNoWithOnlyChildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bNoWithoutChildren}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="97" height="26" uuid="07f58e8d-02b8-4dc6-a410-9136188c7466"/>
@@ -315,7 +315,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bNoUnknownHouseholdType}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bNoWithOnlyChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -355,7 +355,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bDKRWithoutChildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bDKRWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="462" y="0" width="93" height="26" uuid="bdf8299a-5413-4a83-96c4-afbeaf3dfa3a"/>
@@ -367,7 +367,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bDKRWithChildAndAdults}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bDKRUnknownHouseholdType}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="f5ddd28c-a0dd-4f17-ab5f-12f8d09f81c1"/>
@@ -379,7 +379,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bDKRWithOnlyChildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bDKRWithoutChildren}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="97" height="26" uuid="80d0c156-bf27-4ea4-84c3-04a2cdd7acdf"/>
@@ -391,7 +391,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bDKRUnknownHouseholdType}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bDKRWithOnlyChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -431,7 +431,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bInformationMissingWithoutChildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bInformationMissingWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="462" y="0" width="93" height="26" uuid="df8e5a84-6e2f-48a7-b5fd-ddb56e99c7f5"/>
@@ -443,7 +443,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bInformationMissingWithChildAndAdults}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bInformationMissingUnknownHouseholdType}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="4d7a857a-47b2-4121-8319-d54a75767e92"/>
@@ -455,7 +455,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bInformationMissingWithOnlyChildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bInformationMissingWithoutChildren}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="97" height="26" uuid="e8667864-8c53-4062-baff-c25a93057412"/>
@@ -467,7 +467,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bInformationMissingUnknownHouseholdType}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bInformationMissingWithOnlyChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -507,7 +507,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bTotalWithoutChildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bTotalWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="462" y="0" width="93" height="26" uuid="de6a9d94-8260-4a98-bbcd-b98669e11a29"/>
@@ -519,7 +519,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bTotalWithChildAndAdults}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bTotalUnknowHousehold}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="46fe33c0-00c0-498d-8170-d87eb60e7860"/>
@@ -531,7 +531,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bTotalWithOnlychildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bTotalWithoutChildren}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="97" height="26" uuid="fbea43b6-5772-4e59-b5cf-da950cce2875"/>
@@ -543,7 +543,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q14bTotalUnknowHousehold}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q14bTotalWithOnlychildren}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>

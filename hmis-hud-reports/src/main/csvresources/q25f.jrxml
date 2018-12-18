@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="124"/>
+	<property name="ireport.y" value="115"/>
 	<field name="q25fAdultsWithOnlyEarnedIncomeAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25fAdultsWithOnlyEarnedIncomeAtEntry]]></fieldDescription>
 	</field>
@@ -99,7 +99,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Category]]></text>
+					<text><![CDATA[Conditions at Exit for Leavers]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="2c0ea28a-689a-473a-8610-6fcfb54f90c4"/>
@@ -113,7 +113,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Number of Veterans at entry]]></text>
+					<text><![CDATA[Number of Veterans at Start]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="a1d7ec21-0e15-459f-9294-cfc913049a24"/>
@@ -127,9 +127,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Number of Veterans
-at Annual Assessment
-(Stayers)]]></text>
+					<text><![CDATA[Number of Veterans at Annual Assessment (Stayers)]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="e4feb840-8de7-4ed0-9caa-6b7f63fa0c04"/>
@@ -143,9 +141,7 @@ at Annual Assessment
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Number of
-Veterans at Exit
-(Leavers)]]></text>
+					<text><![CDATA[Number of Veterans at Exit (Leavers)]]></text>
 				</staticText>
 			</band>
 			<band height="46">
@@ -161,7 +157,7 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. Adults with only earned income]]></text>
+					<text><![CDATA[  Veterans with Only Earned Income (i.e., Employment Income)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="46" uuid="a146af0d-5c56-49bf-8785-f64cd69d777a"/>
@@ -225,7 +221,7 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b. Adults with only other income]]></text>
+					<text><![CDATA[  Veterans with Only Other Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="5bb79ffb-d19a-4b71-a0e5-86ee988603e7"/>
@@ -277,8 +273,7 @@ Veterans at Exit
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  c. Adults with both earned and other
-income]]></text>
+					<text><![CDATA[  Veterans with Both Earned and Other Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="46" uuid="2355085a-0e25-4340-823e-815416af233f"/>
@@ -330,7 +325,7 @@ income]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. Adults with no income]]></text>
+					<text><![CDATA[  Veterans with No Income]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="5b74c49b-9dee-4cce-9ae7-66cc3dbac7d0"/>
@@ -382,7 +377,7 @@ income]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Adults with Client Doesn't Know/Client Refused income information]]></text>
+					<text><![CDATA[  Veterans with Client Doesn’t Know/Client Refused Income Information]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="62" uuid="9e9261a0-de49-4556-b2ce-c1e8a1387123"/>
@@ -434,7 +429,7 @@ income]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  f. Adults with missing income information]]></text>
+					<text><![CDATA[  Veterans with Missing Income Information]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="46" uuid="c594a1ed-c427-40f5-9bb6-b325879882e1"/>
@@ -486,7 +481,7 @@ income]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   g. Number of adult stayers not yet required to have an annual assessment]]></text>
+					<text><![CDATA[   Number of veterans not yet required to have an annual assessment]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="55" uuid="7e98e4da-de7e-4b01-8b39-b91d6859ad99"/>
@@ -538,8 +533,7 @@ income]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  h. Number of adult stayers without required annual
-assessment]]></text>
+					<text><![CDATA[   Number of veterans without required annual assessment]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="54" uuid="451cd1c7-d150-4f5d-a5f6-618fbd2f921a"/>
@@ -591,7 +585,7 @@ assessment]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  i. Total adults]]></text>
+					<text><![CDATA[  Total Veterans]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="8ee3030a-f85c-42fa-84fe-cd332d90e244"/>

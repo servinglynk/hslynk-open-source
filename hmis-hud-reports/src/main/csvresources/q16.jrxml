@@ -196,7 +196,7 @@
 					<text><![CDATA[   a. No Income]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="fc740746-6a61-4c31-83fe-e6b293283b15"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="37552479-24b4-4da7-bce8-68af14e61d13"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -208,7 +208,7 @@
 					<textFieldExpression><![CDATA[$F{q16NoIncomeIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="37552479-24b4-4da7-bce8-68af14e61d13"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="fc740746-6a61-4c31-83fe-e6b293283b15"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -248,7 +248,7 @@
 					<text><![CDATA[   b. $1 - $150]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="182" y="0" width="183" height="26" uuid="6f0d0c0b-9773-4186-9509-f2ca888a0f90"/>
+					<reportElement x="117" y="0" width="65" height="26" uuid="bcfaec32-5ca8-4e75-9e2f-7eef5155ca81"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -260,7 +260,7 @@
 					<textFieldExpression><![CDATA[$F{q161To150IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="117" y="0" width="65" height="26" uuid="bcfaec32-5ca8-4e75-9e2f-7eef5155ca81"/>
+					<reportElement x="182" y="0" width="183" height="26" uuid="6f0d0c0b-9773-4186-9509-f2ca888a0f90"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -309,7 +309,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16151To250IncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16151To250IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="74c7c2d7-01ba-4954-878c-e7ff512084a4"/>
@@ -321,7 +321,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16151To250IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16151To250IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="f4efc61e-9d84-4b6d-be75-ccad8166317a"/>
@@ -361,7 +361,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16251To500IncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16251To500IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="4e6d2b80-e75a-4686-8004-343e39bdd147"/>
@@ -373,7 +373,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16251To500IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16251To500IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="c02c154e-66b9-4776-bb98-466a94b04f1c"/>
@@ -413,7 +413,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16501To1000IncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16501To1000IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="ef76ce2a-55e4-425a-be90-2c03ca42b6a3"/>
@@ -425,7 +425,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16501To1000IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16501To1000IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="be45aca0-f8b6-4ad7-bb5e-a420ed174cf1"/>
@@ -465,7 +465,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q161001To1500IncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q161001To1500IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="dce66bde-bc73-4b31-905e-68af31d88013"/>
@@ -477,7 +477,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16501To1000IncomeAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q161001To1500IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="6ae234ee-bb5e-41eb-93ed-d2b00d1642da"/>
@@ -489,7 +489,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16501To1000IncomeAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q161001To1500IncomeAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -517,7 +517,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q161501To2000IncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q161501To2000IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="5f3bb649-64f2-45df-b864-9fe85794d5fe"/>
@@ -529,7 +529,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q161501To2000IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q161501To2000IncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="c04227b6-c9d9-4c0e-9be6-888ae8ad68c9"/>
@@ -569,7 +569,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q162000PlusIncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q162000PlusIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="15f21cd1-7451-4b32-b963-79c462958218"/>
@@ -581,7 +581,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q162000PlusIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q162000PlusIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="2cf248f3-4bf1-4121-858d-534ed8835d8c"/>
@@ -673,7 +673,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16DataNotCollectedIncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16DataNotCollectedIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="55b85700-2c49-4993-a963-ad19404207c9"/>
@@ -685,7 +685,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16DataNotCollectedIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16DataNotCollectedIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="b20becc9-492f-43c7-ac4c-329386f1ee3b"/>
@@ -725,7 +725,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersNotYetRequiredIncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="57" uuid="2ca1bd4b-65b9-452e-90b4-0de16b1f21c8"/>
@@ -737,7 +737,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersNotYetRequiredIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="57" uuid="caa926a7-e57e-452f-9e39-a4c32fa0ab9d"/>
@@ -778,7 +778,7 @@ assessment]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersWithoutRequiredIncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="63" uuid="b4fcafd9-3493-4870-bdd3-050ec927fcb3"/>
@@ -790,7 +790,7 @@ assessment]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16NumberOfAdultStayersWithoutRequiredIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="63" uuid="d95cd9b7-8408-42be-bc9c-73d15aed8fcf"/>
@@ -830,7 +830,7 @@ assessment]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16TotalAdultsIncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16TotalAdultsIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d91c9b96-b829-4a12-8453-69ede2e473d2"/>
@@ -842,7 +842,7 @@ assessment]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16TotalAdultsIncomeAtLatestFollowupforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16TotalAdultsIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="c87fd206-8d2c-4eae-a810-d96765c9562c"/>

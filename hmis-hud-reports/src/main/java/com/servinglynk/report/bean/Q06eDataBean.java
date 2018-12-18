@@ -4,16 +4,16 @@ import java.math.BigInteger;
 
 public class Q06eDataBean {
 
-	private BigInteger zeroDaysNumberOfProjectEntry;
-	private BigInteger zeroDaysNumberOfProjectExit;
-	private BigInteger oneToThreeDaysNumberOfProjectEntry;
-	private BigInteger oneToThreeDaysNumberOfProjectExit;
-	private BigInteger fourToSixDaysNumberOfProjectEntry;
-	private BigInteger fourToSixDaysNumberOfProjectExit;
-	private BigInteger sevenToTenDaysNumberOfProjectEntry;
-	private BigInteger sevenToTenDaysNumberOfProjectExit;
-	private BigInteger elevenPlusDaysNumberOfProjectEntry;
-	private BigInteger elevenPlusDaysNumberOfProjectExit;
+	private BigInteger zeroDaysNumberOfProjectEntry=BigInteger.valueOf(0);
+	private BigInteger zeroDaysNumberOfProjectExit=BigInteger.valueOf(0);
+	private BigInteger oneToThreeDaysNumberOfProjectEntry=BigInteger.valueOf(0);
+	private BigInteger oneToThreeDaysNumberOfProjectExit=BigInteger.valueOf(0);
+	private BigInteger fourToSixDaysNumberOfProjectEntry=BigInteger.valueOf(0);
+	private BigInteger fourToSixDaysNumberOfProjectExit=BigInteger.valueOf(0);
+	private BigInteger sevenToTenDaysNumberOfProjectEntry=BigInteger.valueOf(0);
+	private BigInteger sevenToTenDaysNumberOfProjectExit=BigInteger.valueOf(0);
+	private BigInteger elevenPlusDaysNumberOfProjectEntry=BigInteger.valueOf(0);
+	private BigInteger elevenPlusDaysNumberOfProjectExit=BigInteger.valueOf(0);
 	
 	public BigInteger getZeroDaysNumberOfProjectEntry() {
 		return zeroDaysNumberOfProjectEntry;

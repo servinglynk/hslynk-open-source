@@ -4,53 +4,53 @@ import java.math.BigInteger;
 
 public class Q26cGenderOfChronicallyHomelessPersonDataBean {
 	
-	private BigInteger q26cMaleTotal;
-	private BigInteger q26cMaleWithoutChild;
-	private BigInteger q26cMaleWithChildAndAdults;
-	private BigInteger q26cMaleWithOnlyChild;
-	private BigInteger q26cMaleUnknownHouseholdType;
+	private BigInteger q26cMaleTotal=BigInteger.valueOf(0);
+	private BigInteger q26cMaleWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26cMaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26cMaleWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26cMaleUnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26cFemaleTotal;
-	private BigInteger q26cFemaleWithoutChild;
-	private BigInteger q26cFemaleWithChildAndAdults;
-	private BigInteger q26cFemaleWithOnlyChild;
-	private BigInteger q26cFemaleUnknownHouseholdType;
+	private BigInteger q26cFemaleTotal=BigInteger.valueOf(0);
+	private BigInteger q26cFemaleWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26cFemaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26cFemaleWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26cFemaleUnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26cTransgenderMaleToFemaleTotal;
-	private BigInteger q26cTransgenderMaleToFemaleWithoutChild;
-	private BigInteger q26cTransgenderMaleToFemaleWithChildAndAdults;
-	private BigInteger q26cTransgenderMaleToFemaleWithOnlyChild;
-	private BigInteger q26cTransgenderMaleToFemaleUnknownHouseholdType;
+	private BigInteger q26cTransgenderMaleToFemaleTotal=BigInteger.valueOf(0);
+	private BigInteger q26cTransgenderMaleToFemaleWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26cTransgenderMaleToFemaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26cTransgenderMaleToFemaleWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26cTransgenderMaleToFemaleUnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26cTransgenderFemaleToMaleTotal;
-	private BigInteger q26cTransgenderFemaleToMaleWithoutChild;
-	private BigInteger q26cTransgenderFemaleToMaleWithChildAndAdults;
-	private BigInteger q26cTransgenderFemaleToMaleWithOnlyChild;
-	private BigInteger q26cTransgenderFemaleToMaleUnknownHouseholdType;
+	private BigInteger q26cTransgenderFemaleToMaleTotal=BigInteger.valueOf(0);
+	private BigInteger q26cTransgenderFemaleToMaleWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26cTransgenderFemaleToMaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26cTransgenderFemaleToMaleWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26cTransgenderFemaleToMaleUnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26cOtherTotal;
-	private BigInteger q26cOtherWithoutChild;
-	private BigInteger q26cOtherWithChildAndAdults;
-	private BigInteger q26cOtherWithOnlyChild;
-	private BigInteger q26cOtherUnknownHouseholdType;
+	private BigInteger q26cOtherTotal=BigInteger.valueOf(0);
+	private BigInteger q26cOtherWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26cOtherWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26cOtherWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26cOtherUnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26cDKRTotal;
-	private BigInteger q26cDKRWithoutChild;
-	private BigInteger q26cDKRWithChildAndAdults;
-	private BigInteger q26cDKRWithOnlyChild;
-	private BigInteger q26cDKRUnknownHouseholdType;
+	private BigInteger q26cDKRTotal=BigInteger.valueOf(0);
+	private BigInteger q26cDKRWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26cDKRWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26cDKRWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26cDKRUnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26cInformationMissingTotal;
-	private BigInteger q26cInformationMissingWithoutChild;
-	private BigInteger q26cInformationMissingWithChildAndAdults;
-	private BigInteger q26cInformationMissingWithOnlyChild;
-	private BigInteger q26cInformationMissingUnknownHouseholdType;
+	private BigInteger q26cInformationMissingTotal=BigInteger.valueOf(0);
+	private BigInteger q26cInformationMissingWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26cInformationMissingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26cInformationMissingWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26cInformationMissingUnknownHouseholdType=BigInteger.valueOf(0);
 		
-	private BigInteger q26cSubtotalTotal;
-	private BigInteger q26cSubtotalWithoutChild;
-	private BigInteger q26cSubtotalWithChildAndAdults;
-	private BigInteger q26cSubtotalWithOnlyChild;
-	private BigInteger q26cSubtotalUnknownHouseholdType;
+	private BigInteger q26cSubtotalTotal=BigInteger.valueOf(0);
+	private BigInteger q26cSubtotalWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26cSubtotalWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26cSubtotalWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26cSubtotalUnknownHouseholdType=BigInteger.valueOf(0);
 	public BigInteger getQ26cMaleTotal() {
 		return q26cMaleTotal;
 	}

@@ -4,35 +4,35 @@ import java.math.BigInteger;
 
 public class Q27aAgeOfYouthDataBean {
 	
-	private BigInteger q27a12To17Total;
-	private BigInteger q27a12To17WithoutChild;
-	private BigInteger q27a12To17WithChildAndAdults;
-	private BigInteger q27a12To17WithChildOnly;
-	private BigInteger q27a12To17UnknownHouseHoldtype;
+	private BigInteger q27a12To17Total=BigInteger.valueOf(0);
+	private BigInteger q27a12To17WithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27a12To17WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27a12To17WithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27a12To17UnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27a18To24Total;
-	private BigInteger q27a18To24WithoutChild;
-	private BigInteger q27a18To24WithChildAndAdults;
-	private BigInteger q27a18To24WithChildOnly;
-	private BigInteger q27a18To24UnknownHouseHoldtype;
+	private BigInteger q27a18To24Total=BigInteger.valueOf(0);
+	private BigInteger q27a18To24WithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27a18To24WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27a18To24WithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27a18To24UnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27aDKRTotal;
-	private BigInteger q27aDKRWithoutChild;
-	private BigInteger q27aDKRWithChildAndAdults;
-	private BigInteger q27aDKRWithChildOnly;
-	private BigInteger q27aDKRUnknownHouseHoldtype;
+	private BigInteger q27aDKRTotal=BigInteger.valueOf(0);
+	private BigInteger q27aDKRWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27aDKRWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27aDKRWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27aDKRUnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27aInformationMissingTotal;
-	private BigInteger q27aInformationMissingWithoutChild;
-	private BigInteger q27aInformationMissingWithChildAndAdults;
-	private BigInteger q27aInformationMissingWithChildOnly;
-	private BigInteger q27aInformationMissingUnknownHouseHoldtype;
+	private BigInteger q27aInformationMissingTotal=BigInteger.valueOf(0);
+	private BigInteger q27aInformationMissingWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27aInformationMissingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27aInformationMissingWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27aInformationMissingUnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27aTotTotal;
-	private BigInteger q27aTotWithoutChild;
-	private BigInteger q27aTotWithChildAndAdults;
-	private BigInteger q27aTotWithChildOnly;
-	private BigInteger q27aTotUnknownHouseHoldtype;
+	private BigInteger q27aTotTotal=BigInteger.valueOf(0);
+	private BigInteger q27aTotWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27aTotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27aTotWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27aTotUnknownHouseHoldtype=BigInteger.valueOf(0);
 	public BigInteger getQ27a12To17Total() {
 		return q27a12To17Total;
 	}

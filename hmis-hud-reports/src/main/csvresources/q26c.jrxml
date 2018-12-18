@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="50"/>
+	<property name="ireport.y" value="0"/>
 	<field name="q26cMaleTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q26cMaleTotal]]></fieldDescription>
 	</field>
@@ -138,7 +138,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  Gender]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="90bf6ad9-8ed0-47b6-8d01-84901da9aea8"/>
@@ -377,7 +377,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. Transgender male to female]]></text>
+					<text><![CDATA[   c. Trans Female (MTF or Male to Female)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="f1df9931-50b9-4931-80af-0e601a0a1d8f"/>
@@ -453,7 +453,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. Transgender female to male]]></text>
+					<text><![CDATA[   d. Trans Male (FTM or Female to Male)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="f1df9931-50b9-4931-80af-0e601a0a1d8f"/>
@@ -529,7 +529,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Doesn’t identify as male,female or transgender]]></text>
+					<text><![CDATA[   e. Gender Non-Conforming (i.e. not exclusively male or female)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="46" uuid="f1df9931-50b9-4931-80af-0e601a0a1d8f"/>
@@ -605,7 +605,7 @@ children]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  f. Client Doesn’t Know/Client Refused]]></text>
+					<text><![CDATA[  f. Client Doesn't Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="f1df9931-50b9-4931-80af-0e601a0a1d8f"/>

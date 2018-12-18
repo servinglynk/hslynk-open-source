@@ -6,77 +6,62 @@
 	<field name="totContactedOnce" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[totContactedOnce]]></fieldDescription>
 	</field>
-	<field name="coFirstContactHumanHabitation" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[coFirstContactHumanHabitation]]></fieldDescription>
+	<field name="coFirstContactNotStaying" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[coFirstContactNotStaying]]></fieldDescription>
 	</field>
-	<field name="coFirstContactNRSS" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[coFirstContactNRSS]]></fieldDescription>
+	<field name="coFirstContactStaying" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[coFirstContactStaying]]></fieldDescription>
 	</field>
-	<field name="coFirstContactRSS" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[coFirstContactRSS]]></fieldDescription>
-	</field>
-	<field name="coFirstContactPlaceMissing" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[coFirstContactPlaceMissing]]></fieldDescription>
+	<field name="coFirstContactWorkerUnableToDetermine" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[coFirstContactWorkerUnableToDetermine]]></fieldDescription>
 	</field>
 	<field name="totContacted2to5Times" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[totContacted2to5Times]]></fieldDescription>
 	</field>
-	<field name="c2to5FirstContactedHumanHabitation" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c2to5FirstContactedHumanHabitation]]></fieldDescription>
+	<field name="c2to5FirstContactedNotStaying" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[c2to5FirstContactedNotStaying]]></fieldDescription>
 	</field>
-	<field name="c2to5FirstContactedNRSS" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c2to5FirstContactedNRSS]]></fieldDescription>
+	<field name="c2to5FirstContactStaying" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[c2to5FirstContactStaying]]></fieldDescription>
 	</field>
-	<field name="c2to5FirstContactedRSS" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c2to5FirstContactedRSS]]></fieldDescription>
-	</field>
-	<field name="c2to5FirstContactedPlaceMissing" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c2to5FirstContactedPlaceMissing]]></fieldDescription>
+	<field name="c2to5FirstContactedWorkerUnableToDetermine" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[c2to5FirstContactedWorkerUnableToDetermine]]></fieldDescription>
 	</field>
 	<field name="totContacted6to9Times" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[totContacted6to9Times]]></fieldDescription>
 	</field>
-	<field name="c6to9FirstContactedHumanHabitation" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c6to9FirstContactedHumanHabitation]]></fieldDescription>
+	<field name="c6to9FirstContactedNotStaying" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[c6to9FirstContactedNotStaying]]></fieldDescription>
 	</field>
-	<field name="c6to9FirstContactedNRSS" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c6to9FirstContactedNRSS]]></fieldDescription>
-	</field>
-	<field name="c6to9FirstContactedPlaceMissing" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c6to9FirstContactedPlaceMissing]]></fieldDescription>
+	<field name="c6to9FirstContactedWorkerUnableToDetermine" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[c6to9FirstContactedWorkerUnableToDetermine]]></fieldDescription>
 	</field>
 	<field name="totContacted10orMore" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[totContacted10orMore]]></fieldDescription>
 	</field>
-	<field name="c6to9FirstContactedRSS" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c6to9FirstContactedRSS]]></fieldDescription>
+	<field name="c6to9FirstContactStaying" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[c6to9FirstContactStaying]]></fieldDescription>
 	</field>
-	<field name="c10orMoreFirstContactedHumanHabitation" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c10orMoreFirstContactedHumanHabitation]]></fieldDescription>
+	<field name="c10orMoreFirstContactedNotStaying" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[c10orMoreFirstContactedNotStaying]]></fieldDescription>
 	</field>
-	<field name="c10orMoreFirstContactedNRSS" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c10orMoreFirstContactedNRSS]]></fieldDescription>
+	<field name="c10orMoreFirstContactStaying" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[c10orMoreFirstContactStaying]]></fieldDescription>
 	</field>
-	<field name="c10orMoreFirstContactedRSS" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c10orMoreFirstContactedRSS]]></fieldDescription>
-	</field>
-	<field name="c10orMoreFirstContactedPlaceMissing" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[c10orMoreFirstContactedPlaceMissing]]></fieldDescription>
+	<field name="c10orMoreFirstContactedWorkerUnableToDetermine" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[c10orMoreFirstContactedWorkerUnableToDetermine]]></fieldDescription>
 	</field>
 	<field name="totPersonsContacted" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[totPersonsContacted]]></fieldDescription>
 	</field>
-	<field name="tpcFirstContactedHumanHabitation" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[tpcFirstContactedHumanHabitation]]></fieldDescription>
+	<field name="tpcFirstContactedNotStaying" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tpcFirstContactedNotStaying]]></fieldDescription>
 	</field>
-	<field name="tpcFirstContacteRSS" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[tpcFirstContacteRSS]]></fieldDescription>
+	<field name="tpcFirstContactStaying" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tpcFirstContactStaying]]></fieldDescription>
 	</field>
-	<field name="tpcFirstContactedNRSS" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[tpcFirstContactedNRSS]]></fieldDescription>
-	</field>
-	<field name="tpcFirstContactedPlaceMissing" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[tpcFirstContactedPlaceMissing]]></fieldDescription>
+	<field name="tpcFirstContactedWorkerUnableToDetermine" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tpcFirstContactedWorkerUnableToDetermine]]></fieldDescription>
 	</field>
 	<group name="Group5">
 		<groupFooter>
@@ -94,7 +79,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[]]></text>
+					<text><![CDATA[Number of Persons Contacted]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="102" y="1" width="60" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="857ef870-c52b-4a4f-9d0c-794aa824de87"/>
@@ -108,7 +93,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Total]]></text>
+					<text><![CDATA[All Persons Contacted]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="459" y="1" width="96" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="5ccb859c-c0e0-4602-b997-1e458dfc7093"/>
@@ -122,12 +107,10 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[d. First contact
-place was
-missing]]></text>
+					<text><![CDATA[First contact - Worker unable to determine]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="162" y="1" width="99" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="3fe2f28a-c25b-41e9-a330-3be4b9c55b49"/>
+					<reportElement mode="Opaque" x="162" y="1" width="147" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="3fe2f28a-c25b-41e9-a330-3be4b9c55b49"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -138,12 +121,10 @@ missing]]></text>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  a. First contact was at a
-place not meant for human
-habitation]]></text>
+					<text><![CDATA[  First contact - NOT staying on the Streets, ES, or SH]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="261" y="1" width="100" height="63" backcolor="#E6E6E6" uuid="1db9eb09-a9ec-48f2-853e-9a7e8d259c9b"/>
+					<reportElement mode="Opaque" x="309" y="1" width="150" height="63" backcolor="#E6E6E6" uuid="a4ec4788-d57f-4294-a5f0-731c9c235292"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -152,19 +133,7 @@ habitation]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<text><![CDATA[b. First contact was at a non-residential service setting]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="361" y="1" width="98" height="63" backcolor="#E6E6E6" uuid="a4ec4788-d57f-4294-a5f0-731c9c235292"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<text><![CDATA[c. First contact was at residential service setting]]></text>
+					<text><![CDATA[First contact - WAS staying on Streets, ES, or SH]]></text>
 				</staticText>
 			</band>
 			<band height="39">
@@ -180,7 +149,7 @@ habitation]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a1. Contacted once?]]></text>
+					<text><![CDATA[   once]]></text>
 				</staticText>
 				<textField>
 					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="a96e7128-e9e2-4831-b9d0-3c69e8102e4f"/>
@@ -195,7 +164,7 @@ habitation]]></text>
 					<textFieldExpression><![CDATA[$F{totContactedOnce}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Transparent" x="162" y="0" width="99" height="39" backcolor="#FFFFFF" uuid="d99547cf-f5e1-4987-b2e3-8a7ec0737371"/>
+					<reportElement mode="Transparent" x="162" y="0" width="147" height="39" backcolor="#FFFFFF" uuid="d99547cf-f5e1-4987-b2e3-8a7ec0737371"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -204,10 +173,10 @@ habitation]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{coFirstContactHumanHabitation}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{coFirstContactNotStaying}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="98" height="39" uuid="e011e06f-bfee-4acc-b50b-2ea6020975e7"/>
+					<reportElement x="309" y="0" width="150" height="39" uuid="e011e06f-bfee-4acc-b50b-2ea6020975e7"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -216,7 +185,7 @@ habitation]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{coFirstContactRSS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{coFirstContactStaying}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="459" y="0" width="96" height="39" uuid="3ae4fbfb-be87-463f-8dec-fe2b07f9a536"/>
@@ -228,12 +197,7 @@ habitation]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{coFirstContactPlaceMissing}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="e2c6d0cf-d121-4273-ac05-c1bf482be480"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{coFirstContactNRSS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{coFirstContactWorkerUnableToDetermine}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="39">
@@ -249,8 +213,7 @@ habitation]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a2. Contacted 2-5
-times?]]></text>
+					<text><![CDATA[   2-5 times]]></text>
 				</staticText>
 				<textField>
 					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="8c94afef-17e5-49b7-b077-feb646bf7af2"/>
@@ -265,7 +228,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{totContacted2to5Times}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="99" height="39" uuid="4101235c-fd86-46e6-b0a2-d21135ec970d"/>
+					<reportElement x="162" y="0" width="147" height="39" uuid="4101235c-fd86-46e6-b0a2-d21135ec970d"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -274,10 +237,10 @@ times?]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c2to5FirstContactedHumanHabitation}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{c2to5FirstContactedNotStaying}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="98" height="39" uuid="0623cbd4-642d-48ec-943f-f3f5119b5576"/>
+					<reportElement x="309" y="0" width="150" height="39" uuid="0623cbd4-642d-48ec-943f-f3f5119b5576"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -286,7 +249,7 @@ times?]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c2to5FirstContactedRSS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{c2to5FirstContactStaying}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="459" y="0" width="96" height="39" uuid="2ae5c4c2-9e1c-4951-bc20-13b3b193e736"/>
@@ -298,12 +261,7 @@ times?]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c2to5FirstContactedPlaceMissing}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="459fbf6b-ca14-434a-8e05-5ee114d02892"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c2to5FirstContactedNRSS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{c2to5FirstContactedWorkerUnableToDetermine}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="39">
@@ -319,8 +277,7 @@ times?]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a3. Contacted 6-9
-times?]]></text>
+					<text><![CDATA[   6-9 times]]></text>
 				</staticText>
 				<textField>
 					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="e4d98845-73e3-4ffc-85c2-ea9dd93775a6"/>
@@ -335,7 +292,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{totContacted6to9Times}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="99" height="39" uuid="e14374d4-dc1a-4efd-944d-0b58b6c5dba5"/>
+					<reportElement x="162" y="0" width="147" height="39" uuid="e14374d4-dc1a-4efd-944d-0b58b6c5dba5"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -344,10 +301,10 @@ times?]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c6to9FirstContactedHumanHabitation}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{c6to9FirstContactedNotStaying}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="98" height="39" uuid="37d04b37-d464-4d76-be0d-7647a2c0d93c"/>
+					<reportElement x="309" y="0" width="150" height="39" uuid="37d04b37-d464-4d76-be0d-7647a2c0d93c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -356,7 +313,7 @@ times?]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c6to9FirstContactedRSS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{c6to9FirstContactStaying}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="459" y="0" width="96" height="39" uuid="28f1b8bb-1413-42f4-a219-22b84523edad"/>
@@ -368,12 +325,7 @@ times?]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c6to9FirstContactedPlaceMissing}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="0fbb2295-a046-4257-8a66-f0bf3125d63a"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c6to9FirstContactedNRSS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{c6to9FirstContactedWorkerUnableToDetermine}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="39">
@@ -389,7 +341,7 @@ times?]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a4.Contacted 10 or more times?]]></text>
+					<text><![CDATA[   10 or more times]]></text>
 				</staticText>
 				<textField>
 					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="911ae9e0-c19e-457e-bcbb-6bc3a35d009c"/>
@@ -404,7 +356,7 @@ times?]]></text>
 					<textFieldExpression><![CDATA[$F{totContacted10orMore}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="99" height="39" uuid="90c5a67b-d98b-4b3b-9d09-97ff9999bd69"/>
+					<reportElement x="162" y="0" width="147" height="39" uuid="90c5a67b-d98b-4b3b-9d09-97ff9999bd69"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -413,10 +365,10 @@ times?]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedHumanHabitation}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedNotStaying}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="98" height="39" uuid="337cecc6-1597-4358-bd8c-b63ff5402bb0"/>
+					<reportElement x="309" y="0" width="150" height="39" uuid="337cecc6-1597-4358-bd8c-b63ff5402bb0"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -425,7 +377,7 @@ times?]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedRSS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactStaying}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="459" y="0" width="96" height="39" uuid="b72d1ab4-189b-4282-91bc-377d454e00c7"/>
@@ -437,12 +389,7 @@ times?]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedPlaceMissing}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="c25e08de-e1a8-43a8-9c3f-06a8f7a9ff29"/>
-					<textElement textAlignment="Center"/>
-					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedNRSS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{c10orMoreFirstContactedWorkerUnableToDetermine}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="39">
@@ -458,8 +405,7 @@ times?]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   az. Total persons
-contacted]]></text>
+					<text><![CDATA[   Total Persons Contacted]]></text>
 				</staticText>
 				<textField>
 					<reportElement mode="Opaque" x="102" y="0" width="60" height="39" backcolor="#F5F5F5" uuid="1e1f5cfa-579a-448b-8005-ec1b36d0fdfe"/>
@@ -474,7 +420,7 @@ contacted]]></text>
 					<textFieldExpression><![CDATA[$F{totPersonsContacted}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="162" y="0" width="99" height="39" uuid="3225c328-c489-4184-b94d-c346789bdacd"/>
+					<reportElement x="162" y="0" width="147" height="39" uuid="3225c328-c489-4184-b94d-c346789bdacd"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -483,10 +429,10 @@ contacted]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{tpcFirstContactedHumanHabitation}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{tpcFirstContactedNotStaying}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="361" y="0" width="98" height="39" uuid="193d3f34-e7e1-4808-abe0-5879b66e3fe8"/>
+					<reportElement x="309" y="0" width="150" height="39" uuid="193d3f34-e7e1-4808-abe0-5879b66e3fe8"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -495,7 +441,7 @@ contacted]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{tpcFirstContacteRSS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{tpcFirstContactStaying}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="459" y="0" width="96" height="39" uuid="13e35f01-9c10-4855-937a-5b63aba5aa1e"/>
@@ -507,12 +453,7 @@ contacted]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{tpcFirstContactedPlaceMissing}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="261" y="0" width="100" height="39" uuid="10ad5741-9053-40ed-b71c-c514f0116114"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{tpcFirstContactedNRSS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{tpcFirstContactedWorkerUnableToDetermine}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="43"/>

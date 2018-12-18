@@ -4,26 +4,26 @@ import java.math.BigInteger;
 
 public class Q07bPointInTimeCountHouseholdsLastWednesdayDataBean {
 
-	private BigInteger hhCountJanUht;
-	private BigInteger hhCountJanWc;
-	private BigInteger hhCountJanWca;
-	private BigInteger hhCountJanWoc;
-	private BigInteger hhJanTotal;
-	private BigInteger hhJulTotal;
-	private BigInteger hhOctTotal;
-	private BigInteger hhAprTotal;
-	private BigInteger hhCountAprUht;
-	private BigInteger hhCountAprWc;
-	private BigInteger hhCountAprWca;
-	private BigInteger hhCountAprWoc;
-	private BigInteger hhCountJulUht;
-	private BigInteger hhCountJulWc;
-	private BigInteger hhCountJulWca;
-	private BigInteger hhCountJulWoc;
-	private BigInteger hhCountOctUht;
-	private BigInteger hhCountOctWc;
-	private BigInteger hhCountOctWca;
-	private BigInteger hhCountOctWoc;
+	private BigInteger hhCountJanUht=BigInteger.valueOf(0);
+	private BigInteger hhCountJanWc=BigInteger.valueOf(0);
+	private BigInteger hhCountJanWca=BigInteger.valueOf(0);
+	private BigInteger hhCountJanWoc=BigInteger.valueOf(0);
+	private BigInteger hhJanTotal=BigInteger.valueOf(0);
+	private BigInteger hhJulTotal=BigInteger.valueOf(0);
+	private BigInteger hhOctTotal=BigInteger.valueOf(0);
+	private BigInteger hhAprTotal=BigInteger.valueOf(0);
+	private BigInteger hhCountAprUht=BigInteger.valueOf(0);
+	private BigInteger hhCountAprWc=BigInteger.valueOf(0);
+	private BigInteger hhCountAprWca=BigInteger.valueOf(0);
+	private BigInteger hhCountAprWoc=BigInteger.valueOf(0);
+	private BigInteger hhCountJulUht=BigInteger.valueOf(0);
+	private BigInteger hhCountJulWc=BigInteger.valueOf(0);
+	private BigInteger hhCountJulWca=BigInteger.valueOf(0);
+	private BigInteger hhCountJulWoc=BigInteger.valueOf(0);
+	private BigInteger hhCountOctUht=BigInteger.valueOf(0);
+	private BigInteger hhCountOctWc=BigInteger.valueOf(0);
+	private BigInteger hhCountOctWca=BigInteger.valueOf(0);
+	private BigInteger hhCountOctWoc=BigInteger.valueOf(0);
 	public BigInteger getHhCountJanUht() {
 		return hhCountJanUht;
 	}

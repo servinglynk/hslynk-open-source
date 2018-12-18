@@ -4,25 +4,25 @@ import java.math.BigInteger;
 
 public class Q20bNumberOfNonCashBenefitSourcesDataBean {
 
-	private BigInteger q20bNosourcesAtEntry;
-	private BigInteger q20bNosourcesAtLatestStayers;
-	private BigInteger q20bNosourcesAtExitLeavers;
+	private BigInteger q20bNosourcesAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20bNosourcesAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20bNosourcesAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q20b1PlusSourcesAtEntry;
-	private BigInteger q20b1PlusSourcesAtLatestStayers;
-	private BigInteger q20b1PlusSourcesAtExitLeavers;
+	private BigInteger q20b1PlusSourcesAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20b1PlusSourcesAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20b1PlusSourcesAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q20bDKRAtEntry;
-	private BigInteger q20bDKRAtLatestStayers;
-	private BigInteger q20bDKRAtExitLeavers;
+	private BigInteger q20bDKRAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20bDKRAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20bDKRAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q20bMissingInfoAtEntry;
-	private BigInteger q20bMissingInfoAtLatestStayers;
-	private BigInteger q20bMissingInfoAtExitLeavers;
+	private BigInteger q20bMissingInfoAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20bMissingInfoAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20bMissingInfoAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q20bTotalClientsAtEntry;
-	private BigInteger q20bTotalClientsAtLatestStayers;
-	private BigInteger q20bTotalClientsAtExitLeavers;
+	private BigInteger q20bTotalClientsAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20bTotalClientsAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20bTotalClientsAtExitLeavers=BigInteger.valueOf(0);
 	public BigInteger getQ20bNosourcesAtEntry() {
 		return q20bNosourcesAtEntry;
 	}

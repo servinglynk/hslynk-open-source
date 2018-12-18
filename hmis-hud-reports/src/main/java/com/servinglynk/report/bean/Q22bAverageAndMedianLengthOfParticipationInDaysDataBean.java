@@ -4,11 +4,11 @@ import java.math.BigInteger;
 
 public class Q22bAverageAndMedianLengthOfParticipationInDaysDataBean {
 
-	private BigInteger q22bAverageLengthInDaysLeavers;
-	private BigInteger q22bAverageLengthInDaysStayers;
+	private BigInteger q22bAverageLengthInDaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22bAverageLengthInDaysStayers=BigInteger.valueOf(0);
 		
-	private BigInteger q22bMedianLengthInDaysLeavers;
-	private BigInteger q22bMedianLengthInDaysStayers;
+	private BigInteger q22bMedianLengthInDaysLeavers=BigInteger.valueOf(0);
+	private BigInteger q22bMedianLengthInDaysStayers=BigInteger.valueOf(0);
 	
 	
 	public BigInteger getQ22bAverageLengthInDaysLeavers() {

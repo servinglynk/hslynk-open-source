@@ -4,69 +4,69 @@ import java.math.BigInteger;
 
 public class Q25gTypeOfCashIncomeSourcesVeteransDataBean {
 	
-	private BigInteger q25gEarnedIncomeAtEntry;
-	private BigInteger q25gEarnedIncomeStayers;
-	private BigInteger q25gEarnedIncomeLeavers;
+	private BigInteger q25gEarnedIncomeAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gEarnedIncomeStayers=BigInteger.valueOf(0);
+	private BigInteger q25gEarnedIncomeLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gUnemploymentInsuranceAtEntry;
-	private BigInteger q25gUnemploymentInsuranceStayers;
-	private BigInteger q25gUnemploymentInsuranceLeavers;
+	private BigInteger q25gUnemploymentInsuranceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gUnemploymentInsuranceStayers=BigInteger.valueOf(0);
+	private BigInteger q25gUnemploymentInsuranceLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gSSIAtEntry;
-	private BigInteger q25gSSIStayers;
-	private BigInteger q25gSSILeavers;
+	private BigInteger q25gSSIAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gSSIStayers=BigInteger.valueOf(0);
+	private BigInteger q25gSSILeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gSSDIAtEntry;
-	private BigInteger q25gSSDIStayers;
-	private BigInteger q25gSSDILeavers;
+	private BigInteger q25gSSDIAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gSSDIStayers=BigInteger.valueOf(0);
+	private BigInteger q25gSSDILeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gVAServiceConnectedDisabilityAtEntry;
-	private BigInteger q25gVAServiceConnectedDisabilityStayers;
-	private BigInteger q25gVAServiceConnectedDisabilityLeavers;
+	private BigInteger q25gVAServiceConnectedDisabilityAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gVAServiceConnectedDisabilityStayers=BigInteger.valueOf(0);
+	private BigInteger q25gVAServiceConnectedDisabilityLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gVANonServiceConnectedDisabilityAtEntry;
-	private BigInteger q25gVANonServiceConnectedDisabilityStayers;
-	private BigInteger q25gVANonServiceConnectedDisabilityLeavers;
+	private BigInteger q25gVANonServiceConnectedDisabilityAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gVANonServiceConnectedDisabilityStayers=BigInteger.valueOf(0);
+	private BigInteger q25gVANonServiceConnectedDisabilityLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gPrivateDisabilityInsuranceAtEntry;
-	private BigInteger q25gPrivateDisabilityInsuranceStayers;
-	private BigInteger q25gPrivateDisabilityInsuranceLeavers;
+	private BigInteger q25gPrivateDisabilityInsuranceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gPrivateDisabilityInsuranceStayers=BigInteger.valueOf(0);
+	private BigInteger q25gPrivateDisabilityInsuranceLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gWorkersCompensationAtEntry;
-	private BigInteger q25gWorkersCompensationStayers;
-	private BigInteger q25gWorkersCompensationLeavers;
+	private BigInteger q25gWorkersCompensationAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gWorkersCompensationStayers=BigInteger.valueOf(0);
+	private BigInteger q25gWorkersCompensationLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gTANFAtEntry;
-	private BigInteger q25gTANFStayers;
-	private BigInteger q25gTANFLeavers;
+	private BigInteger q25gTANFAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gTANFStayers=BigInteger.valueOf(0);
+	private BigInteger q25gTANFLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gGeneralAssistanceAtEntry;
-	private BigInteger q25gGeneralAssistanceStayers;
-	private BigInteger q25gGeneralAssistanceLeavers;
+	private BigInteger q25gGeneralAssistanceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gGeneralAssistanceStayers=BigInteger.valueOf(0);
+	private BigInteger q25gGeneralAssistanceLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gRetirementAtEntry;
-	private BigInteger q25gRetirementStayers;
-	private BigInteger q25gRetirementLeavers;
+	private BigInteger q25gRetirementAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gRetirementStayers=BigInteger.valueOf(0);
+	private BigInteger q25gRetirementLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gPensionFromFormerJobAtEntry;
-	private BigInteger q25gPensionFromFormerJobStayers;
-	private BigInteger q25gPensionFromFormerJobLeavers;
+	private BigInteger q25gPensionFromFormerJobAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gPensionFromFormerJobStayers=BigInteger.valueOf(0);
+	private BigInteger q25gPensionFromFormerJobLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gChildSupportAtEntry;
-	private BigInteger q25gChildSupportStayers;
-	private BigInteger q25gChildSupportLeavers;
+	private BigInteger q25gChildSupportAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gChildSupportStayers=BigInteger.valueOf(0);
+	private BigInteger q25gChildSupportLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gAlimonyAtEntry;
-	private BigInteger q25gAlimonyStayers;
-	private BigInteger q25gAlimonyLeavers;
+	private BigInteger q25gAlimonyAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gAlimonyStayers=BigInteger.valueOf(0);
+	private BigInteger q25gAlimonyLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gOtherSourceAtEntry;
-	private BigInteger q25gOtherSourceStayers;
-	private BigInteger q25gOtherSourceLeavers;
+	private BigInteger q25gOtherSourceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gOtherSourceStayers=BigInteger.valueOf(0);
+	private BigInteger q25gOtherSourceLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q25gAdultsWithIncomeInfoAtEntryAtEntry;
-	private BigInteger q25gAdultsWithIncomeInfoAtEntryStayers;
-	private BigInteger q25gAdultsWithIncomeInfoAtEntryLeavers;
+	private BigInteger q25gAdultsWithIncomeInfoAtEntryAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25gAdultsWithIncomeInfoAtEntryStayers=BigInteger.valueOf(0);
+	private BigInteger q25gAdultsWithIncomeInfoAtEntryLeavers=BigInteger.valueOf(0);
 	public BigInteger getQ25gEarnedIncomeAtEntry() {
 		return q25gEarnedIncomeAtEntry;
 	}

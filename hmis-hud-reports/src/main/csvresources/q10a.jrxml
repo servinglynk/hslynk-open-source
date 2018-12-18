@@ -115,7 +115,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[   Gender]]></text>
+					<text><![CDATA[   ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="1" width="65" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="72b51903-eaae-41ab-8992-d67cf40f6224"/>
@@ -143,7 +143,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  c. Unknown household type]]></text>
+					<text><![CDATA[  Unknown household type]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="309" y="1" width="128" height="63" forecolor="#666666" backcolor="#E6E6E6" uuid="71fb27d9-5c21-4702-82c7-4d3193678c73"/>
@@ -157,7 +157,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  b. With children and adults]]></text>
+					<text><![CDATA[  With children and adults]]></text>
 				</staticText>
 			</band>
 			<band height="26">
@@ -173,7 +173,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. Male]]></text>
+					<text><![CDATA[   Male]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d80785df-89ab-469c-931d-0b954889d7bc"/>
@@ -235,7 +235,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  a. Without children]]></text>
+					<text><![CDATA[  Without children]]></text>
 				</staticText>
 			</band>
 			<band height="26">
@@ -251,7 +251,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b. Female]]></text>
+					<text><![CDATA[   Female]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="c4d746fb-a24a-4453-9a4d-f3ba6b465fb0"/>
@@ -315,7 +315,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. Transgender male to female]]></text>
+					<text><![CDATA[   Trans Female (MTF or Male to Female)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="9a65034a-d001-4c64-a4e9-03374de8727c"/>
@@ -379,7 +379,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. Transgender female to male]]></text>
+					<text><![CDATA[   Trans Male (FTM or Female to Male)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="fb75f7b4-c4c6-4456-96c2-95b95587ff91"/>
@@ -443,7 +443,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Doesn't identify as male, female, or transgender]]></text>
+					<text><![CDATA[   Gender Non-Conforming (i.e. not exclusively male or female)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="42" uuid="27368460-c0f5-4202-891f-979afe79c6be"/>
@@ -507,7 +507,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  f. Client Doesn't Know/Client Refused]]></text>
+					<text><![CDATA[  Client Doesn't Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d0ffbd69-bc1f-4aff-9c64-400b32b53e44"/>
@@ -571,7 +571,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  g. Data Not Collected]]></text>
+					<text><![CDATA[  Data Not Collected ]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="0ab49b3e-710f-4c8d-8d46-47f5e42db0ec"/>
@@ -635,7 +635,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  h. Total]]></text>
+					<text><![CDATA[  Subtotal]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="2f97d25b-1ce2-42c3-a39d-926fe967638e"/>

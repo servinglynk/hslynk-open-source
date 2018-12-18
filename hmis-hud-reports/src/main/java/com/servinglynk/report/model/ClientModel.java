@@ -1,8 +1,8 @@
 package com.servinglynk.report.model;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class ClientModel {
+public class ClientModel extends BaseModel{
 	public ClientModel() {
 		
 	}
@@ -13,10 +13,10 @@ public class ClientModel {
 			String gender, String gender_desc, String other_gender,
 			String ethnicity, String ethnicity_desc, String race,
 			String race_desc, String veteran_status,
-			String client_source_system_id) {
+			String client_source_system_id, int age) {
 		super();
 		PersonalID = personalID;
-		this.dedup_client_id = dedup_client_id;
+		this.dedupClientId = dedup_client_id;
 		this.name_data_quality = name_data_quality;
 		this.name_data_quality_desc = name_data_quality_desc;
 		this.ssn_data_quality = ssn_data_quality;
@@ -33,9 +33,11 @@ public class ClientModel {
 		this.race_desc = race_desc;
 		this.veteran_status = veteran_status;
 		this.client_source_system_id = client_source_system_id;
+		this.age = age;
 	}
+	private int age =0;
 	private String PersonalID;
-	private String dedup_client_id;
+	private String dedupClientId;
 	private String name_data_quality;
 	private String name_data_quality_desc; 
 	private String ssn_data_quality;
@@ -67,14 +69,14 @@ public class ClientModel {
 	/**
 	 * @return the dedup_client_id
 	 */
-	public String getDedup_client_id() {
-		return dedup_client_id;
+	public String getDedupClientId() {
+		return dedupClientId;
 	}
 	/**
 	 * @param dedup_client_id the dedup_client_id to set
 	 */
-	public void setDedup_client_id(String dedup_client_id) {
-		this.dedup_client_id = dedup_client_id;
+	public void setDedupClientId(String dedup_client_id) {
+		this.dedupClientId = dedup_client_id;
 	}
 	/**
 	 * @return the name_data_quality
@@ -135,6 +137,18 @@ public class ClientModel {
 	 */
 	public void setDob(Date dob) {
 		this.dob = dob;
+	}
+	/**
+	 * @return the dob
+	 */
+	public int getAge() {
+		return age;
+	}
+	/**
+	 * @param dob the dob to set
+	 */
+	public void setAge(int dob) {
+		this.age = dob;
 	}
 	/**
 	 * @return the dob_data_quality

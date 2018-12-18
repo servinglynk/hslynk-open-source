@@ -4,35 +4,35 @@ import java.math.BigInteger;
 
 public class Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean {
 	
-	private BigInteger q26bChronicallyHomelessTotal;
-	private BigInteger q26bChronicallyHomelessWithoutChild;
-	private BigInteger q26bChronicallyHomelessWithChildAndAdults;
-	private BigInteger q26bChronicallyHomelessWithOnlyChild;
-	private BigInteger q26bChronicallyHomelessUnknownHouseholdType;
+	private BigInteger q26bChronicallyHomelessTotal=BigInteger.valueOf(0);
+	private BigInteger q26bChronicallyHomelessWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26bChronicallyHomelessWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26bChronicallyHomelessWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26bChronicallyHomelessUnknownHouseholdType=BigInteger.valueOf(0);
 
-	private BigInteger q26bNotChronicallyHomelessTotal;
-	private BigInteger q26bNotChronicallyHomelessWithoutChild;
-	private BigInteger q26bNotChronicallyHomelessWithChildAndAdults;
-	private BigInteger q26bNotChronicallyHomelessWithOnlyChild;
-	private BigInteger q26bNotChronicallyHomelessUnknownHouseholdType;
+	private BigInteger q26bNotChronicallyHomelessTotal=BigInteger.valueOf(0);
+	private BigInteger q26bNotChronicallyHomelessWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26bNotChronicallyHomelessWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26bNotChronicallyHomelessWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26bNotChronicallyHomelessUnknownHouseholdType=BigInteger.valueOf(0);
 
-	private BigInteger q26bClientRefusedTotal;
-	private BigInteger q26bClientRefusedWithoutChild;
-	private BigInteger q26bClientRefusedWithChildAndAdults;
-	private BigInteger q26bClientRefusedWithOnlyChild;
-	private BigInteger q26bClientRefusedUnknownHouseholdType;
+	private BigInteger q26bClientRefusedTotal=BigInteger.valueOf(0);
+	private BigInteger q26bClientRefusedWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26bClientRefusedWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26bClientRefusedWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26bClientRefusedUnknownHouseholdType=BigInteger.valueOf(0);
 
-	private BigInteger q26bDataNotCollectedTotal;
-	private BigInteger q26bDataNotCollectedWithoutChild;
-	private BigInteger q26bDataNotCollectedWithChildAndAdults;
-	private BigInteger q26bDataNotCollectedWithOnlyChild;
-	private BigInteger q26bDataNotCollectedUnknownHouseholdType;
+	private BigInteger q26bDataNotCollectedTotal=BigInteger.valueOf(0);
+	private BigInteger q26bDataNotCollectedWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26bDataNotCollectedWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26bDataNotCollectedWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26bDataNotCollectedUnknownHouseholdType=BigInteger.valueOf(0);
 
-	private BigInteger q26bTotTotal;
-	private BigInteger q26bTotWithoutChild;
-	private BigInteger q26bTotWithChildAndAdults;
-	private BigInteger q26bTotWithOnlyChild;
-	private BigInteger q26bTotUnknownHouseholdType;
+	private BigInteger q26bTotTotal=BigInteger.valueOf(0);
+	private BigInteger q26bTotWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q26bTotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q26bTotWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q26bTotUnknownHouseholdType=BigInteger.valueOf(0);
 	public BigInteger getQ26bChronicallyHomelessTotal() {
 		return q26bChronicallyHomelessTotal;
 	}

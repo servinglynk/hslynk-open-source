@@ -1,8 +1,8 @@
 package com.servinglynk.report.model;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class EnrollmentModel {
+public class EnrollmentModel extends BaseModel {
 	public EnrollmentModel() {}
 	public EnrollmentModel(String projectEntryID,
 			String continuouslyhomelessoneyear, String disablingcondition,
@@ -17,7 +17,8 @@ public class EnrollmentModel {
 			String timeshomelesspastthreeyears,
 			String timeshomelesspastthreeyears_desc, String yearshomeless,
 			String personalID, int ageatentry, boolean chronichomeless,
-			String enrollment_source_system_id,Date dateCreatedFromSource) {
+			String enrollment_source_system_id,Date dateCreatedFromSource, String livingSituation,Date datetostreetessh,
+			String dedupClientId) {
 		super();
 		this.projectEntryID = projectEntryID;
 		this.continuouslyhomelessoneyear = continuouslyhomelessoneyear;
@@ -46,6 +47,9 @@ public class EnrollmentModel {
 		this.ageatentry = ageatentry;
 		this.chronichomeless = chronichomeless;
 		this.enrollment_source_system_id = enrollment_source_system_id;
+		this.livingSituation = livingSituation;
+		this.datetostreetessh = datetostreetessh;
+		this.dedupClientId = dedupClientId;
 	}
 	private String projectEntryID;
 	private String continuouslyhomelessoneyear;
@@ -74,6 +78,9 @@ public class EnrollmentModel {
 	private int ageatentry;
 	private boolean chronichomeless;
 	private String enrollment_source_system_id;
+	private String livingSituation;
+	private Date datetostreetessh;
+	private String dedupClientId;
 	/**
 	 * @return the projectEntryID
 	 */
@@ -395,6 +402,29 @@ public class EnrollmentModel {
 	public void setEnrollment_source_system_id(String enrollment_source_system_id) {
 		this.enrollment_source_system_id = enrollment_source_system_id;
 	}
-	
+	public String getLivingSituation() {
+		return livingSituation;
+	}
+	public void setLivingSituation(String livingSituation) {
+		this.livingSituation = livingSituation;
+	}
+	public Date getDatetostreetessh() {
+		return datetostreetessh;
+	}
+	public void setDatetostreetessh(Date datetostreetessh) {
+		this.datetostreetessh = datetostreetessh;
+	}
+	/**
+	 * @return the dedupClientId
+	 */
+	public String getDedupClientId() {
+		return dedupClientId;
+	}
+	/**
+	 * @param dedupClientId the dedupClientId to set
+	 */
+	public void setDedupClientId(String dedupClientId) {
+		this.dedupClientId = dedupClientId;
+	}
 	
 }

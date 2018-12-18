@@ -4,69 +4,71 @@ import java.math.BigInteger;
 
 public class Q21HealthInsuranceDataBean {
 	
-	private BigInteger q21AMedicaidHealthInsuranceAtEntry;
-	private BigInteger q21AMedicaidHealthInsuranceAtLatestStayers;
-	private BigInteger q21AMedicaidHealthInsuranceAtExitLeavers;
+	private BigInteger q21AMedicaidHealthInsuranceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21AMedicaidHealthInsuranceAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21AMedicaidHealthInsuranceAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q21BMedicaidHealthInsuranceAtEntry;
-	private BigInteger q21BMedicaidHealthInsuranceAtLatestStayers;
-	private BigInteger q21BMedicaidHealthInsuranceAtExitLeavers;
+	private BigInteger q21BMedicaidHealthInsuranceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21BMedicaidHealthInsuranceAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21BMedicaidHealthInsuranceAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q21CStateChildHealthInsuranceAtEntry;
-	private BigInteger q21CStateChildHealthInsuranceAtLatestStayers;
-	private BigInteger q21CStateChildHealthInsuranceAtExitLeavers;
+	private BigInteger q21CStateChildHealthInsuranceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21CStateChildHealthInsuranceAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21CStateChildHealthInsuranceAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q21DVAMedicalServicesAtEntry;
-	private BigInteger q21DVAMedicalServicesAtLatestStayers;
-	private BigInteger q21DVAMedicalServicesAtExitLeavers;
+	private BigInteger q21DVAMedicalServicesAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21DVAMedicalServicesAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21DVAMedicalServicesAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q21EEmployerProvidedHealthInsuranceAtEntry;
-	private BigInteger q21EEmployerProvidedHealthInsuranceAtLatestStayers;
-	private BigInteger q21EEmployerProvidedHealthInsuranceAtExitLeavers;
+	private BigInteger q21EEmployerProvidedHealthInsuranceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21EEmployerProvidedHealthInsuranceAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21EEmployerProvidedHealthInsuranceAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q21FHealthInsuranceThroughCobraAtEntry;
-	private BigInteger q21FHealthInsuranceThroughCobraAtLatestStayers;
-	private BigInteger q21FHealthInsuranceThroughCobraAtExitLeavers;
+	private BigInteger q21FHealthInsuranceThroughCobraAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21FHealthInsuranceThroughCobraAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21FHealthInsuranceThroughCobraAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q21GPrivatePayHealthInsuranceAtEntry;
-	private BigInteger q21GPrivatePayHealthInsuranceAtLatestStayers;
-	private BigInteger q21GPrivatePayHealthInsuranceAtExitLeavers;
+	private BigInteger q21GPrivatePayHealthInsuranceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21GPrivatePayHealthInsuranceAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21GPrivatePayHealthInsuranceAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q21HStateHealthInsuranceForAdultsAtEntry;
-	private BigInteger q21HStateHealthInsuranceForAdultsAtLatestStayers;
-	private BigInteger q21HStateHealthInsuranceForAdultsAtExitLeavers;
+	private BigInteger q21HStateHealthInsuranceForAdultsAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21HStateHealthInsuranceForAdultsAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21HStateHealthInsuranceForAdultsAtExitLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q21IIndianHealthServicesProgramAtEntry;
-	private BigInteger q21IIndianHealthServicesProgramAtLatestStayers;
-	private BigInteger q21IIndianHealthServicesProgramAtExitLeavers;
+	private BigInteger q21IIndianHealthServicesProgramAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21IIndianHealthServicesProgramAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21IIndianHealthServicesProgramAtExitLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q21JOtherAtEntry;
-	private BigInteger q21JOtherAtLatestStayers;
-	private BigInteger q21JOtherAtExitLeavers;
+	private BigInteger q21JOtherAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21JOtherAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21JOtherAtExitLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q21KNoHealthInsuranceAtEntry;
-	private BigInteger q21KNoHealthInsuranceAtLatestStayers;
-	private BigInteger q21KNoHealthInsuranceAtExitLeavers;
+	private BigInteger q21KNoHealthInsuranceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21KNoHealthInsuranceAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21KNoHealthInsuranceAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q21LClientRefusedAtEntry;
-	private BigInteger q21LClientRefusedAtLatestStayers;
-	private BigInteger q21LClientRefusedAtExitLeavers;
+	private BigInteger q21LClientRefusedAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21LClientRefusedAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21LClientRefusedAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q21MDataNotCollectedAtEntry;
-	private BigInteger q21MDataNotCollectedAtLatestStayers;
-	private BigInteger q21MDataNotCollectedAtExitLeavers;
+	private BigInteger q21MDataNotCollectedAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21MDataNotCollectedAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21MDataNotCollectedAtExitLeavers=BigInteger.valueOf(0);
 			
-	private BigInteger q21NNoOfAdultStayersNotRequiredAtEntry;
-	private BigInteger q21NNoOfAdultStayersNotRequiredAtLatestStayers;
-	private BigInteger q21NNoOfAdultStayersNotRequiredAtExitLeavers;
+	private BigInteger q21NNoOfAdultStayersNotRequiredAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21NNoOfAdultStayersNotRequiredAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21NNoOfAdultStayersNotRequiredAtExitLeavers=BigInteger.valueOf(0);
 			
-	private BigInteger q21O1SourceOfHealthInsuranceAtEntry;
-	private BigInteger q21O1SourceOfHealthInsuranceAtLatestStayers;
-	private BigInteger q21O1SourceOfHealthInsuranceAtExitLeavers;
+	private BigInteger q21O1SourceOfHealthInsuranceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21O1SourceOfHealthInsuranceAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21O1SourceOfHealthInsuranceAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtEntry;
-	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtLatestStayers;
-	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtExitLeavers;
+	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q21PMoreThan1SourceOfHealthInsuranceAtExitLeavers=BigInteger.valueOf(0);
+
+	
 	public BigInteger getQ21AMedicaidHealthInsuranceAtEntry() {
 		return q21AMedicaidHealthInsuranceAtEntry;
 	}
