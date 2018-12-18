@@ -11,6 +11,11 @@ public class Properties {
     public static String IMPALA_USERNAME;
     public static String IMPALA_PASSWORD;
     public static String IMPALA_DRIVER_URL;
+    public static String POSTGRESQL_DB_HOST;
+    public static String POSTGRESQL_DB_PORT;
+    public static String POSTGRESQL_DB_DATABASE;
+    public static String POSTGRESQL_DB_USERNAME;
+    public static String POSTGRESQL_DB_PASSWORD;
 
 
     public void generatePropValues() throws Exception {
@@ -33,6 +38,12 @@ public class Properties {
             IMPALA_USERNAME = prop.getProperty("connection.username");
             IMPALA_PASSWORD = prop.getProperty("connection.password");
             IMPALA_DRIVER_URL= prop.getProperty("connection.url");
+            
+            POSTGRESQL_DB_HOST = prop.getProperty("posgresql.db.host");
+            POSTGRESQL_DB_PORT = prop.getProperty("posgresql.db.port");
+            POSTGRESQL_DB_DATABASE = prop.getProperty("posgresql.db.database");
+            POSTGRESQL_DB_USERNAME = prop.getProperty("posgresql.db.username");
+            POSTGRESQL_DB_PASSWORD = prop.getProperty("posgresql.db.password");
 
         } catch (Exception e) {
             System.out.println("Exception: " + e);

@@ -1,4 +1,4 @@
-package com.servinglynk.hmis.warehouse;
+package com.servinglynk.hive.connection;
 
 import java.util.Calendar;
 import java.util.Properties;
@@ -25,7 +25,7 @@ public class SendEmail {
 	static MimeMessage generateMailMessage;
  
 	public static void main(String args[]) throws AddressException, MessagingException {
-		generateAndSendEmail("sandeep.dolia@gmail.com",null);
+		generateAndSendEmail("sandeep.dolia@gmail.com","/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/Archive.zip");
 		System.out.println("\n\n ===> Your Java Program has just sent an Email successfully. Check your email..");
 	}
  
