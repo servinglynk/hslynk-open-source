@@ -4,35 +4,35 @@ import java.math.BigInteger;
 
 public class Q14bPersonsFleeingDomesticViolenceDataBean {
 	
-	private BigInteger q14bYesTotal;
-	private BigInteger q14bYesWithoutChildren;
-	private BigInteger q14bYesWithChildAndAdults;
-	private BigInteger q14bYesWithOnlyChildren;
-	private BigInteger q14bYesUnknownHouseholdType;
+	private BigInteger q14bYesTotal=BigInteger.valueOf(0);
+	private BigInteger q14bYesWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q14bYesWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q14bYesWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q14bYesUnknownHouseholdType=BigInteger.valueOf(0);
 	
-	private BigInteger q14bNoTotal;
-	private BigInteger q14bNoWithoutChildren;
-	private BigInteger q14bNoWithChildAndAdults;
-	private BigInteger q14bNoWithOnlyChildren;
-	private BigInteger q14bNoUnknownHouseholdType;
+	private BigInteger q14bNoTotal=BigInteger.valueOf(0);
+	private BigInteger q14bNoWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q14bNoWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q14bNoWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q14bNoUnknownHouseholdType=BigInteger.valueOf(0);
 	
-	private BigInteger q14bDKRTotal;
-	private BigInteger q14bDKRWithoutChildren;
-	private BigInteger q14bDKRWithChildAndAdults;
-	private BigInteger q14bDKRWithOnlyChildren;
-	private BigInteger q14bDKRUnknownHouseholdType;
+	private BigInteger q14bDKRTotal=BigInteger.valueOf(0);
+	private BigInteger q14bDKRWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q14bDKRWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q14bDKRWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q14bDKRUnknownHouseholdType=BigInteger.valueOf(0);
 
-	private BigInteger q14bInformationMissingTotal;
-	private BigInteger q14bInformationMissingWithoutChildren;
-	private BigInteger q14bInformationMissingWithChildAndAdults;
-	private BigInteger q14bInformationMissingWithOnlyChildren;
-	private BigInteger q14bInformationMissingUnknownHouseholdType;
+	private BigInteger q14bInformationMissingTotal=BigInteger.valueOf(0);
+	private BigInteger q14bInformationMissingWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q14bInformationMissingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q14bInformationMissingWithOnlyChildren=BigInteger.valueOf(0);
+	private BigInteger q14bInformationMissingUnknownHouseholdType=BigInteger.valueOf(0);
 	
-	private BigInteger q14bTotalSummed;
-	private BigInteger q14bTotalWithoutChildren;
-	private BigInteger q14bTotalWithChildAndAdults;
-	private BigInteger q14bTotalWithOnlychildren;
-	private BigInteger q14bTotalUnknowHousehold;
+	private BigInteger q14bTotalSummed=BigInteger.valueOf(0);
+	private BigInteger q14bTotalWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q14bTotalWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q14bTotalWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q14bTotalUnknowHousehold=BigInteger.valueOf(0);
 	public BigInteger getQ14bYesTotal() {
 		return q14bYesTotal;
 	}

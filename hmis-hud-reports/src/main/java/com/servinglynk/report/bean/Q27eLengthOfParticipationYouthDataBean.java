@@ -4,53 +4,53 @@ import java.math.BigInteger;
 
 public class Q27eLengthOfParticipationYouthDataBean {
 	
-	private BigInteger q27e30DaysOrLessAtEntry;
-	private BigInteger q27e30DaysOrLessStayers;
-	private BigInteger q27e30DaysOrLessLeavers;
+	private BigInteger q27e30DaysOrLessAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27e30DaysOrLessStayers=BigInteger.valueOf(0);
+	private BigInteger q27e30DaysOrLessLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q27e31To60DaysAtEntry;
-	private BigInteger q27e31To60DaysStayers;
-	private BigInteger q27e31To60DaysLeavers;
+	private BigInteger q27e31To60DaysAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27e31To60DaysStayers=BigInteger.valueOf(0);
+	private BigInteger q27e31To60DaysLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q27e61To90DaysAtEntry;
-	private BigInteger q27e61To90DaysStayers;
-	private BigInteger q27e61To90DaysLeavers;
+	private BigInteger q27e61To90DaysAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27e61To90DaysStayers=BigInteger.valueOf(0);
+	private BigInteger q27e61To90DaysLeavers=BigInteger.valueOf(0);
 	
-	private BigInteger q27e91To180DaysAtEntry;
-	private BigInteger q27e91To180DaysStayers;
-	private BigInteger q27e91To180DaysLeavers;
+	private BigInteger q27e91To180DaysAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27e91To180DaysStayers=BigInteger.valueOf(0);
+	private BigInteger q27e91To180DaysLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q27e181To365DaysAtEntry;
-	private BigInteger q27e181To365DaysStayers;
-	private BigInteger q27e181To365DaysLeavers;
+	private BigInteger q27e181To365DaysAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27e181To365DaysStayers=BigInteger.valueOf(0);
+	private BigInteger q27e181To365DaysLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q27e366To730DaysAtEntry;
-	private BigInteger q27e366To730DaysStayers;
-	private BigInteger q27e366To730DaysLeavers;
+	private BigInteger q27e366To730DaysAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27e366To730DaysStayers=BigInteger.valueOf(0);
+	private BigInteger q27e366To730DaysLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q27e731To1095DaysAtEntry;
-	private BigInteger q27e731To1095DaysStayers;
-	private BigInteger q27e731To1095DaysLeavers;
+	private BigInteger q27e731To1095DaysAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27e731To1095DaysStayers=BigInteger.valueOf(0);
+	private BigInteger q27e731To1095DaysLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q27e1096To1460DaysAtEntry;
-	private BigInteger q27e1096To1460DaysStayers;
-	private BigInteger q27e1096To1460DaysLeavers;
+	private BigInteger q27e1096To1460DaysAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27e1096To1460DaysStayers=BigInteger.valueOf(0);
+	private BigInteger q27e1096To1460DaysLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q27e1461To1825DaysAtEntry;
-	private BigInteger q27e1461To1825DaysStayers;
-	private BigInteger q27e1461To1825DaysLeavers;
+	private BigInteger q27e1461To1825DaysAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27e1461To1825DaysStayers=BigInteger.valueOf(0);
+	private BigInteger q27e1461To1825DaysLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q27eMoreThan1825DaysAtEntry;
-	private BigInteger q27eMoreThan1825DaysStayers;
-	private BigInteger q27eMoreThan1825DaysLeavers;
+	private BigInteger q27eMoreThan1825DaysAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27eMoreThan1825DaysStayers=BigInteger.valueOf(0);
+	private BigInteger q27eMoreThan1825DaysLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q27eInformationMissingAtEntry;
-	private BigInteger q27eInformationMissingStayers;
-	private BigInteger q27eInformationMissingLeavers;
+	private BigInteger q27eInformationMissingAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27eInformationMissingStayers=BigInteger.valueOf(0);
+	private BigInteger q27eInformationMissingLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q27eTotalAtEntry;
-	private BigInteger q27eTotalStayers;
-	private BigInteger q27eTotalLeavers;
+	private BigInteger q27eTotalAtEntry=BigInteger.valueOf(0);
+	private BigInteger q27eTotalStayers=BigInteger.valueOf(0);
+	private BigInteger q27eTotalLeavers=BigInteger.valueOf(0);
 	public BigInteger getQ27e30DaysOrLessAtEntry() {
 		return q27e30DaysOrLessAtEntry;
 	}

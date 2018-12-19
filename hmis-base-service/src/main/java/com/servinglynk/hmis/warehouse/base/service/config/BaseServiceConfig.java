@@ -13,6 +13,7 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
+import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.base.service.core.security.LocalApiAuthChecker;
@@ -35,6 +36,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl
 import com.servinglynk.hmis.warehouse.base.service.impl.PermissionSetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ProfileServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ProjectGroupServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.ReportConfigServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.RoleServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.SessionServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.TrustedAppServiceImpl;
@@ -202,6 +204,10 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public BulkUploadService bulkUploadService() {
 		 return new BulkUploadServiceImpl();
+	 }
+	 @Bean
+	 public ReportConfigService reportConfigService() {
+		 return new ReportConfigServiceImpl();
 	 }
 	 
 	 @Bean

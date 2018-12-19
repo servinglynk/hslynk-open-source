@@ -1,9 +1,9 @@
-Special need,At Entry,Stayers,Leavers
-   a. Mental illness,0,0,0
-   b. Alcohol Abuse,0,0,0
-   c. Drug Abuse,0,0,0
-   d. Both Alcohol Abuse and Drug ,0,0,0
-   e. Chronic Health Condition,0,0,0
-   f. HIV/AIDS and related diseases,0,0,0
-   g. Developmental Disability,0,0,0
-   h. Physical Disability,0,0,0
+,Conditions At Start,Conditions at Latest Assessment for Stayers,Conditions at Exit for Leavers
+   a. Mental Health Problem,28,0,0
+   b. Alcohol Abuse,5,0,0
+   c. Drug Abuse,2,0,0
+   d. Both Alcohol Abuse and Drug ,1,0,0
+   e. Chronic Health Condition,28,0,0
+   f. HIV/AIDS and related diseases,27,0,0
+   g. Developmental Disability,28,0,0
+   h. Physical Disability,28,0,0

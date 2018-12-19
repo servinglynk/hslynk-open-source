@@ -133,24 +133,53 @@ with (
   oids=false
 );
 
+CREATE TYPE "base".report_type AS ENUM (
+'APR',
+'AHAR',
+'CAPER');
+
+CREATE TYPE "base".report_level AS ENUM (
+'COC',
+'PROJECT');
 
 CREATE TABLE base.report_config
 (
   id serial NOT NULL,
   name character varying(512) NOT NULL,
-  report_type character varying(512) NOT NULL,
-  report_level character varying(512) NOT NULL,
+  report_type "base".report_type,
+  report_level "base".report_level,
   status character varying(50),
   start_date  timestamp NOT NULL,
-  end_date  timestamp NOT NULL,
+  end_date  timestamp,
   coc_id uuid,
-  date_created timestamp NOT NULL,
-  date_updated timestamp,
-  created_by character varying(256) NOT NULL,
-  modified_by character varying(256),
+  project_group_code character varying(8),
+  date_created timestamp NOT NULL default CURRENT_TIMESTAMP,
+  date_updated timestamp default CURRENT_TIMESTAMP,
+  created_by character varying(256),
+  updated_by character varying(256),
   email_sent boolean default false,
   deleted boolean default false,
   CONSTRAINT "PK_REPORT_CONFIG" PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+create table base.report_config_param
+( id serial NOT NULL,
+  report_config_id bigint,
+  key character varying(512) NOT NULL,
+  value character varying(512) NOT NULL,
+  status character varying(50),
+  date_created timestamp NOT NULL default CURRENT_TIMESTAMP,
+  date_updated timestamp default CURRENT_TIMESTAMP,
+  created_by character varying(256),
+  updated_by character varying(256),
+  deleted boolean default false,
+  CONSTRAINT "PK_REPORT_CONFIG_PARAM" PRIMARY KEY (id),
+   CONSTRAINT "FK_REPORT_CONFIG_PARAM" FOREIGN KEY (report_config_id)
+      REFERENCES base.report_config (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
@@ -791,6 +820,10 @@ INSERT INTO base.hmis_api_method(id,external_id,friendly_name,description,type,c
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name,description, type,created_at,created_by,api_group_id,is_public,requires_access_token,requires_check_trustedapp)VALUES ((SELECT uuid_in(md5(random()::text || now()::text)::cstring)),'SURVEY_API_GET_ALL_RESPONSE','SURVEY_API_GET_ALL_RESPONSE','SURVEY_API_GET_ALL_RESPONSE','GET',current_date, 'MASTER DATA','bf1fcd6a-bb4e-4c6f-4e54-b3d8fbe73fb8',FALSE,TRUE,TRUE);
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name,description,type,created_at,created_by,api_group_id,is_public,requires_access_token,requires_check_trustedapp)VALUES ((SELECT uuid_in(md5(random()::text || now()::text)::cstring)),'SURVEY_API_GET_ALL_SECTION_SCORES','SURVEY_API_GET_ALL_SECTION_SCORES','SURVEY_API_GET_ALL_SECTION_SCORES','GET',current_date,'MASTER DATA','bf1fcd6a-bb4e-4c6f-4e54-b3d8fbe73fb8',FALSE,TRUE,TRUE);
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name,description,type,created_at,created_by,api_group_id,is_public,requires_access_token,requires_check_trustedapp)VALUES ((SELECT uuid_in(md5(random()::text || now()::text)::cstring)),'SURVEY_API_DELETE_SECTION_SCORES','SURVEY_API_DELETE_SECTION_SCORES','SURVEY_API_DELETE_SECTION_SCORES','DELETE',current_date,'MASTER DATA','bf1fcd6a-bb4e-4c6f-4e54-b3d8fbe73fb8',FALSE,TRUE,TRUE);
+
+INSERT INTO base.hmis_api_method VALUES ('754ee226-2f0f-9691-d164-fd0499832bc7', 'CREATE_REPORT_CONFIG', 'CREATE_REPORT_CONFIG', 'CREATE_REPORT_CONFIG', 'POST', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
+INSERT INTO base.hmis_api_method VALUES ('754ee226-2f0f-9691-d164-fd0499832bc8', 'GET_REPORT_CONFIG_BY_USER', 'GET_REPORT_CONFIG_BY_USER', 'GET_REPORT_CONFIG_BY_USER', 'GET', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
+INSERT INTO base.hmis_api_method VALUES ('754ee226-2f0f-9691-d164-fd0499832bc9', 'GET_REPORT_CONFIG_BY_ID', 'GET_REPORT_CONFIG_BY_ID', 'GET_REPORT_CONFIG_BY_ID', 'GET', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
 
 
 CREATE TABLE base.hmis_developer_company

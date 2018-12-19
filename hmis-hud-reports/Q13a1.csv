@@ -1,9 +1,9 @@
-   Special need,Total,  a. Without children,  b. With children and adults,c. With only children,  d. Unknown household type
-   a. Mental illness,0,0,0,0,0
-   b. Alcohol abuse,0,0,0,0,0
-   c. Drug abuse,0,0,0,0,0
-   d. Both alcohol and drug abuse,0,0,0,0,0
-   e. Chronic health condition,0,0,0,0,0
-   f. HIV/AIDS and related diseases,0,0,0,0,0
-   g. Developmental disability,0,0,0,0,0
-   h. Physical disability,0,0,0,0,0
+,Total,  a. Without children,  b. With children and adults,c. With only children,  d. Unknown household type
+   a. Mental illness,295,295,0,0,0
+   b. Alcohol abuse,23,23,0,0,0
+   c. Drug abuse,30,30,0,0,0
+   d. Both alcohol and drug abuse,27,27,0,0,0
+   e. Chronic health condition,295,295,0,0,0
+   f. HIV/AIDS and related diseases,294,294,0,0,0
+   g. Developmental disability,295,295,0,0,0
+   h. Physical disability,295,295,0,0,0

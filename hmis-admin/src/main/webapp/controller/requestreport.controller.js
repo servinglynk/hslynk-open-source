@@ -3,10 +3,13 @@ app.controller('requestreportCtrl',['$scope','$location','$routeSegment','$http'
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
-										 
+	$scope.sessionToken = $sessionStorage.sessionToken;								 
 	Service.GetProjectList($http,
     //success
-    function(data){$scope.projects =data;  })
+    function(data){$scope.projects =data;  },//error
+	function(){$scope.errorTextAlert = "Error, Something gone wrong with getting projects.";
+	$scope.showErrorAlert = true;},
+	$scope)
 											   
 											   
   $scope.submitForm = function() {
@@ -17,10 +20,12 @@ app.controller('requestreportCtrl',['$scope','$location','$routeSegment','$http'
 	
 		$scope.successTextAlert = "Your Requset has been sent successfully.";
 		$scope.showSuccessAlert = true;
-		$scope.form.email='';
-		$scope.form.report='';
-		$scope.form.year='';
-		$scope.form.project='';
+		$scope.form.name='';
+		$scope.form.reportLevel='';
+		$scope.form.reportType='';
+		$scope.form.startDate='';
+		$scope.form.endDate='';
+		$scope.form.project=[];
 		
 
 },

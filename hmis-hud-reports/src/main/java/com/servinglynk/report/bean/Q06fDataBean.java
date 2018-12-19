@@ -4,12 +4,12 @@ import java.math.BigInteger;
 
 public class Q06fDataBean {
 	
-	private BigInteger contactNumberOfRecords;
-	private BigInteger contactNumberOfInactiveRecords;
-	private BigInteger contactPercentOfInactiveRecords;
-	private BigInteger bedNightNumberOfRecords;
-	private BigInteger bedNightNumberOfInactiveRecords;
-	private BigInteger bedNightPercentOfInactiveRecords;
+	private BigInteger contactNumberOfRecords=BigInteger.valueOf(0);
+	private BigInteger contactNumberOfInactiveRecords=BigInteger.valueOf(0);
+	private BigInteger contactPercentOfInactiveRecords=BigInteger.valueOf(0);
+	private BigInteger bedNightNumberOfRecords=BigInteger.valueOf(0);
+	private BigInteger bedNightNumberOfInactiveRecords=BigInteger.valueOf(0);
+	private BigInteger bedNightPercentOfInactiveRecords=BigInteger.valueOf(0);
 	public BigInteger getContactNumberOfRecords() {
 		return contactNumberOfRecords;
 	}

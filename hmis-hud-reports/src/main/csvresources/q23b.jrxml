@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d1a911df-e2d4-48bb-b49b-bca01993daf0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1288"/>
+	<property name="ireport.y" value="0"/>
 	<field name="q23BAPermanentDestinationsTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q23BAPermanentDestinationsTotal]]></fieldDescription>
 	</field>
@@ -618,6 +618,21 @@
 	<field name="q23BPercentageTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q23BPercentageTotal]]></fieldDescription>
 	</field>
+	<field name="q23B13RentalByClientRRHSubsidyTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q23B13RentalByClientRRHSubsidyTotal]]></fieldDescription>
+	</field>
+	<field name="q23B13RentalByClientRRHSubsidyWithoutChild" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q23B13RentalByClientRRHSubsidyWithoutChild]]></fieldDescription>
+	</field>
+	<field name="q23B13RentalByClientRRHSubsidyUnknownHouseHold" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q23B13RentalByClientRRHSubsidyUnknownHouseHold]]></fieldDescription>
+	</field>
+	<field name="q23B13RentalByClientRRHSubsidyWithOnlyChild" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q23B13RentalByClientRRHSubsidyWithOnlyChild]]></fieldDescription>
+	</field>
+	<field name="q23B13RentalByClientRRHSubsidyWithChildAndAdults" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q23B13RentalByClientRRHSubsidyWithChildAndAdults]]></fieldDescription>
+	</field>
 	<group name="Group5">
 		<groupFooter>
 			<band height="49">
@@ -847,7 +862,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Owned by client, no ongoing subsidy]]></text>
+					<text><![CDATA[   Owned by client, no ongoing housing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="7852b012-f514-4921-ad12-9082cffb113f"/>
@@ -923,7 +938,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Owned by client, with ongoing subsidy]]></text>
+					<text><![CDATA[   Owned by client, with ongoing housing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="32d423d0-0ede-4554-a768-db0b001a6447"/>
@@ -999,7 +1014,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[    Rental by client, no ongoing subsidy]]></text>
+					<text><![CDATA[   Rental by client, no ongoing housing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="c7d5be07-3222-4932-949c-8dd9544a9faf"/>
@@ -1075,7 +1090,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Rental by client, with VASH subsidy]]></text>
+					<text><![CDATA[   Rental by client, with VASH housing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="dde278ca-dc2a-4983-ac73-3b5e7b852038"/>
@@ -1151,7 +1166,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Rental by client, with GPD TIP subsidy]]></text>
+					<text><![CDATA[   Rental by client, with GPD TIP housing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="af4c2236-71f4-42b3-a536-57a99dd00d5a"/>
@@ -1227,7 +1242,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Rental by client, other ongoing subsidy]]></text>
+					<text><![CDATA[   Rental by client, with other ongoing housing subsidy]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="a6ae5037-a602-451f-b2df-342c99417ec3"/>
@@ -1303,7 +1318,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   PH for formerly homeless persons]]></text>
+					<text><![CDATA[   Permanent housing (other than RRH) for formerly homeless persons]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="31948a32-1df9-40b5-857d-62e646c77fda"/>
@@ -1518,6 +1533,82 @@
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{q23BAzTotWithChildAndAdults}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="8aa609fe-a6bb-4407-8d7a-0619a2de3b36"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Rental by client, with RRH or equivalent subsidy]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="93" height="26" uuid="601f5db3-8d3b-4307-a3a4-891b02c27a3a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q23B13RentalByClientRRHSubsidyWithoutChild}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="b29e26c4-8620-4a02-8d45-7092c6816317"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q23B13RentalByClientRRHSubsidyTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="462" y="0" width="93" height="26" uuid="0c3eaf9c-f7d2-4de7-89cc-a946048ebc8b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q23B13RentalByClientRRHSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="97" height="26" uuid="04f0e709-d377-4007-9f3e-daa5b72e8d15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q23B13RentalByClientRRHSubsidyWithOnlyChild}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="275" y="0" width="90" height="26" uuid="a42191cb-a730-408e-8dd6-61522b89fd43"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q23B13RentalByClientRRHSubsidyWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="1d7ee3d5-8e2a-43f6-9db4-f20d7a34e69a"/>

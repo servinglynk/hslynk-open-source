@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90f2404c-c2ec-4433-9304-79ed2939bb31">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="180"/>
+	<property name="ireport.y" value="202"/>
 	<field name="q17EarnedIncomeAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q17EarnedIncomeAtEntry]]></fieldDescription>
 	</field>
@@ -162,7 +162,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[   Source]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="42044d39-4208-4880-899d-b698bc8b7e75"/>
@@ -232,7 +232,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17EarnedIncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17EarnedIncomeAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="1c8f822d-c15a-4aee-b82d-9ad3c0ae5fc7"/>
@@ -244,7 +244,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17EarnedIncomeAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17EarnedIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="375ba5ba-2541-40fd-b44d-3c449bfc8d56"/>
@@ -270,7 +270,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17UnemployementInsuranceAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17UnemployementInsuranceAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="a1d8083f-4d62-4af9-8529-c4a847eb03b8"/>
@@ -308,7 +308,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17UnemployementInsuranceAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17UnemployementInsuranceAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -322,7 +322,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17SSIAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17SSIAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="02687ce6-3eed-414d-83ed-22d320330321"/>
@@ -336,7 +336,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. SSI]]></text>
+					<text><![CDATA[   c. Supplemental Security Income (SSI)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="b0821f19-fdce-4921-aba6-133ba34f2e0a"/>
@@ -360,7 +360,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17SSIAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17SSIAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -374,7 +374,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17SSDIAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17SSDIAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="33958d09-54ee-4fcb-9f5c-2cdb4a07e0ea"/>
@@ -388,7 +388,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. SSDI]]></text>
+					<text><![CDATA[   d. Social Security Disability Insurance (SSDI)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="76e02404-a831-4b38-bc67-c390406a4888"/>
@@ -400,7 +400,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17SSDIAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17SSDIAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="4bf00fbe-e5e3-4763-ab47-a84deb963212"/>
@@ -412,7 +412,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17SSDIAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17SSDIAtLatestAnnualAssessmentforStayers}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="49">
@@ -426,7 +426,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17VAServiceAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17VAServiceAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="49" forecolor="#000000" uuid="1d188831-feb4-4c44-91d1-659360b582b8"/>
@@ -464,7 +464,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17VAServiceAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17VAServiceAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="40">
@@ -478,7 +478,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17VANonServiceAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17VANonServiceAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="40" forecolor="#000000" uuid="aed683a5-7be4-41c4-a7e2-8a1b3da8036a"/>
@@ -516,7 +516,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17VANonServiceAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17VANonServiceAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -530,7 +530,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17PrivateDisabilityAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17PrivateDisabilityAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="2e71f8f9-e17b-405e-8cf1-d91de3ce4276"/>
@@ -568,7 +568,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17PrivateDisabilityAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17PrivateDisabilityAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -620,7 +620,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17WorkersCompensationAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17WorkersCompensationAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -634,7 +634,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17TANFAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17TANFAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="1dd10f8a-54a2-4d0b-a0a6-3d976e82bddb"/>
@@ -648,7 +648,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   i. TANF]]></text>
+					<text><![CDATA[   i. Temporary Assistance for Needy Families (TANF)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="cf1bd04f-9ed2-47e7-9329-221db7bae06c"/>
@@ -672,7 +672,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17TANFAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17TANFAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -686,7 +686,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17GeneralAssistanceAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17GeneralAssistanceAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="9f2d879d-153b-43a0-afc6-3f8f38d2eee4"/>
@@ -700,7 +700,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   j. General assistance]]></text>
+					<text><![CDATA[   j. General Assistance (GA)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="f3733b46-a348-4454-9313-c94d76b312df"/>
@@ -724,7 +724,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17GeneralAssistanceAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17GeneralAssistanceAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -738,7 +738,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17RetirementAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17RetirementAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="07373fa8-0691-4edf-a708-815566a2b094"/>
@@ -752,7 +752,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   k. Retirement (Social Security)]]></text>
+					<text><![CDATA[   k. Retirement Income from Social Security]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="90d2cccb-4359-4ebb-82cf-7756e0e49c95"/>
@@ -776,7 +776,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17RetirementAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17RetirementAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -790,7 +790,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17PensionFormerJobAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17PensionFormerJobAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="a02c1a13-9e1e-42e0-aca5-d68505c97941"/>
@@ -804,7 +804,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   l. Pension from a former job]]></text>
+					<text><![CDATA[   l. Pension or retirement income from a former job]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="de804121-e01a-463f-8dfe-dc2ef7735839"/>
@@ -828,7 +828,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17PensionFormerJobAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17PensionFormerJobAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -842,7 +842,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17ChildSupportAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17ChildSupportAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="ad6a95c0-ff08-4266-ac83-579a0c0f2674"/>
@@ -880,7 +880,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17ChildSupportAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17ChildSupportAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -894,7 +894,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17AlimonyAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17AlimonyAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="349d46b7-92a2-41f2-9a80-473c3d0ca00a"/>
@@ -908,7 +908,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   n. Alimony (spousal support)]]></text>
+					<text><![CDATA[   n. Alimony and other spousal support]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="8190bb59-1682-4d2a-8332-5173b85e2088"/>
@@ -932,7 +932,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17AlimonyAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17AlimonyAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -946,7 +946,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17OtherSourcesAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17OtherSourcesAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="f0c49a16-3399-4c68-9b5c-b7b3cce618f4"/>
@@ -984,7 +984,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17OtherSourcesAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17OtherSourcesAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="53">
@@ -998,7 +998,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17AdultsWithIncomeAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17AdultsWithIncomeAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="53" forecolor="#000000" uuid="9c9bf485-e51e-4653-937c-16ab27598e5d"/>
@@ -1012,7 +1012,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   p. Adults with income information at entry and annual assessment / exit]]></text>
+					<text><![CDATA[   p. Adults with Income Information at Start and Annual Assessment/Exit]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="53" uuid="a958779e-2262-4989-ba92-d11773b6f695"/>
@@ -1036,7 +1036,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q17AdultsWithIncomeAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q17AdultsWithIncomeAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>

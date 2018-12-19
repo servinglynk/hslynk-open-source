@@ -354,7 +354,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   Client Doesn’t Know/Client Refused]]></text>
+					<text><![CDATA[   Client Doesn't Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d3fe18a8-873d-4e03-9d1f-bee5a46b2a99"/>

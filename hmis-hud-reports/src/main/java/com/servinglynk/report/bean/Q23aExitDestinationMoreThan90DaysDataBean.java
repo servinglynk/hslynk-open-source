@@ -4,251 +4,324 @@ import java.math.BigInteger;
 
 public class Q23aExitDestinationMoreThan90DaysDataBean {
 	
-/*	private BigInteger q23APermanentDestinationsTotal;
-	private BigInteger q23APermanentDestinationsWithoutChild;
-	private BigInteger q23APermanentDestinationsWithChildAndAdults;
-	private BigInteger q23APermanentDestinationsWithOnlyChild;
-	private BigInteger q23APermanentDestinationsUnknownHouseHold;
+/*	private BigInteger q23APermanentDestinationsTotal=BigInteger.valueOf(0);
+	private BigInteger q23APermanentDestinationsWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23APermanentDestinationsWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23APermanentDestinationsWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23APermanentDestinationsUnknownHouseHold=BigInteger.valueOf(0);
 */		
-	private BigInteger q23A01MovedFromOneHOPWATotal;
-	private BigInteger q23A01MovedFromOneHOPWAWithoutChild;
-	private BigInteger q23A01MovedFromOneHOPWAWithChildAndAdults;
-	private BigInteger q23A01MovedFromOneHOPWAWithOnlyChild;
-	private BigInteger q23A01MovedFromOneHOPWAUnknownHouseHold;
+	private BigInteger q23A01MovedFromOneHOPWATotal=BigInteger.valueOf(0);
+	private BigInteger q23A01MovedFromOneHOPWAWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A01MovedFromOneHOPWAWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23A01MovedFromOneHOPWAWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A01MovedFromOneHOPWAUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q23A02OwnedByClientNoOngoingSubsidyTotal;
-	private BigInteger q23A02OwnedByClientNoOngoingSubsidyWithoutChild;
-	private BigInteger q23A02OwnedByClientNoOngoingSubsidyWithChildAndAdults;
-	private BigInteger q23A02OwnedByClientNoOngoingSubsidyWithOnlyChild;
-	private BigInteger q23A02OwnedByClientNoOngoingSubsidyUnknownHouseHold;
+	private BigInteger q23A02OwnedByClientNoOngoingSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q23A02OwnedByClientNoOngoingSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A02OwnedByClientNoOngoingSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23A02OwnedByClientNoOngoingSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A02OwnedByClientNoOngoingSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q23A03OwnedByClientWithOngoingSubsidyTotal;
-	private BigInteger q23A03OwnedByClientWithOngoingSubsidyWithoutChild;
-	private BigInteger q23A03OwnedByClientWithOngoingSubsidyWithChildAndAdults;
-	private BigInteger q23A03OwnedByClientWithOngoingSubsidyWithOnlyChild;
-	private BigInteger q23A03OwnedByClientWithOngoingSubsidyUnknownHouseHold;
+	private BigInteger q23A03OwnedByClientWithOngoingSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q23A03OwnedByClientWithOngoingSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A03OwnedByClientWithOngoingSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23A03OwnedByClientWithOngoingSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A03OwnedByClientWithOngoingSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q23A04RentalByClientNoOngoingSubsidyTotal;
-	private BigInteger q23A04RentalByClientNoOngoingSubsidyWithoutChild;
-	private BigInteger q23A04RentalByClientNoOngoingSubsidyWithChildAndAdults;
-	private BigInteger q23A04RentalByClientNoOngoingSubsidyWithOnlyChild;
-	private BigInteger q23A04RentalByClientNoOngoingSubsidyUnknownHouseHold;
+	private BigInteger q23A04RentalByClientNoOngoingSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q23A04RentalByClientNoOngoingSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A04RentalByClientNoOngoingSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23A04RentalByClientNoOngoingSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A04RentalByClientNoOngoingSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q23A05RentalByClientVASHSubsidyTotal;
-	private BigInteger q23A05RentalByClientVASHSubsidyWithoutChild;
-	private BigInteger q23A05RentalByClientVASHSubsidyWithChildAndAdults;
-	private BigInteger q23A05RentalByClientVASHSubsidyWithOnlyChild;
-	private BigInteger q23A05RentalByClientVASHSubsidyUnknownHouseHold;
+	private BigInteger q23A05RentalByClientVASHSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q23A05RentalByClientVASHSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A05RentalByClientVASHSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23A05RentalByClientVASHSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A05RentalByClientVASHSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q23A06RentalByClientwithGPDTIPHousingTotal;
-	private BigInteger q23A06RentalByClientwithGPDTIPHousingWithoutChild;
-	private BigInteger q23A06RentalByClientwithGPDTIPHousingWithChildAndAdults;
-	private BigInteger q23A06RentalByClientwithGPDTIPHousingWithOnlyChild;
-	private BigInteger q23A06RentalByClientwithGPDTIPHousingUnknownHouseHold;
+	private BigInteger q23A06RentalByClientwithGPDTIPHousingTotal=BigInteger.valueOf(0);
+	private BigInteger q23A06RentalByClientwithGPDTIPHousingWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A06RentalByClientwithGPDTIPHousingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23A06RentalByClientwithGPDTIPHousingWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A06RentalByClientwithGPDTIPHousingUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q23A07RentalByClientOtherOngoingSubsidyTotal;
-	private BigInteger q23A07RentalByClientOtherOngoingSubsidyWithoutChild;
-	private BigInteger q23A07RentalByClientOtherOngoingSubsidyWithChildAndAdults;
-	private BigInteger q23A07RentalByClientOtherOngoingSubsidyWithOnlyChild;
-	private BigInteger q23A07RentalByClientOtherOngoingSubsidyUnknownHouseHold;
+	private BigInteger q23A07RentalByClientOtherOngoingSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q23A07RentalByClientOtherOngoingSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A07RentalByClientOtherOngoingSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23A07RentalByClientOtherOngoingSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A07RentalByClientOtherOngoingSubsidyUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q23A08PermanentHousingForHomelessTotal;
-	private BigInteger q23A08PermanentHousingForHomelessWithoutChild;
-	private BigInteger q23A08PermanentHousingForHomelessWithChildAndAdults;
-	private BigInteger q23A08PermanentHousingForHomelessWithOnlyChild;
-	private BigInteger q23A08PermanentHousingForHomelessUnknownHouseHold;
+	private BigInteger q23A08PermanentHousingForHomelessTotal=BigInteger.valueOf(0);
+	private BigInteger q23A08PermanentHousingForHomelessWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A08PermanentHousingForHomelessWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23A08PermanentHousingForHomelessWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A08PermanentHousingForHomelessUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q23A09StayingOrLivingWithFamilyPermanentTotal;
-	private BigInteger q23A09StayingOrLivingWithFamilyPermanentWithoutChild;
-	private BigInteger q23A09StayingOrLivingWithFamilyPermanentWithChildAndAdults;
-	private BigInteger q23A09StayingOrLivingWithFamilyPermanentWithOnlyChild;
-	private BigInteger q23A09StayingOrLivingWithFamilyPermanentUnknownHouseHold;
+	private BigInteger q23A09StayingOrLivingWithFamilyPermanentTotal=BigInteger.valueOf(0);
+	private BigInteger q23A09StayingOrLivingWithFamilyPermanentWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A09StayingOrLivingWithFamilyPermanentWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23A09StayingOrLivingWithFamilyPermanentWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A09StayingOrLivingWithFamilyPermanentUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q23A10StayingOrLivingWithFriendsPermanentTotal;
-	private BigInteger q23A10StayingOrLivingWithFriendsPermanentWithoutChild;
-	private BigInteger q23A10StayingOrLivingWithFriendsPermanentWithChildAndAdults;
-	private BigInteger q23A10StayingOrLivingWithFriendsPermanentWithOnlyChild;
-	private BigInteger q23A10StayingOrLivingWithFriendsPermanentUnknownHouseHold;
-		
-	private BigInteger q23AzTotTotal;
-	private BigInteger q23AzTotWithoutChild;
-	private BigInteger q23AzTotWithChildAndAdults;
-	private BigInteger q23AzTotWithOnlyChild;
-	private BigInteger q23AzTotUnknownHouseHold;
-		
-/*	private BigInteger q23BTemporaryDestinationsTotal;
-	private BigInteger q23BTemporaryDestinationsWithoutChild;
-	private BigInteger q23BTemporaryDestinationsWithChildAndAdults;
-	private BigInteger q23BTemporaryDestinationsWithOnlyChild;
-	private BigInteger q23BTemporaryDestinationsUnknownHouseHold;
-*/		
-	private BigInteger q23B1EmergencyShelterTotal;
-	private BigInteger q23B1EmergencyShelterWithoutChild;
-	private BigInteger q23B1EmergencyShelterWithChildAndAdults;
-	private BigInteger q23B1EmergencyShelterWithOnlyChild;
-	private BigInteger q23B1EmergencyShelterUnknownHouseHold;
-		
-	private BigInteger q23B2MovedFromOneHOPWATotal;
-	private BigInteger q23B2MovedFromOneHOPWAWithoutChild;
-	private BigInteger q23B2MovedFromOneHOPWAWithChildAndAdults;
-	private BigInteger q23B2MovedFromOneHOPWAWithOnlyChild;
-	private BigInteger q23B2MovedFromOneHOPWAUnknownHouseHold;
-		
-	private BigInteger q23B3TransitionalHousingForHomeLessTotal;
-	private BigInteger q23B3TransitionalHousingForHomeLessWithoutChild;
-	private BigInteger q23B3TransitionalHousingForHomeLessWithChildAndAdults;
-	private BigInteger q23B3TransitionalHousingForHomeLessWithOnlyChild;
-	private BigInteger q23B3TransitionalHousingForHomeLessUnknownHouseHold;
-		
-	private BigInteger q23B4StayingWithFamilyTemporaryTenureTotal;
-	private BigInteger q23B4StayingWithFamilyTemporaryTenureWithoutChild;
-	private BigInteger q23B4StayingWithFamilyTemporaryTenureWithChildAndAdults;
-	private BigInteger q23B4StayingWithFamilyTemporaryTenureWithOnlyChild;
-	private BigInteger q23B4StayingWithFamilyTemporaryTenureUnknownHouseHold;
-		
-	private BigInteger q23B5StayingWithFriendsTemporaryTenureTotal;
-	private BigInteger q23B5StayingWithFriendsTemporaryTenureWithoutChild;
-	private BigInteger q23B5StayingWithFriendsTemporaryTenureWithChildAndAdults;
-	private BigInteger q23B5StayingWithFriendsTemporaryTenureWithOnlyChild;
-	private BigInteger q23B5StayingWithFriendsTemporaryTenureUnknownHouseHold;
-		
-	private BigInteger q23B6PlaceNotMeantForHumanHabitationTotal;
-	private BigInteger q23B6PlaceNotMeantForHumanHabitationWithoutChild;
-	private BigInteger q23B6PlaceNotMeantForHumanHabitationWithChildAndAdults;
-	private BigInteger q23B6PlaceNotMeantForHumanHabitationWithOnlyChild;
-	private BigInteger q23B6PlaceNotMeantForHumanHabitationUnknownHouseHold;
-		
-	private BigInteger q23B7SafeHavenTotal;
-	private BigInteger q23B7SafeHavenWithoutChild;
-	private BigInteger q23B7SafeHavenWithChildAndAdults;
-	private BigInteger q23B7SafeHavenWithOnlyChild;
-	private BigInteger q23B7SafeHavenUnknownHouseHold;
-		
-	private BigInteger q23B8HotelOrMotelPaidByClientTotal;
-	private BigInteger q23B8HotelOrMotelPaidByClientWithoutChild;
-	private BigInteger q23B8HotelOrMotelPaidByClientWithChildAndAdults;
-	private BigInteger q23B8HotelOrMotelPaidByClientWithOnlyChild;
-	private BigInteger q23B8HotelOrMotelPaidByClientUnknownHouseHold;
-		
-	private BigInteger q23BzTotTotal;
-	private BigInteger q23BzTotWithoutChild;
-	private BigInteger q23BzTotWithChildAndAdults;
-	private BigInteger q23BzTotWithOnlyChild;
-	private BigInteger q23BzTotUnknownHouseHold;
-		
-/*	private BigInteger q23CInstitutionalSettingsTotal;
-	private BigInteger q23CInstitutionalSettingsWithoutChild;
-	private BigInteger q23CInstitutionalSettingsWithChildAndAdults;
-	private BigInteger q23CInstitutionalSettingsWithOnlyChild;
-	private BigInteger q23CInstitutionalSettingsUnknownHouseHold;
-*/		
-	private BigInteger q23C1FosterCareHomeOrGroupFosterCareTotal;
-	private BigInteger q23C1FosterCareHomeOrGroupFosterCareWithoutChild;
-	private BigInteger q23C1FosterCareHomeOrGroupFosterCareWithChildAndAdults;
-	private BigInteger q23C1FosterCareHomeOrGroupFosterCareWithOnlyChild;
-	private BigInteger q23C1FosterCareHomeOrGroupFosterCareUnknownHouseHold;
-		
-	private BigInteger q23C2PsychiatricHospitalOrOtherTotal;
-	private BigInteger q23C2PsychiatricHospitalOrOtherWithoutChild;
-	private BigInteger q23C2PsychiatricHospitalOrOtherWithChildAndAdults;
-	private BigInteger q23C2PsychiatricHospitalOrOtherWithOnlyChild;
-	private BigInteger q23C2PsychiatricHospitalOrOtherUnknownHouseHold;
-			
-	private BigInteger q23C3SubstanceAbuseTreatmentFacilityTotal;
-	private BigInteger q23C3SubstanceAbuseTreatmentFacilityWithoutChild;
-	private BigInteger q23C3SubstanceAbuseTreatmentFacilityWithChildAndAdults;
-	private BigInteger q23C3SubstanceAbuseTreatmentFacilityWithOnlyChild;
-	private BigInteger q23C3SubstanceAbuseTreatmentFacilityUnknownHouseHold;
-		
-	private BigInteger q23C4HospitalOrOtherTotal;
-	private BigInteger q23C4HospitalOrOtherWithoutChild;
-	private BigInteger q23C4HospitalOrOtherWithChildAndAdults;
-	private BigInteger q23C4HospitalOrOtherWithOnlyChild;
-	private BigInteger q23C4HospitalOrOtherUnknownHouseHold;
-		
-	private BigInteger q23C5JailPrisonOrJuvenileDetentionTotal;
-	private BigInteger q23C5JailPrisonOrJuvenileDetentionWithoutChild;
-	private BigInteger q23C5JailPrisonOrJuvenileDetentionWithChildAndAdults;
-	private BigInteger q23C5JailPrisonOrJuvenileDetentionWithOnlyChild;
-	private BigInteger q23C5JailPrisonOrJuvenileDetentionUnknownHouseHold;
-		
-	private BigInteger q23C6LongTermCareFacilityOrNursingHomeTotal;
-	private BigInteger q23C6LongTermCareFacilityOrNursingHomeWithoutChild;
-	private BigInteger q23C6LongTermCareFacilityOrNursingHomeWithChildAndAdults;
-	private BigInteger q23C6LongTermCareFacilityOrNursingHomeWithOnlyChild;
-	private BigInteger q23C6LongTermCareFacilityOrNursingHomeUnknownHouseHold;
-		
-	private BigInteger q23CzTotTotal;
-	private BigInteger q23CzTotWithoutChild;
-	private BigInteger q23CzTotWithChildAndAdults;
-	private BigInteger q23CzTotWithOnlyChild;
-	private BigInteger q23CzTotUnknownHouseHold;
-		
-/*	private BigInteger q23DOtherDestinationsTotal;
-	private BigInteger q23DOtherDestinationsWithoutChild;
-	private BigInteger q23DOtherDestinationsWithChildAndAdults;
-	private BigInteger q23DOtherDestinationsWithOnlyChild;
-	private BigInteger q23DOtherDestinationsUnknownHouseHold;
-*/		
-	private BigInteger q23D1ResidentialProjectorHalfwayHouseTotal;
-	private BigInteger q23D1ResidentialProjectorHalfwayHouseWithoutChild;
-	private BigInteger q23D1ResidentialProjectorHalfwayHouseWithChildAndAdults;
-	private BigInteger q23D1ResidentialProjectorHalfwayHouseWithOnlyChild;
-	private BigInteger q23D1ResidentialProjectorHalfwayHouseUnknownHouseHold;
-		
-	private BigInteger q23D2DeceasedTotal;
-	private BigInteger q23D2DeceasedWithoutChild;
-	private BigInteger q23D2DeceasedWithChildAndAdults;
-	private BigInteger q23D2DeceasedWithOnlyChild;
-	private BigInteger q23D2DeceasedUnknownHouseHold;
-		
-	private BigInteger q23D3OtherTotal;
-	private BigInteger q23D3OtherWithoutChild;
-	private BigInteger q23D3OtherWithChildAndAdults;
-	private BigInteger q23D3OtherWithOnlyChild;
-	private BigInteger q23D3OtherUnknownHouseHold;
-		
-	private BigInteger q23D4DKRTotal;
-	private BigInteger q23D4DKRWithoutChild;
-	private BigInteger q23D4DKRWithChildAndAdults;
-	private BigInteger q23D4DKRWithOnlyChild;
-	private BigInteger q23D4DKRUnknownHouseHold;
-		
-	private BigInteger q23D5InfoMissingTotal;
-	private BigInteger q23D5InfoMissingWithoutChild;
-	private BigInteger q23D5InfoMissingWithChildAndAdults;
-	private BigInteger q23D5InfoMissingWithOnlyChild;
-	private BigInteger q23D5InfoMissingUnknownHouseHold;
-		
-	private BigInteger q23DzTotTotal;
-	private BigInteger q23DzTotWithoutChild;
-	private BigInteger q23DzTotWithChildAndAdults;
-	private BigInteger q23DzTotWithOnlyChild;
-	private BigInteger q23DzTotUnknownHouseHold;
-		
-	private BigInteger q23ETotTotal;
-	private BigInteger q23ETotWithoutChild;
-	private BigInteger q23ETotWithChildAndAdults;
-	private BigInteger q23ETotWithOnlyChild;
-	private BigInteger q23ETotUnknownHouseHold;
+	private BigInteger q23A10StayingOrLivingWithFriendsPermanentTotal=BigInteger.valueOf(0);
+	private BigInteger q23A10StayingOrLivingWithFriendsPermanentWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A10StayingOrLivingWithFriendsPermanentWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23A10StayingOrLivingWithFriendsPermanentWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A10StayingOrLivingWithFriendsPermanentUnknownHouseHold=BigInteger.valueOf(0);
 	
-	private BigInteger q23PercentageWithChildAndAdults;
-	private BigInteger q23PercentageUnknownHouseHold;
-	private BigInteger q23PercentageWithOnlyChild;
-	private BigInteger q23PercentageWithoutChild;
-	private BigInteger q23PercentageTotal;
+	private BigInteger q23A13RentalByClientRRHSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q23A13RentalByClientRRHSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23A13RentalByClientRRHSubsidyUnknownHouseHold=BigInteger.valueOf(0);
+	private BigInteger q23A13RentalByClientRRHSubsidyWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23A13RentalByClientRRHSubsidyWithChildAndAdults=BigInteger.valueOf(0);
+		
+	private BigInteger q23AzTotTotal=BigInteger.valueOf(0);
+	private BigInteger q23AzTotWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23AzTotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23AzTotWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23AzTotUnknownHouseHold=BigInteger.valueOf(0);
+		
+/*	private BigInteger q23BTemporaryDestinationsTotal=BigInteger.valueOf(0);
+	private BigInteger q23BTemporaryDestinationsWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23BTemporaryDestinationsWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23BTemporaryDestinationsWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23BTemporaryDestinationsUnknownHouseHold=BigInteger.valueOf(0);
+*/		
+	private BigInteger q23B1EmergencyShelterTotal=BigInteger.valueOf(0);
+	private BigInteger q23B1EmergencyShelterWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23B1EmergencyShelterWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23B1EmergencyShelterWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23B1EmergencyShelterUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23B2MovedFromOneHOPWATotal=BigInteger.valueOf(0);
+	private BigInteger q23B2MovedFromOneHOPWAWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23B2MovedFromOneHOPWAWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23B2MovedFromOneHOPWAWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23B2MovedFromOneHOPWAUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23B3TransitionalHousingForHomeLessTotal=BigInteger.valueOf(0);
+	private BigInteger q23B3TransitionalHousingForHomeLessWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23B3TransitionalHousingForHomeLessWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23B3TransitionalHousingForHomeLessWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23B3TransitionalHousingForHomeLessUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23B4StayingWithFamilyTemporaryTenureTotal=BigInteger.valueOf(0);
+	private BigInteger q23B4StayingWithFamilyTemporaryTenureWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23B4StayingWithFamilyTemporaryTenureWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23B4StayingWithFamilyTemporaryTenureWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23B4StayingWithFamilyTemporaryTenureUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23B5StayingWithFriendsTemporaryTenureTotal=BigInteger.valueOf(0);
+	private BigInteger q23B5StayingWithFriendsTemporaryTenureWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23B5StayingWithFriendsTemporaryTenureWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23B5StayingWithFriendsTemporaryTenureWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23B5StayingWithFriendsTemporaryTenureUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23B6PlaceNotMeantForHumanHabitationTotal=BigInteger.valueOf(0);
+	private BigInteger q23B6PlaceNotMeantForHumanHabitationWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23B6PlaceNotMeantForHumanHabitationWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23B6PlaceNotMeantForHumanHabitationWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23B6PlaceNotMeantForHumanHabitationUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23B7SafeHavenTotal=BigInteger.valueOf(0);
+	private BigInteger q23B7SafeHavenWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23B7SafeHavenWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23B7SafeHavenWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23B7SafeHavenUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23B8HotelOrMotelPaidByClientTotal=BigInteger.valueOf(0);
+	private BigInteger q23B8HotelOrMotelPaidByClientWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23B8HotelOrMotelPaidByClientWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23B8HotelOrMotelPaidByClientWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23B8HotelOrMotelPaidByClientUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23BzTotTotal=BigInteger.valueOf(0);
+	private BigInteger q23BzTotWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23BzTotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23BzTotWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23BzTotUnknownHouseHold=BigInteger.valueOf(0);
+		
+/*	private BigInteger q23CInstitutionalSettingsTotal=BigInteger.valueOf(0);
+	private BigInteger q23CInstitutionalSettingsWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23CInstitutionalSettingsWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23CInstitutionalSettingsWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23CInstitutionalSettingsUnknownHouseHold=BigInteger.valueOf(0);
+*/		
+	private BigInteger q23C1FosterCareHomeOrGroupFosterCareTotal=BigInteger.valueOf(0);
+	private BigInteger q23C1FosterCareHomeOrGroupFosterCareWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23C1FosterCareHomeOrGroupFosterCareWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23C1FosterCareHomeOrGroupFosterCareWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23C1FosterCareHomeOrGroupFosterCareUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23C2PsychiatricHospitalOrOtherTotal=BigInteger.valueOf(0);
+	private BigInteger q23C2PsychiatricHospitalOrOtherWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23C2PsychiatricHospitalOrOtherWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23C2PsychiatricHospitalOrOtherWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23C2PsychiatricHospitalOrOtherUnknownHouseHold=BigInteger.valueOf(0);
+			
+	private BigInteger q23C3SubstanceAbuseTreatmentFacilityTotal=BigInteger.valueOf(0);
+	private BigInteger q23C3SubstanceAbuseTreatmentFacilityWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23C3SubstanceAbuseTreatmentFacilityWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23C3SubstanceAbuseTreatmentFacilityWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23C3SubstanceAbuseTreatmentFacilityUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23C4HospitalOrOtherTotal=BigInteger.valueOf(0);
+	private BigInteger q23C4HospitalOrOtherWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23C4HospitalOrOtherWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23C4HospitalOrOtherWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23C4HospitalOrOtherUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23C5JailPrisonOrJuvenileDetentionTotal=BigInteger.valueOf(0);
+	private BigInteger q23C5JailPrisonOrJuvenileDetentionWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23C5JailPrisonOrJuvenileDetentionWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23C5JailPrisonOrJuvenileDetentionWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23C5JailPrisonOrJuvenileDetentionUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23C6LongTermCareFacilityOrNursingHomeTotal=BigInteger.valueOf(0);
+	private BigInteger q23C6LongTermCareFacilityOrNursingHomeWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23C6LongTermCareFacilityOrNursingHomeWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23C6LongTermCareFacilityOrNursingHomeWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23C6LongTermCareFacilityOrNursingHomeUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23CzTotTotal=BigInteger.valueOf(0);
+	private BigInteger q23CzTotWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23CzTotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23CzTotWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23CzTotUnknownHouseHold=BigInteger.valueOf(0);
+		
+/*	private BigInteger q23DOtherDestinationsTotal=BigInteger.valueOf(0);
+	private BigInteger q23DOtherDestinationsWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23DOtherDestinationsWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23DOtherDestinationsWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23DOtherDestinationsUnknownHouseHold=BigInteger.valueOf(0);
+*/		
+	private BigInteger q23D1ResidentialProjectorHalfwayHouseTotal=BigInteger.valueOf(0);
+	private BigInteger q23D1ResidentialProjectorHalfwayHouseWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23D1ResidentialProjectorHalfwayHouseWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23D1ResidentialProjectorHalfwayHouseWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23D1ResidentialProjectorHalfwayHouseUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23D2DeceasedTotal=BigInteger.valueOf(0);
+	private BigInteger q23D2DeceasedWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23D2DeceasedWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23D2DeceasedWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23D2DeceasedUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23D3OtherTotal=BigInteger.valueOf(0);
+	private BigInteger q23D3OtherWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23D3OtherWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23D3OtherWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23D3OtherUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23D4DKRTotal=BigInteger.valueOf(0);
+	private BigInteger q23D4DKRWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23D4DKRWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23D4DKRWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23D4DKRUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23D5InfoMissingTotal=BigInteger.valueOf(0);
+	private BigInteger q23D5InfoMissingWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23D5InfoMissingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23D5InfoMissingWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23D5InfoMissingUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23DzTotTotal=BigInteger.valueOf(0);
+	private BigInteger q23DzTotWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23DzTotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23DzTotWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23DzTotUnknownHouseHold=BigInteger.valueOf(0);
+		
+	private BigInteger q23ETotTotal=BigInteger.valueOf(0);
+	private BigInteger q23ETotWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23ETotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23ETotWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23ETotUnknownHouseHold=BigInteger.valueOf(0);
+	
+	private BigInteger q23PercentageWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23PercentageUnknownHouseHold=BigInteger.valueOf(0);
+	private BigInteger q23PercentageWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23PercentageWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23PercentageTotal=BigInteger.valueOf(0);
 
-	private BigInteger q23TotPersonsDstnsWithoutChild;
-	private BigInteger q23TotPersonsDstnsTotal;
-	private BigInteger q23TotPersonsDstnsUnknownHouseHold;
-	private BigInteger q23TotPersonsDstnsWithOnlyChild;
-	private BigInteger q23TotPersonsDstnsWithChildAndAdults;
+	private BigInteger q23TotPersonsDstnsWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23TotPersonsDstnsTotal=BigInteger.valueOf(0);
+	private BigInteger q23TotPersonsDstnsUnknownHouseHold=BigInteger.valueOf(0);
+	private BigInteger q23TotPersonsDstnsWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23TotPersonsDstnsWithChildAndAdults=BigInteger.valueOf(0);
 
-	private BigInteger q23TotPersonsExistTotal;
-	private BigInteger q23TotPersonsExistWithoutChild;
-	private BigInteger q23TotPersonsExistWithChildAndAdults;
-	private BigInteger q23TotPersonsExistWithOnlyChild;
-	private BigInteger q23TotPersonsExistUnknownHouseHold;
+	private BigInteger q23TotPersonsExistTotal=BigInteger.valueOf(0);
+	private BigInteger q23TotPersonsExistWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q23TotPersonsExistWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q23TotPersonsExistWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q23TotPersonsExistUnknownHouseHold=BigInteger.valueOf(0);
+	
+	
+	/**
+	 * @return the q23A13RentalByClientRRHSubsidyTotal
+	 */
+	public BigInteger getQ23A13RentalByClientRRHSubsidyTotal() {
+		return q23A13RentalByClientRRHSubsidyTotal;
+	}
+	/**
+	 * @param q23a13RentalByClientRRHSubsidyTotal the q23A13RentalByClientRRHSubsidyTotal to set
+	 */
+	public void setQ23A13RentalByClientRRHSubsidyTotal(
+			BigInteger q23a13RentalByClientRRHSubsidyTotal) {
+		q23A13RentalByClientRRHSubsidyTotal = q23a13RentalByClientRRHSubsidyTotal;
+	}
+	/**
+	 * @return the q23A13RentalByClientRRHSubsidyWithoutChild
+	 */
+	public BigInteger getQ23A13RentalByClientRRHSubsidyWithoutChild() {
+		return q23A13RentalByClientRRHSubsidyWithoutChild;
+	}
+	/**
+	 * @param q23a13RentalByClientRRHSubsidyWithoutChild the q23A13RentalByClientRRHSubsidyWithoutChild to set
+	 */
+	public void setQ23A13RentalByClientRRHSubsidyWithoutChild(
+			BigInteger q23a13RentalByClientRRHSubsidyWithoutChild) {
+		q23A13RentalByClientRRHSubsidyWithoutChild = q23a13RentalByClientRRHSubsidyWithoutChild;
+	}
+	/**
+	 * @return the q23A13RentalByClientRRHSubsidyUnknownHouseHold
+	 */
+	public BigInteger getQ23A13RentalByClientRRHSubsidyUnknownHouseHold() {
+		return q23A13RentalByClientRRHSubsidyUnknownHouseHold;
+	}
+	/**
+	 * @param q23a13RentalByClientRRHSubsidyUnknownHouseHold the q23A13RentalByClientRRHSubsidyUnknownHouseHold to set
+	 */
+	public void setQ23A13RentalByClientRRHSubsidyUnknownHouseHold(
+			BigInteger q23a13RentalByClientRRHSubsidyUnknownHouseHold) {
+		q23A13RentalByClientRRHSubsidyUnknownHouseHold = q23a13RentalByClientRRHSubsidyUnknownHouseHold;
+	}
+	/**
+	 * @return the q23A13RentalByClientRRHSubsidyWithOnlyChild
+	 */
+	public BigInteger getQ23A13RentalByClientRRHSubsidyWithOnlyChild() {
+		return q23A13RentalByClientRRHSubsidyWithOnlyChild;
+	}
+	/**
+	 * @param q23a13RentalByClientRRHSubsidyWithOnlyChild the q23A13RentalByClientRRHSubsidyWithOnlyChild to set
+	 */
+	public void setQ23A13RentalByClientRRHSubsidyWithOnlyChild(
+			BigInteger q23a13RentalByClientRRHSubsidyWithOnlyChild) {
+		q23A13RentalByClientRRHSubsidyWithOnlyChild = q23a13RentalByClientRRHSubsidyWithOnlyChild;
+	}
+	/**
+	 * @return the q23A13RentalByClientRRHSubsidyWithChildAndAdults
+	 */
+	public BigInteger getQ23A13RentalByClientRRHSubsidyWithChildAndAdults() {
+		return q23A13RentalByClientRRHSubsidyWithChildAndAdults;
+	}
+	/**
+	 * @param q23a13RentalByClientRRHSubsidyWithChildAndAdults the q23A13RentalByClientRRHSubsidyWithChildAndAdults to set
+	 */
+	public void setQ23A13RentalByClientRRHSubsidyWithChildAndAdults(
+			BigInteger q23a13RentalByClientRRHSubsidyWithChildAndAdults) {
+		q23A13RentalByClientRRHSubsidyWithChildAndAdults = q23a13RentalByClientRRHSubsidyWithChildAndAdults;
+	}
 	public BigInteger getQ23A01MovedFromOneHOPWATotal() {
 		return q23A01MovedFromOneHOPWATotal;
 	}

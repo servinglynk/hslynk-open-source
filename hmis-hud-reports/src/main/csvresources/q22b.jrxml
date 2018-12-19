@@ -74,7 +74,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   a. Average length in days]]></text>
+					<text><![CDATA[   a. Average length]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="eb66c7ab-b01f-4a01-94ec-38445beacdd0"/>
@@ -126,7 +126,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   b. Median length in days]]></text>
+					<text><![CDATA[   b. Median length]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="5c2cff92-76d9-4260-bb6b-4d13a959990c"/>

@@ -20,6 +20,7 @@ import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
+import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
 import com.servinglynk.hmis.warehouse.base.service.RoleService;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.SessionService;
@@ -55,6 +56,8 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	@Autowired
 	private UsernameChangeService usernameChangeService;
 	
+	@Autowired
+	private ReportConfigService reportConfigService;
 	
 	@Autowired
 	private ApiMethodService apiMethodService;
@@ -284,5 +287,13 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setGlobalHouseHoldService(GlobalHouseHoldService globalHouseHoldService) {
 		this.globalHouseHoldService = globalHouseHoldService;
+	}
+
+	public ReportConfigService getReportConfigService() {
+		return reportConfigService;
+	}
+
+	public void setReportConfigService(ReportConfigService reportConfigService) {
+		this.reportConfigService = reportConfigService;
 	}	
 }

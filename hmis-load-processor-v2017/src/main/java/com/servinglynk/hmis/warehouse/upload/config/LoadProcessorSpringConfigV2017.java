@@ -56,10 +56,7 @@ public class LoadProcessorSpringConfigV2017 {
 	public ExitWorker exitWorker(){
 		return new ExitWorker();
 	}
-	@Bean
-	public ClientDedupWorker clientDedupWorker(){
-		return new ClientDedupWorker();
-	}
+
 	@Bean
 	public BulkUploaderWorkerDaoImpl getBulkUploaderWorkerDao(){
 		return new BulkUploaderWorkerDaoImpl();
@@ -68,6 +65,11 @@ public class LoadProcessorSpringConfigV2017 {
 	@Bean
 	public ReRunWorker reRunWorker(){
 		return new ReRunWorker();
+	}
+	
+	@Bean
+	public ClientDedupWorker clientDedupWorker(){
+		return new ClientDedupWorker();
 	}
 	
 }

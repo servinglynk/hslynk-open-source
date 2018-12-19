@@ -4,31 +4,31 @@ import java.math.BigInteger;
 
 public class Q07aHouseholdsServedDataBean {
 
-	private BigInteger adultsTotal;
-	private BigInteger adultsWithOutChildren;
-	private BigInteger adultsWithChildAndAdults;
-	private BigInteger adultsWithOnlychildren;
-	private BigInteger adultsUnknownHousehold;
-	private BigInteger childTotal;
-	private BigInteger childWithOutChildren;
-	private BigInteger childWithChildAndAdults;
-	private BigInteger childWithOnlychildren;
-	private BigInteger childUnknownHousehold;
-	private BigInteger clientDKRTotal;
-	private BigInteger clientDKRWithOutChildren;
-	private BigInteger clientDKRWithChildAndAdults;
-	private BigInteger clientDKRWithOnlychildren;
-	private BigInteger clientDKRUnknownHousehold;
-	private BigInteger dncTotal;
-	private BigInteger dncWithOutChildren;
-	private BigInteger dncWithChildAndAdults;
-	private BigInteger dncWithOnlychildren;
-	private BigInteger dncUnknownHousehold;
-	private BigInteger totTotal;
-	private BigInteger totWithOutChildren;
-	private BigInteger totWithChildAndAdults;
-	private BigInteger totWithOnlychildren;
-	private BigInteger totUnknownHousehold;
+	private BigInteger adultsTotal=BigInteger.valueOf(0);
+	private BigInteger adultsWithOutChildren=BigInteger.valueOf(0);
+	private BigInteger adultsWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger adultsWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger adultsUnknownHousehold=BigInteger.valueOf(0);
+	private BigInteger childTotal=BigInteger.valueOf(0);
+	private BigInteger childWithOutChildren=BigInteger.valueOf(0);
+	private BigInteger childWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger childWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger childUnknownHousehold=BigInteger.valueOf(0);
+	private BigInteger clientDKRTotal=BigInteger.valueOf(0);
+	private BigInteger clientDKRWithOutChildren=BigInteger.valueOf(0);
+	private BigInteger clientDKRWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger clientDKRWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger clientDKRUnknownHousehold=BigInteger.valueOf(0);
+	private BigInteger dncTotal=BigInteger.valueOf(0);
+	private BigInteger dncWithOutChildren=BigInteger.valueOf(0);
+	private BigInteger dncWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger dncWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger dncUnknownHousehold=BigInteger.valueOf(0);
+	private BigInteger totTotal=BigInteger.valueOf(0);
+	private BigInteger totWithOutChildren=BigInteger.valueOf(0);
+	private BigInteger totWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger totWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger totUnknownHousehold=BigInteger.valueOf(0);
 	public BigInteger getAdultsTotal() {
 		return adultsTotal;
 	}

@@ -21,6 +21,7 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -398,7 +399,14 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public List<com.servinglynk.hmis.warehouse.model.v2017.Client> getAllNullDedupIdClients() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Client.class);
 		criteria.add(Restrictions.isNull("dedupClientId"));
-		List<String> allActiveProjectGroupCodes = daoFactory.getProjectGroupDao().getAllActiveProjectGroupCodes();
+		Criterion firstNameCriterion = Restrictions.isNotNull("firstName");
+		Criterion lastNameCriterion = Restrictions.isNotNull("lastName");
+		criteria.add(Restrictions.and(firstNameCriterion,lastNameCriterion));
+		List<String> allActiveProjectGroupCodes = new  ArrayList<>();
+		allActiveProjectGroupCodes.add("MO0010");
+		allActiveProjectGroupCodes.add("HO0002");
+		allActiveProjectGroupCodes.add("SA0005");
+		allActiveProjectGroupCodes.add("SB0006");
 		criteria.add(Restrictions.in("projectGroupCode", allActiveProjectGroupCodes));
 		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2017.Client>) findByCriteria(criteria);
 		return clients;

@@ -1,14 +1,10 @@
 package com.servinglynk.hmis.warehouse.model.base;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -31,7 +27,7 @@ public class ProjectGroupEntity  {
     
     private boolean skipuseridentifers;
     
-/*    private boolean active;*/
+   // private boolean active;
     
     private String senderEmail;
     
@@ -84,13 +80,13 @@ public class ProjectGroupEntity  {
 	public void setSkipuseridentifers(boolean skipuseridentifers) {
 		this.skipuseridentifers = skipuseridentifers;
 	}
-/*	@Column(name="active")
-	public boolean isActitve() {
-		return active;
-	}
-	public void setActive(boolean active) {
-		this.active = active;
-	}*/
+//	@Column(name="active")
+//	public boolean isActitve() {
+//		return active;
+//	}
+//	public void setActive(boolean active) {
+//		this.active = active;
+//	}
 	
 	@Column(name="sender_email")
 	public String getSenderEmail() {
