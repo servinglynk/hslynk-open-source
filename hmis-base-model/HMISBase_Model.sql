@@ -822,6 +822,9 @@ INSERT INTO base.hmis_api_method(id,external_id,friendly_name,description,type,c
 INSERT INTO base.hmis_api_method(id,external_id,friendly_name,description,type,created_at,created_by,api_group_id,is_public,requires_access_token,requires_check_trustedapp)VALUES ((SELECT uuid_in(md5(random()::text || now()::text)::cstring)),'SURVEY_API_DELETE_SECTION_SCORES','SURVEY_API_DELETE_SECTION_SCORES','SURVEY_API_DELETE_SECTION_SCORES','DELETE',current_date,'MASTER DATA','bf1fcd6a-bb4e-4c6f-4e54-b3d8fbe73fb8',FALSE,TRUE,TRUE);
 
 INSERT INTO base.hmis_api_method VALUES ('754ee226-2f0f-9691-d164-fd0499832bc7', 'CREATE_REPORT_CONFIG', 'CREATE_REPORT_CONFIG', 'CREATE_REPORT_CONFIG', 'POST', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
+INSERT INTO base.hmis_api_method VALUES ('754ee226-2f0f-9691-d164-fd0499832bc8', 'GET_REPORT_CONFIG_BY_USER', 'GET_REPORT_CONFIG_BY_USER', 'GET_REPORT_CONFIG_BY_USER', 'GET', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
+INSERT INTO base.hmis_api_method VALUES ('754ee226-2f0f-9691-d164-fd0499832bc9', 'GET_REPORT_CONFIG_BY_ID', 'GET_REPORT_CONFIG_BY_ID', 'GET_REPORT_CONFIG_BY_ID', 'GET', NULL, NULL, '2016-04-16', NULL, 'MASTER DATA', NULL, NULL, '13e91f42-20ae-96ef-4a61-95a1e71607df', 0, NULL, NULL, NULL, true, true);
+
 
 CREATE TABLE base.hmis_developer_company
 (

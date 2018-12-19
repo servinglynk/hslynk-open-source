@@ -15,4 +15,6 @@ public interface ReportConfigDao {
 	ReportConfigEntity getReportConfigByid(Long id);
 
 	List<ReportConfigEntity> getReportConfigs(String projectGroupCode);
+
+	List<ReportConfigEntity> getReportConfigByUsername(String username);
 }

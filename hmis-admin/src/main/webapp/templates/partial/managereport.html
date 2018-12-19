@@ -34,6 +34,7 @@
               <th>End Date</th>
               <th class="center">Is email sent</th>
           	  <th>Date Created</th>
+          	  <th>Projects </th>
             </tr>
           </thead>
      <tbody>
@@ -47,6 +48,8 @@
               <td>{{data.endDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
               <td>{{data.emailSent}}</td>
               <td>{{data.dateCreated | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+               <td> <a href="javascript:;" ng-click="openlog(data.projectIds);"> click here </a></td>
+                                   
               </tr>
           </tbody>
         </table>

@@ -30,6 +30,13 @@ public class ReportConfigDaoImpl extends QueryExecutorImpl implements ReportConf
 	public ReportConfigEntity getReportConfigByid(Long id) {
 		return (ReportConfigEntity) get(ReportConfigEntity.class, id);
 	}
+	
+	@Override
+	public List<ReportConfigEntity> getReportConfigByUsername(String username) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(ReportConfigEntity.class);
+		criteria.add(Restrictions.eq("createdBy", username));
+		return (List<ReportConfigEntity>) findByCriteria(criteria);
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

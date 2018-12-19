@@ -34,6 +34,10 @@ INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, cre
 INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','3336586d-5034-41fc-a32c-9aab26873dd3' , '6a39596d-32f1-4ec3-94e4-7ba364960386', current_date, 'MASTER DATA');
 INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','9593ca58-78f6-4794-9d39-9412216c2f97' , '98e7215a-d544-40da-a9b7-d23b52545ff9', current_date, 'MASTER DATA');
 INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','eb23bef5-423f-464f-946c-5521eda0850c' , 'f9a80c00-d46a-2caa-f217-9d68094dd49d', current_date, 'MASTER DATA');
-INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','0e17ff09-8ab1-4913-9dde-0552193fcbf6' , (SELECT uuid_in(md5(random()::text || now()::text)::cstring)), current_date, 'MASTER DATA');
-INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('d78c38a1-2762-4393-b69b-41a0a11e6efc','754ee226-2f0f-9691-d164-fd0499832bc7' , (SELECT uuid_in(md5(random()::text || now()::text)::cstring)), current_date, 'MASTER DATA');
+
+INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('d78c38a1-2762-4393-b69b-41a0a11e6efc','754ee226-2f0f-9691-d164-fd0499832bc8' , (SELECT uuid_in(md5(random()::text || now()::text)::cstring)), current_date, 'MASTER DATA');
+INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('d78c38a1-2762-4393-b69b-41a0a11e6efc','754ee226-2f0f-9691-d164-fd0499832bc9' , (SELECT uuid_in(md5(random()::text || now()::text)::cstring)), current_date, 'MASTER DATA');
+
+
+
 				

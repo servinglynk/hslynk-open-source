@@ -9,4 +9,5 @@ public interface ReportConfigService {
 	ReportConfig deleteReportConfig(Long ReportConfigId);
 	public ReportConfig getReportConfigById(Long ReportConfigid);
 	ReportConfigs getAllReportConfigs(Integer startIndex, Integer maxItems);
+	public ReportConfigs getReportConfigsByUser(Integer startIndex, Integer maxItems,String caller);
 }
