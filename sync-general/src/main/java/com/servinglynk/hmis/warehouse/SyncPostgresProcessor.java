@@ -183,7 +183,7 @@ public class SyncPostgresProcessor extends Logging{
     }
 
 
-    private static Timestamp getCUrrentTimestamp() {
+    public static Timestamp getCUrrentTimestamp() {
         Calendar calendar = Calendar.getInstance();
         java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
         return currentTimestamp;
