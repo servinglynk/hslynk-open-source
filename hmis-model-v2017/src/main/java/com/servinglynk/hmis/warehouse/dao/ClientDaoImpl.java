@@ -401,7 +401,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		criteria.add(Restrictions.isNull("dedupClientId"));
 		Criterion firstNameCriterion = Restrictions.isNotNull("firstName");
 		Criterion lastNameCriterion = Restrictions.isNotNull("lastName");
+		Criterion dobNameCriterion = Restrictions.isNotNull("dob");
+		Criterion ssnNameCriterion = Restrictions.isNotNull("ssn");
 		criteria.add(Restrictions.and(firstNameCriterion,lastNameCriterion));
+		criteria.add(Restrictions.and(dobNameCriterion,ssnNameCriterion));
 		List<String> allActiveProjectGroupCodes = new  ArrayList<>();
 		allActiveProjectGroupCodes.add("MO0010");
 		allActiveProjectGroupCodes.add("HO0002");
@@ -425,13 +428,15 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	    	 String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);
 		     logger.info("Calling Dedup Service for "+client.getFirstName());
 			 client.setDateUpdated(LocalDateTime.now());
-			 client.setDedupClientId(UUID.fromString(dedupedId));
-			 getCurrentSession().update(client);
-			 basClient.setDedupClientId(UUID.fromString(dedupedId));
-			 basClient.setDateUpdated(LocalDateTime.now());
-			 insert(basClient);
-			 getCurrentSession().flush();
-			 getCurrentSession().clear();
+			 if(StringUtils.isNotBlank(dedupedId)) {
+				 client.setDedupClientId(UUID.fromString(dedupedId));
+				 getCurrentSession().update(client);
+				 basClient.setDedupClientId(UUID.fromString(dedupedId));
+				 basClient.setDateUpdated(LocalDateTime.now());
+				 insert(basClient);
+				 getCurrentSession().flush();
+				 getCurrentSession().clear();
+			 }
 	    }catch(Exception e) {
 	    	logger.error("Error populate dedup id for client: "+client.getId() + " name :"+ client.getFirstName(),e);
 	    }
