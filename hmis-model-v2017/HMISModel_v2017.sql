@@ -3973,3 +3973,7 @@ insert into v2017.question(id,question_description,display_text,question_data_ty
 'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'disabilityresponse',
 false,'4.10.2','/v2017/clients/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilityid}','disabilities.disabilityresponse');
 
+
+
+alter table v2017.client drop column ssn_old;
+alter table v2017.client drop column dob_old;
