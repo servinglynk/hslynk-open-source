@@ -9,12 +9,13 @@ public class ReportConfig {
 	private List<String> projectds;
 	private Date startDate;
 	private Date endDate;
+	private String cocId;
 	
 	private boolean isSageReport;
 	public ReportConfig() {
 	}
 	public ReportConfig(Long id, String projectGroupCode, List<String> projectds, Date startDate, Date endDate,
-			boolean isSageReport) {
+			boolean isSageReport,String cocId) {
 		super();
 		this.id = id;
 		this.projectGroupCode = projectGroupCode;
@@ -22,6 +23,7 @@ public class ReportConfig {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.isSageReport = isSageReport;
+		this.cocId = cocId;
 	}
 
 	public Long getId() {
@@ -60,5 +62,10 @@ public class ReportConfig {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-
+	public String getCocId() {
+		return cocId;
+	}
+	public void setCocId(String cocId) {
+		this.cocId = cocId;
+	}
 }

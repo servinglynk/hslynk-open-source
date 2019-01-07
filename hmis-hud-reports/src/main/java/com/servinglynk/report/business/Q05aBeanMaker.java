@@ -35,6 +35,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			data.setChronicHomeLess(chronicHomeless);
 			List<ExitModel> exits = data.getExits();
 			List<String> enrollmentsFromExit = new ArrayList<>();
+		
 			exits.forEach(exit -> { if(StringUtils.isNotEmpty(exit.getProjectEntryID())) { enrollmentsFromExit.add(exit.getProjectEntryID());} } );
 			List<EnrollmentModel> leavers = enrollments.parallelStream().filter(enrollment -> enrollmentsFromExit.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 			data.setLeavers(leavers);
@@ -42,6 +43,19 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			data.setAdultLeavers(adultLeavers);
 			List<EnrollmentModel> activeClients = enrollments.parallelStream().filter(enrollment -> !enrollmentsFromExit.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
 			data.setActiveClients(activeClients);
+			//select dedup_client_id from enrollment e, 
+				
+			/*String leaversQuery = "select  e.dedup_client_id ,e.age from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
+						" join  %s.exit ext  on  (ext.enrollmentid = e.id and ext.exitdate >= :startDate and ext.exitdate <= :endDate) "+
+						" order by e.dedup_client_id,p.operatingstartdate asc ";
+				
+		String stayersQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
+						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and  e.entrydate <= :startDate and (ext.exitdate is null  or ext.exitdate > :endDate) ) "+
+						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
+						" where e.entrydate >= :startDate and e.entrydate <= :endDate " +
+						" order by e.dedup_client_id,p.operatingstartdate asc ";
+						*/
+			
 			List<EnrollmentModel> adultStayers = enrollments.parallelStream().filter(enrollment -> !enrollmentsFromExit.contains(enrollment.getProjectEntryID()) && enrollment.getAgeatentry() > 18).collect(Collectors.toList());
 			List<EnrollmentModel> adultStayersHoh365Days = adultStayers.parallelStream().filter(enrollment -> inProjectForMoreThan365Days(enrollment.getEntrydate()) && StringUtils.equals("1", enrollment.getRelationshiptohoh())).collect(Collectors.toList());
 			List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
