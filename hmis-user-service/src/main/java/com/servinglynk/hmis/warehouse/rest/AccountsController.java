@@ -57,15 +57,18 @@ public class AccountsController extends ControllerBase {
 	@RequestMapping(method = RequestMethod.POST,value="/developeraccount")
 	public Account createDeveloperAccount(@RequestBody @Valid Account account, @RequestParam(value="purpose",required= false,defaultValue="" ) String purpose, HttpServletRequest request) throws Exception {
 		Session session = new Session();
-		session.setAccount(account);
+		Account loginAccount = new Account();
+		loginAccount.setAccountId(UUID.fromString("8b6c6ef2-87c7-47f0-8874-4cca6f09365c"));  // setting super user as logged in user
+		loginAccount.setUsername("superadmin@hmis.com");
+		session.setAccount(loginAccount);
 		Profile profile = new Profile();
-		profile.setId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));
+		profile.setId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));  // Assigning developer profile
 		account.setProfile(profile);
 		Role role =new Role();
-		role.setId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));
+		role.setId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));  // Assigning developer role 
 		account.setRole(role);	
 		ProjectGroup projectGroup=new ProjectGroup();
-		projectGroup.setProjectGroupId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));
+		projectGroup.setProjectGroupId(UUID.fromString("9b9792ca-8730-4d21-9a39-6902229fd4b9"));  // Assigning PG0001 project group
 		account.setProjectGroup(projectGroup);
 		return createAccount(account, request,session ,purpose);
 	}
