@@ -68,7 +68,7 @@ public class AccountsController extends ControllerBase {
 		role.setId(UUID.fromString("1ebd9476-600c-463f-8c3d-bf8accad472b"));  // Assigning developer role 
 		account.setRole(role);	
 		ProjectGroup projectGroup=new ProjectGroup();
-		projectGroup.setProjectGroupId(UUID.fromString("9b9792ca-8730-4d21-9a39-6902229fd4b9"));  // Assigning PG0001 project group
+		projectGroup.setProjectGroupId(UUID.fromString("794e567f-a073-48f5-8ab2-ce971f162819"));  // Assigning try it now (TT0013) project group
 		account.setProjectGroup(projectGroup);
 		return createAccount(account, request,session ,purpose);
 	}
