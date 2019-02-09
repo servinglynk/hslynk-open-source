@@ -2808,3 +2808,6 @@ CREATE INDEX disab_proj_grp
 ON v2014.disabilities (project_group_code);
 alter table v2014.client ADD COLUMN email_address character varying(266);
 alter table v2014.client ADD COLUMN phone_number character varying(16);
+
+alter table v2017.client drop column ssn_old;
+alter table v2017.client drop column dob_old;

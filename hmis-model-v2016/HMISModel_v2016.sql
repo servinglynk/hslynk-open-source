@@ -2975,3 +2975,6 @@ CREATE TABLE "v2016".sync
 WITH (
   OIDS=FALSE
 );
+
+alter table v2016.client drop column ssn_old;
+alter table v2016.client drop column dob_old;
