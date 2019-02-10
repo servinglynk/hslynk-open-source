@@ -616,23 +616,4 @@ public class DedupServiceImpl implements DedupService{
         }
         return date;
 	}
-	
-	public static void main(String args[]) {
-		DedupServiceImpl impl = new DedupServiceImpl();
-		AuthenticationRequest authRequest = new AuthenticationRequest();
-		authRequest.setPassword("admin");
-		authRequest.setUsername("admin");
-		String value = impl.authenticate(authRequest);
-		System.out.println("SESSION_KEY:"+value);
-		//Fetch by First Name and Last Name
-		Person person = new Person();
-		person.setGivenName("MysteriousClient");	
-	//	person.setFamilyName("Vega");
-	//	person.setSsn("635057848");
-		person.setDateOfBirth(impl.getDateInFormat("1970-01-01"));
-		Person personRestult  =	impl.dedupingLogic(person, value);
-		System.out.println("PERSON_ID:"+impl.getUniqueIdentifier(personRestult.getPersonIdentifiers()));
-		
-	}
-
 }
