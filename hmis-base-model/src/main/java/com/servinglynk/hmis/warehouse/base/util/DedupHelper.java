@@ -106,10 +106,6 @@ public class DedupHelper {
 	        requestBody = requestBody+"\"username\": \"" +user.trim()+"\",";
 	        requestBody = requestBody+"\"password\": \"" +pass.trim()+"\" } }";
 	        
-	        System.out.println(" url :"+url);
-	        System.out.println(" user :"+user);
-	        System.out.println(" pass :"+pass);
-	        System.out.println(" requesBody :"+requestBody);
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
 	        HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers); 
