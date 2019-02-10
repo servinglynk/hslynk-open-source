@@ -1,17 +1,15 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.servinglynk.hmis.warehouse.ReportConfig;
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
@@ -93,19 +91,14 @@ import com.servinglynk.report.model.ProjectModel;
 
 public class HomePageDataBeanMaker extends BaseBeanMaker {
 	
-			public static List<HomePageDataBean> getHomePageDataList(String schema,String cocId,boolean sageReport,Date reportStartDate, Date reportEndDate, List<String> projectList){
+			public static List<HomePageDataBean> getHomePageDataList(ReportConfig reportConfig){
 				
 			HomePageDataBean homePageDataBean = new HomePageDataBean();
 			
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			ReportData data = new ReportData();
 			data.setLiveMode(true);
-			try {
-				data.setReportStartDate(new java.sql.Date(dateFormat.parse("01/01/2015").getTime()));
-				data.setReportEndDate(new java.sql.Date(dateFormat.parse("11/10/2018").getTime()));
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+			data.setReportStartDate(reportConfig.getStartDate());
+			data.setReportEndDate(reportConfig.getEndDate());
 			
 			homePageDataBean.setHomePageProjects("APR - Services Only");
 			homePageDataBean.setHomePageHomeLess("Everyone");
@@ -113,12 +106,15 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setHomePageView("Aggregate / summary");
 			homePageDataBean.setQ04aHmisProjectIdService(BigInteger.valueOf(240));
 			homePageDataBean.setQ04aIdentityProjectId(BigInteger.valueOf(0));
-			data.setSageReport(sageReport);
-			data.setSchema(schema);	
+			data.setSageReport(reportConfig.isSageReport());
+			data.setSchema(reportConfig.getProjectGroupCode());	
 			List<ProjectModel> projects = new ArrayList<>();
+			String schema = reportConfig.getProjectGroupCode();
+			String cocId = reportConfig.getCocId();
+			List<String> projectList = reportConfig.getProjectds();
 			if(data.isLiveMode()) {
 				try {
-					if(StringUtils.isNotBlank(cocId)) {
+					if(StringUtils.isNotBlank(reportConfig.getCocId())) {
 						projects = getProjectsByCoc(schema,cocId);
 					}else {
 						projects = getProjects(schema,projectList);
@@ -133,7 +129,6 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 					data.setProjectIds(projectDatas);
 					
 					List<EnrollmentModel> enrollments =  new ArrayList<>();
-					
 					if(StringUtils.isNotBlank(cocId)) {
 						enrollments = getEnrollmentsByCocId(schema, cocId,data);
 					}else {

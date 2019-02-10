@@ -46,4 +46,13 @@ public class ReportConfigController extends ControllerBase {
 		 String username = session.getAccount().getUsername();
 		 return  serviceFactory.getReportConfigService().getReportConfigById(reportConfigId);
 		}
+		
+		@RequestMapping(value="/{reportConfigId}",method=RequestMethod.PUT)
+		@APIMapping(value="UPDATE_REPORT_CONFIG",checkSessionToken=true, checkTrustedApp=true)
+		public ReportConfig updateById(@PathVariable(value="reportConfigId") Long reportConfigId, 
+                HttpServletRequest request, @RequestBody ReportConfig reportConfig) throws Exception {			
+		 Session session = sessionHelper.getSession(request);
+		 String username = session.getAccount().getUsername();
+		 return  serviceFactory.getReportConfigService().updateReportConfig(reportConfigId, reportConfig, username);
+		}
 }

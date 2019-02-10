@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import com.servinglynk.hive.connection.SyncPostgresProcessor;
 import com.servinglynk.hmis.warehouse.Properties;
+import com.servinglynk.hmis.warehouse.ReportConfig;
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.business.HomePageDataBeanMaker;
 
@@ -36,10 +37,8 @@ public class Reporter {
         try {         
         	Properties props = new Properties();
     		props.generatePropValues();
-			Map<String, List<String>> maps = SyncPostgresProcessor.getProjects();
-			List<String> projects = maps.get(0);
-			String projectGroupCode = maps.keySet().iterator().next();
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(projectGroupCode,null,sageReport, new Date(), new Date(),projects);
+			ReportConfig reportConfig = SyncPostgresProcessor.getProjects();
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig);
         	if(!sageReport) {
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
                 Map parameters = new HashMap();

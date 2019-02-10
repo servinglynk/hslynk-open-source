@@ -25,12 +25,12 @@ public class BulkUploadHelperTest {
 
 	@Test
 	public void testXMLUpload() throws Exception {
-		URL path = BulkUploadHelperTest.class.getResource("2017.xml");
+		URL path = BulkUploadHelperTest.class.getResource("HUD_HMIS_Instance.xml");
 //		System.out.println(path);
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
 		//upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
-		upload.setInputpath("/Users/sdolia/Downloads/hmis_test_kit.zip");
+		upload.setInputpath(path.getPath());
 		com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp = new com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity();
 		projectGrp.setSkipuseridentifers(true);
 		sources = helper.getSourcesFromFiles(upload,projectGrp,false);
