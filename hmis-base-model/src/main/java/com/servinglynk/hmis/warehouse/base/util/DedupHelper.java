@@ -103,9 +103,13 @@ public class DedupHelper {
 			String pass =  env.getRequiredProperty(OPENEMPI_PASS);
 		
 	        String requestBody = "{ \"AuthenticationRequest\": { ";
-	        requestBody = requestBody+"\"username\": \"" +user+"\",";
-	        requestBody = requestBody+"\"password\": \"" +pass+"\" } }";
+	        requestBody = requestBody+"\"username\": \"" +user.trim()+"\",";
+	        requestBody = requestBody+"\"password\": \"" +pass.trim()+"\" } }";
 	        
+	        System.out.println(" url :"+url);
+	        System.out.println(" user :"+user);
+	        System.out.println(" pass :"+pass);
+	        System.out.println(" requesBody :"+requestBody);
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
 	        HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers); 
