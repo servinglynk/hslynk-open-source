@@ -16,8 +16,8 @@
 		<servlet-version>3.0.1</servlet-version>
 		<jsp-version>2.2.1</jsp-version>
 		<jstl-version>1.2</jstl-version>
-		<spring-version>4.0.0.RELEASE</spring-version>
-		<spring-security-version>3.2.0.RELEASE</spring-security-version>
+		<spring-version>4.3.22.RELEASE</spring-version>
+		<spring-security-version>4.2.11.RELEASE</spring-security-version>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
@@ -44,7 +44,7 @@
 	        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>4.0.0.RELEASE</version>
+            <version>4.2.11.RELEASE</version>
         </dependency>		
 	
 		<!-- Spring -->
