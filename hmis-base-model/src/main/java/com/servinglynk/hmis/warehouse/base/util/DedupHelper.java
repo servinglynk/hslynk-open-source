@@ -38,6 +38,8 @@ public class DedupHelper {
 	
 	final static Logger logger = Logger.getLogger(DedupHelper.class);
 	private static final String OPENEMPI_HOST = "openempi.host";
+	private static final String OPENEMPI_USER = "openempi.user";
+	private static final String OPENEMPI_PASS = "openempi.password";
 	
 	public String getDedupedClient(Client client,String sessionKey) {
 		try {
@@ -47,8 +49,7 @@ public class DedupHelper {
 	    	MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-16"));
 	    	headers.setContentType(mediaType);
 	        headers.set("OPENEMPI_SESSION_KEY", sessionKey);
-	     //   String url = env.getRequiredProperty(OPENEMPI_HOST)+"dedup";
-	        String url = "http://hmiselb.aws.hmislynk.com/hmis-client-dedup/rest/api/v1/dedup";
+	        String url = env.getRequiredProperty(OPENEMPI_HOST)+"dedup";
 	        Person person = new Person();
 	        person.setGivenName(client.getFirstName());
 	        person.setFamilyName(client.getLastName());
@@ -102,9 +103,10 @@ public class DedupHelper {
 	}
 	public String getAuthenticationHeader() {
 			RestTemplate restTemplate = new RestTemplate();
-		    //String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";
-			String url = "http://hmiselb.aws.hmislynk.com/hmis-client-dedup/rest/api/v1/authenticate";
-	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"admin\",\"password\":\"admin\"} }";
+		    String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";
+			String user =  env.getRequiredProperty(OPENEMPI_USER);
+			String pass =  env.getRequiredProperty(OPENEMPI_PASS);
+	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"+user"+"\",\"password\":\"+pass+\"} }";
 	        AuthenticationRequest AuthenticationRequest = new AuthenticationRequest();
 	        AuthenticationRequest.setPassword("admin");
 	        AuthenticationRequest.setUsername("admin");
@@ -165,26 +167,4 @@ public class DedupHelper {
 		//logger.info("Request Body"+requestBody);
 		return requestBody;	
 	}
-    
-	
-    public static void main(String args[]) {
-    	DedupHelper impl = new DedupHelper();
-    	Client client = new Client();
-//    	client.setFirstName("John");
-//    	client.setLastName("Anderson");
-    	client.setDob(LocalDateTime.of(1980, 01, 01, 00 ,0, 0));
-//    	client.setGender(ClientGenderEnum.ONE);
-    	client.setSsn("111111111");
-//    	client.setSsnDataQuality(ClientSsnDataQualityEnum.EIGHT);
-//    	String abc = impl.getDedupedClient(client,impl.getAuthenticationHeader());
-//    	System.out.println("Identifier "+abc);
-    	Person person = new Person();
-//    	person.setGivenName("John");
-//    	person.setFamilyName("Anderson");
-  //  	person.setDateOfBirth(new Date());
-//    	client.setGender(ClientGenderEnum.ONE);
-    	person.setSsn("111111111");
-    	String parsePersonObjectToXMLString = impl.parsePersonObjectToXMLString(person);
-    	System.out.println(parsePersonObjectToXMLString);
-    }
 }
