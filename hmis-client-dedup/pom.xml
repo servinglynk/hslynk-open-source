@@ -20,7 +20,7 @@
 
 		<hibernate.version>4.2.0.Final</hibernate.version>
 		<commons.dbcp.version>1.4</commons.dbcp.version>
-		<spring.version>4.0.0.RELEASE</spring.version>
+		<spring.version>4.3.22.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
@@ -124,7 +124,7 @@
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-xml</artifactId>
-			<version>1.5.9</version>
+			<version>2.4.4.RELEASE</version>
 		</dependency>
 
 		<dependency>
