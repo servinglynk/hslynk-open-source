@@ -3,7 +3,6 @@ package com.servinglynk.hmis.warehouse.base.util;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -24,11 +23,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.servinglynk.hmis.warehouse.domain.Gender;
 import com.servinglynk.hmis.warehouse.domain.Person;
-import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
-import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.model.base.Client;
-import com.servinglynk.hmis.warehouse.restful.model.AppRequest;
-import com.servinglynk.hmis.warehouse.restful.model.AuthenticationRequest;
 
 @Component
 public class DedupHelper {
@@ -106,12 +101,11 @@ public class DedupHelper {
 		    String url = env.getRequiredProperty(OPENEMPI_HOST)+"authenticate";
 			String user =  env.getRequiredProperty(OPENEMPI_USER);
 			String pass =  env.getRequiredProperty(OPENEMPI_PASS);
-	        String requestBody = "{ \"AuthenticationRequest\": {\"username\":\"+user"+"\",\"password\":\"+pass+\"} }";
-	        AuthenticationRequest AuthenticationRequest = new AuthenticationRequest();
-	        AuthenticationRequest.setPassword("admin");
-	        AuthenticationRequest.setUsername("admin");
-	        AppRequest request  = new AppRequest();
-	        request.setAuthenticationRequest(AuthenticationRequest);
+		
+	        String requestBody = "{ \"AuthenticationRequest\": { ";
+	        requestBody = requestBody+"\"username\": \"" +user.trim()+"\",";
+	        requestBody = requestBody+"\"password\": \"" +pass.trim()+"\" } }";
+	        
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON); 
 	        HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers); 
