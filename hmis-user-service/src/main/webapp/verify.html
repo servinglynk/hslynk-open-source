@@ -70,9 +70,9 @@ function getURLParameter(name) {
 				$('#success-msg').show();
 				toastr.success("Your account has bean activated successfully.");
 				if(accType == 'DEV_COMPANY_SETUP') {
-					$window.location.href = 'https://developers.hslynk.com';
+					document.location.href = 'https://developers.hslynk.com';
 				}else{
-					$window.location.href = 'https://www.hslynk.com/hmis-admin';					
+					document.location.href = 'https://www.hslynk.com/hmis-admin';					
 				}
 			},
 			error: function (res) {
