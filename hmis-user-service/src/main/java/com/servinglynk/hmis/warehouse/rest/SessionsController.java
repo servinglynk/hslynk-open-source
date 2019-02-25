@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,6 +67,25 @@ public class SessionsController {
 		session.setAccount(account);
 		
 		 serviceFactory.getSessionService().validateUserCredentials(session, trustedAppId, USER_SERVICE);
+		 
+		 if(session.getNextAction() == Constants.TWO_FACTOR_AUTH_FLOW_OPT){
+			 response.sendRedirect("/hmis-user-service/twofactorauth.html?authKey="+session.getAuthCode());
+		 }
+		// return a session containing the token field to indicate the
+		// successful creation.
+		Session returnSession = new Session();
+		returnSession.setToken(session.getToken());
+		return returnSession;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST,path="/login")
+	@APIMapping(value="USR_CREATE_SESSION",checkSessionToken=false, checkTrustedApp=false)
+	public Session login(@RequestBody Session session,
+								 HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		String trustedAppId = trustedAppHelper.retrieveTrustedAppId(request);
+
+		serviceFactory.getSessionService().validateUserCredentials(session, trustedAppId, USER_SERVICE);
 		 
 		 if(session.getNextAction() == Constants.TWO_FACTOR_AUTH_FLOW_OPT){
 			 response.sendRedirect("/hmis-user-service/twofactorauth.html?authKey="+session.getAuthCode());

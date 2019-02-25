@@ -113,12 +113,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		GoogleAuthenticator authenticator = new GoogleAuthenticator();
 		GoogleAuthenticatorKey key = authenticator.createCredentials();
 		pAccount.setAuthenticatorSecret(key.getKey());
-		if (purpose.equalsIgnoreCase("DEV_COMPANY_SETUP")) {
-			pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
-		} else {
-			pAccount.setStatus(Constants.ACCOUNT_STATUS_PENDING);
-
-		}
+		pAccount.setStatus(Constants.ACCOUNT_STATUS_PENDING);
 
 		pAccount.setTwoFactorAuthentication(account.isTwoFactorAuthentication());
 
@@ -163,6 +158,11 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		notification.getParameters().addParameter(new Parameter("password", account.getPassword()));
 		notification.getParameters().addParameter(new Parameter("name",account.getFirstName()+" "+account.getLastName()));
 		notification.getParameters().addParameter(new Parameter("verificationtoken", pVerification.getToken()));
+		if (purpose.equalsIgnoreCase("DEV_COMPANY_SETUP")) {
+			notification.getParameters().addParameter(new Parameter("tokenType", "DEV_COMPANY_SETUP"));
+		}else {
+			notification.getParameters().addParameter(new Parameter("tokenType", "USER_SETUP"));
+		}
 		notification.getRecipients().addToRecipient(account.getEmailAddress());
 		notificationServiceClient.createNotification(notification);		
 		
