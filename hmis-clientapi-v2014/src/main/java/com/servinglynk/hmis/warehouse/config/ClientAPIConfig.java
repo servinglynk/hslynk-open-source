@@ -2,6 +2,8 @@ package com.servinglynk.hmis.warehouse.config;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -83,10 +85,10 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 //		return new PropertyController();
 //	}
 //	
-	/* @PostConstruct
+	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {
 		 propertyReaderService().loadProperties("HMIS_CLIENTAPI");
-	 }*/
+	 }
 	 
 	 @Bean
 	 public SearchController searchController(){

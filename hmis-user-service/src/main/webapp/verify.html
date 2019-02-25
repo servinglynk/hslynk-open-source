@@ -30,6 +30,7 @@ function getURLParameter(name) {
 	$('#success-msg').hide();
     toastr.options.timeOut = 1500; // 1.5s
     var token = getURLParameter("verificationToken");
+    var accType = getURLParameter("tokenType");
 
 	$.ajax({
 		headers: {
@@ -68,6 +69,11 @@ function getURLParameter(name) {
 				$('#msg').hide();
 				$('#success-msg').show();
 				toastr.success("Your account has bean activated successfully.");
+				if(accType == 'DEV_COMPANY_SETUP') {
+					document.location.href = 'https://developers.hslynk.com';
+				}else{
+					document.location.href = 'https://www.hslynk.com/hmis-admin';					
+				}
 			},
 			error: function (res) {
 				loginErrorHandler(res, "errorMsg"); 
