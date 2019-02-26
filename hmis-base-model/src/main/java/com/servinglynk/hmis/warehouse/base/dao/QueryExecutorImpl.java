@@ -329,6 +329,9 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 		return queryObject.list();
 	}
 	
+	public List<?> find(DetachedCriteria detachedCriteria){
+				return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
+	}
 
 	public List<?> findByCriteria(DetachedCriteria detachedCriteria){
 		addingConditionsToCriteria(detachedCriteria);

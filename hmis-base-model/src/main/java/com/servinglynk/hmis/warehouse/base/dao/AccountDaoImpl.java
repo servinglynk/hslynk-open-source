@@ -5,14 +5,10 @@ import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ProfileACLEntity;
-import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.base.UserRoleMapEntity;
 
 public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
@@ -23,9 +19,9 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	@SuppressWarnings("unchecked")
 	public HmisUser findByUsername(String userName){
 		DetachedCriteria criteria= DetachedCriteria.forClass(HmisUser.class);
-		criteria.add(Restrictions.eq("username",userName.toLowerCase()));
+		criteria.add(Restrictions.eq("username",userName).ignoreCase());
 		criteria.add(Restrictions.ne("status", Constants.ACCOUNT_STATUS_DELETED));
-		List<HmisUser> accounts = (List<HmisUser>) findByCriteria(criteria);
+		List<HmisUser> accounts = (List<HmisUser>) find(criteria);
 		if(accounts.size()>0) return accounts.get(0);
 		return null;
 	}
