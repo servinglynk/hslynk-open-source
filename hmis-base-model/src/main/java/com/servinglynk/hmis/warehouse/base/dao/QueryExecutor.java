@@ -58,4 +58,6 @@ public interface QueryExecutor  {
 	
 	public List<?> findByCriteria(DetachedCriteria detachedCriteria,Integer firstResult,Integer maxResults);
 	
+	List<?> find(DetachedCriteria detachedCriteria);
+	
 }
