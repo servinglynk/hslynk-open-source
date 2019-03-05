@@ -20,6 +20,7 @@ public class Properties {
     public static String HIVE_USERNAME;
     public static String HIVE_PASSWORD;
     public static String HIVE_DRIVER_URL;
+    public static String ACTIVE_LIST_DAYS;
 
     public void generatePropValues() throws Exception {
 
@@ -49,6 +50,7 @@ public class Properties {
             HIVE_USERNAME = prop.getProperty("hive.username");
             HIVE_PASSWORD = prop.getProperty("hive.password");
             HIVE_DRIVER_URL= prop.getProperty("hive.driverUrl");
+            ACTIVE_LIST_DAYS = prop.getProperty("hive.activelist.days") != null ?  prop.getProperty("hive.activelist.days") : "15";
         } catch (Exception e) {
             System.out.println("Exception: " + e);
             throw e;
@@ -57,7 +59,6 @@ public class Properties {
                 in.close();
             }
         }
-
     }
 
     public void printProps() {
@@ -70,6 +71,7 @@ public class Properties {
         System.out.println(HBASE_ZOOKEEPER_QUORUM);
         System.out.println(HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT);
         System.out.println(PROJECT_GROUP_CODE);
+        System.out.println(ACTIVE_LIST_DAYS);
     }
 
 }
