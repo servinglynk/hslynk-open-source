@@ -1,5 +1,6 @@
 #!/bin/bash  
- VERSION_MODE=$1  
+ VERSION_MODE=$1
+
  ENV_TAG_PREFIX=v
  # "major": 1,  
  # "minor": 0,  
@@ -7,8 +8,7 @@
  # "buildNumber": 1  
  if [ "$VERSION_MODE" = "" ] ; then  
       VERSION_MODE="buildNumber"  
- fi  
- cd /Users/sdolia/github/hmis-lynk-open-source  
+ fi    
  #get highest tag number  
  VERSION=`git describe --match "$ENV_TAG_PREFIX[0-9]*" --abbrev=0 --tags`  
  #replace . with space so can split into an array  
