@@ -10,7 +10,7 @@
     <version>2.0</version>
     <name>hslynk-parent</name>
 <properties>
-   <!-- Unique entry point for version number management --> 
+   <!-- Unique entry point for version number management. --> 
    <global.version>2.0</global.version>
 </properties>
 	<build>
