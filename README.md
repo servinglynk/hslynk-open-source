@@ -6,7 +6,7 @@ HSLynk is a human services platform developed by ServingLynk, Inc. in conjunctio
 All subdirectories in this repository contain HSLynk microservice code.
 Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk/hmis-lynk-open-source-docs), to keep the code repo lean.
 
-## Prerequisites
+## Prerequisite:
 
 - Node: https://nodejs.org/en/
 	- Preferred way to install: https://github.com/creationix/nvm
