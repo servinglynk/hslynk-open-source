@@ -57,7 +57,7 @@ Tomcat is used to deploy this app.
 ```
 Open Eclipse and navigate to
 Base Schema
-/hmis-base-model/build.xml
+/base-model/build.xml
  replace <pathelement location="/Users/sdolia/.m2/repository/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
  to wherever you have <pathelement location="MAVEN_HOME/org/postgresql/postgresql/9.3-1101-jdbc41/postgresql-9.3-1101-jdbc41.jar"/>
 
