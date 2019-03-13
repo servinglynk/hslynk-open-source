@@ -52,7 +52,7 @@ public class ActiveListView  extends Logging {
 	     	      builder.append(" group by client_dedup_id ) tm ");
 	     	      builder.append(" on  t.client_dedup_id = tm.client_dedup_id ");
 	     	      builder.append(" and t.survey_submission_date = tm.maxDate and t.project_group_code=? ");
-	     	      builder.append(" and t.date_updated >  ? ");
+	     	      builder.append(" and t.survey_submission_date >  ? ");
 	     	      builder.append(" order by t.client_dedup_id,survey_score desc" );
 	     	      connection = SyncPostgresProcessor.getConnection();
 		          statement = connection.prepareStatement(builder.toString());
@@ -159,14 +159,12 @@ public class ActiveListView  extends Logging {
 	               if (putsToInsert.size() > 0) {
 	                   htable.put(putsToInsert);
 	                   putsToInsert.clear();
-	                   htable.flushCommits();
 	               }
 
 	               logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
 	               if (putsToUpdate.size() > 0) {
 	                   htable.put(putsToUpdate);
 	                   putsToUpdate.clear();
-	                   htable.flushCommits();
 	               }
 
 	        } catch (Exception ex) {
@@ -327,7 +325,7 @@ public class ActiveListView  extends Logging {
          logger.addAppender(appender);
          List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes(logger);
          for (String projectGroupCode :allProjectGroupCodes) {
-        	 String tableName ="active_list"+projectGroupCode;
+        	 String tableName ="active_list_"+projectGroupCode;
              createHbaseTable(tableName);
              logger.info("Processing active list for project group code"+projectGroupCode);
              syncTable(tableName, projectGroupCode, "eligible_clients",props);
