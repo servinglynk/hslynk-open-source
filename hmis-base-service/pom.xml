@@ -6,12 +6,15 @@
 	<artifactId>hmis-base-service</artifactId>
 	<name>HMIS Base Service</name>
 	<packaging>jar</packaging>
-	<version>2.0</version>
-	<scm>	
+	<parent>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hslynk-parent</artifactId>
+			<version>2.0</version>
+	</parent>
+	<scm>
 			  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-		<parent-version>2.0</parent-version>
 		<java-version>1.8</java-version>
 		<servlet-version>3.0.1</servlet-version>
 		<jsp-version>2.2.1</jsp-version>
@@ -34,7 +37,7 @@
 			<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-fileupload-core</artifactId>
-			<version>2.0</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 		<groupId>commons-lang</groupId>
@@ -45,8 +48,8 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
             <version>4.2.11.RELEASE</version>
-        </dependency>		
-	
+        </dependency>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -111,7 +114,7 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency> -->
-		
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -190,27 +193,27 @@
 		 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-base-model</artifactId>
-			<version>${parent-version}</version>
-		</dependency> 
+			<version>${parent.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>core-client</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 				 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>${parent-version}</version>
-		</dependency> 
+			<version>${parent.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-s3-client</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-base-serialize</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 				<dependency>
 			<groupId>commons-codec</groupId>
