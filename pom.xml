@@ -57,7 +57,7 @@
 		<module>hmis-clientapi-v2017</module>
  		<module>hmis-load-processor-v2014</module>
 		<module>hmis-load-processor-v2015</module>
-		<module>hmis-load-processor-v2016</module
+		<module>hmis-load-processor-v2016</module>
 	 	<module>hmis-load-processor-v2017</module>
 		<module>hmis-notification-core</module>
 		<module>hmis-notification-service</module>
