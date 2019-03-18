@@ -82,7 +82,11 @@ public class TokensController extends ControllerBase {
 			}
 			
 			authorization = serviceFactory.getAuthorizationService().authorizeWithRefreshToken(refreshToken, trustedApp.getTrustedAppId(), Constants.AUTHORIZATION_SERVICE);
-		}else {
+		} else if (grantType.equals(Constants.OAUTH_CLIENT_CREDENTIALS)) {
+		
+		  authorization = serviceFactory.getAuthorizationService().authorizeWithClientCredentials(trustedApp, Constants.AUTHORIZATION_SERVICE);
+		
+		} else {
 			throw new GrantTypeNotSupportedException("Invalid grant type "+grantType);
 		}
 		

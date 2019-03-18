@@ -176,6 +176,11 @@
 			<artifactId>usertype.extended</artifactId>
 			<version>3.1.0.GA</version>
 		</dependency>
+		<dependency>
+    <groupId>com.thoughtworks.xstream</groupId>
+    <artifactId>xstream</artifactId>
+    <version>1.4.7</version>
+</dependency>
 	</dependencies>
 
 
