@@ -35,6 +35,7 @@ public interface Constants {
 	
 	public static final String OAUTH_AUTHORIZATION_CODE = "authorization_code";
 	public static final String OAUTH_REFRESH_TOKEN = "refresh_token";
+	public static final String OAUTH_CLIENT_CREDENTIALS ="client_credentials";
 	public static final String OAUTH_IMPLICIT = "implicit";
 	public static final String OAUTH_ACCESS_TYPE_ONLINE = "online";	
 	public static final String OAUTH_ACCESS_TYPE_OFFLINE = "offline";

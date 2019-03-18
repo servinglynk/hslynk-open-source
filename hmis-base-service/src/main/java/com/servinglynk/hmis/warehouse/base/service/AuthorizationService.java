@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.servinglynk.hmis.warehouse.core.model.OAuthAuthorization;
 import com.servinglynk.hmis.warehouse.core.model.OAuthMessageGroup;
+import com.servinglynk.hmis.warehouse.core.model.TrustedApp;
 
 public interface AuthorizationService {
 	
@@ -41,5 +42,7 @@ public interface AuthorizationService {
 
 	public void revokeConsentToken(String consentToken,
 			String authorizationService);
+
+	public OAuthAuthorization authorizeWithClientCredentials(TrustedApp trustedApp, String caller);
 
 }
