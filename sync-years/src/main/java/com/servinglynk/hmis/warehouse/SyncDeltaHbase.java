@@ -1,10 +1,8 @@
 package com.servinglynk.hmis.warehouse;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -400,8 +398,9 @@ public class SyncDeltaHbase extends Logging {
                                         Bytes.toBytes(value));
                       
                                 // Add a new column for description for enums
-                                if(columnTypeName.contains(syncSchema)) {
-                                	String description = getDescriptionForHmisType(hmisTypes, column.toLowerCase().trim()+"_"+value.trim());
+                                if(StringUtils.equalsIgnoreCase("USER-DEFINED", columnTypeName)) {
+                                	String descKey = column.toLowerCase().trim()+"_"+value.trim();
+                                	String description = getDescriptionForHmisType(hmisTypes, descKey);
                                 	if(StringUtils.isNotBlank(description)) {
                                 		 p.addColumn(Bytes.toBytes("CF"),
                                                  Bytes.toBytes(column+"_desc"),

@@ -13,7 +13,6 @@
 			  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-			<parent-version>2.0</parent-version>
 			<java-version>1.8</java-version>
 	</properties>
 	<parent>
@@ -21,7 +20,17 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.3.5.RELEASE</version>
 	</parent>
-
+	<dependencyManagement>
+	    <dependencies>
+	        <dependency>
+	            <groupId>com.servinglynk.hmis.warehouse</groupId>
+        		<artifactId>hslynk-parent</artifactId>
+				<version>2.14.20</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>
+	    </dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>com.googlecode.jcsv</groupId>
@@ -75,22 +84,22 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-service-v2016</artifactId>
-			<version>${parent-version}</version>
+			<version>2.14.20</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-model-v2016</artifactId>
-			<version>${parent-version}</version>
+			<version>2.14.20</version>
 		</dependency>
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-model</artifactId>
-			  <version>${parent-version}</version>
+			  <version>2.14.20</version>
 			</dependency>		
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-service</artifactId>
-			  <version>${parent-version}</version>
+			  <version>2.14.20</version>
 			</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>

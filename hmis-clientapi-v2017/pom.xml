@@ -5,10 +5,12 @@
 	<packaging>war</packaging>
 	<name>HMIS Client API  (v2017)</name>
 	<description>HMIS Client API</description>
-
-
+	<parent>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hslynk-parent</artifactId>
+			<version>2.14.20</version>
+	</parent>
 	<properties>
-		<parent-version>2.0</parent-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -157,39 +159,39 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-service-v2017</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-model-v2017</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-model</artifactId>
-			  <version>${parent-version}</version>
+			  <version>${parent.version}</version>
 			</dependency>		
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-service</artifactId>
-			  <version>${parent-version}</version>
+			  <version>${parent.version}</version>
 			</dependency>		
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-serialize-v2017</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-base-serialize</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<!-- <dependency> <groupId>com.servinglynk.hmis.warehouse</groupId> <artifactId>hmis-core-model</artifactId> 
 			<version>${parent-version}</version> </dependency> -->
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
@@ -223,48 +225,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-<!-- 	<repositories>
-		<repository>
-			<id>central</id>
-			<name>Maven Repository Switchboard</name>
-			<layout>default</layout>
-			<url>http://52.37.76.153:8080/nexus/content/groups/public</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>central</id>
-			<name>Maven Plugin Repository</name>
-			<url>http://52.37.76.153:8080/nexus/content/groups/public</url>
-			<layout>default</layout>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
-	<distributionManagement>
-		<repository>
-			<id>deployment</id>
-			<name>Internal Releases</name>
-			<url>http://52.37.76.153:8080/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>deployment</id>
-			<name>Internal Releases</name>
-			<url>http://52.37.76.153:8080/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement> -->
-	<parent>
-		<groupId>com.servinglynk.hmis.warehouse</groupId>
-		<artifactId>servinglynk-hmis</artifactId>
-		<version>2.0</version>
-	</parent>
 </project>

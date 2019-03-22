@@ -90,7 +90,9 @@ public class ViSpdatView  extends Logging {
 	     	            }
 	            	}
 	                key = response.getSubmissionId();
-	                addColumn(response.getQuestionId(),String.valueOf(response.getResponseText()), key, p);
+	                if(StringUtils.isNotBlank(response.getResponseText())) {
+	                	 addColumn(response.getQuestionId(),String.valueOf(response.getResponseText()), key, p);
+	                }
 	        		addColumn("client_id",String.valueOf(response.getClientId()), key, p);
             		addColumn("survey_id",String.valueOf(survey.getSurveyId()), key, p);
             		addColumn("survey_date",getCreatedAtString(response.getSurveyResponseDate()), key, p);

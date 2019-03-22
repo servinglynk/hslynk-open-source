@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,7 +26,6 @@ public class ActiveListView  extends Logging {
 
 	 private SyncHBaseProcessor syncHBaseImport;
 	 private Logger logger;
-	 
 	 public ActiveListView(Logger logger) throws Exception {
 	        this.logger = logger;
 	        this.syncHBaseImport = new SyncHBaseProcessor();
@@ -37,7 +36,7 @@ public class ActiveListView  extends Logging {
 	}
 	
 	
-	 private void syncTable(String hbaseTable, String projectGroupCode,String postgresTable) {
+	 private void syncTable(String hbaseTable, String projectGroupCode,String postgresTable,Properties props) {
 	       // log.info("Start sync for table: " + postgresTable);
 	        ResultSet resultSet;
 	        HTable htable;
@@ -53,11 +52,13 @@ public class ActiveListView  extends Logging {
 	     	      builder.append(" group by client_dedup_id ) tm ");
 	     	      builder.append(" on  t.client_dedup_id = tm.client_dedup_id ");
 	     	      builder.append(" and t.survey_submission_date = tm.maxDate and t.project_group_code=? ");
+	     	      builder.append(" and t.survey_submission_date >  ? ");
 	     	      builder.append(" order by t.client_dedup_id,survey_score desc" );
 	     	      connection = SyncPostgresProcessor.getConnection();
 		          statement = connection.prepareStatement(builder.toString());
 		          statement.setString(1, projectGroupCode);
 		          statement.setString(2, projectGroupCode);
+		          statement.setDate(3, getCutOffDate(props));
 		          resultSet = statement.executeQuery();
 		            
 	     	      List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
@@ -127,6 +128,7 @@ public class ActiveListView  extends Logging {
 	                       if (existingKeysInHbase.contains(key)) {
 	                           putsToUpdate.add(p);
 	                           if (putsToUpdate.size() > syncHBaseImport.batchSize) {
+	                        	   logger.info("Reached batchsize to update for table " + postgresTable + ": " + putsToUpdate.size());
 	                               htable.put(putsToUpdate);
 	                               putsToUpdate.clear();
 	                           }
@@ -134,17 +136,18 @@ public class ActiveListView  extends Logging {
 	                           putsToInsert.add(p);
 	                           if (putsToInsert.size() > syncHBaseImport.batchSize) {
 	                               htable.put(putsToInsert);
+	                               logger.info("Reached batchsize to putsToInsert for table " + postgresTable + ": " + putsToInsert.size());
 	                               putsToInsert.clear();
 	                           }
 	                       }
 	                   }
 	                   existingKeysInPostgres.add(key);
 	               }
-	               existingKeysInHbase.forEach(key -> {
-	                   if(!existingKeysInPostgres.contains(key)){
-	                       putsToDelete.add(key);
-	                   }
-	               });
+//	               existingKeysInHbase.forEach(key -> {
+//	                   if(!existingKeysInPostgres.contains(key)){
+//	                       putsToDelete.add(key);
+//	                   }
+//	               });
 
 	               logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
 	               if (putsToDelete.size() > 0) {
@@ -224,6 +227,14 @@ public class ActiveListView  extends Logging {
 			    return age.getYear();
 	 }
 
+	 
+	 private static Date getCutOffDate(Properties props) {
+		 int activeListDays = Integer.parseInt(props.ACTIVE_LIST_DAYS);
+		 LocalDate date = LocalDate.now().minusDays(activeListDays);
+		 Date dateBefore = Date.valueOf(date);
+		 System.out.println("Cut off date : "+ dateBefore);
+		 return dateBefore;
+	}
 	 private static String getCreatedAtString(Timestamp timestamp) {
 		 String pattern = "yyyy-MM-dd HH:mm:ss";
 		    SimpleDateFormat format = new SimpleDateFormat(pattern);
@@ -302,7 +313,7 @@ public class ActiveListView  extends Logging {
 		}
 	}
 
-	public void processActiveList() {
+	public void processActiveList(Properties props) {
 		 FileAppender appender = new FileAppender();
          String appenderName = "active-list";
          appender.setName(appenderName);
@@ -317,7 +328,7 @@ public class ActiveListView  extends Logging {
         	 String tableName ="active_list_"+projectGroupCode;
              createHbaseTable(tableName);
              logger.info("Processing active list for project group code"+projectGroupCode);
-             syncTable(tableName, projectGroupCode, "eligible_clients");
+             syncTable(tableName, projectGroupCode, "eligible_clients",props);
          }
 	}
 	
@@ -327,7 +338,7 @@ public class ActiveListView  extends Logging {
 		Properties props = new Properties();
 		props.generatePropValues();
 		ActiveListView view = new ActiveListView(logger);
-		view.processActiveList();
+		view.processActiveList(props);
 	}
 
 }

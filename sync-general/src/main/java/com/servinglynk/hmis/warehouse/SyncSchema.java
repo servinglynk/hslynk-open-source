@@ -36,15 +36,15 @@ public class SyncSchema extends Logging {
         this.syncSchemas = Properties.SYNC_SCHEMAS;
     }
 
-    public void sync(boolean delta) throws Exception {
+    public void sync(boolean delta,Properties props) throws Exception {
         List<String> projectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes(logger);
         for(String projectGroupCode : projectGroupCodes) {
-        	 syncTablesToHBase(delta,projectGroupCode);
+        	 syncTablesToHBase(delta,projectGroupCode,props);
         }
         log.info("Sync process completed.");
     }
 
-    private void syncTablesToHBase(boolean delta,String projectGroupCode) throws Exception {
+    private void syncTablesToHBase(boolean delta,String projectGroupCode,Properties props) throws Exception {
         if (syncSchemas.trim().length() > 0) {
             String[] schemas = syncSchemas.split(",");
             for (String schema : schemas) {
@@ -74,7 +74,7 @@ public class SyncSchema extends Logging {
                     for (final String tableName : tables) {
                         logger.info("[" + tableName + "] Processing table : " + tableName);
                         try {
-                            syncTable(tableName, tableName + "_" + projectGroupCode, schema,delta,projectGroupCode);
+                            syncTable(tableName, tableName + "_" + projectGroupCode, schema,delta,projectGroupCode,props);
                         } catch (Exception ex) {
                            logger.error(ex);
                         }
@@ -90,7 +90,7 @@ public class SyncSchema extends Logging {
         }
     }
 
-    private void syncTable(String postgresTable, String hbaseTable, String syncSchema,boolean delta,String projectGroupCode) {
+    private void syncTable(String postgresTable, String hbaseTable, String syncSchema,boolean delta,String projectGroupCode,Properties props) {
         log.info("Start sync for table: " + postgresTable);
         HTable htable;
         ResultSet resultSet;
@@ -105,23 +105,23 @@ public class SyncSchema extends Logging {
             Long insertCount =0L;
             Long updateCount =0L;
             Long deleteCount =0L;
+            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
             while(true) {
             	int limit = 50000;
             	String deltaQuery = "";
             	if(delta) {
-            		deltaQuery=" and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  desc limit 1 ) ";
+            		deltaQuery=" and date_updated >= ( CURRENT_DATE - "+ props.ACTIVE_LIST_DAYS+ " ) ";
             		if(StringUtils.equals("survey", syncSchema)) {
-            			deltaQuery=" and updated_at >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code ='"+projectGroupCode+"' order by updated_at  desc limit 1 ) ";
+            			deltaQuery=" and updated_at >= (CURRENT_DATE - "+ props.ACTIVE_LIST_DAYS+ " ) ";
             		}
             	}
-            	String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
+            String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, projectGroupCode);
             statement.setInt(2, 50000);
             int offset = limit*count++;
             statement.setInt(3,offset);
             resultSet = statement.executeQuery();
-            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
             List<String> existingKeysInPostgres = new ArrayList<>();
             List<Put> putsToUpdate = new ArrayList<>();
             List<Put> putsToInsert = new ArrayList<>();
@@ -207,7 +207,6 @@ public class SyncSchema extends Logging {
             if(empty){
             	break;
             }
-            	
         }
         message = " Records inserted : "+insertCount +" updated :"+ updateCount+ " deleted :"+ deleteCount;
         SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,projectGroupCode);
@@ -374,6 +373,6 @@ public class SyncSchema extends Logging {
 		props.printProps();
 		SyncSchema sync = new SyncSchema(logger);
 		sync.syncBase(true);
-		sync.sync(false);
+		sync.sync(false,props);
     }
 }
