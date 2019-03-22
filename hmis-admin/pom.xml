@@ -109,7 +109,7 @@
         <updatePolicy>never</updatePolicy>
       </releases>
     </pluginRepository>
-  </pluginRepositories> 
+  </pluginRepositories>
 <distributionManagement>
   <repository>
      <id>deployment</id>

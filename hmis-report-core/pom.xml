@@ -2,45 +2,41 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-report-core</artifactId>
-	<version>2.0</version>
 	<name>Report Core</name>
 	<description>Report Core</description>
+	<parent>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hslynk-parent</artifactId>
+			<version>2.14.19</version>
+	</parent>
 	<scm>	
 		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
-	<properties>
-		<parent-version>2.0</parent-version>
-	</properties>
-
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.1.1.RELEASE</version>
-	</parent>
-
 
 	<dependencies>
 
   <dependency>
   	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-base-serialize</artifactId>
-	<version>${parent-version}</version>
+	<version>${parent.version}</version>
   </dependency>
  
  	<dependency>
 	  <groupId>com.servinglynk.hmis.warehouse</groupId>
  	 <artifactId>core-client</artifactId>
- 	 <version>${parent-version}</version>
+ 	 <version>${parent.version}</version>
 	</dependency> 
 
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>1.3.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
+			<version>2.2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -50,18 +46,22 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-solr</artifactId>
+			<version>1.3.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-velocity</artifactId>
+			<version>1.3.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>1.3.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>1.3.5.RELEASE</version>
 		</dependency>
 
 		<!-- <dependency> <groupId>org.apache.velocity</groupId> <artifactId>velocity</artifactId> 
@@ -105,27 +105,8 @@
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
 			</dependency>
-		<!-- <dependency> <groupId>commons-lang</groupId> <artifactId>commons-lang</artifactId> 
-			<version>2.3</version> </dependency> <dependency> <groupId>commons-collections</groupId> 
-			<artifactId>commons-collections</artifactId> <version>3.2.1</version> </dependency> 
-			<dependency> <groupId>commons-fileupload</groupId> <artifactId>commons-fileupload</artifactId> 
-			<version>1.2.2</version> </dependency> -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			</dependency>
-
-		<!-- <dependency> <groupId>oro</groupId> <artifactId>oro</artifactId> <version>2.0.8</version> 
-			</dependency> <dependency> <groupId>commons-validator</groupId> <artifactId>commons-validator</artifactId> 
-			<version>1.3.1</version> </dependency> <dependency> <groupId>commons-httpclient</groupId> 
-			<artifactId>commons-httpclient</artifactId> <version>3.1</version> </dependency> -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 
 	<dependency>
 		<groupId>com.lowagie</groupId>

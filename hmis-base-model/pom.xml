@@ -6,25 +6,28 @@
 	<artifactId>hmis-base-model</artifactId>
 	<name>hmis-base-model</name>
 	<packaging>jar</packaging>
-	<version>2.0</version>
+	<parent>
+			<artifactId>hslynk-parent</artifactId>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<version>2.14.19</version>
+	</parent>
 	<scm>
 		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-		<parent-version>2.0</parent-version>
 		<java-version>1.8</java-version>
 		<servlet-version>3.0.1</servlet-version>
 		<jsp-version>2.2.1</jsp-version>
 		<jstl-version>1.2</jstl-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>	
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-version>4.3.22.RELEASE</spring-version>
 		<spring-security-version>3.2.0.RELEASE</spring-security-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
-		
+
 		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
-		
+
 		<hibernate.version>4.2.0.Final</hibernate.version>
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 	</properties>
@@ -46,8 +49,8 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
             <version>4.2.11.RELEASE</version>
-        </dependency>		
-		
+        </dependency>
+
 			<dependency>
         <groupId>com.googlecode.jcsv</groupId>
         <artifactId>jcsv</artifactId>
@@ -127,7 +130,7 @@
     <artifactId>sevenzipjbinding-linux-arm</artifactId>
     <version>9.20-2.00beta</version>
 </dependency>
-		
+
 				<!-- https://mvnrepository.com/artifact/net.sf.sevenzipjbinding/sevenzipjbinding-all-platforms -->
 		<dependency>
 		    <groupId>net.sf.sevenzipjbinding</groupId>
@@ -211,7 +214,7 @@
 			<artifactId>jstl</artifactId>
 			<version>${jstl-version}</version>
 		</dependency>
-		
+
 		<dependency>
     <groupId>org.opengis.cite.xerces</groupId>
     <artifactId>xercesImpl-xsd11</artifactId>
@@ -236,7 +239,7 @@
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-core-common</artifactId>
-			  <version>${parent-version}</version>
+			  <version>${parent.version}</version>
 			</dependency>
 	</dependencies>
 		<build>
@@ -267,7 +270,7 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
-			
+
 <!-- <plugin>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>tomcat-maven-plugin</artifactId>
@@ -305,7 +308,7 @@
         <updatePolicy>never</updatePolicy>
       </releases>
     </pluginRepository>
-  </pluginRepositories> 
+  </pluginRepositories>
 <distributionManagement>
   <repository>
      <id>deployment</id>
