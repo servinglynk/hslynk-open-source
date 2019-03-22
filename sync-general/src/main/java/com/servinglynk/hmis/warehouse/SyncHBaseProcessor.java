@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 
 public class SyncHBaseProcessor extends Logging {
     private HBaseAdmin admin = null;
-    public int batchSize = 100000;
+    public int batchSize = 1000;
     public SyncHBaseProcessor() throws Exception{
         admin = HbaseUtil.getAdmin();
     }
