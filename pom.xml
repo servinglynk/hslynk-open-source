@@ -32,16 +32,16 @@
 		</pluginManagement>
 	</build>
 	<modules>
-		<module>core-client</module>
-		<module>s3-client</module>
-		<module>core-common</module>
-		<module>base-model</module>
+		<module>hmis-core-client</module>
+		<module>hmis-s3-client</module>
+		<module>hmis-core-common</module>
+		<module>hmis-base-model</module>
 		<module>hmis-model-v2014</module>
  		<module>hmis-model-v2015</module>
  		<module>hmis-model-v2016</module>
  		<module>hmis-model-v2017</module>
-		<module>base-serialize</module>
-		<module>base-service</module>
+		<module>hmis-base-serialize</module>
+		<module>hmis-base-service</module>
 		<module>hmis-service-v2014</module>
 		<module>hmis-serialize-v2014</module>
 		<module>hmis-service-v2015</module>
@@ -59,17 +59,17 @@
 		<module>hmis-load-processor-v2015</module>
 		<module>hmis-load-processor-v2016</module>
 	 	<module>hmis-load-processor-v2017</module>
-		<module>notification-core</module>
-		<module>notification-service</module>
-		<module>report-core</module>
-		<module>report-service</module>
-		<module>user-service</module>
-		<module>developer-service</module>
-		<module>authorization-service</module>
-		<module>upload-service</module>
-		<module>client-dedup</module>
-		<module>globalapi</module>
-		<module>fileupload-core</module>
-		<module>admin</module>
+		<module>hmis-notification-core</module>
+		<module>hmis-notification-service</module>
+		<module>hmis-report-core</module>
+		<module>hmis-report-service</module>
+		<module>hmis-user-service</module>
+		<module>hmis-developer-service</module>
+		<module>hmis-authorization-service</module>
+		<module>hmis-upload-service</module>
+		<module>hmis-client-dedup</module>
+		<module>hmis-globalapi</module>
+		<module>hmis-fileupload-core</module>
+		<module>hmis-admin</module>
 	</modules>
 </project>
