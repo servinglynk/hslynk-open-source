@@ -25,7 +25,7 @@
 	        <dependency>
 	            <groupId>com.servinglynk.hmis.warehouse</groupId>
         		<artifactId>hslynk-parent</artifactId>
-				<version>2.14.19</version>
+				<version>2.14.20</version>
 	            <type>pom</type>
 	            <scope>import</scope>
 	        </dependency>
@@ -84,22 +84,22 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-service-v2016</artifactId>
-			<version>2.14.19</version>
+			<version>2.14.20</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-model-v2016</artifactId>
-			<version>2.14.19</version>
+			<version>2.14.20</version>
 		</dependency>
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-model</artifactId>
-			  <version>2.14.19</version>
+			  <version>2.14.20</version>
 			</dependency>		
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-service</artifactId>
-			  <version>2.14.19</version>
+			  <version>2.14.20</version>
 			</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
