@@ -103,6 +103,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			entity.setProjectName(project.getProjectname());
 			entity.setId(project.getId());
 			entity.setDescription(project.getProjectname());
+			entity.setSourceSystemId(project.getSourceSystemId());
 			entity.setDateCreated(LocalDateTime.now());
 			entity.setDateUpdated(LocalDateTime.now());
 			entity.setUser(userId);

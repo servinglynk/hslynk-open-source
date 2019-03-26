@@ -12,6 +12,10 @@ public class WebAppInitializer  {
 		
 		 AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();  
 	        ctx.register(RestConfig.class);  
+	           servletContext.addListener(org.springframework.web.util.Log4jConfigListener.class);
+	           servletContext.setInitParameter("log4jConfigLocation","classpath:log4j.xml");
+	        
+	        
 	      //  ctx.setServletContext(servletContext);    
 	      /*  Dynamic dynamic = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));  
 	        dynamic.addMapping("/rest/*");  
