@@ -5,6 +5,7 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -38,7 +39,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "medicalassistance")
 @Table(name = "medicalassistance", catalog = "hmis", schema = "v2014")
-public class Medicalassistance extends HmisBaseModel  implements Cloneable, Serializable{
+public class Medicalassistance extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -2018797611075738704L;

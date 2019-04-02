@@ -27,6 +27,7 @@ import com.servinglynk.hmis.warehouse.rest.GlobalHouseholdsController;
 import com.servinglynk.hmis.warehouse.rest.GlobalProjectsController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.NotificationsController;
+import com.servinglynk.hmis.warehouse.rest.SharingrulesController;
 
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
@@ -116,6 +117,11 @@ public class GlobalAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public GlobalHouseholdsController globalHouseholdsController() {
 		 return new GlobalHouseholdsController();
+	 }
+
+	 @Bean
+	 public SharingrulesController sharingrulesController() {
+		 return new SharingrulesController();
 	 }
 	 
 }

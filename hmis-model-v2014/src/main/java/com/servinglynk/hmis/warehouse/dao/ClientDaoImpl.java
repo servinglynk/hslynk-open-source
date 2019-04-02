@@ -16,17 +16,23 @@ import java.util.UUID;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
@@ -316,9 +322,30 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 	@SuppressWarnings("unchecked")
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2014.Client getClientById(UUID clientId) {
+		
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Client.class);
-		criteria.add(Restrictions.eq("id", clientId));
-		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2014.Client>) findByCriteria(criteria);
+
+		SecurityContext context =  SecurityContextHolder.getContext();
+		Authentication authentication =  context.getAuthentication();
+		
+		if(authentication.getPrincipal()!=null){
+			LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+			Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", entity.getProjectGroup());
+			if(!entity.getClients().isEmpty()) {
+				List<UUID> clients = entity.getClients();
+				clients.add(clientId);
+				Criterion enrollementsCriterion = Restrictions.in("id",clients);
+                Disjunction inDisjunction = Restrictions.disjunction();
+                	inDisjunction.add(projectGroupCriterion);
+                	inDisjunction.add(enrollementsCriterion);
+                	criteria.add(inDisjunction);
+
+			}else {
+				criteria.add(projectGroupCriterion);
+			}
+			criteria.add(Restrictions.eq("deleted", false));
+		}
+		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2014.Client>) getByCriteria(criteria);
 		if(clients.size()>0) return clients.get(0);
 		return null;
 	}

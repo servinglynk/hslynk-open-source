@@ -21,6 +21,7 @@ import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
 import com.servinglynk.hmis.warehouse.base.service.RoleService;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.SessionService;
+import com.servinglynk.hmis.warehouse.base.service.SharingRuleService;
 import com.servinglynk.hmis.warehouse.base.service.TrustedAppService;
 import com.servinglynk.hmis.warehouse.base.service.UsernameChangeService;
 import com.servinglynk.hmis.warehouse.base.service.VerificationService;
@@ -55,4 +56,5 @@ public interface BaseServiceFactory {
 	GlobalProjectService getGlobalProjectService();
 	GenericEnrollmentService getGenericEnrollmentService();
 	GlobalHouseHoldService getGlobalHouseHoldService();
+	SharingRuleService getSharingRuleService();
 }

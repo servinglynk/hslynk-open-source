@@ -13,15 +13,21 @@ import java.util.UUID;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentContinuouslyhomelessoneyearEnum;
@@ -214,10 +220,29 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	public com.servinglynk.hmis.warehouse.model.v2014.Enrollment getEnrollmentByClientIdAndEnrollmentId(
 			UUID enrollmentId,UUID clientId) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Enrollment.class);
-		criteria.createAlias("client","client");
-		criteria.add(Restrictions.eq("client.id",clientId));
+//		criteria.createAlias("client","client");
+//		criteria.add(Restrictions.eq("client.id",clientId));
 		criteria.add(Restrictions.eq("id",enrollmentId));
 
+		SecurityContext context =  SecurityContextHolder.getContext();
+		Authentication authentication =  context.getAuthentication();
+		
+		if(authentication.getPrincipal()!=null){
+			LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+			Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", entity.getProjectGroup());
+			if(!entity.getEnrollments().isEmpty()) {
+				Criterion enrollementsCriterion = Restrictions.in("id",entity.getEnrollments());
+                Disjunction inDisjunction = Restrictions.disjunction();
+                	inDisjunction.add(projectGroupCriterion);
+                	inDisjunction.add(enrollementsCriterion);
+                	criteria.add(inDisjunction);
+
+			}else {
+				criteria.add(projectGroupCriterion);
+			}
+			criteria.add(Restrictions.eq("deleted", false));
+		}
+		
 		List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment> enrollments = (List<com.servinglynk.hmis.warehouse.model.v2014.Enrollment>) findByCriteria(criteria);
 		if(enrollments.size()>0) return enrollments.get(0); 
 		return null;

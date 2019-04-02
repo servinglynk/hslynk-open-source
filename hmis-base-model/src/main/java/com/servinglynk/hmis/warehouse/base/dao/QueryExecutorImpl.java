@@ -24,13 +24,16 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.CriteriaImpl;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -40,6 +43,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.common.Constants;
+import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 import com.servinglynk.hmis.warehouse.model.base.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 
@@ -333,6 +338,10 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 				return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
 	}
 
+	public List<?> getByCriteria(DetachedCriteria detachedCriteria){
+				return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
+	}
+	
 	public List<?> findByCriteria(DetachedCriteria detachedCriteria){
 		addingConditionsToCriteria(detachedCriteria);
 				return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
@@ -344,6 +353,15 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 	}
 	
 
+	public List<?> getByCriteria(DetachedCriteria detachedCriteria,Integer firstResult,Integer maxResults){
+		Criteria criteria = detachedCriteria.getExecutableCriteria(getCurrentSession());
+		if(firstResult!=null && maxResults!=null) {
+			criteria.setFirstResult(firstResult);
+			criteria.setMaxResults(maxResults);		
+		}
+		return criteria.list();
+	}
+	
 	public List<?> findByCriteria(DetachedCriteria detachedCriteria,Integer firstResult,Integer maxResults){
 		addingConditionsToCriteria(detachedCriteria);
 		Criteria criteria = detachedCriteria.getExecutableCriteria(getCurrentSession());
@@ -362,25 +380,56 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 			Authentication authentication =  context.getAuthentication();
 			CriteriaImpl criteriaImpl =(CriteriaImpl)detachedCriteria.getExecutableCriteria(getCurrentSession());
 			Class<?> clz = Class.forName(criteriaImpl.getEntityOrClassName());
+			if(EnrollmentSharingModel.class.isAssignableFrom(clz)) {
+				if(authentication.getPrincipal()!=null){
+					LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+					Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", entity.getProjectGroup());
+					if(!entity.getEnrollments().isEmpty()) {
+						Criterion enrollementsCriterion = Restrictions.in("enrollmentid.id",entity.getEnrollments());
+	                    Disjunction inDisjunction = Restrictions.disjunction();
+	                    	inDisjunction.add(projectGroupCriterion);
+	                    	inDisjunction.add(enrollementsCriterion);
+						detachedCriteria.add(inDisjunction);
+
+					}else {
+						detachedCriteria.add(projectGroupCriterion);
+					}
+					detachedCriteria.add(Restrictions.eq("deleted", false));
+				}
+			}else if(clz.getSimpleName().equals("Enrollment")) {
+				if(authentication.getPrincipal()!=null){
+					LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+					Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", entity.getProjectGroup());
+					if(!entity.getEnrollments().isEmpty()) {
+						Criterion enrollementsCriterion = Restrictions.in("id",entity.getEnrollments());
+	                    Disjunction inDisjunction = Restrictions.disjunction();
+	                    	inDisjunction.add(projectGroupCriterion);
+	                    	inDisjunction.add(enrollementsCriterion);
+						detachedCriteria.add(inDisjunction);
+
+					}else {
+						detachedCriteria.add(projectGroupCriterion);
+					}
+					detachedCriteria.add(Restrictions.eq("deleted", false));
+				}
+			}else 
 			if(clz.getSuperclass().getSimpleName().equals("HmisBaseModel")){
 				if(authentication.getPrincipal()!=null){
-					SessionEntity entity = (SessionEntity) authentication.getPrincipal();
-					System.out.println(entity.getAccount().getProjectGroupEntity().getProjectGroupCode());
-					detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getAccount().getProjectGroupEntity().getProjectGroupCode()));
+
+					LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+					detachedCriteria.add(Restrictions.eq("projectGroupCode",entity.getProjectGroup()));
 					detachedCriteria.add(Restrictions.eq("deleted", false));
 					detachedCriteria.add(Restrictions.isNull("parentId"));
 				}
 			}else if (clz.getSuperclass().getSimpleName().equals("HMISModel")) {
 				if(authentication.getPrincipal()!=null){
-					SessionEntity entity = (SessionEntity) authentication.getPrincipal();
-					System.out.println(entity.getAccount().getProjectGroupEntity().getProjectGroupCode());
-					detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getAccount().getProjectGroupEntity().getProjectGroupCode()));
+					LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+					detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getProjectGroup()));
 					detachedCriteria.add(Restrictions.eq("deleted", false));
 				}
 			}else if(clz.getSimpleName().equals("HmisUser")) {
-				SessionEntity entity = (SessionEntity) authentication.getPrincipal();
-				System.out.println(entity.getAccount().getProjectGroupEntity().getProjectGroupCode());
-				detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getAccount().getProjectGroupEntity().getProjectGroupCode()));
+				LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+				detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getProjectGroup()));
 
 			}
 		return detachedCriteria;
@@ -392,6 +441,12 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 	
 	public long countRows(DetachedCriteria dCriteria, ProjectionList projectionList){
 		 return (long)0;
+		 //TBD
+	}
+	public long getRowsCount(DetachedCriteria dCriteria){
+		dCriteria.setProjection(Projections.rowCount());
+		Criteria criteria = dCriteria.getExecutableCriteria(getCurrentSession());
+		return (long) criteria.uniqueResult();
 		 //TBD
 	}
 	
@@ -458,6 +513,11 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 		return  queryObject.uniqueResult();
 	}
 	
+	
+	protected List<UUID> findIdsByNativeQuery(String query){
+		return getCurrentSession().createSQLQuery(query).addScalar("id", org.hibernate.type.PostgresUUIDType.INSTANCE)
+				.list();
+	}
 	protected Object findUniqueObjectByNamedQueryAndNamedParam(String queryName, String[] paramNames, Object[] paramValues) {
 
 		if (paramNames != null && paramValues != null && paramNames.length != paramValues.length) {

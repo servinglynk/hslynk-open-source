@@ -45,6 +45,7 @@ import com.servinglynk.hmis.warehouse.base.dao.ServiceApiMethodDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ServiceDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ServiceStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.SessionDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.SharingRuleDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.TrustedAppDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.TrustedAppStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.VerificationDaoImpl;
@@ -296,5 +297,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public ReportConfigParamDaoImpl reportConfigParamDao() {
 		return new ReportConfigParamDaoImpl();
+	}
+	
+	@Bean
+	public SharingRuleDaoImpl sharingRuleDao() {
+		return new SharingRuleDaoImpl();
 	}
 }

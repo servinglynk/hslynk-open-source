@@ -20,6 +20,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -29,9 +30,13 @@ import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.search.query.dsl.TermMatchingContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.Sort;
+import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.model.base.Client;
 
 public class SearchDaoImpl
@@ -178,10 +183,34 @@ public class SearchDaoImpl
 		 }
 	  }
 	  
-	  searchRequest.getPagination().setTotal((int) countRows(this.prepareCriteria(searchRequest)));
+
 	  
 	  
 	  DetachedCriteria criteria =this.prepareCriteria(searchRequest);
+	  
+		SecurityContext context =  SecurityContextHolder.getContext();
+		Authentication authentication =  context.getAuthentication();
+
+		LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+
+	  
+		if(authentication.getPrincipal()!=null){
+			LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
+			Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", loggedInUser.getProjectGroup());
+			if(!entity.getClients().isEmpty()) {
+				Criterion enrollementsCriterion = Restrictions.in("id",loggedInUser.getClients());
+                Disjunction inDisjunction = Restrictions.disjunction();
+                	inDisjunction.add(projectGroupCriterion);
+                	inDisjunction.add(enrollementsCriterion);
+                	criteria.add(inDisjunction);
+			}else {
+				criteria.add(projectGroupCriterion);
+			}
+			criteria.add(Restrictions.eq("deleted", false));
+		}
+	  
+	  searchRequest.getPagination().setTotal((int) getRowsCount(criteria));
+	  
 	  
 	  if(searchRequest.getSort().getOrder().equals("asc"))
 		  criteria.addOrder(Order.asc(searchRequest.getSort().getField()));
@@ -189,7 +218,7 @@ public class SearchDaoImpl
 		  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
 	  
 	  criteria.addOrder(Order.desc("dateUpdated"));
-	  return findByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
+	  return getByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
   }
   
 /*  public List<?> searchData(SearchRequest searchRequest){
