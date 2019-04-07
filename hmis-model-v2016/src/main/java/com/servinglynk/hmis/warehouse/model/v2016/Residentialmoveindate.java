@@ -21,6 +21,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthousingEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -31,7 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.ResidentialmoveindateInpermanenthous
  */
 @Entity(name = "residentialmoveindate_v2016")
 @Table(name = "residentialmoveindate", catalog = "hmis", schema = "v2016")
-public class Residentialmoveindate extends HmisBaseModel implements Cloneable, Serializable {
+public class Residentialmoveindate extends HmisBaseModel implements Cloneable, Serializable ,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -8790779523756672150L;

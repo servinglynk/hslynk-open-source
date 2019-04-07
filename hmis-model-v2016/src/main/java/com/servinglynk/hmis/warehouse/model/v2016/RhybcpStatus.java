@@ -22,6 +22,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -33,7 +34,7 @@ import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
 
 @Entity(name = "rhybcp_status_v2016")
 @Table(name = "rhybcp_status", catalog = "hmis", schema = "v2016")
-public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializable {
+public class RhybcpStatus extends HmisBaseModel implements Cloneable, Serializable ,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -2991336675134814158L;

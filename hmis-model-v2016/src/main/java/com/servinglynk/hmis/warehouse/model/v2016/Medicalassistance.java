@@ -25,6 +25,7 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -36,7 +37,7 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistance
 
 @Entity(name = "medicalassistance_v2016")
 @Table(name = "medicalassistance", catalog = "hmis", schema = "v2016")
-public class Medicalassistance extends HmisBaseModel implements Cloneable, Serializable {
+public class Medicalassistance extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -2018797611075738704L;

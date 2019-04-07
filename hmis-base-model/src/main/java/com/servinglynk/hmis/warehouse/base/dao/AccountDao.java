@@ -20,6 +20,7 @@ public interface AccountDao {
 	public UserRoleMapEntity createUserRole(UserRoleMapEntity userRoleMapEntity);
 	public void daeleteUserRole(UserRoleMapEntity userRoleMapEntity);
 	public List<UserRoleMapEntity> getUserMapByUserId(UUID userId);
+	List<UserRoleMapEntity> getUserMapByUserName(String userName);
 	List<HmisUser> getAllUsersByOranization(UUID organizationId);
 	public List<HmisUser> findUsersByProjectGroup(String projectGroupCode);
 	

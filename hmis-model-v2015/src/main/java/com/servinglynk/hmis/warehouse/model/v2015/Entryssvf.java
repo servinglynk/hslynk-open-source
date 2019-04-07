@@ -20,6 +20,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /** 
@@ -32,7 +33,7 @@ import com.servinglynk.hmis.warehouse.enums.EntrySSVFPercentAMIEnum;
 
 @Entity (name = "entryssvf_v2015")
 @Table(name = "entryssvf", catalog = "hmis", schema = "v2015")
-public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable {
+public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable , EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -8876535059279041235L;

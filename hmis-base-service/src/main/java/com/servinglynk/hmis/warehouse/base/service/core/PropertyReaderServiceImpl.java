@@ -72,5 +72,14 @@ public class PropertyReaderServiceImpl {
 		 // 3. Display currently loaded properties from Application Server (env object)
 		  return properties;
 	}
+
+	@Transactional
+	public String readSharingRuleProperty() {
+			PropertyEntity propertyEntity =propertyDao.readSharingRuleProperty();
+			if(propertyEntity==null)
+								return null;
+			else
+			return	propertyEntity.getValue();
+	}
 	
 }

@@ -135,6 +135,13 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 		return (List<UserRoleMapEntity>) findByCriteria(criteria);
 	}
 	
+	public List<UserRoleMapEntity> getUserMapByUserName(String userName) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(UserRoleMapEntity.class);
+		criteria.createAlias("accountEntity", "accountEntity");
+		criteria.add(Restrictions.eq("accountEntity.username", userName));
+		return (List<UserRoleMapEntity>) findByCriteria(criteria);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<HmisUser> getAllUsersByOranization(UUID organizationId){
 		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);

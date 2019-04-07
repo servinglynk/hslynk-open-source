@@ -20,6 +20,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -32,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.Sort;
+import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.model.base.Client;
 
 public class SearchDaoImpl
@@ -157,7 +159,17 @@ public class SearchDaoImpl
 				//  criteria.addOrder(Order.desc("dateUpdated"));
 		  } 
   }
+	if(AuditUtil.getSharedClients().isEmpty()) {
 	criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
+	}else {
+		Criterion clientsCriterion = Restrictions.in("id",AuditUtil.getSharedClients());
+		Criterion projectGroupCriterion =	Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode());
+        Disjunction inDisjunction = Restrictions.disjunction();
+        	inDisjunction.add(projectGroupCriterion);
+        	inDisjunction.add(clientsCriterion);
+        	criteria.add(inDisjunction);
+	}
+	criteria.add(Restrictions.isNull("parentId"));
 	criteria.add(Restrictions.eq("deleted", false));
 	criteria.add(Restrictions.isNotNull("dedupClientId"));
 
@@ -178,7 +190,7 @@ public class SearchDaoImpl
 		 }
 	  }
 	  
-	  searchRequest.getPagination().setTotal((int) countRows(this.prepareCriteria(searchRequest)));
+	  searchRequest.getPagination().setTotal((int) getRowsCount(this.prepareCriteria(searchRequest)));
 	  
 	  
 	  DetachedCriteria criteria =this.prepareCriteria(searchRequest);
@@ -189,7 +201,7 @@ public class SearchDaoImpl
 		  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
 	  
 	  criteria.addOrder(Order.desc("dateUpdated"));
-	  return findByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
+	  return getByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
   }
   
 /*  public List<?> searchData(SearchRequest searchRequest){

@@ -27,6 +27,7 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -38,7 +39,7 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
 
 @Entity (name = "disabilities_v2016")
 @Table(name = "disabilities", catalog = "hmis", schema = "v2016")
-public class Disabilities extends HmisBaseModel implements Cloneable, Serializable {
+public class Disabilities extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6492609509614588571L;

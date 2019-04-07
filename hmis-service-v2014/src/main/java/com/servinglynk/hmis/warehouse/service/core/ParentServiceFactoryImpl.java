@@ -47,7 +47,6 @@ import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
 import com.servinglynk.hmis.warehouse.service.SchoolstatusService;
 import com.servinglynk.hmis.warehouse.service.ServicesService;
 import com.servinglynk.hmis.warehouse.service.SexualorientationService;
-import com.servinglynk.hmis.warehouse.service.SharingRuleService;
 import com.servinglynk.hmis.warehouse.service.SiteService;
 import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
 import com.servinglynk.hmis.warehouse.service.WorstHousingSituationService;
@@ -57,9 +56,6 @@ import com.servinglynk.hmis.warehouse.service.YouthCriticalIssuesService;
 public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements ParentServiceFactory {
 	
 
-	
-	@Autowired
-	private SharingRuleService sharingRuleService;
 	
 	@Autowired				  
 	private EnrollmentService enrollmentService;
@@ -88,14 +84,6 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 		this.bulkUploadService = bulkUploadService;
 	}
 
-	
-	public SharingRuleService getSharingRuleService() {
-		return sharingRuleService;
-	}
-
-	public void setSharingRuleService(SharingRuleService sharingRuleService) {
-		this.sharingRuleService = sharingRuleService;
-	}
 
 	public EnrollmentService getEnrollmentService() {
 		return enrollmentService;
