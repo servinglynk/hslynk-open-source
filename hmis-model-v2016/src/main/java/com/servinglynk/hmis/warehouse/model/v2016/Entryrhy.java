@@ -60,6 +60,7 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkPlaceViolenceThreatsEnum
 import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
 
 /**
@@ -72,7 +73,7 @@ import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
 
 @Entity (name = "entryrhy_v2016")
 @Table(name = "entryrhy", catalog = "hmis", schema = "v2016")
-public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
+public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable ,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 7937252363949404166L;

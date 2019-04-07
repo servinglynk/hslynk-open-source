@@ -12,17 +12,19 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.PaginatedModel;
+import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.SharingRuleService;
+import com.servinglynk.hmis.warehouse.base.service.converter.SharingRuleConverter;
 import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.core.model.SharingRule;
 import com.servinglynk.hmis.warehouse.core.model.SharingRules;
-import com.servinglynk.hmis.warehouse.fileupload.common.SecurityUril;
+import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
 import com.servinglynk.hmis.warehouse.model.base.GlobalProjectEntity;
 import com.servinglynk.hmis.warehouse.model.base.GlobalProjectMapEntity;
-import com.servinglynk.hmis.warehouse.model.base.RoleEntity;
+import com.servinglynk.hmis.warehouse.model.base.ProfileEntity;
 import com.servinglynk.hmis.warehouse.model.base.SharingRuleEntity;
-import com.servinglynk.hmis.warehouse.model.base.UserRoleMapEntity;
 import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException;
 
@@ -30,23 +32,25 @@ public class SharingRuleServiceImpl extends ServiceBase implements SharingRuleSe
 	
 	
 	@Transactional
-	public List<UUID> getSharedEnrollments(String schemaYear) {
-		List<UUID> returnEnrollments = new ArrayList<UUID>();
+	public List<UUID> getSharedEnrollments(List<UUID> projects,String schemaYear) {
+		List<UUID> returnEnrollments = new ArrayList<UUID>();			
+			if(!projects.isEmpty()) {
+				returnEnrollments = daoFactory.getSharingRuleDao().getSharedEnrollments(projects, schemaYear);
+			}
+		return returnEnrollments;
+	}
+	
+	@Transactional
+	public List<UUID> getSharedProjects() {
+		Set<UUID> projects = new HashSet<>();
+		
 		SecurityContext context =  SecurityContextHolder.getContext();
 		Authentication authentication =  context.getAuthentication();
 
 		if(authentication.getPrincipal()!=null){
 			LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
-			List<UserRoleMapEntity> userroles = daoFactory.getAccountDao().getUserMapByUserName(entity.getUsername());
+			List<SharingRuleEntity> sharingRules = daoFactory.getSharingRuleDao().getSharingRules(entity.getProfileId(), entity.getUserId());
 			
-			List<UUID> roles = new ArrayList<>();
-			for(UserRoleMapEntity roleMapEntity : userroles) {
-				roles.add(roleMapEntity.getRoleEntity().getId());
-			}
-			
-			List<SharingRuleEntity> sharingRules = daoFactory.getSharingRuleDao().getSharingRules(roles.get(0), entity.getProjectGroup());
-			
-			Set<UUID> projects = new HashSet<>();
 			
 			for(SharingRuleEntity sharingRuleEntity : sharingRules ) {
 				List<GlobalProjectMapEntity> projectMaps =	sharingRuleEntity.getGlobalProjectEntity().getProjects();
@@ -55,13 +59,10 @@ public class SharingRuleServiceImpl extends ServiceBase implements SharingRuleSe
 				}
 			}
 			
-			if(!projects.isEmpty()) {
-				List<UUID> projs = new ArrayList<UUID>(projects);
-				returnEnrollments = daoFactory.getSharingRuleDao().getSharedEnrollments(projs, "v2014");
-			}
 		}
-		return returnEnrollments;
+		return new ArrayList<>(projects);
 	}
+
 	
 	@Transactional
 	public List<UUID> getSharedClients(List<UUID> enrollments,String schemaYear){
@@ -69,16 +70,15 @@ public class SharingRuleServiceImpl extends ServiceBase implements SharingRuleSe
 	}
 
 	@Transactional
-	public SharingRules createSharingRule(SharingRule sharingRule, String caller) {
-		
-		SharingRules sharingRules = new SharingRules();
+	public SharingRule createSharingRule(SharingRule sharingRule) {
+		if(sharingRule.getToProjectGroup()==null) throw new MissingParameterException("ToprojectGroup is required");
+ 		
+		ProfileEntity profileEntity= null;
 
-		RoleEntity roleEntity = null;
-
-		if (sharingRule.getRole() != null) {
-			roleEntity = daoFactory.getRoleDao().getRoleByid(sharingRule.getRole().getId());
-			if (roleEntity == null)
-				throw new ResourceNotFound("Role not found");
+		if (sharingRule.getProfile() != null) {
+			profileEntity = daoFactory.getProfileDao().getProfileById(sharingRule.getProfile().getId());
+			if (profileEntity == null)
+				throw new ResourceNotFound("Profile not found");
 		}
 
 		GlobalProjectEntity globalProjectEntity = daoFactory.getGlobalProjectDao()
@@ -87,7 +87,7 @@ public class SharingRuleServiceImpl extends ServiceBase implements SharingRuleSe
 			throw new ResourceNotFoundException("Global project not found");
 		SharingRuleEntity entity = new SharingRuleEntity();
 
-		entity.setRole(roleEntity);
+		entity.setProfile(profileEntity);
 		entity.setToProjectGroup(sharingRule.getToProjectGroup().getProjectGroupCode());
 		entity.setProjectGroupCode(AuditUtil.getLoginUserProjectGroup());
 		entity.setGlobalProjectEntity(globalProjectEntity);
@@ -95,18 +95,69 @@ public class SharingRuleServiceImpl extends ServiceBase implements SharingRuleSe
 		entity.setActiveTo(sharingRule.getActiveTo());
 		entity.setDateCreated(LocalDateTime.now());
 			daoFactory.getSharingRuleDao().create(entity);
-		return sharingRules;
+			sharingRule.setSharingRuleId(entity.getId());
+		return sharingRule;
 	}
-	
-	
-	public SharingRule deleteSharingRule(UUID sharingRuleId,String caller) {
-//		SharingRuleEntity entity=daoFactory.getSharingRuleDao().getSharingRuleId(sharingRuleId);
-//		if(entity==null) throw new RuntimeException();
-		
-//		daoFactory.getSharingRuleDao().deleteSharingRule(entity);
-		
-		return new SharingRule();
-	}
-	
 
+	@Transactional
+	public void updateSharingRule(SharingRule sharingRule) {
+		if(sharingRule.getToProjectGroup()==null) throw new MissingParameterException("ToprojectGroup is required");
+		SharingRuleEntity sharingRuleEntity = daoFactory.getSharingRuleDao().getSharingRuleById(sharingRule.getSharingRuleId());
+		if(sharingRuleEntity==null) throw new ResourceNotFoundException("Sharing Rule not found "+sharingRule.getSharingRuleId());
+
+		ProfileEntity profileEntity= null;
+
+		if (sharingRule.getProfile() != null) {
+			profileEntity = daoFactory.getProfileDao().getProfileById(sharingRule.getProfile().getId());
+			if (profileEntity == null)
+				throw new ResourceNotFound("Profile not found");
+		}
+
+
+		GlobalProjectEntity globalProjectEntity = daoFactory.getGlobalProjectDao()
+				.getById(sharingRule.getProject().getId());
+		if (globalProjectEntity == null)
+			throw new ResourceNotFoundException("Global project not found");
+
+		sharingRuleEntity.setProfile(profileEntity);
+		sharingRuleEntity.setToProjectGroup(sharingRule.getToProjectGroup().getProjectGroupCode());
+		sharingRuleEntity.setProjectGroupCode(AuditUtil.getLoginUserProjectGroup());
+		sharingRuleEntity.setGlobalProjectEntity(globalProjectEntity);
+		sharingRuleEntity.setActiveFrom(sharingRule.getActiveFrom());
+		sharingRuleEntity.setActiveTo(sharingRule.getActiveTo());
+		sharingRuleEntity.setDateUpdated(LocalDateTime.now());
+		daoFactory.getSharingRuleDao().updateSharingRule(sharingRuleEntity);
+
+	}
+
+	@Transactional
+	public void deleteSharingRule(UUID sharingRuleId) {
+		SharingRuleEntity sharingRuleEntity = daoFactory.getSharingRuleDao().getSharingRuleById(sharingRuleId);
+		if(sharingRuleEntity==null) throw new ResourceNotFoundException("Sharing Rule not found "+sharingRuleId);
+		daoFactory.getSharingRuleDao().deleteSharingRule(sharingRuleEntity);
+		
+	}
+
+	@Transactional
+	public SharingRule getSharingRuleById(UUID sharingRuleId) {
+		SharingRuleEntity sharingRuleEntity = daoFactory.getSharingRuleDao().getSharingRuleById(sharingRuleId);
+		if(sharingRuleEntity==null) throw new ResourceNotFoundException("Sharing Rule not found "+sharingRuleId);
+		return SharingRuleConverter.entityToModel(sharingRuleEntity);
+	}
+
+	@Transactional
+	public SharingRules getAllSharingRules(Integer start, Integer maxItems) {
+		SharingRules sharingRules = new SharingRules();
+		List<SharingRuleEntity> sharingRuleEntities =	daoFactory.getSharingRuleDao().getAllSharingRules(start,maxItems);
+		for(SharingRuleEntity sharingRuleEntity: sharingRuleEntities) {
+				sharingRules.addSharingRule(SharingRuleConverter.entityToModel(sharingRuleEntity));
+		}
+		Long count = daoFactory.getSharingRuleDao().getAllSharingRulesCount();
+		SortedPagination pagination = new SortedPagination();
+		pagination.setFrom(start);
+		pagination.setReturned(sharingRuleEntities.size());
+		pagination.setTotal(count.intValue());
+		sharingRules.setPagination(pagination);		
+		return sharingRules;
+	}	
 }

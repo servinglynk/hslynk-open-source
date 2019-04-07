@@ -587,7 +587,7 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 
 				// if access token exists include the account in the response
 				if (pSessionToken != null)	{
-					LoggedInUser loggedInUser = new LoggedInUser(pSessionToken.getAccount().getUsername(),pSessionToken.getAccount().getProjectGroupCode());
+					LoggedInUser loggedInUser = new LoggedInUser(pSessionToken.getAccount().getUsername(),pSessionToken.getAccount().getProjectGroupCode(),pSessionToken.getAccount().getProfileEntity().getId(),pSessionToken.getAccount().getId());
 						SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(loggedInUser, ""));
 						Account account = new Account();
 						account.setAccountId(pSessionToken.getAccount().getId());

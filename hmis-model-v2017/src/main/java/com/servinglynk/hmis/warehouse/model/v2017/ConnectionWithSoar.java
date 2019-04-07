@@ -20,6 +20,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.ConnectionWithSoarEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -32,7 +33,7 @@ import com.servinglynk.hmis.warehouse.enums.ConnectionWithSoarEnum;
 
 @Entity(name = "connectionwithsoar_v2017")
 @Table(name = "connectionwithsoar", catalog = "hmis", schema = "v2017")
-public class ConnectionWithSoar extends HmisBaseModel  implements Cloneable, Serializable{
+public class ConnectionWithSoar extends HmisBaseModel  implements Cloneable, Serializable,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1004181330688157855L;

@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
@@ -325,26 +326,13 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Client.class);
 
-		SecurityContext context =  SecurityContextHolder.getContext();
-		Authentication authentication =  context.getAuthentication();
-		
-		if(authentication.getPrincipal()!=null){
-			LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
-			Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", entity.getProjectGroup());
-			if(!entity.getClients().isEmpty()) {
-				List<UUID> clients = entity.getClients();
-				clients.add(clientId);
-				Criterion enrollementsCriterion = Restrictions.in("id",clients);
-                Disjunction inDisjunction = Restrictions.disjunction();
-                	inDisjunction.add(projectGroupCriterion);
-                	inDisjunction.add(enrollementsCriterion);
-                	criteria.add(inDisjunction);
-
-			}else {
-				criteria.add(projectGroupCriterion);
-			}
-			criteria.add(Restrictions.eq("deleted", false));
+		List<UUID> shatedClients = AuditUtil.getSharedClients();		
+		criteria.add(Restrictions.eq("id", clientId));
+		if(shatedClients.contains(clientId)) {
+		}else {
+			criteria.add(Restrictions.eq("projectGroupCode", AuditUtil.getLoginUserProjectGroup()));			
 		}
+			criteria.add(Restrictions.eq("deleted", false));
 		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2014.Client>) getByCriteria(criteria);
 		if(clients.size()>0) return clients.get(0);
 		return null;

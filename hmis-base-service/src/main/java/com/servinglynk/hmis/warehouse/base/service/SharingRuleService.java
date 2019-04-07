@@ -8,8 +8,13 @@ import com.servinglynk.hmis.warehouse.core.model.SharingRules;
 
 public interface SharingRuleService {
 
-	List<UUID> getSharedEnrollments(String schemaYear);
+	List<UUID> getSharedEnrollments(List<UUID> projects,String schemaYear);
+	List<UUID> getSharedProjects();
 	List<UUID> getSharedClients(List<UUID> enrollments,String schemaYear);
-	SharingRules createSharingRule(SharingRule sharingRule, String caller);
+	SharingRule createSharingRule(SharingRule sharingRule);
+	void updateSharingRule(SharingRule sharingRule);
+	void deleteSharingRule(UUID sharingRuleId);
+	SharingRule getSharingRuleById(UUID sharingRuleId);
+	SharingRules getAllSharingRules(Integer start, Integer maxItems);
 	
 }

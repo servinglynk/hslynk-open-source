@@ -30,6 +30,7 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsSnapEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /** 
@@ -40,7 +41,7 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
  */
 @Entity(name = "noncashbenefits_v2015")
 @Table(name = "noncashbenefits", catalog = "hmis", schema = "v2015")
-public class Noncashbenefits extends HmisBaseModel implements Cloneable, Serializable {
+public class Noncashbenefits extends HmisBaseModel implements Cloneable, Serializable , EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6493511274453583782L;

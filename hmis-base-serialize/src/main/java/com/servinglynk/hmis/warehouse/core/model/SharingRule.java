@@ -8,12 +8,14 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("sharingRule")
 public class SharingRule extends ClientModel {
 	
-	UUID sharingRuleId;
-	Date activeFrom;
-	Date activeTo;	
-	ProjectGroup toProjectGroup;
-	GlobalProject project;
-	Role role;
+	private UUID sharingRuleId;
+	private Date activeFrom;
+	private Date activeTo;	
+	private ProjectGroup toProjectGroup;
+	private GlobalProject project;
+	private Role role;
+	private Profile profile;
+	private Account user;
 	public UUID getSharingRuleId() {
 		return sharingRuleId;
 	}
@@ -49,5 +51,17 @@ public class SharingRule extends ClientModel {
 	}
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	public Profile getProfile() {
+		return profile;
+	}
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
+	public Account getUser() {
+		return user;
+	}
+	public void setUser(Account user) {
+		this.user = user;
 	}	
 }

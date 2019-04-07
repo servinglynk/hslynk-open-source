@@ -14,18 +14,24 @@ public class LoggedInUser implements UserDetails  {
 	private String username;
 	private String projectGroup;
 	private List<UUID> enrollments = new ArrayList<>();
-	private List<UUID> clients;
+	private List<UUID> clients= new ArrayList<>();
+	private UUID profileId;
+	private UUID userId;
 	
-	public LoggedInUser(String username, String projectGroup) {
+	public LoggedInUser(String username, String projectGroup,UUID profileId,UUID userId) {
 		super();
 		this.username = username;
 		this.projectGroup = projectGroup;
+		this.profileId = profileId;
+		this.userId = userId;
 	}
 
-	public LoggedInUser(String username, String projectGroup, List<UUID> enrollments, List<UUID> clients) {
+	public LoggedInUser(String username, String projectGroup,UUID profileId,UUID userId, List<UUID> enrollments, List<UUID> clients) {
 		super();
 		this.username = username;
 		this.projectGroup = projectGroup;
+		this.profileId = profileId;
+		this.userId = userId;
 		this.enrollments = enrollments;
 		this.clients = clients;
 	}
@@ -92,5 +98,21 @@ public class LoggedInUser implements UserDetails  {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public UUID getProfileId() {
+		return profileId;
+	}
+
+	public void setProfileId(UUID profileId) {
+		this.profileId = profileId;
+	}
+
+	public UUID getUserId() {
+		return userId;
+	}
+
+	public void setUserId(UUID userId) {
+		this.userId = userId;
 	}
 }

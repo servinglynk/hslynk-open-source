@@ -14,12 +14,12 @@ import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
-@Table(name="hmis_sharing_rule_new",schema="base")
+@Table(name="hmis_sharing_rule",schema="base")
 public class SharingRuleEntity extends HMISModel {
 	
 	private UUID id;
     
-	private RoleEntity role;
+	private ProfileEntity profile;
 	
 
 	private HmisUser toUser;
@@ -50,18 +50,20 @@ public class SharingRuleEntity extends HMISModel {
 	
 
 	@ManyToOne
-	@JoinColumn(name = "to_role_id", referencedColumnName="id")
-	public RoleEntity getRole() {
-		return role;
+	@JoinColumn(name = "to_profile_id", referencedColumnName="id")
+	public ProfileEntity getProfile() {
+		return profile;
 	}
-	public void setRole(RoleEntity role) {
-		this.role = role;
+	public void setProfile(ProfileEntity profile) {
+		this.profile = profile;
 	}
+	
 	
 	@Column(name = "active_from")
 	public Date getActiveFrom() {
 		return activeFrom;
 	}
+
 	public void setActiveFrom(Date activeFrom) {
 		this.activeFrom = activeFrom;
 	}

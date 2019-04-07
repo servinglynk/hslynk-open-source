@@ -32,4 +32,13 @@ public class PropertyDaoImpl extends QueryExecutorImpl implements PropertyDao {
 		return null;
 	}
 
+	@Override
+	public PropertyEntity readSharingRuleProperty() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(PropertyEntity.class);
+		criteria.add(Restrictions.eq("keyName","applySharingRule"));
+		List<PropertyEntity> entities = (List<PropertyEntity>) findByCriteria(criteria);
+		if(!entities.isEmpty()) return entities.get(0);
+		return null;
+	}
+
 }

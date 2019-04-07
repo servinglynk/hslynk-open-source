@@ -23,6 +23,7 @@ import org.hibernate.proxy.HibernateProxy;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.LastgradecompletedLastgradecompletedEnum;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -33,7 +34,7 @@ import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
  */
 @Entity (name = "education_v2017")
 @Table(name = "education", catalog = "hmis", schema = "v2017")
-public class Education extends HmisBaseModel implements Cloneable, Serializable {
+public class Education extends HmisBaseModel implements Cloneable, Serializable ,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6654649692481756031L;

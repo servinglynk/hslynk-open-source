@@ -30,13 +30,10 @@ import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.search.query.dsl.TermMatchingContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.Sort;
-import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
+import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.model.base.Client;
 
 public class SearchDaoImpl
@@ -162,7 +159,17 @@ public class SearchDaoImpl
 				//  criteria.addOrder(Order.desc("dateUpdated"));
 		  } 
   }
+	if(AuditUtil.getSharedClients().isEmpty()) {
 	criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
+	}else {
+		Criterion clientsCriterion = Restrictions.in("id",AuditUtil.getSharedClients());
+		Criterion projectGroupCriterion =	Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode());
+        Disjunction inDisjunction = Restrictions.disjunction();
+        	inDisjunction.add(projectGroupCriterion);
+        	inDisjunction.add(clientsCriterion);
+        	criteria.add(inDisjunction);
+	}
+	criteria.add(Restrictions.isNull("parentId"));
 	criteria.add(Restrictions.eq("deleted", false));
 	criteria.add(Restrictions.isNotNull("dedupClientId"));
 
@@ -183,34 +190,10 @@ public class SearchDaoImpl
 		 }
 	  }
 	  
-
+	  searchRequest.getPagination().setTotal((int) getRowsCount(this.prepareCriteria(searchRequest)));
 	  
 	  
 	  DetachedCriteria criteria =this.prepareCriteria(searchRequest);
-	  
-		SecurityContext context =  SecurityContextHolder.getContext();
-		Authentication authentication =  context.getAuthentication();
-
-		LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
-
-	  
-		if(authentication.getPrincipal()!=null){
-			LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
-			Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", loggedInUser.getProjectGroup());
-			if(!entity.getClients().isEmpty()) {
-				Criterion enrollementsCriterion = Restrictions.in("id",loggedInUser.getClients());
-                Disjunction inDisjunction = Restrictions.disjunction();
-                	inDisjunction.add(projectGroupCriterion);
-                	inDisjunction.add(enrollementsCriterion);
-                	criteria.add(inDisjunction);
-			}else {
-				criteria.add(projectGroupCriterion);
-			}
-			criteria.add(Restrictions.eq("deleted", false));
-		}
-	  
-	  searchRequest.getPagination().setTotal((int) getRowsCount(criteria));
-	  
 	  
 	  if(searchRequest.getSort().getOrder().equals("asc"))
 		  criteria.addOrder(Order.asc(searchRequest.getSort().getField()));

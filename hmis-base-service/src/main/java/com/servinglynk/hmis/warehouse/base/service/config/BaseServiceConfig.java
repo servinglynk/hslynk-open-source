@@ -92,7 +92,7 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	    public void addInterceptors(InterceptorRegistry registry) {
 	        registry.addInterceptor(apiAuthCheckInterceptor());
 	        registry.addInterceptor(clientConsentInterceptor()).addPathPatterns("/clients/*/enrollments/**","/clients/*/enrollments","/clients/*/veteraninfos");
-	        registry.addInterceptor(enrollmentSharingInterceptor()).addPathPatterns("/clients/enrollments/**","/clients/*/enrollments/**","/clients/*/enrollments","/clients/*/veteraninfos");
+	        registry.addInterceptor(enrollmentSharingInterceptor()).addPathPatterns("/clients/enrollments/**","/clients/*/enrollments/**","/clients/*/enrollments","/clients/*/veteraninfos","/searchall/clients");
 	    }
 	
 	@Bean(name="serviceFactory")
