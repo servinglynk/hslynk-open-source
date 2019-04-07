@@ -31,10 +31,12 @@ public class EnrollmentSharingInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
+		if(!request.getContextPath().contains("clientapi")) return true;
+		
 		String value =	propertyReaderServiceImpl.readSharingRuleProperty();
 		if(value==null || value.equalsIgnoreCase("false")) return true;
 		
-//		if(request.getMethod().equalsIgnoreCase("GET")) {
+		if(request.getMethod().equalsIgnoreCase("GET")) {
 			System.out.println("Inside sharing interceptor ");
 			
 			System.out.println("Schema year is "+request.getContextPath().replaceAll("/hmis-clientapi-", ""));
@@ -72,7 +74,7 @@ public class EnrollmentSharingInterceptor extends HandlerInterceptorAdapter {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(loggedInUser,"");
 			SecurityContextHolder.clearContext();
 	        SecurityContextHolder.getContext().setAuthentication(authentication);
-	//	}
+	}
 		return true;
 	}
 
