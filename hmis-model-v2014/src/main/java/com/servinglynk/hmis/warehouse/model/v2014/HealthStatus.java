@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.model.v2014;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthCategoryEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthStatusHealthStatusEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -36,7 +37,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "health_status")
 @Table(name = "health_status", catalog = "hmis", schema = "v2014")
-public class HealthStatus extends HmisBaseModel  implements Cloneable, Serializable {
+public class HealthStatus extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 903091481736147622L;

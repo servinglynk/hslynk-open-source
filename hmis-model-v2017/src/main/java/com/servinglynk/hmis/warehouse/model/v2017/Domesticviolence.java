@@ -23,6 +23,7 @@ import org.hibernate.proxy.HibernateProxy;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevictimEnum;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -33,7 +34,7 @@ import com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum;
  */
 @Entity (name = "domesticviolence_v2017")
 @Table(name = "domesticviolence", catalog = "hmis", schema = "v2017")
-public class Domesticviolence extends HmisBaseModel implements Cloneable, Serializable {
+public class Domesticviolence extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1553980337126312406L;

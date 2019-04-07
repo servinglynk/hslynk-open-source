@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
 import com.servinglynk.hmis.warehouse.base.service.RoleService;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.SessionService;
+import com.servinglynk.hmis.warehouse.base.service.SharingRuleService;
 import com.servinglynk.hmis.warehouse.base.service.TrustedAppService;
 import com.servinglynk.hmis.warehouse.base.service.UsernameChangeService;
 import com.servinglynk.hmis.warehouse.base.service.VerificationService;
@@ -92,6 +93,8 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	@Autowired private GenericEnrollmentService genericEnrollmentService;
 	
 	@Autowired private GlobalHouseHoldService globalHouseHoldService;
+	
+	@Autowired private SharingRuleService sharingRuleService;
 	
 	
 	public DeveloperCompanyService getDeveloperCompanyService() {
@@ -295,5 +298,14 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setReportConfigService(ReportConfigService reportConfigService) {
 		this.reportConfigService = reportConfigService;
+	}
+
+	public SharingRuleService getSharingRuleService() {
+		return sharingRuleService;
+	}
+
+	public void setSharingRuleService(SharingRuleService sharingRuleService) {
+		this.sharingRuleService = sharingRuleService;
 	}	
+	
 }

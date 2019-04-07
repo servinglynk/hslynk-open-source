@@ -48,7 +48,6 @@ import com.servinglynk.hmis.warehouse.service.impl.RhybcpstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SchoolstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ServicesServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SexualorientationServiceImpl;
-import com.servinglynk.hmis.warehouse.service.impl.SharingRuleServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.SiteServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.VeteranInfoServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.WorstHousingSituationServiceImpl;
@@ -73,12 +72,7 @@ public class ServiceConfig  {
 	public OrganizationServiceImpl  organizationService(){
 		return new OrganizationServiceImpl();
 	}
-	 
-	 @Bean
-	 public SharingRuleServiceImpl sharingRuleService(){
-		 return new SharingRuleServiceImpl();
-	 }
-	 
+	 	 
 	 @Bean
 	 public EnrollmentServiceImpl enrollmentService(){
 		 return new EnrollmentServiceImpl();

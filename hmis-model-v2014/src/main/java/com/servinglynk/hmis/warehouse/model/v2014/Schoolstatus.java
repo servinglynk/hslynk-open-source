@@ -22,6 +22,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -34,7 +35,7 @@ import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 
 @Entity(name = "schoolstatus")
 @Table(name = "schoolstatus", catalog = "hmis", schema = "v2014")
-public class Schoolstatus extends HmisBaseModel  implements Cloneable, Serializable{
+public class Schoolstatus extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1396005946857287067L;

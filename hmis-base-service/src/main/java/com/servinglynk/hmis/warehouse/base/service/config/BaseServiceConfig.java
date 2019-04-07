@@ -1,3 +1,4 @@
+
 package com.servinglynk.hmis.warehouse.base.service.config;
 
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
+import com.servinglynk.hmis.warehouse.base.service.SharingRuleService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.base.service.core.security.LocalApiAuthChecker;
@@ -39,12 +41,14 @@ import com.servinglynk.hmis.warehouse.base.service.impl.ProjectGroupServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ReportConfigServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.RoleServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.SessionServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.SharingRuleServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.TrustedAppServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.UsernameChangeServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.VerificationServiceImpl;
 import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ApiAuthCheckInterceptor;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ClientConsentInterceptor;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.EnrollmentSharingInterceptor;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
 
@@ -79,10 +83,16 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 		 return new ClientConsentInterceptor();
 	 }
 	 
+	 @Bean
+	 public EnrollmentSharingInterceptor enrollmentSharingInterceptor() {
+		 return new EnrollmentSharingInterceptor();
+	 }
+	 
 		 @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
 	        registry.addInterceptor(apiAuthCheckInterceptor());
 	        registry.addInterceptor(clientConsentInterceptor()).addPathPatterns("/clients/*/enrollments/**","/clients/*/enrollments","/clients/*/veteraninfos");
+	        registry.addInterceptor(enrollmentSharingInterceptor()).addPathPatterns("/clients/enrollments/**","/clients/*/enrollments/**","/clients/*/enrollments","/clients/*/veteraninfos","/searchall/clients");
 	    }
 	
 	@Bean(name="serviceFactory")
@@ -258,6 +268,11 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public GlobalHouseHoldServiceImpl globalHouseHoldService() {
 		 return new GlobalHouseHoldServiceImpl();
+	 }
+	 
+	 @Bean
+	 public SharingRuleServiceImpl sharingRuleService() {
+		 return new SharingRuleServiceImpl();
 	 }
 	 
 	 

@@ -25,6 +25,7 @@ import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
+import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
 import com.servinglynk.hmis.warehouse.core.model.Notification;
@@ -586,7 +587,8 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 
 				// if access token exists include the account in the response
 				if (pSessionToken != null)	{
-						SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(pSessionToken, ""));
+					LoggedInUser loggedInUser = new LoggedInUser(pSessionToken.getAccount().getUsername(),pSessionToken.getAccount().getProjectGroupCode(),pSessionToken.getAccount().getProfileEntity().getId(),pSessionToken.getAccount().getId());
+						SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(loggedInUser, ""));
 						Account account = new Account();
 						account.setAccountId(pSessionToken.getAccount().getId());
 					apiAuthCheck.setAccount(serviceFactory.getAccountService().getAccount(account, true));

@@ -33,6 +33,7 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityFamEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnum;
 import com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 /**
  * Object mapping for hibernate-handled table: entryrhy.
@@ -44,7 +45,7 @@ import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEn
 
 @Entity (name = "entryrhy_v2017")
 @Table(name = "entryrhy", catalog = "hmis", schema = "v2017")
-public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
+public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 7937252363949404166L;

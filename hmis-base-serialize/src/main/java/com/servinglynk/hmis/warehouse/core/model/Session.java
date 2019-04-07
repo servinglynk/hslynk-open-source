@@ -1,7 +1,11 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("session")
@@ -15,6 +19,11 @@ public class Session extends ClientModel {
 	private Date modifiedAt;
 	private Date expiresAt;
 	private int nextAction;
+	
+	@JsonIgnore
+	List<UUID> sharedClients = new ArrayList<UUID>();
+	@JsonIgnore
+	List<UUID> sharedEnrollments = new ArrayList<UUID>();
 	
 	public Account getAccount() {
 		return account;
@@ -78,5 +87,21 @@ public class Session extends ClientModel {
 
 	public void setAuthCode(String authCode) {
 		this.authCode = authCode;
+	}
+
+	public List<UUID> getSharedClients() {
+		return sharedClients;
+	}
+
+	public void setSharedClients(List<UUID> sharedClients) {
+		this.sharedClients = sharedClients;
+	}
+
+	public List<UUID> getSharedEnrollments() {
+		return sharedEnrollments;
+	}
+
+	public void setSharedEnrollments(List<UUID> sharedEnrollments) {
+		this.sharedEnrollments = sharedEnrollments;
 	}
 }

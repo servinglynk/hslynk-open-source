@@ -22,6 +22,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.ServicesRecordtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ServicesReferraloutcomeEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -32,7 +33,7 @@ import com.servinglynk.hmis.warehouse.enums.ServicesReferraloutcomeEnum;
  */
 @Entity(name = "services")
 @Table(name = "services", catalog = "hmis", schema = "v2014")
-public class Services extends HmisBaseModel  implements Cloneable, Serializable{
+public class Services extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -7410093721624490210L;

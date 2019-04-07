@@ -37,6 +37,7 @@ import com.servinglynk.hmis.warehouse.enums.HealthinsuranceSchipEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceStatehealthinsEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceVamedicalservicesEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /** 
@@ -47,7 +48,7 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
  */
 @Entity(name = "healthinsurance_v2017")
 @Table(name = "healthinsurance", catalog = "hmis", schema = "v2017")
-public class Healthinsurance extends HmisBaseModel implements Cloneable, Serializable {
+public class Healthinsurance extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 1945597065165620993L;

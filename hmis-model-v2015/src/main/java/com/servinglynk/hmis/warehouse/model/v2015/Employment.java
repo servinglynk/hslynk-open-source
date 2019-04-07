@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /** 
@@ -34,7 +35,7 @@ import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
  */
 @Entity (name = "employment_v2015")
 @Table(name = "employment", catalog = "hmis", schema = "v2015")
-public class Employment extends HmisBaseModel implements Cloneable, Serializable {
+public class Employment extends HmisBaseModel implements Cloneable, Serializable, EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6654649692481756031L;
