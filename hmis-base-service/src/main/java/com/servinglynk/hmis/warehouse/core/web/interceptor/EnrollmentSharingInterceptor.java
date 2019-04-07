@@ -41,7 +41,7 @@ public class EnrollmentSharingInterceptor extends HandlerInterceptorAdapter {
 			
 			String schemaYear = request.getContextPath().replaceAll("/hmis-clientapi-", "");
 			
-			Boolean isClientSearch = request.getRequestURI().contains("/searchall/clients") ;
+			Boolean isClientSearch = request.getRequestURI().contains("/search") ;
 			
 		
 			List<UUID> enrollments  =	new ArrayList<>();
