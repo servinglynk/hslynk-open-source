@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
 import com.servinglynk.hmis.warehouse.base.service.Service;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
+import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.fileupload.service.FileUploadServiceFactory;
 import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 
@@ -50,8 +51,8 @@ public abstract class ServiceBase implements Service {
 		SecurityContext context =  SecurityContextHolder.getContext();
 		Authentication authentication =  context.getAuthentication();
 		if(authentication.getPrincipal()!=null){
-			SessionEntity entity = (SessionEntity) authentication.getPrincipal();
-			return entity.getAccount().getId();
+			LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+			return entity.getUserId();
 		}
 		return null;
 	}
@@ -60,8 +61,8 @@ public abstract class ServiceBase implements Service {
 		SecurityContext context =  SecurityContextHolder.getContext();
 		Authentication authentication =  context.getAuthentication();
 		if(authentication.getPrincipal()!=null){
-			SessionEntity entity = (SessionEntity) authentication.getPrincipal();
-			return entity.getAccount().getProjectGroupEntity().getProjectGroupCode();
+			LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+			return entity.getProjectGroup();
 		}
 		return null;
 	}

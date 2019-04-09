@@ -35,6 +35,17 @@ public class AuditUtil {
 			}
 	}
 	
+	public static UUID getLoginUserId() {
+		SecurityContext context =  SecurityContextHolder.getContext();
+		Authentication authentication =  context.getAuthentication();
+		
+		if(authentication.getPrincipal()!=null){
+			LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+			return entity.getUserId();
+			}else {
+				return null;
+			}
+	}
 	
 	public static List<UUID> getSharedClients() {
 		List<UUID> clients = new ArrayList<UUID>();
