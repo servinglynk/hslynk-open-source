@@ -18,6 +18,7 @@ public interface GlobalProjectDao {
 	void addProjectToGlobalProject(GlobalProjectMapEntity entity);
 	void removeProjectToGlobalProject(GlobalProjectMapEntity entity);
 	List<GlobalProjectMapEntity> getGlobalProjectMappings(UUID globalProjectId);
+	List<UUID> getGlobalProjectProjects(List<UUID> globalProjectIds);
 	
 	GlobalProjectUserEnity addUserToGlobalProject(GlobalProjectUserEnity enity);
 	void removeUserToGlobalProject(GlobalProjectUserEnity enity);

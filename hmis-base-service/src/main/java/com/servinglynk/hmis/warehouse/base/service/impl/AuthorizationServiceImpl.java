@@ -25,6 +25,7 @@ import com.servinglynk.hmis.warehouse.core.model.OAuthAuthorization;
 import com.servinglynk.hmis.warehouse.core.model.OAuthMessageGroup;
 import com.servinglynk.hmis.warehouse.core.model.OAuthMessageItem;
 import com.servinglynk.hmis.warehouse.core.model.OAuthMessageItems;
+import com.servinglynk.hmis.warehouse.core.model.TrustedApp;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidSessionTokenException;
@@ -844,6 +845,65 @@ RefreshToken pRefreshToken = daoFactory.getRefreshTokenDao().findByToken(refresh
 		daoFactory.getAccountConsentDao().deleteAccountConsent(pAccountConsent);
 		logger.debug("account consent token {} revoked", consentToken);
 		
+	}
+
+	@Transactional
+	public OAuthAuthorization authorizeWithClientCredentials(TrustedApp trustedApp,String caller) {
+		TrustedAppEntity trustedAppEntity = daoFactory.getTrustedAppDao().findByExternalId(trustedApp.getTrustedAppId());
+		
+		if (trustedAppEntity == null)	{
+			throw new TrustedAppNotFoundException("TrustedApp " + trustedApp.getTrustedAppId() + " not found");
+		}
+		
+		logger.debug("TrustedApp {} found", trustedAppEntity.getId());
+		
+		// check if this trustedApp supports client credentials grant type
+		if (!trustedAppEntity.isClientCredentialsGrantSupported())	{
+			throw new GrantTypeNotSupportedException("TrustedApp " + trustedApp.getTrustedAppId() + " is not authorized for client credetias");
+		}
+		
+		logger.debug("trustedApp {} supports Client Credentials grant type");
+		
+		if(trustedAppEntity.getTrustedAppAdmin()==null) throw new InvalidParameterException("Admin user not assicated with this trusted app");
+		
+		RefreshToken pRefreshToken = new RefreshToken();
+		
+		pRefreshToken.setToken(GeneralUtil.getUniqueToken(64));
+		pRefreshToken.setModifiedBy(caller);
+		pRefreshToken.setAccount(trustedAppEntity.getTrustedAppAdmin());
+		pRefreshToken.setTrustedApp(trustedAppEntity);
+		pRefreshToken.setModifiedBy(caller);
+		pRefreshToken.setCreatedAt(new Date());
+		pRefreshToken.setCreatedBy(caller);
+		pRefreshToken.setModifiedAt(new Date());
+		daoFactory.getRefreshTokenDao().create(pRefreshToken);
+		logger.debug("a refresh token {} created ", pRefreshToken.getToken());
+
+		
+		SessionEntity pToken = new SessionEntity();
+		pToken.setAccount(trustedAppEntity.getTrustedAppAdmin());
+		pToken.setTrustedApp(trustedAppEntity);
+		pToken.setModifiedBy(caller);
+		pToken.setModifiedAt(new Date());
+		pToken.setSessionToken(SessionEntity.generateSessionToken());
+		pToken.setExpiresAt(new Date(System.currentTimeMillis() + (trustedAppEntity.getExpirationTime() * 1000)));
+		pToken.setRefreshToken(pRefreshToken);
+		pToken.setTrustedApp(trustedAppEntity);
+		pToken.setCreatedAt(new Date());
+		pToken.setCreatedBy(caller);
+		daoFactory.getSessionDao().create(pToken);
+		
+		logger.debug("access token {} created ", pToken.getSessionToken());
+		
+		
+		
+		OAuthAuthorization authorization = new OAuthAuthorization();
+		authorization.setAccessToken(pToken.getSessionToken());
+		authorization.setTokenType("Bearer");
+		authorization.setExpiresIn(trustedAppEntity.getExpirationTime());	
+		authorization.setRefreshToken(pRefreshToken.getToken());
+		
+		return authorization;
 	}
 	
 }

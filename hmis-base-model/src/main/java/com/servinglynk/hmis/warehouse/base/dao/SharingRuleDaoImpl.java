@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 
@@ -39,6 +40,23 @@ public class SharingRuleDaoImpl extends QueryExecutorImpl implements SharingRule
 			criteria.add(inDisjunction);
 		}
 		return (List<SharingRuleEntity>) getByCriteria(criteria);
+	}
+	
+	public List<UUID> getSharedProjects(UUID roleId){
+		DetachedCriteria criteria = DetachedCriteria.forClass(SharingRuleEntity.class);
+		criteria.createAlias("globalProjectEntity","globalProjectEntity");
+		criteria.createAlias("role","role",JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("toProjectGroup", AuditUtil.getLoginUserProjectGroup()));
+		if(roleId!=null) {
+			Criterion criterion = Restrictions.isNull("role.id");
+			Criterion criterion2 = Restrictions.eq("role.id",roleId);
+            Disjunction inDisjunction = Restrictions.disjunction();
+            		inDisjunction.add(criterion);
+            		inDisjunction.add(criterion2);
+			criteria.add(inDisjunction);
+		}
+	    criteria.setProjection(Projections.projectionList().add(Projections.distinct(Projections.property("globalProjectEntity.id"))));	    
+		return (List<UUID>) getByCriteria(criteria);
 	}
 
 	@Override

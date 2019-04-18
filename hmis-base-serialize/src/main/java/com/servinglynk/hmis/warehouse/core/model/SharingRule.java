@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -13,7 +14,9 @@ public class SharingRule extends ClientModel {
 	private Date activeTo;	
 	private ProjectGroup toProjectGroup;
 	private GlobalProject project;
+	private List<GlobalProject> projects;
 	private Role role;
+	private List<Role> roles;
 	private Profile profile;
 	private Account user;
 	public UUID getSharingRuleId() {
@@ -63,5 +66,17 @@ public class SharingRule extends ClientModel {
 	}
 	public void setUser(Account user) {
 		this.user = user;
+	}
+	public List<GlobalProject> getProjects() {
+		return projects;
+	}
+	public void setProjects(List<GlobalProject> projects) {
+		this.projects = projects;
+	}
+	public List<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}	
 }

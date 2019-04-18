@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.model.base.GlobalProjectEntity;
@@ -70,6 +72,16 @@ public class GlobalProjectDaoImpl extends QueryExecutorImpl implements GlobalPro
 		criteria.add(Restrictions.eq("globalProject.id", globalProjectId));
 		return (List<GlobalProjectMapEntity>) findByCriteria(criteria);
 	}	
+	
+	public List<UUID> getGlobalProjectProjects(List<UUID> globalProjectIds){
+		DetachedCriteria criteria = DetachedCriteria.forClass(GlobalProjectMapEntity.class);
+		criteria.createAlias("globalProject","globalProject");
+		criteria.add(Restrictions.in("globalProject.id", globalProjectIds));
+		criteria.setProjection(Projections.projectionList().add(Projections.property("projectId")));
+		criteria.add(Restrictions.eq("deleted", false));
+		return (List<UUID>) getByCriteria(criteria);
+	}
+	
 	
 	
 	public GlobalProjectUserEnity addUserToGlobalProject(GlobalProjectUserEnity enity) {

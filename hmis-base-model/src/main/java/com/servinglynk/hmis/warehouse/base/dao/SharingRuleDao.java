@@ -8,6 +8,7 @@ import com.servinglynk.hmis.warehouse.model.base.SharingRuleEntity;
 public interface SharingRuleDao {
 	
 	List<SharingRuleEntity> getSharingRules(UUID profileId,UUID userId);
+	List<UUID> getSharedProjects(UUID roleId);
 	
 	List<UUID> getSharedEnrollments(List<UUID> projects,String schemaYear);
 	
