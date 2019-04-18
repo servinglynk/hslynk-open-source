@@ -138,9 +138,9 @@ public class SearchDaoImpl
 				  Criterion lastName = Restrictions.ilike("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 				  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 				 Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-				  Criterion ssn = Restrictions.sqlRestriction(" ( convert_from(ssn_decrypt(ssn),'UTF-8') ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
-				  Criterion fullName = Restrictions.sqlRestriction("(concat(first_name,middle_name,last_name) ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
-				  Criterion clientName = Restrictions.sqlRestriction("(concat(first_name,last_name) ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
+				  Criterion ssn = Restrictions.sqlRestriction(" ( convert_from(ssn_decrypt(ssn),'UTF-8') ilike '%"+searchRequest.getFreeText().replaceAll("^ +| +$|( )+","$1")+"%') ");
+				  Criterion fullName = Restrictions.sqlRestriction("(concat(first_name,' ',middle_name,' ',last_name) ilike '%"+searchRequest.getFreeText().replaceAll("^ +| +$|( )+","$1")+"%') ");
+				  Criterion clientName = Restrictions.sqlRestriction("(concat(first_name,' ',last_name) ilike '%"+searchRequest.getFreeText().replaceAll("^ +| +$|( )+","$1")+"%') ");
 				  if(Arrays.asList(searchRequest.getExcludeFields()).contains("ssi"))
 					  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,fullName,clientName));
 				  else
@@ -333,5 +333,10 @@ public class SearchDaoImpl
 	  Transaction tx = fullTextSession.beginTransaction();
 	  fullTextSession.index(indexObject);
 	  tx.commit();
+  }
+  
+  public static void main(String args[]) {
+	  String text ="   Surya      Yadavalli     ";
+	  System.out.println(text.replaceAll("^ +| +$|( )+","$1"));
   }
 }
