@@ -119,7 +119,11 @@ public class SyncDeltaHbase extends Logging {
                 logger.info("\n#######################################################\n");
 
                 logger.info("Create tables in HBASE");
+//                if(!delta) {
+//                	tables.forEach(table -> syncHBaseImport.dropHBASETable(table + "_" + projectGroupCode));
+//                }
                 tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + projectGroupCode, logger));
+                
                 logger.info("Create tables done");
                 SyncPostgresProcessor.updateCreateFlag(projectGroupCode, version, logger);
                 Map<String, String> hmisTypes = loadHmisTypeMap(syncSchema);
@@ -226,9 +230,7 @@ public class SyncDeltaHbase extends Logging {
                     String value = getValue(resultSet,column, columnTypeName);
                           
                           if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
-                              p.addColumn(Bytes.toBytes("CF"),
-                                      Bytes.toBytes(column),
-                                      Bytes.toBytes(value));
+                              addColumn(column,value,p,key,existingKeysInHbase);
                           }
                       }
                       if (existingKeysInHbase.contains(key)) {
@@ -334,7 +336,7 @@ public class SyncDeltaHbase extends Logging {
             	if(delta) {
             		deltaQuery="and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  desc limit 1 ) ";
             	}
-                String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
+                String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? and parent_id is null "+deltaQuery+" limit ?  offset ?";
                 statement = connection.prepareStatement(sql);
                 statement.setString(1,projectGroupCode);
                 statement.setInt(2, 20000);
@@ -374,44 +376,31 @@ public class SyncDeltaHbase extends Logging {
                             if(StringUtils.equals("dob",column))   {
                             	DedupClientDob dedupClientDob = clientDedupMap.get(key);
                             	if(dedupClientDob != null) {
-                            		p.addColumn(Bytes.toBytes("CF"),
-                                            Bytes.toBytes("age"),
-                                            Bytes.toBytes(String.valueOf(dedupClientDob.getAge())));
+                            		 addColumn("age",String.valueOf(dedupClientDob.getAge()),p,key,existingKeysInHbase);
                             	}
                             }
                             if(StringUtils.equals("client_id", column) && StringUtils.isNotBlank(value)) {
                             	DedupClientDob dedupClientDob = clientDedupMap.get(value);
                             	if(dedupClientDob != null && dedupClientDob.getDedupClientId() !=null) {
                             			if(StringUtils.isNotBlank(dedupClientDob.getDedupClientId())) {
-                            				p.addColumn(Bytes.toBytes("CF"),
-                                                    Bytes.toBytes("dedup_client_id"),
-                                                    Bytes.toBytes(dedupClientDob.getDedupClientId()));
+                            				addColumn("dedup_client_id",dedupClientDob.getDedupClientId(),p,key,existingKeysInHbase);
                             			}
-                                			p.addColumn(Bytes.toBytes("CF"),
-                                                    Bytes.toBytes("ageatentry"),
-                                                    Bytes.toBytes(String.valueOf(dedupClientDob.getAge())));
+                                			addColumn("ageatentry",String.valueOf(dedupClientDob.getAge()),p,key,existingKeysInHbase);
                             	}
                             }
                             if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
-                                p.addColumn(Bytes.toBytes("CF"),
-                                        Bytes.toBytes(column),
-                                        Bytes.toBytes(value));
-                      
+                                addColumn(column,value,p,key,existingKeysInHbase);
                                 // Add a new column for description for enums
                                 if(StringUtils.equalsIgnoreCase("USER-DEFINED", columnTypeName)) {
                                 	String descKey = column.toLowerCase().trim()+"_"+value.trim();
                                 	String description = getDescriptionForHmisType(hmisTypes, descKey);
                                 	if(StringUtils.isNotBlank(description)) {
-                                		 p.addColumn(Bytes.toBytes("CF"),
-                                                 Bytes.toBytes(column+"_desc"),
-                                                 Bytes.toBytes(description));
+                                		 addColumn(column+"_desc",description,p,key,existingKeysInHbase);
                                 	}
                                 }
                             }
                         } 
-                        p.addColumn(Bytes.toBytes("CF"),
-                                Bytes.toBytes("year"),
-                                Bytes.toBytes(String.valueOf(syncSchema.substring(1, syncSchema.length()))));
+                        addColumn("year",String.valueOf(syncSchema.substring(1, syncSchema.length())),p,key,existingKeysInHbase);
                         if (existingKeysInHbase.contains(key)) {
                             putsToUpdate.add(p);
                             if (putsToUpdate.size() > syncHBaseImport.batchSize) {
@@ -460,6 +449,18 @@ public class SyncDeltaHbase extends Logging {
         log.info("Sync done for table: " + postgresTable);
     }
     
+    private static void addColumn(String column,String value,Put p,String key,List<String> existingKeysInHbase) {
+    	 if (existingKeysInHbase.contains(key) && StringUtils.isNotBlank(value)) {
+    		 p.add(Bytes.toBytes("CF"),
+                     Bytes.toBytes(column),
+                     Bytes.toBytes(value));
+    	 }else {
+    		 p.addColumn(Bytes.toBytes("CF"),
+                     Bytes.toBytes(column),
+                     Bytes.toBytes(value));
+    	 }
+    	
+    }
     
     private static String getValue(ResultSet resultSet, String column, String columnTypeName) {
     	try {
