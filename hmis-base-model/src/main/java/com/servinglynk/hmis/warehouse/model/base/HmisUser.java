@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.base;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -372,6 +373,30 @@ public class HmisUser  {
 
 	public void setProjectGroupCode(String projectGroupCode) {
 		this.projectGroupCode = projectGroupCode;
+	}
+
+
+	private Date passwordExpiresAt;
+	
+	@Column(name="password_expires_at")	
+	public Date getPasswordExpiresAt() {
+		return passwordExpiresAt;
+	}
+
+
+	public void setPasswordExpiresAt(Date passwordExpiresAt) {
+		this.passwordExpiresAt = passwordExpiresAt;
+	}
+
+	private Boolean forcePasswordChange;
+	
+	@Column(name="force_password_change")	
+	public Boolean getForcePasswordChange() {
+		return forcePasswordChange;
+	}
+
+	public void setForcePasswordChange(Boolean forcePasswordChange) {
+		this.forcePasswordChange = forcePasswordChange;
 	}
 
 	/** Return the type of this class. Useful for when dealing with proxies.

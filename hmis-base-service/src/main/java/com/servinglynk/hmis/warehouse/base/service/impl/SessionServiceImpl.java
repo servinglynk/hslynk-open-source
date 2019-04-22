@@ -182,11 +182,19 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 			throw new AccessDeniedException("Account is deleted");
 		} else if(pAccount.getStatus().equals(Constants.ACCOUNT_STATUS_INACTIVE)){
 			throw new AccessDeniedException("Account is inactive");
-		}
+		} 
 		
 
 		if(!pAccount.isTwoFactorAuthentication()){
 			this.createSession(session, trustedAppId, auditUser);
+			if(pAccount.getPasswordExpiresAt()!=null) {
+				if(pAccount.getForcePasswordChange() || DateUtil.diff(new Date(), pAccount.getPasswordExpiresAt()) >= 1)
+					 session.setNextAction(Constants.FORCE_PASSWORD_CHANGE);
+			}else {
+				if(pAccount.getForcePasswordChange())
+					 session.setNextAction(Constants.FORCE_PASSWORD_CHANGE);
+			}
+			
 		}else{
 			SessionEntity sessionEntity = new SessionEntity();
 			sessionEntity.setTrustedApp(trustedAppEntity);

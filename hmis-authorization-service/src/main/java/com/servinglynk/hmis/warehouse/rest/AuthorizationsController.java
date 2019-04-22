@@ -34,7 +34,6 @@ import com.servinglynk.hmis.warehouse.core.model.exception.InvalidTrustedAppExce
 import com.servinglynk.hmis.warehouse.core.model.exception.MissingParameterException;
 import com.servinglynk.hmis.warehouse.rest.common.ExceptionMapper;
 import com.servinglynk.hmis.warehouse.rest.common.ExceptionMapper.Result;
-import com.servinglynk.hmis.warehouse.rest.common.RedirectExceptionMapper;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.UserAuthenticationFailedException;
 
@@ -235,7 +234,10 @@ public class AuthorizationsController  {
 			 if(session.getNextAction() == Constants.TWO_FACTOR_AUTH_FLOW_OPT){
 				 effectiveRedirectUri="/hmis-authorization-service/twofactorauth.html?authKey="+session.getAuthCode()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
 				 
-			 }else{
+			 } else if(session.getNextAction() == Constants.FORCE_PASSWORD_CHANGE){
+				 effectiveRedirectUri="/hmis-authorization-service/passwordChange.html?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
+				 response.addCookie(new Cookie("authentication_token",session.getToken()));
+			 } else{
 				 effectiveRedirectUri = "/hmis-authorization-service/rest/authorize?authentication_token="+session.getToken()+"&response_type="+responseType+"&trustedApp_id="+trustedAppId+"&redirect_uri="+urlEncode(redirectUri);
 				 response.addCookie(new Cookie("authentication_token",session.getToken()));
 			 }
