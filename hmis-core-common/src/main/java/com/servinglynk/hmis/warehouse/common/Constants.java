@@ -51,6 +51,7 @@ public interface Constants {
 	public static final String OAUTH_ACCOUNT_CONSENT_NEVER = "NEVER";
 	public static final String OAUTH_ACCOUNT_CONSENT_ONCE = "ONCE";
 	public static final int TWO_FACTOR_AUTH_FLOW_OPT= 1;
+	public static final int FORCE_PASSWORD_CHANGE = 2;
 	
 	
 	// developer company account roles

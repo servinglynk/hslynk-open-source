@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.common.security.HMISCryptographer;
+import com.servinglynk.hmis.warehouse.common.util.DateUtil;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Accounts;
 import com.servinglynk.hmis.warehouse.core.model.ClientConsent;
@@ -138,7 +139,10 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 				throw new AccessDeniedException("Login user does not have project group.");
 			}
 		}
-		
+		if(environment.getProperty("password.age.in.days")!=null) {
+			Integer age = Integer.parseInt(environment.getProperty("password.age.in.days"));
+			pAccount.setPasswordExpiresAt(DateUtil.addDays(new Date(),age));
+		}
 		pAccount.setProjectGroupCode(pAccount.getProjectGroupEntity().getProjectGroupCode());
 		daoFactory.getAccountDao().createAccount(pAccount);
 		daoFactory.getAccountDao().createUserRole(userRoleMapEntity);
@@ -249,6 +253,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		}
 
 		pAccount.setPassword(HMISCryptographer.Encrypt(passwordChange.getNewPassword()));
+		pAccount.setForcePasswordChange(false);
 		daoFactory.getAccountDao().updateAccount(pAccount);
 		Notification notification = new Notification();
 		notification.setMethod("EMAIL");
