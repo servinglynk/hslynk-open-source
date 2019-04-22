@@ -35,6 +35,19 @@ public class SyncHBaseProcessor extends Logging {
             e.printStackTrace();
         }
     }
+    
+    public void dropHBASETable(String tableName) {
+   	 try {
+            admin.disableTable(tableName);
+            admin.deleteTable(tableName);
+            log.info("Table ::" + tableName + " deleted.");
+        } catch (TableExistsException ex) {
+            log.warn("Table :: " + tableName + " does not exists.");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+   }
 
     public List<String> getAllKeyRecords (HTable table) {
         List<String> keys = new ArrayList<>();
