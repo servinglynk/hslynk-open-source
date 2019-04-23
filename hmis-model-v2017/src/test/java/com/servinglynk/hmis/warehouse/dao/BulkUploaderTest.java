@@ -104,6 +104,11 @@ public class BulkUploaderTest {
 	}
 */	
 	
+	@Test
+	@Transactional
+	public void softDeleteProjectGroupForMO0010() throws Exception {
+				dao.deleteLiveByProjectGroupCode("MO0010",UUID.fromString("cde14efc-808e-422b-a2b2-f1cb1ab8b78d"));		
+	}
 	
 	@Test
 	public void testPersistIntoStaging() throws Exception
@@ -222,7 +227,7 @@ public class BulkUploaderTest {
 	*/
 	@Test
 	public void deleteExportFromStaging() {
-		UUID id = UUID.fromString("f51bade9-d2a4-4743-a165-642955431aba");
+		UUID id = UUID.fromString("cde14efc-808e-422b-a2b2-f1cb1ab8b78d");
 		dao.deleteStagingByExportId(id);
 	}
 	@Test

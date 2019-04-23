@@ -131,11 +131,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 					clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 					clientModel.setExport(exportEntity);
-					//makes a microservice all to the dedup micro service
-					performSaveOrUpdate(clientModel,domain);
-					
 					// Inserting client in base schema	
 					if(!clientModel.isIgnored()) {
+						//makes a microservice all to the dedup micro service
+						performSaveOrUpdate(clientModel,domain);
 						com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 						BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 						target.setDateUpdated(LocalDateTime.now());

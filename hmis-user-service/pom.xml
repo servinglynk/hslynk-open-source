@@ -193,8 +193,20 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<webXml>${project.basedir}\src\main\webapp\WEB-INF\web.xml</webXml>
+			    <configuration>
+			   	   <webXml>${project.basedir}\src\main\webapp\WEB-INF\web.xml</webXml>
+				   <manifest>
+				    <addDefaultImplementationEntries>false</addDefaultImplementationEntries>
+				   </manifest>
+				   <archive>
+				    <manifestEntries>
+				     <Major-Version>${project.version}</Major-Version>
+				     <Build-Version>${build.number}</Build-Version>
+				     <Build-Time>${maven.build.timestamp}</Build-Time>
+				     <Build-Host>${agent.name}</Build-Host>
+				     <Build-User>${user.name}</Build-User>
+				    </manifestEntries>
+				   </archive>
 				</configuration>
 			</plugin>
 			<plugin>

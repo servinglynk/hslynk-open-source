@@ -599,21 +599,21 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 	@Transactional
 	@Async
 	public void logAPIAccess(ApiMethodEntity apiMethodEntity, Account account){
-			APIAccessEntity entity = daoFactory.getApiAccessDao().getAPIAccess(account.getProjectGroup().getProjectGroupCode(), new Date(),apiMethodEntity.getApiGroup().getId());
-			if(entity!=null){
-				entity.setAccessCount(entity.getAccessCount()+1);
-				daoFactory.getApiAccessDao().updateAPIAccess(entity);
-			}else{
-				entity = new APIAccessEntity();
-				entity.setAccessCount(1l);
-				entity.setAccessDate(new Date());
-				entity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
-				if(apiMethodEntity.getApiGroup()!=null){
-					entity.setServiceId(apiMethodEntity.getApiGroup().getId());
-					entity.setServiceName(apiMethodEntity.getApiGroup().getFriendlyName());
-				}
-				daoFactory.getApiAccessDao().createAPIAccess(entity);
-			}
+		//	APIAccessEntity entity = daoFactory.getApiAccessDao().getAPIAccess(account.getProjectGroup().getProjectGroupCode(), new Date(),apiMethodEntity.getApiGroup().getId());
+//			if(entity!=null){
+//				entity.setAccessCount(entity.getAccessCount()+1);
+//				daoFactory.getApiAccessDao().updateAPIAccess(entity);
+//			}else{
+//				entity = new APIAccessEntity();
+//				entity.setAccessCount(1l);
+//				entity.setAccessDate(new Date());
+//				entity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
+//				if(apiMethodEntity.getApiGroup()!=null){
+//					entity.setServiceId(apiMethodEntity.getApiGroup().getId());
+//					entity.setServiceName(apiMethodEntity.getApiGroup().getFriendlyName());
+//				}
+//				daoFactory.getApiAccessDao().createAPIAccess(entity);
+//			}
 	}
 	
 	
