@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.common.Constants;
+import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.OAuthAuthorization;
 import com.servinglynk.hmis.warehouse.core.model.Session;
@@ -82,6 +83,10 @@ public class AuthorizationsController  {
 			isConsented = true;
 		}
 
+		if( ValidationUtil.isEmpty(redirectUri)) throw new MissingParameterException("redirect uri is missing");
+		if( ValidationUtil.isEmpty(trustedAppId)) throw new MissingParameterException("Trusted App id is missing");
+		if( ValidationUtil.isEmpty(responseType)) throw new MissingParameterException("response type is missing");
+		if( ValidationUtil.isEmpty(state)) throw new MissingParameterException("state is missing");
 		try	{
 			// request authorization
 			redirectUri = this.urldecode(redirectUri);

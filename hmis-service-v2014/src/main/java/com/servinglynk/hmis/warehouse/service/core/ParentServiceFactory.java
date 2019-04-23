@@ -53,7 +53,6 @@ import com.servinglynk.hmis.warehouse.service.YouthCriticalIssuesService;
 
 public interface ParentServiceFactory  extends BaseServiceFactory {
 	
-	SharingRuleService getSharingRuleService();
 	EnrollmentService getEnrollmentService();
 	EnrollmentCocService getEnrollmentCocService();
 	InformationReleasesService getInformationReleasesService();

@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.model.base.ClientTracker;
 import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 
@@ -36,8 +37,8 @@ public class ClientTrackerDaoImpl extends QueryExecutorImpl implements ClientTra
 		if(context!=null) {
 			Authentication authentication =  context.getAuthentication();
 			if(authentication!= null &&  authentication.getPrincipal()!=null){
-				SessionEntity entity = (SessionEntity) authentication.getPrincipal();
-				if(entity!=null) tracker.setUserName(entity.getAccount().getUsername());
+				LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
+				if(entity!=null) tracker.setUserName(entity.getUsername());
 			}
 		}else {
 			tracker.setUserName(userName);

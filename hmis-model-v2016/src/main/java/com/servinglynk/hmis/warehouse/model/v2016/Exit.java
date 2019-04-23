@@ -25,6 +25,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -35,7 +36,7 @@ import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
  */
 @Entity (name = "exit_v2016")
 @Table(name = "exit", catalog = "hmis", schema = "v2016")
-public class Exit extends HmisBaseModel implements Cloneable, Serializable {
+public class Exit extends HmisBaseModel implements Cloneable, Serializable ,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -75314002207556153L;

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -74,6 +75,9 @@ public class TrustedAppEntity extends BaseModel {
 	@Column(name = "auth_code_grant_supported")
 	private Boolean authCodeGrantSupported;
 
+	@Column(name = "client_credentials_grant_supported")
+	private Boolean clientCredentialsGrantSupported;
+
 	@Column(name = "is_internal")
 	private Boolean internal;
 	
@@ -99,6 +103,10 @@ public class TrustedAppEntity extends BaseModel {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service_id", referencedColumnName="id")
 	private DeveloperServiceEntity service;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "trusted_app_admin", referencedColumnName="id")
+	private HmisUser trustedAppAdmin;
 
 
 
@@ -201,6 +209,14 @@ public class TrustedAppEntity extends BaseModel {
 		this.authCodeGrantSupported = authCodeGrantSupported;
 	}
 	
+	public Boolean isClientCredentialsGrantSupported() {
+		return clientCredentialsGrantSupported;
+	}
+
+	public void setClientCredentialsGrantSupported(Boolean clientCredentialsGrantSupported) {
+		this.clientCredentialsGrantSupported = clientCredentialsGrantSupported;
+	}
+
 	public Boolean isInternal() {
 		return internal;
 	}
@@ -316,8 +332,13 @@ public class TrustedAppEntity extends BaseModel {
 		this.status = status;
 	}
 
-    
-    
-    
-    
+
+	public HmisUser getTrustedAppAdmin() {
+		return trustedAppAdmin;
+	}
+
+
+	public void setTrustedAppAdmin(HmisUser trustedAppAdmin) {
+		this.trustedAppAdmin = trustedAppAdmin;
+	}   
 }

@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.model.v2014;
 
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -35,7 +36,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "sexualorientation")
 @Table(name = "sexualorientation", catalog = "hmis", schema = "v2014")
-public class Sexualorientation extends HmisBaseModel  implements Cloneable, Serializable{
+public class Sexualorientation extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1750713946914978136L;

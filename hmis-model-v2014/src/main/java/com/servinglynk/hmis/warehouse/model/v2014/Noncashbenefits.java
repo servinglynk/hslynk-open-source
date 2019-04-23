@@ -10,6 +10,7 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsSnapEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -43,7 +44,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "noncashbenefits")
 @Table(name = "noncashbenefits", catalog = "hmis", schema = "v2014")
-public class Noncashbenefits extends HmisBaseModel  implements Cloneable, Serializable {
+public class Noncashbenefits extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6493511274453583782L;

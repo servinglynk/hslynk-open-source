@@ -88,6 +88,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	
 	@Autowired private GenericEnrollmentDao  genericEnrollmentDao;
 	
+	@Autowired private SharingRuleDao sharingRuleDao;
+	
 	
 	@Autowired private GlobalHouseHoldDao globalHouseHoldDao;
 	
@@ -342,6 +344,12 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setReportConfigParamDao(ReportConfigParamDao reportConfigParamDao) {
 		this.reportConfigParamDao = reportConfigParamDao;
+	}
+	public SharingRuleDao getSharingRuleDao() {
+		return sharingRuleDao;
+	}
+	public void setSharingRuleDao(SharingRuleDao sharingRuleDao) {
+		this.sharingRuleDao = sharingRuleDao;
 	}
 	
 }

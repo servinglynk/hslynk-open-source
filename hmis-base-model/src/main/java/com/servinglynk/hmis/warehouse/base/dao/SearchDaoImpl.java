@@ -20,6 +20,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -32,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.Sort;
+import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.model.base.Client;
 
 public class SearchDaoImpl
@@ -136,9 +138,9 @@ public class SearchDaoImpl
 				  Criterion lastName = Restrictions.ilike("lastName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 				  Criterion middleName = Restrictions.ilike("middleName",searchRequest.getFreeText(),MatchMode.ANYWHERE);
 				 Criterion sourceSystemId = Restrictions.ilike("sourceSystemId",searchRequest.getFreeText(),MatchMode.ANYWHERE);
-				  Criterion ssn = Restrictions.sqlRestriction(" ( convert_from(ssn_decrypt(ssn),'UTF-8') ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
-				  Criterion fullName = Restrictions.sqlRestriction("(concat(first_name,middle_name,last_name) ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
-				  Criterion clientName = Restrictions.sqlRestriction("(concat(first_name,last_name) ilike '%"+searchRequest.getFreeText().replaceAll(" ","")+"%') ");
+				  Criterion ssn = Restrictions.sqlRestriction(" ( convert_from(ssn_decrypt(ssn),'UTF-8') ilike '%"+searchRequest.getFreeText().replaceAll("^ +| +$|( )+","$1")+"%') ");
+				  Criterion fullName = Restrictions.sqlRestriction("(concat(first_name,' ',middle_name,' ',last_name) ilike '%"+searchRequest.getFreeText().replaceAll("^ +| +$|( )+","$1")+"%') ");
+				  Criterion clientName = Restrictions.sqlRestriction("(concat(first_name,' ',last_name) ilike '%"+searchRequest.getFreeText().replaceAll("^ +| +$|( )+","$1")+"%') ");
 				  if(Arrays.asList(searchRequest.getExcludeFields()).contains("ssi"))
 					  criteria.add(Restrictions.or(firstName,lastName,middleName,ssn,fullName,clientName));
 				  else
@@ -157,7 +159,17 @@ public class SearchDaoImpl
 				//  criteria.addOrder(Order.desc("dateUpdated"));
 		  } 
   }
+	if(AuditUtil.getSharedClients().isEmpty()) {
 	criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
+	}else {
+		Criterion clientsCriterion = Restrictions.in("id",AuditUtil.getSharedClients());
+		Criterion projectGroupCriterion =	Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode());
+        Disjunction inDisjunction = Restrictions.disjunction();
+        	inDisjunction.add(projectGroupCriterion);
+        	inDisjunction.add(clientsCriterion);
+        	criteria.add(inDisjunction);
+	}
+	criteria.add(Restrictions.isNull("parentId"));
 	criteria.add(Restrictions.eq("deleted", false));
 	criteria.add(Restrictions.isNotNull("dedupClientId"));
 
@@ -178,7 +190,7 @@ public class SearchDaoImpl
 		 }
 	  }
 	  
-	  searchRequest.getPagination().setTotal((int) countRows(this.prepareCriteria(searchRequest)));
+	  searchRequest.getPagination().setTotal((int) getRowsCount(this.prepareCriteria(searchRequest)));
 	  
 	  
 	  DetachedCriteria criteria =this.prepareCriteria(searchRequest);
@@ -189,7 +201,7 @@ public class SearchDaoImpl
 		  criteria.addOrder(Order.desc(searchRequest.getSort().getField())); 
 	  
 	  criteria.addOrder(Order.desc("dateUpdated"));
-	  return findByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
+	  return getByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
   }
   
 /*  public List<?> searchData(SearchRequest searchRequest){
@@ -321,5 +333,10 @@ public class SearchDaoImpl
 	  Transaction tx = fullTextSession.beginTransaction();
 	  fullTextSession.index(indexObject);
 	  tx.commit();
+  }
+  
+  public static void main(String args[]) {
+	  String text ="   Surya      Yadavalli     ";
+	  System.out.println(text.replaceAll("^ +| +$|( )+","$1"));
   }
 }

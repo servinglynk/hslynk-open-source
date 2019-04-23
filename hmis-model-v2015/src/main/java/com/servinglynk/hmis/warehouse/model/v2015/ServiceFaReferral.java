@@ -21,6 +21,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /** 
@@ -33,7 +34,7 @@ import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
 
 @Entity(name = "service_fa_referral_v2015")
 @Table(name = "service_fa_referral", catalog = "hmis", schema = "v2015")
-public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Serializable {
+public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Serializable , EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6799387931915626866L;

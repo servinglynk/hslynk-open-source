@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.servinglynk.hmis.warehouse.PaginatedModel;
 
 @JsonRootName("sharingrules")
-public class SharingRules  {
+public class SharingRules extends PaginatedModel {
 	
 	@JsonProperty("sharingRule")
 	List<SharingRule> sharingRules ;

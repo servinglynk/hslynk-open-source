@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
+
 
 /**
  * Object mapping for hibernate-handled table: residentialmoveindate.
@@ -29,7 +31,7 @@ import org.hibernate.proxy.HibernateProxy;
  */
 @Entity(name = "moveindate_v2017")
 @Table(name = "moveindate", catalog = "hmis", schema = "v2017")
-public class Moveindate extends HmisBaseModel implements Cloneable, Serializable {
+public class Moveindate extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -8790779523756672150L;
