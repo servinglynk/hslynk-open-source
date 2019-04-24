@@ -49,6 +49,17 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
+	public com.servinglynk.hmis.warehouse.model.base.Client getClientByssid(final String ssid,final String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.base.Client.class);
+		criteria.add(Restrictions.eq("source_system_id", ssid.trim()));
+		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
+		List<com.servinglynk.hmis.warehouse.model.base.Client> clients = (List<com.servinglynk.hmis.warehouse.model.base.Client>) findByCriteria(criteria);
+		if(clients !=null && clients.size()>0) return clients.get(0);
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
 	public com.servinglynk.hmis.warehouse.model.base.Client getClientByDedupCliendId(UUID id,String projectGroupCode) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.base.Client.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
@@ -57,7 +68,7 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 		if(clients !=null && clients.size()>0) return clients.get(0);
 		return null;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<com.servinglynk.hmis.warehouse.model.base.Client> getAllClients(Integer startIndex, Integer maxItems) {

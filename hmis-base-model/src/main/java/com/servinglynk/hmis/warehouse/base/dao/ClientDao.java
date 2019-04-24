@@ -14,4 +14,5 @@ public interface ClientDao extends BaseDao {
 	List<Client> getAllClients(Integer startIndex, Integer maxItems);
 	long getClientsCount();
 	public com.servinglynk.hmis.warehouse.model.base.Client getClientByDedupCliendId(UUID id,String projectGroupCode);
+	public com.servinglynk.hmis.warehouse.model.base.Client getClientByssid(String ssid,String projectGroupCode);
 }

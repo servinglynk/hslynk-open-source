@@ -286,12 +286,26 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
 			baseClient.setSchemaYear("2014");
-			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-			logger.info("Calling Dedup Service for "+client.getFirstName());
-			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-			if(dedupedId!=null)
-				client.setDedupClientId(UUID.fromString(dedupedId));
-			baseClient.setDedupClientId(client.getDedupClientId());
+			String projectGroupCode = AuditUtil.getLoginUserProjectGroup();
+			ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(projectGroupCode);
+			UUID dedupedId = null;
+			if(projectGroupEntity.isDetermineDedupBySsid() && StringUtils.isNotBlank(client.getSourceSystemId())) {
+				com.servinglynk.hmis.warehouse.model.base.Client clientByssid = daoFactory.getHmisClientDao().getClientByssid(client.getSourceSystemId(), projectGroupCode);
+				dedupedId = clientByssid.getDedupClientId();
+			}else {
+				String dedupSessionKey = dedupHelper.getAuthenticationHeader();
+				logger.info("Calling Dedup Service for "+client.getFirstName());
+				String dedup = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
+				if(StringUtils.isNotBlank(dedup)) {
+					dedupedId = UUID.fromString(dedup);
+				}
+			}
+			
+			if(dedupedId!=null) {
+				client.setDedupClientId(dedupedId);
+				baseClient.setDedupClientId(dedupedId);
+			}
+			
 			client.setDateUpdated(LocalDateTime.now());
 			baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
@@ -377,7 +391,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2014.Client>) findByCriteria(criteria);
 		return clients;
 	}
-	
+		
 	@Override
 	public void updateDedupClient(
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,String dedupSessionKey) {

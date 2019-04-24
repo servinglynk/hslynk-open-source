@@ -106,7 +106,7 @@ public class BulkUploadController extends ControllerBase{
 		com.servinglynk.hmis.warehouse.core.model.BulkUpload model = new com.servinglynk.hmis.warehouse.core.model.BulkUpload();
 		model.setFileName(file.getOriginalFilename());
 		model.setStatus("FILESYSTEM");
-         String year ="2014";
+         String year ="2017";
          if(StringUtils.equals("401", version))
         	 year = "2014";
          else if(StringUtils.equals("411", version))
