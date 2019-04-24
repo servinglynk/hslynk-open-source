@@ -286,10 +286,11 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
 			baseClient.setSchemaYear("2014");
+			String ssid = client.getSourceSystemId();
 			String projectGroupCode = AuditUtil.getLoginUserProjectGroup();
 			ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(projectGroupCode);
 			UUID dedupedId = null;
-			if(projectGroupEntity.isDetermineDedupBySsid() && StringUtils.isNotBlank(client.getSourceSystemId())) {
+			if(projectGroupEntity.isDetermineDedupBySsid() && StringUtils.isNotBlank(ssid)) {
 				com.servinglynk.hmis.warehouse.model.base.Client clientByssid = daoFactory.getHmisClientDao().getClientByssid(client.getSourceSystemId(), projectGroupCode);
 				dedupedId = clientByssid.getDedupClientId();
 			}else {
@@ -300,21 +301,37 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 					dedupedId = UUID.fromString(dedup);
 				}
 			}
-			
 			if(dedupedId!=null) {
 				client.setDedupClientId(dedupedId);
 				baseClient.setDedupClientId(dedupedId);
 			}
-			
 			client.setDateUpdated(LocalDateTime.now());
 			baseClient.setDateUpdated(LocalDateTime.now());
-			insert(client);
-			baseClient.setId(client.getId());
-			insert(baseClient);
+			// Lets check if a client exits in the same schema version and if does update the client.
+			Client clientByssid = getClientByssid(ssid, projectGroupCode);
+			if(clientByssid == null) {
+				insert(client);
+				baseClient.setId(client.getId());
+				insert(baseClient);
+			}else {
+				update(client);
+				baseClient.setId(client.getId());
+				update(baseClient);
+			}
+			
+			
 		return client;
 	}
 
-
+	@SuppressWarnings("unchecked")
+	public Client getClientByssid(final String ssid,final String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
+		criteria.add(Restrictions.eq("source_system_id", ssid.trim()));
+		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
+		List<Client> clients = (List<Client>) findByCriteria(criteria);
+		if(clients !=null && clients.size()>0) return clients.get(0);
+		return null;
+	}
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2014.Client updateClient(
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
