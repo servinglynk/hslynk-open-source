@@ -49,6 +49,7 @@ public class PasswordResetServiceImpl extends ServiceBase implements PasswordRes
 
 		String newPassword =GeneralUtil.randomPassword();
 		pAccount.setPassword(HMISCryptographer.Encrypt(newPassword));
+		pAccount.setForcePasswordChange(true);
 		
 /*		// Make new verification object
 		VerificationEntity pVerification = new VerificationEntity();

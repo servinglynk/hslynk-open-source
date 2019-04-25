@@ -183,12 +183,11 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 		} else if(pAccount.getStatus().equals(Constants.ACCOUNT_STATUS_INACTIVE)){
 			throw new AccessDeniedException("Account is inactive");
 		} 
-		
 
 		if(!pAccount.isTwoFactorAuthentication()){
 			this.createSession(session, trustedAppId, auditUser);
 			if(pAccount.getPasswordExpiresAt()!=null) {
-				if(pAccount.getForcePasswordChange() || DateUtil.diff(new Date(), pAccount.getPasswordExpiresAt()) >= 1)
+				if(pAccount.getForcePasswordChange() || pAccount.getPasswordExpiresAt().before(new Date()))
 					 session.setNextAction(Constants.FORCE_PASSWORD_CHANGE);
 			}else {
 				if(pAccount.getForcePasswordChange())
