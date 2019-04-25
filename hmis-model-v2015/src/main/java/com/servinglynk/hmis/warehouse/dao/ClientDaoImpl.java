@@ -9,7 +9,6 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -315,26 +314,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			com.servinglynk.hmis.warehouse.model.v2015.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
 			baseClient.setSchemaYear("2015");
-			String projectGroupCode = AuditUtil.getLoginUserProjectGroup();
-			UUID dedupedId = daoFactory.getHmisClientDao().determindDedupId(baseClient, projectGroupCode);
-			if(dedupedId!=null) {
-				client.setDedupClientId(dedupedId);
-				baseClient.setDedupClientId(dedupedId);
-			}
 			client.setDateUpdated(LocalDateTime.now());
 			baseClient.setDateUpdated(LocalDateTime.now());
-			// Lets check if a client exits in the same schema version and if does update the client.
-			com.servinglynk.hmis.warehouse.model.v2015.Client clientByDedupCliendId = getClientByDedupCliendId(dedupedId, projectGroupCode);
-			if(clientByDedupCliendId == null) {
-				insert(client);
-				baseClient.setId(client.getId());
-				insert(baseClient);
-			}else {
-				update(client);
-				baseClient.setId(client.getId());
-				update(baseClient);
-			}
-		return client;
+			insert(client);
+			baseClient.setId(client.getId());
+			insert(baseClient);	
+			return client;
 	}
 
 

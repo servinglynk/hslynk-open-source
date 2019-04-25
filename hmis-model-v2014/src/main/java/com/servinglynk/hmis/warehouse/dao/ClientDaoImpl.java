@@ -8,7 +8,6 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,24 +15,16 @@ import java.util.UUID;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
-import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
@@ -286,25 +277,11 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
 			baseClient.setSchemaYear("2014");
-			String projectGroupCode = AuditUtil.getLoginUserProjectGroup();
-			UUID dedupedId = daoFactory.getHmisClientDao().determindDedupId(baseClient, projectGroupCode);
-			if(dedupedId!=null) {
-				client.setDedupClientId(dedupedId);
-				baseClient.setDedupClientId(dedupedId);
-			}
 			client.setDateUpdated(LocalDateTime.now());
 			baseClient.setDateUpdated(LocalDateTime.now());
-			// Lets check if a client exits in the same schema version and if does update the client.
-			com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = getClientByDedupCliendId(dedupedId, projectGroupCode);
-			if(clientByDedupCliendId == null) {
-				insert(client);
-				baseClient.setId(client.getId());
-				insert(baseClient);
-			}else {
-				update(client);
-				baseClient.setId(client.getId());
-				update(baseClient);
-			}
+			insert(client);
+			baseClient.setId(client.getId());
+			insert(baseClient);	
 		return client;
 	}
 
