@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
+import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.Client;
@@ -29,8 +30,19 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		BeanUtils.copyProperties(pClient,baseClient);
 		baseClient.setPhoneNumber(client.getPhoneNumber());
 		baseClient.setEmailAddress(client.getEmailAddress());
-
-		daoFactory.getClientDao().createClient(pClient,baseClient);
+		String projectGroupCode = AuditUtil.getLoginUserProjectGroup();
+		// Lets check if a client exits in the same schema version and if does update the client.
+		UUID dedupedId = daoFactory.getHmisClientDao().determindDedupId(baseClient, projectGroupCode);
+		if(dedupedId!=null) {
+			pClient.setDedupClientId(dedupedId);
+			baseClient.setDedupClientId(dedupedId);
+		}
+		com.servinglynk.hmis.warehouse.model.v2017.Client clientByDedupCliendId = daoFactory.getClientDao().getClientByDedupCliendId(dedupedId, projectGroupCode);
+		if(clientByDedupCliendId == null) {
+			daoFactory.getClientDao().createClient(pClient,baseClient);
+		}else {
+			updateClient(client, caller);
+		}
 		client.setClientId(pClient.getId());
 		client.setDedupClientId(pClient.getDedupClientId());
 		return client;

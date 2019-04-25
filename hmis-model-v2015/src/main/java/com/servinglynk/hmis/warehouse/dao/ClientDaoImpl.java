@@ -9,7 +9,6 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -315,18 +314,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			com.servinglynk.hmis.warehouse.model.v2015.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
 			baseClient.setSchemaYear("2015");
-			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-			logger.info("Calling Dedup Service for "+client.getFirstName());
-			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-			if(dedupedId!=null)
-				client.setDedupClientId(UUID.fromString(dedupedId));
-			baseClient.setDedupClientId(client.getDedupClientId());
 			client.setDateUpdated(LocalDateTime.now());
-		    baseClient.setDateUpdated(LocalDateTime.now());
+			baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
 			baseClient.setId(client.getId());
-			insert(baseClient);
-		return client;
+			insert(baseClient);	
+			return client;
 	}
 
 

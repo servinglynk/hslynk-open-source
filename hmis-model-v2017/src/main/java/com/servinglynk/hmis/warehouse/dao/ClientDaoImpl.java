@@ -318,20 +318,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			com.servinglynk.hmis.warehouse.model.v2017.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
 			baseClient.setSchemaYear("2017");
-			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-			BeanUtils.copyProperties(client, baseClient, new String[] {"enrollments","veteranInfoes"});
-			logger.info("Calling Dedup Service for "+client.getFirstName());
-			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-			if(StringUtils.isNotBlank(dedupedId)) {
-				client.setDedupClientId(UUID.fromString(dedupedId));
-				baseClient.setDedupClientId(client.getDedupClientId());
-			}
 			client.setDateUpdated(LocalDateTime.now());
 			baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);
-		return client;
+			return client;
 	}
 
 

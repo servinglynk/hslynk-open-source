@@ -26,6 +26,7 @@ public class ProjectGroupEntity  {
     private String projectGroupCode;
     
     private boolean skipuseridentifers;
+    private boolean determineDedupBySsid;
     
    // private boolean active;
     
@@ -88,9 +89,23 @@ public class ProjectGroupEntity  {
 //		this.active = active;
 //	}
 	
+	
 	@Column(name="sender_email")
 	public String getSenderEmail() {
 		return senderEmail;
+	}
+	/**
+	 * @return the determineDedupBySsid
+	 */
+	@Column(name="determine_dedup_by_ssid")
+	public boolean isDetermineDedupBySsid() {
+		return determineDedupBySsid;
+	}
+	/**
+	 * @param determineDedupBySsid the determineDedupBySsid to set
+	 */
+	public void setDetermineDedupBySsid(boolean determineDedupBySsid) {
+		this.determineDedupBySsid = determineDedupBySsid;
 	}
 	public void setSenderEmail(String senderEmail) {
 		this.senderEmail = senderEmail;

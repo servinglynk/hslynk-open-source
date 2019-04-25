@@ -8,7 +8,6 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,24 +15,16 @@ import java.util.UUID;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
-import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
@@ -286,21 +277,24 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
 			baseClient.setSchemaYear("2014");
-			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-			logger.info("Calling Dedup Service for "+client.getFirstName());
-			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-			if(dedupedId!=null)
-				client.setDedupClientId(UUID.fromString(dedupedId));
-			baseClient.setDedupClientId(client.getDedupClientId());
 			client.setDateUpdated(LocalDateTime.now());
 			baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
 			baseClient.setId(client.getId());
-			insert(baseClient);
+			insert(baseClient);	
 		return client;
 	}
 
-
+	
+	@SuppressWarnings("unchecked")
+	public Client getClientByssid(final String ssid,final String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
+		criteria.add(Restrictions.eq("source_system_id", ssid.trim()));
+		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
+		List<Client> clients = (List<Client>) findByCriteria(criteria);
+		if(clients !=null && clients.size()>0) return clients.get(0);
+		return null;
+	}
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2014.Client updateClient(
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
@@ -377,7 +371,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2014.Client>) findByCriteria(criteria);
 		return clients;
 	}
-	
+		
 	@Override
 	public void updateDedupClient(
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,String dedupSessionKey) {
