@@ -286,21 +286,38 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
 			baseClient.setSchemaYear("2014");
-			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-			logger.info("Calling Dedup Service for "+client.getFirstName());
-			String dedupedId = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-			if(dedupedId!=null)
-				client.setDedupClientId(UUID.fromString(dedupedId));
-			baseClient.setDedupClientId(client.getDedupClientId());
+			String projectGroupCode = AuditUtil.getLoginUserProjectGroup();
+			UUID dedupedId = daoFactory.getHmisClientDao().determindDedupId(baseClient, projectGroupCode);
+			if(dedupedId!=null) {
+				client.setDedupClientId(dedupedId);
+				baseClient.setDedupClientId(dedupedId);
+			}
 			client.setDateUpdated(LocalDateTime.now());
 			baseClient.setDateUpdated(LocalDateTime.now());
-			insert(client);
-			baseClient.setId(client.getId());
-			insert(baseClient);
+			// Lets check if a client exits in the same schema version and if does update the client.
+			com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = getClientByDedupCliendId(dedupedId, projectGroupCode);
+			if(clientByDedupCliendId == null) {
+				insert(client);
+				baseClient.setId(client.getId());
+				insert(baseClient);
+			}else {
+				update(client);
+				baseClient.setId(client.getId());
+				update(baseClient);
+			}
 		return client;
 	}
 
-
+	
+	@SuppressWarnings("unchecked")
+	public Client getClientByssid(final String ssid,final String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
+		criteria.add(Restrictions.eq("source_system_id", ssid.trim()));
+		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
+		List<Client> clients = (List<Client>) findByCriteria(criteria);
+		if(clients !=null && clients.size()>0) return clients.get(0);
+		return null;
+	}
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2014.Client updateClient(
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
@@ -377,7 +394,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2014.Client>) findByCriteria(criteria);
 		return clients;
 	}
-	
+		
 	@Override
 	public void updateDedupClient(
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,String dedupSessionKey) {
