@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
-import com.servinglynk.hmis.warehouse.service.ClientService;
-import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
 import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
+import com.servinglynk.hmis.warehouse.service.ClientService;
+import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 
 public class ClientServiceImpl extends ServiceBase implements ClientService {
@@ -40,10 +40,11 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		com.servinglynk.hmis.warehouse.model.v2016.Client clientByDedupCliendId = daoFactory.getClientDao().getClientByDedupCliendId(dedupedId, projectGroupCode);
 		if(clientByDedupCliendId == null) {
 			daoFactory.getClientDao().createClient(pClient,baseClient);
+			client.setClientId(pClient.getId());
 		}else {
+			client.setClientId(clientByDedupCliendId.getId());
 			updateClient(client, caller);
-		}		
-		client.setClientId(pClient.getId());		
+		}
 		client.setDedupClientId(pClient.getDedupClientId());
 		return client;
 	}
