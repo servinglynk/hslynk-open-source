@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +30,9 @@ public abstract class ServiceBase implements Service {
 	
 	@Autowired
 	protected FileUploadServiceFactory fileUploadServiceFactory;		
+	
+	@Autowired
+	protected Environment environment;
 
 	public BaseDaoFactoryImpl getParentDaoFactory() {
 		return daoFactory;

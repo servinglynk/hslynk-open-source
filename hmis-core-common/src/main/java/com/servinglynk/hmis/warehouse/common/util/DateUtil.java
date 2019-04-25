@@ -25,5 +25,8 @@ public final class DateUtil {
 		 	return diff(date1,date2) / DateUtils.MILLIS_PER_MINUTE;
 	 }
 
+	 public static Date addDays(Date currentDate, Integer days) {
+		return DateUtils.addDays(currentDate, days);
+	 }
 
 }
