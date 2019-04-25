@@ -6,12 +6,26 @@ package com.servinglynk.hmis.warehouse.base.dao;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 
 public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 	
+	private static final Logger logger = LoggerFactory
+			.getLogger(ClientDaoImpl.class);
+	@Autowired
+	DedupHelper dedupHelper;
+	
+	@Autowired
+	BaseDaoFactory daoFactory;
 
 	@Override
 	public com.servinglynk.hmis.warehouse.model.base.Client createClient(
@@ -81,5 +95,30 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 	public long getClientsCount(){
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.base.Client.class);	
 		return countRows(criteria);
+	}
+	
+	/***
+	 * This method is used to determine the dedupedId depending on a config set at a project group level.
+	 * @param client
+	 * @param baseClient
+	 * @param projectGroupCode
+	 * @return
+	 */
+	public UUID determindDedupId(com.servinglynk.hmis.warehouse.model.base.Client baseClient,String projectGroupCode) {
+		String ssid = baseClient.getSourceSystemId();
+		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(projectGroupCode);
+		UUID dedupedId = null;
+		if(projectGroupEntity.isDetermineDedupBySsid() && StringUtils.isNotBlank(ssid)) {
+			com.servinglynk.hmis.warehouse.model.base.Client clientByssid = daoFactory.getHmisClientDao().getClientByssid(baseClient.getSourceSystemId(), projectGroupCode);
+			dedupedId = clientByssid.getDedupClientId();
+		}else {
+			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
+			logger.info("Calling Dedup Service for "+baseClient.getFirstName());
+			String dedup = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
+			if(StringUtils.isNotBlank(dedup)) {
+				dedupedId = UUID.fromString(dedup);
+			}
+		}
+		return  dedupedId;
 	}
 }

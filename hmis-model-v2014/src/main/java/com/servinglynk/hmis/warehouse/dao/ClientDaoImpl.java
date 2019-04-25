@@ -286,21 +286,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
 			baseClient.setSchemaYear("2014");
-			String ssid = client.getSourceSystemId();
 			String projectGroupCode = AuditUtil.getLoginUserProjectGroup();
-			ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(projectGroupCode);
-			UUID dedupedId = null;
-			if(projectGroupEntity.isDetermineDedupBySsid() && StringUtils.isNotBlank(ssid)) {
-				com.servinglynk.hmis.warehouse.model.base.Client clientByssid = daoFactory.getHmisClientDao().getClientByssid(client.getSourceSystemId(), projectGroupCode);
-				dedupedId = clientByssid.getDedupClientId();
-			}else {
-				String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-				logger.info("Calling Dedup Service for "+client.getFirstName());
-				String dedup = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-				if(StringUtils.isNotBlank(dedup)) {
-					dedupedId = UUID.fromString(dedup);
-				}
-			}
+			UUID dedupedId = daoFactory.getHmisClientDao().determindDedupId(baseClient, projectGroupCode);
 			if(dedupedId!=null) {
 				client.setDedupClientId(dedupedId);
 				baseClient.setDedupClientId(dedupedId);
@@ -308,8 +295,8 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			client.setDateUpdated(LocalDateTime.now());
 			baseClient.setDateUpdated(LocalDateTime.now());
 			// Lets check if a client exits in the same schema version and if does update the client.
-			Client clientByssid = getClientByssid(ssid, projectGroupCode);
-			if(clientByssid == null) {
+			com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = getClientByDedupCliendId(dedupedId, projectGroupCode);
+			if(clientByDedupCliendId == null) {
 				insert(client);
 				baseClient.setId(client.getId());
 				insert(baseClient);
@@ -318,11 +305,10 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				baseClient.setId(client.getId());
 				update(baseClient);
 			}
-			
-			
 		return client;
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	public Client getClientByssid(final String ssid,final String projectGroupCode) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
