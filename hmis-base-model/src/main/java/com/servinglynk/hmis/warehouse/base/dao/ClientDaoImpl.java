@@ -65,7 +65,7 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 	@Override
 	public com.servinglynk.hmis.warehouse.model.base.Client getClientByssid(final String ssid,final String projectGroupCode) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.base.Client.class);
-		criteria.add(Restrictions.eq("source_system_id", ssid.trim()));
+		criteria.add(Restrictions.eq("sourceSystemId", ssid.trim()));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		List<com.servinglynk.hmis.warehouse.model.base.Client> clients = (List<com.servinglynk.hmis.warehouse.model.base.Client>) findByCriteria(criteria);
 		if(clients !=null && clients.size()>0) return clients.get(0);
@@ -109,7 +109,7 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(projectGroupCode);
 		UUID dedupedId = null;
 		if(projectGroupEntity.isDetermineDedupBySsid() && StringUtils.isNotBlank(ssid)) {
-			com.servinglynk.hmis.warehouse.model.base.Client clientByssid = daoFactory.getHmisClientDao().getClientByssid(baseClient.getSourceSystemId(), projectGroupCode);
+			com.servinglynk.hmis.warehouse.model.base.Client clientByssid = daoFactory.getHmisClientDao().getClientByssid(ssid, projectGroupCode);
 			dedupedId = clientByssid.getDedupClientId();
 		}else {
 			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
