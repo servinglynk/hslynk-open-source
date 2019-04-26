@@ -110,8 +110,12 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 		UUID dedupedId = null;
 		if(projectGroupEntity.isDetermineDedupBySsid() && StringUtils.isNotBlank(ssid)) {
 			com.servinglynk.hmis.warehouse.model.base.Client clientByssid = daoFactory.getHmisClientDao().getClientByssid(ssid, projectGroupCode);
-			dedupedId = clientByssid.getDedupClientId();
-		}else {
+			if(clientByssid != null) {
+				dedupedId = clientByssid.getDedupClientId();
+			}
+		}
+		
+		if(dedupedId == null) {
 			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
 			logger.info("Calling Dedup Service for "+baseClient.getFirstName());
 			String dedup = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
