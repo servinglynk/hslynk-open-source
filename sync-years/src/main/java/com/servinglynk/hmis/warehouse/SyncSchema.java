@@ -201,7 +201,92 @@ public class SyncSchema extends Logging {
 		}
 		return null;
 	}
-
+ 
+	private void syncClientWithIdenfifiers(final String projectGroupCode) {
+		  log.info("Start sync for table: client");
+	        HTable htable;
+	        ResultSet resultSet;
+	        PreparedStatement statement;
+	        Connection connection;
+	        String message ="";
+	        String postgresTable ="client";
+	        try {
+	        	connection = SyncPostgresProcessor.getConnection();
+	        	htable = new HTable(HbaseUtil.getConfiguration(), "client");
+	        	statement = connection.prepareStatement("select id,dedup_client_id,first_name,last_name,convert_from(dob_decrypt(dob),'UTF-8') as dob ,convert_from(ssn_decrypt(ssn),'UTF-8') as ssn,parent_id,deleted from " + syncSchema + "."+postgresTable+" where deleted=false and   project_group_code ='MO0010' ");
+	        	statement.setString(1,projectGroupCode);
+	        	resultSet = statement.executeQuery();
+				List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable);
+			    List<String> existingKeysInPostgres = new ArrayList<>();
+			    syncHBaseImport.createHBASETable("client_sec" + "_" + projectGroupCode, logger);
+			    List<Put> putsToUpdate = new ArrayList<>();
+			    List<Put> putsToInsert = new ArrayList<>();
+			    List<String> putsToDelete = new ArrayList<>();
+			    boolean isRecordAlreadyExist = false;
+			    while (resultSet.next()) {
+			    	isRecordAlreadyExist = false;
+			    	String key = resultSet.getString("id");
+			    	if(existingKeysInHbase.contains(key)) {
+			    		isRecordAlreadyExist = true;
+			    	}
+			    	Put p = new Put(Bytes.toBytes(key));
+			    	addColumn(p, "id",resultSet.getString("id"),isRecordAlreadyExist);
+			    	addColumn(p, "dedup_client_id",resultSet.getString("dedup_client_id"),isRecordAlreadyExist);
+			    	addColumn(p, "first_name",resultSet.getString("first_name"),isRecordAlreadyExist);
+			    	addColumn(p, "last_name",resultSet.getString("last_name"),isRecordAlreadyExist);
+			    	addColumn(p, "dob",resultSet.getString("dob"),isRecordAlreadyExist);
+			    	addColumn(p, "ssn",resultSet.getString("ssn"),isRecordAlreadyExist);
+			    	addColumn(p, "parent_id",resultSet.getString("parent_id"),isRecordAlreadyExist);
+			    	addColumn(p, "deleted",String.valueOf(resultSet.getBoolean("deleted")),isRecordAlreadyExist);
+			    	addColumn(p, "year",String.valueOf(year),isRecordAlreadyExist);
+			    	 if (isRecordAlreadyExist) {
+                         putsToUpdate.add(p);
+                         if (putsToUpdate.size() > syncHBaseImport.batchSize) {
+                             htable.put(putsToUpdate);
+                             putsToUpdate.clear();
+                         }
+                     } else {
+                         putsToInsert.add(p);
+                         if (putsToInsert.size() > syncHBaseImport.batchSize) {
+                             htable.put(putsToInsert);
+                             putsToInsert.clear();
+                         }
+                     }
+                 existingKeysInPostgres.add(key);
+			    }
+			    logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
+	            if (putsToDelete.size() > 0) {
+	                syncHBaseImport.deleteDataInBatch(htable, putsToDelete);
+	            }
+	            logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
+                if (putsToInsert.size() > 0) {
+                    htable.put(putsToInsert);
+                    htable.flushCommits();
+                }
+                logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
+                if (putsToUpdate.size() > 0) {
+                    htable.put(putsToUpdate);
+                    htable.flushCommits();
+                }
+                SyncPostgresProcessor.hydrateSyncTable(syncSchema, "client_sec", "COMPLETED", message,projectGroupCode);
+	        }catch(Exception e){
+	        	logger.error(" Error when adding the client"+e.getMessage());
+	        }
+	        
+	       	}
+	
+	private static void addColumn(Put p, String column, String value,boolean isRecordAlreadyExist) {
+		if(isRecordAlreadyExist) {
+			p.add(Bytes.toBytes("CF"),
+	                Bytes.toBytes(column),
+	                Bytes.toBytes(value));
+		}else {
+			p.addColumn(Bytes.toBytes("CF"),
+	                Bytes.toBytes(column),
+	                Bytes.toBytes(value));
+		}
+	}
+	
     private void syncTable(String postgresTable, String hbaseTable,  Map<String, String> hmisTypes,BulkUpload upload) {
         log.info("Start sync for table: " + postgresTable);
         HTable htable;
@@ -237,9 +322,14 @@ public class SyncSchema extends Logging {
                 List<Put> putsToUpdate = new ArrayList<>();
                 List<Put> putsToInsert = new ArrayList<>();
                 List<String> putsToDelete = new ArrayList<>();
+                boolean isRecordAlreadyExist = false;
                 while (resultSet.next()) {
                     Boolean markedForDelete = resultSet.getBoolean("deleted");
                     String key = resultSet.getString("id");
+                    isRecordAlreadyExist = false;
+			    	if(existingKeysInHbase.contains(key)) {
+			    		isRecordAlreadyExist = true;
+			    	}
                     empty = false;
                     if (markedForDelete) {
                         if (existingKeysInHbase.contains(key)) {
@@ -260,9 +350,9 @@ public class SyncSchema extends Logging {
                             String value = resultSet.getString(i);
                             String columnTypeName = metaData.getColumnTypeName(i);
                             if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
-                                p.addColumn(Bytes.toBytes("CF"),
-                                        Bytes.toBytes(column),
-                                        Bytes.toBytes(value));
+                               addColumn(p,
+                                        column,
+                                        value,isRecordAlreadyExist);
                                 
                                 if(StringUtils.equals("client_id", column)) {
                                 	if(clientDedupMap.get(value) !=null) {
@@ -275,17 +365,13 @@ public class SyncSchema extends Logging {
                                 if(columnTypeName.contains(syncSchema)) {
                                 	String description = getDescriptionForHmisType(hmisTypes, column.toLowerCase().trim()+"_"+value.trim());
                                 	if(StringUtils.isNotBlank(description)) {
-                                		 p.addColumn(Bytes.toBytes("CF"),
-                                                 Bytes.toBytes(column+"_desc"),
-                                                 Bytes.toBytes(description));
+                                		addColumn(p,column+"_desc",description,isRecordAlreadyExist);
                                 	}
                                 }
                             }
                         }
-                        p.addColumn(Bytes.toBytes("CF"),
-                                Bytes.toBytes("year"),
-                                Bytes.toBytes(String.valueOf(upload.getYear())));
-                        if (existingKeysInHbase.contains(key)) {
+                       addColumn(p,"year",String.valueOf(upload.getYear()),isRecordAlreadyExist);
+                        if (isRecordAlreadyExist) {
                             putsToUpdate.add(p);
                             if (putsToUpdate.size() > syncHBaseImport.batchSize) {
                                 htable.put(putsToUpdate);
