@@ -47,6 +47,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
 		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
 		" and i.information_date >= e.entrydate ";
+		
 		List<Float> incomeAtEntry = getIncome(data.getSchema(), query, DataCollectionStage.ENTRY.getCode(),data);
 		List<Float> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode(),data);
 		

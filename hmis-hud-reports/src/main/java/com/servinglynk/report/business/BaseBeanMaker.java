@@ -240,6 +240,9 @@ public class BaseBeanMaker {
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getAdultLeavers();
+			if(CollectionUtils.isEmpty(enrollments)){
+					 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -283,6 +286,9 @@ public class BaseBeanMaker {
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -325,6 +331,12 @@ public class BaseBeanMaker {
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getAdultLeavers();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -367,6 +379,9 @@ public class BaseBeanMaker {
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -409,6 +424,9 @@ public class BaseBeanMaker {
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -451,6 +469,9 @@ public class BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			StringBuilder builder = new StringBuilder( " and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -494,6 +515,9 @@ public class BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			StringBuilder builder = new StringBuilder( " and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -1440,6 +1464,9 @@ public class BaseBeanMaker {
 							 String newQueryWithEnrollments = newQuery;
 							 StringBuilder builderWithEnrollments = new StringBuilder(" where e.id in  ( ");
 								List<EnrollmentModel> enrollments = data.getAdultLeavers();
+								if(CollectionUtils.isEmpty(enrollments)){
+									 return new ArrayList<>();
+								}
 								 if(CollectionUtils.isNotEmpty(enrollments)) {
 									 int count = 0;
 									 for(EnrollmentModel enrollment : enrollments) {

@@ -32,6 +32,9 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 		if(data.isLiveMode()) {
 			try {
 				List<EnrollmentModel> adultLeavers = data.getAdultLeavers();
+				if(CollectionUtils.isEmpty(adultLeavers)){
+					 return new ArrayList<>();
+				}
 				String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 						" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
 						" vadisabilityserviceamount,workerscompamount,incomefromanysource  as incomefromanysource,datacollectionstage from %s.incomeandsources i, %s.enrollment e,%s.project p  where    e.id=i.enrollmentid ";
