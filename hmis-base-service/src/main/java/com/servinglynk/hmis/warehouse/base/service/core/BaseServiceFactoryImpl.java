@@ -7,6 +7,7 @@ import com.servinglynk.hmis.warehouse.base.service.APIAccessService;
 import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
+import com.servinglynk.hmis.warehouse.base.service.BaseClientsService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
@@ -96,6 +97,7 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	
 	@Autowired private SharingRuleService sharingRuleService;
 	
+	@Autowired private BaseClientsService baseClientsService;
 	
 	public DeveloperCompanyService getDeveloperCompanyService() {
 		return developerCompanyService;
@@ -306,6 +308,14 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setSharingRuleService(SharingRuleService sharingRuleService) {
 		this.sharingRuleService = sharingRuleService;
+	}
+
+	public BaseClientsService getBaseClienstService() {
+		return baseClienstService;
+	}
+
+	public void setBaseClienstService(BaseClientsService baseClienstService) {
+		this.baseClienstService = baseClienstService;
 	}	
 	
 }

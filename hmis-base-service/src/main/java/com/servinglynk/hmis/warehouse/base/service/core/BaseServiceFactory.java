@@ -4,6 +4,7 @@ import com.servinglynk.hmis.warehouse.base.service.APIAccessService;
 import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
+import com.servinglynk.hmis.warehouse.base.service.BaseClientsService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
@@ -57,4 +58,5 @@ public interface BaseServiceFactory {
 	GenericEnrollmentService getGenericEnrollmentService();
 	GlobalHouseHoldService getGlobalHouseHoldService();
 	SharingRuleService getSharingRuleService();
+	BaseClientsService getBaseClienstService();
 }
