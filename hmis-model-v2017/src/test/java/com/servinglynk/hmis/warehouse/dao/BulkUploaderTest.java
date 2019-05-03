@@ -181,7 +181,7 @@ public class BulkUploaderTest {
 	
 	@Test
 	public void calculateChronicHomeless() {
-		 factory.getBulkUploaderDao().calculateChronicHomelessness("MO0010");
+		 factory.getBulkUploaderDao().calculateChronicHomelessness("SR0012");
 	}
 		@Test
 		public void testCSVZip() throws Exception

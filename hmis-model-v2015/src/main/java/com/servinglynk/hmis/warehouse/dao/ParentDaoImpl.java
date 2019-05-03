@@ -262,6 +262,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode.trim()));
 			criteria.add(Restrictions.eq("deleted",false));
 			criteria.addOrder( Order.desc("dateCreated") );
+			criteria.add(Restrictions.isNull("parentId"));
 			@SuppressWarnings("unchecked")
 			List<HmisBaseModel> models = (List<HmisBaseModel>) criteria.list() ;
 			if(CollectionUtils.isNotEmpty(models)) {
