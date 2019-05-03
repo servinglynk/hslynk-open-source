@@ -23,6 +23,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.APIAccessServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AccountServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ApiMethodServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AuthorizationServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.BaseClientsServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.BaseSearchServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.BulkUploadServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ClientConsentServiceImpl;
@@ -274,6 +275,11 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 @Bean
 	 public SharingRuleServiceImpl sharingRuleService() {
 		 return new SharingRuleServiceImpl();
+	 }
+	 
+	 @Bean
+	 public BaseClientsServiceImpl baseClientsService() {
+		 return new BaseClientsServiceImpl();
 	 }
 	 
 	 
