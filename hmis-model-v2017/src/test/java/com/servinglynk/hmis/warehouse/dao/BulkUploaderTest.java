@@ -119,7 +119,7 @@ public class BulkUploaderTest {
 				appender.setAppend(true);
 				appender.setLayout(new PatternLayout());
 				appender.activateOptions();
-				upload.setDescription("RELOAD");
+			//	upload.setDescription("RELOAD");
 				upload.setYear(2017L);
 				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
 		//		URL path = BulkUploadHelperTest.class.getResource("2016.xml");
@@ -170,7 +170,7 @@ public class BulkUploaderTest {
 //				bulkIds.add(414L);
 //				bulkIds.add(406L);
 //				bulkIds.add(434L);
-				bulkIds.add(440L);
+				bulkIds.add(248L);
 				for(Long id : bulkIds) {
 					BulkUpload bulkUpload = factory.getBulkUploaderDao().performLoad(id,appender,true);
 				}
