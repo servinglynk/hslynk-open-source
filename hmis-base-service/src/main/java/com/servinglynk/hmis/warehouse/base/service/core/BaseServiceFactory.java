@@ -58,5 +58,5 @@ public interface BaseServiceFactory {
 	GenericEnrollmentService getGenericEnrollmentService();
 	GlobalHouseHoldService getGlobalHouseHoldService();
 	SharingRuleService getSharingRuleService();
-	BaseClientsService getBaseClienstService();
+	BaseClientsService getBaseClientsService();
 }

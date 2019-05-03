@@ -29,6 +29,6 @@ public class ClientsController extends ControllerBase {
 			@RequestParam(value="startIndex",defaultValue="0",required=false) Integer start,
 			@RequestParam(value="maxItems",defaultValue="30",required=false) Integer maxItems,
 			HttpServletRequest request) throws Exception{
-		return serviceFactory.getBaseClienstService().getClientsByDedupId(dedupClientId, start, maxItems);
+		return serviceFactory.getBaseClientsService().getClientsByDedupId(dedupClientId, start, maxItems);
 	}
 }

@@ -310,12 +310,11 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 		this.sharingRuleService = sharingRuleService;
 	}
 
-	public BaseClientsService getBaseClienstService() {
-		return baseClienstService;
+	public BaseClientsService getBaseClientsService() {
+		return baseClientsService;
 	}
 
-	public void setBaseClienstService(BaseClientsService baseClienstService) {
-		this.baseClienstService = baseClienstService;
+	public void setBaseClientsService(BaseClientsService baseClientsService) {
+		this.baseClientsService = baseClientsService;
 	}	
-	
 }

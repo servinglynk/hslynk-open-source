@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.base.service.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.BaseClientsService;
 import com.servinglynk.hmis.warehouse.base.service.converter.ClientConverter;
@@ -12,6 +14,7 @@ import com.servinglynk.hmis.warehouse.model.base.Client;
 
 public class BaseClientsServiceImpl extends ServiceBase implements BaseClientsService {
 
+	@Transactional
 	public BaseClients getClientsByDedupId(UUID dedupId,Integer startIndex,Integer maxResults){
 		BaseClients baseClients = new BaseClients();
 		List<Client> clients =	daoFactory.getBaseClientDao().getClientsByDedupId(dedupId, startIndex, maxResults);
@@ -24,7 +27,7 @@ public class BaseClientsServiceImpl extends ServiceBase implements BaseClientsSe
 		    pagination.setFrom(startIndex);
 		    pagination.setMaximum(maxResults);
 		    pagination.setTotal(total.intValue());
-		    
+		    baseClients.setPagination(pagination);
 		return baseClients;
 	}
 }
