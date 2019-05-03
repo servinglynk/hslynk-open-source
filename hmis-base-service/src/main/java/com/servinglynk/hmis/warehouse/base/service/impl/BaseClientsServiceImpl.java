@@ -11,6 +11,7 @@ import com.servinglynk.hmis.warehouse.base.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.client.baseclients.BaseClientService;
 import com.servinglynk.hmis.warehouse.core.model.BaseClients;
 import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException;
 
 public class BaseClientsServiceImpl extends ServiceBase implements BaseClientsService {
 
@@ -18,6 +19,7 @@ public class BaseClientsServiceImpl extends ServiceBase implements BaseClientsSe
 	public BaseClients getClientsByDedupId(UUID dedupId,Integer startIndex,Integer maxResults){
 		BaseClients baseClients = new BaseClients();
 		List<Client> clients =	daoFactory.getBaseClientDao().getClientsByDedupId(dedupId, startIndex, maxResults);
+		if(clients.isEmpty()) throw new ResourceNotFoundException("DedupClientId not found "+dedupId);
 		 for(Client pClient : clients) {
 			 baseClients.addClient(ClientConverter.entityToModel(pClient));
 		 }
@@ -27,6 +29,7 @@ public class BaseClientsServiceImpl extends ServiceBase implements BaseClientsSe
 		    pagination.setFrom(startIndex);
 		    pagination.setMaximum(maxResults);
 		    pagination.setTotal(total.intValue());
+		    pagination.setReturned(baseClients.getClients().size());
 		    baseClients.setPagination(pagination);
 		return baseClients;
 	}
