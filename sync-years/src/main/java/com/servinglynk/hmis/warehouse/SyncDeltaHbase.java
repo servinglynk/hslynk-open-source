@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class SyncDeltaHbase extends Logging {
     private boolean purgeRecords;
 	private String projectGroupCode;
 	private String commonTables;
-
+	private String projGrpWithIdentifier;
     public SyncDeltaHbase(VERSION version, Logger logger, Status status, boolean purgeRecords) throws Exception {
         this.version = version;
         this.logger = logger;
@@ -48,6 +49,7 @@ public class SyncDeltaHbase extends Logging {
         this.purgeRecords = purgeRecords;
         this.syncHBaseImport = new SyncHBaseProcessor();
         this.commonTables = Properties.COMMON_TABLES;
+        this.projGrpWithIdentifier = Properties.PROJECT_GRP_WITH_CLIENT_IDS;
         switch (version) {
 	        case V2017:
 	            syncPeriod = Properties.SYNC_2017_PERIOD;
@@ -100,7 +102,6 @@ public class SyncDeltaHbase extends Logging {
             logger.error("Cannot run sync for schema " + syncSchema + ". No tables found in it");
             System.exit(1);
         }
-
         log.info("ProjectGroupCodes  size: " + projectGroupCodes.size());
         for (String projectGroupCode : projectGroupCodes) {
             try {
@@ -123,7 +124,7 @@ public class SyncDeltaHbase extends Logging {
 //                	tables.forEach(table -> syncHBaseImport.dropHBASETable(table + "_" + projectGroupCode));
 //                }
                 tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + projectGroupCode, logger));
-                if(org.apache.commons.lang3.StringUtils.equals("MO0010", projectGroupCode)) {
+                if( StringUtils.contains(projGrpWithIdentifier, projectGroupCode)) {
                 	 syncClientWithIdenfifiers(projectGroupCode);
                 }
                 
