@@ -12,13 +12,18 @@ public static String GET_ALL_CONTACTS = "select * from %s.contact";
 public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM = "select distinct(e.dedup_client_id) as dedup_client_id from %s.domesticviolence d,%s.enrollment e where e.id =d.enrollmentid and domesticviolencevictim = ";
 public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK = "select e.id as enrollmentid  from  %s.domesticviolence d,%s.enrollment e where e.id =d.enrollmentid and domesticviolencevictim in ('8','9') ";
 public static String GET_ALL_DOE = "select * from %s.dateofengagement";
-public static String GET_ALL_ENROLLMENTS = "select * from %s.enrollment";
+public static String GET_ALL_ENROLLMENTS = "select e.* from %s.client c,%s.enrollment e, %s.project p,%s.exit ext where e.client_id=c.id and e.projectid= p.id  %p and entrydate <= :endDate "+
+					 "  and ( e.id not in ( select enrollmentid from %s.exit  where  exitdate >= :startDate )) ";
+
 public static String GET_ALL_EXITS = "select ext.* from %s.exit ext, %s.enrollment e where  e.id = ext.enrollmentid and e.projectid in  ( "; 
 
 public static String GET_PROJECTS_BY_COC = "select * from %s.project where id in (select projectid from %s.coc where coc_id = ? )";
 public static String GET_PROJECTS = "select * from %s.project where id in (";
 public static String GET_ENROLLMENTS_BY_COC_ID = "select * from %s.enrollment where  entrydate >=:startDate and entrydate <= :endDate and projectid in (select projectid from %s.coc where id = ? ) ";
-public static String GET_ENROLLMENTS_PROJECT_ID = "select * from %s.enrollment where  entrydate <= :endDate and projectid in (";
+public static String GET_ENROLLMENTS_PROJECT_ID = "select e.*  "+
+											" from %s.client c,%s.enrollment e, %s.project p,%s.exit ext where e.client_id=c.id and e.projectid= p.id  %p and entrydate <= :endDate "+
+											"  and ( e.id not in ( select enrollmentid from %s.exit  where  exitdate >= :startDate )) "+
+											"   order by e.dedup_client_id";
 public static String GET_INCOMEANDSOURCE = "select * from %s.incomeandsources";
 public static String NAME_DATE_QUALITY_DNE_REFUSED ="select count(*) %s.from client where name_data_quality in ('8','9')";
 public static String NAME_DATE_QUALITY_DNC ="select count(*) from %s.client where name_data_quality in ('99')";

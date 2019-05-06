@@ -904,18 +904,8 @@ public class BaseBeanMaker {
 			try {
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
-				String query = formatQuery(ReportQuery.GET_ENROLLMENTS_PROJECT_ID,schema, data);
-				StringBuilder builder = new StringBuilder(query);
-				int i=1;
-				for(String project : projects) {
-					builder.append("\""+ project +"\"");
-					if(i != projects.size()) {
-						builder.append(",");
-					}
-					i++;
-				}
-				builder.append(") order by dedup_client_id");
-				resultSet = statement.executeQuery(builder.toString());
+				String query = formatQuery(getQueryForProjectDB(data,ReportQuery.GET_ENROLLMENTS_PROJECT_ID),schema, data);
+				resultSet = statement.executeQuery(query);
 				String prevDedupClientId = "";
 			 while(resultSet.next()) {
 				 String dedupClientId = resultSet.getString("dedup_client_id");
