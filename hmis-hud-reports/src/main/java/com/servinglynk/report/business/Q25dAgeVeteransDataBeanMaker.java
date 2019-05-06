@@ -21,8 +21,8 @@ public class Q25dAgeVeteransDataBeanMaker extends BaseBeanMaker {
 
 	public static List<Q25dAgeVeteransDataBean> getQ25dAgeVeteransList(ReportData data){
 		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p ) "+
-			     " join %s.client c on (e.client_id = c.id and e.entrydate  >=  :startDate and  e.entrydate<=:endDate) "+ 
-			     " where  c.veteran_status='1'  ";
+			     " join %s.client c on e.client_id = c.id   "+ 
+			     " where  c.veteran_status='1' and e.entrydate<=:endDate ";
 
 		Q25dAgeVeteransDataBean q25dAgeVeteransTable = new Q25dAgeVeteransDataBean();
 		try {
@@ -106,10 +106,10 @@ public class Q25dAgeVeteransDataBeanMaker extends BaseBeanMaker {
 				q25dAgeVeteransTable.setQ25d55To61WithChildAndAdults(BigInteger.valueOf(clients55To61WithOneAdultChildSize));
 				q25dAgeVeteransTable.setQ25d55To61UnknownHouseHold(BigInteger.valueOf(clients55To61UnknownHouseHoldSize));
 
-				List<String> clients62Plus = getClients(data, query, null, true, null, 0, 62);
-				List<String> clients62PlusWithoutChildren = getClients(data, query, projectsHHWithOutChildren, false, null, 0, 62);
-				List<String> clients62PlusWithOneAdultChild = getClients(data, query, projectsHHWithOneAdultChild, false, null, 0, 62);
-				List<String> clients62PlusUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, null, 0, 62);
+				List<String> clients62Plus = getClients(data, query, null, true, null, 62, 0);
+				List<String> clients62PlusWithoutChildren = getClients(data, query, projectsHHWithOutChildren, false, null, 62, 0);
+				List<String> clients62PlusWithOneAdultChild = getClients(data, query, projectsHHWithOneAdultChild, false, null, 62, 0);
+				List<String> clients62PlusUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, null, 62, 0);
 				
 				int clients62PlusSize = getSize(clients62Plus);
 				int clients62PlusWithoutChildrenSize = getSize(clients62PlusWithoutChildren);

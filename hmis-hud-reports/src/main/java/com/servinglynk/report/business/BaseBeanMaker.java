@@ -65,6 +65,23 @@ public class BaseBeanMaker {
 		 }
 		 return 0;
 	 }
+	 protected static String joinProjectIds(String query,ReportData data) {
+		 StringBuilder builder = new StringBuilder("");
+			List<String> projectIds = data.getProjectIds();
+			 if(CollectionUtils.isNotEmpty(projectIds)) {
+				 int count = 0;
+				 for(String projectId : projectIds) {
+					 builder.append("'"+projectId+"'");
+					 if(count != projectIds.size()) {
+						 builder.append(",");
+					 }
+				 }
+			 }
+			 builder.deleteCharAt(builder.length() -1);
+			 builder.append(" ) ");
+			String newQuery = query + builder.toString();
+			return newQuery;
+	 }
 	
 	 protected static String joinEnrollmentIds(String query,ReportData data) {
 		 StringBuilder builder = new StringBuilder(" and e.id in  ( ");
@@ -1036,7 +1053,8 @@ public class BaseBeanMaker {
 			List<ExitModel>  models = new ArrayList<ExitModel>();
 			try {
 				connection = ImpalaConnection.getConnection();
-				statement = connection.prepareStatement(formatQuery(ReportQuery.GET_ALL_EXITS,schema,data));
+				String query = joinProjectIds(ReportQuery.GET_ALL_EXITS, data);
+				statement = connection.prepareStatement(formatQuery(query,schema,data));
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
 				 ExitModel model = new ExitModel( resultSet.getString("id"), resultSet.getString("destination"), 
