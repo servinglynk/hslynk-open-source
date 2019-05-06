@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class SyncDeltaHbase extends Logging {
     private boolean purgeRecords;
 	private String projectGroupCode;
 	private String commonTables;
-
+	private String projGrpWithIdentifier;
     public SyncDeltaHbase(VERSION version, Logger logger, Status status, boolean purgeRecords) throws Exception {
         this.version = version;
         this.logger = logger;
@@ -48,6 +49,7 @@ public class SyncDeltaHbase extends Logging {
         this.purgeRecords = purgeRecords;
         this.syncHBaseImport = new SyncHBaseProcessor();
         this.commonTables = Properties.COMMON_TABLES;
+        this.projGrpWithIdentifier = Properties.PROJECT_GRP_WITH_CLIENT_IDS;
         switch (version) {
 	        case V2017:
 	            syncPeriod = Properties.SYNC_2017_PERIOD;
@@ -100,7 +102,6 @@ public class SyncDeltaHbase extends Logging {
             logger.error("Cannot run sync for schema " + syncSchema + ". No tables found in it");
             System.exit(1);
         }
-
         log.info("ProjectGroupCodes  size: " + projectGroupCodes.size());
         for (String projectGroupCode : projectGroupCodes) {
             try {
@@ -123,6 +124,9 @@ public class SyncDeltaHbase extends Logging {
 //                	tables.forEach(table -> syncHBaseImport.dropHBASETable(table + "_" + projectGroupCode));
 //                }
                 tables.forEach(table -> syncHBaseImport.createHBASETable(table + "_" + projectGroupCode, logger));
+                if( StringUtils.contains(projGrpWithIdentifier, projectGroupCode)) {
+                	 syncClientWithIdenfifiers(projectGroupCode);
+                }
                 
                 logger.info("Create tables done");
                 SyncPostgresProcessor.updateCreateFlag(projectGroupCode, version, logger);
@@ -160,6 +164,123 @@ public class SyncDeltaHbase extends Logging {
         }
     }
     
+//    public void syncClientId(final String projectGroupCode) {
+//		  log.info("Start sync for table: client_sec");
+//	        ResultSet resultSet;
+//	        PreparedStatement statement;
+//	        Connection connection;
+//	        String postgresTable ="client";
+//	        try {
+//	        	connection = SyncPostgresProcessor.getConnection();
+//	        	statement = connection.prepareStatement("select id,dedup_client_id,first_name,last_name,convert_from(dob_decrypt(dob),'UTF-8') as dob ,convert_from(ssn_decrypt(ssn),'UTF-8') as ssn,parent_id,deleted from " + syncSchema + "."+postgresTable+" where deleted=false and   project_group_code =? ");
+//	        	statement.setString(1,projectGroupCode);
+//	        	resultSet = statement.executeQuery();
+//			    while (resultSet.next()) {
+//			    	System.out.println(resultSet.getString("id"));
+//			    	System.out.println(resultSet.getString("dedup_client_id"));
+//			    	System.out.println(resultSet.getString("first_name"));
+//			    	System.out.println(resultSet.getString("last_name"));
+//			    	System.out.println(resultSet.getString("dob"));
+//			    	System.out.println(resultSet.getString("ssn"));
+//			    	System.out.println(resultSet.getString("parent_id"));
+//			    	System.out.println(resultSet.getBoolean("deleted"));
+//			    	System.out.println(year);
+//			    }
+//	        }catch(Exception e){
+//	        	logger.error(" Error when adding the client"+e.getMessage());
+//	        }
+//	        
+//	       	}
+    
+    private void syncClientWithIdenfifiers(final String projectGroupCode) {
+		  log.info("Start sync for table: client_sec");
+	        HTable htable;
+	        ResultSet resultSet;
+	        PreparedStatement statement;
+	        Connection connection;
+	        String message ="";
+	        String postgresTable ="client";
+	        try {
+	        	connection = SyncPostgresProcessor.getConnection();
+	        	String hbaseTableName = "client_sec" + "_" + projectGroupCode;
+	        	htable = new HTable(HbaseUtil.getConfiguration(), hbaseTableName);
+	        	statement = connection.prepareStatement("select id,dedup_client_id,first_name,last_name,convert_from(dob_decrypt(dob),'UTF-8') as dob ,convert_from(ssn_decrypt(ssn),'UTF-8') as ssn,parent_id,deleted,source_system_id from " + syncSchema + "."+postgresTable+" where deleted=false and   project_group_code =? ");
+	        	statement.setString(1,projectGroupCode);
+	        	resultSet = statement.executeQuery();
+				List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable);
+			    List<String> existingKeysInPostgres = new ArrayList<>();
+			    syncHBaseImport.createHBASETable(hbaseTableName, logger);
+			    List<Put> putsToUpdate = new ArrayList<>();
+			    List<Put> putsToInsert = new ArrayList<>();
+			    List<String> putsToDelete = new ArrayList<>();
+			    boolean isRecordAlreadyExist = false;
+			    while (resultSet.next()) {
+			    	isRecordAlreadyExist = false;
+			    	String key = resultSet.getString("id");
+			    	if(existingKeysInHbase.contains(key)) {
+			    		isRecordAlreadyExist = true;
+			    	}
+			    	Put p = new Put(Bytes.toBytes(key));
+			    	addColumn(p, "id",resultSet.getString("id"),isRecordAlreadyExist);
+			    	addColumn(p, "dedup_client_id",resultSet.getString("dedup_client_id"),isRecordAlreadyExist);
+			    	addColumn(p, "first_name",resultSet.getString("first_name"),isRecordAlreadyExist);
+			    	addColumn(p, "last_name",resultSet.getString("last_name"),isRecordAlreadyExist);
+			    	addColumn(p, "dob",resultSet.getString("dob"),isRecordAlreadyExist);
+			    	addColumn(p, "ssn",resultSet.getString("ssn"),isRecordAlreadyExist);
+			    	addColumn(p, "source_system_id",resultSet.getString("source_system_id"),isRecordAlreadyExist);
+			    	addColumn(p, "parent_id",resultSet.getString("parent_id"),isRecordAlreadyExist);
+			    	addColumn(p, "deleted",String.valueOf(resultSet.getBoolean("deleted")),isRecordAlreadyExist);
+			    	addColumn(p, "year",String.valueOf(year),isRecordAlreadyExist);
+			    	 if (isRecordAlreadyExist) {
+                       putsToUpdate.add(p);
+                       if (putsToUpdate.size() > syncHBaseImport.batchSize) {
+                           htable.put(putsToUpdate);
+                           putsToUpdate.clear();
+                       }
+                   } else {
+                       putsToInsert.add(p);
+                       if (putsToInsert.size() > syncHBaseImport.batchSize) {
+                           htable.put(putsToInsert);
+                           putsToInsert.clear();
+                       }
+                   }
+               existingKeysInPostgres.add(key);
+			    }
+			    logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
+	            if (putsToDelete.size() > 0) {
+	                syncHBaseImport.deleteDataInBatch(htable, putsToDelete);
+	            }
+	            logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
+              if (putsToInsert.size() > 0) {
+                  htable.put(putsToInsert);
+                  htable.flushCommits();
+              }
+              logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
+              if (putsToUpdate.size() > 0) {
+                  htable.put(putsToUpdate);
+                  htable.flushCommits();
+              }
+              SyncPostgresProcessor.hydrateSyncTable(syncSchema, "client_sec", "COMPLETED", message,projectGroupCode);
+	        }catch(Exception e){
+	        	e.printStackTrace();
+	        	logger.error(" Error when adding the client"+e.getMessage());
+	        }
+	        
+	       	}
+	
+	private static void addColumn(Put p, String column, String value,boolean isRecordAlreadyExist) {
+		if(StringUtils.isNotBlank(value)) {
+			if(isRecordAlreadyExist) {
+				p.add(Bytes.toBytes("CF"),
+		                Bytes.toBytes(column),
+		                Bytes.toBytes(value));
+			}else {
+				p.addColumn(Bytes.toBytes("CF"),
+		                Bytes.toBytes(column),
+		                Bytes.toBytes(value));
+			}
+		}
+	}
     /***
 	 * Loads the Hmistype into a hashMap so that I canbe retrieved from there instead of querying the tables.
 	 *
@@ -655,7 +776,8 @@ public class SyncDeltaHbase extends Logging {
          Properties props = new Properties();
          props.generatePropValues("application.conf");
          props.printProps();
-         new SyncDeltaHbase(VERSION.V2017, logger, Status.LIVE, true).syncCommonTableTest("question", "question", logger);
+         new SyncDeltaHbase(VERSION.V2017, logger, Status.LIVE, true);
+         
     }
 
    
