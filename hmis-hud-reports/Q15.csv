@@ -1,11 +1,11 @@
 ,Total,  Without children,  With children and adults,With only children,  Unknown household type
    a. Homeless situations,,,,,
-"   a1. Emergency shelter, including ",83,83,0,0,0
-   a2. Transitional housing for homeless ,43,43,0,0,0
+"   a1. Emergency shelter, including ",81,81,0,0,0
+   a2. Transitional housing for homeless ,44,44,0,0,0
    a3. Place not meant for habitation,27,27,0,0,0
-   a4. Safe haven,2,2,0,0,0
+   a4. Safe haven,1,1,0,0,0
    a5. Interim Housing,0,0,0,0,0
-   az. Subtotal,155,155,0,0,0
+   az. Subtotal,153,153,0,0,0
   b. Institutional Settings,,,,,
     b1. Psychiatric hospital or other ,0,0,0,0,0
    b2. Substance abuse or detox center,4,4,0,0,0
@@ -30,4 +30,4 @@ homeless criteria",0,0,0,0,0
    c11. Client Doesnt Know/Client Refused,6,6,0,0,0
   c12. Data Not Collected,6,6,0,0,0
    cz. Subtotal,23,23,0,0,0
-   d. Total,190,185,0,0,0
+   d. Total,188,183,0,0,0
