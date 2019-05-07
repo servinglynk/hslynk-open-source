@@ -40,7 +40,7 @@ public class ViSpdatView  extends Logging {
 	        HTable htable;
 	        try {
 	            htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
-	            List<Response> responsesForSurvey = getResponsesForSurvey("survey", survey.getSurveyId());
+	            List<Response> responsesForSurvey = getResponsesForSurvey("survey", survey.getSurveyId(),projectGroupCode);
 	            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
 	            List<String> existingKeysInPostgres = new ArrayList<>();
 	            
@@ -213,7 +213,7 @@ public class ViSpdatView  extends Logging {
         return tables;
     }
     
-    public static List<Response> getResponsesForSurvey(String schemaName,UUID surveyId) throws Exception{
+    public static List<Response> getResponsesForSurvey(String schemaName,UUID surveyId,String projectGroupCode) throws Exception{
         List<Response> responses = new ArrayList<>();
         ResultSet resultSet = null;
         PreparedStatement statement = null;		
@@ -222,6 +222,7 @@ public class ViSpdatView  extends Logging {
             connection = SyncPostgresProcessor.getConnection();
             statement = connection.prepareStatement(ViewQuery.GET_CLIENTS_WITH_RESPONSE);
             statement.setObject(1, surveyId);
+            statement.setString(2, projectGroupCode);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
             	String submissionId = resultSet.getString("submission_id");
@@ -242,7 +243,7 @@ public class ViSpdatView  extends Logging {
 	public static void main(String args[]) throws Exception {
 		 Logger logger = Logger.getLogger(ViSpdatView.class.getName());
 		 FileAppender appender = new FileAppender();
-         String appenderName = "active-list";
+         String appenderName = "vi-spdat-view";
          appender.setName(appenderName);
          appender.setFile("logs/" + appenderName + ".log");
          appender.setImmediateFlush(true);
