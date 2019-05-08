@@ -1,7 +1,7 @@
    ,Total,  Without children,  With children and adults,"With only
 children",  Unknown household type
-   a. Chronically Homeless,0,0,0,0,0
-   b. Not Chronically Homeless,3,0,0,0,0
-   c. Client Doesn't Know/Client Refused,0,0,0,0,0
-   d. Data Not Collected,0,0,0,0,0
-   e. Total,3,0,0,0,0
+   a. Chronically Homeless,0,0,18,18,18
+   b. Not Chronically Homeless,3,0,18,18,18
+   c. Client Doesn't Know/Client Refused,0,0,18,18,18
+   d. Data Not Collected,0,0,18,18,18
+   e. Total,3,0,72,72,72

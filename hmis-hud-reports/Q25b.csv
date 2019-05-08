@@ -1,7 +1,7 @@
    ,Total,  Without children,  With children and adults,  Unknown household type
-   Chronically Homeless Veteran,0,0,0,0
-   Non-Chronically Homeless Veteran,0,0,0,0
-   Not a veteran,0,0,0,0
+   Chronically Homeless Veteran,3,0,3,3
+   Non-Chronically Homeless Veteran,27,0,27,27
+   Not a veteran,148,3,148,148
    Client Doesn't Know/Client Refused,0,0,0,0
-   Data Not Collected,0,0,0,0
-  Total,0,0,0,0
+   Data Not Collected,7,0,7,7
+  Total,188,3,185,212

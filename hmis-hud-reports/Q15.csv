@@ -1,33 +1,33 @@
 ,Total,  Without children,  With children and adults,With only children,  Unknown household type
    a. Homeless situations,,,,,
-"   a1. Emergency shelter, including ",81,81,0,0,0
-   a2. Transitional housing for homeless ,44,44,0,0,0
-   a3. Place not meant for habitation,27,27,0,0,0
+"   a1. Emergency shelter, including ",1,1,0,0,0
+   a2. Transitional housing for homeless ,0,0,0,0,0
+   a3. Place not meant for habitation,1,1,0,0,0
    a4. Safe haven,1,1,0,0,0
    a5. Interim Housing,0,0,0,0,0
-   az. Subtotal,153,153,0,0,0
+   az. Subtotal,3,3,0,0,0
   b. Institutional Settings,,,,,
     b1. Psychiatric hospital or other ,0,0,0,0,0
-   b2. Substance abuse or detox center,4,4,0,0,0
+   b2. Substance abuse or detox center,0,0,0,0,0
    b3. Hospital or other residential non-,0,0,0,0,0
-"   b4. Jail, prison, or juvenile detention",3,3,0,0,0
+"   b4. Jail, prison, or juvenile detention",0,0,0,0,0
     b5. Foster care home or foster care ,0,0,0,0,0
    b6. Long-term care facility or nursing ,0,0,0,0,0
 "   b7. Residential project or halfway house with no
 homeless criteria",0,0,0,0,0
-   bz. Subtotal,7,7,0,0,0
+   bz. Subtotal,0,0,0,0,0
   c. Other Locations,,,,,
-   c01. Permanent housing (other than RRH) for formerly ,1,1,0,0,0
+   c01. Permanent housing (other than RRH) for formerly ,0,0,0,0,0
 "   c02. Owned by client, no ongoing ",0,0,0,0,0
 "   c03. Owned by client, with ongoing ",0,0,0,0,0
 "   c04. Rental by client, no ongoing housing ",0,0,0,0,0
 "   c05. Rental by client, with VASH subsidy",0,0,0,0,0
    c06. Rental by client with GPD TIP subsidy,0,0,0,0,0
 "   c07. Rental by client, with other housing ",0,0,0,0,0
-"   c08. Hotel/Motel, paid by client",1,1,0,0,0
-   c09. Staying or living in a friend’s ,3,3,0,0,0
-   c10. Staying or living with family,6,6,0,0,0
-   c11. Client Doesnt Know/Client Refused,6,6,0,0,0
-  c12. Data Not Collected,6,6,0,0,0
-   cz. Subtotal,23,23,0,0,0
-   d. Total,188,183,0,0,0
+"   c08. Hotel/Motel, paid by client",0,0,0,0,0
+   c09. Staying or living in a friend’s ,0,0,0,0,0
+   c10. Staying or living with family,0,0,0,0,0
+   c11. Client Doesnt Know/Client Refused,0,0,0,0,0
+  c12. Data Not Collected,0,0,0,0,0
+   cz. Subtotal,0,0,0,0,0
+   d. Total,3,3,0,0,0

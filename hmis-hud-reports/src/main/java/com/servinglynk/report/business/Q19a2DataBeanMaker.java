@@ -33,7 +33,7 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 			try {
 				List<EnrollmentModel> adultLeavers = data.getAdultLeavers();
 				if(CollectionUtils.isEmpty(adultLeavers)){
-					 return new ArrayList<>();
+					 return Arrays.asList(q19a2Bean);
 				}
 				String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 						" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
@@ -64,7 +64,7 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 					}
 				}
 			}catch(Exception e) {
-		logger.error("Error in Q26cBeanMaker:" + e);
+		logger.error("Error in 19a2BeanMaker:" + e);
 			}
 		}
 		return Arrays.asList(q19a2Bean);

@@ -131,6 +131,11 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 			String projectQuery = " and p.id in ( ";
 			StringBuilder builder = new StringBuilder(projectQuery);
 			Connection connection = null;
+
+			List<ClientModel> clients = data.getVeterans();
+			if(CollectionUtils.isEmpty(clients)) {
+				return new ArrayList<>();
+			}
 			try {
 				connection = ImpalaConnection.getConnection();
 				 List<String> projectIds = data.getProjectIds();
@@ -154,9 +159,8 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 					 newQuery = query.replace("%p", " ");
 				 }
 				 
-				 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
-					List<ClientModel> clients = data.getVeterans();
 					 if(CollectionUtils.isNotEmpty(clients)) {
+						 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
 						 int index = 0;
 						 for(ClientModel client : clients) {
 							 enrollmentBuilder.append("'"+client.getDedupClientId()+"'");
@@ -164,10 +168,11 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 								 enrollmentBuilder.append(",");
 							 }
 						 }
+						 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+						 enrollmentBuilder.append(" ) ");
+						 newQuery = newQuery + enrollmentBuilder.toString();
 					 }
-					 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
-					 enrollmentBuilder.append(" ) ");
-					 newQuery = newQuery + enrollmentBuilder.toString();
+					
 				
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
