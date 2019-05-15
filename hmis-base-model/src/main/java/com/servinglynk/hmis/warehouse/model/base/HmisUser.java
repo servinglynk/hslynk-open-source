@@ -388,14 +388,14 @@ public class HmisUser  {
 		this.passwordExpiresAt = passwordExpiresAt;
 	}
 
-	private Boolean forcePasswordChange;
+	private boolean forcePasswordChange;
 	
 	@Column(name="force_password_change")	
-	public Boolean getForcePasswordChange() {
+	public boolean getForcePasswordChange() {
 		return forcePasswordChange;
 	}
 
-	public void setForcePasswordChange(Boolean forcePasswordChange) {
+	public void setForcePasswordChange(boolean forcePasswordChange) {
 		this.forcePasswordChange = forcePasswordChange;
 	}
 
