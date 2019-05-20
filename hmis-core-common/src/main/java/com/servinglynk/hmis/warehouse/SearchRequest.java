@@ -15,6 +15,7 @@ public class SearchRequest
   Class<?> searchEntity;
   String freeText;
 String projectGroupCode;
+Boolean isProcSearch;
 
 List<UUID> clients = new ArrayList<>();
 
@@ -102,5 +103,13 @@ public List<UUID> getClients() {
 
 public void setClients(List<UUID> clients) {
 	this.clients = clients;
+}
+
+public Boolean getIsProcSearch() {
+	return isProcSearch;
+}
+
+public void setIsProcSearch(Boolean isProcSearch) {
+	this.isProcSearch = isProcSearch;
 }
 }

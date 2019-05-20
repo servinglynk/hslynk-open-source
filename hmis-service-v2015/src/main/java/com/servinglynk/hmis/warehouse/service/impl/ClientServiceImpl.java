@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -56,8 +57,9 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		
 		if(pClient == null ) throw new ClientNotFoundException();
 		
-		ClientConverter.modelToEntity(client, pClient);
 		
+		ClientConverter.modelToEntity(client, pClient);
+		pClient.setDateUpdated(LocalDateTime.now());
 		com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
 		BeanUtils.copyProperties(pClient, baseClient);
 		baseClient.setPhoneNumber(client.getPhoneNumber());

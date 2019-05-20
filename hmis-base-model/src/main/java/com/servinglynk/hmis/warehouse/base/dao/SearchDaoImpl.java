@@ -1,8 +1,10 @@
 package com.servinglynk.hmis.warehouse.base.dao;
 
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -29,11 +31,20 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.search.query.dsl.TermMatchingContext;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.Sort;
 import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
+import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
+import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
+import com.servinglynk.hmis.warehouse.model.SearchClient;
 import com.servinglynk.hmis.warehouse.model.base.Client;
 
 public class SearchDaoImpl
@@ -83,11 +94,12 @@ public class SearchDaoImpl
   }
   
   
-  public List<?> search(SearchRequest searchVO,boolean isIndexSearch){
-	  if(isIndexSearch){
-		  return this.search(searchVO);
+  public List<?> search(SearchRequest searchVO,boolean isProcSearch){
+	  if(isProcSearch){
+		  return this.searchProc(searchVO);
 	  }else{
 		  return this.searchData(searchVO);
+
 	  }
   }
   
@@ -202,6 +214,68 @@ public class SearchDaoImpl
 	  
 	  criteria.addOrder(Order.desc("dateUpdated"));
 	  return getByCriteria(criteria,searchRequest.getPagination().getFrom(),searchRequest.getPagination().getMaximum());
+  }
+  
+  public List<?>  searchProc(SearchRequest searchRequest) {
+	  DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+
+  	  String id = null;
+  String name = null;
+  String dob = null;
+  name = "'%"+searchRequest.getFreeText()+"%'";
+	  
+	  String queryString = "select * from base.client_search_by_name('%"+searchRequest.getFreeText()+"%','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+")";
+	  
+	  
+	  try {
+		    UUID.fromString(searchRequest.getFreeText());
+			  name = null;
+			  dob  = null;
+			  id ="'"+ searchRequest.getFreeText()+"'";
+		   queryString = "select * from base.client_search_by_id('"+searchRequest.getFreeText()+"','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+")";
+	  }catch (Exception e) {
+	}
+	  
+	  try {
+		  formatter.parse(searchRequest.getFreeText());
+		  formatter.parse(searchRequest.getFreeText());
+		  name = null;
+		  id =null;
+		  dob ="'"+ searchRequest.getFreeText()+"'";
+		  queryString = "select * from base.client_search_by_dob('"+searchRequest.getFreeText()+"','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+")";
+	  }catch (Exception e) {
+	}
+	  
+	  org.hibernate.Query query = getCurrentSession().createSQLQuery(queryString)
+			  .addScalar("rId",org.hibernate.type.PostgresUUIDType.INSTANCE)
+			  .addScalar("rDedupClientId",org.hibernate.type.PostgresUUIDType.INSTANCE)
+			  .addScalar("rNameDataQuality", sessionFactory.getTypeHelper().custom(com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnumType.class))
+			  .addScalar("rSsnDataQuality", sessionFactory.getTypeHelper().custom(com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnumType.class))
+			  .addScalar("rDobDataQuality", sessionFactory.getTypeHelper().custom(com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnumType.class))
+			  .addScalar("rGender", sessionFactory.getTypeHelper().custom(com.servinglynk.hmis.warehouse.enums.ClientGenderEnumType.class))
+			  .addScalar("rEthnicity", sessionFactory.getTypeHelper().custom(com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnumType.class))
+			  .addScalar("rRace", sessionFactory.getTypeHelper().custom(com.servinglynk.hmis.warehouse.enums.ClientRaceEnumType.class))
+			  .addScalar("rVeteranStatus", sessionFactory.getTypeHelper().custom(com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnumType.class))
+	  		  .addScalar("rDob",sessionFactory.getTypeHelper().custom(org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime.class))
+  	  		  .addScalar("rFirstName")
+	  		  .addScalar("rLastName")
+	  		  .addScalar("rMiddleName")
+  	  		  .addScalar("rNameSuffix")
+	  		  .addScalar("rOtherGender")
+	  		  .addScalar("rSsn")
+	  		  .addScalar("rSourceSystemId")
+	  		  .addScalar("rSchemaYear")
+	  		  .addScalar("rPhoneNumber")
+	  		  .addScalar("rEmailAddress")
+	  		  .addScalar("rProjectGroupCode")
+	  		  .setResultTransformer(Transformers.aliasToBean(SearchClient.class));
+
+
+	  org.hibernate.Query countQuery = getCurrentSession().createSQLQuery("select datasize from base.search_client_count ("+id+" ,"+name+" ,"+dob+",'"+searchRequest.getProjectGroupCode()+"' ) ");
+      
+	  searchRequest.getPagination().setTotal(((BigInteger)countQuery.list().get(0)).intValue());
+
+	  return query.list();
   }
   
 /*  public List<?> searchData(SearchRequest searchRequest){

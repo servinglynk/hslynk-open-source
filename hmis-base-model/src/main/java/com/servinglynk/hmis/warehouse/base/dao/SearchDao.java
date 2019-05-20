@@ -6,7 +6,7 @@ import com.servinglynk.hmis.warehouse.SearchRequest;
 
 public interface SearchDao
 {
-  public List<?> search(SearchRequest searchVO,boolean isIndexSearch);
+  public List<?> search(SearchRequest searchVO,boolean isProcSearch);
   
   public abstract boolean indexing(String indexClassList);
 
