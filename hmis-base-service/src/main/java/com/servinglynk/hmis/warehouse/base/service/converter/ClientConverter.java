@@ -4,12 +4,14 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import com.servinglynk.hmis.warehouse.core.model.BaseClient;
+
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
+import com.servinglynk.hmis.warehouse.model.SearchClient;
 
 public class ClientConverter {
 
@@ -91,5 +93,52 @@ public class ClientConverter {
 	    	 client.setVeteranStatus(Integer.parseInt(pClient.getVeteranStatus().getValue()));
 //		copyBeanProperties(pClient,client);
 	return client;
+	}
+
+	public static BaseClient entityToModel(SearchClient pClient) {
+		BaseClient client = new BaseClient();
+	    if(pClient.getrDob()!=null)
+		client.setDob(Date.from(pClient.getrDob().atZone(ZoneId.systemDefault()).toInstant()));
+	    if(pClient.getrDobDataQuality()!=null)
+		client.setDobDataQuality(Integer.parseInt(pClient.getrDobDataQuality().getValue()));
+	    if(pClient.getrEthnicity()!=null)
+		client.setEthnicity(Integer.parseInt(pClient.getrEthnicity().getValue()));
+	    if(pClient.getrFirstName()!=null)
+		client.setFirstName(pClient.getrFirstName());
+	    if(pClient.getrGender()!=null)
+		client.setGender(Integer.parseInt(pClient.getrGender().getValue()));
+	    if(pClient.getrLastName()!=null)
+		client.setLastName(pClient.getrLastName());
+	    if(pClient.getrMiddleName()!=null)
+		client.setMiddleName(pClient.getrMiddleName());
+	    if(pClient.getrNameDataQuality()!=null)
+		client.setNameDataQuality(Integer.parseInt(pClient.getrNameDataQuality().getValue()));
+	    if(pClient.getrNameSuffix()!=null)
+		client.setNameSuffix(pClient.getrNameSuffix());
+	    if(pClient.getrOtherGender()!=null)
+		client.setOtherGender(pClient.getrOtherGender());
+	    if(pClient.getrRace()!=null)
+		client.setRace(Integer.parseInt(pClient.getrRace().getValue()));
+	    if(pClient.getrSsn()!=null)
+		client.setSsn(pClient.getrSsn());
+	    if(pClient.getrSsnDataQuality()!=null)
+		client.setSsnDataQuality(Integer.parseInt(pClient.getrSsnDataQuality().getValue()));
+	    if(pClient.getrId()!=null)
+	    	client.setClientId(pClient.getrId());
+	    if(pClient.getrProjectGroupCode()!=null)
+	    	client.setProjectGroupCode(pClient.getrProjectGroupCode());
+	    if(pClient.getrSourceSystemId()!=null)
+	    		client.setSourceSystemId(pClient.getrSourceSystemId());
+	    if(pClient.getrSchemaYear()!=null)
+	    		client.setLink("/hmis-clientapi/rest/v"+pClient.getrSchemaYear()+"/clients/"+pClient.getrId());
+	    if(pClient.getrDedupClientId()!=null)
+	    		client.setDedupClientId(pClient.getrDedupClientId());
+	    if(pClient.getrPhoneNumber()!=null)
+	    		client.setPhoneNumber(pClient.getrPhoneNumber());
+	    if(pClient.getrEmailAddress()!=null)
+	    		client.setEmailAddress(pClient.getrEmailAddress());
+	    if(pClient.getrVeteranStatus()!=null)
+	    	 client.setVeteranStatus(Integer.parseInt(pClient.getrVeteranStatus().getValue()));
+		return client;
 	}
 }
