@@ -55,7 +55,11 @@ public class SearchController
 			  @RequestParam(value="startIndex", required=false,defaultValue="0") Integer startIndex, 
 			  @RequestParam(value="maxItems", required=false,defaultValue="50") Integer maxItems,
 			  @RequestParam(value="exclude",required=false) String exclude,
+<<<<<<< HEAD
 			  @RequestParam(value="procSearch",required=false,defaultValue="true") Boolean procSearch,
+=======
+			  @RequestParam(value="procSearch",required=false,defaultValue="false") Boolean procSearch,
+>>>>>>> b332f5a8c... Fix for #700
 			  HttpServletRequest request)
 					  	throws Exception
 					  {
