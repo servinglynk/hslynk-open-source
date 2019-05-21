@@ -1,6 +1,9 @@
 package com.servinglynk.hmis.warehouse.util;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,6 +13,9 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.lang3.StringUtils;
@@ -821,7 +827,8 @@ public class BasicDataGenerator {
 		if(value!=null && !"".equals(value))
 		{
 			try {
-				return value.toGregorianCalendar().toZonedDateTime().toLocalDateTime();
+				Date time = value.toGregorianCalendar().getTime();
+				new org.joda.time.LocalDateTime(time.getYear(), time.getMonth(), time.getDay(), time.getHours(), time.getMinutes(), time.getSeconds(), 0);
 			}catch (Exception e) {
 				//eat the exception but log it.
 				
@@ -840,4 +847,38 @@ public class BasicDataGenerator {
 			}     
 	  	return s;
 	  }
+	 
+	  public static XMLGregorianCalendar getXMLGregorianCalendar(String date) {
+		  if(date == null || "".equals(date) || "NA".equalsIgnoreCase(date)) {
+			  return null;
+		  }
+		  Date dob=null;
+		  DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+		  try {
+			  dob=df.parse(date);  
+		  }catch(ParseException ex) {
+			  
+		  }
+		  if(dob == null){
+			  return null;
+		  }
+		  GregorianCalendar cal = new GregorianCalendar();
+
+		  cal.setTime(dob);
+		  XMLGregorianCalendar xmlDate2=null;
+		try {
+			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
+		} catch (DatatypeConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  return xmlDate2;
+		}
+	  
+	 public static void main(String[] args) {
+		 XMLGregorianCalendar value = getXMLGregorianCalendar("2019-04-03 23:00:00");
+		 LocalDateTime localDateTime = getLocalDateTime(value);
+		 System.out.println("Date:"+localDateTime);
+		 
+	 }
 }

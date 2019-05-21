@@ -184,14 +184,15 @@ public class BulkUploaderTest {
 		 factory.getBulkUploaderDao().calculateChronicHomelessness("SR0012");
 	}
 		@Test
+		@Transactional
 		public void testCSVZip() throws Exception
 		{
 			URL path = BulkUploadHelperTest.class.getResource("2017.xml");
 			
 			System.out.println("Path -- >>> "+path);
 			BulkUpload bullkUpload = new BulkUpload();
-			bullkUpload.setInputpath("/Users/sdolia/Downloads/CSV_files.zip");
-			bullkUpload.setProjectGroupCode("PG0001");
+			bullkUpload.setInputpath("/Users/sdolia/Downloads/hudcsvsample.zip");
+			bullkUpload.setProjectGroupCode("DP0003");
 			FileAppender appender = new FileAppender();
 			appender.setName("" + bullkUpload.getId());
 			appender.setFile("logs/" + bullkUpload.getId() + ".log");
@@ -199,10 +200,10 @@ public class BulkUploaderTest {
 			appender.setAppend(true);
 			appender.setLayout(new PatternLayout());
 			appender.activateOptions();
-			bullkUpload.setId(248L);
+			bullkUpload.setId(558L);
 			bullkUpload.setYear(2017L);
 			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-			bullkUpload.setProjectGroupCode("PG0001");
+			bullkUpload.setProjectGroupCode("DP0003");
 			BulkUpload upload = factory.getBulkUploaderDao().processBase(bullkUpload,projectGrpEntity,appender,false);
 			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
 				
