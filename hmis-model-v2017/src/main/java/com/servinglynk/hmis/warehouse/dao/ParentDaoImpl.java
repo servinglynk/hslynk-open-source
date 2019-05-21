@@ -74,7 +74,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		 */
 		public boolean isFullRefresh(ExportDomain domain) {
 			String exportDirective = domain.getExport().getExportDirective();
-			if(StringUtils.isNotBlank(exportDirective) &&  exportDirective.contains("Full")) {
+			if((StringUtils.isNotBlank(exportDirective) &&  exportDirective.contains("Full"))  || domain.isFullRefresh()) {
 				return true;
 			}
 			return false;

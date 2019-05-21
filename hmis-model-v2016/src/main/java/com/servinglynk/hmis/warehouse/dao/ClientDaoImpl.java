@@ -66,6 +66,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		Export export = domain.getExport();
 		com.servinglynk.hmis.warehouse.model.v2016.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2016.Export) getModel(com.servinglynk.hmis.warehouse.model.v2016.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		Data data = new Data();
+		String projectGroupCode= getProjectGroupCode(domain);
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Client.class, getProjectGroupCode(domain));
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
@@ -92,7 +93,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
 					 */
 					if(clientModel.isRecordToBoInserted()) {
-						clientModel = getClientFromDedup(clientModel, client, getProjectGroupCode(domain));
+						 com.servinglynk.hmis.warehouse.model.v2016.Client clientFromDedup = getClientFromDedup(clientModel, client, projectGroupCode);
+						 if(clientFromDedup != null) {
+							 clientModel.setDedupClientId(clientFromDedup.getDedupClientId());
+							 clientModel.setRecordToBeInserted(clientFromDedup.isRecordToBoInserted());
+						 }
 					}
 
 					clientModel.setDateCreatedFromSource(BasicDataGenerator
@@ -181,14 +186,18 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	}
 	
 	
-	  private com.servinglynk.hmis.warehouse.model.v2016.Client getClientFromDedup(com.servinglynk.hmis.warehouse.model.v2016.Client clientModel,Client client, String projectGroupCode) {
+	 private com.servinglynk.hmis.warehouse.model.v2016.Client getClientFromDedup(com.servinglynk.hmis.warehouse.model.v2016.Client clientModel,Client client, String projectGroupCode) {
 	    	com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
 			BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 			UUID dedupId = daoFactory.getHmisClientDao().determindDedupId(target,projectGroupCode);
 			com.servinglynk.hmis.warehouse.model.v2016.Client clientByDedupCliendId = getClientByDedupCliendId(dedupId, projectGroupCode);
 			if(clientByDedupCliendId != null) {
-				clientModel.setRecordToBeInserted(false);
+				clientByDedupCliendId.setRecordToBeInserted(false);
 				populateClient(client, clientByDedupCliendId);
+			}else {
+				 clientByDedupCliendId = new com.servinglynk.hmis.warehouse.model.v2016.Client();
+				 clientByDedupCliendId.setRecordToBeInserted(true);
+				 clientByDedupCliendId.setDedupClientId(dedupId);
 			}
 			return clientByDedupCliendId;
 		}

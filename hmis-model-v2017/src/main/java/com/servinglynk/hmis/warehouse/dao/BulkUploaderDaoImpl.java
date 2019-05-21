@@ -117,7 +117,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setExport(export);
 			domain.setUpload(upload);
 			domain.setSource(source);
-			domain.setReUpload(true);
+//			domain.setReUpload(true);
 			domain.setReloadAll(true);
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 
@@ -154,7 +154,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				logger.info("Enrollment table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 			}
 		
-			
 			if(StringUtils.equalsIgnoreCase("pchild", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
 				parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
@@ -798,6 +797,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		domain.setUpload(upload);
 		domain.setSource(source);
 		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
+		domain.setFullRefresh(upload.isIgnoreDuplicateCheck());
 		return domain;
     }
 

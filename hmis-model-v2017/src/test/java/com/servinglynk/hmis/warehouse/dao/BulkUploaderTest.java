@@ -170,7 +170,31 @@ public class BulkUploaderTest {
 //				bulkIds.add(414L);
 //				bulkIds.add(406L);
 //				bulkIds.add(434L);
-				bulkIds.add(248L);
+				bulkIds.add(418L);
+				bulkIds.add(432L);
+				bulkIds.add(431L);
+				bulkIds.add(430L);
+				bulkIds.add(428L);
+				bulkIds.add(420L);
+				bulkIds.add(419L);
+				bulkIds.add(415L);
+				bulkIds.add(417L);
+				bulkIds.add(416L);
+				bulkIds.add(407L);
+				bulkIds.add(424L);
+				bulkIds.add(421L);
+				bulkIds.add(422L);
+				bulkIds.add(409L);
+				bulkIds.add(426L);
+				bulkIds.add(425L);
+				bulkIds.add(423L);
+				bulkIds.add(410L);
+				bulkIds.add(427L);
+				bulkIds.add(412L);
+				bulkIds.add(411L);
+				bulkIds.add(429L);
+				bulkIds.add(413L);
+				bulkIds.add(440L);
 				for(Long id : bulkIds) {
 					BulkUpload bulkUpload = factory.getBulkUploaderDao().performLoad(id,appender,true);
 				}
@@ -181,7 +205,7 @@ public class BulkUploaderTest {
 	
 	@Test
 	public void calculateChronicHomeless() {
-		 factory.getBulkUploaderDao().calculateChronicHomelessness("SR0012");
+		 factory.getBulkUploaderDao().calculateChronicHomelessness("DP0003");
 	}
 		@Test
 		@Transactional
@@ -242,7 +266,7 @@ public class BulkUploaderTest {
 	}
 	@Test
 	public void softDeleteProjectGroup() throws Exception {
-		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
+		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
 		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExportId() !=null) {
 				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode(),upload.getExportId());		

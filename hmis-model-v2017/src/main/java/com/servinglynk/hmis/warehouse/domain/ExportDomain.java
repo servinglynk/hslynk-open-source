@@ -26,6 +26,7 @@ public class ExportDomain {
 	private UUID exportId;
 	private boolean reUpload;
 	private boolean reloadAll;
+	private boolean fullRefresh;
 	
 	
 	public Export getExport() {
@@ -96,6 +97,20 @@ public class ExportDomain {
 	 */
 	public void setReloadAll(boolean reloadAll) {
 		this.reloadAll = reloadAll;
+	}
+
+	/**
+	 * @return the fullRefresh
+	 */
+	public boolean isFullRefresh() {
+		return fullRefresh;
+	}
+
+	/**
+	 * @param fullRefresh the fullRefresh to set
+	 */
+	public void setFullRefresh(boolean fullRefresh) {
+		this.fullRefresh = fullRefresh;
 	}
 	
 }

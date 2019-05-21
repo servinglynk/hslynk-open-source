@@ -827,8 +827,9 @@ public class BasicDataGenerator {
 		if(value!=null && !"".equals(value))
 		{
 			try {
-				Date time = value.toGregorianCalendar().getTime();
-				new org.joda.time.LocalDateTime(time.getYear(), time.getMonth(), time.getDay(), time.getHours(), time.getMinutes(), time.getSeconds(), 0);
+				  final int offsetSeconds = value.toGregorianCalendar().toZonedDateTime().getOffset().getTotalSeconds();
+			        final LocalDateTime localDateTime = value.toGregorianCalendar().toZonedDateTime().toLocalDateTime(); // this simply ignores the timeZone
+			        return localDateTime.minusSeconds(offsetSeconds); // ajust according to the time-zone offet
 			}catch (Exception e) {
 				//eat the exception but log it.
 				

@@ -93,11 +93,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
 					 */
 					if(clientModel.isRecordToBoInserted()) {
-						clientModel = getClientFromDedup(clientModel, client, projectGroupCode);
+						 com.servinglynk.hmis.warehouse.model.v2017.Client clientFromDedup = getClientFromDedup(clientModel, client, projectGroupCode);
+						 if(clientFromDedup != null) {
+							 clientModel.setDedupClientId(clientFromDedup.getDedupClientId());
+							 clientModel.setRecordToBeInserted(clientFromDedup.isRecordToBoInserted());
+						 }
 					}
-					
-					clientModel.setDateCreated(BasicDataGenerator
-							.getLocalDateTime(client.getDateCreated()));
 					
 					clientModel
 							.setDobDataQuality(ClientDobDataQualityEnum
@@ -150,6 +151,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						insertOrUpdate(target);	
 					}
 				} catch (Exception e) {
+					e.printStackTrace();
 					String errorMessage = "Exception beause of the client::" + client.toString() + " Exception ::" + e.getMessage();
 					if(clientModel != null){
 						Error2017 error = new Error2017();
@@ -176,8 +178,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		UUID dedupId = daoFactory.getHmisClientDao().determindDedupId(target,projectGroupCode);
 		com.servinglynk.hmis.warehouse.model.v2017.Client clientByDedupCliendId = getClientByDedupCliendId(dedupId, projectGroupCode);
 		if(clientByDedupCliendId != null) {
-			clientModel.setRecordToBeInserted(false);
+			clientByDedupCliendId.setRecordToBeInserted(false);
 			populateClient(client, clientByDedupCliendId);
+		}else {
+			 clientByDedupCliendId = new com.servinglynk.hmis.warehouse.model.v2017.Client();
+			 clientByDedupCliendId.setRecordToBeInserted(true);
+			 clientByDedupCliendId.setDedupClientId(dedupId);
 		}
 		return clientByDedupCliendId;
 	}
@@ -327,11 +333,12 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		criteria.add(Restrictions.isNull("dedupClientId"));
 		Criterion firstNameCriterion = Restrictions.isNotNull("firstName");
 		Criterion lastNameCriterion = Restrictions.isNotNull("lastName");
-		Criterion dobNameCriterion = Restrictions.isNotNull("dob");
-		Criterion ssnNameCriterion = Restrictions.isNotNull("ssn");
+	//	Criterion dobNameCriterion = Restrictions.isNotNull("dob");
+	//	Criterion ssnNameCriterion = Restrictions.isNotNull("ssn");
 		criteria.add(Restrictions.and(firstNameCriterion,lastNameCriterion));
-		criteria.add(Restrictions.and(dobNameCriterion,ssnNameCriterion));
+	//	criteria.add(Restrictions.and(dobNameCriterion,ssnNameCriterion));
 		List<String> allActiveProjectGroupCodes = new  ArrayList<>();
+		allActiveProjectGroupCodes.add("DP0003");
 		allActiveProjectGroupCodes.add("MO0010");
 		allActiveProjectGroupCodes.add("HO0002");
 		allActiveProjectGroupCodes.add("SA0005");
