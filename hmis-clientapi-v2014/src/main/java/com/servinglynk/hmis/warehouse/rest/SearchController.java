@@ -55,7 +55,7 @@ public class SearchController
 			  @RequestParam(value="startIndex", required=false,defaultValue="0") Integer startIndex, 
 			  @RequestParam(value="maxItems", required=false,defaultValue="50") Integer maxItems,
 			  @RequestParam(value="exclude",required=false) String exclude,
-			  @RequestParam(value="procSearch",required=false,defaultValue="false") Boolean procSearch,
+			  @RequestParam(value="procSearch",required=false,defaultValue="true") Boolean procSearch,
 			  HttpServletRequest request)
 					  	throws Exception
 					  {
