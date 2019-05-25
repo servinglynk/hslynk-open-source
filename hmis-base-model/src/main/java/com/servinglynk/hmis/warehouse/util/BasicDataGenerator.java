@@ -809,9 +809,17 @@ public class BasicDataGenerator {
 	}
 	public static LocalDateTime getLocalDateTime(XMLGregorianCalendar value)
 	{
-		if(value!=null)
+		if(value!=null && !"".equals(value))
 		{
-			return value.toGregorianCalendar().toZonedDateTime().toLocalDateTime();
+			try {
+				  final int offsetSeconds = value.toGregorianCalendar().toZonedDateTime().getOffset().getTotalSeconds();
+			        final LocalDateTime localDateTime = value.toGregorianCalendar().toZonedDateTime().toLocalDateTime(); // this simply ignores the timeZone
+			        return localDateTime.minusSeconds(offsetSeconds); // ajust according to the time-zone offet
+			}catch (Exception e) {
+				//eat the exception but log it.
+				
+			}
+			
 		}
 		return null;
 		
