@@ -1362,7 +1362,7 @@ public class BulkUploadHelper {
 		        else return "";
 	  }
 	  protected XMLGregorianCalendar getXMLGregorianCalendar(String date) {
-		  if(date == null || "".equals(date)) {
+		  if(date == null || "".equals(date) || "NA".equalsIgnoreCase(date)) {
 			  return null;
 		  }
 		  Date dob=null;
@@ -1372,17 +1372,13 @@ public class BulkUploadHelper {
 		  }catch(ParseException ex) {
 			  
 		  }
-		  
-		  GregorianCalendar cal = new GregorianCalendar();
-		  if(dob !=null) {
-			  cal.setTime(dob);  
+		  if(dob == null){
+			  return null;
 		  }
-		  
 		  XMLGregorianCalendar xmlDate2=null;
 		try {
-			if(dob !=null) {
-				xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
-			}
+			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(df.format(dob));
+			//xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
 		} catch (DatatypeConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 public class Stats {
@@ -74,6 +73,25 @@ public class Stats {
 		
 	}
 	
+	public static void update(String tableName,String projGrpCode,String schema) {
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            StringBuilder builder = new StringBuilder();
+            builder.append("update "+schema+"."+tableName);
+            
+           // if(!StringUtils.equals("survey", schema)) {
+            	builder.append(" set deleted=true,date_updated=CURRENT_TIMESTAMP WHERE project_group_code='"+projGrpCode+"'");
+         //   }
+            statement = connection.prepareStatement(builder.toString());
+            
+           int executeUpdate = statement.executeUpdate();
+           System.out.println(" Table name "+tableName+" update status:"+executeUpdate);
+        }catch (Exception ex){
+            //ex.printStackTrace();
+        }
+	}
 	public static void main(String args[]) throws Exception {
 		Long count =0L;
 		  Logger logger = Logger.getLogger(Stats.class.getName());
@@ -81,28 +99,36 @@ public class Stats {
 	        props.generatePropValues("application.conf");
 	        props.printProps();
 		List<String> schemas = new ArrayList<>();
-		schemas.add("v2014");
-		schemas.add("v2015");
-		schemas.add("v2016");
+	
 		schemas.add("v2017");
 		schemas.add("base");
-		schemas.add("survey");
-		schemas.add("housing_inventory");
-		schemas.add("notificationdb");
+		
+//		schemas.add("survey");
+//		schemas.add("housing_inventory");
+//		schemas.add("notificationdb");
+//		schemas.add("v2014");
+//		schemas.add("v2015");
+//		schemas.add("v2016");
 		List<String> projectGroups = new ArrayList<>();
-		projectGroups.add("HO0002");
-		projectGroups.add("MO0010");
-		projectGroups.add("MC0005");
+//		projectGroups.add("HO0002");
+//		projectGroups.add("MO0010");
+//		projectGroups.add("MC0005");
+//		projectGroups.add("SA0005");
+//		projectGroups.add("SB0006");
+		 
+		List<String> ignoreTableList = new ArrayList<>();
+		ignoreTableList.add("sync");
+		ignoreTableList.add("client");
+		ignoreTableList.add("project");
 		projectGroups.add("SR0012");
-		projectGroups.add("SA0005");
-		projectGroups.add("SB0006");
 		for(String projectGroupCode : projectGroups) {
 			for(String schema : schemas) {
 				List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);
 				count =0L;
 				for(String tableName : allTablesFromPostgres) {
-					if(!tableName.equals("sync"))
-						count = count + getTableCount(tableName, projectGroupCode, schema);
+					if(ignoreTableList.contains(tableName))
+						update(tableName, projectGroupCode, schema);
+						//count = count + getTableCount(tableName, projectGroupCode, schema);
 				}
 				System.out.println("Count in project group "+ projectGroupCode+" and schema "+schema+ "::"+count);
 			}

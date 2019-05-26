@@ -170,7 +170,37 @@ public class BulkUploaderTest {
 //				bulkIds.add(414L);
 //				bulkIds.add(406L);
 //				bulkIds.add(434L);
-				bulkIds.add(248L);
+//				bulkIds.add(418L);
+//				bulkIds.add(432L);
+//				bulkIds.add(431L);
+//				bulkIds.add(430L);
+//				bulkIds.add(428L);
+				
+//				bulkIds.add(420L);
+//				bulkIds.add(419L);
+//				bulkIds.add(415L);
+//				bulkIds.add(417L);
+				
+//				bulkIds.add(416L);
+				
+//				bulkIds.add(407L);
+//				bulkIds.add(424L);
+//				bulkIds.add(421L);
+//				bulkIds.add(422L);
+//				bulkIds.add(409L);
+				
+//				bulkIds.add(426L);
+//				bulkIds.add(425L);
+//				bulkIds.add(423L);
+//				bulkIds.add(410L);
+				
+//				bulkIds.add(427L);
+//				bulkIds.add(412L);
+//				bulkIds.add(411L);
+//				bulkIds.add(429L);
+//				bulkIds.add(413L);
+				bulkIds.add(440L);
+				
 				for(Long id : bulkIds) {
 					BulkUpload bulkUpload = factory.getBulkUploaderDao().performLoad(id,appender,true);
 				}
@@ -184,14 +214,15 @@ public class BulkUploaderTest {
 		 factory.getBulkUploaderDao().calculateChronicHomelessness("SR0012");
 	}
 		@Test
+		@Transactional
 		public void testCSVZip() throws Exception
 		{
 			URL path = BulkUploadHelperTest.class.getResource("2017.xml");
 			
 			System.out.println("Path -- >>> "+path);
 			BulkUpload bullkUpload = new BulkUpload();
-			bullkUpload.setInputpath("/Users/sdolia/Downloads/CSV_files.zip");
-			bullkUpload.setProjectGroupCode("PG0001");
+			bullkUpload.setInputpath("/Users/sdolia/Downloads/hudcsvsample.zip");
+			bullkUpload.setProjectGroupCode("DP0003");
 			FileAppender appender = new FileAppender();
 			appender.setName("" + bullkUpload.getId());
 			appender.setFile("logs/" + bullkUpload.getId() + ".log");
@@ -199,10 +230,10 @@ public class BulkUploaderTest {
 			appender.setAppend(true);
 			appender.setLayout(new PatternLayout());
 			appender.activateOptions();
-			bullkUpload.setId(248L);
+			bullkUpload.setId(558L);
 			bullkUpload.setYear(2017L);
 			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-			bullkUpload.setProjectGroupCode("PG0001");
+			bullkUpload.setProjectGroupCode("DP0003");
 			BulkUpload upload = factory.getBulkUploaderDao().processBase(bullkUpload,projectGrpEntity,appender,false);
 			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
 				
@@ -241,7 +272,7 @@ public class BulkUploaderTest {
 	}
 	@Test
 	public void softDeleteProjectGroup() throws Exception {
-		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("LIVE");
+		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
 		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExportId() !=null) {
 				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode(),upload.getExportId());		

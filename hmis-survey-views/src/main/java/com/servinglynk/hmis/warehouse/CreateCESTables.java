@@ -30,7 +30,7 @@ public class CreateCESTables  extends Logging {
 		 props.generatePropValues();
 		CreateCESTables cesTables = new CreateCESTables();
 	//	List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
-		String projectGroup ="MO0010";
+		String projectGroup ="TT0013";
 	//	cesTables.createTable("desc.sql",projectGroup);
 		//for(String projectGroup : allProjectGroupCodes) {
 	//		cesTables.createTable("DropHmis.sql",projectGroup);
@@ -107,8 +107,8 @@ public class CreateCESTables  extends Logging {
 				while (scanner.hasNextLine()) {
 					String line = scanner.nextLine();
 					if(StringUtils.isNotBlank(line) && !StringUtils.contains(line,"#")) {
-						String sql = line.replaceAll("ZPK0005","MO0010");
-						sql = sql.replaceAll("ZPK0005_NEW","MO0010_NEW");
+						String sql = line.replaceAll("ZPK0005_NEW","TT0013");
+						sql = sql.replaceAll("ZPK0005","TT0013");
 						sql = sql.replaceAll(";","");
 						createHiveTable(sql);
 					}

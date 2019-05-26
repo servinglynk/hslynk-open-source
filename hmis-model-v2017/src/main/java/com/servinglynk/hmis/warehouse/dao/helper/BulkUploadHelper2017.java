@@ -16,8 +16,10 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;import javax.persistence.PrimaryKeyJoinColumn;
+import java.util.zip.ZipFile;
+
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -76,7 +78,6 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntrySSVF;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExportPeriod;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Geography;
@@ -1404,12 +1405,10 @@ public class BulkUploadHelper2017 {
 		  if(dob == null){
 			  return null;
 		  }
-		  GregorianCalendar cal = new GregorianCalendar();
-
-		  cal.setTime(dob);
 		  XMLGregorianCalendar xmlDate2=null;
 		try {
-			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
+			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(df.format(dob));
+			//xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
 		} catch (DatatypeConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1468,4 +1467,12 @@ public class BulkUploadHelper2017 {
 		}
 		  return xmlDate2;
 		}
+	  
+	  
+	  public static void main(String args[]) {
+		  BulkUploadHelper2017 bulk = new BulkUploadHelper2017();
+		  XMLGregorianCalendar date1 = bulk.getXMLGregorianCalendar("2017-03-31");
+		  System.out.println(date1);
+		  
+	  }
 }
