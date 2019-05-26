@@ -45,6 +45,7 @@ public class BulkUpload extends HmisBaseModel  implements Cloneable, Serializabl
 	private Long size;
 	private Long year;
 	private String hudVersion;
+	private boolean ignoreDuplicateCheck=false;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -144,6 +145,21 @@ public class BulkUpload extends HmisBaseModel  implements Cloneable, Serializabl
 		this.status = status;
 	}
 	
+	
+	/**
+	 * @return the ignoreDuplicateCheck
+	 */
+	public boolean isIgnoreDuplicateCheck() {
+		return ignoreDuplicateCheck;
+	}
+
+	/**
+	 * @param ignoreDuplicateCheck the ignoreDuplicateCheck to set
+	 */
+	public void setIgnoreDuplicateCheck(boolean ignoreDuplicateCheck) {
+		this.ignoreDuplicateCheck = ignoreDuplicateCheck;
+	}
+
 	@Basic( optional = true )
 	@Column
    public String getDescription() {
