@@ -17,7 +17,7 @@ public class Q14aBeanMaker extends BaseBeanMaker {
 		Q14aDomesticViolenceHistoryDataBean q14aBean= new Q14aDomesticViolenceHistoryDataBean();
 		if(data.isLiveMode()) {
 		try {
-		int overallTot = data.getNumOfAdults() .intValue()+ data.getNoOfChildHeadsOfHousehold().intValue();
+		int overallTot = data.getNumOfAdults().intValue() + data.getNoOfChildHeadsOfHousehold().intValue();
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 		List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();

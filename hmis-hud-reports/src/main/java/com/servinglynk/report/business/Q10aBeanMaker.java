@@ -121,9 +121,9 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 		if(CollectionUtils.isNotEmpty(clientMissing)) {
 			List<String> missingInfoClients = new ArrayList<>();
 			clientMissing.forEach(client-> { missingInfoClients.add(client.getDedupClientId()); });
-			List<EnrollmentModel> adultsWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && clientMissing.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> adultsWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && clientMissing.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
-			List<EnrollmentModel> adultsFemaleUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && clientMissing.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> adultsWOC = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && missingInfoClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> adultsWCA = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && missingInfoClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> adultsFemaleUHHT = enrollments.parallelStream().filter(enrollment-> enrollment.getDedupClientId() != null && missingInfoClients.contains(enrollment.getDedupClientId())  && enrollment.getProjectID() != null && projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
 			
 			q10AGenderOfAdults.setTotInfoMissing(BigInteger.valueOf(clientMissing != null ?clientMissing.size() :0));
 			q10AGenderOfAdults.setInfomiisingWOC(BigInteger.valueOf(adultsWOC != null ?adultsWOC.size() :0));
@@ -133,8 +133,8 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 		int total =getSize(adults) ;
 		BigInteger subtotalWOC = getBigIntValue(q10AGenderOfAdults.getDkrWOC()).add(getBigIntValue(q10AGenderOfAdults.getMaleWOC()))
 				.add(getBigIntValue(q10AGenderOfAdults.getFemaleWOC())).add(getBigIntValue(q10AGenderOfAdults.getInfomiisingWOC()))
-				.add(getBigIntValue((q10AGenderOfAdults.getOtherWOC())).add(getBigIntValue(q10AGenderOfAdults.getTransgenderFMWOC()))
-				.add(getBigIntValue(q10AGenderOfAdults.getTransgenderMFWOC())));
+				.add(getBigIntValue((q10AGenderOfAdults.getOtherWOC()))).add(getBigIntValue(q10AGenderOfAdults.getTransgenderFMWOC()))
+				.add(getBigIntValue(q10AGenderOfAdults.getTransgenderMFWOC()));
 				
 		BigInteger subtotalWCA = 	getBigIntValue(q10AGenderOfAdults.getDkrWCA()).add(getBigIntValue((q10AGenderOfAdults.getMaleWCA()))).add(getBigIntValue(q10AGenderOfAdults.getFemaleWCA()))
 				.add(getBigIntValue(q10AGenderOfAdults.getInfomiisingWCA())).add(getBigIntValue(q10AGenderOfAdults.getOtherWCA())).add(getBigIntValue(q10AGenderOfAdults.getTransgenderFMWCA()))

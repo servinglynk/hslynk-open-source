@@ -62,7 +62,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			data.setVeterans(veterans);
 			List<EnrollmentModel> childHoh = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() < 18 && enrollment.getAgeatentry() !=0).collect(Collectors.toList());
 			List<EnrollmentModel> adultHoh = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
-			
+			data.setAdultHoh(adultHoh);
 			int numberOfStayers = enrollments.size() - exits.size();
 			bean.setTotNumOfPersonServed(BigInteger.valueOf(clients !=null ? clients.size() : 0));
 			bean.setNumOfAdults(BigInteger.valueOf(adults !=null ?adults.size() : 0));

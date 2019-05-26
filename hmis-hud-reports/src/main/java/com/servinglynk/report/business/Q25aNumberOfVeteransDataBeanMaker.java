@@ -24,8 +24,8 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 	public static List<Q25aNumberOfVeteransDataBean> getQ25aNumberOfVeteransList(ReportData data){
 		
 		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p ) "+
-			     " join %s.client c on (e.client_id = c.id and e.entrydate  >=  :startDate and  e.entrydate<=:endDate) "+ 
-			     " where 1=1  " ;
+			     " join %s.client c on e.client_id = c.id    "+ 
+			     " where e.ageatentry >=18 and e.entrydate<=:endDate " ;
 				Q25aNumberOfVeteransDataBean q25aNumberOfVeteransTable = new Q25aNumberOfVeteransDataBean();
 				try {
 					if(data.isLiveMode()) {
@@ -131,6 +131,11 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 			String projectQuery = " and p.id in ( ";
 			StringBuilder builder = new StringBuilder(projectQuery);
 			Connection connection = null;
+
+			List<ClientModel> clients = data.getVeterans();
+			if(CollectionUtils.isEmpty(clients)) {
+				return new ArrayList<>();
+			}
 			try {
 				connection = ImpalaConnection.getConnection();
 				 List<String> projectIds = data.getProjectIds();
@@ -154,9 +159,8 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 					 newQuery = query.replace("%p", " ");
 				 }
 				 
-				 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
-					List<ClientModel> clients = data.getVeterans();
 					 if(CollectionUtils.isNotEmpty(clients)) {
+						 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
 						 int index = 0;
 						 for(ClientModel client : clients) {
 							 enrollmentBuilder.append("'"+client.getDedupClientId()+"'");
@@ -164,10 +168,11 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 								 enrollmentBuilder.append(",");
 							 }
 						 }
+						 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+						 enrollmentBuilder.append(" ) ");
+						 newQuery = newQuery + enrollmentBuilder.toString();
 					 }
-					 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
-					 enrollmentBuilder.append(" ) ");
-					 newQuery = newQuery + enrollmentBuilder.toString();
+					
 				
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
