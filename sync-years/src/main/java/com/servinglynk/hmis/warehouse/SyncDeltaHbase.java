@@ -48,6 +48,7 @@ public class SyncDeltaHbase extends Logging {
         this.purgeRecords = purgeRecords;
         this.syncHBaseImport = new SyncHBaseProcessor();
         this.commonTables = Properties.COMMON_TABLES;
+        this.projectGroupCode = Properties.SYNC_FULL_PROJECT_GROUPS;
         switch (version) {
 	        case V2017:
 	            syncPeriod = Properties.SYNC_2017_PERIOD;
@@ -93,8 +94,16 @@ public class SyncDeltaHbase extends Logging {
 
         log.info("Get list of bulkupload for schema: " + syncSchema);
         // list of than 10 uploads
-        List<String> projectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes(logger);
-      
+        projectGroupCode = "SR0012";
+        List<String> projectGroupCodes = null;
+        if(StringUtils.isNotBlank(projectGroupCode) && !delta) {
+        	projectGroupCodes = new ArrayList<>();
+        	projectGroupCodes.add(projectGroupCode);
+        }else  {
+        	projectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes(logger);
+        }
+        	
+        
         List<String> tables = getTablesToSync();
         if(tables.size() < 1){
             logger.error("Cannot run sync for schema " + syncSchema + ". No tables found in it");

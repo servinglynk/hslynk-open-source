@@ -36,6 +36,7 @@ public class Properties {
     public static String SYNC_2014_INCLUDE_TABLES;
     public static String SYNC_2014_EXCLUDE_TABLES;
     public static int SYNC_2014_PERIOD;
+    public static String SYNC_FULL_PROJECT_GROUPS;
 
     public void generatePropValues(String propFileName) throws IOException {
 
@@ -58,7 +59,7 @@ public class Properties {
             HBASE_MASTER = prop.getProperty("hbase.master");
             HBASE_ZOOKEEPER_QUORUM = prop.getProperty("hbase.zookeeper.quorum");
             HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = prop.getProperty("hbase.zookeeper.property.clientPort", "2181");
-            
+            SYNC_FULL_PROJECT_GROUPS = prop.getProperty("sync.full.projectGroup", "");
             COMMON_TABLES = prop.getProperty("common.tables");
             SLIM_TABLES =  prop.getProperty("slim.tables");
             SYNC_2017_SCHEMA = prop.getProperty("sync2017.schema");
