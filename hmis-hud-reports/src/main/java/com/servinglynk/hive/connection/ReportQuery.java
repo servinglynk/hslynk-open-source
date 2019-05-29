@@ -5,7 +5,7 @@ public static String GET_PROJECT_BY_ID= "select * from %s.project where id = ? "
 public static String GET_ORG_BY_ID= "select * from %s.organization where id = ?";
 public static String GET_ALL_CLIENTS = " select c.id,c.dedup_client_id,name_data_quality,name_data_quality_desc,ssn_data_quality,ssn_data_quality_desc,dob_data_quality, "+
 					  " dob_data_quality_desc,gender,gender_desc,ethnicity,ethnicity_desc,race,race_desc,veteran_status,c.source_system_id,c.age "+
-					 " from %s.client c,%s.enrollment e, %s.project p,exit ext where e.client_id=c.id and e.projectid= p.id and entrydate <= :endDate "+
+					 " from %s.client c,%s.enrollment e, %s.project p,%s.exit ext where e.client_id=c.id and e.projectid= p.id and entrydate <= :endDate "+
 					 " and ( e.id not in ( select enrollmentid from %s.exit  where  exitdate >= :startDate )  "+
 					 " or ( e.id=ext.enrollmentid and (ext.exitdate is null or ext.exitdate >= :startDate ) ) ) %p  order by c.dedup_client_id";
 public static String GET_ALL_CONTACTS = "select * from %s.contact";
