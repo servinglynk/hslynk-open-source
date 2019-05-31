@@ -65,6 +65,23 @@ public class BaseBeanMaker {
 		 }
 		 return 0;
 	 }
+	 protected static String joinProjectIds(String query,ReportData data) {
+		 StringBuilder builder = new StringBuilder("");
+			List<String> projectIds = data.getProjectIds();
+			 if(CollectionUtils.isNotEmpty(projectIds)) {
+				 int count = 0;
+				 for(String projectId : projectIds) {
+					 builder.append("'"+projectId+"'");
+					 if(count != projectIds.size()) {
+						 builder.append(",");
+					 }
+				 }
+			 }
+			 builder.deleteCharAt(builder.length() -1);
+			 builder.append(" ) ");
+			String newQuery = query + builder.toString();
+			return newQuery;
+	 }
 	
 	 protected static String joinEnrollmentIds(String query,ReportData data) {
 		 StringBuilder builder = new StringBuilder(" and e.id in  ( ");
@@ -240,6 +257,9 @@ public class BaseBeanMaker {
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getAdultLeavers();
+			if(CollectionUtils.isEmpty(enrollments)){
+					 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -283,6 +303,9 @@ public class BaseBeanMaker {
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -325,6 +348,12 @@ public class BaseBeanMaker {
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getAdultLeavers();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -367,6 +396,9 @@ public class BaseBeanMaker {
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -409,6 +441,9 @@ public class BaseBeanMaker {
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -451,6 +486,9 @@ public class BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			StringBuilder builder = new StringBuilder( " and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -494,6 +532,9 @@ public class BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			StringBuilder builder = new StringBuilder( " and e.id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
+			if(CollectionUtils.isEmpty(enrollments)){
+				 return new ArrayList<>();
+			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
@@ -863,18 +904,8 @@ public class BaseBeanMaker {
 			try {
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
-				String query = formatQuery(ReportQuery.GET_ENROLLMENTS_PROJECT_ID,schema, data);
-				StringBuilder builder = new StringBuilder(query);
-				int i=1;
-				for(String project : projects) {
-					builder.append("\""+ project +"\"");
-					if(i != projects.size()) {
-						builder.append(",");
-					}
-					i++;
-				}
-				builder.append(") order by dedup_client_id");
-				resultSet = statement.executeQuery(builder.toString());
+				String query = formatQuery(getQueryForProjectDB(data,ReportQuery.GET_ENROLLMENTS_PROJECT_ID),schema, data);
+				resultSet = statement.executeQuery(query);
 				String prevDedupClientId = "";
 			 while(resultSet.next()) {
 				 String dedupClientId = resultSet.getString("dedup_client_id");
@@ -1012,7 +1043,8 @@ public class BaseBeanMaker {
 			List<ExitModel>  models = new ArrayList<ExitModel>();
 			try {
 				connection = ImpalaConnection.getConnection();
-				statement = connection.prepareStatement(formatQuery(ReportQuery.GET_ALL_EXITS,schema,data));
+				String query = joinProjectIds(ReportQuery.GET_ALL_EXITS, data);
+				statement = connection.prepareStatement(formatQuery(query,schema,data));
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
 				 ExitModel model = new ExitModel( resultSet.getString("id"), resultSet.getString("destination"), 
@@ -1440,6 +1472,9 @@ public class BaseBeanMaker {
 							 String newQueryWithEnrollments = newQuery;
 							 StringBuilder builderWithEnrollments = new StringBuilder(" where e.id in  ( ");
 								List<EnrollmentModel> enrollments = data.getAdultLeavers();
+								if(CollectionUtils.isEmpty(enrollments)){
+									 return new ArrayList<>();
+								}
 								 if(CollectionUtils.isNotEmpty(enrollments)) {
 									 int count = 0;
 									 for(EnrollmentModel enrollment : enrollments) {

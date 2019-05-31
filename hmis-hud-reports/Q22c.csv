@@ -1,5 +1,9 @@
 ,Total,  Without children,  With children and adults,With only children,  Unknown household type
-   7 days or less,150,150,150,150,150
+<<<<<<< HEAD
+   7 days or less,134,134,134,134,134
+=======
+   7 days or less,176,176,176,176,176
+>>>>>>> bulk-uploader-reprocess
    8 to 14 days,0,0,0,0,0
    15 to 21 days,0,0,0,0,0
    22 to 30 days,0,0,0,0,0
@@ -7,7 +11,14 @@
    61 to 180 days,0,0,0,0,0
    181 to 365 days,0,0,0,0,0
    366 to 730 days (1-2 Yrs),0,0,0,0,0
-   Total (persons moved into housing),150,150,150,150,0
+<<<<<<< HEAD
+   Total (persons moved into housing),134,134,134,134,0
    Average length of time to housing,0,0,0,0,0
   Persons who were exited without move-,0,0,0,0,0
-   Total persons,9,0,9,0,0
+   Total persons,3,0,3,0,0
+=======
+   Total (persons moved into housing),176,176,176,176,0
+   Average length of time to housing,0,0,0,0,0
+  Persons who were exited without move-,0,0,0,0,0
+   Total persons,0,0,0,0,0
+>>>>>>> bulk-uploader-reprocess

@@ -168,6 +168,8 @@ hmis-service-*/*.iml
 hmis-service-*/target
 hmis-service-*/bin
 
+hmis-hud-reports/*.csv
+hmis-hud-reports/*.zip
 
 hmis-sync/target/*
 hmis-sync/bin/*

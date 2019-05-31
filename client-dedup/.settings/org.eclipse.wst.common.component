@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="hmis-client-dedup">
+        <wb-resource deploy-path="/WEB-INF/web.xml" source-path="/src/main/webapp/WEB-INF/web.xml"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="hmis-service-v2014-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-service-v2014/hmis-service-v2014">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hmis-model-v2014-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-model-v2014/hmis-model-v2014">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hmis-s3-client-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-s3-client/hmis-s3-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hmis-base-service-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-service/hmis-base-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hmis-base-model-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-model/hmis-base-model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="hmis-client-dedup"/>
+        <property name="java-output-path" value="/hmis-client-dedup/target/classes"/>
+    </wb-module>
+</project-modules>

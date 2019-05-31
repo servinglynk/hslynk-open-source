@@ -1,6 +1,10 @@
 ,Total,  a. Without children,  b. With children and adults,c. With only children,  d. Unknown household type
-   a. Yes,2,0,0,0,0
-   b. No,7,0,0,0,0
+   a. Yes,0,0,0,0,0
+<<<<<<< HEAD
+   b. No,3,0,0,0,0
+=======
+   b. No,0,0,0,0,0
+>>>>>>> bulk-uploader-reprocess
    c. Client Doesn't Know/Client Refused,0,0,0,0,0
    d. Data Not Collected,0,0,0,0,0
-   e. Total,9,0,0,0,0
+   e. Total,3,0,0,0,0

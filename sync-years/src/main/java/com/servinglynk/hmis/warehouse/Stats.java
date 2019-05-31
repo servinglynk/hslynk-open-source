@@ -57,6 +57,7 @@ public class Stats {
             
            // if(!StringUtils.equals("survey", schema)) {
             	builder.append(" WHERE project_group_code='"+projGrpCode+"'");
+            	builder.append(" and  deleted=true");
          //   }
             statement = connection.prepareStatement(builder.toString());
             

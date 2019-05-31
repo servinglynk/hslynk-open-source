@@ -41,6 +41,7 @@ public class ReportData {
 	private  List<Q22BeanModel> stayersLengthofStay = new ArrayList<>();
 	private  List<Q22BeanModel> leaversLengthofStay = new ArrayList<>();
 	private List<Q22BeanModel> allDataLenghtofStay = new ArrayList<>();
+	private List<EnrollmentModel> adultHoh = new ArrayList<>();
 	private ProjectModel project;
 	private BigInteger totNumOfPersonServed;
 	private BigInteger numOfAdults;
@@ -747,5 +748,18 @@ public class ReportData {
 	public void setChronicHomeLess(List<EnrollmentModel> chronicHomeLess) {
 		this.chronicHomeLess = chronicHomeLess;
 	}
+	/**
+	 * @return the adultHoh
+	 */
+	public List<EnrollmentModel> getAdultHoh() {
+		return adultHoh;
+	}
+	/**
+	 * @param adultHoh the adultHoh to set
+	 */
+	public void setAdultHoh(List<EnrollmentModel> adultHoh) {
+		this.adultHoh = adultHoh;
+	}
+	
 	
 }

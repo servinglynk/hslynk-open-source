@@ -1,6 +1,10 @@
 Total number of persons served during the operating year,Total,Without Children,With Children and Adults,With Only Children,Unknown HH Type
-  Adults,9,9,0,0,0
+  Adults,3,3,0,0,0
   Children,0,0,0,0,0
   Client Doesn’t Know/ Client Refused,0,0,0,0,0
   Data Not Collected,0,0,0,0,0
-  Total,9,9,0,0,0
+<<<<<<< HEAD
+  Total,3,3,0,0,0
+=======
+  Total,0,3,0,0,0
+>>>>>>> bulk-uploader-reprocess

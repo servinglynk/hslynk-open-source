@@ -1,5 +1,9 @@
 Data Element,Error Count,% of Error Rate
   Destination,0,0
-  Income and Sources at Entry,9,1
+<<<<<<< HEAD
+  Income and Sources at Entry,3,1
+=======
+  Income and Sources at Entry,0,0
+>>>>>>> bulk-uploader-reprocess
   Income and Sources at Annual Assessment,0,0
   Income and Sources at Exit,0,0
