@@ -3,4 +3,8 @@ Total number of persons served during the operating year,Total,Without Children,
   Children,0,0,0,0,0
   Client Doesn’t Know/ Client Refused,0,0,0,0,0
   Data Not Collected,0,0,0,0,0
+<<<<<<< HEAD
   Total,3,3,0,0,0
+=======
+  Total,0,3,0,0,0
+>>>>>>> bulk-uploader-reprocess

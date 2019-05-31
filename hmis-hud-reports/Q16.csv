@@ -1,5 +1,9 @@
    Income bracket,Income at entry,  Income at latest follow-up for stayers,Income at exit for leavers
+<<<<<<< HEAD
    a. No Income,0,590,0
+=======
+   a. No Income,0,0,0
+>>>>>>> bulk-uploader-reprocess
    b. $1 - $150,0,0,0
    c. $151 - $250,0,0,0
    d. $251 - $500,0,0,0
