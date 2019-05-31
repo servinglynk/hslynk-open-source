@@ -17,15 +17,6 @@
         <dependent-module archiveName="hmis-base-service-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-service/hmis-base-service">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="hmis-base-model-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-model/hmis-base-model">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="hmis-core-common-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-core-common/hmis-core-common">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="core-client-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/core-client/core-client">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="hmis-client-dedup"/>
         <property name="java-output-path" value="/hmis-client-dedup/target/classes"/>
     </wb-module>
