@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.amazonaws.services.s3.model.Region;
 import com.servinglynk.hmis.warehouse.AwsS3Client;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
@@ -41,7 +42,7 @@ public class ProjectGroupServiceImpl extends ServiceBase implements ProjectGroup
 		projectGroupEntity.setBucketName(projectGroupEntity.getProjectGroupCode().toLowerCase()+"-"+UUID.randomUUID());
 		daoFactory.getProjectGroupDao().createProjectGroup(projectGroupEntity);
 		AwsS3Client client = new AwsS3Client(accessKey,secretKey);
-		client.createBucket(projectGroupEntity.getBucketName(), "");
+		client.createBucket(projectGroupEntity.getBucketName(), Region.US_West);
 		projectGroup.setProjectGroupCode(projectGroupEntity.getProjectGroupCode());
 		projectGroup.setProjectGroupId(projectGroupEntity.getId());
 		return projectGroup;

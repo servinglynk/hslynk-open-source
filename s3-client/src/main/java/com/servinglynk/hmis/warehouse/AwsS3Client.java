@@ -18,6 +18,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.Region;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
@@ -36,9 +37,11 @@ public class AwsS3Client {
     }
 
     public void createBucket(String bucketName, String prefix) {
-    	s3Client.createBucket(bucketName);
+    	s3Client.createBucket(bucketName, Region.US_West);
     }
-    
+    public void createBucket(String bucketName, Region region) {
+    	s3Client.createBucket(bucketName, region);
+    }
     /**
      * retrieve the list of keys in a specific bucket with a specific prefix
      * @param bucketName
