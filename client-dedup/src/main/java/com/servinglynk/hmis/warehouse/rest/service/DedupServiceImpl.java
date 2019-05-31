@@ -616,14 +616,4 @@ public class DedupServiceImpl implements DedupService{
         }
         return date;
 	}
-	
-	public static void main(String args[]) {
-		DedupServiceImpl service = new DedupServiceImpl();
-		Person person =  new Person();
-		person.setGivenName("Bayli");
-		person.setFamilyName("Gerber");
-		person.setDateOfBirth(service.getDateInFormat("2002-01-08"));
-		Person createUser = service.createUser(person, "C423462EDD2DFD628B3D02C802A0A572");
-	}
-	
 }
