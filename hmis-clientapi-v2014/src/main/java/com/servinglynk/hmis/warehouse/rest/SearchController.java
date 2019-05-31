@@ -55,6 +55,7 @@ public class SearchController
 			  @RequestParam(value="startIndex", required=false,defaultValue="0") Integer startIndex, 
 			  @RequestParam(value="maxItems", required=false,defaultValue="50") Integer maxItems,
 			  @RequestParam(value="exclude",required=false) String exclude,
+			  @RequestParam(value="procSearch",required=false,defaultValue="true") Boolean procSearch,
 			  HttpServletRequest request)
 					  	throws Exception
 					  {
@@ -63,6 +64,7 @@ public class SearchController
 						  Session session = sessionHelper.getSession(request);
 						  SearchRequest searchRequest = new SearchRequest();
 						  searchRequest.addSearchParam("consentGroupId",consentGroupId);
+						  searchRequest.setIsProcSearch(procSearch);
 		return this.serviceFactory.getBaseSearchService().performSearch(searchRequest,searchterm, sort, order, startIndex, maxItems,exclude,session);
 		
 	  }

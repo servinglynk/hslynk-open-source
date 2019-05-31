@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -36,6 +38,14 @@ import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 @Table(name = "client", catalog = "hmis", schema = "base")
 //@Indexed
 //@AnalyzerDef(name="baseClientAnalyzer", tokenizer=@TokenizerDef(factory=LowerCaseTokenizerFactory.class))
+
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name = "SearchClients",
+            query = "SELECT * FROM base.search_client (:c_id, :c_name, :c_dob) ",
+            resultClass = Client.class
+    )
+})
 public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */

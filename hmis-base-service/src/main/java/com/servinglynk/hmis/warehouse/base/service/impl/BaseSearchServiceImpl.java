@@ -13,8 +13,10 @@ import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.BaseClients;
+import com.servinglynk.hmis.warehouse.core.model.ClientModel;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.model.SearchClient;
 import com.servinglynk.hmis.warehouse.model.base.Client;
 
 
@@ -59,35 +61,54 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 	    pagination.setMaximum(maxItems);
 	    pagination.setSort(sorting);
 	    searchVo.setPagination(pagination);
-	    
-	    List<Client> searchItems = (List<Client>) this.daoFactory.getSearchDao().search(searchVo,false);
-	    List<UUID> distinctDedupIds = new ArrayList<UUID>();
+
 	    BaseClients clients = new BaseClients();
-	    int skipCount=0;
-	    for (Client pClient : searchItems) {
-	    	
-	    	if(dedupIdFilter) {
-			    	if(pClient!=null && pClient.getDedupClientId()!=null && !distinctDedupIds.contains(pClient.getDedupClientId())) {
-			    		clients.addClient(ClientConverter.entityToModel(pClient));
-			    	}else {
-			    		skipCount++;
-			    	}
-			    		
-			    	if(pClient.getDedupClientId()!=null) {
-			    		distinctDedupIds.add(pClient.getDedupClientId());
-			    	}
-	    	}else{
-	    		clients.addClient(ClientConverter.entityToModel(pClient));
-	    	}
-	    }
+	    if(searchVo.getIsProcSearch())
+	    	clients = searchClients(searchVo);
+	    else
+	    	clients = searchClients(searchVo, dedupIdFilter);
+	    
 	    pagination.setFrom(startIndex);
 	    pagination.setReturned(Integer.valueOf(clients.getClients().size()));
-	    pagination.setTotal(Integer.valueOf(searchVo.getPagination().getTotal().intValue()-skipCount));
+//	    pagination.setTotal(Integer.valueOf(searchVo.getPagination().getTotal().intValue()-skipCount));
 	    
 	    SearchResults result = new SearchResults();
 	    result.setPagination(pagination);
 	    result.addItems(clients.getClients());
 	    
 	    return result;
+	  }
+	  
+	  public BaseClients searchClients(SearchRequest searchVo,boolean dedupIdFilter) {
+		    List<Client> searchItems = (List<Client>) this.daoFactory.getSearchDao().search(searchVo,false);
+		    List<UUID> distinctDedupIds = new ArrayList<UUID>();
+		    BaseClients clients = new BaseClients();
+		    int skipCount=0;
+		    for (Client pClient : searchItems) {
+		    	
+		    	if(dedupIdFilter) {
+				    	if(pClient!=null && pClient.getDedupClientId()!=null && !distinctDedupIds.contains(pClient.getDedupClientId())) {
+				    		clients.addClient(ClientConverter.entityToModel(pClient));
+				    	}else {
+				    		skipCount++;
+				    	}
+				    		
+				    	if(pClient.getDedupClientId()!=null) {
+				    		distinctDedupIds.add(pClient.getDedupClientId());
+				    	}
+		    	}else{
+		    		clients.addClient(ClientConverter.entityToModel(pClient));
+		    	}
+		    }
+		    return clients;
+	  }
+	  
+	  public BaseClients searchClients(SearchRequest searchVo) {
+		    BaseClients clients = new BaseClients();
+		    List<SearchClient> searchItems = (List<SearchClient>) this.daoFactory.getSearchDao().search(searchVo,true);
+		    for (SearchClient pClient : searchItems) {
+	    		clients.addClient(ClientConverter.entityToModel(pClient));
+		    }
+		    return clients;
 	  }
 }
