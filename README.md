@@ -1,10 +1,10 @@
-HSLynk is a human services platform developed by ServingLynk, Inc. in conjunction with a community of third-party developers and users. Pay-per-use hosting is offered at http://hslynk.com.  The docs, wiki, and issue tracker are all located at: https://github.com/servinglynk/hmis-lynk-open-source-docs/wiki
+HSLynk is a human services platform developed by ServingLynk, Inc. in conjunction with a community of third-party developers and users. Pay-per-use hosting is offered at http://hslynk.com.  The docs, wiki, and issue tracker are all located at: https://github.com/servinglynk/hslynk-open-source-docs/wiki
 
 [![Build Status](https://builds.hmislynk.com/buildStatus/icon?job=Build-hmis-master)](https://builds.hmislynk.com/view/HMIS%20Build/job/Build-hmis-master/)
 
 # HSLynk Human Services Data Warehouse
 All subdirectories in this repository contain HSLynk microservice code.
-Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk/hmis-lynk-open-source-docs), to keep the code repo lean.
+Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk/hslynk-open-source-docs), to keep the code repo lean.
 
 ## Prerequisite
 
@@ -15,7 +15,7 @@ Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk
 
 ## How to Run on local machine
 
-Make a local copy `database.properties` with the below config in /hmis-base-model/src/main/resources
+Make a local copy `database.properties` with the below config in /base-model/src/main/resources
 ```
 app.jndi.name=jdbc/multischema
 db.driver=org.postgresql.Driver
@@ -40,8 +40,8 @@ db.maxwait=60000
 ```
 
 ```
-git clone https://github.com/servinglynk/hmis-lynk-open-source.git
-cd hmis-lynk-open-source
+git clone https://github.com/servinglynk/hslynk-open-source.git
+cd hslynk-open-source
 mvn clean install -DskipTests
 ```
 
@@ -154,23 +154,23 @@ Git Eclipse Maven Howto:
 - Deploy microservices you want in eclipse or any IDE.
 
 #### Project Description
-- hmis-admin : <br />
-  Hmis admin UI application for admin related activity for HMIS.
-- hmis-authorization-service : <br />
+- admin : <br />
+  Admin UI application for admin related activity for HSLynk.
+- authorization-service : <br />
 	 Authorization service is a microservice which takes care of authentication and authorization and is a means to acquire authentication token whichn will be required to call other microservices.
-- hmis-base-model : <br />
-		Hmis base model is project which points to the base postgres schema.
-- hmis-base-serialize : <br />
-		Hmis base serialize contains pojos to serialize/de-serialize apis from the base base schema.
-- hmis-user-service : <br />
-		 Microservice containing apis providing hmis user,projects, organization, roles specific information.
-- hmis-base-service : <br />
-    Base service is a common service layer across all the hmis version specific schema and also contains service layer for the base service schema.
+- base-model : <br />
+		Base model is project which points to the base postgres schema.
+- base-serialize : <br />
+		Base serialize contains pojos to serialize/de-serialize apis from the base base schema.
+- user-service : <br />
+		 Microservice containing apis providing hslynk user,projects, organization, roles specific information.
+- base-service : <br />
+    Base service is a common service layer across all the ces, global, and hmis version specific schema and also contains service layer for the base service schema.
 - hmis-chronichomeless-v2014:
      Background process to calculate Chronic homelessness in the 2014 schema.
-- hmis-client-dedup 	: <br />
+- client-dedup 	: <br />
      Microservice to determine dedup client id from OPEN EMPI.
-- hmis-client-deidentify : <br />
+- client-deidentify : <br />
      Standalone java project to de-identify (remove) client specific information from the source file.
 		 Client information like First Name, Last Name, DOB, SSN.
 - hmis-clientapi-v2014 : <br />
