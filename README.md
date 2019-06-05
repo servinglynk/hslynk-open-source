@@ -179,15 +179,15 @@ Git Eclipse Maven Howto:
 	 	 Microservice which has apis against the 2015 schema (HUD Version 4.1.1)
 - hmis-clientapi-v2016m : <br />
 		 Microservice which has apis against the 2016 schema (HUD Version 5.1)
-- hmis-clientapi-v2017   : <br />
+- clientapi-v2017   : <br />
 		 Microservice which has apis against the 2017 schema (HUD Version 6.1)
-- hmis-core-client   : <br />
+- core-client   : <br />
      Common project across all the projects to communicate between microservices.	 			 	 			 			 
-- hmis-core-common  : <br />
+- core-common  : <br />
 		Common library across all the projects containing basic utils and classes.
 - hmis-developer-service  : <br />
     Microservice which contains apis to provision trusted app, developer company, developer service.
-- hmis-global-household  : <br />
+- global-household  : <br />
      Microservice containing apis related to global house hold.
 - hmis-globalapi  : <br />
 		 Microservice containing apis related to global house hold.
@@ -225,17 +225,17 @@ Git Eclipse Maven Howto:
     Java library containing spring service layer classes for 2016 apis and data model.
 - hmis-service-v2017  : <br />
     Java library containing spring service layer classes for 2017 apis and data model.
-- hmis-s3-client  : <br />
-     Java library containing code to connect to Amazon S3 for hmis.
-- hmis-upload-service  : <br />
+- s3-client  : <br />
+     Java library containing code to connect to Amazon S3 for HSlynk.
+- upload-service  : <br />
      Microservice to upload xml,zip or .7z files and to know the fetch the bulk uploads by status.
-- hmis-notification-core     : <br />
+- notification-core     : <br />
      Java library to send email notification for functionalities like welcome email etc.
-- hmis-notification-service  : <br />
+- notification-service  : <br />
 		 Microservice which uses hmis-notification-core to send notifications.
-- hmis-report-core  : <br />
+- report-core  : <br />
 	 	 Java library containing core report functionality.
-- hmis-report-service  : <br />
+- report-service  : <br />
 	 	  Microservice which would be used to request a report for users. 				 		 		 
 - sync-general  : <br />
      Sync process to sync data from postgres CES schema to HBASE.
