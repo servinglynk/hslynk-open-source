@@ -185,12 +185,12 @@ Git Eclipse Maven Howto:
      Common project across all the projects to communicate between microservices.	 			 	 			 			 
 - core-common  : <br />
 		Common library across all the projects containing basic utils and classes.
-- hmis-developer-service  : <br />
+- developer-service  : <br />
     Microservice which contains apis to provision trusted app, developer company, developer service.
 - global-household  : <br />
-     Microservice containing apis related to global house hold.
-- hmis-globalapi  : <br />
-		 Microservice containing apis related to global house hold.
+     Microservice containing apis related to global household.
+- globalapi  : <br />
+		 Microservice containing apis related to global entitites.
 - hmis-hud-reports  : <br />
      Project which calculates/generates HUD APR reports.
 - hmis-load-processor-v2014  : <br />
@@ -240,4 +240,4 @@ Git Eclipse Maven Howto:
 - sync-general  : <br />
      Sync process to sync data from postgres CES schema to HBASE.
 - sync-years  : <br />
-		 Sync process to sync data from postgres HMIS version specific schema to HBASE.
+		 Sync process to sync data from postgres global, CES, HMIS version specific schemas to HBASE.
