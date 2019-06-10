@@ -47,7 +47,6 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 			// and report end date.
 			List<EnrollmentModel> fileteredEnrollments = enrollments.parallelStream()
 					.filter(enrollment -> enrollment.getEntrydate() != null
-							&& data.getReportStartDate().before(enrollment.getEntrydate())
 							&& data.getReportEndDate().after(enrollment.getEntrydate()))
 					.collect(Collectors.toList());
 

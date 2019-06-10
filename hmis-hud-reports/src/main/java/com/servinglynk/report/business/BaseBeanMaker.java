@@ -598,6 +598,36 @@ public class BaseBeanMaker {
 		}
 		return models;
 	}
+	
+	public static List<ContactModel> getContactsFromService(final String schema) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<ContactModel>  models = new ArrayList<ContactModel>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_CONTACTS_FROM_SERVICE,schema));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 ContactModel model = new ContactModel(resultSet.getString("id"), resultSet.getString("enrollmentid"), resultSet.getDate("dateprovided"), resultSet.getString("type_provided"), resultSet.getString("source_system_id"));
+			 models.add(model);
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
 	public static List<DateOfEngagementModel> getDateOfEngagements(final String schema) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
@@ -692,10 +722,10 @@ public class BaseBeanMaker {
 			LocalDate currentDate = LocalDate.now();
 			if(entryDate !=null) {
 				@SuppressWarnings("deprecation")
-				LocalDate entryLocalDate = LocalDate.of(entryDate.getYear(), entryDate.getMonth(), entryDate.getDay());
+				LocalDate entryLocalDate = LocalDate.parse(entryDate.toString());
 				
 				Period p = Period.between(entryLocalDate, currentDate);
-				if(p.getDays() > 365 )
+				if(p.getYears() >= 1 )
 					return true;
 				else 
 					return false;

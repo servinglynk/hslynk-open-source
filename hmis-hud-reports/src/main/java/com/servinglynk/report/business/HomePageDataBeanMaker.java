@@ -151,6 +151,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 					List<ExitModel> allExits = getAllExits(schema, data);
 					List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
 					data.setExits(filteredExits);
+					
 					List<IncomeAndSourceModel> incomeAndSources = getIncomeAndSource(schema);
 					List<IncomeAndSourceModel> filtereIncomeAndSources = incomeAndSources.parallelStream().filter(incomeAndSource -> enrollmentIds.contains(incomeAndSource.getProjectEntryId())).collect(Collectors.toList());
 					data.setIncomeAndSources(filtereIncomeAndSources);
