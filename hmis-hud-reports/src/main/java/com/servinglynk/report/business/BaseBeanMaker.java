@@ -108,6 +108,7 @@ public class BaseBeanMaker {
 			query = query.replaceAll(":dedupClientId", data.getQueryDedupClientId());
 			if(query.contains("%e")) {
 				query = joinEnrollmentIds(query, data);
+				query = query.replace("%e", "");
 			}
 			query = query.replaceAll("%s", schema);
 			System.out.println(query);
@@ -1672,24 +1673,24 @@ public class BaseBeanMaker {
 								 newQuery = query.replace("%p", " ");
 							 }
 							 
-//							 String newQueryWithEnrollments = newQuery;
-//							 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
-//								List<EnrollmentModel> enrollments = data.getAdultLeavers();
-//								 if(CollectionUtils.isNotEmpty(enrollments)) {
-//									 int count = 0;
-//									 for(EnrollmentModel enrollment : enrollments) {
-//										 builderWithEnrollments.append("'"+enrollment.getProjectEntryID()+"'");
-//										 if(count != enrollments.size()) {
-//											 builderWithEnrollments.append(",");
-//										 }
-//									 }
-//								 }
-//								 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
-//								 builderWithEnrollments.append(" ) ");
-//								
-//								 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
+							 String newQueryWithEnrollments = newQuery;
+							 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
+								List<EnrollmentModel> enrollments = data.getAdultLeavers();
+								 if(CollectionUtils.isNotEmpty(enrollments)) {
+									 int count = 0;
+									 for(EnrollmentModel enrollment : enrollments) {
+										 builderWithEnrollments.append("'"+enrollment.getProjectEntryID()+"'");
+										 if(count != enrollments.size()) {
+											 builderWithEnrollments.append(",");
+										 }
+									 }
+								 }
+								 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
+								 builderWithEnrollments.append(" ) ");
+								
+								 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
 							statement = connection.createStatement();
-							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
+							resultSet = statement.executeQuery(formatQuery(newQueryWithEnrollments,data.getSchema(),data));
 							
 						 while(resultSet.next()) {
 							 clients.add(resultSet.getString(1));

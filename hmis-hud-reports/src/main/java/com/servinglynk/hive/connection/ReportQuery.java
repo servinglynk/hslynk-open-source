@@ -37,8 +37,8 @@ public static String PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN ="select i.projectid,ho
 public static String REQUIRED_ANNUAL_ASSESMENT_QUERY= "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		 " socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount,  "+
 		 " vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource from %s.incomeandsources i, %s.enrollment e, %s.project p where e.id=i.enrollmentid  "+
-		 " and e.projectid = p.id %p "+
-		 "  and i.information_date >= e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
+		 " and e.projectid = p.id %p  %e "+
+		 "  and i.information_date = e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
 		 " and   e.id not in ( select enrollmentid from %s.exit  where  exitdate >= :endDate )  "+
 		 " and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
       

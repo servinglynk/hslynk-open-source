@@ -103,6 +103,9 @@ public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker exte
 	}
 	
 	  public static List<String> getClients(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects) {
+		     if(CollectionUtils.isEmpty(filteredProjectIds) && !allProjects) {
+		    	 return new ArrayList<>();
+		     }
 			 List<String> clients = new ArrayList<String>();
 				ResultSet resultSet = null;
 				Statement statement = null;

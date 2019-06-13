@@ -27,19 +27,19 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 	public static List<Q20bNumberOfNonCashBenefitSourcesDataBean> getQ20bNumberOfNonCashBenefitSourcesList(ReportData data){
 		
 		Q20bNumberOfNonCashBenefitSourcesDataBean q20bNumberOfNonCashBenefitSourcesTable = new Q20bNumberOfNonCashBenefitSourcesDataBean();
-		String entryQuery = " select  nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource,e.dedup_client_id  as dedup_client_id from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb where e.id=i.enrollmentid  "+
+		String entryQuery = " select distinct e.dedup_client_id as dedup_client_id, nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource  from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb where e.id=i.enrollmentid  "+
 		      "   and nb.enrollmentid = e.id "+
 			  " and i.information_date = e.entrydate and i.information_date <= :startDate and i.information_date >= :endDate "+
 			  " and e.ageatentry >=18  and i.datacollectionstage = '1' ";
 		       
-		String  exitQuery = " select  nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource,e.dedup_client_id  as dedup_client_id from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where e.id=i.enrollmentid  "+
+		String  exitQuery = " select distinct e.dedup_client_id as dedup_client_id, nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource   from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where e.id=i.enrollmentid  "+
 				      " and nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
 				  " and i.information_date = ext.exitdate and i.information_date <= :startDate and i.information_date >= :endDate "+
 				  " and e.ageatentry >=18  and i.datacollectionstage = '3' ";
 			       
-		String stayersQuery = " select  nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource,e.dedup_client_id  as dedup_client_id from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb where e.id=i.enrollmentid  "+
+		String stayersQuery = " select distinct e.dedup_client_id as dedup_client_id, nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource  from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb where e.id=i.enrollmentid  "+
 						" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 "+
-					" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate < :endDate  )   "+
+					" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate >= :startDate  )   "+
 					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 ) ";
 			try {
 				if(data.isLiveMode()) {

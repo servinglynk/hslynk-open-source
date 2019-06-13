@@ -4,8 +4,6 @@ package com.servinglynk.report.engine;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +29,7 @@ public class Reporter {
 	
 		private Logger logger = Logger.getLogger(Reporter.class);
 		
-        @SuppressWarnings({ "unchecked", "unlikely-arg-type" })
+        @SuppressWarnings({ "unchecked", "unlikely-arg-type" }) 
         
     private void exportToPDF(boolean sageReport) {
         try {         

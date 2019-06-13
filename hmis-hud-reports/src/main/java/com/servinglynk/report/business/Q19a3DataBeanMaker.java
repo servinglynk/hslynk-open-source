@@ -38,8 +38,19 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 				adultStayersAndLeavers.addAll(adultLeavers);
 				String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 						" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-						" vadisabilityserviceamount,workerscompamount,incomefromanysource  as incomefromanysource,datacollectionstage from %s.incomeandsources i, %s.enrollment e,%s.project p  where    e.id=i.enrollmentid ";
-				
+						" vadisabilityserviceamount,workerscompamount,incomefromanysource  as incomefromanysource,datacollectionstage from %s.incomeandsources i, %s.enrollment e,%s.project p  where    e.id=i.enrollmentid and p.id=e.projectid  and i.information_date >= :startDate and i.information_date <= :endDate ";
+				List<String> projectIds = data.getProjectIds();
+				if(CollectionUtils.isNotEmpty(projectIds)) {
+					StringBuilder builder = new StringBuilder(" and p.id in (");
+					for(String projectId : projectIds){
+							builder.append("'");
+							builder.append(projectId);
+							builder.append("'");
+							builder.append(",");
+						}
+					builder.deleteCharAt(builder.length()-1);
+					builder.append(" ) " );
+				}
 				if(CollectionUtils.isNotEmpty(adultStayersAndLeavers)) {
 					StringBuilder builder = new StringBuilder(" and e.id in (");
 					for(EnrollmentModel model : adultStayersAndLeavers){

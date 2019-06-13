@@ -104,6 +104,9 @@ public static List<Q26bNumberOfChronicallyHomelessPersonsByHouseholdDataBean> ge
 	}
 
 public static List<String> getClients(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects) {
+	   if(CollectionUtils.isEmpty(filteredProjectIds) && !allProjects) {
+	    	 return new ArrayList<>();
+	     }
 	 List<String> clients = new ArrayList<String>();
 		ResultSet resultSet = null;
 		Statement statement = null;
