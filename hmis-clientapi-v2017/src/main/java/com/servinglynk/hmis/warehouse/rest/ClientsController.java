@@ -132,7 +132,34 @@ public class ClientsController extends ControllerBase {
 		return serviceFactory.getClientService().getAllClients(account.getProjectGroup().getProjectGroupCode(), startIndex,
 				maxItems);
 	}
+	
+	/*** 
+	 * Adding APIs to merge and unmerge clients
+	 * @param enrollment
+	 * @param clientId
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	
+	@RequestMapping(value = "/{clientid}/dedup/merge/", method = RequestMethod.POST)
+	@APIMapping(value = "CLIENT_API_MERGE", checkSessionToken = true, checkTrustedApp = true) 
+	public Client mergeClients(@RequestBody Client client, @PathVariable("clientid") UUID clientId,
+				HttpServletRequest request) throws Exception  {
+		Session session = sessionHelper.getSession(request);
+		return serviceFactory.getClientService().mergeClient(client, session.getAccount().getUsername(), clientId);
+	}
 
+
+	@RequestMapping(value = "/{clientid}/dedup/unmerge", method = RequestMethod.POST)
+	@APIMapping(value = "CLIENT_API_UNMERGE", checkSessionToken = true, checkTrustedApp = true) 
+	public Client unMergeClients(@RequestBody Enrollment enrollment, @PathVariable("clientid") UUID clientId,
+			@Valid @RequestBody Client client,
+			HttpServletRequest request) throws Exception  {
+		Session session = sessionHelper.getSession(request);
+		return serviceFactory.getClientService().unmergeClient(client, session.getAccount().getUsername(), clientId);
+	}
+	
 	@RequestMapping(value = "/{clientid}/enrollments", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_ENROLLMENT", checkSessionToken = true, checkTrustedApp = true)
 	public Enrollment createEnrollment(@RequestBody Enrollment enrollment, @PathVariable("clientid") UUID clientId,

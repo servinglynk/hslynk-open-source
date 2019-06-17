@@ -50,6 +50,46 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		return client;
 	}
 
+	
+	@Override
+	@Transactional
+	public Client mergeClient(Client client, String caller,UUID clientId) {
+		com.servinglynk.hmis.warehouse.model.v2017.Client pClient = daoFactory.getClientDao().getClientById(clientId);
+		if(pClient == null) throw new ClientNotFoundException();
+
+		ClientConverter.modelToEntity(client, pClient);
+		pClient.setDateUpdated(LocalDateTime.now());
+		com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
+		BeanUtils.copyProperties(pClient, baseClient);
+		baseClient.setPhoneNumber(client.getPhoneNumber());
+		baseClient.setEmailAddress(client.getEmailAddress());
+
+		// Update the Dedup Id in Open EMPI by calling the Dedup Service.
+		daoFactory.getClientDao().updateClient(pClient,baseClient);
+		return client;
+	}
+	
+	
+	@Override
+	@Transactional
+	public Client unmergeClient(Client client, String caller,UUID clientId) {
+		com.servinglynk.hmis.warehouse.model.v2017.Client pClient = daoFactory.getClientDao().getClientById(clientId);
+
+		if(pClient == null) throw new ClientNotFoundException();
+
+		ClientConverter.modelToEntity(client, pClient);
+		pClient.setDateUpdated(LocalDateTime.now());
+		com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
+		BeanUtils.copyProperties(pClient, baseClient);
+		baseClient.setPhoneNumber(client.getPhoneNumber());
+		baseClient.setEmailAddress(client.getEmailAddress());
+
+		// Update the dedup id of the client in Open EMPI by calling the updatePerson API in the dedup service.
+
+		daoFactory.getClientDao().updateClient(pClient,baseClient);
+		return client;
+	}
+	
 	@Override
 	@Transactional
 	public Client updateClient(Client client, String caller) {

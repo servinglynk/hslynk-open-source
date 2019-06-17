@@ -13,5 +13,6 @@ public interface ClientService {
 	Client deleteClient(UUID clientId,String caller);
 	Client getClientById(UUID clientId);
 	Clients getAllClients(String projectGroupCode,Integer startIndex, Integer maxItems);
-	
+	Client unmergeClient(Client client, String caller, UUID clientId);
+	Client mergeClient(Client client, String caller, UUID clientId);
 }
