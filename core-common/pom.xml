@@ -15,6 +15,7 @@
 	  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  </scm>
    <properties>   
+   		<fasterxml-version>2.9.9</fasterxml-version>
  	 <java-version>1.8</java-version>
  	 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
  	 	<spring.framework.version>4.3.22.RELEASE</spring.framework.version>
@@ -44,7 +45,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.8.11</version>
+			<version>${fasterxml-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -79,7 +80,7 @@
 	<dependency>
 		<groupId>com.thoughtworks.xstream</groupId>
 		<artifactId>xstream</artifactId>
-		<version>1.3.1</version>
+		<version>1.4.11</version>
 	</dependency>
     <dependency>
 	<groupId>commons-validator</groupId>
