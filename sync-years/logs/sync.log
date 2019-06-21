@@ -1,0 +1,14 @@
+2019-06-10 21:27:02 main SyncPostgresProcessor [ERROR] java.sql.SQLException: No suitable driver found for jdbc:postgresql://null:null/null
+2019-06-10 21:42:29 main SyncPostgresProcessor [ERROR]  Exception inserting sync table: ERROR: INSERT has more expressions than target columns
+  Position: 123
+org.postgresql.util.PSQLException: ERROR: INSERT has more expressions than target columns
+  Position: 123
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2284)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2003)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:200)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:424)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:161)
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:133)
+	at com.servinglynk.hmis.warehouse.SyncPostgresProcessor.hydrateDBCount(SyncPostgresProcessor.java:356)
+	at com.servinglynk.hmis.warehouse.SyncPostgresProcessor.populateDB(SyncPostgresProcessor.java:172)
+	at com.servinglynk.hmis.warehouse.Stats.main(Stats.java:102)
