@@ -14,6 +14,7 @@
     	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  </scm>
   	<properties>
+  			<fasterxml-version>2.9.9</fasterxml-version>
 		<java-version>1.8</java-version>
 	</properties>
   	<dependencies>
@@ -31,7 +32,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.2.3</version>
+            <version>${fasterxml-version}</version>
         </dependency>
          <dependency>
         <groupId>org.codehaus.jackson</groupId>
