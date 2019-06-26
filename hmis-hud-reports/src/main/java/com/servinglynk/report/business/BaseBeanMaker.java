@@ -1674,9 +1674,10 @@ public class BaseBeanMaker {
 							 }
 							 
 							 String newQueryWithEnrollments = newQuery;
-							 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
+							 
 								List<EnrollmentModel> enrollments = data.getAdultLeavers();
 								 if(CollectionUtils.isNotEmpty(enrollments)) {
+									 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
 									 int count = 0;
 									 for(EnrollmentModel enrollment : enrollments) {
 										 builderWithEnrollments.append("'"+enrollment.getProjectEntryID()+"'");
@@ -1684,11 +1685,10 @@ public class BaseBeanMaker {
 											 builderWithEnrollments.append(",");
 										 }
 									 }
+									 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
+									 builderWithEnrollments.append(" ) ");
+									 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
 								 }
-								 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
-								 builderWithEnrollments.append(" ) ");
-								
-								 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
 							statement = connection.createStatement();
 							resultSet = statement.executeQuery(formatQuery(newQueryWithEnrollments,data.getSchema(),data));
 							
