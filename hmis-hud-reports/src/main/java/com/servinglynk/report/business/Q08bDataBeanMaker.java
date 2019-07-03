@@ -22,10 +22,10 @@ public class Q08bDataBeanMaker extends BaseBeanMaker {
 		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 		
 		List<EnrollmentModel> enrollments = data.getEnrollments();
-		List<EnrollmentModel> enrollmentJanTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate().getYear(), 1)) == 0).collect(Collectors.toList());
-		List<EnrollmentModel> enrollmentAprilTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate().getYear(), 1)) == 0).collect(Collectors.toList());
-		List<EnrollmentModel> enrollmentJulyTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate().getYear(), 1)) == 0).collect(Collectors.toList());
-		List<EnrollmentModel> enrollmentOctoberTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate().getYear(), 1)) == 0).collect(Collectors.toList());
+		List<EnrollmentModel> enrollmentJanTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate(), 1)) == 0).collect(Collectors.toList());
+		List<EnrollmentModel> enrollmentAprilTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate(), 4)) == 0).collect(Collectors.toList());
+		List<EnrollmentModel> enrollmentJulyTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate(), 7)) == 0).collect(Collectors.toList());
+		List<EnrollmentModel> enrollmentOctoberTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate(), 9)) == 0).collect(Collectors.toList());
 			
 		List<EnrollmentModel> enrollmentJanHHWithOutChildren = enrollmentJanTotal.parallelStream().filter(enrollment->projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 		List<EnrollmentModel> enrollmentJanHHWithChildren = enrollmentJanTotal.parallelStream().filter(enrollment->projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());

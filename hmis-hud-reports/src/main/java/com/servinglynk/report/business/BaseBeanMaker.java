@@ -144,7 +144,10 @@ public class BaseBeanMaker {
 	public static int getDefaultIntValue() {
 		return 0;
 	}
-	 public static LocalDate lasWednesayOf(int year,int month) {
+	 public static LocalDate lasWednesayOf(Date date,int month) {
+		 Calendar cal = Calendar.getInstance();
+		 cal.setTime(date);
+		 int year = cal.get(Calendar.YEAR);
 		 return LocalDate.of(year, month, 1).with(lastDayOfMonth()).with(previousOrSame(DayOfWeek.WEDNESDAY));
 	  }
 	

@@ -180,7 +180,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 	}
 
 	public static void main(String args[]) {
-		System.out.println(lasWednesayOf(2018, 3).toString());
+		//System.out.println(lasWednesayOf(2018, 3).toString());
 	}
 
 	public static boolean isEnrollmentsFromLastWedForMonth(int year, int month, ReportData data,
@@ -193,7 +193,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 			List<ExitModel> finalEnrollment = exitForEnrollment.parallelStream()
 					.filter(exit -> exit.getExitdate() == null
 							|| (exit.getExitdate() != null && Util.getLocalDateFromUtilDate(exit.getExitdate())
-									.isBefore(lasWednesayOf(data.getReportEndDate().getYear(), month))))
+									.isBefore(lasWednesayOf(data.getReportEndDate(), month))))
 					.collect(Collectors.toList());
 			if (finalEnrollment != null) {
 				return true;
@@ -234,7 +234,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 			List<ExitModel> finalEnrollment = exitForEnrollment.parallelStream()
 					.filter(exit -> exit.getExitdate() == null
 							|| (exit.getExitdate() != null && Util.getLocalDateFromUtilDate(exit.getExitdate())
-									.compareTo(lasWednesayOf(data.getReportEndDate().getYear(), month)) <= 0))
+									.compareTo(lasWednesayOf(data.getReportEndDate(), month)) <= 0))
 					.collect(Collectors.toList());
 			if (finalEnrollment != null) {
 				return true;
