@@ -116,13 +116,19 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 		}
 		
 		if(dedupedId == null) {
-			String dedupSessionKey = dedupHelper.getAuthenticationHeader();
-			logger.info("Calling Dedup Service for "+baseClient.getFirstName());
-			String dedup = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
-			if(StringUtils.isNotBlank(dedup)) {
-				dedupedId = UUID.fromString(dedup);
-			}
+			dedupedId = determindDedupId(baseClient);
 		}
 		return  dedupedId;
 	}
+	
+	public UUID determindDedupId(com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
+		String dedupSessionKey = dedupHelper.getAuthenticationHeader();
+		logger.info("Calling Dedup Service for "+baseClient.getFirstName());
+		String dedup = dedupHelper.getDedupedClient(baseClient,dedupSessionKey);
+		if(StringUtils.isNotBlank(dedup)) {
+			return UUID.fromString(dedup);
+		}
+		return null;
+	}
+	
 }

@@ -85,7 +85,10 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		baseClient.setEmailAddress(client.getEmailAddress());
 
 		// Update the dedup id of the client in Open EMPI by calling the updatePerson API in the dedup service.
-
+		UUID dedupClientId = daoFactory.getHmisClientDao().determindDedupId(baseClient);
+		pClient.setDedupClientId(dedupClientId);
+		baseClient.setDedupClientId(dedupClientId);
+		client.setDedupClientId(dedupClientId);
 		daoFactory.getClientDao().updateClient(pClient,baseClient);
 		return client;
 	}

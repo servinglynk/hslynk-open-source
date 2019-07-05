@@ -616,4 +616,16 @@ public class DedupServiceImpl implements DedupService{
         }
         return date;
 	}
+	
+	public static void main(String args[]) throws Exception {
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");  
+		DedupServiceImpl dedup = new DedupServiceImpl();
+		  Person person = new Person();
+	        person.setFamilyName("Blanco");
+	        person.setGivenName("Richard");
+	        person.setSsn("568333527");
+	        person.setDateOfBirth(formatter.parse("1963-10-26"));
+		Person dedupingLogic = dedup.dedupingLogic(person, "102243E2A55F9BC337D759EF921BA835");
+		System.out.println(" Dedup:"+dedupingLogic.getCustom20());
+	}
 }
