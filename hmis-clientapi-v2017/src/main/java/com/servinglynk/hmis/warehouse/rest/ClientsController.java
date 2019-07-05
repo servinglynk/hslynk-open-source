@@ -44,8 +44,6 @@ import com.servinglynk.hmis.warehouse.core.model.Entryssvfs;
 import com.servinglynk.hmis.warehouse.core.model.Exit;
 import com.servinglynk.hmis.warehouse.core.model.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.core.model.Exithousingassessments;
-import com.servinglynk.hmis.warehouse.core.model.Exitpath;
-import com.servinglynk.hmis.warehouse.core.model.Exitpaths;
 import com.servinglynk.hmis.warehouse.core.model.Exitrhy;
 import com.servinglynk.hmis.warehouse.core.model.Exitrhys;
 import com.servinglynk.hmis.warehouse.core.model.Exits;
@@ -153,7 +151,7 @@ public class ClientsController extends ControllerBase {
 
 	@RequestMapping(value = "/{clientid}/dedup/unmerge", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_UNMERGE", checkSessionToken = true, checkTrustedApp = true) 
-	public Client unMergeClients(@RequestBody Enrollment enrollment, @PathVariable("clientid") UUID clientId,
+	public Client unMergeClients(@PathVariable("clientid") UUID clientId,
 			@Valid @RequestBody Client client,
 			HttpServletRequest request) throws Exception  {
 		Session session = sessionHelper.getSession(request);
