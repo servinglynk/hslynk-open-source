@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
-import com.servinglynk.hmis.warehouse.service.ClientService;
-import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.service.ClientService;
+import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 
 public class ClientServiceImpl extends ServiceBase implements ClientService {
@@ -63,9 +63,10 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		BeanUtils.copyProperties(pClient, baseClient);
 		baseClient.setPhoneNumber(client.getPhoneNumber());
 		baseClient.setEmailAddress(client.getEmailAddress());
-
+		UUID dedupClientId = daoFactory.getHmisClientDao().determindDedupId(baseClient);
+		client.setDedupClientId(dedupClientId);
 		// Update the Dedup Id in Open EMPI by calling the Dedup Service.
-		daoFactory.getClientDao().updateClient(pClient,baseClient);
+	//	daoFactory.getClientDao().updateClient(pClient,baseClient);
 		return client;
 	}
 	
@@ -86,10 +87,10 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 
 		// Update the dedup id of the client in Open EMPI by calling the updatePerson API in the dedup service.
 		UUID dedupClientId = daoFactory.getHmisClientDao().determindDedupId(baseClient);
-		pClient.setDedupClientId(dedupClientId);
-		baseClient.setDedupClientId(dedupClientId);
+//		pClient.setDedupClientId(dedupClientId);
+//		baseClient.setDedupClientId(dedupClientId);
 		client.setDedupClientId(dedupClientId);
-		daoFactory.getClientDao().updateClient(pClient,baseClient);
+		//daoFactory.getClientDao().updateClient(pClient,baseClient);
 		return client;
 	}
 	

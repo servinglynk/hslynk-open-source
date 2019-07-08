@@ -621,11 +621,11 @@ public class DedupServiceImpl implements DedupService{
 		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");  
 		DedupServiceImpl dedup = new DedupServiceImpl();
 		  Person person = new Person();
-	        person.setFamilyName("Blanco");
-	        person.setGivenName("Richard");
-	        person.setSsn("568333527");
-	        person.setDateOfBirth(formatter.parse("1963-10-26"));
-		Person dedupingLogic = dedup.dedupingLogic(person, "102243E2A55F9BC337D759EF921BA835");
+	        person.setFamilyName("asdfasdf");
+	        person.setGivenName("asdfasdf");
+	        person.setSsn("asdfasdfasdfasdf");
+	        person.setDateOfBirth(formatter.parse("1996-01-20"));
+		Person dedupingLogic = dedup.dedupingLogic(person, "asdfasdfasfd");
 		System.out.println(" Dedup:"+dedupingLogic.getCustom20());
 	}
 }
