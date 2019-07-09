@@ -1,5 +1,8 @@
 package com.servinglynk.hmis.warehouse.rest.service;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,24 +27,37 @@ public class DedupIdReload {
 		Properties props = new Properties();
 		props.generatePropValues();
 		props.printProps();
-		AuthenticationRequest authRequest = new AuthenticationRequest();
-		authRequest.setPassword("admin");
-		authRequest.setUsername("admin");
-		
-		
+//		AuthenticationRequest authRequest = new AuthenticationRequest();
+//		authRequest.setPassword("admin");
+//		authRequest.setUsername("admin");
+//		
+//		
 		DedupServiceImpl impl = new DedupServiceImpl();
-		String value = impl.authenticate(authRequest);
-		System.out.println("SESSION_KEY:"+value);
-		//Fetch by First Name and Last Name
-		List<String> clients = getEligibilityClients("03392450-9e69-11e6-ab44-02f305dabccf");
-		for(String clientId : clients) {
-			Person person = getDeDupId(clientId);
-			Person personRestult  =	impl.dedupingLogic(person, value);
-			String dedupId = impl.getUniqueIdentifier(personRestult.getPersonIdentifiers());
-			updateBaseClients(clientId, dedupId);
-			updateEligibleClients(clientId, dedupId);
-			updateVersionClients(clientId, dedupId, person.getCustom16());
-			System.out.println("CLIENT_ID:"+ clientId+"   PERSON_ID:"+dedupId);
+//		String value = impl.authenticate(authRequest);
+//		System.out.println("SESSION_KEY:"+value);
+		List<String> clientsList = new ArrayList<>();
+		
+		  File file = new File("/Users/sdolia/Downloads/users.csv"); 
+		  BufferedReader br = new BufferedReader(new FileReader(file)); 
+		  br.readLine();
+		  String st; 
+		  while ((st = br.readLine()) != null) {
+			  String[] split = st.split(",");
+			  if(split.length != 0){
+				  clientsList.add(split[1]);
+			  }
+		  }
+		
+		for(String clientId : clientsList) {
+			//Fetch by First Name and Last Name
+			List<String> clients = getEligibilityClients(clientId);
+				Person person = getDeDupId(clientId);
+				Person personRestult  =	impl.dedupingLogic(person, "CE42ABE0AAAB87D08CCE8505B92C6769");
+				String dedupId = impl.getUniqueIdentifier(personRestult.getPersonIdentifiers());
+			//	updateBaseClients(clientId, dedupId);
+			//	updateEligibleClients(clientId, dedupId);
+			//	updateVersionClients(clientId, dedupId, person.getCustom16());
+				System.out.println(clientId+","+dedupId);
 		}
 	}
 	
