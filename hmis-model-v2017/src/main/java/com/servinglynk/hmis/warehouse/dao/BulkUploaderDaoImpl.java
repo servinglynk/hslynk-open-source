@@ -120,7 +120,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 //			domain.setReUpload(true);
 			domain.setReloadAll(true);
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
-
+			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null);
+			Map<String, HmisBaseModel> sourceMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Source.class, getProjectGroupCode(domain));
+			parentDaoFactory.getExportDao().hydrateStaging(domain,null,sourceMap);
 			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Export.class, getProjectGroupCode(domain));
 			startNanos = System.nanoTime();
 			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, getProjectGroupCode(domain));
@@ -206,7 +208,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				parentDaoFactory.getVashExitReasonDao().hydrateStaging(domain, exportModelMap, exitModelMap);
 				parentDaoFactory.getRhyAfterCareDao().hydrateStaging(domain, exportModelMap, exitModelMap);
 			}
-			
+			calculateChronicHomelessness(upload.getProjectGroupCode());
 				upload.setStatus(UploadStatus.STAGING.getStatus());
 				insertOrUpdate(upload);
 		} catch (Exception e) {
@@ -540,11 +542,13 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			saveUpload(upload);
 			long startNanos = System.nanoTime();
 			ExportDomain domain = getSource(upload, projectGroupdEntity, appender, isFileFromS3);
-			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Export.class, getProjectGroupCode(domain));
-			parentDaoFactory.getSourceDao().hydrateStaging(domain,exportModelMap,exportModelMap); // Done
-			parentDaoFactory.getExportDao().hydrateStaging(domain,exportModelMap,exportModelMap); // Done
+			
+			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null);
+			Map<String, HmisBaseModel> sourceMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Source.class, getProjectGroupCode(domain));
+			parentDaoFactory.getExportDao().hydrateStaging(domain,null,sourceMap);
 			logger.info("Base Process::: Bulk Upload Processing client Table Begin.....");
 			startNanos = System.nanoTime();
+			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Export.class, getProjectGroupCode(domain));
 			parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DOne
 			logger.info(" Base Process::: Bulk Upload Processing client Table Ends.....");
 			logger.info("Base Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");

@@ -83,6 +83,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					}else {
 						clientModel = new com.servinglynk.hmis.warehouse.model.v2017.Client();
 						clientModel.setRecordToBeInserted(true);
+						clientModel.setId(UUID.randomUUID());
 						populateClient(client, clientModel);
 					}
 					/**
@@ -92,7 +93,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
 					 */
 					if(clientModel.isRecordToBoInserted()) {
-						 clientModel = getClientFromDedup(clientModel, client, projectGroupCode);
+						if(StringUtils.equals(projectGroupCode,"AL0024") && clientModel.getDedupClientId() == null) {
+							clientModel.setDedupClientId(UUID.randomUUID());
+						}else {
+							clientModel = getClientFromDedup(clientModel, client, projectGroupCode);
+						}
 					}
 					
 					clientModel
@@ -143,6 +148,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 						target.setDateUpdated(LocalDateTime.now());
 						target.setSchemaYear("2017");
+						target.setId(clientModel.getId());
+						target.setDedupClientId(clientModel.getDedupClientId());
 						insertOrUpdate(target);	
 					}
 				} catch (Exception e) {
