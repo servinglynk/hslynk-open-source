@@ -716,6 +716,9 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		logger.info("Disabilities Process::: Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		upload.setStatus(UploadStatus.STAGING.getStatus());
 		upload.setExportId(domain.getExportId());
+		logger.info(" Calculating Chronic Homelessness.....");
+		parentDaoFactory.getBulkUploaderDao().calculateChronicHomelessness(upload.getProjectGroupCode());
+		upload.setStatus(UploadStatus.LIVE.getStatus());
 		//Delete all the files
 		if(isFileFromS3) {
 			deleteFile(upload.getInputpath()); 
@@ -771,7 +774,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			String errorMessage = "HUD File Uploaded is in an invalid Format";
 			String errorDesc = !"null".equals(String.valueOf(ex.getCause()))  ? String.valueOf(ex.getCause()) : ex.getMessage();
 			
-			upload.setDescription(errorMessage +":"+ ex.getMessage());
+			upload.setDescription(errorMessage  +":"+ ex.getMessage());
 			
 			insertOrUpdate(upload);
 			throw new Exception("HUD File Uploaded is in an invalid Format", ex);
