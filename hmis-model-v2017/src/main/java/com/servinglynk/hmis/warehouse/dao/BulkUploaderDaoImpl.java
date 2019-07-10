@@ -129,11 +129,11 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 //			parentDaoFactory.getServiceFaReferralDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 //		
 		
-//			logger.info("Starting processing of Client table");
-//			if(StringUtils.equalsIgnoreCase("client", upload.getDescription()) || domain.isReloadAll() || domain.isReloadAll()) {
-//				parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DONE
-//				logger.info("Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-//			}
+			logger.info("Starting processing of Client table");
+			if(StringUtils.equalsIgnoreCase("client", upload.getDescription()) || domain.isReloadAll() || domain.isReloadAll()) {
+				parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DONE
+				logger.info("Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+			}
 			
 			if(StringUtils.equalsIgnoreCase("veteran_info", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Client.class, getProjectGroupCode(domain));

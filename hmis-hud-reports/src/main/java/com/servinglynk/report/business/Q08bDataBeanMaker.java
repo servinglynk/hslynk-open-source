@@ -3,10 +3,14 @@ package com.servinglynk.report.business;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.servinglynk.report.bean.Q08bDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ContactModel;
 import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q08bDataBeanMaker extends BaseBeanMaker {
@@ -20,8 +24,9 @@ public class Q08bDataBeanMaker extends BaseBeanMaker {
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 		List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
-		
 		List<EnrollmentModel> enrollments = data.getEnrollments();
+		
+		
 		List<EnrollmentModel> enrollmentJanTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate(), 1)) == 0).collect(Collectors.toList());
 		List<EnrollmentModel> enrollmentAprilTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate(), 4)) == 0).collect(Collectors.toList());
 		List<EnrollmentModel> enrollmentJulyTotal = enrollments.parallelStream().filter(enrollment -> Util.getLocalDateFromUtilDate(enrollment.getEntrydate()).compareTo(lasWednesayOf(data.getReportEndDate(), 7)) == 0).collect(Collectors.toList());
@@ -50,34 +55,44 @@ public class Q08bDataBeanMaker extends BaseBeanMaker {
 		List<EnrollmentModel> enrollmentOctoberUnknownHouseHold = enrollmentOctoberTotal.parallelStream().filter(enrollment->projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
 		
 		
-		q08bDataBean.setHhJanTotal(BigInteger.valueOf(enrollmentJanTotal !=null ? enrollmentJanTotal.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountJanUht(BigInteger.valueOf(enrollmentJanUnknownHouseHold != null ? enrollmentJanUnknownHouseHold.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountJanWc(BigInteger.valueOf(enrollmentJanHHWithChildren != null ? enrollmentJanHHWithChildren.size() : getDefaultIntValue()));
+		q08bDataBean.setHhJanTotal(BigInteger.valueOf(getGroupBySize(enrollmentJanTotal)));
+		q08bDataBean.setHhCountJanUht(BigInteger.valueOf(getGroupBySize(enrollmentJanUnknownHouseHold))); 
+		q08bDataBean.setHhCountJanWc(BigInteger.valueOf(getGroupBySize(enrollmentJanHHWithChildren)));
 		q08bDataBean.setHhCountJanWca(BigInteger.valueOf(enrollmentsJanHHWithOneAdultChild != null ? enrollmentsJanHHWithOneAdultChild.size() : getDefaultIntValue() ));
-		q08bDataBean.setHhCountJanWoc(BigInteger.valueOf(enrollmentJanHHWithOutChildren != null ? enrollmentJanHHWithOutChildren.size() : getDefaultIntValue()));
+		q08bDataBean.setHhCountJanWoc(BigInteger.valueOf(getGroupBySize(enrollmentJanHHWithOutChildren)));
 		
-		q08bDataBean.setHhAprTotal(BigInteger.valueOf(enrollmentAprilTotal != null ? enrollmentAprilTotal.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountAprUht(BigInteger.valueOf(enrollmentAprilUnknownHouseHold != null ? enrollmentAprilUnknownHouseHold.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountAprWc(BigInteger.valueOf(enrollmentAprilHHWithChildren != null ? enrollmentAprilHHWithChildren.size() :getDefaultIntValue()));
-		q08bDataBean.setHhCountAprWca(BigInteger.valueOf(enrollmentsAprilHHWithOneAdultChild != null ? enrollmentsAprilHHWithOneAdultChild.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountAprWoc(BigInteger.valueOf(enrollmentAprilHHWithOutChildren != null ? enrollmentAprilHHWithOutChildren.size() : getDefaultIntValue()));
+		q08bDataBean.setHhAprTotal(BigInteger.valueOf(getGroupBySize(enrollmentAprilTotal)));
+		q08bDataBean.setHhCountAprUht(BigInteger.valueOf(getGroupBySize(enrollmentAprilUnknownHouseHold)));
+		q08bDataBean.setHhCountAprWc(BigInteger.valueOf(getGroupBySize(enrollmentAprilHHWithChildren)));
+		q08bDataBean.setHhCountAprWca(BigInteger.valueOf(getGroupBySize(enrollmentsAprilHHWithOneAdultChild)));
+		q08bDataBean.setHhCountAprWoc(BigInteger.valueOf(getGroupBySize(enrollmentAprilHHWithOutChildren)));
 		
-		q08bDataBean.setHhJulTotal(BigInteger.valueOf(enrollmentJulyTotal != null ? enrollmentJulyTotal.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountJulUht(BigInteger.valueOf(enrollmentJulyUnknownHouseHold != null ? enrollmentJulyUnknownHouseHold.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountJulWc(BigInteger.valueOf(enrollmentJulyHHWithChildren != null ? enrollmentJulyHHWithChildren.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountJulWca(BigInteger.valueOf(enrollmentsJulyHHWithOneAdultChild != null ? enrollmentsJulyHHWithOneAdultChild.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountJulWoc(BigInteger.valueOf(enrollmentJulyHHWithOutChildren != null? enrollmentJulyHHWithOutChildren.size() : getDefaultIntValue()));
+		q08bDataBean.setHhJulTotal(BigInteger.valueOf(getGroupBySize((enrollmentJulyTotal))));
+		q08bDataBean.setHhCountJulUht(BigInteger.valueOf(getGroupBySize(enrollmentJulyUnknownHouseHold)));
+		q08bDataBean.setHhCountJulWc(BigInteger.valueOf(getGroupBySize(enrollmentJulyHHWithChildren)));
+		q08bDataBean.setHhCountJulWca(BigInteger.valueOf(getGroupBySize(enrollmentsJulyHHWithOneAdultChild)));
+		q08bDataBean.setHhCountJulWoc(BigInteger.valueOf(getGroupBySize(enrollmentJulyHHWithOutChildren)));
 		
-		q08bDataBean.setHhOctTotal(BigInteger.valueOf(enrollmentOctoberTotal != null ? enrollmentOctoberTotal.size() :getDefaultIntValue()));
-		q08bDataBean.setHhCountOctUht(BigInteger.valueOf(enrollmentOctoberUnknownHouseHold != null ? enrollmentOctoberUnknownHouseHold.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountOctWc(BigInteger.valueOf(enrollmentOctoberHHWithChildren != null ? enrollmentOctoberHHWithChildren.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountOctWca(BigInteger.valueOf(enrollmentsOctoberHHWithOneAdultChild != null ? enrollmentsOctoberHHWithOneAdultChild.size() : getDefaultIntValue()));
-		q08bDataBean.setHhCountOctWoc(BigInteger.valueOf(enrollmentOctoberHHWithOutChildren != null ? enrollmentOctoberHHWithOutChildren.size() : getDefaultIntValue()));		
+		q08bDataBean.setHhOctTotal(BigInteger.valueOf(getGroupBySize(enrollmentOctoberTotal)));
+		q08bDataBean.setHhCountOctUht(BigInteger.valueOf(getGroupBySize(enrollmentOctoberUnknownHouseHold)));
+		q08bDataBean.setHhCountOctWc(BigInteger.valueOf(getGroupBySize(enrollmentOctoberHHWithChildren)));
+		q08bDataBean.setHhCountOctWca(BigInteger.valueOf(getGroupBySize(enrollmentsOctoberHHWithOneAdultChild)));
+		q08bDataBean.setHhCountOctWoc(BigInteger.valueOf(getGroupBySize(enrollmentOctoberHHWithOutChildren)));		
 	} catch (Exception e) {
 		logger.error("Error in Q08bDataBeanMaker:" + e);
 	}
 	}
 		return Arrays.asList(q08bDataBean);
+	}
+	
+	public static int getGroupBySize(List<EnrollmentModel> enrollments) {
+		if(CollectionUtils.isNotEmpty(enrollments)) {
+			Map<String, Long> collect = enrollments.stream().collect(Collectors.groupingBy(EnrollmentModel::getHouseholdid, Collectors.counting()));
+			if(collect != null) {
+				return collect.size();
+			}
+		}
+			return 0;
 	}
 
 }
