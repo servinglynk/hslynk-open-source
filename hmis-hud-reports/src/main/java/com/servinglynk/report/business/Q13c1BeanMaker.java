@@ -33,7 +33,7 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
 	// Physical Disability -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='5'
 	// Developmental Disability -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='6'
 	
-	String mentalHealthQuery = "   select e.id from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and  datacollectionstage in ('1','2','5') and disabilitytype='9' ";
+	String mentalHealthQuery = "   select distinct(e.id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and  datacollectionstage in ('1','2','5') and disabilitytype='9' ";
 	List<String> mentalHealthList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), data, mentalHealthQuery);
 	List<EnrollmentModel> enrollments = data.getEnrollments();   
 	List<EnrollmentModel> enrollmentsHHWithChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
@@ -54,7 +54,7 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
     	q13c1Bean.setQ13c1MentalIllnessUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
 	}
 	
-	String alcoholQuery = "  select e.id from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and  datacollectionstage in ('1','2','5')   and disabilitytype='10' and disabilityresponse='1' ";
+	String alcoholQuery = "  select distinct(e.id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and  datacollectionstage in ('1','2','5')   and disabilitytype='10' and disabilityresponse='1' ";
 	List<String> alcoholList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data,alcoholQuery);
 	if(CollectionUtils.isNotEmpty(alcoholList)) {
 		
@@ -69,7 +69,7 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
     	q13c1Bean.setQ13c1AlcoholAbuseWithOnlychildren(BigInteger.valueOf(withChildren != null ?withChildren.size():0));
     	q13c1Bean.setQ13c1AlcoholAbuseUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
 	}
-	String drugQuery = "  select e.id from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and  datacollectionstage in ('1','2','5')   and disabilitytype='10' and disabilityresponse='2'";
+	String drugQuery = "  select distinct(e.id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and  datacollectionstage in ('1','2','5')   and disabilitytype='10' and disabilityresponse='2'";
  	List<String> drugList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, drugQuery);
 	if(CollectionUtils.isNotEmpty(drugList)) {
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> drugList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -85,7 +85,7 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
 	}
 	
 	
-	String alcoholAndDrugQuery = "  select e.id from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5')  and disabilitytype='10' and disabilityresponse='3' ";
+	String alcoholAndDrugQuery = "  select distinct(e.id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5')  and disabilitytype='10' and disabilityresponse='3' ";
 	List<String> alcoholAndDrugList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, alcoholAndDrugQuery);
 	if(CollectionUtils.isNotEmpty(alcoholAndDrugList)) {
  		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -100,7 +100,7 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
     	q13c1Bean.setQ13c1BothAlcoholAndDrugAbuseUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
     	
 	}
-	String chronicHealthCondition = " select e.id from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5')   and disabilitytype='7' ";
+	String chronicHealthCondition = " select distinct(e.id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5')   and disabilitytype='7' ";
 	List<String> chronicHealthConditionList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, chronicHealthCondition);
 	if(CollectionUtils.isNotEmpty(chronicHealthConditionList)) {	
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> chronicHealthConditionList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -115,7 +115,7 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
     	q13c1Bean.setQ13c1ChronicHealthConditionUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
 	}
 	
-	String hivaids = "select e.id from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5')   and disabilitytype='8' ";
+	String hivaids = "select distinct(e.id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5')   and disabilitytype='8' ";
 	List<String> hivaidsList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, hivaids);
 	if(CollectionUtils.isNotEmpty(hivaidsList)) {
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> hivaidsList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -130,7 +130,7 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
     	q13c1Bean.setQ13c1HIVRelatedDiseasesUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
 	}
 	
-	String developmentDisability =   "select e.id from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5')   and disabilitytype='6' ";
+	String developmentDisability =   "select distinct(e.id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5')   and disabilitytype='6' ";
 	List<String> developmentDisabilityList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, developmentDisability);
 	if(CollectionUtils.isNotEmpty(developmentDisabilityList)) {
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> developmentDisabilityList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());
@@ -146,7 +146,7 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
 	}
 
 	
-	String physicalDisabilitiy = "   select e.id from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5')   and disabilitytype='5' ";
+	String physicalDisabilitiy = "   select distinct(e.id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5')   and disabilitytype='5' ";
 	List<String> physicalDisabilitiyList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(),data, physicalDisabilitiy);
 	if(CollectionUtils.isNotEmpty(physicalDisabilitiyList)) {
 		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> physicalDisabilitiyList.contains(enrollment.getProjectEntryID())).collect(Collectors.toList());

@@ -69,6 +69,12 @@
 	<field name="q07bPointInTimeCountHouseholdsLastWednesdayDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q07bPointInTimeCountHouseholdsLastWednesdayDataBean]]></fieldDescription>
 	</field>
+	<field name="q08aDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q08aDataBean]]></fieldDescription>
+	</field>
+	<field name="q08bDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q08bDataBean]]></fieldDescription>
+	</field>
 	<field name="q09aNumberPersonsContactedDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q09aNumberPersonsContactedDataBean]]></fieldDescription>
 	</field>
@@ -787,9 +793,23 @@
 			</band>
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
-					<reportElement x="-14" y="-5" width="39" height="40" uuid="1d7487f0-ef68-48e6-a4ab-cc920f0302f6"/>
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="1d7487f0-ef68-48e6-a4ab-cc920f0302f7"/>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q07bPointInTimeCountHouseholdsLastWednesdayDataBean})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q07b_Point_In_Time_Count_of_Households_Last_Wednesday.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36" splitType="Stretch">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="5940cb8c-9fe4-4ef5-b056-1a0f8ae2bb1e"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q08aDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q8a_Number_of_Households_Served.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36" splitType="Stretch">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="1d7487f0-ef68-48e6-a4ab-cc920f0302f3"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q08bDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q8b_Point_in_Time_Count_Households_on_Last_Wednesday.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 			<band height="36" splitType="Stretch">

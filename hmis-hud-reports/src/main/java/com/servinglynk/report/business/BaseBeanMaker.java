@@ -942,7 +942,7 @@ public class BaseBeanMaker {
 				resultSet = statement.executeQuery(query);
 				String prevDedupClientId = "";
 			 while(resultSet.next()) {
-				 String dedupClientId = resultSet.getString("dedup_client_id");
+				 String dedupClientId = resultSet.getString("dedup_id");
 				 if(!StringUtils.equals(prevDedupClientId, dedupClientId)) {
 					 EnrollmentModel model = new EnrollmentModel(resultSet.getString("id"), 
 								// resultSet.getString("enrollment.continuouslyhomelessoneyear"),

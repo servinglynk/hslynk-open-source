@@ -3,7 +3,7 @@ package com.servinglynk.hive.connection;
 public class ReportQuery {
 public static String GET_PROJECT_BY_ID= "select * from %s.project where id = ? ";
 public static String GET_ORG_BY_ID= "select * from %s.organization where id = ?";
-public static String GET_ALL_CLIENTS = " select c.dedup_client_id, c.id,name_data_quality,name_data_quality_desc,ssn_data_quality,ssn_data_quality_desc,dob_data_quality, "+
+public static String GET_ALL_CLIENTS = " select distinct(c.dedup_client_id) as dedup_client_id, c.id,name_data_quality,name_data_quality_desc,ssn_data_quality,ssn_data_quality_desc,dob_data_quality, "+
 					  " dob_data_quality_desc,gender,gender_desc,ethnicity,ethnicity_desc,race,race_desc,veteran_status,c.source_system_id,c.age "+
 					 " from %s.client c,%s.enrollment e, %s.project p,%s.exit ext where e.client_id=c.id and e.projectid= p.id  %p and entrydate <= :endDate  "+
 				      " and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) "+
@@ -21,7 +21,7 @@ public static String GET_ALL_EXITS = "select ext.* from %s.exit ext, %s.enrollme
 public static String GET_PROJECTS_BY_COC = "select * from %s.project where id in (select projectid from %s.coc where coc_id = ? )";
 public static String GET_PROJECTS = "select * from %s.project where id in (";
 public static String GET_ENROLLMENTS_BY_COC_ID = "select * from %s.enrollment where  entrydate >=:startDate and entrydate <= :endDate and projectid in (select projectid from %s.coc where id = ? ) ";
-public static String GET_ENROLLMENTS_PROJECT_ID = "select e.*  "+
+public static String GET_ENROLLMENTS_PROJECT_ID = "select distinct(e.dedup_client_id) as dedup_id, e.*  "+
 											" from %s.client c,%s.enrollment e, %s.project p,%s.exit ext where e.client_id=c.id and e.projectid= p.id  %p and entrydate <= :endDate "+
 										      " and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) "+
 											"   order by e.dedup_client_id";
