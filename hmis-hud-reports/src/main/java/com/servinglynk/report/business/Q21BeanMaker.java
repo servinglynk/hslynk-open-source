@@ -27,14 +27,14 @@ public class Q21BeanMaker extends BaseBeanMaker {
 		String entryQuery = " select  i.insurancefromanysource as insurancefromanysource,i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
 				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices, "+
 				   "i.other_insurance as other_insurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e where e.id=i.enrollmentid  "+
-				  "  and i.information_date <= :startDate and i.information_date >= :endDate  %dedup"+
+				  "  and i.information_date >= :startDate and i.information_date <= :endDate  %dedup"+
 				  " and e.ageatentry >=18  and i.datacollectionstage = '1' ";
 			       
 			String  exitQuery = " select  i.insurancefromanysource as insurancefromanysource , i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
 				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices, "+
 				   "i.other_insurance as other_insurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e,%s.exit ext where e.id=i.enrollmentid  "+
 				  " and e.id = ext.enrollmentid "+
-					  "  and i.information_date <= :startDate and i.information_date >= :endDate  %dedup"+
+					  "  and i.information_date >= :startDate and i.information_date <= :endDate  %dedup"+
 					  " and e.ageatentry >=18  and i.datacollectionstage = '3' ";
 				       
 			String  stayersQuery = " select  i.insurancefromanysource as insurancefromanysource , i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
@@ -198,7 +198,7 @@ public class Q21BeanMaker extends BaseBeanMaker {
 			 while(resultSet.next()) {
 				 healthInsuranceModels.add(new HealthInsuranceModel(resultSet.getString("insurancefromanysource"), resultSet.getString("medicaid"), resultSet.getString("medicare"), 
 						 resultSet.getString("statehealthinadults"), resultSet.getString("vamedicalservices"), resultSet.getString("employerprovided"), 
-						 resultSet.getString("privatepay"), resultSet.getString("schip"), resultSet.getString("indianhealthservices"), resultSet.getString("otherinsurance"), resultSet.getString("dedupClientId")));
+						 resultSet.getString("privatepay"), resultSet.getString("schip"), resultSet.getString("indianhealthservices"), resultSet.getString("other_insurance"), resultSet.getString("dedup_client_id")));
 				 }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

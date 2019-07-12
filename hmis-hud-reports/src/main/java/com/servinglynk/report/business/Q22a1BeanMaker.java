@@ -68,7 +68,7 @@ public class Q22a1BeanMaker extends BaseBeanMaker {
 					List<Q22BeanModel>  q22a1D31To60Days = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 31 &&  q22BeanModel.getNumberOfDays() <= 60).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1D61To90Days = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 61 && q22BeanModel.getNumberOfDays() <= 90).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1D91To180Days = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 91 && q22BeanModel.getNumberOfDays() <= 180).collect(Collectors.toList());
-					List<Q22BeanModel>  q22a1E181To365Days = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 1811 && q22BeanModel.getNumberOfDays() <= 365).collect(Collectors.toList());
+					List<Q22BeanModel>  q22a1E181To365Days = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 181 && q22BeanModel.getNumberOfDays() <= 365).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1F366To730Days = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 366 && q22BeanModel.getNumberOfDays() <= 730).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1G731To1095Days = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 731 && q22BeanModel.getNumberOfDays() <= 1095).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1H1096To1460Days = allLeaversData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 1096 && q22BeanModel.getNumberOfDays() <= 1460).collect(Collectors.toList());
@@ -95,7 +95,7 @@ public class Q22a1BeanMaker extends BaseBeanMaker {
 					List<Q22BeanModel>  q22a1D31To60Days = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 31 &&  q22BeanModel.getNumberOfDays() <= 60).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1D61To90Days = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 61 && q22BeanModel.getNumberOfDays() <= 90).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1D91To180Days = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 91 && q22BeanModel.getNumberOfDays() <= 180).collect(Collectors.toList());
-					List<Q22BeanModel>  q22a1E181To365Days = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 1811 && q22BeanModel.getNumberOfDays() <= 365).collect(Collectors.toList());
+					List<Q22BeanModel>  q22a1E181To365Days = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 181 && q22BeanModel.getNumberOfDays() <= 365).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1F366To730Days = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 366 && q22BeanModel.getNumberOfDays() <= 730).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1G731To1095Days = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 731 && q22BeanModel.getNumberOfDays() <= 1095).collect(Collectors.toList());
 					List<Q22BeanModel>  q22a1H1096To1460Days = allStayersData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() >= 1096 && q22BeanModel.getNumberOfDays() <= 1460).collect(Collectors.toList());

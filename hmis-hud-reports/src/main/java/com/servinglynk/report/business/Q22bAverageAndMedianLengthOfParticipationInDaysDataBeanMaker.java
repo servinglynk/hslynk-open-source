@@ -38,13 +38,12 @@ public class Q22bAverageAndMedianLengthOfParticipationInDaysDataBeanMaker extend
 					for(Q22BeanModel model : stayersLengthofStay) {
 						count = count + model.getNumberOfDays();
 					}
-					q22bAverageAndMedianLengthOfParticipationInDaysTable.setQ22bAverageLengthInDaysStayers(BigInteger.valueOf(count/leaversLengthofStay.size()));
+					q22bAverageAndMedianLengthOfParticipationInDaysTable.setQ22bAverageLengthInDaysStayers(BigInteger.valueOf(count/stayersLengthofStay.size()));
 					Comparator<Q22BeanModel> numberOfDaysComparator 
 				      = Comparator.comparingLong(Q22BeanModel::getNumberOfDays);
-					leaversLengthofStay.sort(numberOfDaysComparator);
-					 int median = (leaversLengthofStay.size()/2) + 1;
-					Q22BeanModel q22BeanModel = leaversLengthofStay.get(median);
-					q22bAverageAndMedianLengthOfParticipationInDaysTable.setQ22bMedianLengthInDaysLeavers(BigInteger.valueOf(q22BeanModel.getNumberOfDays()));
+					stayersLengthofStay.sort(numberOfDaysComparator);
+					 int median = (stayersLengthofStay.size()/2) + 1;
+					Q22BeanModel q22BeanModel = stayersLengthofStay.get(median);
 					q22bAverageAndMedianLengthOfParticipationInDaysTable.setQ22bMedianLengthInDaysStayers(BigInteger.valueOf(q22BeanModel.getNumberOfDays()));
 				}
 			}
