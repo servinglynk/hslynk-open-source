@@ -14,6 +14,7 @@ import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
+import com.servinglynk.report.model.IncomeAndSourceModel;
 
 public class Q05aBeanMaker extends BaseBeanMaker {
 	private static Logger logger = Logger.getLogger(Q05aBeanMaker.class);
@@ -91,6 +92,11 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			bean.setTotNoOfStayers(BigInteger.valueOf(getSize(activeClients)));
 			
 			//bean.setTotNumOfPersonServed(BigInteger.valueOf(clients.size()));
+			
+			
+			List<IncomeAndSourceModel> incomeAndSources = getIncomeAndSource(data.getSchema(),data);
+			List<IncomeAndSourceModel> filtereIncomeAndSources = incomeAndSources.parallelStream().filter(incomeAndSource -> enrollmentIds.contains(incomeAndSource.getProjectEntryId())).collect(Collectors.toList());
+			data.setIncomeAndSources(filtereIncomeAndSources);
 			
 			
 			data.setTotNumOfPersonServed(bean.getTotNumOfPersonServed());  //Refers --> Total number of persons served 

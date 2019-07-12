@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,7 +35,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 				List<EnrollmentModel> adultStayers = data.getAdultStayers();
 				String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 						" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-						" vadisabilityserviceamount,workerscompamount,incomefromanysource  as incomefromanysource,datacollectionstage from %s.incomeandsources i, %s.enrollment e,%s.project p  where    e.id=i.enrollmentid ";
+						" vadisabilityserviceamount,workerscompamount,incomefromanysource,e.dedup_client_id as incomefromanysource,datacollectionstage from %s.incomeandsources i, %s.enrollment e,%s.project p  where    e.id=i.enrollmentid ";
 				
 				if(CollectionUtils.isNotEmpty(adultStayers)) {
 					StringBuilder builder = new StringBuilder(" and e.id in (");
@@ -51,7 +52,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 					
 					List<IncomeSourceModel> incomes = getIncome(data.getSchema(), query+builder.toString(), data);
 					if(CollectionUtils.isNotEmpty(incomes)){
-						List<String> allClients = new ArrayList<>();
+						Set<String> allClients = new HashSet<>();
 						incomes.forEach(incomeAndSource -> allClients.add(incomeAndSource.getDedupClientId()) );
 						BigInteger allClientsBigInt = BigInteger.valueOf(getSize(allClients));
 						
@@ -62,7 +63,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 					}
 				}
 			}catch(Exception e) {
-		logger.error("Error in Q26cBeanMaker:" + e);
+		logger.error("Error in Q19a1DataBeanMaker:" + e);
 			}
 		}
 		return Arrays.asList(q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate);
@@ -86,7 +87,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 			 int earned = getFloatValue(resultSet,3);
 			 String earnedIncome = String.valueOf(earned);
 			 BigInteger earnedIncomeBigInt = new BigInteger(earnedIncome);
-			 String dedupClientId = (String) resultSet.getObject(16);
+			 String dedupClientId = (String) resultSet.getObject(17);
 			 BigInteger otherIncome = BigInteger.ZERO;
 			 if( totIncome != null &&  totIncome.longValue() > 0 ) {
 				 otherIncome = totIncome.subtract(earnedIncomeBigInt != null  && earnedIncomeBigInt.longValue() > 0 ? earnedIncomeBigInt : BigInteger.ZERO);
@@ -217,7 +218,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		}
 		List<IncomeSourceModel> didNotHaveEarnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && income.getEarnedIncome() == null || income.getEarnedIncome().floatValue() ==0).collect(Collectors.toList());
 		List<IncomeSourceModel> didNotHaveEarnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && income.getEarnedIncome() == null || income.getEarnedIncome().floatValue() ==0).collect(Collectors.toList());
-		List<String> clientIds = new ArrayList<>();
+		Set<String> clientIds = new HashSet<>();
 		if(CollectionUtils.isNotEmpty(didNotHaveEarnedIncomeAtEntry)) {
 			didNotHaveEarnedIncomeAtEntry.forEach(incomeSource -> clientIds.add(incomeSource.getDedupClientId()));
 		}
@@ -338,7 +339,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		}
 		List<IncomeSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && income.getOtherIncome() == null || income.getOtherIncome().floatValue() ==0).collect(Collectors.toList());
 		List<IncomeSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && income.getOtherIncome() == null || income.getOtherIncome().floatValue() ==0).collect(Collectors.toList());
-		List<String> clientIds = new ArrayList<>();
+		Set<String> clientIds = new HashSet<>();
 		if(CollectionUtils.isNotEmpty(didNotHaveOtherIncomeAtEntry)) {
 			didNotHaveOtherIncomeAtEntry.forEach(incomeSource -> clientIds.add(incomeSource.getDedupClientId()));
 		}
@@ -459,7 +460,7 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 		}
 		List<IncomeSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && income.getOtherIncome() == null || income.getOtherIncome().floatValue() ==0).collect(Collectors.toList());
 		List<IncomeSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && income.getOtherIncome() == null || income.getOtherIncome().floatValue() ==0).collect(Collectors.toList());
-		List<String> clientIds = new ArrayList<>();
+		Set<String> clientIds = new HashSet<>();
 		if(CollectionUtils.isNotEmpty(didNotHaveOtherIncomeAtEntry)) {
 			didNotHaveOtherIncomeAtEntry.forEach(incomeSource -> clientIds.add(incomeSource.getDedupClientId()));
 		}

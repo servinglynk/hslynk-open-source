@@ -60,7 +60,7 @@ public class BaseBeanMaker {
 	 }
 	 protected static long subtractDate(Date from, Date to) {
 		 if(from != null && to != null) {
-			 long between = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
+			 long between = ChronoUnit.DAYS.between(LocalDate.parse(to.toString()),LocalDate.parse(from.toString()));
 			 return between;
 		 }
 		 return 0;
@@ -837,14 +837,14 @@ public class BaseBeanMaker {
 			}
 		}
 
-		public static List<IncomeAndSourceModel> getIncomeAndSource(String schema) {
+		public static List<IncomeAndSourceModel> getIncomeAndSource(String schema,ReportData data) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
 			Connection connection = null;
 			List<IncomeAndSourceModel>  models = new ArrayList<IncomeAndSourceModel>();
 			try {
 				connection = ImpalaConnection.getConnection();
-				statement = connection.prepareStatement(String.format(ReportQuery.GET_INCOMEANDSOURCE,schema));
+				statement = connection.prepareStatement(formatQuery(ReportQuery.GET_INCOMEANDSOURCE,schema,data));
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
 				 IncomeAndSourceModel model = new IncomeAndSourceModel( resultSet.getString("datacollectionstage"),resultSet.getString("enrollmentid"));
@@ -1281,6 +1281,13 @@ public class BaseBeanMaker {
 		        return new Date(c.getTimeInMillis());
 		    }
 			 public static Date getMinimumDate(Date date1, Date date2) {
+				 if(date1 == null)  {
+					 return date2;
+				 }
+				 if(date2 == null) {
+					 return date1;
+				 }
+				 
 				 if(date1.before(date1)) {
 					 return addDays(date1,1);
 				 }
@@ -1288,6 +1295,12 @@ public class BaseBeanMaker {
 			}
 			 
 			 public static Date getMaximumDate(Date date1, Date date2) {
+				 if(date1 == null)  {
+					 return date2;
+				 }
+				 if(date2 == null) {
+					 return date1;
+				 }
 				 if(date1.after(date1)) {
 					 return date1;
 				 }
@@ -1399,6 +1412,10 @@ public class BaseBeanMaker {
 			    
 			    public static List<Q22BeanModel> getQ22BeanLengthOfStay(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,boolean withDestination) {
 					 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
+					 if(CollectionUtils.isNotEmpty(filteredProjectIds))
+					 {
+						 return q22Beans;
+					 }
 						ResultSet resultSet = null;
 						Statement statement = null;
 						String projectQuery = " and p.id in ( ";
@@ -1448,8 +1465,8 @@ public class BaseBeanMaker {
 							 Date entryDate = resultSet.getDate("entrydate");
 							 Date moveinDate = resultSet.getDate("moveindate");
 							 
-							 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), null,null, 
-									 null,resultSet.getDate("exitdate"),entryDate,moveinDate,null);
+							 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), resultSet.getString("trackingmethod"),resultSet.getString("projecttype"), 
+									 resultSet.getDate("operatingstartdate"),resultSet.getDate("exitdate"),entryDate,moveinDate,null);
 							 populateBedNights(bean, data);
 							 if(withDestination) {
 								 bean.setDestination(resultSet.getString("destination"));
@@ -1476,7 +1493,11 @@ public class BaseBeanMaker {
 			    
 			    public static List<Q22BeanModel> getQ22BeanLengthOfStayForExit(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,boolean withDestination) {
 					 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
-						ResultSet resultSet = null;
+					 if(CollectionUtils.isNotEmpty(filteredProjectIds))
+					 {
+						 return q22Beans;
+					 }	
+					 ResultSet resultSet = null;
 						Statement statement = null;
 						String projectQuery = " and p.id in ( ";
 						StringBuilder builder = new StringBuilder(projectQuery);
@@ -1529,8 +1550,8 @@ public class BaseBeanMaker {
 							 Date entryDate = resultSet.getDate("entrydate");
 							 Date moveinDate = resultSet.getDate("moveindate");
 							 
-							 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), null,null, 
-									 null,resultSet.getDate("exitdate"),entryDate,moveinDate,null);
+							 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), resultSet.getString("trackingmethod"),resultSet.getString("projecttype"), 
+									 resultSet.getDate("operatingstartdate"),resultSet.getDate("exitdate"),entryDate,moveinDate,null);
 							 populateBedNights(bean, data);
 							 if(withDestination) {
 								 bean.setDestination(resultSet.getString("destination"));
@@ -1555,6 +1576,39 @@ public class BaseBeanMaker {
 						return q22Beans;
 					}	
 			    
+			    
+			    public static String buildQuery(String query, String reportType,ReportData data) {
+			    	StringBuilder builder = new StringBuilder();
+			    	String newQuery = "";
+			    	List<EnrollmentModel> enrollments =  null;
+			    	if(StringUtils.equals("LEAVERS", reportType) ) {
+			    		enrollments = data.getLeavers();
+					}else if(StringUtils.equals("STAYERS", reportType) ) {
+						enrollments = data.getAdultStayers();
+					}else if(StringUtils.equals("ALL", reportType) ) {
+						enrollments = data.getEnrollments();
+					}
+			    	
+					 if(CollectionUtils.isNotEmpty(enrollments)) {
+						 builder.append(" and e.dedup_client_id in ( ");
+						 int count = 0;
+						 for(EnrollmentModel enrollment : enrollments) {
+							 builder.append("'"+enrollment.getDedupClientId()+"'");
+							 if(count != enrollments.size()) {
+								 builder.append(",");
+							 }
+						 }
+						 builder.deleteCharAt(builder.length()-1);
+						 builder.append(" ) ");
+					 }
+					 if(CollectionUtils.isNotEmpty(enrollments)) {
+						 newQuery = query.replace("%dedup", builder.toString());
+					 }else {
+						 newQuery = query.replace("%dedup", " ");
+					 }
+					 
+					 return newQuery;
+			    }
 			    public static List<Q22BeanModel> getQ22Bean(ReportData data,String query,String reportType) {
 					 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
 						ResultSet resultSet = null;
@@ -1582,18 +1636,14 @@ public class BaseBeanMaker {
 							 }else {
 								 newQuery = query.replace("%p", " ");
 							 }
+							 
+							newQuery = buildQuery(newQuery, reportType, data);
 							statement = connection.createStatement();
-//							if(StringUtils.equals("LEAVERS", reportType) ) {
-//								statement.setDate(1, data.getReportStartDate());
-//								statement.setDate(2, data.getReportEndDate());
-//							}else if(StringUtils.equals("STAYERS", reportType) ) {
-//								statement.setDate(1, data.getReportEndDate());
-//								statement.setDate(2, data.getReportEndDate());
-//							}
+							
 							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 							
 						 while(resultSet.next()) {
-							 q22Beans.add(new Q22BeanModel(resultSet.getString("dedup_client_id"), resultSet.getString("projecttype"), resultSet.getString("trackingmethod"), 
+							 q22Beans.add(new Q22BeanModel(resultSet.getString("dedup_client_id"),resultSet.getString("trackingmethod"), resultSet.getString("projecttype"), 
 									 resultSet.getDate("operatingstartdate"),resultSet.getDate("exitdate"),resultSet.getDate("entrydate"),resultSet.getDate("moveindate"),null));
 							 }
 						} catch (SQLException e) {

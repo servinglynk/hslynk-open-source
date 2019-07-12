@@ -25,7 +25,7 @@ public static String GET_ENROLLMENTS_PROJECT_ID = "select distinct(e.dedup_clien
 											" from %s.client c,%s.enrollment e, %s.project p,%s.exit ext where e.client_id=c.id and e.projectid= p.id  %p and entrydate <= :endDate "+
 										      " and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) "+
 											"   order by e.dedup_client_id";
-public static String GET_INCOMEANDSOURCE = "select * from %s.incomeandsources";
+public static String GET_INCOMEANDSOURCE = "select i.* from %s.incomeandsources i,%s.enrollment e where e.id =i.enrollmentid %e ";
 public static String NAME_DATE_QUALITY_DNE_REFUSED ="select count(*) %s.from client where name_data_quality in ('8','9')";
 public static String NAME_DATE_QUALITY_DNC ="select count(*) from %s.client where name_data_quality in ('99')";
 public static String SSN_DATE_QUALITY_DNE_REFUSED ="select count(*) from %s.client where ssn_data_quality in ('8','9')";
