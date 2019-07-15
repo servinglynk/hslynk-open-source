@@ -34,12 +34,34 @@ public static String PROJECT_WITH_HOUSEHOLD_WITHOUT_CHILDREN ="select i.projecti
 public static String PROJECT_WITH_HOUSEHOLD_WITH_ONE_ADULT_CHILD ="select i.projectid,householdtype from %s.inventory i,%s.project p  where 	householdtype='3' and  i.projectid =p.id %p  ";
 public static String PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN ="select i.projectid,householdtype from %s.inventory i,%s.project p where 	householdtype='4' and i.projectid =p.id %p ";
 public static String PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN ="select i.projectid,householdtype from %s.inventory i,%s.project p  where 	householdtype is null  and i.projectid =p.id %p ";
-public static String REQUIRED_ANNUAL_ASSESMENT_QUERY= "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
-		 " socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount,  "+
-		 " vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource from %s.incomeandsources i, %s.enrollment e, %s.project p where e.id=i.enrollmentid  "+
-		 " and e.projectid = p.id %p  %e "+
-		 "  and i.information_date = e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
-		 " and   e.id not in ( select enrollmentid from %s.exit  where  exitdate >= :endDate )  "+
-		 " and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  ";
+//public static String REQUIRED_ANNUAL_ASSESMENT_QUERY= "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+//		 " socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount,  "+
+//		 " vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage as datacollectionstage,i.information_date,e.ageatentry  from %s.incomeandsources i, %s.enrollment e, %s.project p where e.id=i.enrollmentid  "+
+//		 " and e.projectid = p.id %p  %dedup "+
+//		 "  and i.information_date = e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
+//		 " and   e.id not in ( select enrollmentid from %s.exit  where  exitdate >= :endDate )  "+
+//		 " and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  order by e.client_dedup_id ";
+
+//public static String REQUIRED_ANNUAL_ASSESMENT_QUERY= "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+//		 " socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount,  "+
+//		 " vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage as datacollectionstage,i.information_date,e.ageatentry  from %s.incomeandsources i, %s.enrollment e, %s.project p where e.id=i.enrollmentid  "+
+//		 " and e.projectid = p.id %p  %dedup "+
+//		 "  and i.information_date = e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
+//		 " and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) < 365 )  order by e.client_dedup_id ";
+
+public static String REQUIRED_ANNUAL_ASSESMENT_QUERY = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
+" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry    from %s.incomeandsources i, %s.enrollment e, where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
+"  %dedup   order by e.client_dedup_id ";
+      
+public static String EXIT_INCOME_AND_SOURCE_QUERY = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
+		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource,ext.exitdate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry  from %s.incomeandsources i, %s.enrollment e,%s.exit ext where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
+		" and  ext.enrollmentid = e.id  and i.information_date = ext.exitdate %dedup order by e.client_dedup_id ";
+
+public static String ENTRY_INCOME_AND_SOURCE_QUERY = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
+" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry    from %s.incomeandsources i, %s.enrollment e, where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
+" and i.information_date = e.entrydate and datediff(i.information_date,e.entrydate) > 365 ) %dedup   order by e.client_dedup_id ";
       
 }

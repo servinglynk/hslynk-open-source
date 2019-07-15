@@ -37,7 +37,10 @@ public class ReportData {
 	private List<EnrollmentModel> chronicHomeLess = new ArrayList<>();
 	private List<ContactModel> contacts = new ArrayList<>();
 	private List<DateOfEngagementModel> dateOfEngagements = new ArrayList<>();
-	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
+	private List<IncomeAndSourceModel> incomeAndSourcesAtEntry = new ArrayList<>();
+	private List<IncomeAndSourceModel> incomeAndSourcesAtExit = new ArrayList<>();
+	private List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = new ArrayList<>();
+	
 	private  List<Q22BeanModel> stayersLengthofStay = new ArrayList<>();
 	private  List<Q22BeanModel> leaversLengthofStay = new ArrayList<>();
 	private List<Q22BeanModel> allDataLenghtofStay = new ArrayList<>();
@@ -62,7 +65,7 @@ public class ReportData {
 	private String queryDataCollectionStage;
 	private String queryDedupClientId;
 	
-	
+	private List<EnrollmentModel> adultStayersHoh365Days = new ArrayList<>();
 	List<String> enrollmentIds = new ArrayList<String>();
 	List<String> projectsHHWithChildren = new ArrayList<String>();
 	List<String> projectsHHWithOneAdultChild  =  new ArrayList<String>();
@@ -234,18 +237,6 @@ public class ReportData {
 		this.exits = exits;
 	}
 	
-	/**
-	 * @return the incomeAndSources
-	 */
-	public List<IncomeAndSourceModel> getIncomeAndSources() {
-		return incomeAndSources;
-	}
-	/**
-	 * @param incomeAndSources the incomeAndSources to set
-	 */
-	public void setIncomeAndSources(List<IncomeAndSourceModel> incomeAndSources) {
-		this.incomeAndSources = incomeAndSources;
-	}
 	/**
 	 * @return the totNumOfPersonServed
 	 */
@@ -760,6 +751,52 @@ public class ReportData {
 	public void setAdultHoh(List<EnrollmentModel> adultHoh) {
 		this.adultHoh = adultHoh;
 	}
-	
-	
+	/**
+	 * @return the adultStayersHoh365Days
+	 */
+	public List<EnrollmentModel> getAdultStayersHoh365Days() {
+		return adultStayersHoh365Days;
+	}
+	/**
+	 * @param adultStayersHoh365Days the adultStayersHoh365Days to set
+	 */
+	public void setAdultStayersHoh365Days(List<EnrollmentModel> adultStayersHoh365Days) {
+		this.adultStayersHoh365Days = adultStayersHoh365Days;
+	}
+	/**
+	 * @return the incomeAndSourcesAtEntry
+	 */
+	public List<IncomeAndSourceModel> getIncomeAndSourcesAtEntry() {
+		return incomeAndSourcesAtEntry;
+	}
+	/**
+	 * @param incomeAndSourcesAtEntry the incomeAndSourcesAtEntry to set
+	 */
+	public void setIncomeAndSourcesAtEntry(List<IncomeAndSourceModel> incomeAndSourcesAtEntry) {
+		this.incomeAndSourcesAtEntry = incomeAndSourcesAtEntry;
+	}
+	/**
+	 * @return the incomeAndSourcesAtExit
+	 */
+	public List<IncomeAndSourceModel> getIncomeAndSourcesAtExit() {
+		return incomeAndSourcesAtExit;
+	}
+	/**
+	 * @param incomeAndSourcesAtExit the incomeAndSourcesAtExit to set
+	 */
+	public void setIncomeAndSourcesAtExit(List<IncomeAndSourceModel> incomeAndSourcesAtExit) {
+		this.incomeAndSourcesAtExit = incomeAndSourcesAtExit;
+	}
+	/**
+	 * @return the incomeAndSourcesAtAnnualAssesment
+	 */
+	public List<IncomeAndSourceModel> getIncomeAndSourcesAtAnnualAssesment() {
+		return incomeAndSourcesAtAnnualAssesment;
+	}
+	/**
+	 * @param incomeAndSourcesAtAnnualAssesment the incomeAndSourcesAtAnnualAssesment to set
+	 */
+	public void setIncomeAndSourcesAtAnnualAssesment(List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment) {
+		this.incomeAndSourcesAtAnnualAssesment = incomeAndSourcesAtAnnualAssesment;
+	}
 }

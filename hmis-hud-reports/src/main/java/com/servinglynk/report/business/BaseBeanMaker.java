@@ -33,6 +33,7 @@ import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.ContactModel;
+import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.DateOfEngagementModel;
 import com.servinglynk.report.model.DisabilitiesModel;
 import com.servinglynk.report.model.EnrollmentModel;
@@ -110,6 +111,7 @@ public class BaseBeanMaker {
 				query = joinEnrollmentIds(query, data);
 				query = query.replace("%e", "");
 			}
+			
 			query = query.replaceAll("%s", schema);
 			System.out.println(query);
 			return query;
@@ -837,17 +839,37 @@ public class BaseBeanMaker {
 			}
 		}
 
-		public static List<IncomeAndSourceModel> getIncomeAndSource(String schema,ReportData data) {
+		public static List<IncomeAndSourceModel> getIncomeAndSource(ReportData data,String query,DataCollectionStage dataColletionStage) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
 			Connection connection = null;
 			List<IncomeAndSourceModel>  models = new ArrayList<IncomeAndSourceModel>();
 			try {
 				connection = ImpalaConnection.getConnection();
-				statement = connection.prepareStatement(formatQuery(ReportQuery.GET_INCOMEANDSOURCE,schema,data));
+				String newQuery = buildQueryFromDataCollectionStage(dataColletionStage.getCode(),query,data);
+				statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema(),data));
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
-				 IncomeAndSourceModel model = new IncomeAndSourceModel( resultSet.getString("datacollectionstage"),resultSet.getString("enrollmentid"));
+				 /*
+				  * select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
+" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate
+				  */
+				 IncomeAndSourceModel model = null;
+				 if(DataCollectionStage.ENTRY.equals(dataColletionStage) || DataCollectionStage.ANNUAL_ASSESMENT.equals(dataColletionStage)) {
+					 model = new IncomeAndSourceModel(resultSet.getString("datacollectionstage"), resultSet.getString("dedup_client_id"), resultSet.getDate("information_date"), resultSet.getDate("entrydate"), resultSet.getFloat("alimonyamount")
+							 , resultSet.getFloat("childsupportamount"),  resultSet.getFloat("earnedamount") , resultSet.getFloat("gaamount"), 
+							 resultSet.getFloat("othersourceamount"), resultSet.getFloat("pensionamount"), resultSet.getFloat("privatedisabilityamount"), resultSet.getFloat("socsecretirementamount"), 
+							 resultSet.getFloat("ssiamount"), resultSet.getFloat("tanfamount"), resultSet.getFloat("totalmonthlyincome"), resultSet.getFloat("unemploymentamount"), resultSet.getFloat("vadisabilitynonserviceamount"), resultSet.getFloat("vadisabilityserviceamount"),resultSet.getFloat("workerscompamount"), 
+							 resultSet.getString("incomefromanysource"), resultSet.getInt("ageatentry"));
+				 } else if(DataCollectionStage.EXIT.equals(dataColletionStage)) {
+					 model = new IncomeAndSourceModel(resultSet.getString("datacollectionstage"), resultSet.getString("dedup_client_id"), resultSet.getDate("information_date"), resultSet.getDate("exitdate"), resultSet.getFloat("alimonyamount")
+							 , resultSet.getFloat("childsupportamount"),  resultSet.getFloat("earnedamount") , resultSet.getFloat("gaamount"), 
+							 resultSet.getFloat("othersourceamount"), resultSet.getFloat("pensionamount"), resultSet.getFloat("privatedisabilityamount"), resultSet.getFloat("socsecretirementamount"), 
+							 resultSet.getFloat("ssiamount"), resultSet.getFloat("tanfamount"), resultSet.getFloat("totalmonthlyincome"), resultSet.getFloat("unemploymentamount"), resultSet.getFloat("vadisabilitynonserviceamount"), resultSet.getFloat("vadisabilityserviceamount"),resultSet.getFloat("workerscompamount"), 
+							 resultSet.getString("incomefromanysource"),resultSet.getInt("ageatentry"));
+				 }
+				 
 				 models.add(model);
 			 }
 			} catch (SQLException e) {
@@ -1250,7 +1272,7 @@ public class BaseBeanMaker {
 					    /*** Bed nights = [minimum of ( [project exit date], [report end date] + 1) ]
 								– [maximum of ( [project start date], [report start date] ) ] 
 					    **/
-					   model.setNumberOfDays(subtractDate(getMinimumDate(model.getExitdate(),reportEndDate),getMaximumDate(model.getEntrydate(), reportStartDate)));
+					   model.setNumberOfDays(subtractDate(getMaximumDate(model.getExitdate(),reportEndDate),getMinimumDate(model.getEntrydate(), reportStartDate)));
 				}
 				if(StringUtils.equals("1",model.getProjectType()) && StringUtils.equals(model.getTrackingMethod(), "3")) {
 					/***
@@ -1269,7 +1291,7 @@ public class BaseBeanMaker {
 				}
 				
 				if(StringUtils.isNotEmpty(model.getProjectType()) && method3List.contains(model.getProjectType())) {
-					model.setNumberOfDays(subtractDate(getMinimumDate(model.getExitdate(),reportEndDate),getMaximumDate(model.getMoveInDate(), reportStartDate)));
+					model.setNumberOfDays(subtractDate(getMaximumDate(model.getExitdate(),reportEndDate),getMinimumDate(model.getEntrydate(), reportStartDate)));
 				}
 				
 			}
@@ -1288,7 +1310,7 @@ public class BaseBeanMaker {
 					 return date1;
 				 }
 				 
-				 if(date1.before(date1)) {
+				 if(date1.before(date2)) {
 					 return addDays(date1,1);
 				 }
 				return addDays(date2,1);
@@ -1301,7 +1323,7 @@ public class BaseBeanMaker {
 				 if(date2 == null) {
 					 return date1;
 				 }
-				 if(date1.after(date1)) {
+				 if(date1.after(date2)) {
 					 return date1;
 				 }
 				return date2;
@@ -1576,6 +1598,17 @@ public class BaseBeanMaker {
 						return q22Beans;
 					}	
 			    
+			    public static String buildQueryFromDataCollectionStage(String datacollectionStage,String query, ReportData data) {
+			    	String reportType= "ALL";
+			    	if(StringUtils.equals(datacollectionStage, DataCollectionStage.ANNUAL_ASSESMENT.getCode())) {
+						reportType = "STAYERS";
+					}else if(StringUtils.equals(datacollectionStage, DataCollectionStage.EXIT.getCode())) {
+						reportType = "LEAVERS";
+					}else if(StringUtils.equals(datacollectionStage, DataCollectionStage.ENTRY.getCode())) {
+						reportType = "ALL";
+					}
+					return buildQuery(query, reportType, data);
+			    }
 			    
 			    public static String buildQuery(String query, String reportType,ReportData data) {
 			    	StringBuilder builder = new StringBuilder();
@@ -1584,11 +1617,12 @@ public class BaseBeanMaker {
 			    	if(StringUtils.equals("LEAVERS", reportType) ) {
 			    		enrollments = data.getLeavers();
 					}else if(StringUtils.equals("STAYERS", reportType) ) {
-						enrollments = data.getAdultStayers();
+						enrollments = data.getAdultStayersHoh365Days();
 					}else if(StringUtils.equals("ALL", reportType) ) {
 						enrollments = data.getEnrollments();
+					} else if(StringUtils.equals("ANNUAL_ASSESMENT", reportType) ) {
+						enrollments = data.getAdultStayersHoh365Days();
 					}
-			    	
 					 if(CollectionUtils.isNotEmpty(enrollments)) {
 						 builder.append(" and e.dedup_client_id in ( ");
 						 int count = 0;
@@ -1832,6 +1866,120 @@ public class BaseBeanMaker {
 						return 0;
 					}
 					return 0;	
-				}				
+				}		
+				
+				public static int getFloatValue(ResultSet resultSet , String column) {
+					try {
+						Float value = (Float)resultSet.getFloat(column);
+						if(value != null) {
+							return value.intValue();
+						}
+						
+					} catch (SQLException e) {
+						return 0;
+					}
+					return 0;	
+				}		
+				
+			    public static List<IncomeAndSourceModel> filterMissingIncomeAndSource(List<IncomeAndSourceModel> incomeAndSources) {
+			    	List<IncomeAndSourceModel> filteredIncomeAndSource = new ArrayList<>();
+			    	if(CollectionUtils.isNotEmpty(incomeAndSources)) {
+			    		filteredIncomeAndSource  = incomeAndSources.parallelStream().filter(incomeAndSource -> StringUtils.equals("8", incomeAndSource.getIncomefromanysource()) || StringUtils.equals("9", incomeAndSource.getIncomefromanysource()) ||  StringUtils.equals("99", incomeAndSource.getIncomefromanysource())   || StringUtils.equals("8", incomeAndSource.getIncomefromanysource())).collect(Collectors.toList());
+			    	}
+			    	return filteredIncomeAndSource;
+			    }
+			    
+			    public static List<IncomeAndSourceModel> filterIdentifiedSource(List<IncomeAndSourceModel> incomeAndSources) {
+			    	List<IncomeAndSourceModel> filteredIncomeAndSource = new ArrayList<>();
+			    	if(CollectionUtils.isNotEmpty(incomeAndSources)) {
+			    		filteredIncomeAndSource  = incomeAndSources.parallelStream().filter(incomeAndSource -> StringUtils.equals("0", incomeAndSource.getIncomefromanysource()) 
+			    				&&
+			    				(isGreaterThanZero(incomeAndSource.getAlimonyamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getChildsupportamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getEarnedamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getGaamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getOthersourceamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getPensionamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getPrivatedisabilityamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getSocsecretirementamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getSsiamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getTanfamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getUnemploymentamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getVadisabilitynonserviceamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getVadisabilityserviceamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getWorkerscompamount())
+			    				)
+			    				).collect(Collectors.toList());
+			    	}
+			    	return filteredIncomeAndSource;
+			    }
+			
+			    public static List<IncomeAndSourceModel> filterUnIdentifiedSource(List<IncomeAndSourceModel> incomeAndSources) {
+			    	List<IncomeAndSourceModel> filteredIncomeAndSource = new ArrayList<>();
+			    	if(CollectionUtils.isNotEmpty(incomeAndSources)) {
+			    		filteredIncomeAndSource  = incomeAndSources.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getIncomefromanysource()) 
+			    				&&
+			    				(isLessThanEqualToZero(incomeAndSource.getAlimonyamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getChildsupportamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getEarnedamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getGaamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getOthersourceamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getPensionamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getPrivatedisabilityamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getSocsecretirementamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getSsiamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getTanfamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getUnemploymentamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getVadisabilitynonserviceamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getVadisabilityserviceamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getWorkerscompamount())
+			    				)
+			    				).collect(Collectors.toList());
+			    	}
+			    	return filteredIncomeAndSource;
+			    }
+			    
+				public static int getFloat(Float value) {
+					try {
+						if(value != null) {
+							return value.intValue();
+						}
+					} catch (Exception e) {
+						return 0;
+					}
+					return 0;	
+				}
+				
+				public static boolean isGreaterThanZero(Float value) {
+					 int intValue = getFloat(value);
+					 if(intValue > 0) {
+						 return true;
+					 }
+					 return false;
+				}
+				public static boolean isLessThanEqualToZero(Float value) {
+					 int intValue = getFloat(value);
+					 if(intValue == 0) {
+						 return true;
+					 }
+					 return false;
+				}
+				
+				 public static boolean isWithIn30DaysOfAnniversary(Date entryDate,Date informationDate) {
+					 Calendar cal = Calendar.getInstance();
+					 cal.setTime(entryDate);
+					 int day = cal.get(Calendar.DAY_OF_YEAR);
+					 
+					 Calendar cal2 = Calendar.getInstance();
+					 cal2.setTime(informationDate);
+					 int day2 = cal2.get(Calendar.DAY_OF_YEAR);
+					 
+					 int betweenDays = day - day2;
+					 
+					 if(betweenDays >= -30 && betweenDays <=30){
+						 return true;
+					 }
+					 return false;
+				 }
 }
 

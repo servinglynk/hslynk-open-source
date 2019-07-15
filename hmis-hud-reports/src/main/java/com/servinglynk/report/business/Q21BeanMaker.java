@@ -183,16 +183,7 @@ public class Q21BeanMaker extends BaseBeanMaker {
 			try {
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
-				String reportType ="";
-				if(StringUtils.equals(datacollectionStage, DataCollectionStage.ANNUAL_ASSESMENT.getCode())) {
-					reportType = "STAYERS";
-				}else if(StringUtils.equals(datacollectionStage, DataCollectionStage.EXIT.getCode())) {
-					reportType = "LEAVERS";
-				}else if(StringUtils.equals(datacollectionStage, DataCollectionStage.ENTRY.getCode())) {
-					reportType = "ALL";
-				}
-				
-				String newQuery = buildQuery(query, reportType, data);
+				String newQuery = buildQueryFromDataCollectionStage(datacollectionStage, query, data);
 				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 				
 			 while(resultSet.next()) {

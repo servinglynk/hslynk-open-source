@@ -57,6 +57,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			
 			List<EnrollmentModel> adultStayers = enrollments.parallelStream().filter(enrollment -> !enrollmentsFromExit.contains(enrollment.getProjectEntryID()) && enrollment.getAgeatentry() > 18).collect(Collectors.toList());
 			List<EnrollmentModel> adultStayersHoh365Days = adultStayers.parallelStream().filter(enrollment -> inProjectForMoreThan365Days(enrollment.getEntrydate()) && StringUtils.equals("1", enrollment.getRelationshiptohoh())).collect(Collectors.toList());
+			data.setAdultStayersHoh365Days(adultStayersHoh365Days);
 			List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
 			List<EnrollmentModel> adultHohWithLeavers = adultLeavers.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() > 18).collect(Collectors.toList());
 			data.setAdultStayers(adultStayers);
@@ -92,12 +93,6 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			bean.setTotNoOfStayers(BigInteger.valueOf(getSize(activeClients)));
 			
 			//bean.setTotNumOfPersonServed(BigInteger.valueOf(clients.size()));
-			
-			
-			List<IncomeAndSourceModel> incomeAndSources = getIncomeAndSource(data.getSchema(),data);
-			List<IncomeAndSourceModel> filtereIncomeAndSources = incomeAndSources.parallelStream().filter(incomeAndSource -> enrollmentIds.contains(incomeAndSource.getProjectEntryId())).collect(Collectors.toList());
-			data.setIncomeAndSources(filtereIncomeAndSources);
-			
 			
 			data.setTotNumOfPersonServed(bean.getTotNumOfPersonServed());  //Refers --> Total number of persons served 
 			data.setNumOfAdults(bean.getNumOfAdults()); //Refers --> Number of adults (age 18 or over)
