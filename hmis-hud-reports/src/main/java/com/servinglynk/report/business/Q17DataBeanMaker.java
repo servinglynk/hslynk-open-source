@@ -8,13 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q17CashIncomeSourcesDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
+import com.servinglynk.report.model.EnrollmentModel;
+import com.servinglynk.report.model.IncomeAndSourceModel;
 
 public class Q17DataBeanMaker extends BaseBeanMaker {
 	
@@ -25,208 +29,217 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		Q17CashIncomeSourcesDataBean q17CashIncomeSourcesDataBeanTable =new Q17CashIncomeSourcesDataBean();
 		if(data.isLiveMode()) {
 		try{
-		String entryQuery = " select count(dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e where   e.id=i.enrollmentid "+ 
-							" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate  and i.datacollectionstage=:datacollectionstage and e.ageatentry >= 18   ";
-	
-		String annualAssesmentQuery = " select count(distinct(dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e where   e.id=i.enrollmentid "+ 
-				" and i.information_date >= e.entrydate and i.datacollectionstage=:datacollectionstage  and i.information_date >= :startDate and i.information_date <= :endDate  and e.ageatentry >= 18 "+
-				" and   e.id not in ( select enrollmentid from %s.exit  where exitdate <= :startDate )  "+
-				" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 )    ";
-
+			
+			List<IncomeAndSourceModel> incomeAndSourcesAtEntry = data.getIncomeAndSourcesAtEntry();
+			List<IncomeAndSourceModel> incomeAndSourcesAtExit = data.getIncomeAndSourcesAtExit();
+			List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = data.getIncomeAndSourcesAtAnnualAssesment();
+			
+			List<IncomeAndSourceModel> anamolyAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getAlimony())).collect(Collectors.toList());
+			List<IncomeAndSourceModel> anamolyAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getAlimony())).collect(Collectors.toList());
+			List<IncomeAndSourceModel> anamolyAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getAlimony())).collect(Collectors.toList());
+			
 		
-		int alimonyIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and alimony ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int alimonyIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  alimony ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int alimonyIncomeAtAnnualAssesment = getIncomeCntForAnnualAssesment(data.getSchema(), annualAssesmentQuery +"  and alimony ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		int alimonyIncomeAtEntry = getIncomeCnt(anamolyAtEntry);
+		int alimonyIncomeAtExit = getIncomeCnt(anamolyAtExit);
+		int alimonyIncomeAtAnnualAssesment = getIncomeCnt(anamolyAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17AlimonyAtEntry(BigInteger.valueOf(alimonyIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17AlimonyAtExitforLeavers(BigInteger.valueOf(alimonyIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17AlimonyAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(alimonyIncomeAtAnnualAssesment));
 		
-		int childsupportIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and childsupport ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int childsupportIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and childsupport ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int childsupportIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and childsupport ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		
+		List<IncomeAndSourceModel> childSupportAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getChildsupport())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> childSupportAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getChildsupport())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> childSupportAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getChildsupport())).collect(Collectors.toList());
+		
+		int childsupportIncomeAtEntry = getIncomeCnt(childSupportAtEntry);
+		int childsupportIncomeAtExit = getIncomeCnt(childSupportAtExit);
+		int childsupportIncomeAtAnnualAssesment = getIncomeCnt(childSupportAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17ChildSupportAtEntry(BigInteger.valueOf(childsupportIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17ChildSupportAtExitforLeavers(BigInteger.valueOf(childsupportIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17ChildSupportAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(childsupportIncomeAtAnnualAssesment));
 		
-		int earnedIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  earned ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int earnedIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  earned ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int earnedIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and earned ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		List<IncomeAndSourceModel> earnedAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getEarned())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> earnedAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getEarned())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> earnedtAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getEarned())).collect(Collectors.toList());
+		
+		int earnedIncomeAtEntry = getIncomeCnt(earnedAtEntry);
+		int earnedIncomeAtExit = getIncomeCnt(earnedAtExit);
+		int earnedIncomeAtAnnualAssesment = getIncomeCnt(earnedtAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17EarnedIncomeAtEntry(BigInteger.valueOf(earnedIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17EarnedIncomeAtExitforLeavers(BigInteger.valueOf(earnedIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17EarnedIncomeAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(earnedIncomeAtAnnualAssesment));
 		
+		List<IncomeAndSourceModel> gaAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getGa())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> gaAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getGa())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> gaAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getGa())).collect(Collectors.toList());
 		
-		int gaIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and ga ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int gaIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and ga ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int gaIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and ga ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		
+		int gaIncomeAtEntry = getIncomeCnt(gaAtEntry);
+		int gaIncomeAtExit = getIncomeCnt(gaAtExit);
+		int gaIncomeAtAnnualAssesment = getIncomeCnt(gaAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17GeneralAssistanceAtEntry(BigInteger.valueOf(gaIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17GeneralAssistanceAtExitforLeavers(BigInteger.valueOf(gaIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17GeneralAssistanceAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(gaIncomeAtAnnualAssesment));
 		
-		int othersourceIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and othersource ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int othersourceIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and othersource ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int othersourceIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +" and  othersource ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		List<IncomeAndSourceModel> otherSourceAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getOthersource())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> otherSourceAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getOthersource())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> otherSourceAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getOthersource())).collect(Collectors.toList());
 		
+		int othersourceIncomeAtEntry = getIncomeCnt(otherSourceAtEntry);
+		int othersourceIncomeAtExit = getIncomeCnt(otherSourceAtExit);
+		int othersourceIncomeAtAnnualAssesment = getIncomeCnt(otherSourceAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17OtherSourcesAtEntry(BigInteger.valueOf(othersourceIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17OtherSourcesAtExitforLeavers(BigInteger.valueOf(othersourceIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17OtherSourcesAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(othersourceIncomeAtAnnualAssesment));
 		
-		int pensionIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  pension ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int pensionIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and pension ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int pensionIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and pension ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		
+		List<IncomeAndSourceModel> pensionAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getPension())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> pensionAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getPension())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> pensioneAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getPension())).collect(Collectors.toList());
+		
+		
+		int pensionIncomeAtEntry = getIncomeCnt(pensionAtEntry);
+		int pensionIncomeAtExit = getIncomeCnt(pensionAtExit);
+		int pensionIncomeAtAnnualAssesment = getIncomeCnt(pensioneAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17PensionFormerJobAtEntry(BigInteger.valueOf(pensionIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17PensionFormerJobAtExitforLeavers(BigInteger.valueOf(pensionIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17PensionFormerJobAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(pensionIncomeAtAnnualAssesment));
 		
 		
-		int privatedisabilityIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  privatedisability ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int privatedisabilityIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  privatedisability ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int privatedisabilityIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and privatedisability ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		List<IncomeAndSourceModel> privatedisabilityAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getPrivatedisability())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> privatedisabilityAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getPrivatedisability())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> privatedisabilityAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getPrivatedisability())).collect(Collectors.toList());
+		
+		
+		int privatedisabilityIncomeAtEntry = getIncomeCnt(privatedisabilityAtEntry);
+		int privatedisabilityIncomeAtExit = getIncomeCnt(privatedisabilityAtExit);
+		int privatedisabilityIncomeAtAnnualAssesment = getIncomeCnt(privatedisabilityAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17PrivateDisabilityAtEntry(BigInteger.valueOf(privatedisabilityIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17PrivateDisabilityAtExitforLeavers(BigInteger.valueOf(privatedisabilityIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17PrivateDisabilityAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(privatedisabilityIncomeAtAnnualAssesment));
 		
-		int socsecretirementIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and socsecretirement ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int socsecretirementIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  socsecretirement ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int socsecretirementIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and socsecretirement ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		List<IncomeAndSourceModel> socsecretirementAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getSocsecretirement())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> socsecretirementAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getPrivatedisability())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> socsecretirementAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getPrivatedisability())).collect(Collectors.toList());
+		
+		
+		int socsecretirementIncomeAtEntry = getIncomeCnt(socsecretirementAtEntry);
+		int socsecretirementIncomeAtExit = getIncomeCnt(socsecretirementAtExit);
+		int socsecretirementIncomeAtAnnualAssesment = getIncomeCnt(socsecretirementAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17RetirementAtEntry(BigInteger.valueOf(socsecretirementIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17RetirementAtExitforLeavers(BigInteger.valueOf(socsecretirementIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17RetirementAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(socsecretirementIncomeAtAnnualAssesment));
 		
-		int ssdiIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  ssdi ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int ssdiIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  ssdi ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int ssdiIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +" and  ssdi ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		List<IncomeAndSourceModel> ssdiAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getSsdi())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> ssdiAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getSsdi())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> ssdiAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getSsdi())).collect(Collectors.toList());
+		
+		int ssdiIncomeAtEntry = getIncomeCnt(ssdiAtEntry);
+		int ssdiIncomeAtExit = getIncomeCnt(ssdiAtExit);
+		int ssdiIncomeAtAnnualAssesment = getIncomeCnt(ssdiAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17SSDIAtEntry(BigInteger.valueOf(ssdiIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17SSDIAtExitforLeavers(BigInteger.valueOf(ssdiIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17SSDIAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(ssdiIncomeAtAnnualAssesment));
 	
-		int ssiIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and ssi ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int ssiIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and ssi ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int ssiIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and ssi ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		List<IncomeAndSourceModel> ssiAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getSsi())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> ssiAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getSsi())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> ssiAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getSsi())).collect(Collectors.toList());
+		
+		
+		int ssiIncomeAtEntry = getIncomeCnt(ssiAtEntry);
+		int ssiIncomeAtExit = getIncomeCnt(ssiAtExit);
+		int ssiIncomeAtAnnualAssesment = getIncomeCnt(ssiAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17SSIAtEntry(BigInteger.valueOf(ssiIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17SSIAtExitforLeavers(BigInteger.valueOf(ssiIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17SSIAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(ssiIncomeAtAnnualAssesment));
 		
-		int tanfIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  tanf ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int tanfIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and  tanf ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int tanfIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and tanf ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		List<IncomeAndSourceModel> tanfAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getTanf())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> tanfAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getTanf())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> tanfAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getTanf())).collect(Collectors.toList());
+		
+		int tanfIncomeAtEntry = getIncomeCnt(tanfAtEntry);
+		int tanfIncomeAtExit = getIncomeCnt(tanfAtExit);
+		int tanfIncomeAtAnnualAssesment = getIncomeCnt(tanfAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17TANFAtEntry(BigInteger.valueOf(tanfIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17TANFAtExitforLeavers(BigInteger.valueOf(tanfIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17TANFAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(tanfIncomeAtAnnualAssesment));
 		
-		int unemploymentIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  unemployment ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int unemploymentIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and unemployment ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int unemploymentIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and unemployment ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		List<IncomeAndSourceModel> unemploymentAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getUnemployment())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> unemploymentAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getTanf())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> unemploymentAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getTanf())).collect(Collectors.toList());
+		
+		int unemploymentIncomeAtEntry = getIncomeCnt(unemploymentAtEntry);
+		int unemploymentIncomeAtExit = getIncomeCnt(unemploymentAtExit);
+		int unemploymentIncomeAtAnnualAssesment = getIncomeCnt(unemploymentAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17UnemployementInsuranceAtEntry(BigInteger.valueOf(unemploymentIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17UnemployementInsuranceAtExitforLeavers(BigInteger.valueOf(unemploymentIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17UnemployementInsuranceAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(unemploymentIncomeAtAnnualAssesment));
 		
-		int vadisabilitynonserviceIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  vadisabilitynonservice ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int vadisabilitynonserviceIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  vadisabilitynonservice ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int vadisabilitynonserviceIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +" and  vadisabilitynonservice ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		
+		List<IncomeAndSourceModel> vadisabilitynonserviceAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getVadisabilitynonservice())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> vadisabilitynonserviceAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getVadisabilitynonservice())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> vadisabilitynonserviceAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getVadisabilitynonservice())).collect(Collectors.toList());
+		
+		
+		int vadisabilitynonserviceIncomeAtEntry = getIncomeCnt(vadisabilitynonserviceAtEntry);
+		int vadisabilitynonserviceIncomeAtExit = getIncomeCnt(vadisabilitynonserviceAtExit);
+		int vadisabilitynonserviceIncomeAtAnnualAssesment = getIncomeCnt(vadisabilitynonserviceAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17VANonServiceAtEntry(BigInteger.valueOf(vadisabilitynonserviceIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17VANonServiceAtExitforLeavers(BigInteger.valueOf(vadisabilitynonserviceIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17VANonServiceAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(vadisabilitynonserviceIncomeAtAnnualAssesment));
 		
+		List<IncomeAndSourceModel> vadisabilityserviceAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getVadisabilityservice())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> vadisabilityserviceAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getVadisabilityservice())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> vadisabilityserviceAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getVadisabilityservice())).collect(Collectors.toList());
 		
-		int vadisabilityserviceIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and vadisabilityservice ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int vadisabilityserviceIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  vadisabilityservice ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int vadisabilityserviceIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +" and  vadisabilityservice ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		
+		int vadisabilityserviceIncomeAtEntry = getIncomeCnt(vadisabilityserviceAtEntry);
+		int vadisabilityserviceIncomeAtExit = getIncomeCnt(vadisabilityserviceAtExit);
+		int vadisabilityserviceIncomeAtAnnualAssesment = getIncomeCnt(vadisabilityserviceAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17VAServiceAtEntry(BigInteger.valueOf(vadisabilityserviceIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17VAServiceAtExitforLeavers(BigInteger.valueOf(vadisabilityserviceIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17VAServiceAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(vadisabilityserviceIncomeAtAnnualAssesment));
 		
-		int workerscompIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  workerscomp ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-		int workerscompIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  workerscomp ='1' ", DataCollectionStage.EXIT.getCode(),data);
-		int workerscompIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), entryQuery +" and  workerscomp ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
+		List<IncomeAndSourceModel> workerscompAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getWorkerscomp())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> workerscompAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getWorkerscomp())).collect(Collectors.toList());
+		List<IncomeAndSourceModel> workerscompAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getWorkerscomp())).collect(Collectors.toList());
+		
+		int workerscompIncomeAtEntry = getIncomeCnt(workerscompAtEntry);
+		int workerscompIncomeAtExit = getIncomeCnt(workerscompAtExit);
+		int workerscompIncomeAtAnnualAssesment = getIncomeCnt(workerscompAtAA);
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17WorkersCompensationAtEntry(BigInteger.valueOf(workerscompIncomeAtEntry));
 		q17CashIncomeSourcesDataBeanTable.setQ17WorkersCompensationAtExitforLeavers(BigInteger.valueOf(workerscompIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17WorkersCompensationAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(workerscompIncomeAtAnnualAssesment));
 		
+		List<IncomeAndSourceModel>  incomeAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1",incomeAndSource.getIncomefromanysource())).collect(Collectors.toList());
+		List<IncomeAndSourceModel>  incomeAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1",incomeAndSource.getIncomefromanysource())).collect(Collectors.toList());
+		List<IncomeAndSourceModel>  incomeAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1",incomeAndSource.getIncomefromanysource())).collect(Collectors.toList());
 		
-		String adultsIncomeQuery = " select dedup_client_id  from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+ 
-				" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate    order by dedup_client_id ";
-		data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());
-		List<String> enrollmentsAtEnrty = getClients(data.getSchema(), adultsIncomeQuery,data);
-		data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());
-		List<String> enrollmentsAtExit = getClients(data.getSchema(), adultsIncomeQuery, data);
-		data.setQueryDataCollectionStage(DataCollectionStage.ANNUAL_ASSESMENT.getCode());
-		List<String> enrollmentsAtAnnualAssesment = getClients(data.getSchema(), adultsIncomeQuery,data);
+		
+		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntry)));
+		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(incomeAtExit)));
+		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(getIncomeCnt(incomeAtAA)));
+		
 	
-		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtEntry(BigInteger.valueOf(0));
-		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(0));
-		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(0));
-		
-		if(CollectionUtils.isNotEmpty(enrollmentsAtExit) && CollectionUtils.isNotEmpty(enrollmentsAtEnrty)) {
-			int cnt =0;
-			for(String dedupClient : enrollmentsAtExit) {
-				if(enrollmentsAtEnrty.contains(dedupClient)) {
-					cnt++;
-				}
-			}
-			q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(cnt));
-		}
-		if(CollectionUtils.isNotEmpty(enrollmentsAtAnnualAssesment) && CollectionUtils.isNotEmpty(enrollmentsAtEnrty)) {
-			int cnt =0;
-			for(String dedupClient : enrollmentsAtAnnualAssesment) {
-				if(enrollmentsAtEnrty.contains(dedupClient)) {
-					cnt++;
-				}
-			}
-			q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(cnt));
-		}
-		
 	} catch (Exception e) {
 		logger.error("Error in Q17BeanMaker:" + e);
 	}
 		}
 		return Arrays.asList(q17CashIncomeSourcesDataBeanTable);
 	}
-	
-	public static int getIncomeCntForAnnualAssesment(String schema,String query,String datacollectionStage,ReportData data) {
-		ResultSet resultSet = null;
-		Statement statement = null;
-		Connection connection = null;
-		int count =0;
-		try {
-			connection = ImpalaConnection.getConnection();
-			statement = connection.createStatement();
-			data.setQueryDataCollectionStage(datacollectionStage);
-			resultSet = statement.executeQuery(formatQuery(query,schema,data));
-			
-		 while(resultSet.next()) {
-			 count = resultSet.getInt(1);
-	     }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-					//connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return count;
-	}
-
 }

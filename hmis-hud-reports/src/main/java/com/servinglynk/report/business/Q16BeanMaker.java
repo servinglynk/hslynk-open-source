@@ -34,9 +34,15 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		    Map<String, Integer> incomeAtAA = getIncome(data.getIncomeAndSourcesAtAnnualAssesment());
 		    Collection<Integer> incomeAtStayers = incomeAtAA.values();
 		
-		String clientDKE = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('8','9') and datacollectionstage=:datacollectionstage   ";
+		String entryclientDKE = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('8','9') and datacollectionstage='1'   ";
 		
-		String clientDNC = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('99') and datacollectionstage=:datacollectionstage    ";
+		String entryclientDNC = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('99') and datacollectionstage='1'    ";
+		
+		
+		String exitclientDKE = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('8','9') and datacollectionstage='3'   ";
+		
+		String exitclientDNC = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('99') and datacollectionstage='3'    ";
+		
 		
 		String clientAnnualAssesmentDKE = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources i, %s.enrollment e where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9')"+
 				"  and i.information_date >= e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
@@ -129,12 +135,12 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		q16Bean.setQ162000PlusIncomeAtExitforLeavers(BigInteger.valueOf(incomeAtExitWith2001 != null ?incomeAtExitWith2001.size():0));
 		q16Bean.setQ162000PlusIncomeAtLatestFollowupforStayers(BigInteger.valueOf(incomeAtStayersWith2001 != null ?incomeAtStayersWith2001.size():0));
 		
-		q16Bean.setQ16ClientDoesntKnowIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDKE, DataCollectionStage.ENTRY.getCode(),data)));
-		q16Bean.setQ16ClientDoesntKnowIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDKE, DataCollectionStage.EXIT.getCode(),data)));
+		q16Bean.setQ16ClientDoesntKnowIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(data.getSchema(), entryclientDKE, DataCollectionStage.ENTRY.getCode(),data)));
+		q16Bean.setQ16ClientDoesntKnowIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), exitclientDKE, DataCollectionStage.EXIT.getCode(),data)));
 		q16Bean.setQ16ClientDoesntKnowIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientAnnualAssesmentDKE,DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
 		
-		q16Bean.setQ16DataNotCollectedIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDNC, DataCollectionStage.ENTRY.getCode(),data)));
-		q16Bean.setQ16DataNotCollectedIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientDNC, DataCollectionStage.EXIT.getCode(),data)));
+		q16Bean.setQ16DataNotCollectedIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(data.getSchema(), entryclientDNC, DataCollectionStage.ENTRY.getCode(),data)));
+		q16Bean.setQ16DataNotCollectedIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), exitclientDNC, DataCollectionStage.EXIT.getCode(),data)));
 		q16Bean.setQ16DataNotCollectedIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientAnnualAssesmentDNC,DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
 		
 		
@@ -157,31 +163,6 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		}
 		return Arrays.asList(q16Bean);
 	}
-
-	public static Map<String,Integer> getIncome(List<IncomeAndSourceModel> incomeAndSources) {
-		Map<String,Integer> incomes = new HashMap<>();
-		if(CollectionUtils.isNotEmpty(incomeAndSources)) {
-			for(IncomeAndSourceModel incomeAndSource : incomeAndSources ) {
-				int totalAmount = getFloat(incomeAndSource.getAlimonyamount()) +
-						getFloat(incomeAndSource.getChildsupportamount()) +
-						getFloat(incomeAndSource.getEarnedamount()) +
-						getFloat(incomeAndSource.getGaamount()) +
-						getFloat(incomeAndSource.getOthersourceamount()) +
-						getFloat(incomeAndSource.getPensionamount()) +
-						getFloat(incomeAndSource.getPrivatedisabilityamount()) +
-						getFloat(incomeAndSource.getSocsecretirementamount()) +
-						getFloat(incomeAndSource.getSsiamount()) +
-						getFloat(incomeAndSource.getTanfamount()) +
-						getFloat(incomeAndSource.getUnemploymentamount()) +
-						getFloat(incomeAndSource.getVadisabilitynonserviceamount()) +
-						getFloat(incomeAndSource.getVadisabilityserviceamount()) +
-						getFloat(incomeAndSource.getWorkerscompamount());
-				incomes.put(incomeAndSource.getDedupClientId(),totalAmount);
-			}
-		}
-		return incomes;
-	}
-	
 	
 	
 	public static int getClientCntWithOutRequiredAnnualAssesment(String schema,String query,ReportData data) {

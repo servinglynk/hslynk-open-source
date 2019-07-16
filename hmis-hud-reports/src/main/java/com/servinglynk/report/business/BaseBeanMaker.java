@@ -854,20 +854,60 @@ public class BaseBeanMaker {
 				  * select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 " socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
 " vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate
+
+alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
+" vadisabilityserviceamount,workerscompamount,
+
 				  */
 				 IncomeAndSourceModel model = null;
 				 if(DataCollectionStage.ENTRY.equals(dataColletionStage) || DataCollectionStage.ANNUAL_ASSESMENT.equals(dataColletionStage)) {
-					 model = new IncomeAndSourceModel(resultSet.getString("datacollectionstage"), resultSet.getString("dedup_client_id"), resultSet.getDate("information_date"), resultSet.getDate("entrydate"), resultSet.getFloat("alimonyamount")
-							 , resultSet.getFloat("childsupportamount"),  resultSet.getFloat("earnedamount") , resultSet.getFloat("gaamount"), 
-							 resultSet.getFloat("othersourceamount"), resultSet.getFloat("pensionamount"), resultSet.getFloat("privatedisabilityamount"), resultSet.getFloat("socsecretirementamount"), 
-							 resultSet.getFloat("ssiamount"), resultSet.getFloat("tanfamount"), resultSet.getFloat("totalmonthlyincome"), resultSet.getFloat("unemploymentamount"), resultSet.getFloat("vadisabilitynonserviceamount"), resultSet.getFloat("vadisabilityserviceamount"),resultSet.getFloat("workerscompamount"), 
-							 resultSet.getString("incomefromanysource"), resultSet.getInt("ageatentry"));
+					 
+					 
+					 model = new IncomeAndSourceModel(resultSet.getString("datacollectionstage"), resultSet.getString("dedup_client_id"), resultSet.getDate("information_date"), resultSet.getDate("entrydate"), 
+							 resultSet.getFloat(1), resultSet.getFloat(2),  resultSet.getFloat(3) , resultSet.getFloat(4), 
+							 resultSet.getFloat(5), resultSet.getFloat(6), resultSet.getFloat(7), resultSet.getFloat(8), 
+							 resultSet.getFloat(9), resultSet.getFloat(10), resultSet.getFloat(11), resultSet.getFloat(12), 
+							 resultSet.getFloat(13), resultSet.getFloat(14),resultSet.getFloat(15), 
+							 resultSet.getString("incomefromanysource"), resultSet.getInt("ageatentry"),
+							 resultSet.getString("alimony"),
+							 resultSet.getString("childsupport"),
+							 resultSet.getString("earned"),
+							 resultSet.getString("ga"),
+							 resultSet.getString("othersource"),
+							 resultSet.getString("pension"),
+							 resultSet.getString("privatedisability"),
+							 resultSet.getString("socsecretirement"),
+							 resultSet.getString("ssdi"),
+							 resultSet.getString("ssi"),
+							 resultSet.getString("tanf"),
+							 resultSet.getString("unemployment"),
+							 resultSet.getString("vadisabilitynonservice"),
+							 resultSet.getString("vadisabilityservice"),
+							 resultSet.getString("workerscomp")
+							 );
 				 } else if(DataCollectionStage.EXIT.equals(dataColletionStage)) {
-					 model = new IncomeAndSourceModel(resultSet.getString("datacollectionstage"), resultSet.getString("dedup_client_id"), resultSet.getDate("information_date"), resultSet.getDate("exitdate"), resultSet.getFloat("alimonyamount")
-							 , resultSet.getFloat("childsupportamount"),  resultSet.getFloat("earnedamount") , resultSet.getFloat("gaamount"), 
-							 resultSet.getFloat("othersourceamount"), resultSet.getFloat("pensionamount"), resultSet.getFloat("privatedisabilityamount"), resultSet.getFloat("socsecretirementamount"), 
-							 resultSet.getFloat("ssiamount"), resultSet.getFloat("tanfamount"), resultSet.getFloat("totalmonthlyincome"), resultSet.getFloat("unemploymentamount"), resultSet.getFloat("vadisabilitynonserviceamount"), resultSet.getFloat("vadisabilityserviceamount"),resultSet.getFloat("workerscompamount"), 
-							 resultSet.getString("incomefromanysource"),resultSet.getInt("ageatentry"));
+					 model = new IncomeAndSourceModel(resultSet.getString("datacollectionstage"), resultSet.getString("dedup_client_id"), resultSet.getDate("information_date"), resultSet.getDate("exitdate"), 
+							 resultSet.getFloat(1), resultSet.getFloat(2),  resultSet.getFloat(3) , resultSet.getFloat(4), 
+							 resultSet.getFloat(5), resultSet.getFloat(6), resultSet.getFloat(7), resultSet.getFloat(8), 
+							 resultSet.getFloat(9), resultSet.getFloat(10), resultSet.getFloat(11), resultSet.getFloat(12), 
+							 resultSet.getFloat(13), resultSet.getFloat(14),resultSet.getFloat(15), 
+							 resultSet.getString("incomefromanysource"),resultSet.getInt("ageatentry"),
+							 resultSet.getString("alimony"),
+							 resultSet.getString("childsupport"),
+							 resultSet.getString("earned"),
+							 resultSet.getString("ga"),
+							 resultSet.getString("othersource"),
+							 resultSet.getString("pension"),
+							 resultSet.getString("privatedisability"),
+							 resultSet.getString("socsecretirement"),
+							 resultSet.getString("ssdi"),
+							 resultSet.getString("ssi"),
+							 resultSet.getString("tanf"),
+							 resultSet.getString("unemployment"),
+							 resultSet.getString("vadisabilitynonservice"),
+							 resultSet.getString("vadisabilityservice"),
+							 resultSet.getString("workerscomp"));
 				 }
 				 
 				 models.add(model);
@@ -1938,6 +1978,30 @@ public class BaseBeanMaker {
 			    	}
 			    	return filteredIncomeAndSource;
 			    }
+			    
+
+				public static Map<String,Integer> getIncome(List<IncomeAndSourceModel> incomeAndSources) {
+					Map<String,Integer> incomes = new HashMap<>();
+					if(CollectionUtils.isNotEmpty(incomeAndSources)) {
+						for(IncomeAndSourceModel incomeAndSource : incomeAndSources ) {
+							int totalAmount = getFloat(incomeAndSource.getTotalmonthlyincome());
+							incomes.put(incomeAndSource.getDedupClientId(),totalAmount);
+						}
+					}
+					return incomes;
+				}
+				
+				public static int getIncomeCnt(List<IncomeAndSourceModel> incomeAndSources) {
+					Map<String, Integer> income = getIncome(incomeAndSources);
+					if(income != null) {
+						 Collection<String> values = income.keySet();
+						if(CollectionUtils.isNotEmpty(values)) {
+							return values.size();
+						}
+							
+					}
+					return 0;
+				}
 			    
 				public static int getFloat(Float value) {
 					try {

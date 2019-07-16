@@ -25,12 +25,48 @@ public class IncomeAndSourceModel extends BaseModel {
 	private String incomefromanysource;
 	private Date entryExitDate;
 	private int ageAtEntry;
+	private String alimony;
+	private String childsupport;
+	private String earned;
+	private String ga;
+	private String othersource;
+	private String pension;
+	private String privatedisability;
+	private String socsecretirement;
+	private String ssdi;
+	private String ssi;
+	private String tanf;
+	private String unemployment;
+	private String vadisabilitynonservice;
+	private String vadisabilityservice;
+	private String workerscomp;
+	
+	
+	
+	/*" alimony, childsupport, earned, ga, othersource, pension, privatedisability, socsecretirement,ssdi, ssi, tanf, unemployment, vadisabilitynonservice, vadisabilityservice, workerscomp " +
+	
+	*/
+
 	
 	public IncomeAndSourceModel(String dataCollectionStage, String dedupClientId, Date informationDate, Date entryExitDate,
 			Float alimonyamount, Float childsupportamount, Float earnedamount, Float gaamount, Float othersourceamount,
 			Float pensionamount, Float privatedisabilityamount, Float socsecretirementamount, Float ssiamount,
 			Float tanfamount, Float totalmonthlyincome, Float unemploymentamount, Float vadisabilitynonserviceamount,
-			Float vadisabilityserviceamount, Float workerscompamount, String incomefromanysource,int ageAtEntry) {
+			Float vadisabilityserviceamount, Float workerscompamount, String incomefromanysource,int ageAtEntry, String alimony,
+			 String childsupport,
+			 String earned,
+			 String ga,
+			 String othersource,
+			 String pension,
+			 String privatedisability,
+			 String socsecretirement,
+			 String ssdi,
+			 String ssi,
+			 String tanf,
+			 String unemployment,
+			 String vadisabilitynonservice,
+			 String vadisabilityservice,
+			 String workerscomp) {
 		super();
 		this.dataCollectionStage = dataCollectionStage;
 		this.dedupClientId = dedupClientId;
@@ -53,6 +89,21 @@ public class IncomeAndSourceModel extends BaseModel {
 		this.incomefromanysource = incomefromanysource;
 		this.entryExitDate = entryExitDate;
 		this.ageAtEntry = ageAtEntry;
+		this.alimony = alimony;
+		this.childsupport = childsupport;
+		this.earned = earned;
+		this.ga = ga;
+		this.othersource = othersource;
+		this.pension = pension;
+		this.privatedisability = privatedisability;
+		this.socsecretirement = socsecretirement;
+		this.ssdi = ssdi;
+		this.ssi = ssi;
+		this.tanf = tanf;
+		this.unemployment = unemployment;
+		this.vadisabilitynonservice = vadisabilitynonservice;
+		this.vadisabilityservice = vadisabilityservice;
+		this.workerscomp = workerscomp;
 	}
 
 	/**
@@ -349,4 +400,216 @@ public class IncomeAndSourceModel extends BaseModel {
 	public void setAgeAtEntry(int ageAtEntry) {
 		this.ageAtEntry = ageAtEntry;
 	}
+
+	/**
+	 * @return the alimony
+	 */
+	public String getAlimony() {
+		return alimony;
+	}
+
+	/**
+	 * @param alimony the alimony to set
+	 */
+	public void setAlimony(String alimony) {
+		this.alimony = alimony;
+	}
+
+	/**
+	 * @return the childsupport
+	 */
+	public String getChildsupport() {
+		return childsupport;
+	}
+
+	/**
+	 * @param childsupport the childsupport to set
+	 */
+	public void setChildsupport(String childsupport) {
+		this.childsupport = childsupport;
+	}
+
+	/**
+	 * @return the earned
+	 */
+	public String getEarned() {
+		return earned;
+	}
+
+	/**
+	 * @param earned the earned to set
+	 */
+	public void setEarned(String earned) {
+		this.earned = earned;
+	}
+
+	/**
+	 * @return the ga
+	 */
+	public String getGa() {
+		return ga;
+	}
+
+	/**
+	 * @param ga the ga to set
+	 */
+	public void setGa(String ga) {
+		this.ga = ga;
+	}
+
+	/**
+	 * @return the othersource
+	 */
+	public String getOthersource() {
+		return othersource;
+	}
+
+	/**
+	 * @param othersource the othersource to set
+	 */
+	public void setOthersource(String othersource) {
+		this.othersource = othersource;
+	}
+
+	/**
+	 * @return the pension
+	 */
+	public String getPension() {
+		return pension;
+	}
+
+	/**
+	 * @param pension the pension to set
+	 */
+	public void setPension(String pension) {
+		this.pension = pension;
+	}
+
+	/**
+	 * @return the privatedisability
+	 */
+	public String getPrivatedisability() {
+		return privatedisability;
+	}
+
+	/**
+	 * @param privatedisability the privatedisability to set
+	 */
+	public void setPrivatedisability(String privatedisability) {
+		this.privatedisability = privatedisability;
+	}
+
+	/**
+	 * @return the socsecretirement
+	 */
+	public String getSocsecretirement() {
+		return socsecretirement;
+	}
+
+	/**
+	 * @param socsecretirement the socsecretirement to set
+	 */
+	public void setSocsecretirement(String socsecretirement) {
+		this.socsecretirement = socsecretirement;
+	}
+
+	/**
+	 * @return the ssdi
+	 */
+	public String getSsdi() {
+		return ssdi;
+	}
+
+	/**
+	 * @param ssdi the ssdi to set
+	 */
+	public void setSsdi(String ssdi) {
+		this.ssdi = ssdi;
+	}
+
+	/**
+	 * @return the ssi
+	 */
+	public String getSsi() {
+		return ssi;
+	}
+
+	/**
+	 * @param ssi the ssi to set
+	 */
+	public void setSsi(String ssi) {
+		this.ssi = ssi;
+	}
+
+	/**
+	 * @return the tanf
+	 */
+	public String getTanf() {
+		return tanf;
+	}
+
+	/**
+	 * @param tanf the tanf to set
+	 */
+	public void setTanf(String tanf) {
+		this.tanf = tanf;
+	}
+
+	/**
+	 * @return the unemployment
+	 */
+	public String getUnemployment() {
+		return unemployment;
+	}
+
+	/**
+	 * @param unemployment the unemployment to set
+	 */
+	public void setUnemployment(String unemployment) {
+		this.unemployment = unemployment;
+	}
+
+	/**
+	 * @return the vadisabilitynonservice
+	 */
+	public String getVadisabilitynonservice() {
+		return vadisabilitynonservice;
+	}
+
+	/**
+	 * @param vadisabilitynonservice the vadisabilitynonservice to set
+	 */
+	public void setVadisabilitynonservice(String vadisabilitynonservice) {
+		this.vadisabilitynonservice = vadisabilitynonservice;
+	}
+
+	/**
+	 * @return the vadisabilityservice
+	 */
+	public String getVadisabilityservice() {
+		return vadisabilityservice;
+	}
+
+	/**
+	 * @param vadisabilityservice the vadisabilityservice to set
+	 */
+	public void setVadisabilityservice(String vadisabilityservice) {
+		this.vadisabilityservice = vadisabilityservice;
+	}
+
+	/**
+	 * @return the workerscomp
+	 */
+	public String getWorkerscomp() {
+		return workerscomp;
+	}
+
+	/**
+	 * @param workerscomp the workerscomp to set
+	 */
+	public void setWorkerscomp(String workerscomp) {
+		this.workerscomp = workerscomp;
+	}
+	
+	
 }

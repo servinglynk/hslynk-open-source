@@ -1,10 +1,10 @@
    Income bracket,Income at entry,  Income at latest follow-up for stayers,Income at exit for leavers
-   a. No Income,0,0,0
+   a. No Income,3,2,2
    b. $1 - $150,0,0,0
-   c. $151 - $250,0,0,0
-   d. $251 - $500,0,0,0
-   e. $501 - $1000,0,0,0
-"   f. $1,001 - $1,500",0,0,0
+   c. $151 - $250,3,9,1
+   d. $251 - $500,0,0,2
+   e. $501 - $1000,1,3,4
+"   f. $1,001 - $1,500",0,1,1
 "   g. $1,501 - $2,000",0,0,0
 "   h. $2,001+",0,0,0
    i. Client Doesn't Know/Client Refused,15,0,0

@@ -51,17 +51,23 @@ public static String PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN ="select i.projectid,ho
 
 public static String REQUIRED_ANNUAL_ASSESMENT_QUERY = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 " socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry    from %s.incomeandsources i, %s.enrollment e, where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
-"  %dedup   order by e.client_dedup_id ";
+" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry,    "
++ " alimony, childsupport, earned, ga, othersource, pension, privatedisability, socsecretirement,ssdi, ssi, tanf, unemployment, vadisabilitynonservice, vadisabilityservice, workerscomp "
++ "from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='5' and  e.id=i.enrollmentid "+
+"  and datediff(i.information_date,e.entrydate) > 365 %dedup   order by e.dedup_client_id ";
       
 public static String EXIT_INCOME_AND_SOURCE_QUERY = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource,ext.exitdate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry  from %s.incomeandsources i, %s.enrollment e,%s.exit ext where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
-		" and  ext.enrollmentid = e.id  and i.information_date = ext.exitdate %dedup order by e.client_dedup_id ";
+		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource,ext.exitdate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry, " +
+		 " alimony, childsupport, earned, ga, othersource, pension, privatedisability, socsecretirement,ssdi, ssi, tanf, unemployment, vadisabilitynonservice, vadisabilityservice, workerscomp " +
+		 " from %s.incomeandsources i, %s.enrollment e,%s.exit ext where i.datacollectionstage='3' and  e.id=i.enrollmentid "+
+		" and  ext.enrollmentid = e.id  and i.information_date = ext.exitdate %dedup order by e.dedup_client_id ";
 
 public static String ENTRY_INCOME_AND_SOURCE_QUERY = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
-" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry    from %s.incomeandsources i, %s.enrollment e, where i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
-" and i.information_date = e.entrydate and datediff(i.information_date,e.entrydate) > 365 ) %dedup   order by e.client_dedup_id ";
-      
+	" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
+	" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry,    "+
+	" alimony, childsupport, earned, ga, othersource, pension, privatedisability, socsecretirement,ssdi, ssi, tanf, unemployment, vadisabilitynonservice, vadisabilityservice, workerscomp " +
+	" from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='1' and  e.id=i.enrollmentid "+
+	" and i.information_date = e.entrydate   %dedup   order by e.dedup_client_id ";
+	      
 }
