@@ -242,4 +242,5 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		}
 		return Arrays.asList(q17CashIncomeSourcesDataBeanTable);
 	}
+
 }

@@ -35,9 +35,8 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 					incomes.addAll(incomeAndSourcesAtAnnualAssesment);
 					
 					if(CollectionUtils.isNotEmpty(incomes)){
-						Set<String> allClients = new HashSet<>();
-						incomes.forEach(incomeAndSource -> allClients.add(incomeAndSource.getDedupClientId()) );
-						BigInteger allClientsBigInt = BigInteger.valueOf(getSize(allClients));
+						int total = getIncomeCnt(incomes);
+						BigInteger allClientsBigInt = BigInteger.valueOf(total);
 						populateEarnedIncome(q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate, incomes, allClientsBigInt);
 						populateOtherIncome(q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate, incomes, allClientsBigInt);
 						populateOverallIncomeIncome(q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate, incomes, allClientsBigInt);
@@ -50,51 +49,6 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		return Arrays.asList(q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate);
 		
 	}
-	
-//	public static List<IncomeAndSourceModel> getIncome(String schema,String query,ReportData data) {
-//		List<IncomeAndSourceModel> incomes = new ArrayList<>();
-//		ResultSet resultSet = null;
-//		Statement statement = null;
-//		Connection connection = null;
-//		try {
-//			connection = ImpalaConnection.getConnection();
-//			statement = connection.createStatement();
-//			resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
-//			
-//		 while(resultSet.next()) {
-//			 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
-//			 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
-//			 BigInteger totIncome = new BigInteger(String.valueOf(totalIncome));
-//			 int earned = getFloatValue(resultSet,3);
-//			 String earnedIncome = String.valueOf(earned);
-//			 BigInteger earnedIncomeBigInt = new BigInteger(earnedIncome);
-//			 String dedupClientId = (String) resultSet.getObject(17);
-//			 BigInteger otherIncome = BigInteger.ZERO;
-//			 if( totIncome != null &&  totIncome.longValue() > 0 ) {
-//				 otherIncome = totIncome.subtract(earnedIncomeBigInt != null  && earnedIncomeBigInt.longValue() > 0 ? earnedIncomeBigInt : BigInteger.ZERO);
-//			 }
-//			 String incomefromanysource = (String) resultSet.getString("incomefromanysource");
-//			 String dataCollectionStage = (String) resultSet.getString("datacollectionstage");
-//			 IncomeAndSourceModel model = new IncomeAndSourceModel(totIncome, earnedIncomeBigInt, otherIncome, dedupClientId,incomefromanysource);
-//			 model.setDataCollectionStage(dataCollectionStage);
-//			 incomes.add(model);
-//		 }
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			if (statement != null) {
-//				try {
-//					statement.close();
-//					//connection.close();
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		return incomes;
-//	}
 
 	public static void populateEarnedIncome(Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate, List<IncomeAndSourceModel> incomes,BigInteger allClientsBigInt) {
 		List<IncomeAndSourceModel> earnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && getFloat(income.getEarnedamount()) > 0 ).collect(Collectors.toList());
@@ -130,17 +84,17 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 			if(earnedAmountAtEntry != null && earnedAmountAtAA != null) {
 				if(earnedAmountAtEntry.compareTo(earnedAmountAtAA) ==1) {
 					retainEarnedIncomeCatLessAtAAThanAtEntry++;
-					earnedIncomeCatLessAtAAThanAtEntry.add(earnedAmountAtEntry);
+					earnedIncomeCatLessAtAAThanAtEntry= earnedIncomeCatLessAtAAThanAtEntry.add(earnedAmountAtEntry);
 				}
 				if(earnedAmountAtEntry.compareTo(earnedAmountAtAA) ==0) {
 					retainEarnedIncomeCatSameAtAAThanAtEntry++;
-					earnedIncomeCatSameAtAAThanAtEntry.add(earnedAmountAtEntry);
+					earnedIncomeCatSameAtAAThanAtEntry = earnedIncomeCatSameAtAAThanAtEntry.add(earnedAmountAtEntry);
 				}
 				if(earnedAmountAtEntry.compareTo(earnedAmountAtAA) == -1) {
-					earnedIncomePerformaceMeasure.add(earnedAmountAtEntry);
-					earnedIncomePerformaceMeasure.add(earnedAmountAtAA);
+					earnedIncomePerformaceMeasure= earnedIncomePerformaceMeasure.add(earnedAmountAtEntry);
+					earnedIncomePerformaceMeasure= earnedIncomePerformaceMeasure.add(earnedAmountAtAA);
 					retainEarnedIncomeCatGreaterAtAAThanAtEntry++;
-					earnedIncomeCatGreaterAtAAThanAtEntry.add(earnedAmountAtEntry);
+					earnedIncomeCatGreaterAtAAThanAtEntry=earnedIncomeCatGreaterAtAAThanAtEntry.add(earnedAmountAtEntry);
 				}
 			}
 		}
@@ -148,7 +102,8 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		//#B
 		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(earnedIncomeAtStartWithOutAA));
 		if(CollectionUtils.isNotEmpty(earnedIncomeAtEntry)) {
-			BigInteger average = earnedIncomeTotal.divide(BigInteger.valueOf(earnedIncomeAtEntry.size()));
+			BigInteger average = earnedIncomeTotal.divide(BigInteger.valueOf(getIncomeCnt(earnedIncomeAtEntry)));
+			average = average.multiply(BigInteger.valueOf(-1));
 			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
 		}
 	
@@ -192,9 +147,9 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		for(String key : keySetAtAA) {
 			BigInteger earnedAmountAtEntry = earnedIncomeMapAtEntry.get(key);
 			BigInteger earnedAmountAtAA = earnedIncomeMapAtAA.get(key);
-			if(earnedAmountAtEntry == null && earnedAmountAtAA !=null) {
+			if((earnedAmountAtEntry== null || ( earnedAmountAtEntry != null && earnedAmountAtEntry.compareTo(BigInteger.ZERO) ==0 )) && earnedAmountAtAA !=null) {
 				noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
-				sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(earnedAmountAtAA);
+				sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome= sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(earnedAmountAtAA);
 			}
 		}
 		List<IncomeAndSourceModel> didNotHaveEarnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) &&  getFloat(income.getEarnedamount()) ==0).collect(Collectors.toList());
@@ -220,21 +175,23 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 	}
 	public static void populateOtherIncome(Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate, List<IncomeAndSourceModel> incomes,BigInteger allClientsBigInt) {
 		
-		List<IncomeAndSourceModel> otherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && getFloat(income.getOthersourceamount())  >0).collect(Collectors.toList());
-		List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && getFloat(income.getOthersourceamount())  >0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> otherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  >0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  >0).collect(Collectors.toList());
 		
 		Map<String,BigInteger>  otherIncomeMapAtEntry = new HashMap<>();
-		otherIncomeAtEntry.forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getOthersourceamount()))); otherIncomeTotal = otherIncomeTotal.add( BigInteger.valueOf(getFloat(incomeAndSource.getOthersourceamount())));  } );
+		otherIncomeAtEntry.forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount())))); otherIncomeTotal = otherIncomeTotal.add( BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount()))));  } );
 		
 		Map<String,BigInteger>  otherIncomeMapAtAA = new HashMap<>();
-		otherIncomeATEntryButNotAtAA.forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getOthersourceamount()))); });
+		otherIncomeATEntryButNotAtAA.forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount())))); });
 		
 		Set<String> otherKeySetAtEntry = otherIncomeMapAtEntry.keySet();
 		int otherIncomeAtStartWithOutAA = 0;
 		
+		BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
 		for(String key : otherKeySetAtEntry) {
 			BigInteger otherAmount = otherIncomeMapAtAA.get(key);
 			if(otherAmount == null) {
+				incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(otherIncomeMapAtEntry.get(key));
 				otherIncomeAtStartWithOutAA++;
 			}
 		}
@@ -253,25 +210,26 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 			if(otherAmountAtEntry != null && otherAmountAtAA != null) {
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==1) {
 					retainOtherIncomeCatLessAtAAThanAtEntry++;
-					otherIncomeCatLessAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatLessAtAAThanAtEntry= otherIncomeCatLessAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==0) {
 					retainOtherIncomeCatSameAtAAThanAtEntry++;
-					otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatSameAtAAThanAtEntry = otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) == -1) {
-					otherIncomePerformaceMeasure.add(otherAmountAtEntry);
-					otherIncomePerformaceMeasure.add(otherAmountAtAA);
+					otherIncomeCatGreaterAtAAThanAtEntry = otherIncomePerformaceMeasure.add(otherAmountAtEntry);
+					otherIncomeCatGreaterAtAAThanAtEntry= otherIncomePerformaceMeasure.add(otherAmountAtAA);
 					retainOtherIncomeCatGreaterAtAAThanAtEntry++;
-					otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatGreaterAtAAThanAtEntry = otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 			}
 		}
 		
 		//#B
 		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
-		if(CollectionUtils.isNotEmpty(otherIncomeAtEntry)) {
-			BigInteger average = otherIncomeTotal.divide(BigInteger.valueOf(otherIncomeAtEntry.size()));
+		if(CollectionUtils.isNotEmpty(otherIncomeAtEntry) && otherIncomeAtStartWithOutAA !=0) {
+			BigInteger average = incomeAtStartAndNotAtAA.divide(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
+			average = average.multiply(BigInteger.valueOf(-1));
 			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
 		}
 		//#C
@@ -314,13 +272,13 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		for(String key : otherKeySetAtAA) {
 			BigInteger otherAmountAtEntry = otherIncomeMapAtEntry.get(key);
 			BigInteger otherAmountAtAA = otherIncomeMapAtAA.get(key);
-			if(otherAmountAtEntry == null && otherAmountAtAA !=null) {
+			if((otherAmountAtEntry== null || ( otherAmountAtEntry != null && otherAmountAtEntry.compareTo(BigInteger.ZERO) ==0 )) && otherAmountAtAA !=null) {
 				noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome ++;
-				sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome.add(otherAmountAtAA);
+				sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome.add(otherAmountAtAA);
 			}
 		}
-		List<IncomeAndSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && getFloat(income.getOthersourceamount())  ==0).collect(Collectors.toList());
-		List<IncomeAndSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && getFloat(income.getOthersourceamount())  ==0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  ==0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  ==0).collect(Collectors.toList());
 		Set<String> clientIds = new HashSet<>();
 		if(CollectionUtils.isNotEmpty(didNotHaveOtherIncomeAtEntry)) {
 			didNotHaveOtherIncomeAtEntry.forEach(incomeSource -> clientIds.add(incomeSource.getDedupClientId()));
@@ -346,7 +304,7 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 		List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && getFloat(income.getTotalmonthlyincome()) >0).collect(Collectors.toList());
 		
 		Map<String,BigInteger>  otherIncomeMapAtEntry = new HashMap<>();
-		otherIncomeAtEntry.forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()))); overallIncomeTotal.add(BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()))); } );
+		otherIncomeAtEntry.forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()))); overallIncomeTotal = overallIncomeTotal.add(BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()))); } );
 		
 		Map<String,BigInteger>  otherIncomeMapAtAA = new HashMap<>();
 		otherIncomeATEntryButNotAtAA.forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()))); });
@@ -354,9 +312,11 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 		Set<String> otherKeySetAtEntry = otherIncomeMapAtEntry.keySet();
 		int otherIncomeAtStartWithOutAA = 0;
 		
+		BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
 		for(String key : otherKeySetAtEntry) {
 			BigInteger otherAmount = otherIncomeMapAtAA.get(key);
 			if(otherAmount == null) {
+				incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(otherIncomeMapAtEntry.get(key));
 				otherIncomeAtStartWithOutAA++;
 			}
 		}
@@ -375,17 +335,17 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 			if(otherAmountAtEntry != null && otherAmountAtAA != null) {
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==1) {
 					retainOtherIncomeCatLessAtAAThanAtEntry++;
-					otherIncomeCatLessAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatLessAtAAThanAtEntry = otherIncomeCatLessAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==0) {
 					retainOtherIncomeCatSameAtAAThanAtEntry++;
-					otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatSameAtAAThanAtEntry = otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) == -1) {
-					otherIncomePerformaceMeasure.add(otherAmountAtEntry);
-					otherIncomePerformaceMeasure.add(otherAmountAtAA);
+					otherIncomePerformaceMeasure = otherIncomePerformaceMeasure.add(otherAmountAtEntry);
+					otherIncomePerformaceMeasure = otherIncomePerformaceMeasure.add(otherAmountAtAA);
 					retainOtherIncomeCatGreaterAtAAThanAtEntry++;
-					otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatGreaterAtAAThanAtEntry = otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 			}
 		}
@@ -393,7 +353,8 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 		//#B
 		q19a1Bean.setQ19a1NumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
 		if(CollectionUtils.isNotEmpty(otherIncomeAtEntry)) {
-			BigInteger average = overallIncomeTotal.divide(BigInteger.valueOf(otherIncomeAtEntry.size()));
+			BigInteger average = incomeAtStartAndNotAtAA.divide(BigInteger.valueOf(getIncomeCnt(otherIncomeAtEntry)));
+			average = average.multiply(BigInteger.valueOf(-1));
 			q19a1Bean.setQ19a1AverageChangeInOverallIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
 		}
 		//#C
@@ -435,7 +396,7 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 		for(String key : otherKeySetAtAA) {
 			BigInteger otherAmountAtEntry = otherIncomeMapAtEntry.get(key);
 			BigInteger otherAmountAtAA = otherIncomeMapAtAA.get(key);
-			if(otherAmountAtEntry == null && otherAmountAtAA !=null) {
+			if((otherAmountAtEntry== null || ( otherAmountAtEntry != null && otherAmountAtEntry.compareTo(BigInteger.ZERO) ==0 ))  && otherAmountAtAA !=null) {
 				noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome ++;
 				sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome.add(otherAmountAtAA);
 			}

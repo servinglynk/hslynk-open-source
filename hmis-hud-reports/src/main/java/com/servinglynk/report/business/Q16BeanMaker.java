@@ -7,12 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q16CashIncomeRangesDataBean;
@@ -27,34 +26,14 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		Q16CashIncomeRangesDataBean q16Bean = new Q16CashIncomeRangesDataBean();
 		if(data.isLiveMode()) {
 		try {
-			Map<String, Integer> incomeEntries = getIncome(data.getIncomeAndSourcesAtEntry());
+			List<IncomeAndSourceModel> incomeAndSourcesAtEntry = data.getIncomeAndSourcesAtEntry();
+			Map<String, Integer> incomeEntries = getIncome(incomeAndSourcesAtEntry);
 		    Collection<Integer> incomeAtEntry = incomeEntries.values();
-		    Map<String, Integer> incomeExits = getIncome(data.getIncomeAndSourcesAtExit());
-		    Collection<Integer> incomeAtExit = incomeExits.values();
-		    Map<String, Integer> incomeAtAA = getIncome(data.getIncomeAndSourcesAtAnnualAssesment());
-		    Collection<Integer> incomeAtStayers = incomeAtAA.values();
-		
-		String entryclientDKE = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('8','9') and datacollectionstage='1'   ";
-		
-		String entryclientDNC = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('99') and datacollectionstage='1'    ";
+		    List<IncomeAndSourceModel> incomeAndSourcesAtExit = data.getIncomeAndSourcesAtExit();
+		    List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = data.getIncomeAndSourcesAtAnnualAssesment();
 		
 		
-		String exitclientDKE = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('8','9') and datacollectionstage='3'   ";
-		
-		String exitclientDNC = "select count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e where e.id=i.enrollmentid  and (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in ('99') and datacollectionstage='3'    ";
-		
-		
-		String clientAnnualAssesmentDKE = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources i, %s.enrollment e where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource in('8','9')"+
-				"  and i.information_date >= e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= :endDate )  "+
-				" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )   ";
-		
-		
-		String clientAnnualAssesmentDNC = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources i, %s.enrollment e where (totalmonthlyincome is null or totalmonthlyincome =0) and incomefromanysource='99'"+
-				"  and i.information_date >= e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= :endDate )  "+
-				" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )    ";
-		
+
 		String notRequiredAnnualAssesment = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources i, %s.enrollment e where "+
 				"   i.information_date >= e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
 				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= :endDate )  "+
@@ -69,79 +48,89 @@ public class Q16BeanMaker extends BaseBeanMaker {
 				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate >= :endDate )  "+
 				" and   e.id in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )   ";
 		
-		List<Integer> incomeAtEntryWith0 = incomeAtEntry.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
-		List<Integer> incomeAtExitWith0 = incomeAtExit.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
-		List<Integer> incomeAtStayersWith0 = incomeAtStayers.parallelStream().filter(income -> income == 0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtEntryWith0 = incomeAndSourcesAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) == 0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtExitWith0 = incomeAndSourcesAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) == 0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtStayersWith0 = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) == 0).collect(Collectors.toList());
 		
-		q16Bean.setQ16NoIncomeIncomeAtEntry(BigInteger.valueOf(incomeAtEntryWith0 != null ? incomeAtEntryWith0.size() :0));
-		q16Bean.setQ16NoIncomeIncomeAtExitforLeavers(BigInteger.valueOf( incomeAtExitWith0 != null ? incomeAtExitWith0.size() :0));
-		q16Bean.setQ16NoIncomeIncomeAtLatestFollowupforStayers(BigInteger.valueOf(incomeAtStayersWith0 != null ? incomeAtStayersWith0.size() :0));
+		q16Bean.setQ16NoIncomeIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntryWith0)));
+		q16Bean.setQ16NoIncomeIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(incomeAtExitWith0)));
+		q16Bean.setQ16NoIncomeIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(incomeAtStayersWith0)));
 		
-		List<Integer> incomeAtEntryWith150 = incomeAtEntry.parallelStream().filter(income -> income >= 1 && income <=150).collect(Collectors.toList());
-		List<Integer> incomeAtExitWith150 = incomeAtExit.parallelStream().filter(income -> income >= 1 && income <=150).collect(Collectors.toList());
-		List<Integer> incomeAtStayersWith150 = incomeAtStayers.parallelStream().filter(income -> income >= 1 && income <=150).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtEntryWith150 = incomeAndSourcesAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 1 && getFloat(income.getTotalmonthlyincome()) <=150).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtExitWith150 = incomeAndSourcesAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 1 && getFloat(income.getTotalmonthlyincome()) <=150).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtStayersWith150 = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 1 && getFloat(income.getTotalmonthlyincome()) <=150).collect(Collectors.toList());
 		
 		q16Bean.setQ161To150IncomeAtEntry(BigInteger.valueOf(incomeAtEntryWith150 != null ?incomeAtEntryWith150.size() :0));
 		q16Bean.setQ161To150IncomeAtExitforLeavers(BigInteger.valueOf(incomeAtExitWith150 != null ? incomeAtExitWith150.size() :0));
 		q16Bean.setQ161To150IncomeAtLatestFollowupforStayers(BigInteger.valueOf(incomeAtStayersWith150 != null ? incomeAtStayersWith150.size() :0));
 		
-		List<Integer> incomeAtEntryWith250 = incomeAtEntry.parallelStream().filter(income -> income >= 151 && income <=250).collect(Collectors.toList());
-		List<Integer> incomeAtExitWith250 = incomeAtExit.parallelStream().filter(income -> income >= 151 && income <=250).collect(Collectors.toList());
-		List<Integer> incomeAtStayersWith250 = incomeAtStayers.parallelStream().filter(income -> income >= 151 && income <=250).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtEntryWith250 = incomeAndSourcesAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 151 && getFloat(income.getTotalmonthlyincome()) <=250).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtExitWith250 = incomeAndSourcesAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 151 && getFloat(income.getTotalmonthlyincome()) <=250).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtStayersWith250 = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 151 && getFloat(income.getTotalmonthlyincome()) <=250).collect(Collectors.toList());
 		
 		q16Bean.setQ16151To250IncomeAtEntry(BigInteger.valueOf(incomeAtEntryWith250 != null ? incomeAtEntryWith250.size() : 0 ));
 		q16Bean.setQ16151To250IncomeAtExitforLeavers(BigInteger.valueOf(incomeAtExitWith250 != null ? incomeAtExitWith250.size():0));
 		q16Bean.setQ16151To250IncomeAtLatestFollowupforStayers(BigInteger.valueOf(incomeAtStayersWith250 != null ? incomeAtStayersWith250.size():0));
 		
-		List<Integer> incomeAtEntryWith500 = incomeAtEntry.parallelStream().filter(income -> income >= 251 && income <=500).collect(Collectors.toList());
-		List<Integer> incomeAtExitWith500 = incomeAtExit.parallelStream().filter(income -> income >= 251 && income <=500).collect(Collectors.toList());
-		List<Integer> incomeAtStayersWith500 = incomeAtStayers.parallelStream().filter(income -> income >= 251 && income <=500).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtEntryWith500 = incomeAndSourcesAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 251 && getFloat(income.getTotalmonthlyincome()) <=500).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtExitWith500 = incomeAndSourcesAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 251 && getFloat(income.getTotalmonthlyincome()) <=500).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtStayersWith500 = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 251 && getFloat(income.getTotalmonthlyincome()) <=500).collect(Collectors.toList());
 		
 		q16Bean.setQ16251To500IncomeAtEntry(BigInteger.valueOf(incomeAtEntryWith500 != null ? incomeAtEntryWith500.size() : 0 ));
 		q16Bean.setQ16251To500IncomeAtExitforLeavers(BigInteger.valueOf(incomeAtExitWith500 != null ?incomeAtExitWith500.size():0));
 		q16Bean.setQ16251To500IncomeAtLatestFollowupforStayers(BigInteger.valueOf(incomeAtStayersWith500 != null ?incomeAtStayersWith500.size():0));
 		
-		List<Integer> incomeAtEntryWith1000 = incomeAtEntry.parallelStream().filter(income -> income >= 501 && income <=1000).collect(Collectors.toList());
-		List<Integer> incomeAtExitWith1000 = incomeAtExit.parallelStream().filter(income -> income >= 501 && income <=1000).collect(Collectors.toList());
-		List<Integer> incomeAtStayersWith1000 = incomeAtStayers.parallelStream().filter(income -> income >= 501 && income <=1000).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtEntryWith1000 = incomeAndSourcesAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 501 && getFloat(income.getTotalmonthlyincome()) <=1000).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtExitWith1000 = incomeAndSourcesAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 501 && getFloat(income.getTotalmonthlyincome()) <=1000).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtStayersWith1000 = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 501 && getFloat(income.getTotalmonthlyincome()) <=1000).collect(Collectors.toList());
 		
 		q16Bean.setQ16501To1000IncomeAtEntry(BigInteger.valueOf(incomeAtEntryWith1000 != null ? incomeAtEntryWith1000.size() : 0 ));
 		q16Bean.setQ16501To1000IncomeAtExitforLeavers(BigInteger.valueOf(incomeAtExitWith1000 != null ?incomeAtExitWith1000.size():0));
 		q16Bean.setQ16501To1000IncomeAtLatestFollowupforStayers(BigInteger.valueOf(incomeAtStayersWith1000 != null ?incomeAtStayersWith1000.size():0));
 		
-		List<Integer> incomeAtEntryWith1500 = incomeAtEntry.parallelStream().filter(income -> income >= 1001 && income <=1500).collect(Collectors.toList());
-		List<Integer> incomeAtExitWith1500 = incomeAtExit.parallelStream().filter(income -> income >= 1001 && income <=1500).collect(Collectors.toList());
-		List<Integer> incomeAtStayersWith1500 = incomeAtStayers.parallelStream().filter(income -> income >= 1001 && income <=1500).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtEntryWith1500 = incomeAndSourcesAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 1001 && getFloat(income.getTotalmonthlyincome()) <=1500).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtExitWith1500 = incomeAndSourcesAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 1001 && getFloat(income.getTotalmonthlyincome()) <=1500).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtStayersWith1500 = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 1001 && getFloat(income.getTotalmonthlyincome()) <=1500).collect(Collectors.toList());
 		
 		q16Bean.setQ161001To1500IncomeAtEntry(BigInteger.valueOf(incomeAtEntryWith1500 != null ? incomeAtEntryWith1500.size() : 0 ));
 		q16Bean.setQ161001To1500IncomeAtExitforLeavers(BigInteger.valueOf(incomeAtExitWith1500 != null ?incomeAtExitWith1500.size():0));
 		q16Bean.setQ161001To1500IncomeAtLatestFollowupforStayers(BigInteger.valueOf(incomeAtStayersWith1500 != null ?incomeAtStayersWith1500.size():0));
 		
-		List<Integer> incomeAtEntryWith2000 = incomeAtEntry.parallelStream().filter(income -> income >= 1501 && income <=2000).collect(Collectors.toList());
-		List<Integer> incomeAtExitWith2000 = incomeAtExit.parallelStream().filter(income -> income >= 1501 && income <=2000).collect(Collectors.toList());
-		List<Integer> incomeAtStayersWith2000 = incomeAtStayers.parallelStream().filter(income -> income >= 1501 && income <=2000).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtEntryWith2000 = incomeAndSourcesAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 1501 && getFloat(income.getTotalmonthlyincome()) <=2000).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtExitWith2000 = incomeAndSourcesAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 1501 && getFloat(income.getTotalmonthlyincome()) <=2000).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtStayersWith2000 = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 1501 && getFloat(income.getTotalmonthlyincome()) <=2000).collect(Collectors.toList());
 		
 		
 		q16Bean.setQ161501To2000IncomeAtEntry(BigInteger.valueOf(incomeAtEntryWith2000 != null ? incomeAtEntryWith2000.size() : 0 ));
 		q16Bean.setQ161501To2000IncomeAtExitforLeavers(BigInteger.valueOf(incomeAtExitWith2000 != null ?incomeAtExitWith2000.size():0));
 		q16Bean.setQ161501To2000IncomeAtLatestFollowupforStayers(BigInteger.valueOf(incomeAtStayersWith2000 != null ?incomeAtStayersWith2000.size():0));
 		
-		List<Integer> incomeAtEntryabove2001 = incomeAtEntry.parallelStream().filter(income -> income >= 2001).collect(Collectors.toList());
-		List<Integer> incomeAtExitWith2001 = incomeAtExit.parallelStream().filter(income -> income >= 2001).collect(Collectors.toList());
-		List<Integer> incomeAtStayersWith2001 = incomeAtStayers.parallelStream().filter(income -> income >= 2001).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtEntryabove2001 = incomeAndSourcesAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 2001).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtExitWith2001 = incomeAndSourcesAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 2001).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtStayersWith2001 = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >= 2001).collect(Collectors.toList());
 		
 		
 		q16Bean.setQ162000PlusIncomeAtEntry(BigInteger.valueOf(incomeAtEntryabove2001 != null ? incomeAtEntryabove2001.size() : 0 ));
 		q16Bean.setQ162000PlusIncomeAtExitforLeavers(BigInteger.valueOf(incomeAtExitWith2001 != null ?incomeAtExitWith2001.size():0));
 		q16Bean.setQ162000PlusIncomeAtLatestFollowupforStayers(BigInteger.valueOf(incomeAtStayersWith2001 != null ?incomeAtStayersWith2001.size():0));
 		
-		q16Bean.setQ16ClientDoesntKnowIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(data.getSchema(), entryclientDKE, DataCollectionStage.ENTRY.getCode(),data)));
-		q16Bean.setQ16ClientDoesntKnowIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), exitclientDKE, DataCollectionStage.EXIT.getCode(),data)));
-		q16Bean.setQ16ClientDoesntKnowIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientAnnualAssesmentDKE,DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
 		
-		q16Bean.setQ16DataNotCollectedIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(data.getSchema(), entryclientDNC, DataCollectionStage.ENTRY.getCode(),data)));
-		q16Bean.setQ16DataNotCollectedIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), exitclientDNC, DataCollectionStage.EXIT.getCode(),data)));
-		q16Bean.setQ16DataNotCollectedIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), clientAnnualAssesmentDNC,DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
+		List<IncomeAndSourceModel> incomeAtEntryDKE = incomeAndSourcesAtEntry.parallelStream().filter(income -> (StringUtils.equals("8", income.getIncomefromanysource()) || StringUtils.equals("9", income.getIncomefromanysource())) && getFloat(income.getTotalmonthlyincome()) == 0 ).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtExitDKE = incomeAndSourcesAtExit.parallelStream().filter(income -> (StringUtils.equals("8", income.getIncomefromanysource()) || StringUtils.equals("9", income.getIncomefromanysource())) && getFloat(income.getTotalmonthlyincome()) == 0 ).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAADKE = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> (StringUtils.equals("8", income.getIncomefromanysource()) || StringUtils.equals("9", income.getIncomefromanysource())) && getFloat(income.getTotalmonthlyincome()) == 0 ).collect(Collectors.toList());
+		
+		q16Bean.setQ16ClientDoesntKnowIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntryDKE)));
+		q16Bean.setQ16ClientDoesntKnowIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(incomeAtExitDKE)));
+		q16Bean.setQ16ClientDoesntKnowIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(incomeAADKE)));
+		
+		List<IncomeAndSourceModel> incomeAtEntryDNC = incomeAndSourcesAtEntry.parallelStream().filter(income -> (StringUtils.equals("99", income.getIncomefromanysource())) && getFloat(income.getTotalmonthlyincome()) == 0 ).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAtExitDNC = incomeAndSourcesAtExit.parallelStream().filter(income -> (StringUtils.equals("99", income.getIncomefromanysource())) && getFloat(income.getTotalmonthlyincome()) == 0 ).collect(Collectors.toList());
+		List<IncomeAndSourceModel> incomeAADNC = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> (StringUtils.equals("99", income.getIncomefromanysource())) && getFloat(income.getTotalmonthlyincome()) == 0 ).collect(Collectors.toList());
+		
+		
+		q16Bean.setQ16DataNotCollectedIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntryDNC)));
+		q16Bean.setQ16DataNotCollectedIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(incomeAtExitDNC)));
+		q16Bean.setQ16DataNotCollectedIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(incomeAADNC)));
 		
 		
 		q16Bean.setQ16NumberOfAdultStayersNotYetRequiredIncomeAtEntry(BigInteger.valueOf(0));

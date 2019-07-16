@@ -181,21 +181,23 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 	}
 	public static void populateOtherIncome(Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate, List<IncomeAndSourceModel> incomes,BigInteger allClientsBigInt) {
 		
-		List<IncomeAndSourceModel> otherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && getFloat(income.getOthersourceamount()) >0).collect(Collectors.toList());
-		List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) && getFloat(income.getOthersourceamount()) >0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> otherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount())) >0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount())) >0).collect(Collectors.toList());
 		
 		Map<String,BigInteger>  otherIncomeMapAtEntry = new HashMap<>();
-		otherIncomeAtEntry.forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getOthersourceamount()))); otherIncomeTotal = otherIncomeTotal.add(BigInteger.valueOf(getFloat(incomeAndSource.getOthersourceamount()))); } );
+		otherIncomeAtEntry.forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount())))); otherIncomeTotal = otherIncomeTotal.add(BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount())))); } );
 		
 		Map<String,BigInteger>  otherIncomeMapAtAA = new HashMap<>();
-		otherIncomeATEntryButNotAtAA.forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getOthersourceamount()))); });
+		otherIncomeATEntryButNotAtAA.forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount())))); });
 		
 		Set<String> otherKeySetAtEntry = otherIncomeMapAtEntry.keySet();
 		int otherIncomeAtStartWithOutAA = 0;
 		
+		BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
 		for(String key : otherKeySetAtEntry) {
 			BigInteger otherAmount = otherIncomeMapAtAA.get(key);
 			if(otherAmount == null) {
+				incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(otherIncomeMapAtEntry.get(key));
 				otherIncomeAtStartWithOutAA++;
 			}
 		}
@@ -214,17 +216,17 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 			if(otherAmountAtEntry != null && otherAmountAtAA != null) {
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==1) {
 					retainOtherIncomeCatLessAtAAThanAtEntry++;
-					otherIncomeCatLessAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatLessAtAAThanAtEntry=otherIncomeCatLessAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==0) {
 					retainOtherIncomeCatSameAtAAThanAtEntry++;
-					otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatSameAtAAThanAtEntry=otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) == -1) {
-					otherIncomePerformaceMeasure.add(otherAmountAtEntry);
-					otherIncomePerformaceMeasure.add(otherAmountAtAA);
+					otherIncomePerformaceMeasure=otherIncomePerformaceMeasure.add(otherAmountAtEntry);
+					otherIncomePerformaceMeasure=otherIncomePerformaceMeasure.add(otherAmountAtAA);
 					retainOtherIncomeCatGreaterAtAAThanAtEntry++;
-					otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatGreaterAtAAThanAtEntry=otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 			}
 		}
@@ -232,7 +234,8 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 		//#B
 		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
 		if(CollectionUtils.isNotEmpty(otherIncomeAtEntry)) {
-			BigInteger average = otherIncomeTotal.divide(BigInteger.valueOf(otherIncomeAtEntry.size()));
+			BigInteger average = incomeAtStartAndNotAtAA.divide(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
+			average = average.multiply(BigInteger.valueOf(-1));
 			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit(average);
 		}
 		//#C
@@ -280,8 +283,8 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 				sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome.add(otherAmountAtAA);
 			}
 		}
-		List<IncomeAndSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && getFloat(income.getOthersourceamount()) ==0).collect(Collectors.toList());
-		List<IncomeAndSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) && getFloat(income.getOthersourceamount()) ==0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount())) ==0).collect(Collectors.toList());
+		List<IncomeAndSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount())) ==0).collect(Collectors.toList());
 		Set<String> clientIds = new HashSet<>();
 		if(CollectionUtils.isNotEmpty(didNotHaveOtherIncomeAtEntry)) {
 			didNotHaveOtherIncomeAtEntry.forEach(incomeSource -> clientIds.add(incomeSource.getDedupClientId()));
@@ -325,7 +328,6 @@ public static void populateOverallIncomeIncome(Q19a2ClientCashIncomeChangeIncome
 		int retainOtherIncomeCatLessAtAAThanAtEntry = 0;
 		int retainOtherIncomeCatSameAtAAThanAtEntry = 0;
 		int retainOtherIncomeCatGreaterAtAAThanAtEntry = 0;
-		
 		BigInteger otherIncomeCatLessAtAAThanAtEntry = BigInteger.ZERO;
 		BigInteger otherIncomeCatSameAtAAThanAtEntry= BigInteger.ZERO;
 		BigInteger otherIncomeCatGreaterAtAAThanAtEntry = BigInteger.ZERO;
@@ -336,17 +338,17 @@ public static void populateOverallIncomeIncome(Q19a2ClientCashIncomeChangeIncome
 			if(otherAmountAtEntry != null && otherAmountAtAA != null) {
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==1) {
 					retainOtherIncomeCatLessAtAAThanAtEntry++;
-					otherIncomeCatLessAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatLessAtAAThanAtEntry=otherIncomeCatLessAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==0) {
 					retainOtherIncomeCatSameAtAAThanAtEntry++;
-					otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatSameAtAAThanAtEntry=otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) == -1) {
-					otherIncomePerformaceMeasure.add(otherAmountAtEntry);
-					otherIncomePerformaceMeasure.add(otherAmountAtAA);
+					otherIncomePerformaceMeasure=otherIncomePerformaceMeasure.add(otherAmountAtEntry);
+					otherIncomePerformaceMeasure=otherIncomePerformaceMeasure.add(otherAmountAtAA);
 					retainOtherIncomeCatGreaterAtAAThanAtEntry++;
-					otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
+					otherIncomeCatGreaterAtAAThanAtEntry=otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 			}
 		}

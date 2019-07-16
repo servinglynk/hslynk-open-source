@@ -1,8 +1,12 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,16 +30,21 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 		
 		if(data.isLiveMode()) {
 		try {
-			List<IncomeAndSourceModel> entryIncomeAndSource = getIncomeAndSource(data,ReportQuery.ENTRY_INCOME_AND_SOURCE_QUERY,DataCollectionStage.ENTRY);
+			List<IncomeAndSourceModel> incomeAndSourceAtEntry = getIncomeAndSource(data,ReportQuery.ENTRY_INCOME_AND_SOURCE_QUERY,DataCollectionStage.ENTRY);
+			
+			List<IncomeAndSourceModel> entryIncomeAndSource = getDedupedItems(incomeAndSourceAtEntry) ;
 			data.setIncomeAndSourcesAtEntry(entryIncomeAndSource);
 			List<IncomeAndSourceModel> filterIncomeAndSourceAtEntryFor6c = filterIncomeAndSourceFor6c(entryIncomeAndSource);
 			
-			List<IncomeAndSourceModel> exitIncomeAndSource = getIncomeAndSource(data,ReportQuery.EXIT_INCOME_AND_SOURCE_QUERY,DataCollectionStage.EXIT);
+			List<IncomeAndSourceModel> incomeAndSourceAtExit = getIncomeAndSource(data,ReportQuery.EXIT_INCOME_AND_SOURCE_QUERY,DataCollectionStage.EXIT);
+			List<IncomeAndSourceModel> exitIncomeAndSource = getDedupedItems(incomeAndSourceAtExit) ;
 			data.setIncomeAndSourcesAtExit(exitIncomeAndSource);
+			
 			List<IncomeAndSourceModel> filterIncomeAndSourceAtExitFor6c = filterIncomeAndSourceFor6c(exitIncomeAndSource);
 			
 			List<IncomeAndSourceModel> annualAssesmentIcomeAndSource = getIncomeAndSource(data,ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY,DataCollectionStage.ANNUAL_ASSESMENT);
-			List<IncomeAndSourceModel> annualAssesmentIncomeAndSource  = annualAssesmentIcomeAndSource.parallelStream().filter(incomeAndSource -> isWithIn30DaysOfAnniversary(incomeAndSource.getEntryExitDate(),incomeAndSource.getInformationDate())).collect(Collectors.toList());
+			List<IncomeAndSourceModel> aaIncomeAndSource  = annualAssesmentIcomeAndSource.parallelStream().filter(incomeAndSource -> isWithIn30DaysOfAnniversary(incomeAndSource.getEntryExitDate(),incomeAndSource.getInformationDate())).collect(Collectors.toList());
+			List<IncomeAndSourceModel> annualAssesmentIncomeAndSource = getDedupedItems(aaIncomeAndSource) ;
 			data.setIncomeAndSourcesAtAnnualAssesment(annualAssesmentIncomeAndSource);
 			List<IncomeAndSourceModel> filterIncomeAndSourceAtAAFor6c = filterIncomeAndSourceFor6c(annualAssesmentIncomeAndSource);
 			
@@ -82,6 +91,12 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 		return Arrays.asList(q06cDataBean);
 	}
 	
+	public static List<IncomeAndSourceModel> getDedupedItems(List<IncomeAndSourceModel> incomes) {
+		Map<String,IncomeAndSourceModel> dedupIncomeAndSourceAtEntry = new HashMap<>();
+		incomes.forEach(income->  dedupIncomeAndSourceAtEntry.put(income.getDedupClientId(), income));
+		Collection<IncomeAndSourceModel> values = dedupIncomeAndSourceAtEntry.values();
+		return new ArrayList(values);	
+	}
  public static List<IncomeAndSourceModel> filterIncomeAndSourceFor6c(List<IncomeAndSourceModel> incomeAndSources) {
 	  List<IncomeAndSourceModel> filterMissingIncomeAndSource = filterMissingIncomeAndSource(incomeAndSources);
 	  List<IncomeAndSourceModel> filterIdentifiedSource = filterIdentifiedSource(filterMissingIncomeAndSource);
