@@ -69,5 +69,5 @@ public static String ENTRY_INCOME_AND_SOURCE_QUERY = "select  alimonyamount,chil
 	" alimony, childsupport, earned, ga, othersource, pension, privatedisability, socsecretirement,ssdi, ssi, tanf, unemployment, vadisabilitynonservice, vadisabilityservice, workerscomp " +
 	" from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='1' and  e.id=i.enrollmentid "+
 	" and i.information_date = e.entrydate   %dedup   order by e.dedup_client_id,e.entrydate asc  ";
-	      
+
 }

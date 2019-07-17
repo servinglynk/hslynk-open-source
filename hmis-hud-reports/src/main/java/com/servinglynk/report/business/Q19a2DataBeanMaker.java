@@ -145,7 +145,7 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2AverageChangeInEarnedIncomePerformanceMeasures(earnedIncomePerformaceMeasureAverage);
 			
 				//#J
-				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2NoOfAdltsWithEarnedIncomePercent(earnedIncomePerformaceMeasure.divide(allClientsBigInt));
+				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2NoOfAdltsWithEarnedIncomePercent(retainIncomeCatGreater.divide(allClientsBigInt));
 				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2AverageChangeInEarnedIncomePercent(BigInteger.ZERO);
 			}
 		Set<String> keySetAtAA = earnedIncomeMapAtAA.keySet();
@@ -265,11 +265,11 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 			
 				//#I
 				BigInteger  otherIncomePerformaceMeasureAverage =  otherIncomePerformaceMeasure.divide(retainIncomeCatGreater);
-				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2NoOfAdultsWithOtherIncomePerformanceMeasures(otherIncomePerformaceMeasure);
+				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2NoOfAdultsWithOtherIncomePerformanceMeasures(retainIncomeCatGreater);
 				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2AverageChangeInOtherIncomePerformanceMeasures(otherIncomePerformaceMeasureAverage);
 			
 				//#J
-				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2NoOfAdultsWithOtherIncomePercent(otherIncomePerformaceMeasure.divide(allClientsBigInt));
+				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2NoOfAdultsWithOtherIncomePercent(retainIncomeCatGreater.divide(allClientsBigInt) );
 				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a2AverageChangeInOtherIncomePercent(BigInteger.ZERO);
 			}
 		Set<String> otherKeySetAtAA = otherIncomeMapAtAA.keySet();
@@ -385,11 +385,11 @@ public static void populateOverallIncomeIncome(Q19a2ClientCashIncomeChangeIncome
 			
 				//#I
 				BigInteger  otherIncomePerformaceMeasureAverage =  otherIncomePerformaceMeasure.divide(retainIncomeCatGreater);
-				q19a1Bean.setQ19a2NumberOfAdultsWithAnyIncomePerformanceMeasures(otherIncomePerformaceMeasure);
+				q19a1Bean.setQ19a2NumberOfAdultsWithAnyIncomePerformanceMeasures(retainIncomeCatGreater);
 				q19a1Bean.setQ19a2AverageChangeInOverallIncomePerformanceMeasures(otherIncomePerformaceMeasureAverage);
 			
 				//#J
-				q19a1Bean.setQ19a2NumberOfAdultsWithAnyIncomePercent(otherIncomePerformaceMeasure.divide(allClientsBigInt));
+				q19a1Bean.setQ19a2NumberOfAdultsWithAnyIncomePercent( retainIncomeCatGreater.divide(allClientsBigInt));
 				q19a1Bean.setQ19a2AverageChangeInOverallIncomePercent(BigInteger.ZERO);
 			}
 		Set<String> otherKeySetAtAA = otherIncomeMapAtAA.keySet();
