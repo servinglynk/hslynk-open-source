@@ -118,30 +118,16 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	public com.servinglynk.hmis.warehouse.model.v2017.Enrollment getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment ,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2017.Enrollment modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
-		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, enrollment.getEnrollmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
-		
-		if(domain.isReUpload()) {
-			if(modelFromDB != null) {
-				return modelFromDB;
-			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
-			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
-			return modelFromDB;
-		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setId(modelFromDB.getId());
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,enrollment.getEnrollmentID(),data);
-		return model;
+		modelFromDB.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
+		hydrateCommonFields(modelFromDB, domain,enrollment.getEnrollmentID(),data);
+		return modelFromDB;
 	}
 	public com.servinglynk.hmis.warehouse.model.v2017.Enrollment getEnrollmentById(UUID enrollmentId) {
 	      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class);

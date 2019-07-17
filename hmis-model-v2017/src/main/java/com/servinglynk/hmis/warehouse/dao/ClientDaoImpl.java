@@ -84,8 +84,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						clientModel = new com.servinglynk.hmis.warehouse.model.v2017.Client();
 						clientModel.setRecordToBeInserted(true);
 						clientModel.setId(UUID.randomUUID());
-						populateClient(client, clientModel);
 					}
+					populateClient(client, clientModel);
 					/**
 					 * This is where the deduping happens We check if a client with the same information exists and
 					 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
