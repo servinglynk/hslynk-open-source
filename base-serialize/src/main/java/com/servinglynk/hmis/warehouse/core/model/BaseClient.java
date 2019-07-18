@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.validation.constraints.Pattern;
@@ -37,6 +38,9 @@ public class BaseClient extends ClientModel {
 	private String projectGroupCode;
 	private String phoneNumber;
 	private String emailAddress;
+	
+	private ActionLinks actionLinks;
+	private Map<String, ActionLinks> links;
 	
 	public UUID getClientId() {
 		return clientId;
@@ -194,5 +198,21 @@ public class BaseClient extends ClientModel {
 	}
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+	public ActionLinks getActionLinks() {
+		return actionLinks;
+	}
+	public void setActionLinks(ActionLinks actionLinks) {
+		this.actionLinks = actionLinks;
 	}	
+	public void addActionList(ActionLink link) {
+		if(this.actionLinks==null) this.actionLinks = new ActionLinks();
+		this.actionLinks.addLink(link);
+	}
+	public Map<String, ActionLinks> getLinks() {
+		return links;
+	}
+	public void setLinks(Map<String, ActionLinks> links) {
+		this.links = links;
+	}
 }

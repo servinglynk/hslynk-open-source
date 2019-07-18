@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.servinglynk.hmis.warehouse</groupId>
+	<artifactId>mq-core-client</artifactId>
+	<version>2.14.20</version>
+	<name>Active MQ Core client </name>
+	<description>Core client for inter service calls (REST)</description>
+	<properties>
+		<org.aspectj-version>1.6.10</org.aspectj-version>
+		<org.slf4j-version>1.7.5</org.slf4j-version>
+		<log4j-version>1.2.17</log4j-version>
+		<fasterxml-version>2.9.9</fasterxml-version>
+		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
+		<java-version>1.8</java-version>
+		<hibernate.version>4.2.0.Final</hibernate.version>
+		<commons.dbcp.version>1.4</commons.dbcp.version>
+		<spring.version>4.3.22.RELEASE</spring.version>
+	</properties>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.3.RELEASE</version>
+		<relativePath />
+	</parent>
+	<dependencies>
+		  <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+        		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.9</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.9</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -7,6 +7,9 @@
         <dependent-module archiveName="hmis-notification-core-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-notification-core/hmis-notification-core">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="hmis-base-serialize-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-serialize/hmis-base-serialize">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="hmis-core-common-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-core-common/hmis-core-common">
             <dependency-type>uses</dependency-type>
         </dependent-module>

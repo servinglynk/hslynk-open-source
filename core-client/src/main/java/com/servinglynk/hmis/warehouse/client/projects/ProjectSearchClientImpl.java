@@ -1,26 +1,27 @@
 package com.servinglynk.hmis.warehouse.client.projects;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
 import com.servinglynk.hmis.warehouse.client.model.SearchRequest;
 import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 
 public class ProjectSearchClientImpl extends CoreClientBase implements ProjectSearchClient {
+	
+	
+	@Autowired Environment env;
+	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BaseProject search(SearchRequest request) throws Exception {
@@ -43,7 +44,7 @@ public class ProjectSearchClientImpl extends CoreClientBase implements ProjectSe
 /*		StringBuffer URI = new StringBuffer(
 				"http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+schemaYear+"/rest/projects/" + projectId);*/
 		StringBuffer URI = new StringBuffer(
-				"http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+schemaYear+"/rest/projects/" + projectId);
+				env.getProperty("elbhost")+"/hmis-clientapi-v"+schemaYear+"/rest/projects/" + projectId);
 		
 		ResponseEntity<String> response = restTemplate.exchange(URI.toString(), HttpMethod.GET, entity, String.class);
 		

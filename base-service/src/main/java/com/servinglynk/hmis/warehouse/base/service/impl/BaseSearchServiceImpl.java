@@ -1,23 +1,37 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
-import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.servlet.tags.EvalTag;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.servinglynk.hmis.warehouse.SearchRequest;
 import com.servinglynk.hmis.warehouse.Sort;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.Account;
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
+import com.servinglynk.hmis.warehouse.core.model.ActionLinks;
+import com.servinglynk.hmis.warehouse.core.model.BaseClient;
 import com.servinglynk.hmis.warehouse.core.model.BaseClients;
 import com.servinglynk.hmis.warehouse.core.model.ClientModel;
 import com.servinglynk.hmis.warehouse.core.model.SearchResults;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.model.SearchClient;
 import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 
 
 public class BaseSearchServiceImpl extends ServiceBase implements SearchService {
@@ -107,8 +121,51 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 		    BaseClients clients = new BaseClients();
 		    List<SearchClient> searchItems = (List<SearchClient>) this.daoFactory.getSearchDao().search(searchVo,true);
 		    for (SearchClient pClient : searchItems) {
-	    		clients.addClient(ClientConverter.entityToModel(pClient));
+		    	// clients.addClient(ClientConverter.entityToModel(pClient));
+		    	BaseClient baseClient = ClientConverter.entityToModel(pClient);
+//		    	baseClient.setActionLinks(this.addActionLinks(pClient));
+		    	baseClient.setLinks(addActionLinks(pClient));
+		    	clients.addClient(baseClient);
 		    }
 		    return clients;
 	  }
+	  
+	  @Transactional
+	  public Map<String, ActionLinks> addActionLinks(SearchClient client) {
+		  Map<String,Map<String, ActionLink>> links = new HashMap<>();
+		  Map<String, ActionLinks> typeLinks = new HashMap<>();
+		  ActionLinks actionLinks = new ActionLinks();
+		  ObjectMapper mapper = new ObjectMapper();
+		  List<ClientMetaDataEntity> entities = daoFactory.getClientMetaDataDao().findClientMetaData(client.getrDedupClientId());
+		  for(ClientMetaDataEntity entity : entities) {
+			  try {
+				  	Map<String,String> addInfo = mapper.readValue(entity.getAdditionalInfo(), Map.class);
+				  	ActionLinks actionlinks = typeLinks.get(entity.getType());
+				  	if(actionlinks ==null) actionlinks = new ActionLinks();
+				  			actionlinks.addLink(new ActionLink(entity.getMetaDataIdentifier().toString(), this.buildURL(environment.getProperty("linksTo."+entity.getType()),addInfo)));
+				  	typeLinks.put(entity.getType(), actionlinks);
+			  }catch (Exception e) {
+				  e.printStackTrace();
+			  }
+
+		  }
+		  
+		  return typeLinks;
+	  }
+	  
+		public  String buildURL(String urlString, Map<String,String> params) {
+			MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+		    for (Entry<String, String> entry : params.entrySet()) {
+		    	try {
+		    	queryParams.add(entry.getKey(), entry.getValue());
+		    	}catch (Exception e) {
+				}
+		    }
+			UriComponents uriComponents = null;
+			uriComponents = UriComponentsBuilder.newInstance().fromHttpUrl(urlString)
+					.buildAndExpand(params);
+			
+			return uriComponents.toUriString();
+		}
+
 }

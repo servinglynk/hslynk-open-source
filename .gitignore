@@ -148,6 +148,16 @@ hmis-report-service/*.iml
 hmis-report-service/target
 hmis-report-service/bin
 
+report-service/target/*
+report-service/bin/*
+report-service/.settings/*
+report-service/.classpath
+report-service/.project
+report-service/.idea
+report-service/*.iml
+report-service/target
+report-service/bin
+
 hmis-serialize-*/target/*
 hmis-serialize-*/bin/*
 hmis-serialize-*/.settings/*
@@ -259,6 +269,28 @@ hmis-base-service/.idea
 hmis-base-service/*.iml
 hmis-base-service/target
 hmis-base-service/bin
+
+
+hmis-mq-service/target/*
+hmis-mq-service/bin/*
+hmis-mq-service/.settings/*
+hmis-mq-service/.classpath
+hmis-mq-service/.project
+hmis-mq-service/.idea
+hmis-mq-service/*.iml
+hmis-mq-service/target
+hmis-mq-service/bin
+
+mq-core-client/target/*
+mq-core-client/bin/*
+mq-core-client/.settings/*
+mq-core-client/.classpath
+mq-core-client/.project
+mq-core-client/.idea
+mq-core-client/*.iml
+mq-core-client/target
+mq-core-client/bin
+mq-core-client/.gitignore
 
 hmis-base-model/target/*
 hmis-base-model/bin/*
