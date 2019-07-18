@@ -21,14 +21,14 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 		if (data.isLiveMode()) {
 			try {
 
-				String query = "select dedup_client_id,count(dedup_client_id) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.dedup_client_id and datacollectionstage in ('1','2','5') and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) and information_date <= :endDate ";
+				String query = "select enrollmentid,count(enrollmentid) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and datacollectionstage in ('1','2','5') and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) and information_date <= :endDate ";
 
 				List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 				List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 				List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 				List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 
-				List<EnrollmentModel> enrollments = data.getStayers();
+				List<EnrollmentModel> enrollments = data.getEnrollments();
 				List<EnrollmentModel> enrollmentsHHWithChildren = enrollments.parallelStream()
 						.filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID()))
 						.collect(Collectors.toList());
@@ -54,16 +54,16 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 						.filter(disability -> disability.getDisabilityCount() == 1).collect(Collectors.toList());
 				if (CollectionUtils.isNotEmpty(just1)) {
 					List<DisabilitiesModel> withChildren = just1.parallelStream()
-							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getDedupClientId()))
+							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOutChildren = just1.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> unknownHouseHold = just1.parallelStream().filter(
-							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOneAdultChild = just1.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 
 					int withOutChildrenIntSize = withOutChildren != null ? withOutChildren.size() : 0;
@@ -88,16 +88,16 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 						.filter(disability -> disability.getDisabilityCount() == 2).collect(Collectors.toList());
 				if (CollectionUtils.isNotEmpty(just2)) {
 					List<DisabilitiesModel> withChildren = just2.parallelStream()
-							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getDedupClientId()))
+							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOutChildren = just2.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> unknownHouseHold = just2.parallelStream().filter(
-							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOneAdultChild = just2.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 
 					int withOutChildrenIntSize = withOutChildren != null ? withOutChildren.size() : 0;
@@ -122,16 +122,16 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 						.filter(disability -> disability.getDisabilityCount() >= 3).collect(Collectors.toList());
 				if (CollectionUtils.isNotEmpty(plus3)) {
 					List<DisabilitiesModel> withChildren = plus3.parallelStream()
-							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getDedupClientId()))
+							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOutChildren = plus3.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> unknownHouseHold = plus3.parallelStream().filter(
-							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOneAdultChild = plus3.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 
 					int withOutChildrenIntSize = withOutChildren != null ? withOutChildren.size() : 0;
@@ -152,21 +152,21 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 					q13c2Bean.setQ13c2Condition3PlusUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
 				}
 
-				String noneQuery = "select dedup_client_id,count(dedup_client_id) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.dedup_client_id and  datacollectionstage in ('1','2','5') and disabilityresponse='0'  and information_date >= :startDate and information_date <= :endDate  ";
+				String noneQuery = "select enrollmentid,count(enrollmentid) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and  datacollectionstage in ('1','2','5') and disabilityresponse='0' and information_date <= :endDate  ";
 				List<DisabilitiesModel> disabilitiesNone = getEnrollmentFromDisabilitiesCountWithDate(data.getSchema(),
 						noneQuery, data);
 				if (CollectionUtils.isNotEmpty(disabilitiesNone)) {
 					List<DisabilitiesModel> withChildren = disabilitiesNone.parallelStream()
-							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getDedupClientId()))
+							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOutChildren = disabilitiesNone.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> unknownHouseHold = disabilitiesNone.parallelStream().filter(
-							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOneAdultChild = disabilitiesNone.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 
 					int withOutChildrenIntSize = withOutChildren != null ? withOutChildren.size() : 0;
@@ -187,21 +187,21 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 					q13c2Bean.setQ13c2NoneUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
 				}
 
-				String unknownQuery = "select dedup_client_id,count(dedup_client_id) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.dedup_client_id and datacollectionstage in ('1','2','5') and ( disabilityresponse='8' or disabilityresponse='9') and information_date <= :endDate  ";
+				String unknownQuery = "select enrollmentid,count(enrollmentid) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and datacollectionstage in ('1','2','5') and ( disabilityresponse='8' or disabilityresponse='9') and information_date <= :endDate  ";
 				List<DisabilitiesModel> disabilitiesUnknown = getEnrollmentFromDisabilitiesCountWithDate(
 						data.getSchema(), unknownQuery, data);
 				if (CollectionUtils.isNotEmpty(disabilitiesUnknown)) {
 					List<DisabilitiesModel> withChildren = disabilitiesNone.parallelStream()
-							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getDedupClientId()))
+							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOutChildren = disabilitiesNone.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> unknownHouseHold = disabilitiesNone.parallelStream().filter(
-							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOneAdultChild = disabilitiesNone.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 
 					int withOutChildrenIntSize = withOutChildren != null ? withOutChildren.size() : 0;
@@ -222,21 +222,21 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 					q13c2Bean.setQ13c2DontKnowRefusedUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
 				}
 
-				String infoMissingQuery = "select dedup_client_id,count(dedup_client_id) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.dedup_client_id and datacollectionstage in ('1','2','5') and disabilityresponse='99' and information_date <= :endDate ";
+				String infoMissingQuery = "select enrollmentid,count(enrollmentid) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and datacollectionstage in ('1','2','5') and disabilityresponse='99' and information_date <= :endDate ";
 				List<DisabilitiesModel> disabilitiesMissing = getEnrollmentFromDisabilitiesCountWithDate(
 						data.getSchema(), infoMissingQuery, data);
 				if (CollectionUtils.isNotEmpty(disabilitiesMissing)) {
 					List<DisabilitiesModel> withChildren = disabilitiesMissing.parallelStream()
-							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getDedupClientId()))
+							.filter(enrollment -> enrollmentsHHWithChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOutChildren = disabilitiesMissing.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOutChildren.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> unknownHouseHold = disabilitiesMissing.parallelStream().filter(
-							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsUnknownHouseHold.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 					List<DisabilitiesModel> withOneAdultChild = disabilitiesMissing.parallelStream().filter(
-							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getDedupClientId()))
+							enrollment -> enrollmentsHHWithOneAdultChild.contains(enrollment.getProject_entry_id()))
 							.collect(Collectors.toList());
 
 					int withOutChildrenIntSize = withOutChildren != null ? withOutChildren.size() : 0;

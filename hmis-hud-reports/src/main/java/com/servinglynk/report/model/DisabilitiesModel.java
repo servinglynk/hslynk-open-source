@@ -2,24 +2,24 @@ package com.servinglynk.report.model;
 
 public class DisabilitiesModel extends BaseModel{
 
-	public DisabilitiesModel(String dedupClientId, int disabilityCount) {
+	public DisabilitiesModel(String project_entry_id, int disabilityCount) {
 		super();
-		this.dedupClientId = dedupClientId;
+		this.project_entry_id = project_entry_id;
 		this.disabilityCount = disabilityCount;
 	}
-	private String dedupClientId;
+	private String project_entry_id;
 	private int disabilityCount;
 	/**
 	 * @return the project_entry_id
 	 */
-	public String getDedupClientId() {
-		return dedupClientId;
+	public String getProject_entry_id() {
+		return project_entry_id;
 	}
 	/**
 	 * @param project_entry_id the project_entry_id to set
 	 */
-	public void setDedupClientId(String project_entry_id) {
-		this.dedupClientId = project_entry_id;
+	public void setProject_entry_id(String project_entry_id) {
+		this.project_entry_id = project_entry_id;
 	}
 	/**
 	 * @return the disabilityCount
