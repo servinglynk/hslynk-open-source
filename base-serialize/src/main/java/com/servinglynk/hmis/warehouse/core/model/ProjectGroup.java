@@ -14,7 +14,7 @@ public class ProjectGroup extends ClientModel {
 	private String projectGroupDesc;
 	private UUID projectGroupId;
 	private String projectGroupCode;
-	private boolean skipuseridentifers;
+	private Boolean skipuseridentifers;
 	private String bucketName;
 	private String senderEmail;
 	
@@ -73,10 +73,10 @@ public class ProjectGroup extends ClientModel {
 		this.projectGroupCode = projectGroupCode;
 	}
 	
-	public boolean isSkipuseridentifers() {
+	public Boolean isSkipuseridentifers() {
 		return skipuseridentifers;
 	}
-	public void setSkipuseridentifers(boolean skipuseridentifers) {
+	public void setSkipuseridentifers(Boolean skipuseridentifers) {
 		this.skipuseridentifers = skipuseridentifers;
 	}
 

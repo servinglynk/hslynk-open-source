@@ -291,12 +291,12 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
 		if (pAccount == null)
 			throw new AccountNotFoundException();
-		account = AccountConverter.convertToAccount(pAccount);
+		account = AccountConverter.convertToAccountLite(pAccount);
 		List<UserRoleMapEntity> userroles = daoFactory.getAccountDao().getUserMapByUserId(pAccount.getId());
 
-		for(UserRoleMapEntity entity : userroles){
+/*		for(UserRoleMapEntity entity : userroles){
 			account.addRole(RoleConverter.entityToModel(entity.getRoleEntity()));
-		}
+		}*/
 		return account;
 	}
 	
@@ -367,14 +367,14 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 
 		if (!daoFactory.getAccountDao().checkApiMethodAccess(account.getProfile().getId(), apiMethodEntity.getId())) {
 
-			List<PermissionSetEntity> permissionSets = daoFactory.getPermissionSetDao()
+/*			List<PermissionSetEntity> permissionSets = daoFactory.getPermissionSetDao()
 					.getAssignedPermissionSets(account.getAccountId());
 			if (permissionSets.size() == 0)
 				throw new AccessDeniedException(
 						"User doesn't have permission for the method " + apiMethodEntity.getFriendlyName());
 			if (!daoFactory.getPermissionSetDao().checkAssignedPermissonSet(permissionSets, apiMethodEntity))
 				throw new AccessDeniedException(
-						"User doesn't have permission for the method " + apiMethodEntity.getFriendlyName());
+						"User doesn't have permission for the method " + apiMethodEntity.getFriendlyName());*/
 		}
 
 		logger.debug("user having permission to access API method {} ", apiMethodEntity.getFriendlyName());

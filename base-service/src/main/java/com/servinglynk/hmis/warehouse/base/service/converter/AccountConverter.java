@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Profile;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 
@@ -62,5 +63,30 @@ public class AccountConverter {
 			account.setRole(role);
 		}
 		return pAccount;
+	}
+
+	public static Account convertToAccountLite(HmisUser pAccount) {
+		Account account = new Account();
+		account.setAccountId(pAccount.getId());
+		account.setFirstName(pAccount.getFirstName());
+		account.setMiddleName(pAccount.getMiddleName());
+		account.setLastName(pAccount.getLastName());
+		//account.setUsername(pAccount.getUsername());
+		account.setEmailAddress(pAccount.getEmailAddress());
+		account.setStatus(pAccount.getStatus());
+		account.setGender(null);
+		account.setTwoFactorAuthentication(null);
+		ProjectGroup projectGroup =new ProjectGroup();
+		projectGroup.setProjectGroupCode(pAccount.getProjectGroupEntity().getProjectGroupCode());
+		projectGroup.setProjects(null);
+		projectGroup.setSkipuseridentifers(null);
+		account.setProjectGroup(projectGroup);
+		Profile profile = new Profile();
+		profile.setProfileName(pAccount.getProfileEntity().getProfileName());
+		profile.setApiMethods(null);
+		account.setProfile(profile);
+		account.setRoles(null);
+		
+		return account;
 	}
 }
