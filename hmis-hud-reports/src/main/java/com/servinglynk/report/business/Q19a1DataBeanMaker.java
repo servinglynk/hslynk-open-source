@@ -63,12 +63,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		Set<String> earnedKeySetAtEntry = earnedIncomeMapAtEntry.keySet();
 		int earnedIncomeAtStartWithOutAA = 0;
 		
-		for(String key : earnedKeySetAtEntry) {
-			BigInteger earnedAmount = earnedIncomeMapAtAA.get(key);
-			if(earnedAmount == null) {
-				earnedIncomeAtStartWithOutAA++;
-			}
-		}
+		
 		
 		int retainEarnedIncomeCatLessAtAAThanAtEntry = 0;
 		int retainEarnedIncomeCatSameAtAAThanAtEntry = 0;
@@ -78,6 +73,16 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		BigInteger earnedIncomeCatSameAtAAThanAtEntry= BigInteger.ZERO;
 		BigInteger earnedIncomeCatGreaterAtAAThanAtEntry = BigInteger.ZERO;
 		BigInteger earnedIncomePerformaceMeasure = BigInteger.ZERO;
+		BigInteger earnedIncomeAtStartAndNotAtAA = BigInteger.ZERO;
+		
+		for(String key : earnedKeySetAtEntry) {
+			BigInteger earnedAmount = earnedIncomeMapAtAA.get(key);
+			if(earnedAmount == null) {
+				earnedIncomeAtStartWithOutAA++;
+				earnedIncomeAtStartAndNotAtAA = earnedIncomeAtStartAndNotAtAA.add(earnedIncomeMapAtEntry.get(key));
+			}
+		}
+		
 		for(String key : earnedKeySetAtEntry) {
 			BigInteger earnedAmountAtEntry = earnedIncomeMapAtEntry.get(key);
 			BigInteger earnedAmountAtAA = earnedIncomeMapAtAA.get(key);
@@ -91,22 +96,21 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 					earnedIncomeCatSameAtAAThanAtEntry = earnedIncomeCatSameAtAAThanAtEntry.add(earnedAmountAtEntry);
 				}
 				if(earnedAmountAtEntry.compareTo(earnedAmountAtAA) == -1) {
-					earnedIncomePerformaceMeasure= earnedIncomePerformaceMeasure.add(earnedAmountAtEntry);
-					earnedIncomePerformaceMeasure= earnedIncomePerformaceMeasure.add(earnedAmountAtAA);
+					earnedIncomePerformaceMeasure = earnedIncomePerformaceMeasure.add(earnedAmountAtAA.subtract(earnedAmountAtEntry)) ;
 					retainEarnedIncomeCatGreaterAtAAThanAtEntry++;
-					earnedIncomeCatGreaterAtAAThanAtEntry=earnedIncomeCatGreaterAtAAThanAtEntry.add(earnedAmountAtEntry);
+					earnedIncomeCatGreaterAtAAThanAtEntry = earnedIncomeCatGreaterAtAAThanAtEntry.add(earnedAmountAtEntry);
 				}
 			}
 		}
 		
 		//#B
-		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(earnedIncomeAtStartWithOutAA));
 		if(CollectionUtils.isNotEmpty(earnedIncomeAtEntry)) {
-			BigInteger average = earnedIncomeTotal.divide(BigInteger.valueOf(getIncomeCnt(earnedIncomeAtEntry)));
+			BigInteger average = earnedIncomeAtStartAndNotAtAA.divide(BigInteger.valueOf(getIncomeCnt(earnedIncomeAtEntry)));
 			average = average.multiply(BigInteger.valueOf(-1));
 			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
+			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(earnedIncomeAtStartWithOutAA));
 		}
-	
+		
 		//#C
 		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeRetainedIncomeCategoryButHadLessDollar(BigInteger.valueOf(retainEarnedIncomeCatLessAtAAThanAtEntry));
 		if(retainEarnedIncomeCatLessAtAAThanAtEntry !=0) {
@@ -122,7 +126,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		
 		//#H
 		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeTotalAdult(allClientsBigInt);
-		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomeTotalAdult(earnedIncomePerformaceMeasure.divide(allClientsBigInt) );
+		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomeTotalAdult(earnedIncomePerformaceMeasure.multiply(BigInteger.valueOf(100)).divide(allClientsBigInt) );
 		
 	
 		if(retainEarnedIncomeCatGreaterAtAAThanAtEntry !=0) {
@@ -138,7 +142,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomePerformanceMeasures(earnedIncomePerformaceMeasureAverage);
 			
 				//#J
-				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomePercent(retainIncomeCatGreater.divide(allClientsBigInt));
+				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomePercent(retainIncomeCatGreater.multiply(BigInteger.valueOf(100)).divide(allClientsBigInt));
 				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomePercent(BigInteger.ZERO);
 		}	
 		Set<String> keySetAtAA = earnedIncomeMapAtAA.keySet();
@@ -171,132 +175,9 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		//#G
 		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdltsWithEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(getSize(clientIds)));
 		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.ZERO);
-
 	}
-	public static void populateOtherIncome(Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate, List<IncomeAndSourceModel> incomes,BigInteger allClientsBigInt) {
-		
-		List<IncomeAndSourceModel> otherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  >0).collect(Collectors.toList());
-		List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  >0).collect(Collectors.toList());
-		
-		Map<String,BigInteger>  otherIncomeMapAtEntry = new HashMap<>();
-		otherIncomeAtEntry.forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount())))); otherIncomeTotal = otherIncomeTotal.add( BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount()))));  } );
-		
-		Map<String,BigInteger>  otherIncomeMapAtAA = new HashMap<>();
-		otherIncomeATEntryButNotAtAA.forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount())))); });
-		
-		Set<String> otherKeySetAtEntry = otherIncomeMapAtEntry.keySet();
-		int otherIncomeAtStartWithOutAA = 0;
-		
-		BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
-		for(String key : otherKeySetAtEntry) {
-			BigInteger otherAmount = otherIncomeMapAtAA.get(key);
-			if(otherAmount == null) {
-				incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(otherIncomeMapAtEntry.get(key));
-				otherIncomeAtStartWithOutAA++;
-			}
-		}
-		
-		int retainOtherIncomeCatLessAtAAThanAtEntry = 0;
-		int retainOtherIncomeCatSameAtAAThanAtEntry = 0;
-		int retainOtherIncomeCatGreaterAtAAThanAtEntry = 0;
-		
-		BigInteger otherIncomeCatLessAtAAThanAtEntry = BigInteger.ZERO;
-		BigInteger otherIncomeCatSameAtAAThanAtEntry= BigInteger.ZERO;
-		BigInteger otherIncomeCatGreaterAtAAThanAtEntry = BigInteger.ZERO;
-		BigInteger otherIncomePerformaceMeasure = BigInteger.ZERO;
-		for(String key : otherKeySetAtEntry) {
-			BigInteger otherAmountAtEntry = otherIncomeMapAtEntry.get(key);
-			BigInteger otherAmountAtAA = otherIncomeMapAtAA.get(key);
-			if(otherAmountAtEntry != null && otherAmountAtAA != null) {
-				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==1) {
-					retainOtherIncomeCatLessAtAAThanAtEntry++;
-					otherIncomeCatLessAtAAThanAtEntry= otherIncomeCatLessAtAAThanAtEntry.add(otherAmountAtEntry);
-				}
-				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==0) {
-					retainOtherIncomeCatSameAtAAThanAtEntry++;
-					otherIncomeCatSameAtAAThanAtEntry = otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
-				}
-				if(otherAmountAtEntry.compareTo(otherAmountAtAA) == -1) {
-					otherIncomeCatGreaterAtAAThanAtEntry = otherIncomePerformaceMeasure.add(otherAmountAtEntry);
-					otherIncomeCatGreaterAtAAThanAtEntry= otherIncomePerformaceMeasure.add(otherAmountAtAA);
-					retainOtherIncomeCatGreaterAtAAThanAtEntry++;
-					otherIncomeCatGreaterAtAAThanAtEntry = otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
-				}
-			}
-		}
-		
-		//#B
-		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
-		if(CollectionUtils.isNotEmpty(otherIncomeAtEntry) && otherIncomeAtStartWithOutAA !=0) {
-			BigInteger average = incomeAtStartAndNotAtAA.divide(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
-			average = average.multiply(BigInteger.valueOf(-1));
-			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
-		}
-		//#C
-		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeRetainedIncomeCategoryButHadLessDollar(BigInteger.valueOf(retainOtherIncomeCatLessAtAAThanAtEntry));
-		if(retainOtherIncomeCatLessAtAAThanAtEntry !=0) {
-			BigInteger retainIncomeAtAAThenAtEntryAmount = otherIncomeCatLessAtAAThanAtEntry.divide(BigInteger.valueOf(retainOtherIncomeCatLessAtAAThanAtEntry));
-			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeRetainedIncomeCategoryButHadLessDollar(retainIncomeAtAAThenAtEntryAmount);
-		}
-		//#D
-		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.valueOf(retainOtherIncomeCatSameAtAAThanAtEntry));
-		if(retainOtherIncomeCatSameAtAAThanAtEntry !=0) {
-			BigInteger retainIncomeCatSameAtAAThanAtEntryAmount = otherIncomeCatSameAtAAThanAtEntry.divide(BigInteger.valueOf(retainOtherIncomeCatSameAtAAThanAtEntry));
-			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeRetainedIncomeCategoryAndSameDollar(retainIncomeCatSameAtAAThanAtEntryAmount);
-		}
-		
-		//#H
-		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeTotalAdult(allClientsBigInt);
-		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeTotalAdult(BigInteger.ZERO);
-		
 	
-		if(retainOtherIncomeCatGreaterAtAAThanAtEntry !=0) {
-				//#E
-				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndIncreasedDollar(BigInteger.valueOf(retainOtherIncomeCatGreaterAtAAThanAtEntry));
-				BigInteger retainIncomeCatGreater = BigInteger.valueOf(retainOtherIncomeCatGreaterAtAAThanAtEntry);
-				BigInteger otherIncomeCatGreaterAtAAThanAtEntryAmount = otherIncomeCatGreaterAtAAThanAtEntry.divide(retainIncomeCatGreater);
-				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeRetainedIncomeCategoryAndIncreasedDollar(otherIncomeCatGreaterAtAAThanAtEntryAmount);
-			
-				//#I
-				BigInteger  otherIncomePerformaceMeasureAverage =  otherIncomePerformaceMeasure.divide(retainIncomeCatGreater);
-				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomePerformanceMeasures(BigInteger.valueOf(retainOtherIncomeCatGreaterAtAAThanAtEntry));
-				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomePerformanceMeasures(otherIncomePerformaceMeasureAverage);
-			
-				//#J
-				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomePercent(retainIncomeCatGreater.divide(allClientsBigInt));
-				q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomePercent(BigInteger.ZERO);
-			}
-		Set<String> otherKeySetAtAA = otherIncomeMapAtAA.keySet();
-		int noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome = 0;
-		BigInteger sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome = BigInteger.ZERO;
-		for(String key : otherKeySetAtAA) {
-			BigInteger otherAmountAtEntry = otherIncomeMapAtEntry.get(key);
-			BigInteger otherAmountAtAA = otherIncomeMapAtAA.get(key);
-			if((otherAmountAtEntry== null || ( otherAmountAtEntry != null && otherAmountAtEntry.compareTo(BigInteger.ZERO) ==0 )) && otherAmountAtAA !=null) {
-				noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome ++;
-				sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome.add(otherAmountAtAA);
-			}
-		}
-		List<IncomeAndSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  ==0).collect(Collectors.toList());
-		List<IncomeAndSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  ==0).collect(Collectors.toList());
-		Set<String> clientIds = new HashSet<>();
-		if(CollectionUtils.isNotEmpty(didNotHaveOtherIncomeAtEntry)) {
-			didNotHaveOtherIncomeAtEntry.forEach(incomeSource -> clientIds.add(incomeSource.getDedupClientId()));
-		}
-		if(CollectionUtils.isNotEmpty(didNotHaveOtherIncomeATEntryButNotAtAA)) {
-			didNotHaveOtherIncomeATEntryButNotAtAA.forEach(incomeSource -> clientIds.add(incomeSource.getDedupClientId()));
-		}
-		//#F
-		if(noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome != 0 && sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome != BigInteger.ZERO) {
-			BigInteger average = sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome.divide(BigInteger.valueOf(noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome));
-			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(BigInteger.valueOf(noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome));
-			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(average);
-		}
-		//#G
-		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(getSize(clientIds)));
-		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.ZERO);
-
-	}
+	
 	
 public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean q19a1Bean, List<IncomeAndSourceModel> incomes,BigInteger allClientsBigInt) {
 		
@@ -313,13 +194,6 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 		int otherIncomeAtStartWithOutAA = 0;
 		
 		BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
-		for(String key : otherKeySetAtEntry) {
-			BigInteger otherAmount = otherIncomeMapAtAA.get(key);
-			if(otherAmount == null) {
-				incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(otherIncomeMapAtEntry.get(key));
-				otherIncomeAtStartWithOutAA++;
-			}
-		}
 		
 		int retainOtherIncomeCatLessAtAAThanAtEntry = 0;
 		int retainOtherIncomeCatSameAtAAThanAtEntry = 0;
@@ -332,6 +206,8 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 		for(String key : otherKeySetAtEntry) {
 			BigInteger otherAmountAtEntry = otherIncomeMapAtEntry.get(key);
 			BigInteger otherAmountAtAA = otherIncomeMapAtAA.get(key);
+			
+	
 			if(otherAmountAtEntry != null && otherAmountAtAA != null) {
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==1) {
 					retainOtherIncomeCatLessAtAAThanAtEntry++;
@@ -342,11 +218,16 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 					otherIncomeCatSameAtAAThanAtEntry = otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
 				}
 				if(otherAmountAtEntry.compareTo(otherAmountAtAA) == -1) {
-					otherIncomePerformaceMeasure = otherIncomePerformaceMeasure.add(otherAmountAtEntry);
-					otherIncomePerformaceMeasure = otherIncomePerformaceMeasure.add(otherAmountAtAA);
+					otherIncomePerformaceMeasure = otherIncomePerformaceMeasure.add(otherAmountAtAA.subtract(otherAmountAtEntry)) ;
 					retainOtherIncomeCatGreaterAtAAThanAtEntry++;
 					otherIncomeCatGreaterAtAAThanAtEntry = otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
+					
 				}
+			}
+			
+			if(otherAmountAtAA == null) {
+				incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(otherIncomeMapAtEntry.get(key));
+				otherIncomeAtStartWithOutAA++;
 			}
 		}
 		
@@ -356,18 +237,22 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 			BigInteger average = incomeAtStartAndNotAtAA.divide(BigInteger.valueOf(getIncomeCnt(otherIncomeAtEntry)));
 			average = average.multiply(BigInteger.valueOf(-1));
 			q19a1Bean.setQ19a1AverageChangeInOverallIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
+			q19a1Bean.setQ19a1NumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
+
 		}
 		//#C
 		q19a1Bean.setQ19a1NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryButHadLessDollar(BigInteger.valueOf(retainOtherIncomeCatLessAtAAThanAtEntry));
 		if(retainOtherIncomeCatLessAtAAThanAtEntry !=0) {
 			BigInteger retainIncomeAtAAThenAtEntryAmount = otherIncomeCatLessAtAAThanAtEntry.divide(BigInteger.valueOf(retainOtherIncomeCatLessAtAAThanAtEntry));
 			q19a1Bean.setQ19a1AverageChangeInOverallIncomeRetainedIncomeCategoryButHadLessDollar(retainIncomeAtAAThenAtEntryAmount);
+			q19a1Bean.setQ19a1NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryButHadLessDollar(BigInteger.valueOf(retainOtherIncomeCatLessAtAAThanAtEntry));
 		}
 		//#D
 		q19a1Bean.setQ19a1NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.valueOf(retainOtherIncomeCatSameAtAAThanAtEntry));
 		if(retainOtherIncomeCatSameAtAAThanAtEntry !=0) {
 			BigInteger retainIncomeCatSameAtAAThanAtEntryAmount = otherIncomeCatSameAtAAThanAtEntry.divide(BigInteger.valueOf(retainOtherIncomeCatSameAtAAThanAtEntry));
 			q19a1Bean.setQ19a1AverageChangeInOverallIncomeRetainedIncomeCategoryAndSameDollar(retainIncomeCatSameAtAAThanAtEntryAmount);
+			q19a1Bean.setQ19a1NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.valueOf(retainOtherIncomeCatSameAtAAThanAtEntry));
 		}
 		
 		//#H
@@ -380,6 +265,7 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 				BigInteger retainIncomeCatGreater = BigInteger.valueOf(retainOtherIncomeCatGreaterAtAAThanAtEntry);
 				BigInteger otherIncomeCatGreaterAtAAThanAtEntryAmount = otherIncomeCatGreaterAtAAThanAtEntry.divide(retainIncomeCatGreater);
 				q19a1Bean.setQ19a1AverageChangeInOverallIncomeRetainedIncomeCategoryAndIncreasedDollar(otherIncomeCatGreaterAtAAThanAtEntryAmount);
+				q19a1Bean.setQ19a1NumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.valueOf(retainOtherIncomeCatGreaterAtAAThanAtEntry));
 			
 				//#I
 				BigInteger  otherIncomePerformaceMeasureAverage =  otherIncomePerformaceMeasure.divide(retainIncomeCatGreater);
@@ -387,7 +273,7 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 				q19a1Bean.setQ19a1AverageChangeInOverallIncomePerformanceMeasures(otherIncomePerformaceMeasureAverage);
 			
 				//#J
-				q19a1Bean.setQ19a1NumberOfAdultsWithAnyIncomePercent(retainIncomeCatGreater.divide(allClientsBigInt));
+				q19a1Bean.setQ19a1NumberOfAdultsWithAnyIncomePercent(retainIncomeCatGreater.multiply(BigInteger.valueOf(100)).divide(allClientsBigInt));
 				q19a1Bean.setQ19a1AverageChangeInOverallIncomePercent(BigInteger.ZERO);
 				
 			}
@@ -422,5 +308,141 @@ public static void populateOverallIncomeIncome(Q19a1ClientCashIncomeChangeIncome
 		q19a1Bean.setQ19a1AverageChangeInOverallIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.ZERO);
 
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public static void populateOtherIncome(Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate, List<IncomeAndSourceModel> incomes,BigInteger allClientsBigInt) {
+	
+	List<IncomeAndSourceModel> otherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  >0).collect(Collectors.toList());
+	List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  >0).collect(Collectors.toList());
+	Map<String,BigInteger>  otherIncomeMapAtEntry = new HashMap<>();
+	otherIncomeAtEntry.forEach(incomeAndSource ->  {otherIncomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount())))); otherIncomeTotal = otherIncomeTotal.add( BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount()))));  } );
+	
+	Map<String,BigInteger>  otherIncomeMapAtAA = new HashMap<>();
+	otherIncomeATEntryButNotAtAA.forEach(incomeAndSource -> { otherIncomeMapAtAA.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf((getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount())))); });
+	
+	Set<String> otherKeySetAtEntry = otherIncomeMapAtEntry.keySet();
+	int otherIncomeAtStartWithOutAA = 0;
+	
+	BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
+	int retainOtherIncomeCatLessAtAAThanAtEntry = 0;
+	int retainOtherIncomeCatSameAtAAThanAtEntry = 0;
+	int retainOtherIncomeCatGreaterAtAAThanAtEntry = 0;
+	BigInteger otherIncomeCatLessAtAAThanAtEntry = BigInteger.ZERO;
+	BigInteger otherIncomeCatSameAtAAThanAtEntry= BigInteger.ZERO;
+	BigInteger otherIncomeCatGreaterAtAAThanAtEntry = BigInteger.ZERO;
+	BigInteger otherIncomePerformaceMeasure = BigInteger.ZERO;
+	
+	for(String key : otherKeySetAtEntry) {
+		BigInteger otherAmountAtEntry = otherIncomeMapAtEntry.get(key);
+		BigInteger otherAmountAtAA = otherIncomeMapAtAA.get(key);
+		if(otherAmountAtEntry != null && otherAmountAtAA != null) {
+			if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==1) {
+				retainOtherIncomeCatLessAtAAThanAtEntry++;
+				otherIncomeCatLessAtAAThanAtEntry= otherIncomeCatLessAtAAThanAtEntry.add(otherAmountAtEntry);
+			}
+			if(otherAmountAtEntry.compareTo(otherAmountAtAA) ==0) {
+				retainOtherIncomeCatSameAtAAThanAtEntry++;
+				otherIncomeCatSameAtAAThanAtEntry = otherIncomeCatSameAtAAThanAtEntry.add(otherAmountAtEntry);
+			}
+			if(otherAmountAtEntry.compareTo(otherAmountAtAA) == -1) {
+				otherIncomePerformaceMeasure = otherIncomePerformaceMeasure.add(otherAmountAtAA.subtract(otherAmountAtEntry)) ;
+				retainOtherIncomeCatGreaterAtAAThanAtEntry++;
+				otherIncomeCatGreaterAtAAThanAtEntry = otherIncomeCatGreaterAtAAThanAtEntry.add(otherAmountAtEntry);
+			}
+		}
+		if(otherAmountAtAA == null) {
+			incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(otherIncomeMapAtEntry.get(key));
+			otherIncomeAtStartWithOutAA++;
+		}
+	}
+	
+	//#B
+	q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
+	if(CollectionUtils.isNotEmpty(otherIncomeAtEntry) && otherIncomeAtStartWithOutAA !=0) {
+		BigInteger average = incomeAtStartAndNotAtAA.divide(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
+		average = average.multiply(BigInteger.valueOf(-1));
+		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
+		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(otherIncomeAtStartWithOutAA));
+	}
+	//#C
+	q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeRetainedIncomeCategoryButHadLessDollar(BigInteger.valueOf(retainOtherIncomeCatLessAtAAThanAtEntry));
+	if(retainOtherIncomeCatLessAtAAThanAtEntry !=0) {
+		BigInteger retainIncomeAtAAThenAtEntryAmount = otherIncomeCatLessAtAAThanAtEntry.divide(BigInteger.valueOf(retainOtherIncomeCatLessAtAAThanAtEntry));
+		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeRetainedIncomeCategoryButHadLessDollar(retainIncomeAtAAThenAtEntryAmount);
+		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeRetainedIncomeCategoryButHadLessDollar(BigInteger.valueOf(retainOtherIncomeCatLessAtAAThanAtEntry));
+	}
+	//#D
+	q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.valueOf(retainOtherIncomeCatSameAtAAThanAtEntry));
+	if(retainOtherIncomeCatSameAtAAThanAtEntry !=0) {
+		BigInteger retainIncomeCatSameAtAAThanAtEntryAmount = otherIncomeCatSameAtAAThanAtEntry.divide(BigInteger.valueOf(retainOtherIncomeCatSameAtAAThanAtEntry));
+		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeRetainedIncomeCategoryAndSameDollar(retainIncomeCatSameAtAAThanAtEntryAmount);
+		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.valueOf(retainOtherIncomeCatSameAtAAThanAtEntry));
+	}
+	
+	//#H
+	q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeTotalAdult(allClientsBigInt);
+	q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeTotalAdult(BigInteger.ZERO);
+	
+
+	if(retainOtherIncomeCatGreaterAtAAThanAtEntry !=0) {
+			//#E
+			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndIncreasedDollar(BigInteger.valueOf(retainOtherIncomeCatGreaterAtAAThanAtEntry));
+			BigInteger retainIncomeCatGreater = BigInteger.valueOf(retainOtherIncomeCatGreaterAtAAThanAtEntry);
+			BigInteger otherIncomeCatGreaterAtAAThanAtEntryAmount = otherIncomeCatGreaterAtAAThanAtEntry.divide(retainIncomeCatGreater);
+			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeRetainedIncomeCategoryAndIncreasedDollar(otherIncomeCatGreaterAtAAThanAtEntryAmount);
+			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndIncreasedDollar(BigInteger.valueOf(retainOtherIncomeCatGreaterAtAAThanAtEntry));
+			
+			//#I
+			BigInteger  otherIncomePerformaceMeasureAverage =  otherIncomePerformaceMeasure.divide(retainIncomeCatGreater);
+			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomePerformanceMeasures(BigInteger.valueOf(retainOtherIncomeCatGreaterAtAAThanAtEntry));
+			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomePerformanceMeasures(otherIncomePerformaceMeasureAverage);
+		
+			//#J
+			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomePercent(retainIncomeCatGreater.multiply(BigInteger.valueOf(100)).divide(allClientsBigInt));
+			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomePercent(BigInteger.ZERO);
+		}
+	Set<String> otherKeySetAtAA = otherIncomeMapAtAA.keySet();
+	int noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome = 0;
+	BigInteger sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome = BigInteger.ZERO;
+	for(String key : otherKeySetAtAA) {
+		BigInteger otherAmountAtEntry = otherIncomeMapAtEntry.get(key);
+		BigInteger otherAmountAtAA = otherIncomeMapAtAA.get(key);
+		if((otherAmountAtEntry== null || ( otherAmountAtEntry != null && otherAmountAtEntry.compareTo(BigInteger.ZERO) ==0 )) && otherAmountAtAA !=null) {
+			noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome ++;
+			sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome.add(otherAmountAtAA);
+		}
+	}
+	List<IncomeAndSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  ==0).collect(Collectors.toList());
+	List<IncomeAndSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getEarnedamount()))  ==0).collect(Collectors.toList());
+	Set<String> clientIds = new HashSet<>();
+	if(CollectionUtils.isNotEmpty(didNotHaveOtherIncomeAtEntry)) {
+		didNotHaveOtherIncomeAtEntry.forEach(incomeSource -> clientIds.add(incomeSource.getDedupClientId()));
+	}
+	if(CollectionUtils.isNotEmpty(didNotHaveOtherIncomeATEntryButNotAtAA)) {
+		didNotHaveOtherIncomeATEntryButNotAtAA.forEach(incomeSource -> clientIds.add(incomeSource.getDedupClientId()));
+	}
+	//#F
+	if(noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome != 0 && sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome != BigInteger.ZERO) {
+		BigInteger average = sumadultsDidNotHaveOtherIncomeCategoryAtEntryAndGainedTheIncome.divide(BigInteger.valueOf(noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome));
+		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(BigInteger.valueOf(noOfAdultsDidNotHaveTheOtherIncomeCategoryAtEntryAndGainedTheIncome));
+		q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(average);
+	}
+	//#G
+	q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NoOfAdultsWithOtherIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(getSize(clientIds)));
+	q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOtherIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.ZERO);
+
+}
 	
 }
