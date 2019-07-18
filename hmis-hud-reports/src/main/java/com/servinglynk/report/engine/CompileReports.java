@@ -26,8 +26,8 @@ public class CompileReports {
 //    	files.add("q13c2_Number_Of_Conditions_For_Stayer.jrxml");
 //    	files.add("q14a_Domestic_Violence_History.jrxml");
 //    	files.add("q14b_Persons_Fleeing_Domestic_Violence.jrxml");
-//    	files.add("q15_Residence_Prior_To_Program_Entry.jrxml");
-    	files.add("q16.jrxml");
+    	files.add("q16_Cash_Income_Ranges.jrxml");
+    	//files.add("q16.jrxml");
     	//files.add("q12b_Ethnicity.jrxml");
     	for(String fileName : files) {
     	System.out.println("File name:"+fileName);
@@ -35,7 +35,7 @@ public class CompileReports {
 		InputStream inputStream = new FileInputStream(file);
 	    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
 	    String destFile = fileName.replace("jrxml", "jasper");
-	    JasperCompileManager.compileReportToFile("/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/src/main/csvresources/"+fileName,"/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/src/main/csvresources/"+destFile);
+	    JasperCompileManager.compileReportToFile("/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/src/main/pdfresources/"+fileName,"/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/src/main/pdfresources/"+destFile);
 	    
     	}
 		}
