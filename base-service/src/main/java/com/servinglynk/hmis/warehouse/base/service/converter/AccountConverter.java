@@ -78,10 +78,14 @@ public class AccountConverter {
 		account.setTwoFactorAuthentication(null);
 		ProjectGroup projectGroup =new ProjectGroup();
 		projectGroup.setProjectGroupCode(pAccount.getProjectGroupEntity().getProjectGroupCode());
+		projectGroup.setProjects(null);
+		projectGroup.setSkipuseridentifers(null);
 		account.setProjectGroup(projectGroup);
 		Profile profile = new Profile();
 		profile.setProfileName(pAccount.getProfileEntity().getProfileName());
+		profile.setApiMethods(null);
 		account.setProfile(profile);
+		account.setRoles(null);
 		
 		return account;
 	}
