@@ -2,7 +2,9 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -27,11 +29,23 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 		
 		List<EnrollmentModel> enrollments = data.getEnrollments();   
-		List<EnrollmentModel> enrollmentsHHWithChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
-		List<EnrollmentModel> enrollmentsHHWithOutChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
-		List<EnrollmentModel> enrollmentsHHWithOneAdultChild = enrollments.parallelStream().filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
-		List<EnrollmentModel> enrollmentsUnknownHouseHold = enrollments.parallelStream().filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
-
+		List<EnrollmentModel>  ewithChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		List<EnrollmentModel>  ewithOutChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		List<EnrollmentModel>  ewithOneAdultChild = enrollments.parallelStream().filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		List<EnrollmentModel>  eunknownHouseHold = enrollments.parallelStream().filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+		
+		Set<String> enrollmentsHHWithChildren = new HashSet<>();
+		ewithChildren.forEach(enrollment-> enrollmentsHHWithChildren.add(enrollment.getDedupClientId()));
+		
+		Set<String> enrollmentsHHWithOutChildren = new HashSet<>();
+		ewithOutChildren.forEach(enrollment-> enrollmentsHHWithOutChildren.add(enrollment.getDedupClientId()));
+		
+		Set<String> enrollmentsUnknownHouseHold = new HashSet<>();
+		eunknownHouseHold.forEach(enrollment-> enrollmentsUnknownHouseHold.add(enrollment.getDedupClientId()));
+		
+		Set<String> enrollmentsHHWithOneAdultChild = new HashSet<>();
+		ewithOneAdultChild.forEach(enrollment-> enrollmentsHHWithOneAdultChild.add(enrollment.getDedupClientId()));
+		
     	BigInteger  totalUHHT = BigInteger.ZERO;
 		BigInteger	totalWCA = BigInteger.ZERO;
 		BigInteger	totalWithOnlyChild = BigInteger.ZERO;
@@ -58,7 +72,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 			totalUHHT=totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q13a2Bean.setQ13a2Condition1Total(BigInteger.valueOf(just1.size()));
-	    	q13a2Bean.setQ13a2Condition1WithoutChildren(BigInteger.valueOf(withChildrenIntSize));
+	    	q13a2Bean.setQ13a2Condition1WithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
 	    	q13a2Bean.setQ13a2Condition1WithChildAndAdults(BigInteger.valueOf(withOneAdultChildIntSize));
 	    	q13a2Bean.setQ13a2Condition1WithOnlychildren(BigInteger.valueOf(withChildrenIntSize));
 	    	q13a2Bean.setQ13a2Condition1UnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
@@ -84,7 +98,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 			totalUHHT=totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q13a2Bean.setQ13a2Condition2Total(BigInteger.valueOf(just2.size()));
-	    	q13a2Bean.setQ13a2Condition2WithoutChildren(BigInteger.valueOf(withChildrenIntSize));
+	    	q13a2Bean.setQ13a2Condition2WithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
 	    	q13a2Bean.setQ13a2Condition2WithChildAndAdults(BigInteger.valueOf(withOneAdultChildIntSize));
 	    	q13a2Bean.setQ13a2Condition2WithOnlychildren(BigInteger.valueOf(withChildrenIntSize));
 	    	q13a2Bean.setQ13a2Condition2UnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
@@ -110,7 +124,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 			totalUHHT=totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 			
 			q13a2Bean.setQ13a2Condition3PlusTotal(BigInteger.valueOf(plus3.size()));
-	    	q13a2Bean.setQ13a2Condition3PlusWithoutChildren(BigInteger.valueOf(withChildrenIntSize));
+	    	q13a2Bean.setQ13a2Condition3PlusWithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
 	    	q13a2Bean.setQ13a2Condition3PlusWithChildAndAdults(BigInteger.valueOf(withOneAdultChildIntSize));
 	    	q13a2Bean.setQ13a2Condition3PlusWithOnlychildren(BigInteger.valueOf(withChildrenIntSize));
 	    	q13a2Bean.setQ13a2Condition3PlusUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));

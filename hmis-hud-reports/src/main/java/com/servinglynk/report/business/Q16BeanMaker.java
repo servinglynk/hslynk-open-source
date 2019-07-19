@@ -169,9 +169,9 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		BigInteger totNoOfAdultLeavers = data.getTotNoOfAdultLeavers();
 		BigInteger totNoOfAdultStayers = data.getTotNoOfAdultStayers();
 		
-		int atEntryDNC = atEntry + numOfAdults.intValue();
-		int atLeaversDNC = atExit + totNoOfAdultLeavers.intValue();
-		int atStayerDNC = atAA + totNoOfAdultStayers.intValue();
+		int atEntryDNC =  numOfAdults.intValue() - atEntry;
+		int atLeaversDNC = totNoOfAdultLeavers.intValue() - atExit;
+		int atStayerDNC =  totNoOfAdultStayers.intValue() - atAA;
 		q16Bean.setQ16DataNotCollectedIncomeAtEntry(BigInteger.valueOf(atEntryDNC));
 		q16Bean.setQ16DataNotCollectedIncomeAtExitforLeavers(BigInteger.valueOf(atLeaversDNC));
 		q16Bean.setQ16DataNotCollectedIncomeAtLatestFollowupforStayers(BigInteger.valueOf(atStayerDNC));

@@ -189,7 +189,7 @@ public class Q21BeanMaker extends BaseBeanMaker {
 			 while(resultSet.next()) {
 				 healthInsuranceModels.add(new HealthInsuranceModel(resultSet.getString("insurancefromanysource"), resultSet.getString("medicaid"), resultSet.getString("medicare"), 
 						 resultSet.getString("statehealthinadults"), resultSet.getString("vamedicalservices"), resultSet.getString("employerprovided"), 
-						 resultSet.getString("privatepay"), resultSet.getString("schip"), resultSet.getString("indianhealthservices"), resultSet.getString("other_insurance"), resultSet.getString("dedup_client_id")));
+						 resultSet.getString("privatepay"), resultSet.getString("schip"), resultSet.getString("indianhealthservices"), resultSet.getString("otherinsurance"), resultSet.getString("dedup_client_id")));
 				 }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

@@ -2,7 +2,9 @@ package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -28,19 +30,24 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 				List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 				List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 
-				List<EnrollmentModel> enrollments = data.getStayers();
-				List<EnrollmentModel> enrollmentsHHWithChildren = enrollments.parallelStream()
-						.filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID()))
-						.collect(Collectors.toList());
-				List<EnrollmentModel> enrollmentsHHWithOutChildren = enrollments.parallelStream()
-						.filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID()))
-						.collect(Collectors.toList());
-				List<EnrollmentModel> enrollmentsHHWithOneAdultChild = enrollments.parallelStream()
-						.filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID()))
-						.collect(Collectors.toList());
-				List<EnrollmentModel> enrollmentsUnknownHouseHold = enrollments.parallelStream()
-						.filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID()))
-						.collect(Collectors.toList());
+				List<EnrollmentModel> enrollments = data.getEnrollments();   
+				List<EnrollmentModel>  ewithChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+				List<EnrollmentModel>  ewithOutChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+				List<EnrollmentModel>  ewithOneAdultChild = enrollments.parallelStream().filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+				List<EnrollmentModel>  eunknownHouseHold = enrollments.parallelStream().filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+				
+				Set<String> enrollmentsHHWithChildren = new HashSet<>();
+				ewithChildren.forEach(enrollment-> enrollmentsHHWithChildren.add(enrollment.getDedupClientId()));
+				
+				Set<String> enrollmentsHHWithOutChildren = new HashSet<>();
+				ewithOutChildren.forEach(enrollment-> enrollmentsHHWithOutChildren.add(enrollment.getDedupClientId()));
+				
+				Set<String> enrollmentsUnknownHouseHold = new HashSet<>();
+				eunknownHouseHold.forEach(enrollment-> enrollmentsUnknownHouseHold.add(enrollment.getDedupClientId()));
+				
+				Set<String> enrollmentsHHWithOneAdultChild = new HashSet<>();
+				ewithOneAdultChild.forEach(enrollment-> enrollmentsHHWithOneAdultChild.add(enrollment.getDedupClientId()));
+				
 
 				BigInteger totalUHHT = BigInteger.ZERO;
 				BigInteger totalWCA = BigInteger.ZERO;

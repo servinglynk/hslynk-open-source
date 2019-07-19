@@ -181,7 +181,7 @@
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<text><![CDATA[Income Change by Income Category
-(Universe: Adult Stayers with Income Information at Start and Annual Assessment)
+(Universe: Adult Stayers with Income Information at Start and Exit or Annual Assessment)
 ]]></text>
 				</staticText>
 				<staticText>
@@ -196,7 +196,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Had Income Category at Start and Did Not Have It at Annual Assessment]]></text>
+					<text><![CDATA[Had Income Category at Start and Did Not Have It at Exit or Annual Assessment]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="118" y="0" width="60" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="21a92119-6e33-47e8-9b34-39ec1507e3ef"/>
@@ -210,7 +210,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Retained Income  Category But Had Less $ at Annual Assessment Than at Start]]></text>
+					<text><![CDATA[Retained Income  Category But Had Less $ at Exit or Annual Assessment Than at Start]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="178" y="0" width="55" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="7d72b49b-d14a-40c2-b88c-f9bf1908da7b"/>
@@ -224,7 +224,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Retained Income Category and Same $ at Annual Assessment as at Start]]></text>
+					<text><![CDATA[Retained Income Category and Same $ at Exit or Annual Assessment as at Start]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="233" y="0" width="52" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="e0fe4672-c889-45df-aa9d-4c4d1e4bfe3f"/>
@@ -238,7 +238,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Retained Income Category and Increased $ at Annual Assessment]]></text>
+					<text><![CDATA[Retained Income Category and Increased $ at Exit or Annual Assessment]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="285" y="0" width="59" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="8c411f40-2768-4de5-b14f-4171111e6d42"/>
@@ -252,7 +252,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Did Not Have the Income Category at Start and Gained the Income Category at Annual Assessment]]></text>
+					<text><![CDATA[Did Not Have the Income Category at Start and Gained the Income Category at Exit or Annual Assessment]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="344" y="0" width="47" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="9ae625e9-a5c0-4954-b54c-f37297acface"/>
@@ -266,7 +266,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Did Not Have the Income Category at Start or at Annual Assessment]]></text>
+					<text><![CDATA[Did Not Have the Income Category at Start or at Exit or Annual Assessment]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="391" y="0" width="55" height="129" forecolor="#666666" backcolor="#E6E6E6" uuid="2c0efb9c-da5e-4dab-98c2-1631eea2d618"/>
@@ -295,7 +295,7 @@
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
 					<text><![CDATA[Performance Measure:
-Adults who Gained or Increased Income from Start to Annual Assessment,
+Adults who Gained or Increased Income from Start to Exit or Annual Assessment,
 Average Gain
 ]]></text>
 				</staticText>

@@ -3,6 +3,7 @@ package com.servinglynk.report.business;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import com.servinglynk.report.bean.Q25ePhysicalAndMentalHealthConditionsVeteransDataBean;
 import com.servinglynk.report.bean.ReportData;
@@ -28,54 +29,54 @@ public class Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker extends 
 				String queryExit = " select distinct(e.dedup_client_id) from %s.disabilities d, %s.enrollment e, %s.exit ext,%s.client c   where e.id = d.enrollmentid and e.client_id = c.id  and c.veteran_status='1' and e.id=ext.enrollmentid and d.datacollectionstage = '3' and d.information_date >= :startDate and d.information_date <= :endDate ";
 				String queryStayers = " select distinct(e.dedup_client_id) from %s.disabilities d, %s.enrollment e,%s.client c  where e.id = d.enrollmentid and e.client_id = c.id  and c.veteran_status='1' and d.datacollectionstage = '4' and d.information_date >= :startDate and d.information_date <= :endDate ";
 				
-				List<String> enrollmentFromDisabilities = getEnrollmentFromDisabilities(data.getSchema(), data, query+" and d.disabilitytype='9' ");
-				List<String> enrollmentFromDisabilitiesExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+"  and d.disabilitytype='9' ");
-				List<String> enrollmentFromDisabilitiesStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+"  and d.disabilitytype='9' ");
+				Set<String> enrollmentFromDisabilities = getEnrollmentFromDisabilities(data.getSchema(), data, query+" and d.disabilitytype='9' ");
+				Set<String> enrollmentFromDisabilitiesExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+"  and d.disabilitytype='9' ");
+				Set<String> enrollmentFromDisabilitiesStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+"  and d.disabilitytype='9' ");
 				
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eMentalIllnessAtEntry(BigInteger.valueOf(getSize(enrollmentFromDisabilities)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eMentalIllnessStayers(BigInteger.valueOf(getSize(enrollmentFromDisabilitiesStayers)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eMentalIllnessLeavers(BigInteger.valueOf(getSize(enrollmentFromDisabilitiesExit)));
 				
 				String acholoAbuseQuery = " and disabilitytype='10' and disabilityresponse='1' ";
-				List<String> alchoholAbuse = getEnrollmentFromDisabilities(data.getSchema(), data, query+acholoAbuseQuery);
-				List<String> alchoholAbuseExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+acholoAbuseQuery);
-				List<String> alchoholAbuseStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+acholoAbuseQuery);
+				Set<String> alchoholAbuse = getEnrollmentFromDisabilities(data.getSchema(), data, query+acholoAbuseQuery);
+				Set<String> alchoholAbuseExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+acholoAbuseQuery);
+				Set<String> alchoholAbuseStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+acholoAbuseQuery);
 				
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eAlcoholAbuseAtEntry(BigInteger.valueOf(getSize(alchoholAbuse)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eAlcoholAbuseStayers(BigInteger.valueOf(getSize(alchoholAbuseStayers)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eAlcoholAbuseLeavers(BigInteger.valueOf(getSize(alchoholAbuseExit)));
 
 				String drugAbuseQuery = " and disabilitytype='10' and disabilityresponse='2' ";
-				List<String> drugAbuse = getEnrollmentFromDisabilities(data.getSchema(), data, query+drugAbuseQuery);
-				List<String> drugAbuseExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+drugAbuseQuery);
-				List<String> drugAbuseStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+drugAbuseQuery);
+				Set<String> drugAbuse = getEnrollmentFromDisabilities(data.getSchema(), data, query+drugAbuseQuery);
+				Set<String> drugAbuseExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+drugAbuseQuery);
+				Set<String> drugAbuseStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+drugAbuseQuery);
 				
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eDrugAbuseAtEntry(BigInteger.valueOf(getSize(drugAbuse)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eDrugAbuseStayers(BigInteger.valueOf(getSize(drugAbuseStayers)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eDrugAbuseLeavers(BigInteger.valueOf(getSize(drugAbuseExit)));
 				
 				String alcoholAndDrugQuery = "  and disabilitytype='10' and disabilityresponse='3' ";
-				List<String> alcoholAndDrug = getEnrollmentFromDisabilities(data.getSchema(), data, query+alcoholAndDrugQuery);
-				List<String> alcoholAndDrugExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+alcoholAndDrugQuery);
-				List<String> alcoholAndDrugStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+alcoholAndDrugQuery);
+				Set<String> alcoholAndDrug = getEnrollmentFromDisabilities(data.getSchema(), data, query+alcoholAndDrugQuery);
+				Set<String> alcoholAndDrugExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+alcoholAndDrugQuery);
+				Set<String> alcoholAndDrugStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+alcoholAndDrugQuery);
 				
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eBothAlcoholAndDrugAbuseAtEntry(BigInteger.valueOf(getSize(alcoholAndDrug)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eBothAlcoholAndDrugAbuseStayers(BigInteger.valueOf(getSize(alcoholAndDrugStayers)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eBothAlcoholAndDrugAbuseLeavers(BigInteger.valueOf(getSize(alcoholAndDrugExit)));
 
 				String chronicHealthConditionQuery = "   and disabilitytype='7' ";
-				List<String> chronicHealthCondition = getEnrollmentFromDisabilities(data.getSchema(), data, query+chronicHealthConditionQuery);
-				List<String> chronicHealthConditionExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+chronicHealthConditionQuery);
-				List<String> chronicHealthConditionStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+chronicHealthConditionQuery);
+				Set<String> chronicHealthCondition = getEnrollmentFromDisabilities(data.getSchema(), data, query+chronicHealthConditionQuery);
+				Set<String> chronicHealthConditionExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+chronicHealthConditionQuery);
+				Set<String> chronicHealthConditionStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+chronicHealthConditionQuery);
 				
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eChronicHealthConditionAtEntry(BigInteger.valueOf(getSize(chronicHealthCondition)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eChronicHealthConditionStayers(BigInteger.valueOf(getSize(chronicHealthConditionStayers)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eChronicHealthConditionLeavers(BigInteger.valueOf(getSize(chronicHealthConditionExit)));
 
 				String hivRelatedDiseaseQuery = "   and disabilitytype='8' ";
-				List<String> hivRelatedDisease = getEnrollmentFromDisabilities(data.getSchema(), data, query+hivRelatedDiseaseQuery);
-				List<String> hivRelatedDiseaseExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+hivRelatedDiseaseQuery);
-				List<String> hivRelatedDiseaseStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+hivRelatedDiseaseQuery);
+				Set<String> hivRelatedDisease = getEnrollmentFromDisabilities(data.getSchema(), data, query+hivRelatedDiseaseQuery);
+				Set<String> hivRelatedDiseaseExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+hivRelatedDiseaseQuery);
+				Set<String> hivRelatedDiseaseStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+hivRelatedDiseaseQuery);
 				
 				
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eHIVandRelatedDiseaseAtEntry(BigInteger.valueOf(getSize(hivRelatedDisease)));
@@ -83,18 +84,18 @@ public class Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker extends 
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eHIVandRelatedDiseaseLeavers(BigInteger.valueOf(getSize(hivRelatedDiseaseExit)));
 
 				String developmentalDisabilityQuery = "  and disabilitytype='5' ";
-				List<String> developmentalDisability = getEnrollmentFromDisabilities(data.getSchema(), data, query+developmentalDisabilityQuery);
-				List<String> developmentalDisabilityExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+developmentalDisabilityQuery);
-				List<String> developmentalDisabilityStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+developmentalDisabilityQuery);
+				Set<String> developmentalDisability = getEnrollmentFromDisabilities(data.getSchema(), data, query+developmentalDisabilityQuery);
+				Set<String> developmentalDisabilityExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+developmentalDisabilityQuery);
+				Set<String> developmentalDisabilityStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+developmentalDisabilityQuery);
 				
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eDevelopmentalDisabilityAtEntry(BigInteger.valueOf(getSize(developmentalDisability)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eDevelopmentalDisabilityStayers(BigInteger.valueOf(getSize(developmentalDisabilityStayers)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eDevelopmentalDisabilityLeavers(BigInteger.valueOf(getSize(developmentalDisabilityExit)));
 
 				String physicalDisabilityQuery = "  and disabilitytype='6' ";
-				List<String> physicalDisability = getEnrollmentFromDisabilities(data.getSchema(), data, query+physicalDisabilityQuery);
-				List<String> physicalDisabilityExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+physicalDisabilityQuery);
-				List<String> physicalDisabilityStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+physicalDisabilityQuery);
+				Set<String> physicalDisability = getEnrollmentFromDisabilities(data.getSchema(), data, query+physicalDisabilityQuery);
+				Set<String> physicalDisabilityExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+physicalDisabilityQuery);
+				Set<String> physicalDisabilityStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+physicalDisabilityQuery);
 				
 				
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25ePhysicalDisabilityAtEntry(BigInteger.valueOf(getSize(physicalDisability)));
