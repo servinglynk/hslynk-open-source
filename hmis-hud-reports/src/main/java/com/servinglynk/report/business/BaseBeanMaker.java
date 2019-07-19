@@ -2078,17 +2078,19 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 									earnedIncomeAtStartWithOutAA++;
 									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
 								}
+								   int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								   int ea = (amountAtEntry != null ? amountAtEntry : BigInteger.ZERO).intValue();
 								 // Income at Entry greater than AA
-								if(amountAtEntry != null  && amountAtEntry.compareTo(BigInteger.ZERO) !=0  && amountAtEntry.compareTo(amountAtAA) ==1) {
+								if(ea > aa && ea !=0) {
 									retainIncomeCatLessAtAAThanAtEntry++;
-										incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtEntry.subtract(amountAtAA != null ? amountAtAA : BigInteger.ZERO)) ;
+									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtEntry.subtract(amountAtAA != null ? amountAtAA : BigInteger.ZERO)) ;
 								}
 								// Income at Entry same as AA
-								else if(amountAtEntry != null && amountAtAA != null && amountAtEntry.compareTo(BigInteger.ZERO) !=0 && amountAtEntry.compareTo(amountAtAA) ==0) {
+								else if(ea==aa && ea !=0) {
 									retainIncomeCatSameAtAAThanAtEntry++;
 								}
 								// Income at Entry less than AA
-								else if( (amountAtEntry != null && amountAtEntry.compareTo(BigInteger.ZERO) !=0 && amountAtEntry.compareTo(amountAtAA) == -1)) {
+								else if(ea < aa && aa !=0) {
 									incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(amountAtEntry != null ? amountAtEntry : BigInteger.ZERO )) ;
 									retainIncomeCatGreaterAtAAThanAtEntry++;
 								}
@@ -2100,7 +2102,7 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 							BigInteger average = incomeAtStartAndNotAtAA.divide(BigInteger.valueOf(earnedIncomeAtStartWithOutAA));
 							average = average.multiply(BigInteger.valueOf(-1));
 							q19DataBean.setAverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
-							q19DataBean.setNoOfAdltsWithEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(earnedIncomeAtStartWithOutAA));
+							q19DataBean.setNoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(earnedIncomeAtStartWithOutAA));
 						}
 						
 						//#C
@@ -2217,17 +2219,19 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 									incomeAtStartWithOutAA++;
 									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
 								}
+								   int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								   int ea = (amountAtEntry != null ? amountAtEntry : BigInteger.ZERO).intValue();
 								 // Income at Entry greater than AA
-								if(amountAtEntry != null  && amountAtEntry.compareTo(BigInteger.ZERO) !=0  && amountAtEntry.compareTo(amountAtAA) ==1) {
+								if(ea > aa && ea !=0) {
 									retainIncomeCatLessAtAAThanAtEntry++;
-										incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtEntry.subtract(amountAtAA != null ? amountAtAA : BigInteger.ZERO)) ;
+									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtEntry.subtract(amountAtAA != null ? amountAtAA : BigInteger.ZERO)) ;
 								}
 								// Income at Entry same as AA
-								else if(amountAtEntry != null && amountAtAA != null && amountAtEntry.compareTo(BigInteger.ZERO) !=0 && amountAtEntry.compareTo(amountAtAA) ==0) {
+								else if(ea==aa && ea !=0) {
 									retainIncomeCatSameAtAAThanAtEntry++;
 								}
 								// Income at Entry less than AA
-								else if( (amountAtEntry != null && amountAtEntry.compareTo(BigInteger.ZERO) !=0 && amountAtEntry.compareTo(amountAtAA) == -1)) {
+								else if(ea < aa && aa !=0) {
 									incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(amountAtEntry != null ? amountAtEntry : BigInteger.ZERO )) ;
 									retainIncomeCatGreaterAtAAThanAtEntry++;
 								}
@@ -2355,17 +2359,19 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 								incomeAtStartWithOutAA++;
 								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
 							}
+							   int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+							   int ea = (amountAtEntry != null ? amountAtEntry : BigInteger.ZERO).intValue();
 							 // Income at Entry greater than AA
-							if(amountAtEntry != null  && amountAtEntry.compareTo(BigInteger.ZERO) !=0  && amountAtEntry.compareTo(amountAtAA) ==1) {
+							if(ea > aa && ea !=0) {
 								retainIncomeCatLessAtAAThanAtEntry++;
-									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtEntry.subtract(amountAtAA != null ? amountAtAA : BigInteger.ZERO)) ;
+								incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtEntry.subtract(amountAtAA != null ? amountAtAA : BigInteger.ZERO)) ;
 							}
 							// Income at Entry same as AA
-							else if(amountAtEntry != null && amountAtAA != null && amountAtEntry.compareTo(BigInteger.ZERO) !=0 && amountAtEntry.compareTo(amountAtAA) ==0) {
+							else if(ea==aa && ea !=0) {
 								retainIncomeCatSameAtAAThanAtEntry++;
 							}
 							// Income at Entry less than AA
-							else if( (amountAtEntry != null && amountAtEntry.compareTo(BigInteger.ZERO) !=0 && amountAtEntry.compareTo(amountAtAA) == -1)) {
+							else if(ea < aa && aa !=0) {
 								incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(amountAtEntry != null ? amountAtEntry : BigInteger.ZERO )) ;
 								retainIncomeCatGreaterAtAAThanAtEntry++;
 							}
