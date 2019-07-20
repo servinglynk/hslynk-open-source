@@ -589,7 +589,7 @@ public class Q23aExitDestinationMoreThan90DaysDataBeanMaker  extends BaseBeanMak
 	
 	public static int  getDestination (List<Q22BeanModel> q22Beans , int numOfDays, String destination) {
 		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() < numOfDays  && StringUtils.equals(destination, q22BeanModel.getDestination())).collect(Collectors.toList());
+			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() > numOfDays  && StringUtils.equals(destination, q22BeanModel.getDestination())).collect(Collectors.toList());
 			return q22Bean7DaysOrLessAllData.size();
 		}
 		 return 0;
@@ -597,7 +597,7 @@ public class Q23aExitDestinationMoreThan90DaysDataBeanMaker  extends BaseBeanMak
 
 	public static int  getDestination (List<Q22BeanModel> q22Beans , int numOfDays, String destination1,String destination2) {
 		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() < numOfDays  && ( StringUtils.equals(destination1, q22BeanModel.getDestination())  || StringUtils.equals(destination2, q22BeanModel.getDestination()) )).collect(Collectors.toList());
+			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() > numOfDays  && ( StringUtils.equals(destination1, q22BeanModel.getDestination())  || StringUtils.equals(destination2, q22BeanModel.getDestination()) )).collect(Collectors.toList());
 			return q22Bean7DaysOrLessAllData.size();
 		}
 		 return 0;
@@ -605,7 +605,7 @@ public class Q23aExitDestinationMoreThan90DaysDataBeanMaker  extends BaseBeanMak
 	
 	public static int  getDestinationByDestinationType(List<Q22BeanModel> q22Beans , int numOfDays, List<String> destinations) {
 		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() < numOfDays  && ( destinations.contains(q22BeanModel.getDestination()))).collect(Collectors.toList());
+			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() > numOfDays  && ( destinations.contains(q22BeanModel.getDestination()))).collect(Collectors.toList());
 			return q22Bean7DaysOrLessAllData.size();
 		}
 		 return 0;
@@ -613,7 +613,7 @@ public class Q23aExitDestinationMoreThan90DaysDataBeanMaker  extends BaseBeanMak
 	
 	public static int  getDestinationByProjectType(List<Q22BeanModel> q22Beans , int numOfDays, List<String> destinations,String projectType) {
 		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() < numOfDays  && ( destinations.contains(q22BeanModel.getDestination())) && StringUtils.equals(projectType, q22BeanModel.getProjectType()) ).collect(Collectors.toList());
+			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() > numOfDays  && ( destinations.contains(q22BeanModel.getDestination())) && StringUtils.equals(projectType, q22BeanModel.getProjectType()) ).collect(Collectors.toList());
 			return q22Bean7DaysOrLessAllData.size();
 		}
 		 return 0;
@@ -621,7 +621,7 @@ public class Q23aExitDestinationMoreThan90DaysDataBeanMaker  extends BaseBeanMak
 	
 	public static int  getDestinationByProjectTypes(List<Q22BeanModel> q22Beans , int numOfDays, List<String> destinations,List<String> projectTypes) {
 		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() < numOfDays  && ( destinations.contains(q22BeanModel.getDestination())) && projectTypes.contains(q22BeanModel.getProjectType()) ).collect(Collectors.toList());
+			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() > numOfDays  && ( destinations.contains(q22BeanModel.getDestination())) && projectTypes.contains(q22BeanModel.getProjectType()) ).collect(Collectors.toList());
 			return q22Bean7DaysOrLessAllData.size();
 		}
 		 return 0;

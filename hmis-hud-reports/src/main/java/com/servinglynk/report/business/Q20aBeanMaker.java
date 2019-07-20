@@ -17,18 +17,18 @@ public class Q20aBeanMaker extends BaseBeanMaker {
 		Q20aTypeOfNonCashBenefitSourcesDataBean q20aTypeOfNonCashBenefitSourcesTable = new Q20aTypeOfNonCashBenefitSourcesDataBean();
 		String entryQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e, %s.noncashbenefits nb where  "+
 		      "   nb.enrollmentid = e.id "+
-			  " and nb.information_date = e.entrydate  and nb.information_date >= :endDate "+
-			  " and e.ageatentry >=18  and nb.datacollectionstage = :datacollectionstage ";
+			  " and nb.information_date = e.entrydate  and nb.information_date <= :endDate "+
+			  " and e.ageatentry >=18  and nb.datacollectionstage ='1' ";
 		       
 		String exitQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where  "+
 			      "   nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
-				  " and nb.information_date = ext.exitdate and nb.information_date >= :endDate "+
-				  " and e.ageatentry >=18  and nb.datacollectionstage = :datacollectionstage ";
+				  " and nb.information_date = ext.exitdate and nb.information_date <= :endDate "+
+				  " and e.ageatentry >=18  and nb.datacollectionstage = '3' ";
 			       
 		String stayersQuery = " select count(distinct(dedup_client_id)) as cnt  from  %s.enrollment e, %s.noncashbenefits nb where "+
 					" nb.enrollmentid=e.id  and nb.information_date <= :endDate and e.ageatentry >= 18 "+
-					" and nb.datacollectionstage='5'  "+
-					" and datediff(nb.information_date,e.entrydate) > 365 ";
+					" and nb.datacollectionstage in ('1','2','5')  ";
+//					" and datediff(nb.information_date,e.entrydate) > 365 ";
 			try {
 				if(data.isLiveMode()) {
 					q20aTypeOfNonCashBenefitSourcesTable.setQ20aSupplementalNutritionalAssistanceAtEntry(BigInteger.valueOf(getIncomeCnt(data, entryQuery +" and nb.snap='1' ", DataCollectionStage.ENTRY.getCode())));

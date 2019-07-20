@@ -20,18 +20,19 @@ public class Q25hTypeOfNonCashIncomeSourcesVeteransDataBeanMaker extends BaseBea
 		
 		String entryQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e, %s.noncashbenefits nb,%s.client c  where  "+
 			      "   nb.enrollmentid = e.id "+
-				  " and i.information_date = e.entrydate  and nb.information_date >= :endDate "+
-				  " and e.ageatentry >=18  and nb.datacollectionstage = :datacollectionstage   and c.id = e.client_id and c.veteran_status='1'  ";
+				  " and i.information_date = e.entrydate  and nb.information_date <= :endDate "+
+				  " and e.ageatentry >=18  and nb.datacollectionstage = '1'   and c.id = e.client_id and c.veteran_status='1'  ";
 			       
 			String exitQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext,%s.client c  where  "+
 				      "   nb.enrollmentid = e.id and e.id = ext.enrollmentid   and c.id = e.client_id and c.veteran_status='1' "+
-					  " and nb.information_date = ext.exitdate and i.information_date >= :endDate "+
-					  " and e.ageatentry >=18  and nb.datacollectionstage = :datacollectionstage ";
+					  " and nb.information_date = ext.exitdate and i.information_date <= :endDate "+
+					  " and e.ageatentry >=18  and nb.datacollectionstage = '3' ";
 				       
 			String stayersQuery = " select count(distinct(dedup_client_id)) as cnt  from  %s.enrollment e, %s.noncashbenefits nb,%s.client c  where "+
-						"   and nb.enrollmentid = e.id   and c.id = e.client_id and c.veteran_status='1'  "+
-						" and nb.information_date >= e.entrydate and i.information_date >= :startDate and nb.information_date <= :endDate and e.ageatentry >= 18 "+
-						" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 ) ";
+						"    nb.enrollmentid = e.id   and c.id = e.client_id and c.veteran_status='1'  "+
+						" and nb.information_date >= e.entrydate and  nb.information_date <= :endDate and e.ageatentry >= 18 "+
+						" and nb.datacollectionstage in ('1','2','5')  ";
+						//" and datediff(nb.information_date,e.entrydate) > 365 ";
 			try {
 			if(data.isLiveMode()) {
 					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hSupplementalNutritionalAssistanceAtEntry(BigInteger.valueOf(getIncomeCnt(data, entryQuery +" and nb.snap='1' ", DataCollectionStage.ENTRY.getCode())));
