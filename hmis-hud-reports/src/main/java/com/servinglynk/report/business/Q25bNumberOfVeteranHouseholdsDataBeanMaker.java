@@ -155,6 +155,9 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 				 }
 				
 					List<ClientModel> clients = data.getVeterans();
+					if(CollectionUtils.isEmpty(clients)) {
+						return q22Beans;
+					}
 					 if(CollectionUtils.isNotEmpty(clients)) {
 						 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
 						 int index = 0;

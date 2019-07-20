@@ -15,20 +15,19 @@ public class Q20aBeanMaker extends BaseBeanMaker {
 		 * Any changes here needs change to Q25h
 		 */
 		Q20aTypeOfNonCashBenefitSourcesDataBean q20aTypeOfNonCashBenefitSourcesTable = new Q20aTypeOfNonCashBenefitSourcesDataBean();
-		String entryQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i,%s.enrollment e, %s.noncashbenefits nb where e.id=i.enrollmentid  "+
-		      "   and nb.enrollmentid = e.id "+
-			  " and i.information_date = e.entrydate and i.information_date <= :startDate and i.information_date >= :endDate "+
-			  " and e.ageatentry >=18  and i.datacollectionstage = :datacollectionstage ";
+		String entryQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e, %s.noncashbenefits nb where  "+
+		      "   nb.enrollmentid = e.id "+
+			  " and i.information_date = e.entrydate  and nb.information_date >= :endDate "+
+			  " and e.ageatentry >=18  and nb.datacollectionstage = :datacollectionstage ";
 		       
-		String exitQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where e.id=i.enrollmentid  "+
-			      "   and nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
-				  " and i.information_date = ext.exitdate and i.information_date <= :startDate and i.information_date >= :endDate "+
-				  " and e.ageatentry >=18  and i.datacollectionstage = :datacollectionstage ";
+		String exitQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where  "+
+			      "   nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
+				  " and nb.information_date = ext.exitdate and i.information_date >= :endDate "+
+				  " and e.ageatentry >=18  and nb.datacollectionstage = :datacollectionstage ";
 			       
-		String stayersQuery = " select count(distinct(dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e, %s.noncashbenefits nb where   e.id=i.enrollmentid "+
+		String stayersQuery = " select count(distinct(dedup_client_id)) as cnt  from  %s.enrollment e, %s.noncashbenefits nb where "+
 					"   and nb.enrollmentid = e.id "+
-					" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 "+
-					" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= :endDate  )   "+
+					" and nb.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 "+
 					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 ) ";
 			try {
 				if(data.isLiveMode()) {

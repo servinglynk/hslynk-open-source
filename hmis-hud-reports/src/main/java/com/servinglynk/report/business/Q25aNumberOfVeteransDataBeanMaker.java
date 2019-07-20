@@ -190,7 +190,7 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 			 while(resultSet.next()) {
 				
 				 
-				 String dedupClientId = resultSet.getString("dedup_client_id");
+				 String dedupClientId = resultSet.getString(1);
 				 q22Beans.add(dedupClientId);
 			 
 			 }

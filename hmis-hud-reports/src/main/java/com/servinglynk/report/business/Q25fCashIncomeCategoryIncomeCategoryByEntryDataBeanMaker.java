@@ -26,7 +26,8 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 			try {
 		
 				List<ClientModel> veterans = data.getVeterans();
-				if(CollectionUtils.isNotEmpty(veterans)) {
+				
+				if(CollectionUtils.isEmpty(veterans)) {
 					return Arrays.asList(q25eData);
 				}
 				Set<String> veteransDedup = new HashSet<>();
