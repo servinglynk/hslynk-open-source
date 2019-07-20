@@ -33,7 +33,7 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 			  " and e.ageatentry >=18  and nb.datacollectionstage = '1' ";
 		       
 		String  exitQuery = " select distinct e.dedup_client_id as dedup_client_id, nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource   from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where  "+
-				      " and nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
+				      "  nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
 				  " and nb.information_date = ext.exitdate  and nb.information_date <= :endDate "+
 				  " and e.ageatentry >=18  and nb.datacollectionstage = '3' ";
 			       
