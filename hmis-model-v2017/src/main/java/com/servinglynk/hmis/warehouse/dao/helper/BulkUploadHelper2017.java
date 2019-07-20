@@ -1055,6 +1055,7 @@ public class BulkUploadHelper2017 {
 	    	  noncashbenefitsModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
 	    	  noncashbenefitsModel.setNonCashBenefitsID(incomeBnfts.getIncomeBenefitsID());
 	    	  noncashbenefitsModel.setOtherSource((incomeBnfts.getOtherBenefitsSource()));
+	    	  noncashbenefitsModel.setEnrollmentID(incomeBnfts.getEnrollmentID());
 	    	  nonCashBenefitsList.add(noncashbenefitsModel);
 	    	  
 	    	  HealthInsurance healthinsuranceModel = new HealthInsurance();
