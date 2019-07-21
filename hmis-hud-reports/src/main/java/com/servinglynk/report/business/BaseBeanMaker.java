@@ -486,7 +486,7 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
-	public static List<String> getDomesticViolenceByVictim(final String schema,final String victim,ReportData data) {
+	public static List<String> getDomesticViolenceByVictim(final String schema,final String victim,ReportData data,String query) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
@@ -509,7 +509,7 @@ public class BaseBeanMaker {
 			 }
 			 builder.deleteCharAt(builder.length() -1);
 			 builder.append(" ) ");
-			 String newQuery = ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM +"'"+victim+"'"+ builder.toString();
+			 String newQuery = query +"'"+victim+"'"+ builder.toString();
 			statement = connection.prepareStatement(formatQuery(newQuery,schema,data));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
@@ -1510,7 +1510,7 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 							 }
 							
 							 StringBuilder enrollmentBuilder = new StringBuilder(" and e.id in  ( ");
-								List<EnrollmentModel> enrollments = data.getActiveClients();
+								List<EnrollmentModel> enrollments = data.getAdultLeavers();
 								 if(CollectionUtils.isNotEmpty(enrollments)) {
 									 int index = 0;
 									 for(EnrollmentModel enrollment : enrollments) {
@@ -1558,7 +1558,7 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 			    
 			    public static List<Q22BeanModel> getQ22BeanLengthOfStayForExit(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,boolean withDestination) {
 					 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
-					 if(CollectionUtils.isNotEmpty(filteredProjectIds))
+					 if(CollectionUtils.isEmpty(filteredProjectIds))
 					 {
 						 return q22Beans;
 					 }	
@@ -1660,7 +1660,7 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 			    	if(StringUtils.equals("LEAVERS", reportType) ) {
 			    		enrollments = data.getLeavers();
 					}else if(StringUtils.equals("STAYERS", reportType) ) {
-						enrollments = data.getAdultStayersHoh365Days();
+						enrollments = data.getStayers();
 					}else if(StringUtils.equals("ALL", reportType) ) {
 						enrollments = data.getEnrollments();
 					} else if(StringUtils.equals("ANNUAL_ASSESMENT", reportType) ) {

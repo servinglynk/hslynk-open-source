@@ -11,6 +11,8 @@ public static String GET_ALL_CLIENTS = " select distinct(c.dedup_client_id) as d
 public static String GET_ALL_CONTACTS = "select * from %s.contact";
 public static String GET_ALL_CONTACTS_FROM_SERVICE = "select * from %s.service_fa_referral where record_type='12' ";
 public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM = "select distinct(e.dedup_client_id) as dedup_client_id from %s.domesticviolence d,%s.enrollment e where e.id =d.enrollmentid and domesticviolencevictim = ";
+public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM_HOH = "select distinct(e.dedup_client_id) as dedup_client_id from %s.domesticviolence d,%s.enrollment e where e.id =d.enrollmentid and relationshiptohoh ='1' and domesticviolencevictim = ";
+
 public static String GET_DOMESTIC_VIOLENCE_BY_VICTIM_DK = "select e.id as enrollmentid  from  %s.domesticviolence d,%s.enrollment e where e.id =d.enrollmentid and domesticviolencevictim in ('8','9') ";
 public static String GET_ALL_DOE = "select * from %s.dateofengagement";
 public static String GET_ALL_ENROLLMENTS = "select e.* from %s.client c,%s.enrollment e, %s.project p,%s.exit ext where e.client_id=c.id and e.projectid= p.id  %p and entrydate <= :endDate and entryDate >= :startDate  "+

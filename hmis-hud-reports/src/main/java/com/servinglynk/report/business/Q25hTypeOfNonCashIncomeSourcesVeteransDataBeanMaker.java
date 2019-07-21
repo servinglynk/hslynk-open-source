@@ -18,17 +18,17 @@ public class Q25hTypeOfNonCashIncomeSourcesVeteransDataBeanMaker extends BaseBea
 		 * Any changes here needs change to Q25h
 		 */
 		
-		String entryQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e, %s.noncashbenefits nb,%s.client c  where  "+
+		String entryQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.enrollment e, %s.noncashbenefits nb,%s.client c  where  "+
 			      "   nb.enrollmentid = e.id "+
 				  " and i.information_date = e.entrydate  and nb.information_date <= :endDate "+
 				  " and e.ageatentry >=18  and nb.datacollectionstage = '1'   and c.id = e.client_id and c.veteran_status='1'  ";
 			       
-			String exitQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext,%s.client c  where  "+
+			String exitQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext,%s.client c  where  "+
 				      "   nb.enrollmentid = e.id and e.id = ext.enrollmentid   and c.id = e.client_id and c.veteran_status='1' "+
 					  " and nb.information_date = ext.exitdate and i.information_date <= :endDate "+
 					  " and e.ageatentry >=18  and nb.datacollectionstage = '3' ";
 				       
-			String stayersQuery = " select count(distinct(dedup_client_id)) as cnt  from  %s.enrollment e, %s.noncashbenefits nb,%s.client c  where "+
+			String stayersQuery = " select count(distinct(e.dedup_client_id)) as cnt  from  %s.enrollment e, %s.noncashbenefits nb,%s.client c  where "+
 						"    nb.enrollmentid = e.id   and c.id = e.client_id and c.veteran_status='1'  "+
 						" and nb.information_date >= e.entrydate and  nb.information_date <= :endDate and e.ageatentry >= 18 "+
 						" and nb.datacollectionstage in ('1','2','5')  ";

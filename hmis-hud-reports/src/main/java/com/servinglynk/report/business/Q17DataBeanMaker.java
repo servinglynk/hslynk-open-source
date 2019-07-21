@@ -226,10 +226,10 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		q17CashIncomeSourcesDataBeanTable.setQ17WorkersCompensationAtExitforLeavers(BigInteger.valueOf(workerscompIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17WorkersCompensationAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(workerscompIncomeAtAnnualAssesment));
 		
-		List<IncomeAndSourceModel>  incomeAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1",incomeAndSource.getIncomefromanysource())).collect(Collectors.toList());
-		List<IncomeAndSourceModel>  incomeAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1",incomeAndSource.getIncomefromanysource())).collect(Collectors.toList());
-		List<IncomeAndSourceModel>  incomeAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1",incomeAndSource.getIncomefromanysource())).collect(Collectors.toList());
 		
+		List<IncomeAndSourceModel> incomeAtEntry = data.getIncomeAndSourcesAtEntry();
+		List<IncomeAndSourceModel> incomeAtExit = data.getIncomeAndSourcesAtExit();
+		List<IncomeAndSourceModel> incomeAtAA = data.getIncomeAndSourcesAtAnnualAssesment();
 		
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntry)));
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(incomeAtExit)));

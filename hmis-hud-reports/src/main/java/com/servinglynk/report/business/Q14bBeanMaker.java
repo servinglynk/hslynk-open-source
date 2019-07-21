@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q14bPersonsFleeingDomesticViolenceDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.EnrollmentModel;
@@ -34,7 +35,7 @@ public class Q14bBeanMaker extends BaseBeanMaker {
 		BigInteger withOneAdultChildSize = BigInteger.ZERO;
 		BigInteger unknownHouseHoldSize = BigInteger.ZERO;
 		
-		List<String> domesticViolenceByVictimYes = getDomesticViolenceByVictim(data.getSchema(), "1",data);
+		List<String> domesticViolenceByVictimYes = getDomesticViolenceByVictim(data.getSchema(), "1",data, ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM_HOH);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimYes)) {
 			q14bBean.setQ14bYesTotal(BigInteger.valueOf(domesticViolenceByVictimYes.size()));
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimYes.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
@@ -58,7 +59,7 @@ public class Q14bBeanMaker extends BaseBeanMaker {
 			q14bBean.setQ14bYesUnknownHouseholdType(BigInteger.valueOf(unknownHouseHoldIntSize));
 		}
 	
-		List<String> domesticViolenceByVictimNo = getDomesticViolenceByVictim(data.getSchema(), "0",data);
+		List<String> domesticViolenceByVictimNo = getDomesticViolenceByVictim(data.getSchema(), "0",data,ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM_HOH);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimNo)) {
 		
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimNo.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
@@ -109,7 +110,7 @@ public class Q14bBeanMaker extends BaseBeanMaker {
 		
 		
 		
-		List<String> domesticViolenceByVictimMissing = getDomesticViolenceByVictim(data.getSchema(), "99",data);
+		List<String> domesticViolenceByVictimMissing = getDomesticViolenceByVictim(data.getSchema(), "99",data,ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM_HOH);
 		if(CollectionUtils.isNotEmpty(domesticViolenceByVictimMissing)) {
 			List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimMissing.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
 			List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> domesticViolenceByVictimMissing.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
