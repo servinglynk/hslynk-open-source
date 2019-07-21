@@ -1056,6 +1056,13 @@ public class BulkUploadHelper2017 {
 	    	  noncashbenefitsModel.setNonCashBenefitsID(incomeBnfts.getIncomeBenefitsID());
 	    	  noncashbenefitsModel.setOtherSource((incomeBnfts.getOtherBenefitsSource()));
 	    	  noncashbenefitsModel.setEnrollmentID(incomeBnfts.getEnrollmentID());
+	    	  noncashbenefitsModel.setOtherSourceIdentify(incomeBnfts.getOtherBenefitsSourceIdentify());
+	    	  noncashbenefitsModel.setOtherTANF(incomeBnfts.getOtherTANF());
+	    	//  noncashbenefitsModel.setRentalAssistanceOngoing(incomeBnfts.getong);
+	    	  noncashbenefitsModel.setSNAP(incomeBnfts.getSNAP());
+	    	  noncashbenefitsModel.setTANFChildCare(incomeBnfts.getTANFChildCare());
+	    	  noncashbenefitsModel.setTANFTransportation(incomeBnfts.getTANFTransportation());
+	    	  noncashbenefitsModel.setWIC(incomeBnfts.getWIC());
 	    	  nonCashBenefitsList.add(noncashbenefitsModel);
 	    	  
 	    	  HealthInsurance healthinsuranceModel = new HealthInsurance();
