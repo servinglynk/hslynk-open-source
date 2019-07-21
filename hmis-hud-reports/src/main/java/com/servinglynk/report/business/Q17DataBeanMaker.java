@@ -1,23 +1,14 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q17CashIncomeSourcesDataBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.model.DataCollectionStage;
-import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
 
 public class Q17DataBeanMaker extends BaseBeanMaker {

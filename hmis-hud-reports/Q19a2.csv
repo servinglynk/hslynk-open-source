@@ -1,10 +1,11 @@
 "Income Change by Income Category
-(Universe: Adult Stayers with Income Informatio",Had Income Category at Start and Did Not Have It at Annual Assessment,Retained Income  Category But Had Less $ at Annual Assessment Than at Start,Retained Income Category and Same $ at Annual Assessment as at Start,Retained Income Category and Increased $ at Annual Assessment,Did Not Have the Income Category at Start and Gained the Income Category at Annual Assessmen,Did Not Have the Income Category at Start or at Annual Assessment,Total Adults (including those with No Income),"Performance Measure:
-Adults who Gained or Increased Income from Start to Annual Assessment,
-Average ",Performance measure: Percent of persons who accomplished 
-" Number of Adults with  Earned Income (i.e., Employmen",1,0,0,0,0,2,9,0,0
+(Universe: Adult Stayers with Income Informatio",Had Income Category at Start and Did Not Have It at Exit,Retained Income  Category But Had Less $ at Exit Than at Start,Retained Income Category and Same $ at Exit as at Start,Retained Income Category and Increased $ at Exit,Did Not Have the Income Category at Start and Gained the Income Category at Exit,Did Not Have the Income Category at Start or at Exit,Total Adults (including those with No Income),"Performance Measure:
+Adults who Gained or Increased Income from Start to Exit,
+Average Gain
+",Performance measure: Percent of persons who accomplished 
+" Number of Adults with  Earned Income (i.e., Employmen",24,0,0,0,0,2,32,0,0
  Average Change in Earned Income,0,0,0,0,0,0,0,0,0
- Number of Adults with Other Income,1,2,2,2,4,8,9,6,66
- Average Change in Other Income,-221,767,0,656,660,0,0,658,0
-" Number of Adults with Any Income (i.e., Total Income)",1,2,2,2,4,2,9,6,66
- Average Change in Overall Income,-221,767,0,656,660,0,0,658,0
+ Number of Adults with Other Income,24,20,2,4,3,8,32,7,21
+ Average Change in Other Income,-347,163,0,771,680,0,0,725,0
+" Number of Adults with Any Income (i.e., Total Income)",24,20,2,4,3,2,32,7,21
+ Average Change in Overall Income,-347,163,0,771,680,0,0,725,0

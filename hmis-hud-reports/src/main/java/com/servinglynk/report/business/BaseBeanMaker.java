@@ -1213,8 +1213,8 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 				try {
 					connection = ImpalaConnection.getConnection();
 					statement = connection.createStatement();
-					
-					resultSet = statement.executeQuery(formatQuery(query,data.getSchema(), data));
+					String buildQueryFromDataCollectionStage = buildQueryFromDataCollectionStage(datacollectionStage, query, data);
+					resultSet = statement.executeQuery(formatQuery(buildQueryFromDataCollectionStage,data.getSchema(), data));
 					
 				 while(resultSet.next()) {
 					 count = resultSet.getInt(1);
@@ -1244,7 +1244,8 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 					connection = ImpalaConnection.getConnection();
 					statement = connection.createStatement();
 					data.setQueryDataCollectionStage(datacollectionStage);
-					resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
+					String buildQueryFromDataCollectionStage = buildQueryFromDataCollectionStage(datacollectionStage, query, data);
+					resultSet = statement.executeQuery(formatQuery(buildQueryFromDataCollectionStage,data.getSchema(),data));
 					
 				 while(resultSet.next()) {
 					 count = resultSet.getInt(1);
@@ -1660,7 +1661,7 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 			    	if(StringUtils.equals("LEAVERS", reportType) ) {
 			    		enrollments = data.getLeavers();
 					}else if(StringUtils.equals("STAYERS", reportType) ) {
-						enrollments = data.getStayers();
+						enrollments = data.getAdultStayersHoh365Days();
 					}else if(StringUtils.equals("ALL", reportType) ) {
 						enrollments = data.getEnrollments();
 					} else if(StringUtils.equals("ANNUAL_ASSESMENT", reportType) ) {

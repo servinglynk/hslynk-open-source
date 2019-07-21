@@ -18,16 +18,16 @@ public class Q20aBeanMaker extends BaseBeanMaker {
 		String entryQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e, %s.noncashbenefits nb where  "+
 		      "   nb.enrollmentid = e.id "+
 			  "  and nb.information_date <= :endDate "+
-			  " and e.ageatentry >=18  and nb.datacollectionstage ='1' ";
+			  " and e.ageatentry >=18  and nb.datacollectionstage ='1' %dedup ";
 		       
 		String exitQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where  "+
 			      "   nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
 				  "  and nb.information_date <= :endDate "+
-				  " and e.ageatentry >=18  and nb.datacollectionstage = '3' ";
+				  " and e.ageatentry >=18  and nb.datacollectionstage = '3'  %dedup ";
 			       
 		String stayersQuery = " select count(distinct(dedup_client_id)) as cnt  from  %s.enrollment e, %s.noncashbenefits nb where "+
 					" nb.enrollmentid=e.id  and nb.information_date <= :endDate and e.ageatentry >= 18 "+
-					" and nb.datacollectionstage in ('1','2','5')  ";
+					" and nb.datacollectionstage in ('1','2','5')   %dedup ";
 //					" and datediff(nb.information_date,e.entrydate) > 365 ";
 			try {
 				if(data.isLiveMode()) {

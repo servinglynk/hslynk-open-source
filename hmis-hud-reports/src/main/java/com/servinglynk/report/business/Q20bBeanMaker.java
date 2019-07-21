@@ -30,17 +30,17 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 		String entryQuery = " select distinct e.dedup_client_id as dedup_client_id, nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource  from  %s.enrollment e,%s.noncashbenefits nb where  "+
 		      " nb.enrollmentid = e.id "+
 			  " and nb.information_date <= :endDate "+
-			  " and e.ageatentry >=18  and nb.datacollectionstage = '1' ";
+			  " and e.ageatentry >=18  and nb.datacollectionstage = '1' %dedup ";
 		       
 		String  exitQuery = " select distinct e.dedup_client_id as dedup_client_id, nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource   from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where  "+
 				      "  nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
 				  "  and nb.information_date <= :endDate "+
-				  " and e.ageatentry >=18  and nb.datacollectionstage = '3' ";
+				  " and e.ageatentry >=18  and nb.datacollectionstage = '3' %dedup ";
 			       
 		String stayersQuery = " select distinct e.dedup_client_id as dedup_client_id, nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource  from %s.enrollment e,%s.noncashbenefits nb where "+
 					" nb.enrollmentid=e.id  and nb.information_date <= :endDate and e.ageatentry >= 18 "+
-					" and nb.datacollectionstage='5'  "+
-					" and datediff(nb.information_date,e.entrydate) > 365 ";
+					" and nb.datacollectionstage in ('1','2','5')  "+
+					" and datediff(nb.information_date,e.entrydate) > 365  %dedup";
 			try {
 				if(data.isLiveMode()) {
 					List<NonCashModel> entryNonCashBenefits = getNonCashBenefit(data, entryQuery,DataCollectionStage.ENTRY.getCode());
@@ -115,10 +115,8 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 					query = query + builder.toString();
 				}
 				
-				if(StringUtils.equals(datacollectionStage, DataCollectionStage.ANNUAL_ASSESMENT.getCode())) {
-					//statement.setDate(3, data.getReportEndDate());
-				} 
-				resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
+				String buildQueryFromDataCollectionStage = buildQueryFromDataCollectionStage(datacollectionStage, query, data);
+				resultSet = statement.executeQuery(formatQuery(buildQueryFromDataCollectionStage,data.getSchema(),data));
 				
 			 while(resultSet.next()) {
 				 nonCashModels.add(new NonCashModel(resultSet.getString("snap"), resultSet.getString("wic"), resultSet.getString("tanfchildcare"), resultSet.getString("tanftransportation"), resultSet.getString("othertanf") , resultSet.getString("benefitsfromanysource") , resultSet.getString("dedup_client_id")));
