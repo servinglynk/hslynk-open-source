@@ -23,7 +23,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 	public static List<Q25cGenderVeteransDataBean> getQ25cGenderVeteransList(ReportData data){
 		
 		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p ) "+
-			     " join %s.client c on (e.client_id = c.id and e.entrydate  >=  :startDate and  e.entrydate<=:endDate) "+ 
+			     " join %s.client c on (e.client_id = c.id and  e.entrydate<=:endDate) "+ 
 			     " where  1=1 ";
 				Q25cGenderVeteransDataBean q25cGenderVeteranTable = new Q25cGenderVeteransDataBean();
 				try {

@@ -112,8 +112,8 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 						int nonChVeteranUnknown= chVeteranUnknownHouseHold + nonChVeteranUnknownHouseHold + nonChVeteranWithChildAndAdults +notVeteranUnknownHouseHoldSize + clientRefusedUnknownHouseHoldSize + dncUnknownHouseHoldSize ;
 						
 						
-						q25aNumberOfVeteransTable.setQ25aTotTotal(BigInteger.valueOf(getSize(data.getVeterans())));
-						q25aNumberOfVeteransTable.setQ25aTotWithoutChildren(BigInteger.valueOf(nonChWithoutChildren));
+						q25aNumberOfVeteransTable.setQ25aTotTotal(BigInteger.valueOf(getSize(data.getActiveClients())));
+						q25aNumberOfVeteransTable.setQ25aTotWithoutChildren(BigInteger.valueOf(getSize(data.getActiveClients())));
 						q25aNumberOfVeteransTable.setQ25aTotWithChildAndAdults(BigInteger.valueOf(nonnonChVeteranWithoutChild));
 						q25aNumberOfVeteransTable.setQ25aTotUnknownHouseHold(BigInteger.valueOf(nonChVeteranUnknown));
 					}	}catch(Exception e){

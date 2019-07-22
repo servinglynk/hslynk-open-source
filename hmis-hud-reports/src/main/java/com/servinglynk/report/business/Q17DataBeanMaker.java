@@ -222,9 +222,9 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		List<IncomeAndSourceModel> incomeAtExit = data.getIncomeAndSourcesAtExit();
 		List<IncomeAndSourceModel> incomeAtAA = data.getIncomeAndSourcesAtAnnualAssesment();
 		
-		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntry)));
-		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCnt(incomeAtExit)));
-		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(getIncomeCnt(incomeAtAA)));
+		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtEntry(BigInteger.ZERO);
+		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCntWithIncome(incomeAtExit)));
+		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(getIncomeCntWithIncome(incomeAtAA)));
 		
 	
 	} catch (Exception e) {

@@ -222,12 +222,12 @@ public class BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.dedup_client_id in  ( ");
-			List<EnrollmentModel> enrollments = data.getActiveClients();
-			 if(CollectionUtils.isNotEmpty(enrollments)) {
+			List<ClientModel> clients = data.getClients();
+			 if(CollectionUtils.isNotEmpty(clients)) {
 				 int count = 0;
-				 for(EnrollmentModel enrollment : enrollments) {
-					 builder.append("'"+enrollment.getDedupClientId()+"'");
-					 if(count != enrollments.size()) {
+				 for(ClientModel client : clients) {
+					 builder.append("'"+client.getDedupClientId()+"'");
+					 if(count != clients.size()) {
 						 builder.append(",");
 					 }
 				 }
@@ -1559,7 +1559,7 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 			    
 			    public static List<Q22BeanModel> getQ22BeanLengthOfStayForExit(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,boolean withDestination) {
 					 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
-					 if(CollectionUtils.isEmpty(filteredProjectIds))
+					 if(CollectionUtils.isEmpty(filteredProjectIds) && !allProjects)
 					 {
 						 return q22Beans;
 					 }	
@@ -2007,6 +2007,24 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 					return 0;
 				}
 			    
+				
+				public static int getIncomeCntWithIncome(List<IncomeAndSourceModel> incomeAndSources) {
+					Map<String, Integer> income = getIncome(incomeAndSources);
+					int count  =0;
+					if(income != null) {
+						 Collection<Integer> values = income.values();
+						 
+						if(CollectionUtils.isNotEmpty(values)) {
+							for(Integer index : values ) {
+								if(index != null && index.intValue() > 0) {
+									count++;
+								}
+							}
+							return count;
+						}
+					}
+					return 0;
+				}
 				public static int getFloat(Float value) {
 					try {
 						if(value != null) {

@@ -30,9 +30,9 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		List<IncomeAndSourceModel> incomeAtExit = data.getIncomeAndSourcesAtExit();
 		List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = data.getIncomeAndSourcesAtAnnualAssesment();
 		
-		q18eData.setQ18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntry)));
-		q18eData.setQ18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit(BigInteger.valueOf(getIncomeCnt(incomeAtExit) ));
-		q18eData.setQ18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup(BigInteger.valueOf(getIncomeCnt(incomeAndSourcesAtAnnualAssesment)));
+		q18eData.setQ18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry(BigInteger.ZERO);
+		q18eData.setQ18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit(BigInteger.valueOf(getIncomeCntWithIncome(incomeAtExit) ));
+		q18eData.setQ18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup(BigInteger.valueOf(getIncomeCntWithIncome(incomeAndSourcesAtAnnualAssesment)));
 		
 		List<IncomeAndSourceModel> earnedIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> getFloat(income.getEarnedamount()) > 0 &&  (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount())) == 0).collect(Collectors.toList());
 		List<IncomeAndSourceModel> earnedIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> getFloat(income.getEarnedamount()) > 0  && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount()))  == 0).collect(Collectors.toList());

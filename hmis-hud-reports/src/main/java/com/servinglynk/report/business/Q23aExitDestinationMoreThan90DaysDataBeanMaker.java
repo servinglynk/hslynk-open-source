@@ -634,7 +634,7 @@ public class Q23aExitDestinationMoreThan90DaysDataBeanMaker  extends BaseBeanMak
 		if(subTotal <= 0) {
 			return 0;
 		}
-		long percentage = destination41/subTotal;
+		long percentage = destination41*100/subTotal;
 		return percentage;
 	}
 }

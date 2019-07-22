@@ -25,10 +25,10 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 		if(data.isLiveMode()) {
 			try{
 			String entryQuery = " select count(e.dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e ,%s.client c where  e.client_id = c.id and   e.id=i.enrollmentid "+ 
-								" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and c.veteran_status= '1' and i.datacollectionstage=:datacollectionstage and e.ageatentry >= 18 ";
+								" and i.information_date >= e.entrydate  and i.information_date <= :endDate and c.veteran_status= '1' and i.datacollectionstage=:datacollectionstage and e.ageatentry >= 18 ";
 		
 			String annualAssesmentQuery = " select count(distinct(e.dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e,%s.client c where   e.client_id = c.id and  e.id=i.enrollmentid and c.veteran_status= '1' "+ 
-					" and i.information_date >= e.entrydate and i.datacollectionstage=:datacollectionstage  and i.information_date >= :startDate and i.information_date <= :endDate  and e.ageatentry >= 18 "+
+					" and i.information_date >= e.entrydate and i.datacollectionstage=:datacollectionstage  and i.information_date <= :endDate  and e.ageatentry >= 18 "+
 					" and   e.id not in ( select enrollmentid from %s.exit  where exitdate <= :startDate )  "+
 					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 )  ";
 
