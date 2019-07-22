@@ -15,6 +15,7 @@ import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDataElementDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ClientMetaDataDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientTrackerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
@@ -302,5 +303,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public SharingRuleDaoImpl sharingRuleDao() {
 		return new SharingRuleDaoImpl();
+	}
+	
+	@Bean
+	public ClientMetaDataDaoImpl clientMetaDataDao() {
+		return new ClientMetaDataDaoImpl();
 	}
 }

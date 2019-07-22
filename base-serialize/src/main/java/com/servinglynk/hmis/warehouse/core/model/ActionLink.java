@@ -16,6 +16,10 @@ public class ActionLink {
 	public void setHref(String href) {
 		this.href = href;
 	}
+	
+	public ActionLink() {
+		super();
+	}
 	public ActionLink(String rel, String href) {
 		this.rel = rel;
 		this.href = href;

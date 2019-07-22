@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,6 +22,8 @@ import com.servinglynk.hmis.warehouse.core.model.BaseProject;
 
 public class SearchServiceClient extends CoreClientBase implements ISearchServiceClient {
 
+	@Autowired Environment env;
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<?> search(SearchRequest request) throws Exception {
 
@@ -35,13 +39,13 @@ public class SearchServiceClient extends CoreClientBase implements ISearchServic
 		StringBuffer URI = new StringBuffer();
 		if (request.getSearchEntity().equalsIgnoreCase("projects")) {
 		 URI = new StringBuffer(
-				"http://hhmiselb.aws.hmislynk.com/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
+				 env.getProperty("elbhost")+"/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
 		for (Map.Entry<String, Object> entry : request.getSearchParams().entrySet()) {
 			URI.append("&" + entry.getKey() + "=" + entry.getValue());
 		}
 		}else {
 			 URI = new StringBuffer(
-					"http://hmiselb.aws.hmislynk.com/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
+					 env.getProperty("elbhost")+"/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
 			for (Map.Entry<String, Object> entry : request.getSearchParams().entrySet()) {
 				URI.append("&" + entry.getKey() + "=" + entry.getValue());
 			}

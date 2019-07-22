@@ -35,4 +35,5 @@ public interface BaseDaoFactory {
 	GenericEnrollmentDao getGenericEnrollmentDao();
 	GlobalHouseHoldDao getGlobalHouseHoldDao();
 	SharingRuleDao getSharingRuleDao();
+	ClientMetaDataDao getClientMetaDataDao();
 }
