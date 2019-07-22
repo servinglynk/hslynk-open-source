@@ -1,9 +1,9 @@
 ,Conditions At Start,Conditions at Latest Assessment for Stayers,Conditions at Exit for Leavers
-   a. Mental Health Problem,0,0,0
-   b. Alcohol Abuse,0,0,0
+   a. Mental Health Problem,2,2,1
+   b. Alcohol Abuse,1,1,0
    c. Drug Abuse,0,0,0
-   d. Both Alcohol Abuse and Drug ,0,0,0
-   e. Chronic Health Condition,0,0,0
-   f. HIV/AIDS and related diseases,0,0,0
-   g. Developmental Disability,0,0,0
-   h. Physical Disability,0,0,0
+   d. Both Alcohol Abuse and Drug ,1,1,1
+   e. Chronic Health Condition,2,2,1
+   f. HIV/AIDS and related diseases,2,2,1
+   g. Developmental Disability,2,2,1
+   h. Physical Disability,2,2,1

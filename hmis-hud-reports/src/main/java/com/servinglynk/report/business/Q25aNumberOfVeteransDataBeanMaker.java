@@ -62,9 +62,9 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 						q25aNumberOfVeteransTable.setQ25aNonChronicallyHomelessVeteranUnknownHouseHold(BigInteger.valueOf(nonChVeteranUnknownHouseHold));
 		
 						List<String> notVeteran = getClients(data, query, null, true, "0", null);
-						List<String> notVeteranWithoutChildren = getClients(data, query, projectsHHWithOutChildren, false, "0", null);
-						List<String> notVeteranithChildAndAdults = getClients(data, query, projectsHHWithOneAdultChild, false, "0", null);
-						List<String> notVeteranUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, "0", null);
+						List<String> notVeteranWithoutChildren = getClients(data, query, projectsHHWithOutChildren, true, "0", null);
+						List<String> notVeteranithChildAndAdults = getClients(data, query, projectsHHWithOneAdultChild, true, "0", null);
+						List<String> notVeteranUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, true, "0", null);
 						
 						int notVeteranSize = notVeteran != null ? notVeteran.size() : 0 ;
 						int notVeteranWithoutChildrenSize = notVeteranWithoutChildren != null ? notVeteranWithoutChildren.size() : 0 ;
@@ -112,8 +112,8 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 						int nonChVeteranUnknown= chVeteranUnknownHouseHold + nonChVeteranUnknownHouseHold + nonChVeteranWithChildAndAdults +notVeteranUnknownHouseHoldSize + clientRefusedUnknownHouseHoldSize + dncUnknownHouseHoldSize ;
 						
 						
-						q25aNumberOfVeteransTable.setQ25aTotTotal(BigInteger.valueOf(getSize(data.getActiveClients())));
-						q25aNumberOfVeteransTable.setQ25aTotWithoutChildren(BigInteger.valueOf(getSize(data.getActiveClients())));
+						q25aNumberOfVeteransTable.setQ25aTotTotal(BigInteger.valueOf(getSize(data.getClients())));
+						q25aNumberOfVeteransTable.setQ25aTotWithoutChildren(BigInteger.valueOf(getSize(data.getClients())));
 						q25aNumberOfVeteransTable.setQ25aTotWithChildAndAdults(BigInteger.valueOf(nonnonChVeteranWithoutChild));
 						q25aNumberOfVeteransTable.setQ25aTotUnknownHouseHold(BigInteger.valueOf(nonChVeteranUnknown));
 					}	}catch(Exception e){
@@ -175,7 +175,11 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 					
 				
 				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
-					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
+					if( !StringUtils.equals("0", veteranStatus)) {
+						newQuery = newQuery + " and veteran_status is null  and veteran_status ='"+veteranStatus+"'" ;
+					} else {
+						newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
+					}
 				}
 				if(StringUtils.equals("8", veteranStatus)) {
 					newQuery = newQuery + " and veteran_status  in ('8','9') ";

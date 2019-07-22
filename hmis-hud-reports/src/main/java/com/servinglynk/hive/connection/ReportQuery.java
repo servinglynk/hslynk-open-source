@@ -63,13 +63,13 @@ public static String EXIT_INCOME_AND_SOURCE_QUERY = "select  alimonyamount,child
 		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource,ext.exitdate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry, " +
 		 " alimony, childsupport, earned, ga, othersource, pension, privatedisability, socsecretirement,ssdi, ssi, tanf, unemployment, vadisabilitynonservice, vadisabilityservice, workerscomp " +
 		 " from %s.incomeandsources i, %s.enrollment e,%s.exit ext where i.datacollectionstage='3' and  e.id=i.enrollmentid "+
-		" and  ext.enrollmentid = e.id  and i.information_date = ext.exitdate %dedup order by e.dedup_client_id,e.entrydate asc  ";
+		" and  ext.enrollmentid = e.id  and TO_DATE(i.information_date)=TO_DATE(ext.exitdate)  %dedup order by e.dedup_client_id,e.entrydate asc  ";
 
 public static String ENTRY_INCOME_AND_SOURCE_QUERY = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 	" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
 	" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry,    "+
 	" alimony, childsupport, earned, ga, othersource, pension, privatedisability, socsecretirement,ssdi, ssi, tanf, unemployment, vadisabilitynonservice, vadisabilityservice, workerscomp " +
 	" from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='1' and  e.id=i.enrollmentid "+
-	" and i.information_date = e.entrydate   %dedup   order by e.dedup_client_id,e.entrydate asc  ";
+	" and TO_DATE(i.information_date)=TO_DATE(e.entrydate)   %dedup   order by e.dedup_client_id,e.entrydate asc  ";
 
 }

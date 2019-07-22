@@ -311,15 +311,15 @@ public class BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.dedup_client_id in  ( ");
-			List<EnrollmentModel> enrollments = data.getActiveClients();
-			if(CollectionUtils.isEmpty(enrollments)){
+			List<ClientModel> clients = data.getClients();
+			if(CollectionUtils.isEmpty(clients)){
 				 return new ArrayList<>();
 			}
-			 if(CollectionUtils.isNotEmpty(enrollments)) {
+			 if(CollectionUtils.isNotEmpty(clients)) {
 				 int count = 0;
-				 for(EnrollmentModel enrollment : enrollments) {
-					 builder.append("'"+enrollment.getDedupClientId()+"'");
-					 if(count != enrollments.size()) {
+				 for(ClientModel client : clients) {
+					 builder.append("'"+client.getDedupClientId()+"'");
+					 if(count != clients.size()) {
 						 builder.append(",");
 					 }
 				 }
@@ -404,7 +404,7 @@ public class BaseBeanMaker {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
 			StringBuilder builder = new StringBuilder(" and e.dedup_client_id in  ( ");
-			List<EnrollmentModel> enrollments = data.getStayers();
+			List<EnrollmentModel> enrollments = data.getActiveClients();
 			if(CollectionUtils.isEmpty(enrollments)){
 				 return new ArrayList<>();
 			}

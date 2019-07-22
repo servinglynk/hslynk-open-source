@@ -92,7 +92,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						q25cGenderVeteranTable.setQ25cTransgendereFemaleToMaleWithChildAndAdults(BigInteger.valueOf(transgendereFemaleToMaleWithChildAndAdultsSize));
 						q25cGenderVeteranTable.setQ25cTransgendereFemaleToMaleUnknownHouseHold(BigInteger.valueOf(transgendereFemaleToMaleUnknownHouseHoldSize));
 		
-						List<String> other = getClients(data, query, null, true, "1", "4");
+						List<String> other = getClients(data, query, null, false, "1", "4");
 						List<String> otherWithoutChildren = getClients(data, query, projectsHHWithOutChildren, false, "1", "4");
 						List<String> otherWithChildAndAdults = getClients(data, query, projectsHHWithOneAdultChild, false, "1", "4");
 						List<String> otherUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, "1", "4");
@@ -107,7 +107,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						q25cGenderVeteranTable.setQ25cOtherWithChildAndAdults(BigInteger.valueOf(otherWithChildAndAdultsSize));
 						q25cGenderVeteranTable.setQ25cOtherUnknownHouseHold(BigInteger.valueOf(otherUnknownHouseHoldSize));
 						
-						List<String> dk =  getClients(data, query, null, true, "1", "8");
+						List<String> dk =  getClients(data, query, null, false, "1", "8");
 						List<String> dkWithoutChildren =  getClients(data, query, projectsHHWithOutChildren, false, "1", "8");
 						List<String> dkWithChildAndAdults =  getClients(data, query, projectsHHWithOneAdultChild, false, "1", "8");
 						List<String> dkUnknownHouseHold =  getClients(data, query, projectsUnknownHouseHold, false, "1", "8");
@@ -122,7 +122,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						q25cGenderVeteranTable.setQ25cDKRWithChildAndAdults(BigInteger.valueOf(dkWithChildAndAdultsSize));
 						q25cGenderVeteranTable.setQ25cDKRUnknownHouseHold(BigInteger.valueOf(dkUnknownHouseHoldSize));
 		
-						List<String> informationMissing =  getClients(data, query, null, true, "1", "99");
+						List<String> informationMissing =  getClients(data, query, null, false, "1", "99");
 						List<String> informationMissingWithoutChildren =  getClients(data, query, projectsHHWithOutChildren, false, "1", "99");
 						List<String> informationMissingWithChildAndAdults =  getClients(data, query, projectsHHWithOneAdultChild, false, "1", "99");
 						List<String> informationMissingUnknownHouseHold =  getClients(data, query, projectsUnknownHouseHold, false, "1", "99");
