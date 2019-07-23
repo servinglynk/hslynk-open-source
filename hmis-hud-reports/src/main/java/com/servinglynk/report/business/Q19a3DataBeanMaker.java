@@ -11,10 +11,12 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q19DataBean;
 import com.servinglynk.report.bean.Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.IncomeAndSourceModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
 
@@ -24,10 +26,13 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 		Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a3Bean = new Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean();
 		if(data.isLiveMode()) {
 			try {
-				List<IncomeAndSourceModel> incomeAndSourcesAtEntry = data.getIncomeAndSourcesAtEntry();
-				List<IncomeAndSourceModel> incomeAndSourcesAtExit = data.getIncomeAndSourcesAtExit();
-				List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = data.getIncomeAndSourcesAtAnnualAssesment();
+				List<IncomeAndSourceModel> incomeAndSourcesAtEntryUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_QUERY,"STAYERS",DataCollectionStage.ENTRY);
 				
+				List<IncomeAndSourceModel> incomeAndSourcesAtExit = data.getIncomeAndSourcesAtExit();
+				List<IncomeAndSourceModel> incomeAndSourcesAtAAUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_ASSESMENT_QUERY,"STAYERS",DataCollectionStage.ENTRY);
+				List<IncomeAndSourceModel> incomeAndSourcesAtEntry = getDedupedItems(incomeAndSourcesAtEntryUnFiltered);
+				List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = getDedupedItems(incomeAndSourcesAtAAUnFiltered);
+								
 				List<IncomeAndSourceModel> incomes = new ArrayList<>();
 				incomes.addAll(incomeAndSourcesAtEntry);
 				incomes.addAll(incomeAndSourcesAtExit);
@@ -68,6 +73,7 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 						
 					}
 			}catch(Exception e) {
+				e.printStackTrace();
 		logger.error("Error in Q26cBeanMaker:" + e);
 			}
 		}

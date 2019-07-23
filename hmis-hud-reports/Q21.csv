@@ -1,12 +1,12 @@
 ,At Start,At Annual Assessment for Stayers,At Exit for Leavers
-   MEDICAID,45,0,15
-   MEDICARE,0,0,0
-   State Children's Health Insurance ,2,0,0
+   MEDICAID,23,12,8
+   MEDICARE,4,0,0
+   State Children's Health Insurance ,0,0,0
   Veteran's Administration (VA) ,0,0,0
    Employer - Provided Health Insurance,0,0,0
-  Health Insurance obtained through ,38,13,0
+  Health Insurance obtained through ,18,7,0
    Private Pay Health Insurance,0,0,0
-   State Health Insurance for Adults,2,0,0
+   State Health Insurance for Adults,0,0,0
    Indian Health Services Program,0,0,0
    Other,0,0,0
    No Health Insurance,0,0,0

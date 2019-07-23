@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -18,6 +21,7 @@ import com.servinglynk.report.bean.Q21HealthInsuranceDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.HealthInsuranceModel;
+import com.servinglynk.report.model.IncomeAndSourceModel;
 
 public class Q21BeanMaker extends BaseBeanMaker {
 
@@ -45,9 +49,13 @@ public class Q21BeanMaker extends BaseBeanMaker {
 				
 			try {
 				if(data.isLiveMode()) {
-					List<HealthInsuranceModel> entryHealthInsurances = getHealthInsuranceModel(data, entryQuery, DataCollectionStage.ENTRY.getCode());
-					List<HealthInsuranceModel> stayersHealthInsurances = getHealthInsuranceModel(data, stayersQuery, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
-					List<HealthInsuranceModel> exitHealthInsurances = getHealthInsuranceModel(data, exitQuery, DataCollectionStage.EXIT	.getCode());
+					List<HealthInsuranceModel> entryHealthInsurancesUnfiltered = getHealthInsuranceModel(data, entryQuery, DataCollectionStage.ENTRY.getCode());
+					List<HealthInsuranceModel> stayersHealthInsurancesUnfiltered = getHealthInsuranceModel(data, stayersQuery, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
+					List<HealthInsuranceModel> exitHealthInsurancesUnfiltered = getHealthInsuranceModel(data, exitQuery, DataCollectionStage.EXIT	.getCode());
+					List<HealthInsuranceModel> entryHealthInsurances = getDedupedItemsForHealth(entryHealthInsurancesUnfiltered);
+					List<HealthInsuranceModel> exitHealthInsurances = getDedupedItemsForHealth(exitHealthInsurancesUnfiltered);
+					List<HealthInsuranceModel> stayersHealthInsurances = getDedupedItemsForHealth(stayersHealthInsurancesUnfiltered);
+					
 					if(CollectionUtils.isNotEmpty(entryHealthInsurances)) {
 						List<HealthInsuranceModel> medicaidHealthInsurance = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getMedicaid()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> medicareHealthInsurance = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getMedicare()) ).collect(Collectors.toList());
@@ -174,7 +182,12 @@ public class Q21BeanMaker extends BaseBeanMaker {
 		return Arrays.asList(q21HealthInsuranceDataBeanTable);
 	}
 	
-	
+	public static List<HealthInsuranceModel> getDedupedItemsForHealth(List<HealthInsuranceModel> incomes) {
+		Map<String,HealthInsuranceModel> dedupIncomeAndSourceAtEntry = new HashMap<>();
+		incomes.forEach(income->  dedupIncomeAndSourceAtEntry.put(income.getDedupClientId(), income));
+		Collection<HealthInsuranceModel> values = dedupIncomeAndSourceAtEntry.values();
+		return new ArrayList(values);	
+	}
 	 public static List<HealthInsuranceModel> getHealthInsuranceModel(ReportData data,String query,String datacollectionStage) {
 		 List<HealthInsuranceModel> healthInsuranceModels = new ArrayList<HealthInsuranceModel>();
 			ResultSet resultSet = null;

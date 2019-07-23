@@ -72,4 +72,22 @@ public static String ENTRY_INCOME_AND_SOURCE_QUERY = "select  alimonyamount,chil
 	" from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='1' and  e.id=i.enrollmentid "+
 	" and TO_DATE(i.information_date)=TO_DATE(e.entrydate)   %dedup   order by e.dedup_client_id,e.entrydate asc  ";
 
+
+
+public static String Q19_STAYERS_AT_ENTRY_QUERY = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
+" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry,    "
++ " alimony, childsupport, earned, ga, othersource, pension, privatedisability, socsecretirement,ssdi, ssi, tanf, unemployment, vadisabilitynonservice, vadisabilityservice, workerscomp "
++ "from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='1'  and i.information_date <=:endDate and  i.information_date >=:startDate  and  e.id=i.enrollmentid "+
+"   and TO_DATE(i.information_date)=TO_DATE(e.entrydate)  %dedup   order by e.dedup_client_id,e.entrydate asc ";
+      
+
+
+public static String Q19_STAYERS_AT_ENTRY_ASSESMENT_QUERY = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
+" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry,    "
++ " alimony, childsupport, earned, ga, othersource, pension, privatedisability, socsecretirement,ssdi, ssi, tanf, unemployment, vadisabilitynonservice, vadisabilityservice, workerscomp "
++ "from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='5'  and i.information_date <=:endDate and  i.information_date >=:startDate and  e.id=i.enrollmentid "+
+"  and datediff(i.information_date,e.entrydate) > 365 %dedup   order by e.dedup_client_id,e.entrydate asc ";
+
 }

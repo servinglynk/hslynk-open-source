@@ -11,10 +11,12 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q19DataBean;
 import com.servinglynk.report.bean.Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
 
@@ -30,9 +32,10 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 					 return Arrays.asList(q19a2Bean);
 				}
 			
-				List<IncomeAndSourceModel> incomeAndSourcesAtEntry = data.getIncomeAndSourcesAtEntry();
-				List<IncomeAndSourceModel> incomeAndSourcesAtExit = data.getIncomeAndSourcesAtExit();
-				
+				List<IncomeAndSourceModel> incomeAndSourcesAtEntryUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_QUERY,"STAYERS",DataCollectionStage.ENTRY);
+				List<IncomeAndSourceModel> incomeAndSourcesAtExitUnFiltered = data.getIncomeAndSourcesAtExit();
+				List<IncomeAndSourceModel> incomeAndSourcesAtEntry = getDedupedItems(incomeAndSourcesAtEntryUnFiltered);
+				List<IncomeAndSourceModel> incomeAndSourcesAtExit = getDedupedItems(incomeAndSourcesAtExitUnFiltered);
 				
 				List<IncomeAndSourceModel> incomes = new ArrayList<>();
 				incomes.addAll(incomeAndSourcesAtEntry);
@@ -73,6 +76,7 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 						
 					}
 			}catch(Exception e) {
+				e.printStackTrace();
 		logger.error("Error in 19a2BeanMaker:" + e);
 			}
 		}

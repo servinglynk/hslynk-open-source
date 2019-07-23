@@ -85,7 +85,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 					totalUHHT = totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 
 					q13c2Bean.setQ13c2Condition1Total(BigInteger.valueOf(just1.size()));
-					q13c2Bean.setQ13c2Condition1WithoutChildren(BigInteger.valueOf(withChildrenIntSize));
+					q13c2Bean.setQ13c2Condition1WithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
 					q13c2Bean.setQ13c2Condition1WithChildAndAdults(BigInteger.valueOf(withOneAdultChildIntSize));
 					q13c2Bean.setQ13c2Condition1WithOnlychildren(BigInteger.valueOf(withChildrenIntSize));
 					q13c2Bean.setQ13c2Condition1UnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
@@ -120,7 +120,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 					totalUHHT = totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 
 					q13c2Bean.setQ13c2Condition2Total(BigInteger.valueOf(just2.size()));
-					q13c2Bean.setQ13c2Condition2WithoutChildren(BigInteger.valueOf(withChildrenIntSize));
+					q13c2Bean.setQ13c2Condition2WithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
 					q13c2Bean.setQ13c2Condition2WithChildAndAdults(BigInteger.valueOf(withOneAdultChildIntSize));
 					q13c2Bean.setQ13c2Condition2WithOnlychildren(BigInteger.valueOf(withChildrenIntSize));
 					q13c2Bean.setQ13c2Condition2UnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
@@ -155,7 +155,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 					totalUHHT = totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 
 					q13c2Bean.setQ13c2Condition3PlusTotal(BigInteger.valueOf(plus3.size()));
-					q13c2Bean.setQ13c2Condition3PlusWithoutChildren(BigInteger.valueOf(withChildrenIntSize));
+					q13c2Bean.setQ13c2Condition3PlusWithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
 					q13c2Bean.setQ13c2Condition3PlusWithChildAndAdults(BigInteger.valueOf(withOneAdultChildIntSize));
 					q13c2Bean.setQ13c2Condition3PlusWithOnlychildren(BigInteger.valueOf(withChildrenIntSize));
 					q13c2Bean.setQ13c2Condition3PlusUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
@@ -190,7 +190,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 					totalWCA = totalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
 					totalUHHT = totalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
 
-					q13c2Bean.setQ13c2NoneTotal(BigInteger.valueOf(disabilitiesNone.size()));
+					q13c2Bean.setQ13c2NoneTotal(BigInteger.valueOf(disabNone.size()));
 					q13c2Bean.setQ13c2NoneWithoutChildren(BigInteger.valueOf(withOutChildrenIntSize));
 					q13c2Bean.setQ13c2NoneWithChildAndAdults(BigInteger.valueOf(withOneAdultChildIntSize));
 					q13c2Bean.setQ13c2NoneWithOnlychildren(BigInteger.valueOf(withChildrenIntSize));

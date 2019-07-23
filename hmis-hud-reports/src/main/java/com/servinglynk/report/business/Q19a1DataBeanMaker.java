@@ -3,15 +3,20 @@ package com.servinglynk.report.business;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q19DataBean;
 import com.servinglynk.report.bean.Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.IncomeAndSourceModel;
 
 public class Q19a1DataBeanMaker extends BaseBeanMaker {
@@ -20,9 +25,12 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 		Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate = new Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean();
 		if(data.isLiveMode()) {
 			try {
-
-					List<IncomeAndSourceModel> incomeAndSourcesAtEntry = data.getIncomeAndSourcesAtEntry();
-					List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = data.getIncomeAndSourcesAtAnnualAssesment();
+				
+				
+					List<IncomeAndSourceModel> incomeAndSourcesAtEntryUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_QUERY,"STAYERS",DataCollectionStage.ENTRY);
+					List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesmentUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_ASSESMENT_QUERY,"STAYERS",DataCollectionStage.ENTRY);
+					List<IncomeAndSourceModel> incomeAndSourcesAtEntry = getDedupedItems(incomeAndSourcesAtEntryUnFiltered);
+					List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = getDedupedItems(incomeAndSourcesAtAnnualAssesmentUnFiltered);
 					
 					List<IncomeAndSourceModel> incomes = new ArrayList<>();
 					incomes.addAll(incomeAndSourcesAtEntry);
@@ -60,6 +68,7 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 						hydrateOverallIncome(overallIncome, q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate);
 					}
 			}catch(Exception e) {
+				e.printStackTrace();
 		logger.error("Error in Q19a1DataBeanMaker:" + e);
 			}
 		}
@@ -170,5 +179,13 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1NumberOfAdultsWithAnyIncomePercent(q19dataBean.getNumberOfAdultsWithAnyIncomePercent());
 			q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate.setQ19a1AverageChangeInOverallIncomePercent(BigInteger.ZERO);
 	   }
+	
+	
+	public static List<IncomeAndSourceModel> getDedupedItems(List<IncomeAndSourceModel> incomes) {
+		Map<String,IncomeAndSourceModel> dedupIncomeAndSourceAtEntry = new HashMap<>();
+		incomes.forEach(income->  dedupIncomeAndSourceAtEntry.put(income.getDedupClientId(), income));
+		Collection<IncomeAndSourceModel> values = dedupIncomeAndSourceAtEntry.values();
+		return new ArrayList(values);	
+	}
 	
 }

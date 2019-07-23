@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -18,6 +21,7 @@ import com.servinglynk.report.bean.Q20bNumberOfNonCashBenefitSourcesDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.EnrollmentModel;
+import com.servinglynk.report.model.HealthInsuranceModel;
 import com.servinglynk.report.model.NonCashModel;
 
 public class Q20bBeanMaker extends BaseBeanMaker {
@@ -30,23 +34,25 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 		String entryQuery = " select distinct e.dedup_client_id as dedup_client_id, nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource  from  %s.enrollment e,%s.noncashbenefits nb where  "+
 		      " nb.enrollmentid = e.id "+
 			  " and nb.information_date <= :endDate "+
-			  " and e.ageatentry >=18  and nb.datacollectionstage = '1' %dedup ";
+			  " and e.ageatentry >=18 and TO_DATE(e.entrydate)=TO_DATE(nb.information_date) and nb.datacollectionstage = '1' %dedup ";
 		       
 		String  exitQuery = " select distinct e.dedup_client_id as dedup_client_id, nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource   from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where  "+
 				      "  nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
-				  "  and nb.information_date <= :endDate "+
+				  "  and nb.information_date <= :endDate and TO_DATE(ext.exitdate)=TO_DATE(nb.information_date) "+
 				  " and e.ageatentry >=18  and nb.datacollectionstage = '3' %dedup ";
 			       
 		String stayersQuery = " select distinct e.dedup_client_id as dedup_client_id, nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource  from %s.enrollment e,%s.noncashbenefits nb where "+
-					" nb.enrollmentid=e.id  and nb.information_date <= :endDate and e.ageatentry >= 18 "+
+					" nb.enrollmentid=e.id  and nb.information_date <= :endDate and nb.information_date >= :startDate and e.ageatentry >= 18 "+
 					" and nb.datacollectionstage in ('1','2','5')  "+
 					" and datediff(nb.information_date,e.entrydate) > 365  %dedup";
 			try {
 				if(data.isLiveMode()) {
-					List<NonCashModel> entryNonCashBenefits = getNonCashBenefit(data, entryQuery,DataCollectionStage.ENTRY.getCode());
-					List<NonCashModel> exitNonCashBenefits = getNonCashBenefit(data, exitQuery,DataCollectionStage.EXIT.getCode());
-					List<NonCashModel> stayersNonCashBenefits = getNonCashBenefit(data, stayersQuery,DataCollectionStage.ANNUAL_ASSESMENT.getCode());
-
+					List<NonCashModel> entryNonCashBenefitsUnFiltered = getNonCashBenefit(data, entryQuery,"ALL");
+					List<NonCashModel> exitNonCashBenefitsUnFiltered = getNonCashBenefit(data, exitQuery,"LEAVERS");
+					List<NonCashModel> stayersNonCashBenefitsUnFiltered = getNonCashBenefit(data, stayersQuery,"STAYERS");
+					List<NonCashModel> entryNonCashBenefits = getDedupedItemsForNonCashBenefits(entryNonCashBenefitsUnFiltered);
+					List<NonCashModel> exitNonCashBenefits = getDedupedItemsForNonCashBenefits(exitNonCashBenefitsUnFiltered);
+					List<NonCashModel> stayersNonCashBenefits = getDedupedItemsForNonCashBenefits(stayersNonCashBenefitsUnFiltered);
 					if(CollectionUtils.isNotEmpty(entryNonCashBenefits)) {
 						List<NonCashModel> noSourceAtEntry = entryNonCashBenefits.parallelStream().filter(nonCashBenefit -> isNullOrNegative(nonCashBenefit.getSnap()) && isNullOrNegative(nonCashBenefit.getTanftransportation()) && isNullOrNegative(nonCashBenefit.getBenefitsfromanysource()) &&  isNullOrNegative(nonCashBenefit.getOthertanf()) && isNullOrNegative(nonCashBenefit.getWic()) && isNullOrNegative(nonCashBenefit.getTanfchildcare())  ).collect(Collectors.toList());
 						q20bNumberOfNonCashBenefitSourcesTable.setQ20bNosourcesAtEntry(BigInteger.valueOf(noSourceAtEntry != null ? noSourceAtEntry.size() :0));
@@ -91,7 +97,7 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 		return Arrays.asList(q20bNumberOfNonCashBenefitSourcesTable);
 	}
 
-	 public static List<NonCashModel> getNonCashBenefit(ReportData data,String query,String datacollectionStage) {
+	 public static List<NonCashModel> getNonCashBenefit(ReportData data,String query,String reportType) {
 		 List<NonCashModel> nonCashModels = new ArrayList<NonCashModel>();
 			ResultSet resultSet = null;
 			Statement statement = null;
@@ -99,23 +105,7 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 			try {
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
-				List<EnrollmentModel> enrollments = data.getEnrollments();
-				if(CollectionUtils.isNotEmpty(enrollments)) {
-					StringBuilder builder = new StringBuilder(" and e.id in (");
-					for(EnrollmentModel model : enrollments){
-						if(StringUtils.isNotBlank(model.getProjectEntryID())) {
-							builder.append("'");
-							builder.append(model.getProjectEntryID());
-							builder.append("'");
-							builder.append(",");
-						}
-					}
-					builder.deleteCharAt(builder.length()-1);
-					builder.append(" ) " );
-					query = query + builder.toString();
-				}
-				
-				String buildQueryFromDataCollectionStage = buildQueryFromDataCollectionStage(datacollectionStage, query, data);
+				String buildQueryFromDataCollectionStage = buildQuery(query, reportType, data);
 				resultSet = statement.executeQuery(formatQuery(buildQueryFromDataCollectionStage,data.getSchema(),data));
 				
 			 while(resultSet.next()) {
@@ -138,4 +128,11 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 			return nonCashModels;
 		}	
 
+	 
+		public static List<NonCashModel> getDedupedItemsForNonCashBenefits(List<NonCashModel> incomes) {
+			Map<String,NonCashModel> dedupIncomeAndSourceAtEntry = new HashMap<>();
+			incomes.forEach(income->  dedupIncomeAndSourceAtEntry.put(income.getDedupClientId(), income));
+			Collection<NonCashModel> values = dedupIncomeAndSourceAtEntry.values();
+			return new ArrayList(values);	
+		}
 }

@@ -15,6 +15,7 @@ import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q06cPointInTimeCountPersonsLastWednesdayDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
+import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
 
@@ -42,10 +43,23 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 			
 			List<IncomeAndSourceModel> filterIncomeAndSourceAtExitFor6c = filterIncomeAndSourceFor6c(exitIncomeAndSource);
 			
+	
+					
+			String requireAAQuery = "select dedup_client_id, datediff(:endDate,max(e.entrydate)) cnt from %s.enrollment e where    e.entrydate <= :endDate %dedup "  + 
+			" group by dedup_client_id having cnt >365 order by e.dedup_client_id ";
+			List<EnrollmentModel> requiredAA = getClientsRequireAA(data,requireAAQuery,DataCollectionStage.ANNUAL_ASSESMENT);
+			data.setRequireAA(requiredAA);	
+			String notRequireAAQuery = "select dedup_client_id, datediff(:endDate,max(e.entrydate)) cnt from %s.enrollment e where    e.entrydate <= :endDate %dedup "  + 
+					" group by dedup_client_id having cnt <365 order by e.dedup_client_id ";
+			List<EnrollmentModel> notRequireAA = getClientsRequireAA(data,notRequireAAQuery,DataCollectionStage.ANNUAL_ASSESMENT);
+					data.setNotrequireAA(notRequireAA);	
+					
 			List<IncomeAndSourceModel> annualAssesmentIcomeAndSource = getIncomeAndSource(data,ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY,DataCollectionStage.ANNUAL_ASSESMENT);
 			List<IncomeAndSourceModel> aaIncomeAndSource  = annualAssesmentIcomeAndSource.parallelStream().filter(incomeAndSource -> isWithIn30DaysOfAnniversary(incomeAndSource.getEntryExitDate(),incomeAndSource.getInformationDate())).collect(Collectors.toList());
 			List<IncomeAndSourceModel> annualAssesmentIncomeAndSource = getDedupedItems(aaIncomeAndSource) ;
+			
 			data.setIncomeAndSourcesAtAnnualAssesment(annualAssesmentIncomeAndSource);
+			
 			List<IncomeAndSourceModel> filterIncomeAndSourceAtAAFor6c = filterIncomeAndSourceFor6c(annualAssesmentIncomeAndSource);
 			
 			
@@ -91,12 +105,6 @@ public class Q06cBeanMaker extends BaseBeanMaker {
 		return Arrays.asList(q06cDataBean);
 	}
 	
-	public static List<IncomeAndSourceModel> getDedupedItems(List<IncomeAndSourceModel> incomes) {
-		Map<String,IncomeAndSourceModel> dedupIncomeAndSourceAtEntry = new HashMap<>();
-		incomes.forEach(income->  dedupIncomeAndSourceAtEntry.put(income.getDedupClientId(), income));
-		Collection<IncomeAndSourceModel> values = dedupIncomeAndSourceAtEntry.values();
-		return new ArrayList(values);	
-	}
  public static List<IncomeAndSourceModel> filterIncomeAndSourceFor6c(List<IncomeAndSourceModel> incomeAndSources) {
 	  List<IncomeAndSourceModel> filterMissingIncomeAndSource = filterMissingIncomeAndSource(incomeAndSources);
 	  List<IncomeAndSourceModel> filterIdentifiedSource = filterIdentifiedSource(filterMissingIncomeAndSource);

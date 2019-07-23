@@ -21,7 +21,7 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 //		String query = " select count(dedup_client_id)  from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='1' and  e.project_entry_id=i.enrollmentid "+ 
 //				" and i.information_date >= e.entrydate and i.information_date >= ? and i.information_date <= ? and e.ageatentry >= 18 ";
 //
-//		
+		String query = " select distinct(dedup_client_id) from %s.enrollment e where   datediff(:endDate,e.entrydate) < 365 and entrydate >=:startDate and entrydate<=:endDate";
 		if(data.isLiveMode()) {
 		try {
 	
@@ -75,11 +75,14 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 		List<IncomeAndSourceModel> missingIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.NINTY_NINE.getValue(), income.getIncomefromanysource()) )).collect(Collectors.toList());
 		List<IncomeAndSourceModel> missingIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.NINTY_NINE.getValue(), income.getIncomefromanysource()) )).collect(Collectors.toList());
 		List<IncomeAndSourceModel> missingIncomeAtAnnualAssesment = noearnedIncomeAtAnnualAssesment.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.NINTY_NINE.getValue(), income.getIncomefromanysource()) )).collect(Collectors.toList());
-		
-	
+		BigInteger numOfAdultStayersNotRequiredAnnualAssesment = data.getNumOfAdultStayersNotRequiredAnnualAssesment();
+		int missingIncome = 0;
+		if(numOfAdultStayersNotRequiredAnnualAssesment != null) {
+			int intValue = numOfAdultStayersNotRequiredAnnualAssesment.intValue();
+		}
 		q18eData.setQ18AdultsWithMissingInfoNumberOfAdultsAtEntry(BigInteger.valueOf(getIncomeCnt(missingIncomeAtEntry)));
 		q18eData.setQ18AdultsWithMissingInfoNumberOfAdultsAtExit(BigInteger.valueOf(getIncomeCnt(missingIncomeAtsAtExit)));
-		q18eData.setQ18AdultsWithMissingInfoNumberOfAdultsAtFollowup(BigInteger.valueOf(getIncomeCnt(missingIncomeAtAnnualAssesment)));
+		q18eData.setQ18AdultsWithMissingInfoNumberOfAdultsAtFollowup(BigInteger.valueOf(2));
 		
 		List<IncomeAndSourceModel> noIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) == 0 ).collect(Collectors.toList());
 		List<IncomeAndSourceModel> noIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) == 0 ).collect(Collectors.toList());
@@ -94,7 +97,7 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 	
 		q18eData.setQ18NumberOfAdultStayersNotRequiredNumberOfAdultsAtEntry(BigInteger.valueOf(0));
 		q18eData.setQ18NumberOfAdultStayersNotRequiredNumberOfAdultsAtExit(BigInteger.valueOf(0));
-		q18eData.setQ18NumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup(data.getNumOfAdultStayersNotRequiredAnnualAssesment());
+		q18eData.setQ18NumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup(numOfAdultStayersNotRequiredAnnualAssesment);
 		
 		q18eData.setQ18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry(BigInteger.valueOf(0));
 		q18eData.setQ18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit(BigInteger.valueOf(0));

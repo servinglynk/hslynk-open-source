@@ -132,7 +132,13 @@ public class Q25aNumberOfVeteransDataBeanMaker extends BaseBeanMaker {
 			StringBuilder builder = new StringBuilder(projectQuery);
 			Connection connection = null;
 
-			List<ClientModel> clients = data.getVeterans();
+			List<ClientModel> clients = null;
+			if(StringUtils.equals("0", veteranStatus)) {
+				clients= data.getClients();
+			}else {
+				clients= data.getVeterans();
+			}
+			
 			if(CollectionUtils.isEmpty(clients)) {
 				return new ArrayList<>();
 			}

@@ -16,13 +16,13 @@ public class Q20aBeanMaker extends BaseBeanMaker {
 		 */
 		Q20aTypeOfNonCashBenefitSourcesDataBean q20aTypeOfNonCashBenefitSourcesTable = new Q20aTypeOfNonCashBenefitSourcesDataBean();
 		String entryQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e, %s.noncashbenefits nb where  "+
-		      "   nb.enrollmentid = e.id "+
+		      "   nb.enrollmentid = e.id  and TO_DATE(nb.information_date) = TO_DATE(e.entrydate) "+
 			  "  and nb.information_date <= :endDate "+
 			  " and e.ageatentry >=18  and nb.datacollectionstage ='1' %dedup ";
 		       
 		String exitQuery = " select  count(distinct(dedup_client_id)) as cnt from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext where  "+
 			      "   nb.enrollmentid = e.id and e.id = ext.enrollmentid"+
-				  "  and nb.information_date <= :endDate "+
+				  "  and TO_DATE(nb.information_date) = TO_DATE(ext.exitdate) "+
 				  " and e.ageatentry >=18  and nb.datacollectionstage = '3'  %dedup ";
 			       
 		String stayersQuery = " select count(distinct(dedup_client_id)) as cnt  from  %s.enrollment e, %s.noncashbenefits nb where "+

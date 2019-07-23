@@ -3,7 +3,9 @@ package com.servinglynk.report.bean;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.ContactModel;
@@ -40,7 +42,8 @@ public class ReportData {
 	private List<IncomeAndSourceModel> incomeAndSourcesAtEntry = new ArrayList<>();
 	private List<IncomeAndSourceModel> incomeAndSourcesAtExit = new ArrayList<>();
 	private List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = new ArrayList<>();
-	
+	private List<EnrollmentModel> requireAA = new ArrayList<>();
+	private List<EnrollmentModel> notrequireAA = new ArrayList<>();
 	private  List<Q22BeanModel> stayersLengthofStay = new ArrayList<>();
 	private  List<Q22BeanModel> leaversLengthofStay = new ArrayList<>();
 	private List<Q22BeanModel> allDataLenghtofStay = new ArrayList<>();
@@ -799,4 +802,29 @@ public class ReportData {
 	public void setIncomeAndSourcesAtAnnualAssesment(List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment) {
 		this.incomeAndSourcesAtAnnualAssesment = incomeAndSourcesAtAnnualAssesment;
 	}
+	/**
+	 * @return the requireAA
+	 */
+	public List<EnrollmentModel> getRequireAA() {
+		return requireAA;
+	}
+	/**
+	 * @param requireAA the requireAA to set
+	 */
+	public void setRequireAA(List<EnrollmentModel> requireAA) {
+		this.requireAA = requireAA;
+	}
+	/**
+	 * @return the notrequireAA
+	 */
+	public List<EnrollmentModel> getNotrequireAA() {
+		return notrequireAA;
+	}
+	/**
+	 * @param notrequireAA the notrequireAA to set
+	 */
+	public void setNotrequireAA(List<EnrollmentModel> notrequireAA) {
+		this.notrequireAA = notrequireAA;
+	}
+	
 }

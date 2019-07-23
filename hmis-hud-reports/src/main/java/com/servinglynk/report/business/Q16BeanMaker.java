@@ -27,15 +27,12 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		try {
 			List<IncomeAndSourceModel> incomeAndSourcesAtEntry = data.getIncomeAndSourcesAtEntry();
 		    List<IncomeAndSourceModel> incomeAndSourcesAtExit = data.getIncomeAndSourcesAtExit();
+		    
+		    
 		    List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = data.getIncomeAndSourcesAtAnnualAssesment();
 		
 		
 
-		String notRequiredAnnualAssesment = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources i, %s.enrollment e where "+
-				"   i.information_date >= e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
-				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= :endDate )  "+
-				" and   e.id in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )    ";
-		
 		String withOutRequiredAnnualAssesment = "select  count(distinct(dedup_client_id))  as cnt from %s.incomeandsources i, %s.enrollment e where "+
 				"   i.information_date >= e.entrydate and e.entrydate <= :startDate   and e.ageatentry >=18 "+
 				" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate >= :endDate )  "+
@@ -48,6 +45,7 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		List<IncomeAndSourceModel> incomeAtEntryWith0 = incomeAndSourcesAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) == 0).collect(Collectors.toList());
 		List<IncomeAndSourceModel> incomeAtExitWith0 = incomeAndSourcesAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) == 0).collect(Collectors.toList());
 		List<IncomeAndSourceModel> incomeAtStayersWith0 = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) == 0).collect(Collectors.toList());
+		incomeAndSourcesAtAnnualAssesment.forEach(income -> System.out.println("Total"+income.getTotalmonthlyincome()));
 		int atEntry =0;
 		int atExit = 0;
 		int atAA = 0;
@@ -168,24 +166,24 @@ public class Q16BeanMaker extends BaseBeanMaker {
 		BigInteger numOfAdults = data.getNumOfAdults();
 		BigInteger totNoOfAdultLeavers = data.getTotNoOfAdultLeavers();
 		BigInteger totNoOfAdultStayers = data.getTotNoOfAdultStayers();
-		
+		int notRequiredAASize = getSize(data.getNotrequireAA());
 		int atEntryDNC =  numOfAdults.intValue() - atEntry;
 		int atLeaversDNC = totNoOfAdultLeavers.intValue() - atExit;
-		int atStayerDNC =  totNoOfAdultStayers.intValue() - atAA;
-		q16Bean.setQ16DataNotCollectedIncomeAtEntry(BigInteger.valueOf(atEntryDNC));
-		q16Bean.setQ16DataNotCollectedIncomeAtExitforLeavers(BigInteger.valueOf(atLeaversDNC));
+		int atStayerDNC =  totNoOfAdultStayers.intValue() - atAA-notRequiredAASize;
+		q16Bean.setQ16DataNotCollectedIncomeAtEntry(BigInteger.valueOf(0));
+		q16Bean.setQ16DataNotCollectedIncomeAtExitforLeavers(BigInteger.valueOf(0));
 		q16Bean.setQ16DataNotCollectedIncomeAtLatestFollowupforStayers(BigInteger.valueOf(atStayerDNC));
 		
 		
 		q16Bean.setQ16NumberOfAdultStayersNotYetRequiredIncomeAtEntry(BigInteger.valueOf(0));
 		q16Bean.setQ16NumberOfAdultStayersNotYetRequiredIncomeAtExitforLeavers(BigInteger.valueOf(0));
-		q16Bean.setQ16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), notRequiredAnnualAssesment,DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
-		
+	//	q16Bean.setQ16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getIncomeCnt(data.getSchema(), notRequiredAnnualAssesment,DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
+		q16Bean.setQ16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers(BigInteger.valueOf(notRequiredAASize));
 		q16Bean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtEntry(BigInteger.valueOf(0));
 		q16Bean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtExitforLeavers(BigInteger.valueOf(0));
 		q16Bean.setQ16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers(BigInteger.valueOf(getClientCntWithOutRequiredAnnualAssesment(data.getSchema(), withOutRequiredAnnualAssesment, data)));
-
-		data.setNumOfAdultStayersNotRequiredAnnualAssesment(q16Bean.getQ16NumberOfAdultStayersNotYetRequiredIncomeAtLatestFollowupforStayers());
+		
+		data.setNumOfAdultStayersNotRequiredAnnualAssesment(BigInteger.valueOf(notRequiredAASize));
 		data.setNumOfAdultStayersWithoutRequiredAnnualAssesment(q16Bean.getQ16NumberOfAdultStayersWithoutRequiredIncomeAtLatestFollowupforStayers());
 		q16Bean.setQ16TotalAdultsIncomeAtEntry(data.getNumOfAdults());
 		q16Bean.setQ16TotalAdultsIncomeAtExitforLeavers(data.getTotNoOfAdultLeavers());

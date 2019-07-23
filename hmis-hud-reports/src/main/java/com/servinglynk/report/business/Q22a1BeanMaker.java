@@ -20,7 +20,6 @@ import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.Q22BeanModel;
 
 public class Q22a1BeanMaker extends BaseBeanMaker {
-
   	
 	public static List<Q22a1LengthOfParticipationCoCProjectsDataBean> getQ22a1LengthOfParticipationCoCProjectsList(ReportData data){
 		String query = " select  e.dedup_client_id ,p.projecttype as projecttype ,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
