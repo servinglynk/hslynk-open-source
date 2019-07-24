@@ -105,7 +105,7 @@ public class Q25bNumberOfVeteranHouseholdsDataBeanMaker extends BaseBeanMaker {
 						q25bNumberOfVeteranHouseholdsDataBean.setQ25bDataNotCollectedWithChildAndAdults(BigInteger.valueOf(dncChildAndAdultsSize));
 						q25bNumberOfVeteranHouseholdsDataBean.setQ25bDataNotCollectedUnknownHouseHold(BigInteger.valueOf(dncUnknownHouseHoldSize));
 						
-						int total = chVeteran + nonChVeteran + notVeteranSize + chVeteran + clientRefusedSize +dncSize;
+						int total = chVeteran + nonChVeteran + notVeteranSize + clientRefusedSize +dncSize;
 						int nonChWithoutChildren =chVeteranWithoutChildren + nonChVeteranWithoutChildren + notVeteranWithoutChildrenSize + clientRefusedWithoutChildrenSize + dncWithoutChildrenSize;
 						int nonnonChVeteranWithoutChild =chVeteranWithChildAndAdults + nonChVeteranWithChildAndAdults + notVeteranithChildAndAdultsSize + clientRefusedChildAndAdultsSize + dncChildAndAdultsSize;
 						int nonChVeteranUnknown= chVeteranUnknownHouseHold + nonChVeteranUnknownHouseHold + nonChVeteranWithChildAndAdults +notVeteranUnknownHouseHoldSize + clientRefusedUnknownHouseHoldSize + dncUnknownHouseHoldSize ;

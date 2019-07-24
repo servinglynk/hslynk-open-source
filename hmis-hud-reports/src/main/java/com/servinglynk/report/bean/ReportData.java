@@ -67,7 +67,7 @@ public class ReportData {
 	private BigInteger numOfAdultStayersWithoutRequiredAnnualAssesment=BigInteger.valueOf(0);
 	private String queryDataCollectionStage;
 	private String queryDedupClientId;
-	
+	private Set<String> veteranAtExit = new HashSet<>();
 	private List<EnrollmentModel> adultStayersHoh365Days = new ArrayList<>();
 	List<String> enrollmentIds = new ArrayList<String>();
 	List<String> projectsHHWithChildren = new ArrayList<String>();
@@ -825,6 +825,18 @@ public class ReportData {
 	 */
 	public void setNotrequireAA(List<EnrollmentModel> notrequireAA) {
 		this.notrequireAA = notrequireAA;
+	}
+	/**
+	 * @return the veteranAtExit
+	 */
+	public Set<String> getVeteranAtExit() {
+		return veteranAtExit;
+	}
+	/**
+	 * @param veteranAtExit the veteranAtExit to set
+	 */
+	public void setVeteranAtExit(Set<String> veteranAtExit) {
+		this.veteranAtExit = veteranAtExit;
 	}
 	
 }

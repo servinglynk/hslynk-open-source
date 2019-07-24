@@ -44,7 +44,7 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 						BigInteger allClientsBigInt = BigInteger.valueOf(getSize(allClients));
 						int total = getIncomeCnt(incomes);
 						List<IncomeAndSourceModel> earnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
-						List<IncomeAndSourceModel> earnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage())).collect(Collectors.toList());
+						List<IncomeAndSourceModel> earnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) || StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
 						
 						List<IncomeAndSourceModel> didNotHaveEarnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) &&  getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
 						List<IncomeAndSourceModel> didNotHaveEarnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> (StringUtils.equals("3",income.getDataCollectionStage())  || StringUtils.equals("5",income.getDataCollectionStage()))  && getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
@@ -54,7 +54,7 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 						
 						
 						List<IncomeAndSourceModel> otherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
-						List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage())).collect(Collectors.toList());
+						List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) || StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
 						
 						List<IncomeAndSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getTotalmonthlyincome()))  ==0).collect(Collectors.toList());
 						List<IncomeAndSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> (StringUtils.equals("3",income.getDataCollectionStage())  || StringUtils.equals("5",income.getDataCollectionStage())) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getTotalmonthlyincome()))  ==0).collect(Collectors.toList());
@@ -63,7 +63,7 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 						hydrateOtherIncome(otherIncome, q19a3Bean);
 						
 						List<IncomeAndSourceModel> totalIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
-						List<IncomeAndSourceModel> totalIncomeATAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage())).collect(Collectors.toList());
+						List<IncomeAndSourceModel> totalIncomeATAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) || StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
 						
 						List<IncomeAndSourceModel> didNotHaveTotalIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
 						List<IncomeAndSourceModel> didNotHaveTotalIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> (StringUtils.equals("3",income.getDataCollectionStage())  || StringUtils.equals("5",income.getDataCollectionStage())) && getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());

@@ -107,7 +107,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						q25cGenderVeteranTable.setQ25cOtherWithChildAndAdults(BigInteger.valueOf(otherWithChildAndAdultsSize));
 						q25cGenderVeteranTable.setQ25cOtherUnknownHouseHold(BigInteger.valueOf(otherUnknownHouseHoldSize));
 						
-						List<String> dk =  getClients(data, query, null, false, "1", "8");
+						List<String> dk =  getClients(data, query, null, true, "1", "8");
 						List<String> dkWithoutChildren =  getClients(data, query, projectsHHWithOutChildren, false, "1", "8");
 						List<String> dkWithChildAndAdults =  getClients(data, query, projectsHHWithOneAdultChild, false, "1", "8");
 						List<String> dkUnknownHouseHold =  getClients(data, query, projectsUnknownHouseHold, false, "1", "8");
@@ -204,18 +204,31 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						 enrollmentBuilder.append(" ) ");
 						 newQuery = newQuery + enrollmentBuilder.toString();
 					 }
-				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
-					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
-				}
-				if(StringUtils.equals("8", veteranStatus)) {
-					newQuery = newQuery + " and veteran_status  in ('8','9') ";
-				}
+					 
+					if(!StringUtils.equals("8", veteranStatus)) {
+						if( StringUtils.equals("0", veteranStatus)) {
+							newQuery = newQuery + " and (veteran_status is null  or veteran_status ='"+veteranStatus+"' ) " ;
+						} else {
+							newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
+						}
+					}
+					if(StringUtils.equals("8", veteranStatus)) {
+						newQuery = newQuery + " and veteran_status  in ('8','9') ";
+					}
+						
 				if(StringUtils.isNotBlank(gender) && !StringUtils.equals("8", gender)) {
 					newQuery = newQuery + " and gender ='"+gender+"' ";
 				}
-				if(StringUtils.equals("8", veteranStatus)) {
+				if(StringUtils.equals("8", gender)) {
 					newQuery = newQuery + " and gender  in ('8','9') ";
 				}
+				
+				
+				
+			
+				
+				
+				
 				
 				statement = connection.createStatement();
 				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));

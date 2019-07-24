@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.servinglynk.report.bean.Q25ePhysicalAndMentalHealthConditionsVeteransDataBean;
 import com.servinglynk.report.bean.ReportData;
 
@@ -29,9 +31,22 @@ public class Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker extends 
 				String queryExit = " select distinct(e.dedup_client_id) from %s.disabilities d, %s.enrollment e, %s.exit ext,%s.client c   where e.id = d.enrollmentid and e.client_id = c.id  and c.veteran_status='1' and e.id=ext.enrollmentid and d.datacollectionstage = '3' and d.information_date <= :endDate ";
 				String queryStayers = " select distinct(e.dedup_client_id) from %s.disabilities d, %s.enrollment e,%s.client c  where e.id = d.enrollmentid and e.client_id = c.id  and c.veteran_status='1' and d.datacollectionstage = '5' and d.information_date <= :endDate ";
 				
+				Set<String> veteranExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit);
+				if(CollectionUtils.isNotEmpty(veteranExit)) {
+					StringBuilder builder = new StringBuilder(" and e.dedup_client_id not in ( ");
+					for(String exit :veteranExit) {
+						builder.append("'"+exit+"'");
+					}
+					builder.append(")");
+					queryStayers = queryStayers + builder.toString();
+				}
+				data.setVeteranAtExit(veteranExit);
+				
 				Set<String> enrollmentFromDisabilities = getEnrollmentFromDisabilities(data.getSchema(), data, query+" and d.disabilitytype='9' ");
 				Set<String> enrollmentFromDisabilitiesExit = getEnrollmentFromDisabilities(data.getSchema(), data, queryExit+"  and d.disabilitytype='9' ");
 				Set<String> enrollmentFromDisabilitiesStayers = getEnrollmentFromDisabilities(data.getSchema(), data, queryStayers+"  and d.disabilitytype='9' ");
+				
+				
 				
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eMentalIllnessAtEntry(BigInteger.valueOf(getSize(enrollmentFromDisabilities)));
 				q25ePhysicalAndMentalHealthConditionsVeteransTable.setQ25eMentalIllnessStayers(BigInteger.valueOf(getSize(enrollmentFromDisabilitiesStayers)));

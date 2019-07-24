@@ -37,7 +37,10 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 				List<IncomeAndSourceModel> incomeExit= data.getIncomeAndSourcesAtExit();
 				List<IncomeAndSourceModel> incomeAA = data.getIncomeAndSourcesAtAnnualAssesment();
 				List<IncomeAndSourceModel> incomeAtExit  = incomeExit.parallelStream().filter(income -> veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
-				List<IncomeAndSourceModel> incomeAtAnnualAssesment  = incomeAA.parallelStream().filter(income -> veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
+				Set<String> veteranAtExit = data.getVeteranAtExit();
+				List<IncomeAndSourceModel> incomeAtAnnualVeterans  = incomeAA.parallelStream().filter(income -> veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
+				List<IncomeAndSourceModel> incomeAtAnnualAssesment  = incomeAtAnnualVeterans.parallelStream().filter(income -> CollectionUtils.isNotEmpty(veteranAtExit) && veteranAtExit.contains(income.getDedupClientId())).collect(Collectors.toList());
+				
 				
 			q25eData.setQ25fAdultsWithIncomeInfoAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntry)));
 			q25eData.setQ25fAdultsWithIncomeInfoLeavers(BigInteger.valueOf(getIncomeCnt(incomeAtExit)));
@@ -112,7 +115,8 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 			
 			
 			q25eData.setQ25fTotalAdultsAtEntry(BigInteger.valueOf(getSize(data.getVeterans())));
-			
+			q25eData.setQ25fTotalAdultsLeavers(BigInteger.valueOf(sizeAtEsxit));
+			q25eData.setQ25fTotalAdultsStayers(BigInteger.valueOf(sizeAtAA));
 			List<IncomeAndSourceModel> oneOrMoreIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >0 ).collect(Collectors.toList());
 			List<IncomeAndSourceModel> oneOrMoreIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >0).collect(Collectors.toList());
 			List<IncomeAndSourceModel> oneOrMoreIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >0).collect(Collectors.toList());

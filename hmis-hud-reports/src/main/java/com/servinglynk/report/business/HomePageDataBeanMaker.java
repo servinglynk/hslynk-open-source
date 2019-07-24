@@ -185,6 +185,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			if(q05aHMISCDDQDataList != null) {
 				CSVGenerator.buildReport(q05aHMISCDDQDataList, "Q5a.jrxml", "Q5a.csv");
 			}*/
+			boolean skipReports =true;
 			
 			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aBeanData(data);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
@@ -214,10 +215,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ06fDataBean(q06fDataBeanList);
 			CSVGenerator.buildReport(q06fDataBeanList, "Q6f.jrxml", "Q6f.csv",data);
 	
+
 			List<Q07aHouseholdsServedDataBean> q07aHouseholdsServeList = Q07aBeanMaker.getQ07aHouseholdsServeList(data);
 			homePageDataBean.setQ07aHouseholdsServedDataBean(q07aHouseholdsServeList);
 			CSVGenerator.buildReport(q07aHouseholdsServeList, "Q7a.jrxml", "Q7a.csv",data);
-			
+			if(skipReports) {
 			List<Q07bPointInTimeCountHouseholdsLastWednesdayDataBean> q07bPointInTimeCountHouseholdsLastWednesdayList = Q07bBeanMaker.getQ07bPointInTimeCountHouseholdsLastWednesdayList(data);
 			homePageDataBean.setQ07bPointInTimeCountHouseholdsLastWednesdayDataBean(q07bPointInTimeCountHouseholdsLastWednesdayList);
 			CSVGenerator.buildReport(q07bPointInTimeCountHouseholdsLastWednesdayList, "Q7b.jrxml", "Q7b.csv",data);
@@ -376,6 +378,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 				homePageDataBean.setQ24HomelessnessPreventionHousingAssessmentAtExitDataBean(q24HomelessnessPreventionHousingAssessmentAtExitList);
 				CSVGenerator.buildReport(q24HomelessnessPreventionHousingAssessmentAtExitList, "Q24.jrxml","Q24.csv",data);
 			}
+		
 			List<Q25aNumberOfVeteransDataBean> q25aNumberOfVeteransList = Q25aNumberOfVeteransDataBeanMaker.getQ25aNumberOfVeteransList(data);	
 			homePageDataBean.setQ25aNumberOfVeteransDataBean(q25aNumberOfVeteransList);
 			CSVGenerator.buildReport(q25aNumberOfVeteransList, "Q25a.jrxml","Q25a.csv",data);
@@ -383,7 +386,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<Q25bNumberOfVeteranHouseholdsDataBean> q25bNumberOfVeteranHouseholdsList= Q25bNumberOfVeteranHouseholdsDataBeanMaker.getQ25bNumberOfVeteranHouseholdsList(data);
 			homePageDataBean.setQ25bNumberOfVeteranHouseholdsDataBean(q25bNumberOfVeteranHouseholdsList);
 			CSVGenerator.buildReport(q25bNumberOfVeteranHouseholdsList, "Q25b.jrxml","Q25b.csv",data);
-			
+		
 			List<Q25cGenderVeteransDataBean> q25cGenderVeteransList = Q25cGenderVeteransDataBeanMaker.getQ25cGenderVeteransList(data);
 			homePageDataBean.setQ25cGenderVeteransDataBean(q25cGenderVeteransList);
 			CSVGenerator.buildReport(q25cGenderVeteransList, "Q25c.jrxml","Q25c.csv",data);
@@ -391,11 +394,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<Q25dAgeVeteransDataBean> q25dAgeVeteransList = Q25dAgeVeteransDataBeanMaker.getQ25dAgeVeteransList(data);
 			homePageDataBean.setQ25dAgeVeteransDataBean(q25dAgeVeteransList);
 			CSVGenerator.buildReport(q25dAgeVeteransList, "Q25d.jrxml","Q25d.csv",data);
-			
+		
 			List<Q25ePhysicalAndMentalHealthConditionsVeteransDataBean> q25ePhysicalAndMentalHealthConditionsVeteransList = Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker.getQ25ePhysicalAndMentalHealthConditionsVeteransList(data);
 			homePageDataBean.setQ25ePhysicalAndMentalHealthConditionsVeteransDataBean(q25ePhysicalAndMentalHealthConditionsVeteransList);
 			CSVGenerator.buildReport(q25ePhysicalAndMentalHealthConditionsVeteransList, "Q25e.jrxml","Q25e.csv",data);
-			
+			}
 			List<Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean> q25fCashIncomeCategoryIncomeCategoryByEntryList = Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker.getQ25fCashIncomeCategoryIncomeCategoryByEntryList(data);
 			homePageDataBean.setQ25fCashIncomeCategoryIncomeCategoryByEntryDataBean(q25fCashIncomeCategoryIncomeCategoryByEntryList);
 			CSVGenerator.buildReport(q25fCashIncomeCategoryIncomeCategoryByEntryList, "Q25f.jrxml","Q25f.csv",data);
