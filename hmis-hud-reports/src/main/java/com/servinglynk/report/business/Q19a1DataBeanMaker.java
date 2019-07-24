@@ -27,8 +27,8 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 			try {
 				
 				
-					List<IncomeAndSourceModel> incomeAndSourcesAtEntryUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_QUERY,"STAYERS",DataCollectionStage.ENTRY);
-					List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesmentUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_ASSESMENT_QUERY,"STAYERS",DataCollectionStage.ENTRY);
+					List<IncomeAndSourceModel> incomeAndSourcesAtEntryUnFiltered = data.getIncomeAndSourcesAtExit();
+					List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesmentUnFiltered = data.getIncomeAndSourcesAtAnnualAssesment();
 					List<IncomeAndSourceModel> incomeAndSourcesAtEntry = getDedupedItems(incomeAndSourcesAtEntryUnFiltered);
 					List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = getDedupedItems(incomeAndSourcesAtAnnualAssesmentUnFiltered);
 					

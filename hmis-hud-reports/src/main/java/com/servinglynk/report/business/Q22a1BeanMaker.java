@@ -1,40 +1,26 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q22a1LengthOfParticipationCoCProjectsDataBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.Q22BeanModel;
 
 public class Q22a1BeanMaker extends BaseBeanMaker {
   	
 	public static List<Q22a1LengthOfParticipationCoCProjectsDataBean> getQ22a1LengthOfParticipationCoCProjectsList(ReportData data){
-		String query = " select  e.dedup_client_id ,p.projecttype as projecttype ,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
-						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id) "+		
-						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
-						" where 1=1 %dedup " +
-						" order by e.dedup_client_id,p.operatingstartdate asc ";
-				
 
 	Q22a1LengthOfParticipationCoCProjectsDataBean q22a1LengthOfParticipationCoCProjectsTable = new Q22a1LengthOfParticipationCoCProjectsDataBean();
 		try {
 			if(data.isLiveMode()) {
-				List<Q22BeanModel> allData = getQ22Bean(data, query, "ALL");
-				List<Q22BeanModel> allLeaversData = getQ22Bean(data, query,"LEAVERS");
-				List<Q22BeanModel> allStayersData = getQ22Bean(data, query,"STAYERS");
+				List<Q22BeanModel> allData = data.getAllDataLenghtofStay();
+				List<Q22BeanModel> allLeaversData = data.getLeaversLengthofStay();
+				List<Q22BeanModel> allStayersData = data.getStayersLengthofStay();
 				
 				
 				if(CollectionUtils.isNotEmpty(allData)) {

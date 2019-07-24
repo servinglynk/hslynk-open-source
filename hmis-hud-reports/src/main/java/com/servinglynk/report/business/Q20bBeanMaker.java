@@ -63,17 +63,23 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 						List<NonCashModel> noCollectedAtEntry = entryNonCashBenefits.parallelStream().filter(nonCashBenefit ->  dataNotCollected(nonCashBenefit.getBenefitsfromanysource()) ).collect(Collectors.toList());
 						q20bNumberOfNonCashBenefitSourcesTable.setQ20bMissingInfoAtEntry(BigInteger.valueOf(noCollectedAtEntry != null ? noCollectedAtEntry.size() :0 ));
 						}
+					BigInteger totNoOfAdultLeavers = data.getTotNoOfAdultLeavers();
 					if(CollectionUtils.isNotEmpty(exitNonCashBenefits)) {
 						List<NonCashModel> noSourceAtExit= exitNonCashBenefits.parallelStream().filter(nonCashBenefit -> isNullOrNegative(nonCashBenefit.getSnap()) && isNullOrNegative(nonCashBenefit.getTanftransportation()) && isNullOrNegative(nonCashBenefit.getBenefitsfromanysource()) &&  isNullOrNegative(nonCashBenefit.getOthertanf()) && isNullOrNegative(nonCashBenefit.getWic()) && isNullOrNegative(nonCashBenefit.getTanfchildcare())  ).collect(Collectors.toList());
 						q20bNumberOfNonCashBenefitSourcesTable.setQ20bNosourcesAtExitLeavers(BigInteger.valueOf(noSourceAtExit != null ? noSourceAtExit.size() :0));
 						List<NonCashModel> onePlusSourceAtExit = noSourceAtExit.parallelStream().filter(nonCashBenefit -> isPositive(nonCashBenefit.getSnap()) || isPositive(nonCashBenefit.getTanftransportation()) || isPositive(nonCashBenefit.getBenefitsfromanysource()) ||  isPositive(nonCashBenefit.getOthertanf()) || isPositive(nonCashBenefit.getWic()) || isPositive(nonCashBenefit.getTanfchildcare())  ).collect(Collectors.toList());
 						q20bNumberOfNonCashBenefitSourcesTable.setQ20b1PlusSourcesAtExitLeavers(BigInteger.valueOf(onePlusSourceAtExit != null ? onePlusSourceAtExit.size() :0));
-						
+						int leavers = totNoOfAdultLeavers.intValue();
 						List<NonCashModel> didNotKnowOrRefusedAtExit = exitNonCashBenefits.parallelStream().filter(nonCashBenefit ->  didNotKnowOrRefused(nonCashBenefit.getBenefitsfromanysource()) ).collect(Collectors.toList());
 						q20bNumberOfNonCashBenefitSourcesTable.setQ20bDKRAtExitLeavers(BigInteger.valueOf(didNotKnowOrRefusedAtExit != null ? didNotKnowOrRefusedAtExit.size() :0));
 						List<NonCashModel> noCollectedAtExit = exitNonCashBenefits.parallelStream().filter(nonCashBenefit ->  dataNotCollected(nonCashBenefit.getBenefitsfromanysource()) ).collect(Collectors.toList());
-						q20bNumberOfNonCashBenefitSourcesTable.setQ20bMissingInfoAtExitLeavers(BigInteger.valueOf(noCollectedAtExit != null ? noCollectedAtExit.size() :0));
+						
+						List<NonCashModel> noCollectedAtStayers = stayersNonCashBenefits.parallelStream().filter(nonCashBenefit ->  dataNotCollected(nonCashBenefit.getBenefitsfromanysource()) ).collect(Collectors.toList());
+						int dncLeavers=leavers - ( getSize(noSourceAtExit) + getSize(onePlusSourceAtExit)  + getSize(didNotKnowOrRefusedAtExit));
+						q20bNumberOfNonCashBenefitSourcesTable.setQ20bMissingInfoAtExitLeavers(BigInteger.valueOf(dncLeavers));
 					}
+					BigInteger totNoOfAdultStayers = data.getTotNoOfAdultStayers();
+					int stayers = totNoOfAdultStayers.intValue();
 					if(CollectionUtils.isNotEmpty(stayersNonCashBenefits)) {
 						List<NonCashModel> noSourceAtStayers = stayersNonCashBenefits.parallelStream().filter(nonCashBenefit -> isNullOrNegative(nonCashBenefit.getSnap()) && isNullOrNegative(nonCashBenefit.getTanftransportation()) && isNullOrNegative(nonCashBenefit.getBenefitsfromanysource()) &&  isNullOrNegative(nonCashBenefit.getOthertanf()) && isNullOrNegative(nonCashBenefit.getWic()) && isNullOrNegative(nonCashBenefit.getTanfchildcare())  ).collect(Collectors.toList());
 						q20bNumberOfNonCashBenefitSourcesTable.setQ20bNosourcesAtLatestStayers(BigInteger.valueOf(noSourceAtStayers != null ? noSourceAtStayers.size() :0));
@@ -82,9 +88,11 @@ public class Q20bBeanMaker extends BaseBeanMaker {
 						List<NonCashModel> didNotKnowOrRefusedAtStayers = stayersNonCashBenefits.parallelStream().filter(nonCashBenefit ->  didNotKnowOrRefused(nonCashBenefit.getBenefitsfromanysource()) ).collect(Collectors.toList());
 						q20bNumberOfNonCashBenefitSourcesTable.setQ20bDKRAtLatestStayers(BigInteger.valueOf(didNotKnowOrRefusedAtStayers != null ? didNotKnowOrRefusedAtStayers.size() :0));
 						List<NonCashModel> noCollectedAtStayers = stayersNonCashBenefits.parallelStream().filter(nonCashBenefit ->  dataNotCollected(nonCashBenefit.getBenefitsfromanysource()) ).collect(Collectors.toList());
-						q20bNumberOfNonCashBenefitSourcesTable.setQ20bMissingInfoAtLatestStayers(BigInteger.valueOf(noCollectedAtStayers != null ? noCollectedAtStayers.size() :0));
+						int dncStayers=stayers - ( getSize(noSourceAtStayers) + getSize(onePlusSourceForStayers)  + getSize(didNotKnowOrRefusedAtStayers));
+						q20bNumberOfNonCashBenefitSourcesTable.setQ20bMissingInfoAtLatestStayers(BigInteger.valueOf(dncStayers));
 					}
-
+	
+					
 					q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtEntry(data.getNumOfAdults());
 					q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtLatestStayers(data.getTotNoOfAdultStayers());
 					q20bNumberOfNonCashBenefitSourcesTable.setQ20bTotalClientsAtExitLeavers(data.getTotNoOfAdultLeavers());

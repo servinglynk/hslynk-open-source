@@ -1,8 +1,8 @@
 ,Total,  a. Without children,  b. With children and adults,c. With only children,  d. Unknown household type
-   a. None,0,0,0,0,0
-   b. 1 condition,0,0,0,0,0
-   c. 2 conditions,4,4,0,0,0
-   d. 3+ conditions,19,19,0,0,0
+   a. None,5,5,0,0,0
+   b. 1 condition,2,2,0,0,0
+   c. 2 conditions,5,5,0,0,0
+   d. 3+ conditions,11,11,0,0,0
    e. Condition unknown,0,0,0,0,0
    f. Client Doesn't Know/Client Refused,0,0,0,0,0
    g. Data Not Collected,0,0,0,0,0

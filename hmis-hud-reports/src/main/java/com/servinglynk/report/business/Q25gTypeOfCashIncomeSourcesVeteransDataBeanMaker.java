@@ -14,6 +14,7 @@ import org.apache.commons.collections.CollectionUtils;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q25gTypeOfCashIncomeSourcesVeteransDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.DataCollectionStage;
 
 public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMaker {
@@ -25,16 +26,16 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 		if(data.isLiveMode()) {
 			try{
 			String entryQuery = " select count(e.dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e ,%s.client c where  e.client_id = c.id and   e.id=i.enrollmentid "+ 
-								" and i.information_date >= e.entrydate  and i.information_date <= :endDate and c.veteran_status= '1' and i.datacollectionstage=:datacollectionstage and e.ageatentry >= 18 ";
-		
+								" and TO_DATE(i.information_date) = TO_DATE(e.entrydate)  and i.information_date <= :endDate and c.veteran_status= '1' and i.datacollectionstage='1' and e.ageatentry >= 18 ";
+			String exitQuery = " select count(e.dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e ,%s.client c,%s.exit ext where  e.client_id = c.id and   e.id=i.enrollmentid  and   e.id=ext.enrollmentid"+ 
+					" and TO_DATE(i.information_date) = TO_DATE(ext.exitdate)  and i.information_date <= :endDate and c.veteran_status= '1' and i.datacollectionstage='3' and e.ageatentry >= 18 ";
+
 			String annualAssesmentQuery = " select count(distinct(e.dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e,%s.client c where   e.client_id = c.id and  e.id=i.enrollmentid and c.veteran_status= '1' "+ 
-					" and i.information_date >= e.entrydate and i.datacollectionstage=:datacollectionstage  and i.information_date <= :endDate  and e.ageatentry >= 18 "+
-					" and   e.id not in ( select enrollmentid from %s.exit  where exitdate <= :startDate )  "+
-					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 )  ";
+					" and i.information_date >= e.entrydate and i.datacollectionstage='5' and i.information_date >= e.entrydate and i.information_date <= :endDate  and e.ageatentry >= 18 ";
 
 			
 			int alimonyIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and alimony ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int alimonyIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  alimony ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int alimonyIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +" and  alimony ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int alimonyIncomeAtAnnualAssesment = getIncomeCntForAnnualAssesment(data.getSchema(), annualAssesmentQuery +"  and alimony ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gAlimonyAtEntry(BigInteger.valueOf(alimonyIncomeAtEntry));
@@ -42,7 +43,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gAlimonyStayers(BigInteger.valueOf(alimonyIncomeAtAnnualAssesment));
 			
 			int childsupportIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and childsupport ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int childsupportIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and childsupport ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int childsupportIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +"  and childsupport ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int childsupportIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and childsupport ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gChildSupportAtEntry(BigInteger.valueOf(childsupportIncomeAtEntry));
@@ -50,7 +51,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gChildSupportStayers(BigInteger.valueOf(childsupportIncomeAtAnnualAssesment));
 			
 			int earnedIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  earned ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int earnedIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  earned ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int earnedIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +" and  earned ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int earnedIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and earned ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gEarnedIncomeAtEntry(BigInteger.valueOf(earnedIncomeAtEntry));
@@ -59,7 +60,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			
 			
 			int gaIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and ga ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int gaIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and ga ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int gaIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +"  and ga ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int gaIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and ga ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gGeneralAssistanceAtEntry(BigInteger.valueOf(gaIncomeAtEntry));
@@ -67,7 +68,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gGeneralAssistanceStayers(BigInteger.valueOf(gaIncomeAtAnnualAssesment));
 			
 			int othersourceIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and othersource ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int othersourceIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and othersource ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int othersourceIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +"  and othersource ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int othersourceIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +" and  othersource ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			
@@ -76,7 +77,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gOtherSourceStayers(BigInteger.valueOf(othersourceIncomeAtAnnualAssesment));
 			
 			int pensionIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  pension ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int pensionIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and pension ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int pensionIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +"  and pension ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int pensionIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and pension ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gPensionFromFormerJobAtEntry(BigInteger.valueOf(pensionIncomeAtEntry));
@@ -85,7 +86,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			
 			
 			int privatedisabilityIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  privatedisability ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int privatedisabilityIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  privatedisability ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int privatedisabilityIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +" and  privatedisability ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int privatedisabilityIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and privatedisability ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gPrivateDisabilityInsuranceAtEntry(BigInteger.valueOf(privatedisabilityIncomeAtEntry));
@@ -93,7 +94,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gPrivateDisabilityInsuranceStayers(BigInteger.valueOf(privatedisabilityIncomeAtAnnualAssesment));
 			
 			int socsecretirementIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and socsecretirement ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int socsecretirementIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  socsecretirement ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int socsecretirementIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +" and  socsecretirement ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int socsecretirementIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and socsecretirement ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gRetirementAtEntry(BigInteger.valueOf(socsecretirementIncomeAtEntry));
@@ -101,7 +102,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gRetirementStayers(BigInteger.valueOf(socsecretirementIncomeAtAnnualAssesment));
 			
 			int ssdiIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  ssdi ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int ssdiIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  ssdi ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int ssdiIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +" and  ssdi ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int ssdiIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +" and  ssdi ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gSSDIAtEntry(BigInteger.valueOf(ssdiIncomeAtEntry));
@@ -109,7 +110,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gSSDIStayers(BigInteger.valueOf(ssdiIncomeAtAnnualAssesment));
 		
 			int ssiIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +"  and ssi ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int ssiIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and ssi ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int ssiIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +"  and ssi ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int ssiIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and ssi ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gSSIAtEntry(BigInteger.valueOf(ssiIncomeAtEntry));
@@ -117,7 +118,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gSSIStayers(BigInteger.valueOf(ssiIncomeAtAnnualAssesment));
 			
 			int tanfIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  tanf ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int tanfIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and  tanf ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int tanfIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +"  and  tanf ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int tanfIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and tanf ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gTANFAtEntry(BigInteger.valueOf(tanfIncomeAtEntry));
@@ -125,7 +126,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gTANFStayers(BigInteger.valueOf(tanfIncomeAtAnnualAssesment));
 			
 			int unemploymentIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  unemployment ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int unemploymentIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +"  and unemployment ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int unemploymentIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +"  and unemployment ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int unemploymentIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +"  and unemployment ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gUnemploymentInsuranceAtEntry(BigInteger.valueOf(unemploymentIncomeAtEntry));
@@ -133,7 +134,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gUnemploymentInsuranceStayers(BigInteger.valueOf(unemploymentIncomeAtAnnualAssesment));
 			
 			int vadisabilitynonserviceIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  vadisabilitynonservice ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int vadisabilitynonserviceIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  vadisabilitynonservice ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int vadisabilitynonserviceIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +" and  vadisabilitynonservice ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int vadisabilitynonserviceIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), annualAssesmentQuery +" and  vadisabilitynonservice ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gVANonServiceConnectedDisabilityAtEntry(BigInteger.valueOf(vadisabilitynonserviceIncomeAtEntry));
@@ -150,7 +151,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			q25gDataBean.setQ25gVAServiceConnectedDisabilityStayers(BigInteger.valueOf(vadisabilityserviceIncomeAtAnnualAssesment));
 			
 			int workerscompIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and  workerscomp ='1' ", DataCollectionStage.ENTRY.getCode(),data);
-			int workerscompIncomeAtExit = getIncomeCnt(data.getSchema(), entryQuery +" and  workerscomp ='1' ", DataCollectionStage.EXIT.getCode(),data);
+			int workerscompIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +" and  workerscomp ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int workerscompIncomeAtAnnualAssesment = getIncomeCnt(data.getSchema(), entryQuery +" and  workerscomp ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
 			
 			q25gDataBean.setQ25gWorkersCompensationAtEntry(BigInteger.valueOf(workerscompIncomeAtEntry));
@@ -270,7 +271,23 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 				statement = connection.createStatement();
 				data.setQueryDataCollectionStage(datacollectionStage);
 				resultSet = statement.executeQuery(formatQuery(query,schema,data));
-				
+				List<ClientModel> clients = data.getVeterans();
+				if(CollectionUtils.isEmpty(clients)) {
+					return count;
+				}
+				 if(CollectionUtils.isNotEmpty(clients)) {
+					 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
+					 int index = 0;
+					 for(ClientModel client : clients) {
+						 enrollmentBuilder.append("'"+client.getDedupClientId()+"'");
+						 if(index != clients.size()) {
+							 enrollmentBuilder.append(",");
+						 }
+					 }
+					 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+					 enrollmentBuilder.append(" ) ");
+					 query = query + enrollmentBuilder.toString();
+				 }
 			 while(resultSet.next()) {
 				 count = resultSet.getInt(1);
 		     }

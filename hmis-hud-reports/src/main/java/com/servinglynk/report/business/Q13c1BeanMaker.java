@@ -33,7 +33,7 @@ public class Q13c1BeanMaker extends BaseBeanMaker{
 	// HIV/AIDS -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='8'
 	// Physical Disability -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='5'
 	// Developmental Disability -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='6'
-	String query = " select distinct(e.dedup_client_id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5') and information_date <=:endDate " ;
+	String query = " select distinct(e.dedup_client_id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and   datacollectionstage in ('1','2','5') and information_date >=e.entrydate  and information_date >=:startDate and information_date <=:endDate " ;
 	String mentalHealthQuery = " and disabilitytype='9' ";
 	Set<String> mentalHealthList = getEnrollmentFromDisabilitiesWithInformationDate(data.getSchema(), data,query+mentalHealthQuery);
 	List<EnrollmentModel> enrollments = data.getEnrollments();   

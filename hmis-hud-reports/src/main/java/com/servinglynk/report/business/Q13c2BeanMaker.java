@@ -23,7 +23,7 @@ public class Q13c2BeanMaker extends BaseBeanMaker {
 		if (data.isLiveMode()) {
 			try {
 
-				String query = "select dedup_client_id,count(dedup_client_id) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and datacollectionstage in ('1','2','5') and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) and information_date <= :endDate ";
+				String query = "select dedup_client_id,count(dedup_client_id) as cnt from %s.disabilities d,%s.enrollment e where e.id = d.enrollmentid and datacollectionstage in ('1','2','5') and ( disabilityresponse='1'  and ( disabilitytype='9' or disabilitytype='10' or  disabilitytype='7' or disabilitytype='8' or  disabilitytype='6') or  (disabilitytype='10' and disabilityresponse='3') ) and information_date >=e.entrydate  and information_date >=:startDate  and information_date <= :endDate ";
 
 				List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 				List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
