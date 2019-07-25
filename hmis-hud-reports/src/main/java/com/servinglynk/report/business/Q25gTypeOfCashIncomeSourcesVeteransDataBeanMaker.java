@@ -239,8 +239,8 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
 				data.setQueryDataCollectionStage(datacollectionStage);
-				query = query + buildQueryFromDataCollectionStage(datacollectionStage, query, data);
-				resultSet = statement.executeQuery(formatQuery(query,schema,data));
+				String newQuery = buildQueryFromDataCollectionStage(datacollectionStage, query, data);
+				resultSet = statement.executeQuery(formatQuery(newQuery,schema,data));
 				
 			 while(resultSet.next()) {
 				 count = resultSet.getInt(1);

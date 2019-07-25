@@ -220,6 +220,9 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 			StringBuilder builder = new StringBuilder(projectQuery);
 			Connection connection = null;
 			try {
+				if(CollectionUtils.isEmpty(filteredProjectIds) && !allProjects) {
+					return q22Beans;
+				}
 				connection = ImpalaConnection.getConnection();
 				 List<String> projectIds = data.getProjectIds();
 				 if(CollectionUtils.isNotEmpty(projectIds)) {
