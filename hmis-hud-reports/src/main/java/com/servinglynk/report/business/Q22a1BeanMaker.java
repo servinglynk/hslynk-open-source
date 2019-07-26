@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -17,6 +20,7 @@ import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q22a1LengthOfParticipationCoCProjectsDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.EnrollmentModel;
+import com.servinglynk.report.model.IncomeAndSourceModel;
 import com.servinglynk.report.model.Q22BeanModel;
 
 public class Q22a1BeanMaker extends BaseBeanMaker {
@@ -27,17 +31,18 @@ public class Q22a1BeanMaker extends BaseBeanMaker {
 						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id) "+		
 						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
 						" where 1=1 %dedup " +
-						" order by e.dedup_client_id,p.operatingstartdate asc ";
+						" order by e.dedup_client_id,e.entrydate asc ";
 				
 
 	Q22a1LengthOfParticipationCoCProjectsDataBean q22a1LengthOfParticipationCoCProjectsTable = new Q22a1LengthOfParticipationCoCProjectsDataBean();
 		try {
 			if(data.isLiveMode()) {
-				List<Q22BeanModel> allData = getQ22Bean(data, query, "ALL");
-				List<Q22BeanModel> allLeaversData = getQ22Bean(data, query,"LEAVERS");
-				List<Q22BeanModel> allStayersData = getQ22Bean(data, query,"STAYERS");
-				
-				
+				List<Q22BeanModel> allDataUnFiltered = getQ22Bean(data, query, "ALL");
+				List<Q22BeanModel> allLeaversDataUnFiltered = getQ22Bean(data, query,"LEAVERS");
+				List<Q22BeanModel> allStayersDataUnFiltered = getQ22Bean(data, query,"STAYERS");
+				List<Q22BeanModel> allData = getDedupedItemsFromQ22Bean(allDataUnFiltered);
+				List<Q22BeanModel> allLeaversData = getDedupedItemsFromQ22Bean(allLeaversDataUnFiltered);
+				List<Q22BeanModel> allStayersData = getDedupedItemsFromQ22Bean(allStayersDataUnFiltered);
 				if(CollectionUtils.isNotEmpty(allData)) {
 					allData.forEach(q22Bean -> populateBedNights(q22Bean, data));
 					List<Q22BeanModel>  q22a130DaysOrLess = allData.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() <= 30).collect(Collectors.toList());
@@ -132,7 +137,12 @@ public class Q22a1BeanMaker extends BaseBeanMaker {
 	}
 	
 	
-	
+	public static List<Q22BeanModel> getDedupedItemsFromQ22Bean(List<Q22BeanModel> q22Beans) {
+		Map<String,Q22BeanModel> dedupQ22BeanMap = new HashMap<>();
+		q22Beans.forEach(q22Bean ->  dedupQ22BeanMap.put(q22Bean.getDedupClientId(), q22Bean));
+		Collection<Q22BeanModel> values = dedupQ22BeanMap.values();
+		return new ArrayList(values);	
+	}
 
 }
 	

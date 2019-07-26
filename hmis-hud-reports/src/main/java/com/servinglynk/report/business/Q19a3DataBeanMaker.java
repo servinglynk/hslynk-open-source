@@ -28,47 +28,46 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 			try {
 				List<IncomeAndSourceModel> incomeAndSourcesAtEntryUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_QUERY,"STAYERS",DataCollectionStage.ENTRY);
 				
-				List<IncomeAndSourceModel> incomeAndSourcesAtExit = data.getIncomeAndSourcesAtExit();
-				List<IncomeAndSourceModel> incomeAndSourcesAtAAUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_ASSESMENT_QUERY,"STAYERS",DataCollectionStage.ENTRY);
 				List<IncomeAndSourceModel> incomeAndSourcesAtEntry = getDedupedItems(incomeAndSourcesAtEntryUnFiltered);
-				List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = getDedupedItems(incomeAndSourcesAtAAUnFiltered);
+				
+			
+				List<IncomeAndSourceModel> incomeAndSourcesAtExitUnFiltered = data.getIncomeAndSourcesAtExit();
+				List<IncomeAndSourceModel> incomeAndSourcesAtExit = getDedupedItems(incomeAndSourcesAtExitUnFiltered);
+				List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesmentUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_ASSESMENT_QUERY,"STAYERS",DataCollectionStage.ENTRY);
+				
+				List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = getDedupedItems(incomeAndSourcesAtAnnualAssesmentUnFiltered);
 								
+				List<IncomeAndSourceModel> incomesatAA = new ArrayList<>();
+				incomesatAA.addAll(incomeAndSourcesAtExit);
+				incomesatAA.addAll(incomeAndSourcesAtAnnualAssesment);
+					
 				List<IncomeAndSourceModel> incomes = new ArrayList<>();
-				incomes.addAll(incomeAndSourcesAtEntry);
 				incomes.addAll(incomeAndSourcesAtExit);
 				incomes.addAll(incomeAndSourcesAtAnnualAssesment);
-					
-					if(CollectionUtils.isNotEmpty(incomes)){
+				incomes.addAll(incomeAndSourcesAtEntry);	
+				
+				
+					if(CollectionUtils.isNotEmpty(incomesatAA)){
 						Set<String> allClients = new HashSet<>();
-						incomes.forEach(incomeAndSource -> allClients.add(incomeAndSource.getDedupClientId()) );
-						BigInteger allClientsBigInt = BigInteger.valueOf(getSize(allClients));
+						incomesatAA.forEach(incomeAndSource -> allClients.add(incomeAndSource.getDedupClientId()) );
+						
 						int total = getIncomeCnt(incomes);
-						List<IncomeAndSourceModel> earnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
-						List<IncomeAndSourceModel> earnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) || StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
-						
-						List<IncomeAndSourceModel> didNotHaveEarnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) &&  getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
-						List<IncomeAndSourceModel> didNotHaveEarnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> (StringUtils.equals("3",income.getDataCollectionStage())  || StringUtils.equals("5",income.getDataCollectionStage()))  && getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
-						
-						Q19DataBean earnedIncome = populateEarnedIncome(earnedIncomeAtEntry,earnedIncomeATEntryButNotAtAA,allClientsBigInt,didNotHaveEarnedIncomeAtEntry,didNotHaveEarnedIncomeATEntryButNotAtAA );
+						BigInteger allClientsBigInt = BigInteger.valueOf(total);
+						Q19DataBean earnedIncome = populateEarnedIncome(incomeAndSourcesAtExit,incomesatAA,allClientsBigInt );
 						hydrateEarnedIncome(earnedIncome,q19a3Bean);
 						
 						
-						List<IncomeAndSourceModel> otherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
-						List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) || StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
+						List<IncomeAndSourceModel> otherIncomeAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
+						List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomesatAA.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) || StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
 						
-						List<IncomeAndSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getTotalmonthlyincome()))  ==0).collect(Collectors.toList());
-						List<IncomeAndSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> (StringUtils.equals("3",income.getDataCollectionStage())  || StringUtils.equals("5",income.getDataCollectionStage())) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getTotalmonthlyincome()))  ==0).collect(Collectors.toList());
-					
-						Q19DataBean otherIncome = populateOtherIncome(otherIncomeAtEntry,otherIncomeATEntryButNotAtAA,allClientsBigInt,didNotHaveOtherIncomeAtEntry,didNotHaveOtherIncomeATEntryButNotAtAA);
+						Q19DataBean otherIncome = populateOtherIncome(otherIncomeAtEntry,otherIncomeATEntryButNotAtAA,allClientsBigInt);
 						hydrateOtherIncome(otherIncome, q19a3Bean);
 						
-						List<IncomeAndSourceModel> totalIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
-						List<IncomeAndSourceModel> totalIncomeATAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) || StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
+						List<IncomeAndSourceModel> totalIncomeAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
+						List<IncomeAndSourceModel> totalIncomeATAA = incomesatAA.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) || StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
 						
-						List<IncomeAndSourceModel> didNotHaveTotalIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
-						List<IncomeAndSourceModel> didNotHaveTotalIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> (StringUtils.equals("3",income.getDataCollectionStage())  || StringUtils.equals("5",income.getDataCollectionStage())) && getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
 						
-						Q19DataBean overallIncome = populateOverallIncomeIncome(totalIncomeAtEntry,totalIncomeATAA,allClientsBigInt,didNotHaveTotalIncomeAtEntry,didNotHaveTotalIncomeATEntryButNotAtAA);
+						Q19DataBean overallIncome = populateOverallIncomeIncome(totalIncomeAtEntry,totalIncomeATAA,allClientsBigInt);
 						hydrateOverallIncome(overallIncome, q19a3Bean);
 						
 					}

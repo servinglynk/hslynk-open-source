@@ -35,7 +35,7 @@ public class Reporter {
         try {         
         	Properties props = new Properties();
     		props.generatePropValues();
-			ReportConfig reportConfig = SyncPostgresProcessor.getProjects();
+			ReportConfig reportConfig = SyncPostgresProcessor.getProjects(34);
         	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig);
         	if(!sageReport) {
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);

@@ -27,8 +27,8 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 			try {
 				
 				
-					List<IncomeAndSourceModel> incomeAndSourcesAtEntryUnFiltered = getIncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_QUERY,DataCollectionStage.ENTRY);
-					List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesmentUnFiltered = getIncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_ASSESMENT_QUERY,DataCollectionStage.ENTRY);
+					List<IncomeAndSourceModel> incomeAndSourcesAtEntryUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_QUERY,"STAYERS",DataCollectionStage.ENTRY);
+					List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesmentUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_ASSESMENT_QUERY,"STAYERS",DataCollectionStage.ENTRY);
 					
 					List<IncomeAndSourceModel> incomeAndSourcesAtEntry = getDedupedItems(incomeAndSourcesAtEntryUnFiltered);
 					List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = getDedupedItems(incomeAndSourcesAtAnnualAssesmentUnFiltered);
@@ -41,25 +41,13 @@ public class Q19a1DataBeanMaker extends BaseBeanMaker {
 						int total = getIncomeCnt(incomes);
 						BigInteger allClientsBigInt = BigInteger.valueOf(total);
 						
-						List<IncomeAndSourceModel> didNotHaveEarnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) &&  getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
-						List<IncomeAndSourceModel> didNotHaveEarnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
-						
-						Q19DataBean earnedIncome = populateEarnedIncome(incomeAndSourcesAtEntry,incomeAndSourcesAtAnnualAssesment,allClientsBigInt,didNotHaveEarnedIncomeAtEntry,didNotHaveEarnedIncomeATEntryButNotAtAA );
+						Q19DataBean earnedIncome = populateEarnedIncome(incomeAndSourcesAtEntry,incomeAndSourcesAtAnnualAssesment,allClientsBigInt );
 						hydrateEarnedIncome(earnedIncome,q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate);
 						
-						
-						
-						List<IncomeAndSourceModel> didNotHaveOtherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getTotalmonthlyincome()))  ==0).collect(Collectors.toList());
-						List<IncomeAndSourceModel> didNotHaveOtherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getTotalmonthlyincome()))  ==0).collect(Collectors.toList());
-					
-						Q19DataBean otherIncome = populateOtherIncome(incomeAndSourcesAtEntry,incomeAndSourcesAtAnnualAssesment,allClientsBigInt,didNotHaveOtherIncomeAtEntry,didNotHaveOtherIncomeATEntryButNotAtAA);
+						Q19DataBean otherIncome = populateOtherIncome(incomeAndSourcesAtEntry,incomeAndSourcesAtAnnualAssesment,allClientsBigInt);
 						hydrateOtherIncome(otherIncome, q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate);
 						
-						
-						List<IncomeAndSourceModel> didNotHaveTotalIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage()) && getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
-						List<IncomeAndSourceModel> didNotHaveTotalIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("5",income.getDataCollectionStage()) && getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
-						
-						Q19DataBean overallIncome = populateOverallIncomeIncome(incomeAndSourcesAtEntry,incomeAndSourcesAtAnnualAssesment,allClientsBigInt,didNotHaveTotalIncomeAtEntry,didNotHaveTotalIncomeATEntryButNotAtAA);
+						Q19DataBean overallIncome = populateOverallIncomeIncome(incomeAndSourcesAtEntry,incomeAndSourcesAtAnnualAssesment,allClientsBigInt);
 						hydrateOverallIncome(overallIncome, q19a1ClientCashIncomeChangeIncomeSourceEntryTableDate);
 					}
 			}catch(Exception e) {

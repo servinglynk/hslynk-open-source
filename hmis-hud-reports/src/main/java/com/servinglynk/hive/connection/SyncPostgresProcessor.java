@@ -36,14 +36,14 @@ public class SyncPostgresProcessor extends Logging{
     
    //  statement = connection.prepareStatement("select value as projectid,report_config_id, report_config_id as reportconfig from base.report_config_param where key='PROJECT_ID' and report_config_id in ( select id from base.report_config where status='INITIAL' limit 1 )");
     
-    public static ReportConfig getProjects() throws Exception{
+    public static ReportConfig getProjects(int id) throws Exception{
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         Connection connection = null;
         ReportConfig reportConfig = null; 
         try{
             connection = getConnection();
-            statement = connection.prepareStatement("select id,project_group_code,start_date,end_date,coc_id from base.report_config where status='INITIAL' limit 1 ");
+            statement = connection.prepareStatement("select id,project_group_code,start_date,end_date,coc_id from base.report_config where id ="+id);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
             	Long reportConfigId = resultSet.getLong("id"); 

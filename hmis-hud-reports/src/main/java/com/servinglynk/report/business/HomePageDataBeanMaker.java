@@ -185,7 +185,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			if(q05aHMISCDDQDataList != null) {
 				CSVGenerator.buildReport(q05aHMISCDDQDataList, "Q5a.jrxml", "Q5a.csv");
 			}*/
-			boolean skipReports =true;
+			boolean skipReports =false;
 			
 			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aBeanData(data);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
@@ -317,7 +317,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q18ClientCashIncomeCategoryEarnedOtherIncomeList= Q18DataBeanMaker.getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(data);
 			homePageDataBean.setQ18ClientCashIncomeCategoryEarnedOtherIncomeDataBean(q18ClientCashIncomeCategoryEarnedOtherIncomeList);
 			CSVGenerator.buildReport(q18ClientCashIncomeCategoryEarnedOtherIncomeList, "Q18.jrxml","Q18.csv",data);
-			
+			}
 			List<Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean> q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList = Q19a1DataBeanMaker.getQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList(data);
 			homePageDataBean.setQ19a1ClientCashIncomeChangeIncomeSourceEntryDataBean(q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList);
 			CSVGenerator.buildReport(q19a1ClientCashIncomeChangeIncomeSourceEntryDataBeanList, "Q19a1.jrxml", "Q19a1.csv",data);
@@ -341,7 +341,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 	        List<Q21HealthInsuranceDataBean> q21HealthInsuranceList= Q21BeanMaker.getQ21HealthInsuranceList(data);
 	        homePageDataBean.setQ21HealthInsuranceDataBean(q21HealthInsuranceList);
 	        CSVGenerator.buildReport(q21HealthInsuranceList, "Q21.jrxml","Q21.csv",data);
-	        
+		
 	        List<Q22a1LengthOfParticipationCoCProjectsDataBean> q22a1LengthOfParticipationCoCProjectsList = Q22a1BeanMaker.getQ22a1LengthOfParticipationCoCProjectsList(data);
 			homePageDataBean.setQ22a1LengthOfParticipationCoCProjectsDataBean(q22a1LengthOfParticipationCoCProjectsList);
 			CSVGenerator.buildReport(q22a1LengthOfParticipationCoCProjectsList,"Q22a1.jrxml","Q22a1.csv",data);
@@ -398,7 +398,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<Q25ePhysicalAndMentalHealthConditionsVeteransDataBean> q25ePhysicalAndMentalHealthConditionsVeteransList = Q25ePhysicalAndMentalHealthConditionsVeteransDataBeanMaker.getQ25ePhysicalAndMentalHealthConditionsVeteransList(data);
 			homePageDataBean.setQ25ePhysicalAndMentalHealthConditionsVeteransDataBean(q25ePhysicalAndMentalHealthConditionsVeteransList);
 			CSVGenerator.buildReport(q25ePhysicalAndMentalHealthConditionsVeteransList, "Q25e.jrxml","Q25e.csv",data);
-			}
+		
 			List<Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean> q25fCashIncomeCategoryIncomeCategoryByEntryList = Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker.getQ25fCashIncomeCategoryIncomeCategoryByEntryList(data);
 			homePageDataBean.setQ25fCashIncomeCategoryIncomeCategoryByEntryDataBean(q25fCashIncomeCategoryIncomeCategoryByEntryList);
 			CSVGenerator.buildReport(q25fCashIncomeCategoryIncomeCategoryByEntryList, "Q25f.jrxml","Q25f.csv",data);
