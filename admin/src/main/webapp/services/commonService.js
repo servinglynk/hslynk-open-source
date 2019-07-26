@@ -11,7 +11,7 @@ var filesCollection="";
 }]);*/
 var Service= ({
 	GetProjectList: function ($http, success,error,$scope) {
-        var apiurl = "/hmis-clientapi-v2017/rest/v2/projects";
+        var apiurl = "/hmis-clientapi-v2017/rest/v2/projects?maxItems=200";
         $http({
             method: 'GET',
             url: apiurl,
