@@ -2203,52 +2203,113 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 						BigInteger incomePerformaceMeasure = BigInteger.ZERO;
 						BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
 						
-						Set<String> keySetAtAA = incomeMapAtAA.keySet();
 						int noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = 0;
 						BigInteger sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = BigInteger.ZERO;
 						
-						for(String key : keySetAtAA) {
-							BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
-							BigInteger amountAtAA = incomeMapAtAA.get(key);
-							   int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
-							   int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
-							   
-							if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
-								noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
-								sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
-							}
-							else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
-								incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
-								retainIncomeCatGreaterAtAAThanAtEntry++;
-							}
-							else if(ea >0 && aa==0) { // Had income at start and no at AA 
-								incomeAtStartWithOutAA++;
-								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
-							}
-							else if(ea > aa && ea !=0) { // Income at Entry greater than AA
-								retainIncomeCatLessAtAAThanAtEntry++;
-								incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
-							}
-							else if(ea==aa && ea !=0) { // Income at Entry same as AA
-								retainIncomeCatSameAtAAThanAtEntry++;
-							}
-							if(ea==0  || aa==0) {
-								didNotHaveIncomeATEntryortAA++;
-							}
-						}
-						
 						Set<String> entryKeySet = incomeMapAtEntry.keySet();
-						for(String key : entryKeySet) {
-							BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
-							BigInteger amountAtAA = incomeMapAtAA.get(key);
-							int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
-							 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
-							   
-							if(ea > 0 && aa==0) { // Had income at start and no at AA 
-								incomeAtStartWithOutAA++;
-								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+						Set<String> keySetAtAA = incomeMapAtAA.keySet();
+						
+						int sizeAtAA = getSize(keySetAtAA);
+						int sizeAtEntry = getSize(entryKeySet);
+						Set<String> processedClients = new HashSet<>();
+						if(sizeAtAA > sizeAtEntry || sizeAtAA == sizeAtEntry) {
+							for(String key : keySetAtAA) {
+								BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+								   
+								if(ea > 0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+									noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+									sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+								}
+								else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+									incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+									retainIncomeCatGreaterAtAAThanAtEntry++;
+								}
+								else if(ea >0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+									retainIncomeCatLessAtAAThanAtEntry++;
+									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+								}
+								else if(ea==aa && ea !=0) { // Income at Entry same as AA
+									retainIncomeCatSameAtAAThanAtEntry++;
+								}
+								else if(ea==0  || aa==0) {
+									didNotHaveIncomeATEntryortAA++;
+								}
+								processedClients.add(key);
 							}
-						}
+							// Now look from entry KeySet
+							Set<String> keySetAtEntry = incomeMapAtEntry.keySet();
+							if(CollectionUtils.isNotEmpty(keySetAtEntry) && CollectionUtils.isNotEmpty(processedClients)) {
+								for(String key : keySetAtEntry) {
+									if(!processedClients.contains(key)) {
+										incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+										incomeAtStartWithOutAA++;
+									}
+								}
+							}
+							
+						}else {
+							for(String key : entryKeySet) {
+								BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+								   
+								if(ea > 0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+									noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+									sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+								}
+								else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+									incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+									retainIncomeCatGreaterAtAAThanAtEntry++;
+								}
+								else if(ea >0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+									retainIncomeCatLessAtAAThanAtEntry++;
+									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+								}
+								else if(ea==aa && ea !=0) { // Income at Entry same as AA
+									retainIncomeCatSameAtAAThanAtEntry++;
+								}
+								else if(ea==0  || aa==0) {
+									didNotHaveIncomeATEntryortAA++;
+								}
+								
+								processedClients.add(key);
+							}
+							
+						// Now look from entry KeySet
+						Set<String> keySetAA = incomeMapAtAA.keySet();
+						if(CollectionUtils.isNotEmpty(keySetAA) && CollectionUtils.isNotEmpty(processedClients)) {
+							for(String key : keySetAA) {
+								if(!processedClients.contains(key)) {
+									noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+									BigInteger amountAtAA = incomeMapAtAA.get(key);
+									int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+									sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(BigInteger.valueOf(aa));
+						
+								}
+							 }
+						     }
+						  }
+							
 						
 						//#B
 						q19DataBean.setNoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(incomeAtStartWithOutAA));
@@ -2342,52 +2403,111 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 						BigInteger incomeCatGreaterAtAAThanAtEntry = BigInteger.ZERO;
 						BigInteger incomePerformaceMeasure = BigInteger.ZERO;
 						BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
-						
-						
-						Set<String> keySetAtAA = incomeMapAtAA.keySet();
 						int noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = 0;
 						BigInteger sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = BigInteger.ZERO;
-						for(String key : keySetAtAA) {
-							BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
-							BigInteger amountAtAA = incomeMapAtAA.get(key);
-							   int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
-							   int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
-							   
-							if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
-								noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
-								sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
-							}
-							else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
-								incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((aa-ea))) ;
-								retainIncomeCatGreaterAtAAThanAtEntry++;
-							}
-							else if(ea >0 && aa==0) { // Had income at start and no at AA 
-								incomeAtStartWithOutAA++;
-								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
-							}
-							else if(ea > aa && ea !=0) { // Income at Entry greater than AA
-								retainIncomeCatLessAtAAThanAtEntry++;
-								incomeCatLessAtAAThanAtEntry = incomeCatLessAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
-							}
-							else if(ea==aa && ea !=0) { // Income at Entry same as AA
-								retainIncomeCatSameAtAAThanAtEntry++;
-							}
-							if(ea==0  || aa==0) {
-								didNotHaveIncomeATEntryButNotAtAA++;
-							}
-						}
+						Set<String> processedClients = new HashSet<>();
+						
+						Set<String> keySetAtAA = incomeMapAtAA.keySet();
 						Set<String> entryKeySet = incomeMapAtEntry.keySet();
-						for(String key : entryKeySet) {
-							BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
-							BigInteger amountAtAA = incomeMapAtAA.get(key);
-							int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
-							 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
-							   
-							if(ea > 0 && aa==0) { // Had income at start and no at AA 
-								incomeAtStartWithOutAA++;
-								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+						int sizeAtAA = getSize(keySetAtAA);
+						int sizeAtEntry = getSize(entryKeySet);
+						if(sizeAtAA > sizeAtEntry || sizeAtAA == sizeAtEntry) {
+							for(String key : keySetAtAA) {
+								BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+								   
+								if(ea > 0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+									noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+									sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+								}
+								else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+									incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+									retainIncomeCatGreaterAtAAThanAtEntry++;
+								}
+								else if(ea >0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+									retainIncomeCatLessAtAAThanAtEntry++;
+									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+								}
+								else if(ea==aa && ea !=0) { // Income at Entry same as AA
+									retainIncomeCatSameAtAAThanAtEntry++;
+								}
+								else if(ea==0  || aa==0) {
+									didNotHaveIncomeATEntryButNotAtAA++;
+								}
+								processedClients.add(key);
 							}
+							// Now look from entry KeySet
+							// Now look from entry KeySet
+							Set<String> keySetAtEntry = incomeMapAtEntry.keySet();
+							if(CollectionUtils.isNotEmpty(keySetAtEntry) && CollectionUtils.isNotEmpty(processedClients)) {
+								for(String key : keySetAtEntry) {
+									if(!processedClients.contains(key)) {
+										incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+										incomeAtStartWithOutAA++;
+									}
+								}
+							}
+						}else {
+							for(String key : entryKeySet) {
+								BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+								   
+								if(ea > 0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+									noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+									sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+								}
+								else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+									incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+									retainIncomeCatGreaterAtAAThanAtEntry++;
+								}
+								else if(ea >0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+									retainIncomeCatLessAtAAThanAtEntry++;
+									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+								}
+								else if(ea==aa && ea !=0) { // Income at Entry same as AA
+									retainIncomeCatSameAtAAThanAtEntry++;
+								}
+								else if(ea==0  || aa==0) {
+									didNotHaveIncomeATEntryButNotAtAA++;
+								}
+							processedClients.add(key);
 						}
+						
+					// Now look from entry KeySet
+					Set<String> keySetAA = incomeMapAtAA.keySet();
+					if(CollectionUtils.isNotEmpty(keySetAA) && CollectionUtils.isNotEmpty(processedClients)) {
+						for(String key : keySetAA) {
+							if(!processedClients.contains(key)) {
+								noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(BigInteger.valueOf(aa));
+					
+							}
+						 }
+					     }
+					   }
+						
 						
 						//#B
 						if(CollectionUtils.isNotEmpty(incomeAtEntry) && incomeAtStartWithOutAA!=0) {
@@ -2483,53 +2603,110 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 					
 
 					
-					Set<String> keySetAtAA = incomeMapAtAA.keySet();
 					int noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = 0;
 					BigInteger sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = BigInteger.ZERO;
-
-					for(String key : keySetAtAA) {
-						BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
-						BigInteger amountAtAA = incomeMapAtAA.get(key);
-						   int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
-						   int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
-						   
-						if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
-							noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
-							sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
-						}
-						else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
-							incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
-							retainIncomeCatGreaterAtAAThanAtEntry++;
-						}
-						else if(ea >0 && aa==0) { // Had income at start and no at AA 
-							incomeAtStartWithOutAA++;
-							incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
-						}
-						else if(ea > aa && ea !=0) { // Income at Entry greater than AA
-							retainIncomeCatLessAtAAThanAtEntry++;
-							incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
-						}
-						else if(ea==aa && ea !=0) { // Income at Entry same as AA
-							retainIncomeCatSameAtAAThanAtEntry++;
-						}
-						if(ea==0  || aa==0) {
-							didNotHaveIncomeATEntryortAA++;
-						}
-					}
-					/*
+					Set<String> processedClients = new HashSet<>();
+					Set<String> keySetAtAA = incomeMapAtAA.keySet();
 					Set<String> entryKeySet = incomeMapAtEntry.keySet();
-					for(String key : entryKeySet) {
-						BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
-						BigInteger amountAtAA = incomeMapAtAA.get(key);
-						int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
-						 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
-						   
-						if(ea > 0 && aa==0) { // Had income at start and no at AA 
-							incomeAtStartWithOutAA++;
-							incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+					int sizeAtAA = getSize(keySetAtAA);
+					int sizeAtEntry = getSize(entryKeySet);
+					if(sizeAtAA > sizeAtEntry || sizeAtAA == sizeAtEntry) {
+						for(String key : keySetAtAA) {
+							BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+							BigInteger amountAtAA = incomeMapAtAA.get(key);
+							int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+							 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+							   
+							if(ea > 0 && aa==0) { // Had income at start and no at AA 
+								incomeAtStartWithOutAA++;
+								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+							}
+							else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+								noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+								sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+							}
+							else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+								incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+								retainIncomeCatGreaterAtAAThanAtEntry++;
+							}
+							else if(ea >0 && aa==0) { // Had income at start and no at AA 
+								incomeAtStartWithOutAA++;
+								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+							}
+							else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+								retainIncomeCatLessAtAAThanAtEntry++;
+								incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+							}
+							else if(ea==aa && ea !=0) { // Income at Entry same as AA
+								retainIncomeCatSameAtAAThanAtEntry++;
+							}
+							else if(ea==0  || aa==0) {
+								didNotHaveIncomeATEntryortAA++;
+							}
+							processedClients.add(key);
 						}
-					}
-					*/
+						// Now look from entry KeySet
+						Set<String> keySetAtEntry = incomeMapAtEntry.keySet();
+						if(CollectionUtils.isNotEmpty(keySetAtEntry) && CollectionUtils.isNotEmpty(processedClients)) {
+							for(String key : keySetAtEntry) {
+								if(!processedClients.contains(key)) {
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+									incomeAtStartWithOutAA++;
+								}
+							}
+						}
+					}else {
+						for(String key : entryKeySet) {
+							BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+							BigInteger amountAtAA = incomeMapAtAA.get(key);
+							int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+							 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+							   
+							if(ea > 0 && aa==0) { // Had income at start and no at AA 
+								incomeAtStartWithOutAA++;
+								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+							}
+							else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+								noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+								sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+							}
+							else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+								incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+								retainIncomeCatGreaterAtAAThanAtEntry++;
+							}
+							else if(ea >0 && aa==0) { // Had income at start and no at AA 
+								incomeAtStartWithOutAA++;
+								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+							}
+							else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+								retainIncomeCatLessAtAAThanAtEntry++;
+								incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+							}
+							else if(ea==aa && ea !=0) { // Income at Entry same as AA
+								retainIncomeCatSameAtAAThanAtEntry++;
+							}
+							else if(ea==0  || aa==0) {
+								didNotHaveIncomeATEntryortAA++;
+							}
+							processedClients.add(key);
+						}
+						
+					// Now look from entry KeySet
+					Set<String> keySetAA = incomeMapAtAA.keySet();
+					if(CollectionUtils.isNotEmpty(keySetAA) && CollectionUtils.isNotEmpty(processedClients)) {
+						for(String key : keySetAA) {
+							if(!processedClients.contains(key)) {
+								noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(BigInteger.valueOf(aa));
+					
+							}
+						 }
+					     }
+					   }
+						
+					
 					
 					//#B
 					q19DataBean.setNumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(incomeAtStartWithOutAA));

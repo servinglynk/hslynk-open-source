@@ -6,10 +6,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q19DataBean;
@@ -27,8 +25,13 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 		if(data.isLiveMode()) {
 			try {
 				List<IncomeAndSourceModel> incomeAndSourcesAtEntryUnFiltered = getQ19IncomeAndSource(data,ReportQuery.Q19_STAYERS_AT_ENTRY_QUERY,"STAYERS",DataCollectionStage.ENTRY);
+				List<IncomeAndSourceModel> incomeAndSourcesLeaversAtEntryUnFiltered = getIncomeAndSource(data,ReportQuery.Q19_2_STAYERS_AT_ENTRY_EXIT_QUERY,DataCollectionStage.EXIT);
+				List<IncomeAndSourceModel> incomeAndSourcesLeaversAtEntry = getDedupedItems(incomeAndSourcesLeaversAtEntryUnFiltered);
 				
-				List<IncomeAndSourceModel> incomeAndSourcesAtEntry = getDedupedItems(incomeAndSourcesAtEntryUnFiltered);
+				List<IncomeAndSourceModel> incomeAndSourcesStayersAtEntry = getDedupedItems(incomeAndSourcesAtEntryUnFiltered);
+				List<IncomeAndSourceModel>  incomeAndSourcesAtEntry = new ArrayList<>();
+				incomeAndSourcesAtEntry.addAll(incomeAndSourcesStayersAtEntry);
+				incomeAndSourcesAtEntry.addAll(incomeAndSourcesLeaversAtEntry);
 				
 			
 				List<IncomeAndSourceModel> incomeAndSourcesAtExitUnFiltered = data.getIncomeAndSourcesAtExit();
@@ -53,21 +56,14 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 						
 						int total = getIncomeCnt(incomes);
 						BigInteger allClientsBigInt = BigInteger.valueOf(total);
-						Q19DataBean earnedIncome = populateEarnedIncome(incomeAndSourcesAtExit,incomesatAA,allClientsBigInt );
+						Q19DataBean earnedIncome = populateEarnedIncome(incomeAndSourcesAtEntry,incomesatAA,allClientsBigInt );
 						hydrateEarnedIncome(earnedIncome,q19a3Bean);
 						
 						
-						List<IncomeAndSourceModel> otherIncomeAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
-						List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomesatAA.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) || StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
-						
-						Q19DataBean otherIncome = populateOtherIncome(otherIncomeAtEntry,otherIncomeATEntryButNotAtAA,allClientsBigInt);
+						Q19DataBean otherIncome = populateOtherIncome(incomeAndSourcesAtEntry,incomesatAA,allClientsBigInt);
 						hydrateOtherIncome(otherIncome, q19a3Bean);
 						
-						List<IncomeAndSourceModel> totalIncomeAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
-						List<IncomeAndSourceModel> totalIncomeATAA = incomesatAA.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage()) || StringUtils.equals("5",income.getDataCollectionStage())).collect(Collectors.toList());
-						
-						
-						Q19DataBean overallIncome = populateOverallIncomeIncome(totalIncomeAtEntry,totalIncomeATAA,allClientsBigInt);
+						Q19DataBean overallIncome = populateOverallIncomeIncome(incomeAndSourcesAtEntry,incomesatAA,allClientsBigInt);
 						hydrateOverallIncome(overallIncome, q19a3Bean);
 						
 					}

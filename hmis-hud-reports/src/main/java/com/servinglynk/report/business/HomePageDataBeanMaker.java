@@ -185,7 +185,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			if(q05aHMISCDDQDataList != null) {
 				CSVGenerator.buildReport(q05aHMISCDDQDataList, "Q5a.jrxml", "Q5a.csv");
 			}*/
-			boolean skipReports =false;
+			boolean skipReports =true;
 			
 			List<Q05aHMISComparableDBDataQualityDataBean> q05aHMISCDDQDataList = Q05aBeanMaker.getQ05aBeanData(data);
 			homePageDataBean.setQ05aHMISComparableDBDataQualityDataBean(q05aHMISCDDQDataList);
