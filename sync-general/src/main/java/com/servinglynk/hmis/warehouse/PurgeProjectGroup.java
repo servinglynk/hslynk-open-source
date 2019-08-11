@@ -1,6 +1,8 @@
 package com.servinglynk.hmis.warehouse;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,45 +21,44 @@ public class PurgeProjectGroup extends Logging {
 	 * @throws Exception 
 	  */
 	public void purge(String projectGroupCode) throws Exception {
-		String schema = "";
-		disableTriggers(schema);
-		logger.info("Purging 2014 schema..."+projectGroupCode);
-		List<String> tables2014 = get2014Tables();
-		for(String tableName : tables2014) {
-			   schema = "v2014";
+		
+		List<String> schemas = new ArrayList<>();
+		schemas.add("v2014");
+		schemas.add("v2015");
+		schemas.add("v2016");
+		schemas.add("v2017");
+		schemas.add("base");
+		schemas.add("survey");
+		schemas.add("housing_inventory");
+		schemas.add("notificationdb");
+		for(String schema : schemas) {
+			disableTriggers(schema);
+			List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);
+			for(String tableName : allTablesFromPostgres) {
 				purgeTable(tableName, projectGroupCode, schema);
-		}
-		logger.info("2014 schema purged for ..."+projectGroupCode);
-		logger.info("Purging 2015 schema..."+projectGroupCode);
-		List<String> tables2015 = get2015Tables();
-		for(String tableName : tables2015) {
-				schema = "v2015";
-				purgeTable(tableName, projectGroupCode, schema);
-		}
-		logger.info("2015 schema purged for ..."+projectGroupCode);
-		logger.info("Purging 2016 schema..."+projectGroupCode);
-		List<String> tables2016 = get2016Tables();
-		for(String tableName : tables2016) {
-				schema = "v2016";
-				purgeTable(tableName, projectGroupCode, schema);
-		}
-		logger.info("2016 schema purged for ..."+projectGroupCode);
-		logger.info("Purging base schema..."+projectGroupCode);
-		List<String> baseTables = getBaseTables();
-		for(String tableName : baseTables) {
-				schema = "base";
-				purgeTable(tableName, projectGroupCode, schema);
-		}
-		logger.info("2017 schema purged for ..."+projectGroupCode);
-		logger.info("Purging base schema..."+projectGroupCode);
-		List<String> tables2017 = get2017Tables();
-		for(String tableName : tables2017) {
-				schema = "v2017";
-				purgeTable(tableName, projectGroupCode, schema);
+			}
 		}
 		logger.info("Base schema purged for ..."+projectGroupCode);
 	}
 	
+	public static List<String> getAllTablesFromPostgres(String schemaName) throws Exception{
+        List<String> tables = new ArrayList<>();
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = SyncPostgresProcessor.getConnection();
+            statement = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='"+schemaName+"'");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                tables.add(resultSet.getString("table_name"));
+            }
+
+        }catch (Exception ex){
+            throw ex;
+        }
+        return tables;
+    }
 	//;
 	 private void disableTriggers(String schema) {
 	        Connection connection = null;
@@ -86,198 +87,6 @@ public class PurgeProjectGroup extends Logging {
 		        }finally {
 		        }
 			}
-
-
-		/***
-		 * Get all the tables from the 2014 schema to be purged.
-		 * @return
-		 */
-		public List<String> get2014Tables(){
-	        List<String> tables = new ArrayList<>();
-	        tables.add("path_status");
-	        tables.add("rhybcp_status");
-	        tables.add("last_perm_address");
-	        tables.add("percent_ami");
-	        tables.add("lastgradecompleted");
-	        tables.add("schoolstatus");
-	        tables.add("employment");
-	        tables.add("health_status");
-	        tables.add("affiliation");
-	        tables.add("site");
-	        tables.add("inventory");
-	        tables.add("funder");
-	        tables.add("enrollment_coc");
-	        tables.add("rhybcpstatus");
-	        tables.add("sexualorientation");
-	        tables.add("formerwardjuvenilejustice");
-	        tables.add("lastpermanentaddress");
-	        tables.add("percentami");
-	        tables.add("medicalassistance");
-	        tables.add("youthcriticalissues");
-	        tables.add("formerwardchildwelfare");
-	        tables.add("referralsource");
-	        tables.add("commercialsexualexploitation");
-	        tables.add("domesticviolence");
-	        tables.add("residentialmoveindate");
-	        tables.add("dateofengagement");
-	        tables.add("services");
-	        tables.add("incomeandsources");
-	        tables.add("noncashbenefits");
-	        tables.add("healthinsurance");
-	        tables.add("exithousingassessment");
-	        tables.add("exitplansactions");
-	        tables.add("housingassessmentdisposition");
-	        tables.add("familyreunification");
-	        tables.add("connectionwithsoar");
-	        tables.add("projectcompletionstatus");
-	        tables.add("worsthousingsituation");
-	        tables.add("exit");
-	        tables.add("projectcoc");
-	        tables.add("disabilities");
-	        tables.add("enrollment");
-	        tables.add("project");
-	        tables.add("organization");
-	        tables.add("sync");
-	        tables.add("veteran_info");
-	        tables.add("client");
-	        tables.add("bulk_upload");
-	        tables.add("export");
-	        tables.add("source");
-	        tables.add("bulk_upload_error");
-	        
-	        return tables;
-	    }
-		/***
-		 * Get all the tables from the 2015 schema to be purged.
-		 * @return
-		 */
-		public List<String> get2015Tables(){
-	        List<String> tables = new ArrayList<>();
-	        tables.add("path_status");
-	        tables.add("rhybcp_status");
-	        tables.add("employment");
-			tables.add("health_status");
-			tables.add("affiliation");
-			tables.add("site");
-			tables.add("inventory");
-			tables.add("funder");	
-			tables.add("enrollment_coc");
-			tables.add("medicalassistance");
-			tables.add("domesticviolence");
-			tables.add("disabilities");
-			tables.add("residentialmoveindate");
-			tables.add("dateofengagement");
-			tables.add("incomeandsources");
-			tables.add("noncashbenefits");
-			tables.add("healthinsurance");
-			tables.add("exithousingassessment");
-			tables.add("housingassessmentdisposition");
-			tables.add("exit");
-			tables.add("coc");
-			tables.add("project"); 
-			tables.add("enrollment");
-			tables.add("organization"); 
-			tables.add("sync");
-			tables.add("client_veteran_info");
-			tables.add("client");
-			tables.add("bulk_upload");
-			tables.add("bulk_upload_activity");
-			tables.add("export"); 
-			tables.add("source");
-			tables.add("exitRHY");
-			tables.add("exitPath");
-	        return tables;
-	    }
-		/***
-		 * Get all the tables from the 2015 schema to be purged.
-		 * @return
-		 */
-		public List<String> get2016Tables(){
-	        List<String> tables = new ArrayList<>();
-	        tables.add("path_status");
-	        tables.add("rhybcp_status");
-	        tables.add("employment");
-	        tables.add("health_status");
-	        tables.add("affiliation");
-	        tables.add("site");
-	        tables.add("inventory");
-	        tables.add("funder");	
-	        tables.add("enrollment_coc");
-	        tables.add("medicalassistance");
-	        tables.add("domesticviolence");
-	        tables.add("disabilities");
-	        tables.add("residentialmoveindate");
-	        tables.add("dateofengagement");
-	        tables.add("incomeandsources");
-	        tables.add("noncashbenefits");
-	        tables.add("healthinsurance");
-	        tables.add("exithousingassessment");
-	        tables.add("housingassessmentdisposition");
-	        tables.add("exit");
-	        tables.add("coc");
-	        tables.add("project"); 
-	        tables.add("enrollment");
-	        tables.add("organization"); 
-	        tables.add("client_veteran_info");
-	        tables.add("client");
-	        tables.add("bulk_upload_activity");
-	        tables.add("bulk_upload_error");
-	        tables.add("export"); 
-	        tables.add("source");
-	        tables.add("exitRHY");
-	        tables.add("exitPath");
-	        return tables;
-	    }
-		/***
-		 * Get all the tables from the 2017 schema to be purged.
-		 * @return
-		 */
-		public List<String> get2017Tables(){
-	        List<String> tables = new ArrayList<>();
-	        tables.add("path_status");
-	        tables.add("rhybcp_status");
-	        tables.add("employment");
-	        tables.add("health_status");
-	        tables.add("affiliation");
-	        tables.add("site");
-	        tables.add("inventory");
-	        tables.add("funder");	
-	        tables.add("enrollment_coc");
-	        tables.add("medicalassistance");
-	        tables.add("domesticviolence");
-	        tables.add("disabilities");
-	        tables.add("residentialmoveindate");
-	        tables.add("dateofengagement");
-	        tables.add("incomeandsources");
-	        tables.add("noncashbenefits");
-	        tables.add("healthinsurance");
-	        tables.add("exithousingassessment");
-	        tables.add("housingassessmentdisposition");
-	        tables.add("exit");
-	        tables.add("coc");
-	        tables.add("project"); 
-	        tables.add("enrollment");
-	        tables.add("organization"); 
-	        tables.add("client_veteran_info");
-	        tables.add("client");
-	        tables.add("bulk_upload_activity");
-	        tables.add("bulk_upload_error");
-	        tables.add("export"); 
-	        tables.add("source");
-	        tables.add("exitRHY");
-	        return tables;
-	    }
-		/***
-		 * Get all the tables from the base schema to be purged.
-		 * @return
-		 */
-		public List<String> getBaseTables() {
-			List<String> tables = new ArrayList<>();
-			tables.add("client");
-			tables.add("hmis_global_project");
-			tables.add("hmis_global_project_map");
-			return tables;
-		}
 		
 	public static void main(String args[]) throws Exception {
 		Logger logger = Logger.getLogger(PurgeProjectGroup.class.getName());
@@ -286,7 +95,7 @@ public class PurgeProjectGroup extends Logging {
 		
 		PurgeProjectGroup view = new PurgeProjectGroup(logger);
 
-	    view.purge("CP0004");
+	    view.purge("SA0005");
 
 	}
 
