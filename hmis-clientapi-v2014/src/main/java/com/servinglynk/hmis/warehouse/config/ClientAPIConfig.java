@@ -36,7 +36,8 @@ import com.servinglynk.hmis.warehouse.rest.SearchController;
 		com.servinglynk.hmis.warehouse.service.config.ServiceConfig.class,
 		com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
 		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class,
-		com.servinglynk.hmis.warehouse.config.WebDBPoolConfig.class})
+		com.servinglynk.hmis.warehouse.config.WebDBPoolConfig.class,
+		com.servinglynk.hmis.warehouse.config.AMQConfiguration.class})
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 public class ServiceFactoryImpl implements ServiceFactory {
 
 	@Autowired private ClientMetaDataService clientMetaDataService;
+	
+	@Autowired private ClientManagementService clientManagementService;
 
 	public ClientMetaDataService getClientMetaDataService() {
 		return clientMetaDataService;
@@ -15,6 +17,12 @@ public class ServiceFactoryImpl implements ServiceFactory {
 	public void setClientMetaDataService(ClientMetaDataService clientMetaDataService) {
 		this.clientMetaDataService = clientMetaDataService;
 	}
-	
-	
+
+	public ClientManagementService getClientManagementService() {
+		return clientManagementService;
+	}
+
+	public void setClientManagementService(ClientManagementService clientManagementService) {
+		this.clientManagementService = clientManagementService;
+	}
 }

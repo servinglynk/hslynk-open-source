@@ -9,6 +9,8 @@ import com.servinglynk.hmis.warehouse.repository.ClientMetaDataRepository;
 public class DaoFactoryImpl implements DaoFactory {
 
 	@Autowired private ClientMetaDataRepository clientMetaDataRepository;
+	
+	@Autowired private ClientManagementDao clientManagementDao;
 
 	public ClientMetaDataRepository getClientMetaDataRepository() {
 		return clientMetaDataRepository;
@@ -17,5 +19,12 @@ public class DaoFactoryImpl implements DaoFactory {
 	public void setClientMetaDataRepository(ClientMetaDataRepository clientMetaDataRepository) {
 		this.clientMetaDataRepository = clientMetaDataRepository;
 	}
-	
+
+	public ClientManagementDao getClientManagementDao() {
+		return clientManagementDao;
+	}
+
+	public void setClientManagementDao(ClientManagementDao clientManagementDao) {
+		this.clientManagementDao = clientManagementDao;
+	}
 }
