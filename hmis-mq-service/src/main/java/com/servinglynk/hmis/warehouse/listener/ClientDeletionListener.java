@@ -10,12 +10,11 @@ import com.servinglynk.hmis.warehouse.model.ClientMetaDataModel;
 import com.servinglynk.hmis.warehouse.model.JSONObjectMapper;
 
 @Component
-public class EligibleClientsListener extends BaseListener {
+public class ClientDeletionListener extends BaseListener {
 
-	
-	@JmsListener(destination="house.matching.activelist")
+	@JmsListener(destination="client.delete")
 	public void listeneQueue(String eventString) {
-		System.out.println("inside house.matching.activelist listener");
+		System.out.println("inside client.delete listener");
 		JSONObjectMapper mapper = new JSONObjectMapper();
 		try {
 			AMQEvent event = mapper.readValue(eventString, AMQEvent.class);
@@ -24,17 +23,12 @@ public class EligibleClientsListener extends BaseListener {
 			model.setAdditionalInfo(mapper.writeValueAsString(event.getPayload()));
 			if(event.getPayload().get("dedupClientId")!=null) model.setClientDedupId(UUID.fromString(event.getPayload().get("dedupClientId").toString()));
 			if(event.getPayload().get("clientId")!=null) model.setClientId(UUID.fromString(event.getPayload().get("clientId").toString()));
-			if(event.getPayload().get("clientId")!=null) model.setMetaDataIdentifier(UUID.fromString(event.getPayload().get("clientId").toString()));
 			if(event.getPayload().get("projectGroupCode")!=null) model.setProjectGroupCode(event.getPayload().get("projectGroupCode").toString());
 			model.setType(event.getEventType());
 			if(event.getPayload().get("userId")!=null) model.setUserId(UUID.fromString(event.getPayload().get("userId").toString()));
 
+				serviceFactory.getClientManagementService().deleteClientIdentities(model);
 			
-					if(Boolean.parseBoolean(event.getPayload().get("deleted").toString())) {
-						serviceFactory.getClientMetaDataService().deleteClientMetaData(model);
-					}else {
-						serviceFactory.getClientMetaDataService().createClientMetaData(model);
-					}
 		}catch (Exception e) {
 		e.printStackTrace();	
 		}
