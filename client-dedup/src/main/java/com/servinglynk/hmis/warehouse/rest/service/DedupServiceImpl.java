@@ -222,7 +222,7 @@ public class DedupServiceImpl implements DedupService{
 			Person person = getSanitizedPerson(personParam);
 		// PART 3: Now is the time to select a potential match.
 			// Custom10 field is set to a value if the client provides partial SSN.
-			 if(StringUtils.isNotEmpty(person.getSsn())  && person.getSsn().length() ==9 && !StringUtils.equals(person.getSsn(), "123456789") && !StringUtils.equals(person.getSsn(), "000000000") && !StringUtils.equals(person.getSsn(), "111111111"))  {
+			 if(StringUtils.isNotEmpty(person.getSsn())  && person.getSsn().length() ==9)  {
 					List<Person>  unMatchedPersons = getPersonsBySSN(person,sessionKey);
 					// PART 6 : Complete SSN AND • Two of (First Name/First Name Alias, Last Name/Last Name Alias, Date of Birth)
 					List<Person> matchingPersons = unMatchingRecordsForCompleteSSN(unMatchedPersons,person);
@@ -275,6 +275,16 @@ public class DedupServiceImpl implements DedupService{
 		if(StringUtils.isNotEmpty(ssn)) {
 			String newSSN = ssn.replaceAll("[^a-zA-Z0-9\\s+]", "");
 			String finalSSN = newSSN.replaceAll("[a-zA-Z]","");
+			
+			if(StringUtils.equals(finalSSN, "123456789")  || 
+			   StringUtils.equals(finalSSN, "000000001")  || 
+			   StringUtils.equals(finalSSN, "000000000")  || 
+			   StringUtils.equals(finalSSN, "111111111")  || 
+			   StringUtils.equals(finalSSN, "xxxxxxxxx")  || 
+			   StringUtils.equals(finalSSN, "0")) {
+				return StringUtils.EMPTY;
+			}
+			
 			return finalSSN;
 		}
 		return ssn;
@@ -410,7 +420,7 @@ public class DedupServiceImpl implements DedupService{
 				                       .atZone(ZoneId.systemDefault())
 				                       .toLocalDate();
 							long days = ChronoUnit.DAYS.between(personDOB, matchingPersonDOB);
-							if(days < 5 || days > -5) {
+							if(days < 5 && days > -5) {
 								points++;
 							}
 						}
