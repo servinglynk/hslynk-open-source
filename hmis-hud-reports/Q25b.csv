@@ -1,7 +1,15 @@
    ,Total,  Without children,  With children and adults,  Unknown household type
    Chronically Homeless Veteran,0,0,0,0
+<<<<<<< HEAD
+   Non-Chronically Homeless Veteran,29,0,29,29
+   Not a veteran,105,3,105,105
+   Client Doesn't Know/Client Refused,0,0,0,0
+   Data Not Collected,3,0,3,3
+  Total,137,3,137,166
+=======
    Non-Chronically Homeless Veteran,0,0,0,0
    Not a veteran,0,0,0,0
    Client Doesn't Know/Client Refused,0,0,0,0
    Data Not Collected,0,0,0,0
   Total,0,0,0,0
+>>>>>>> bulk-uploader-reprocess

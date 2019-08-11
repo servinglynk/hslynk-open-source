@@ -93,7 +93,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Age ranges]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="7ec9dd7c-535f-464a-817c-f0af60e03fca"/>
@@ -331,7 +331,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. Client Doesn’t Know/Client Refused]]></text>
+					<text><![CDATA[   c. Client Doesn't Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="222134c0-5c18-4699-961f-1db312ea3bcc"/>

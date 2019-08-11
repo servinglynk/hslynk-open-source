@@ -8,9 +8,9 @@ public class SyncLiveDelta {
         Properties props = new Properties();
         props.generatePropValues("application.conf");
         props.printProps();
-        new SyncDeltaHbase(VERSION.V2014, logger, Status.LIVE, true).sync(true);
-        new SyncDeltaHbase(VERSION.V2015, logger, Status.LIVE, true).sync(true);
-        new SyncDeltaHbase(VERSION.V2016, logger, Status.LIVE, true).sync(true);
-        new SyncDeltaHbase(VERSION.V2017, logger, Status.LIVE, true).sync(true);
+        new SyncDeltaHbase(VERSION.V2017, logger, Status.LIVE, false).sync(true);
+        new SyncDeltaHbase(VERSION.V2016, logger, Status.LIVE, false).sync(true);
+        new SyncDeltaHbase(VERSION.V2015, logger, Status.LIVE, false).sync(true);
+        new SyncDeltaHbase(VERSION.V2014, logger, Status.LIVE, false).sync(true);
     }
 }

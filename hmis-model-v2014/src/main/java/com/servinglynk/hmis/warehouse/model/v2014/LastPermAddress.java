@@ -23,6 +23,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -33,7 +34,7 @@ import com.servinglynk.hmis.warehouse.enums.StateEnum;
  */
 @Entity(name = "last_perm_address")
 @Table(name = "last_perm_address", catalog = "hmis", schema = "v2014")
-public class LastPermAddress extends HmisBaseModel  implements Cloneable, Serializable {
+public class LastPermAddress extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 1955232390265692952L;

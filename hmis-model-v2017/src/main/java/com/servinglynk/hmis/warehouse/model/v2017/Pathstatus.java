@@ -21,6 +21,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -31,7 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
  */
 @Entity(name = "path_status_v2017")
 @Table(name = "path_status", catalog = "hmis", schema = "v2017")
-public class Pathstatus extends HmisBaseModel implements Cloneable, Serializable {
+public class Pathstatus extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -3511147204684378597L;
@@ -56,6 +57,9 @@ public class Pathstatus extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	/** Field mapping. */
 	private PathstatusReasonnotenrolledEnum reasonNotEnrolled;
+	
+	private LocalDateTime submissionDate;
+	
 	/** Field mapping. */
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -231,6 +235,18 @@ public class Pathstatus extends HmisBaseModel implements Cloneable, Serializable
 	public void setExport(final Export export) {
 		this.export = export;
 	}
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

@@ -19,26 +19,34 @@ public class Project {
 	@MapToColumn(column=3)
 	private String ProjectCommonName;
 	@MapToColumn(column=4)
-	private String ContinuumProject;
+	private String OperatingStartDate;
 	@MapToColumn(column=5)
-	private String ProjectType;
+	private String OperatingEndDate;
 	@MapToColumn(column=6)
-	private String ResidentialAffiliation;
+	private String ContinuumProject;
 	@MapToColumn(column=7)
-	private String TrackingMethod;
+	private String ProjectType;
 	@MapToColumn(column=8)
-	private String TargetPopulation;
+	private String ResidentialAffiliation;
 	@MapToColumn(column=9)
-	private String PITCount;
+	private String TrackingMethod;
 	@MapToColumn(column=10)
-	private String DateCreated;
+	private String TargetPopulation;
 	@MapToColumn(column=11)
-	private String DateUpdated;
+	private String VictimServicesProvider;
 	@MapToColumn(column=12)
-	private String UserID;
+	private String HousingType;
 	@MapToColumn(column=13)
-	private String DateDeleted;
+	private String PITCount;
 	@MapToColumn(column=14)
+	private String DateCreated;
+	@MapToColumn(column=15)
+	private String DateUpdated;
+	@MapToColumn(column=16)
+	private String UserID;
+	@MapToColumn(column=17)
+	private String DateDeleted;
+	@MapToColumn(column=18)
 	private String ExportID;
 	public String getProjectID() {
 		return ProjectID;
@@ -129,6 +137,54 @@ public class Project {
 	}
 	public void setExportID(String exportID) {
 		ExportID = exportID;
+	}
+	/**
+	 * @return the operatingStartDate
+	 */
+	public String getOperatingStartDate() {
+		return OperatingStartDate;
+	}
+	/**
+	 * @param operatingStartDate the operatingStartDate to set
+	 */
+	public void setOperatingStartDate(String operatingStartDate) {
+		OperatingStartDate = operatingStartDate;
+	}
+	/**
+	 * @return the operatingEndDate
+	 */
+	public String getOperatingEndDate() {
+		return OperatingEndDate;
+	}
+	/**
+	 * @param operatingEndDate the operatingEndDate to set
+	 */
+	public void setOperatingEndDate(String operatingEndDate) {
+		OperatingEndDate = operatingEndDate;
+	}
+	/**
+	 * @return the victimServicesProvider
+	 */
+	public String getVictimServicesProvider() {
+		return VictimServicesProvider;
+	}
+	/**
+	 * @param victimServicesProvider the victimServicesProvider to set
+	 */
+	public void setVictimServicesProvider(String victimServicesProvider) {
+		VictimServicesProvider = victimServicesProvider;
+	}
+	/**
+	 * @return the housingType
+	 */
+	public String getHousingType() {
+		return HousingType;
+	}
+	/**
+	 * @param housingType the housingType to set
+	 */
+	public void setHousingType(String housingType) {
+		HousingType = housingType;
 	}
 	
 }

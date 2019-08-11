@@ -46,6 +46,7 @@ import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientation
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesSexualorientationgenderidyouthEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentfamEnum;
 import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentyouthEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -56,7 +57,7 @@ import com.servinglynk.hmis.warehouse.enums.YouthcriticalissuesUnemploymentyouth
  */
 @Entity(name = "youthcriticalissues")
 @Table(name = "youthcriticalissues", catalog = "hmis", schema = "v2014")
-public class Youthcriticalissues extends HmisBaseModel  implements Cloneable, Serializable {
+public class Youthcriticalissues extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 4114356379054175522L;

@@ -1,6 +1,14 @@
-   Source,At entry,  At Latest Annual Assessment for Stayers,At Exit for Leavers
+,Benefit at Start,Benefit at Latest Annual Assessment for Stayers,Benefit at Exit for Leavers
+<<<<<<< HEAD
+   a. No sources,0,4974,0
+   b. 1+ source(s),0,37380,0
+   c. Client Doesn't Know/Client Refused,0,159,0
+   d. Data Not Collected,0,42,0
+   e. Total clients,3,3,0
+=======
    a. No sources,0,0,0
    b. 1+ source(s),0,0,0
    c. Client Doesn't Know/Client Refused,0,0,0
    d. Data Not Collected,0,0,0
    e. Total clients,0,0,0
+>>>>>>> bulk-uploader-reprocess

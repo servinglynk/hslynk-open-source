@@ -5,45 +5,45 @@ import java.math.BigInteger;
 public class Q25cGenderVeteransDataBean {
 
 	
-	private BigInteger q25cMaleTotal;
-	private BigInteger q25cMaleWithoutChildren;
-	private BigInteger q25cMaleWithChildAndAdults;
-	private BigInteger q25cMaleUnknownHouseHold;
+	private BigInteger q25cMaleTotal=BigInteger.valueOf(0);
+	private BigInteger q25cMaleWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25cMaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25cMaleUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25cFemaleTotal;
-	private BigInteger q25cFemaleWithoutChildren;
-	private BigInteger q25cFemaleWithChildAndAdults;
-	private BigInteger q25cFemaleUnknownHouseHold;
+	private BigInteger q25cFemaleTotal=BigInteger.valueOf(0);
+	private BigInteger q25cFemaleWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25cFemaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25cFemaleUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25cTransgenderMaleToFemaleTotal;
-	private BigInteger q25cTransgenderMaleToFemaleWithoutChildren;
-	private BigInteger q25cTransgenderMaleToFemaleWithChildAndAdults;
-	private BigInteger q25cTransgenderMaleToFemaleUnknownHouseHold;
+	private BigInteger q25cTransgenderMaleToFemaleTotal=BigInteger.valueOf(0);
+	private BigInteger q25cTransgenderMaleToFemaleWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25cTransgenderMaleToFemaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25cTransgenderMaleToFemaleUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25cTransgendereFemaleToMaleTotal;
-	private BigInteger q25cTransgendereFemaleToMaleWithoutChildren;
-	private BigInteger q25cTransgendereFemaleToMaleWithChildAndAdults;
-	private BigInteger q25cTransgendereFemaleToMaleUnknownHouseHold;
+	private BigInteger q25cTransgendereFemaleToMaleTotal=BigInteger.valueOf(0);
+	private BigInteger q25cTransgendereFemaleToMaleWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25cTransgendereFemaleToMaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25cTransgendereFemaleToMaleUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25cOtherTotal;
-	private BigInteger q25cOtherWithoutChildren;
-	private BigInteger q25cOtherWithChildAndAdults;
-	private BigInteger q25cOtherUnknownHouseHold;
+	private BigInteger q25cOtherTotal=BigInteger.valueOf(0);
+	private BigInteger q25cOtherWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25cOtherWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25cOtherUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25cDKRTotal;
-	private BigInteger q25cDKRWithoutChildren;
-	private BigInteger q25cDKRWithChildAndAdults;
-	private BigInteger q25cDKRUnknownHouseHold;
+	private BigInteger q25cDKRTotal=BigInteger.valueOf(0);
+	private BigInteger q25cDKRWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25cDKRWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25cDKRUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25cInformationMissingTotal;
-	private BigInteger q25cInformationMissingWithoutChildren;
-	private BigInteger q25cInformationMissingWithChildAndAdults;
-	private BigInteger q25cInformationMissingUnknownHouseHold;
+	private BigInteger q25cInformationMissingTotal=BigInteger.valueOf(0);
+	private BigInteger q25cInformationMissingWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25cInformationMissingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25cInformationMissingUnknownHouseHold=BigInteger.valueOf(0);
 		
-	private BigInteger q25cTotTotal;
-	private BigInteger q25cTotWithoutChildren;
-	private BigInteger q25cTotWithChildAndAdults;
-	private BigInteger q25cTotUnknownHouseHold;
+	private BigInteger q25cTotTotal=BigInteger.valueOf(0);
+	private BigInteger q25cTotWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q25cTotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q25cTotUnknownHouseHold=BigInteger.valueOf(0);
 	public BigInteger getQ25cMaleTotal() {
 		return q25cMaleTotal;
 	}

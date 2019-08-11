@@ -40,25 +40,25 @@ public class ViSpdatView  extends Logging {
 	        HTable htable;
 	        try {
 	            htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
-	            List<Response> responsesForSurvey = getResponsesForSurvey("survey", survey.getSurveyId());
+	            List<Response> responsesForSurvey = getResponsesForSurvey("survey", survey.getSurveyId(),projectGroupCode);
 	            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
 	            List<String> existingKeysInPostgres = new ArrayList<>();
 	            
 	            List<Put> putsToUpdate = new ArrayList<>();
 	            List<Put> putsToInsert = new ArrayList<>();
 	            List<String> putsToDelete = new ArrayList<>();
-	            String key = "";
 	            Put p = null;
+	            String key = "";
+	            String previousSubmissionId = "";
+	            boolean isFirstRecord = true;
 	            for(Response response : responsesForSurvey) {
 	            	 Boolean deleted = response.getDeleted();
-	            	 String submissionId= response.getSubmissionId();
-	            	if(StringUtils.isBlank(key)) {
-	            		 p = new Put(Bytes.toBytes(submissionId));
-	            	}
-	            	
+	            	 key = response.getSubmissionId();
+	            	 log.info("Processing submission_id: " + key);
+	            	 p = new Put(Bytes.toBytes(key));
 	                if (deleted !=null && deleted.booleanValue()) {
-	                    if (existingKeysInHbase.contains(submissionId)) {
-	                        putsToDelete.add(submissionId);
+	                    if (existingKeysInHbase.contains(key)) {
+	                        putsToDelete.add(key);
 	                        if (putsToDelete.size() > syncHBaseImport.batchSize) {
 	                            syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
 	                            putsToDelete.clear();
@@ -68,8 +68,11 @@ public class ViSpdatView  extends Logging {
 	                        continue;
 	                    }
 	                } else {
-	            	if(!StringUtils.equals(key, response.getSubmissionId()) && StringUtils.isNotBlank(key)) {
+	            	if(!StringUtils.equals(key, previousSubmissionId) && !isFirstRecord) {
 	            		  if(p != null) {
+	            			addColumn("client_id",String.valueOf(response.getClientId()), key, p);
+	                    	addColumn("survey_id",String.valueOf(survey.getSurveyId()), key, p);
+	                    	addColumn("survey_date",getCreatedAtString(response.getSurveyResponseDate()), key, p);
 	     	            	 if (existingKeysInHbase.contains(key)) {
 	     	            		 	putsToUpdate.add(p);
 	 	     	                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
@@ -86,14 +89,13 @@ public class ViSpdatView  extends Logging {
 	     	                    }
 	     	                existingKeysInPostgres.add(key);
 	            		  }
-	            		  p = new Put(Bytes.toBytes(response.getSubmissionId()));
 	     	            }
 	            	}
-	                key = response.getSubmissionId();
-	                addColumn(response.getQuestionId(),String.valueOf(response.getResponseText()), key, p);
-	        		addColumn("client_id",String.valueOf(response.getClientId()), key, p);
-            		addColumn("survey_id",String.valueOf(survey.getSurveyId()), key, p);
-            		addColumn("survey_date",getCreatedAtString(response.getSurveyResponseDate()), key, p);
+	                previousSubmissionId = response.getSubmissionId();
+	                isFirstRecord =false;
+	                if(StringUtils.isNotBlank(response.getResponseText())) {
+	                	 addColumn(response.getQuestionId(),String.valueOf(response.getResponseText()), key, p);
+	                }
 	            }
 	            if(p != null) {
 	            	 if (existingKeysInHbase.contains(key)) {
@@ -128,15 +130,15 @@ public class ViSpdatView  extends Logging {
 	            }
 
 	        } catch (Exception ex) {
+	        	 ex.printStackTrace();
 	            logger.error("Exception:::"+ex.getMessage());
-	            ex.printStackTrace();
 	        }
 
 	        log.info("Sync done for table: " + hbaseTable);
 	    }
 	 
 	public void addColumn(String column, String value,String key,Put p) {
-		 if(StringUtils.isNotBlank(value)) {
+		 if(StringUtils.isNotBlank(value) && p !=null) {
 			  p.addColumn(Bytes.toBytes("CF"),
 	                  Bytes.toBytes(column),
 	                  Bytes.toBytes(value));
@@ -192,7 +194,7 @@ public class ViSpdatView  extends Logging {
         }
         return null;
     }
-    public List<String> getDisinctSurveys(String schemaName) throws Exception{
+    public List<String> getDisinctSurveys(String schemaName,String projectGroupCode) throws Exception{
         List<String> tables = new ArrayList<>();
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -200,6 +202,7 @@ public class ViSpdatView  extends Logging {
         try{
             connection = SyncPostgresProcessor.getConnection();
             statement = connection.prepareStatement(ViewQuery.GET_DISTINCT_SURVEY);
+            statement.setString(1, projectGroupCode);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
                 tables.add(resultSet.getString("survey_id"));
@@ -211,7 +214,7 @@ public class ViSpdatView  extends Logging {
         return tables;
     }
     
-    public static List<Response> getResponsesForSurvey(String schemaName,UUID surveyId) throws Exception{
+    public static List<Response> getResponsesForSurvey(String schemaName,UUID surveyId,String projectGroupCode) throws Exception{
         List<Response> responses = new ArrayList<>();
         ResultSet resultSet = null;
         PreparedStatement statement = null;		
@@ -220,6 +223,7 @@ public class ViSpdatView  extends Logging {
             connection = SyncPostgresProcessor.getConnection();
             statement = connection.prepareStatement(ViewQuery.GET_CLIENTS_WITH_RESPONSE);
             statement.setObject(1, surveyId);
+            statement.setString(2, projectGroupCode);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
             	String submissionId = resultSet.getString("submission_id");
@@ -240,7 +244,7 @@ public class ViSpdatView  extends Logging {
 	public static void main(String args[]) throws Exception {
 		 Logger logger = Logger.getLogger(ViSpdatView.class.getName());
 		 FileAppender appender = new FileAppender();
-         String appenderName = "active-list";
+         String appenderName = "vi-spdat-view";
          appender.setName(appenderName);
          appender.setFile("logs/" + appenderName + ".log");
          appender.setImmediateFlush(true);
@@ -255,7 +259,7 @@ public class ViSpdatView  extends Logging {
 		 List<String> projectGroups = new ArrayList<>(Arrays.asList(split));
 		 for(String projectGroupCode : projectGroups) {
 			 ViSpdatView view = new ViSpdatView(logger);
-			 List<String> disinctSurveys = view.getDisinctSurveys("survey");
+			 List<String> disinctSurveys = view.getDisinctSurveys("survey",projectGroupCode);
 			 for(String surveyId : disinctSurveys) {
 				 Survey survey = view.getSurveyById("survey", surveyId);
 			     String tableName =survey.getSurveyName().replaceAll("[^a-zA-Z0-9]", "_").toLowerCase()+"_"+survey.getProjectGroupCode();

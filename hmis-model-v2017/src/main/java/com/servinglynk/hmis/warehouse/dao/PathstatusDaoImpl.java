@@ -81,7 +81,13 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Pathstatus) getModel(com.servinglynk.hmis.warehouse.model.v2017.Pathstatus.class, pathstatus.getPathStatusID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && modelFromDB != null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Pathstatus();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		

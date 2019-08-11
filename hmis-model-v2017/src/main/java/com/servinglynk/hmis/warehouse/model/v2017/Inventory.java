@@ -68,6 +68,7 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	private InventoryHouseholdtypeEnum householdtype;
 	/** Field mapping. */
 	private java.util.UUID id;
+	private String coccode;
 	/** Field mapping. */
 	private LocalDateTime informationdate;
 	/** Field mapping. */
@@ -119,6 +120,26 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 
 		}
 
+		 /**
+		 * Return the value associated with the column: coccode.
+		 * @return A String object (this.coccode)
+		 */
+		@Basic( optional = true )
+		@Column
+		public String getCoccode() {
+			return this.coccode;
+
+		}
+
+
+
+		 /**
+		 * Set the value related to the column: coccode.
+		 * @param coccode the coccode value you wish to set
+		 */
+		public void setCoccode(final String coccode) {
+			this.coccode = coccode;
+		}
 
 
 	 /**

@@ -4,53 +4,53 @@ import java.math.BigInteger;
 
 public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 	
-	private BigInteger q13b1MentalIllnessTotal;
-	private BigInteger q13b1MentalIllnessWithoutChildren;
-	private BigInteger q13b1MentalIllnessWithChildAndAdults;
-	private BigInteger q13b1MentalIllnessWithOnlychildren;
-	private BigInteger q13b1MentalIllnessUnknowHousehold;
+	private BigInteger q13b1MentalIllnessTotal=BigInteger.valueOf(0);
+	private BigInteger q13b1MentalIllnessWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13b1MentalIllnessWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1MentalIllnessWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13b1MentalIllnessUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13b1AlcoholAbuseTotal;
-	private BigInteger q13b1AlcoholAbuseWithoutChildren;
-	private BigInteger q13b1AlcoholAbuseWithChildAndAdults;
-	private BigInteger q13b1AlcoholAbuseWithOnlychildren;
-	private BigInteger q13b1AlcoholAbuseUnknowHousehold;
+	private BigInteger q13b1AlcoholAbuseTotal=BigInteger.valueOf(0);
+	private BigInteger q13b1AlcoholAbuseWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13b1AlcoholAbuseWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1AlcoholAbuseWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13b1AlcoholAbuseUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13b1DrugAbuseTotal;
-	private BigInteger q13b1DrugAbuseWithoutChildren;
-	private BigInteger q13b1DrugAbuseWithChildAndAdults;
-	private BigInteger q13b1DrugAbuseWithOnlychildren;
-	private BigInteger q13b1DrugAbuseUnknowHousehold;
+	private BigInteger q13b1DrugAbuseTotal=BigInteger.valueOf(0);
+	private BigInteger q13b1DrugAbuseWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13b1DrugAbuseWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1DrugAbuseWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13b1DrugAbuseUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13b1BothAlcoholAndDrugAbuseTotal;
-	private BigInteger q13b1BothAlcoholAndDrugAbuseWithoutChildren;
-	private BigInteger q13b1BothAlcoholAndDrugAbuseWithChildAndAdults;
-	private BigInteger q13b1BothAlcoholAndDrugAbuseWithOnlychildren;
-	private BigInteger q13b1BothAlcoholAndDrugAbuseUnknowHousehold;
+	private BigInteger q13b1BothAlcoholAndDrugAbuseTotal=BigInteger.valueOf(0);
+	private BigInteger q13b1BothAlcoholAndDrugAbuseWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13b1BothAlcoholAndDrugAbuseWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1BothAlcoholAndDrugAbuseWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13b1BothAlcoholAndDrugAbuseUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13b1ChronicHealthConditionTotal;
-	private BigInteger q13b1ChronicHealthConditionWithoutChildren;
-	private BigInteger q13b1ChronicHealthConditionWithChildAndAdults;
-	private BigInteger q13b1ChronicHealthConditionWithOnlychildren;
-	private BigInteger q13b1ChronicHealthConditionUnknowHousehold;
+	private BigInteger q13b1ChronicHealthConditionTotal=BigInteger.valueOf(0);
+	private BigInteger q13b1ChronicHealthConditionWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13b1ChronicHealthConditionWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1ChronicHealthConditionWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13b1ChronicHealthConditionUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13b1HIVRelatedDiseasesTotal;
-	private BigInteger q13b1HIVRelatedDiseasesWithoutChildren;
-	private BigInteger q13b1HIVRelatedDiseasesWithChildAndAdults;
-	private BigInteger q13b1HIVRelatedDiseasesWithOnlychildren;
-	private BigInteger q13b1HIVRelatedDiseasesUnknowHousehold;
+	private BigInteger q13b1HIVRelatedDiseasesTotal=BigInteger.valueOf(0);
+	private BigInteger q13b1HIVRelatedDiseasesWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13b1HIVRelatedDiseasesWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1HIVRelatedDiseasesWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13b1HIVRelatedDiseasesUnknowHousehold=BigInteger.valueOf(0);
 
-	private BigInteger q13b1DevelopmentalDisabilityTotal;
-	private BigInteger q13b1DevelopmentalDisabilityWithoutChildren;
-	private BigInteger q13b1DevelopmentalDisabilityWithChildAndAdults;
-	private BigInteger q13b1DevelopmentalDisabilityWithOnlychildren;
-	private BigInteger q13b1DevelopmentalDisabilityUnknowHousehold;
+	private BigInteger q13b1DevelopmentalDisabilityTotal=BigInteger.valueOf(0);
+	private BigInteger q13b1DevelopmentalDisabilityWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13b1DevelopmentalDisabilityWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1DevelopmentalDisabilityWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13b1DevelopmentalDisabilityUnknowHousehold=BigInteger.valueOf(0);
 	
-	private BigInteger q13b1PhysicalDisabilityTotal;
-	private BigInteger q13b1PhysicalDisabilityWithoutChildren;
-	private BigInteger q13b1PhysicalDisabilityWithChildAndAdults;
-	private BigInteger q13b1PhysicalDisabilityWithOnlychildren;
-	private BigInteger q13b1PhysicalDisabilityUnknowHousehold;
+	private BigInteger q13b1PhysicalDisabilityTotal=BigInteger.valueOf(0);
+	private BigInteger q13b1PhysicalDisabilityWithoutChildren=BigInteger.valueOf(0);
+	private BigInteger q13b1PhysicalDisabilityWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1PhysicalDisabilityWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger q13b1PhysicalDisabilityUnknowHousehold=BigInteger.valueOf(0);
 	public BigInteger getQ13b1MentalIllnessTotal() {
 		return q13b1MentalIllnessTotal;
 	}

@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -31,6 +32,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
+import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2015.Project;
@@ -133,6 +135,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					}
 					enrollmentModel.setExport(exportEntity);
 					performSaveOrUpdate(enrollmentModel);
+					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollment::"+enrollment.getProjectEntryID() +" Exception ::"+e.getMessage();
 					if(enrollmentModel != null){
@@ -210,6 +213,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 			com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollment) {
 			enrollment.setId(UUID.randomUUID());
 			insert(enrollment);
+			createClientMedataInfo(enrollment);
 		return enrollment;
 	}
 
@@ -224,18 +228,26 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	public void deleteEnrollment(
 			com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollment) {
 		delete(enrollment);
+		deleteClientMedataInfo(enrollment);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2015.Enrollment getEnrollmentByClientIdAndEnrollmentId(
 			UUID enrollmentId,UUID clientId) {
+		
+		List<UUID> sharedClients = AuditUtil.getSharedClients();
+		List<UUID> sharedEnrollments = AuditUtil.getSharedEnrollments();
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		criteria.add(Restrictions.eq("id",enrollmentId));
-
-		List<com.servinglynk.hmis.warehouse.model.v2015.Enrollment> enrollments = (List<com.servinglynk.hmis.warehouse.model.v2015.Enrollment>) findByCriteria(criteria);
+		criteria.add(Restrictions.eq("deleted", false));
+		if(sharedClients.contains(clientId) && sharedEnrollments.contains(enrollmentId)) {			
+		}else {
+			criteria.add(Restrictions.eq("projectGroupCode", AuditUtil.getLoginUserProjectGroup()));
+		}
+		List<com.servinglynk.hmis.warehouse.model.v2015.Enrollment> enrollments = (List<com.servinglynk.hmis.warehouse.model.v2015.Enrollment>) getByCriteria(criteria);
 		if(enrollments.size()>0) return enrollments.get(0);
 		return null;
 	}
@@ -246,21 +258,55 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
-
-		return (List<com.servinglynk.hmis.warehouse.model.v2015.Enrollment>) findByCriteria(criteria,startIndex,maxItems);
+		List<UUID> sharedClients = AuditUtil.getSharedClients();
+		if(!sharedClients.contains(clientId)) {
+			criteria.add(Restrictions.eq("projectGroupCode", AuditUtil.getLoginUserProjectGroup()));
+		}
+		criteria.add(Restrictions.eq("deleted", false));
+		
+		return (List<com.servinglynk.hmis.warehouse.model.v2015.Enrollment>) getByCriteria(criteria,startIndex,maxItems);
 	}
 
 	public long getEnrollmentCount(UUID clientId) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
-		return countRows(criteria);
+		List<UUID> sharedClients = AuditUtil.getSharedClients();
+		if(!sharedClients.contains(clientId)) {
+			criteria.add(Restrictions.eq("projectGroupCode", AuditUtil.getLoginUserProjectGroup()));
+		}
+		criteria.add(Restrictions.eq("deleted", false));
+		return getRowsCount(criteria);
 	}
 
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void createClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollment) {
+		ClientMetaDataEntity metaDataEntity = new ClientMetaDataEntity();
+		metaDataEntity.setId(UUID.randomUUID());
+		metaDataEntity.setClientId(enrollment.getClient().getId());
+		metaDataEntity.setClientDedupId(enrollment.getClient().getDedupClientId());
+		metaDataEntity.setDate(LocalDateTime.now());
+		metaDataEntity.setDateCreated(LocalDateTime.now());
+		metaDataEntity.setDateUpdated(LocalDateTime.now());
+		metaDataEntity.setDeleted(false);
+		metaDataEntity.setMetaDataIdentifier(enrollment.getId());
+		metaDataEntity.setType("enrollment");
+		metaDataEntity.setProjectGroupCode(enrollment.getProjectGroupCode());
+		metaDataEntity.setUserId(enrollment.getUserId());
+		metaDataEntity.setAdditionalInfo("{\"enrollmentId\":\""+enrollment.getId()+"\",\"schemaYear\":\"2015\",\"clientId\":\""+enrollment.getClient().getId()+"\"}");
+		parentDaoFactory.getClientMetaDataDao().createClientMetaData(metaDataEntity);
+	}
+	
+	public void deleteClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2015.Enrollment enrollment) {
+		ClientMetaDataEntity metaDataEntity = parentDaoFactory.getClientMetaDataDao().findByIdentifier(enrollment.getId());
+		metaDataEntity.setDateUpdated(LocalDateTime.now());
+		metaDataEntity.setDeleted(true);
+		parentDaoFactory.getClientMetaDataDao().updateClientMetaData(metaDataEntity);
 	}
 }
 

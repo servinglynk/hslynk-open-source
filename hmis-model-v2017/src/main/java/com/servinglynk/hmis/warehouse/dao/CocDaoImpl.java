@@ -26,6 +26,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2017.Coc;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
@@ -48,8 +49,9 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				try {
 					cocModel = getModelObject(domain, coc,data,modelMap);
 					cocModel.setCoccode(coc.getCoCCode());
-//					Project project = (Project) getModel(Project.class,coc.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-//					cocModel.setProjectid(project);
+					Project project = (Project) getModel(Project.class,coc.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					cocModel.setProjectid(project);
+					cocModel.setSourceSystemId(coc.getCocId());
 					cocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateCreated()));
 					cocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
 					cocModel.setExport(exportEntity);
@@ -81,7 +83,13 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Coc) getModel(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, coc.getCoCCode(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && modelFromDB != null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Coc();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		

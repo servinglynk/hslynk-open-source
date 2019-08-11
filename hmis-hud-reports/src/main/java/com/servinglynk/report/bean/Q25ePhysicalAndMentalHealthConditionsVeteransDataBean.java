@@ -4,37 +4,37 @@ import java.math.BigInteger;
 
 public class Q25ePhysicalAndMentalHealthConditionsVeteransDataBean {
 	
-	private BigInteger q25eMentalIllnessAtEntry;
-	private BigInteger q25eMentalIllnessStayers;
-	private BigInteger q25eMentalIllnessLeavers;
+	private BigInteger q25eMentalIllnessAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25eMentalIllnessStayers=BigInteger.valueOf(0);
+	private BigInteger q25eMentalIllnessLeavers=BigInteger.valueOf(0);
 
-	private BigInteger q25eAlcoholAbuseAtEntry;
-	private BigInteger q25eAlcoholAbuseStayers;
-	private BigInteger q25eAlcoholAbuseLeavers;
+	private BigInteger q25eAlcoholAbuseAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25eAlcoholAbuseStayers=BigInteger.valueOf(0);
+	private BigInteger q25eAlcoholAbuseLeavers=BigInteger.valueOf(0);
 
-	private BigInteger q25eDrugAbuseAtEntry;
-	private BigInteger q25eDrugAbuseStayers;
-	private BigInteger q25eDrugAbuseLeavers;
+	private BigInteger q25eDrugAbuseAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25eDrugAbuseStayers=BigInteger.valueOf(0);
+	private BigInteger q25eDrugAbuseLeavers=BigInteger.valueOf(0);
 
-	private BigInteger q25eBothAlcoholAndDrugAbuseAtEntry;
-	private BigInteger q25eBothAlcoholAndDrugAbuseStayers;
-	private BigInteger q25eBothAlcoholAndDrugAbuseLeavers;
+	private BigInteger q25eBothAlcoholAndDrugAbuseAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25eBothAlcoholAndDrugAbuseStayers=BigInteger.valueOf(0);
+	private BigInteger q25eBothAlcoholAndDrugAbuseLeavers=BigInteger.valueOf(0);
 
-	private BigInteger q25eChronicHealthConditionAtEntry;
-	private BigInteger q25eChronicHealthConditionStayers;
-	private BigInteger q25eChronicHealthConditionLeavers;
+	private BigInteger q25eChronicHealthConditionAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25eChronicHealthConditionStayers=BigInteger.valueOf(0);
+	private BigInteger q25eChronicHealthConditionLeavers=BigInteger.valueOf(0);
 
-	private BigInteger q25eHIVandRelatedDiseaseAtEntry;
-	private BigInteger q25eHIVandRelatedDiseaseStayers;
-	private BigInteger q25eHIVandRelatedDiseaseLeavers;
+	private BigInteger q25eHIVandRelatedDiseaseAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25eHIVandRelatedDiseaseStayers=BigInteger.valueOf(0);
+	private BigInteger q25eHIVandRelatedDiseaseLeavers=BigInteger.valueOf(0);
 
-	private BigInteger q25eDevelopmentalDisabilityAtEntry;
-	private BigInteger q25eDevelopmentalDisabilityStayers;
-	private BigInteger q25eDevelopmentalDisabilityLeavers;
+	private BigInteger q25eDevelopmentalDisabilityAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25eDevelopmentalDisabilityStayers=BigInteger.valueOf(0);
+	private BigInteger q25eDevelopmentalDisabilityLeavers=BigInteger.valueOf(0);
 
-	private BigInteger q25ePhysicalDisabilityAtEntry;
-	private BigInteger q25ePhysicalDisabilityStayers;
-	private BigInteger q25ePhysicalDisabilityLeavers;
+	private BigInteger q25ePhysicalDisabilityAtEntry=BigInteger.valueOf(0);
+	private BigInteger q25ePhysicalDisabilityStayers=BigInteger.valueOf(0);
+	private BigInteger q25ePhysicalDisabilityLeavers=BigInteger.valueOf(0);
 	public BigInteger getQ25eMentalIllnessAtEntry() {
 		return q25eMentalIllnessAtEntry;
 	}

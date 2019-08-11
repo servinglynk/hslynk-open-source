@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -77,7 +78,6 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntrySSVF;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitHousingAssessment;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitPATH;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExitRHY;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ExportPeriod;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Geography;
@@ -228,60 +228,61 @@ public class BulkUploadHelper2017 {
 		        System.out.println("Read " + ze.getName() + "?");
 		            BufferedReader csvFile = new BufferedReader(
 		                new InputStreamReader(zf.getInputStream(ze)));
-		            
-		            switch(ze.getName()) {
-		            	case "Affiliation.csv":
+		            String lowerCase = ze.getName().toLowerCase();
+		            String stripHmis=lowerCase.replace("hmis", "");
+		            switch(stripHmis) {
+		            	case "affiliation.csv":
 		            		hydrateAffiliation(csvFile, sources);
 		            		break;
-		            	case "Client.csv":
+		            	case "client.csv":
 		            		hydrateClient(csvFile, sources);
 		            		break;
-		            	case "Disabilities.csv":
+		            	case "disabilities.csv":
 		            		hydrateDisabilities(csvFile, sources);
 		            		break;
-		            	case "Geography.csv":
+		            	case "geography.csv":
 		            		hydrateGeography(csvFile, sources);
 		            		break;
-		            	case "EmploymentEducation.csv":
+		            	case "employmenteducation.csv":
 		            		hydrateEmployementEducation(csvFile,sources);
 		            		break;
-		            	case "Enrollment.csv":
+		            	case "enrollment.csv":
 		            		hydrateEnrollment(csvFile, sources);
 		            		break;
-		            	case "EnrollmentCOC.csv":
+		            	case "enrollmentcoc.csv":
 		            		hydrateEnrollmentCoC(csvFile, sources);
 		            		break;
-		            	case "Exit.csv":
+		            	case "exit.csv":
 		            		hydrateExit(csvFile, sources);
 		            		break;
-		            	case "Export.csv":
+		            	case "export.csv":
 		            		hydrateExport(csvFile, sources);
 		            		break;
-		            	case "Funder.csv":
+		            	case "funder.csv":
 		            		hydrateFunder(csvFile, sources);
 		            		break;		            		
-		            	case "HealthAndDV.csv":
+		            	case "healthanddv.csv":
 		            		hydrateHealthAndDV(csvFile, sources);
 		            		break;
-		            	case "IncomeBenefits.csv":
+		            	case "incomebenefits.csv":
 		            		hydrateIncomeBenefits(csvFile, sources);
 		            		break;
-		            	case "Inventory.csv":
+		            	case "inventory.csv":
 		            		hydrateInventory(csvFile, sources);
 		            		break;
-		            	case "Organization.csv":
+		            	case "organization.csv":
 		            		hydrateOrganization(csvFile, sources);
 		            		break;
-		            	case  "Project.csv" :
+		            	case  "project.csv" :
 		            		hydrateProject(csvFile, sources);
 		            		break;
-		            	case "ProjectCOC.csv":
+		            	case "projectcoc.csv":
 		            		hydrateCoc(csvFile, sources);
 		            		break;
-		            	case "Services.csv":
+		            	case "services.csv":
 		            		hydrateServices(csvFile, sources);
 		            		break;
-		            	case "Site.csv":
+		            	case "site.csv":
 		            		hydrateSite(csvFile, sources);
 		            		break;
 		            		
@@ -644,6 +645,7 @@ public class BulkUploadHelper2017 {
 		    	  entrySSVFModel.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 		    	  entrySSVFModel.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 		    	  entrySSVFModel.setUserID(enroll.getUserID());
+		    	  entrySSVFModel.setEntrySSVFID(enroll.getEnrollmentID());
 		    	  entrySSVFList.add(entrySSVFModel);
 		    	  
 		    	  EntryRHY entryRHY = new EntryRHY();
@@ -651,16 +653,16 @@ public class BulkUploadHelper2017 {
 		    	  entryRHY.setAlcoholDrugAbuseFam((enroll.getAlcoholDrugAbuseFam()));
 		    		    	  entryRHY.setChildWelfareMonths((enroll.getChildWelfareMonths()));
 		    	  entryRHY.setChildWelfareYears((enroll.getChildWelfareYears()));
-		    	  
+		    	  entryRHY.setEnrollmentID(enroll.getEnrollmentID());
 		    	  entryRHY.setCountOutreachReferralApproaches((enroll.getCountOutreachReferralApproaches()));
 		    	  entryRHY.setEntryRHYID(enroll.getEnrollmentID());
 		    	  entryRHYList.add(entryRHY);
 		    	  
 		    	  
 		    	  EntryRHSP entryRHSP = new EntryRHSP();
-		    	  entryRHSP.setWorstHousingSituation(enroll.getWorstHousingSituation());
-		    	  entryRHSP.setProjectID(enroll.getProjectID());
 		    	  entryRHSP.setEntryRHSPID(enroll.getEnrollmentID());
+		    	  entryRHSP.setWorstHousingSituation(enroll.getWorstHousingSituation());
+		    	  entryRHSP.setEnrollmentID(enroll.getEnrollmentID());
 		    	  entryRHSP.setDateCreated(getXMLGregorianCalendar(enroll.getDateCreated()));
 		    	  entryRHSP.setDateUpdated(getXMLGregorianCalendar(enroll.getDateUpdated()));
 		    	  entryRHSP.setUserID(enroll.getUserID());
@@ -704,9 +706,10 @@ public class BulkUploadHelper2017 {
 		    	  enrollmentCocModel.setDateCreated(getXMLGregorianCalendar(enrollCoC.getDateCreated()));
 		    	  enrollmentCocModel.setDateUpdated(getXMLGregorianCalendar(enrollCoC.getDateUpdated()));
 		    	  enrollmentCocModel.setEnrollmentCoCID(enrollCoC.getEnrollmentCOCID());
+		    	  enrollmentCocModel.setHouseholdID(enrollCoC.getHouseholdID());
 		    	  enrollmentCocModel.setInformationDate(getXMLGregorianCalendar(enrollCoC.getInformationDate()));
 		    	  enrollmentCocModel.setCocCode(enrollCoC.getCoCCode());
-		    	  enrollmentCocModel.setEnrollmentID(enrollCoC.getProjectEntryID());
+		    	  enrollmentCocModel.setEnrollmentID(enrollCoC.getEnrollmentID());
 		    	  enrollmentCocModel.setUserID(enrollCoC.getUserID());
 		    	  sources.getSource().getExport().getEnrollmentCoC().add(enrollmentCocModel);
 		      }
@@ -1181,7 +1184,7 @@ public class BulkUploadHelper2017 {
 		    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization organizationModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization();
 		    	  organizationModel.setDateCreated(getXMLGregorianCalendar(orgtn.getDateCreated()));
 		    	  organizationModel.setDateUpdated(getXMLGregorianCalendar(orgtn.getDateUpdated()));
-	//	    	  organizationModel.setOrganizationCommonName(orgtn.getOrganizationCommonName());
+//		    	  organizationModel.setOrganizationCommonName(orgtn.getOrganizationCommonName());
 		    	  organizationModel.setOrganizationID(orgtn.getOrganizationID());
 		    	  organizationModel.setOrganizationName(orgtn.getOrganizationName());
 		    	  organizationModel.setUserID(orgtn.getUserID());
@@ -1222,6 +1225,10 @@ public class BulkUploadHelper2017 {
 	    	  projectModel.setTargetPopulation((prjt.getTargetPopulation()));
 	    	  projectModel.setTrackingMethod((prjt.getTrackingMethod()));
 	    	  projectModel.setUserID(prjt.getUserID());
+	    	  projectModel.setHousingType(prjt.getHousingType());
+	    	  projectModel.setVictimServicesProvider(prjt.getVictimServicesProvider());
+	    	  projectModel.setOperatingEndDate(getXMLGregorianCalendar(prjt.getOperatingEndDate()));
+	    	  projectModel.setOperatingStartDate(getXMLGregorianCalendar(prjt.getOperatingStartDate()));
 	    	  
 	    	  sources.getSource().getExport().getProject().add(projectModel);
 	      }
@@ -1250,6 +1257,8 @@ public class BulkUploadHelper2017 {
 	    	 cocModel.setDateCreated(getXMLGregorianCalendar(prjtCoC.getDateCreated()));
 	    	 cocModel.setDateUpdated(getXMLGregorianCalendar(prjtCoC.getDateUpdated()));
 	    	 cocModel.setUserID(prjtCoC.getUserID());
+	    	 cocModel.setProjectID(prjtCoC.getProjectID());
+	    	 cocModel.setCocId(prjtCoC.getProjectCocID());
 	    	  projectCoCList.add(cocModel);
 	    	  sources.getSource().getExport().getCoC().add(cocModel);
 	      }
@@ -1299,7 +1308,7 @@ public class BulkUploadHelper2017 {
 		    	  servicesModel.setReferralOutcome((srvcs.getReferralOutcome()));
 		    	  servicesModel.setServicesID(srvcs.getServicesID());
 		    	  servicesModel.setSubTypeProvided((srvcs.getSubTypeProvided()));
-		    	  servicesModel.setTypeProvided(StringUtils.isNotBlank(srvcs.getTypeProvided()) ? Short.parseShort(srvcs.getTypeProvided()) : 0);
+		    	  servicesModel.setTypeProvided(srvcs.getTypeProvided());
 		    	  servicesModel.setUserID(srvcs.getUserID());
 		    	  servicesList.add(servicesModel);
 	    	  }
@@ -1396,12 +1405,10 @@ public class BulkUploadHelper2017 {
 		  if(dob == null){
 			  return null;
 		  }
-		  GregorianCalendar cal = new GregorianCalendar();
-
-		  cal.setTime(dob);
 		  XMLGregorianCalendar xmlDate2=null;
 		try {
-			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
+			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(df.format(dob));
+			//xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
 		} catch (DatatypeConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1460,4 +1467,12 @@ public class BulkUploadHelper2017 {
 		}
 		  return xmlDate2;
 		}
+	  
+	  
+	  public static void main(String args[]) {
+		  BulkUploadHelper2017 bulk = new BulkUploadHelper2017();
+		  XMLGregorianCalendar date1 = bulk.getXMLGregorianCalendar("2017-03-31");
+		  System.out.println(date1);
+		  
+	  }
 }

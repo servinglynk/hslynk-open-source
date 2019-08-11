@@ -95,10 +95,15 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exit.class, exit.getExitID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && modelFromDB != null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Exit();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
-		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Exit();
 			modelFromDB.setId(UUID.randomUUID());

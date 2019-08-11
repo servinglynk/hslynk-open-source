@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -17,9 +18,10 @@ public class Client extends ClientModel {
 	private String lastName;
 	private String nameSuffix;
 	private Integer nameDataQuality;
-	@Pattern(regexp="(^\\d{3}-?\\d{2}-?\\d{4}$|^XXX-XX-XXXX$)",message="Invalid SSN. Valid format is XXX-XX-XXXX")
+	@Pattern(regexp="(^\\\\s+$|^[x0-9]{3}-[x0-9]{2}-[x0-9]{4}$|^$)",message="Invalid SSN. Valid format is XXX-XX-XXXX")
 	private String ssn;
 	private Integer ssnDataQuality;
+	@Past(message="Date of Birth should be past date only")
 	private Date dob;
 	private Integer dobDataQuality;
 	private String amIndAKNative;

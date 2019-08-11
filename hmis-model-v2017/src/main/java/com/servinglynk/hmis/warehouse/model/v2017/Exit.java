@@ -24,6 +24,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -34,7 +35,7 @@ import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
  */
 @Entity (name = "exit_v2017")
 @Table(name = "exit", catalog = "hmis", schema = "v2017")
-public class Exit extends HmisBaseModel implements Cloneable, Serializable {
+public class Exit extends HmisBaseModel implements Cloneable, Serializable ,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -75314002207556153L;
@@ -69,6 +70,9 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 	private java.util.UUID id;
 	/** Field mapping. */
 	private String otherdestination;
+	
+	private LocalDateTime submissionDate;
+	
 	/** Field mapping. */
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -383,6 +387,17 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable {
 		this.export = export;
 	}
 
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

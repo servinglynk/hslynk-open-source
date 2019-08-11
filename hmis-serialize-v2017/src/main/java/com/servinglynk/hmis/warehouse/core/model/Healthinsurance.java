@@ -5,11 +5,13 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("healthInsurance")
 public class Healthinsurance extends ClientModel{
 
-
+		@JsonProperty("healthInsuranceId")
       private UUID healthinsuranceId;
       @JsonProperty("insuranceFromAnySource")
       private Integer insurancefromanysource;
@@ -55,8 +57,22 @@ public class Healthinsurance extends ClientModel{
       private String otherInsuranceIdentify;
       private Integer indianHealthServices;
       private Integer noIndianHealthServicesReason;
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
+      
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
+   	 LocalDateTime submissionDate;
+
+        public LocalDateTime getSubmissionDate() {
+  		return submissionDate;
+  	}
+  	public void setSubmissionDate(LocalDateTime submissionDate) {
+  		this.submissionDate = submissionDate;
+  	}
+
 
       public LocalDateTime getInformationDate() {
 		return informationDate;

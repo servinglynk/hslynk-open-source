@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="97"/>
+	<property name="ireport.y" value="39"/>
 	<field name="q27e30DaysOrLessAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q27e30DaysOrLessAtEntry]]></fieldDescription>
 	</field>
@@ -444,7 +444,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  f. 366 to 730 days (1 – 2 yrs.)]]></text>
+					<text><![CDATA[  f. 366 to 730 days (1 - 2 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -496,7 +496,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  g. 731 to 1095 days (2 – 3 yrs.)]]></text>
+					<text><![CDATA[  g. 731 to 1095 days (2 - 3 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -548,7 +548,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  h. 1096 to 1460 days (3 – 4 yrs.)]]></text>
+					<text><![CDATA[  h. 1096 to 1460 days (3 - 4 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>
@@ -600,7 +600,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  i. 1461 to 1825 days (4 – 5 yrs.)]]></text>
+					<text><![CDATA[  i. 1461 to 1825 days (4 - 5 yrs.)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="14c12120-3a8e-4879-bbc4-207793294b33"/>

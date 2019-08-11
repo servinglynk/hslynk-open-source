@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
+
 
 /**
  * Object mapping for hibernate-handled table: percent_ami.
@@ -32,7 +34,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity(name = "percent_ami")
 @Table(name = "percent_ami", catalog = "hmis", schema = "v2014")
-public class Percentami extends HmisBaseModel  implements Cloneable, Serializable {
+public class Percentami extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 3513996654255871548L;

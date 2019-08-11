@@ -5,11 +5,13 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonRootName("nonashBenefits")
+@JsonRootName("noncashBenefits")
 public class Noncashbenefits extends ClientModel{
 
-	 @JsonProperty("noncashbenefitsID")
+	 @JsonProperty("noncashBenefitsId")
       private UUID noncashbenefitsID;
 
       @JsonProperty("benefitsFromAnySource")
@@ -36,9 +38,22 @@ public class Noncashbenefits extends ClientModel{
 
       private Integer wic;
 
-
+      @JsonDeserialize(using=JsonDateDeserializer.class)
+      @JsonSerialize(using=JsonDateSerializer.class)
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
+      
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
+      LocalDateTime submissionDate;
+
+        public LocalDateTime getSubmissionDate() {
+  		return submissionDate;
+  	}
+  	public void setSubmissionDate(LocalDateTime submissionDate) {
+  		this.submissionDate = submissionDate;
+  	}
+
 
       public LocalDateTime getInformationDate() {
 		return informationDate;

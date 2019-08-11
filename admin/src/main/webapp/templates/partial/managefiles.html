@@ -1,0 +1,361 @@
+
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header"> Manage Files </h1>
+      <ol class="breadcrumb">
+        <li> <i class="fa fa-dashboard"></i> <a href="#/admin/dashboard">Dashboard</a> </li>
+        <li class="active"> <i class="fa fa-table"></i> Manage Files </li>
+      </ol>
+    </div>
+  </div>
+  
+    <ul role="tablist" class="nav nav-tabs" id="myTabs" >
+					<li  class="active" > <a style="outline:none;"  href="javascript:;" onclick="$('#myTabs li:eq(0) a[ role=\'tab\']').tab('show')"  >RECENT</a> <a  style="display:none" href="#tab0"  role="tab" data-toggle="tab">RECENT</a></li>
+                    <li > <a style="outline:none;"  href="javascript:;" onclick="$('#myTabs li:eq(1) a[ role=\'tab\']').tab('show')"  >STAGING</a> <a  style="display:none" href="#tab1"  role="tab" data-toggle="tab">STAGING</a></li> 
+                    <li ><a  style="outline:none;"  href="javascript:;" onclick="$('#myTabs li:eq(2) a[ role=\'tab\']').tab('show')"  >LIVE</a> <a href="#tab2"  style="display:none"   role="tab" data-toggle="tab">LIVE</a></li> 
+                    <li ><a style="outline:none;"  href="javascript:;" onclick="$('#myTabs li:eq(3) a[ role=\'tab\']').tab('show')"  >DELETED</a> <a href="#tab3"   style="display:none" role="tab" data-toggle="tab">DELETED</a></li> 
+                    <li ><a style="outline:none;"  href="javascript:;" onclick="$('#myTabs li:eq(4) a[ role=\'tab\']').tab('show')"  >ERROR</a> <a href="#tab4"   style="display:none"  role="tab" data-toggle="tab">ERROR</a></li>
+    </ul>
+
+  <div class="tab-content">
+   <div class="tab-pane fade in active" id="tab0">
+  				<!-- /.row STAGING -->
+							  <div class="row">
+								<div class="col-md-12 add">
+								
+								</div>
+								<div class="col-lg-12">
+									 <div class="panel panel-default">
+									<div class="panel-heading">
+									  <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> RECENT</h3>
+									</div>
+									<div class="panel-body">
+								  <div class="table-responsive" ng-show="filteredItemsRECENT > 0">
+									<table class="table table-bordered table-hover table-striped">
+									  <thead>
+										<tr>
+										  <th>Id</th>
+										  <th>File Name</th>
+										  <th>Status</th>
+										  <th>Year</th>
+										  <th>HUD version</th>
+										  <th>Username</th>
+										  <th>Date Created</th>
+										  <th>Description</th>
+										  <th>Logs</th>
+                                          <th>Error</th>
+										</tr>
+									  </thead>
+									  <tbody>
+										<tr ng-repeat="data in filtered = (listRECENT | filter:search ) | startFrom:(currentPageRECENT-1)*entryLimitRECENT | limitTo:entryLimitRECENT">
+										  <td>{{data.id}}</td>
+										  <td>{{data.fileName}}</td>
+										  <td>{{data.status}}</td>
+										  <td>{{data.year}}</td>
+										  <td>{{data.hudVersion}}</td>
+										   <td>{{data.username}}</td>
+										  <td>{{data.dateCreated }}</td>
+										   <td>{{data.description }}</td>
+                                            <td> <a href="javascript:;" ng-click="openlog(data.id,data.year);"> click here </a></td>
+                                            <td> <a ng-href="#/admin/errormessage/{{data.id}}-{{data.year}}" target="_blank"> click here </a></td>
+										</tr>
+									  </tbody>
+									</table>
+								  </div>
+								  
+								  <div class="col-md-12" ng-show="filteredItemsRECENT == 0">
+									<div class="col-md-12">
+									  <h4>No file(s) found</h4>
+									</div>
+								  </div>
+								  <div class="col-md-12" ng-show="filteredItemsRECENT > 0">
+									<div pagination="" page="currentPageRECENT" on-select-page="setPageRECENT(page)" boundary-links="true" total-items="filteredItemsRECENT" items-per-page="entryLimitRECENT" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></div>
+								  </div>
+								  </div></div>
+								</div>
+							  </div>
+							  <!--<div class="row">
+									<div class="col-md-2">PageSize:
+										<select ng-model="entryLimitSTAGING" class="form-control">
+											<option>3</option>
+											<option>5</option>
+											<option>10</option>
+											<option>20</option>
+											<option>50</option>
+											<option>100</option>
+										</select>
+									</div>
+								</div>-->
+		   </div>
+		   <div class="tab-pane" id="tab1">
+										<!-- /.row STAGING -->
+							  <div class="row">
+								<div class="col-md-12 add">
+								
+								</div>
+								<div class="col-lg-12">
+									 <div class="panel panel-default">
+									<div class="panel-heading">
+									  <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> STAGING</h3>
+									</div>
+									<div class="panel-body">
+								  <div class="table-responsive" ng-show="filteredItemsSTAGING > 0">
+									<table class="table table-bordered table-hover table-striped">
+									  <thead>
+										<tr>
+										  <th>Id</th>
+										  <th>File Name</th>
+										  <th>Status</th>
+										  <th>Year</th>
+										  <th>Username</th>
+										  <th>Project Group</th>
+										  <th>Date Created</th>
+										  <th>Description</th>
+										  <th>Logs</th>
+                                          <th>Error</th>
+										</tr>
+									  </thead>
+									  <tbody>
+										<tr ng-repeat="data in filtered = (listSTAGING | filter:search ) | startFrom:(currentPageSTAGING-1)*entryLimitSTAGING | limitTo:entryLimitSTAGING">
+										  <td>{{data.id}}</td>
+										  <td>{{data.fileName}}</td>
+										  <td>{{data.status}}</td>
+										  <td>{{data.year}}</td>
+										  <td>{{data.username}}</td>
+										  <td>{{data.projectGroupCode}}</td>
+										  <td>{{data.dateCreated }}</td>
+										   <td>{{data.description }}</td>
+                                            <td> <a href="javascript:;" ng-click="openlog(data.id);"> click here </a></td>
+                                            <td> <a ng-href="#/admin/errormessage/{{data.id}}-{{data.year}}" target="_blank"> click here </a></td>
+										</tr>
+									  </tbody>
+									</table>
+								  </div>
+								  
+								  <div class="col-md-12" ng-show="filteredItemsSTAGING == 0">
+									<div class="col-md-12">
+									  <h4>No file(s) found</h4>
+									</div>
+								  </div>
+								  <div class="col-md-12" ng-show="filteredItemsSTAGING > 0">
+									<div pagination="" page="currentPageSTAGING" on-select-page="setPageSTAGING(page)" boundary-links="true" total-items="filteredItemsSTAGING" items-per-page="entryLimitSTAGING" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></div>
+								  </div>
+								  </div></div>
+								</div>
+							  </div>
+							  <!--<div class="row">
+									<div class="col-md-2">PageSize:
+										<select ng-model="entryLimitSTAGING" class="form-control">
+											<option>3</option>
+											<option>5</option>
+											<option>10</option>
+											<option>20</option>
+											<option>50</option>
+											<option>100</option>
+										</select>
+									</div>
+								</div>-->
+		   </div>
+		   <div class="tab-pane" id="tab2">
+		   
+										 <!-- /.row -->
+							  <!-- /.row LIVE -->
+							  <div class="row">
+								<div class="col-lg-12">
+									 <div class="panel panel-default">
+									<div class="panel-heading">
+									  <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> LIVE</h3>
+									</div>
+									<div class="panel-body">
+								  <div class="table-responsive" ng-show="filteredItemsLIVE > 0">
+									<table class="table table-bordered table-hover table-striped">
+									  <thead>
+										<tr>
+										  <th>Id</th>
+										  <th>File Name</th>
+										  <th>Status</th>
+										  <th>Year</th>
+										  <th>Username</th>
+										  <th>Project Group</th>
+										  <th>Date Created</th>
+										  <th>Description</th>
+										  <th>Logs</th>
+                                          <th>Error</th>
+										</tr>
+									  </thead>
+									  <tbody>
+										<tr ng-repeat="data in filtered = (listLIVE | filter:search ) | startFrom:(currentPageLIVE-1)*entryLimitLIVE | limitTo:entryLimitLIVE">
+											<td>{{data.id}}</td>
+										  <td>{{data.fileName}}</td>
+										  <td>{{data.status}}</td>
+										  <td>{{data.year}}</td>
+										  <td>{{data.username}}</td>
+										  <td>{{data.projectGroupCode}}</td>
+										  <td>{{data.dateCreated }}</td>
+										  <td>{{data.description }}</td>
+                                            <td> <a href="javascript:;" ng-click="openlog(data.id);"> click here </a></td>
+                                            <td> <a ng-href="#/admin/errormessage/{{data.id}}-{{data.year}}" target="_blank"> click here </a></td>
+										</tr>
+									  </tbody>
+									</table>
+								  </div>
+								  <div class="col-md-12" ng-show="filteredItemsLIVE == 0">
+									<div class="col-md-12">
+									  <h4>No file(s) found</h4>
+									</div>
+								  </div>
+								  <div class="col-md-12" ng-show="filteredItemsLIVE > 0">
+									<div pagination="" page="currentPageLIVE" on-select-page="setPageLIVE(page)" boundary-links="true" total-items="filteredItemsLIVE" items-per-page="entryLimitLIVE" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></div>
+								  </div>
+								  </div></div>
+								</div>
+							  </div>
+		   
+		   </div>
+		   <div class="tab-pane" id="tab3">
+										   <!-- /.row -->
+							  <!-- /.row LIVE -->
+							  <div class="row">
+								<div class="col-lg-12">
+									 <div class="panel panel-default">
+									<div class="panel-heading">
+									  <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> DELETED</h3>
+									</div>
+									<div class="panel-body">
+								  <div class="table-responsive" ng-show="filteredItemsDELETED > 0">
+									<table class="table table-bordered table-hover table-striped">
+									  <thead>
+										<tr>
+										  <th>Id</th>
+										  <th>File Name</th>
+										  <th>Status</th>
+										  <th>Year</th>
+										  <th>Username</th>
+										  <th>Project Group</th>
+										  <th>Date Created</th>
+										  <th>Description</th>
+										  <th>Logs</th>
+                                          <th>Error</th>
+										</tr>
+									  </thead>
+									  <tbody>
+										<tr ng-repeat="data in filtered = (listDELETED | filter:search ) | startFrom:(currentPageDELETED-1)*entryLimitDELETED | limitTo:entryLimitDELETED">
+											<td>{{data.id}}</td>
+										  <td>{{data.fileName}}</td>
+										  <td>{{data.status}}</td>
+										  <td>{{data.year}}</td>
+										  <td>{{data.username}}</td>
+										  <td>{{data.projectGroupCode}}</td>
+										  <td>{{data.dateCreated }}</td>
+										  <td>{{data.description }}</td>
+                                            <td> <a href="javascript:;" ng-click="openlog(data.id);"> click here </a></td>
+                                            <td> <a ng-href="#/admin/errormessage/{{data.id}}-{{data.year}}" target="_blank"> click here </a></td>
+										</tr>
+									  </tbody>
+									</table>
+								  </div>
+								  <div class="col-md-12" ng-show="filteredItemsDELETED == 0">
+									<div class="col-md-12">
+									  <h4>No file(s) found</h4>
+									</div>
+								  </div>
+								  <div class="col-md-12" ng-show="filteredItemsDELETED > 0">
+									<div pagination="" page="currentPageDELETED" on-select-page="setPageDELETED(page)" boundary-links="true" total-items="filteredItemsDELETED" items-per-page="entryLimitDELETED" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></div>
+								  </div>
+								  </div></div>
+								</div>
+							  </div>
+								 <!--<div class="row">
+							 <div class="col-md-2">
+										PageSize:
+										<select ng-model="entryLimitLIVE" class="form-control">
+											<option>3</option>
+											<option>5</option>
+											<option>10</option>
+											<option>20</option>
+											<option>50</option>
+											<option>100</option>
+										</select>
+									</div>
+							  </div>-->
+		   </div>
+		   <div class="tab-pane" id="tab4">
+										 <!-- /.row -->
+							  <!-- /.row ERROR -->
+							  <div class="row">
+								<div class="col-lg-12">
+									 <div class="panel panel-default">
+									<div class="panel-heading">
+									  <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> ERROR</h3>
+									</div>
+									<div class="panel-body">
+								  <div class="table-responsive" ng-show="filteredItemsERROR > 0">
+									<table class="table table-bordered table-hover table-striped">
+									  <thead>
+									   <tr>
+										  <th>Id</th>
+										  <th>File Name</th>
+										  <th>Status</th>
+										  <th>Year</th>
+										  <th>Username</th>
+										  <th>Project Group</th>
+										  <th>Date Created</th>
+										  <th>Description</th>
+										  <th>Logs</th>
+                                          <th>Error</th>
+										</tr>
+									  </thead>
+									  <tbody>
+										<tr ng-repeat="data in filtered = (listERROR | filter:search) | startFrom:(currentPageERROR-1)*entryLimitERROR | limitTo:entryLimitERROR">
+										  <td>{{data.id}}</td>
+										  <td>{{data.fileName}}</td>
+										  <td>{{data.status}}</td>
+										  <td>{{data.year}}</td>
+										  <td>{{data.username}}</td>
+										  <td>{{data.projectGroupCode}}</td>
+										  <td>{{data.dateCreated }}</td>
+										  <td>{{data.description }}</td>
+										  <td> <a href="javascript:;" ng-click="openlog(data.id);" > click here </a></td>
+                                           <td> <a ng-href="#/admin/errormessage/{{data.id}}-{{data.year}}" target="_blank" > click here </a></td>
+										</tr>
+									  </tbody>
+									</table>
+								  </div>
+								  <div class="col-md-12" ng-show="filteredItemsERROR == 0">
+									<div class="col-md-12">
+									  <h4>No file(s) found</h4>
+									</div>
+								  </div>
+								  <div class="col-md-12" ng-show="filteredItemsERROR > 0">
+									<div pagination="" page="currentPageERROR" on-select-page="setPageERROR(page)" boundary-links="true" total-items="filteredItemsERROR" items-per-page="entryLimitERROR" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></div>
+								  </div></div></div>
+								</div>
+							  </div>
+							  <div class="row">
+								<!--<div class="col-md-2">
+										PageSize:
+										<select ng-model="entryLimitLIVE" class="form-control">
+											<option>3</option>
+											<option>5</option>
+											<option>10</option>
+											<option>20</option>
+											<option>50</option>
+											<option>100</option>
+										</select>
+									</div>-->
+							  </div>
+		   </div>
+  </div>
+  
+ 
+
+
+  
+
+ 
+
+
+  <!-- /.row -->
+</div>

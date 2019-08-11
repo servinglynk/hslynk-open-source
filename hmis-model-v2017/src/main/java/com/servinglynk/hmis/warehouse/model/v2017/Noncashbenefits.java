@@ -30,6 +30,7 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsSnapEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -40,7 +41,7 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
  */
 @Entity(name = "noncashbenefits_v2017")
 @Table(name = "noncashbenefits", catalog = "hmis", schema = "v2017")
-public class Noncashbenefits extends HmisBaseModel implements Cloneable, Serializable {
+public class Noncashbenefits extends HmisBaseModel implements Cloneable, Serializable ,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6493511274453583782L;
@@ -81,6 +82,7 @@ public class Noncashbenefits extends HmisBaseModel implements Cloneable, Seriali
 	/** Field mapping. */
 	private LocalDateTime informationDate;
 	private DataCollectionStageEnum dataCollectionStage;
+	private LocalDateTime submissionDate;
 
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
@@ -427,6 +429,17 @@ public class Noncashbenefits extends HmisBaseModel implements Cloneable, Seriali
 		this.export = export;
 	}
 
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

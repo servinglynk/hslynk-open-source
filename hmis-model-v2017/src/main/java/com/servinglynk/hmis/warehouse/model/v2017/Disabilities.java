@@ -26,6 +26,7 @@ import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TCellOrViralLoadSourceEnum;
 import com.servinglynk.hmis.warehouse.enums.ViralLoadAvailableEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -37,7 +38,7 @@ import com.servinglynk.hmis.warehouse.enums.ViralLoadAvailableEnum;
 
 @Entity (name = "disabilities_v2017")
 @Table(name = "disabilities", catalog = "hmis", schema = "v2017")
-public class Disabilities extends HmisBaseModel implements Cloneable, Serializable {
+public class Disabilities extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6492609509614588571L;
@@ -76,6 +77,7 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 	/** Field mapping. */
 	private DataCollectionStageEnum dataCollectionStage;
 	
+	private LocalDateTime submissionDate;
 	
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -384,6 +386,18 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		this.export = export;
 	}
 
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

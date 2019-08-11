@@ -61,7 +61,13 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 		if(!isFullRefresh(domain))
 			exportModel = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class, export.getExportID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && exportModel != null) {
+		if(domain.isReUpload()) {
+			if(exportModel != null) {
+				return exportModel;
+			}
+			exportModel = new com.servinglynk.hmis.warehouse.model.v2017.Export();
+			exportModel.setId(UUID.randomUUID());
+			exportModel.setRecordToBeInserted(true);
 			return exportModel;
 		}
 		if(exportModel == null) {

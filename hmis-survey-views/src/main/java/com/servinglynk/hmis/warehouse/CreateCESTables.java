@@ -29,21 +29,17 @@ public class CreateCESTables  extends Logging {
 		 Properties props = new Properties();
 		 props.generatePropValues();
 		CreateCESTables cesTables = new CreateCESTables();
-		String projectGroups = Properties.PROJECT_GROUPS;
-		String[] split = projectGroups.split(",");
-		for(String projectGroup : split) {
+	//	List<String> allProjectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes();
+		String projectGroup ="TT0013";
+	//	cesTables.createTable("desc.sql",projectGroup);
+		//for(String projectGroup : allProjectGroupCodes) {
+	//		cesTables.createTable("DropHmis.sql",projectGroup);
 			cesTables.createTable("CESTables.sql",projectGroup);
-			cesTables.createHiveTables("survey", projectGroup);
-			cesTables.createHiveTables("housing_inventory", projectGroup);
-			cesTables.createHiveTables("v2017", projectGroup);
-			cesTables.createHiveTables("v2017", projectGroup);
-			cesTables.createHiveTables("v2016", projectGroup);
-			cesTables.createHiveTables("v2015", projectGroup);
-			cesTables.createHiveTables("v2014", projectGroup);
-		}
+//			cesTables.createHiveTables("v2017", projectGroup,true);
+			cesTables.createTable("HiveHmis.sql",projectGroup);
 	}
 	
-	 public void createHiveTables(String schema,String projectGroupCode) {
+	 public void createHiveTables(String schema,String projectGroupCode,boolean hmisschema) {
 		 List<String> tables  = new ArrayList<>();
 		 try {
 			 tables = getTablesToSync(schema);
@@ -51,9 +47,10 @@ public class CreateCESTables  extends Logging {
 			 
 		 }
 		 for(String tableName : tables) {
-			 String sql = createHiveViews(schema, tableName, projectGroupCode);
-			 System.out.println(sql+";");
-			 createHiveTable(sql);
+			 dropHiveTable("drop table if exists "+tableName);
+//			 String sql = createHiveViews(schema, tableName, projectGroupCode,hmisschema);
+//			 System.out.println(sql+";");
+//			 createHiveTable(sql);
 		 }
 	}
 
@@ -109,10 +106,12 @@ public class CreateCESTables  extends Logging {
 
 				while (scanner.hasNextLine()) {
 					String line = scanner.nextLine();
-					String sql = line.replaceAll("ZPK0005",projectGroupCode);
-					sql = sql.replaceAll(";","");
-					
-					createHiveTable(sql);
+					if(StringUtils.isNotBlank(line) && !StringUtils.contains(line,"#")) {
+						String sql = line.replaceAll("ZPK0005_NEW","TT0013");
+						sql = sql.replaceAll("ZPK0005","TT0013");
+						sql = sql.replaceAll(";","");
+						createHiveTable(sql);
+					}
 				}
 
 				scanner.close();
@@ -126,7 +125,7 @@ public class CreateCESTables  extends Logging {
 		  }
 	 
 	 
-	 public static String createHiveViews(String schema,String tableName,String projectGroupCode) {
+	 public static String createHiveViews(String schema,String tableName,String projectGroupCode,boolean hmisschema) {
 		  ResultSet resultSet;
 	      PreparedStatement statement;
 	      Connection connection;
@@ -138,7 +137,7 @@ public class CreateCESTables  extends Logging {
 	    	  statement = connection.prepareStatement("select * from "+schema+"."+tableName +" limit 1");
 		      resultSet = statement.executeQuery();
 			  ResultSetMetaData metaData = resultSet.getMetaData();
-	          for (int i = 1; i < metaData.getColumnCount(); i++) {
+	          for (int i = 1; i <= metaData.getColumnCount(); i++) {
 	              String column = metaData.getColumnName(i);
 	              String columnTypeName = metaData.getColumnTypeName(i);
 	              if(columnTypeName.contains("bool")) {
@@ -155,23 +154,35 @@ public class CreateCESTables  extends Logging {
 	            	  firstPart.append(column +" string ,");
 	            	  addMiddlePart(middlePart, column);
 	              }
-	              if (StringUtils.isNotEmpty(column)) {
+	              if (StringUtils.isNotEmpty(column) && hmisschema) {
 	            	  //If a table has a column called client_id then make sure you add dedup_client_id to it too.
 	                  if(StringUtils.equals("client_id", column)) {
 	                	  firstPart.append("dedup_client_id string ,");
 		            	  addMiddlePart(middlePart, "dedup_client_id");
 	                  }
 	                  // Add a new column for description for enums
-	                  if(columnTypeName.contains(schema)) {
-	                	  firstPart.append(column+"_desc string ,");
-		            	  addMiddlePart(middlePart, column+"_desc ");
+	                  if(hmisschema) {
+		                  if(columnTypeName.contains(schema)) {
+		                	  firstPart.append(column+"_desc string ,");
+			            	  addMiddlePart(middlePart, column+"_desc ");
+		                  }
 	                  }
 	             }
 	          }
+//	          if(!isPrimaryKeyPopulated && StringUtils.isNotBlank(primaryKey)) {
+//	        	  firstPart.append("id string,");
+//	        	  middlePart.append("CF:"+primaryKey);
+//	          }
 	          // add a column for the year field.
-              firstPart.append("year string ");
-        	  middlePart.append("CF:year\"");
-	          
+	          if(hmisschema) {
+	        	   firstPart.append("year BIGINT ");
+	         	    middlePart.append("CF:year\"");
+	          }else {
+	        	  firstPart =  firstPart.deleteCharAt(firstPart.toString().length() - 1);
+	        	  middlePart =  middlePart.deleteCharAt(middlePart.toString().length() - 2);
+	        	  middlePart.append("\"");
+	          }
+	     
 	      } catch (Exception e) {
 	    	  // Need to take the print stack trace out
 	    	  e.printStackTrace();
@@ -189,6 +200,9 @@ public class CreateCESTables  extends Logging {
 		 
 	 }
 	 
+	 
+	
+			 
 	 public static void dropHiveTable(String sql) {
 			Connection connection;
 			try {
@@ -210,6 +224,10 @@ public class CreateCESTables  extends Logging {
 			// execute statement
 			System.out.println(" Create Query::"+ sql);
 			stmt.execute(sql);
+//			while(resultSet.next()) {
+//				System.out.println(resultSet.getString(1)+","+ resultSet.getString(2)+","+resultSet.getString(3));
+//			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();	

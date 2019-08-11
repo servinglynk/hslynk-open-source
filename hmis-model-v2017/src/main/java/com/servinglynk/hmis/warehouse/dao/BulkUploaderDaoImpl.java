@@ -2,19 +2,27 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.UnmarshalException;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Appender;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -68,6 +76,153 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	@Autowired
 	BulkUploadHelper2017 bulkUploadHelper;
 	
+	@Autowired
+	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
+	
+	@Override
+	@Transactional
+	public BulkUpload performLoad(Long l,Appender appender,Boolean isFileFromS3) {
+		BulkUpload upload = parentDaoFactory.getBulkUploaderWorkerDao().getBulkUploadId(l);
+		try {
+			if (appender != null) {
+				logger.addAppender(appender);
+			}
+			logger.info("Bulk Uploader Process Begins..........");
+			upload.setStatus(UploadStatus.INPROGRESS.getStatus());
+			ProjectGroupEntity projectGroupdEntity = parentDaoFactory.getProjectGroupDao().getProjectGroupByGroupCode(upload.getProjectGroupCode());
+			insertOrUpdate(upload);
+			long startNanos = System.nanoTime();
+			Sources sources = null;
+			try {
+				sources = bulkUploadHelper.getSourcesFromFiles(upload, projectGroupdEntity,isFileFromS3);
+			} catch (UnmarshalException ex) {
+				logger.error("Error executing the bulk upload process:: ", ex);
+				throw new Exception("HUD File Uploaded is in an invalid Format", ex);
+			}
+			logger.info(getClass().getSimpleName() + ".File reading took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+
+			Source source = null;
+			try {
+				source = sources.getSource();
+			} catch (Exception ex) {
+				throw new Exception("HUD File Uploaded is in an invalid Format :Unable to get source from sources", ex);
+			}
+			Export export = null;
+			try {
+				export = source.getExport();
+			} catch (Exception ex) {
+				throw new Exception("HUD File Uploaded is in an invalid Format : Unable to get export from source", ex);
+			}
+			ExportDomain domain = new ExportDomain();
+			domain.setExport(export);
+			domain.setUpload(upload);
+			domain.setSource(source);
+//			domain.setReUpload(true);
+			domain.setReloadAll(true);
+			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
+
+			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Export.class, getProjectGroupCode(domain));
+			startNanos = System.nanoTime();
+			Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, getProjectGroupCode(domain));
+//			parentDaoFactory.getEntryrhyDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+//			parentDaoFactory.getHealthinsuranceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+//			parentDaoFactory.getServiceFaReferralDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+//		
+		
+			logger.info("Starting processing of Client table");
+			if(StringUtils.equalsIgnoreCase("client", upload.getDescription()) || domain.isReloadAll() || domain.isReloadAll()) {
+				parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DONE
+				logger.info("Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+			}
+			
+			if(StringUtils.equalsIgnoreCase("veteran_info", upload.getDescription()) || domain.isReloadAll()) {
+				Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Client.class, getProjectGroupCode(domain));
+				parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
+			}
+			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
+			if(StringUtils.equalsIgnoreCase("organization", upload.getDescription()) || domain.isReloadAll()) {
+				parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null); // Done
+				Map<String, HmisBaseModel> orgModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Organization.class, getProjectGroupCode(domain));
+				parentDaoFactory.getProjectDao().hydrateStaging(domain,exportModelMap, orgModelMap); // Done
+				
+			}
+			
+			if(StringUtils.equalsIgnoreCase("enrollment", upload.getDescription()) || domain.isReloadAll()) {
+				startNanos = System.nanoTime();
+				Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Client.class, getProjectGroupCode(domain));
+				parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
+				logger.info("Enrollment table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+			}
+		
+			if(StringUtils.equalsIgnoreCase("pchild", upload.getDescription()) || domain.isReloadAll()) {
+				Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
+				parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
+				parentDaoFactory.getCocDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
+				parentDaoFactory.getFunderDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
+			}
+		
+			if(StringUtils.equalsIgnoreCase("pcoc", upload.getDescription()) || domain.isReloadAll()) {
+				Map<String, HmisBaseModel> cocModelMap = getCocModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
+				parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
+				parentDaoFactory.getGeographyDao().hydrateStaging(domain, exportModelMap, cocModelMap);
+		    }
+			if(StringUtils.equalsIgnoreCase("enrollmentcoc", upload.getDescription()) || domain.isReloadAll()) {
+				parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			}
+			
+			if(StringUtils.equalsIgnoreCase("penrollment", upload.getDescription()) || domain.isReloadAll()) {
+				parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getResidentialmoveindateDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				startNanos = System.nanoTime();
+				parentDaoFactory.getDisabilitiesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				logger.info("Disabilities table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
+				parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getEmploymentDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // DOne
+				parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				
+				parentDaoFactory.getEntryrhspDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getEntryrhyDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getEntryssvfDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getContactDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getServiceFaReferralDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getHealthinsuranceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getHealthStatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getEducationDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap); //Done
+
+				parentDaoFactory.getIncomeandsourcesDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getMedicalassistanceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getNoncashbenefitsDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getPathstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getRhybcpstatusDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+				parentDaoFactory.getConnectionWithSoarDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
+			
+		    }
+			if(StringUtils.equalsIgnoreCase("pexit", upload.getDescription()) || domain.isReloadAll()) {
+				Map<String, HmisBaseModel> exitModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Exit.class, getProjectGroupCode(domain));
+				parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
+				parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain, exportModelMap, exitModelMap);
+				parentDaoFactory.getExitrhyDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
+				parentDaoFactory.getVashExitReasonDao().hydrateStaging(domain, exportModelMap, exitModelMap);
+				parentDaoFactory.getRhyAfterCareDao().hydrateStaging(domain, exportModelMap, exitModelMap);
+			}
+			
+				upload.setStatus(UploadStatus.STAGING.getStatus());
+				insertOrUpdate(upload);
+		} catch (Exception e) {
+			e.printStackTrace();
+			upload.setStatus(UploadStatus.ERROR.getStatus());
+			upload.setDescription("Cause::"+e.getCause() + "Message::"+e.getMessage());
+			saveError(upload);
+		}
+		finally {
+			if (appender != null) {
+				logger.removeAppender(appender);
+			}
+		}
+		return upload;
+	}
+	
 	@Override
 	@Transactional
 	public BulkUpload performBulkUpload(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender,Boolean isFileFromS3) {
@@ -107,31 +262,28 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setReUpload(true);
 			
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
-//			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null); // DONE
-//			logger.info("Staging Source table.........");
-//			parentDaoFactory.getExportDao().hydrateStaging(domain,null,null); // Done
-//			
+
 			Map<String, HmisBaseModel> exportModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Export.class, getProjectGroupCode(domain));
 			startNanos = System.nanoTime();
 			logger.info("Starting processing of Client table");
-			if(StringUtils.equalsIgnoreCase("client", upload.getDescription())) {
+			if(StringUtils.equalsIgnoreCase("client", upload.getDescription()) || domain.isReloadAll() || domain.isReloadAll()) {
 				parentDaoFactory.getClientDao().hydrateStaging(domain,exportModelMap,null); // DONE
 				logger.info("Client table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 			}
 			
-			if(StringUtils.equalsIgnoreCase("veteran_info", upload.getDescription())) {
+			if(StringUtils.equalsIgnoreCase("veteran_info", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Client.class, getProjectGroupCode(domain));
 				parentDaoFactory.getVeteranInfoDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
 			}
 			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
-			if(StringUtils.equalsIgnoreCase("organization", upload.getDescription())) {
+			if(StringUtils.equalsIgnoreCase("organization", upload.getDescription()) || domain.isReloadAll()) {
 				parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null); // Done
 				Map<String, HmisBaseModel> orgModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Organization.class, getProjectGroupCode(domain));
 				parentDaoFactory.getProjectDao().hydrateStaging(domain,exportModelMap, orgModelMap); // Done
 				
 			}
 			
-			if(StringUtils.equalsIgnoreCase("enrollment", upload.getDescription())) {
+			if(StringUtils.equalsIgnoreCase("enrollment", upload.getDescription()) || domain.isReloadAll()) {
 				startNanos = System.nanoTime();
 				Map<String, HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Client.class, getProjectGroupCode(domain));
 				parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
@@ -139,20 +291,24 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 		
 			
-			if(StringUtils.equalsIgnoreCase("pchild", upload.getDescription())) {
+			if(StringUtils.equalsIgnoreCase("pchild", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
 				parentDaoFactory.getAffiliationDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 				parentDaoFactory.getCocDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 				parentDaoFactory.getFunderDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 			}
 		
-			if(StringUtils.equalsIgnoreCase("pcoc", upload.getDescription())) {
-				Map<String, HmisBaseModel> cocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
+			if(StringUtils.equalsIgnoreCase("pcoc", upload.getDescription()) || domain.isReloadAll()) {
+				Map<String, HmisBaseModel> cocModelMap = getCocModelMap(com.servinglynk.hmis.warehouse.model.v2017.Coc.class, getProjectGroupCode(domain));
 				parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
 				parentDaoFactory.getGeographyDao().hydrateStaging(domain, exportModelMap, cocModelMap);
 		    }
+			if(StringUtils.equalsIgnoreCase("enrollmentcoc", upload.getDescription()) || domain.isReloadAll()) {
+				Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, getProjectGroupCode(domain));
+				parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
+			}
 			
-			if(StringUtils.equalsIgnoreCase("penrollment", upload.getDescription())) {
+			if(StringUtils.equalsIgnoreCase("penrollment", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, getProjectGroupCode(domain));
 				parentDaoFactory.getDateofengagementDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 				parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
@@ -163,8 +319,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 				parentDaoFactory.getEmploymentDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // DOne
 				parentDaoFactory.getExitDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
-				parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
-
 				
 				parentDaoFactory.getEntryrhspDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 				parentDaoFactory.getEntryrhyDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
@@ -183,7 +337,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				parentDaoFactory.getConnectionWithSoarDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 			
 		    }
-			if(StringUtils.equalsIgnoreCase("pexit", upload.getDescription())) {
+			if(StringUtils.equalsIgnoreCase("pexit", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> exitModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Exit.class, getProjectGroupCode(domain));
 				parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 				parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain, exportModelMap, exitModelMap);
@@ -225,6 +379,48 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 	}
 	
+	/***
+	 * Get Models by source system id and project group code.
+	 * @param className
+	 * @param projectGroupCode
+	 * @return
+	 */
+	protected Map<String,HmisBaseModel> getCocModelMap(Class className ,String projectGroupCode) {
+		Map<String,HmisBaseModel> resultsMap = new HashMap<String, HmisBaseModel>();
+		if(projectGroupCode !=null) {
+			Criteria criteria = getCurrentSession().createCriteria(className);
+			criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode.trim()));
+			criteria.add(Restrictions.eq("deleted",false));
+			criteria.addOrder( Order.desc("dateCreated") );
+			@SuppressWarnings("unchecked")
+			List<HmisBaseModel> models = (List<HmisBaseModel>) criteria.list() ;
+			if(CollectionUtils.isNotEmpty(models)) {
+				 for(HmisBaseModel model : models ){
+					 Coc coc = (Coc) model;
+					 if(StringUtils.isNotBlank(coc.getCoccode()))
+						 resultsMap.put(coc.getCoccode(), model);
+				 }
+			}
+		}
+		return resultsMap;
+	}
+	
+	@Override
+	public void calculateChronicHomelessness(String projectGroupCode) {
+		Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, projectGroupCode);
+		if(!enrollmentModelMap.isEmpty()) {
+			Collection<HmisBaseModel> enrollments = enrollmentModelMap.values();
+			for(HmisBaseModel model : enrollments) {
+				Enrollment enrollmentModel = (Enrollment) model;
+				Enrollment enrollment = (Enrollment) get(Enrollment.class, enrollmentModel.getId());
+				enrollment.setChronicHomeless(chronicHomelessCalcHelper.isEnrollmentChronicHomeless(enrollment));
+				if(enrollment.isChronicHomeless()) {
+					enrollment.setDateUpdated(LocalDateTime.now());
+					getCurrentSession().merge(enrollment);
+				}
+			}
+		}
+	}
 //	public HmisUser getHmisUser(String id) {
 //		DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
 //		criteria.createAlias("projectGroupEntity","projectGroupEntity");
@@ -594,13 +790,14 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		} catch (Exception ex) {
 			throw new Exception("HUD File Uploaded is in an invalid Format : Unable to get export from source", ex);
 		}
-		if(StringUtils.equals("RELOAD", upload.getDescription())) {
+		if(StringUtils.equals("RELOAD", upload.getDescription()) || domain.isReloadAll()) {
 			domain.setReUpload(true);
 		}
 		domain.setExport(export);
 		domain.setUpload(upload);
 		domain.setSource(source);
 		domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
+		domain.setFullRefresh(upload.isIgnoreDuplicateCheck());
 		return domain;
     }
 

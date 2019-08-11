@@ -21,6 +21,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -33,7 +34,7 @@ import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 
 @Entity(name = "contact_v2017")
 @Table(name = "contact", catalog = "hmis", schema = "v2017")
-public class Contact extends HmisBaseModel implements Cloneable, Serializable {
+public class Contact extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -4922450713586410718L;
@@ -55,6 +56,9 @@ public class Contact extends HmisBaseModel implements Cloneable, Serializable {
 	private Enrollment enrollmentid;
 	/** Field mapping. */
 	private java.util.UUID id;
+	
+	private LocalDateTime submissionDate;
+	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -199,6 +203,18 @@ public class Contact extends HmisBaseModel implements Cloneable, Serializable {
 		this.export = export;
 	}
 
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

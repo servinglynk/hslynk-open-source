@@ -4,11 +4,15 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("rhyAfterCare")
 public class RhyAfterCare extends ClientModel{
 
 	private java.util.UUID rhyAfterCareId; 
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
 	private LocalDateTime afterCareDate;
 	private Integer afterProvided;
 	private Integer emailSocialMedia;

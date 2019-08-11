@@ -1,0 +1,66 @@
+<div class="span12">
+  <div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" id="butTopMenu" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <div class="logo"><a ng-href="#{{ 's2.dashboard' | routeSegmentUrl }}"><img src="images/logoSite.png" alt="ServingLynk" /></a></div>
+      </div>
+      <!-- Top Menu Items -->
+      <ul class="nav navbar-right top-nav">
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" id="userDetails"> Admin </i><b class="caret"></b></a>
+          <ul class="dropdown-menu">
+             <li> <a href="#/admin/setting"><i class="fa fa-fw fa-user"></i> Profile</a> </li>
+         <!--   <li> <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a> </li>
+            <li> <a href="#/admin/setting"><i class="fa fa-fw fa-gear"></i> Settings</a> </li>
+            <li class="divider"></li>-->
+            <li> <a ng-href="#{{ 's4' | routeSegmentUrl }}" href="#login"><i class="fa fa-fw fa-power-off"></i> Log Out</a> </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+          <li ng-show="roleName === 'SUPERADMIN'" ng-class="{active: ('s2.dashboard' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.dashboard' | routeSegmentUrl }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a> </li>
+         <li  ng-show="roleName === 'SUPERADMIN'"> <a href="javascript:;" data-toggle="collapse" data-target="#demo3" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Project Group <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo3" class="collapse" style="height: 0px;">
+               <li ng-class="{active: ('s2.createprojgrp' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.createprojgrp' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Create Group</a> </li>
+               <li ng-class="{active: ('s2.manageprojgrp' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageprojgrp' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Group</a> </li>
+            </ul>
+          </li> 
+             <li ng-show="roleName === 'SUPERADMIN'"> <a href="javascript:;" data-toggle="collapse" data-target="#demo4" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> User<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo4" class="collapse" style="height: 0px;">
+               <li ng-class="{active: ('s2.createuser' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.createuser' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Create User</a> </li>
+               <li ng-class="{active: ('s2.manageuser' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageuser' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage User</a> </li>
+            </ul>
+          </li> 
+          <li ng-class="{active: ('s2.managefiles' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.managefiles' | routeSegmentUrl }}"><i class="fa fa-fw fa-table"></i> Manage Files</a> </li>
+          <!-- <li ng-class="{active: ('s2.bulkupload' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.bulkupload' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Bulk Upload</a> </li> -->
+          <li ng-class="{active: ('s2.bulkuploadNew' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.bulkuploadNew' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Bulk Upload</a> </li>
+          <li ng-class="{active: ('s2.managesync' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.managesync' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Sync</a> </li>
+          <li ng-class="{active: ('s2.requestreport' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.requestreport' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Request Report</a> </li>
+            <li ng-class="{active: ('s2.managereport' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.managereport' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Reports</a> </li>
+            <li ng-class="{active: ('s2.manageeligreq' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageeligreq' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Eligibility</a> </li>
+      <!--    <li> <a href="javascript:;" data-toggle="collapse" data-target="#demo" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> Reports <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo" class="collapse" style="height: 0px;">
+               <li> <a href="#{{ 's2.requestreport' | routeSegmentUrl }}">Request Report</a> </li>
+              <li> <a href="/hudCoc/pireport/pdf" target="_blank">HuD Coc Report</a> </li>
+              <li> <a href="/hudCoc/hmiscddqreport/pdf" target="_blank">APR Report</a> </li>
+              <li> <a href="/hudCoc/hsdoyreport/pdf" target="_blank">APR Report Part 2</a> </li>
+              <li> <a href="/hudCoc/psdoytreport/pdf" target="_blank">APR Report Part 3</a> </li>
+              <li> <a href="/hudCoc/psdoytreport/pdf" target="_blank">AHAR Report</a> </li>
+            </ul>
+          </li> -->
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div id="page-wrapper">
+      <div app-view-segment="1"></div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+  </div>
+</div>

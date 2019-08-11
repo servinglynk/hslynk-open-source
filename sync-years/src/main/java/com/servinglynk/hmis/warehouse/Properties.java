@@ -14,7 +14,8 @@ public class Properties {
     public static String HBASE_MASTER;
     public static String HBASE_ZOOKEEPER_QUORUM;
     public static String HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT="2181";
-    
+    public static String COMMON_TABLES;
+    public static String PROJECT_GRP_WITH_CLIENT_IDS;
     public static String SLIM_TABLES;
     public static String SYNC_2017_SCHEMA;
     public static String SYNC_2017_INCLUDE_TABLES;
@@ -49,35 +50,36 @@ public class Properties {
             } else {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
-            POSTGRESQL_DB_HOST = prop.getProperty("posgresql.db.host");
-            POSTGRESQL_DB_PORT = prop.getProperty("posgresql.db.port");
-            POSTGRESQL_DB_DATABASE = prop.getProperty("posgresql.db.database");
-            POSTGRESQL_DB_USERNAME = prop.getProperty("posgresql.db.username");
-            POSTGRESQL_DB_PASSWORD = prop.getProperty("posgresql.db.password");
-            HBASE_MASTER = prop.getProperty("hbase.master");
-            HBASE_ZOOKEEPER_QUORUM = prop.getProperty("hbase.zookeeper.quorum");
-            HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = prop.getProperty("hbase.zookeeper.property.clientPort", "2181");
+            POSTGRESQL_DB_HOST = getProperty("posgresql.db.host",prop);
+            POSTGRESQL_DB_PORT = getProperty("posgresql.db.port",prop);
+            POSTGRESQL_DB_DATABASE = getProperty("posgresql.db.database",prop);
+            POSTGRESQL_DB_USERNAME = getProperty("posgresql.db.username",prop);
+            POSTGRESQL_DB_PASSWORD = getProperty("posgresql.db.password",prop);
+            HBASE_MASTER = getProperty("hbase.master",prop);
+            HBASE_ZOOKEEPER_QUORUM = getProperty("hbase.zookeeper.quorum",prop);
+            HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT = getProperty("hbase.zookeeper.property.clientPort",prop);
+            PROJECT_GRP_WITH_CLIENT_IDS =  getProperty("sync.proj-grp.withIdentifier",prop);
+            COMMON_TABLES = getProperty("common.tables",prop);
+            SLIM_TABLES =  getProperty("slim.tables",prop);
+            SYNC_2017_SCHEMA = getProperty("sync2017.schema",prop);
+            SYNC_2017_INCLUDE_TABLES = getProperty("sync2017.includetables",prop);
+            SYNC_2017_EXCLUDE_TABLES = getProperty("sync2017.excludetables",prop);
+            SYNC_2017_PERIOD = Integer.valueOf(getProperty("sync2017.period",prop));
             
-            SLIM_TABLES =  prop.getProperty("slim.tables");
-            SYNC_2017_SCHEMA = prop.getProperty("sync2017.schema");
-            SYNC_2017_INCLUDE_TABLES = prop.getProperty("sync2017.includetables");
-            SYNC_2017_EXCLUDE_TABLES = prop.getProperty("sync2017.excludetables");
-            SYNC_2017_PERIOD = Integer.valueOf(prop.getProperty("sync2017.period"));
-            
-            SYNC_2016_SCHEMA = prop.getProperty("sync2016.schema");
-            SYNC_2016_INCLUDE_TABLES = prop.getProperty("sync2016.includetables");
-            SYNC_2016_EXCLUDE_TABLES = prop.getProperty("sync2016.excludetables");
-            SYNC_2016_PERIOD = Integer.valueOf(prop.getProperty("sync2016.period"));
+            SYNC_2016_SCHEMA = getProperty("sync2016.schema",prop);
+            SYNC_2016_INCLUDE_TABLES = getProperty("sync2016.includetables",prop);
+            SYNC_2016_EXCLUDE_TABLES = getProperty("sync2016.excludetables",prop);
+            SYNC_2016_PERIOD = Integer.valueOf(getProperty("sync2016.period",prop));
 
-            SYNC_2015_SCHEMA = prop.getProperty("sync2015.schema");
-            SYNC_2015_INCLUDE_TABLES = prop.getProperty("sync2015.includetables");
-            SYNC_2015_EXCLUDE_TABLES = prop.getProperty("sync2015.excludetables");
-            SYNC_2015_PERIOD = Integer.valueOf(prop.getProperty("sync2015.period"));
+            SYNC_2015_SCHEMA = getProperty("sync2015.schema",prop);
+            SYNC_2015_INCLUDE_TABLES = getProperty("sync2015.includetables",prop);
+            SYNC_2015_EXCLUDE_TABLES = getProperty("sync2015.excludetables",prop);
+            SYNC_2015_PERIOD = Integer.valueOf(getProperty("sync2015.period",prop));
 
-            SYNC_2014_SCHEMA = prop.getProperty("sync2014.schema");
-            SYNC_2014_INCLUDE_TABLES = prop.getProperty("sync2014.includetables");
-            SYNC_2014_EXCLUDE_TABLES = prop.getProperty("sync2014.excludetables");
-            SYNC_2014_PERIOD = Integer.valueOf(prop.getProperty("sync2014.period"));
+            SYNC_2014_SCHEMA = getProperty("sync2014.schema",prop);
+            SYNC_2014_INCLUDE_TABLES = getProperty("sync2014.includetables",prop);
+            SYNC_2014_EXCLUDE_TABLES = getProperty("sync2014.excludetables",prop);
+            SYNC_2014_PERIOD = Integer.valueOf(getProperty("sync2014.period",prop));
 
 
         } catch (Exception e) {
@@ -90,6 +92,14 @@ public class Properties {
         }
 
     }
+    
+    private String getProperty(String property,java.util.Properties prop) {
+    	try {
+    		return prop.getProperty(property);
+    	}catch(NullPointerException e) {
+    		return  "";
+    	}
+    }
 
     public void printProps() {
         System.out.println(POSTGRESQL_DB_HOST);
@@ -98,6 +108,7 @@ public class Properties {
         System.out.println(POSTGRESQL_DB_USERNAME);
         System.out.println(POSTGRESQL_DB_PASSWORD);
         System.out.println(HBASE_MASTER);
+        System.out.println(COMMON_TABLES);
         System.out.println(HBASE_ZOOKEEPER_QUORUM);
         System.out.println(HBASE_ZOOKEEPER_PROPERTY_CLIENT_PORT);
         System.out.println(SYNC_2016_SCHEMA);

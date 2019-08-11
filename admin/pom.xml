@@ -1,0 +1,125 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.servinglynk.hmis.warehouse</groupId>
+  <artifactId>hmis-admin</artifactId>
+  <packaging>war</packaging>
+  <version>2.0</version>
+  <name>hmis-admin Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <scm>
+  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
+ </scm>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<additionalProjectnatures>
+						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+					</additionalProjectnatures>
+					<additionalBuildcommands>
+						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+					</additionalBuildcommands>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+		</plugin>
+
+		<plugin>
+			<groupId>pl.allegro</groupId>
+			<artifactId>grunt-maven-plugin</artifactId>
+			<version>1.5.0</version>
+			<configuration>
+
+				<!-- relative to src/main/webapp/, default: static -->
+				<jsSourceDirectory>src/main/webapp</jsSourceDirectory>
+
+				<!-- example options usage to get verbose output in logs -->
+				<gruntOptions>
+					<gruntOption>--verbose</gruntOption>
+				</gruntOptions>
+
+				<!-- example npm install env variable -->
+				<npmEnvironmentVar>
+					<PHANTOMJS_CDNURL>http://cnpmjs.org/downloads</PHANTOMJS_CDNURL>
+				</npmEnvironmentVar>
+
+				<!-- example options usage to filter variables in given resource -->
+				<filteredResources>
+					<filteredResource>maven-properties.json</filteredResource>
+				</filteredResources>
+
+			</configuration>
+			<executions>
+				<execution>
+					<goals>
+						<!--<goal>create-resources</goal>-->
+						<goal>npm</goal>
+						<!--<goal>bower</goal>-->
+						<goal>grunt</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+
+<!-- <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>tomcat-maven-plugin</artifactId>
+    <configuration>
+        <url>http://ec2-52-34-4-204.us-west-2.compute.amazonaws.com:8080/manager/text</url>
+        <server>TomcatServer</server>
+        <path>/hmis-admin</path>
+    </configuration>
+</plugin> -->
+
+		</plugins>
+	</build>
+<!-- 	<repositories>
+    <repository>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <layout>default</layout>
+      <url>http://52.39.104.238:8080/nexus/content/groups/public</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://52.39.104.238:8080/nexus/content/groups/public</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+<distributionManagement>
+  <repository>
+     <id>deployment</id>
+     <name>Internal Releases</name>
+     <url>http://52.39.104.238:8080/nexus/content/repositories/releases/</url>
+  </repository>
+  <snapshotRepository>
+     <id>deployment</id>
+     <name>Internal Releases</name>
+     <url>http://52.39.104.238:8080/nexus/content/repositories/snapshots/</url>
+  </snapshotRepository>
+</distributionManagement> -->
+</project>

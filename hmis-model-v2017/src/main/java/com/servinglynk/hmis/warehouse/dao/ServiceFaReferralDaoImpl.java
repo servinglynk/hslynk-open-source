@@ -57,9 +57,9 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 							serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
 							serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFAAmount()));
 							serviceFaReferralModel.setOtherTypeProvided(serviceFaReferrals.getOtherTypeProvided());
-							serviceFaReferralModel.setReferralOutcome(new Integer(serviceFaReferrals.getReferralOutcome()).intValue());
-							serviceFaReferralModel.setSubTypeProvided(new Integer(serviceFaReferrals.getSubTypeProvided()).intValue());
-							serviceFaReferralModel.setTypeProvided(new Integer(serviceFaReferrals.getTypeProvided()).intValue());
+							serviceFaReferralModel.setReferralOutcome(BasicDataGenerator.getIntegerValue(serviceFaReferrals.getReferralOutcome()));
+							serviceFaReferralModel.setSubTypeProvided(BasicDataGenerator.getIntegerValue(serviceFaReferrals.getSubTypeProvided()));
+							serviceFaReferralModel.setTypeProvided(BasicDataGenerator.getIntegerValue(serviceFaReferrals.getTypeProvided()));
 							serviceFaReferralModel.setRecordType(RecordTypeEnum.lookupEnum(serviceFaReferrals.getRecordType()));
 							Enrollment enrollment = (Enrollment) getModel(Enrollment.class, serviceFaReferrals.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 							serviceFaReferralModel.setEnrollmentid(enrollment);
@@ -98,7 +98,13 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral) getModel(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class, services.getServicesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && modelFromDB != null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		

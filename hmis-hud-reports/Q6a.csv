@@ -1,8 +1,14 @@
 Data Element,Client Doesn't Know / Refused,Information Missing,Data Issues,% of Error Rate
-  Name,22,0,0,0
-  Social Security Number,5,0,0,1
-  Date of birth,5,0,0,1
-  Race,2,1,0,2
-  Ethnicity,0,0,1,0
+  Name,0,0,0,0
+<<<<<<< HEAD
+  Social Security Number,3,0,1,0
+  Date of birth,3,0,1,0
+  Race,1,0,0,0
+=======
+  Social Security Number,0,0,0,0
+  Date of birth,0,0,0,0
+  Race,0,0,0,0
+>>>>>>> bulk-uploader-reprocess
+  Ethnicity,0,0,0,0
   Gender,0,0,0,0
-  Overall Score,,,,1
+  Overall Score,,,,0

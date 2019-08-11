@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -34,7 +35,7 @@ import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
  */
 @Entity (name = "employment_v2017")
 @Table(name = "employment", catalog = "hmis", schema = "v2017")
-public class Employment extends HmisBaseModel implements Cloneable, Serializable {
+public class Employment extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -6654649692481756031L;
@@ -59,6 +60,7 @@ public class Employment extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	private EmploymentNotEmployedReasonEnum notEmployedReason;
 	private DataCollectionStageEnum dataCollectionStage;
+	private LocalDateTime submissionDate;
 
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
@@ -250,7 +252,16 @@ public class Employment extends HmisBaseModel implements Cloneable, Serializable
 
 	}
 
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
 
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
 
 	 /**
 	 * Set the value related to the column: export.

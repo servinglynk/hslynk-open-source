@@ -72,7 +72,13 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.VashExitReason) getModel(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason.class, expVASHExitReason.getVashExitReasonID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && modelFromDB != null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.VashExitReason();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		

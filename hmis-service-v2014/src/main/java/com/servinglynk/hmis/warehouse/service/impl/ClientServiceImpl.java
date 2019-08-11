@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
+import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.core.model.BaseClient;
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
@@ -31,8 +33,22 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		BeanUtils.copyProperties(pClient,baseClient);
 		baseClient.setPhoneNumber(client.getPhoneNumber());
 		baseClient.setEmailAddress(client.getEmailAddress());
-		daoFactory.getClientDao().createClient(pClient,baseClient);
-		client.setClientId(pClient.getId());		
+		String projectGroupCode = AuditUtil.getLoginUserProjectGroup();
+		// Lets check if a client exits in the same schema version and if does update the client.
+		UUID dedupedId = daoFactory.getHmisClientDao().determindDedupId(baseClient, projectGroupCode);
+		if(dedupedId!=null) {
+			pClient.setDedupClientId(dedupedId);
+			baseClient.setDedupClientId(dedupedId);
+		}
+		com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = daoFactory.getClientDao().getClientByDedupCliendId(dedupedId, projectGroupCode);
+		if(clientByDedupCliendId == null) {
+			daoFactory.getClientDao().createClient(pClient,baseClient);
+			client.setClientId(pClient.getId());
+		}else {
+			client.setClientId(clientByDedupCliendId.getId());
+			updateClient(client, caller);
+		}
+		client.setDedupClientId(pClient.getDedupClientId());
 		return client;
 	}
 
@@ -44,7 +60,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		if(pClient == null ) throw new ClientNotFoundException();
 		
 			ClientConverter.modelToEntity(client, pClient);
-		
+			pClient.setDateUpdated(LocalDateTime.now());
 			com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
 			BeanUtils.copyProperties(pClient, baseClient);
 			baseClient.setPhoneNumber(client.getPhoneNumber());

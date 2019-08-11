@@ -20,6 +20,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.WorsthousingsituationWorsthousingsituationEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -30,7 +31,7 @@ import com.servinglynk.hmis.warehouse.enums.WorsthousingsituationWorsthousingsit
  */
 @Entity(name = "worsthousingsituation")
 @Table(name = "worsthousingsituation", catalog = "hmis", schema = "v2014")
-public class Worsthousingsituation extends HmisBaseModel  implements Cloneable, Serializable {
+public class Worsthousingsituation extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -1087753249567076334L;

@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model.v2017;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -26,6 +27,7 @@ import com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnu
 import com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -38,7 +40,7 @@ import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
 
 @Entity (name = "entryssvf_v2017")
 @Table(name = "entryssvf", catalog = "hmis", schema = "v2017")
-public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable {
+public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -8876535059279041235L;
@@ -91,6 +93,8 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 	private NoYesEnum femvet;
 	private NoYesEnum urgentReferral;
 	private Integer thresholdscore;
+	private LocalDateTime submissionDate;
+	
 	
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -671,7 +675,16 @@ public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable 
 		this.thresholdscore = thresholdscore;
 	}
 
-	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
 	
 /**
     * Deep copy.

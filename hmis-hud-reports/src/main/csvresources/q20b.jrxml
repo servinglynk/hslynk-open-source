@@ -63,7 +63,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[   Source]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="29831fd8-0e69-48ff-b241-c2de5a3f7850"/>
@@ -77,7 +77,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[At entry]]></text>
+					<text><![CDATA[Benefit at Start]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="d315f1d6-c16d-4627-be48-0c38316d8cd1"/>
@@ -91,7 +91,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[  At Latest Annual Assessment for Stayers]]></text>
+					<text><![CDATA[Benefit at Latest Annual Assessment for Stayers]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="0fe5e4e8-4bcf-40ed-8473-322e126ff2d2"/>
@@ -105,7 +105,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[At Exit for Leavers]]></text>
+					<text><![CDATA[Benefit at Exit for Leavers]]></text>
 				</staticText>
 			</band>
 			<band height="26">

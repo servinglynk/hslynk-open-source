@@ -4,53 +4,53 @@ import java.math.BigInteger;
 
 public class Q27cGenderYouthDataBean {
 	
-	private BigInteger q27cMaleTotal;
-	private BigInteger q27cMaleWithoutChild;
-	private BigInteger q27cMaleWithChildAndAdults;
-	private BigInteger q27cMaleWithChildOnly;
-	private BigInteger q27cMaleUnknownHouseHoldtype;
+	private BigInteger q27cMaleTotal=BigInteger.valueOf(0);
+	private BigInteger q27cMaleWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27cMaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27cMaleWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27cMaleUnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27cFemaleTotal;
-	private BigInteger q27cFemaleWithoutChild;
-	private BigInteger q27cFemaleWithChildAndAdults;
-	private BigInteger q27cFemaleWithChildOnly;
-	private BigInteger q27cFemaleUnknownHouseHoldtype;
+	private BigInteger q27cFemaleTotal=BigInteger.valueOf(0);
+	private BigInteger q27cFemaleWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27cFemaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27cFemaleWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27cFemaleUnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27cTransgenderMaleToFemaleTotal;
-	private BigInteger q27cTransgenderMaleToFemaleWithoutChild;
-	private BigInteger q27cTransgenderMaleToFemaleWithChildAndAdults;
-	private BigInteger q27cTransgenderMaleToFemaleWithChildOnly;
-	private BigInteger q27cTransgenderMaleToFemaleUnknownHouseHoldtype;
+	private BigInteger q27cTransgenderMaleToFemaleTotal=BigInteger.valueOf(0);
+	private BigInteger q27cTransgenderMaleToFemaleWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27cTransgenderMaleToFemaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27cTransgenderMaleToFemaleWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27cTransgenderMaleToFemaleUnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27cTransgenderFemaleToMaleTotal;
-	private BigInteger q27cTransgenderFemaleToMaleWithoutChild;
-	private BigInteger q27cTransgenderFemaleToMaleWithChildAndAdults;
-	private BigInteger q27cTransgenderFemaleToMaleWithChildOnly;
-	private BigInteger q27cTransgenderFemaleToMaleUnknownHouseHoldtype;
+	private BigInteger q27cTransgenderFemaleToMaleTotal=BigInteger.valueOf(0);
+	private BigInteger q27cTransgenderFemaleToMaleWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27cTransgenderFemaleToMaleWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27cTransgenderFemaleToMaleWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27cTransgenderFemaleToMaleUnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27cOtherTotal;
-	private BigInteger q27cOtherWithoutChild;
-	private BigInteger q27cOtherWithChildAndAdults;
-	private BigInteger q27cOtherWithChildOnly;
-	private BigInteger q27cOtherUnknownHouseHoldtype;
+	private BigInteger q27cOtherTotal=BigInteger.valueOf(0);
+	private BigInteger q27cOtherWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27cOtherWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27cOtherWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27cOtherUnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27cDKRTotal;
-	private BigInteger q27cDKRWithoutChild;
-	private BigInteger q27cDKRWithChildAndAdults;
-	private BigInteger q27cDKRWithChildOnly;
-	private BigInteger q27cDKRUnknownHouseHoldtype;
+	private BigInteger q27cDKRTotal=BigInteger.valueOf(0);
+	private BigInteger q27cDKRWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27cDKRWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27cDKRWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27cDKRUnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27cInformationMissingTotal;
-	private BigInteger q27cInformationMissingWithoutChild;
-	private BigInteger q27cInformationMissingWithChildAndAdults;
-	private BigInteger q27cInformationMissingWithChildOnly;
-	private BigInteger q27cInformationMissingUnknownHouseHoldtype;
+	private BigInteger q27cInformationMissingTotal=BigInteger.valueOf(0);
+	private BigInteger q27cInformationMissingWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27cInformationMissingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27cInformationMissingWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27cInformationMissingUnknownHouseHoldtype=BigInteger.valueOf(0);
 		
-	private BigInteger q27cTotTotal;
-	private BigInteger q27cTotWithoutChild;
-	private BigInteger q27cTotWithChildAndAdults;
-	private BigInteger q27cTotWithChildOnly;
-	private BigInteger q27cTotUnknownHouseHoldtype;
+	private BigInteger q27cTotTotal=BigInteger.valueOf(0);
+	private BigInteger q27cTotWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27cTotWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27cTotWithChildOnly=BigInteger.valueOf(0);
+	private BigInteger q27cTotUnknownHouseHoldtype=BigInteger.valueOf(0);
 	public BigInteger getQ27cMaleTotal() {
 		return q27cMaleTotal;
 	}

@@ -20,6 +20,8 @@ public class DomesticviolenceConverter  extends BaseConverter {
     entity.setInformationDate(model.getInformationDate());
 
        entity.setCurrentlyFleeing(model.getCurrentlyFleeing());
+       
+		if(model.getSubmissionDate()!=null) entity.setSubmissionDate(model.getSubmissionDate());
        return entity;
    }
 
@@ -37,6 +39,8 @@ if(entity.getInformationDate()!=null)
      model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
 
        model.setCurrentlyFleeing(entity.getCurrentlyFleeing());
+       
+       if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
        return model;
    }
 

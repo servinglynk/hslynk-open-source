@@ -14,6 +14,7 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.servinglynk.hmis.warehouse.base.dao.ReportConfigDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
@@ -84,6 +85,7 @@ import com.servinglynk.hmis.warehouse.dao.SourceDao;
 import com.servinglynk.hmis.warehouse.dao.SourceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.VASHExitReasonDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 
 @Configuration
 @EnableTransactionManagement
@@ -364,5 +366,10 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public HMISTypeDaoImpl hmisTypeDao() {
 		return new HMISTypeDaoImpl();
+	}
+	
+	@Bean
+	public ChronicHomelessCalcHelper chronicHomelessCalcHelper() {
+		return new ChronicHomelessCalcHelper();
 	}
 }

@@ -25,6 +25,7 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -36,7 +37,7 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistance
 
 @Entity(name = "medicalassistance_v2017")
 @Table(name = "medicalassistance", catalog = "hmis", schema = "v2017")
-public class Medicalassistance extends HmisBaseModel implements Cloneable, Serializable {
+public class Medicalassistance extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -2018797611075738704L;
@@ -65,7 +66,8 @@ public class Medicalassistance extends HmisBaseModel implements Cloneable, Seria
 	/** Field mapping. */
 	private MedicalassistanceNohivaidsassistancereasonEnum nohivaidsassistancereason;
 	private DataCollectionStageEnum dataCollectionStage;
-
+	private LocalDateTime submissionDate;
+	
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
 	@Column
@@ -290,6 +292,18 @@ public class Medicalassistance extends HmisBaseModel implements Cloneable, Seria
 	 */
 	public void setExport(final Export export) {
 		this.export = export;
+	}
+	
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
 	}
 
    /**

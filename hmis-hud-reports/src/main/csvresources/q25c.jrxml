@@ -114,7 +114,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[ Gender]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="1" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="4933d8c0-1e96-415e-a547-81f43b0a6b13"/>
@@ -314,7 +314,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   c. Transgender male to female]]></text>
+					<text><![CDATA[   c. Trans Female (MTF or Male to Female)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="8a5f5085-0236-4bfd-9ad3-81e8e73437e3"/>
@@ -378,7 +378,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   d. Transgender female to male]]></text>
+					<text><![CDATA[   d. Trans Male (FTM or Female to Male)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="e1dcc52f-d92e-453b-be39-7712a17c7aa7"/>
@@ -442,7 +442,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[   e. Doesn’t identify as male, female, or transgender]]></text>
+					<text><![CDATA[   e. Gender Non-Conforming (i.e. not exclusively male or female)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="39" uuid="49b45953-6506-4656-85cc-705a6372a6b1"/>
@@ -506,7 +506,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  f. Client Doesn’t Know/Client Refused]]></text>
+					<text><![CDATA[  f. Client Doesn't Know/Client Refused]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="f2cc2565-706e-4d13-85c6-c6eb3e22d90f"/>

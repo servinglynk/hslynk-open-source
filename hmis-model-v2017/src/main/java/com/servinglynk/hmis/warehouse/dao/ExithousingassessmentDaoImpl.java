@@ -82,10 +82,15 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment) getModel(com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment.class, exithousingassessment.getExitHousingAssessmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && modelFromDB != null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
-		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment();
 			modelFromDB.setId(UUID.randomUUID());

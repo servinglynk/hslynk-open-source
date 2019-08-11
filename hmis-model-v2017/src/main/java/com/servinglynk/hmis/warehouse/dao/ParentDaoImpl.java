@@ -74,7 +74,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		 */
 		public boolean isFullRefresh(ExportDomain domain) {
 			String exportDirective = domain.getExport().getExportDirective();
-			if(StringUtils.isNotBlank(exportDirective) &&  exportDirective.contains("Full")) {
+			if((StringUtils.isNotBlank(exportDirective) &&  exportDirective.contains("Full"))  || domain.isFullRefresh()) {
 				return true;
 			}
 			return false;
@@ -260,6 +260,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			Criteria criteria = getCurrentSession().createCriteria(className);
 			criteria.add(Restrictions.eq("projectGroupCode",projectGroupCode.trim()));
 			criteria.add(Restrictions.eq("deleted",false));
+			criteria.add(Restrictions.isNull("parentId"));
 			criteria.addOrder( Order.desc("dateCreated") );
 			@SuppressWarnings("unchecked")
 			List<HmisBaseModel> models = (List<HmisBaseModel>) criteria.list() ;
@@ -278,8 +279,8 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 */
 	protected void performSaveOrUpdate(HmisBaseModel model,ExportDomain domain) {
 		if(domain.isReUpload()) {
+			getCurrentSession().saveOrUpdate(model);
 			model.setDateUpdated(LocalDateTime.now());
-			getCurrentSession().update(model);
 		}
 		else {
 			if(model.isIgnored()) {

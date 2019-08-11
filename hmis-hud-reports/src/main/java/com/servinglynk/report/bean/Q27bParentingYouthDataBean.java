@@ -4,15 +4,15 @@ import java.math.BigInteger;
 
 public class Q27bParentingYouthDataBean {
 
-	private BigInteger q27bParentYouthLeassThan18TotalParentingYouth;
-	private BigInteger q27bParentYouthLeassThan18TotalChildrenOfParentingYouth;
-	private BigInteger q27bParentYouthLeassThan18TotalPersons;
-	private BigInteger q27bParentYouthLeassThan18TotalHouseholds;
+	private BigInteger q27bParentYouthLeassThan18TotalParentingYouth=BigInteger.valueOf(0);
+	private BigInteger q27bParentYouthLeassThan18TotalChildrenOfParentingYouth=BigInteger.valueOf(0);
+	private BigInteger q27bParentYouthLeassThan18TotalPersons=BigInteger.valueOf(0);
+	private BigInteger q27bParentYouthLeassThan18TotalHouseholds=BigInteger.valueOf(0);
 
-	private BigInteger q27bParentYouth18To24TotalParentingYouth;
-	private BigInteger q27bParentYouth18To24TotalChildrenOfParentingYouth;
-	private BigInteger q27bParentYouth18To24TotalPersons;
-	private BigInteger q27bParentYouth18To24TotalHouseholds;
+	private BigInteger q27bParentYouth18To24TotalParentingYouth=BigInteger.valueOf(0);
+	private BigInteger q27bParentYouth18To24TotalChildrenOfParentingYouth=BigInteger.valueOf(0);
+	private BigInteger q27bParentYouth18To24TotalPersons=BigInteger.valueOf(0);
+	private BigInteger q27bParentYouth18To24TotalHouseholds=BigInteger.valueOf(0);
 	public BigInteger getQ27bParentYouthLeassThan18TotalParentingYouth() {
 		return q27bParentYouthLeassThan18TotalParentingYouth;
 	}

@@ -41,9 +41,8 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 				com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp entryRhspModel = null;
 				try {
 					entryRhspModel = getModelObject(domain, entryRhsp,data,modelMap);
-					entryRhspModel.setWorstHousingSituation(Integer.parseInt(entryRhsp.getWorstHousingSituation()));
-					//Sandeep TODO: Why am I seeing projectID here it should be projectEntryID.
-					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhsp.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					entryRhspModel.setWorstHousingSituation(BasicDataGenerator.getIntegerValue(entryRhsp.getWorstHousingSituation()));
+					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhsp.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					entryRhspModel.setEnrollmentid(enrollmentModel);
 					entryRhspModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsp.getDateCreated()));
 					entryRhspModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhsp.getDateUpdated()));
@@ -93,7 +92,13 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp) getModel(com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp.class, entryrhsp.getEntryRHSPID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && modelFromDB != null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {

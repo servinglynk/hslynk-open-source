@@ -6,18 +6,21 @@
 	<artifactId>hmis-service-v2017</artifactId>
 	<name>HMIS Service (v2017)</name>
 	<packaging>jar</packaging>
-	<version>2.0</version>
+	<parent>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hslynk-parent</artifactId>
+			<version>2.14.20</version>
+	</parent>
 	<scm>	
 			  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-		<parent-version>2.0</parent-version>
 		<java-version>1.8</java-version>
 		<servlet-version>3.0.1</servlet-version>
 		<jsp-version>2.2.1</jsp-version>
 		<jstl-version>1.2</jstl-version>
-		<spring-version>4.0.0.RELEASE</spring-version>
-		<spring-security-version>3.2.0.RELEASE</spring-security-version>
+		<spring-version>4.3.22.RELEASE</spring-version>
+		<spring-security-version>4.2.11.RELEASE</spring-security-version>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
@@ -179,32 +182,32 @@
 		 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-model-v2017</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency> 
 				<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>core-client</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 				 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency> 
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-serialize-v2017</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-base-service</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-base-model</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>

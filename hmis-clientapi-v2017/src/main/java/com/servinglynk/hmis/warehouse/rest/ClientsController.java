@@ -88,6 +88,7 @@ public class ClientsController extends ControllerBase {
 		serviceFactory.getClientService().createClient(client, session.getAccount().getUsername());
 		Client returnClient = new Client();
 		returnClient.setClientId(client.getClientId());
+		returnClient.setDedupClientId(client.getDedupClientId());
 		return returnClient;
 	}
 
@@ -168,14 +169,18 @@ public class ClientsController extends ControllerBase {
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_ENROLLMENT_BY_ID", checkSessionToken = true, checkTrustedApp = true)
 	public Enrollment getClientEnrollmentById(@PathVariable("clientid") UUID clientId,
-			@PathVariable("enrollmentid") UUID enrollmentId, HttpServletRequest request) throws Exception {
-		return serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			@PathVariable("enrollmentid") UUID enrollmentId,
+			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,	
+			HttpServletRequest request) throws Exception {
+		return serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,includeChildLinks);
 	}
 	
 	@RequestMapping(value="/enrollments/{enrollmentid}",method=RequestMethod.GET)
 	@APIMapping(value="GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
-	public Enrollment getEnrollmentById(@PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
-		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId);
+	public Enrollment getEnrollmentById(@PathVariable("enrollmentid") UUID enrollmentId ,
+			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,	
+			HttpServletRequest request) throws Exception {
+		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId,includeChildLinks);
 	}
 	
 	@RequestMapping(value = "/{clientid}/enrollments", method = RequestMethod.GET)
@@ -454,7 +459,7 @@ public class ClientsController extends ControllerBase {
 				maxItems);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/disabilitiess", method = RequestMethod.POST)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/disabilities", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_DISABILITIES", checkTrustedApp = true, checkSessionToken = true)
 	public Disabilities createDisabilities(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody Disabilities disabilities,
@@ -468,7 +473,7 @@ public class ClientsController extends ControllerBase {
 		return returndisabilities;
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/disabilitiess/{disabilitiesid}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilitiesid}", method = RequestMethod.PUT)
 	@APIMapping(value = "CLIENT_API_UPDATE_DISABILITIES", checkTrustedApp = true, checkSessionToken = true)
 	public void updateDisabilities(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("disabilitiesid") UUID disabilitiesId,
@@ -480,7 +485,7 @@ public class ClientsController extends ControllerBase {
 				session.getAccount().getUsername());
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/disabilitiess/{disabilitiesid}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilitiesid}", method = RequestMethod.DELETE)
 	@APIMapping(value = "CLIENT_API_DELETE_DISABILITIES", checkTrustedApp = true, checkSessionToken = true)
 	public void deleteDisabilities(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("disabilitiesid") UUID disabilitiesId,
@@ -492,7 +497,7 @@ public class ClientsController extends ControllerBase {
 		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/disabilitiess/{disabilitiesid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilitiesid}", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_DISABILITIES_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 	public Disabilities getDisabilitiesById(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("disabilitiesid") UUID disabilitiesId,
@@ -502,7 +507,7 @@ public class ClientsController extends ControllerBase {
 		return serviceFactory.getDisabilitiesService().getDisabilitiesById(disabilitiesId);
 	}
 
-	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/disabilitiess", method = RequestMethod.GET)
+	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/disabilities", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT_DISABILITIES", checkTrustedApp = true, checkSessionToken = true)
 	public DisabilitiesList getAllEnrollmentDisabilitiess(@PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId,

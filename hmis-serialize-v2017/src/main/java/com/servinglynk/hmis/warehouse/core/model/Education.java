@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("education")
 public class Education extends ClientModel{
@@ -50,5 +52,17 @@ public class Education extends ClientModel{
       public void setSchoolStatus(Integer schoolStatus){
           this.schoolStatus = schoolStatus;
       }
+      
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
+  	 LocalDateTime submissionDate;
+
+       public LocalDateTime getSubmissionDate() {
+ 		return submissionDate;
+ 	}
+ 	public void setSubmissionDate(LocalDateTime submissionDate) {
+ 		this.submissionDate = submissionDate;
+ 	}
+ 	
 
  }

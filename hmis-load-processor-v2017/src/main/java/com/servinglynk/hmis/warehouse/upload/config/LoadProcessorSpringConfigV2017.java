@@ -11,6 +11,7 @@ import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
 import com.servinglynk.hmis.warehouse.upload.service.BaseWorker;
+import com.servinglynk.hmis.warehouse.upload.service.ClientDedupWorker;
 import com.servinglynk.hmis.warehouse.upload.service.ClientWorkerChildren;
 import com.servinglynk.hmis.warehouse.upload.service.DisabilitiesWorker;
 import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorker;
@@ -55,7 +56,7 @@ public class LoadProcessorSpringConfigV2017 {
 	public ExitWorker exitWorker(){
 		return new ExitWorker();
 	}
-	
+
 	@Bean
 	public BulkUploaderWorkerDaoImpl getBulkUploaderWorkerDao(){
 		return new BulkUploaderWorkerDaoImpl();
@@ -64,6 +65,11 @@ public class LoadProcessorSpringConfigV2017 {
 	@Bean
 	public ReRunWorker reRunWorker(){
 		return new ReRunWorker();
+	}
+	
+	@Bean
+	public ClientDedupWorker clientDedupWorker(){
+		return new ClientDedupWorker();
 	}
 	
 }

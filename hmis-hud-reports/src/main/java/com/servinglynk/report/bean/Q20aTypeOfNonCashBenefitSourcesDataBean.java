@@ -4,29 +4,29 @@ import java.math.BigInteger;
 
 public class Q20aTypeOfNonCashBenefitSourcesDataBean {
 
-	private BigInteger q20aSupplementalNutritionalAssistanceAtEntry;
-	private BigInteger q20aSupplementalNutritionalAssistanceAtLatestStayers;
-	private BigInteger q20aSupplementalNutritionalAssistanceAtExitLeavers;
+	private BigInteger q20aSupplementalNutritionalAssistanceAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20aSupplementalNutritionalAssistanceAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20aSupplementalNutritionalAssistanceAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q20aWICAtEntry;
-	private BigInteger q20aWICAtLatestStayers;
-	private BigInteger q20aWICAtExitLeavers;
+	private BigInteger q20aWICAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20aWICAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20aWICAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q20aTANFChildCareAtEntry;
-	private BigInteger q20aTANFChildCareAtLatestStayers;
-	private BigInteger q20aTANFChildCareAtExitLeavers;
+	private BigInteger q20aTANFChildCareAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20aTANFChildCareAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20aTANFChildCareAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q20aTANFTransportationAtEntry;
-	private BigInteger q20aTANFTransportationAtLatestStayers;
-	private BigInteger q20aTANFTransportationAtExitLeavers;
+	private BigInteger q20aTANFTransportationAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20aTANFTransportationAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20aTANFTransportationAtExitLeavers=BigInteger.valueOf(0);
 
-	private BigInteger q20aOtherTANFAtEntry;
-	private BigInteger q20aOtherTANFAtLatestStayers;
-	private BigInteger q20aOtherTANFAtExitLeavers;
+	private BigInteger q20aOtherTANFAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20aOtherTANFAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20aOtherTANFAtExitLeavers=BigInteger.valueOf(0);
 		
-	private BigInteger q20aOtherSourcesAtEntry;
-	private BigInteger q20aOtherSourcesAtLatestStayers;
-	private BigInteger q20aOtherSourcesAtExitLeavers;
+	private BigInteger q20aOtherSourcesAtEntry=BigInteger.valueOf(0);
+	private BigInteger q20aOtherSourcesAtLatestStayers=BigInteger.valueOf(0);
+	private BigInteger q20aOtherSourcesAtExitLeavers=BigInteger.valueOf(0);
 	public BigInteger getQ20aSupplementalNutritionalAssistanceAtEntry() {
 		return q20aSupplementalNutritionalAssistanceAtEntry;
 	}

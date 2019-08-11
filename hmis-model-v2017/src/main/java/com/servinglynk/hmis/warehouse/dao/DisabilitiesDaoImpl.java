@@ -7,25 +7,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Disabilities;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TCellOrViralLoadSourceEnum;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
@@ -95,7 +90,13 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Disabilities) getModel(com.servinglynk.hmis.warehouse.model.v2017.Disabilities.class, disabilities.getDisabilitiesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && modelFromDB != null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Disabilities();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {

@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
 @JsonRootName("project")
@@ -19,7 +21,11 @@ public class Project extends ClientModel {
     private Integer trackingMethod;
     private UUID organizationId;
     private String projectGroup;
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
     private LocalDateTime operatingStartDate;
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
     private LocalDateTime operatingEndDate;
     private Integer housingType;
     private Integer victimServicesProvider;

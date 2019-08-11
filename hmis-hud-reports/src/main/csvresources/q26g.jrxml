@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="241"/>
 	<field name="q26gEarnedIncomeAtEntry" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q26gEarnedIncomeAtEntry]]></fieldDescription>
 	</field>
@@ -162,7 +162,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[Source]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="47bfc478-da28-4be0-9d2d-6819ced0ca23"/>
@@ -176,7 +176,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[At Entry]]></text>
+					<text><![CDATA[Income at Start]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="8760c7c0-a135-4e5f-8143-117d84881f3a"/>
@@ -190,7 +190,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[At Latest Annual Assessment for Stayers]]></text>
+					<text><![CDATA[Income at Latest Annual Assessment for Stayers]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="de968bf5-6dbc-4618-bd8b-1f25da4db6a5"/>
@@ -204,7 +204,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<text><![CDATA[At Exit for Leavers]]></text>
+					<text><![CDATA[Income at Exit for Leavers]]></text>
 				</staticText>
 			</band>
 			<band height="26">
@@ -324,7 +324,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  c. SSI]]></text>
+					<text><![CDATA[  c. Supplemental Security Income (SSI)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -376,7 +376,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  d. SSDI]]></text>
+					<text><![CDATA[  d. Social Security Disability Insurance (SSDI)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -638,7 +638,7 @@ Compensation]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  i. TANF]]></text>
+					<text><![CDATA[  i. Temporary Assistance for Needy Families (TANF)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -690,7 +690,7 @@ Compensation]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  j. General Assistance]]></text>
+					<text><![CDATA[  j. General Assistance (GA)]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -742,7 +742,7 @@ Compensation]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  k. Retirement (Social Security)]]></text>
+					<text><![CDATA[  k. Retirement Income from Social Security]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -794,7 +794,7 @@ Compensation]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  l. Pension from Former Job]]></text>
+					<text><![CDATA[  l. Pension or retirement income from a former job]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>
@@ -1002,7 +1002,7 @@ Compensation]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  p. Adults with income information at entry and annual assessment / exit]]></text>
+					<text><![CDATA[  p. Chronically Homeless Persons with Income Information at Start and Annual Assessment/Exit]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="84" uuid="d2a693fb-0739-45d5-9295-9655e022d1ce"/>

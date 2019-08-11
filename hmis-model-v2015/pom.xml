@@ -6,18 +6,21 @@
 	<artifactId>hmis-model-v2015</artifactId>
 	<name>hmis-model-v2015</name>
 	<packaging>jar</packaging>
-	<version>2.0</version>
+	<parent>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+		<artifactId>hslynk-parent</artifactId>
+		<version>2.14.20</version>
+	</parent>
 	<scm>
 		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-		<parent-version>2.0</parent-version>
 		<java-version>1.8</java-version>
 		<servlet-version>3.0.1</servlet-version>
 		<jsp-version>2.2.1</jsp-version>
 		<jstl-version>1.2</jstl-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>	
-		<spring-version>4.0.0.RELEASE</spring-version>
+		<spring-version>4.3.22.RELEASE</spring-version>
 		<spring-security-version>3.2.0.RELEASE</spring-security-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
@@ -32,7 +35,7 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-s3-client</artifactId>
-			<version>${parent-version}</version>
+			<version>${parent.version}</version>
 		</dependency>
 		<!-- Spring -->
 		<dependency>
@@ -207,12 +210,12 @@
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-core-common</artifactId>
-			  <version>${parent-version}</version>
+			  <version>${parent.version}</version>
 			</dependency>
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-model</artifactId>
-			  <version>${parent-version}</version>
+			  <version>${parent.version}</version>
 			</dependency>
 	</dependencies>
 		<build>

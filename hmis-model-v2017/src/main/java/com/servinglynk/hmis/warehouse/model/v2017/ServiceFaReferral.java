@@ -21,6 +21,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
 import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -33,7 +34,7 @@ import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
 
 @Entity(name = "service_fa_referral_v2017")
 @Table(name = "service_fa_referral", catalog = "hmis", schema = "v2017")
-public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Serializable {
+public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Serializable ,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 6799387931915626866L;
@@ -65,6 +66,9 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 	private Integer typeProvided;
 	/** Field mapping. */
 	private LocalDateTime dateprovided;
+	
+	private LocalDateTime submissionDate;
+	
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -328,6 +332,18 @@ public class ServiceFaReferral extends HmisBaseModel implements Cloneable, Seria
 	public void setExport(final Export export) {
 		this.export = export;
 	}
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

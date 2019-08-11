@@ -81,7 +81,13 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition) getModel(com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition.class, housingassessmentdisposition.getHousingAssessmentDispositionID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload() && modelFromDB != null) {
+		if(domain.isReUpload()) {
+			if(modelFromDB != null) {
+				return modelFromDB;
+			}
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		

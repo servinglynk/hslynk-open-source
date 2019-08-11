@@ -33,6 +33,7 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYPhysicalDisabilityFamEnum;
 import com.servinglynk.hmis.warehouse.enums.EntryRHYUnemploymentFamEnum;
 import com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 /**
  * Object mapping for hibernate-handled table: entryrhy.
@@ -44,7 +45,7 @@ import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEn
 
 @Entity (name = "entryrhy_v2017")
 @Table(name = "entryrhy", catalog = "hmis", schema = "v2017")
-public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
+public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable,EnrollmentSharingModel {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = 7937252363949404166L;
@@ -96,6 +97,8 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	private DataCollectionStageEnum dataCollectionStage;
 	/** Field mapping. */
 	private LocalDateTime informationDate;
+	
+	private LocalDateTime submissionDate;
 
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
@@ -477,6 +480,18 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable {
 	public void setExport(final Export export) {
 		this.export = export;
 	}
+	
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

@@ -26,6 +26,7 @@ import com.servinglynk.hmis.warehouse.enums.EvictionhistoryEnum;
 import com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
+import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
 
 
 /**
@@ -38,7 +39,7 @@ import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
 
 @Entity (name = "entryssvf_v2016")
 @Table(name = "entryssvf", catalog = "hmis", schema = "v2016")
-public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable {
+public class Entryssvf extends HmisBaseModel implements Cloneable, Serializable ,EnrollmentSharingModel{
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -8876535059279041235L;

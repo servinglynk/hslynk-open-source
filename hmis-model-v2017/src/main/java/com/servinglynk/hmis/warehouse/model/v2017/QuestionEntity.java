@@ -46,6 +46,9 @@ public class QuestionEntity  implements Cloneable, Serializable {
 	@Column(name="uri_object_field")
 	private String uriObjectField;
 	
+	@Column(name="question_group_id")
+	private Long questionGroupId;
+	
 	public UUID getId() {
 		return id;
 	}
@@ -100,5 +103,11 @@ public class QuestionEntity  implements Cloneable, Serializable {
 	}
 	public void setUriObjectField(String uriObjectField) {
 		this.uriObjectField = uriObjectField;
+	}
+	public Long getQuestionGroupId() {
+		return questionGroupId;
+	}
+	public void setQuestionGroupId(Long questionGroupId) {
+		this.questionGroupId = questionGroupId;
 	}
 }

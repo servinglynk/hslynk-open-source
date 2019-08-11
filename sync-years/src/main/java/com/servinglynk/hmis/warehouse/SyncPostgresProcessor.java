@@ -9,9 +9,12 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 public class SyncPostgresProcessor extends Logging{
@@ -31,6 +34,26 @@ public class SyncPostgresProcessor extends Logging{
         }
         return connection;
     }
+    
+    public static Map<String,String> getColumnsForTable(String tableName, String schema) {
+    	Map<String,String> columns = new HashMap<>();
+         ResultSet resultSet = null;
+         PreparedStatement statement = null;
+         Connection connection = null;
+         try{
+             connection = getConnection();
+             statement = connection.prepareStatement("select column_name,data_type from information_schema.columns where table_schema=? and table_name=?");
+             statement.setString(1, schema);
+             statement.setString(2, tableName);
+             resultSet = statement.executeQuery();
+             while (resultSet.next()){
+            	 columns.put(resultSet.getString("column_name"),resultSet.getString("data_type"));
+             }
+         }catch (Exception ex){
+             logger.error(" Error getting metadata for table "+tableName + "schema :"+schema);
+         }
+         return columns;
+	}
 
     public static List<String> getAllTablesFromPostgres(String schemaName) throws Exception{
         List<String> tables = new ArrayList<>();
@@ -38,16 +61,14 @@ public class SyncPostgresProcessor extends Logging{
         PreparedStatement statement = null;
         Connection connection = null;
         try{
-        	  logger.info("Host name"+Properties.POSTGRESQL_DB_HOST);
-              logger.info("POSTGRESQL_DB_PORT"+Properties.POSTGRESQL_DB_PORT);
-              logger.info("POSTGRESQL_DB_DATABASE"+Properties.POSTGRESQL_DB_DATABASE);
-              logger.info("POSTGRESQL_DB_USERNAME"+Properties.POSTGRESQL_DB_USERNAME);
-              logger.info("POSTGRESQL_DB_PASSWORD"+Properties.POSTGRESQL_DB_PASSWORD);
             connection = getConnection();
             statement = connection.prepareStatement("SELECT table_name FROM information_schema.tables WHERE table_schema='"+schemaName+"'");
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                tables.add(resultSet.getString("table_name"));
+            	String tableName = resultSet.getString("table_name");
+            	if(!StringUtils.equalsIgnoreCase(tableName, "question") && !StringUtils.equalsIgnoreCase(tableName, "hmis_type")) {
+            		 tables.add(tableName);
+            	}
             }
 
         }catch (Exception ex){
@@ -63,7 +84,7 @@ public class SyncPostgresProcessor extends Logging{
         List<String> projectGroupCodes = new ArrayList<String>();
         try {
             connection = getConnection();
-            statement = connection.prepareStatement("SELECT distinct(project_group_code) FROM base.hmis_project_group where project_group_code not in ('IL0009','BD0005','TE0008','MO0006','TE0011','JP0005','FI0009','BA0007','PG0001','TE0003')");
+            statement = connection.prepareStatement("SELECT distinct(project_group_code) FROM base.hmis_project_group where active=true");
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
             	projectGroupCodes.add(resultSet.getString(1));
@@ -132,7 +153,43 @@ public class SyncPostgresProcessor extends Logging{
         }
         return null;
     }
+    public static void  populateDB() {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement("select schema,count,month,year,date_created,date_updated,project_group_code  from hsynk_bill.db_count where deleted = true and date_created >= '2019-06-10 22:00:00' ");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+            	for(int i=-10;i<0;i++) {
+            		 Calendar cal = Calendar.getInstance();
+                 	Timestamp timestamp = resultSet.getTimestamp("date_created");
+                 	cal.setTimeInMillis(timestamp.getTime());
+                     cal.add(Calendar.DAY_OF_MONTH, i);
+                     timestamp = new Timestamp(cal.getTime().getTime());
+                     System.out.println(timestamp);
+                 	hydrateDBCount(resultSet.getString("schema"), resultSet.getInt("count"), resultSet.getInt("month"), resultSet.getInt("year"), timestamp, timestamp,resultSet.getString("project_group_code"));
+            	}
+            
+            
+            }
 
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            logger.error(e);
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                    //connection.close();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    logger.error(e);
+                }
+            }
+        }
+    }
     private static boolean validateBulkUploadId(ResultSet resultSet) throws SQLException {
         boolean valid = true;
         for (int i = 1; i < 6; i++) {
@@ -222,6 +279,8 @@ public class SyncPostgresProcessor extends Logging{
         return currentTimestamp;
 
     }
+    
+
 
     public static void updateBulkUploadStatusToLive(Long id, Logger logger) {
         PreparedStatement statement = null;
@@ -262,6 +321,38 @@ public class SyncPostgresProcessor extends Logging{
             statement.setString(4,projectGroupCode);
             statement.setTimestamp(5, getCUrrentTimestamp());
             statement.setTimestamp(6, getCUrrentTimestamp());
+            statement.executeUpdate();
+        }catch (SQLException ex) {
+            logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+
+        } finally {
+
+            try {
+                if (statement != null) {
+                	statement.close();
+                }
+            } catch (SQLException ex) {
+            	logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+            }
+        }
+    }
+    
+    
+    //select schema,count,month,year,date_created,date_updated,deleted  from hsynk_bill.db_count where deleted = true and date_created >= '2019-06-10 00:33:00' 
+    public static void hydrateDBCount(String schemaName,int count,int month,int year, Timestamp dateCreated,Timestamp dateUpdated,String projectGroupCode){
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("insert into hsynk_bill.db_count (schema,count,month,year,date_created,date_updated,deleted,project_group_code)  values (?,?,?,?,?,?,?,?)");
+            statement.setString(1, schemaName);
+            statement.setInt(2,count);
+            statement.setInt(3,month);
+            statement.setInt(4,year);
+            statement.setTimestamp(5, dateCreated);
+            statement.setTimestamp(6, dateUpdated);
+            statement.setBoolean(7,true);
+            statement.setString(8,projectGroupCode);
             statement.executeUpdate();
         }catch (SQLException ex) {
             logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);

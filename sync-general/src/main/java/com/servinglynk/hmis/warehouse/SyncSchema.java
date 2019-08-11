@@ -7,6 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,15 +36,15 @@ public class SyncSchema extends Logging {
         this.syncSchemas = Properties.SYNC_SCHEMAS;
     }
 
-    public void sync(boolean delta) throws Exception {
+    public void sync(boolean delta,Properties props) throws Exception {
         List<String> projectGroupCodes = SyncPostgresProcessor.getAllProjectGroupCodes(logger);
         for(String projectGroupCode : projectGroupCodes) {
-        	 syncTablesToHBase(delta,projectGroupCode);
+        	 syncTablesToHBase(delta,projectGroupCode,props);
         }
         log.info("Sync process completed.");
     }
 
-    private void syncTablesToHBase(boolean delta,String projectGroupCode) throws Exception {
+    private void syncTablesToHBase(boolean delta,String projectGroupCode,Properties props) throws Exception {
         if (syncSchemas.trim().length() > 0) {
             String[] schemas = syncSchemas.split(",");
             for (String schema : schemas) {
@@ -73,7 +74,7 @@ public class SyncSchema extends Logging {
                     for (final String tableName : tables) {
                         logger.info("[" + tableName + "] Processing table : " + tableName);
                         try {
-                            syncTable(tableName, tableName + "_" + projectGroupCode, schema,delta,projectGroupCode);
+                            syncTable(tableName, tableName + "_" + projectGroupCode, schema,delta,projectGroupCode,props);
                         } catch (Exception ex) {
                            logger.error(ex);
                         }
@@ -89,7 +90,7 @@ public class SyncSchema extends Logging {
         }
     }
 
-    private void syncTable(String postgresTable, String hbaseTable, String syncSchema,boolean delta,String projectGroupCode) {
+    private void syncTable(String postgresTable, String hbaseTable, String syncSchema,boolean delta,String projectGroupCode,Properties props) {
         log.info("Start sync for table: " + postgresTable);
         HTable htable;
         ResultSet resultSet;
@@ -104,23 +105,23 @@ public class SyncSchema extends Logging {
             Long insertCount =0L;
             Long updateCount =0L;
             Long deleteCount =0L;
+            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
             while(true) {
-            	int limit = 20000;
+            	int limit = 50000;
             	String deltaQuery = "";
             	if(delta) {
-            		deltaQuery=" and date_updated >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code='"+projectGroupCode+"' order by date_updated  desc limit 1 ) ";
+            		deltaQuery=" and date_updated >= ( CURRENT_DATE - "+ props.ACTIVE_LIST_DAYS+ " ) ";
             		if(StringUtils.equals("survey", syncSchema)) {
-            			deltaQuery=" and updated_at >= (select date_created from "+syncSchema+".sync where sync_table='"+postgresTable+"' and project_group_code ='"+projectGroupCode+"' order by updated_at  desc limit 1 ) ";
+            			deltaQuery=" and updated_at >= (CURRENT_DATE - "+ props.ACTIVE_LIST_DAYS+ " ) ";
             		}
             	}
-            	String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
+            String sql  = "SELECT * FROM " + syncSchema + "." + postgresTable +" where project_group_code = ? "+deltaQuery+" limit ?  offset ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, projectGroupCode);
             statement.setInt(2, 50000);
             int offset = limit*count++;
             statement.setInt(3,offset);
             resultSet = statement.executeQuery();
-            List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
             List<String> existingKeysInPostgres = new ArrayList<>();
             List<Put> putsToUpdate = new ArrayList<>();
             List<Put> putsToInsert = new ArrayList<>();
@@ -137,9 +138,15 @@ public class SyncSchema extends Logging {
 	                    markedForDelete = false;
 	                }
                 }
-                ResultSetMetaData metaData = resultSet.getMetaData();
-                String key = resultSet.getString("id");
-                if(key.trim() == ""){
+                String key = "";
+                try {
+                	 key = resultSet.getString("id");
+                }catch(Exception e) {
+                	String primaryKey = SyncPostgresProcessor.getPrimaryKeyColumn(postgresTable, syncSchema);
+                	key = resultSet.getString(primaryKey);
+                }
+               
+                if(StringUtils.isBlank(key)){
                     continue;
                 }
                 if (markedForDelete) {
@@ -154,10 +161,12 @@ public class SyncSchema extends Logging {
                         continue;
                     }
                 } else {
+                	Map<String, String> columnMap = SyncPostgresProcessor.getColumnsForTable(postgresTable, syncSchema);
                     Put p = new Put(Bytes.toBytes(key));
-                    for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                        String column = metaData.getColumnName(i);
-                        String value = resultSet.getString(i);
+                    Set<String> columns =  columnMap.keySet();
+                    for (String column : columns) {
+                        String columnTypeName = columnMap.get(column);
+                        String value = getValue(resultSet,column, columnTypeName);
                         if (StringUtils.isNotEmpty(column) && StringUtils.isNotEmpty(value)) {
                             p.addColumn(Bytes.toBytes("CF"),
                                     Bytes.toBytes(column),
@@ -198,7 +207,6 @@ public class SyncSchema extends Logging {
             if(empty){
             	break;
             }
-            	
         }
         message = " Records inserted : "+insertCount +" updated :"+ updateCount+ " deleted :"+ deleteCount;
         SyncPostgresProcessor.hydrateSyncTable(syncSchema, postgresTable, "COMPLETED", message,projectGroupCode);
@@ -210,6 +218,29 @@ public class SyncSchema extends Logging {
     log.info("Sync done for table: " + postgresTable);
     }
 
+    private static String getValue(ResultSet resultSet, String column, String columnTypeName) {
+    	try {
+    		Object object = resultSet.getObject(column);
+        	if(object !=null) {
+        		return  object.toString();
+        	}
+    	}catch(Exception e) {
+    		// eat the exception
+    	}
+    	
+    	return null;
+//    	if(StringUtils.equalsIgnoreCase("boolean", columnTypeName)) {
+//    		Boolean bool = (Boolean) resultSet.getBoolean(column);
+//    		return  bool!= null ? bool.toString() : null;
+//    	}
+//    	if(StringUtils.equalsIgnoreCase("integer", columnTypeName)) {
+//    		 int intValue = resultSet.getInt(column);
+//    		return esultSet.getInt(column)) : null;
+//    	}	
+//    		
+//    	case "timestamp":
+//    	case "date":
+	}
     public void syncBase(boolean delta) {
     	   Map<UUID,String> projectGroups = SyncPostgresProcessor.getAllProjectGroupId(logger);
     	   String postgresTable = "hmis_user";
@@ -342,6 +373,6 @@ public class SyncSchema extends Logging {
 		props.printProps();
 		SyncSchema sync = new SyncSchema(logger);
 		sync.syncBase(true);
-		sync.sync(true);
+		sync.sync(false,props);
     }
 }

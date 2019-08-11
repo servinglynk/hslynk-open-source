@@ -1,7 +1,18 @@
-Income change by income category,Had income category at entry and did not have it at followup,Retained income category but had less $ at follow-up than at entry,Retained income category and same $ at follow-up as at entry,Retained income category and increased $ at followup,Did not have the income category at entry and gained the income category at follow-up,Did not have the income category at entry or follow-up,Total adults (including those with no income),Performance measures: Adults who gained or increased income from entry to followup;Average gain,Percent
- 1. Number of adults with earned income,0,0,0,0,0,0,0,0,0
- 2.Average change in earned income,0,0,0,0,0,0,0,0,0
- 3.Number of adults with other income,0,0,0,0,0,0,0,0,0
- 4.Average change in other income,0,0,0,0,0,0,0,0,0
- 5.Number of adults with any income,0,0,0,0,0,0,0,0,0
- 6.Average change in overall income,0,0,0,0,0,0,0,0,0
+"Income Change by Income Category
+(Universe: Adult Stayers with Income Informatio",Had Income Category at Start and Did Not Have It at Annual Assessment,Retained Income  Category But Had Less $ at Annual Assessment Than at Start,Retained Income Category and Same $ at Annual Assessment as at Start,Retained Income Category and Increased $ at Annual Assessment,Did Not Have the Income Category at Start and Gained the Income Category at Annual Assessmen,Did Not Have the Income Category at Start or at Annual Assessment,Total Adults (including those with No Income),"Performance Measure:
+Adults who Gained or Increased Income from Start to Annual Assessment,
+Average ",Performance measure: Percent of persons who accomplished 
+<<<<<<< HEAD
+"  Number of Adults with  Earned Income (i.e., ",0,0,0,0,0,342,171,0,0
+ Average Change in Earned Income,0,0,0,0,0,0,0,0,0
+ Number of Adults with Other Income,0,0,0,0,0,342,171,0,0
+ Average Change in Other Income,0,0,0,0,0,0,0,0,0
+" Number of Adults with Any Income (i.e., Total Income)",0,0,0,0,0,342,171,0,0
+=======
+"  Number of Adults with  Earned Income (i.e., ",0,0,0,0,0,0,0,0,0
+ Average Change in Earned Income,0,0,0,0,0,0,0,0,0
+ Number of Adults with Other Income,0,0,0,0,0,0,0,0,0
+ Average Change in Other Income,0,0,0,0,0,0,0,0,0
+" Number of Adults with Any Income (i.e., Total Income)",0,0,0,0,0,0,0,0,0
+>>>>>>> bulk-uploader-reprocess
+ Average Change in Overall Income,0,0,0,0,0,0,0,0,0

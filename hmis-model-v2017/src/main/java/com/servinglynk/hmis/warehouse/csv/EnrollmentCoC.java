@@ -8,36 +8,38 @@ public class EnrollmentCoC {
 	@MapToColumn(column=0)
 	private String EnrollmentCOCID;
 	@MapToColumn(column=1)
-	private String ProjectEntryID;
+	private String EnrollmentID;
 	@MapToColumn(column=2)
-	private String ProjectID;
+	private String HouseholdID;
 	@MapToColumn(column=3)
-	private String PersonalID;
+	private String ProjectID;
 	@MapToColumn(column=4)
-	private String InformationDate;
+	private String PersonalID;
 	@MapToColumn(column=5)
-	private String CoCCode;
+	private String InformationDate;
 	@MapToColumn(column=6)
-	private String DataCollectionStage;
+	private String CoCCode;
 	@MapToColumn(column=7)
-	private String DateCreated;
+	private String DataCollectionStage;
 	@MapToColumn(column=8)
-	private String DateUpdated;
+	private String DateCreated;
 	@MapToColumn(column=9)
-	private String UserID;
+	private String DateUpdated;
 	@MapToColumn(column=10)
-	private String DateDeleted;
+	private String UserID;
 	@MapToColumn(column=11)
+	private String DateDeleted;
+	@MapToColumn(column=12)
 	private String ExportID;
 		
 
 	
 	
-	public String getProjectEntryID() {
-		return ProjectEntryID;
+	public String getEnrollmentID() {
+		return EnrollmentID;
 	}
-	public void setProjectEntryID(String projectEntryID) {
-		ProjectEntryID = projectEntryID;
+	public void setEnrollmentID(String projectEntryID) {
+		EnrollmentID = projectEntryID;
 	}
 	public String getProjectID() {
 		return ProjectID;
@@ -105,6 +107,12 @@ public class EnrollmentCoC {
 	}
 	public void setExportID(String exportID) {
 		ExportID = exportID;
+	}
+	public String getHouseholdID() {
+		return HouseholdID;
+	}
+	public void setHouseholdID(String householdID) {
+		HouseholdID = householdID;
 	}
 	
 }

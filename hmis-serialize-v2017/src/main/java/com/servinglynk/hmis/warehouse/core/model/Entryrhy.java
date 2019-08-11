@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("entryrhy")
 public class Entryrhy extends ClientModel{
@@ -42,7 +44,8 @@ public class Entryrhy extends ClientModel{
       private Integer referralSource;
 
       private Integer countOutReachReferralApproaches;
-
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
 
@@ -168,5 +171,16 @@ public class Entryrhy extends ClientModel{
 	public void setMonthsJuvenileJustice(Integer monthsJuvenileJustice) {
 		this.monthsJuvenileJustice = monthsJuvenileJustice;
 	}
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
+	 LocalDateTime submissionDate;
+
+     public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
 
  }

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonRootName("erviceFaReferral")
+@JsonRootName("serviceFaReferral")
 public class Servicefareferral extends ClientModel{
 
 		@JsonProperty("erviceFaReferralId")		
@@ -31,6 +31,16 @@ public class Servicefareferral extends ClientModel{
       private BigDecimal faAmount;
 
       private Integer referralOutcome;
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
+   	 LocalDateTime submissionDate;
+
+        public LocalDateTime getSubmissionDate() {
+  		return submissionDate;
+  	}
+  	public void setSubmissionDate(LocalDateTime submissionDate) {
+  		this.submissionDate = submissionDate;
+  	}
 
 
 

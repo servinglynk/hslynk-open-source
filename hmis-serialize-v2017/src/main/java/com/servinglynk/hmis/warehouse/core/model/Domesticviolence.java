@@ -5,11 +5,13 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("domesticViolence")
 public class Domesticviolence extends ClientModel{
 
-
+	@JsonProperty("domesticViolenceId")
       private UUID domesticviolenceId;
       @JsonProperty("domesticViolenceVictim")
       private Integer domesticviolencevictim;
@@ -18,9 +20,23 @@ public class Domesticviolence extends ClientModel{
       private Integer whenoccurred;
 
       private Integer currentlyFleeing;
-
+      
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
+      
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
+   	 LocalDateTime submissionDate;
+
+        public LocalDateTime getSubmissionDate() {
+  		return submissionDate;
+  	}
+  	public void setSubmissionDate(LocalDateTime submissionDate) {
+  		this.submissionDate = submissionDate;
+  	}
+
 
       public LocalDateTime getInformationDate() {
 		return informationDate;

@@ -41,7 +41,7 @@ public class SyncPostgresProcessor extends Logging{
         List<String> projectGroupCodes = new ArrayList<String>();
         try {
             connection = getConnection();
-            statement = connection.prepareStatement("SELECT distinct(project_group_code) FROM base.hmis_project_group where project_group_code not in ('BD0005','IL0009','TE0008','MO0006','TE0011','JP0005','FI0009','BA0007','PG0001','TE0003','CP0004')");
+            statement = connection.prepareStatement("SELECT distinct(project_group_code) FROM base.hmis_project_group where active=true");
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
             	projectGroupCodes.add(resultSet.getString(1));
@@ -72,7 +72,7 @@ public class SyncPostgresProcessor extends Logging{
         
         try {
             connection = getConnection();
-              statement = connection.prepareStatement("SELECT project_group_code,id FROM base.hmis_project_group where project_group_code not in ('BD0005','IL0009','TE0008','MO0006','TE0011','JP0005','FI0009','BA0007','PG0001','TE0003','CP0004')");
+              statement = connection.prepareStatement("SELECT project_group_code,id FROM base.hmis_project_group where active=true");
           //  statement = connection.prepareStatement("SELECT project_group_code,id FROM base.hmis_project_group where project_group_code  in ('MO0010')");
 
             resultSet = statement.executeQuery();
@@ -116,6 +116,44 @@ public class SyncPostgresProcessor extends Logging{
         return tables;
     }
     
+    public static String getPrimaryKeyColumn(String tableName, String schema) {
+    	 String primaryKey = "";
+         ResultSet resultSet = null;
+         PreparedStatement statement = null;
+         Connection connection = null;
+         try{
+             connection = getConnection();
+             statement = connection.prepareStatement("select column_name from information_schema.columns where table_schema=? and table_name=? and ordinal_position=1");
+             statement.setString(1, schema);
+             statement.setString(2, tableName);
+             resultSet = statement.executeQuery();
+             while (resultSet.next()){
+            	 primaryKey = resultSet.getString("column_name");
+             }
+         }catch (Exception ex){
+             logger.error(" Error getting metadata for table "+tableName + "schema :"+schema);
+         }
+         return primaryKey;
+	}
+    public static Map<String,String> getColumnsForTable(String tableName, String schema) {
+    	Map<String,String> columns = new HashMap<>();
+         ResultSet resultSet = null;
+         PreparedStatement statement = null;
+         Connection connection = null;
+         try{
+             connection = getConnection();
+             statement = connection.prepareStatement("select column_name,data_type from information_schema.columns where table_schema=? and table_name=?");
+             statement.setString(1, schema);
+             statement.setString(2, tableName);
+             resultSet = statement.executeQuery();
+             while (resultSet.next()){
+            	 columns.put(resultSet.getString("column_name"),resultSet.getString("data_type"));
+             }
+         }catch (Exception ex){
+             logger.error(" Error getting metadata for table "+tableName + "schema :"+schema);
+         }
+         return columns;
+	}
     public static void hydrateSyncTable(String schemaName,String tableName,String status,String message,String projectGroupCode){
         PreparedStatement statement = null;
         Connection connection = null;
@@ -145,7 +183,7 @@ public class SyncPostgresProcessor extends Logging{
     }
 
 
-    private static Timestamp getCUrrentTimestamp() {
+    public static Timestamp getCUrrentTimestamp() {
         Calendar calendar = Calendar.getInstance();
         java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(calendar.getTime().getTime());
         return currentTimestamp;

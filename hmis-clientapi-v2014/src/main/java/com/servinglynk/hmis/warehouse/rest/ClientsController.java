@@ -166,7 +166,8 @@ public class ClientsController extends ControllerBase {
 	}
 
 	@RequestMapping(value="/enrollments/{enrollmentid}",method=RequestMethod.GET)
-	@APIMapping(value="GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
+//	@APIMapping(value="GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
+	@APIMapping(value="CLIENT_API_GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
 	public Enrollment getEnrollmentById(@PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
 		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId);
 	}

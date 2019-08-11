@@ -558,6 +558,23 @@
 	<field name="q27fPercentageUnknownHouseHoldtype" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q27fPercentageUnknownHouseHoldtype]]></fieldDescription>
 	</field>
+	
+	<field name="q27fA11RentalByClientTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27fA11RentalByClientTotal]]></fieldDescription>
+	</field>
+	<field name="q27fA11RentalByClientWithoutChild" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27fA11RentalByClientWithoutChild]]></fieldDescription>
+	</field>
+	<field name="q27fA11RentalByClientWithChildAndAdults" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27fA11RentalByClientWithChildAndAdults]]></fieldDescription>
+	</field>
+	<field name="q27fA11RentalByClientWithOnlyChild" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27fA11RentalByClientWithOnlyChild]]></fieldDescription>
+	</field>
+	<field name="q27fA11RentalByClientUnknownHouseHold" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q27fA11RentalByClientUnknownHouseHold]]></fieldDescription>
+	</field>
+	
 	<group name="Group5">
 		<groupFooter>
 			<band height="49">
@@ -1423,6 +1440,84 @@ children]]></text>
 					<textFieldExpression><![CDATA[$F{q27fA10StayingOrLivingWithFriendsPermanentUnknownHouseHoldtype}]]></textFieldExpression>
 				</textField>
 			</band>
+			
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="97988d22-df4a-417b-87b6-b63c97d982ce"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Rental by client, with RRH or equivalent subsidy]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="454b10a7-8320-4e8c-a9c2-69dc8b4eec6e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27fA11RentalByClientTotal}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="93" height="26" uuid="7121a076-1935-476e-84cc-bc5489a74678"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27fA11RentalByClientWithoutChild}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="275" y="0" width="90" height="26" uuid="f5867859-f341-42ec-9131-fb43af150b5f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27fA11RentalByClientWithChildAndAdults}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="97" height="26" uuid="7944f6cd-7476-4500-926c-d6b55fe7232b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27fA11RentalByClientWithOnlyChild}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="462" y="0" width="93" height="26" uuid="8b75fa38-8a18-4f82-a675-4d054b72ed0b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q27fA11RentalByClientUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+			</band>
+			
 			<band height="26">
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="c7e227fa-46d9-4533-9727-39f0941cf50c"/>
