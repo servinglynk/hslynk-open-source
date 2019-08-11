@@ -16,7 +16,7 @@
 	<description>HMIS Active MQ Service</description>
 
 	<properties>
-	<parent-version>2.14.20</parent-version>
+	<parent-version>2.15.13</parent-version>
 		<java.version>1.8</java.version>
 	</properties>
 
