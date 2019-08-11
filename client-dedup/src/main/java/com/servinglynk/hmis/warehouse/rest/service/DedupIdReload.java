@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.servinglynk.hmis.warehouse.domain.Person;
@@ -48,17 +49,22 @@ public class DedupIdReload {
 			  }
 		  }
 		
-		for(String clientId : clientsList) {
+	//	for(String clientId : clientsList) {
 			//Fetch by First Name and Last Name
-			List<String> clients = getEligibilityClients(clientId);
+	//		List<String> clients = getEligibilityClients(clientId);
+		  String clientId ="a0714ec0-1d08-4385-9f20-6554a313cc2c";
+			if(StringUtils.isNotBlank(clientId)) {
 				Person person = getDeDupId(clientId);
-				Person personRestult  =	impl.dedupingLogic(person, "CE42ABE0AAAB87D08CCE8505B92C6769");
+				Person personRestult  =	impl.dedupingLogic(person, "D403A582649D5EFACC241090974EBB65");
 				String dedupId = impl.getUniqueIdentifier(personRestult.getPersonIdentifiers());
 			//	updateBaseClients(clientId, dedupId);
 			//	updateEligibleClients(clientId, dedupId);
 			//	updateVersionClients(clientId, dedupId, person.getCustom16());
+//				updateResponse(clientId, dedupId);
+//				updateSectionScore(clientId, dedupId);
 				System.out.println(clientId+","+dedupId);
-		}
+			}
+	//	}
 	}
 	
 	public static void updateEligibleClients(String clientId, String dedupId) {
@@ -66,7 +72,33 @@ public class DedupIdReload {
 		Connection connection = null;
 		try{
 		connection = SyncPostgresProcessor.getConnection();
-		statement = connection.prepareStatement("update housing_inventory.eligible_clients set client_dedup_id= ?   where project_group_code='MO0010' and client_id= ?");
+		statement = connection.prepareStatement("update housing_inventory.eligible_clients set client_dedup_id= ?,date_updated=CURRNET_TIMESTAMP   where project_group_code='MO0010' and client_id= ?");
+		statement.setObject(1, UUID.fromString(dedupId));
+		statement.setObject(2, UUID.fromString(clientId));
+		statement.executeUpdate();
+		}catch (Exception ex){
+			ex.printStackTrace();
+		}
+	}
+	public static void updateResponse(String clientId, String dedupId) {
+		PreparedStatement statement = null;
+		Connection connection = null;
+		try{
+		connection = SyncPostgresProcessor.getConnection();
+		statement = connection.prepareStatement("update survey.resonse set client_dedup_id= ?,date_updated=CURRNET_TIMESTAMP   where project_group_code='MO0010' and client_id= ?");
+		statement.setObject(1, UUID.fromString(dedupId));
+		statement.setObject(2, UUID.fromString(clientId));
+		statement.executeUpdate();
+		}catch (Exception ex){
+			ex.printStackTrace();
+		}
+	}
+	public static void updateSectionScore(String clientId, String dedupId) {
+		PreparedStatement statement = null;
+		Connection connection = null;
+		try{
+		connection = SyncPostgresProcessor.getConnection();
+		statement = connection.prepareStatement("update survey.section_score set client_dedup_id= ?,date_updated=CURRNET_TIMESTAMP   where project_group_code='MO0010' and client_id= ?");
 		statement.setObject(1, UUID.fromString(dedupId));
 		statement.setObject(2, UUID.fromString(clientId));
 		statement.executeUpdate();
