@@ -3,6 +3,7 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -26,6 +27,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
+import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2016.Project;
@@ -116,6 +118,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					enrollmentModel.setClient(client);
 					enrollmentModel.setExport(exportEntity);
 					performSaveOrUpdate(enrollmentModel);
+					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollment::"+enrollment.getProjectEntryID() +" Exception ::"+e.getMessage();
 					if(enrollmentModel != null){
@@ -170,6 +173,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 			com.servinglynk.hmis.warehouse.model.v2016.Enrollment enrollment) {
 			enrollment.setId(UUID.randomUUID());
 			insert(enrollment);
+			createClientMedataInfo(enrollment);
 		return enrollment;
 	}
 
@@ -184,6 +188,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	public void deleteEnrollment(
 			com.servinglynk.hmis.warehouse.model.v2016.Enrollment enrollment) {
 		delete(enrollment);
+		deleteClientMedataInfo(enrollment);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -239,6 +244,30 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	public void hydrateHBASE(SyncDomain syncDomain) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void createClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2016.Enrollment enrollment) {
+		ClientMetaDataEntity metaDataEntity = new ClientMetaDataEntity();
+		metaDataEntity.setId(UUID.randomUUID());
+		metaDataEntity.setClientId(enrollment.getClient().getId());
+		metaDataEntity.setClientDedupId(enrollment.getClient().getDedupClientId());
+		metaDataEntity.setDate(LocalDateTime.now());
+		metaDataEntity.setDateCreated(LocalDateTime.now());
+		metaDataEntity.setDateUpdated(LocalDateTime.now());
+		metaDataEntity.setDeleted(false);
+		metaDataEntity.setMetaDataIdentifier(enrollment.getId());
+		metaDataEntity.setType("enrollment");
+		metaDataEntity.setProjectGroupCode(enrollment.getProjectGroupCode());
+		metaDataEntity.setUserId(enrollment.getUserId());
+		metaDataEntity.setAdditionalInfo("{\"enrollmentId\":\""+enrollment.getId()+"\",\"schemaYear\":\"2016\",\"clientId\":\""+enrollment.getClient().getId()+"\"}");
+		parentDaoFactory.getClientMetaDataDao().createClientMetaData(metaDataEntity);
+	}
+	
+	public void deleteClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2016.Enrollment enrollment) {
+		ClientMetaDataEntity metaDataEntity = parentDaoFactory.getClientMetaDataDao().findByIdentifier(enrollment.getId());
+		metaDataEntity.setDateUpdated(LocalDateTime.now());
+		metaDataEntity.setDeleted(true);
+		parentDaoFactory.getClientMetaDataDao().updateClientMetaData(metaDataEntity);
 	}
 }
 

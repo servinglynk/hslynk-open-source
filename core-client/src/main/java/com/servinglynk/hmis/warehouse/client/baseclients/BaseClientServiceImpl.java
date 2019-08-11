@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -27,6 +29,8 @@ import com.servinglynk.hmis.warehouse.core.model.Session;
 public class BaseClientServiceImpl extends CoreClientBase implements BaseClientService {
 	
 	final static Logger logger = Logger.getLogger(AuthorizationServiceClient.class);
+	
+	@Autowired Environment env;
 		
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BaseClients getClients(Session session) throws Exception {
@@ -51,7 +55,7 @@ public class BaseClientServiceImpl extends CoreClientBase implements BaseClientS
 		restTemplate.setMessageConverters(messageConverters);
 
 		HttpEntity entity = new HttpEntity(headers);
-		 ResponseEntity<BaseClients> response = restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-clientapi-v2015/rest/clients",HttpMethod.GET,entity ,BaseClients.class);
+		 ResponseEntity<BaseClients> response = restTemplate.exchange(env.getProperty("elbhost")+"/hmis-clientapi-v2015/rest/clients",HttpMethod.GET,entity ,BaseClients.class);
 		 return response.getBody();
 	}
 	

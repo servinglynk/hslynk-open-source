@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,6 +27,8 @@ import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
 public class ClientConsentCheckService extends CoreClientBase implements IClientConsentCheckService {
 	
 	final static Logger logger = Logger.getLogger(ClientConsentCheckService.class);
+	
+	@Autowired Environment env;
 
 	public Boolean checkClientConsentForUser(ApiMethodAuthorizationCheck authCheck,UUID clientId) throws Exception {
 		HttpHeaders headers = getHttpHeaders();
@@ -52,7 +56,7 @@ public class ClientConsentCheckService extends CoreClientBase implements IClient
 		HttpEntity entity = new HttpEntity(headers);
 //		 ResponseEntity<Boolean> response = restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-user-service/rest/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,Boolean.class);
 
-		 ResponseEntity<String> response = restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-globalapi/rest//clients/"+clientId+"/checkUserConsent",HttpMethod.GET,entity ,String.class);
+		 ResponseEntity<String> response = restTemplate.exchange(env.getProperty("elbhost")+"/hmis-globalapi/rest//clients/"+clientId+"/checkUserConsent",HttpMethod.GET,entity ,String.class);
 		
 		 if(response.getStatusCode().equals("200"))
 			 return new Boolean(response.getBody());

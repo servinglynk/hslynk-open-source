@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -35,6 +36,8 @@ public class AuthorizationServiceClient extends CoreClientBase implements IAutho
 	@Autowired
 	CoreClientConfig coreClientConfig;
 	
+	@Autowired Environment env;
+	
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ApiMethodAuthorizationCheck checkApiAuthorization(ApiMethodAuthorizationCheck authCheck) throws Exception {
@@ -61,8 +64,9 @@ public class AuthorizationServiceClient extends CoreClientBase implements IAutho
 		restTemplate = new RestTemplate();
 		restTemplate.setMessageConverters(messageConverters);
 
+		System.out.println("Authorization url "+env.getProperty("elbhost")+"/hmis-user-service/rest/apimethodauthcheck/"+authCheck.getApiMethodId());
 		HttpEntity entity = new HttpEntity(headers);
-		 ResponseEntity<ApiMethodAuthorizationCheck> response = restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-user-service/rest/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,ApiMethodAuthorizationCheck.class);
+		 ResponseEntity<ApiMethodAuthorizationCheck> response = restTemplate.exchange(env.getProperty("elbhost")+"/hmis-user-service/rest/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,ApiMethodAuthorizationCheck.class);
 
 		return response.getBody();
 	}

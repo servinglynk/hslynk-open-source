@@ -93,6 +93,8 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	
 	@Autowired private GlobalHouseHoldDao globalHouseHoldDao;
 	
+	@Autowired private ClientMetaDataDao clientMetaDataDao;
+	
 	public HmisUserDao getHmisUserDao() {
 		return hmisUserDao;
 	}
@@ -351,5 +353,10 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	public void setSharingRuleDao(SharingRuleDao sharingRuleDao) {
 		this.sharingRuleDao = sharingRuleDao;
 	}
-	
+	public ClientMetaDataDao getClientMetaDataDao() {
+		return clientMetaDataDao;
+	}
+	public void setClientMetaDataDao(ClientMetaDataDao clientMetaDataDao) {
+		this.clientMetaDataDao = clientMetaDataDao;
+	}
 }
