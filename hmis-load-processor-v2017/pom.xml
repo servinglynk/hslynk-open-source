@@ -25,7 +25,7 @@
 	        <dependency>
 	            <groupId>com.servinglynk.hmis.warehouse</groupId>
         		<artifactId>hslynk-parent</artifactId>
-				<version>2.16.1</version>
+				<version>2.16.2</version>
 	            <type>pom</type>
 	            <scope>import</scope>
 	        </dependency>
@@ -80,12 +80,12 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-service-v2017</artifactId>
-			<version>2.16.1</version>
+			<version>2.16.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-model-v2017</artifactId>
-			<version>2.16.1</version>
+			<version>2.16.2</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hibernate</groupId>
@@ -96,12 +96,12 @@
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-model</artifactId>
-			  <version>2.16.1</version>
+			  <version>2.16.2</version>
 			</dependency>		
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-service</artifactId>
-			  <version>2.16.1</version>
+			  <version>2.16.2</version>
 			  <exclusions>
 			  	<exclusion>
 			  		<groupId>org.hibernate</groupId>
