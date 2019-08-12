@@ -8,6 +8,7 @@ public class ClientMetaDataModel {
 	private UUID id;
 	private UUID clientId;
 	private UUID clientDedupId;
+	private UUID newDedulClientId;
 	private UUID metaDataIdentifier;
 	private String additionalInfo;
 	private LocalDateTime date;
@@ -74,5 +75,11 @@ public class ClientMetaDataModel {
 	}
 	public void setUserId(UUID userId) {
 		this.userId = userId;
+	}
+	public UUID getNewDedulClientId() {
+		return newDedulClientId;
+	}
+	public void setNewDedulClientId(UUID newDedulClientId) {
+		this.newDedulClientId = newDedulClientId;
 	}
 }
