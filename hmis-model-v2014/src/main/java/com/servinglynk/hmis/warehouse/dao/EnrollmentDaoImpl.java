@@ -320,7 +320,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		metaDataEntity.setDateUpdated(LocalDateTime.now());
 		metaDataEntity.setDeleted(false);
 		metaDataEntity.setMetaDataIdentifier(enrollment.getId());
-		metaDataEntity.setType("enrollment");
+		metaDataEntity.setType("enrollments");
 		metaDataEntity.setProjectGroupCode(enrollment.getProjectGroupCode());
 		metaDataEntity.setUserId(enrollment.getUserId());
 		metaDataEntity.setAdditionalInfo("{\"enrollmentId\":\""+enrollment.getId()+"\",\"schemaYear\":\"2014\",\"clientId\":\""+enrollment.getClient().getId()+"\"}");

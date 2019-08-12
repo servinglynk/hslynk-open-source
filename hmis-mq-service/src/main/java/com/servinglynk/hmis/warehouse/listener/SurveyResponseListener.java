@@ -13,9 +13,9 @@ import com.servinglynk.hmis.warehouse.model.JSONObjectMapper;
 @Component
 public class SurveyResponseListener extends BaseListener {
 
-	@JmsListener(destination="survey.responses")
+	@JmsListener(destination="survey.submissions")
 	public void listeneQueue(String eventString) {
-		System.out.println("inside survey.responses listener");
+		System.out.println("inside survey.submissions listener");
 		JSONObjectMapper mapper = new JSONObjectMapper();
 		try {
 			AMQEvent event = mapper.readValue(eventString, AMQEvent.class);
