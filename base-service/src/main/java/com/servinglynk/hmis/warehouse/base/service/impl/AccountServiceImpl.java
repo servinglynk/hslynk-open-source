@@ -291,12 +291,12 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 		HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
 		if (pAccount == null)
 			throw new AccountNotFoundException();
-		account = AccountConverter.convertToAccountLite(pAccount);
+		account = AccountConverter.convertToAccount(pAccount);
 		List<UserRoleMapEntity> userroles = daoFactory.getAccountDao().getUserMapByUserId(pAccount.getId());
 
-/*		for(UserRoleMapEntity entity : userroles){
+		for(UserRoleMapEntity entity : userroles){
 			account.addRole(RoleConverter.entityToModel(entity.getRoleEntity()));
-		}*/
+		}
 		return account;
 	}
 	
