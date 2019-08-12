@@ -13,9 +13,9 @@ import com.servinglynk.hmis.warehouse.model.JSONObjectMapper;
 public class EligibleClientsListener extends BaseListener {
 
 	
-	@JmsListener(destination="house.matching.activelist")
+	@JmsListener(destination="eligibleClients")
 	public void listeneQueue(String eventString) {
-		System.out.println("inside house.matching.activelist listener");
+		System.out.println("inside eligibleClients listener");
 		JSONObjectMapper mapper = new JSONObjectMapper();
 		try {
 			AMQEvent event = mapper.readValue(eventString, AMQEvent.class);
