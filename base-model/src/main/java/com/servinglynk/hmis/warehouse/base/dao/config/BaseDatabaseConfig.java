@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.base.dao.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.servinglynk.hmis.warehouse.base.dao.APIAccessDaoImpl;
@@ -55,6 +56,7 @@ import com.servinglynk.hmis.warehouse.util.ClientOperationLogger;
 
 @Configuration
 @EnableAsync
+@Import(com.servinglynk.hmis.warehouse.config.AMQConfiguration.class)
 public class BaseDatabaseConfig {
 
 
