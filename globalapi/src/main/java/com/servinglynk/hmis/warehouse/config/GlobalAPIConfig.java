@@ -35,8 +35,7 @@ import com.servinglynk.hmis.warehouse.rest.SharingrulesController;
 		com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
 	//	com.servinglynk.hmis.warehouse.fileupload.config.FileUploadConfig.class,
 		 com.servinglynk.hmis.warehouse.base.dao.config.HibernateConfig.class,
-		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class,
-		com.servinglynk.hmis.warehouse.config.AMQConfiguration.class})
+		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class})
 @EnableWebMvc
 @EnableTransactionManagement
 public class GlobalAPIConfig extends WebMvcConfigurerAdapter {
