@@ -5,15 +5,6 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="hmis-service-v2014-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-service-v2014/hmis-service-v2014">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="hmis-model-v2014-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-model-v2014/hmis-model-v2014">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="hmis-base-service-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-service/hmis-base-service">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="hmis-base-model-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-model/hmis-base-model">
             <dependency-type>uses</dependency-type>
         </dependent-module>
