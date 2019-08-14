@@ -17,7 +17,7 @@ import com.servinglynk.hmis.warehouse.model.AMQEvent;
 
 @RequestMapping("events")
 @RestController
-public class MessagePublishController {
+public class MessagePublishController extends ControllerBase {
 
 	@Autowired
 	private JmsTemplate jmsMessagingTemplate;
