@@ -77,7 +77,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		com.servinglynk.hmis.warehouse.model.v2017.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 
 		if(pClient == null) throw new ClientNotFoundException();
-
+       // Make essential attributes null before merge or unmerge
 		ClientConverter.modelToEntity(client, pClient);
 		pClient.setDateUpdated(LocalDateTime.now());
 		com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
