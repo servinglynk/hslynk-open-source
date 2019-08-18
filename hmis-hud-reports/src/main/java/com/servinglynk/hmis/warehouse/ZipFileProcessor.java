@@ -10,19 +10,20 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ZipFileExample {
+public class ZipFileProcessor {
     private static final String INPUT_FOLDER = "/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports";
     private static final String ZIPPED_FOLDER = "/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/TestFiles.zip";
     public static void main(String[] args) {
-        zipSimpleFolder(new File(INPUT_FOLDER),"", ZIPPED_FOLDER);
+    	createZipFile(INPUT_FOLDER,"", ZIPPED_FOLDER);
     }
-    public static void zipSimpleFolder(File inputFolder, String parentName ,String zipFilePath ){
+    public static void createZipFile(String input, String parentName ,String zipFilePath ){
         try {
+        	File inputFolder = new File(input);
             FileOutputStream fileOutputStream = new FileOutputStream(zipFilePath);
             ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
             String myname = parentName +inputFolder.getName()+"\\";
-            ZipEntry folderZipEntry = new ZipEntry(myname);
-            zipOutputStream.putNextEntry(folderZipEntry);
+          //  ZipEntry folderZipEntry = new ZipEntry(myname);
+          //  zipOutputStream.putNextEntry(folderZipEntry);
             File[] contents = inputFolder.listFiles();
             for (File f : contents){
                 if (f.isFile() && StringUtils.contains(f.getName(), ".csv"))
@@ -40,7 +41,7 @@ public class ZipFileExample {
         try {
             // A ZipEntry represents a file entry in the zip archive
             // We name the ZipEntry after the original file's name
-            ZipEntry zipEntry = new ZipEntry(parentName+inputFile.getName());
+            ZipEntry zipEntry = new ZipEntry(inputFile.getName());
             zipOutputStream.putNextEntry(zipEntry);
             FileInputStream fileInputStream = new FileInputStream(inputFile);
             byte[] buf = new byte[1024];

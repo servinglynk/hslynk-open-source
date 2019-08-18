@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.servinglynk.hmis.warehouse.annotations.APIMapping;
-import com.servinglynk.hmis.warehouse.core.model.Account;
-import com.servinglynk.hmis.warehouse.core.model.BulkUpload;
-import com.servinglynk.hmis.warehouse.core.model.BulkUploads;
-import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
-import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.model.FileInfo;
 import com.servinglynk.hmis.warehouse.service.AWSService;
 import com.servinglynk.hmis.warehouse.service.LocalFileUploadService;

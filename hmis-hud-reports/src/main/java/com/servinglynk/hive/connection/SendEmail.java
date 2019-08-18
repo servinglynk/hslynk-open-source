@@ -25,7 +25,7 @@ public class SendEmail {
 	static MimeMessage generateMailMessage;
  
 	public static void main(String args[]) throws AddressException, MessagingException {
-		generateAndSendEmail("sandeep.dolia@gmail.com","/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/Archive.zip");
+		generateAndSendEmail("sandeep.dolia@gmail.com",null);
 		System.out.println("\n\n ===> Your Java Program has just sent an Email successfully. Check your email..");
 	}
  
@@ -34,8 +34,8 @@ public class SendEmail {
 		System.out.println("\n 1st ===> setup Mail Server Properties..");
 		mailServerProperties = System.getProperties();
 		mailServerProperties.put("mail.smtp.port", "587");
-		mailServerProperties.put("mail.smtp.auth", "true");
-		mailServerProperties.put("mail.smtp.starttls.enable", "true");
+		mailServerProperties.put("mail.smtp.auth", "false");
+		mailServerProperties.put("mail.smtp.starttls.enable", "false");
 		System.out.println("Mail Server Properties have been setup successfully..");
  
 		// Step2
@@ -74,7 +74,7 @@ public class SendEmail {
  
 		// Enter your correct gmail UserID and Password
 		// if you have 2FA enabled then provide App Specific Password
-		transport.connect("smtp.gmail.com", "sdolia261@gmail.com", "April#2020");
+		transport.connect("smtp.gmail.com", "XXXX", "XXXX");
 		transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
 		transport.close();
 	}

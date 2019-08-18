@@ -4,17 +4,18 @@ package com.servinglynk.report.engine;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.servinglynk.hive.connection.SendEmail;
 import com.servinglynk.hive.connection.SyncPostgresProcessor;
+import com.servinglynk.hmis.warehouse.AwsS3Client;
 import com.servinglynk.hmis.warehouse.Properties;
 import com.servinglynk.hmis.warehouse.ReportConfig;
+import com.servinglynk.hmis.warehouse.ZipFileProcessor;
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.business.HomePageDataBeanMaker;
 
@@ -38,8 +39,9 @@ public class Reporter {
         	Properties props = new Properties();
     		props.generatePropValues();
 			ReportConfig reportConfig = SyncPostgresProcessor.getProjects(35);
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig);
+			String reportId = String.valueOf(reportConfig.getId());
         	if(!sageReport) {
+        		List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig);
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
                 Map parameters = new HashMap();
             	ClassLoader classLoader = Reporter.class.getClassLoader();
@@ -49,8 +51,18 @@ public class Reporter {
     		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
     		 
     		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
-    		    JasperExportManager.exportReportToPdfFile(jasperPrint, "HMISREPORT_testing.pdf"); 
+    		    JasperExportManager.exportReportToPdfFile(jasperPrint,reportId+".pdf"); 
         	}
+        	
+        	  // Get the bucket name from project group code.
+        	ZipFileProcessor.createZipFile(props.APR_FILE_LOCATION, "", props.APR_FILE_LOCATION+reportId+".zip");
+		    String bucketName = SyncPostgresProcessor.getBucketName(reportConfig.getProjectGroupCode());
+			AwsS3Client client = new AwsS3Client();
+			client.uploadFile(props.APR_FILE_LOCATION+reportId+".pdf", "APR/"+reportId+".pdf",bucketName);
+			client.uploadFile(props.APR_FILE_LOCATION+reportId+".zip", "APR/"+reportId+".zip",bucketName);
+			// update the report config to 
+			SyncPostgresProcessor.updateReportConfig("S3", reportConfig.getId());
+			SendEmail.generateAndSendEmail("sandeep.dolia@gmail.com", "");
         } catch (Exception e) {
             logger.error(e, e);
         }

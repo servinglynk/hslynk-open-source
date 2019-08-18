@@ -60,6 +60,53 @@ public class SyncPostgresProcessor extends Logging{
         return reportConfig;
     }
     
+    
+    public static void updateReportConfig(String status,Long id){
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("update base.report_config set status =? where id= ? ");
+            statement.setString(1,status);
+            statement.setLong(2,id);
+            int rowsInserted =  statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new user was inserted successfully!");
+            }
+        }catch (SQLException ex) {
+            logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+
+        } finally {
+
+            try {
+                if (statement != null) {
+                	statement.close();
+                }
+            } catch (SQLException ex) {
+            	logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+            }
+        }
+    }
+	
+    public static String getBucketName(String projectGroupCode) throws Exception {
+    	 ResultSet resultSet = null;
+         PreparedStatement statement = null;
+         Connection connection = null;
+         String bucketName="";
+         try{
+             connection = getConnection();
+             statement = connection.prepareStatement("select bucket_name from base.hmis_project_group where project_group_code= ? ");
+             statement.setString(1, projectGroupCode);
+             resultSet = statement.executeQuery();
+             while (resultSet.next()){
+            	 bucketName = resultSet.getString("bucket_name");
+             }
+         }catch (Exception ex){
+             throw ex;
+         }
+         return bucketName;
+     }
+    
     public static void populateProject(ReportConfig reportConfig) throws Exception{
         ResultSet resultSet = null;
         PreparedStatement statement = null;
