@@ -32,6 +32,25 @@ app.controller('managereportCtrl',['$scope','$location','$routeSegment','$http',
         });
     }
     
+    $scope.downloadZIP =  function (reportId) {
+        console.log('Report config:'+reportId);
+        $scope.reportId=reportId;
+        Service.DownloadZIP($http,$scope,
+     		    //success
+     		    function(data){
+        	 		console.log('Report config download success :'+reportId);
+     		    },function(error) {})
+     }
+    
+    $scope.downloadPDF =  function (reportId) {
+       console.log('Report config:'+reportId);
+       $scope.reportId=reportId;
+       Service.DownloadPDF($http,$scope,
+    		    //success
+    		    function(data){
+    	   			console.log('Report config download success :'+reportId);
+    		    },function(error) {})
+    }
 
 }]);
 
