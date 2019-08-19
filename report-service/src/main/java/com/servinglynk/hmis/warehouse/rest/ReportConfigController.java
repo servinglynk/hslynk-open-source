@@ -89,10 +89,10 @@ public class ReportConfigController extends ControllerBase {
 			try {
 		        Session session = sessionHelper.getSession(request);
 		        String bucketName = session.getAccount().getProjectGroup().getBucketName();
-		        String downloadFile = awsService.downloadFile(bucketName, "AWS/"+reportConfigId+".pdf", null);
+		        String downloadFile = awsService.downloadFile(bucketName, "AWS/"+reportConfigId+".zip", null);
 		        InputStream inputStream = new FileInputStream(downloadFile);
 		        response.setContentType("application/force-download");
-		        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+"pdf"); 
+		        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+".zip"); 
 		        IOUtils.copy(inputStream, response.getOutputStream());
 		        response.flushBuffer();
 		        inputStream.close();
