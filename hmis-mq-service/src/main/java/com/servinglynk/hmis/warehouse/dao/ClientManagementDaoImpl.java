@@ -18,9 +18,14 @@ public class ClientManagementDaoImpl implements ClientManagementDao {
 		String query = "select * from base.\"deleteClientIdenties\" ('"+clientId+"','"+dedupClientId+"','"+projectGroupCode+"')";
 		System.out.println("delete query "+query);
 		session.createSQLQuery(query).list();
-//		  .addScalar("clientid",org.hibernate.type.PostgresUUIDType.INSTANCE)
-//		  .addScalar("clientdedupid" ,org.hibernate.type.PostgresUUIDType.INSTANCE)
-//		.list();
+	}
+
+	@Override
+	public void mergeClientIdentities(UUID oldDedupClientId, UUID newDedupClientId, String projectGroupCode) {
+		Session session = entityManager.unwrap(Session.class);
+		String query = "select * from base.\"mergeClientIdenties\" ('"+oldDedupClientId+"','"+newDedupClientId+"','"+projectGroupCode+"')";
+		System.out.println("delete query "+query);
+		session.createSQLQuery(query).list();
 	}
 	
 }

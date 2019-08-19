@@ -12,5 +12,11 @@ public class ClientManagementServiceImpl extends BaseService implements ClientMa
 	public void deleteClientIdentities(ClientMetaDataModel model) {
 		daoFactory.getClientManagementDao().deleteClientIdentities(model.getClientId(),model.getClientDedupId(), model.getProjectGroupCode(), model.getUserId());
 	}
+
+	@Transactional
+	public void mergeClientIdentities(ClientMetaDataModel model) {
+		daoFactory.getClientManagementDao().mergeClientIdentities(model.getClientDedupId(),model.getNewDedulClientId(), model.getProjectGroupCode());
+		
+	}
 	
 }
