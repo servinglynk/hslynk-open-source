@@ -25,6 +25,7 @@ public class ReportData {
 	private boolean capterReport;
 	private boolean aprReport;
 	private boolean liveMode;
+	private String configPath;
 	private List<String> projectIds;
 	private List<ClientModel> clients = new ArrayList<ClientModel>();
 	private List<ProjectModel> projects = new ArrayList<ProjectModel>();
@@ -202,6 +203,19 @@ public class ReportData {
 	 */
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
+	}
+	
+	/**
+	 * @return the configPath
+	 */
+	public String getConfigPath() {
+		return configPath;
+	}
+	/**
+	 * @param configPath the configPath to set
+	 */
+	public void setConfigPath(String configPath) {
+		this.configPath = configPath;
 	}
 	/**
 	 * @return the clients

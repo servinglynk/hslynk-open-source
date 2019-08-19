@@ -4,6 +4,7 @@ package com.servinglynk.report.engine;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,44 +35,50 @@ public class Reporter {
 		
         @SuppressWarnings({ "unchecked", "unlikely-arg-type" })
         
-    private void exportToPDF(boolean sageReport) {
+    private void exportToPDF() {
         try {         
         	Properties props = new Properties();
     		props.generatePropValues();
-			ReportConfig reportConfig = SyncPostgresProcessor.getProjects(35);
-			String reportId = String.valueOf(reportConfig.getId());
-        	if(!sageReport) {
-        		List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig);
+    		ReportConfig reportConfig = SyncPostgresProcessor.getReportConfigByStatus("INITIAL");
+    		if(reportConfig != null) {
+    			String reportId = String.valueOf(reportConfig.getId());
+            	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig,props);
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
                 Map parameters = new HashMap();
-            	ClassLoader classLoader = Reporter.class.getClassLoader();
-    			File file = new File(classLoader.getResource("pdfGenerator.jrxml").getFile());
-    			InputStream inputStream = new FileInputStream(file);
-    		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-    		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-    		 
-    		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
-    		    JasperExportManager.exportReportToPdfFile(jasperPrint,reportId+".pdf"); 
-        	}
+                parameters.put("SUBREPORT_DIR",props.APR_CONFIG_LOCATION );
+                File file = new File(props.APR_CONFIG_LOCATION+"pdfGenerator.jrxml");
+        	    InputStream inputStream = new FileInputStream(file);
+        		JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+        		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
         	
-        	  // Get the bucket name from project group code.
-        	ZipFileProcessor.createZipFile(props.APR_FILE_LOCATION, "", props.APR_FILE_LOCATION+reportId+".zip");
-		    String bucketName = SyncPostgresProcessor.getBucketName(reportConfig.getProjectGroupCode());
-			AwsS3Client client = new AwsS3Client();
-			client.uploadFile(props.APR_FILE_LOCATION+reportId+".pdf", "APR/"+reportId+".pdf",bucketName);
-			client.uploadFile(props.APR_FILE_LOCATION+reportId+".zip", "APR/"+reportId+".zip",bucketName);
-			// update the report config to 
-			SyncPostgresProcessor.updateReportConfig("S3", reportConfig.getId());
-			SendEmail.generateAndSendEmail("sandeep.dolia@gmail.com", "");
+        		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
+        		JasperExportManager.exportReportToPdfFile(jasperPrint,reportId+".pdf"); 
+        		SyncPostgresProcessor.updateReportConfig("BEFORE_ZIP_CREATION", reportConfig.getId());
+            	  // Get the bucket name from project group code.
+            	ZipFileProcessor.createZipFile(props.APR_FILE_LOCATION, "", props.APR_FILE_LOCATION+reportId+".zip");
+            	SyncPostgresProcessor.updateReportConfig("BEFORE_S3", reportConfig.getId());
+    		    String bucketName = SyncPostgresProcessor.getBucketName(reportConfig.getProjectGroupCode());
+    			AwsS3Client client = new AwsS3Client();
+    			client.uploadFile(props.APR_FILE_LOCATION+reportId+".pdf", "APR/"+reportId+".pdf",bucketName);
+    			client.uploadFile(props.APR_FILE_LOCATION+reportId+".zip", "APR/"+reportId+".zip",bucketName);
+    			// update the report config to 
+    			SyncPostgresProcessor.updateReportConfig("COMPLETED", reportConfig.getId());
+    		}
+    		
+			
+			//SendEmail.generateAndSendEmail("sandeep.dolia@gmail.com", "");
         } catch (Exception e) {
+        	e.printStackTrace();
             logger.error(e, e);
         }
     }
 
         public static void main(String[] args) throws Exception {
-    	 boolean sageReport=false;
         Reporter main = new Reporter();
-        main.exportToPDF(sageReport);
+        while(true) {
+            main.exportToPDF();
+        }
+   
     }
 	
 	

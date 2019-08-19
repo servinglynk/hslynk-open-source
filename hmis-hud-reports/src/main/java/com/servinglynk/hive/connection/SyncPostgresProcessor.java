@@ -21,8 +21,9 @@ public class SyncPostgresProcessor extends Logging{
     public static int batchSize = 1000;
     private static Connection connection = null;
     static final Logger logger = Logger.getLogger(SyncPostgresProcessor.class);
-    static Connection getConnection() throws SQLException {
+    static Connection getConnection() throws SQLException, ClassNotFoundException {
         if (connection == null) {
+        	Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://" + Properties.POSTGRESQL_DB_HOST + ":" + Properties.POSTGRESQL_DB_PORT + "/" + Properties.POSTGRESQL_DB_DATABASE,
                     Properties.POSTGRESQL_DB_USERNAME,
@@ -35,7 +36,6 @@ public class SyncPostgresProcessor extends Logging{
     }
     
    //  statement = connection.prepareStatement("select value as projectid,report_config_id, report_config_id as reportconfig from base.report_config_param where key='PROJECT_ID' and report_config_id in ( select id from base.report_config where status='INITIAL' limit 1 )");
-    
     public static ReportConfig getProjects(int id) throws Exception{
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -60,8 +60,33 @@ public class SyncPostgresProcessor extends Logging{
         return reportConfig;
     }
     
+//  statement = connection.prepareStatement("select value as projectid,report_config_id, report_config_id as reportconfig from base.report_config_param where key='PROJECT_ID' and report_config_id in ( select id from base.report_config where status='INITIAL' limit 1 )");
+    public static ReportConfig getReportConfigByStatus(String status) throws Exception{
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        Connection connection = null;
+        ReportConfig reportConfig = null; 
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("select id,project_group_code,start_date,end_date,coc_id from base.report_config where status = ?");
+            statement.setString(1, status);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+            	Long reportConfigId = resultSet.getLong("id"); 
+            	String projectGroupCode = resultSet.getString("project_group_code");
+            	Date startDate = resultSet.getDate("start_date");
+            	Date endDate = resultSet.getDate("end_date");
+            	String cocId = resultSet.getString("coc_id");
+            	reportConfig = new ReportConfig(reportConfigId, projectGroupCode, null	, startDate, endDate, true,cocId);
+            	populateProject(reportConfig);
+            }
+        }catch (Exception ex){
+            throw ex;
+        }
+        return reportConfig;
+    }
     
-    public static void updateReportConfig(String status,Long id){
+    public static void updateReportConfig(String status,Long id) throws Exception{
         PreparedStatement statement = null;
         Connection connection = null;
         try{
