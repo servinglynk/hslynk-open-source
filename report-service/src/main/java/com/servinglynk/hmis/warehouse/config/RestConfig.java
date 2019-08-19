@@ -5,12 +5,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
@@ -24,7 +21,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.servinglynk.hmis.warehouse.base.service.converter.ReportConfigConverter;
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
+import com.servinglynk.hmis.warehouse.client.MessageSender;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.service.AWSService;
 
 
 
@@ -35,8 +34,9 @@ import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling
-@ComponentScan("com.servinglynk.hmis.warehouse.rest")
 public class RestConfig extends WebMvcConfigurerAdapter {
+
+	
 
 	public void configureMessageConverters(
 			List<HttpMessageConverter<?>> messageConverters) {
@@ -72,13 +72,11 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 		return restTemplate;
 	}
 
-	@Autowired
-	Environment env;
-	
 	@Bean
 	PropertyReaderServiceImpl propertyReaderService(){
 		return new PropertyReaderServiceImpl();
 	}
+	
 	
 	 @Bean(name="multipartResolver")
 	 public CommonsMultipartResolver commonsMultipartResolver(){
@@ -93,6 +91,10 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 		return new ReportConfigConverter();
 	}
 	
+	@Bean
+	public AWSService aWSService() {
+		return new AWSService();
+	}
 	
 	 @PostConstruct
 	 public void initializeDatabasePropertySourceUsage() {

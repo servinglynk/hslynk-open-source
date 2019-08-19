@@ -16,7 +16,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<java-version>1.8</java-version>
-		<spring.framework.version>4.0.0.RELEASE</spring.framework.version>
+		<spring.framework.version>4.3.22.RELEASE</spring.framework.version>
 		<fasterxml.version>1.8.9</fasterxml.version>
 		<hibernate.version>4.2.0.Final</hibernate.version>
 	</properties>
@@ -176,6 +176,22 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+			<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-serialize-v2014</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>mq-core-client</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-service-v2014</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
