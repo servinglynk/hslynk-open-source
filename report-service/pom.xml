@@ -185,12 +185,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>mq-core-client</artifactId>
-			<version>${parent.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-service-v2014</artifactId>
 			<version>${parent.version}</version>
 		</dependency>

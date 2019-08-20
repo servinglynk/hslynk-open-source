@@ -21,18 +21,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.servinglynk.hmis.warehouse.base.service.converter.ReportConfigConverter;
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
-import com.servinglynk.hmis.warehouse.client.MessageSender;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.rest.ReportConfigController;
 import com.servinglynk.hmis.warehouse.service.AWSService;
 
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
-		com.servinglynk.hmis.warehouse.config.DatabaseConfig.class,
-		com.servinglynk.hmis.warehouse.service.config.ServiceConfig.class,
 		com.servinglynk.hmis.warehouse.base.service.config.BaseServiceConfig.class,
-		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class,
-		com.servinglynk.hmis.warehouse.config.WebDBPoolConfig.class,
-		com.servinglynk.hmis.warehouse.config.AMQConfiguration.class})
+		com.servinglynk.hmis.warehouse.base.dao.config.HibernateConfig.class})
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableScheduling
@@ -94,6 +90,11 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public AWSService aWSService() {
 		return new AWSService();
+	}
+	
+	@Bean
+	public ReportConfigController reportConfigController() {
+		return new ReportConfigController();
 	}
 	
 	 @PostConstruct

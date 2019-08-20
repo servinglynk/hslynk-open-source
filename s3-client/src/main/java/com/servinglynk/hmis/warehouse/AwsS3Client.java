@@ -17,6 +17,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.Region;
 import com.amazonaws.services.s3.model.S3Object;
@@ -61,6 +62,13 @@ public class AwsS3Client {
         return results;
     }
 
+    
+    public List<S3ObjectSummary> list(String bucket) {
+        ObjectListing objectListing = s3Client.listObjects(new ListObjectsRequest().withBucketName(bucket));
+        List<S3ObjectSummary> s3ObjectSummaries = objectListing.getObjectSummaries();
+        return s3ObjectSummaries;
+    }
+    
     /**
      * Download a file (keyName) from a bucket (bucketName)
      * @param bucketName
@@ -85,5 +93,10 @@ public class AwsS3Client {
         IOUtils.copy(input, outputStream);
         outputStream.close();
         return file.getAbsolutePath();
+    }
+    
+    public static void main(String args[]) {
+    	AwsS3Client se = new AwsS3Client();
+    	se.list("al0024-6c0444d9-febc-48a2-8564-d7e66b1d5075");
     }
 }
