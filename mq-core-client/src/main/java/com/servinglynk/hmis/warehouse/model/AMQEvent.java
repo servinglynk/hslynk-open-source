@@ -4,6 +4,9 @@ package com.servinglynk.hmis.warehouse.model;
 import java.util.Date;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("amqEvent")
 public class AMQEvent {
 
 	private Date createdAt;

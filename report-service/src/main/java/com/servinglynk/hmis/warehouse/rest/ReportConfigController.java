@@ -65,6 +65,7 @@ public class ReportConfigController extends ControllerBase {
 		}
 		
 		@RequestMapping(value="/downloadPDF/{reportConfigId}",method = RequestMethod.POST)
+		@APIMapping(value="CREATE_REPORT_CONFIG",checkSessionToken=true, checkTrustedApp=true)
 		public void downloadPDFFile(@PathVariable(value="reportConfigId") Long reportConfigId,
 				HttpServletRequest request, HttpServletResponse response) {
 			try {
@@ -84,6 +85,7 @@ public class ReportConfigController extends ControllerBase {
 		}
 		
 		@RequestMapping(value="/downloadZIP/{reportConfigId}",method = RequestMethod.POST)
+		@APIMapping(value="CREATE_REPORT_CONFIG",checkSessionToken=true, checkTrustedApp=true)
 		public void downloadZIPFile(@PathVariable(value="reportConfigId") Long reportConfigId,
 				HttpServletRequest request, HttpServletResponse response) {
 			try {
