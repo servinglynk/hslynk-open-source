@@ -1,13 +1,13 @@
 package com.servinglynk.hmis.warehouse.rest;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +28,6 @@ import com.servinglynk.hmis.warehouse.service.AWSService;
 public class ReportConfigController extends ControllerBase {
 	@Autowired
 	AWSService awsService;
-	private HttpServletResponse response;
 	
 		@RequestMapping(method = RequestMethod.POST)
 		@APIMapping(value="CREATE_REPORT_CONFIG",checkSessionToken=true, checkTrustedApp=true)
@@ -73,7 +72,12 @@ public class ReportConfigController extends ControllerBase {
 			try {
 		        Session session = sessionHelper.getSession(request);
 		        String bucketName = session.getAccount().getProjectGroup().getBucketName();
-		       return  awsService.downloadFile(bucketName, "APR/"+reportConfigId+".pdf", null);
+		        String keyName = reportConfigId+".pdf";
+		        ByteArrayOutputStream downloadInputStream = awsService.downloadFile(bucketName, "APR/"+reportConfigId+".pdf");
+		        return ResponseEntity.ok()
+		                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+		                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + keyName + "\"")
+		                .body(downloadInputStream.toByteArray());  
 		    } catch (Exception e){
 		        logger.debug("Request could not be completed at this moment. Please try again.");
 		        e.printStackTrace();
@@ -86,9 +90,14 @@ public class ReportConfigController extends ControllerBase {
 		public ResponseEntity<byte[]> downloadZIPFile(@PathVariable(value="reportConfigId") Long reportConfigId,
 				HttpServletRequest request, HttpServletResponse response) {
 			try {
-			    Session session = sessionHelper.getSession(request);
+		        Session session = sessionHelper.getSession(request);
 		        String bucketName = session.getAccount().getProjectGroup().getBucketName();
-		       return  awsService.downloadFile(bucketName, "APR/"+reportConfigId+".zip", null);
+		        String keyName = reportConfigId+".zip";
+		        ByteArrayOutputStream downloadInputStream = awsService.downloadFile(bucketName, "APR/"+reportConfigId+".zip");
+		        return ResponseEntity.ok()
+		                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+		                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + keyName + "\"")
+		                .body(downloadInputStream.toByteArray());  
 		    } catch (Exception e){
 		        logger.debug("Request could not be completed at this moment. Please try again.");
 		        e.printStackTrace();
