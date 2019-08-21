@@ -6,11 +6,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.AmazonClientException;
@@ -22,10 +27,11 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
-import com.servinglynk.hmis.warehouse.client.authorizationservice.AuthorizationServiceClient;
 import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
 import com.servinglynk.hmis.warehouse.fileupload.common.BaseRegistry;
 
@@ -71,38 +77,6 @@ public class AWSService extends BaseRegistry {
         String path = saveFile(objectData, name);
         objectData.close();
         return path;
-    }
-    
-    public ByteArrayOutputStream downloadFile(String bucketName,String keyName) {
-      try {
-              S3Object s3object = getS3Client().getObject(new GetObjectRequest(bucketName, keyName));
-              
-              InputStream is = s3object.getObjectContent();
-              ByteArrayOutputStream baos = new ByteArrayOutputStream();
-              int len;
-              byte[] buffer = new byte[4096];
-              while ((len = is.read(buffer, 0, buffer.length)) != -1) {
-                  baos.write(buffer, 0, len);
-              }
-              
-              return baos;
-      } catch (IOException ioe) {
-        logger.error("IOException: " + ioe.getMessage());
-          } catch (AmazonServiceException ase) {
-            logger.info("sCaught an AmazonServiceException from GET requests, rejected reasons:");
-        logger.info("Error Message:    " + ase.getMessage());
-        logger.info("HTTP Status Code: " + ase.getStatusCode());
-        logger.info("AWS Error Code:   " + ase.getErrorCode());
-        logger.info("Error Type:       " + ase.getErrorType());
-        logger.info("Request ID:       " + ase.getRequestId());
-        throw ase;
-          } catch (AmazonClientException ace) {
-            logger.info("Caught an AmazonClientException: ");
-              logger.info("Error Message: " + ace.getMessage());
-              throw ace;
-          }
-      
-      return null;
     }
     
     private String saveFile(InputStream input, String name)
