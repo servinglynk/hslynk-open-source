@@ -112,11 +112,11 @@ public class SpringConfig {
 		return new AHARReportHandler();
 	}
 	
-	
-	@Bean
-	public WorkerService workerService(){
-		return new WorkerService();
-	}
+//	
+//	@Bean
+//	public WorkerService workerService(){
+//		return new WorkerService();
+//	}
 	
 	@Bean
 	public ReportWorker reportWorker(){
