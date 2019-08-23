@@ -47,8 +47,8 @@ public class ReportGenerator extends Logging {
         try {         
         	Properties props = new Properties();
     		props.generatePropValues();
-			ReportConfig reportConfig = SyncPostgresProcessor.getProjects();
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig);
+			ReportConfig reportConfig = SyncPostgresProcessor.getProjects(31);
+        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig,props);
         	if(!sageReport) {
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
                 Map parameters = new HashMap();

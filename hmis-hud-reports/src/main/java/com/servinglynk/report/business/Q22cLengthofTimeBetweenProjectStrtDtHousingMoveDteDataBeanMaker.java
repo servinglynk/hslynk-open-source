@@ -27,15 +27,13 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 		String query = " select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
 				  " join  %s.enrollment e1 on  (e.householdid = e1.householdid  and e1.relationshiptohoh ='1') "+
 				   "left outer join %s.exit ext on ( e.id = ext.enrollmentid ) "+
-			      " left outer join %s.moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  :endDate  and  mid.moveindate<= :endDate) "+
-			      " where e.entrydate >= :startDate and e.entrydate <= :endDate " +
-					" order by e.dedup_client_id ";
+			      " left outer join %s.moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  :startDate  and  mid.moveindate<= :endDate) "+
+			      " where e.entrydate >= :startDate and e.entrydate <= :endDate  %e " ;
 		String exitedQuery = 		  
 					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
 					" join %s.exit ext on ( e.id = ext.enrollmentid and ext.exitdate >= :startDate  and ext.exitdate <= :endDate) "+
 					" join %s.moveindate mid on (e.id = mid.enrollmentid) "+
-					" where e.entrydate >= :startDate and e.entrydate <= :endDate " +
-					" order by e.dedup_client_id ";		
+					" where e.entrydate >= :startDate and e.entrydate <= :endDate  %e " ;
 		try {
 			if(data.isLiveMode()) {
 				List<Q22BeanModel> allData = getQ22Bean(data, query, null,true);
@@ -222,6 +220,9 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 			StringBuilder builder = new StringBuilder(projectQuery);
 			Connection connection = null;
 			try {
+				if(CollectionUtils.isEmpty(filteredProjectIds) && !allProjects) {
+					return q22Beans;
+				}
 				connection = ImpalaConnection.getConnection();
 				 List<String> projectIds = data.getProjectIds();
 				 if(CollectionUtils.isNotEmpty(projectIds)) {

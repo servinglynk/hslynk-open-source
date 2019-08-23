@@ -28,6 +28,11 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 		try {
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		List<ContactModel> contacts = getContacts(data.getSchema());
+		List<ContactModel> contactsFromService = getContactsFromService(data.getSchema());
+		if(CollectionUtils.isNotEmpty(contactsFromService)) {
+			contacts.addAll(contactsFromService);
+		}
+		
 		List<String> enrollmentIds = data.getEnrollmentIds();
 		List<ContactModel> filteredContacts = contacts.parallelStream().filter(contact -> enrollmentIds.contains(contact.getEnrollmentId())).collect(Collectors.toList());
 		List<DateOfEngagementModel> dateOfEngagements = getDateOfEngagements(data.getSchema());

@@ -6,7 +6,11 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/csvfiles"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <property name="context-root" value="hudCoc"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/conf"/>
+        <dependent-module archiveName="hmis-s3-client-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-s3-client/hmis-s3-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/hudCoc/target/classes"/>
+        <property name="context-root" value="hmis-hud-reports"/>
     </wb-module>
 </project-modules>

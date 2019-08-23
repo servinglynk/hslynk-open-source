@@ -177,6 +177,10 @@ public class Q25dAgeVeteransDataBeanMaker extends BaseBeanMaker {
 			StringBuilder builder = new StringBuilder(projectQuery);
 			Connection connection = null;
 			try {
+				 if(CollectionUtils.isEmpty(filteredProjectIds) && !allProjects)
+				 {
+					 return q22Beans;
+				 }
 				connection = ImpalaConnection.getConnection();
 				 List<String> projectIds = data.getProjectIds();
 				 if(CollectionUtils.isNotEmpty(projectIds)) {
@@ -200,6 +204,9 @@ public class Q25dAgeVeteransDataBeanMaker extends BaseBeanMaker {
 				 }
 				
 					List<ClientModel> clients = data.getVeterans();
+					if(CollectionUtils.isEmpty(clients)) {
+						return q22Beans;
+					}
 					 if(CollectionUtils.isNotEmpty(clients)) {
 						 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
 						 int index = 0;

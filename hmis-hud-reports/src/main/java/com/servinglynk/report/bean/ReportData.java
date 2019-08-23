@@ -3,7 +3,9 @@ package com.servinglynk.report.bean;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.ContactModel;
@@ -23,6 +25,7 @@ public class ReportData {
 	private boolean capterReport;
 	private boolean aprReport;
 	private boolean liveMode;
+	private String configPath;
 	private List<String> projectIds;
 	private List<ClientModel> clients = new ArrayList<ClientModel>();
 	private List<ProjectModel> projects = new ArrayList<ProjectModel>();
@@ -37,7 +40,11 @@ public class ReportData {
 	private List<EnrollmentModel> chronicHomeLess = new ArrayList<>();
 	private List<ContactModel> contacts = new ArrayList<>();
 	private List<DateOfEngagementModel> dateOfEngagements = new ArrayList<>();
-	private List<IncomeAndSourceModel> incomeAndSources = new ArrayList<>();
+	private List<IncomeAndSourceModel> incomeAndSourcesAtEntry = new ArrayList<>();
+	private List<IncomeAndSourceModel> incomeAndSourcesAtExit = new ArrayList<>();
+	private List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = new ArrayList<>();
+	private List<EnrollmentModel> requireAA = new ArrayList<>();
+	private List<EnrollmentModel> notrequireAA = new ArrayList<>();
 	private  List<Q22BeanModel> stayersLengthofStay = new ArrayList<>();
 	private  List<Q22BeanModel> leaversLengthofStay = new ArrayList<>();
 	private List<Q22BeanModel> allDataLenghtofStay = new ArrayList<>();
@@ -61,8 +68,8 @@ public class ReportData {
 	private BigInteger numOfAdultStayersWithoutRequiredAnnualAssesment=BigInteger.valueOf(0);
 	private String queryDataCollectionStage;
 	private String queryDedupClientId;
-	
-	
+	private Set<String> veteranAtExit = new HashSet<>();
+	private List<EnrollmentModel> adultStayersHoh365Days = new ArrayList<>();
 	List<String> enrollmentIds = new ArrayList<String>();
 	List<String> projectsHHWithChildren = new ArrayList<String>();
 	List<String> projectsHHWithOneAdultChild  =  new ArrayList<String>();
@@ -197,6 +204,19 @@ public class ReportData {
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
 	}
+	
+	/**
+	 * @return the configPath
+	 */
+	public String getConfigPath() {
+		return configPath;
+	}
+	/**
+	 * @param configPath the configPath to set
+	 */
+	public void setConfigPath(String configPath) {
+		this.configPath = configPath;
+	}
 	/**
 	 * @return the clients
 	 */
@@ -234,18 +254,6 @@ public class ReportData {
 		this.exits = exits;
 	}
 	
-	/**
-	 * @return the incomeAndSources
-	 */
-	public List<IncomeAndSourceModel> getIncomeAndSources() {
-		return incomeAndSources;
-	}
-	/**
-	 * @param incomeAndSources the incomeAndSources to set
-	 */
-	public void setIncomeAndSources(List<IncomeAndSourceModel> incomeAndSources) {
-		this.incomeAndSources = incomeAndSources;
-	}
 	/**
 	 * @return the totNumOfPersonServed
 	 */
@@ -760,6 +768,89 @@ public class ReportData {
 	public void setAdultHoh(List<EnrollmentModel> adultHoh) {
 		this.adultHoh = adultHoh;
 	}
-	
+	/**
+	 * @return the adultStayersHoh365Days
+	 */
+	public List<EnrollmentModel> getAdultStayersHoh365Days() {
+		return adultStayersHoh365Days;
+	}
+	/**
+	 * @param adultStayersHoh365Days the adultStayersHoh365Days to set
+	 */
+	public void setAdultStayersHoh365Days(List<EnrollmentModel> adultStayersHoh365Days) {
+		this.adultStayersHoh365Days = adultStayersHoh365Days;
+	}
+	/**
+	 * @return the incomeAndSourcesAtEntry
+	 */
+	public List<IncomeAndSourceModel> getIncomeAndSourcesAtEntry() {
+		return incomeAndSourcesAtEntry;
+	}
+	/**
+	 * @param incomeAndSourcesAtEntry the incomeAndSourcesAtEntry to set
+	 */
+	public void setIncomeAndSourcesAtEntry(List<IncomeAndSourceModel> incomeAndSourcesAtEntry) {
+		this.incomeAndSourcesAtEntry = incomeAndSourcesAtEntry;
+	}
+	/**
+	 * @return the incomeAndSourcesAtExit
+	 */
+	public List<IncomeAndSourceModel> getIncomeAndSourcesAtExit() {
+		return incomeAndSourcesAtExit;
+	}
+	/**
+	 * @param incomeAndSourcesAtExit the incomeAndSourcesAtExit to set
+	 */
+	public void setIncomeAndSourcesAtExit(List<IncomeAndSourceModel> incomeAndSourcesAtExit) {
+		this.incomeAndSourcesAtExit = incomeAndSourcesAtExit;
+	}
+	/**
+	 * @return the incomeAndSourcesAtAnnualAssesment
+	 */
+	public List<IncomeAndSourceModel> getIncomeAndSourcesAtAnnualAssesment() {
+		return incomeAndSourcesAtAnnualAssesment;
+	}
+	/**
+	 * @param incomeAndSourcesAtAnnualAssesment the incomeAndSourcesAtAnnualAssesment to set
+	 */
+	public void setIncomeAndSourcesAtAnnualAssesment(List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment) {
+		this.incomeAndSourcesAtAnnualAssesment = incomeAndSourcesAtAnnualAssesment;
+	}
+	/**
+	 * @return the requireAA
+	 */
+	public List<EnrollmentModel> getRequireAA() {
+		return requireAA;
+	}
+	/**
+	 * @param requireAA the requireAA to set
+	 */
+	public void setRequireAA(List<EnrollmentModel> requireAA) {
+		this.requireAA = requireAA;
+	}
+	/**
+	 * @return the notrequireAA
+	 */
+	public List<EnrollmentModel> getNotrequireAA() {
+		return notrequireAA;
+	}
+	/**
+	 * @param notrequireAA the notrequireAA to set
+	 */
+	public void setNotrequireAA(List<EnrollmentModel> notrequireAA) {
+		this.notrequireAA = notrequireAA;
+	}
+	/**
+	 * @return the veteranAtExit
+	 */
+	public Set<String> getVeteranAtExit() {
+		return veteranAtExit;
+	}
+	/**
+	 * @param veteranAtExit the veteranAtExit to set
+	 */
+	public void setVeteranAtExit(Set<String> veteranAtExit) {
+		this.veteranAtExit = veteranAtExit;
+	}
 	
 }

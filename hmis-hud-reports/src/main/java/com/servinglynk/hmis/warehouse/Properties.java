@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Properties {
 
     public static String HBASE_MASTER;
@@ -16,7 +18,8 @@ public class Properties {
     public static String POSTGRESQL_DB_DATABASE;
     public static String POSTGRESQL_DB_USERNAME;
     public static String POSTGRESQL_DB_PASSWORD;
-
+    public static String APR_FILE_LOCATION;
+    public static String APR_CONFIG_LOCATION;
 
     public void generatePropValues() throws Exception {
 
@@ -44,7 +47,17 @@ public class Properties {
             POSTGRESQL_DB_DATABASE = prop.getProperty("posgresql.db.database");
             POSTGRESQL_DB_USERNAME = prop.getProperty("posgresql.db.username");
             POSTGRESQL_DB_PASSWORD = prop.getProperty("posgresql.db.password");
+            String aprLocation = prop.getProperty("app.apr.location");
+            if(StringUtils.isBlank(aprLocation)) {
+            	aprLocation =  "/home/ubuntu/hmis-hud-reports-2.0/";
+            }
+            APR_FILE_LOCATION = aprLocation;
 
+            String aprConfigLocation = prop.getProperty("app.apr.config.location");
+            if(StringUtils.isBlank(aprConfigLocation)) {
+            	aprConfigLocation =  "/home/ubuntu/hmis-hud-reports-2.0/conf/";
+            }
+            APR_CONFIG_LOCATION = aprConfigLocation;
         } catch (Exception e) {
             System.out.println("Exception: " + e);
             throw e;
