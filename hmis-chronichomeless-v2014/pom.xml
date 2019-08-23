@@ -70,12 +70,12 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-service-v2014</artifactId>
-			<version>2.16.2</version>
+			<version>2.16.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-model-v2014</artifactId>
-			<version>2.16.2</version>
+			<version>2.16.3</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hibernate</groupId>
@@ -86,12 +86,12 @@
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-model</artifactId>
-			  <version>2.16.2</version>
+			  <version>2.16.3</version>
 			</dependency>		
 			<dependency>
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-service</artifactId>
-			  <version>2.16.2</version>
+			  <version>2.16.3</version>
 			  <exclusions>
 			  	<exclusion>
 			  		<groupId>org.hibernate</groupId>
