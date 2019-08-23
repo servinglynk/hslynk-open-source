@@ -72,6 +72,22 @@ public class ReportConfigServiceImpl  extends ServiceBase implements ReportConfi
 
 	@Override
 	@Transactional
+	public ReportConfigs getReportConfigByStatusEmailSent(String status,boolean emailSent) {
+		List<ReportConfigEntity> reportConfigsEntity = daoFactory.getReportConfigDao().getReportConfigByStatusEmailSent(status,emailSent);
+		ReportConfigs reportConfigs = new ReportConfigs();
+		List<ReportConfig> reportConfigList = new ArrayList<>();
+		if(CollectionUtils.isNotEmpty(reportConfigsEntity)) {
+			for(ReportConfigEntity reportConfigEntity : reportConfigsEntity) {
+				reportConfigList.add(ReportConfigConverter.entityToModel(reportConfigEntity));
+			}
+		}
+		reportConfigs.setReportConfigs(reportConfigList);
+		return reportConfigs;
+	}
+
+	
+	@Override
+	@Transactional
 	public ReportConfigs getReportConfigsByUser(Integer startIndex, Integer maxItems,String caller) {
 		List<ReportConfigEntity> reportConfigsEntity = daoFactory.getReportConfigDao().getReportConfigByUsername(caller);
 		ReportConfigs reportConfigs = new ReportConfigs();

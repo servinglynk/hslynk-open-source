@@ -40,6 +40,15 @@ public class ReportConfigDaoImpl extends QueryExecutorImpl implements ReportConf
 
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<ReportConfigEntity> getReportConfigByStatusEmailSent(String status,boolean emailSent) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(ReportConfigEntity.class);
+		criteria.add(Restrictions.eq("status", status));
+		criteria.add(Restrictions.eq("emailSent", emailSent));
+		return (List<ReportConfigEntity>) findByCriteria(criteria);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<ReportConfigEntity> getReportConfigs(String projectGroupCode) {
 		DetachedCriteria criteria=DetachedCriteria.forClass(ReportConfigEntity.class);
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));

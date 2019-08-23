@@ -27,29 +27,28 @@
             <tr>
               <th>Id</th>
               <th>Name</th>
-              <th>Level</th>
-              <th>Type</th>
            	  <th>Status</th>
               <th>Start Date</th>
               <th>End Date</th>
               <th class="center">Is email sent</th>
           	  <th>Date Created</th>
           	  <th>Projects </th>
+          	  <th>Download PDF</th>
+          	  <th>Download Zip</th>
             </tr>
           </thead>
      <tbody>
             <tr ng-repeat="data in filtered = (list | filter:search | orderBy : predicate :reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
               <td>{{data.id}}</td>
               <td>{{data.name}}</td>
-              <td>{{data.reportLevel}}</td>
-              <td>{{data.reportType}}</td>
               <td>{{data.status}}</td>
               <td>{{data.startDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
               <td>{{data.endDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
               <td>{{data.emailSent}}</td>
               <td>{{data.dateCreated | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                <td> <a href="javascript:;" ng-click="openlog(data.projectIds);"> click here </a></td>
-                                   
+               <td> <a href="javascript:;" ng-click="downloadPDF(data.id);"> click here </a></td>   
+                <td> <a href="javascript:;" ng-click="downloadZIP(data.id);"> click here </a></td>            
               </tr>
           </tbody>
         </table>

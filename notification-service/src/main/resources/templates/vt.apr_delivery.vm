@@ -1,0 +1,65 @@
+<html>
+    <head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Welcome to Serving Lynk</title>
+<link rel="stylesheet" href="https://www.hmislynk.com/hmis-admin/css/bootstrap.min.css">
+<link href="https://www.hmislynk.com/hmis-admin/css/sl-admin.css" rel="stylesheet">
+<link rel="stylesheet" href="https://www.hmislynk.com/hmis-admin/css/cw-theme.css">
+<link href="https://www.hmislynk.com/hmis-admin/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Coustard:400,900" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
+<!--<script src="http://vp:8080/servinglynkv2/demo/angularcode_grid/js/ui-bootstrap-tpls-0.10.0.min.js"></script>-->
+<style>
+body
+{
+margin:0px;
+}
+</style></head>
+    <body>
+        <div class="">
+ <div style="background-color:#222;">
+            <br style="clear:both;"></div>
+  <!-- appViewSegment: 0 --><div class="anim ng-scope" app-view-segment="0"><div class="container-fluid header ng-scope">
+  <div class="container">
+    <div class="col-md-6">
+      <div class="logo"><a href="index.html"><img src="https://www.hmislynk.com/hmis-admin/images/logoSite.png" alt="ServingLynk"></a></div>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+</div>
+<div class="container-fluid  ng-scope">
+  <div class="container">
+    
+    <!-- /.row -->
+    <div class="row login">
+      <div class="row bottomSpacer">
+            <div class="col-md-6 text-center">
+            </div>
+				Dear $name, <br/>
+					<p>
+              Your APR report $reportName is ready to be downloaded from the Hslynk admin application.
+              Please login to https://admin.hmislynk.com to download your APR.
+          </p>	
+Thank you.
+        </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid footerlogin ng-scope">
+  <div class="container">
+    <center>
+      Copyright © 2016 All rights reserved. HMISLynk
+    </center>
+  </div>
+</div>
+</div>
+</div>
+    </body>
+    
+</html>
