@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.base.dao.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.servinglynk.hmis.warehouse.base.dao.APIAccessDaoImpl;
@@ -15,6 +16,7 @@ import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientDataElementDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ClientMetaDataDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientTrackerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
@@ -54,6 +56,7 @@ import com.servinglynk.hmis.warehouse.util.ClientOperationLogger;
 
 @Configuration
 @EnableAsync
+@Import(com.servinglynk.hmis.warehouse.config.AMQConfiguration.class)
 public class BaseDatabaseConfig {
 
 
@@ -302,5 +305,10 @@ public class BaseDatabaseConfig {
 	@Bean
 	public SharingRuleDaoImpl sharingRuleDao() {
 		return new SharingRuleDaoImpl();
+	}
+	
+	@Bean
+	public ClientMetaDataDaoImpl clientMetaDataDao() {
+		return new ClientMetaDataDaoImpl();
 	}
 }

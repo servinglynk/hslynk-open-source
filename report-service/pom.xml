@@ -8,14 +8,15 @@
 	<parent>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hslynk-parent</artifactId>
-			<version>2.14.20</version>
+			<version>2.16.3</version>
 	</parent>
 	<properties>
+			<fasterxml-version>2.9.9</fasterxml-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<java-version>1.8</java-version>
-		<spring.framework.version>4.0.0.RELEASE</spring.framework.version>
+		<spring.framework.version>4.3.22.RELEASE</spring.framework.version>
 		<fasterxml.version>1.8.9</fasterxml.version>
 		<hibernate.version>4.2.0.Final</hibernate.version>
 	</properties>
@@ -91,7 +92,7 @@
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
-			<version>1.4.1</version>
+			<version>1.4.11</version>
 		</dependency>
 
 
@@ -114,7 +115,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.3.3</version>
+			<version>${fasterxml-version}</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -164,7 +165,7 @@
 			 <groupId>com.servinglynk.hmis.warehouse</groupId>
 			  <artifactId>hmis-base-service</artifactId>
 			  <version>${parent.version}</version>
-			</dependency>		
+			</dependency>	
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-base-serialize</artifactId>
@@ -175,6 +176,16 @@
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+			<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-serialize-v2014</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-service-v2014</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
 		<dependency>

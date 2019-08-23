@@ -17,4 +17,6 @@ public interface ReportConfigDao {
 	List<ReportConfigEntity> getReportConfigs(String projectGroupCode);
 
 	List<ReportConfigEntity> getReportConfigByUsername(String username);
+
+	List<ReportConfigEntity> getReportConfigByStatusEmailSent(String status, boolean emailSent);
 }

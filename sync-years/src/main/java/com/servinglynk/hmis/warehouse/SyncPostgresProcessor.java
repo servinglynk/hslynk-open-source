@@ -153,7 +153,43 @@ public class SyncPostgresProcessor extends Logging{
         }
         return null;
     }
+    public static void  populateDB() {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement("select schema,count,month,year,date_created,date_updated,project_group_code  from hsynk_bill.db_count where deleted = true and date_created >= '2019-06-10 22:00:00' ");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+            	for(int i=-10;i<0;i++) {
+            		 Calendar cal = Calendar.getInstance();
+                 	Timestamp timestamp = resultSet.getTimestamp("date_created");
+                 	cal.setTimeInMillis(timestamp.getTime());
+                     cal.add(Calendar.DAY_OF_MONTH, i);
+                     timestamp = new Timestamp(cal.getTime().getTime());
+                     System.out.println(timestamp);
+                 	hydrateDBCount(resultSet.getString("schema"), resultSet.getInt("count"), resultSet.getInt("month"), resultSet.getInt("year"), timestamp, timestamp,resultSet.getString("project_group_code"));
+            	}
+            
+            
+            }
 
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            logger.error(e);
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                    //connection.close();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    logger.error(e);
+                }
+            }
+        }
+    }
     private static boolean validateBulkUploadId(ResultSet resultSet) throws SQLException {
         boolean valid = true;
         for (int i = 1; i < 6; i++) {
@@ -243,6 +279,8 @@ public class SyncPostgresProcessor extends Logging{
         return currentTimestamp;
 
     }
+    
+
 
     public static void updateBulkUploadStatusToLive(Long id, Logger logger) {
         PreparedStatement statement = null;
@@ -283,6 +321,38 @@ public class SyncPostgresProcessor extends Logging{
             statement.setString(4,projectGroupCode);
             statement.setTimestamp(5, getCUrrentTimestamp());
             statement.setTimestamp(6, getCUrrentTimestamp());
+            statement.executeUpdate();
+        }catch (SQLException ex) {
+            logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+
+        } finally {
+
+            try {
+                if (statement != null) {
+                	statement.close();
+                }
+            } catch (SQLException ex) {
+            	logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+            }
+        }
+    }
+    
+    
+    //select schema,count,month,year,date_created,date_updated,deleted  from hsynk_bill.db_count where deleted = true and date_created >= '2019-06-10 00:33:00' 
+    public static void hydrateDBCount(String schemaName,int count,int month,int year, Timestamp dateCreated,Timestamp dateUpdated,String projectGroupCode){
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("insert into hsynk_bill.db_count (schema,count,month,year,date_created,date_updated,deleted,project_group_code)  values (?,?,?,?,?,?,?,?)");
+            statement.setString(1, schemaName);
+            statement.setInt(2,count);
+            statement.setInt(3,month);
+            statement.setInt(4,year);
+            statement.setTimestamp(5, dateCreated);
+            statement.setTimestamp(6, dateUpdated);
+            statement.setBoolean(7,true);
+            statement.setString(8,projectGroupCode);
             statement.executeUpdate();
         }catch (SQLException ex) {
             logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);

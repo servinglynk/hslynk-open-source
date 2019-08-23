@@ -3,7 +3,9 @@
  */
 package com.servinglynk.hmis.warehouse.base.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
@@ -14,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
+import com.servinglynk.hmis.warehouse.client.MessageSender;
+import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 
@@ -26,6 +30,8 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 	
 	@Autowired
 	BaseDaoFactory daoFactory;
+	
+	@Autowired MessageSender messageSender;
 
 	@Override
 	public com.servinglynk.hmis.warehouse.model.base.Client createClient(
@@ -48,6 +54,20 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 	public void deleteClient(
 			com.servinglynk.hmis.warehouse.model.base.Client client) {
 			delete(client);
+			
+			// creating active mq request
+			AMQEvent amqEvent = new AMQEvent();
+
+			amqEvent.setEventType("client.delete");
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("clientId", client.getId());
+			data.put("dedupClientId", client.getDedupClientId());
+			data.put("projectGroupCode", client.getProjectGroupCode());
+//			data.put("userId",Securit);
+			amqEvent.setPayload(data);
+			amqEvent.setModule("hmis");
+			amqEvent.setSubsystem("clientapi");
+			messageSender.sendAmqMessage(amqEvent);	
 		
 	}
 

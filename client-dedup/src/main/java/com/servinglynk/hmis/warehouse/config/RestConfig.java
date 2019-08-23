@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -65,6 +67,11 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 		restTemplate.setMessageConverters(messageConverters);
 		return restTemplate;
 	}
+	
+	 @PostConstruct
+	 public void initializeDatabasePropertySourceUsage() {
+		 propertyReaderService().loadProperties("CLIENT-DEDUP");
+	 }
 
 	@Bean
 	PropertyReaderServiceImpl propertyReaderService(){

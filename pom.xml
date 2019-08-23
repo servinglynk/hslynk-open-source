@@ -7,7 +7,7 @@
     <groupId>com.servinglynk.hmis.warehouse</groupId>
     <artifactId>hslynk-parent</artifactId>
     <packaging>pom</packaging>
-    <version>2.14.20</version>
+    <version>2.16.3</version>
     <name>hslynk-parent</name>
 <properties>
    <!-- Unique entry point for version number management. -->
@@ -51,7 +51,7 @@
 		<module>hmis-service-v2017</module>
 		<module>hmis-serialize-v2017</module>
 		<module>hmis-chronichomeless-v2014</module>
-    <module>hmis-clientapi-v2014</module>
+   		<module>hmis-clientapi-v2014</module>
 		<module>hmis-clientapi-v2015</module>
 		<module>hmis-clientapi-v2016</module>
 		<module>hmis-clientapi-v2017</module>
@@ -65,12 +65,14 @@
 		<module>report-service</module>
 		<module>user-service</module>
 		<module>developer-service</module>
-    <module>global-household</module>
+    		<module>global-household</module>
 		<module>authorization-service</module>
 		<module>upload-service</module>
 		<module>client-dedup</module>
 		<module>globalapi</module>
 		<module>fileupload-core</module>
+		<module>hmis-mq-service</module>
+		<module>mq-core-client</module>
 		<module>admin</module>
 	</modules>
 </project>

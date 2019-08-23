@@ -1,10 +1,10 @@
-HSLynk is a human services platform developed by ServingLynk, Inc. in conjunction with a community of third-party developers and users. Pay-per-use hosting is offered at http://hslynk.com.  The docs, wiki, and issue tracker are all located at: https://github.com/servinglynk/hmis-lynk-open-source-docs/wiki
+HSLynk is a human services platform developed by ServingLynk, Inc. in conjunction with a community of third-party developers and users. Pay-per-use hosting is offered at http://hslynk.com.  The docs, wiki, and issue tracker are all located at: https://github.com/servinglynk/hslynk-open-source-docs/wiki
 
 [![Build Status](https://builds.hmislynk.com/buildStatus/icon?job=Build-hmis-master)](https://builds.hmislynk.com/view/HMIS%20Build/job/Build-hmis-master/)
 
 # HSLynk Human Services Data Warehouse
 All subdirectories in this repository contain HSLynk microservice code.
-Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk/hmis-lynk-open-source-docs), to keep the code repo lean.
+Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk/hslynk-open-source-docs), to keep the code repo lean.
 
 ## Prerequisite
 
@@ -15,7 +15,7 @@ Our issue tracker and wiki is in a separate repo (https://github.com/servinglynk
 
 ## How to Run on local machine
 
-Make a local copy `database.properties` with the below config in /hmis-base-model/src/main/resources
+Make a local copy `database.properties` with the below config in /base-model/src/main/resources
 ```
 app.jndi.name=jdbc/multischema
 db.driver=org.postgresql.Driver
@@ -40,8 +40,8 @@ db.maxwait=60000
 ```
 
 ```
-git clone https://github.com/servinglynk/hmis-lynk-open-source.git
-cd hmis-lynk-open-source
+git clone https://github.com/servinglynk/hslynk-open-source.git
+cd hslynk-open-source
 mvn clean install -DskipTests
 ```
 
@@ -154,23 +154,23 @@ Git Eclipse Maven Howto:
 - Deploy microservices you want in eclipse or any IDE.
 
 #### Project Description
-- hmis-admin : <br />
-  Hmis admin UI application for admin related activity for HMIS.
-- hmis-authorization-service : <br />
+- admin : <br />
+  Admin UI application for admin related activity for HSLynk.
+- authorization-service : <br />
 	 Authorization service is a microservice which takes care of authentication and authorization and is a means to acquire authentication token whichn will be required to call other microservices.
-- hmis-base-model : <br />
-		Hmis base model is project which points to the base postgres schema.
-- hmis-base-serialize : <br />
-		Hmis base serialize contains pojos to serialize/de-serialize apis from the base base schema.
-- hmis-user-service : <br />
-		 Microservice containing apis providing hmis user,projects, organization, roles specific information.
-- hmis-base-service : <br />
-    Base service is a common service layer across all the hmis version specific schema and also contains service layer for the base service schema.
+- base-model : <br />
+		Base model is project which points to the base postgres schema.
+- base-serialize : <br />
+		Base serialize contains pojos to serialize/de-serialize apis from the base base schema.
+- user-service : <br />
+		 Microservice containing apis providing hslynk user,projects, organization, roles specific information.
+- base-service : <br />
+    Base service is a common service layer across all the ces, global, and hmis version specific schema and also contains service layer for the base service schema.
 - hmis-chronichomeless-v2014:
      Background process to calculate Chronic homelessness in the 2014 schema.
-- hmis-client-dedup 	: <br />
+- client-dedup 	: <br />
      Microservice to determine dedup client id from OPEN EMPI.
-- hmis-client-deidentify : <br />
+- client-deidentify : <br />
      Standalone java project to de-identify (remove) client specific information from the source file.
 		 Client information like First Name, Last Name, DOB, SSN.
 - hmis-clientapi-v2014 : <br />
@@ -179,18 +179,18 @@ Git Eclipse Maven Howto:
 	 	 Microservice which has apis against the 2015 schema (HUD Version 4.1.1)
 - hmis-clientapi-v2016m : <br />
 		 Microservice which has apis against the 2016 schema (HUD Version 5.1)
-- hmis-clientapi-v2017   : <br />
+- clientapi-v2017   : <br />
 		 Microservice which has apis against the 2017 schema (HUD Version 6.1)
-- hmis-core-client   : <br />
+- core-client   : <br />
      Common project across all the projects to communicate between microservices.	 			 	 			 			 
-- hmis-core-common  : <br />
+- core-common  : <br />
 		Common library across all the projects containing basic utils and classes.
-- hmis-developer-service  : <br />
+- developer-service  : <br />
     Microservice which contains apis to provision trusted app, developer company, developer service.
-- hmis-global-household  : <br />
-     Microservice containing apis related to global house hold.
-- hmis-globalapi  : <br />
-		 Microservice containing apis related to global house hold.
+- global-household  : <br />
+     Microservice containing apis related to global household.
+- globalapi  : <br />
+		 Microservice containing apis related to global entitites.
 - hmis-hud-reports  : <br />
      Project which calculates/generates HUD APR reports.
 - hmis-load-processor-v2014  : <br />
@@ -225,19 +225,19 @@ Git Eclipse Maven Howto:
     Java library containing spring service layer classes for 2016 apis and data model.
 - hmis-service-v2017  : <br />
     Java library containing spring service layer classes for 2017 apis and data model.
-- hmis-s3-client  : <br />
-     Java library containing code to connect to Amazon S3 for hmis.
-- hmis-upload-service  : <br />
+- s3-client  : <br />
+     Java library containing code to connect to Amazon S3 for HSlynk.
+- upload-service  : <br />
      Microservice to upload xml,zip or .7z files and to know the fetch the bulk uploads by status.
-- hmis-notification-core     : <br />
+- notification-core     : <br />
      Java library to send email notification for functionalities like welcome email etc.
-- hmis-notification-service  : <br />
+- notification-service  : <br />
 		 Microservice which uses hmis-notification-core to send notifications.
-- hmis-report-core  : <br />
+- report-core  : <br />
 	 	 Java library containing core report functionality.
-- hmis-report-service  : <br />
+- report-service  : <br />
 	 	  Microservice which would be used to request a report for users. 				 		 		 
 - sync-general  : <br />
      Sync process to sync data from postgres CES schema to HBASE.
 - sync-years  : <br />
-		 Sync process to sync data from postgres HMIS version specific schema to HBASE.
+		 Sync process to sync data from postgres global, CES, HMIS version specific schemas to HBASE.

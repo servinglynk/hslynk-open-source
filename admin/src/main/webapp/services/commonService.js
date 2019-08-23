@@ -11,7 +11,7 @@ var filesCollection="";
 }]);*/
 var Service= ({
 	GetProjectList: function ($http, success,error,$scope) {
-        var apiurl = "/hmis-clientapi-v2017/rest/v2/projects";
+        var apiurl = "/hmis-clientapi-v2017/rest/v2/projects?maxItems=200";
         $http({
             method: 'GET',
             url: apiurl,
@@ -37,30 +37,76 @@ var Service= ({
         }).error(error);
   },
   DownloadPDF: function ($http,$scope, success, error) {
-      var apiurl = "/hmis-report-service/rest/reports/downloadPDF/"+$scope.reportId;
-      $http({
-          method: 'POST',
-          url: apiurl,
-          headers: {
-            'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
-              'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
-              'Accept': 'application/json;odata=verbose'}
-      }).success(function (data) {
-          if(success)success(data.ReportConfigs.reportConfigs)
-      });
-  },
-  DownloadZIP: function ($http,$scope, success, error) {
-  	  var apiurl = "/hmis-report-service/rest/reports/downloadZIP/"+$scope.reportId;
+          var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.reportId+"/pdf";
         $http({
-            method: 'POST',
+            method: 'GET',
             url: apiurl,
             headers: {
               'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                 'Accept': 'application/json;odata=verbose'}
-        }).success(function (data) {
-            if(success)success(data)
-        }).error(error);
+      }).success(function (data, status, headers) {
+          headers = headers();
+          
+          var filename = headers['x-filename'];
+          var contentType = headers['content-type'];
+   
+          var linkElement = document.createElement('a');
+          try {
+              var blob = new Blob([data], { type: contentType });
+              var url = window.URL.createObjectURL(blob);
+   
+              linkElement.setAttribute('href', url);
+              linkElement.setAttribute("download", filename);
+   
+              var clickEvent = new MouseEvent("click", {
+                  "view": window,
+                  "bubbles": true,
+                  "cancelable": false
+              });
+              linkElement.dispatchEvent(clickEvent);
+          } catch (ex) {
+              console.log(ex);
+          }
+      }).error(function (data) {
+          console.log(data);
+      });
+  },
+  DownloadZIP: function ($http,$scope, success, error) {
+  	  var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.reportId+"/zip";
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data, status, headers) {
+            headers = headers();
+            
+            var filename = headers['x-filename'];
+            var contentType = headers['content-type'];
+     
+            var linkElement = document.createElement('a');
+            try {
+                var blob = new Blob([data], { type: contentType });
+                var url = window.URL.createObjectURL(blob);
+     
+                linkElement.setAttribute('href', url);
+                linkElement.setAttribute("download", filename);
+     
+                var clickEvent = new MouseEvent("click", {
+                    "view": window,
+                    "bubbles": true,
+                    "cancelable": false
+                });
+                linkElement.dispatchEvent(clickEvent);
+            } catch (ex) {
+                console.log(ex);
+            }
+        }).error(function (data) {
+            console.log(data);
+        });
   },
   GetUserByOrganization:function ($http,$scope, success, error) {
 	  $scope.organizationId ="b5598c6c-d021-4f5f-9695-77f7f4685ed2"
