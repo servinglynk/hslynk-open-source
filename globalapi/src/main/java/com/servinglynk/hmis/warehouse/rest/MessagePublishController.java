@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.model.AMQEvent;
 
-@RequestMapping("events")
+@RequestMapping("/events")
 @RestController
 public class MessagePublishController extends ControllerBase {
 
