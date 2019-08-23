@@ -21,9 +21,9 @@ public class ClientManagementDaoImpl implements ClientManagementDao {
 	}
 
 	@Override
-	public void mergeClientIdentities(UUID oldDedupClientId, UUID newDedupClientId, String projectGroupCode) {
+	public void mergeClientIdentities(UUID currentDedupId, UUID targetDedupId, UUID clientId, String projectGroupCode) {
 		Session session = entityManager.unwrap(Session.class);
-		String query = "select * from base.\"mergeClientIdenties\" ('"+oldDedupClientId+"','"+newDedupClientId+"','"+projectGroupCode+"')";
+		String query = "select * from base.\"mergeClientIdenties\" ('"+currentDedupId+"','"+targetDedupId+"','"+clientId+"','"+projectGroupCode+"')";
 		System.out.println("delete query "+query);
 		session.createSQLQuery(query).list();
 	}

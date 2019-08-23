@@ -15,7 +15,7 @@ public class ClientManagementServiceImpl extends BaseService implements ClientMa
 
 	@Transactional
 	public void mergeClientIdentities(ClientMetaDataModel model) {
-		daoFactory.getClientManagementDao().mergeClientIdentities(model.getClientDedupId(),model.getNewDedulClientId(), model.getProjectGroupCode());
+		daoFactory.getClientManagementDao().mergeClientIdentities(model.getClientDedupId(),model.getNewDedulClientId(),model.getClientId() ,model.getProjectGroupCode());
 		
 	}
 	
