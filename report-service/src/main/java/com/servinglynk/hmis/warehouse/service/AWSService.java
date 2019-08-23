@@ -68,26 +68,15 @@ public class AWSService extends BaseRegistry {
      * @param keyName
      * @return
      */
-    public String downloadFile(String bucketName, String keyName, String tmpPath) throws IOException
+    public InputStream downloadFile(String bucketName, String keyName, String tmpPath) throws IOException
     {
         S3Object object = getS3Client().getObject(
                 new GetObjectRequest(bucketName, keyName));
         InputStream objectData = object.getObjectContent();
-        String name = keyName.contains("/") ? keyName.substring(keyName.lastIndexOf('/') + 1) : keyName;
-        String path = saveFile(objectData, name);
-        objectData.close();
-        return path;
+        return objectData;
     }
     
-    private String saveFile(InputStream input, String name)
-            throws IOException {
-        File file = new File(name);
-        OutputStream outputStream = new FileOutputStream(file);
-        IOUtils.copy(input, outputStream);
-        outputStream.close();
-        return file.getAbsolutePath();
-    }
-    
+   
 	private AWSCredentials credential(Properties properties) {
 		String awsId = (String)properties.get("aws_access_key_id");
 		String awsKey = (String)properties.get("aws_secret_access_key");
