@@ -37,7 +37,7 @@ var Service= ({
         }).error(error);
   },
   DownloadPDF: function ($http,$scope, success, error) {
-      var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.reportId"/pdf";
+      var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.reportId+"/pdf";
       $http({
           method: 'GET',
           responseType: 'arraybuffer',
