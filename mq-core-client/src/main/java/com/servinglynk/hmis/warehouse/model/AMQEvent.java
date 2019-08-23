@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("amqEvent")
+@JsonRootName("event")
 public class AMQEvent {
 
 	private Date createdAt;
