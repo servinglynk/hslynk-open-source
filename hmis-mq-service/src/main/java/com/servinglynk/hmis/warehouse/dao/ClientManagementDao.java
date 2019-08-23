@@ -6,5 +6,5 @@ public interface ClientManagementDao {
 
 	void deleteClientIdentities(UUID clientId,UUID dedupClientId,String projectGroupCode,UUID userId);
 
-	void mergeClientIdentities(UUID clientId, UUID clientDedupId, String projectGroupCode);
+	void mergeClientIdentities(UUID currentDedupId, UUID targetDedupId, UUID clientId, String projectGroupCode);
 }

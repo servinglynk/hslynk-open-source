@@ -21,8 +21,9 @@ public class ClientMergeListener extends BaseListener {
 			
 			ClientMetaDataModel model = new ClientMetaDataModel();
 			model.setAdditionalInfo(mapper.writeValueAsString(event.getPayload()));
-			if(event.getPayload().get("oldClientDedupId")!=null) model.setClientDedupId(UUID.fromString(event.getPayload().get("oldClientDedupId").toString()));
-			if(event.getPayload().get("newClientDedupId")!=null) model.setNewDedulClientId(UUID.fromString(event.getPayload().get("newClientDedupId").toString()));
+			if(event.getPayload().get("currentDedupId")!=null) model.setClientDedupId(UUID.fromString(event.getPayload().get("currentDedupId").toString()));
+			if(event.getPayload().get("targetDedupId")!=null) model.setNewDedulClientId(UUID.fromString(event.getPayload().get("targetDedupId").toString()));
+			if(event.getPayload().get("clientId")!=null) model.setClientId(UUID.fromString(event.getPayload().get("clientId").toString()));
 			if(event.getPayload().get("projectGroupCode")!=null) model.setProjectGroupCode(event.getPayload().get("projectGroupCode").toString());
 			model.setType(event.getEventType());
 
