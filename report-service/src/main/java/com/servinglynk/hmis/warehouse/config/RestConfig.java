@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImp
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.ReportConfigController;
 import com.servinglynk.hmis.warehouse.service.AWSService;
+import com.servinglynk.hmis.warehouse.service.ReportWorker;
 
 @Configuration
 @Import({ com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,
@@ -66,6 +67,11 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 
 		restTemplate.setMessageConverters(messageConverters);
 		return restTemplate;
+	}
+	
+	@Bean
+	public ReportWorker reportWorker(){
+		return new ReportWorker();
 	}
 
 	@Bean
