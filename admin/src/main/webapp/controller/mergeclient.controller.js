@@ -4,13 +4,6 @@ app.controller('mergeclientCtrl',['$scope','$location','$routeSegment','$http', 
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
 	$scope.sessionToken = $sessionStorage.sessionToken;								 
-	Service.GetProjectList($http,
-    //success
-    function(data){$scope.projects =data;  },//error
-	function(){$scope.errorTextAlert = "Error, Something gone wrong with getting projects.";
-	$scope.showErrorAlert = true;},
-	$scope)
-											   
 											   
   $scope.submitForm = function() {
 	  
@@ -18,7 +11,7 @@ app.controller('mergeclientCtrl',['$scope','$location','$routeSegment','$http', 
     //success
     function(data){
 	
-		$scope.successTextAlert = "Your Requset has been sent successfully.";
+		$scope.successTextAlert = "Your Requset has been sent successfully. Dedup Id is:"+data.client.dedupClientId;
 		$scope.showSuccessAlert = true;
 		$scope.form.name='';
 		$scope.form.reportLevel='';
