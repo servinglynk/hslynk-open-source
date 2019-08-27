@@ -22,31 +22,6 @@ app.controller('dashboardCtrl',['$rootScope', '$scope', '$location', '$routeSegm
         })
 
 
-
-    Service.CheckServiceAvailableUploadFile($http,$scope,
-        //success
-        function(data) {
-            $("#divUploadFile .button-success").css("display", "inline");
-        },
-        //error
-        function() {
-            $("#divUploadFile .button-success").css("display", "inline");
-        })
-
-
-    Service.CheckServiceAvailableAuthenticate($http,$scope,
-        //success
-        function(data) {
-            $("#divAuthenticate .button-success").css("display", "inline");
-        },
-        //error
-        function() {
-            $("#divAuthenticate .button-success").css("display", "inline");
-        })
-
-
-
-
     Service.LoadStatistics($http,$scope,
         //success
         function(filesCollection) {
