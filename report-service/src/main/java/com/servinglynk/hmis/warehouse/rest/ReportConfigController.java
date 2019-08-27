@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.ReportConfig;
 import com.servinglynk.hmis.warehouse.core.model.ReportConfigs;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.service.AWSService;
 
 
@@ -71,13 +73,18 @@ public class ReportConfigController extends ControllerBase {
 			try {
 		        Session session = sessionHelper.getSession(request);
 		        String bucketName = session.getAccount().getProjectGroup().getBucketName();
-		        InputStream inputStream = awsService.downloadFile(bucketName, "APR/"+reportConfigId+"."+type, null);
-		        response.setContentType("application/force-download");
-		        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+"."+type); 
-		        response.setHeader("x-filename",reportConfigId+"."+type); 
-		        IOUtils.copy(inputStream, response.getOutputStream());
-		        response.flushBuffer();
-		        inputStream.close();
+		        ReportConfig reportConfigById = serviceFactory.getReportConfigService().getReportConfigById(reportConfigId);
+		        if(reportConfigById != null && StringUtils.equals(reportConfigById.getProjectGroupCode(), session.getAccount().getProjectGroup().getProjectGroupCode())) {
+		        	InputStream inputStream = awsService.downloadFile(bucketName, "APR/"+reportConfigId+"."+type, null);
+			        response.setContentType("application/force-download");
+			        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+"."+type); 
+			        response.setHeader("x-filename",reportConfigId+"."+type); 
+			        IOUtils.copy(inputStream, response.getOutputStream());
+			        response.flushBuffer();
+			        inputStream.close();
+		        }else {
+		        	throw new AccessDeniedException("The User does not have access to download the report");
+		        }
 		    } catch (Exception e){
 		        logger.debug("Request could not be completed at this moment. Please try again.");
 		        e.printStackTrace();

@@ -38,7 +38,7 @@ public class ClientsController extends ControllerBase {
 	
 	
 	
-	@RequestMapping(value = "/{clientid}/dedup/merge", method = RequestMethod.POST)
+	@RequestMapping(value = "/clients/{clientid}/dedup/merge", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_MERGE", checkSessionToken = true, checkTrustedApp = true) 
 	public BaseClient mergeClients(@RequestBody BaseClient client, @PathVariable("clientid") UUID clientId,
 				HttpServletRequest request) throws Exception  {
@@ -47,7 +47,7 @@ public class ClientsController extends ControllerBase {
 	}
 
 
-	@RequestMapping(value = "/{clientid}/dedup/unmerge", method = RequestMethod.POST)
+	@RequestMapping(value = "/clients/{clientid}/dedup/unmerge", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_UNMERGE", checkSessionToken = true, checkTrustedApp = true) 
 	public BaseClient unMergeClients(@PathVariable("clientid") UUID clientId,
 			@Valid @RequestBody BaseClient client,

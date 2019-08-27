@@ -97,7 +97,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					enrollmentModel.setClient(client);
 					enrollmentModel.setExport(exportEntity);
 					performSaveOrUpdate(enrollmentModel, domain);
-					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
+//					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollment::"+enrollment.getEnrollmentID() +" Exception ::"+e.getMessage();
 					if(enrollmentModel != null){
@@ -127,8 +127,10 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
+		com.servinglynk.hmis.warehouse.model.v2017.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		modelFromDB.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
+		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
+		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(modelFromDB, domain,enrollment.getEnrollmentID(),data);
 		return modelFromDB;
 	}

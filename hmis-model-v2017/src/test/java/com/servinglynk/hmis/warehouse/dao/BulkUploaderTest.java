@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.config.AMQConfiguration;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest;
@@ -36,7 +37,7 @@ import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DatabaseConfig.class,StandAloneDBPoolConfig.class},loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = {DatabaseConfig.class,StandAloneDBPoolConfig.class,AMQConfiguration.class},loader = AnnotationConfigContextLoader.class)
 @TransactionConfiguration(defaultRollback=true,transactionManager="transactionManager") 
 public class BulkUploaderTest {
 	
@@ -199,7 +200,7 @@ public class BulkUploaderTest {
 //				bulkIds.add(411L);
 //				bulkIds.add(429L);
 //				bulkIds.add(413L);
-				bulkIds.add(584L);
+				bulkIds.add(611L);
 				
 				for(Long id : bulkIds) {
 					BulkUpload bulkUpload = factory.getBulkUploaderDao().performLoad(id,appender,true);
