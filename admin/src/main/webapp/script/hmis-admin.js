@@ -57,7 +57,8 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
 		      .when('/admin/manageeligreq',      's2.manageeligreq')
        		  .when('/admin/setting',      's2.setting')
 			   .when('/admin/requestreport',      's2.requestreport')
-			   
+			    .when('/admin/mergeclient',      's2.mergeclient')
+			    .when('/admin/unmergeclient',      's2.unmergeclient')
 			   .when('/admin/createprojgrp',      's2.createprojgrp')
 			   .when('/admin/manageprojgrp',      's2.manageprojgrp')
 			   
@@ -110,7 +111,11 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
                 templateUrl: 'templates/partial/setting.html', controller: 'settingCtrl'})   
 			 .segment('requestreport', {
                 templateUrl: 'templates/partial/requestreport.html', controller: 'requestreportCtrl'}) 
-               
+               .segment('mergeclient', {
+                templateUrl: 'templates/partial/mergeclient.html', controller: 'mergeclientCtrl'}) 
+                  .segment('unmergeclient', {
+                templateUrl: 'templates/partial/unmergeclient.html', controller: 'unmergeclientCtrl'}) 
+                
                 .segment('createorg', {
                 templateUrl: 'templates/partial/createorg.html', controller: 'createorgCtrl'})  
                 .segment('manageorg', {
