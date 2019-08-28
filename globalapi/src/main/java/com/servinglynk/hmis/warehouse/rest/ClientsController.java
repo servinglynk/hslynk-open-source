@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
-import com.servinglynk.hmis.warehouse.core.model.BaseClient;
 import com.servinglynk.hmis.warehouse.core.model.BaseClients;
+import com.servinglynk.hmis.warehouse.core.model.MergeClient;
 import com.servinglynk.hmis.warehouse.core.model.Parameters;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 
@@ -40,7 +40,7 @@ public class ClientsController extends ControllerBase {
 	
 	@RequestMapping(value = "/clients/{clientid}/dedup/merge", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_MERGE", checkSessionToken = true, checkTrustedApp = true) 
-	public BaseClient mergeClients(@RequestBody BaseClient client, @PathVariable("clientid") UUID clientId,
+	public MergeClient mergeClients(@RequestBody MergeClient client, @PathVariable("clientid") UUID clientId,
 				HttpServletRequest request) throws Exception  {
 		Session session = sessionHelper.getSession(request);
 		return serviceFactory.getBaseClientsService().mergeClient(client, session.getAccount().getUsername(), clientId);
@@ -49,8 +49,8 @@ public class ClientsController extends ControllerBase {
 
 	@RequestMapping(value = "/clients/{clientid}/dedup/unmerge", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_UNMERGE", checkSessionToken = true, checkTrustedApp = true) 
-	public BaseClient unMergeClients(@PathVariable("clientid") UUID clientId,
-			@Valid @RequestBody BaseClient client,
+	public MergeClient unMergeClients(@PathVariable("clientid") UUID clientId,
+			@Valid @RequestBody MergeClient client,
 			HttpServletRequest request) throws Exception  {
 		Session session = sessionHelper.getSession(request);
 		return serviceFactory.getBaseClientsService().unmergeClient(client, session.getAccount().getUsername(), clientId);

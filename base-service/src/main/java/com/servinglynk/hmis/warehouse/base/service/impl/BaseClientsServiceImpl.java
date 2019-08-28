@@ -1,18 +1,17 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.BaseClientsService;
 import com.servinglynk.hmis.warehouse.base.service.converter.ClientConverter;
-import com.servinglynk.hmis.warehouse.client.baseclients.BaseClientService;
+import com.servinglynk.hmis.warehouse.base.service.converter.MergeClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.BaseClient;
 import com.servinglynk.hmis.warehouse.core.model.BaseClients;
+import com.servinglynk.hmis.warehouse.core.model.MergeClient;
 import com.servinglynk.hmis.warehouse.model.base.Client;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException;
@@ -40,29 +39,33 @@ public class BaseClientsServiceImpl extends ServiceBase implements BaseClientsSe
 	
 	@Override
 	@Transactional
-	public BaseClient mergeClient(BaseClient client, String caller,UUID clientId) {
+	public MergeClient mergeClient(MergeClient client, String caller,UUID clientId) {
 		Client pClient = daoFactory.getBaseClientDao().getClient(clientId);
 		if(pClient == null) throw new ClientNotFoundException();
-		ClientConverter.modelToEntity(client, pClient);
+		UUID oldDedupId = pClient.getDedupClientId();
+		MergeClientConverter.modelToEntity(client, pClient);
 		UUID dedupClientId = daoFactory.getHmisClientDao().determindDedupId(pClient);
 		pClient.setDedupClientId(dedupClientId);
 		// Update the Dedup Id in Open EMPI by calling the Dedup Service.
-		return ClientConverter.entityToModel(pClient);
+		 MergeClient entityToModel = MergeClientConverter.entityToModel(pClient);
+		 entityToModel.setOldDedupClientId(oldDedupId);
+		 return entityToModel;
 	}
 	
 	
 	@Override
 	@Transactional
-	public BaseClient unmergeClient(BaseClient client, String caller,UUID clientId) {
+	public MergeClient unmergeClient(MergeClient client, String caller,UUID clientId) {
 		Client pClient = daoFactory.getBaseClientDao().getClient(clientId);
 		if(pClient == null) throw new ClientNotFoundException();
+		UUID oldDedupId = pClient.getDedupClientId();
        // Make essential attributes null before merge or unmerge
-		ClientConverter.modelToEntity(client, pClient);
+		MergeClientConverter.modelToEntity(client, pClient);
 		// Update the dedup id of the client in Open EMPI by calling the updatePerson API in the dedup service.
 		UUID dedupClientId = daoFactory.getHmisClientDao().determindDedupId(pClient);
 		pClient.setDedupClientId(dedupClientId);
-		return ClientConverter.entityToModel(pClient);
+		 MergeClient entityToModel = MergeClientConverter.entityToModel(pClient);
+		 entityToModel.setOldDedupClientId(oldDedupId);
+		 return entityToModel;
 	}
-	
-	
 }

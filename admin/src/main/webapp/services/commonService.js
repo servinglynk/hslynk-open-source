@@ -408,6 +408,30 @@ UnMergeClient: function ($http,$scope, success,error) {
          if(success)success(data)
      }).error(error);
 },
+Events: function ($http,$scope,data, success,error) {
+	var apiurl = "/hmis-globalapi/rest/events";
+     $http({
+         method: 'POST',
+         url: apiurl,
+         data :
+         	{
+         		  "event": {
+         			    "payload": {
+         			      "projectGroupCode": data.projectGroupCode,
+         			      "clientId": data.clientId,
+         			      "targetDedupId": data.dedupClientId
+         			    },
+         			    "eventType": data.eventType
+         			  }
+        },
+         headers: {
+           'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+             'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+             'Accept': 'application/json;odata=verbose'}
+     }).success(function (data) {
+         if(success)success(data)
+     }).error(error);
+},
 SendRequestReport: function ($http,$scope, success,error) {
 	data =$scope.form;
      var apiurl = "/hmis-report-service/rest/reports";

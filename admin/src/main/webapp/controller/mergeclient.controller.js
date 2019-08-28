@@ -1,5 +1,5 @@
 
-app.controller('mergeclientCtrl',['$scope','$location','$routeSegment','$http', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+app.controller('unmergeclientCtrl',['$scope','$location','$routeSegment','$http','$modal', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http,$modal, $timeout, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
@@ -10,8 +10,18 @@ app.controller('mergeclientCtrl',['$scope','$location','$routeSegment','$http', 
        Service.MergeClient($http,$scope,
     //success
     function(data){
-	
-		$scope.successTextAlert = "Your Requset has been sent successfully. Dedup Id is:"+data.client.dedupClientId;
+    	   
+   	       var modalInstance = $modal.open({
+   	            templateUrl: 'templates/partial/mergeclientpopup.html',
+   	            controller: 'ModalInstanceLogCtrl',
+   	            resolve: {
+   	                'datajson': function () {
+   	                    return data.client;
+   	                }
+   	            }
+   	        });
+    	
+		$scope.successTextAlert = "";
 		$scope.showSuccessAlert = true;
 		$scope.form.name='';
 		$scope.form.reportLevel='';
@@ -20,7 +30,6 @@ app.controller('mergeclientCtrl',['$scope','$location','$routeSegment','$http', 
 		$scope.form.endDate='';
 		$scope.form.project=[];
 		
-
 },
 	//error
 	function(){$scope.errorTextAlert = "Error, Something gone wrong.";
