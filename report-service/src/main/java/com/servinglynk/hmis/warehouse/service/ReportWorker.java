@@ -53,6 +53,7 @@ public class ReportWorker implements IReportWorker  {
 										builder.append(" <br/> ");
 										builder.append(" https://admin.hmislynk.com/ ");
 										builder.append(" <br/> ");
+										builder.append(" <br/> ");
 										builder.append(" Thanks ");
 										builder.append(" <br/>  ");
 										builder.append(" Hslynk Team ");
