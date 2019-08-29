@@ -73,8 +73,8 @@ app.controller('dashboardCtrl',['$rootScope', '$scope', '$location', '$routeSegm
                         //$window.localStorage.setItem('account',data.account);
                         $sessionStorage.account = data.account;
                         $("#userDetails").html(data.account.emailAddress);
-                        $rootScope.roleName = $sessionStorage.account.roles.role[0].roleName; // data.account.roles.role[0].roleName;
-                        $sessionStorage.roleName = $sessionStorage.account.roles.role[0].roleName;
+                        $rootScope.roleName = $sessionStorage.account.roles[0].roleName; // data.account.roles.role[0].roleName;
+                        $sessionStorage.roleName = $sessionStorage.account.roles[0].roleName;
                         if($rootScope.roleName=="SUPERADMIN")
                 		{
                 			$(".dashboard").show();

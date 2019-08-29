@@ -1,5 +1,8 @@
 package com.servinglynk.hmis.warehouse.rest.service;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.Format;
@@ -9,7 +12,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -54,6 +56,7 @@ public class DedupServiceImpl implements DedupService{
 	}
 
 	public Person createUser(Person person,String sessionKey) {
+		try {
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			MediaType mediaType = new MediaType("application", "xml", Charset.forName("UTF-16"));
@@ -61,9 +64,14 @@ public class DedupServiceImpl implements DedupService{
 	        headers.set(OPENEMPI_SESSION_KEY_HEADER, sessionKey);
 	        String url = OPENEMPI_HOST+"openempi-ws-rest/person-manager-resource/addPerson";
 	       // requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
-	        HttpEntity<Person> entityHttp = new HttpEntity<Person>(person, headers); 
+	        HttpEntity<Object> entityHttp = new HttpEntity<Object>(parsePersonObjectToXMLString(person), headers); 
 	        ResponseEntity<Person> responseObject = restTemplate.exchange(url, HttpMethod.PUT, entityHttp, Person.class);
 	        return responseObject.getBody();
+		}catch(Exception e) {
+			
+		}
+		return null;
+		
 	}
 
 	public Person updateUser(Person person,String sessionKey) {
@@ -255,7 +263,9 @@ public class DedupServiceImpl implements DedupService{
 			// When no match found lets insert a new record.
 			//-- Part 9 Likely Matches = 0  INSERT NEW RECORD
 			  Person newlyAddedPerson  = createUser(person, sessionKey);
-			  newlyAddedPerson.setCustom20(getUniqueIdentifier(newlyAddedPerson.getPersonIdentifiers()));
+			  if(newlyAddedPerson != null) {
+				  newlyAddedPerson.setCustom20(getUniqueIdentifier(newlyAddedPerson.getPersonIdentifiers()));
+			  }
 //			  if(newlyAddedPerson !=null ) {
 //				  return getUniqueIdentifier(newlyAddedPerson.getPersonIdentifiers());
 //			  }
@@ -427,7 +437,7 @@ public class DedupServiceImpl implements DedupService{
 						
 					}
 					
-					if(StringUtils.equals(matchingPerson.getSsn(), person.getSsn())) {
+					if(StringUtils.isNotBlank(matchingPerson.getSsn())  && StringUtils.isNotBlank(person.getSsn()) && StringUtils.equals(matchingPerson.getSsn(), person.getSsn())) {
 						points = points+3;
 					}
 					person.setPoints(points);
@@ -625,5 +635,17 @@ public class DedupServiceImpl implements DedupService{
             e.printStackTrace();
         }
         return date;
+	}
+	
+	public static void main(String args[]) throws Exception {
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");  
+		DedupServiceImpl dedup = new DedupServiceImpl();
+		  Person person = new Person();
+	        person.setFamilyName("asdfasdf");
+	        person.setGivenName("asdfasdf");
+	        person.setSsn("asdfasdfasdfasdf");
+	        person.setDateOfBirth(formatter.parse("1996-01-20"));
+		Person dedupingLogic = dedup.dedupingLogic(person, "asdfasdfasfd");
+		System.out.println(" Dedup:"+dedupingLogic.getCustom20());
 	}
 }

@@ -57,7 +57,8 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
 		      .when('/admin/manageeligreq',      's2.manageeligreq')
        		  .when('/admin/setting',      's2.setting')
 			   .when('/admin/requestreport',      's2.requestreport')
-			   
+			   .when('/admin/mergeclient',      's2.mergeclient')
+			   .when('/admin/unmergeclient',      's2.unmergeclient')
 			   .when('/admin/createprojgrp',      's2.createprojgrp')
 			   .when('/admin/manageprojgrp',      's2.manageprojgrp')
 			   
@@ -110,7 +111,11 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
                 templateUrl: 'templates/partial/setting.html', controller: 'settingCtrl'})   
 			 .segment('requestreport', {
                 templateUrl: 'templates/partial/requestreport.html', controller: 'requestreportCtrl'}) 
-               
+               .segment('mergeclient', {
+                templateUrl: 'templates/partial/mergeclient.html', controller: 'mergeclientCtrl'}) 
+                .segment('unmergeclient', {
+                templateUrl: 'templates/partial/unmergeclient.html', controller: 'unmergeclientCtrl'}) 
+                
                 .segment('createorg', {
                 templateUrl: 'templates/partial/createorg.html', controller: 'createorgCtrl'})  
                 .segment('manageorg', {
@@ -175,6 +180,26 @@ app.run(['$rootScope', '$location', '$sessionStorage', '$http',
        
          }]);
 app.value('loader', { show: false });
+
+app.directive("ssnInput",function(){
+    return {
+        require:'ngModel',
+        link: function(scop, elem, attr, ngModel){
+            $(elem).mask("999-99-9999");
+            var temp;
+            var regxa = /^(\d{3}-?\d{2}-?\d{4})$/;
+            $(elem).focusin(function(){
+                $(elem).val(temp);
+            });
+            $(elem).on('blur',function(){
+                temp = $(elem).val();
+                if(regxa.test($(elem).val())){
+                   $(elem).val("XXX-XX" + temp.slice(6));
+               }
+            });
+        }
+    }
+});
 
 app.directive('appFilereader',['$q', function ($q) {
     var slice = Array.prototype.slice;

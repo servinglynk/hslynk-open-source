@@ -44,8 +44,6 @@ import com.servinglynk.hmis.warehouse.core.model.Entryssvfs;
 import com.servinglynk.hmis.warehouse.core.model.Exit;
 import com.servinglynk.hmis.warehouse.core.model.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.core.model.Exithousingassessments;
-import com.servinglynk.hmis.warehouse.core.model.Exitpath;
-import com.servinglynk.hmis.warehouse.core.model.Exitpaths;
 import com.servinglynk.hmis.warehouse.core.model.Exitrhy;
 import com.servinglynk.hmis.warehouse.core.model.Exitrhys;
 import com.servinglynk.hmis.warehouse.core.model.Exits;
@@ -132,7 +130,7 @@ public class ClientsController extends ControllerBase {
 		return serviceFactory.getClientService().getAllClients(account.getProjectGroup().getProjectGroupCode(), startIndex,
 				maxItems);
 	}
-
+	
 	@RequestMapping(value = "/{clientid}/enrollments", method = RequestMethod.POST)
 	@APIMapping(value = "CLIENT_API_CREATE_ENROLLMENT", checkSessionToken = true, checkTrustedApp = true)
 	public Enrollment createEnrollment(@RequestBody Enrollment enrollment, @PathVariable("clientid") UUID clientId,
