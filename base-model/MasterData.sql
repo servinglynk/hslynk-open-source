@@ -22,6 +22,10 @@ INSERT INTO base.hmis_user_role_map(id, user_id, role_id, created_at, created_by
 INSERT INTO base.hmis_redirect_uri(id, uri, trustedapp_id, created_at, created_by ) 
 				VALUES ('2a0de2d3-ce1f-4cf1-9145-04aa70e3196c','http://localhost:8081/hmis-admin/#/admin/dashborad' , 'f9091e61-d617-4923-b50a-9e9bd405e313', current_date, 'MASTER DATA');
 
+ INSERT INTO base.hmis_api_method VALUES ('45552518-d070-5992-2ec8-05b3f9f745f2', 'CLIENT_API_UNMERGE', 'CLIENT_API_UNMERGE', 'CLIENT_API_UNMERGE', 'POST', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_api_method VALUES ('45552518-d070-5992-2ec8-05b3f9f745d5', 'CLIENT_API_MERGE', 'CLIENT_API_MERGE', 'CLIENT_API_MERGE', 'POST', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+ 
+
 				
 INSERT INTO base.hmis_profile( id, profile_name, profile_description, created_at, created_by)  VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac', 'Standard Profile', 'Standard Profile', current_date, 'MASTER DATA');
 INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','039c55be-bf44-4e22-8a79-5ba861756c45' , '54b2ce51-acd8-4afc-9c8f-50c37a843f8b', current_date, 'MASTER DATA');
@@ -39,5 +43,7 @@ INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, cre
 INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('d78c38a1-2762-4393-b69b-41a0a11e6efc','754ee226-2f0f-9691-d164-fd0499832bc9' , (SELECT uuid_in(md5(random()::text || now()::text)::cstring)), current_date, 'MASTER DATA');
 
 
+INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','45552518-d070-5992-2ec8-05b3f9f745f2' , '5fd85889-aa2e-4c2a-a4e2-9dc927485245', current_date, 'MASTER DATA');
+ INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','45552518-d070-5992-2ec8-05b3f9f745d5' , '5fd85889-aa2e-4c2a-a4e2-9dc927485246', current_date, 'MASTER DATA');
 
 				

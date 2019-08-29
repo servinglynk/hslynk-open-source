@@ -1055,6 +1055,14 @@ public class BulkUploadHelper2017 {
 	    	  noncashbenefitsModel.setInformationDate(getXMLGregorianCalendar(incomeBnfts.getInformationDate()));
 	    	  noncashbenefitsModel.setNonCashBenefitsID(incomeBnfts.getIncomeBenefitsID());
 	    	  noncashbenefitsModel.setOtherSource((incomeBnfts.getOtherBenefitsSource()));
+	    	  noncashbenefitsModel.setEnrollmentID(incomeBnfts.getEnrollmentID());
+	    	  noncashbenefitsModel.setOtherSourceIdentify(incomeBnfts.getOtherBenefitsSourceIdentify());
+	    	  noncashbenefitsModel.setOtherTANF(incomeBnfts.getOtherTANF());
+	    	//  noncashbenefitsModel.setRentalAssistanceOngoing(incomeBnfts.getong);
+	    	  noncashbenefitsModel.setSNAP(incomeBnfts.getSNAP());
+	    	  noncashbenefitsModel.setTANFChildCare(incomeBnfts.getTANFChildCare());
+	    	  noncashbenefitsModel.setTANFTransportation(incomeBnfts.getTANFTransportation());
+	    	  noncashbenefitsModel.setWIC(incomeBnfts.getWIC());
 	    	  nonCashBenefitsList.add(noncashbenefitsModel);
 	    	  
 	    	  HealthInsurance healthinsuranceModel = new HealthInsurance();
@@ -1395,19 +1403,41 @@ public class BulkUploadHelper2017 {
 		  if(date == null || "".equals(date) || "NA".equalsIgnoreCase(date)) {
 			  return null;
 		  }
+		  DateFormat df1=new SimpleDateFormat("yyyy-MM-dd");
 		  Date dob=null;
-		  DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+		  String dobString ="";
+		  DateFormat df=new SimpleDateFormat("MM/dd/yy mm:ss");
 		  try {
 			  dob=df.parse(date);  
+			  dobString=df1.format(dob);
 		  }catch(ParseException ex) {
-			  
+			
+			  try {
+				dob=df1.parse(date);
+				dobString=df1.format(dob);
+			} catch (ParseException e) {
+				DateFormat df2=new SimpleDateFormat("yyyy-MM-dd mm:ss");
+				  try {
+					dob=df2.parse(date);
+					dobString=df1.format(dob);
+				  }catch(ParseException exp) {
+					  
+					  DateFormat df3=new SimpleDateFormat("MM/dd/yy");
+					  try {
+						dob=df3.parse(date);
+						dobString=df1.format(dob);
+					  }catch(ParseException exp1) {
+						  exp1.printStackTrace();
+					  }
+				  }
+			}
 		  }
 		  if(dob == null){
 			  return null;
 		  }
 		  XMLGregorianCalendar xmlDate2=null;
 		try {
-			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(df.format(dob));
+			xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(dobString);
 			//xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH), dob.getHours(),dob.getMinutes(),dob.getSeconds(),DatatypeConstants.FIELD_UNDEFINED, cal.getTimeZone().LONG).normalize();
 		} catch (DatatypeConfigurationException e) {
 			// TODO Auto-generated catch block

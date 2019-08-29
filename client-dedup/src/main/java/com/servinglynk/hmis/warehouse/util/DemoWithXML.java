@@ -37,6 +37,9 @@ public class DemoWithXML {
         response.getHeaders().getLocation();
         response.getStatusCode();
         String responseBody = response.getBody();        
+        //102243E2A55F9BC337D759EF921BA835
+        
+        //fa194a0b-2a66-4662-b4fa-3b75d687ae33	568333527	1963-10-26 00:00:00.000000 +00:00:00	Richard	Blanco
         System.out.println(" SESSION KEY"+responseBody);
         headers.setContentType(MediaType.APPLICATION_XML); 
         headers.set("OPENEMPI_SESSION_KEY", responseBody);
@@ -44,9 +47,10 @@ public class DemoWithXML {
         //requestBody ="{ \"person\": { \"familyName\": \"Anderson\",\"givenName\": \"John\"}}";
        // requestBody = "<person><familyName>Anderson</familyName><givenName>John</givenName><ssn>111111111</ssn></person>";
         Person person = new Person();
-        person.setFamilyName("Anderson");
-        person.setGivenName("John");
-        person.setSsn("111111111");
+        person.setFamilyName("Blanco");
+        person.setGivenName("Richard");
+        person.setSsn("568333527");
+        person.setDateOfBirth(new Date("1963-10-26"));
         
        // requestBody = "<person><ssn>111111111</ssn></person>";
 //        Person person = new Person();

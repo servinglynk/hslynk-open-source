@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
-import com.servinglynk.hmis.warehouse.service.ClientService;
-import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
 import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.service.ClientService;
+import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 
 public class ClientServiceImpl extends ServiceBase implements ClientService {
@@ -49,7 +49,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		client.setDedupClientId(pClient.getDedupClientId());
 		return client;
 	}
-
+	
 	@Override
 	@Transactional
 	public Client updateClient(Client client, String caller) {

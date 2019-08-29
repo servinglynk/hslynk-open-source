@@ -5,6 +5,12 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<<<<<<< HEAD
+        <dependent-module archiveName="hmis-base-model-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-model/hmis-base-model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="core-client-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/core-client/core-client">
+=======
         <dependent-module archiveName="hmis-base-serialize-2.16.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-serialize/hmis-base-serialize">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -33,6 +39,7 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="core-client-2.16.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/core-client/core-client">
+>>>>>>> master
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="hmis-client-dedup"/>

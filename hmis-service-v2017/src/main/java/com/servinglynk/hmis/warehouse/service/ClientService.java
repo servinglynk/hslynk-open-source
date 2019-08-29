@@ -13,5 +13,4 @@ public interface ClientService {
 	Client deleteClient(UUID clientId,String caller);
 	Client getClientById(UUID clientId);
 	Clients getAllClients(String projectGroupCode,Integer startIndex, Integer maxItems);
-	
 }
