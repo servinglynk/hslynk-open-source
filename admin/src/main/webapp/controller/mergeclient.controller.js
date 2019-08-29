@@ -1,5 +1,5 @@
 
-app.controller('unmergeclientCtrl',['$scope','$location','$routeSegment','$http','$modal', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http,$modal, $timeout, $sessionStorage) {
+app.controller('mergeclientCtrl',['$scope','$location','$routeSegment','$http','$modal', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http,$modal, $timeout, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
@@ -37,6 +37,14 @@ $scope.showErrorAlert = true;})
 	
        
     };
+    $scope.pushMerge = function(data) {
+		console.log(data);
+		data.projectGroupCode=$sessionStorage.account.projectGroup.projectGroupCode;
+		data.eventType='client.merge';
+		Service.Events($http,$scope,data,
+			    //success
+			    function(data){ console.log(data) },function(error) {});
+	};
 	// switch flag
 $scope.switchBool = function(value) {
    $scope[value] = !$scope[value];

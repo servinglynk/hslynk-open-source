@@ -12,7 +12,7 @@ app.controller('unmergeclientCtrl',['$scope','$location','$routeSegment','$http'
     function(data){
     	   
    	       var modalInstance = $modal.open({
-   	            templateUrl: 'templates/partial/mergeclientpopup.html',
+   	            templateUrl: 'templates/partial/unmergeclientpopup.html',
    	            controller: 'ModalInstanceLogCtrl',
    	            resolve: {
    	                'datajson': function () {
@@ -21,7 +21,7 @@ app.controller('unmergeclientCtrl',['$scope','$location','$routeSegment','$http'
    	            }
    	        });
     	
-		$scope.successTextAlert = "";
+		$scope.successTextAlert = "Your unmerge was successful.";
 		$scope.showSuccessAlert = true;
 		$scope.form.name='';
 		$scope.form.reportLevel='';
@@ -38,12 +38,11 @@ $scope.showErrorAlert = true;})
        
     };
     $scope.pushUnMerge = function(data) {
-		console.log(data);
-		data.projetGroupCode=$sessionStorage.account.projectGroup.projectGroupCode;
+		data.projectGroupCode=$sessionStorage.account.projectGroup.projectGroupCode;
 		data.eventType='client.unmerge';
 		Service.Events($http,$scope,data,
 			    //success
-			    function(data){ console.log(data) },function(error) {});
+			    function(data){ alert('Un merge successful!'); },function(error) {});
 	};
 	// switch flag
 $scope.switchBool = function(value) {

@@ -43,12 +43,13 @@ public class BaseClientsServiceImpl extends ServiceBase implements BaseClientsSe
 		Client pClient = daoFactory.getBaseClientDao().getClient(clientId);
 		if(pClient == null) throw new ClientNotFoundException();
 		UUID oldDedupId = pClient.getDedupClientId();
-		MergeClientConverter.modelToEntity(client, pClient);
-		UUID dedupClientId = daoFactory.getHmisClientDao().determindDedupId(pClient);
-		pClient.setDedupClientId(dedupClientId);
-		// Update the Dedup Id in Open EMPI by calling the Dedup Service.
-		 MergeClient entityToModel = MergeClientConverter.entityToModel(pClient);
+		Client baseClient = new Client();
+		MergeClientConverter.modelToEntity(client, baseClient);
+		UUID dedupClientId = daoFactory.getHmisClientDao().determindDedupId(baseClient);
+		baseClient.setDedupClientId(dedupClientId);
+		 MergeClient entityToModel = MergeClientConverter.entityToModel(baseClient);
 		 entityToModel.setOldDedupClientId(oldDedupId);
+		 entityToModel.setClientId(clientId);
 		 return entityToModel;
 	}
 	
@@ -60,12 +61,15 @@ public class BaseClientsServiceImpl extends ServiceBase implements BaseClientsSe
 		if(pClient == null) throw new ClientNotFoundException();
 		UUID oldDedupId = pClient.getDedupClientId();
        // Make essential attributes null before merge or unmerge
-		MergeClientConverter.modelToEntity(client, pClient);
+		
+		Client baseClient = new Client();
+		MergeClientConverter.modelToEntity(client, baseClient);
 		// Update the dedup id of the client in Open EMPI by calling the updatePerson API in the dedup service.
-		UUID dedupClientId = daoFactory.getHmisClientDao().determindDedupId(pClient);
-		pClient.setDedupClientId(dedupClientId);
-		 MergeClient entityToModel = MergeClientConverter.entityToModel(pClient);
+		UUID dedupClientId = daoFactory.getHmisClientDao().determindDedupId(baseClient);
+		baseClient.setDedupClientId(dedupClientId);
+		 MergeClient entityToModel = MergeClientConverter.entityToModel(baseClient);
 		 entityToModel.setOldDedupClientId(oldDedupId);
+		 entityToModel.setClientId(clientId);
 		 return entityToModel;
 	}
 }
