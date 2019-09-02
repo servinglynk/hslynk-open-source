@@ -27,7 +27,7 @@ public class SurveyResponseListener extends BaseListener {
 			if(event.getPayload().get("submissionDate")!=null) model.setDate(MQDateUtil.stringToDateTime(event.getPayload().get("submissionDate").toString()));
 			if(event.getPayload().get("submissionId")!=null) model.setMetaDataIdentifier(UUID.fromString(event.getPayload().get("submissionId").toString()));
 			if(event.getPayload().get("projectGroupCode")!=null) model.setProjectGroupCode(event.getPayload().get("projectGroupCode").toString());
-			model.setType(event.getEventType());
+			model.setType("surveySubmissions");
 			if(event.getPayload().get("userId")!=null) model.setUserId(UUID.fromString(event.getPayload().get("userId").toString()));
 
 			
