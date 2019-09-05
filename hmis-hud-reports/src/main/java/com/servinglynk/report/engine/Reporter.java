@@ -4,14 +4,13 @@ package com.servinglynk.report.engine;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 
 import org.apache.log4j.Logger;
 
-import com.servinglynk.hive.connection.SendEmail;
 import com.servinglynk.hive.connection.SyncPostgresProcessor;
 import com.servinglynk.hmis.warehouse.AwsS3Client;
 import com.servinglynk.hmis.warehouse.Properties;
@@ -41,6 +40,7 @@ public class Reporter {
     		props.generatePropValues();
     		ReportConfig reportConfig = SyncPostgresProcessor.getReportConfigByStatus("INITIAL");
     		if(reportConfig != null) {
+    			SyncPostgresProcessor.updateReportConfig("INPROGRESS", reportConfig.getId());
     			String reportId = String.valueOf(reportConfig.getId());
             	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig,props);
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
@@ -74,12 +74,8 @@ public class Reporter {
     }
 
         public static void main(String[] args) throws Exception {
-        Reporter main = new Reporter();
-        while(true) {
-            main.exportToPDF();
-        }
-   
-    }
-	
+        	Reporter main = new Reporter();
+        	main.exportToPDF();
+	}
 	
 }
