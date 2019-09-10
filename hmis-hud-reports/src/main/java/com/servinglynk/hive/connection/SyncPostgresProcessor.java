@@ -57,6 +57,17 @@ public class SyncPostgresProcessor extends Logging{
         }catch (Exception ex){
             throw ex;
         }
+        finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                    //connection.close();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    logger.error(e);
+                }
+            }
+        }
         return reportConfig;
     }
     
@@ -82,6 +93,17 @@ public class SyncPostgresProcessor extends Logging{
             }
         }catch (Exception ex){
             throw ex;
+        }
+        finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                    //connection.close();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    logger.error(e);
+                }
+            }
         }
         return reportConfig;
     }
@@ -148,6 +170,17 @@ public class SyncPostgresProcessor extends Logging{
             }
         }catch (Exception ex){
             throw ex;
+        }
+        finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                    //connection.close();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    logger.error(e);
+                }
+            }
         }
         reportConfig.setProjectds(projects);
     }

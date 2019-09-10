@@ -38,6 +38,7 @@ public class Reporter {
         try {         
         	Properties props = new Properties();
     		props.generatePropValues();
+    		logger.info("Starting hud reports process....");
     		ReportConfig reportConfig = SyncPostgresProcessor.getReportConfigByStatus("INITIAL");
     		if(reportConfig != null) {
     			SyncPostgresProcessor.updateReportConfig("INPROGRESS", reportConfig.getId());
@@ -64,18 +65,18 @@ public class Reporter {
     			// update the report config to 
     			SyncPostgresProcessor.updateReportConfig("COMPLETED", reportConfig.getId());
     		}
-    		
-			
 			//SendEmail.generateAndSendEmail("sandeep.dolia@gmail.com", "");
         } catch (Exception e) {
         	e.printStackTrace();
             logger.error(e, e);
         }
+        
     }
 
         public static void main(String[] args) throws Exception {
         	Reporter main = new Reporter();
         	main.exportToPDF();
+        	return;
 	}
 	
 }
