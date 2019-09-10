@@ -309,3 +309,8 @@ background-color:#56D9C9;color:#FFF;height:100px;
 {
 	border-bottom:solid 1px #d6d7d9;margin-top:10px;
 }
+
+.navbar-inverse {
+    background-color: #e5e5e5;
+    border-color: #e5e5e5;
+}
