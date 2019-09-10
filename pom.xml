@@ -61,7 +61,6 @@
 	 	<module>hmis-load-processor-v2017</module>
 		<module>notification-core</module>
 		<module>notification-service</module>
-		<module>report-core</module>
 		<module>report-service</module>
 		<module>user-service</module>
 		<module>developer-service</module>
