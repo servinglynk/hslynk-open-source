@@ -194,6 +194,7 @@ CREATE TYPE "v2020".no_yes  AS ENUM (
 CREATE TYPE "v2020".no_yes_refused AS ENUM (
 '0',
 '1',
+'8',
 '9',
 '99');
 CREATE TYPE "v2020".path_how_confirmed AS ENUM (	
@@ -2034,7 +2035,9 @@ CREATE TABLE  "v2020".project
 	  project_id character varying(8),
 	  projectname text,
 	  continuumproject "v2020".no_yes,
+	  hmisparticipatingproject "v2020".no_yes,
 	  projecttype "v2020".project_type,
+	  pitcount integer,
 	  residentialaffiliation integer, --Sandeep change to to no_yes
 	  operatingstartdate timestamp,
 	  operatingenddate timestamp,
@@ -2523,7 +2526,7 @@ WITH (
 
 -- drop table "coc";
 
-create table "v2020".coc
+create table "v2020".project_coc
 (
   id uuid not null,
   coccode text,
@@ -2605,6 +2608,7 @@ create table  "v2020".funder
   "id"  uuid not null,
   "enddate" timestamp,
   "funder" "v2020".federal_partner_components,
+  "otherfunder" character varying(500),
   "grantid" text, --Sandeep Alter and change the column to text
   "projectid" uuid,
   "startdate" timestamp,
@@ -3962,15 +3966,85 @@ false,'4.10.2','/v2020/clients/{clientid}/enrollments/{enrollmentid}/disabilitie
 DROP TABLE IF EXISTS "v2020".assessment;
 DROP TABLE IF EXISTS "v2020".assessment_questions;
 DROP TABLE IF EXISTS "v2020".assessment_results;
-                
+
+CREATE TYPE "v2020".assessment_type  AS ENUM ('1','2','3');
+CREATE TYPE "v2020".assessment_level  AS ENUM ('1','2');
+CREATE TYPE "v2020".prioritization_status AS ENUM ('1','2'); 
+CREATE TYPE "v2020".event AS ENUM('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15');
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','1','Referral to Prevention Assistance project','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','2','Problem Solving/Diversion/Rapid Resolution intervention or service','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','3','Referral to scheduled Coordinated Entry Crisis Needs Assessment','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','4','Referral to scheduled Coordinated Entry Housing Needs Assessment','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','5','Referral to post-placement/follow-up case management','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','6','Referral to Street Outreach project or services','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','7','Referral to Housing Navigation project or services','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','8','Referral to Non-continuum services: Ineligible for continuum services','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','9','Referral to Non continuum services: No availability in continuum services','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','10','Referral to Emergency Shelter bed opening','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','11','Referral to Transitional Housing bed/unit opening','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','12','Referral to Joint TH-RRH project/unit/resource opening','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','13','Referral to RRH project resource opening','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','14','Referral to PSH project resource opening','ACTIVE'); 
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','15','Referral to Other PH project/unit/resource opening','ACTIVE'); 
+				
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('assessment_type','1','Phone','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('assessment_type','2','Virtual','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('assessment_type','3','In person','ACTIVE');
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('assessment_level','1','Crisis Needs Assessment','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('assessment_level','2','Housing Needs Assessment','ACTIVE');
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('prioritization_status','1','Placed on prioritization list','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('prioritization_status','2','Not placed on prioritization list','ACTIVE');
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('leavesituation14days','0','No','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('leavesituation14days','1','Yes','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('leavesituation14days','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('leavesituation14days','9','Client refused','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('leavesituation14days','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('subsequentresidence','0','No','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('subsequentresidence','1','Yes','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('subsequentresidence','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('subsequentresidence','9','Client refused','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('subsequentresidence','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('resourcestoobtain','0','No','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('resourcestoobtain','1','Yes','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('resourcestoobtain','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('resourcestoobtain','9','Client refused','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('resourcestoobtain','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('leaseown60day','0','No','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('leaseown60day','1','Yes','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('leaseown60day','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('leaseown60day','9','Client refused','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('leaseown60day','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('movedtwoormore','0','No','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('movedtwoormore','1','Yes','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('movedtwoormore','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('movedtwoormore','9','Client refused','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('movedtwoormore','99','Data not collected','ACTIVE');
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('referral_case_manage_after','0','No','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('referral_case_manage_after','1','Yes','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('referral_case_manage_after','8','Client doesn''t know','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('referral_case_manage_after','9','Client refused','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('referral_case_manage_after','99','Data not collected','ACTIVE');
+
+   
+   
 create table "v2020".assessment
 (
   "id" uuid not null,
   assessment_date date,
-  assessment_location text,
-  assessment_type character varying(200),
-  assessment_level character varying(200),
-  prioritization_status character varying(200),
+  assessment_location character varying(500),
+  assessment_type "v2020".assessment_type,
+  assessment_level "v2020".assessment_level,
+  prioritization_status "v2020".prioritization_status,
   enrollmentid uuid,
   client_id uuid,
   "project_group_code" character varying(8),
@@ -3999,10 +4073,10 @@ create table "v2020".assessment_questions
   assessment_id uuid,
   enrollmentid uuid,
   client_id uuid,
-   assessment_question_group  character varying(8),
+   assessment_question_group  character varying(500),
    assessment_question_order integer,
-   assessment_question text,
-   assessment_answer  text,
+   assessment_question  character varying(500),
+   assessment_answer   character varying(500),
   "project_group_code" character varying(8),
   "date_created" timestamp,
   "date_created_from_source" timestamp,
@@ -4037,7 +4111,7 @@ create table "v2020".assessment_results
   assessment_id uuid,
   enrollmentid uuid,
   client_id uuid,
-   assessment_result  text,
+   assessment_result  character varying(500),
   "project_group_code" character varying(8),
   "date_created" timestamp,
   "date_created_from_source" timestamp,
@@ -4064,28 +4138,19 @@ with (
   oids=false
 );
 
-<hmis:CurrentLivingSituation hmis:informationDate="2019-09-01"  hmis:dateCreated="2019-08-13T23:14:59" hmis:dateUpdated="2019-03-30T23:14:59" hmis:dateDeleted="2019-03-31T23:14:59" hmis:userID="IFmMP">		            
-<hmis:DateOfEngagement hmis:dateCreated="2015-08-13T23:14:59" hmis:dateUpdated="2015-03-30T23:14:59" hmis:userID="IFmMP">
-                <hmis:CurrentLivingSitID>af4522621</hmis:CurrentLivingSitID>		
-                <hmis:EnrollmentID>w5644</hmis:EnrollmentID>		
-                <hmis:PersonalID>A1a1</hmis:PersonalID>		
-                <hmis:CurrentLivingSituation>10</hmis:CurrentLivingSituation>		
-                <hmis:VerifiedBy>BZ-123,MA-500</hmis:VerifiedBy>		
-                <hmis:LeaveSituation14Days>1</hmis:LeaveSituation14Days>		
-                <hmis:SubsequentResidence>9</hmis:SubsequentResidence>		
-                <hmis:ResourcesToObtain>0</hmis:ResourcesToObtain>		
-                <hmis:LeaseOwn60Day>99</hmis:LeaseOwn60Day>		
-                <hmis:MovedTwoOrMore>1</hmis:MovedTwoOrMore>		
-                <hmis:LocationDetails>Living at 3rd Street.</hmis:LocationDetails>		
-            </hmis:CurrentLivingSituation>
-            
   create table "v2020".current_living_situation
 (
   "id" uuid not null,
-  assessment_id uuid,
-  enrollmentid uuid,
-  client_id uuid,
-   current_living_situation  v2020.livingSituation,
+   enrollmentid uuid,
+   client_id uuid,
+   livingSituation  v2020.livingSituation,
+   verified_by  character varying(500),
+   leavesituation14days  v2020.no_yes_refused,
+   subsequentresidence v2020.no_yes_refused,
+   resourcestoobtain v2020.no_yes_refused,
+   leaseown60day v2020.no_yes_refused,
+   movedtwoormore v2020.no_yes_refused,
+   locationdetails  character varying(500),
   "project_group_code" character varying(8),
   "date_created" timestamp,
   "date_created_from_source" timestamp,
@@ -4097,15 +4162,47 @@ with (
   version integer,source_system_id text,
   deleted boolean DEFAULT false,active boolean DEFAULT true, 
   sync boolean DEFAULT false,
-	  constraint "assessment_results_pkey" primary key ("id"),
-	  constraint "assessment_results_enrollmentid_fkey" foreign key ("enrollmentid")
+	  constraint "current_living_situation_pkey" primary key ("id"),
+	  constraint "current_living_situation_enrollmentid_fkey" foreign key ("enrollmentid")
       references v2020.enrollment ("id") match simple
       on update no action on delete no action,
-      CONSTRAINT assessment_results_client_fk FOREIGN KEY ("client_id")
+      CONSTRAINT current_living_situation_client_fk FOREIGN KEY ("client_id")
       	REFERENCES "v2020".client ("id") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-       CONSTRAINT assessment_results_assessment_fk FOREIGN KEY ("assessment_id")
-      	REFERENCES "v2020".assessment_id ("id") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+with (
+  oids=false
+); 
+
+
+ create table "v2020".event
+(
+  "id" uuid not null,
+   enrollmentid uuid,
+   client_id uuid,
+   event_date  date,
+   event  v2020.event,
+   referral_case_manage_after  v2020.no_yes_refused,
+   locationcrisisorphhousing  character varying(500),
+   referral_result character varying(500),
+   result_date date,
+  "project_group_code" character varying(8),
+  "date_created" timestamp,
+  "date_created_from_source" timestamp,
+  "date_updated_from_source" timestamp,
+  "date_updated" timestamp,
+  "user_id" uuid,
+  export_id uuid,
+  parent_id uuid,
+  version integer,source_system_id text,
+  deleted boolean DEFAULT false,active boolean DEFAULT true, 
+  sync boolean DEFAULT false,
+	  constraint "event_pkey" primary key ("id"),
+	  constraint "event_enrollmentid_fkey" foreign key ("enrollmentid")
+      references v2020.enrollment ("id") match simple
+      on update no action on delete no action,
+      CONSTRAINT event_client_fk FOREIGN KEY ("client_id")
+      	REFERENCES "v2020".client ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 with (
