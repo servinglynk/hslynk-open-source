@@ -20,8 +20,8 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -42,14 +42,14 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	@Transactional
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		 List<Organization> organizations = domain.getExport().getOrganization();
-		 com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		 com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		 Data data =new Data();
-		 Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Organization.class, getProjectGroupCode(domain));
+		 Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Organization.class, getProjectGroupCode(domain));
 		 if(organizations != null && !organizations.isEmpty())
 		 {
 			 for(Organization organization : organizations)
 			 {
-				 com.servinglynk.hmis.warehouse.model.v2017.Organization organizationModel = null;
+				 com.servinglynk.hmis.warehouse.model.v2020.Organization organizationModel = null;
 				 try {
 					 organizationModel = getModelObject(domain, organization,data,modelMap);
 //					 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
@@ -75,38 +75,38 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 }
 			 }
 		 }
-		 hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Organization.class.getSimpleName(), domain,exportEntity);
+		 hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Organization.class.getSimpleName(), domain,exportEntity);
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2017.Organization getModelObject(ExportDomain domain, Organization organization ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.Organization modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.Organization getModelObject(ExportDomain domain, Organization organization ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.Organization modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Organization) getModel(com.servinglynk.hmis.warehouse.model.v2017.Organization.class, organization.getOrganizationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Organization) getModel(com.servinglynk.hmis.warehouse.model.v2020.Organization.class, organization.getOrganizationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
 			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Organization();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Organization();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Organization();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Organization();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Organization model = new com.servinglynk.hmis.warehouse.model.v2017.Organization();
+		com.servinglynk.hmis.warehouse.model.v2020.Organization model = new com.servinglynk.hmis.warehouse.model.v2020.Organization();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(model, domain,organization.getOrganizationID(),data);
 		return model;
 	}
-	   public com.servinglynk.hmis.warehouse.model.v2017.Organization createOrganization(com.servinglynk.hmis.warehouse.model.v2017.Organization organization){
+	   public com.servinglynk.hmis.warehouse.model.v2020.Organization createOrganization(com.servinglynk.hmis.warehouse.model.v2020.Organization organization){
 		   organization.setId(UUID.randomUUID());
 	       insert(organization);
 	       OrganizationEntity entity = new OrganizationEntity();
@@ -114,27 +114,27 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 	       insert(entity);
 	       return organization;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.Organization updateOrganization(com.servinglynk.hmis.warehouse.model.v2017.Organization organization){
+	   public com.servinglynk.hmis.warehouse.model.v2020.Organization updateOrganization(com.servinglynk.hmis.warehouse.model.v2020.Organization organization){
 	       update(organization);
 	       return organization;
 	   }
-	   public void deleteOrganization(com.servinglynk.hmis.warehouse.model.v2017.Organization organization){
+	   public void deleteOrganization(com.servinglynk.hmis.warehouse.model.v2020.Organization organization){
 	       delete(organization);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.Organization getOrganizationById(UUID organizationId){ 
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Organization.class);
+	   public com.servinglynk.hmis.warehouse.model.v2020.Organization getOrganizationById(UUID organizationId){ 
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Organization.class);
 		      criteria.add(Restrictions.eq("id", organizationId));
-		      List<com.servinglynk.hmis.warehouse.model.v2017.Organization> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Organization>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2020.Organization> entities = (List<com.servinglynk.hmis.warehouse.model.v2020.Organization>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2017.Organization> getAllOrganizations(String projectGroupCode,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Organization.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2020.Organization> getAllOrganizations(String projectGroupCode,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Organization.class);
 	       criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Organization>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2020.Organization>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getOrganizationCount(String projectGroupCode){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Organization.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Organization.class);
 	       criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 	       return countRows(criteria);
 	   }

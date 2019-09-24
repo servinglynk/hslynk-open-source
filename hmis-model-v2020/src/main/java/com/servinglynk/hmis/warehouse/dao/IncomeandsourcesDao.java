@@ -14,10 +14,10 @@ public interface IncomeandsourcesDao extends ParentDao {
 
 
 
-	   com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources createIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources incomeAndSource);
-	   com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources updateIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources incomeAndSource);
-	   void deleteIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources incomeAndSource);
-	   com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources getIncomeAndSourceById(UUID incomeAndSourceId);
-	   List<com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources> getAllEnrollmentIncomeAndSources(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources createIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources incomeAndSource);
+	   com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources updateIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources incomeAndSource);
+	   void deleteIncomeAndSource(com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources incomeAndSource);
+	   com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources getIncomeAndSourceById(UUID incomeAndSourceId);
+	   List<com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources> getAllEnrollmentIncomeAndSources(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentIncomeAndSourcesCount(UUID enrollmentId);
 }

@@ -23,10 +23,10 @@ import com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnu
 import com.servinglynk.hmis.warehouse.enums.LiteralHomelessHistoryEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
-import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2020.Entryssvf;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
@@ -36,13 +36,13 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+	    com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf.class, getProjectGroupCode(domain));
 		List<EntrySSVF> entrySSVFs = export.getEntrySSVF();
 		if (CollectionUtils.isNotEmpty(entrySSVFs)) {
 			for (EntrySSVF entrySSVF : entrySSVFs) {
-				com.servinglynk.hmis.warehouse.model.v2017.Entryssvf entrySsvfModel = null;
+				com.servinglynk.hmis.warehouse.model.v2020.Entryssvf entrySsvfModel = null;
 				try {
 					entrySsvfModel = getModelObject(domain, entrySSVF,data,modelMap);
 					if(entrySSVF.getAddressDataQuality() !=null)
@@ -100,29 +100,29 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 				}
 			}
 	  }
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Entryssvf.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2017.Entryssvf getModelObject(ExportDomain domain, EntrySSVF entryssvf ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.Entryssvf modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.Entryssvf getModelObject(ExportDomain domain, EntrySSVF entryssvf ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.Entryssvf modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Entryssvf) getModel(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class, entryssvf.getEntrySSVFID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Entryssvf) getModel(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf.class, entryssvf.getEntrySSVFID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
 			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Entryssvf();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryssvf();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Entryssvf();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryssvf();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Entryssvf model = new com.servinglynk.hmis.warehouse.model.v2017.Entryssvf();
+		com.servinglynk.hmis.warehouse.model.v2020.Entryssvf model = new com.servinglynk.hmis.warehouse.model.v2020.Entryssvf();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryssvf.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -131,14 +131,14 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 	}
 
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf entrySsvf) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf entrySsvf) {
 			if(entrySsvf !=null) {
-				com.servinglynk.hmis.warehouse.model.v2017.Entryssvf target = new com.servinglynk.hmis.warehouse.model.v2017.Entryssvf();
+				com.servinglynk.hmis.warehouse.model.v2020.Entryssvf target = new com.servinglynk.hmis.warehouse.model.v2020.Entryssvf();
 				BeanUtils.copyProperties(entrySsvf, target, new String[] {"enrollments","veteranInfoes"});
-				com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) get(com.servinglynk.hmis.warehouse.model.v2017.Export.class, entrySsvf.getExport().getId());
+				com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) get(com.servinglynk.hmis.warehouse.model.v2020.Export.class, entrySsvf.getExport().getId());
 				exportEntity.addEntryssvf(target);
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.v2017.Entryssvf entryssvfByDedupCliendId = getEntryssvfByDedupEntryssvfId(entrySsvf.getId(),entrySsvf.getProjectGroupCode());
+				com.servinglynk.hmis.warehouse.model.v2020.Entryssvf entryssvfByDedupCliendId = getEntryssvfByDedupEntryssvfId(entrySsvf.getId(),entrySsvf.getProjectGroupCode());
 				if(entryssvfByDedupCliendId ==null) {
 					insert(target);	
 				}
@@ -161,14 +161,14 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 
 
 	@Override
-	public Entryssvf updateEntryssvf(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf entryssvf) {
+	public Entryssvf updateEntryssvf(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf entryssvf) {
 			update(entryssvf);
 		return entryssvf;
 	}
 
 
 	@Override
-	public void deleteEntryssvf(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf entryssvf) {
+	public void deleteEntryssvf(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf entryssvf) {
 			delete(entryssvf);
 		
 	}
@@ -176,20 +176,20 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Entryssvf getEntryssvfById(UUID entrySsvfId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.Entryssvf getEntryssvfById(UUID entrySsvfId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf.class);
 		criteria.add(Restrictions.eq("id", entrySsvfId));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Entryssvf> entrySsvf = (List<com.servinglynk.hmis.warehouse.model.v2017.Entryssvf>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Entryssvf> entrySsvf = (List<com.servinglynk.hmis.warehouse.model.v2020.Entryssvf>) findByCriteria(criteria);
 		if(entrySsvf.size()>0) return entrySsvf.get(0);
 		return null;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Entryssvf getEntryssvfByDedupEntryssvfId(UUID id,String projectGroupCode) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.Entryssvf getEntryssvfByDedupEntryssvfId(UUID id,String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Entryssvf> entryssvf = (List<com.servinglynk.hmis.warehouse.model.v2017.Entryssvf>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Entryssvf> entryssvf = (List<com.servinglynk.hmis.warehouse.model.v2020.Entryssvf>) findByCriteria(criteria);
 		if(entryssvf !=null && entryssvf.size()>0) return entryssvf.get(0);
 		return null;
 	}
@@ -203,20 +203,20 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2017.Entryssvf> getAllEntryssvf(Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class);	
-		List<com.servinglynk.hmis.warehouse.model.v2017.Entryssvf> entryssvf = (List<com.servinglynk.hmis.warehouse.model.v2017.Entryssvf>) findByCriteria(criteria,startIndex,maxItems);
+	public List<com.servinglynk.hmis.warehouse.model.v2020.Entryssvf> getAllEntryssvf(Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf.class);	
+		List<com.servinglynk.hmis.warehouse.model.v2020.Entryssvf> entryssvf = (List<com.servinglynk.hmis.warehouse.model.v2020.Entryssvf>) findByCriteria(criteria,startIndex,maxItems);
 		return entryssvf;
 	}
 	
 	
 	public long getEntryssvfCount(){
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf.class);	
 		return countRows(criteria);
 	}
 
-	public List<com.servinglynk.hmis.warehouse.model.v2017.Entryssvf> getAllEnrollmentEntryssvfs(UUID enrollmentId, Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class);	
+	public List<com.servinglynk.hmis.warehouse.model.v2020.Entryssvf> getAllEnrollmentEntryssvfs(UUID enrollmentId, Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf.class);	
 		criteria.createAlias("enrollmentid", "enrollmentid");
 		criteria.add(Restrictions.eq("enrollmentid.id",enrollmentId));
 		return (List<Entryssvf>) findByCriteria(criteria,startIndex,maxItems);
@@ -224,7 +224,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 
 	
 	public long getEnrollmentEntryssvfsCount(UUID enrollmentId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryssvf.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryssvf.class);	
 		criteria.createAlias("enrollmentid", "enrollmentid");
 		criteria.add(Restrictions.eq("enrollmentid.id",enrollmentId));
 		return countRows(criteria);

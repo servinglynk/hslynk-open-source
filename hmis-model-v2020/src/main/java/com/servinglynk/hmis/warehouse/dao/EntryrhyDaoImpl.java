@@ -42,10 +42,10 @@ import com.servinglynk.hmis.warehouse.enums.EntryRHYWorkplacePromiseDifferenceEn
 import com.servinglynk.hmis.warehouse.enums.EntryRHYcountOfExchangeForSexpEnum;
 import com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
-import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Entryrhy;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2020.Entryrhy;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
@@ -55,13 +55,13 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+	    com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy.class, getProjectGroupCode(domain));
 		List<EntryRHY> entryRhy = export.getEntryRHY();
 		if (CollectionUtils.isNotEmpty(entryRhy)){
 			for (EntryRHY entryRhys : entryRhy) {
-				com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entryRhyModel = null;
+				com.servinglynk.hmis.warehouse.model.v2020.Entryrhy entryRhyModel = null;
 				try {
 					entryRhyModel = getModelObject(domain, entryRhys,data,modelMap);
 					entryRhyModel.setAlcoholDrugAbuseFamilyMbr(EntryRHYAlcoholDrugAbuseFamEnum.lookupEnum((entryRhys.getAlcoholDrugAbuseFam())));
@@ -133,31 +133,31 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 				}
 			}
 	  }
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Entryrhy.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Entryrhy.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2017.Entryrhy getModelObject(ExportDomain domain, EntryRHY entryrhy ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.Entryrhy modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.Entryrhy getModelObject(ExportDomain domain, EntryRHY entryrhy ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.Entryrhy modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Entryrhy) getModel(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy.class, entryrhy.getEntryRHYID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Entryrhy) getModel(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy.class, entryrhy.getEntryRHYID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
 			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Entryrhy();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Entryrhy();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Entryrhy model = new com.servinglynk.hmis.warehouse.model.v2017.Entryrhy();
+		com.servinglynk.hmis.warehouse.model.v2020.Entryrhy model = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryrhy.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -168,14 +168,14 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 
 	
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entryRhy) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy entryRhy) {
 			if(entryRhy !=null) {
-				com.servinglynk.hmis.warehouse.model.v2017.Entryrhy target = new com.servinglynk.hmis.warehouse.model.v2017.Entryrhy();
+				com.servinglynk.hmis.warehouse.model.v2020.Entryrhy target = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
 				BeanUtils.copyProperties(entryRhy, target, new String[] {"enrollments","veteranInfoes"});
-				com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) get(com.servinglynk.hmis.warehouse.model.v2017.Export.class, entryRhy.getExport().getId());
+				com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) get(com.servinglynk.hmis.warehouse.model.v2020.Export.class, entryRhy.getExport().getId());
 				exportEntity.addEntryrhy(target);
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entryRhyByDedupCliendId = getEntryrhyByDedupEntryrhyId(entryRhy.getId(),entryRhy.getProjectGroupCode());
+				com.servinglynk.hmis.warehouse.model.v2020.Entryrhy entryRhyByDedupCliendId = getEntryrhyByDedupEntryrhyId(entryRhy.getId(),entryRhy.getProjectGroupCode());
 				if(entryRhyByDedupCliendId ==null) {
 					insert(target);	
 				}
@@ -203,7 +203,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 	}
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Entryrhy createEntryrhy(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entryRhy) {
+	public com.servinglynk.hmis.warehouse.model.v2020.Entryrhy createEntryrhy(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy entryRhy) {
 		entryRhy.setId(UUID.randomUUID());
 			insert(entryRhy);
 		return entryRhy;
@@ -211,14 +211,14 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 
 
 	@Override
-	public Entryrhy updateEntryrhy(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entryRhy) {
+	public Entryrhy updateEntryrhy(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy entryRhy) {
 			update(entryRhy);
 		return entryRhy;
 	}
 
 
 	@Override
-	public void deleteEntryrhy(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy entryRhy) {
+	public void deleteEntryrhy(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy entryRhy) {
 			delete(entryRhy);
 		
 	}
@@ -226,21 +226,21 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Entryrhy getEntryrhyById(UUID entryrhyId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.Entryrhy getEntryrhyById(UUID entryrhyId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy.class);
 		criteria.add(Restrictions.eq("id", entryrhyId));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhy> entryrhy = (List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhy>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Entryrhy> entryrhy = (List<com.servinglynk.hmis.warehouse.model.v2020.Entryrhy>) findByCriteria(criteria);
 		if(entryrhy.size()>0) return entryrhy.get(0);
 		return null;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Entryrhy getEntryrhyByDedupEntryrhyId(UUID id,String projectGroupCode) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.Entryrhy getEntryrhyByDedupEntryrhyId(UUID id,String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy.class);
 		if(id == null || projectGroupCode == null) return null;
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhy> entryrhy = (List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhy>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Entryrhy> entryrhy = (List<com.servinglynk.hmis.warehouse.model.v2020.Entryrhy>) findByCriteria(criteria);
 		if(entryrhy !=null && entryrhy.size()>0) return entryrhy.get(0);
 		return null;
 	}
@@ -254,26 +254,26 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhy> getAllEntryrhy(Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy.class);	
-		List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhy> entryrhy = (List<com.servinglynk.hmis.warehouse.model.v2017.Entryrhy>) findByCriteria(criteria,startIndex,maxItems);
+	public List<com.servinglynk.hmis.warehouse.model.v2020.Entryrhy> getAllEntryrhy(Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy.class);	
+		List<com.servinglynk.hmis.warehouse.model.v2020.Entryrhy> entryrhy = (List<com.servinglynk.hmis.warehouse.model.v2020.Entryrhy>) findByCriteria(criteria,startIndex,maxItems);
 		return entryrhy;
 	}
 	
 	
 	public long getEntryrhyCount(){
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy.class);	
 		return countRows(criteria);
 	}
 
 	public List<Entryrhy> getAllEnrollmentEntryrhys(UUID enrollmentId, Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy.class);	
 		criteria.createAlias("enrollmentid","enrollmentid");
 		criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 		return (List<Entryrhy>) findByCriteria(criteria, startIndex, maxItems);
 	}
 	public long getEnrollmentEntryrhysCount(UUID enrollmentId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Entryrhy.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Entryrhy.class);	
 		criteria.createAlias("enrollmentid","enrollmentid");
 		criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 		return countRows(criteria);

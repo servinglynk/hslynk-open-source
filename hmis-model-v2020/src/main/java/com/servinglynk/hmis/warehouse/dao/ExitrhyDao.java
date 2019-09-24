@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.v2017.Exitrhy;
+import com.servinglynk.hmis.warehouse.model.v2020.Exitrhy;
 
 public interface ExitrhyDao extends ParentDao {
 
@@ -15,8 +15,8 @@ public interface ExitrhyDao extends ParentDao {
 	public Exitrhy getExitrhyByDedupExitrhyId(UUID id,String projectGroupCode);
 	List<Exitrhy> getAllExitrhy(Integer startIndex, Integer maxItems);
 	long getExitrhyCount();
-	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.Exitrhy exitrhy);
+	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2020.Exitrhy exitrhy);
 	
-	List<com.servinglynk.hmis.warehouse.model.v2017.Exitrhy> getAllExitExitrhys(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	List<com.servinglynk.hmis.warehouse.model.v2020.Exitrhy> getAllExitExitrhys(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	long getExitExitrhysCount(UUID enrollmentId);
 }

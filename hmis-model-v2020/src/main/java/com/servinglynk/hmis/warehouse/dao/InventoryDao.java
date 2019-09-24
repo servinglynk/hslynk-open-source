@@ -6,7 +6,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.v2017.Inventory;
+import com.servinglynk.hmis.warehouse.model.v2020.Inventory;
 
 /**
  * @author Sandeep

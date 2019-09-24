@@ -6,7 +6,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.v2017.Moveindate;
+import com.servinglynk.hmis.warehouse.model.v2020.Moveindate;
 /**
  * @author Sandeep
  *
@@ -19,6 +19,6 @@ public interface MoveindateDao extends ParentDao {
 	   Moveindate getMoveInDateById(UUID moveindateId);
 	   List<Moveindate> getAllMoveInDate(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getMoveInDateCount(UUID enrollmentId);
-	   List<com.servinglynk.hmis.warehouse.model.v2017.Moveindate> getAllEnrollmentResidentialmoveindates(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   List<com.servinglynk.hmis.warehouse.model.v2020.Moveindate> getAllEnrollmentResidentialmoveindates(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentResidentialmoveindatesCount(UUID enrollmentId);
 }

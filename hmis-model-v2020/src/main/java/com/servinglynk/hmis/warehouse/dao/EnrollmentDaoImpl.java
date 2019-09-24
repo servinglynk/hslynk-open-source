@@ -28,9 +28,9 @@ import com.servinglynk.hmis.warehouse.enums.LengthOfStayEnum;
 import com.servinglynk.hmis.warehouse.enums.LivingSituationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2017.Project;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -48,16 +48,16 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		Export export =  domain.getExport();
-		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment> enrollments = export
 				.getEnrollment();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, getProjectGroupCode(domain));
-		Map<String,HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Enrollment.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Project.class, getProjectGroupCode(domain));
 		if (CollectionUtils.isNotEmpty(enrollments)) {
 			for(com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment  :  enrollments)
 			{
-				com.servinglynk.hmis.warehouse.model.v2017.Enrollment enrollmentModel = null;
+				com.servinglynk.hmis.warehouse.model.v2020.Enrollment enrollmentModel = null;
 				try {
 					enrollmentModel = getModelObject(domain, enrollment,data,modelMap);
 //				enrollmentModel
@@ -88,10 +88,10 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 //							.getOtherResidencePrior());
 					enrollmentModel.setLosunderthreshold(NoYesEnum.lookupEnum(enrollment.getLosUnderThreshold()));
 					enrollmentModel.setPreviousStreetESSH(NoYesEnum.lookupEnum(enrollment.getPreviousStreetESSH()));
-					com.servinglynk.hmis.warehouse.model.v2017.Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2017.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),true,projectModelMap, domain.getUpload().getId());
+					com.servinglynk.hmis.warehouse.model.v2020.Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2020.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),true,projectModelMap, domain.getUpload().getId());
 					enrollmentModel.setProject(project);
 					enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(enrollment.getTimesHomelessPastThreeYears()));
-					com.servinglynk.hmis.warehouse.model.v2017.Client client = (com.servinglynk.hmis.warehouse.model.v2017.Client) getModel(com.servinglynk.hmis.warehouse.model.v2017.Client.class, enrollment.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+					com.servinglynk.hmis.warehouse.model.v2020.Client client = (com.servinglynk.hmis.warehouse.model.v2020.Client) getModel(com.servinglynk.hmis.warehouse.model.v2020.Client.class, enrollment.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 					// Very important logic needs to come here via a Microservice call.
 					enrollmentModel.setClient(client);
@@ -115,29 +115,29 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Enrollment.class.getSimpleName(), domain,exportEntity);
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2017.Enrollment getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.Enrollment modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.Enrollment getModelObject(ExportDomain domain, com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Enrollment enrollment ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.Enrollment modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class, enrollment.getEnrollmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Enrollment) getModel(com.servinglynk.hmis.warehouse.model.v2020.Enrollment.class, enrollment.getEnrollmentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Enrollment();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
+		com.servinglynk.hmis.warehouse.model.v2020.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2020.Enrollment();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(modelFromDB, domain,enrollment.getEnrollmentID(),data);
 		return modelFromDB;
 	}
-	public com.servinglynk.hmis.warehouse.model.v2017.Enrollment getEnrollmentById(UUID enrollmentId) {
-	      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.Enrollment getEnrollmentById(UUID enrollmentId) {
+	      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Enrollment.class);
 	      criteria.add(Restrictions.eq("id", enrollmentId));
-	      List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment>) findByCriteria(criteria);
+	      List<com.servinglynk.hmis.warehouse.model.v2020.Enrollment> entities = (List<com.servinglynk.hmis.warehouse.model.v2020.Enrollment>) findByCriteria(criteria);
 	      if(!entities.isEmpty()) return entities.get(0);
 	      return null;
 	}
@@ -146,8 +146,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Enrollment createEnrollment(
-			com.servinglynk.hmis.warehouse.model.v2017.Enrollment enrollment) {
+	public com.servinglynk.hmis.warehouse.model.v2020.Enrollment createEnrollment(
+			com.servinglynk.hmis.warehouse.model.v2020.Enrollment enrollment) {
 			enrollment.setId(UUID.randomUUID());
 			insert(enrollment);
 			createClientMedataInfo(enrollment);
@@ -155,29 +155,29 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	}
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Enrollment updateEnrollment(
-			com.servinglynk.hmis.warehouse.model.v2017.Enrollment enrollment) {
+	public com.servinglynk.hmis.warehouse.model.v2020.Enrollment updateEnrollment(
+			com.servinglynk.hmis.warehouse.model.v2020.Enrollment enrollment) {
 			update(enrollment);
 		return enrollment;
 	}
 
 	@Override
 	public void deleteEnrollment(
-			com.servinglynk.hmis.warehouse.model.v2017.Enrollment enrollment) {
+			com.servinglynk.hmis.warehouse.model.v2020.Enrollment enrollment) {
 		delete(enrollment);
 		deleteClientMedataInfo(enrollment);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Enrollment getEnrollmentByClientIdAndEnrollmentId(
+	public com.servinglynk.hmis.warehouse.model.v2020.Enrollment getEnrollmentByClientIdAndEnrollmentId(
 			UUID enrollmentId,UUID clientId) {
 		
 		List<UUID> sharedClients = AuditUtil.getSharedClients();
 		List<UUID> sharedEnrollments = AuditUtil.getSharedEnrollments();
 		
 		
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		criteria.add(Restrictions.eq("id",enrollmentId));
@@ -186,15 +186,15 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		}else {
 			criteria.add(Restrictions.eq("projectGroupCode", AuditUtil.getLoginUserProjectGroup()));
 		}
-		List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment> enrollments = (List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment>) getByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Enrollment> enrollments = (List<com.servinglynk.hmis.warehouse.model.v2020.Enrollment>) getByCriteria(criteria);
 		if(enrollments.size()>0) return enrollments.get(0);
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment> getEnrollmentsByClientId(UUID clientId,Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class);
+	public List<com.servinglynk.hmis.warehouse.model.v2020.Enrollment> getEnrollmentsByClientId(UUID clientId,Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		List<UUID> sharedClients = AuditUtil.getSharedClients();
@@ -203,11 +203,11 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		}
 		criteria.add(Restrictions.eq("deleted", false));
 
-		return (List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment>) getByCriteria(criteria,startIndex,maxItems);
+		return (List<com.servinglynk.hmis.warehouse.model.v2020.Enrollment>) getByCriteria(criteria,startIndex,maxItems);
 	}
 
 	public long getEnrollmentCount(UUID clientId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		List<UUID> sharedClients = AuditUtil.getSharedClients();
@@ -224,7 +224,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 
 	}
 	
-	public void createClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2017.Enrollment enrollment) {
+	public void createClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2020.Enrollment enrollment) {
 		ClientMetaDataEntity metaDataEntity = new ClientMetaDataEntity();
 		metaDataEntity.setId(UUID.randomUUID());
 		metaDataEntity.setClientId(enrollment.getClient().getId());
@@ -241,7 +241,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		parentDaoFactory.getClientMetaDataDao().createClientMetaData(metaDataEntity);
 	}
 	
-	public void deleteClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2017.Enrollment enrollment) {
+	public void deleteClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2020.Enrollment enrollment) {
 		ClientMetaDataEntity metaDataEntity = parentDaoFactory.getClientMetaDataDao().findByIdentifier(enrollment.getId());
 		metaDataEntity.setDateUpdated(LocalDateTime.now());
 		metaDataEntity.setDeleted(true);

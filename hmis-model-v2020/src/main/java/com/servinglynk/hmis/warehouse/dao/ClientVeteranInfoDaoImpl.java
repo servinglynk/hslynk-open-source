@@ -28,8 +28,8 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -48,12 +48,12 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		Export export = domain.getExport();
 		List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo> veteranInfoList = export
 				.getClientVeteranInfo();
-		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		Data data = new Data();
-		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo.class, getProjectGroupCode(domain));
+		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo.class, getProjectGroupCode(domain));
 		if (CollectionUtils.isNotEmpty(veteranInfoList)) {
 			for (com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ClientVeteranInfo veteranInfo : veteranInfoList) {
-				com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo vInfo = null;
+				com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo vInfo = null;
 				try {
 					vInfo = getModelObject(domain, veteranInfo, data, modelMap);
 					if(vInfo.isIgnored()) {
@@ -93,7 +93,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 								.getYearSeparated()));
 						vInfo.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateCreated()));
 						vInfo.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(veteranInfo.getDateUpdated()));
-						com.servinglynk.hmis.warehouse.model.v2017.Client client = (com.servinglynk.hmis.warehouse.model.v2017.Client) getModel(com.servinglynk.hmis.warehouse.model.v2017.Client.class, veteranInfo.getPersonalID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
+						com.servinglynk.hmis.warehouse.model.v2020.Client client = (com.servinglynk.hmis.warehouse.model.v2020.Client) getModel(com.servinglynk.hmis.warehouse.model.v2020.Client.class, veteranInfo.getPersonalID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
 						vInfo.setClient(client);
 						vInfo.setExport(exportEntity);
 						performSaveOrUpdate(vInfo,domain);
@@ -115,24 +115,24 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo.class.getSimpleName(), domain, exportEntity);
 	}
 	
-	public  com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo getModelObject(ExportDomain domain, ClientVeteranInfo clientVeteranInfo,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo modelFromDB = null;
+	public  com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo getModelObject(ExportDomain domain, ClientVeteranInfo clientVeteranInfo,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo.class, clientVeteranInfo.getClientVeteranInfoID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo.class, clientVeteranInfo.getClientVeteranInfoID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
 			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo model = new com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo();
+		com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo model = new com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(clientVeteranInfo.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -145,35 +145,35 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		// TODO Auto-generated method stub
 
 	}
-	   public com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo createVeteranInfo(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo veteranInfo){
+	   public com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo createVeteranInfo(com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo veteranInfo){
 	       veteranInfo.setId(UUID.randomUUID());
 	       insert(veteranInfo);
 	       return veteranInfo;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo updateVeteranInfo(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo veteranInfo){
+	   public com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo updateVeteranInfo(com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo veteranInfo){
 	       update(veteranInfo);
 	       return veteranInfo;
 	   }
-	   public void deleteVeteranInfo(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo veteranInfo){
+	   public void deleteVeteranInfo(com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo veteranInfo){
 	       delete(veteranInfo);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo getVeteranInfoById(UUID veteranInfoId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo.class);
+	   public com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo getVeteranInfoById(UUID veteranInfoId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo.class);
 		      criteria.add(Restrictions.eq("id", veteranInfoId));
-		      List<com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo> entities = (List<com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
 
 	   @SuppressWarnings("unchecked")
-	   public List<com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo> getAllClientVeteranInfos(UUID clientId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo> getAllClientVeteranInfos(UUID clientId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo.class);
 	       criteria.createAlias("client", "client");
 	       criteria.add(Restrictions.eq("client.id", clientId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getClientVeteranInfosCount(UUID clientId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ClientVeteranInfo.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo.class);
 	       criteria.createAlias("client", "client");
 	       criteria.add(Restrictions.eq("client.id", clientId));
 	       return countRows(criteria);

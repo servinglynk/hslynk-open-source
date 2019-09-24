@@ -21,10 +21,10 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
-import com.servinglynk.hmis.warehouse.model.v2017.Coc;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2017.Project;
+import com.servinglynk.hmis.warehouse.model.v2020.Coc;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -47,15 +47,15 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+	    com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class, getProjectGroupCode(domain));
-		Map<String,HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Project.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Inventory.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> projectModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Project.class, getProjectGroupCode(domain));
 		
 		List<Inventory> inventories = export.getInventory();
 		if (inventories != null && inventories.size() > 0) {
 			for (Inventory inventory : inventories) {
-				com.servinglynk.hmis.warehouse.model.v2017.Inventory inventoryModel = null;
+				com.servinglynk.hmis.warehouse.model.v2020.Inventory inventoryModel = null;
 				try {
 					inventoryModel = getModelObject(domain, inventory,data,modelMap);
 					inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum((inventory.getAvailability())));
@@ -98,30 +98,30 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Inventory.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Inventory.class.getSimpleName(), domain,exportEntity);
 	}
-	public com.servinglynk.hmis.warehouse.model.v2017.Inventory getModelObject(ExportDomain domain, Inventory inventory ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.Inventory modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.Inventory getModelObject(ExportDomain domain, Inventory inventory ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.Inventory modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class, inventory.getInventoryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Inventory) getModel(com.servinglynk.hmis.warehouse.model.v2020.Inventory.class, inventory.getInventoryID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
 			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Inventory();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Inventory();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Inventory();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Inventory();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Inventory model = new com.servinglynk.hmis.warehouse.model.v2017.Inventory();
+		com.servinglynk.hmis.warehouse.model.v2020.Inventory model = new com.servinglynk.hmis.warehouse.model.v2020.Inventory();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -137,7 +137,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 	}
 	
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Inventory createInventory(com.servinglynk.hmis.warehouse.model.v2017.Inventory inventory) {
+	public com.servinglynk.hmis.warehouse.model.v2020.Inventory createInventory(com.servinglynk.hmis.warehouse.model.v2020.Inventory inventory) {
 		inventory.setId(UUID.randomUUID());
 			insert(inventory);
 		return inventory;
@@ -145,14 +145,14 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Inventory updateInventory(com.servinglynk.hmis.warehouse.model.v2017.Inventory inventory) {
+	public com.servinglynk.hmis.warehouse.model.v2020.Inventory updateInventory(com.servinglynk.hmis.warehouse.model.v2020.Inventory inventory) {
 			update(inventory);
 		return inventory;
 	}
 
 
 	@Override
-	public void deleteInventory(com.servinglynk.hmis.warehouse.model.v2017.Inventory inventory) {
+	public void deleteInventory(com.servinglynk.hmis.warehouse.model.v2020.Inventory inventory) {
 			delete(inventory);
 		
 	}
@@ -160,20 +160,20 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Inventory getInventoryById(UUID inventoryId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.Inventory getInventoryById(UUID inventoryId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Inventory.class);
 		criteria.add(Restrictions.eq("id", inventoryId));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Inventory> inventory = (List<com.servinglynk.hmis.warehouse.model.v2017.Inventory>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Inventory> inventory = (List<com.servinglynk.hmis.warehouse.model.v2020.Inventory>) findByCriteria(criteria);
 		if(inventory.size()>0) return inventory.get(0);
 		return null;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Inventory getInventoryByDedupInventoryId(UUID id,String projectGroupCode) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.Inventory getInventoryByDedupInventoryId(UUID id,String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Inventory.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Inventory> inventory = (List<com.servinglynk.hmis.warehouse.model.v2017.Inventory>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Inventory> inventory = (List<com.servinglynk.hmis.warehouse.model.v2020.Inventory>) findByCriteria(criteria);
 		if(inventory !=null && inventory.size()>0) return inventory.get(0);
 		return null;
 	}
@@ -187,34 +187,34 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2017.Inventory> getAllInventories(Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class);	
-		List<com.servinglynk.hmis.warehouse.model.v2017.Inventory> inventory = (List<com.servinglynk.hmis.warehouse.model.v2017.Inventory>) findByCriteria(criteria,startIndex,maxItems);
+	public List<com.servinglynk.hmis.warehouse.model.v2020.Inventory> getAllInventories(Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Inventory.class);	
+		List<com.servinglynk.hmis.warehouse.model.v2020.Inventory> inventory = (List<com.servinglynk.hmis.warehouse.model.v2020.Inventory>) findByCriteria(criteria,startIndex,maxItems);
 		return inventory;
 	}
 	
 	@Override
 	public long getIventoriesCount(){
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Exitrhy.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Exitrhy.class);	
 		return countRows(criteria);
 	}
 
 
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2017.Inventory> getAllCocInventories(UUID projectCocId,
+	public List<com.servinglynk.hmis.warehouse.model.v2020.Inventory> getAllCocInventories(UUID projectCocId,
 			Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class);
+		DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Inventory.class);
 	       criteria.createAlias("coc", "coc");
 	       criteria.add(Restrictions.eq("coc.id", projectCocId));
-	       List<com.servinglynk.hmis.warehouse.model.v2017.Inventory> inventories = (List<com.servinglynk.hmis.warehouse.model.v2017.Inventory>) findByCriteria(criteria,startIndex,maxItems);
+	       List<com.servinglynk.hmis.warehouse.model.v2020.Inventory> inventories = (List<com.servinglynk.hmis.warehouse.model.v2020.Inventory>) findByCriteria(criteria,startIndex,maxItems);
 	       if(inventories.size()>0) return inventories;
-	       else return new ArrayList<com.servinglynk.hmis.warehouse.model.v2017.Inventory>(); 
+	       else return new ArrayList<com.servinglynk.hmis.warehouse.model.v2020.Inventory>(); 
 	}
 
 
 	@Override
 	public long getCocInventoriesCount(UUID projectCocId) {
-		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Inventory.class);
+		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Inventory.class);
 	       criteria.createAlias("coc", "coc");
 	       criteria.add(Restrictions.eq("coc.id", projectCocId));
 	       return countRows(criteria);

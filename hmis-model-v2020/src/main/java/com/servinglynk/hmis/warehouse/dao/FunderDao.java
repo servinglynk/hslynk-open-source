@@ -6,10 +6,10 @@ import java.util.UUID;
 public interface FunderDao extends ParentDao {
 
 
-	   com.servinglynk.hmis.warehouse.model.v2017.Funder createFunder(com.servinglynk.hmis.warehouse.model.v2017.Funder funder);
-	   com.servinglynk.hmis.warehouse.model.v2017.Funder updateFunder(com.servinglynk.hmis.warehouse.model.v2017.Funder funder);
-	   void deleteFunder(com.servinglynk.hmis.warehouse.model.v2017.Funder funder);
-	   com.servinglynk.hmis.warehouse.model.v2017.Funder getFunderById(UUID funderId);
-	   List<com.servinglynk.hmis.warehouse.model.v2017.Funder> getAllProjectFunders(UUID projectId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2020.Funder createFunder(com.servinglynk.hmis.warehouse.model.v2020.Funder funder);
+	   com.servinglynk.hmis.warehouse.model.v2020.Funder updateFunder(com.servinglynk.hmis.warehouse.model.v2020.Funder funder);
+	   void deleteFunder(com.servinglynk.hmis.warehouse.model.v2020.Funder funder);
+	   com.servinglynk.hmis.warehouse.model.v2020.Funder getFunderById(UUID funderId);
+	   List<com.servinglynk.hmis.warehouse.model.v2020.Funder> getAllProjectFunders(UUID projectId,Integer startIndex, Integer maxItems);
 	   long getProjectFundersCount(UUID projectId);
 }

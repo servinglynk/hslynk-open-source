@@ -16,11 +16,11 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.DateOfEngagement;
+import com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement;
-import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -33,9 +33,9 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 			.getLogger(DateofengagementDaoImpl.class);
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception
 	{
-		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement.class, getProjectGroupCode(domain));
 		List<DateOfEngagement> dateOfEngagements = domain.getExport().getDateOfEngagement();
 		if(CollectionUtils.isNotEmpty(dateOfEngagements))
 		{
@@ -68,32 +68,32 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 			 }
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Disabilities.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Disabilities.class.getSimpleName(), domain,exportEntity);
 
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement dateofengagement ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement getModelObject(ExportDomain domain, DateOfEngagement dateofengagement ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement.class, dateofengagement.getDateOfEngagementID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement) getModel(com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement.class, dateofengagement.getDateOfEngagementID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
 			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement model = new com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement();
+		com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement model = new com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateofengagement.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -108,33 +108,33 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement createDateofengagement(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement dateofengagement){
+	   public com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement createDateofengagement(com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement dateofengagement){
 	       dateofengagement.setId(UUID.randomUUID());
 	       insert(dateofengagement);
 	       return dateofengagement;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement updateDateofengagement(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement dateofengagement){
+	   public com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement updateDateofengagement(com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement dateofengagement){
 	       update(dateofengagement);
 	       return dateofengagement;
 	   }
-	   public void deleteDateofengagement(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement dateofengagement){
+	   public void deleteDateofengagement(com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement dateofengagement){
 	       delete(dateofengagement);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement getDateofengagementById(UUID dateofengagementId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement.class);
+	   public com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement getDateofengagementById(UUID dateofengagementId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement.class);
 		      criteria.add(Restrictions.eq("id", dateofengagementId));
-		      List<com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement> entities = (List<com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement> getAllEnrollmentDateofengagements(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement> getAllEnrollmentDateofengagements(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentDateofengagementsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

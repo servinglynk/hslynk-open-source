@@ -13,10 +13,10 @@ import java.util.UUID;
 public interface AffiliationDao extends ParentDao {
 
 	
-	   com.servinglynk.hmis.warehouse.model.v2017.Affiliation createAffiliation(com.servinglynk.hmis.warehouse.model.v2017.Affiliation affiliation);
-	   com.servinglynk.hmis.warehouse.model.v2017.Affiliation updateAffiliation(com.servinglynk.hmis.warehouse.model.v2017.Affiliation affiliation);
-	   void deleteAffiliation(com.servinglynk.hmis.warehouse.model.v2017.Affiliation affiliation);
-	   com.servinglynk.hmis.warehouse.model.v2017.Affiliation getAffiliationById(UUID affiliationId);
-	   List<com.servinglynk.hmis.warehouse.model.v2017.Affiliation> getAllProjectAffiliations(UUID projectId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2020.Affiliation createAffiliation(com.servinglynk.hmis.warehouse.model.v2020.Affiliation affiliation);
+	   com.servinglynk.hmis.warehouse.model.v2020.Affiliation updateAffiliation(com.servinglynk.hmis.warehouse.model.v2020.Affiliation affiliation);
+	   void deleteAffiliation(com.servinglynk.hmis.warehouse.model.v2020.Affiliation affiliation);
+	   com.servinglynk.hmis.warehouse.model.v2020.Affiliation getAffiliationById(UUID affiliationId);
+	   List<com.servinglynk.hmis.warehouse.model.v2020.Affiliation> getAllProjectAffiliations(UUID projectId,Integer startIndex, Integer maxItems);
 	   long getProjectAffiliationsCount(UUID projectId);
 }

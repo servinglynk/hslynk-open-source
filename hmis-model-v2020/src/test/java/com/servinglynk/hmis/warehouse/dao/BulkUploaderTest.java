@@ -34,7 +34,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DatabaseConfig.class,StandAloneDBPoolConfig.class,AMQConfiguration.class},loader = AnnotationConfigContextLoader.class)

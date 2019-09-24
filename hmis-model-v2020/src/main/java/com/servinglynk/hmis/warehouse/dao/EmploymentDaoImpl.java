@@ -21,9 +21,9 @@ import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmploymentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentNotEmployedReasonEnum;
-import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -39,14 +39,14 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<Employment> employmentList  = domain.getExport().getEmployment();
-		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Employment.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Employment.class, getProjectGroupCode(domain));
 		if(CollectionUtils.isNotEmpty(employmentList))
 		{
 			for(Employment employment : employmentList)
 			{
-				com.servinglynk.hmis.warehouse.model.v2017.Employment employmentModel = null;
+				com.servinglynk.hmis.warehouse.model.v2020.Employment employmentModel = null;
 				try {
 					employmentModel = getModelObject(domain, employment, data, modelMap);
 					employmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateCreated()));
@@ -78,30 +78,30 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 					logger.error(errorMessage);
 				}
 			}
-			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Employment.class.getSimpleName(), domain,exportEntity);
+			hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Employment.class.getSimpleName(), domain,exportEntity);
 		}
 	}
-	public com.servinglynk.hmis.warehouse.model.v2017.Employment getModelObject(ExportDomain domain, Employment employment ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.Employment modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.Employment getModelObject(ExportDomain domain, Employment employment ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.Employment modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2017.Employment.class, employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Employment) getModel(com.servinglynk.hmis.warehouse.model.v2020.Employment.class, employment.getEmploymentID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
 			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Employment();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Employment();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Employment();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Employment();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Employment model = new com.servinglynk.hmis.warehouse.model.v2017.Employment();
+		com.servinglynk.hmis.warehouse.model.v2020.Employment model = new com.servinglynk.hmis.warehouse.model.v2020.Employment();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -113,33 +113,33 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 		// TODO Auto-generated method stub
 
 	}
-	   public com.servinglynk.hmis.warehouse.model.v2017.Employment createEmployment(com.servinglynk.hmis.warehouse.model.v2017.Employment employment){
+	   public com.servinglynk.hmis.warehouse.model.v2020.Employment createEmployment(com.servinglynk.hmis.warehouse.model.v2020.Employment employment){
 	       employment.setId(UUID.randomUUID());
 	       insert(employment);
 	       return employment;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.Employment updateEmployment(com.servinglynk.hmis.warehouse.model.v2017.Employment employment){
+	   public com.servinglynk.hmis.warehouse.model.v2020.Employment updateEmployment(com.servinglynk.hmis.warehouse.model.v2020.Employment employment){
 	       update(employment);
 	       return employment;
 	   }
-	   public void deleteEmployment(com.servinglynk.hmis.warehouse.model.v2017.Employment employment){
+	   public void deleteEmployment(com.servinglynk.hmis.warehouse.model.v2020.Employment employment){
 	       delete(employment);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.Employment getEmploymentById(UUID employmentId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Employment.class);
+	   public com.servinglynk.hmis.warehouse.model.v2020.Employment getEmploymentById(UUID employmentId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Employment.class);
 		      criteria.add(Restrictions.eq("id", employmentId));
-		      List<com.servinglynk.hmis.warehouse.model.v2017.Employment> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Employment>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2020.Employment> entities = (List<com.servinglynk.hmis.warehouse.model.v2020.Employment>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2017.Employment> getAllEnrollmentEmployments(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Employment.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2020.Employment> getAllEnrollmentEmployments(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Employment.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Employment>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2020.Employment>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentEmploymentsCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Employment.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Employment.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

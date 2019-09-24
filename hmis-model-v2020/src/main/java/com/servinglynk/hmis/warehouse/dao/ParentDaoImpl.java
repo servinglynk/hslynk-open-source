@@ -21,10 +21,10 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.base.util.ErrorWarn;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
-import com.servinglynk.hmis.warehouse.model.v2017.BulkUploadActivity;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.Export;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.BulkUploadActivity;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Export;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 
 
 public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl {
@@ -129,7 +129,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				}
 			}
 		}
-	    protected void modelMatch(com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel model) {
+	    protected void modelMatch(com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel model) {
 	    	if(model.getDateUpdatedFromSource() ==null || modelFromDB.getDateUpdatedFromSource() == null) {
 				model.setIgnored(true);
 				return;
@@ -166,7 +166,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				}
 		}
 	    
-	    private void populateModelId(com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel model) {
+	    private void populateModelId(com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel model) {
 	    	try {
 				Method methodId = modelFromDB.getClass().getDeclaredMethod("getId");
 		        org.apache.commons.beanutils.BeanUtils.copyProperty(model, "id",UUID.fromString(methodId.invoke(modelFromDB).toString()));

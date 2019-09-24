@@ -2526,11 +2526,19 @@ WITH (
 
 -- drop table "coc";
 
-create table "v2020".project_coc
+create table "v2020".coc
 (
   id uuid not null,
   coccode text,
    projectid uuid,
+   	information_date timestamp,
+	geo_code varchar(10),
+	address1 varchar(100),
+	address2 varchar(100),
+	city varchar(50),
+	state varchar(50),
+	zip varchar(15),
+	geography_type "v2020".geography_type,
   "project_group_code" character varying(8),
    date_created timestamp,
    "date_created_from_source" timestamp,
@@ -3224,38 +3232,6 @@ with (
   oids=false
 );
 
-create table "v2020".geography
-(
-	"id" uuid not null, 
-	information_date timestamp,
-	geo_code varchar(10),
-	address1 varchar(100),
-	address2 varchar(100),
-	city varchar(50),
-	state varchar(50),
-	zip varchar(15),
-	geography_type "v2020".geography_type,
-	coc_id uuid,
-	"project_group_code" character varying(8),
-	"date_created" timestamp,
-	"date_created_from_source" timestamp,
-	"date_updated_from_source" timestamp,
-	"date_updated" timestamp,
-	"user_id" uuid,
-	export_id uuid,
-	parent_id uuid,
-	version integer,source_system_id text,
-	deleted boolean DEFAULT false,active boolean DEFAULT true, 
-	sync boolean DEFAULT false,
-		constraint "geography_pkey" primary key ("id"),
-		constraint "geography_fkey" foreign key ("coc_id")
-		references v2020.coc("id") match simple
-		on update no action on delete no action
-)
-with (
-  oids=false
-);
-
 
 
 -- table: "exitplansactions"
@@ -3930,8 +3906,6 @@ insert into v2020.question(id,question_description,display_text,question_data_ty
 ('024c9acd-d3e1-4cc4-9800-a9db85edad22','Coc code','Coc code','STRING','STRING',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,	(null),	
 true,'coccode',false,'2.8.2','/v2020/{projectid}/projectcocs/{projectcocid}/geographies/{geographyid}','geography.cocCode');
 
-alter table v2020.geography add column coccode text;
-
 insert into v2020.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template,uri_object_field) values
 ('024c9acd-d3e1-4cc4-9800-a9db85edad23','Physical Disability','Physical Disability',
 'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'indefiniteandimpairs',
@@ -3966,11 +3940,13 @@ false,'4.10.2','/v2020/clients/{clientid}/enrollments/{enrollmentid}/disabilitie
 DROP TABLE IF EXISTS "v2020".assessment;
 DROP TABLE IF EXISTS "v2020".assessment_questions;
 DROP TABLE IF EXISTS "v2020".assessment_results;
+DROP TABLE IF EXISTS "v2020".current_living_situation; 
+DROP TABLE IF EXISTS "v2020".event;
 
 CREATE TYPE "v2020".assessment_type  AS ENUM ('1','2','3');
 CREATE TYPE "v2020".assessment_level  AS ENUM ('1','2');
 CREATE TYPE "v2020".prioritization_status AS ENUM ('1','2'); 
-CREATE TYPE "v2020".event AS ENUM('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15');
+CREATE TYPE "v2020".event_type AS ENUM('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15');
 
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','1','Referral to Prevention Assistance project','ACTIVE'); 
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','2','Problem Solving/Diversion/Rapid Resolution intervention or service','ACTIVE'); 
@@ -4096,7 +4072,7 @@ create table "v2020".assessment_questions
       	REFERENCES "v2020".client ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
        CONSTRAINT assessment_questions_assessment_fk FOREIGN KEY ("assessment_id")
-      	REFERENCES "v2020".assessment_id ("id") MATCH SIMPLE
+      	REFERENCES "v2020".assessment ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 with (
@@ -4131,7 +4107,7 @@ create table "v2020".assessment_results
       	REFERENCES "v2020".client ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
        CONSTRAINT assessment_results_assessment_fk FOREIGN KEY ("assessment_id")
-      	REFERENCES "v2020".assessment_id ("id") MATCH SIMPLE
+      	REFERENCES "v2020".assessment ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 with (
@@ -4181,7 +4157,7 @@ with (
    enrollmentid uuid,
    client_id uuid,
    event_date  date,
-   event  v2020.event,
+   event  v2020.event_type,
    referral_case_manage_after  v2020.no_yes_refused,
    locationcrisisorphhousing  character varying(500),
    referral_result character varying(500),

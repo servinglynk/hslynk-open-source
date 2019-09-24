@@ -2,7 +2,7 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.util.UUID;
 
-import com.servinglynk.hmis.warehouse.model.v2017.Export;
+import com.servinglynk.hmis.warehouse.model.v2020.Export;
 
 /**
  * @author Sandeep

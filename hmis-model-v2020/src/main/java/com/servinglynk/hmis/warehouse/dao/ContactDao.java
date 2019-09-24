@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.dao.ParentDao;
-import com.servinglynk.hmis.warehouse.model.v2017.Contact;
+import com.servinglynk.hmis.warehouse.model.v2020.Contact;
 
 public interface ContactDao extends ParentDao {
 
@@ -20,12 +20,12 @@ public interface ContactDao extends ParentDao {
 
 	long getContactCount();
 
-	public com.servinglynk.hmis.warehouse.model.v2017.Contact getContactByDedupContactId(UUID id,
+	public com.servinglynk.hmis.warehouse.model.v2020.Contact getContactByDedupContactId(UUID id,
 			String projectGroupCode);
 
-	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.Contact contact);
+	void hydrateLive(com.servinglynk.hmis.warehouse.model.v2020.Contact contact);
 
-	List<com.servinglynk.hmis.warehouse.model.v2017.Contact> getAllEnrollmentContacts(UUID enrollmentId,
+	List<com.servinglynk.hmis.warehouse.model.v2020.Contact> getAllEnrollmentContacts(UUID enrollmentId,
 			Integer startIndex, Integer maxItems);
 
 	long getEnrollmentContactsCount(UUID enrollmentId);

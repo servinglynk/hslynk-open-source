@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
 
 /**
  * @author Sandeep
@@ -30,8 +30,8 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) {
 		Source source = domain.getSource();
 		Data data = new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Source.class, getProjectGroupCode(domain));
-		com.servinglynk.hmis.warehouse.model.v2017.Source sourceModel = null;
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Source.class, getProjectGroupCode(domain));
+		com.servinglynk.hmis.warehouse.model.v2020.Source sourceModel = null;
 		try {
 			sourceModel = getModelObject(domain, source, data, modelMap);
 			//sourceModel.setSoftwarevendor(source.getSoftwareVendor());
@@ -60,29 +60,29 @@ public class SourceDaoImpl extends ParentDaoImpl implements SourceDao {
 			}
 			logger.error(errorMessage);
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Source.class.getSimpleName(), domain,null);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Source.class.getSimpleName(), domain,null);
 	}
 	
 	
-	public com.servinglynk.hmis.warehouse.model.v2017.Source getModelObject(ExportDomain domain, Source source ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.Source sourceModel = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.Source getModelObject(ExportDomain domain, Source source ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.Source sourceModel = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			sourceModel = (com.servinglynk.hmis.warehouse.model.v2017.Source) getModel(com.servinglynk.hmis.warehouse.model.v2017.Source.class, source.getSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			sourceModel = (com.servinglynk.hmis.warehouse.model.v2020.Source) getModel(com.servinglynk.hmis.warehouse.model.v2020.Source.class, source.getSourceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		
 		if(domain.isReUpload()) {
 			if(sourceModel != null) {
 				return sourceModel;
 			}
-			sourceModel = new com.servinglynk.hmis.warehouse.model.v2017.Source();
+			sourceModel = new com.servinglynk.hmis.warehouse.model.v2020.Source();
 			sourceModel.setId(UUID.randomUUID());
 			sourceModel.setRecordToBeInserted(true);
 			return sourceModel;
 		}
 		
 		if(sourceModel == null) {
-			sourceModel = new com.servinglynk.hmis.warehouse.model.v2017.Source();
+			sourceModel = new com.servinglynk.hmis.warehouse.model.v2020.Source();
 			sourceModel.setId(UUID.randomUUID());
 			sourceModel.setRecordToBeInserted(true);
 			

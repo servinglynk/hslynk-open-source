@@ -14,9 +14,9 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyear
 import com.servinglynk.hmis.warehouse.enums.LivingSituationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectProjecttypeEnum;
 import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
-import com.servinglynk.hmis.warehouse.model.v2017.Disabilities;
-import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral;
+import com.servinglynk.hmis.warehouse.model.v2020.Disabilities;
+import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral;
 
 @Component
 public class ChronicHomelessCalcHelper{

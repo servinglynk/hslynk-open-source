@@ -17,9 +17,9 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2017.Project;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -35,14 +35,14 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		List<Funder> funders = domain.getExport().getFunder();
-	    com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+	    com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Funder.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Funder.class, getProjectGroupCode(domain));
 		if(funders!=null && funders.size() > 0)
 		{
 			for(Funder funder : funders)
 			{
-				com.servinglynk.hmis.warehouse.model.v2017.Funder funderModel = null;
+				com.servinglynk.hmis.warehouse.model.v2020.Funder funderModel = null;
 				try {
 					funderModel = getModelObject(domain, funder,data,modelMap);
 					funderModel.setFunder(FunderFunderEnum.lookupEnum((funder.getFunder())));
@@ -72,31 +72,31 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Funder.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Funder.class.getSimpleName(), domain,exportEntity);
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2017.Funder getModelObject(ExportDomain domain, Funder funder ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.Funder modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.Funder getModelObject(ExportDomain domain, Funder funder ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.Funder modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Funder) getModel(com.servinglynk.hmis.warehouse.model.v2017.Funder.class, funder.getFunderID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Funder) getModel(com.servinglynk.hmis.warehouse.model.v2020.Funder.class, funder.getFunderID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
 			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Funder();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Funder();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Funder();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Funder();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Funder model = new com.servinglynk.hmis.warehouse.model.v2017.Funder();
+		com.servinglynk.hmis.warehouse.model.v2020.Funder model = new com.servinglynk.hmis.warehouse.model.v2020.Funder();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -111,33 +111,33 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 		 */
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.v2017.Funder createFunder(com.servinglynk.hmis.warehouse.model.v2017.Funder funder){
+	   public com.servinglynk.hmis.warehouse.model.v2020.Funder createFunder(com.servinglynk.hmis.warehouse.model.v2020.Funder funder){
 	       funder.setId(UUID.randomUUID());
 	       insert(funder);
 	       return funder;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.Funder updateFunder(com.servinglynk.hmis.warehouse.model.v2017.Funder funder){
+	   public com.servinglynk.hmis.warehouse.model.v2020.Funder updateFunder(com.servinglynk.hmis.warehouse.model.v2020.Funder funder){
 	       update(funder);
 	       return funder;
 	   }
-	   public void deleteFunder(com.servinglynk.hmis.warehouse.model.v2017.Funder funder){
+	   public void deleteFunder(com.servinglynk.hmis.warehouse.model.v2020.Funder funder){
 	       delete(funder);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.Funder getFunderById(UUID funderId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Funder.class);
+	   public com.servinglynk.hmis.warehouse.model.v2020.Funder getFunderById(UUID funderId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Funder.class);
 		      criteria.add(Restrictions.eq("id", funderId));
-		      List<com.servinglynk.hmis.warehouse.model.v2017.Funder> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Funder>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2020.Funder> entities = (List<com.servinglynk.hmis.warehouse.model.v2020.Funder>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2017.Funder> getAllProjectFunders(UUID projectId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Funder.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2020.Funder> getAllProjectFunders(UUID projectId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Funder.class);
 	       criteria.createAlias("projectid", "projectid");
 	       criteria.add(Restrictions.eq("projectid.id", projectId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Funder>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2020.Funder>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getProjectFundersCount(UUID projectId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Funder.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Funder.class);
 	       criteria.createAlias("projectid", "projectid");
 	       criteria.add(Restrictions.eq("projectid.id", projectId));
 	       return countRows(criteria);

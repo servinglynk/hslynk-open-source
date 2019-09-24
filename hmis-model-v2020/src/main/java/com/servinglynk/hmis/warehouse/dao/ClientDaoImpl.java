@@ -40,8 +40,8 @@ import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -65,23 +65,23 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 
 		Export export = domain.getExport();
-		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class, String.valueOf(domain.getExport().getExportID()), getProjectGroupCode(domain), false, exportModelMap, domain.getUpload().getId());
 		Data data = new Data();
 		String projectGroupCode= getProjectGroupCode(domain);
-		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Client.class, projectGroupCode);
+		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Client.class, projectGroupCode);
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(projectGroupCode);
 		List<Client> clients = export.getClient();
 		if (CollectionUtils.isNotEmpty(clients)) {
 			for (Client client : clients) {
-				com.servinglynk.hmis.warehouse.model.v2017.Client clientModel = null;
+				com.servinglynk.hmis.warehouse.model.v2020.Client clientModel = null;
 				try {
-					clientModel = (com.servinglynk.hmis.warehouse.model.v2017.Client) modelMap.get(client.getPersonalID());
+					clientModel = (com.servinglynk.hmis.warehouse.model.v2020.Client) modelMap.get(client.getPersonalID());
 					if(clientModel != null) {
 						if(projectGroupEntity.isDetermineDedupBySsid()) {
 							clientModel.setRecordToBeInserted(false);
 						}
 					}else {
-						clientModel = new com.servinglynk.hmis.warehouse.model.v2017.Client();
+						clientModel = new com.servinglynk.hmis.warehouse.model.v2020.Client();
 						clientModel.setRecordToBeInserted(true);
 						clientModel.setId(UUID.randomUUID());
 					}
@@ -170,19 +170,19 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Client.class.getSimpleName(), domain, exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Client.class.getSimpleName(), domain, exportEntity);
 	}
 	
 	
-    private com.servinglynk.hmis.warehouse.model.v2017.Client getClientFromDedup(com.servinglynk.hmis.warehouse.model.v2017.Client clientModel,Client client, String projectGroupCode) {
+    private com.servinglynk.hmis.warehouse.model.v2020.Client getClientFromDedup(com.servinglynk.hmis.warehouse.model.v2020.Client clientModel,Client client, String projectGroupCode) {
     	com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
 		BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 		UUID dedupId = daoFactory.getHmisClientDao().determindDedupId(target,projectGroupCode);
-		com.servinglynk.hmis.warehouse.model.v2017.Client clientByDedupCliendId = getClientByDedupCliendId(dedupId, projectGroupCode);
+		com.servinglynk.hmis.warehouse.model.v2020.Client clientByDedupCliendId = getClientByDedupCliendId(dedupId, projectGroupCode);
 		if(clientByDedupCliendId != null) {
 			clientByDedupCliendId.setRecordToBeInserted(false);
 		}else {
-			 clientByDedupCliendId = new com.servinglynk.hmis.warehouse.model.v2017.Client();
+			 clientByDedupCliendId = new com.servinglynk.hmis.warehouse.model.v2020.Client();
 			 clientByDedupCliendId.setRecordToBeInserted(true);
 			 clientByDedupCliendId.setDedupClientId(dedupId);
 			 clientByDedupCliendId.setId(UUID.randomUUID());
@@ -192,7 +192,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	}
 
 
-	public void populateClient(Client client,com.servinglynk.hmis.warehouse.model.v2017.Client clientModel) {
+	public void populateClient(Client client,com.servinglynk.hmis.warehouse.model.v2020.Client clientModel) {
 		if (client.getLastName() != null) {
 			clientModel.setLastName(client.getLastName().getValue());
 		}
@@ -211,11 +211,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	
 	@Override
 	public void hydrateLive(
-			com.servinglynk.hmis.warehouse.model.v2017.Client client) {
+			com.servinglynk.hmis.warehouse.model.v2020.Client client) {
 			if(client !=null) {
-				com.servinglynk.hmis.warehouse.model.v2017.Client target = new com.servinglynk.hmis.warehouse.model.v2017.Client();
+				com.servinglynk.hmis.warehouse.model.v2020.Client target = new com.servinglynk.hmis.warehouse.model.v2020.Client();
 				BeanUtils.copyProperties(client, target, new String[] {"enrollments","veteranInfoes"});
-				com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) get(com.servinglynk.hmis.warehouse.model.v2017.Export.class, client.getExport().getId());
+				com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) get(com.servinglynk.hmis.warehouse.model.v2020.Export.class, client.getExport().getId());
 				exportEntity.addClient(target);
 				target.setExport(exportEntity);
 //				com.servinglynk.hmis.warehouse.model.v2017.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
@@ -249,8 +249,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	}
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Client createClient(
-			com.servinglynk.hmis.warehouse.model.v2017.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
+	public com.servinglynk.hmis.warehouse.model.v2020.Client createClient(
+			com.servinglynk.hmis.warehouse.model.v2020.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
 			baseClient.setSchemaYear("2017");
 			client.setDateUpdated(LocalDateTime.now());
@@ -263,8 +263,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 
 
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Client updateClient(
-			com.servinglynk.hmis.warehouse.model.v2017.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
+	public com.servinglynk.hmis.warehouse.model.v2020.Client updateClient(
+			com.servinglynk.hmis.warehouse.model.v2020.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 		baseClient.setSchemaYear("2017");
 			update(client);
 			update(baseClient);
@@ -274,7 +274,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 
 	@Override
 	public void deleteClient(
-			com.servinglynk.hmis.warehouse.model.v2017.Client client) {
+			com.servinglynk.hmis.warehouse.model.v2020.Client client) {
 			delete(client);
 		
 	}
@@ -282,8 +282,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Client getClientById(UUID clientId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Client.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.Client getClientById(UUID clientId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Client.class);
 		List<UUID> shatedClients = AuditUtil.getSharedClients();		
 		criteria.add(Restrictions.eq("id", clientId));
 		if(shatedClients.contains(clientId)) {
@@ -291,48 +291,48 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			criteria.add(Restrictions.eq("projectGroupCode", AuditUtil.getLoginUserProjectGroup()));			
 		}
 			criteria.add(Restrictions.eq("deleted", false));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2017.Client>) getByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2020.Client>) getByCriteria(criteria);
 		if(clients.size()>0) return clients.get(0);
 		return null;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.Client getClientByDedupCliendId(UUID id,String projectGroupCode) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Client.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.Client getClientByDedupCliendId(UUID id,String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Client.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		criteria.add(Restrictions.isNull("parentId"));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2017.Client>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2020.Client>) findByCriteria(criteria);
 		if(clients !=null && clients.size()>0) return clients.get(0);
 		return null;
 	}
-	public com.servinglynk.hmis.warehouse.model.v2017.Client getClientByDedupCliendIdFromStaging(UUID id) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Client.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.Client getClientByDedupCliendIdFromStaging(UUID id) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Client.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2017.Client>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2020.Client>) findByCriteria(criteria);
 		if(clients !=null && clients.size()>0) return clients.get(0);
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2017.Client> getAllClients(String projectGroupCode, Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Client.class);	
+	public List<com.servinglynk.hmis.warehouse.model.v2020.Client> getAllClients(String projectGroupCode, Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Client.class);	
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2017.Client>) findByCriteria(criteria,startIndex,maxItems);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2020.Client>) findByCriteria(criteria,startIndex,maxItems);
 		return clients;
 	}
 	
 	public long getClientsCount(String projectGroupCode){
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Client.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Client.class);	
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		return countRows(criteria);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2017.Client> getAllNullDedupIdClients() {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Client.class);
+	public List<com.servinglynk.hmis.warehouse.model.v2020.Client> getAllNullDedupIdClients() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Client.class);
 		criteria.add(Restrictions.isNull("dedupClientId"));
 		Criterion firstNameCriterion = Restrictions.isNotNull("firstName");
 		Criterion lastNameCriterion = Restrictions.isNotNull("lastName");
@@ -347,13 +347,13 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		allActiveProjectGroupCodes.add("SA0005");
 		allActiveProjectGroupCodes.add("SB0006");
 		criteria.add(Restrictions.in("projectGroupCode", allActiveProjectGroupCodes));
-		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2017.Client>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2020.Client>) findByCriteria(criteria);
 		return clients;
 	}
 	
 	@Override
 	public void updateDedupClient(
-			com.servinglynk.hmis.warehouse.model. v2017.Client client,String dedupSessionKey) {
+			com.servinglynk.hmis.warehouse.model.v2020.Client client,String dedupSessionKey) {
 	    com.servinglynk.hmis.warehouse.model.base.Client basClient = daoFactory.getBaseClientDao().getClient(client.getId());
 	    if(basClient == null) {
 	    	basClient = new  com.servinglynk.hmis.warehouse.model.base.Client();

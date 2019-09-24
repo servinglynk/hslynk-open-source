@@ -17,10 +17,10 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevictimEnum;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceWhenoccurredEnum;
-import com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence;
-import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
@@ -29,9 +29,9 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 			.getLogger(DomesticviolenceDaoImpl.class);
 	@Override
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
-		com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+		com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence.class, getProjectGroupCode(domain));
 		java.util.List<DomesticViolence> domesticViolenceList = domain.getExport().getDomesticViolence();
 		if(CollectionUtils.isNotEmpty(domesticViolenceList))
 		{
@@ -67,30 +67,30 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.Education.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.Education.class.getSimpleName(), domain,exportEntity);
 	}
 	
-	public com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence getModelObject(ExportDomain domain, DomesticViolence domesticViolence ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence getModelObject(ExportDomain domain, DomesticViolence domesticViolence ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence) getModel(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence) getModel(com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence.class, domesticViolence.getDomesticViolenceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
 			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence model = new com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence();
+		com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence model = new com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -105,33 +105,33 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 
 	}
 
-	   public com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence createDomesticViolence(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence domesticViolence){
+	   public com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence createDomesticViolence(com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence domesticViolence){
 	       domesticViolence.setId(UUID.randomUUID());
 	       insert(domesticViolence);
 	       return domesticViolence;
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence updateDomesticViolence(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence domesticViolence){
+	   public com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence updateDomesticViolence(com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence domesticViolence){
 	       update(domesticViolence);
 	       return domesticViolence;
 	   }
-	   public void deleteDomesticViolence(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence domesticViolence){
+	   public void deleteDomesticViolence(com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence domesticViolence){
 	       delete(domesticViolence);
 	   }
-	   public com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence getDomesticViolenceById(UUID domesticViolenceId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence.class);
+	   public com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence getDomesticViolenceById(UUID domesticViolenceId){
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence.class);
 		      criteria.add(Restrictions.eq("id", domesticViolenceId));
-		      List<com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence> entities = (List<com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence>) findByCriteria(criteria);
+		      List<com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence> entities = (List<com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);
 		      return null;
 	   }
-	   public List<com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence> getAllEnrollmentDomesticViolences(UUID enrollmentId,Integer startIndex, Integer maxItems){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence.class);
+	   public List<com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence> getAllEnrollmentDomesticViolences(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence>) findByCriteria(criteria,startIndex,maxItems);
 	   }
 	   public long getEnrollmentDomesticViolencesCount(UUID enrollmentId){
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);

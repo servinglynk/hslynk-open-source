@@ -12,11 +12,11 @@ import java.util.UUID;
  */
 public interface RhybcpstatusDao extends ParentDao {
 
-	   com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus createRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus rhybcpstatus);
-	   com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus updateRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus rhybcpstatus);
-	   void deleteRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus rhybcpstatus);
-	   com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus getRhybcpstatusById(UUID rhybcpstatusId);
-	   List<com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus> getAllEnrollmentRhybcpstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems);
+	   com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus createRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus rhybcpstatus);
+	   com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus updateRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus rhybcpstatus);
+	   void deleteRhybcpstatus(com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus rhybcpstatus);
+	   com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus getRhybcpstatusById(UUID rhybcpstatusId);
+	   List<com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus> getAllEnrollmentRhybcpstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   long getEnrollmentRhybcpstatussCount(UUID enrollmentId);
 
 }

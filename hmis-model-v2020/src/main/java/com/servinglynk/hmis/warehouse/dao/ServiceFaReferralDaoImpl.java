@@ -18,10 +18,10 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Services;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
-import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
-import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral;
+import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFaReferralDao{
@@ -31,17 +31,17 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 	public void hydrateStaging(ExportDomain domain , Map<String,HmisBaseModel> exportModelMap, Map<String,HmisBaseModel> relatedModelMap) throws Exception {
 		
 	    com.servinglynk.hmis.warehouse.domain.Sources.Source.Export export = domain.getExport();
-	    com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) getModel(com.servinglynk.hmis.warehouse.model.v2017.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
+	    com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class, getProjectGroupCode(domain));
+		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral.class, getProjectGroupCode(domain));
 		List<Services> services = export.getServices();
 		Long contactCount = 0L;
 		if (services != null && services.size() > 0) {
 			for (Services serviceFaReferrals : services) {
-				com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral serviceFaReferralModel = null;
+				com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral serviceFaReferralModel = null;
 				try{
 					  if(StringUtils.isNotEmpty(serviceFaReferrals.getRecordType()) && StringUtils.equals("13", serviceFaReferrals.getRecordType())) {
-						  com.servinglynk.hmis.warehouse.model.v2017.Contact  contactModel = new com.servinglynk.hmis.warehouse.model.v2017.Contact();
+						  com.servinglynk.hmis.warehouse.model.v2020.Contact  contactModel = new com.servinglynk.hmis.warehouse.model.v2020.Contact();
 			    		  contactModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
 			    		  contactModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime((serviceFaReferrals.getDateUpdated())));
 				    	  Enrollment enrollment = (Enrollment) getModel(Enrollment.class, serviceFaReferrals.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
@@ -87,33 +87,33 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 				}
 			}
 		}
-		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class.getSimpleName(), domain,exportEntity);
-		hydrateBulkUploadActivityStaging(contactCount,0L,0L, com.servinglynk.hmis.warehouse.model.v2017.Contact.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(data.i,data.j,data.ignore, com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral.class.getSimpleName(), domain,exportEntity);
+		hydrateBulkUploadActivityStaging(contactCount,0L,0L, com.servinglynk.hmis.warehouse.model.v2020.Contact.class.getSimpleName(), domain,exportEntity);
 
 	}
 
-	public com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral getModelObject(ExportDomain domain, Services services ,Data data, Map<String,HmisBaseModel> modelMap) {
-		com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral modelFromDB = null;
+	public com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral getModelObject(ExportDomain domain, Services services ,Data data, Map<String,HmisBaseModel> modelMap) {
+		com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
-			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral) getModel(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class, services.getServicesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral) getModel(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral.class, services.getServicesID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
 			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral();
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral model = new com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral();
+		com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral model = new com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
@@ -123,14 +123,14 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 	
 	
 	@Override
-	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral serviceFaReferral) {
+	public void hydrateLive(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral serviceFaReferral) {
 			if(serviceFaReferral !=null) {
-				com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral target = new com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral();
+				com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral target = new com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral();
 				BeanUtils.copyProperties(serviceFaReferral, target, new String[] {"enrollments","veteranInfoes"});
-				com.servinglynk.hmis.warehouse.model.v2017.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2017.Export) get(com.servinglynk.hmis.warehouse.model.v2017.Export.class, serviceFaReferral.getExport().getId());
+				com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) get(com.servinglynk.hmis.warehouse.model.v2020.Export.class, serviceFaReferral.getExport().getId());
 				exportEntity.addServiceFaReferral(target);
 				target.setExport(exportEntity);
-				com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral serviceFaReferralByDedupCliendId = getServiceFaReferralByDedupServiceFaReferralId(serviceFaReferral.getId(),serviceFaReferral.getProjectGroupCode());
+				com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral serviceFaReferralByDedupCliendId = getServiceFaReferralByDedupServiceFaReferralId(serviceFaReferral.getId(),serviceFaReferral.getProjectGroupCode());
 				if(serviceFaReferralByDedupCliendId ==null) {
 					insert(target);	
 				}
@@ -153,14 +153,14 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 
 
 	@Override
-	public ServiceFaReferral updateServiceFaReferral(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral serviceFaReferral) {
+	public ServiceFaReferral updateServiceFaReferral(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral serviceFaReferral) {
 			update(serviceFaReferral);
 		return serviceFaReferral;
 	}
 
 
 	@Override
-	public void deleteServiceFaReferral(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral serviceFaReferral) {
+	public void deleteServiceFaReferral(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral serviceFaReferral) {
 			delete(serviceFaReferral);
 		
 	}
@@ -168,20 +168,20 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral getServiceFaReferralById(UUID serviceFaReferralId) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral getServiceFaReferralById(UUID serviceFaReferralId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral.class);
 		criteria.add(Restrictions.eq("id", serviceFaReferralId));
-		List<com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral> serviceFaReferral = (List<com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral> serviceFaReferral = (List<com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral>) findByCriteria(criteria);
 		if(serviceFaReferral.size()>0) return serviceFaReferral.get(0);
 		return null;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral getServiceFaReferralByDedupServiceFaReferralId(UUID id,String projectGroupCode) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class);
+	public com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral getServiceFaReferralByDedupServiceFaReferralId(UUID id,String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral.class);
 		criteria.add(Restrictions.eq("dedupClientId", id));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
-		List<com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral> serviceFaReferral = (List<com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral>) findByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral> serviceFaReferral = (List<com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral>) findByCriteria(criteria);
 		if(serviceFaReferral !=null && serviceFaReferral.size()>0) return serviceFaReferral.get(0);
 		return null;
 	}
@@ -195,22 +195,22 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral> getAllServiceFaReferral(Integer startIndex, Integer maxItems) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class);	
-		List<com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral> serviceFaReferral = (List<com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral>) findByCriteria(criteria,startIndex,maxItems);
+	public List<com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral> getAllServiceFaReferral(Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral.class);	
+		List<com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral> serviceFaReferral = (List<com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral>) findByCriteria(criteria,startIndex,maxItems);
 		return serviceFaReferral;
 	}
 	
 	
 	public long getServiceFaReferralCount(){
-		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class);	
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral.class);	
 		return countRows(criteria);
 	}
 
 
 	@Override
 	public long getEnrollmentServiceFaReferralsCount(UUID enrollmentId) {
-		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class);
+		 DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
 	       return countRows(criteria);
@@ -220,10 +220,10 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 	@Override
 	public List<ServiceFaReferral> getAllEnrollmentServiceFaReferrals(UUID enrollmentId, Integer startIndex,
 			Integer maxItems) {
-	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral.class);
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral.class);
 	       criteria.createAlias("enrollmentid", "enrollmentid");
 	       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
-	       return (List<com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral>) findByCriteria(criteria,startIndex,maxItems);
+	       return (List<com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral>) findByCriteria(criteria,startIndex,maxItems);
 	}
 
 

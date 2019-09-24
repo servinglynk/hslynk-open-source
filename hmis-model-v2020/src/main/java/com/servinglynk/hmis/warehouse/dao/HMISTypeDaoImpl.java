@@ -9,7 +9,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 
-import com.servinglynk.hmis.warehouse.model.v2017.HMISTypeModel;
+import com.servinglynk.hmis.warehouse.model.v2020.HMISTypeModel;
 
 public class HMISTypeDaoImpl extends ParentDaoImpl implements HmisTypeDao {
 	
