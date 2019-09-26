@@ -4087,6 +4087,7 @@ create table "v2020".assessment_results
   assessment_id uuid,
   enrollmentid uuid,
   client_id uuid,
+  assessment_result_type character varying(500),
    assessment_result  character varying(500),
   "project_group_code" character varying(8),
   "date_created" timestamp,
