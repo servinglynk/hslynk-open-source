@@ -6,8 +6,12 @@ import java.util.UUID;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.amazonaws.services.elastictranscoder.model.AccessDeniedException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.servinglynk.hmis.warehouse.SortedPagination;
+import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.core.model.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2014.HistoryEntityMapping;
 import com.servinglynk.hmis.warehouse.service.HistoryService;
@@ -27,8 +32,18 @@ public class HistoryServiceImpl extends ServiceBase implements HistoryService {
 		
 		HistoryEntityMapping mapping = daoFactory.getHistoryDao().getMapping(apiName);
 		if(mapping == null) throw new ResourceNotFoundException("History mapping not found");
+		
+		SecurityContext context =  SecurityContextHolder.getContext();
+		Authentication authentication =  context.getAuthentication();
+		LoggedInUser loggedInUser = null;
+		if(authentication.getPrincipal()!=null){
+			loggedInUser = (LoggedInUser) authentication.getPrincipal();
+		}else {
+			throw new AccessDeniedException("User authentication required");
+		}
+		
 		List returnData = new ArrayList();
-		List<?> data =	daoFactory.getHistoryDao().getEntityHistory(entityId, mapping.getEntityName(), "MO0010", startIndex, maxItems);
+		List<?> data =	daoFactory.getHistoryDao().getEntityHistory(entityId, mapping.getEntityName(), loggedInUser.getProjectGroup(), startIndex, maxItems);
 		long count =	daoFactory.getHistoryDao().getEntityHistoryCount(entityId, mapping.getEntityName(), "MO0010");
 
 		for(Object entity : data) {
