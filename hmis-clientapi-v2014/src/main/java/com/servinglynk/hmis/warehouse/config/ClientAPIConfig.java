@@ -25,6 +25,7 @@ import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.ClientsControllerv2;
 import com.servinglynk.hmis.warehouse.rest.HMISTypeController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
+import com.servinglynk.hmis.warehouse.rest.HistoryController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsControllerV2;
 import com.servinglynk.hmis.warehouse.rest.QuestionsController;
@@ -123,5 +124,10 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public ProjectsControllerV2 projectsControllerV2() {
 		 return new ProjectsControllerV2();
+	 }
+	 
+	 @Bean
+	 public HistoryController historyController() {
+		 return new HistoryController();
 	 }
 }

@@ -29,6 +29,7 @@ import com.servinglynk.hmis.warehouse.service.impl.FunderServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HMISTypeServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthinsuranceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthstatusServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.HistoryServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HousingAssessmentDispositionServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.IncomeAndSourceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.InventoryServiceImpl;
@@ -251,5 +252,10 @@ public class ServiceConfig  {
 	 @Bean
 	 public ProjectServiceImplV2 projectServiceV2() {
 		 return new ProjectServiceImplV2();
+	 }
+	 
+	 @Bean
+	 public HistoryServiceImpl historyService() {
+		 return new HistoryServiceImpl();
 	 }
 }
