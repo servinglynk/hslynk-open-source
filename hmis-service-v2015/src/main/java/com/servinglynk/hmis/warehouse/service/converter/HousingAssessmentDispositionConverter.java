@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessmentdispositionEnum;
 public class HousingAssessmentDispositionConverter extends BaseConverter {
@@ -25,6 +26,9 @@ public class HousingAssessmentDispositionConverter extends BaseConverter {
        if(entity.getOtherdisposition()!=null)
        model.setOtherdisposition(entity.getOtherdisposition());
        copyBeanProperties(entity, model);
+       if(entity.getParentId() ==null && entity.getExitid()!=null && entity.getExitid().getEnrollmentid()!=null && entity.getExitid().getEnrollmentid().getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getExitid().getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getExitid().getEnrollmentid().getId()+"/exits/"+entity.getExitid().getId()+"/housingassessmentdispositions/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

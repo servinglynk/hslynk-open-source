@@ -638,5 +638,12 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 		this.hmisTypeDao = hmisTypeDao;
 	}
 	
-	
+	@Autowired HistoryDao historyDao;
+
+	public HistoryDao getHistoryDao() {
+		return historyDao;
+	}
+	public void setHistoryDao(HistoryDao historyDao) {
+		this.historyDao = historyDao;
+	}
 }

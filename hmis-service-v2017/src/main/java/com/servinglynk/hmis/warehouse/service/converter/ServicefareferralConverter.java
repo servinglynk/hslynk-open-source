@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Servicefareferral;
 import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
 public class ServicefareferralConverter  extends BaseConverter {
@@ -31,6 +32,9 @@ public class ServicefareferralConverter  extends BaseConverter {
        model.setFaAmount(entity.getFaAmount());
        model.setReferralOutcome(entity.getReferralOutcome());
        if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/servicefareferrals/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

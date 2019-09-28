@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Funder;
 import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
 public class FunderConverter extends BaseConverter {
@@ -33,6 +34,11 @@ public class FunderConverter extends BaseConverter {
        if(entity.getStartdate()!=null)
        model.setStartdate(entity.getStartdate());
        copyBeanProperties(entity, model);
+       
+       if(entity.getParentId() ==null) {
+    	   model.addLink(new ActionLink("history","/projects/"+entity.getProjectid().getId()+"/funders/"+entity.getId()+"/history"));
+       }
+       
        return model;
    }
 

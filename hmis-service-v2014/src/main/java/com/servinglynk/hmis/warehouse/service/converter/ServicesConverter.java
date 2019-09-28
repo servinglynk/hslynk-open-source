@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.Date;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Services;
 import com.servinglynk.hmis.warehouse.enums.ServicesRecordtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.ServicesReferraloutcomeEnum;
@@ -45,6 +46,9 @@ public class ServicesConverter extends BaseConverter {
        if(entity.getTypeprovided()!=null)
        model.setTypeprovided(entity.getTypeprovided());
        copyBeanProperties(entity, model);
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/services/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

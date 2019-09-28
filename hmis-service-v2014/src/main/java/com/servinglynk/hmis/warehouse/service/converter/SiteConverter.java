@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Site;
 import com.servinglynk.hmis.warehouse.enums.SitePrincipalSiteEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
@@ -42,6 +43,11 @@ public class SiteConverter extends BaseConverter {
        if(entity.getZip()!=null)
        model.setZip(entity.getZip());
        copyBeanProperties(entity, model);
+       
+       if(entity.getParentId() ==null && entity.getProjectCoc()!=null) {
+    	   model.addLink(new ActionLink("history","/projects/"+entity.getProjectCoc().getId()+"/sites/"+entity.getId()+"/history"));
+       }
+       
        return model;
    }
 
