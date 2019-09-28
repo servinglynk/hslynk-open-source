@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="hmis_history_entity_mapping",schema="v2014")
+@Table(name="hmis_history_entity_mapping",schema="v2015")
 public class HistoryEntityMapping {
 
 	@Id
