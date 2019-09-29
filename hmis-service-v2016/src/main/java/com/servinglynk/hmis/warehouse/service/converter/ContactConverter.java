@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Contact;
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 public class ContactConverter  extends BaseConverter {
@@ -20,6 +21,10 @@ public class ContactConverter  extends BaseConverter {
        if(entity.getContactLocation()!=null)
        model.setContactLocation(Integer.parseInt(entity.getContactLocation().getValue()));
        model.setContactDate(entity.getContactDate());
+
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/contacts/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

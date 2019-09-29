@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Projectcoc;
 public class ProjectcocConverter extends BaseConverter {
 
@@ -18,6 +19,9 @@ public class ProjectcocConverter extends BaseConverter {
        if(entity.getCoccode()!=null)
        model.setCoccode(entity.getCoccode());
        copyBeanProperties(entity, model);
+       if(entity.getParentId() ==null) {
+    	   model.addLink(new ActionLink("history","/projects/"+entity.getProjectid().getId()+"/projectcocs/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

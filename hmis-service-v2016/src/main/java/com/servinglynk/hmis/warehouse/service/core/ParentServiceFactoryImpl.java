@@ -3,7 +3,6 @@ package com.servinglynk.hmis.warehouse.service.core;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.amazonaws.services.simpleworkflow.flow.annotations.Asynchronous;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
@@ -29,6 +28,7 @@ import com.servinglynk.hmis.warehouse.service.FunderService;
 import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
+import com.servinglynk.hmis.warehouse.service.HistoryService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
 import com.servinglynk.hmis.warehouse.service.IncomeAndSourceService;
 import com.servinglynk.hmis.warehouse.service.InventoryService;
@@ -419,5 +419,16 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 
 	public void setProjectServiceV2(ProjectServiceV2 projectServiceV2) {
 		this.projectServiceV2 = projectServiceV2;
+	}
+	
+	@Autowired HistoryService historyService;
+
+
+	public HistoryService getHistoryService() {
+		return historyService;
+	}
+
+	public void setHistoryService(HistoryService historyService) {
+		this.historyService = historyService;
 	}
 }

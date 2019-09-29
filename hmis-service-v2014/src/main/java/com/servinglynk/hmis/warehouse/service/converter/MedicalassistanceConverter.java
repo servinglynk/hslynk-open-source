@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Medicalassistance;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnum;
@@ -31,6 +32,10 @@ public class MedicalassistanceConverter extends BaseConverter {
       	   	model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
     
        copyBeanProperties(entity, model);
+       
+		if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+			   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/medicalassistances/"+entity.getId()+"/history"));
+		}
        return model;
    }
 

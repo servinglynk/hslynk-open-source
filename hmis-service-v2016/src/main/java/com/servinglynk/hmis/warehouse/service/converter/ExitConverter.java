@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.service.converter;
 import java.time.ZoneId;
 import java.util.Date;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Exit;
 import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
 public class ExitConverter extends BaseConverter {
@@ -30,6 +31,9 @@ public class ExitConverter extends BaseConverter {
        if(entity.getOtherdestination()!=null)
        exit.setOtherDestination(entity.getOtherdestination());
        copyBeanProperties(entity, exit);
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   exit.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/exits/"+entity.getId()+"/history"));
+       }
        return exit;
    }
 

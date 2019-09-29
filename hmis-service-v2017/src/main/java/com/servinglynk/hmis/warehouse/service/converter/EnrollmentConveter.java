@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.service.converter;
 import java.time.ZoneId;
 import java.util.Date;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Enrollment;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnum;
@@ -74,7 +75,9 @@ public class EnrollmentConveter extends BaseConverter {
 		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(Date.from(pEnrollment.getDatetostreetessh().atZone(ZoneId.systemDefault()).toInstant()));
 
 		copyBeanProperties(pEnrollment, enrollment);
-
+	       if(pEnrollment.getParentId() ==null && pEnrollment.getClient()!=null) {
+	    	   enrollment.addLink(new ActionLink("history","/clients/"+pEnrollment.getClient().getId()+"/enrollments/"+pEnrollment.getId()+"/history"));
+	       }
 		return enrollment;
 	}
 	
@@ -101,7 +104,9 @@ public class EnrollmentConveter extends BaseConverter {
 		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(Date.from(pEnrollment.getDatetostreetessh().atZone(ZoneId.systemDefault()).toInstant()));
 
 		copyBeanProperties(pEnrollment, enrollment);
-
+	       if(pEnrollment.getParentId() ==null && pEnrollment.getClient()!=null) {
+	    	   enrollment.addLink(new ActionLink("history","/clients/"+pEnrollment.getClient().getId()+"/enrollments/"+pEnrollment.getId()+"/history"));
+	       }
 		return enrollment;
 	}
 }

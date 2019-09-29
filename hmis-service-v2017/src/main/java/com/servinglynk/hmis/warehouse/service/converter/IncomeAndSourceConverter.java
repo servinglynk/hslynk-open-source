@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.service.converter;
 
 import java.math.BigDecimal;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.IncomeAndSource;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.IncomeandsourcesAlimonyEnum;
@@ -163,6 +164,11 @@ public class IncomeAndSourceConverter extends BaseConverter {
         if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
         
        copyBeanProperties(entity, model);
+       
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/incomeandsources/"+entity.getId()+"/history"));
+       }
+       
        return model;
    }
 

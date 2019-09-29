@@ -604,5 +604,12 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setQuestionDao(QuestionDao questionDao) {
 		this.questionDao = questionDao;
 	}
-	
+	@Autowired HistoryDao historyDao;
+
+	public HistoryDao getHistoryDao() {
+		return historyDao;
+	}
+	public void setHistoryDao(HistoryDao historyDao) {
+		this.historyDao = historyDao;
+	}
 }

@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Schoolstatus;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 public class SchoolstatusConverter extends BaseConverter {
@@ -28,6 +29,10 @@ public class SchoolstatusConverter extends BaseConverter {
       
      
        copyBeanProperties(entity, model);
+       
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/schoolstatuses/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

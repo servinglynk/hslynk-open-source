@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Medicalassistance;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceAdapEnum;
@@ -36,14 +37,19 @@ public class MedicalassistanceConverter  extends BaseConverter {
         if(entity.getDataCollectionStage() !=null)
             model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
 
-if(entity.getHivaidsassistance()!=null)
-       model.setHivaidsassistance(Integer.parseInt(entity.getHivaidsassistance().getValue()));
-if(entity.getNohivaidsassistancereason()!=null)
-       model.setNohivaidsassistancereason(Integer.parseInt(entity.getNohivaidsassistancereason().getValue()));
-if(entity.getAdap()!=null)
-       model.setAdap(Integer.parseInt(entity.getAdap().getValue()));
-if(entity.getNoadapreason()!=null)
-       model.setNoadapreason(Integer.parseInt(entity.getNoadapreason().getValue()));
+		if(entity.getHivaidsassistance()!=null)
+		       model.setHivaidsassistance(Integer.parseInt(entity.getHivaidsassistance().getValue()));
+		if(entity.getNohivaidsassistancereason()!=null)
+		       model.setNohivaidsassistancereason(Integer.parseInt(entity.getNohivaidsassistancereason().getValue()));
+		if(entity.getAdap()!=null)
+		       model.setAdap(Integer.parseInt(entity.getAdap().getValue()));
+		if(entity.getNoadapreason()!=null)
+		       model.setNoadapreason(Integer.parseInt(entity.getNoadapreason().getValue()));
+		
+		if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+			   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/medicalassistances/"+entity.getId()+"/history"));
+		}
+
        return model;
    }
 

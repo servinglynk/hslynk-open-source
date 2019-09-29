@@ -28,6 +28,7 @@ import com.servinglynk.hmis.warehouse.service.FunderService;
 import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
+import com.servinglynk.hmis.warehouse.service.HistoryService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
 import com.servinglynk.hmis.warehouse.service.IncomeAndSourceService;
 import com.servinglynk.hmis.warehouse.service.InventoryService;
@@ -44,7 +45,6 @@ import com.servinglynk.hmis.warehouse.service.RhybcpstatusService;
 import com.servinglynk.hmis.warehouse.service.ServicefareferralService;
 import com.servinglynk.hmis.warehouse.service.SiteService;
 import com.servinglynk.hmis.warehouse.service.VeteranInfoService;
-import com.servinglynk.hmis.warehouse.service.impl.HMISTypeServiceImpl;
 
 @Component
 public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements ParentServiceFactory {
@@ -419,5 +419,16 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 
 	public void setProjectServiceV2(ProjectServiceV2 projectServiceV2) {
 		this.projectServiceV2 = projectServiceV2;
+	}
+	
+	@Autowired HistoryService historyService;
+
+
+	public HistoryService getHistoryService() {
+		return historyService;
+	}
+
+	public void setHistoryService(HistoryService historyService) {
+		this.historyService = historyService;
 	}
 }

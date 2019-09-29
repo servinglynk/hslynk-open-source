@@ -1,13 +1,10 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Disabilities;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesDocumentationonfileEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesIndefiniteandimpairsEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathhowconfirmedEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesPathsmiinformationEnum;
-import com.servinglynk.hmis.warehouse.enums.DisabilitiesReceivingservicesEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TCellOrViralLoadSourceEnum;
 import com.servinglynk.hmis.warehouse.enums.ViralLoadAvailableEnum;
@@ -71,6 +68,10 @@ if(entity.getViralLoadSource()!=null)
        model.setViralLoadSource(entity.getViralLoadSource().getValue());
 
 if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
+
+if(entity.getParentId() ==null) {
+	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/disabilities/"+entity.getId()+"/history"));
+}
        return model;
    }
 

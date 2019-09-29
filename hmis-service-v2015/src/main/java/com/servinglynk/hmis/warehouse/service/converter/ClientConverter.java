@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
@@ -88,6 +89,8 @@ public class ClientConverter {
 	    	client.setSourceSystemId(pClient.getSourceSystemId());
 	    if(pClient.getDedupClientId() !=null)
 	    	client.setDedupClientId(pClient.getDedupClientId());
+	    if(pClient.getParentId()!=null)
+	    	client.addLink(new ActionLink("history","/client/"+pClient.getId()+"/history"));
 
 //		copyBeanProperties(pClient,client);
 	return client;
