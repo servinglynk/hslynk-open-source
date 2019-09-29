@@ -343,6 +343,11 @@ public class Sources {
             "connectionWithSOAR",
             "vashExitReason",
             "rhyAfterCare",
+            "assessment",
+            "assessmentQuestions",
+            "assessmentResults",
+            "event",
+            "currentLivingSituation"
         })
         public static class Export {
 
@@ -432,7 +437,16 @@ public class Sources {
             protected List<RHYAfterCare> rhyAfterCare;
             @XmlElement(name = "EntryRHSP", required = true)
             protected List<EntryRHSP> entryRHSP;
-            
+            @XmlElement(name = "Assessment", required = true)
+            protected List<Assessment> assessment;
+            @XmlElement(name = "AssessmentQuestions", required = true)
+            protected List<AssessmentQuestions> assessmentQuestions;
+            @XmlElement(name = "AssessmentResults", required = true)
+            protected List<AssessmentResults> assessmentResults;
+            @XmlElement(name = "Event", required = true)
+            protected List<Event> event;
+            @XmlElement(name = "CurrentLivingSituation", required = true)
+            protected List<CurrentLivingSituation> currentLivingSituation;
             
             /**
              * Gets the value of the exportID property.
@@ -782,8 +796,77 @@ public class Sources {
             public void setEducation(List<Education> value) {
                 this.education = value;
             }
-
             /**
+			 * @return the assessment
+			 */
+			public List<Assessment> getAssessment() {
+				return assessment;
+			}
+
+			/**
+			 * @param assessment the assessment to set
+			 */
+			public void setAssessment(List<Assessment> assessment) {
+				this.assessment = assessment;
+			}
+
+			/**
+			 * @return the assessmentQuestions
+			 */
+			public List<AssessmentQuestions> getAssessmentQuestions() {
+				return assessmentQuestions;
+			}
+
+			/**
+			 * @param assessmentQuestions the assessmentQuestions to set
+			 */
+			public void setAssessmentQuestions(List<AssessmentQuestions> assessmentQuestions) {
+				this.assessmentQuestions = assessmentQuestions;
+			}
+
+			/**
+			 * @return the assessmentResults
+			 */
+			public List<AssessmentResults> getAssessmentResults() {
+				return assessmentResults;
+			}
+
+			/**
+			 * @param assessmentResults the assessmentResults to set
+			 */
+			public void setAssessmentResults(List<AssessmentResults> assessmentResults) {
+				this.assessmentResults = assessmentResults;
+			}
+
+			/**
+			 * @return the event
+			 */
+			public List<Event> getEvent() {
+				return event;
+			}
+
+			/**
+			 * @param event the event to set
+			 */
+			public void setEvent(List<Event> event) {
+				this.event = event;
+			}
+
+			/**
+			 * @return the currentLivingSituation
+			 */
+			public List<CurrentLivingSituation> getCurrentLivingSituation() {
+				return currentLivingSituation;
+			}
+
+			/**
+			 * @param currentLivingSituation the currentLivingSituation to set
+			 */
+			public void setCurrentLivingSituation(List<CurrentLivingSituation> currentLivingSituation) {
+				this.currentLivingSituation = currentLivingSituation;
+			}
+
+			/**
              * Gets the value of the employment property.
              * 
              * @return
@@ -1819,8 +1902,1003 @@ public class Sources {
                 }
 
             }
+            
+            /*
+	        <hmis:Assessment hmis:dateCreated="2019-04-11T23:14:59Z" hmis:dateUpdated="2019-04-11T23:14:59Z" hmis:userID="nf">
+	            <hmis:AssessmentID>abc7777</hmis:AssessmentID>
+	            <hmis:EnrollmentID>w5641</hmis:EnrollmentID>
+	            <hmis:PersonalID>g1hert12</hmis:PersonalID>
+	            <hmis:AssessmentDate>2019-04-11</hmis:AssessmentDate>
+	            <hmis:AssessmentLocation>In a certain place</hmis:AssessmentLocation>
+	            <hmis:AssessmentType>1</hmis:AssessmentType>
+	            <hmis:AssessmentLevel>1</hmis:AssessmentLevel>
+	            <hmis:PrioritizationStatus>1</hmis:PrioritizationStatus>
+	        </hmis:Assessment>
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "assessmentID",
+                "enrollmentID",
+                "personalID",
+                "assessmentDate",
+                "assessmentLocation",
+                "assessmentType",
+                "assessmentLevel",
+                "prioritizationStatus"
+            })
+            public static class Assessment {
 
+                @XmlElement(name = "AssessmentID" , required = true)
+                protected String assessmentID;
+                @XmlElement(name = "EnrollmentID")
+                protected String enrollmentID;
+                @XmlElement(name = "PersonalID" )
+                protected String personalID;
+                @XmlElement(name = "AssessmentDate" )
+                protected XMLGregorianCalendar assessmentDate;
+                @XmlElement(name = "AssessmentLocation" )
+                protected String assessmentLocation;
+                @XmlElement(name = "AssessmentType" )
+                protected String assessmentType;
+                @XmlElement(name = "AssessmentLevel" )
+                protected String assessmentLevel;
+                @XmlElement(name = "PrioritizationStatus" )
+                protected String prioritizationStatus;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateCreated;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateUpdated;
+                @XmlAttribute
+                protected String userID;
+                
+				/**
+				 * @return the assessmentID
+				 */
+				public String getAssessmentID() {
+					return assessmentID;
+				}
 
+				/**
+				 * @param assessmentID the assessmentID to set
+				 */
+				public void setAssessmentID(String assessmentID) {
+					this.assessmentID = assessmentID;
+				}
+
+				/**
+				 * @return the personalID
+				 */
+				public String getPersonalID() {
+					return personalID;
+				}
+
+				/**
+				 * @param personalID the personalID to set
+				 */
+				public void setPersonalID(String personalID) {
+					this.personalID = personalID;
+				}
+
+				/**
+				 * @return the assessmentDate
+				 */
+				public XMLGregorianCalendar getAssessmentDate() {
+					return assessmentDate;
+				}
+
+				/**
+				 * @param assessmentDate the assessmentDate to set
+				 */
+				public void setAssessmentDate(XMLGregorianCalendar assessmentDate) {
+					this.assessmentDate = assessmentDate;
+				}
+
+				/**
+				 * @return the assessmentLocation
+				 */
+				public String getAssessmentLocation() {
+					return assessmentLocation;
+				}
+
+				/**
+				 * @param assessmentLocation the assessmentLocation to set
+				 */
+				public void setAssessmentLocation(String assessmentLocation) {
+					this.assessmentLocation = assessmentLocation;
+				}
+
+				/**
+				 * @return the assessmentType
+				 */
+				public String getAssessmentType() {
+					return assessmentType;
+				}
+
+				/**
+				 * @param assessmentType the assessmentType to set
+				 */
+				public void setAssessmentType(String assessmentType) {
+					this.assessmentType = assessmentType;
+				}
+
+				/**
+				 * @return the assessmentLevel
+				 */
+				public String getAssessmentLevel() {
+					return assessmentLevel;
+				}
+
+				/**
+				 * @param assessmentLevel the assessmentLevel to set
+				 */
+				public void setAssessmentLevel(String assessmentLevel) {
+					this.assessmentLevel = assessmentLevel;
+				}
+
+				/**
+				 * @return the prioritizationStatus
+				 */
+				public String getPrioritizationStatus() {
+					return prioritizationStatus;
+				}
+
+				/**
+				 * @param prioritizationStatus the prioritizationStatus to set
+				 */
+				public void setPrioritizationStatus(String prioritizationStatus) {
+					this.prioritizationStatus = prioritizationStatus;
+				}
+
+				/**
+                 * Gets the value of the projectID property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getEnrollmentID() {
+                    return enrollmentID;
+                }
+
+                /**
+                 * Sets the value of the projectID property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setEnrollmentID(String value) {
+                    this.enrollmentID = value;
+                }
+
+                /**
+                 * Gets the value of the dateCreated property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public XMLGregorianCalendar getDateCreated() {
+                    return dateCreated;
+                }
+
+                /**
+                 * Sets the value of the dateCreated property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public void setDateCreated(XMLGregorianCalendar value) {
+                    this.dateCreated = value;
+                }
+
+                /**
+                 * Gets the value of the dateUpdated property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public XMLGregorianCalendar getDateUpdated() {
+                    return dateUpdated;
+                }
+
+                /**
+                 * Sets the value of the dateUpdated property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link XMLGregorianCalendar }
+                 *     
+                 */
+                public void setDateUpdated(XMLGregorianCalendar value) {
+                    this.dateUpdated = value;
+                }
+
+                /**
+                 * Gets the value of the userID property.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getUserID() {
+                    return userID;
+                }
+
+                /**
+                 * Sets the value of the userID property.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setUserID(String value) {
+                    this.userID = value;
+                }
+
+            }
+
+            /*
+	          <hmis:AssessmentQuestions hmis:dateCreated="2019-04-11T23:14:59Z" hmis:dateUpdated="2019-04-11T23:14:59Z" hmis:userID="nf">
+                <hmis:AssessmentQuestionID>1as</hmis:AssessmentQuestionID>
+                <hmis:AssessmentID>abc7777</hmis:AssessmentID>
+                <hmis:EnrollmentID>w5641</hmis:EnrollmentID>
+                <hmis:PersonalID>34fty2</hmis:PersonalID>
+                <hmis:AssessmentQuestionGroup>3</hmis:AssessmentQuestionGroup>
+                <hmis:AssessmentQuestionOrder>2</hmis:AssessmentQuestionOrder>
+                <hmis:AssessmentQuestion>Some question text.</hmis:AssessmentQuestion>
+                <hmis:AssessmentAnswer>Some answer text.</hmis:AssessmentAnswer>
+            </hmis:AssessmentQuestions>
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "assessmentQuestionID",
+                "assessmentID",
+                "enrollmentID",
+                "personalID",
+                "assessmentQuestionGroup",
+                "assessmentQuestionOrder",
+                "assessmentQuestion",
+                "assessmentAnswer"
+            })
+            public static class AssessmentQuestions {
+            	@XmlElement(name = "AssessmentQuestionID" , required = true)
+                protected String assessmentQuestionID;
+                @XmlElement(name = "AssessmentID")
+                protected String assessmentID;
+                @XmlElement(name = "EnrollmentID")
+                protected String enrollmentID;
+                @XmlElement(name = "PersonalID" )
+                protected String personalID;
+                @XmlElement(name = "AssessmentQuestionGroup" )
+                private String assessmentQuestionGroup;
+                @XmlElement(name = "AssessmentQuestionOrder" )
+                protected String assessmentQuestionOrder;
+                @XmlElement(name = "AssessmentQuestion" )
+                protected String assessmentQuestion;
+                @XmlElement(name = "AssessmentAnswer" )
+                protected String assessmentAnswer;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateCreated;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateUpdated;
+                @XmlAttribute
+                protected String userID;
+                
+				/**
+				 * @return the assessmentQuestionID
+				 */
+				public String getAssessmentQuestionID() {
+					return assessmentQuestionID;
+				}
+				/**
+				 * @param assessmentQuestionID the assessmentQuestionID to set
+				 */
+				public void setAssessmentQuestionID(String assessmentQuestionID) {
+					this.assessmentQuestionID = assessmentQuestionID;
+				}
+				/**
+				 * @return the assessmentID
+				 */
+				public String getAssessmentID() {
+					return assessmentID;
+				}
+				/**
+				 * @param assessmentID the assessmentID to set
+				 */
+				public void setAssessmentID(String assessmentID) {
+					this.assessmentID = assessmentID;
+				}
+				/**
+				 * @return the enrollmentID
+				 */
+				public String getEnrollmentID() {
+					return enrollmentID;
+				}
+				/**
+				 * @param enrollmentID the enrollmentID to set
+				 */
+				public void setEnrollmentID(String enrollmentID) {
+					this.enrollmentID = enrollmentID;
+				}
+				/**
+				 * @return the personalID
+				 */
+				public String getPersonalID() {
+					return personalID;
+				}
+				/**
+				 * @param personalID the personalID to set
+				 */
+				public void setPersonalID(String personalID) {
+					this.personalID = personalID;
+				}
+				/**
+				 * @return the assessmentQuestionGroup
+				 */
+				public String getAssessmentQuestionGroup() {
+					return assessmentQuestionGroup;
+				}
+				/**
+				 * @param assessmentQuestionGroup the assessmentQuestionGroup to set
+				 */
+				public void setAssessmentQuestionGroup(String assessmentQuestionGroup) {
+					this.assessmentQuestionGroup = assessmentQuestionGroup;
+				}
+				/**
+				 * @return the assessmentQuestionOrder
+				 */
+				public String getAssessmentQuestionOrder() {
+					return assessmentQuestionOrder;
+				}
+				/**
+				 * @param assessmentQuestionOrder the assessmentQuestionOrder to set
+				 */
+				public void setAssessmentQuestionOrder(String assessmentQuestionOrder) {
+					this.assessmentQuestionOrder = assessmentQuestionOrder;
+				}
+				/**
+				 * @return the assessmentQuestion
+				 */
+				public String getAssessmentQuestion() {
+					return assessmentQuestion;
+				}
+				/**
+				 * @param assessmentQuestion the assessmentQuestion to set
+				 */
+				public void setAssessmentQuestion(String assessmentQuestion) {
+					this.assessmentQuestion = assessmentQuestion;
+				}
+				/**
+				 * @return the assessmentAnswer
+				 */
+				public String getAssessmentAnswer() {
+					return assessmentAnswer;
+				}
+				/**
+				 * @param assessmentAnswer the assessmentAnswer to set
+				 */
+				public void setAssessmentAnswer(String assessmentAnswer) {
+					this.assessmentAnswer = assessmentAnswer;
+				}
+				/**
+				 * @return the dateCreated
+				 */
+				public XMLGregorianCalendar getDateCreated() {
+					return dateCreated;
+				}
+				/**
+				 * @param dateCreated the dateCreated to set
+				 */
+				public void setDateCreated(XMLGregorianCalendar dateCreated) {
+					this.dateCreated = dateCreated;
+				}
+				/**
+				 * @return the dateUpdated
+				 */
+				public XMLGregorianCalendar getDateUpdated() {
+					return dateUpdated;
+				}
+				/**
+				 * @param dateUpdated the dateUpdated to set
+				 */
+				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
+					this.dateUpdated = dateUpdated;
+				}
+				/**
+				 * @return the userID
+				 */
+				public String getUserID() {
+					return userID;
+				}
+				/**
+				 * @param userID the userID to set
+				 */
+				public void setUserID(String userID) {
+					this.userID = userID;
+				}
+            }
+           
+            /*
+	           <hmis:AssessmentResults hmis:dateCreated="2019-04-11T23:14:59Z" hmis:dateUpdated="2019-04-11T23:14:59Z" hmis:userID="nf">
+                <hmis:AssessmentResultID>45te21</hmis:AssessmentResultID>
+                <hmis:AssessmentID>abc7777</hmis:AssessmentID>
+                <hmis:EnrollmentID>w5641</hmis:EnrollmentID>
+                <hmis:PersonalID>34fty2</hmis:PersonalID>
+                <hmis:AssessmentResult>"81":"Recommended Placement"</hmis:AssessmentResult>
+            </hmis:AssessmentResults>
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "assessmentResultID",
+                "assessmentID",
+                "enrollmentID",
+                "personalID",
+                "assessmentResultType",
+                "assessmentResult"
+            })
+            public static class AssessmentResults {
+            	@XmlElement(name = "AssessmentResultID" , required = true)
+                protected String assessmentResultID;
+                @XmlElement(name = "AssessmentID")
+                protected String assessmentID;
+                @XmlElement(name = "EnrollmentID")
+                protected String enrollmentID;
+                @XmlElement(name = "PersonalID" )
+                protected String personalID;
+                @XmlElement(name = "AssessmentResult" )
+                private String assessmentResult;
+                @XmlElement(name = "AssessmentResultType" )
+                private String assessmentResultType;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateCreated;
+                @XmlAttribute
+                protected XMLGregorianCalendar dateUpdated;
+                @XmlAttribute
+                protected String userID;
+				/**
+				 * @return the assessmentResultID
+				 */
+				public String getAssessmentResultID() {
+					return assessmentResultID;
+				}
+				/**
+				 * @param assessmentResultID the assessmentResultID to set
+				 */
+				public void setAssessmentResultID(String assessmentResultID) {
+					this.assessmentResultID = assessmentResultID;
+				}
+				/**
+				 * @return the assessmentID
+				 */
+				public String getAssessmentID() {
+					return assessmentID;
+				}
+				/**
+				 * @param assessmentID the assessmentID to set
+				 */
+				public void setAssessmentID(String assessmentID) {
+					this.assessmentID = assessmentID;
+				}
+				/**
+				 * @return the enrollmentID
+				 */
+				public String getEnrollmentID() {
+					return enrollmentID;
+				}
+				/**
+				 * @param enrollmentID the enrollmentID to set
+				 */
+				public void setEnrollmentID(String enrollmentID) {
+					this.enrollmentID = enrollmentID;
+				}
+				/**
+				 * @return the personalID
+				 */
+				public String getPersonalID() {
+					return personalID;
+				}
+				/**
+				 * @param personalID the personalID to set
+				 */
+				public void setPersonalID(String personalID) {
+					this.personalID = personalID;
+				}
+				/**
+				 * @return the assessmentResultType
+				 */
+				public String getAssessmentResultType() {
+					return assessmentResultType;
+				}
+				/**
+				 * @param assessmentResultType the assessmentResultType to set
+				 */
+				public void setAssessmentResultType(String assessmentResultType) {
+					this.assessmentResultType = assessmentResultType;
+				}
+				/**
+				 * @return the assessmentResult
+				 */
+				public String getAssessmentResult() {
+					return assessmentResult;
+				}
+				/**
+				 * @param assessmentResult the assessmentResult to set
+				 */
+				public void setAssessmentResult(String assessmentResult) {
+					this.assessmentResult = assessmentResult;
+				}
+				/**
+				 * @return the dateCreated
+				 */
+				public XMLGregorianCalendar getDateCreated() {
+					return dateCreated;
+				}
+				/**
+				 * @param dateCreated the dateCreated to set
+				 */
+				public void setDateCreated(XMLGregorianCalendar dateCreated) {
+					this.dateCreated = dateCreated;
+				}
+				/**
+				 * @return the dateUpdated
+				 */
+				public XMLGregorianCalendar getDateUpdated() {
+					return dateUpdated;
+				}
+				/**
+				 * @param dateUpdated the dateUpdated to set
+				 */
+				public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
+					this.dateUpdated = dateUpdated;
+				}
+				/**
+				 * @return the userID
+				 */
+				public String getUserID() {
+					return userID;
+				}
+				/**
+				 * @param userID the userID to set
+				 */
+				public void setUserID(String userID) {
+					this.userID = userID;
+				}
+            }
+            
+            /*
+	         <hmis:CurrentLivingSituation hmis:informationDate="2019-09-01"  hmis:dateCreated="2019-08-13T23:14:59" hmis:dateUpdated="2019-03-30T23:14:59" hmis:dateDeleted="2019-03-31T23:14:59" hmis:userID="IFmMP">
+                <hmis:CurrentLivingSitID>af4522621</hmis:CurrentLivingSitID>
+                <hmis:EnrollmentID>w5644</hmis:EnrollmentID>
+                <hmis:PersonalID>A1a1</hmis:PersonalID>
+                <hmis:CurrentLivingSituation>10</hmis:CurrentLivingSituation>
+                <hmis:VerifiedBy>BZ-123,MA-500</hmis:VerifiedBy>
+                <hmis:LeaveSituation14Days>1</hmis:LeaveSituation14Days>
+                <hmis:SubsequentResidence>9</hmis:SubsequentResidence>
+                <hmis:ResourcesToObtain>0</hmis:ResourcesToObtain>
+                <hmis:LeaseOwn60Day>99</hmis:LeaseOwn60Day>
+                <hmis: "leaseOwn60Day",>1</hmis:MovedTwoOrMore>
+                <hmis:LocationDetails>Living at 3rd Street.</hmis:LocationDetails>
+            </hmis:CurrentLivingSituation>
+          */
+         @XmlAccessorType(XmlAccessType.FIELD)
+         @XmlType(name = "", propOrder = {
+             "currentLivingSitID",
+             "enrollmentID",
+             "personalID",
+             "currentLivingSituation",
+             "verifiedBy",
+             "leaveSituation14Days",
+             "subsequentResidence",
+             "resourcesToObtain",
+             "leaseOwn60Day",
+             "movedTwoOrMore",
+             "locationDetails"
+             
+         })
+         public static class CurrentLivingSituation {
+         	@XmlElement(name = "CurrentLivingSitID" , required = true)
+             protected String currentLivingSitID;
+             @XmlElement(name = "EnrollmentID")
+             protected String enrollmentID;
+             @XmlElement(name = "PersonalID" )
+             protected String personalID;
+             @XmlElement(name = "CurrentLivingSituation" )
+             private String currentLivingSituation;
+             @XmlElement(name = "VerifiedBy" )
+             private String verifiedBy;
+             @XmlElement(name = "LeaveSituation14Days" )
+             private String leaveSituation14Days;
+             @XmlElement(name = "SubsequentResidence" )
+             private String subsequentResidence;
+             @XmlElement(name = "ResourcesToObtain" )
+             private String resourcesToObtain;
+             @XmlElement(name = "LeaseOwn60Day" )
+             private String leaseOwn60Day;
+             @XmlElement(name = "MovedTwoOrMore" )
+             private String movedTwoOrMore;
+             @XmlElement(name = "LocationDetails" )
+             private String locationDetails;
+             @XmlAttribute
+             protected XMLGregorianCalendar dateCreated;
+             @XmlAttribute
+             protected XMLGregorianCalendar dateUpdated;
+             @XmlAttribute
+             protected String userID;
+			/**
+			 * @return the currentLivingSitID
+			 */
+			public String getCurrentLivingSitID() {
+				return currentLivingSitID;
+			}
+			/**
+			 * @param currentLivingSitID the currentLivingSitID to set
+			 */
+			public void setCurrentLivingSitID(String currentLivingSitID) {
+				this.currentLivingSitID = currentLivingSitID;
+			}
+			/**
+			 * @return the enrollmentID
+			 */
+			public String getEnrollmentID() {
+				return enrollmentID;
+			}
+			/**
+			 * @param enrollmentID the enrollmentID to set
+			 */
+			public void setEnrollmentID(String enrollmentID) {
+				this.enrollmentID = enrollmentID;
+			}
+			/**
+			 * @return the personalID
+			 */
+			public String getPersonalID() {
+				return personalID;
+			}
+			/**
+			 * @param personalID the personalID to set
+			 */
+			public void setPersonalID(String personalID) {
+				this.personalID = personalID;
+			}
+			/**
+			 * @return the currentLivingSituation
+			 */
+			public String getCurrentLivingSituation() {
+				return currentLivingSituation;
+			}
+			/**
+			 * @param currentLivingSituation the currentLivingSituation to set
+			 */
+			public void setCurrentLivingSituation(String currentLivingSituation) {
+				this.currentLivingSituation = currentLivingSituation;
+			}
+			/**
+			 * @return the verifiedBy
+			 */
+			public String getVerifiedBy() {
+				return verifiedBy;
+			}
+			/**
+			 * @param verifiedBy the verifiedBy to set
+			 */
+			public void setVerifiedBy(String verifiedBy) {
+				this.verifiedBy = verifiedBy;
+			}
+			/**
+			 * @return the leaveSituation14Days
+			 */
+			public String getLeaveSituation14Days() {
+				return leaveSituation14Days;
+			}
+			/**
+			 * @param leaveSituation14Days the leaveSituation14Days to set
+			 */
+			public void setLeaveSituation14Days(String leaveSituation14Days) {
+				this.leaveSituation14Days = leaveSituation14Days;
+			}
+			/**
+			 * @return the subsequentResidence
+			 */
+			public String getSubsequentResidence() {
+				return subsequentResidence;
+			}
+			/**
+			 * @param subsequentResidence the subsequentResidence to set
+			 */
+			public void setSubsequentResidence(String subsequentResidence) {
+				this.subsequentResidence = subsequentResidence;
+			}
+			/**
+			 * @return the resourcesToObtain
+			 */
+			public String getResourcesToObtain() {
+				return resourcesToObtain;
+			}
+			/**
+			 * @param resourcesToObtain the resourcesToObtain to set
+			 */
+			public void setResourcesToObtain(String resourcesToObtain) {
+				this.resourcesToObtain = resourcesToObtain;
+			}
+			/**
+			 * @return the leaseOwn60Day
+			 */
+			public String getLeaseOwn60Day() {
+				return leaseOwn60Day;
+			}
+			/**
+			 * @param leaseOwn60Day the leaseOwn60Day to set
+			 */
+			public void setLeaseOwn60Day(String leaseOwn60Day) {
+				this.leaseOwn60Day = leaseOwn60Day;
+			}
+			/**
+			 * @return the movedTwoOrMore
+			 */
+			public String getMovedTwoOrMore() {
+				return movedTwoOrMore;
+			}
+			/**
+			 * @param movedTwoOrMore the movedTwoOrMore to set
+			 */
+			public void setMovedTwoOrMore(String movedTwoOrMore) {
+				this.movedTwoOrMore = movedTwoOrMore;
+			}
+			/**
+			 * @return the locationDetails
+			 */
+			public String getLocationDetails() {
+				return locationDetails;
+			}
+			/**
+			 * @param locationDetails the locationDetails to set
+			 */
+			public void setLocationDetails(String locationDetails) {
+				this.locationDetails = locationDetails;
+			}
+			/**
+			 * @return the dateCreated
+			 */
+			public XMLGregorianCalendar getDateCreated() {
+				return dateCreated;
+			}
+			/**
+			 * @param dateCreated the dateCreated to set
+			 */
+			public void setDateCreated(XMLGregorianCalendar dateCreated) {
+				this.dateCreated = dateCreated;
+			}
+			/**
+			 * @return the dateUpdated
+			 */
+			public XMLGregorianCalendar getDateUpdated() {
+				return dateUpdated;
+			}
+			/**
+			 * @param dateUpdated the dateUpdated to set
+			 */
+			public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
+				this.dateUpdated = dateUpdated;
+			}
+			/**
+			 * @return the userID
+			 */
+			public String getUserID() {
+				return userID;
+			}
+			/**
+			 * @param userID the userID to set
+			 */
+			public void setUserID(String userID) {
+				this.userID = userID;
+			}
+         }
+            
+         /*
+            <hmis:Event hmis:dateCreated="2019-11-21T23:14:59Z" hmis:dateUpdated="2019-11-22T22:11:56Z" hmis:userID="GO">
+                <hmis:EventID>234a1</hmis:EventID>
+                <hmis:EnrollmentID>w5641</hmis:EnrollmentID>
+                <hmis:PersonalID>A1a1</hmis:PersonalID>
+                <hmis:EventDate>2019-11-01</hmis:EventDate>
+                <hmis:Event>15</hmis:Event>
+                <hmis:LocationCrisisOrPHHousing>2</hmis:LocationCrisisOrPHHousing>
+                <hmis:ReferralResult>2</hmis:ReferralResult>
+                <hmis:ResultDate>2019-11-01</hmis:ResultDate>
+            </hmis:Event>
+      */
+     @XmlAccessorType(XmlAccessType.FIELD)
+     @XmlType(name = "", propOrder = {
+         "eventID",
+         "enrollmentID",
+         "personalID",
+         "eventDate",
+         "event",
+         "locationCrisisOrPHHousing",
+         "referralCaseManageAfter",
+         "referralResult",
+         "resultDate"
+     })
+     public static class Event {
+     	@XmlElement(name = "EventID" , required = true)
+         protected String eventID;
+         @XmlElement(name = "EnrollmentID")
+         protected String enrollmentID;
+         @XmlElement(name = "PersonalID" )
+         protected String personalID;
+         @XmlElement(name = "EventDate" )
+         private XMLGregorianCalendar eventDate;
+         @XmlElement(name = "Event" )
+         private String event;
+         @XmlElement(name = "LocationCrisisOrPHHousing" )
+         private String locationCrisisOrPHHousing;
+         @XmlElement(name = "ReferralCaseManageAfter" )
+         private String referralCaseManageAfter;
+         @XmlElement(name = "ReferralResult" )
+         private String referralResult;
+         @XmlElement(name = "ResultDate" )
+         private XMLGregorianCalendar resultDate;
+         @XmlAttribute
+         protected XMLGregorianCalendar dateCreated;
+         @XmlAttribute
+         protected XMLGregorianCalendar dateUpdated;
+         @XmlAttribute
+         protected String userID;
+		/**
+		 * @return the eventID
+		 */
+		public String getEventID() {
+			return eventID;
+		}
+		/**
+		 * @param eventID the eventID to set
+		 */
+		public void setEventID(String eventID) {
+			this.eventID = eventID;
+		}
+		/**
+		 * @return the enrollmentID
+		 */
+		public String getEnrollmentID() {
+			return enrollmentID;
+		}
+		/**
+		 * @param enrollmentID the enrollmentID to set
+		 */
+		public void setEnrollmentID(String enrollmentID) {
+			this.enrollmentID = enrollmentID;
+		}
+		/**
+		 * @return the personalID
+		 */
+		public String getPersonalID() {
+			return personalID;
+		}
+		/**
+		 * @param personalID the personalID to set
+		 */
+		public void setPersonalID(String personalID) {
+			this.personalID = personalID;
+		}
+		/**
+		 * @return the eventDate
+		 */
+		public XMLGregorianCalendar getEventDate() {
+			return eventDate;
+		}
+		/**
+		 * @param eventDate the eventDate to set
+		 */
+		public void setEventDate(XMLGregorianCalendar eventDate) {
+			this.eventDate = eventDate;
+		}
+		/**
+		 * @return the event
+		 */
+		public String getEvent() {
+			return event;
+		}
+		/**
+		 * @param event the event to set
+		 */
+		public void setEvent(String event) {
+			this.event = event;
+		}
+		/**
+		 * @return the referralCaseManageAfter
+		 */
+		public String getReferralCaseManageAfter() {
+			return referralCaseManageAfter;
+		}
+		/**
+		 * @param referralCaseManageAfter the referralCaseManageAfter to set
+		 */
+		public void setReferralCaseManageAfter(String referralCaseManageAfter) {
+			this.referralCaseManageAfter = referralCaseManageAfter;
+		}
+		/**
+		 * @return the locationCrisisOrPHHousing
+		 */
+		public String getLocationCrisisOrPHHousing() {
+			return locationCrisisOrPHHousing;
+		}
+		/**
+		 * @param locationCrisisOrPHHousing the locationCrisisOrPHHousing to set
+		 */
+		public void setLocationCrisisOrPHHousing(String locationCrisisOrPHHousing) {
+			this.locationCrisisOrPHHousing = locationCrisisOrPHHousing;
+		}
+		/**
+		 * @return the referralResult
+		 */
+		public String getReferralResult() {
+			return referralResult;
+		}
+		/**
+		 * @param referralResult the referralResult to set
+		 */
+		public void setReferralResult(String referralResult) {
+			this.referralResult = referralResult;
+		}
+		/**
+		 * @return the resultDate
+		 */
+		public XMLGregorianCalendar getResultDate() {
+			return resultDate;
+		}
+		/**
+		 * @param resultDate the resultDate to set
+		 */
+		public void setResultDate(XMLGregorianCalendar resultDate) {
+			this.resultDate = resultDate;
+		}
+		/**
+		 * @return the dateCreated
+		 */
+		public XMLGregorianCalendar getDateCreated() {
+			return dateCreated;
+		}
+		/**
+		 * @param dateCreated the dateCreated to set
+		 */
+		public void setDateCreated(XMLGregorianCalendar dateCreated) {
+			this.dateCreated = dateCreated;
+		}
+		/**
+		 * @return the dateUpdated
+		 */
+		public XMLGregorianCalendar getDateUpdated() {
+			return dateUpdated;
+		}
+		/**
+		 * @param dateUpdated the dateUpdated to set
+		 */
+		public void setDateUpdated(XMLGregorianCalendar dateUpdated) {
+			this.dateUpdated = dateUpdated;
+		}
+		/**
+		 * @return the userID
+		 */
+		public String getUserID() {
+			return userID;
+		}
+		/**
+		 * @param userID the userID to set
+		 */
+		public void setUserID(String userID) {
+			this.userID = userID;
+		}
+         
+     }
             /**
              * <p>Java class for anonymous complex type.
              * 
@@ -8004,6 +9082,7 @@ public class Sources {
                 "funderID",
                 "projectID",
                 "funder",
+                "otherFunder",
                 "grantID",
                 "startDate",
                 "endDate"
@@ -8016,6 +9095,8 @@ public class Sources {
                 protected String projectID;
                 @XmlElement(name = "Funder")
                 protected String funder;
+                @XmlElement(name = "OtherFunder")
+                protected String otherFunder;
                 @XmlElement(name = "GrantID", required = true)
                 protected String grantID;
                 @XmlElement(name = "StartDate", required = true)
@@ -8078,6 +9159,20 @@ public class Sources {
                 }
 
                 /**
+				 * @return the otherFunder
+				 */
+				public String getOtherFunder() {
+					return otherFunder;
+				}
+
+				/**
+				 * @param otherFunder the otherFunder to set
+				 */
+				public void setOtherFunder(String otherFunder) {
+					this.otherFunder = otherFunder;
+				}
+
+				/**
                  * Gets the value of the funder property.
                  * 
                  */
@@ -10359,11 +11454,11 @@ public class Sources {
                 protected String inventoryID;
                 @XmlElement(name = "CoCCode", required = true)
                 protected String coCCode;
-                @XmlElement(name = "projectID")
+                @XmlElement(name = "ProjectID")
                 protected String projectID;
                 @XmlElement(name = "HouseholdType")
                 protected String householdType;
-                @XmlElement(name = "BedType")
+                @XmlElement(name = "ESBedType")
                 protected String bedType;
                 @XmlElement(name = "Availability")
                 protected String availability;
@@ -10377,11 +11472,11 @@ public class Sources {
                 protected XMLGregorianCalendar inventoryEndDate;
                 @XmlElement(name = "HMISParticipatingBeds")
                 protected int hmisParticipatingBeds;
-                @XmlElement(name = "chBedInventory")
+                @XmlElement(name = "CHBedInventory")
                 protected int chBedInventory;
-                @XmlElement(name = "vetBedInventory")
+                @XmlElement(name = "VetBedInventory")
                 protected int vetBedInventory;
-                @XmlElement(name = "youthBedInventory")
+                @XmlElement(name = "YouthBedInventory")
                 protected int youthBedInventory;
                 @XmlElement(name = "youthAgeGroup")
                 protected int youthAgeGroup;              

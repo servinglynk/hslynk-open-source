@@ -89,6 +89,16 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	private Set<ClientVeteranInfo> veteranInfoes = new HashSet<ClientVeteranInfo>();
 	/** Field mapping. */
 	private Set<Enrollment> enrollments = new HashSet<Enrollment>();
+	/** Field mapping. */
+	private Set<Assessment> assessments = new HashSet<Assessment>();
+	/** Field mapping. */
+	private Set<AssessmentQuestions> assessmentQuestions = new HashSet<AssessmentQuestions>();
+	/** Field mapping. */
+	private Set<AssessmentResults> assessmentResults = new HashSet<AssessmentResults>();
+	/** Field mapping. */
+	private Set<CurrentLivingSituation> currentLivingSituations = new HashSet<CurrentLivingSituation>();
+	/** Field mapping. */
+	private Set<Event> events = new HashSet<Event>();
 
 	/** Field mapping. */
 	private ClientVeteranStatusEnum veteranStatus;
@@ -542,6 +552,95 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 			this.enrollments = enrollment;
 		}
 
+		 /**
+		 * @return the assessments
+		 */
+		@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
+	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = false )
+		@Column( nullable = false  )
+		public Set<Assessment> getAssessments() {
+			return assessments;
+		}
+
+		/**
+		 * @param assessments the assessments to set
+		 */
+		public void setAssessments(Set<Assessment> assessments) {
+			this.assessments = assessments;
+		}
+
+		/**
+		 * @return the assessmentQuestions
+		 */
+		@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
+	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = false )
+		@Column( nullable = false  )
+		public Set<AssessmentQuestions> getAssessmentQuestions() {
+			return assessmentQuestions;
+		}
+
+		/**
+		 * @param assessmentQuestions the assessmentQuestions to set
+		 */
+		public void setAssessmentQuestions(Set<AssessmentQuestions> assessmentQuestions) {
+			this.assessmentQuestions = assessmentQuestions;
+		}
+
+		/**
+		 * @return the assessmentResults
+		 */
+		@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
+	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = false )
+		@Column( nullable = false  )
+		public Set<AssessmentResults> getAssessmentResults() {
+			return assessmentResults;
+		}
+
+		/**
+		 * @param assessmentResults the assessmentResults to set
+		 */
+		public void setAssessmentResults(Set<AssessmentResults> assessmentResults) {
+			this.assessmentResults = assessmentResults;
+		}
+
+		/**
+		 * @return the currentLivingSituations
+		 */
+		@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
+	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = false )
+		@Column( nullable = false  )
+		public Set<CurrentLivingSituation> getCurrentLivingSituations() {
+			return currentLivingSituations;
+		}
+
+		/**
+		 * @param currentLivingSituations the currentLivingSituations to set
+		 */
+		public void setCurrentLivingSituations(Set<CurrentLivingSituation> currentLivingSituations) {
+			this.currentLivingSituations = currentLivingSituations;
+		}
+
+		/**
+		 * @return the events
+		 */
+		@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
+	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+		@Basic( optional = false )
+		@Column( nullable = false  )
+		public Set<Event> getEvents() {
+			return events;
+		}
+
+		/**
+		 * @param events the events to set
+		 */
+		public void setEvents(Set<Event> events) {
+			this.events = events;
+		}
 
 /**
     * Deep copy.

@@ -14,10 +14,12 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.servinglynk.hmis.warehouse.base.dao.ReportConfigDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.AssessmentDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.AssessmentQuestionsDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.AssessmentResultsDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploadActivityDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploadErrorDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.BulkUploaderDao;
@@ -28,6 +30,7 @@ import com.servinglynk.hmis.warehouse.dao.ClientVeteranInfoDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.CocDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ConnectionWithSoarDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ContactDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.CurrentLivingSituationDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.DateofengagementDao;
 import com.servinglynk.hmis.warehouse.dao.DateofengagementDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.DisabilitiesDao;
@@ -44,6 +47,7 @@ import com.servinglynk.hmis.warehouse.dao.EnrollmentDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.EntryrhspDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.EntryrhyDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.EntryssvfDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.EventDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ExitDao;
 import com.servinglynk.hmis.warehouse.dao.ExitDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ExithousingassessmentDao;
@@ -371,5 +375,30 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public ChronicHomelessCalcHelper chronicHomelessCalcHelper() {
 		return new ChronicHomelessCalcHelper();
+	}
+	
+	@Bean
+	public AssessmentDaoImpl assessmentDao() {
+		return  new AssessmentDaoImpl();
+	}
+	
+	@Bean
+	public AssessmentQuestionsDaoImpl assessmentQuestionsDao() {
+		return  new AssessmentQuestionsDaoImpl();
+	}
+	
+	@Bean
+	public AssessmentResultsDaoImpl assessmentResultsDao() {
+		return  new AssessmentResultsDaoImpl();
+	}
+	
+	@Bean
+	public CurrentLivingSituationDaoImpl currentLivingSituationDao() {
+		return  new CurrentLivingSituationDaoImpl();
+	}
+	
+	@Bean
+	public EventDaoImpl eventDao() {
+		return  new EventDaoImpl();
 	}
 }

@@ -28,6 +28,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.config.AMQConfiguration;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -58,8 +59,10 @@ public class BulkUploaderTest {
 		SyncDomain domain = new SyncDomain();
 //		factory.getEnrollmentDao().hydrateHBASE(domain);
 		BulkUpload upload = new BulkUpload();
-		URL path = BulkUploaderTest.class.getResource("New_HUD_Boman.xml");
-		upload.setInputpath(path.getFile());
+		URL path = BulkUploadHelper2017.class.getResource("HUD_HMIS_Instance.xml");
+		upload.setInputpath(path.getPath());
+		upload.setId(1L);
+		upload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		BulkUpload  uploadResult =   dao.performBulkUpload(upload,projectGrpEntity,null,false);
 		File file = new File(

@@ -98,6 +98,17 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired private QuestionDao questionDao;
 	
 	@Autowired private HmisTypeDao hmisTypeDao; 
+	
+	@Autowired private AssessmentDao assessmentDao;
+	
+	@Autowired private AssessmentQuestionsDao assessmentQuestionsDao;
+	
+	@Autowired private AssessmentResultsDao assessmentResultsDao;
+
+	@Autowired private CurrentLivingSituationDao currentLivingSituationDao;
+	
+	@Autowired private EventDao eventDao;
+	
 
 	/**
 	 * @return the bulkUploaderDao
@@ -637,6 +648,74 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setHmisTypeDao(HmisTypeDao hmisTypeDao) {
 		this.hmisTypeDao = hmisTypeDao;
 	}
-	
-	
+
+	/**
+	 * @return the assessmentDao
+	 */
+	public AssessmentDao getAssessmentDao() {
+		return assessmentDao;
+	}
+
+	/**
+	 * @param assessmentDao the assessmentDao to set
+	 */
+	public void setAssessmentDao(AssessmentDao assessmentDao) {
+		this.assessmentDao = assessmentDao;
+	}
+
+	/**
+	 * @return the assessmentQuestionsDao
+	 */
+	public AssessmentQuestionsDao getAssessmentQuestionsDao() {
+		return assessmentQuestionsDao;
+	}
+
+	/**
+	 * @param assessmentQuestionsDao the assessmentQuestionsDao to set
+	 */
+	public void setAssessmentQuestionsDao(AssessmentQuestionsDao assessmentQuestionsDao) {
+		this.assessmentQuestionsDao = assessmentQuestionsDao;
+	}
+
+	/**
+	 * @return the assessmentResultsDao
+	 */
+	public AssessmentResultsDao getAssessmentResultsDao() {
+		return assessmentResultsDao;
+	}
+
+	/**
+	 * @param assessmentResultsDao the assessmentResultsDao to set
+	 */
+	public void setAssessmentResultsDao(AssessmentResultsDao assessmentResultsDao) {
+		this.assessmentResultsDao = assessmentResultsDao;
+	}
+
+	/**
+	 * @return the currentLivingSituationDao
+	 */
+	public CurrentLivingSituationDao getCurrentLivingSituationDao() {
+		return currentLivingSituationDao;
+	}
+
+	/**
+	 * @param currentLivingSituationDao the currentLivingSituationDao to set
+	 */
+	public void setCurrentLivingSituationDao(CurrentLivingSituationDao currentLivingSituationDao) {
+		this.currentLivingSituationDao = currentLivingSituationDao;
+	}
+
+	/**
+	 * @return the eventDao
+	 */
+	public EventDao getEventDao() {
+		return eventDao;
+	}
+
+	/**
+	 * @param eventDao the eventDao to set
+	 */
+	public void setEventDao(EventDao eventDao) {
+		this.eventDao = eventDao;
+	}
 }

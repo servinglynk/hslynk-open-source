@@ -33,8 +33,8 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
  */
 
 
-@Entity(name = "assessment_v2020")
-@Table(name = "assessment", catalog = "hmis", schema = "v2020")
+@Entity(name = "event_v2020")
+@Table(name = "event", catalog = "hmis", schema = "v2020")
 public class Event extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
