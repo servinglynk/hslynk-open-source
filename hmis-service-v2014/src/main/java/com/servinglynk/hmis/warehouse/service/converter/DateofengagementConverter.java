@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Dateofengagement;
 public class DateofengagementConverter extends BaseConverter {
 
@@ -26,6 +27,10 @@ public class DateofengagementConverter extends BaseConverter {
        model.setDateofengagement(Date.from(instant));
        }
        copyBeanProperties(entity, model);
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/dateofengagements/"+entity.getId()+"/history"));
+       }
+       
        return model;
    }
 

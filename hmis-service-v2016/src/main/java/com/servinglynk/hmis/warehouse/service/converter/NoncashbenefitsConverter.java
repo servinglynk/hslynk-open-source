@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Noncashbenefits;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsBenefitsfromanysourceEnum;
@@ -72,6 +73,9 @@ if(entity.getInformationDate()!=null)
     model.setInformationDate(entity.getInformationDate());
  if(entity.getDataCollectionStage() !=null)
      model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
+ if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/noncashbenefits/"+entity.getId()+"/history"));
+}
        return model;
    }
 

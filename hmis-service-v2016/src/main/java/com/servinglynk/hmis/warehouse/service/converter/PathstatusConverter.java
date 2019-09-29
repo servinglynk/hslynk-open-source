@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Pathstatus;
 import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
 public class PathstatusConverter  extends BaseConverter {
@@ -26,6 +27,9 @@ public class PathstatusConverter  extends BaseConverter {
        model.setClientEnrolledInPath(entity.getClientEnrolledInPath());
 if(entity.getReasonNotEnrolled()!=null)
        model.setReasonNotEnrolled(Integer.parseInt(entity.getReasonNotEnrolled().getValue()));
+if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/pathstatuses/"+entity.getId()+"/history"));
+}
        return model;
    }
 

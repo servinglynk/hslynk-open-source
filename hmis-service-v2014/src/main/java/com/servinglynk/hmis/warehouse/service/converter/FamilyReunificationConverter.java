@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.FamilyReunification;
 import com.servinglynk.hmis.warehouse.enums.FamilyreunificationFamilyreunificationachievedEnum;
 public class FamilyReunificationConverter extends BaseConverter {
@@ -21,6 +22,11 @@ public class FamilyReunificationConverter extends BaseConverter {
 	       if(entity.getFamilyreunificationachieved()!=null)
 	       model.setFamilyreunificationachieved(Integer.parseInt(entity.getFamilyreunificationachieved().getValue()));
 	       copyBeanProperties(entity, model);
+	       
+	       if(entity.getParentId() ==null && entity.getExitid()!=null && entity.getExitid().getEnrollmentid()!=null && entity.getExitid().getEnrollmentid().getClient()!=null) {
+	    	   model.addLink(new ActionLink("history","/clients/"+entity.getExitid().getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getExitid().getEnrollmentid().getId()+"/exits/"+entity.getExitid().getId()+"/familyreunifications/"+entity.getId()+"/history"));
+	       }
+	       
 	       return model;
 	   }
 

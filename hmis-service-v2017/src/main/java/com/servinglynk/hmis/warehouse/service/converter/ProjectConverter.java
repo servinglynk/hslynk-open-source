@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.GlobalProject;
 import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
@@ -87,6 +88,9 @@ public class ProjectConverter extends BaseConverter {
        project.setSource(entity.getSource());
        project.setSourceSystemId(entity.getSourceSystemId());
        copyBeanProperties(entity, project);
+       if(entity.getParentId() ==null ) {
+    	   project.addLink(new ActionLink("history","/projects/"+entity.getId()+"/history"));
+       }
        return project;
    }
 
