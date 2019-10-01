@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
-	<artifactId>hmis-service-v2017</artifactId>
-	<name>HMIS Service (v2017)</name>
+	<artifactId>hmis-service-v2020</artifactId>
+	<name>HMIS Service (v2020)</name>
 	<packaging>jar</packaging>
 	<parent>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
@@ -181,7 +181,7 @@
 		<!-- HMIS Dependencies -->
 		 <dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-model-v2017</artifactId>
+			<artifactId>hmis-model-v2020</artifactId>
 			<version>${parent.version}</version>
 		</dependency> 
 				<dependency>
@@ -196,7 +196,7 @@
 		</dependency> 
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-serialize-v2017</artifactId>
+			<artifactId>hmis-serialize-v2020</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
 		<dependency>

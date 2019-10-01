@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
-	<artifactId>hmis-serialize-v2017</artifactId>
+	<artifactId>hmis-serialize-v2020</artifactId>
 	<packaging>jar</packaging>
-	<name>hmis-serialize (v2017)</name>
+	<name>hmis-serialize (v2020)</name>
 	<parent>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hslynk-parent</artifactId>
