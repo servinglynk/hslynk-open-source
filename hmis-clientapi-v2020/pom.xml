@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>hmis-clientapi-v2017</artifactId>
+	<artifactId>hmis-clientapi-v2020</artifactId>
 	<packaging>war</packaging>
-	<name>HMIS Client API  (v2017)</name>
+	<name>HMIS Client API  (v2020)</name>
 	<description>HMIS Client API</description>
 	<parent>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
@@ -159,12 +159,12 @@
 		<!-- Internal dependencies -->
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-service-v2017</artifactId>
+			<artifactId>hmis-service-v2020</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-model-v2017</artifactId>
+			<artifactId>hmis-model-v2020</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
 			<dependency>
@@ -179,7 +179,7 @@
 			</dependency>		
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hmis-serialize-v2017</artifactId>
+			<artifactId>hmis-serialize-v2020</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
@@ -203,7 +203,7 @@
 
 
 	<build>
-		<finalName>hmis-clientapi-v2017</finalName>
+		<finalName>hmis-clientapi-v2020</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

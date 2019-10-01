@@ -26,7 +26,7 @@ import com.servinglynk.hmis.warehouse.upload.service.ReRunWorker;
 @Import({DatabaseConfig.class,StandAloneDBPoolConfig.class})
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.upload.service"})
 
-public class LoadProcessorSpringConfigV2017 {
+public class LoadProcessorSpringConfigV2020 {
 	
 	@Bean
 	public BaseWorker baseWorker(){

@@ -51,22 +51,26 @@
 		<module>hmis-serialize-v2016</module>
 		<module>hmis-service-v2017</module>
 		<module>hmis-serialize-v2017</module>
+		<module>hmis-service-v2020</module>
+		<module>hmis-service-v2020</module>
 		<module>hmis-chronichomeless-v2014</module>
    		<module>hmis-clientapi-v2014</module>
 		<module>hmis-clientapi-v2015</module>
 		<module>hmis-clientapi-v2016</module>
 		<module>hmis-clientapi-v2017</module>
+		<module>hmis-clientapi-v2020</module>
  		<module>hmis-load-processor-v2014</module>
 		<module>hmis-load-processor-v2015</module>
 		<module>hmis-load-processor-v2016</module>
 	 	<module>hmis-load-processor-v2017</module>
+	 	<module>hmis-load-processor-v2020</module>
 		<module>notification-core</module>
 		<module>notification-service</module>
 		<module>report-core</module>
 		<module>report-service</module>
 		<module>user-service</module>
 		<module>developer-service</module>
-    		<module>global-household</module>
+    	<module>global-household</module>
 		<module>authorization-service</module>
 		<module>upload-service</module>
 		<module>client-dedup</module>
