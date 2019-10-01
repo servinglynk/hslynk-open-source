@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.model.EnrollmentSharingModel;
  */
 
 
-@Entity(name = "enrollment_coc__2017")
+@Entity(name = "enrollment_coc__2020")
 @Table(name = "enrollment_coc", catalog = "hmis", schema = "v2020")
 public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializable,EnrollmentSharingModel{
 

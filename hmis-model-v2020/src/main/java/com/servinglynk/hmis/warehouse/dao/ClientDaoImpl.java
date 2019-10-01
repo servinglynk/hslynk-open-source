@@ -40,7 +40,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -147,7 +147,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
 						BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 						target.setDateUpdated(LocalDateTime.now());
-						target.setSchemaYear("2017");
+						target.setSchemaYear("2020");
 						target.setId(clientModel.getId());
 						target.setDedupClientId(clientModel.getDedupClientId());
 						insertOrUpdate(target);	
@@ -156,7 +156,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					e.printStackTrace();
 					String errorMessage = "Exception beause of the client::" + client.toString() + " Exception ::" + e.getMessage();
 					if(clientModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = clientModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
@@ -218,7 +218,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) get(com.servinglynk.hmis.warehouse.model.v2020.Export.class, client.getExport().getId());
 				exportEntity.addClient(target);
 				target.setExport(exportEntity);
-//				com.servinglynk.hmis.warehouse.model.v2017.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
+//				com.servinglynk.hmis.warehouse.model.v2020.Client clientByDedupCliendId = getClientByDedupCliendId(client.getDedupClientId(),client.getProjectGroupCode());
 				/*if(clientByDedupCliendId ==null) {
 					insert(target);	
 				}*/
@@ -252,7 +252,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public com.servinglynk.hmis.warehouse.model.v2020.Client createClient(
 			com.servinglynk.hmis.warehouse.model.v2020.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
 			client.setId(UUID.randomUUID());
-			baseClient.setSchemaYear("2017");
+			baseClient.setSchemaYear("2020");
 			client.setDateUpdated(LocalDateTime.now());
 			baseClient.setDateUpdated(LocalDateTime.now());
 			insert(client);
@@ -265,7 +265,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2020.Client updateClient(
 			com.servinglynk.hmis.warehouse.model.v2020.Client client,com.servinglynk.hmis.warehouse.model.base.Client baseClient) {
-		baseClient.setSchemaYear("2017");
+		baseClient.setSchemaYear("2020");
 			update(client);
 			update(baseClient);
 		return client;
@@ -358,7 +358,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	    if(basClient == null) {
 	    	basClient = new  com.servinglynk.hmis.warehouse.model.base.Client();
 	    	BeanUtils.copyProperties(client, basClient, new String[] {"enrollments","veteranInfoes"});
-	    	basClient.setSchemaYear("2017");
+	    	basClient.setSchemaYear("2020");
 	     }
 	    try{
 	    	 String  dedupedId = dedupHelper.getDedupedClient(basClient,dedupSessionKey);

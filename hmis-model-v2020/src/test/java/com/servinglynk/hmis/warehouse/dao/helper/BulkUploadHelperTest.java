@@ -13,7 +13,7 @@ import org.junit.Test;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 public class BulkUploadHelperTest {
 
-	public BulkUploadHelper2017 helper = new BulkUploadHelper2017();
+	public BulkUploadHelper2020 helper = new BulkUploadHelper2020();
 	private Sources sources;
 	
 	@Before
@@ -39,12 +39,12 @@ public class BulkUploadHelperTest {
 
 	@Test
 	public void testCsvZip() {
-		//URL path = BulkUploadHelperTest.class.getResource("2017.xml");
+		//URL path = BulkUploadHelperTest.class.getResource("2020.xml");
 //		System.out.println(path);
 		com.servinglynk.hmis.warehouse.model.base.BulkUpload upload = new com.servinglynk.hmis.warehouse.model.base.BulkUpload();
 		//upload.setInputPath("C:\\HMIS\\hmis-lynk-open-source\\hmis-model\\src\\main\\test\\com\\servinglynk\\hmis\\warehouse\\dao\\HUD_4_0__6.xml");
 		upload.setProjectGroupCode("PG0001");
-		upload.setInputpath("/Users/sdolia/Downloads/2017.zip");
+		upload.setInputpath("/Users/sdolia/Downloads/2020.zip");
 		com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp = new com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity();
 		try {
 			sources = helper.getSourcesFromFiles(upload,projectGrp,false);

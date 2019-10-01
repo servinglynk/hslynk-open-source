@@ -20,7 +20,7 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusFysbYouthEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -65,7 +65,7 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the rhybcpStatus::"+rhybcpStatus.getRHYBCPStatusID() +" Exception ::"+e.getMessage();
 					if(rhybcpstatusModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = rhybcpstatusModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

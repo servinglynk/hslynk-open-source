@@ -27,7 +27,7 @@ import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanfchildcareEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsTanftransportationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsWicEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Noncashbenefits;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -77,7 +77,7 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 				} catch(Exception e){
 					String errorMessage = "Exception beause of the nonCashBenefits::"+nonCashBenefits.getNonCashBenefitsID() +" Exception ::"+e.getMessage();
 					if(noncashbenefitsModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = noncashbenefitsModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

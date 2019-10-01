@@ -4,8 +4,8 @@ import com.servinglynk.hmis.warehouse.core.model.Connectionwithsoar;
 import com.servinglynk.hmis.warehouse.enums.ConnectionWithSoarEnum;
 public class ConnectionwithsoarConverter extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar modelToEntity (Connectionwithsoar model ,com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar();
+   public static com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar modelToEntity (Connectionwithsoar model ,com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar();
        if(model.getConnectionwithsoarId()!=null)
        entity.setId(model.getConnectionwithsoarId());
        if(model.getConnectionwithsoar()!=null)
@@ -14,7 +14,7 @@ public class ConnectionwithsoarConverter extends BaseConverter {
    }
 
 
-   public static Connectionwithsoar entityToModel (com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar entity) {
+   public static Connectionwithsoar entityToModel (com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar entity) {
        Connectionwithsoar model = new Connectionwithsoar();
        if(entity.getId()!=null)
        model.setConnectionwithsoarId(entity.getId());

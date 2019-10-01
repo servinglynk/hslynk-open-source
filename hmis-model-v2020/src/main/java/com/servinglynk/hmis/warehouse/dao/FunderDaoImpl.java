@@ -17,7 +17,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Funder;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -58,7 +58,7 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the funder::"+funder.getFunderID() +" Exception ::"+e.getMessage();
 					if(funderModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = funderModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

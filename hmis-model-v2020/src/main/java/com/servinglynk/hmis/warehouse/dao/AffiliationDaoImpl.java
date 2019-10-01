@@ -14,7 +14,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Project;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -53,7 +53,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					} catch(Exception e) {
 						String errorMessage = "Error occured with "+affiliation.getAffiliationID() + " Execption :::"+e.getLocalizedMessage();
 						if(affiliationModel != null){
-							Error2017 error = new Error2017();
+							Error2020 error = new Error2020();
 							error.model_id = affiliationModel.getId();
 							error.bulk_upload_ui = domain.getUpload().getId();
 							error.project_group_code = domain.getUpload().getProjectGroupCode();

@@ -44,7 +44,7 @@ import com.servinglynk.hmis.warehouse.enums.ReferralsourceReferralsourceEnum;
 import com.servinglynk.hmis.warehouse.enums.SexualorientationSexualorientationEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2020.Entryrhy;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -119,7 +119,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the entryRhy::"+entryRhys.getEntryRHYID() +" Exception ::"+e.getMessage();
 					if(entryRhyModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = entryRhyModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

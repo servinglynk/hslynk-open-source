@@ -6,8 +6,8 @@ import com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
 public class InventoryConverter extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Inventory modelToEntity (Inventory model ,com.servinglynk.hmis.warehouse.model.v2017.Inventory entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Inventory();
+   public static com.servinglynk.hmis.warehouse.model.v2020.Inventory modelToEntity (Inventory model ,com.servinglynk.hmis.warehouse.model.v2020.Inventory entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Inventory();
        if(model.getInventoryId()!=null)
        entity.setId(model.getInventoryId());
        if(model.getAvailabilty()!=null)
@@ -43,7 +43,7 @@ public class InventoryConverter extends BaseConverter {
    }
 
 
-   public static Inventory entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Inventory entity) {
+   public static Inventory entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Inventory entity) {
        Inventory model = new Inventory();
        if(entity.getId()!=null)
        model.setInventoryId(entity.getId());

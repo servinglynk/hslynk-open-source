@@ -21,8 +21,8 @@ public class PathstatusServiceImpl extends ServiceBase implements PathstatusServ
 
    @Transactional
    public Pathstatus createPathstatus(Pathstatus pathstatus,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Pathstatus pPathstatus = PathstatusConverter.modelToEntity(pathstatus, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Pathstatus pPathstatus = PathstatusConverter.modelToEntity(pathstatus, null);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pPathstatus.setEnrollmentid(pEnrollment);
        pPathstatus.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class PathstatusServiceImpl extends ServiceBase implements PathstatusServ
 
    @Transactional
    public Pathstatus updatePathstatus(Pathstatus pathstatus,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.Pathstatus pPathstatus = daoFactory.getPathstatusDao().getPathstatusById(pathstatus.getPathstatusId());
+       com.servinglynk.hmis.warehouse.model.v2020.Pathstatus pPathstatus = daoFactory.getPathstatusDao().getPathstatusById(pathstatus.getPathstatusId());
        if(pPathstatus==null) throw new PathstatusNotFoundException();
 
        PathstatusConverter.modelToEntity(pathstatus, pPathstatus);
@@ -52,7 +52,7 @@ public class PathstatusServiceImpl extends ServiceBase implements PathstatusServ
 
    @Transactional
    public Pathstatus deletePathstatus(UUID pathstatusId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Pathstatus pPathstatus = daoFactory.getPathstatusDao().getPathstatusById(pathstatusId);
+       com.servinglynk.hmis.warehouse.model.v2020.Pathstatus pPathstatus = daoFactory.getPathstatusDao().getPathstatusById(pathstatusId);
        if(pPathstatus==null) throw new PathstatusNotFoundException();
 
        daoFactory.getPathstatusDao().deletePathstatus(pPathstatus);
@@ -62,7 +62,7 @@ public class PathstatusServiceImpl extends ServiceBase implements PathstatusServ
 
    @Transactional
    public Pathstatus getPathstatusById(UUID pathstatusId){
-       com.servinglynk.hmis.warehouse.model.v2017.Pathstatus pPathstatus = daoFactory.getPathstatusDao().getPathstatusById(pathstatusId);
+       com.servinglynk.hmis.warehouse.model.v2020.Pathstatus pPathstatus = daoFactory.getPathstatusDao().getPathstatusById(pathstatusId);
        if(pPathstatus==null) throw new PathstatusNotFoundException();
 
        return PathstatusConverter.entityToModel( pPathstatus );
@@ -72,8 +72,8 @@ public class PathstatusServiceImpl extends ServiceBase implements PathstatusServ
    @Transactional
    public Pathstatuses getAllEnrollmentPathstatuss(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	   Pathstatuses pathstatuss = new Pathstatuses();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Pathstatus> entities = daoFactory.getPathstatusDao().getAllEnrollmentPathstatuss(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Pathstatus entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.Pathstatus> entities = daoFactory.getPathstatusDao().getAllEnrollmentPathstatuss(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.Pathstatus entity : entities){
            pathstatuss.addPathstatus(PathstatusConverter.entityToModel(entity));
         }
         long count = daoFactory.getPathstatusDao().getEnrollmentPathstatussCount(enrollmentId);

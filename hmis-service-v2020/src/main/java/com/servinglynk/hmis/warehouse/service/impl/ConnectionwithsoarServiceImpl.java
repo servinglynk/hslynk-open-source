@@ -20,9 +20,9 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
 
    @Transactional
    public Connectionwithsoar createConnectionwithsoar(Connectionwithsoar connectionwithsoar,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar pConnectionwithsoar = ConnectionwithsoarConverter.modelToEntity(connectionwithsoar, null);
+       com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar pConnectionwithsoar = ConnectionwithsoarConverter.modelToEntity(connectionwithsoar, null);
        
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
 
        if(pEnrollment == null) throw new EnrollmentNotFound();
        
@@ -39,12 +39,12 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
    @Transactional
    public Connectionwithsoar updateConnectionwithsoar(Connectionwithsoar connectionwithsoar,UUID enrollmentId,String caller){
      
-	   com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+	   com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
 
        if(pEnrollment == null) throw new ExitNotFoundException();
        
 	   
-       com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar pConnectionwithsoar = daoFactory.getConnectionWithSoarDao().getConnectionWithSoarById(connectionwithsoar.getConnectionwithsoarId());
+       com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar pConnectionwithsoar = daoFactory.getConnectionWithSoarDao().getConnectionWithSoarById(connectionwithsoar.getConnectionwithsoarId());
        if(pConnectionwithsoar==null) throw new ConnectionwithsoarNotFoundException();
 
        ConnectionwithsoarConverter.modelToEntity(connectionwithsoar, pConnectionwithsoar);
@@ -60,7 +60,7 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
 
    @Transactional
    public Connectionwithsoar deleteConnectionwithsoar(UUID connectionwithsoarId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar pConnectionwithsoar = daoFactory.getConnectionWithSoarDao().getConnectionWithSoarById(connectionwithsoarId);
+       com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar pConnectionwithsoar = daoFactory.getConnectionWithSoarDao().getConnectionWithSoarById(connectionwithsoarId);
        if(pConnectionwithsoar==null) throw new ConnectionwithsoarNotFoundException();
 
        daoFactory.getConnectionWithSoarDao().deleteConnectionWithSoar(pConnectionwithsoar);
@@ -70,7 +70,7 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
 
    @Transactional
    public Connectionwithsoar getConnectionwithsoarById(UUID connectionwithsoarId){
-       com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar pConnectionwithsoar = daoFactory.getConnectionWithSoarDao().getConnectionWithSoarById(connectionwithsoarId);
+       com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar pConnectionwithsoar = daoFactory.getConnectionWithSoarDao().getConnectionWithSoarById(connectionwithsoarId);
        if(pConnectionwithsoar==null) throw new ConnectionwithsoarNotFoundException();
 
        return ConnectionwithsoarConverter.entityToModel( pConnectionwithsoar );
@@ -80,8 +80,8 @@ public class ConnectionwithsoarServiceImpl extends ServiceBase implements Connec
    @Transactional
    public Connectionwithsoars getAllEnrollmentConnectionwithsoars(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Connectionwithsoars connectionwithsoars = new Connectionwithsoars();
-        List<com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar> entities = daoFactory.getConnectionWithSoarDao().getAllEnrollmentConnectionwithsoars(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar> entities = daoFactory.getConnectionWithSoarDao().getAllEnrollmentConnectionwithsoars(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar entity : entities){
            connectionwithsoars.addConnectionwithsoar(ConnectionwithsoarConverter.entityToModel(entity));
         }
         long count = daoFactory.getConnectionWithSoarDao().getEnrollmentConnectionwithsoarsCount(enrollmentId);

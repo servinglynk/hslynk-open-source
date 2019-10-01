@@ -19,7 +19,7 @@ public class OrganizationServiceImpl extends ServiceBase implements Organization
 
    @Transactional
    public Organization createOrganization(Organization organization,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Organization pOrganization = OrganizationConverter.modelToEntity(organization, null);
+       com.servinglynk.hmis.warehouse.model.v2020.Organization pOrganization = OrganizationConverter.modelToEntity(organization, null);
        pOrganization.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
        daoFactory.getProjectDao().populateUserProjectGroupCode(pOrganization, caller);
        daoFactory.getOrganizationDao().createOrganization(pOrganization);
@@ -29,7 +29,7 @@ public class OrganizationServiceImpl extends ServiceBase implements Organization
 
    @Transactional
    public Organization updateOrganization(Organization organization,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(organization.getOrganizationId());
+       com.servinglynk.hmis.warehouse.model.v2020.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(organization.getOrganizationId());
        if(pOrganization==null) throw new OrganizationNotFoundException();
 
        OrganizationConverter.modelToEntity(organization, pOrganization);
@@ -40,7 +40,7 @@ public class OrganizationServiceImpl extends ServiceBase implements Organization
 
    @Transactional
    public Organization deleteOrganization(UUID organizationId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(organizationId);
+       com.servinglynk.hmis.warehouse.model.v2020.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(organizationId);
        if(pOrganization==null) throw new OrganizationNotFoundException();
 
        daoFactory.getOrganizationDao().deleteOrganization(pOrganization);
@@ -49,7 +49,7 @@ public class OrganizationServiceImpl extends ServiceBase implements Organization
 
    @Transactional
    public Organization getOrganizationById(UUID organizationId){
-       com.servinglynk.hmis.warehouse.model.v2017.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(organizationId);
+       com.servinglynk.hmis.warehouse.model.v2020.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(organizationId);
        if(pOrganization==null) throw new OrganizationNotFoundException();
 
        return OrganizationConverter.entityToModel( pOrganization );
@@ -58,8 +58,8 @@ public class OrganizationServiceImpl extends ServiceBase implements Organization
    @Transactional
    public Organizations getAllOrganizations(String projectGroupCode,Integer startIndex, Integer maxItems){
        Organizations organizations = new Organizations();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Organization> entities = daoFactory.getOrganizationDao().getAllOrganizations(projectGroupCode,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Organization entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.Organization> entities = daoFactory.getOrganizationDao().getAllOrganizations(projectGroupCode,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.Organization entity : entities){
            organizations.addOrganization(OrganizationConverter.entityToModel(entity));
         }
         long count = daoFactory.getOrganizationDao().getOrganizationCount(projectGroupCode);

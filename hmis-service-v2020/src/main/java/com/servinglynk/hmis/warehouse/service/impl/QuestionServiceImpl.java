@@ -15,7 +15,7 @@ import com.servinglynk.hmis.warehouse.core.model.HMISTypes;
 import com.servinglynk.hmis.warehouse.core.model.HudQuestionDefinition;
 import com.servinglynk.hmis.warehouse.core.model.Question;
 import com.servinglynk.hmis.warehouse.core.model.Questions;
-import com.servinglynk.hmis.warehouse.model.v2017.QuestionEntity;
+import com.servinglynk.hmis.warehouse.model.v2020.QuestionEntity;
 import com.servinglynk.hmis.warehouse.service.QuestionService;
 import com.servinglynk.hmis.warehouse.service.converter.QuestionConverter;
 import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException;

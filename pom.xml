@@ -52,7 +52,7 @@
 		<module>hmis-service-v2017</module>
 		<module>hmis-serialize-v2017</module>
 		<module>hmis-service-v2020</module>
-		<module>hmis-service-v2020</module>
+		<module>hmis-serialize-v2020</module>
 		<module>hmis-chronichomeless-v2014</module>
    		<module>hmis-clientapi-v2014</module>
 		<module>hmis-clientapi-v2015</module>

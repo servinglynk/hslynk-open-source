@@ -6,8 +6,8 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 public class RhyAfterCareConverter extends BaseConverter {
 
-	  public static com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare modelToEntity (RhyAfterCare model ,com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare entity) {
-	       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare();
+	  public static com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare modelToEntity (RhyAfterCare model ,com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare entity) {
+	       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare();
 	       if(model.getAfterCareDate()!=null)
 	    	   entity.setAfterCareDate(model.getAfterCareDate());
 	       if(model.getAfterProvided() !=null)
@@ -26,7 +26,7 @@ public class RhyAfterCareConverter extends BaseConverter {
 	   }
 
 
-	   public static RhyAfterCare entityToModel (com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare entity) {
+	   public static RhyAfterCare entityToModel (com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare entity) {
 		   RhyAfterCare model = new RhyAfterCare();
 		   model.setDateCreated(entity.getDateCreated());
 		   model.setDateUpdated(entity.getDateUpdated());

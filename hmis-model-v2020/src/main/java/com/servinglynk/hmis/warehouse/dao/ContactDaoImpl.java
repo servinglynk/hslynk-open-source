@@ -24,7 +24,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Contact;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -65,7 +65,7 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 				} catch (Exception e) {
 					String errorMessage = "Exception beause of the Contact::" + contacts.getContactID() + " Exception ::" + e.getMessage();
 					if (contactModel != null) {
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = contactModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

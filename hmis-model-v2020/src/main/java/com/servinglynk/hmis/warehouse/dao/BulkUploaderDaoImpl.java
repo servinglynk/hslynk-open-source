@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2020;
 import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
@@ -46,7 +46,7 @@ import com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc;
 import com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp;
 import com.servinglynk.hmis.warehouse.model.v2020.Entryrhy;
 import com.servinglynk.hmis.warehouse.model.v2020.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.Exit;
 import com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.model.v2020.Exitrhy;
@@ -74,7 +74,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	ParentDaoFactory parentDaoFactory;
 	
 	@Autowired
-	BulkUploadHelper2017 bulkUploadHelper;
+	BulkUploadHelper2020 bulkUploadHelper;
 	
 	@Autowired
 	ChronicHomelessCalcHelper chronicHomelessCalcHelper;
@@ -381,7 +381,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	public void saveError(BulkUpload upload) {
 		try {
 			parentDaoFactory.getBulkUploaderWorkerDao().insertOrUpdate(upload);
-			Error2017 error = new Error2017();
+			Error2020 error = new Error2020();
 			error.setBulk_upload_ui(upload.getId());
 			error.setDate_created(LocalDateTime.now());
 			error.setError_description(upload.getDescription());

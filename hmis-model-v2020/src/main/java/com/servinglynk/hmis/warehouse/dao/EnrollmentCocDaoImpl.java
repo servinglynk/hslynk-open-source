@@ -21,7 +21,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -67,7 +67,7 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollmentCoc::"+enrollmentCoc.getEnrollmentCoCID() +" Exception ::"+e.getMessage();
 					if(enrollmentCocModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = enrollmentCocModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

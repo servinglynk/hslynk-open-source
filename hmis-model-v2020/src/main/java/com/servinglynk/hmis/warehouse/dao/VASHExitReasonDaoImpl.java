@@ -16,7 +16,7 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.CMExitReasonEnum;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.VashExitReason;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -50,7 +50,7 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 					}catch(Exception e ){
 						String errorMessage = "Exception beause of the VASHExitReasons ::"+expVASHExitReason.getVashExitReasonID() +" Exception ::"+e.getMessage();
 						if(vashExitReasonModel != null){
-							Error2017 error = new Error2017();
+							Error2020 error = new Error2020();
 							error.model_id = vashExitReasonModel.getId();
 							error.bulk_upload_ui = domain.getUpload().getId();
 							error.project_group_code = domain.getUpload().getProjectGroupCode();

@@ -10,8 +10,8 @@ import com.servinglynk.hmis.warehouse.enums.ProjectTargetpopulationEnum;
 import com.servinglynk.hmis.warehouse.enums.ProjectTrackingmethodEnum;
 public class ProjectConverter extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Project modelToEntity (Project model ,com.servinglynk.hmis.warehouse.model.v2017.Project entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Project();
+   public static com.servinglynk.hmis.warehouse.model.v2020.Project modelToEntity (Project model ,com.servinglynk.hmis.warehouse.model.v2020.Project entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Project();
        if(model.getProjectName()!=null)
        entity.setProjectname(model.getProjectName());
        if(model.getContinuumProject()!=null)
@@ -35,12 +35,12 @@ public class ProjectConverter extends BaseConverter {
     	   entity.setVictimServiceProvider(NoYesEnum.lookupEnum(model.getVictimServicesProvider().toString()));
        if(model.getSourceSystemId()!=null)
     	   entity.setSourceSystemId(model.getSourceSystemId());
-       entity.setSource("2017");
+       entity.setSource("2020");
        return entity;
    }
 
 
-   public static Project entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Project entity) {
+   public static Project entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Project entity) {
        Project project= new Project();
        if(entity.getContinuumproject()!=null)
        project.setContinuumProject(Integer.parseInt(entity.getContinuumproject().getValue()));
@@ -65,7 +65,7 @@ public class ProjectConverter extends BaseConverter {
        return project;
    }
    
-   public static Project entityToModelV2 (com.servinglynk.hmis.warehouse.model.v2017.Project entity) {
+   public static Project entityToModelV2 (com.servinglynk.hmis.warehouse.model.v2020.Project entity) {
        Project project= new Project();
        if(entity.getContinuumproject()!=null)
        project.setContinuumProject(Integer.parseInt(entity.getContinuumproject().getValue()));

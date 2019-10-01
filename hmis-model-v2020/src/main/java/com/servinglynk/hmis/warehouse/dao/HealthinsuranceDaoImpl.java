@@ -34,7 +34,7 @@ import com.servinglynk.hmis.warehouse.enums.HealthinsuranceStatehealthinsEnum;
 import com.servinglynk.hmis.warehouse.enums.HealthinsuranceVamedicalservicesEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -95,7 +95,7 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				} catch(Exception e){
 					String errorMessage = "Exception beause of the healthInsurance::"+healthInsurance.getHealthInsuranceID() +" Exception ::"+e.getMessage();
 					if(healthinsuranceModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = healthinsuranceModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

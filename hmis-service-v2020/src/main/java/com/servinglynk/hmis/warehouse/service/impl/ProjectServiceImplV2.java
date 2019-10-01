@@ -18,7 +18,7 @@ public class ProjectServiceImplV2 extends ServiceBase implements ProjectServiceV
 
    @Transactional
    public Project getProjectById(UUID projectId){
-       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
+       com.servinglynk.hmis.warehouse.model.v2020.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
        if(pProject==null) throw new ProjectNotFoundException();
 
        return ProjectConverter.entityToModelV2( pProject );
@@ -27,8 +27,8 @@ public class ProjectServiceImplV2 extends ServiceBase implements ProjectServiceV
    @Transactional
    public Projects getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems){
        Projects projects = new Projects();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Project> entities = daoFactory.getProjectDao().getAllProjects(projectGroupCode,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Project entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.Project> entities = daoFactory.getProjectDao().getAllProjects(projectGroupCode,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.Project entity : entities){
            projects.addProject(ProjectConverter.entityToModelV2(entity));
         }
         long count = daoFactory.getProjectDao().getProjectCount(projectGroupCode);

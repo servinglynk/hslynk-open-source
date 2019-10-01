@@ -30,7 +30,7 @@ import com.servinglynk.hmis.warehouse.model.base.GlobalProjectEntity;
 import com.servinglynk.hmis.warehouse.model.base.GlobalProjectMapEntity;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Organization;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -79,12 +79,12 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 					projectModel.setExport(exportEntity);
-					manageGolbalProjects(projectModel, domain.getUpload().getProjectGroupCode(), domain.getUserId(), "2017");
+					manageGolbalProjects(projectModel, domain.getUpload().getProjectGroupCode(), domain.getUserId(), "2020");
 					performSaveOrUpdate(projectModel,domain);
 				}catch(Exception e) {
 					String errorMessage = "Exception because of the project::"+project.getProjectID() +" Exception ::"+e.getMessage();
 					if(projectModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = projectModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

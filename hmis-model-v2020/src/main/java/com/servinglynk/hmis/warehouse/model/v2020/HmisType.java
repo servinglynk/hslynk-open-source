@@ -198,7 +198,7 @@ public class HmisType implements Cloneable, Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hmisTypeIdGenerator")
 	@Basic( optional = false )
 	@Column( name = "id", nullable = false  )
-	@SequenceGenerator(name = "hmisTypeIdGenerator", sequenceName = "hmis.v2017.hmis_type_id_seq", schema = "v2020", catalog = "hmis")
+	@SequenceGenerator(name = "hmisTypeIdGenerator", sequenceName = "hmis.v2020.hmis_type_id_seq", schema = "v2020", catalog = "hmis")
 	public Integer getId() {
 		return this.id;
 

@@ -6,8 +6,8 @@ import com.servinglynk.hmis.warehouse.enums.LastgradecompletedLastgradecompleted
 import com.servinglynk.hmis.warehouse.enums.SchoolStatusEnum;
 public class EducationConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Education modelToEntity (Education model ,com.servinglynk.hmis.warehouse.model.v2017.Education entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Education();
+   public static com.servinglynk.hmis.warehouse.model.v2020.Education modelToEntity (Education model ,com.servinglynk.hmis.warehouse.model.v2020.Education entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Education();
        entity.setId(model.getEducationId());
        if(model.getLastgradecompleted()!=null)
        entity.setLastgradecompleted(LastgradecompletedLastgradecompletedEnum.lookupEnum(model.getLastgradecompleted().toString()));
@@ -24,7 +24,7 @@ public class EducationConverter  extends BaseConverter {
    }
 
 
-   public static Education entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Education entity) {
+   public static Education entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Education entity) {
        Education model = new Education();
        model.setEducationId(entity.getId());
        if(entity.getLastgradecompleted()!=null)

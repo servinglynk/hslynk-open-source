@@ -17,7 +17,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.HousingAssessmentDisposition;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.HousingassessmentdispositionAssessmentdispositionEnum;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.Exit;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Housingassessmentdisposition;
@@ -58,7 +58,7 @@ public class HousingassessmentdispositionDaoImpl extends ParentDaoImpl
 				}catch(Exception e){
 					String errorMessage = "Exception beause of the housingAssessmentDisposition::"+housingAssessmentDisposition.getHousingAssessmentDispositionID() +" Exception ::"+e.getMessage();
 					if(housingassessmentdispositionModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = housingassessmentdispositionModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

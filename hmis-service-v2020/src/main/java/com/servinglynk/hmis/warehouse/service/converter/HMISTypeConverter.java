@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.servinglynk.hmis.warehouse.core.model.HMISType;
-import com.servinglynk.hmis.warehouse.model.v2017.HMISTypeModel;
+import com.servinglynk.hmis.warehouse.model.v2020.HMISTypeModel;
 
 public class HMISTypeConverter {
 

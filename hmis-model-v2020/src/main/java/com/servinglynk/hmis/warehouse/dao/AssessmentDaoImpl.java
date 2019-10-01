@@ -19,7 +19,7 @@ import com.servinglynk.hmis.warehouse.enums.AssessmentLevelEnum;
 import com.servinglynk.hmis.warehouse.enums.AssessmentTypeEnum;
 import com.servinglynk.hmis.warehouse.enums.PrioritizationStatusEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -65,7 +65,7 @@ public class AssessmentDaoImpl extends ParentDaoImpl implements AssessmentDao {
 					} catch(Exception e) {
 						String errorMessage = "Error occured with "+assessment.getAssessmentID() + " Execption :::"+e.getLocalizedMessage();
 						if(assessmentModel != null){
-							Error2017 error = new Error2017();
+							Error2020 error = new Error2020();
 							error.model_id = assessmentModel.getId();
 							error.bulk_upload_ui = domain.getUpload().getId();
 							error.project_group_code = domain.getUpload().getProjectGroupCode();

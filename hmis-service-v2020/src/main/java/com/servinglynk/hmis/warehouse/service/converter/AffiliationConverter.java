@@ -3,8 +3,8 @@ package com.servinglynk.hmis.warehouse.service.converter;
 import com.servinglynk.hmis.warehouse.core.model.Affiliation;
 public class AffiliationConverter extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Affiliation modelToEntity (Affiliation model ,com.servinglynk.hmis.warehouse.model.v2017.Affiliation entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Affiliation();
+   public static com.servinglynk.hmis.warehouse.model.v2020.Affiliation modelToEntity (Affiliation model ,com.servinglynk.hmis.warehouse.model.v2020.Affiliation entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Affiliation();
        if(model.getAffiliationId()!=null)
        entity.setId(model.getAffiliationId());
        if(model.getResprojectid()!=null)
@@ -13,7 +13,7 @@ public class AffiliationConverter extends BaseConverter {
    }
 
 
-   public static Affiliation entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Affiliation entity) {
+   public static Affiliation entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Affiliation entity) {
        Affiliation model = new Affiliation();
        if(entity.getId()!=null)
        model.setAffiliationId(entity.getId());

@@ -5,8 +5,8 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.RhybcpStatusReasonNoServicesEnum;
 public class RhybcpstatusConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus modelToEntity (Rhybcpstatus model ,com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus();
+   public static com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus modelToEntity (Rhybcpstatus model ,com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus();
        entity.setId(model.getRhybcpstatusId());
        entity.setStatusDate(model.getStatusDate());
        if(model.getReasonNoServices()!=null)
@@ -20,7 +20,7 @@ public class RhybcpstatusConverter  extends BaseConverter {
    }
 
 
-   public static Rhybcpstatus entityToModel (com.servinglynk.hmis.warehouse.model.v2017.RhybcpStatus entity) {
+   public static Rhybcpstatus entityToModel (com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus entity) {
        Rhybcpstatus model = new Rhybcpstatus();
        model.setRhybcpstatusId(entity.getId());
        model.setStatusDate(entity.getStatusDate());

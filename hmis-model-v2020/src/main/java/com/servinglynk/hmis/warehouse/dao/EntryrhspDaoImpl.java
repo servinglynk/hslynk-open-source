@@ -21,7 +21,7 @@ import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.EntryRHSP;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -53,7 +53,7 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 				} catch(Exception e) {
 					 String errorMessage = "Exception beause of the entryRhsp::"+entryRhsp.getEntryRHSPID() +" Exception ::"+e.getMessage();
 					if(entryRhspModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = entryRhspModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

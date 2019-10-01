@@ -25,10 +25,10 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
    @Transactional
    public Project createProject(Project project,String caller){
 	   HmisUser user = daoFactory.getAccountDao().findByUsername(caller);
-       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = ProjectConverter.modelToEntity(project, null);
+       com.servinglynk.hmis.warehouse.model.v2020.Project pProject = ProjectConverter.modelToEntity(project, null);
 
 	   if(project.getOrganizationId()!=null){
-		   com.servinglynk.hmis.warehouse.model.v2017.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(project.getOrganizationId());
+		   com.servinglynk.hmis.warehouse.model.v2020.Organization pOrganization = daoFactory.getOrganizationDao().getOrganizationById(project.getOrganizationId());
 		   if(pOrganization==null) throw new OrganizationNotFoundException();
 		   pProject.setOrganizationid(pOrganization);
 	   }
@@ -36,7 +36,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        pProject.setUserId(user.getId());
        pProject.setProjectGroupCode(user.getProjectGroupEntity().getProjectGroupCode());
        boolean projectExists = false;
-       com.servinglynk.hmis.warehouse.model.v2017.Project cProject =null;
+       com.servinglynk.hmis.warehouse.model.v2020.Project cProject =null;
        if(project.getSourceSystemId()!=null) {
     	    cProject =  daoFactory.getProjectDao().checkProjectExists(project.getProjectName(),project.getSourceSystemId());
     	   if(cProject!=null) projectExists = true;
@@ -48,19 +48,19 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        
        BaseProject baseProject = new BaseProject();
        BeanUtils.copyProperties(project, baseProject);
-       baseProject.setSchemaYear(2017);
+       baseProject.setSchemaYear(2020);
        project.setProjectId(pProject.getId());
        }else {
           project.setProjectId(cProject.getId());
        }
-       serviceFactory.getGlobalProjectService().manageGlobalProjects(ProjectConverter.modelToGlobalProject(project), "2017", AccountConverter.convertToAccount(user));
+       serviceFactory.getGlobalProjectService().manageGlobalProjects(ProjectConverter.modelToGlobalProject(project), "2020", AccountConverter.convertToAccount(user));
      //  serviceFactory.getBaseProjectService().createProject(baseProject, project.getOrganizationId(), caller);
        return project;
    }
 
    @Transactional
    public Project updateProject(Project project,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
+       com.servinglynk.hmis.warehouse.model.v2020.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
        if(pProject==null) throw new ProjectNotFoundException();
 
        ProjectConverter.modelToEntity(project, pProject);
@@ -73,7 +73,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 
    @Transactional
    public Project deleteProject(UUID projectId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
+       com.servinglynk.hmis.warehouse.model.v2020.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
        if(pProject==null) throw new ProjectNotFoundException();
 
        daoFactory.getProjectDao().deleteProject(pProject);
@@ -82,7 +82,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 
    @Transactional
    public Project getProjectById(UUID projectId){
-       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
+       com.servinglynk.hmis.warehouse.model.v2020.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
        if(pProject==null) throw new ProjectNotFoundException();
 
        return ProjectConverter.entityToModel( pProject );
@@ -91,8 +91,8 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
    @Transactional
    public Projects getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems){
        Projects projects = new Projects();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Project> entities = daoFactory.getProjectDao().getAllProjects(projectGroupCode,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Project entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.Project> entities = daoFactory.getProjectDao().getAllProjects(projectGroupCode,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.Project entity : entities){
            projects.addProject(ProjectConverter.entityToModel(entity));
         }
         long count = daoFactory.getProjectDao().getProjectCount(projectGroupCode);

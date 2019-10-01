@@ -19,8 +19,8 @@ public class DisabilitiesServiceImpl extends ServiceBase implements Disabilities
 
    @Transactional
    public Disabilities createDisabilities(Disabilities disabilities,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Disabilities pDisabilities = DisabilitiesConverter.modelToEntity(disabilities, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Disabilities pDisabilities = DisabilitiesConverter.modelToEntity(disabilities, null);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pDisabilities.setEnrollmentid(pEnrollment);
        pDisabilities.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class DisabilitiesServiceImpl extends ServiceBase implements Disabilities
 
    @Transactional
    public Disabilities updateDisabilities(Disabilities disabilities,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.Disabilities pDisabilities = daoFactory.getDisabilitiesDao().getDisabilitiesById(disabilities.getDisabilitiesId());
+       com.servinglynk.hmis.warehouse.model.v2020.Disabilities pDisabilities = daoFactory.getDisabilitiesDao().getDisabilitiesById(disabilities.getDisabilitiesId());
        if(pDisabilities==null) throw new DisabilitiesNotFoundException();
 
        DisabilitiesConverter.modelToEntity(disabilities, pDisabilities);
@@ -50,7 +50,7 @@ public class DisabilitiesServiceImpl extends ServiceBase implements Disabilities
 
    @Transactional
    public Disabilities deleteDisabilities(UUID disabilitiesId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Disabilities pDisabilities = daoFactory.getDisabilitiesDao().getDisabilitiesById(disabilitiesId);
+       com.servinglynk.hmis.warehouse.model.v2020.Disabilities pDisabilities = daoFactory.getDisabilitiesDao().getDisabilitiesById(disabilitiesId);
        if(pDisabilities==null) throw new DisabilitiesNotFoundException();
 
        daoFactory.getDisabilitiesDao().deleteDisabilities(pDisabilities);
@@ -60,7 +60,7 @@ public class DisabilitiesServiceImpl extends ServiceBase implements Disabilities
 
    @Transactional
    public Disabilities getDisabilitiesById(UUID disabilitiesId){
-       com.servinglynk.hmis.warehouse.model.v2017.Disabilities pDisabilities = daoFactory.getDisabilitiesDao().getDisabilitiesById(disabilitiesId);
+       com.servinglynk.hmis.warehouse.model.v2020.Disabilities pDisabilities = daoFactory.getDisabilitiesDao().getDisabilitiesById(disabilitiesId);
        if(pDisabilities==null) throw new DisabilitiesNotFoundException();
 
        return DisabilitiesConverter.entityToModel( pDisabilities );
@@ -70,8 +70,8 @@ public class DisabilitiesServiceImpl extends ServiceBase implements Disabilities
    @Transactional
    public DisabilitiesList getAllEnrollmentDisabilitiess(UUID enrollmentId,Integer startIndex, Integer maxItems){
 	   DisabilitiesList disabilities = new DisabilitiesList();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Disabilities> entities = daoFactory.getDisabilitiesDao().getAllEnrollmentDisabilitiess(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Disabilities entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.Disabilities> entities = daoFactory.getDisabilitiesDao().getAllEnrollmentDisabilitiess(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.Disabilities entity : entities){
            disabilities.addDisabilities(DisabilitiesConverter.entityToModel(entity));
         }
         long count = daoFactory.getDisabilitiesDao().getEnrollmentDisabilitiessCount(enrollmentId);

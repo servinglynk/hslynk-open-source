@@ -16,7 +16,7 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.AssessmentResults;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -59,7 +59,7 @@ public class AssessmentResultsDaoImpl extends ParentDaoImpl implements Assessmen
 					} catch(Exception e) {
 						String errorMessage = "Error occured with "+assessmentResultsModel.getSourceSystemId() + " Execption :::"+e.getLocalizedMessage();
 						if(assessmentResultsModel != null){
-							Error2017 error = new Error2017();
+							Error2020 error = new Error2020();
 							error.model_id = assessmentResultsModel.getId();
 							error.bulk_upload_ui = domain.getUpload().getId();
 							error.project_group_code = domain.getUpload().getProjectGroupCode();

@@ -8,8 +8,8 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnum;
 public class MedicalassistanceConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance modelToEntity (Medicalassistance model ,com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance();
+   public static com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance modelToEntity (Medicalassistance model ,com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance();
        entity.setId(model.getMedicalassistanceId());
        if(model.getDataCollectionStage() !=null)
     	   	entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
@@ -29,7 +29,7 @@ public class MedicalassistanceConverter  extends BaseConverter {
    }
 
 
-   public static Medicalassistance entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance entity) {
+   public static Medicalassistance entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance entity) {
        Medicalassistance model = new Medicalassistance();
        model.setMedicalassistanceId(entity.getId());
        if(entity.getInformationDate()!=null)

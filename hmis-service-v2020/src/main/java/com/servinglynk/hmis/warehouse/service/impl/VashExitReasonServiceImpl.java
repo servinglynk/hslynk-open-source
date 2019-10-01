@@ -18,8 +18,8 @@ public class VashExitReasonServiceImpl  extends ServiceBase implements VashExitR
 
 	   @Transactional
 	   public VashExitReason createVashExitReason(VashExitReason vashExitReason,UUID exitId,String caller){
-	       com.servinglynk.hmis.warehouse.model.v2017.VashExitReason pVashExitReason = VashExitReasonConverter.modelToEntity(vashExitReason, null);
-	       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+	       com.servinglynk.hmis.warehouse.model.v2020.VashExitReason pVashExitReason = VashExitReasonConverter.modelToEntity(vashExitReason, null);
+	       com.servinglynk.hmis.warehouse.model.v2020.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
 	       if(pExit == null) throw new ExitNotFoundException();
 	       pVashExitReason.setExitid(pExit);
 	       pVashExitReason.setDateCreated(LocalDateTime.now());
@@ -32,9 +32,9 @@ public class VashExitReasonServiceImpl  extends ServiceBase implements VashExitR
 
 	   @Transactional
 	   public VashExitReason updateVashExitReason(VashExitReason VashExitReason,UUID exitId,String caller){
-	       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+	       com.servinglynk.hmis.warehouse.model.v2020.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
 	       if(pExit == null) throw new ExitNotFoundException();
-	       com.servinglynk.hmis.warehouse.model.v2017.VashExitReason pVashExitReason = daoFactory.getVashExitReasonDao().getVashExitReasonById(VashExitReason.getVashExitReasonId());
+	       com.servinglynk.hmis.warehouse.model.v2020.VashExitReason pVashExitReason = daoFactory.getVashExitReasonDao().getVashExitReasonById(VashExitReason.getVashExitReasonId());
 	       if(pVashExitReason==null) throw new VashExitReasonNotFoundException();
 
 	       VashExitReasonConverter.modelToEntity(VashExitReason, pVashExitReason);
@@ -49,7 +49,7 @@ public class VashExitReasonServiceImpl  extends ServiceBase implements VashExitR
 
 	   @Transactional
 	   public VashExitReason deleteVashExitReason(UUID VashExitReasonId,String caller){
-	       com.servinglynk.hmis.warehouse.model.v2017.VashExitReason pVashExitReason = daoFactory.getVashExitReasonDao().getVashExitReasonById(VashExitReasonId);
+	       com.servinglynk.hmis.warehouse.model.v2020.VashExitReason pVashExitReason = daoFactory.getVashExitReasonDao().getVashExitReasonById(VashExitReasonId);
 	       if(pVashExitReason==null) throw new VashExitReasonNotFoundException();
 
 	       daoFactory.getVashExitReasonDao().deleteVashExitReason(pVashExitReason);
@@ -58,7 +58,7 @@ public class VashExitReasonServiceImpl  extends ServiceBase implements VashExitR
 
 	   @Transactional
 	   public VashExitReason getVashExitReasonById(UUID VashExitReasonId){
-	       com.servinglynk.hmis.warehouse.model.v2017.VashExitReason pVashExitReason = daoFactory.getVashExitReasonDao().getVashExitReasonById(VashExitReasonId);
+	       com.servinglynk.hmis.warehouse.model.v2020.VashExitReason pVashExitReason = daoFactory.getVashExitReasonDao().getVashExitReasonById(VashExitReasonId);
 	       if(pVashExitReason==null) throw new VashExitReasonNotFoundException();
 
 	       return VashExitReasonConverter.entityToModel( pVashExitReason );
@@ -67,8 +67,8 @@ public class VashExitReasonServiceImpl  extends ServiceBase implements VashExitR
 	   @Transactional
 	   public VashExitReasons getAllExitVashExitReasons(UUID exitId,Integer startIndex, Integer maxItems){
 	       VashExitReasons vashExitReasons = new VashExitReasons();
-	        List<com.servinglynk.hmis.warehouse.model.v2017.VashExitReason> entities = daoFactory.getVashExitReasonDao().getAllExitVashExitReasons(exitId, startIndex, maxItems);
-	        for(com.servinglynk.hmis.warehouse.model.v2017.VashExitReason entity : entities){
+	        List<com.servinglynk.hmis.warehouse.model.v2020.VashExitReason> entities = daoFactory.getVashExitReasonDao().getAllExitVashExitReasons(exitId, startIndex, maxItems);
+	        for(com.servinglynk.hmis.warehouse.model.v2020.VashExitReason entity : entities){
 	           vashExitReasons.addVashExitReason(VashExitReasonConverter.entityToModel(entity));
 	        }
 	        long count = daoFactory.getVashExitReasonDao().getExitVashExitReasonsCount(exitId);

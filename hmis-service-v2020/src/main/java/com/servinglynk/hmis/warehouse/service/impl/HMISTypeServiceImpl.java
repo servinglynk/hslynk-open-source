@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.core.model.HMISTypes;
-import com.servinglynk.hmis.warehouse.model.v2017.HMISTypeModel;
+import com.servinglynk.hmis.warehouse.model.v2020.HMISTypeModel;
 import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.converter.HMISTypeConverter;
 

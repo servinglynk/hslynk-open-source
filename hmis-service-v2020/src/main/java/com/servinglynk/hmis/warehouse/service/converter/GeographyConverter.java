@@ -4,8 +4,8 @@ import com.servinglynk.hmis.warehouse.core.model.Geography;
 import com.servinglynk.hmis.warehouse.enums.GeographyTypeEnum;
 
 public class GeographyConverter extends BaseConverter {
-	public static com.servinglynk.hmis.warehouse.model.v2017.Geography modelToEntity (Geography model ,com.servinglynk.hmis.warehouse.model.v2017.Geography entity) {
-	       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Geography();
+	public static com.servinglynk.hmis.warehouse.model.v2020.Geography modelToEntity (Geography model ,com.servinglynk.hmis.warehouse.model.v2020.Geography entity) {
+	       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Geography();
 	       if(model.getAddress1()!=null)
 	       entity.setAddress1(model.getAddress1());
 	       if(model.getAddress2() !=null)
@@ -30,7 +30,7 @@ public class GeographyConverter extends BaseConverter {
 	   }
 
 
-	   public static Geography entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Geography entity) {
+	   public static Geography entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Geography entity) {
 	       Geography model = new Geography();
 	       if(entity.getId()!=null)
 	       model.setId(entity.getId());

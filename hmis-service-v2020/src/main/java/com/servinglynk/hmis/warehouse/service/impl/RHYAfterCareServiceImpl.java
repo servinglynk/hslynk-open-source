@@ -17,8 +17,8 @@ public class RHYAfterCareServiceImpl  extends ServiceBase implements RHYAfterCar
 
 	@Override
 	public RhyAfterCare createRhyAfterCare(RhyAfterCare rhyAfterCare, UUID exitId, String caller) {
-		com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare pRhyAfterCare = RhyAfterCareConverter.modelToEntity(rhyAfterCare, null);
-	       com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+		com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare pRhyAfterCare = RhyAfterCareConverter.modelToEntity(rhyAfterCare, null);
+	       com.servinglynk.hmis.warehouse.model.v2020.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
 	       if(pExit == null) throw new ExitNotFoundException();
 	       pRhyAfterCare.setExitid(pExit);
 	       pRhyAfterCare.setDateCreated(LocalDateTime.now());
@@ -30,9 +30,9 @@ public class RHYAfterCareServiceImpl  extends ServiceBase implements RHYAfterCar
 
 	@Override
 	public RhyAfterCare updateRhyAfterCare(RhyAfterCare rhyAfterCare, UUID exitId, String caller) {
-		com.servinglynk.hmis.warehouse.model.v2017.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
+		com.servinglynk.hmis.warehouse.model.v2020.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
 	       if(pExit == null) throw new ExitNotFoundException();
-	       com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare pRHYAfterCare = daoFactory.getRhyAfterCareDao().getRhyAfterCareById(rhyAfterCare.getRhyAfterCareId());
+	       com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare pRHYAfterCare = daoFactory.getRhyAfterCareDao().getRhyAfterCareById(rhyAfterCare.getRhyAfterCareId());
 	       if(pRHYAfterCare==null) throw new RhyAfterCareNotFoundException();
 
 	       RhyAfterCareConverter.modelToEntity(rhyAfterCare, pRHYAfterCare);
@@ -46,7 +46,7 @@ public class RHYAfterCareServiceImpl  extends ServiceBase implements RHYAfterCar
 
 	@Override
 	public RhyAfterCare deleteRhyAfterCare(UUID rhyAfterCareId, String caller) {
-		  com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare pRHYAfterCare = daoFactory.getRhyAfterCareDao().getRhyAfterCareById(rhyAfterCareId);
+		  com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare pRHYAfterCare = daoFactory.getRhyAfterCareDao().getRhyAfterCareById(rhyAfterCareId);
 	       if(pRHYAfterCare==null) throw new RhyAfterCareNotFoundException();
 
 	       daoFactory.getRhyAfterCareDao().deleteRhyAfterCare(pRHYAfterCare);
@@ -55,7 +55,7 @@ public class RHYAfterCareServiceImpl  extends ServiceBase implements RHYAfterCar
 
 	@Override
 	public RhyAfterCare getRhyAfterCareById(UUID rhyAfterCareId) {
-		  com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare pRHYAfterCare = daoFactory.getRhyAfterCareDao().getRhyAfterCareById(rhyAfterCareId);
+		  com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare pRHYAfterCare = daoFactory.getRhyAfterCareDao().getRhyAfterCareById(rhyAfterCareId);
 	       if(pRHYAfterCare==null) throw new RhyAfterCareNotFoundException();
 	       return RhyAfterCareConverter.entityToModel(pRHYAfterCare);
 	}
@@ -63,8 +63,8 @@ public class RHYAfterCareServiceImpl  extends ServiceBase implements RHYAfterCar
 	@Override
 	public RhyAfterCares getAllExitRhyAfterCares(UUID exitId, Integer startIndex, Integer maxItems) {
 		RhyAfterCares rhyAfterCares = new RhyAfterCares();
-        List<com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare> entities = daoFactory.getRhyAfterCareDao().getAllExitRHYAfterCares(exitId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.RHYAfterCare entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare> entities = daoFactory.getRhyAfterCareDao().getAllExitRHYAfterCares(exitId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare entity : entities){
         	rhyAfterCares.addRhyaftercares(RhyAfterCareConverter.entityToModel(entity));
         }
         long count = daoFactory.getRhyAfterCareDao().getExitRHYAfterCaresCount(exitId);

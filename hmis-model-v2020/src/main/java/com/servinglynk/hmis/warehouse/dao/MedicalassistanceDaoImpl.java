@@ -22,7 +22,7 @@ import com.servinglynk.hmis.warehouse.enums.MedicalassistanceHivaidsassistanceEn
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNoadapreasonEnum;
 import com.servinglynk.hmis.warehouse.enums.MedicalassistanceNohivaidsassistancereasonEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -67,7 +67,7 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				}catch(Exception e){
 					String errorMessage = "Exception beause of the medicalAssistance::"+medicalAssistance.getMedicalAssistanceID() +" Exception ::"+e.getMessage();
 					if(medicalassistanceModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = medicalassistanceModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

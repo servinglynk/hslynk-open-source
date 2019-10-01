@@ -21,8 +21,8 @@ public class ResidentialmoveindateServiceImpl extends ServiceBase implements Res
 
    @Transactional
    public Residentialmoveindate createResidentialmoveindate(Residentialmoveindate residentialmoveindate,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Moveindate pResidentialmoveindate = ResidentialmoveindateConverter.modelToEntity(residentialmoveindate, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Moveindate pResidentialmoveindate = ResidentialmoveindateConverter.modelToEntity(residentialmoveindate, null);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pResidentialmoveindate.setEnrollmentid(pEnrollment);
        pResidentialmoveindate.setDateCreated(LocalDateTime.now());
@@ -35,9 +35,9 @@ public class ResidentialmoveindateServiceImpl extends ServiceBase implements Res
 
    @Transactional
    public Residentialmoveindate updateResidentialmoveindate(Residentialmoveindate residentialmoveindate,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.Moveindate pResidentialmoveindate = daoFactory.getResidentialmoveindateDao().getMoveInDateById(residentialmoveindate.getResidentialmoveindateId());
+       com.servinglynk.hmis.warehouse.model.v2020.Moveindate pResidentialmoveindate = daoFactory.getResidentialmoveindateDao().getMoveInDateById(residentialmoveindate.getResidentialmoveindateId());
        if(pResidentialmoveindate==null) throw new ResidentialmoveindateNotFoundException();
 
        ResidentialmoveindateConverter.modelToEntity(residentialmoveindate, pResidentialmoveindate);
@@ -52,7 +52,7 @@ public class ResidentialmoveindateServiceImpl extends ServiceBase implements Res
 
    @Transactional
    public Residentialmoveindate deleteResidentialmoveindate(UUID residentialmoveindateId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Moveindate pResidentialmoveindate = daoFactory.getResidentialmoveindateDao().getMoveInDateById(residentialmoveindateId);
+       com.servinglynk.hmis.warehouse.model.v2020.Moveindate pResidentialmoveindate = daoFactory.getResidentialmoveindateDao().getMoveInDateById(residentialmoveindateId);
        if(pResidentialmoveindate==null) throw new ResidentialmoveindateNotFoundException();
 
        daoFactory.getResidentialmoveindateDao().deletemoveInDate(pResidentialmoveindate);
@@ -62,7 +62,7 @@ public class ResidentialmoveindateServiceImpl extends ServiceBase implements Res
 
    @Transactional
    public Residentialmoveindate getResidentialmoveindateById(UUID residentialmoveindateId){
-       com.servinglynk.hmis.warehouse.model.v2017.Moveindate pResidentialmoveindate = daoFactory.getResidentialmoveindateDao().getMoveInDateById(residentialmoveindateId);
+       com.servinglynk.hmis.warehouse.model.v2020.Moveindate pResidentialmoveindate = daoFactory.getResidentialmoveindateDao().getMoveInDateById(residentialmoveindateId);
        if(pResidentialmoveindate==null) throw new ResidentialmoveindateNotFoundException();
 
        return ResidentialmoveindateConverter.entityToModel( pResidentialmoveindate );
@@ -72,8 +72,8 @@ public class ResidentialmoveindateServiceImpl extends ServiceBase implements Res
    @Transactional
    public Residentialmoveindates getAllEnrollmentResidentialmoveindates(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Residentialmoveindates residentialmoveindates = new Residentialmoveindates();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Moveindate> entities = daoFactory.getResidentialmoveindateDao().getAllEnrollmentResidentialmoveindates(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Moveindate entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.Moveindate> entities = daoFactory.getResidentialmoveindateDao().getAllEnrollmentResidentialmoveindates(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.Moveindate entity : entities){
            residentialmoveindates.addResidentialmoveindate(ResidentialmoveindateConverter.entityToModel(entity));
         }
         long count = daoFactory.getResidentialmoveindateDao().getEnrollmentResidentialmoveindatesCount(enrollmentId);

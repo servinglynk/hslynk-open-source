@@ -19,8 +19,8 @@ public class IncomeAndSourceServiceImpl extends ServiceBase implements IncomeAnd
 
    @Transactional
    public IncomeAndSource createIncomeAndSource(IncomeAndSource incomeAndSource,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources pIncomeAndSource = IncomeAndSourceConverter.modelToEntity(incomeAndSource, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources pIncomeAndSource = IncomeAndSourceConverter.modelToEntity(incomeAndSource, null);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pIncomeAndSource.setEnrollmentid(pEnrollment);
        pIncomeAndSource.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class IncomeAndSourceServiceImpl extends ServiceBase implements IncomeAnd
 
    @Transactional
    public IncomeAndSource updateIncomeAndSource(IncomeAndSource incomeAndSource,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources pIncomeAndSource = daoFactory.getIncomeandsourcesDao().getIncomeAndSourceById(incomeAndSource.getIncomeAndSourceId());
+       com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources pIncomeAndSource = daoFactory.getIncomeandsourcesDao().getIncomeAndSourceById(incomeAndSource.getIncomeAndSourceId());
        if(pIncomeAndSource==null) throw new IncomeAndSourceNotFoundException();
 
        IncomeAndSourceConverter.modelToEntity(incomeAndSource, pIncomeAndSource);
@@ -50,7 +50,7 @@ public class IncomeAndSourceServiceImpl extends ServiceBase implements IncomeAnd
 
    @Transactional
    public IncomeAndSource deleteIncomeAndSource(UUID incomeAndSourceId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources pIncomeAndSource = daoFactory.getIncomeandsourcesDao().getIncomeAndSourceById(incomeAndSourceId);
+       com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources pIncomeAndSource = daoFactory.getIncomeandsourcesDao().getIncomeAndSourceById(incomeAndSourceId);
        if(pIncomeAndSource==null) throw new IncomeAndSourceNotFoundException();
 
        daoFactory.getIncomeandsourcesDao().deleteIncomeAndSource(pIncomeAndSource);
@@ -60,7 +60,7 @@ public class IncomeAndSourceServiceImpl extends ServiceBase implements IncomeAnd
 
    @Transactional
    public IncomeAndSource getIncomeAndSourceById(UUID incomeAndSourceId){
-       com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources pIncomeAndSource = daoFactory.getIncomeandsourcesDao().getIncomeAndSourceById(incomeAndSourceId);
+       com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources pIncomeAndSource = daoFactory.getIncomeandsourcesDao().getIncomeAndSourceById(incomeAndSourceId);
        if(pIncomeAndSource==null) throw new IncomeAndSourceNotFoundException();
 
        return IncomeAndSourceConverter.entityToModel( pIncomeAndSource );
@@ -70,8 +70,8 @@ public class IncomeAndSourceServiceImpl extends ServiceBase implements IncomeAnd
    @Transactional
    public IncomeAndSources getAllEnrollmentIncomeAndSources(UUID enrollmentId,Integer startIndex, Integer maxItems){
        IncomeAndSources incomeAndSources = new IncomeAndSources();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources> entities = daoFactory.getIncomeandsourcesDao().getAllEnrollmentIncomeAndSources(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources> entities = daoFactory.getIncomeandsourcesDao().getAllEnrollmentIncomeAndSources(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources entity : entities){
            incomeAndSources.addIncomeAndSource(IncomeAndSourceConverter.entityToModel(entity));
         }
         long count = daoFactory.getIncomeandsourcesDao().getEnrollmentIncomeAndSourcesCount(enrollmentId);

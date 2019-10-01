@@ -4,8 +4,8 @@ import com.servinglynk.hmis.warehouse.core.model.EnrollmentCoc;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 public class EnrollmentCocConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc modelToEntity (EnrollmentCoc model ,com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc();
+   public static com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc modelToEntity (EnrollmentCoc model ,com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc();
        entity.setId(model.getEnrollmentCocId());
        if(model.getDataCollectionStage() !=null)
    	   	entity.setDataCollectionStage(DataCollectionStageEnum.lookupEnum(model.getDataCollectionStage().toString()));
@@ -18,7 +18,7 @@ public class EnrollmentCocConverter  extends BaseConverter {
    }
 
 
-   public static EnrollmentCoc entityToModel (com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc entity) {
+   public static EnrollmentCoc entityToModel (com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc entity) {
        EnrollmentCoc model = new EnrollmentCoc();
        model.setEnrollmentCocId(entity.getId());
        model.setInformationDate(entity.getInformationDate());

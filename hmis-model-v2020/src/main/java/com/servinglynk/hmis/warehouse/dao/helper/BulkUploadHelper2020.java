@@ -95,7 +95,7 @@ import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 @Component
-public class BulkUploadHelper2017 {
+public class BulkUploadHelper2020 {
 	
 	/**
 	 * Gets the source object from the upload location.
@@ -1500,8 +1500,8 @@ public class BulkUploadHelper2017 {
 	  
 	  
 	  public static void main(String args[]) {
-		  BulkUploadHelper2017 bulk = new BulkUploadHelper2017();
-		  XMLGregorianCalendar date1 = bulk.getXMLGregorianCalendar("2017-03-31");
+		  BulkUploadHelper2020 bulk = new BulkUploadHelper2020();
+		  XMLGregorianCalendar date1 = bulk.getXMLGregorianCalendar("2020-03-31");
 		  System.out.println(date1);
 		  
 	  }

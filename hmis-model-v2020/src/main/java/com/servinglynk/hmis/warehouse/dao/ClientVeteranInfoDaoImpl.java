@@ -28,7 +28,7 @@ import com.servinglynk.hmis.warehouse.enums.VeteranInfoMilitaryBranchEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoOtherTheaterEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoVietnamWarEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoWorldWar2Enum;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -101,7 +101,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 				} catch (Exception e) {
 					String errorMessage = "Exception because of the client::" + veteranInfo.getClientVeteranInfoID() + " Exception ::" + e.getMessage();
 					if(vInfo != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = vInfo.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

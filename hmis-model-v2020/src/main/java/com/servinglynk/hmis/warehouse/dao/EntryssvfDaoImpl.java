@@ -25,7 +25,7 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.enums.TimeToHousingLossEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2020.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -86,7 +86,7 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the entryRhy::"+entrySSVF.getEntrySSVFID() +" Exception ::"+e.getMessage();
 					if(entrySsvfModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = entrySsvfModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

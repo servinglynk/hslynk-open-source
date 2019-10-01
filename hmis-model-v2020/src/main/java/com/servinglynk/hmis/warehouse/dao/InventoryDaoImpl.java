@@ -22,7 +22,7 @@ import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryBedtypeEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryHouseholdtypeEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Coc;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -84,7 +84,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the inventory::"+inventory.getInventoryID() +" Exception ::"+e.getMessage();
 					if(inventoryModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = inventoryModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

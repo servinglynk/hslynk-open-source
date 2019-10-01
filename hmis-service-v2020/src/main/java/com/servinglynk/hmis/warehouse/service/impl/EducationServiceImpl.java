@@ -19,8 +19,8 @@ public class EducationServiceImpl extends ServiceBase implements EducationServic
 
    @Transactional
    public Education createEducation(Education education,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Education pEducation = EducationConverter.modelToEntity(education, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Education pEducation = EducationConverter.modelToEntity(education, null);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pEducation.setEnrollmentid(pEnrollment);
        pEducation.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class EducationServiceImpl extends ServiceBase implements EducationServic
 
    @Transactional
    public Education updateEducation(Education education,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2017.Education pEducation = daoFactory.getEducationDao().getEducationById(education.getEducationId());
+       com.servinglynk.hmis.warehouse.model.v2020.Education pEducation = daoFactory.getEducationDao().getEducationById(education.getEducationId());
        if(pEducation==null) throw new EducationNotFoundException();
 
        EducationConverter.modelToEntity(education, pEducation);
@@ -50,7 +50,7 @@ public class EducationServiceImpl extends ServiceBase implements EducationServic
 
    @Transactional
    public Education deleteEducation(UUID educationId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Education pEducation = daoFactory.getEducationDao().getEducationById(educationId);
+       com.servinglynk.hmis.warehouse.model.v2020.Education pEducation = daoFactory.getEducationDao().getEducationById(educationId);
        if(pEducation==null) throw new EducationNotFoundException();
 
        daoFactory.getEducationDao().deleteEducation(pEducation);
@@ -60,7 +60,7 @@ public class EducationServiceImpl extends ServiceBase implements EducationServic
 
    @Transactional
    public Education getEducationById(UUID educationId){
-       com.servinglynk.hmis.warehouse.model.v2017.Education pEducation = daoFactory.getEducationDao().getEducationById(educationId);
+       com.servinglynk.hmis.warehouse.model.v2020.Education pEducation = daoFactory.getEducationDao().getEducationById(educationId);
        if(pEducation==null) throw new EducationNotFoundException();
 
        return EducationConverter.entityToModel( pEducation );
@@ -70,8 +70,8 @@ public class EducationServiceImpl extends ServiceBase implements EducationServic
    @Transactional
    public Educations getAllEnrollmentEducations(UUID enrollmentId,Integer startIndex, Integer maxItems){
        Educations educations = new Educations();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Education> entities = daoFactory.getEducationDao().getAllEnrollmentEducations(enrollmentId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Education entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.Education> entities = daoFactory.getEducationDao().getAllEnrollmentEducations(enrollmentId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.Education entity : entities){
            educations.addEducation(EducationConverter.entityToModel(entity));
         }
         long count = daoFactory.getEducationDao().getEnrollmentEducationsCount(enrollmentId);

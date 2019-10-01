@@ -22,28 +22,28 @@ import com.servinglynk.hmis.warehouse.core.model.EnrollmentExitLinks;
 import com.servinglynk.hmis.warehouse.core.model.EnrollmentLinks;
 import com.servinglynk.hmis.warehouse.core.model.ExitActionLink;
 import com.servinglynk.hmis.warehouse.core.model.ExitActionLinks;
-import com.servinglynk.hmis.warehouse.model.v2017.Contact;
-import com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement;
-import com.servinglynk.hmis.warehouse.model.v2017.Disabilities;
-import com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence;
-import com.servinglynk.hmis.warehouse.model.v2017.Education;
-import com.servinglynk.hmis.warehouse.model.v2017.Employment;
-import com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc;
-import com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp;
-import com.servinglynk.hmis.warehouse.model.v2017.Entryrhy;
-import com.servinglynk.hmis.warehouse.model.v2017.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2017.Exit;
-import com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment;
-import com.servinglynk.hmis.warehouse.model.v2017.Exitrhy;
-import com.servinglynk.hmis.warehouse.model.v2017.HealthStatus;
-import com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance;
-import com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition;
-import com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources;
-import com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance;
-import com.servinglynk.hmis.warehouse.model.v2017.Moveindate;
-import com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits;
-import com.servinglynk.hmis.warehouse.model.v2017.Pathstatus;
-import com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral;
+import com.servinglynk.hmis.warehouse.model.v2020.Contact;
+import com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.v2020.Disabilities;
+import com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.v2020.Education;
+import com.servinglynk.hmis.warehouse.model.v2020.Employment;
+import com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp;
+import com.servinglynk.hmis.warehouse.model.v2020.Entryrhy;
+import com.servinglynk.hmis.warehouse.model.v2020.Entryssvf;
+import com.servinglynk.hmis.warehouse.model.v2020.Exit;
+import com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.v2020.Exitrhy;
+import com.servinglynk.hmis.warehouse.model.v2020.HealthStatus;
+import com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance;
+import com.servinglynk.hmis.warehouse.model.v2020.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources;
+import com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.v2020.Moveindate;
+import com.servinglynk.hmis.warehouse.model.v2020.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.model.v2020.Pathstatus;
+import com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.service.EnrollmentLinksService;
 
 public class EnrollmentLinksServiceImpl extends ServiceBase implements EnrollmentLinksService{
@@ -331,7 +331,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					 
 					  for(UUID id : stageLinks.getValue()) {
 						  
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhsps/"+id));		
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhsps/"+id));		
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -378,7 +378,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					actionLinks.setGroupBy(stageLinks.getKey());
 					// 
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhys/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhys/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -422,7 +422,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryssvfs/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryssvfs/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -469,7 +469,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					actionLinks.setGroupBy(stageLinks.getKey());
 					 
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/enrollmentcocs/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/enrollmentcocs/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -515,8 +515,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-						  	actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
-//							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
+						  	actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
+//							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -560,7 +560,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/contacts/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/contacts/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -603,7 +603,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/dateofengagements/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/dateofengagements/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -651,7 +651,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/disabilities/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/disabilities/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -698,7 +698,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 						  
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/domesticviolences/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/domesticviolences/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -743,7 +743,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/employments/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/employments/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -789,7 +789,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthinsurances/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthinsurances/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -836,7 +836,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthstatuses/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthstatuses/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -883,7 +883,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/incomeandsources/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/incomeandsources/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -929,7 +929,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/medicalassistances/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/medicalassistances/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -975,7 +975,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1019,7 +1019,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/residentialmoveindates/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/residentialmoveindates/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1060,7 +1060,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/pathstatuses/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/pathstatuses/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1102,7 +1102,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/servicefareferrals/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/servicefareferrals/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1145,7 +1145,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 						ExitActionLinks actionLinks = new ExitActionLinks();
 						actionLinks.setGroupBy(stageLinks.getKey());
 						  for(UUID id : stageLinks.getValue()) {
-							  ExitActionLink actionLink = new ExitActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+id); 
+							  ExitActionLink actionLink = new ExitActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+id); 
 								EnrollmentExitLinks exitLinks = new EnrollmentExitLinks();
 								actionLink.setExitHousingAssessments(this.getExitHousingAssessmentsLinks(clientId, enrollmentId, id));
 								//actionLink.setExitPaths(this.getExitPathsLinks(clientId, enrollmentId, entity.getId()));
@@ -1200,7 +1200,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exithousingassessments/"+id));	  
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exithousingassessments/"+id));	  
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1243,7 +1243,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/housingassessmentdispositions/"+id));	
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/housingassessmentdispositions/"+id));	
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1261,7 +1261,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<ActionLink> links = new ArrayList<ActionLink>();
 		List<ServiceFaReferral> data = daoFactory.get.getAllEnrollmentServiceFaReferrals(enrollmentId, null,null);
 		for(ServiceFaReferral entity : data) {
-			actionLinks.addLink(new ActionLink(entity.getId()+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/serviceFaReferrals/"+entity.getId()));
+			actionLinks.addLink(new ActionLink(entity.getId()+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/serviceFaReferrals/"+entity.getId()));
 		}
 		return links;
 	}*/
@@ -1294,7 +1294,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exitrhys/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exitrhys/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);

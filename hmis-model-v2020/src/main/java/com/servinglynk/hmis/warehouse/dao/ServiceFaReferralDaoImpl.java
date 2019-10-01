@@ -19,7 +19,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ContactLocationEnum;
 import com.servinglynk.hmis.warehouse.enums.RecordTypeEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -73,7 +73,7 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 				} catch (Exception e){
 					String errorMessage = "Exception beause of the serviceFaReferrals::"+serviceFaReferrals.getServicesID() +" Exception ::"+e.getMessage();
 					if(serviceFaReferralModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = serviceFaReferralModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

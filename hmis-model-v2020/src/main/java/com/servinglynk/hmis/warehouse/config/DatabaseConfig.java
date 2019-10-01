@@ -87,7 +87,7 @@ import com.servinglynk.hmis.warehouse.dao.ServiceFaReferralDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.SourceDao;
 import com.servinglynk.hmis.warehouse.dao.SourceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.VASHExitReasonDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2020;
 import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 
 @Configuration
@@ -283,8 +283,8 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	}
 	
 	@Bean
-	public BulkUploadHelper2017 bulkUploadHelper() {
-		return new BulkUploadHelper2017();
+	public BulkUploadHelper2020 bulkUploadHelper() {
+		return new BulkUploadHelper2020();
 	}
 	
 	@Bean

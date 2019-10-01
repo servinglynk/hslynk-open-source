@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -49,7 +49,7 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements MoveindateDao {
 					}catch(Exception e ){
 						String errorMessage = "Exception beause of the MoveInDate::"+expMoveindates.getMoveInDateID() +" Exception ::"+e.getMessage();
 						if(moveindateModel != null){
-							Error2017 error = new Error2017();
+							Error2020 error = new Error2020();
 							error.model_id = moveindateModel.getId();
 							error.bulk_upload_ui = domain.getUpload().getId();
 							error.project_group_code = domain.getUpload().getProjectGroupCode();

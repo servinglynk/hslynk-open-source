@@ -4,8 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.servinglynk.hmis.warehouse.service.EnrollmentLinksService;
-import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
@@ -29,7 +27,6 @@ import com.servinglynk.hmis.warehouse.service.impl.ExitServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExithousingassessmentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.FunderServiceImpl;
-import com.servinglynk.hmis.warehouse.service.impl.GeographyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HMISTypeServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthinsuranceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthstatusServiceImpl;
@@ -226,10 +223,6 @@ public class ServiceConfig  {
 	 
 	 @Bean BulkUploadErrorActivityServiceImpl bulkUploadErrorActivityService() {
 		 return new BulkUploadErrorActivityServiceImpl();
-	 }
-	 
-	 @Bean GeographyServiceImpl geographyService() {
-		 return new GeographyServiceImpl();
 	 }
 	 
 	 @Bean ConnectionwithsoarServiceImpl connectionwithsoarService() {

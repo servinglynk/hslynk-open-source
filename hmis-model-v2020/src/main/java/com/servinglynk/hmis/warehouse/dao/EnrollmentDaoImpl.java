@@ -28,7 +28,7 @@ import com.servinglynk.hmis.warehouse.enums.LengthOfStayEnum;
 import com.servinglynk.hmis.warehouse.enums.LivingSituationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -101,7 +101,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollment::"+enrollment.getEnrollmentID() +" Exception ::"+e.getMessage();
 					if(enrollmentModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = enrollmentModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();
@@ -237,7 +237,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		metaDataEntity.setType("enrollments");
 		metaDataEntity.setProjectGroupCode(enrollment.getProjectGroupCode());
 		metaDataEntity.setUserId(enrollment.getUserId());
-		metaDataEntity.setAdditionalInfo("{\"enrollmentId\":\""+enrollment.getId()+"\",\"schemaYear\":\"2017\",\"clientId\":\""+enrollment.getClient().getId()+"\"}");
+		metaDataEntity.setAdditionalInfo("{\"enrollmentId\":\""+enrollment.getId()+"\",\"schemaYear\":\"2020\",\"clientId\":\""+enrollment.getClient().getId()+"\"}");
 		parentDaoFactory.getClientMetaDataDao().createClientMetaData(metaDataEntity);
 	}
 	

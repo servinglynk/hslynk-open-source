@@ -28,14 +28,14 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.config.AMQConfiguration;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
-import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2020;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DatabaseConfig.class,StandAloneDBPoolConfig.class,AMQConfiguration.class},loader = AnnotationConfigContextLoader.class)
@@ -59,7 +59,7 @@ public class BulkUploaderTest {
 		SyncDomain domain = new SyncDomain();
 //		factory.getEnrollmentDao().hydrateHBASE(domain);
 		BulkUpload upload = new BulkUpload();
-		URL path = BulkUploadHelper2017.class.getResource("HUD_HMIS_Instance.xml");
+		URL path = BulkUploadHelper2020.class.getResource("HUD_HMIS_Instance.xml");
 		upload.setInputpath(path.getPath());
 		upload.setYear(2020L);
 		upload.setId(6L);
@@ -106,7 +106,7 @@ public class BulkUploaderTest {
 	@Test
 	public void testPersistIntoStaging() throws Exception
 	{
-				URL path = BulkUploaderTest.class.getResource("2017.xml");
+				URL path = BulkUploaderTest.class.getResource("2020.xml");
 				BulkUpload upload = new BulkUpload();
 				upload.setInputpath("/Users/sdolia/Downloads/santabarbara_live_hudcsv61_15077_4783674151274166719.zip");
 				
@@ -118,13 +118,13 @@ public class BulkUploaderTest {
 				appender.setLayout(new PatternLayout());
 				appender.activateOptions();
 			//	upload.setDescription("RELOAD");
-				upload.setYear(2017L);
+				upload.setYear(2020L);
 				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
 		//		URL path = BulkUploadHelperTest.class.getResource("2016.xml");
 		//		upload.setInputpath(path.getPath());
 				upload.setProjectGroupCode("SB0006");
 				upload.setId(414L);
-				upload.setYear(2017L);
+				upload.setYear(2020L);
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				projectGrpEntity.setProjectGroupCode("SB0006");
 				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
@@ -133,7 +133,7 @@ public class BulkUploaderTest {
 	@Test
 	public void testLoad() throws Exception
 	{
-				URL path = BulkUploaderTest.class.getResource("2017.xml");
+				URL path = BulkUploaderTest.class.getResource("2020.xml");
 				
 				FileAppender appender = new FileAppender();
 				appender.setImmediateFlush(true);
@@ -215,7 +215,7 @@ public class BulkUploaderTest {
 		@Transactional
 		public void testCSVZip() throws Exception
 		{
-			URL path = BulkUploadHelperTest.class.getResource("2017.xml");
+			URL path = BulkUploadHelperTest.class.getResource("2020.xml");
 			
 			System.out.println("Path -- >>> "+path);
 			BulkUpload bullkUpload = new BulkUpload();
@@ -229,7 +229,7 @@ public class BulkUploaderTest {
 			appender.setLayout(new PatternLayout());
 			appender.activateOptions();
 			bullkUpload.setId(558L);
-			bullkUpload.setYear(2017L);
+			bullkUpload.setYear(2020L);
 			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 			bullkUpload.setProjectGroupCode("DP0003");
 			BulkUpload upload = factory.getBulkUploaderDao().processBase(bullkUpload,projectGrpEntity,appender,false);
@@ -281,7 +281,7 @@ public class BulkUploaderTest {
 
 	@Test
 	public void insertErrorInBulkErrorTable(){
-		Error2017 error2015 = new Error2017();
+		Error2020 error2015 = new Error2020();
 		error2015.model_id = UUID.randomUUID();
 		error2015.bulk_upload_ui = 3L;
 		error2015.project_group_code = "CODE009";
@@ -291,7 +291,7 @@ public class BulkUploaderTest {
 		error2015.date_created = LocalDateTime.now();
 		factory.getBulkUploaderWorkerDao().insert(error2015);
 
-		Error2017 error2015_2 = new Error2017();
+		Error2020 error2015_2 = new Error2020();
 		error2015_2.model_id = UUID.randomUUID();
 		error2015_2.bulk_upload_ui = 4L;
 		error2015_2.project_group_code = "CODE001";

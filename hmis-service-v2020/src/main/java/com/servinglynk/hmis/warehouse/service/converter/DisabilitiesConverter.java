@@ -13,8 +13,8 @@ import com.servinglynk.hmis.warehouse.enums.TCellOrViralLoadSourceEnum;
 import com.servinglynk.hmis.warehouse.enums.ViralLoadAvailableEnum;
 public class DisabilitiesConverter  extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Disabilities modelToEntity (Disabilities model ,com.servinglynk.hmis.warehouse.model.v2017.Disabilities entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Disabilities();
+   public static com.servinglynk.hmis.warehouse.model.v2020.Disabilities modelToEntity (Disabilities model ,com.servinglynk.hmis.warehouse.model.v2020.Disabilities entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Disabilities();
        entity.setId(model.getDisabilitiesId());
        if(model.getInformationDate()!=null)
        entity.setInformationDate(model.getInformationDate());
@@ -45,7 +45,7 @@ public class DisabilitiesConverter  extends BaseConverter {
    }
 
 
-   public static Disabilities entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Disabilities entity) {
+   public static Disabilities entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Disabilities entity) {
        Disabilities model = new Disabilities();
        model.setDisabilitiesId(entity.getId());
        if(entity.getInformationDate()!=null)

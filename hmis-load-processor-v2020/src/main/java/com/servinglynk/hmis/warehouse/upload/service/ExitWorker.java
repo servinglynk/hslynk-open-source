@@ -34,7 +34,7 @@ public class ExitWorker implements IExitWorker  {
 	@Scheduled(initialDelay=20,fixedDelay=10000)
 	public void processWorkerLine() {
 		try {
-			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.EXIT.getStatus(),new Long(2017));
+			List<BulkUpload> uploadEntities=  factory.getBulkUploaderWorkerDao().findBulkUploadByStatusAndYear(UploadStatus.EXIT.getStatus(),new Long(2020));
 			if(uploadEntities!=null && uploadEntities.size() >0 ) {
 				for(BulkUpload upload : uploadEntities) {
 					FileAppender appender = new FileAppender();

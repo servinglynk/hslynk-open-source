@@ -4,8 +4,8 @@ import com.servinglynk.hmis.warehouse.core.model.Funder;
 import com.servinglynk.hmis.warehouse.enums.FunderFunderEnum;
 public class FunderConverter extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Funder modelToEntity (Funder model ,com.servinglynk.hmis.warehouse.model.v2017.Funder entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Funder();
+   public static com.servinglynk.hmis.warehouse.model.v2020.Funder modelToEntity (Funder model ,com.servinglynk.hmis.warehouse.model.v2020.Funder entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Funder();
        if(model.getFunderId()!=null)
        entity.setId(model.getFunderId());
        if(model.getEnddate()!=null)
@@ -20,7 +20,7 @@ public class FunderConverter extends BaseConverter {
    }
 
 
-   public static Funder entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Funder entity) {
+   public static Funder entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Funder entity) {
        Funder model = new Funder();
        if(entity.getId()!=null)
        model.setFunderId(entity.getId());

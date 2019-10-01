@@ -19,8 +19,8 @@ public class InventoryServiceImpl extends ServiceBase implements InventoryServic
 
    @Transactional
    public Inventory createInventory(Inventory inventory,UUID projectCocId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Inventory pInventory = InventoryConverter.modelToEntity(inventory, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Coc pProjectcoc = daoFactory.getCocDao().getCocById(projectCocId);
+       com.servinglynk.hmis.warehouse.model.v2020.Inventory pInventory = InventoryConverter.modelToEntity(inventory, null);
+       com.servinglynk.hmis.warehouse.model.v2020.Coc pProjectcoc = daoFactory.getCocDao().getCocById(projectCocId);
        if(pProjectcoc == null) throw new CocNotFoundException();
        pInventory.setCoc(pProjectcoc);
        pInventory.setDateCreated(LocalDateTime.now());
@@ -33,10 +33,10 @@ public class InventoryServiceImpl extends ServiceBase implements InventoryServic
 
    @Transactional
    public Inventory updateInventory(Inventory inventory,UUID projectCocId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Coc pProjectcoc = daoFactory.getCocDao().getCocById(projectCocId);
+       com.servinglynk.hmis.warehouse.model.v2020.Coc pProjectcoc = daoFactory.getCocDao().getCocById(projectCocId);
        if(pProjectcoc == null) throw new CocNotFoundException();
 
-       com.servinglynk.hmis.warehouse.model.v2017.Inventory pInventory = daoFactory.getInventoryDao().getInventoryById(inventory.getInventoryId());
+       com.servinglynk.hmis.warehouse.model.v2020.Inventory pInventory = daoFactory.getInventoryDao().getInventoryById(inventory.getInventoryId());
        if(pInventory==null) throw new InventoryNotFoundException();
 
        InventoryConverter.modelToEntity(inventory, pInventory);
@@ -51,7 +51,7 @@ public class InventoryServiceImpl extends ServiceBase implements InventoryServic
 
    @Transactional
    public Inventory deleteInventory(UUID inventoryId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Inventory pInventory = daoFactory.getInventoryDao().getInventoryById(inventoryId);
+       com.servinglynk.hmis.warehouse.model.v2020.Inventory pInventory = daoFactory.getInventoryDao().getInventoryById(inventoryId);
        if(pInventory==null) throw new InventoryNotFoundException();
 
        daoFactory.getInventoryDao().deleteInventory(pInventory);
@@ -61,7 +61,7 @@ public class InventoryServiceImpl extends ServiceBase implements InventoryServic
 
    @Transactional
    public Inventory getInventoryById(UUID inventoryId){
-       com.servinglynk.hmis.warehouse.model.v2017.Inventory pInventory = daoFactory.getInventoryDao().getInventoryById(inventoryId);
+       com.servinglynk.hmis.warehouse.model.v2020.Inventory pInventory = daoFactory.getInventoryDao().getInventoryById(inventoryId);
        if(pInventory==null) throw new InventoryNotFoundException();
 
        return InventoryConverter.entityToModel( pInventory );
@@ -71,8 +71,8 @@ public class InventoryServiceImpl extends ServiceBase implements InventoryServic
    @Transactional
    public Inventories getAllProjectCocInventories(UUID projectCocId,Integer startIndex, Integer maxItems){
 	   Inventories inventorys = new Inventories();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Inventory> entities = daoFactory.getInventoryDao().getAllCocInventories(projectCocId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Inventory entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.Inventory> entities = daoFactory.getInventoryDao().getAllCocInventories(projectCocId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.Inventory entity : entities){
            inventorys.addInventory(InventoryConverter.entityToModel(entity));
         }
         long count = daoFactory.getInventoryDao().getCocInventoriesCount(projectCocId);

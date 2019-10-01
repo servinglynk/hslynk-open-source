@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.dao.ParentDaoFactory;
-import com.servinglynk.hmis.warehouse.model.v2017.Client;
+import com.servinglynk.hmis.warehouse.model.v2020.Client;
 
 
 @Component
@@ -40,8 +40,8 @@ public class ClientDedupWorker implements IClientDedupWorker  {
 				String dedupSessionKey = dedupHelper.getAuthenticationHeader();;
 				for(Client client : clients) {
 					FileAppender appender = new FileAppender();
-					appender.setName("client-dedup-2017");
-					appender.setFile("logs/client-dedup-2017.log");
+					appender.setName("client-dedup-2020");
+					appender.setFile("logs/client-dedup-2020.log");
 					appender.setImmediateFlush(true);
 					appender.setAppend(true);
 					appender.setLayout(new PatternLayout());

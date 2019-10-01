@@ -7,8 +7,8 @@ import com.servinglynk.hmis.warehouse.core.model.Exit;
 import com.servinglynk.hmis.warehouse.enums.ExitDestinationEnum;
 public class ExitConverter extends BaseConverter {
 
-   public static com.servinglynk.hmis.warehouse.model.v2017.Exit modelToEntity (Exit model ,com.servinglynk.hmis.warehouse.model.v2017.Exit entity) {
-       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2017.Exit();
+   public static com.servinglynk.hmis.warehouse.model.v2020.Exit modelToEntity (Exit model ,com.servinglynk.hmis.warehouse.model.v2020.Exit entity) {
+       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Exit();
        if(model.getDestination()!=null)
        entity.setDestination(ExitDestinationEnum.lookupEnum(model.getDestination().toString()));
        if(model.getExitDate()!=null)
@@ -21,7 +21,7 @@ public class ExitConverter extends BaseConverter {
    }
 
 
-   public static Exit entityToModel (com.servinglynk.hmis.warehouse.model.v2017.Exit entity) {
+   public static Exit entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Exit entity) {
        Exit exit= new Exit();
        if(entity.getId()!=null)
        exit.setExitId(entity.getId());

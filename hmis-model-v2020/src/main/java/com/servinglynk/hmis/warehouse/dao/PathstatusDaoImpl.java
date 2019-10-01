@@ -13,13 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2017;
+import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2020;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.PATHStatus;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.PathstatusReasonnotenrolledEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2020.Error2017;
+import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Pathstatus;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -58,7 +58,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 				}catch(Exception e) {
 					String errorMessage = "Exception beause of the pathStatus::"+pathStatus.getPathStatusID() +" Exception ::"+e.getMessage();
 					if(pathstatusModel != null){
-						Error2017 error = new Error2017();
+						Error2020 error = new Error2020();
 						error.model_id = pathstatusModel.getId();
 						error.bulk_upload_ui = domain.getUpload().getId();
 						error.project_group_code = domain.getUpload().getProjectGroupCode();

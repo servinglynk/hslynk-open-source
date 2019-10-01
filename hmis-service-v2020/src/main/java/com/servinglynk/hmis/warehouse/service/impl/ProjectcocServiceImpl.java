@@ -19,8 +19,8 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
 
    @Transactional
    public Projectcoc createProjectcoc(Projectcoc projectcoc,UUID projectId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Coc pCoc = CocConverter.modelToEntity(projectcoc, null);
-       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
+       com.servinglynk.hmis.warehouse.model.v2020.Coc pCoc = CocConverter.modelToEntity(projectcoc, null);
+       com.servinglynk.hmis.warehouse.model.v2020.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
        if(pProject == null) throw new ProjectNotFoundException();
        pCoc.setProjectid(pProject);
        pCoc.setDateCreated(LocalDateTime.now());
@@ -33,9 +33,9 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
 
    @Transactional
    public Projectcoc updateProjectcoc(Projectcoc projectcoc,UUID projectId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
+       com.servinglynk.hmis.warehouse.model.v2020.Project pProject = daoFactory.getProjectDao().getProjectById(projectId);
        if(pProject == null) throw new ProjectNotFoundException();
-       com.servinglynk.hmis.warehouse.model.v2017.Coc pCoc = daoFactory.getCocDao().getCocById(projectcoc.getProjectcocId());
+       com.servinglynk.hmis.warehouse.model.v2020.Coc pCoc = daoFactory.getCocDao().getCocById(projectcoc.getProjectcocId());
        if(pCoc==null) throw new CocNotFoundException();
 
        CocConverter.modelToEntity(projectcoc, pCoc);
@@ -50,7 +50,7 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
 
    @Transactional
    public Projectcoc deleteProjectcoc(UUID projectcocId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2017.Coc pCoc = daoFactory.getCocDao().getCocById(projectcocId);
+       com.servinglynk.hmis.warehouse.model.v2020.Coc pCoc = daoFactory.getCocDao().getCocById(projectcocId);
        if(pCoc==null) throw new CocNotFoundException();
 
        daoFactory.getCocDao().deleteCoc(pCoc);
@@ -60,7 +60,7 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
 
    @Transactional
    public Projectcoc getProjectcocById(UUID projectcocId){
-       com.servinglynk.hmis.warehouse.model.v2017.Coc pCoc = daoFactory.getCocDao().getCocById(projectcocId);
+       com.servinglynk.hmis.warehouse.model.v2020.Coc pCoc = daoFactory.getCocDao().getCocById(projectcocId);
        if(pCoc==null) throw new CocNotFoundException();
 
        return CocConverter.entityToModel( pCoc );
@@ -70,8 +70,8 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
    @Transactional
    public Projectcocs getAllProjectCocs(UUID projectId,Integer startIndex, Integer maxItems){
 	   Projectcocs cocs = new Projectcocs();
-        List<com.servinglynk.hmis.warehouse.model.v2017.Coc> entities = daoFactory.getCocDao().getAllCocs(projectId,startIndex,maxItems);
-        for(com.servinglynk.hmis.warehouse.model.v2017.Coc entity : entities){
+        List<com.servinglynk.hmis.warehouse.model.v2020.Coc> entities = daoFactory.getCocDao().getAllCocs(projectId,startIndex,maxItems);
+        for(com.servinglynk.hmis.warehouse.model.v2020.Coc entity : entities){
         	cocs.addProjectcoc(CocConverter.entityToModel(entity));
         }
         long count = daoFactory.getCocDao().getCocsCount(projectId);

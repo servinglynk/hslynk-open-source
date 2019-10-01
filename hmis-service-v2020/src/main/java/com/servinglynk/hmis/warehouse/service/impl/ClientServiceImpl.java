@@ -14,7 +14,7 @@ import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.core.model.Client;
 import com.servinglynk.hmis.warehouse.core.model.Clients;
-import com.servinglynk.hmis.warehouse.model.v2017.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
 import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
@@ -24,7 +24,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Client createClient(Client client, String caller) {
-		com.servinglynk.hmis.warehouse.model.v2017.Client pClient = ClientConverter.modelToEntity(client, null);
+		com.servinglynk.hmis.warehouse.model.v2020.Client pClient = ClientConverter.modelToEntity(client, null);
 		pClient.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getProjectDao().populateUserProjectGroupCode(pClient, caller);
 		com.servinglynk.hmis.warehouse.model.base.Client baseClient = new com.servinglynk.hmis.warehouse.model.base.Client();
@@ -38,7 +38,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 			pClient.setDedupClientId(dedupedId);
 			baseClient.setDedupClientId(dedupedId);
 		}
-		com.servinglynk.hmis.warehouse.model.v2017.Client clientByDedupCliendId = daoFactory.getClientDao().getClientByDedupCliendId(dedupedId, projectGroupCode);
+		com.servinglynk.hmis.warehouse.model.v2020.Client clientByDedupCliendId = daoFactory.getClientDao().getClientByDedupCliendId(dedupedId, projectGroupCode);
 		if(clientByDedupCliendId == null) {
 			daoFactory.getClientDao().createClient(pClient,baseClient);
 			client.setClientId(pClient.getId());
@@ -53,7 +53,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Client updateClient(Client client, String caller) {
-		com.servinglynk.hmis.warehouse.model.v2017.Client pClient = daoFactory.getClientDao().getClientById(client.getClientId());
+		com.servinglynk.hmis.warehouse.model.v2020.Client pClient = daoFactory.getClientDao().getClientById(client.getClientId());
 
 		if(pClient == null ) throw new ClientNotFoundException();
 
@@ -72,7 +72,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Client deleteClient(UUID clientId, String caller) {
-	com.servinglynk.hmis.warehouse.model.v2017.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
+	com.servinglynk.hmis.warehouse.model.v2020.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
 		
 		if(pClient == null ) throw new ClientNotFoundException();
 		
@@ -93,7 +93,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Client getClientById(UUID clientId) {
-		com.servinglynk.hmis.warehouse.model.v2017.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
+		com.servinglynk.hmis.warehouse.model.v2020.Client pClient = daoFactory.getClientDao().getClientById(clientId); 
 		
 		if(pClient == null ) throw new ClientNotFoundException();
 		Client client = ClientConverter.entityToModel(pClient);
@@ -108,9 +108,9 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 	@Override
 	@Transactional
 	public Clients getAllClients(String projectGroupCode,Integer startIndex, Integer maxItems) {
-		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clientsList = daoFactory.getClientDao().getAllClients(projectGroupCode,startIndex,maxItems);
+		List<com.servinglynk.hmis.warehouse.model.v2020.Client> clientsList = daoFactory.getClientDao().getAllClients(projectGroupCode,startIndex,maxItems);
 		Clients clients= new Clients();
-		for(com.servinglynk.hmis.warehouse.model.v2017.Client pClient : clientsList){
+		for(com.servinglynk.hmis.warehouse.model.v2020.Client pClient : clientsList){
 			Client client = ClientConverter.entityToModel(pClient);
 			com.servinglynk.hmis.warehouse.model.base.Client baseClient =	daoFactory.getBaseClientDao().getClient(pClient.getId());
 			if(baseClient!=null){

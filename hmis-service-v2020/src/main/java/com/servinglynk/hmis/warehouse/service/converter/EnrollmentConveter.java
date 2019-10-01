@@ -18,10 +18,10 @@ public class EnrollmentConveter extends BaseConverter {
 
 
 
-	public static com.servinglynk.hmis.warehouse.model.v2017.Enrollment modelToEntity(Enrollment enrollment,com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment){
+	public static com.servinglynk.hmis.warehouse.model.v2020.Enrollment modelToEntity(Enrollment enrollment,com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment){
 		if(pEnrollment==null) {
-			pEnrollment = new com.servinglynk.hmis.warehouse.model.v2017.Enrollment();
-			pEnrollment.setSource("2017");
+			pEnrollment = new com.servinglynk.hmis.warehouse.model.v2020.Enrollment();
+			pEnrollment.setSource("2020");
 		}
 		if(enrollment.getDisablingcondition()!=null)
 		pEnrollment.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingcondition().toString()));
@@ -52,7 +52,7 @@ public class EnrollmentConveter extends BaseConverter {
 	}
 
 
-	public static Enrollment entityToModel(com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment){
+	public static Enrollment entityToModel(com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment){
 		Enrollment enrollment = new Enrollment();
 		if(pEnrollment.getDisablingcondition()!=null)		enrollment.setDisablingcondition(Integer.parseInt(pEnrollment.getDisablingcondition().getValue()));
 		if(pEnrollment.getEntrydate()!=null) enrollment.setEntrydate(Date.from(pEnrollment.getEntrydate().atZone(ZoneId.systemDefault()).toInstant()));
@@ -78,7 +78,7 @@ public class EnrollmentConveter extends BaseConverter {
 		return enrollment;
 	}
 	
-	public static Enrollment entityToModelv2(com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment){
+	public static Enrollment entityToModelv2(com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment){
 		Enrollment enrollment = new Enrollment();
 		if(pEnrollment.getDisablingcondition()!=null)		enrollment.setDisablingcondition(Integer.parseInt(pEnrollment.getDisablingcondition().getValue()));
 		if(pEnrollment.getEntrydate()!=null) enrollment.setEntrydate(Date.from(pEnrollment.getEntrydate().atZone(ZoneId.systemDefault()).toInstant()));
