@@ -34,7 +34,6 @@ public class AssessmentResultsDaoImpl extends ParentDaoImpl implements Assessmen
 			List<AssessmentResults> assessmentQuestion = export.getAssessmentResults();
 			Data data =new Data();
 			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults.class, getProjectGroupCode(domain));
-			Map<String,HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Client.class, getProjectGroupCode(domain));
 			Map<String,HmisBaseModel> assessmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Assessment.class, getProjectGroupCode(domain));
 			
 			com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
@@ -51,6 +50,7 @@ public class AssessmentResultsDaoImpl extends ParentDaoImpl implements Assessmen
 						assessmentResultsModel.setExport(exportEntity);
 						com.servinglynk.hmis.warehouse.model.v2020.Assessment assessment = (com.servinglynk.hmis.warehouse.model.v2020.Assessment) getModel(com.servinglynk.hmis.warehouse.model.v2020.Assessment.class, assessmentResults.getAssessmentID(),getProjectGroupCode(domain),true,assessmentModelMap, domain.getUpload().getId());
 						assessmentResultsModel.setAssessment(assessment);
+						
 						assessmentResultsModel.setAssessmentResult(assessmentResults.getAssessmentResult());
 						assessmentResultsModel.setAssessmentResultType(assessmentResults.getAssessmentResultType());
 						assessmentResultsModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(assessmentResults.getDateCreated()));

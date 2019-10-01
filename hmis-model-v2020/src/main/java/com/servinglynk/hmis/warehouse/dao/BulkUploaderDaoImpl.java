@@ -321,7 +321,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				
 				parentDaoFactory.getAssessmentDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				parentDaoFactory.getAssessmentQuestionsDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
-//				parentDaoFactory.getAssessmentResultsDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
+				parentDaoFactory.getAssessmentResultsDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				parentDaoFactory.getCurrentLivingSituationDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				parentDaoFactory.getEventDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				
