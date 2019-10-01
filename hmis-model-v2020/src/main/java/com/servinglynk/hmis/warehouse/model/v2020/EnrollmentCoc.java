@@ -57,9 +57,8 @@ public class EnrollmentCoc extends HmisBaseModel  implements Cloneable, Serializ
 	private java.util.UUID id;
 	private LocalDateTime informationDate;
 	private DataCollectionStageEnum dataCollectionStage;
-	
 	private LocalDateTime submissionDate;
-
+	
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
 	@Column

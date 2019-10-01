@@ -166,7 +166,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			if(StringUtils.equalsIgnoreCase("pcoc", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> cocModelMap = getCocModelMap(com.servinglynk.hmis.warehouse.model.v2020.Coc.class, getProjectGroupCode(domain));
 				parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
-				parentDaoFactory.getGeographyDao().hydrateStaging(domain, exportModelMap, cocModelMap);
 		    }
 			if(StringUtils.equalsIgnoreCase("enrollmentcoc", upload.getDescription()) || domain.isReloadAll()) {
 				parentDaoFactory.getEnrollmentCocDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
@@ -176,7 +175,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				
 				parentDaoFactory.getAssessmentDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				parentDaoFactory.getAssessmentQuestionsDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
-				parentDaoFactory.getAssessmentResultsDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
+			//	parentDaoFactory.getAssessmentResultsDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				parentDaoFactory.getCurrentLivingSituationDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				parentDaoFactory.getEventDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				
@@ -268,7 +267,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setExport(export);
 			domain.setUpload(upload);
 			domain.setSource(source);
-			domain.setReUpload(true);
+			//domain.setReUpload(true);
+			domain.setReloadAll(true);
 			
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 
@@ -310,7 +310,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			if(StringUtils.equalsIgnoreCase("pcoc", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> cocModelMap = getCocModelMap(com.servinglynk.hmis.warehouse.model.v2020.Coc.class, getProjectGroupCode(domain));
 				parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
-				parentDaoFactory.getGeographyDao().hydrateStaging(domain, exportModelMap, cocModelMap);
 		    }
 			if(StringUtils.equalsIgnoreCase("enrollmentcoc", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> enrollmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Enrollment.class, getProjectGroupCode(domain));
@@ -322,7 +321,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				
 				parentDaoFactory.getAssessmentDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				parentDaoFactory.getAssessmentQuestionsDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
-				parentDaoFactory.getAssessmentResultsDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
+//				parentDaoFactory.getAssessmentResultsDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				parentDaoFactory.getCurrentLivingSituationDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				parentDaoFactory.getEventDao().hydrateStaging(domain, exportModelMap, enrollmentModelMap);
 				
@@ -637,7 +636,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getFunderDao().hydrateStaging(domain,exportModelMap,projectModelMap); // Done
 		Map<String, HmisBaseModel> cocModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Coc.class, getProjectGroupCode(domain));
 		parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
-		parentDaoFactory.getGeographyDao().hydrateStaging(domain, exportModelMap, cocModelMap);
 
 		upload.setExportId(domain.getExportId());
 		upload.setStatus(UploadStatus.EXIT.getStatus());

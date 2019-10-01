@@ -56,7 +56,6 @@ import com.servinglynk.hmis.warehouse.dao.ExitrhyDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.ExportDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.FunderDao;
 import com.servinglynk.hmis.warehouse.dao.FunderDaoImpl;
-import com.servinglynk.hmis.warehouse.dao.GeographyDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HMISTypeDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HealthStatusDao;
 import com.servinglynk.hmis.warehouse.dao.HealthStatusDaoImpl;
@@ -344,10 +343,6 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public BulkUploadErrorDaoImpl bulkUploadErrorDao() {
 		return new BulkUploadErrorDaoImpl();
-	}
-	@Bean
-	public GeographyDaoImpl geographyDao() {
-		return new GeographyDaoImpl();
 	}
 	@Bean
 	public VASHExitReasonDaoImpl vashExitReasonDao() {

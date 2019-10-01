@@ -28,8 +28,8 @@ import org.hibernate.proxy.HibernateProxy;
  */
 
 
-@Entity(name = "assessment_answers_v2020")
-@Table(name = "assessment_answers", catalog = "hmis", schema = "v2020")
+@Entity(name = "assessment_results_v2020")
+@Table(name = "assessment_results", catalog = "hmis", schema = "v2020")
 public class AssessmentResults extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */
@@ -44,7 +44,6 @@ public class AssessmentResults extends HmisBaseModel implements Cloneable, Seria
 	private volatile java.util.UUID hashCode;
 	private UUID id;
 	private Enrollment enrollmentid;
-	private Client clientid;
 	private Assessment assessment;
 	private String assessmentResult;
 	private String assessmentResultType;
@@ -117,29 +116,6 @@ public class AssessmentResults extends HmisBaseModel implements Cloneable, Seria
 		 */
 		public void setEnrollmentid(final Enrollment enrollmentid) {
 			this.enrollmentid = enrollmentid;
-		}
-		
-		
-		 /**
-		 * Return the value associated with the column: clientid.
-		 * @return A Client object (this.clientid)
-		 */
-		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-		@Basic( optional = true )
-		@JoinColumn(name = "client_id", nullable = true )
-		public Client getClientid() {
-			return this.clientid;
-
-		}
-
-
-		 /**
-		 * Set the value related to the column: clientid.
-		 * @param clientid the clientid value you wish to set
-		 */
-		public void setClientid(final Client clientid) {
-			this.clientid = clientid;
 		}
 		
 	/** Field mapping. */

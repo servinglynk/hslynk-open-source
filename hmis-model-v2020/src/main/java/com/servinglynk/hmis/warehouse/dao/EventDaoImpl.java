@@ -35,7 +35,6 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 			Export export = domain.getExport();
 			List<Event> events = export.getEvent();
 			Data data =new Data();
-			Map<String,HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Client.class, getProjectGroupCode(domain));
 			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Event.class, getProjectGroupCode(domain));
 			com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 			if(CollectionUtils.isNotEmpty(events))
@@ -53,9 +52,6 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 						eventModel.setReferralResult(event.getReferralResult());
 						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, event.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						eventModel.setEnrollmentid(enrollmentModel);
-						
-						com.servinglynk.hmis.warehouse.model.v2020.Client client = (com.servinglynk.hmis.warehouse.model.v2020.Client) getModel(com.servinglynk.hmis.warehouse.model.v2020.Client.class, event.getPersonalID(),getProjectGroupCode(domain),true,clientModelMap, domain.getUpload().getId());
-						eventModel.setClientid(client);
 						
 						eventModel.setExport(exportEntity);
 						eventModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(event.getDateCreated()));

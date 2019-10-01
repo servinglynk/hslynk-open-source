@@ -39,7 +39,6 @@ public class CurrentLivingSituationDaoImpl extends ParentDaoImpl implements Curr
 		List<CurrentLivingSituation> CurrentLivingSituationList  = domain.getExport().getCurrentLivingSituation();
 		com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
-		Map<String,HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Client.class, getProjectGroupCode(domain));
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.CurrentLivingSituation.class, getProjectGroupCode(domain));
 		if(CollectionUtils.isNotEmpty(CurrentLivingSituationList))
 		{
@@ -60,9 +59,6 @@ public class CurrentLivingSituationDaoImpl extends ParentDaoImpl implements Curr
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, currentLivingSituation.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					currentLivingSituationModel.setEnrollmentid(enrollmentModel);
 					currentLivingSituationModel.setExport(exportEntity);
-					
-					com.servinglynk.hmis.warehouse.model.v2020.Client client = (com.servinglynk.hmis.warehouse.model.v2020.Client) getModel(com.servinglynk.hmis.warehouse.model.v2020.Client.class, currentLivingSituation.getPersonalID(),getProjectGroupCode(domain),true,clientModelMap, domain.getUpload().getId());
-					currentLivingSituationModel.setClientid(client);
 					
 					performSaveOrUpdate(currentLivingSituationModel,domain);
 				}catch(Exception e) {

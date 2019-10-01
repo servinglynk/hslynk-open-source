@@ -48,7 +48,6 @@ public class CurrentLivingSituation extends HmisBaseModel implements Cloneable, 
 	private volatile java.util.UUID hashCode;
 	private UUID id;
 	private Enrollment enrollmentid;
-	private Client clientid;
 	private LivingSituationEnum livingSituation;
 	private String verifiedBy;
 	private String locationdetails;
@@ -139,28 +138,6 @@ public class CurrentLivingSituation extends HmisBaseModel implements Cloneable, 
 			this.enrollmentid = enrollmentid;
 		}
 		
-		
-		 /**
-		 * Return the value associated with the column: clientid.
-		 * @return A Client object (this.clientid)
-		 */
-		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-		@Basic( optional = true )
-		@JoinColumn(name = "client_id", nullable = true )
-		public Client getClientid() {
-			return this.clientid;
-
-		}
-
-
-		 /**
-		 * Set the value related to the column: clientid.
-		 * @param clientid the clientid value you wish to set
-		 */
-		public void setClientid(final Client clientid) {
-			this.clientid = clientid;
-		}
 		
 	/** Field mapping. */
 	protected Export export;

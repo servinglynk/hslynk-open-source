@@ -34,7 +34,6 @@ public class AssessmentQuestionsDaoImpl extends ParentDaoImpl implements Assessm
 			Export export = domain.getExport();
 			List<AssessmentQuestions> assessmentQuestion = export.getAssessmentQuestions();
 			Data data =new Data();
-			Map<String,HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Client.class, getProjectGroupCode(domain));
 			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.AssessmentQuestions.class, getProjectGroupCode(domain));
 			Map<String,HmisBaseModel> assessmentModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Assessment.class, getProjectGroupCode(domain));
 			
@@ -48,9 +47,6 @@ public class AssessmentQuestionsDaoImpl extends ParentDaoImpl implements Assessm
 						assessmentQuestionsModel = getModelObject(domain, assessmentQuestions,data,modelMap);
 						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, assessmentQuestions.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						assessmentQuestionsModel.setEnrollmentid(enrollmentModel);
-						
-						com.servinglynk.hmis.warehouse.model.v2020.Client client = (com.servinglynk.hmis.warehouse.model.v2020.Client) getModel(com.servinglynk.hmis.warehouse.model.v2020.Client.class, assessmentQuestions.getPersonalID(),getProjectGroupCode(domain),true,clientModelMap, domain.getUpload().getId());
-						assessmentQuestionsModel.setClientid(client);
 						
 						com.servinglynk.hmis.warehouse.model.v2020.Assessment assessment = (com.servinglynk.hmis.warehouse.model.v2020.Assessment) getModel(com.servinglynk.hmis.warehouse.model.v2020.Assessment.class, assessmentQuestions.getAssessmentID(),getProjectGroupCode(domain),true,assessmentModelMap, domain.getUpload().getId());
 						assessmentQuestionsModel.setAssessment(assessment);
@@ -71,7 +67,7 @@ public class AssessmentQuestionsDaoImpl extends ParentDaoImpl implements Assessm
 						assessmentQuestionsModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(assessmentQuestions.getDateUpdated()));
 						performSaveOrUpdate(assessmentQuestionsModel,domain);
 					} catch(Exception e) {
-						String errorMessage = "Error occured with "+assessmentQuestionsModel.getSourceSystemId() + " Execption :::"+e.getLocalizedMessage();
+						String errorMessage = "Error occured with "+assessmentQuestions.getAssessmentQuestionID()+ " Execption :::"+e.getLocalizedMessage();
 						if(assessmentQuestionsModel != null){
 							Error2017 error = new Error2017();
 							error.model_id = assessmentQuestionsModel.getId();

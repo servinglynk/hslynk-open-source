@@ -79,8 +79,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired
 	private EducationDao educationDao; 
 	@Autowired
-	private GeographyDao geographyDao;
-	@Autowired
 	private VASHExitReasonDao vashExitReasonDao;
 	@Autowired
 	private RHYAfterCareDao rhyAfterCareDao;
@@ -590,20 +588,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 
 	public void setBulkUploadErrorDao(BulkUploadErrorDao bulkUploadErrorDao) {
 		this.bulkUploadErrorDao = bulkUploadErrorDao;
-	}
-
-	/**
-	 * @return the geographyDao
-	 */
-	public GeographyDao getGeographyDao() {
-		return geographyDao;
-	}
-
-	/**
-	 * @param geographyDao the geographyDao to set
-	 */
-	public void setGeographyDao(GeographyDao geographyDao) {
-		this.geographyDao = geographyDao;
 	}
 
 	/**

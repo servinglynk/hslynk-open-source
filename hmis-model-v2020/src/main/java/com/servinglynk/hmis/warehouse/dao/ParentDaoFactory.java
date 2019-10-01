@@ -34,7 +34,6 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	ClientVeteranInfoDao getVeteranInfoDao();
 	ExportDao getExportDao();
 	ClientDao getClientDao();
-	GeographyDao getGeographyDao();
 	VASHExitReasonDao getVashExitReasonDao(); 
 	RHYAfterCareDao getRhyAfterCareDao();
 	ConnectionWithSoarDao getConnectionWithSoarDao();

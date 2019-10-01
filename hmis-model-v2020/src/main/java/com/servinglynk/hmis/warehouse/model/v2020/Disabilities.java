@@ -138,6 +138,17 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		this.disabilitytype = disabilitytype;
 	}
 
+	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+	@Basic( optional = true )
+	@Column( name = "submission_date"  )	
+    public LocalDateTime getSubmissionDate() {
+		return submissionDate;
+	}
+
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	
 
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnumType")
 	@Basic( optional = true )
@@ -386,17 +397,6 @@ public class Disabilities extends HmisBaseModel implements Cloneable, Serializab
 		this.export = export;
 	}
 
-	
-	@Type(type="org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Basic( optional = true )
-	@Column( name = "submission_date"  )	
-    public LocalDateTime getSubmissionDate() {
-		return submissionDate;
-	}
-
-	public void setSubmissionDate(LocalDateTime submissionDate) {
-		this.submissionDate = submissionDate;
-	}
 	
    /**
     * Deep copy.

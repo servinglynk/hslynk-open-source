@@ -40,7 +40,7 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements MoveindateDao {
 					com.servinglynk.hmis.warehouse.model.v2020.Moveindate moveindateModel = null;
 					try {
 						moveindateModel = getModelObject(domain, expMoveindates, data, modelMap);
-						moveindateModel.setMoveindate(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateCreated()));
+						moveindateModel.setMoveindate(BasicDataGenerator.getLocalDateTime(expMoveindates.getMoveInDate()));
 						//moveindateModel.setInpermanenthousing(MoveindateInpermanenthousin.lookupEnum((expMoveindates.getInPermanentHousing())));
 						moveindateModel.setDateCreated(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateCreated()));
 						moveindateModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateUpdated()));

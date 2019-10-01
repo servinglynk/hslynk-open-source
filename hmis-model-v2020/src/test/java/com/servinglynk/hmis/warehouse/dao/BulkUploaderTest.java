@@ -61,17 +61,11 @@ public class BulkUploaderTest {
 		BulkUpload upload = new BulkUpload();
 		URL path = BulkUploadHelper2017.class.getResource("HUD_HMIS_Instance.xml");
 		upload.setInputpath(path.getPath());
-		upload.setId(1L);
+		upload.setYear(2020L);
+		upload.setId(6L);
 		upload.setProjectGroupCode("PG0001");
 		ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 		BulkUpload  uploadResult =   dao.performBulkUpload(upload,projectGrpEntity,null,false);
-		File file = new File(
-				path.getFile());
-		JAXBContext jaxbContext = JAXBContext.newInstance(Sources.class);
-
-		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		Sources sources = (Sources) jaxbUnmarshaller.unmarshal(file);
-		Source source = sources.getSource();
 //		Export export = uploadResult.getExport();
 //		com.servinglynk.hmis.warehouse.model.stagv2015.Export stagingExport = (com.servinglynk.hmis.warehouse.model.stagv2015.Export)factory.getExportDao().get(com.servinglynk.hmis.warehouse.model.stagv2015.Export.class, export.getId());
 //		Set<Enrollment> enrollments = stagingExport.getEnrollments();

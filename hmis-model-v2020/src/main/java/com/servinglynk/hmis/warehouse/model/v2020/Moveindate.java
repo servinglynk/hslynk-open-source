@@ -48,9 +48,7 @@ public class Moveindate extends HmisBaseModel implements Cloneable, Serializable
 	private Enrollment enrollmentid;
 	/** Field mapping. */
 	private java.util.UUID id;
-	/** Field mapping. */
 	private LocalDateTime moveindate;
-	/** Field mapping. */
 	private LocalDateTime submissionDate;
 	
 	

@@ -70,7 +70,6 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable ,Enro
 	private java.util.UUID id;
 	/** Field mapping. */
 	private String otherdestination;
-	
 	private LocalDateTime submissionDate;
 	
 	/** Field mapping. */

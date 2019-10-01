@@ -44,7 +44,6 @@ public class AssessmentQuestions extends HmisBaseModel implements Cloneable, Ser
 	private volatile java.util.UUID hashCode;
 	private UUID id;
 	private Enrollment enrollmentid;
-	private Client clientid;
 	private Assessment assessment;
 	private String assessmentQuestionGroup;
 	private Integer assessmentQuestionOrder;
@@ -114,35 +113,14 @@ public class AssessmentQuestions extends HmisBaseModel implements Cloneable, Ser
 
 		}
 
+
+
 		 /**
 		 * Set the value related to the column: enrollmentid.
 		 * @param enrollmentid the enrollmentid value you wish to set
 		 */
 		public void setEnrollmentid(final Enrollment enrollmentid) {
 			this.enrollmentid = enrollmentid;
-		}
-		
-		
-		 /**
-		 * Return the value associated with the column: clientid.
-		 * @return A Client object (this.clientid)
-		 */
-		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-		@Basic( optional = true )
-		@JoinColumn(name = "client_id", nullable = true )
-		public Client getClientid() {
-			return this.clientid;
-
-		}
-
-
-		 /**
-		 * Set the value related to the column: clientid.
-		 * @param clientid the clientid value you wish to set
-		 */
-		public void setClientid(final Client clientid) {
-			this.clientid = clientid;
 		}
 		
 	/** Field mapping. */

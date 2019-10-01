@@ -4048,7 +4048,6 @@ create table "v2020".assessment_questions
   "id" uuid not null,
   assessment_id uuid,
   enrollmentid uuid,
-  client_id uuid,
    assessment_question_group  character varying(500),
    assessment_question_order integer,
    assessment_question  character varying(500),
@@ -4068,9 +4067,6 @@ create table "v2020".assessment_questions
 	  constraint "assessment_questions_enrollmentid_fkey" foreign key ("enrollmentid")
       references v2020.enrollment ("id") match simple
       on update no action on delete no action,
-      CONSTRAINT assessment_questions_client_fk FOREIGN KEY ("client_id")
-      	REFERENCES "v2020".client ("id") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
        CONSTRAINT assessment_questions_assessment_fk FOREIGN KEY ("assessment_id")
       	REFERENCES "v2020".assessment ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -4086,7 +4082,6 @@ create table "v2020".assessment_results
   "id" uuid not null,
   assessment_id uuid,
   enrollmentid uuid,
-  client_id uuid,
   assessment_result_type character varying(500),
    assessment_result  character varying(500),
   "project_group_code" character varying(8),
@@ -4104,9 +4099,6 @@ create table "v2020".assessment_results
 	  constraint "assessment_results_enrollmentid_fkey" foreign key ("enrollmentid")
       references v2020.enrollment ("id") match simple
       on update no action on delete no action,
-      CONSTRAINT assessment_results_client_fk FOREIGN KEY ("client_id")
-      	REFERENCES "v2020".client ("id") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
        CONSTRAINT assessment_results_assessment_fk FOREIGN KEY ("assessment_id")
       	REFERENCES "v2020".assessment ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
@@ -4119,7 +4111,6 @@ with (
 (
   "id" uuid not null,
    enrollmentid uuid,
-   client_id uuid,
    livingSituation  v2020.livingSituation,
    verified_by  character varying(500),
    leavesituation14days  v2020.no_yes_refused,
@@ -4142,10 +4133,7 @@ with (
 	  constraint "current_living_situation_pkey" primary key ("id"),
 	  constraint "current_living_situation_enrollmentid_fkey" foreign key ("enrollmentid")
       references v2020.enrollment ("id") match simple
-      on update no action on delete no action,
-      CONSTRAINT current_living_situation_client_fk FOREIGN KEY ("client_id")
-      	REFERENCES "v2020".client ("id") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+      on update no action on delete no action
 )
 with (
   oids=false
@@ -4177,11 +4165,41 @@ with (
 	  constraint "event_pkey" primary key ("id"),
 	  constraint "event_enrollmentid_fkey" foreign key ("enrollmentid")
       references v2020.enrollment ("id") match simple
-      on update no action on delete no action,
-      CONSTRAINT event_client_fk FOREIGN KEY ("client_id")
-      	REFERENCES "v2020".client ("id") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+      on update no action on delete no action
 )
 with (
   oids=false
-);          
+);        
+
+
+
+alter table v2020.project add column source varchar(255);
+alter table v2020.dateofengagement add column submission_date  timestamp;
+alter table v2020.Disabilities add column submission_date  timestamp;
+alter table v2020.Domesticviolence add column submission_date  timestamp;
+alter table v2020.Employment add column submission_date  timestamp;
+alter table v2020.Enrollment_Coc add column submission_date  timestamp;
+alter table v2020.Entryrhsp add column submission_date  timestamp;
+alter table v2020.Exit add column submission_date  timestamp;
+alter table v2020.Moveindate add column submission_date  timestamp;
+
+alter table v2020.entryrhy add column submission_date  timestamp;
+alter table v2020.entryssvf add column submission_date  timestamp;
+
+alter table v2020.contact add column submission_date  timestamp;
+
+alter table v2020.service_fa_referral add column submission_date  timestamp;
+alter table v2020.healthinsurance add column submission_date  timestamp;
+alter table v2020.health_status add column submission_date  timestamp;
+
+alter table v2020.education add column submission_date  timestamp;
+alter table v2020.incomeandsources add column submission_date  timestamp;
+alter table v2020.medicalassistance add column submission_date  timestamp;
+alter table v2020.path_status add column submission_date  timestamp;
+alter table v2020.noncashbenefits add column submission_date  timestamp;
+alter table v2020.housingassessmentdisposition add column submission_date  timestamp;
+alter table v2020.exitrhy add column submission_date  timestamp;
+alter table v2020.exithousingassessment add column submission_date  timestamp;
+
+
+

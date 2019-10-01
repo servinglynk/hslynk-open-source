@@ -49,13 +49,8 @@ public class AssessmentResultsDaoImpl extends ParentDaoImpl implements Assessmen
 						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, assessmentResults.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						assessmentResultsModel.setEnrollmentid(enrollmentModel);
 						assessmentResultsModel.setExport(exportEntity);
-						
-						com.servinglynk.hmis.warehouse.model.v2020.Client client = (com.servinglynk.hmis.warehouse.model.v2020.Client) getModel(com.servinglynk.hmis.warehouse.model.v2020.Client.class, assessmentResults.getPersonalID(),getProjectGroupCode(domain),true,clientModelMap, domain.getUpload().getId());
-						assessmentResultsModel.setClientid(client);
-						
 						com.servinglynk.hmis.warehouse.model.v2020.Assessment assessment = (com.servinglynk.hmis.warehouse.model.v2020.Assessment) getModel(com.servinglynk.hmis.warehouse.model.v2020.Assessment.class, assessmentResults.getAssessmentID(),getProjectGroupCode(domain),true,assessmentModelMap, domain.getUpload().getId());
 						assessmentResultsModel.setAssessment(assessment);
-						assessmentResultsModel.setExport(exportEntity);
 						assessmentResultsModel.setAssessmentResult(assessmentResults.getAssessmentResult());
 						assessmentResultsModel.setAssessmentResultType(assessmentResults.getAssessmentResultType());
 						assessmentResultsModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(assessmentResults.getDateCreated()));
