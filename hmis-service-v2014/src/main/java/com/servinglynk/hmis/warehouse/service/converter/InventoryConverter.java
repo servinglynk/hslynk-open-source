@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Inventory;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.InventoryAvailabiltyEnum;
@@ -68,6 +69,10 @@ public class InventoryConverter extends BaseConverter {
       	   	model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
     
        copyBeanProperties(entity, model);
+       
+       if(entity.getParentId() ==null && entity.getProjectCoc()!=null) {
+    	   model.addLink(new ActionLink("history","/projects/"+entity.getProjectCoc().getId()+"/inventories/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

@@ -107,7 +107,7 @@ ul.alert-dropdown {
 @media(min-width:768px) {
     .side-nav {
         position: fixed;
-        top: 130px;
+        top: 111px;
         left: 225px;
         width: 225px;
         margin-left: -225px;
@@ -308,4 +308,9 @@ background-color:#56D9C9;color:#FFF;height:100px;
 #status-buttons
 {
 	border-bottom:solid 1px #d6d7d9;margin-top:10px;
+}
+
+.navbar-inverse {
+    background-color: #e5e5e5;
+    border-color: #e5e5e5;
 }

@@ -1,8 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
-import java.time.ZoneId;
-import java.util.Date;
-
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Employment;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.EmploymentEmployedEnum;
@@ -45,6 +43,10 @@ public class EmploymentConverter extends BaseConverter {
     	   	employment.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
 
        copyBeanProperties(entity, employment);
+       
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   employment.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/employments/"+entity.getId()+"/history"));
+       }
        return employment;
    }
 

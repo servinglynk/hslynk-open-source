@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.VeteranInfo;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoAfghanistanOefEnum;
 import com.servinglynk.hmis.warehouse.enums.VeteranInfoDesertStormEnum;
@@ -101,6 +102,9 @@ public class VeteranInfoConverter extends BaseConverter {
        model.setMilitaryBranch(Integer.parseInt(entity.getMilitaryBranch().getValue()));
 	   if(entity.getDischargeStatus()!=null)
        model.setDischargeStatus(Integer.parseInt(entity.getDischargeStatus().getValue()));
+       if(entity.getParentId() ==null && entity.getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getClient().getId()+"/veteraninfos/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

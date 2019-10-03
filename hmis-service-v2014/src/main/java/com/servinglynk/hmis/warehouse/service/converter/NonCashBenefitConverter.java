@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.NonCashBenefit;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.NoncashbenefitsBenefitsfromanysourceEnum;
@@ -75,6 +76,11 @@ public class NonCashBenefitConverter extends BaseConverter {
           	   
        model.setBenefitsfromanysource(Integer.parseInt(entity.getBenefitsfromanysource().getValue()));
        copyBeanProperties(entity, model);
+       
+		if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+			   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/noncashbenefits/"+entity.getId()+"/history"));
+		}
+       
        return model;
    }
 
