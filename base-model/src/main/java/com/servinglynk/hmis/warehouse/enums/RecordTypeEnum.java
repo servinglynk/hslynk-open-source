@@ -7,7 +7,7 @@ public enum RecordTypeEnum {
 
 	/*
 	 * 		Contact records collected under 2014 HMIS Data Standards v5.1 (RecordType 12)
-						4.12 Contact records collected under 2017 HMIS Data Standards (RecordType 13)
+						4.12 Contact records collected under 2020 HMIS Data Standards (RecordType 13)
 						4.14 Bed Night (RecordType 200)
 						P1 Services Provided – PATH (RecordType 141)
 						P2 Referrals Provided – PATH (RecordType 161)

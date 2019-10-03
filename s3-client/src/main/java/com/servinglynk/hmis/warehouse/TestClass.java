@@ -30,7 +30,7 @@ public class TestClass {
 //        for (String key : keys) {
 //            System.out.println(key);
 //        }
-//        String path = client.downloadFile("sdolia-2017", "HUD Sample.xml",null);
+//        String path = client.downloadFile("sdolia-2020", "HUD Sample.xml",null);
 //        System.out.println(path);
 //        File file = new File(path);
 //        if (file.exists()) {
