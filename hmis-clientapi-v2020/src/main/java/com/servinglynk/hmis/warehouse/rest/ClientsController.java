@@ -167,18 +167,8 @@ public class ClientsController extends ControllerBase {
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_ENROLLMENT_BY_ID", checkSessionToken = true, checkTrustedApp = true)
 	public Enrollment getClientEnrollmentById(@PathVariable("clientid") UUID clientId,
-			@PathVariable("enrollmentid") UUID enrollmentId,
-			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,	
-			HttpServletRequest request) throws Exception {
-		return serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,includeChildLinks);
-	}
-	
-	@RequestMapping(value="/enrollments/{enrollmentid}",method=RequestMethod.GET)
-	@APIMapping(value="GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
-	public Enrollment getEnrollmentById(@PathVariable("enrollmentid") UUID enrollmentId ,
-			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,	
-			HttpServletRequest request) throws Exception {
-		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId,includeChildLinks);
+			@PathVariable("enrollmentid") UUID enrollmentId, HttpServletRequest request) throws Exception {
+		return serviceFactory.getEnrollmentServiceV2().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
 	}
 	
 	@RequestMapping(value = "/{clientid}/enrollments", method = RequestMethod.GET)
@@ -193,9 +183,18 @@ public class ClientsController extends ControllerBase {
 		if (maxItems == null)
 			maxItems = 30;
 
-		return serviceFactory.getEnrollmentService().getEnrollmentsByClientId(clientId,
+		return serviceFactory.getEnrollmentServiceV2().getEnrollmentsByClientId(clientId,
 				session.getAccount().getUsername(), startIndex, maxItems);
 	}
+	@RequestMapping(value="/enrollments/{enrollmentid}",method=RequestMethod.GET)
+	@APIMapping(value="GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
+	public Enrollment getEnrollmentById(@PathVariable("enrollmentid") UUID enrollmentId ,
+			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,	
+			HttpServletRequest request) throws Exception {
+		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId,includeChildLinks);
+	}
+	
+	
 
 	// Veteran Info API Start
 

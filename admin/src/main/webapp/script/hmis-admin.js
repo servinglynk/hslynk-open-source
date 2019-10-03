@@ -57,8 +57,8 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
 		      .when('/admin/manageeligreq',      's2.manageeligreq')
        		  .when('/admin/setting',      's2.setting')
 			   .when('/admin/requestreport',      's2.requestreport')
-			    .when('/admin/mergeclient',      's2.mergeclient')
-			    .when('/admin/unmergeclient',      's2.unmergeclient')
+			   .when('/admin/mergeclient',      's2.mergeclient')
+			   .when('/admin/unmergeclient',      's2.unmergeclient')
 			   .when('/admin/createprojgrp',      's2.createprojgrp')
 			   .when('/admin/manageprojgrp',      's2.manageprojgrp')
 			   
@@ -113,7 +113,7 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
                 templateUrl: 'templates/partial/requestreport.html', controller: 'requestreportCtrl'}) 
                .segment('mergeclient', {
                 templateUrl: 'templates/partial/mergeclient.html', controller: 'mergeclientCtrl'}) 
-                  .segment('unmergeclient', {
+                .segment('unmergeclient', {
                 templateUrl: 'templates/partial/unmergeclient.html', controller: 'unmergeclientCtrl'}) 
                 
                 .segment('createorg', {
@@ -181,6 +181,26 @@ app.run(['$rootScope', '$location', '$sessionStorage', '$http',
          }]);
 app.value('loader', { show: false });
 
+app.directive("ssnInput",function(){
+    return {
+        require:'ngModel',
+        link: function(scop, elem, attr, ngModel){
+            $(elem).mask("999-99-9999");
+            var temp;
+            var regxa = /^(\d{3}-?\d{2}-?\d{4})$/;
+            $(elem).focusin(function(){
+                $(elem).val(temp);
+            });
+            $(elem).on('blur',function(){
+                temp = $(elem).val();
+                if(regxa.test($(elem).val())){
+                   $(elem).val("XXX-XX" + temp.slice(6));
+               }
+            });
+        }
+    }
+});
+
 app.directive('appFilereader',['$q', function ($q) {
     var slice = Array.prototype.slice;
 		
@@ -214,7 +234,7 @@ app.directive('appFilereader',['$q', function ($q) {
 }]);*/
 var Service= ({
 	GetProjectList: function ($http, success,error,$scope) {
-        var apiurl = "/hmis-clientapi-v2017/rest/v2/projects";
+        var apiurl = "/hmis-clientapi-v2017/rest/v2/projects?maxItems=200";
         $http({
             method: 'GET',
             url: apiurl,
@@ -238,6 +258,78 @@ var Service= ({
         }).success(function (data) {
             if(success)success(data)
         }).error(error);
+  },
+  DownloadPDF: function ($http,$scope, success, error) {
+          var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.reportId+"/pdf";
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+      }).success(function (data, status, headers) {
+          headers = headers();
+          
+          var filename = headers['x-filename'];
+          var contentType = headers['content-type'];
+   
+          var linkElement = document.createElement('a');
+          try {
+              var blob = new Blob([data], { type: contentType });
+              var url = window.URL.createObjectURL(blob);
+   
+              linkElement.setAttribute('href', url);
+              linkElement.setAttribute("download", filename);
+   
+              var clickEvent = new MouseEvent("click", {
+                  "view": window,
+                  "bubbles": true,
+                  "cancelable": false
+              });
+              linkElement.dispatchEvent(clickEvent);
+          } catch (ex) {
+              console.log(ex);
+          }
+      }).error(function (data) {
+          console.log(data);
+      });
+  },
+  DownloadZIP: function ($http,$scope, success, error) {
+  	  var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.reportId+"/zip";
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data, status, headers) {
+            headers = headers();
+            
+            var filename = headers['x-filename'];
+            var contentType = headers['content-type'];
+     
+            var linkElement = document.createElement('a');
+            try {
+                var blob = new Blob([data], { type: contentType });
+                var url = window.URL.createObjectURL(blob);
+     
+                linkElement.setAttribute('href', url);
+                linkElement.setAttribute("download", filename);
+     
+                var clickEvent = new MouseEvent("click", {
+                    "view": window,
+                    "bubbles": true,
+                    "cancelable": false
+                });
+                linkElement.dispatchEvent(clickEvent);
+            } catch (ex) {
+                console.log(ex);
+            }
+        }).error(function (data) {
+            console.log(data);
+        });
   },
   GetUserByOrganization:function ($http,$scope, success, error) {
 	  $scope.organizationId ="b5598c6c-d021-4f5f-9695-77f7f4685ed2"
@@ -492,6 +584,76 @@ submitHivePasswordForm: function ($http,$scope, success,error) {
            if(success)success(data)
        }).error(error);
 
+},
+MergeClient: function ($http,$scope, success,error) {
+	data =$scope.form;
+     var apiurl = "/hmis-globalapi/rest/clients/"+data.clientId+"/dedup/merge";
+     data = $scope.form;
+     $http({
+         method: 'POST',
+         url: apiurl,
+         data :
+         	{ "client":{
+                 "firstName": data.firstName,
+                 "lastName": data.lastName,
+                 "ssn": data.ssn,
+                 "dob":data.dob
+              }
+        },
+         headers: {
+           'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+             'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+             'Accept': 'application/json;odata=verbose'}
+     }).success(function (data) {
+         if(success)success(data)
+     }).error(error);
+},
+UnMergeClient: function ($http,$scope, success,error) {
+	data =$scope.form;
+	var apiurl = "/hmis-globalapi/rest/clients/"+data.clientId+"/dedup/unmerge";
+     data = $scope.form;
+     $http({
+         method: 'POST',
+         url: apiurl,
+         data :
+         	{ "client":{
+                 "firstName": data.firstName,
+                 "lastName": data.lastName,
+                 "ssn": data.ssn,
+                 "dob":data.dob
+              }
+        },
+         headers: {
+           'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+             'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+             'Accept': 'application/json;odata=verbose'}
+     }).success(function (data) {
+         if(success)success(data)
+     }).error(error);
+},
+Events: function ($http,$scope,data, success,error) {
+	var apiurl = "/hmis-globalapi/rest/events";
+     $http({
+         method: 'POST',
+         url: apiurl,
+         data :
+         	{
+         		  "event": {
+         			    "payload": {
+         			      "projectGroupCode": data.projectGroupCode,
+         			      "clientId": data.clientId,
+         			      "targetDedupId": data.dedupClientId
+         			    },
+         			    "eventType": data.eventType
+         			  }
+        },
+         headers: {
+           'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+             'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+             'Accept': 'application/json;odata=verbose'}
+     }).success(function (data) {
+         if(success)success(data)
+     }).error(error);
 },
 SendRequestReport: function ($http,$scope, success,error) {
 	data =$scope.form;
@@ -1163,8 +1325,8 @@ $scope.switchBool = function(value) {
                         //$window.localStorage.setItem('account',data.account);
                         $sessionStorage.account = data.account;
                         $("#userDetails").html(data.account.emailAddress);
-                        $rootScope.roleName = $sessionStorage.account.roles.role[0].roleName; // data.account.roles.role[0].roleName;
-                        $sessionStorage.roleName = $sessionStorage.account.roles.role[0].roleName;
+                        $rootScope.roleName = $sessionStorage.account.roles[0].roleName; // data.account.roles.role[0].roleName;
+                        $sessionStorage.roleName = $sessionStorage.account.roles[0].roleName;
                         if($rootScope.roleName=="SUPERADMIN")
                 		{
                 			$(".dashboard").show();
@@ -1532,6 +1694,25 @@ app.controller('managereportCtrl',['$scope','$location','$routeSegment','$http',
         });
     }
     
+    $scope.downloadZIP =  function (reportId) {
+        console.log('Report config:'+reportId);
+        $scope.reportId=reportId;
+        Service.DownloadZIP($http,$scope,
+     		    //success
+     		    function(data){
+        	 		console.log('Report config download success :'+reportId);
+     		    },function(error) {})
+     }
+    
+    $scope.downloadPDF =  function (reportId) {
+       console.log('Report config:'+reportId);
+       $scope.reportId=reportId;
+       Service.DownloadPDF($http,$scope,
+    		    //success
+    		    function(data){
+    	   			console.log('Report config download success :'+reportId);
+    		    },function(error) {})
+    }
 
 }]);
 
@@ -1605,6 +1786,58 @@ app.controller('manageuserCtrl',['$scope','$location','$routeSegment','$http', '
     };
 
 
+}]);
+;
+app.controller('mergeclientCtrl',['$scope','$location','$routeSegment','$http','$modal', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http,$modal, $timeout, $sessionStorage) {
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	$scope.sessionToken = $sessionStorage.sessionToken;								 
+											   
+  $scope.submitForm = function() {
+	  
+       Service.MergeClient($http,$scope,
+    //success
+    function(data){
+    	   
+   	       var modalInstance = $modal.open({
+   	            templateUrl: 'templates/partial/mergeclientpopup.html',
+   	            controller: 'ModalInstanceLogCtrl',
+   	            resolve: {
+   	                'datajson': function () {
+   	                    return data.client;
+   	                }
+   	            }
+   	        });
+    	
+		$scope.successTextAlert = "";
+		$scope.showSuccessAlert = true;
+		$scope.form.name='';
+		$scope.form.reportLevel='';
+		$scope.form.reportType='';
+		$scope.form.startDate='';
+		$scope.form.endDate='';
+		$scope.form.project=[];
+		
+},
+	//error
+	function(){$scope.errorTextAlert = "Error, Something gone wrong.";
+$scope.showErrorAlert = true;})
+	
+       
+    };
+    $scope.pushMerge = function(data) {
+		console.log(data);
+		data.projectGroupCode=$sessionStorage.account.projectGroup.projectGroupCode;
+		data.eventType='client.merge';
+		Service.Events($http,$scope,data,
+			    //success
+			    function(data){ console.log(data) },function(error) {});
+	};
+	// switch flag
+$scope.switchBool = function(value) {
+   $scope[value] = !$scope[value];
+};
 }]);
 ;app.controller('onboardfellowCtrl',['$scope', '$location', '$routeSegment', '$http', '$timeout', '$sessionStorage', function($scope, $location, $routeSegment, $http, $timeout, $sessionStorage) {
 
@@ -1800,6 +2033,57 @@ $scope.showErrorAlert = true;})
   	
          
       };
+	// switch flag
+$scope.switchBool = function(value) {
+   $scope[value] = !$scope[value];
+};
+}]);
+;
+app.controller('unmergeclientCtrl',['$scope','$location','$routeSegment','$http','$modal', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http,$modal, $timeout, $sessionStorage) {
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	$scope.sessionToken = $sessionStorage.sessionToken;								 
+	
+  $scope.submitForm = function() {
+	  
+       Service.UnMergeClient($http,$scope,
+    //success
+    function(data){
+    	   
+   	       var modalInstance = $modal.open({
+   	            templateUrl: 'templates/partial/unmergeclientpopup.html',
+   	            controller: 'ModalInstanceLogCtrl',
+   	            resolve: {
+   	                'datajson': function () {
+   	                    return data.client;
+   	                }
+   	            }
+   	        });
+    	
+		$scope.successTextAlert = "Your unmerge was successful.";
+		$scope.showSuccessAlert = true;
+		$scope.form.name='';
+		$scope.form.reportLevel='';
+		$scope.form.reportType='';
+		$scope.form.startDate='';
+		$scope.form.endDate='';
+		$scope.form.project=[];
+		
+},
+	//error
+	function(){$scope.errorTextAlert = "Error, Something gone wrong.";
+$scope.showErrorAlert = true;})
+	
+       
+    };
+    $scope.pushUnMerge = function(data) {
+		data.projectGroupCode=$sessionStorage.account.projectGroup.projectGroupCode;
+		data.eventType='client.unmerge';
+		Service.Events($http,$scope,data,
+			    //success
+			    function(data){ alert('Un merge successful!'); },function(error) {});
+	};
 	// switch flag
 $scope.switchBool = function(value) {
    $scope[value] = !$scope[value];
