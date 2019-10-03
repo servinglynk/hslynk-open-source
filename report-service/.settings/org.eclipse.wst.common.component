@@ -26,6 +26,7 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="hmis-core-common-2.16.6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-core-common/hmis-core-common">
+
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="hmis-serialize-v2014-2.16.6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-serialize-v2014/hmis-serialize-v2014">

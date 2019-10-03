@@ -62,7 +62,7 @@ public abstract class ControllerBase {
 	    return hudVersion;
 	}
 	protected String getYearFromVersion(String version) {
-		String year = "2017";
+		String year = "2020";
 	    if(StringUtils.equals("401",version))
         	 year = "2014";
          else if(StringUtils.equals("411", version))
@@ -70,7 +70,7 @@ public abstract class ControllerBase {
          else if(StringUtils.equals("51", version))
         	 year = "2016";
          else if(StringUtils.equals("611", version) || StringUtils.equals("612", version))
-        	 year = "2017";
+        	 year = "2020";
 	    return year;
 	}
 
