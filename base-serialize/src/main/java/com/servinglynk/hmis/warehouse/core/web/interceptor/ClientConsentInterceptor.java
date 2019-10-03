@@ -40,6 +40,8 @@ public class ClientConsentInterceptor  extends HandlerInterceptorAdapter {
 			map.put(key.toUpperCase(), pathVariables.get(key));
 		}
 		
+		if(map.get("CLIENTID")==null) return true;
+		
 		flag = apiAuthChecker.checkApiAuthForConsent(session, UUID.fromString(map.get("CLIENTID").toString()));
 		
 		if(!flag) throw new AccessDeniedException("User does not have consent to acess the client information");

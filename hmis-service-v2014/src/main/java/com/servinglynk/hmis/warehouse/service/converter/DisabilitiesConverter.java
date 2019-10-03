@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Disabilities;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DisabilitiesDisabilitytypeEnum;
@@ -60,6 +61,10 @@ public class DisabilitiesConverter extends BaseConverter {
     	   	model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
       
        copyBeanProperties(entity, model);
+       
+       if(entity.getParentId() ==null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/disabilities/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

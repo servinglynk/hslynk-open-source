@@ -1,6 +1,8 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -96,5 +98,22 @@ public abstract class ClientModel {
 
 	public void setUpdatedTime(LocalDateTime updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+	
+	List<ActionLink> links;
+
+	public List<ActionLink> getLinks() {
+		return links;
+	}
+
+
+
+	public void setLinks(List<ActionLink> links) {
+		this.links = links;
+	}
+
+	public void addLink(ActionLink link) {
+		if(this.links==null) this.links = new ArrayList<ActionLink>();
+		  this.links.add(link);
 	}
 }

@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.LastPermanentAddress;
 import com.servinglynk.hmis.warehouse.enums.LastPermAddressAddressDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.StateEnum;
@@ -38,6 +39,10 @@ public class LastPermanentAddressConverter extends BaseConverter {
        if(entity.getZip()!=null)
        model.setLastpermanentzip(entity.getZip());
        copyBeanProperties(entity, model);
+
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+		   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/lastpermanentaddresses/"+entity.getId()+"/history"));
+       }
        return model;
    }
 }

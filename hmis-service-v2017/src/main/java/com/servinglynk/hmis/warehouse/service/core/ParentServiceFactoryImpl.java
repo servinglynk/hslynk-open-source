@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
-import com.servinglynk.hmis.warehouse.core.model.HMISType;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
@@ -30,6 +29,7 @@ import com.servinglynk.hmis.warehouse.service.GeographyService;
 import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
+import com.servinglynk.hmis.warehouse.service.HistoryService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
 import com.servinglynk.hmis.warehouse.service.IncomeAndSourceService;
 import com.servinglynk.hmis.warehouse.service.InventoryService;
@@ -461,5 +461,15 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 
 	public void setHmisTypeService(HMISTypeService hmisTypeService) {
 		this.hmisTypeService = hmisTypeService;
+	}
+	@Autowired HistoryService historyService;
+
+
+	public HistoryService getHistoryService() {
+		return historyService;
+	}
+
+	public void setHistoryService(HistoryService historyService) {
+		this.historyService = historyService;
 	}
 }

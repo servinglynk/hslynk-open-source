@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.WorstHousingSituation;
 import com.servinglynk.hmis.warehouse.enums.WorsthousingsituationWorsthousingsituationEnum;
 public class WorstHousingSituationConverter extends BaseConverter {
@@ -21,6 +22,9 @@ public class WorstHousingSituationConverter extends BaseConverter {
        if(entity.getWorsthousingsituation()!=null)
        model.setWorsthousingsituation(Integer.parseInt(entity.getWorsthousingsituation().getValue()));
        copyBeanProperties(entity, model);
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/worsthousingsituations/"+entity.getId()+"/history"));
+       }
        return model;
    }
 
