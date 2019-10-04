@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
-import com.servinglynk.hmis.warehouse.core.model.HMISType;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
@@ -26,7 +25,6 @@ import com.servinglynk.hmis.warehouse.service.ExitService;
 import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
-import com.servinglynk.hmis.warehouse.service.GeographyService;
 import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
@@ -80,7 +78,6 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public EducationService educationService;
 	@Autowired public ExithousingassessmentService exithousingassessmentService;
 	@Autowired public SearchService searchService;
-	@Autowired public GeographyService geographyService;
 	@Autowired public ConnectionwithsoarService connectionwithsoarService;
 	@Autowired public VashExitReasonService vashExitReasonService;
 	@Autowired public RHYAfterCareService rHYAfterCareService;
@@ -371,20 +368,6 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	public void setBulkUploadErrorActivityService(
 			BulkUploadErrorActivityService bulkUploadErrorActivityService) {
 		this.bulkUploadErrorActivityService = bulkUploadErrorActivityService;
-	}
-
-	/**
-	 * @return the geographyService
-	 */
-	public GeographyService getGeographyService() {
-		return geographyService;
-	}
-
-	/**
-	 * @param geographyService the geographyService to set
-	 */
-	public void setGeographyService(GeographyService geographyService) {
-		this.geographyService = geographyService;
 	}
 
 	/**
