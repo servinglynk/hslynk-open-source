@@ -18,18 +18,13 @@ import com.servinglynk.hmis.warehouse.core.model.Affiliation;
 import com.servinglynk.hmis.warehouse.core.model.Affiliations;
 import com.servinglynk.hmis.warehouse.core.model.Funder;
 import com.servinglynk.hmis.warehouse.core.model.Funders;
-import com.servinglynk.hmis.warehouse.core.model.Geographies;
-import com.servinglynk.hmis.warehouse.core.model.Geography;
 import com.servinglynk.hmis.warehouse.core.model.Inventories;
 import com.servinglynk.hmis.warehouse.core.model.Inventory;
 import com.servinglynk.hmis.warehouse.core.model.Project;
-import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.Projectcoc;
 import com.servinglynk.hmis.warehouse.core.model.Projectcocs;
 import com.servinglynk.hmis.warehouse.core.model.Projects;
 import com.servinglynk.hmis.warehouse.core.model.Session;
-import com.servinglynk.hmis.warehouse.core.model.Site;
-import com.servinglynk.hmis.warehouse.core.model.Sites;
 
 @RestController
 @RequestMapping("/projects")
@@ -291,64 +286,5 @@ public class ProjectsController extends ControllerBase {
            serviceFactory.getProjectcocService().getProjectcocById(projectcocid);
         return serviceFactory.getInventoryService().getAllProjectCocInventories(projectcocid,startIndex,maxItems); 
    }
-   
-   // Geography API start
-   
-   
-   @RequestMapping(value="/{projectid}/projectcocs/{cocid}/geographies",method=RequestMethod.POST)
-   @APIMapping(value="CLIENT_API_CREATE_GEOGRAPHY",checkTrustedApp=true,checkSessionToken=true)
-   public Geography createGeography(@PathVariable("cocid") UUID cocid, @PathVariable("projectid") UUID projectid ,@RequestBody Geography geography,HttpServletRequest request) throws Exception{
-        Session session = sessionHelper.getSession(request); 
-        serviceFactory.getProjectService().getProjectById(projectid);
-
-        serviceFactory.getGeographyService().createGeography(geography,cocid,session.getAccount().getUsername()); 
-        Geography returnGeography = new Geography();
-        returnGeography.setId(geography.getId());
-        return returnGeography;
-   }
-
-   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/geographies/{geographyid}",method=RequestMethod.PUT)
-   @APIMapping(value="CLIENT_API_UPDATE_GEOGRAPHY",checkTrustedApp=true,checkSessionToken=true)
-   public void updateGeography(@PathVariable("cocid") UUID cocid, @PathVariable("projectid") UUID projectid ,@PathVariable( "geographyid" ) UUID geographyid,@RequestBody Geography geography,HttpServletRequest request) throws Exception{
-        Session session = sessionHelper.getSession(request); 
-        geography.setId(geographyid);
-        serviceFactory.getProjectService().getProjectById(projectid);
-        serviceFactory.getGeographyService().updateGeography(geography,cocid,session.getAccount().getUsername()); 
-   }
-
-   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/geographies/{geographyid}",method=RequestMethod.DELETE)
-   @APIMapping(value="CLIENT_API_DELETE_GEOGRAPHY",checkTrustedApp=true,checkSessionToken=true)
-   public void deleteGeography(@PathVariable("cocid") UUID cocid, @PathVariable("projectid") UUID projectid,
-		   @PathVariable( "geographyid" ) UUID geographyid,HttpServletRequest request,HttpServletResponse response) throws Exception{
-        Session session = sessionHelper.getSession(request); 
-        serviceFactory.getProjectService().getProjectById(projectid);
-        serviceFactory.getProjectcocService().getProjectcocById(cocid);
-        serviceFactory.getGeographyService().deleteGeography(geographyid,session.getAccount().getUsername()); 
-        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-   }
-
-   @RequestMapping(value="/{projectid}/projectcocs/{cocid}/geographies/{geographyid}",method=RequestMethod.GET)
-   @APIMapping(value="CLIENT_API_GET_GEOGRAPHY_BY_ID",checkTrustedApp=true,checkSessionToken=true)
-   public Geography getGeographyById(@PathVariable("projectcocid") UUID cocid, @PathVariable("projectid") UUID projectid ,@PathVariable( "geographyid" ) UUID geographyid,HttpServletRequest request) throws Exception{
-       serviceFactory.getProjectService().getProjectById(projectid);
-       serviceFactory.getProjectcocService().getProjectcocById(cocid);
-        return serviceFactory.getGeographyService().getGeographyById(geographyid); 
-   }
-
-   @RequestMapping(value="/{projectid}/projectcocs/{cocid}/geographies",method=RequestMethod.GET)
-   @APIMapping(value="CLIENT_API_GET_ALL_PROJECTCOC_GEOGRAPHY",checkTrustedApp=true,checkSessionToken=true)
-   public Geographies getAllEnrollmentGeographys(@PathVariable("cocid") UUID cocid, @PathVariable("projectid") UUID projectid ,
-                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
-                       @RequestParam(value="maxItems", required=false) Integer maxItems,
-                       HttpServletRequest request) throws Exception {
-           if (startIndex == null) startIndex =0;
-           if (maxItems == null) maxItems =30;
- 
-           serviceFactory.getProjectService().getProjectById(projectid);
-           serviceFactory.getProjectcocService().getProjectcocById(cocid);
-        return serviceFactory.getGeographyService().getAllCocGeographys(cocid, startIndex, maxItems); 
-   }
-   
-   
    
 }
