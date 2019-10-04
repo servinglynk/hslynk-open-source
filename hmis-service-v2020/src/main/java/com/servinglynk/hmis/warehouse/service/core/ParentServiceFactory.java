@@ -22,7 +22,6 @@ import com.servinglynk.hmis.warehouse.service.ExitService;
 import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
 import com.servinglynk.hmis.warehouse.service.FunderService;
-import com.servinglynk.hmis.warehouse.service.GeographyService;
 import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
@@ -83,7 +82,6 @@ public interface ParentServiceFactory  extends BaseServiceFactory {
 	ExithousingassessmentService getExithousingassessmentService();
 	SearchService getSearchService();
 	BulkUploadErrorActivityService getBulkUploadErrorActivityService();
-	GeographyService getGeographyService();
 	ConnectionwithsoarService getConnectionwithsoarService();
 	VashExitReasonService getVashExitReasonService();
 	RHYAfterCareService getRHYAfterCareService();
