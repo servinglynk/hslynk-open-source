@@ -3,7 +3,6 @@ package com.servinglynk.hmis.warehouse.fileupload.common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
-import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.servinglynk.hmis.warehouse.fileupload.service.FileUploadDaoFactory;

@@ -89,7 +89,7 @@ public class ClientConverter {
 	    	client.setSourceSystemId(pClient.getSourceSystemId());
 	    if(pClient.getDedupClientId() !=null)
 	    	client.setDedupClientId(pClient.getDedupClientId());
-	    if(pClient.getParentId()!=null)
+	    if(pClient.getParentId()==null)
 	    	client.addLink(new ActionLink("history","/client/"+pClient.getId()+"/history"));
 
 //		copyBeanProperties(pClient,client);
