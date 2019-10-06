@@ -13,7 +13,7 @@
 		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
  	</scm>
 	<properties>
-			<fasterxml-version>2.9.9</fasterxml-version>
+			<fasterxml-version>2.10.0</fasterxml-version>
 	</properties>
 	<dependencies>
 

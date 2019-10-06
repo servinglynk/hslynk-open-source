@@ -12,7 +12,7 @@
 		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
 	</scm>
 	<properties>
-			<fasterxml-version>2.9.9</fasterxml-version>
+			<fasterxml-version>2.10.0</fasterxml-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<slf4j-api-version>1.7.2</slf4j-api-version>
 		<log4j-over-slf4j-version>1.7.2</log4j-over-slf4j-version>
