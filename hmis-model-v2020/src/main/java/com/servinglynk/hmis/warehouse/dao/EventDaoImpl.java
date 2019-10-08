@@ -132,5 +132,22 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 			      if(!entities.isEmpty()) return entities.get(0);
 			      return null;
 		   }
+		   
+		   @Override
+			public List<com.servinglynk.hmis.warehouse.model.v2020.Event> getAllEnrollmentEvents(
+					UUID enrollmentId, int startIndex, int maxItems) {
+				   DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Event.class);
+			       criteria.createAlias("enrollmentid", "enrollmentid");
+			       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+			       return (List<com.servinglynk.hmis.warehouse.model.v2020.Event>) findByCriteria(criteria,startIndex,maxItems);
+			}
+			
+			@Override
+			public long getEnrollmentEventsCount(UUID enrollmentId) {
+				   DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Event.class);
+			       criteria.createAlias("enrollmentid", "enrollmentid");
+			       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+			       return countRows(criteria);
+			}
 }
 

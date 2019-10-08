@@ -54,7 +54,6 @@ import com.servinglynk.hmis.warehouse.model.v2020.Funder;
 import com.servinglynk.hmis.warehouse.model.v2020.HealthStatus;
 import com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
-import com.servinglynk.hmis.warehouse.model.v2020.Housingassessmentdisposition;
 import com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources;
 import com.servinglynk.hmis.warehouse.model.v2020.Inventory;
 import com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance;
@@ -209,7 +208,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			if(StringUtils.equalsIgnoreCase("pexit", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> exitModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Exit.class, getProjectGroupCode(domain));
 				parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
-				parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain, exportModelMap, exitModelMap);
 				parentDaoFactory.getExitrhyDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 				parentDaoFactory.getVashExitReasonDao().hydrateStaging(domain, exportModelMap, exitModelMap);
 				parentDaoFactory.getRhyAfterCareDao().hydrateStaging(domain, exportModelMap, exitModelMap);
@@ -355,7 +353,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			if(StringUtils.equalsIgnoreCase("pexit", upload.getDescription()) || domain.isReloadAll()) {
 				Map<String, HmisBaseModel> exitModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Exit.class, getProjectGroupCode(domain));
 				parentDaoFactory.getExithousingassessmentDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
-				parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain, exportModelMap, exitModelMap);
 				parentDaoFactory.getExitrhyDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 				parentDaoFactory.getVashExitReasonDao().hydrateStaging(domain, exportModelMap, exitModelMap);
 				parentDaoFactory.getRhyAfterCareDao().hydrateStaging(domain, exportModelMap, exitModelMap);
@@ -482,7 +479,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		undoSoftDeleteByExportId(Funder.class.getName(), exportId);
 		undoSoftDeleteByExportId(Healthinsurance.class.getName(), exportId);
 		undoSoftDeleteByExportId(HealthStatus.class.getName(), exportId);
-		undoSoftDeleteByExportId(Housingassessmentdisposition.class.getName(), exportId);
 		undoSoftDeleteByExportId(Incomeandsources.class.getName(), exportId);
 		undoSoftDeleteByExportId(Inventory.class.getName(), exportId);
 		undoSoftDeleteByExportId(Medicalassistance.class.getName(), exportId);
@@ -512,7 +508,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		softDeleteByProjectGroupCode(Funder.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Healthinsurance.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(HealthStatus.class.getName(), projectGroupCode,exportId);
-		softDeleteByProjectGroupCode(Housingassessmentdisposition.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Incomeandsources.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Inventory.class.getName(), projectGroupCode,exportId);
 		softDeleteByProjectGroupCode(Medicalassistance.class.getName(), projectGroupCode,exportId);
@@ -834,7 +829,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getExitrhyDao().hydrateStaging(domain,exportModelMap,exitModelMap); // Done
 		parentDaoFactory.getVashExitReasonDao().hydrateStaging(domain, exportModelMap, exitModelMap);
 		parentDaoFactory.getRhyAfterCareDao().hydrateStaging(domain, exportModelMap, exitModelMap);
-		parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain, exportModelMap, exitModelMap);
 		logger.info("ExitChildren Process::: ExitChildren table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
 		upload.setStatus(UploadStatus.DISAB.getStatus());
 		upload.setExportId(domain.getExportId());
@@ -875,7 +869,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		startNanos = System.nanoTime();
 		parentDaoFactory.getDomesticviolenceDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 		parentDaoFactory.getEmploymentDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // DOne
-		parentDaoFactory.getHousingassessmentdispositionDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done
 
 		
 		parentDaoFactory.getEntryrhspDao().hydrateStaging(domain,exportModelMap,enrollmentModelMap); // Done

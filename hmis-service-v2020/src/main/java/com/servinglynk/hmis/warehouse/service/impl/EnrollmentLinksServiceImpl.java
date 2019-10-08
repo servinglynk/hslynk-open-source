@@ -37,7 +37,6 @@ import com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.model.v2020.Exitrhy;
 import com.servinglynk.hmis.warehouse.model.v2020.HealthStatus;
 import com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance;
-import com.servinglynk.hmis.warehouse.model.v2020.Housingassessmentdisposition;
 import com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources;
 import com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance;
 import com.servinglynk.hmis.warehouse.model.v2020.Moveindate;
@@ -1150,8 +1149,6 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 								actionLink.setExitHousingAssessments(this.getExitHousingAssessmentsLinks(clientId, enrollmentId, id));
 								//actionLink.setExitPaths(this.getExitPathsLinks(clientId, enrollmentId, entity.getId()));
 								actionLink.setExitrhys(this.getExitrhysLinks(clientId, enrollmentId, id));
-								actionLink.setHousingAssessmentDispositions(this.getHousingAssessmentDispositionsLinks(clientId, enrollmentId, id));
-								
 								if(actionLink.getExitHousingAssessments().isEmpty())  actionLink.setExitHousingAssessments(null);
 								if(actionLink.getExitPaths().isEmpty()) actionLink.setExitPaths(null);
 								if(actionLink.getExitrhys().isEmpty()) actionLink.setExitrhys(null);
@@ -1212,48 +1209,6 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			
 	return dateLinks;
 
-	}
-	
-	public Map<String,Map<String,List<ActionLinks>>> getHousingAssessmentDispositionsLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
-		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<Housingassessmentdisposition> data = daoFactory.getHousingassessmentdispositionDao().getAllExitHousingAssessmentDispositions(exitId, null,null);
-		for(Housingassessmentdisposition entity : data) {
-			LocalDateTime date = entity.getDateUpdated();
-			
-			String collectionStage = "unspecified_stage";
-
-
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
-				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}	
-		}
-		
-		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
-			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
-			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
-
-				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
-				List<ActionLinks> links = new ArrayList<>();
-				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
-					 
-
-					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGroupBy(stageLinks.getKey());
-					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/housingassessmentdispositions/"+id));	
-					  }
-					  links.add(actionLinks);
-					  linksMap.put(stageLinks.getKey(), links);
-				}
-				stagesLinkMap.put(dateInfoLinks.getKey(), links);
-			}
-			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
-		}
-			
-	return dateLinks;
 	}
 	
 	//API not implemented
