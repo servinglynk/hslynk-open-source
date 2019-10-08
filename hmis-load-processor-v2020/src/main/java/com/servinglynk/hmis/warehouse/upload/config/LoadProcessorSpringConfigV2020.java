@@ -23,7 +23,7 @@ import com.servinglynk.hmis.warehouse.upload.service.ReRunWorker;
 @Configuration
 @EnableScheduling
 @EnableTransactionManagement
-@Import({DatabaseConfig.class,StandAloneDBPoolConfig.class})
+@Import({com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig.class,DatabaseConfig.class,StandAloneDBPoolConfig.class})
 @ComponentScan(value={"com.servinglynk.hmis.warehouse.upload.service"})
 
 public class LoadProcessorSpringConfigV2020 {

@@ -36,8 +36,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	// private HmisTypeDao
 	// private HmisUserDao
 	@Autowired
-	private HousingassessmentdispositionDao housingassessmentdispositionDao;
-	@Autowired
 	private IncomeandsourcesDao incomeandsourcesDao;
 	@Autowired
 	private InventoryDao inventoryDao;
@@ -317,22 +315,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	 */
 	public void setHealthStatusDao(HealthStatusDao healthStatusDao) {
 		this.healthStatusDao = healthStatusDao;
-	}
-
-	/**
-	 * @return the housingassessmentdispositionDao
-	 */
-	public HousingassessmentdispositionDao getHousingassessmentdispositionDao() {
-		return housingassessmentdispositionDao;
-	}
-
-	/**
-	 * @param housingassessmentdispositionDao
-	 *            the housingassessmentdispositionDao to set
-	 */
-	public void setHousingassessmentdispositionDao(
-			HousingassessmentdispositionDao housingassessmentdispositionDao) {
-		this.housingassessmentdispositionDao = housingassessmentdispositionDao;
 	}
 
 	/**

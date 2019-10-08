@@ -61,8 +61,6 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable ,Enro
 	private Set<Exitrhy> exitrhies = new HashSet<Exitrhy>();
 	/** Field mapping. */
 	private Set<VashExitReason> vasExitReasons = new HashSet<VashExitReason>();
-	/** Field mapping. */
-	private Set<Housingassessmentdisposition> housingassessmentdispositions = new HashSet<Housingassessmentdisposition>();
 
 	/** Field mapping. */
 	private Set<RHYAfterCare> rhyAfterCares = new HashSet<RHYAfterCare>();
@@ -253,38 +251,6 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable ,Enro
 		this.vasExitReasons.add(vasExitReason);
 	}
 
-
-	/**
-	 * Return the value associated with the column: housingassessmentdisposition.
-	 * @return A Set&lt;Housingassessmentdisposition&gt; object (this.housingassessmentdisposition)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "exitid"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Housingassessmentdisposition> getHousingassessmentdispositions() {
-		return this.housingassessmentdispositions;
-
-	}
-
-	/**
-	 * Adds a bi-directional link of type Housingassessmentdisposition to the housingassessmentdispositions set.
-	 * @param housingassessmentdisposition item to add
-	 */
-	public void addHousingassessmentdisposition(Housingassessmentdisposition housingassessmentdisposition) {
-		housingassessmentdisposition.setExitid(this);
-		this.housingassessmentdispositions.add(housingassessmentdisposition);
-	}
-
-
-	 /**
-	 * Set the value related to the column: housingassessmentdisposition.
-	 * @param housingassessmentdisposition the housingassessmentdisposition value you wish to set
-	 */
-	public void setHousingassessmentdispositions(final Set<Housingassessmentdisposition> housingassessmentdisposition) {
-		this.housingassessmentdispositions = housingassessmentdisposition;
-	}
-
 	 /**
 	 * Return the value associated with the column: id.
 	 * @return A java.util.UUID object (this.id)
@@ -422,9 +388,6 @@ public class Exit extends HmisBaseModel implements Cloneable, Serializable ,Enro
 			copy.getExitrhies().addAll(this.getExitrhies());
 		}
 		copy.setExport(this.getExport());
-		if (this.getHousingassessmentdispositions() != null) {
-			copy.getHousingassessmentdispositions().addAll(this.getHousingassessmentdispositions());
-		}
 		copy.setId(this.getId());
 		copy.setOtherdestination(this.getOtherdestination());
 		copy.setParentId(this.getParentId());

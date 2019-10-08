@@ -141,5 +141,22 @@ public class AssessmentQuestionsDaoImpl extends ParentDaoImpl implements Assessm
 			      if(!entities.isEmpty()) return entities.get(0);
 			      return null;
 		   }
+		   
+			@Override
+			public List<com.servinglynk.hmis.warehouse.model.v2020.AssessmentQuestions> getAllEnrollmentAssessmentQuestions(
+					UUID enrollmentId, int startIndex, int maxItems) {
+				   DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.AssessmentQuestions.class);
+			       criteria.createAlias("enrollmentid", "enrollmentid");
+			       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+			       return (List<com.servinglynk.hmis.warehouse.model.v2020.AssessmentQuestions>) findByCriteria(criteria,startIndex,maxItems);
+			}
+			
+			@Override
+			public long getEnrollmentAssessmentQuestionsCount(UUID enrollmentId) {
+				   DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.AssessmentQuestions.class);
+			       criteria.createAlias("enrollmentid", "enrollmentid");
+			       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
+			       return countRows(criteria);
+			}
 }
 
