@@ -7,10 +7,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactory;
 import com.servinglynk.hmis.warehouse.service.core.ParentServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.impl.AffiliationServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.AssessmentQuestionsServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.AssessmentResultsServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.AssessmentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.BulkUploadErrorActivityServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ClientServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ConnectionwithsoarServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ContactServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.CurrentLivingSituationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DateofengagementServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DisabilitiesServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.DomesticviolenceServiceImpl;
@@ -23,6 +27,7 @@ import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImplV2;
 import com.servinglynk.hmis.warehouse.service.impl.EntryrhspServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EntryrhyServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EntryssvfServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EventServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExithousingassessmentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.ExitrhyServiceImpl;
@@ -30,7 +35,6 @@ import com.servinglynk.hmis.warehouse.service.impl.FunderServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HMISTypeServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthinsuranceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthstatusServiceImpl;
-import com.servinglynk.hmis.warehouse.service.impl.HousingAssessmentDispositionServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.IncomeAndSourceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.InventoryServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.MedicalassistanceServiceImpl;
@@ -162,10 +166,6 @@ public class ServiceConfig  {
 		 return new ExitServiceImpl();
 	 }
 	 
-	 @Bean
-	 public HousingAssessmentDispositionServiceImpl housingAssessmentDispositionService(){
-		 return new HousingAssessmentDispositionServiceImpl();
-	 }
 	 
 	 @Bean
 	 public VeteranInfoServiceImpl veteranInfoService(){
@@ -261,4 +261,31 @@ public class ServiceConfig  {
 	 public EnrollmentLinksServiceImpl enrollmentLinksService() {
 		 return new EnrollmentLinksServiceImpl();
 	 }
+	 
+	 @Bean
+	 public AssessmentServiceImpl assessmentService() {
+		 return new AssessmentServiceImpl();
+	 }
+	 
+	 @Bean
+	 public AssessmentQuestionsServiceImpl assessmentQuestionsService() {
+		 return new AssessmentQuestionsServiceImpl();
+	 }
+	 
+	 @Bean
+	 public AssessmentResultsServiceImpl assessmentResultsService() {
+		 return new AssessmentResultsServiceImpl();
+	 }
+	 
+	 @Bean
+	 public EventServiceImpl eventService() {
+		 return new EventServiceImpl();
+	 }
+	 
+	 
+	 @Bean
+	 public CurrentLivingSituationServiceImpl currentLivingSituationService() {
+		 return new CurrentLivingSituationServiceImpl();
+	 }
+	 
 }

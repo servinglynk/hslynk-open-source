@@ -6,10 +6,14 @@ import org.springframework.stereotype.Component;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.service.AffiliationService;
+import com.servinglynk.hmis.warehouse.service.AssessmentQuestionService;
+import com.servinglynk.hmis.warehouse.service.AssessmentResultService;
+import com.servinglynk.hmis.warehouse.service.AssessmentService;
 import com.servinglynk.hmis.warehouse.service.BulkUploadErrorActivityService;
 import com.servinglynk.hmis.warehouse.service.ClientService;
 import com.servinglynk.hmis.warehouse.service.ConnectionwithsoarService;
 import com.servinglynk.hmis.warehouse.service.ContactService;
+import com.servinglynk.hmis.warehouse.service.CurrentLivingSituationService;
 import com.servinglynk.hmis.warehouse.service.DateofengagementService;
 import com.servinglynk.hmis.warehouse.service.DisabilitiesService;
 import com.servinglynk.hmis.warehouse.service.DomesticviolenceService;
@@ -21,6 +25,7 @@ import com.servinglynk.hmis.warehouse.service.EnrollmentServiceV2;
 import com.servinglynk.hmis.warehouse.service.EntryrhspService;
 import com.servinglynk.hmis.warehouse.service.EntryrhyService;
 import com.servinglynk.hmis.warehouse.service.EntryssvfService;
+import com.servinglynk.hmis.warehouse.service.EventService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
 import com.servinglynk.hmis.warehouse.service.ExithousingassessmentService;
 import com.servinglynk.hmis.warehouse.service.ExitrhyService;
@@ -28,7 +33,6 @@ import com.servinglynk.hmis.warehouse.service.FunderService;
 import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthinsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthstatusService;
-import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
 import com.servinglynk.hmis.warehouse.service.IncomeAndSourceService;
 import com.servinglynk.hmis.warehouse.service.InventoryService;
 import com.servinglynk.hmis.warehouse.service.MedicalassistanceService;
@@ -65,8 +69,14 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	@Autowired public RhybcpstatusService rhybcpstatusService;
 	@Autowired public ProjectService projectService;
 	@Autowired public ExitService exitService;
-	@Autowired public HousingAssessmentDispositionService housingAssessmentDispositionService;
 	@Autowired public VeteranInfoService veteranInfoService;
+	
+	@Autowired public AssessmentService assessmentService;
+	@Autowired public AssessmentQuestionService assessmentQuestionService;
+	@Autowired public AssessmentResultService assessmentResultService;
+	@Autowired public EventService eventService;
+	@Autowired public CurrentLivingSituationService currentLivingSituationService;
+	
 	@Autowired public IncomeAndSourceService incomeAndSourceService;
 	@Autowired public ExitrhyService exitrhyService;
 	@Autowired public EntryrhspService entryrhspService;
@@ -256,15 +266,6 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 		this.exitService = exitService;
 	}
 
-	public HousingAssessmentDispositionService getHousingAssessmentDispositionService() {
-		return housingAssessmentDispositionService;
-	}
-
-	public void setHousingAssessmentDispositionService(
-			HousingAssessmentDispositionService housingAssessmentDispositionService) {
-		this.housingAssessmentDispositionService = housingAssessmentDispositionService;
-	}
-
 	public VeteranInfoService getVeteranInfoService() {
 		return veteranInfoService;
 	}
@@ -445,4 +446,89 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 	public void setHmisTypeService(HMISTypeService hmisTypeService) {
 		this.hmisTypeService = hmisTypeService;
 	}
+
+	/**
+	 * @return the assessmentService
+	 */
+	public AssessmentService getAssessmentService() {
+		return assessmentService;
+	}
+
+	/**
+	 * @param assessmentService the assessmentService to set
+	 */
+	public void setAssessmentService(AssessmentService assessmentService) {
+		this.assessmentService = assessmentService;
+	}
+
+	/**
+	 * @return the assessmentQuestionService
+	 */
+	public AssessmentQuestionService getAssessmentQuestionService() {
+		return assessmentQuestionService;
+	}
+
+	/**
+	 * @param assessmentQuestionService the assessmentQuestionService to set
+	 */
+	public void setAssessmentQuestionService(AssessmentQuestionService assessmentQuestionService) {
+		this.assessmentQuestionService = assessmentQuestionService;
+	}
+
+	/**
+	 * @return the assessmentResultService
+	 */
+	public AssessmentResultService getAssessmentResultService() {
+		return assessmentResultService;
+	}
+
+	/**
+	 * @param assessmentResultService the assessmentResultService to set
+	 */
+	public void setAssessmentResultService(AssessmentResultService assessmentResultService) {
+		this.assessmentResultService = assessmentResultService;
+	}
+
+	/**
+	 * @return the eventService
+	 */
+	public EventService getEventService() {
+		return eventService;
+	}
+
+	/**
+	 * @param eventService the eventService to set
+	 */
+	public void setEventService(EventService eventService) {
+		this.eventService = eventService;
+	}
+
+	/**
+	 * @return the currentLivingSituationService
+	 */
+	public CurrentLivingSituationService getCurrentLivingSituationService() {
+		return currentLivingSituationService;
+	}
+
+	/**
+	 * @param currentLivingSituationService the currentLivingSituationService to set
+	 */
+	public void setCurrentLivingSituationService(CurrentLivingSituationService currentLivingSituationService) {
+		this.currentLivingSituationService = currentLivingSituationService;
+	}
+
+	/**
+	 * @return the rHYAfterCareService
+	 */
+	public RHYAfterCareService getrHYAfterCareService() {
+		return rHYAfterCareService;
+	}
+
+	/**
+	 * @param rHYAfterCareService the rHYAfterCareService to set
+	 */
+	public void setrHYAfterCareService(RHYAfterCareService rHYAfterCareService) {
+		this.rHYAfterCareService = rHYAfterCareService;
+	}
+	
 }

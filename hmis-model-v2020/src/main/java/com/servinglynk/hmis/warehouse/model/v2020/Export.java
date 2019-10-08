@@ -125,9 +125,6 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 	private Set<HealthStatus> healthStatuses = new HashSet<HealthStatus>();
 
 	/** Field mapping. */
-	private Set<Housingassessmentdisposition> housingassessmentdispositions = new HashSet<Housingassessmentdisposition>();
-
-	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
 	private Set<Incomeandsources> incomeandsourceses = new HashSet<Incomeandsources>();
@@ -921,36 +918,6 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 		this.healthStatuses = healthStatus;
 	}
 
-	 /**
-	 * Return the value associated with the column: housingassessmentdisposition.
-	 * @return A Set&lt;Housingassessmentdisposition&gt; object (this.housingassessmentdisposition)
-	 */
- 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "export"  )
- 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@Basic( optional = false )
-	@Column( nullable = false  )
-	public Set<Housingassessmentdisposition> getHousingassessmentdispositions() {
-		return this.housingassessmentdispositions;
-
-	}
-
-	/**
-	 * Adds a bi-directional link of type Housingassessmentdisposition to the housingassessmentdispositions set.
-	 * @param housingassessmentdisposition item to add
-	 */
-	public void addHousingassessmentdisposition(Housingassessmentdisposition housingassessmentdisposition) {
-		housingassessmentdisposition.setExport(this);
-		this.housingassessmentdispositions.add(housingassessmentdisposition);
-	}
-
-
-	 /**
-	 * Set the value related to the column: housingassessmentdisposition.
-	 * @param housingassessmentdisposition the housingassessmentdisposition value you wish to set
-	 */
-	public void setHousingassessmentdispositions(final Set<Housingassessmentdisposition> housingassessmentdisposition) {
-		this.housingassessmentdispositions = housingassessmentdisposition;
-	}
 
 	 /**
 	 * Return the value associated with the column: id.
@@ -1532,9 +1499,6 @@ public class Export extends HmisBaseModel implements Cloneable, Serializable {
 		}
 		if (this.getHealthStatuses() != null) {
 			copy.getHealthStatuses().addAll(this.getHealthStatuses());
-		}
-		if (this.getHousingassessmentdispositions() != null) {
-			copy.getHousingassessmentdispositions().addAll(this.getHousingassessmentdispositions());
 		}
 		copy.setId(this.getId());
 		if (this.getIncomeandsourceses() != null) {

@@ -20,7 +20,6 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	HealthinsuranceDao getHealthinsuranceDao();
 	HealthStatusDao getHealthStatusDao();
 	//HmisTypeDa getHmisTypeDao();
-	HousingassessmentdispositionDao getHousingassessmentdispositionDao();
 	IncomeandsourcesDao getIncomeandsourcesDao();
 	InventoryDao getInventoryDao();
 	MedicalassistanceDao getMedicalassistanceDao();
