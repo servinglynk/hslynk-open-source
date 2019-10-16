@@ -36,7 +36,7 @@ public class HistoryServiceImpl extends ServiceBase implements HistoryService {
 		SecurityContext context =  SecurityContextHolder.getContext();
 		Authentication authentication =  context.getAuthentication();
 		LoggedInUser loggedInUser = null;
-		if(authentication.getPrincipal()!=null){
+		if(authentication!=null && authentication.getPrincipal()!=null){
 			loggedInUser = (LoggedInUser) authentication.getPrincipal();
 		}else {
 			throw new AccessDeniedException("User authentication required");
