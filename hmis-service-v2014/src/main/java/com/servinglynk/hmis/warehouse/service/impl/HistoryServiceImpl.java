@@ -44,7 +44,7 @@ public class HistoryServiceImpl extends ServiceBase implements HistoryService {
 		
 		List returnData = new ArrayList();
 		List<?> data =	daoFactory.getHistoryDao().getEntityHistory(entityId, mapping.getEntityName(), loggedInUser.getProjectGroup(), startIndex, maxItems);
-		long count =	daoFactory.getHistoryDao().getEntityHistoryCount(entityId, mapping.getEntityName(), "MO0010");
+		long count =	daoFactory.getHistoryDao().getEntityHistoryCount(entityId, mapping.getEntityName(), loggedInUser.getProjectGroup());
 
 		for(Object entity : data) {
 				returnData.add(MethodUtils.invokeExactStaticMethod(Class.forName(mapping.getConverterClass()), "entityToModel", ConvertUtils.convert(entity, Class.forName(mapping.getEntityName()))));

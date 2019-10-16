@@ -17,7 +17,7 @@ import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 public class HistoryController extends ControllerBase {
 
 	@RequestMapping(value="/**/history",method=RequestMethod.GET)
-	  @APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=false, checkTrustedApp=true)
+	  @APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=true, checkTrustedApp=true)
 	public void getHistory(HttpServletRequest request,HttpServletResponse response,
 			@RequestParam(value="startIndex", required=false,defaultValue="0") Integer startIndex, 
             @RequestParam(value="maxItems", required=false,defaultValue="30") Integer maxItems) throws Exception{
