@@ -60,16 +60,33 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					inventoryModel = getModelObject(domain, inventory,data,modelMap);
 					inventoryModel.setAvailabilty(InventoryAvailabiltyEnum.lookupEnum((inventory.getAvailability())));
 					inventoryModel.setBedtype(InventoryBedtypeEnum.lookupEnum((inventory.getBedType())));
-					inventoryModel.setChBedInventory(inventory.getChBedInventory());
-					inventoryModel.setHmisparticipatingbeds(inventory.getHMISParticipatingBeds() );
 					inventoryModel.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum((inventory.getHouseholdType())));
 					inventoryModel.setInformationdate(BasicDataGenerator.getLocalDateTime(inventory.getInformationDate()));
 					inventoryModel.setInventoryenddate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryEndDate()));
 					inventoryModel.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryStartDate()));
 					inventoryModel.setUnitinventory(inventory.getUnitInventory());
-					inventoryModel.setVetBedInventory(inventory.getVetBedInventory());
-					inventoryModel.setYouthBedInventory(inventory.getYouthBedInventory());
+					
+					if(inventory.getCHVetBedInventory() != null)
+						inventoryModel.setChVetBedInventory(Integer.parseInt(inventory.getCHVetBedInventory()));
+					if(inventory.getVetBedInventory() != null)
+						inventoryModel.setVetBedInventory(Integer.parseInt(inventory.getVetBedInventory()));
+					if(inventory.getYouthVetBedInventory() !=  null)
+						inventoryModel.setYouthVetBedInventory(Integer.parseInt(inventory.getYouthVetBedInventory()));
+					if(inventory.getCHYouthBedInventory() !=  null)
+						inventoryModel.setChYouthBedInventory(Integer.parseInt(inventory.getCHYouthBedInventory()));
+					if(inventory.getYouthBedInventory() != null)
+						inventoryModel.setYouthBedInventory(Integer.parseInt(inventory.getYouthBedInventory()));
+					if(inventory.getChBedInventory() != null)
+						inventoryModel.setChBedInventory(Integer.parseInt(inventory.getChBedInventory()));
+					if(inventory.getBedInventory() != null)
+						inventoryModel.setBedInventory(Integer.parseInt(inventory.getBedInventory()));
+					if(inventory.getOtherBedInventory() != null)
+						inventoryModel.setOtherBedInventory(Integer.parseInt(inventory.getOtherBedInventory()));
+				
 					inventoryModel.setDeleted(false);
+					
+					
+					
 					/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
 				entryRhspModel.setEnrollmentid(enrollmentModel);*/
 					inventoryModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateCreated()));

@@ -69,6 +69,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 					entryRhyModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhys.getDateCreated()));
 					entryRhyModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhys.getDateUpdated()));
 					entryRhyModel.setDeleted(false);
+					entryRhyModel.setSexualOrientationOther(entryRhys.getSexualOrientationOther());
 					entryRhyModel.setFormerlyWardChildWelfrForestCare(EntryRHYFormerWardChildWelfareEnum.lookupEnum((entryRhys.getFormerWardChildWelfare())));
 					entryRhyModel.setFormerlyWardOfJuvenileJustice(EntryRHYFormerWardJuvenileJusticeEnum.lookupEnum((entryRhys.getFormerWardJuvenileJustice())));
 //					entryRhyModel.setHealthIssuesFamilyMbr(EntryRHYHealthIssuesFamEnum.lookupEnum((entryRhys.getHealthIssuesFam())));

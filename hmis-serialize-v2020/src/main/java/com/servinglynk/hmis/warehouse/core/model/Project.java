@@ -17,6 +17,7 @@ public class Project extends ClientModel {
     private Integer continuumProject;
     private Integer projectType;
     private Integer residentialAffiliation;
+    private Integer hmisParticipatingProject;
     private Integer targetPopulation;
     private Integer trackingMethod;
     private UUID organizationId;
@@ -28,7 +29,7 @@ public class Project extends ClientModel {
     @JsonDeserialize(using=JsonDateDeserializer.class)
     private LocalDateTime operatingEndDate;
     private Integer housingType;
-    private Integer victimServicesProvider;
+ 
 	private String source;
 	private String sourceSystemId;
     
@@ -71,6 +72,19 @@ public class Project extends ClientModel {
 
 	public void setProjectCommonName(String projectCommonName) {
 		this.projectCommonName = projectCommonName;
+	}
+	/**
+	 * @return the hmisParticipatingProject
+	 */
+	public Integer getHmisParticipatingProject() {
+		return hmisParticipatingProject;
+	}
+
+	/**
+	 * @param hmisParticipatingProject the hmisParticipatingProject to set
+	 */
+	public void setHmisParticipatingProject(Integer hmisParticipatingProject) {
+		this.hmisParticipatingProject = hmisParticipatingProject;
 	}
 
 	public Integer getContinuumProject() {
@@ -144,15 +158,6 @@ public class Project extends ClientModel {
 	public void setHousingType(Integer housingType) {
 		this.housingType = housingType;
 	}
-
-	public Integer getVictimServicesProvider() {
-		return victimServicesProvider;
-	}
-
-	public void setVictimServicesProvider(Integer victimServicesProvider) {
-		this.victimServicesProvider = victimServicesProvider;
-	}
-
 	public String getSource() {
 		return source;
 	}

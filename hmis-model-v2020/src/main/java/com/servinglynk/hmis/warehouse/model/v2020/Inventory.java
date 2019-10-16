@@ -3,9 +3,7 @@ package com.servinglynk.hmis.warehouse.model.v2020;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.WeakHashMap;
 
 import javax.persistence.Basic;
@@ -16,7 +14,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -49,7 +46,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	/** hashCode temporary storage. */
 	private volatile java.util.UUID hashCode;
 
-
 	/** Field mapping. */
 	private InventoryAvailabiltyEnum availabilty;
 	/** Field mapping. */
@@ -62,8 +58,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	private Coc coc;
 	/** Field mapping. */
 	private Project projectid;
-	/** Field mapping. */
-	private Integer hmisparticipatingbeds;
 	/** Field mapping. */
 	private InventoryHouseholdtypeEnum householdtype;
 	/** Field mapping. */
@@ -81,6 +75,10 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 	private Integer vetBedInventory;
 	/** Field mapping. */
 	private Integer youthBedInventory;
+	private Integer chVetBedInventory;
+	private Integer youthVetBedInventory;
+	private Integer chYouthBedInventory;
+	private Integer otherBedInventory;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -109,6 +107,70 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 
 
 	 	/**
+	 * @return the chVetBedInventory
+	 */
+	@Basic( optional = true )
+	@Column( name = "ch_vet_bed_inventory"  )
+	public Integer getChVetBedInventory() {
+		return chVetBedInventory;
+	}
+
+	/**
+	 * @param chVetBedInventory the chVetBedInventory to set
+	 */
+	public void setChVetBedInventory(Integer chVetBedInventory) {
+		this.chVetBedInventory = chVetBedInventory;
+	}
+
+	/**
+	 * @return the youthVetBedInventory
+	 */
+	@Basic( optional = true )
+	@Column( name = "youth_vet_bed_inventory"  )
+	public Integer getYouthVetBedInventory() {
+		return youthVetBedInventory;
+	}
+
+	/**
+	 * @param youthVetBedInventory the youthVetBedInventory to set
+	 */
+	public void setYouthVetBedInventory(Integer youthVetBedInventory) {
+		this.youthVetBedInventory = youthVetBedInventory;
+	}
+
+	/**
+	 * @return the chYouthBedInventory
+	 */
+	@Basic( optional = true )
+	@Column( name = "ch_youth_bed_inventory"  )
+	public Integer getChYouthBedInventory() {
+		return chYouthBedInventory;
+	}
+
+	/**
+	 * @param chYouthBedInventory the chYouthBedInventory to set
+	 */
+	public void setChYouthBedInventory(Integer chYouthBedInventory) {
+		this.chYouthBedInventory = chYouthBedInventory;
+	}
+
+	/**
+	 * @return the otherBedInventory
+	 */
+	@Basic( optional = true )
+	@Column( name = "other_bed_inventory"  )
+	public Integer getOtherBedInventory() {
+		return otherBedInventory;
+	}
+
+	/**
+	 * @param otherBedInventory the otherBedInventory to set
+	 */
+	public void setOtherBedInventory(Integer otherBedInventory) {
+		this.otherBedInventory = otherBedInventory;
+	}
+
+		/**
 		 * Return the value associated with the column: availabilty.
 		 * @return A InventoryAvailabiltyEnum object (this.availabilty)
 		 */
@@ -262,26 +324,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 		this.projectid = projectid;
 	}
 
-
-
-	 /**
-	 * Return the value associated with the column: hmisparticipatingbeds.
-	 * @return A Integer object (this.hmisparticipatingbeds)
-	 */
-	public Integer getHmisparticipatingbeds() {
-		return this.hmisparticipatingbeds;
-
-	}
-
-
-
-	 /**
-	 * Set the value related to the column: hmisparticipatingbeds.
-	 * @param hmisparticipatingbeds the hmisparticipatingbeds value you wish to set
-	 */
-	public void setHmisparticipatingbeds(final Integer hmisparticipatingbeds) {
-		this.hmisparticipatingbeds = hmisparticipatingbeds;
-	}
 
 	/**
 	 * Return the value associated with the column: householdtype.
@@ -500,7 +542,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 		copy.setDateUpdatedFromSource(this.getDateUpdatedFromSource());
 		copy.setDeleted(this.isDeleted());
 		copy.setExport(this.getExport());
-		copy.setHmisparticipatingbeds(this.getHmisparticipatingbeds());
 		copy.setHouseholdtype(this.getHouseholdtype());
 		copy.setId(this.getId());
 		copy.setInformationdate(this.getInformationdate());
@@ -535,7 +576,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 		sb.append("dateUpdated: " + this.getDateUpdated() + ", ");
 		sb.append("dateUpdatedFromSource: " + this.getDateUpdatedFromSource() + ", ");
 		sb.append("deleted: " + this.isDeleted() + ", ");
-		sb.append("hmisparticipatingbeds: " + this.getHmisparticipatingbeds() + ", ");
 		sb.append("householdtype: " + this.getHouseholdtype() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("informationdate: " + this.getInformationdate() + ", ");
@@ -603,7 +643,6 @@ public class Inventory extends HmisBaseModel implements Cloneable, Serializable 
 		result = result && (((getDateUpdated() == null) && (that.getDateUpdated() == null)) || (getDateUpdated() != null && getDateUpdated().equals(that.getDateUpdated())));
 		result = result && (((getDateUpdatedFromSource() == null) && (that.getDateUpdatedFromSource() == null)) || (getDateUpdatedFromSource() != null && getDateUpdatedFromSource().equals(that.getDateUpdatedFromSource())));
 		result = result && (((getExport() == null) && (that.getExport() == null)) || (getExport() != null && getExport().getId().equals(that.getExport().getId())));
-		result = result && (((getHmisparticipatingbeds() == null) && (that.getHmisparticipatingbeds() == null)) || (getHmisparticipatingbeds() != null && getHmisparticipatingbeds().equals(that.getHmisparticipatingbeds())));
 		result = result && (((getHouseholdtype() == null) && (that.getHouseholdtype() == null)) || (getHouseholdtype() != null && getHouseholdtype().equals(that.getHouseholdtype())));
 		result = result && (((getInformationdate() == null) && (that.getInformationdate() == null)) || (getInformationdate() != null && getInformationdate().equals(that.getInformationdate())));
 		result = result && (((getInventoryenddate() == null) && (that.getInventoryenddate() == null)) || (getInventoryenddate() != null && getInventoryenddate().equals(that.getInventoryenddate())));

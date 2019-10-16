@@ -14,6 +14,8 @@ public class Entryrhy extends ClientModel{
       private UUID entryrhyId;
 
       private Integer sexualOrientation;
+      
+      private Integer sexualOrientationOther;
 
       private Integer formerlyWardChildWelfrForestCare;
 
@@ -61,9 +63,19 @@ public class Entryrhy extends ClientModel{
 	public void setDataCollectionStage(Integer dataCollectionStage) {
 		this.dataCollectionStage = dataCollectionStage;
 }
-
-
-      public UUID getEntryrhyId(){
+      /**
+	 * @return the sexualOrientationOther
+	 */
+	public Integer getSexualOrientationOther() {
+		return sexualOrientationOther;
+	}
+	/**
+	 * @param sexualOrientationOther the sexualOrientationOther to set
+	 */
+	public void setSexualOrientationOther(Integer sexualOrientationOther) {
+		this.sexualOrientationOther = sexualOrientationOther;
+	}
+	public UUID getEntryrhyId(){
           return entryrhyId;
       }
       public void setEntryrhyId(UUID entryrhyId){

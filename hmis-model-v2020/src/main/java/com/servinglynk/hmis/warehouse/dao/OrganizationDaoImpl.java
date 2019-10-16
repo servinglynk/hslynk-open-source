@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Organization;
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.base.OrganizationEntity;
 import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
@@ -52,7 +53,8 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 com.servinglynk.hmis.warehouse.model.v2020.Organization organizationModel = null;
 				 try {
 					 organizationModel = getModelObject(domain, organization,data,modelMap);
-//					 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
+					 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
+					 organizationModel.setVictimServiceProvider(NoYesEnum.lookupEnum(organization.getVictimServicesProvider()));
 					 organizationModel.setOrganizationname(organization.getOrganizationName());
 					 organizationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateCreated()));
 					 organizationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));

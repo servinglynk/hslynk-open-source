@@ -31,8 +31,8 @@ public class ProjectConverter extends BaseConverter {
     	   entity.setOperatingStartDate(model.getOperatingStartDate());
        if(model.getHousingType() !=null)
     	   entity.setHousingType(ProjectHousingTypeEnum.lookupEnum(model.getHousingType().toString()));
-       if(model.getVictimServicesProvider() !=null) 
-    	   entity.setVictimServiceProvider(NoYesEnum.lookupEnum(model.getVictimServicesProvider().toString()));
+       if(model.getHmisParticipatingProject() !=null) 
+    	   entity.setHmisParticipatingProject(NoYesEnum.lookupEnum(model.getHmisParticipatingProject().toString()));
        if(model.getSourceSystemId()!=null)
     	   entity.setSourceSystemId(model.getSourceSystemId());
        entity.setSource("2020");

@@ -12,7 +12,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
@@ -72,7 +71,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setResidentialaffiliation(ProjectResidentialaffiliationEnum.lookupEnum(project.getResidentialAffiliation()));
 					projectModel.setOperatingStartDate(BasicDataGenerator.getLocalDateTime(project.getOperatingStartDate()));
 					projectModel.setOperatingEndDate(BasicDataGenerator.getLocalDateTime(project.getOperatingEndDate()));
-					projectModel.setVictimServiceProvider(NoYesEnum.lookupEnum(project.getVictimServicesProvider()));
+					projectModel.setHmisParticipatingProject(NoYesEnum.lookupEnum(project.getHmisParticipatingProject()));
 					projectModel.setHousingType(ProjectHousingTypeEnum.lookupEnum(project.getHousingType()));
 					projectModel.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(project.getTargetPopulation()));
 					projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(project.getTrackingMethod()));

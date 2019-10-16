@@ -34,6 +34,9 @@ public class EntryrhyServiceImpl extends ServiceBase implements EntryrhyService 
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pEntryrhy.setEnrollmentid(pEnrollment);
        pEntryrhy.setAlcoholDrugAbuseFamilyMbr(EntryRHYAlcoholDrugAbuseFamEnum.lookupEnum(String.valueOf(entryrhy.getAlcoholDrugAbuseFamilyMbr())));
+      if(entryrhy.getSexualOrientationOther() != null)
+       pEntryrhy.setSexualOrientationOther(String.valueOf(entryrhy.getSexualOrientationOther()));
+       
 //       pEntryrhy.setAskedOfForcedToExchangeForSex(EntryRHYAskedOrForcedToExchangeForSexEnum.lookupEnum(String.valueOf(entryrhy.getAskedOfForcedToExchangeForSex())));
 //       pEntryrhy.setAskedOfForcedToExchangeForSexPastThreeMonths(EntryRHYAskedOrForcedToExchangeForSexPastThreeMonthsEnum.lookupEnum(String.valueOf(entryrhy.getAskedOfForcedToExchangeForSexPastThreeMonths())));
 //       pEntryrhy.setCoercedToContinueWork(EntryRHYCoercedToContinueWorkEnum.lookupEnum(String.valueOf(entryrhy.getCoercedToContinueWork())));

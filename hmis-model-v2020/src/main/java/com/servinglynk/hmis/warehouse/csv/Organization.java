@@ -8,16 +8,18 @@ public class Organization {
 	@MapToColumn(column=1)
 	private String OrganizationName;
 	@MapToColumn(column=2)
-	private String OrganizationCommonName;
+	private String VictimServicesProvider;
 	@MapToColumn(column=3)
-	private String DateCreated;
+	private String OrganizationCommonName;
 	@MapToColumn(column=4)
-	private String DateUpdated;
+	private String DateCreated;
 	@MapToColumn(column=5)
-	private String UserID;
+	private String DateUpdated;
 	@MapToColumn(column=6)
-	private String DateDeleted;
+	private String UserID;
 	@MapToColumn(column=7)
+	private String DateDeleted;
+	@MapToColumn(column=8)
 	private String ExportID;
 	public String getOrganizationID() {
 		return OrganizationID;
@@ -33,6 +35,18 @@ public class Organization {
 	}
 	public String getOrganizationCommonName() {
 		return OrganizationCommonName;
+	}
+	/**
+	 * @return the victimServicesProvider
+	 */
+	public String getVictimServicesProvider() {
+		return VictimServicesProvider;
+	}
+	/**
+	 * @param victimServicesProvider the victimServicesProvider to set
+	 */
+	public void setVictimServicesProvider(String victimServicesProvider) {
+		VictimServicesProvider = victimServicesProvider;
 	}
 	public void setOrganizationCommonName(String organizationCommonName) {
 		OrganizationCommonName = organizationCommonName;

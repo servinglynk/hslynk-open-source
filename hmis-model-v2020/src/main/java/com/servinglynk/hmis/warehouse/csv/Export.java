@@ -6,41 +6,56 @@ public class Export {
 	@MapToColumn(column=0)
 	private String ExportID;
 	@MapToColumn(column=1)
-	private String SourceID;
+	private String SourceType;
 	@MapToColumn(column=2)
-	private String SourceName;
+	private String SourceID;
 	@MapToColumn(column=3)
-	private String SourceContactFirst;
+	private String SourceName;
 	@MapToColumn(column=4)
-	private String SourceContactLast;
+	private String SourceContactFirst;
 	@MapToColumn(column=5)
-	private String SourceContactPhone;
+	private String SourceContactLast;
 	@MapToColumn(column=6)
-	private String SourceContactExtension;
+	private String SourceContactPhone;
 	@MapToColumn(column=7)
-	private String SourceContactEmail;
+	private String SourceContactExtension;
 	@MapToColumn(column=8)
-	private String ExportDate;
+	private String SourceContactEmail;
 	@MapToColumn(column=9)
-	private String ExportStartDate;
+	private String ExportDate;
 	@MapToColumn(column=10)
-	private String ExportEndDate;
+	private String ExportStartDate;
 	@MapToColumn(column=11)
-	private String SoftwareName;
+	private String ExportEndDate;
 	@MapToColumn(column=12)
+	private String SoftwareName;
+	@MapToColumn(column=13)
 	private String SoftwareVersion;
 		
-	@MapToColumn(column=13)
-	private String ExportPeriodType;
 	@MapToColumn(column=14)
-	private String ExportDirective;
+	private String ExportPeriodType;
 	@MapToColumn(column=15)
+	private String ExportDirective;
+	@MapToColumn(column=16)
 	private String HashStatus;
 	public String getExportID() {
 		return ExportID;
 	}
 	public void setExportID(String exportID) {
 		ExportID = exportID;
+	}
+	
+	/**
+	 * @return the sourceType
+	 */
+	public String getSourceType() {
+		return SourceType;
+	}
+	/**
+	 * @param sourceType the sourceType to set
+	 */
+	public void setSourceType(String sourceType) {
+		SourceType = sourceType;
 	}
 	public String getSourceID() {
 		return SourceID;

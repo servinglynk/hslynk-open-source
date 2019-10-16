@@ -60,6 +60,7 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable,E
 
 	/** Field mapping. */
 	private SexualorientationSexualorientationEnum sexualOrientation;
+	private String sexualOrientationOther;
 	/** Field mapping. */
 	private EntryRHYUnemploymentFamEnum unemployementFamilyMbr;
 	/** Field mapping. */
@@ -389,6 +390,24 @@ public class Entryrhy extends HmisBaseModel implements Cloneable, Serializable,E
 	public void setSexualOrientation(
 			SexualorientationSexualorientationEnum sexualOrientation) {
 		this.sexualOrientation = sexualOrientation;
+	}
+
+	
+	
+	/**
+	 * @return the sexualOrientationOther
+	 */
+	@Basic( optional = true )
+	@Column (name="sexual_orientation_other")
+	public String getSexualOrientationOther() {
+		return sexualOrientationOther;
+	}
+
+	/**
+	 * @param sexualOrientationOther the sexualOrientationOther to set
+	 */
+	public void setSexualOrientationOther(String sexualOrientationOther) {
+		this.sexualOrientationOther = sexualOrientationOther;
 	}
 
 	/**
