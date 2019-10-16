@@ -32,7 +32,7 @@ public class ServicefareferralConverter  extends BaseConverter {
        model.setSubTypeProvided(entity.getSubTypeProvided());
        model.setFaAmount(entity.getFaAmount());
        model.setReferralOutcome(entity.getReferralOutcome());
-       model.setRecordType(entity.getRecordType().getValue());
+       if(entity.getRecordType()!=null) model.setRecordType(entity.getRecordType().getValue());
        
        if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
     	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/servicefareferrals/"+entity.getId()+"/history"));
