@@ -340,7 +340,6 @@ public class Sources {
             "clientVeteranInfo",
             "entryRHY",
             "entryRHSP",
-            "geography",
             "connectionWithSOAR",
             "vashExitReason",
             "rhyAfterCare",
@@ -2699,6 +2698,7 @@ public class Sources {
          "personalID",
          "eventDate",
          "event",
+         "probSolDivRRResult",
          "locationCrisisOrPHHousing",
          "referralCaseManageAfter",
          "referralResult",
@@ -2715,6 +2715,8 @@ public class Sources {
          private XMLGregorianCalendar eventDate;
          @XmlElement(name = "Event" )
          private String event;
+         @XmlElement(name="ProbSolDivRRResult")
+         private String probSolDivRRResult;
          @XmlElement(name = "LocationCrisisOrPHHousing" )
          private String locationCrisisOrPHHousing;
          @XmlElement(name = "ReferralCaseManageAfter" )
@@ -2752,6 +2754,18 @@ public class Sources {
 		 */
 		public void setEnrollmentID(String enrollmentID) {
 			this.enrollmentID = enrollmentID;
+		}
+		/**
+		 * @return the probSolDivRRResult
+		 */
+		public String getProbSolDivRRResult() {
+			return probSolDivRRResult;
+		}
+		/**
+		 * @param probSolDivRRResult the probSolDivRRResult to set
+		 */
+		public void setProbSolDivRRResult(String probSolDivRRResult) {
+			this.probSolDivRRResult = probSolDivRRResult;
 		}
 		/**
 		 * @return the personalID
@@ -4098,8 +4112,8 @@ public class Sources {
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
                 "coCCode",
+                "projectCoCID",
                 "projectID",
-                "coCCode",
                 "geoCode",
                 "geographyType",
                 "address1",
@@ -11557,7 +11571,6 @@ public class Sources {
                 "chBedInventory",
                 "vetBedInventory",
                 "youthBedInventory",
-                "youthAgeGroup",
                 /*Added newly Ends*/
                 "inventoryStartDate",
                 "inventoryEndDate",
@@ -11584,11 +11597,11 @@ public class Sources {
                 @XmlElement(name = "OtherBedInventory")
                 protected String otherBedInventory;
                 @XmlElement(name = "CHVetBedInventory")
-                protected String CHVetBedInventory;
+                protected String chVetBedInventory;
                 @XmlElement(name = "YouthVetBedInventory")
-                protected String YouthVetBedInventory;
+                protected String youthVetBedInventory;
                 @XmlElement(name = "CHYouthBedInventory")
-                protected String CHYouthBedInventory;
+                protected String chYouthBedInventory;
                 @XmlElement(name = "InventoryStartDate", required = true)
                 protected XMLGregorianCalendar inventoryStartDate;
                 @XmlElement(name = "InventoryEndDate", required = true)
@@ -11836,46 +11849,47 @@ public class Sources {
 					this.otherBedInventory = otherBedInventory;
 				}
 
+
 				/**
-				 * @return the cHVetBedInventory
+				 * @return the chVetBedInventory
 				 */
-				public String getCHVetBedInventory() {
-					return CHVetBedInventory;
+				public String getChVetBedInventory() {
+					return chVetBedInventory;
 				}
 
 				/**
-				 * @param cHVetBedInventory the cHVetBedInventory to set
+				 * @param chVetBedInventory the chVetBedInventory to set
 				 */
-				public void setCHVetBedInventory(String cHVetBedInventory) {
-					CHVetBedInventory = cHVetBedInventory;
+				public void setChVetBedInventory(String chVetBedInventory) {
+					this.chVetBedInventory = chVetBedInventory;
 				}
 
 				/**
 				 * @return the youthVetBedInventory
 				 */
 				public String getYouthVetBedInventory() {
-					return YouthVetBedInventory;
+					return youthVetBedInventory;
 				}
 
 				/**
 				 * @param youthVetBedInventory the youthVetBedInventory to set
 				 */
 				public void setYouthVetBedInventory(String youthVetBedInventory) {
-					YouthVetBedInventory = youthVetBedInventory;
+					this.youthVetBedInventory = youthVetBedInventory;
 				}
 
 				/**
-				 * @return the cHYouthBedInventory
+				 * @return the chYouthBedInventory
 				 */
-				public String getCHYouthBedInventory() {
-					return CHYouthBedInventory;
+				public String getChYouthBedInventory() {
+					return chYouthBedInventory;
 				}
 
 				/**
-				 * @param cHYouthBedInventory the cHYouthBedInventory to set
+				 * @param chYouthBedInventory the chYouthBedInventory to set
 				 */
-				public void setCHYouthBedInventory(String cHYouthBedInventory) {
-					CHYouthBedInventory = cHYouthBedInventory;
+				public void setChYouthBedInventory(String chYouthBedInventory) {
+					this.chYouthBedInventory = chYouthBedInventory;
 				}
 
 				/**

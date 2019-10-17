@@ -48,10 +48,12 @@ import com.servinglynk.hmis.warehouse.csv.Assessment;
 import com.servinglynk.hmis.warehouse.csv.AssessmentQuestions;
 import com.servinglynk.hmis.warehouse.csv.AssessmentResults;
 import com.servinglynk.hmis.warehouse.csv.Client;
+import com.servinglynk.hmis.warehouse.csv.CurrentLivingSituation;
 import com.servinglynk.hmis.warehouse.csv.Disabilities;
 import com.servinglynk.hmis.warehouse.csv.EmployementEducation;
 import com.servinglynk.hmis.warehouse.csv.Enrollment;
 import com.servinglynk.hmis.warehouse.csv.EnrollmentCoC;
+import com.servinglynk.hmis.warehouse.csv.Event;
 import com.servinglynk.hmis.warehouse.csv.Exit;
 import com.servinglynk.hmis.warehouse.csv.Export;
 import com.servinglynk.hmis.warehouse.csv.Funder;
@@ -233,6 +235,21 @@ public class BulkUploadHelper2020 {
 		            switch(stripHmis) {
 		            	case "affiliation.csv":
 		            		hydrateAffiliation(csvFile, sources);
+		            		break;
+		            	case "assessment.csv":
+		            		hydrateAssessment(csvFile, sources);
+		            		break;
+		            	case "assessmentquestions.csv":
+		            		hydrateAssessmentQuestions(csvFile, sources);
+		            		break;
+		            	case "assessmentresults.csv":
+		            		hydrateAssessmentResults(csvFile, sources);
+		            		break;
+		            	case "event.csv":
+		            		hydrateEvent(csvFile, sources);
+		            		break;
+		            	case "currentlivingsituation.csv":
+		            		hydrateCurrentLivingSituation(csvFile, sources);
 		            		break;
 		            	case "client.csv":
 		            		hydrateClient(csvFile, sources);
@@ -1126,10 +1143,10 @@ public class BulkUploadHelper2020 {
 	    	  if(invntry.getBedInventory() !=null && !"".equals(invntry.getBedInventory() )) {
 	    		  inventoryModel.setBedInventory(invntry.getBedInventory());  
 	    	  }
-	    	  inventoryModel.setCHVetBedInventory(invntry.getCHVetBedInventory());
+	    	  inventoryModel.setChVetBedInventory(invntry.getCHVetBedInventory());
 	    	  inventoryModel.setVetBedInventory(invntry.getVetBedInventory());
 	    	  inventoryModel.setYouthVetBedInventory(invntry.getYouthVetBedInventory());
-	    	  inventoryModel.setCHYouthBedInventory(invntry.getCHYouthBedInventory());
+	    	  inventoryModel.setChYouthBedInventory(invntry.getCHYouthBedInventory());
 	    	  
 	    	  inventoryModel.setYouthBedInventory(invntry.getYouthBedInventory());
 	    	  inventoryModel.setChBedInventory(invntry.getCHBedInventory());
@@ -1282,8 +1299,8 @@ public class BulkUploadHelper2020 {
 	    	  assessmentModel.setPrioritizationStatus(assessment.getPrioritizationStatus());
 	    	  assessmentModel.setEnrollmentID(assessment.getProjectEntryID());
 	    	  assessmentList.add(assessmentModel);
-	    	  sources.getSource().getExport().getAssessment().add(assessmentModel);
 	      }
+	      sources.getSource().getExport().setAssessment(assessmentList);
 	  }catch(Exception e) {
 	   	  throw new Exception("Assessment.csv Invalid file format : "+e.getMessage(),e);
 	  }
@@ -1319,8 +1336,8 @@ public class BulkUploadHelper2020 {
 	    	  assessmenQuestionModel.setEnrollmentID(assessmentQuestion.getEnrollmentID());
 	    	 
 	    	  assessmentQuestionsList.add(assessmenQuestionModel);
-	    	  sources.getSource().getExport().getAssessmentQuestions().add(assessmenQuestionModel);
 	      }
+	      sources.getSource().getExport().setAssessmentQuestions(assessmentQuestionsList);
 	  }catch(Exception e) {
    	  throw new Exception("AssessmentQuestions.csv Invalid file format : "+e.getMessage(),e);
 	  }
@@ -1352,14 +1369,88 @@ public class BulkUploadHelper2020 {
 	    	  assessmenResultsModel.setAssessmentResult(assessmentResult.getAssessmentResult());
 	    	  assessmenResultsModel.setAssessmentResultType(assessmentResult.getAssessmentResultType());
 	    	  assessmentResultsList.add(assessmenResultsModel);
-	    	  sources.getSource().getExport().getAssessmentResults().add(assessmenResultsModel);
 	      }
+	      sources.getSource().getExport().setAssessmentResults(assessmentResultsList);
 	  }catch(Exception e) {
    	  throw new Exception("AssessmentQuestions.csv Invalid file format : "+e.getMessage(),e);
 	  }
 	  }
 	  
+	  /**
+	   * Hydrate CurrentLivingSituation with in Sources Object from CurrentLivingSituation CSV Pojos.
+	   * @param csvFile
+	   * @param sources
+	   * @throws Exception
+	   */
+	  protected void hydrateCurrentLivingSituation(BufferedReader csvFile, Sources sources) throws Exception {
+		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
+	      ValueProcessorProvider vpp = new ValueProcessorProvider();
+	      List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CurrentLivingSituation> currentLivingSituationList = new ArrayList<Sources.Source.Export.CurrentLivingSituation>();
+	      
+	      CSVReader<CurrentLivingSituation> currentLivingSituationReader = new CSVReaderBuilder<CurrentLivingSituation>(csvFile).strategy(strategy).entryParser(
+	                      new AnnotationEntryParser<CurrentLivingSituation>(CurrentLivingSituation.class, vpp)).build();
+	      try{
+	      List<CurrentLivingSituation> currentLivingSituations = currentLivingSituationReader.readAll();
+	      for(CurrentLivingSituation currentLivingSituation : currentLivingSituations) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CurrentLivingSituation currentLivingSituationModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CurrentLivingSituation();
+	    	  currentLivingSituationModel.setDateCreated(getXMLGregorianCalendar(currentLivingSituation.getDateCreated()));
+	    	  currentLivingSituationModel.setDateUpdated(getXMLGregorianCalendar(currentLivingSituation.getDateUpdated()));
+	    	  currentLivingSituationModel.setUserID(currentLivingSituation.getUserID());
+	    	  currentLivingSituationModel.setEnrollmentID(currentLivingSituation.getProjectEntryID());
+	    	  currentLivingSituationModel.setCurrentLivingSitID(currentLivingSituation.getCurrentLivingSitID());
+	    	  currentLivingSituationModel.setCurrentLivingSituation(currentLivingSituation.getCurrentLivingSituation());
+	    	  currentLivingSituationModel.setLeaseOwn60Day(currentLivingSituation.getLeaseOwn60Day());
+	    	  currentLivingSituationModel.setLeaveSituation14Days(currentLivingSituation.getLeaveSituation14Days());
+	    	  currentLivingSituationModel.setLocationDetails(currentLivingSituation.getLocationDetails());
+	    	  currentLivingSituationModel.setMovedTwoOrMore(currentLivingSituation.getMovedTwoOrMore());
+	    	  currentLivingSituationModel.setPersonalID(currentLivingSituation.getPersonalID());
+	    	  currentLivingSituationModel.setResourcesToObtain(currentLivingSituation.getResourcesToObtain());
+	    	  currentLivingSituationModel.setSubsequentResidence(currentLivingSituation.getSubsequentResidence());
+	    	  currentLivingSituationModel.setVerifiedBy(currentLivingSituation.getVerifiedBy());
+	    	  currentLivingSituationList.add(currentLivingSituationModel);
+	      }
+	      sources.getSource().getExport().setCurrentLivingSituation(currentLivingSituationList);
+	  }catch(Exception e) {
+   	  throw new Exception("CurrentLivingSituation.csv Invalid file format : "+e.getMessage(),e);
+	  }
+	  }
 	  
+	  /**
+	   * Hydrate CurrentLivingSituation with in Sources Object from CurrentLivingSituation CSV Pojos.
+	   * @param csvFile
+	   * @param sources
+	   * @throws Exception
+	   */
+	  protected void hydrateEvent(BufferedReader csvFile, Sources sources) throws Exception {
+		  CSVStrategy strategy = new CSVStrategy(',', '"', '#', true, true);
+		  List<com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Event> eventList = new ArrayList<Sources.Source.Export.Event>();
+	      
+	      ValueProcessorProvider vpp = new ValueProcessorProvider();
+	      CSVReader<Event> eventReader = new CSVReaderBuilder<Event>(csvFile).strategy(strategy).entryParser(
+	                      new AnnotationEntryParser<Event>(Event.class, vpp)).build();
+	      try{
+	      List<Event> events = eventReader.readAll();
+	      for(Event event : events) {
+	    	  com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Event eventModel = new com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Event();
+	    	  eventModel.setDateCreated(getXMLGregorianCalendar(event.getDateCreated()));
+	    	  eventModel.setDateUpdated(getXMLGregorianCalendar(event.getDateUpdated()));
+	    	  eventModel.setUserID(event.getUserID());
+	    	  eventModel.setEnrollmentID(event.getEnrollmentID());
+	    	  eventModel.setEvent(event.getEvent());
+	    	  eventModel.setEventDate(getXMLGregorianCalendar(event.getEventDate()));
+	    	  eventModel.setLocationCrisisOrPHHousing(event.getLocationCrisisOrPHHousing());
+	    	  eventModel.setReferralCaseManageAfter(event.getReferralCaseManageAfter());
+	    	  eventModel.setReferralResult(event.getReferralResult());
+	    	  eventModel.setEventID(event.getEventID());
+	    	  eventModel.setPersonalID(event.getPersonalID());
+	    	  eventModel.setProbSolDivRRResult(event.getProbSolDivRRResult());
+	    	  eventList.add(eventModel);
+	      }
+	      sources.getSource().getExport().setEvent(eventList);
+	  }catch(Exception e) {
+   	  throw new Exception("AssessmentQuestions.csv Invalid file format : "+e.getMessage(),e);
+	  }
+	  }
 	  /**
 	   * Hydrate Services with in Sources Object from Services CSV Pojos.
 	   *

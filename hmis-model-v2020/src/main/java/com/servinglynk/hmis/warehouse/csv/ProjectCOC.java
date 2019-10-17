@@ -23,15 +23,15 @@ public class ProjectCOC {
 	private String ZIP;
 	@MapToColumn(column=9)
 	private String GeographyType;
-	@MapToColumn(column=3)
+	@MapToColumn(column=10)
 	private String DateCreated;
-	@MapToColumn(column=4)
+	@MapToColumn(column=11)
 	private String DateUpdated;
-	@MapToColumn(column=5)
+	@MapToColumn(column=12)
 	private String UserID;
-	@MapToColumn(column=6)
+	@MapToColumn(column=12)
 	private String DateDeleted;
-	@MapToColumn(column=7)
+	@MapToColumn(column=13)
 	private String ExportID;
 	public String getProjectCocID() {
 		return ProjectCocID;
