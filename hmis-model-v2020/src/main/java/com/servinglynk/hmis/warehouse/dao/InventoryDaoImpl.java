@@ -66,14 +66,14 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 					inventoryModel.setInventorystartdate(BasicDataGenerator.getLocalDateTime(inventory.getInventoryStartDate()));
 					inventoryModel.setUnitinventory(inventory.getUnitInventory());
 					
-					if(inventory.getCHVetBedInventory() != null)
-						inventoryModel.setChVetBedInventory(Integer.parseInt(inventory.getCHVetBedInventory()));
+					if(inventory.getChVetBedInventory() != null)
+						inventoryModel.setChVetBedInventory(Integer.parseInt(inventory.getChVetBedInventory()));
 					if(inventory.getVetBedInventory() != null)
 						inventoryModel.setVetBedInventory(Integer.parseInt(inventory.getVetBedInventory()));
 					if(inventory.getYouthVetBedInventory() !=  null)
 						inventoryModel.setYouthVetBedInventory(Integer.parseInt(inventory.getYouthVetBedInventory()));
-					if(inventory.getCHYouthBedInventory() !=  null)
-						inventoryModel.setChYouthBedInventory(Integer.parseInt(inventory.getCHYouthBedInventory()));
+					if(inventory.getChYouthBedInventory() !=  null)
+						inventoryModel.setChYouthBedInventory(Integer.parseInt(inventory.getChYouthBedInventory()));
 					if(inventory.getYouthBedInventory() != null)
 						inventoryModel.setYouthBedInventory(Integer.parseInt(inventory.getYouthBedInventory()));
 					if(inventory.getChBedInventory() != null)
