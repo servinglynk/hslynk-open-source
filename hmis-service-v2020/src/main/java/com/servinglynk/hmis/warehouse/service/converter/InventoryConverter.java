@@ -16,8 +16,6 @@ public class InventoryConverter extends BaseConverter {
            entity.setBedInventory(model.getBedinventory());
        if(model.getBedtype()!=null)
        entity.setBedtype(InventoryBedtypeEnum.lookupEnum(model.getBedtype().toString()));
-       if(model.getHmisparticipatingbeds()!=null)
-       entity.setHmisparticipatingbeds(model.getHmisparticipatingbeds());
        if(model.getHouseholdtype()!=null)
        entity.setHouseholdtype(InventoryHouseholdtypeEnum.lookupEnum(model.getHouseholdtype().toString()));
        if(model.getInventoryenddate()!=null)
@@ -51,8 +49,6 @@ public class InventoryConverter extends BaseConverter {
        model.setAvailabilty(Integer.parseInt(entity.getAvailabilty().getValue()));
  		if(entity.getBedtype()!=null)
        model.setBedtype(Integer.parseInt(entity.getBedtype().getValue()));
-       if(entity.getHmisparticipatingbeds()!=null)
-       model.setHmisparticipatingbeds(entity.getHmisparticipatingbeds());
        if(entity.getHouseholdtype()!=null)
        model.setHouseholdtype(Integer.parseInt(entity.getHouseholdtype().getValue()));
        if(entity.getInventoryenddate()!=null)

@@ -107,6 +107,7 @@ public class BulkUploadController extends ControllerBase{
 		model.setFileName(file.getOriginalFilename());
 		model.setStatus("FILESYSTEM");
          String year ="2017";
+         version = version.trim();
          if(StringUtils.equals("401", version))
         	 year = "2014";
          else if(StringUtils.equals("411", version))
@@ -115,7 +116,7 @@ public class BulkUploadController extends ControllerBase{
         	 year = "2016";
          else if(StringUtils.equals("611", version) || StringUtils.equals("612", version))
         	 year = "2017";
-         else if(StringUtils.equals("2020", version) || StringUtils.equals("2020", version))
+         else if(StringUtils.equals("2020", version))
         	 year = "2020";	 
 		if(StringUtils.isEmpty(year)) {
 			throw new IllegalArgumentException("Year cannot be null.");

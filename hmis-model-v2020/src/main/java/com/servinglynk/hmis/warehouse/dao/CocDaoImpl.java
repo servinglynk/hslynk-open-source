@@ -21,12 +21,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.CoC;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.ProjectCoC;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.GeographyTypeEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Coc;
 import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Project;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
@@ -42,16 +43,23 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 	    com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,String.valueOf(domain.getExport().getExportID()),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 		Data data =new Data();
 		Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Coc.class, getProjectGroupCode(domain));
-		List<CoC> cocs = export.getCoC();
+		List<ProjectCoC> cocs = export.getCoC();
 		if (CollectionUtils.isNotEmpty(cocs)) {
-			for (CoC coc : cocs) {
+			for (ProjectCoC coc : cocs) {
 				com.servinglynk.hmis.warehouse.model.v2020.Coc cocModel = null;
 				try {
 					cocModel = getModelObject(domain, coc,data,modelMap);
 					cocModel.setCoccode(coc.getCoCCode());
+					cocModel.setAddress1(coc.getAddress1());
+					cocModel.setAddress2(coc.getAddress2());
+					cocModel.setCity(coc.getCity());
+					cocModel.setGeoCode(coc.getGeoCode());
+					cocModel.setExport(exportEntity);
+					cocModel.setGeographyType(GeographyTypeEnum.lookupEnum(coc.getGeographyType()));
+					cocModel.setState(coc.getState());
+					cocModel.setZip(coc.getZip());
 					Project project = (Project) getModel(Project.class,coc.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					cocModel.setProjectid(project);
-					cocModel.setSourceSystemId(coc.getCocId());
 					cocModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateCreated()));
 					cocModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
 					cocModel.setExport(exportEntity);
@@ -77,7 +85,7 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 	
 	}
 	
-	public  com.servinglynk.hmis.warehouse.model.v2020.Coc getModelObject(ExportDomain domain, CoC coc,Data data, Map<String,HmisBaseModel> modelMap) {
+	public  com.servinglynk.hmis.warehouse.model.v2020.Coc getModelObject(ExportDomain domain, ProjectCoC coc,Data data, Map<String,HmisBaseModel> modelMap) {
 		com.servinglynk.hmis.warehouse.model.v2020.Coc modelFromDB = null;
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))

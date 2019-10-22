@@ -27,15 +27,15 @@ public class Project {
 	@MapToColumn(column=7)
 	private String ProjectType;
 	@MapToColumn(column=8)
-	private String ResidentialAffiliation;
-	@MapToColumn(column=9)
-	private String TrackingMethod;
-	@MapToColumn(column=10)
-	private String TargetPopulation;
-	@MapToColumn(column=11)
-	private String VictimServicesProvider;
-	@MapToColumn(column=12)
 	private String HousingType;
+	@MapToColumn(column=9)
+	private String ResidentialAffiliation;
+	@MapToColumn(column=10)
+	private String TrackingMethod;
+	@MapToColumn(column=11)
+	private String HMISParticipatingProject;
+	@MapToColumn(column=12)
+	private String TargetPopulation;
 	@MapToColumn(column=13)
 	private String PITCount;
 	@MapToColumn(column=14)
@@ -162,17 +162,18 @@ public class Project {
 	public void setOperatingEndDate(String operatingEndDate) {
 		OperatingEndDate = operatingEndDate;
 	}
+	
 	/**
-	 * @return the victimServicesProvider
+	 * @return the hMISParticipatingProject
 	 */
-	public String getVictimServicesProvider() {
-		return VictimServicesProvider;
+	public String getHMISParticipatingProject() {
+		return HMISParticipatingProject;
 	}
 	/**
-	 * @param victimServicesProvider the victimServicesProvider to set
+	 * @param hMISParticipatingProject the hMISParticipatingProject to set
 	 */
-	public void setVictimServicesProvider(String victimServicesProvider) {
-		VictimServicesProvider = victimServicesProvider;
+	public void setHMISParticipatingProject(String hMISParticipatingProject) {
+		HMISParticipatingProject = hMISParticipatingProject;
 	}
 	/**
 	 * @return the housingType

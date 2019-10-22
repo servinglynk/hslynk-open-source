@@ -19,7 +19,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.GeographyTypeEnum;
 
 
 /**
@@ -48,10 +51,16 @@ public class Coc extends HmisBaseModel implements Cloneable, Serializable {
 	private String coccode;
 	/** Field mapping. */
 	private java.util.UUID id;
+	
+	private String geoCode;
+	private String address1;
+	private String address2;
+	private String city;
+	private String state;
+	private String zip;
+	private GeographyTypeEnum geographyType;
 	/** Field mapping. */
 	private Set<Inventory> inventories = new HashSet<Inventory>();
-	/** Field mapping. */
-	private Set<Geography> geographies = new HashSet<Geography>();
 
 	/** Field mapping. */
 	private Project projectid;
@@ -103,6 +112,106 @@ public class Coc extends HmisBaseModel implements Cloneable, Serializable {
 		this.coccode = coccode;
 	}
 
+	/**
+	 * @return the geoCode
+	 */
+	
+	@Basic( optional = true )
+	@Column( name = "geo_code" )
+	public String getGeoCode() {
+		return geoCode;
+	}
+	/**
+	 * @param geoCode the geoCode to set
+	 */
+	public void setGeoCode(String geoCode) {
+		this.geoCode = geoCode;
+	}
+	/**
+	 * @return the address1
+	 */
+	@Basic( optional = true )
+	@Column( name = "address1" )
+	public String getAddress1() {
+		return address1;
+	}
+	/**
+	 * @param address1 the address1 to set
+	 */
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+	/**
+	 * @return the address2
+	 */
+	@Basic( optional = true )
+	@Column( name = "address2" )
+	public String getAddress2() {
+		return address2;
+	}
+	/**
+	 * @param address2 the address2 to set
+	 */
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+	/**
+	 * @return the city
+	 */
+	@Basic( optional = true )
+	@Column( name = "city" )
+	public String getCity() {
+		return city;
+	}
+	/**
+	 * @param city the city to set
+	 */
+	public void setCity(String city) {
+		this.city = city;
+	}
+	/**
+	 * @return the state
+	 */
+	@Basic( optional = true )
+	@Column( name = "state" )
+	public String getState() {
+		return state;
+	}
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(String state) {
+		this.state = state;
+	}
+	/**
+	 * @return the zip
+	 */
+	@Basic( optional = true )
+	@Column( name = "zip" )
+	public String getZip() {
+		return zip;
+	}
+	/**
+	 * @param zip the zip to set
+	 */
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+	/**
+	 * @return the geography_type
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.GeographyTypeEnumType")
+	@Basic( optional = true )
+	@Column( name = "geography_type" )
+	public GeographyTypeEnum getGeographyType() {
+		return geographyType;
+	}
+	/**
+	 * @param geography_type the geography_type to set
+	 */
+	public void setGeographyType(GeographyTypeEnum geographyType) {
+		this.geographyType = geographyType;
+	}
 
 	 /**
 	 * Return the value associated with the column: id.
@@ -164,36 +273,6 @@ public class Coc extends HmisBaseModel implements Cloneable, Serializable {
 	public void setInventories(final Set<Inventory> inventory) {
 		this.inventories = inventory;
 	}
-	 /**
-		 * Return the value associated with the column: inventory.
-		 * @return A Set&lt;Inventory&gt; object (this.inventory)
-		 */
-	 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "coc"  )
-	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-		@Basic( optional = false )
-		@Column( nullable = false  )
-		public Set<Geography> getGeographies() {
-			return this.geographies;
-
-		}
-
-		/**
-		 * Adds a bi-directional link of type Geography to the geographies set.
-		 * @param inventory item to add
-		 */
-		public void addGeography(Geography geography) {
-			geography.setCoc(this);
-			this.geographies.add(geography);
-		}
-
-
-		 /**
-		 * Set the value related to the column: geography.
-		 * @param inventory the inventory value you wish to set
-		 */
-		public void setGeographies(final Set<Geography> geographies) {
-			this.geographies = geographies;
-		}
 
 	 /**
 	 * Return the value associated with the column: projectid.
