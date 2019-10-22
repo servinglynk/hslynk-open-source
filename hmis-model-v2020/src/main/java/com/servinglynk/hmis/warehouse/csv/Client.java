@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.csv;
 
-import org.beanio.annotation.Field;
 import org.beanio.annotation.Record;
 
 import com.googlecode.jcsv.annotations.MapToColumn;

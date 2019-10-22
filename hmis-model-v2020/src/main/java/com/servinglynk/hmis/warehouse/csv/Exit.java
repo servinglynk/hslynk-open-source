@@ -17,83 +17,81 @@ public class Exit {
 	@MapToColumn(column=5)
 	private String OtherDestination;
 	@MapToColumn(column=6)
-	private String AssessmentDisposition;
-	@MapToColumn(column=7)
-	private String OtherDisposition;
-	@MapToColumn(column=8)
 	private String HousingAssessment;
-	@MapToColumn(column=9)
+	@MapToColumn(column=7)
 	private String SubsidyInformation;
-	@MapToColumn(column=10)
+	@MapToColumn(column=8)
 	private String ProjectCompletionStatus;
-	@MapToColumn(column=11)
+	@MapToColumn(column=9)
 	private String EarlyExitReason;
-	@MapToColumn(column=12)
+	@MapToColumn(column=10)
 	private String ExchangeForSex;
-	@MapToColumn(column=13)
+	@MapToColumn(column=11)
 	private String ExchangeForSexPastThreeMonths;
-	@MapToColumn(column=14)
+	@MapToColumn(column=12)
 	private String CountOfExchangeForSex;
-	@MapToColumn(column=15)
+	@MapToColumn(column=13)
 	private String AskedOrForcedToExchangeForSex;
-	@MapToColumn(column=16)
+	@MapToColumn(column=14)
 	private String AskedOrForcedToExchangeForSexPastThreeMonths;
-	@MapToColumn(column=17)
+	@MapToColumn(column=15)
 	private String WorkplaceViolenceThreats;
-	@MapToColumn(column=18)
+	@MapToColumn(column=16)
 	private String WorkplacePromiseDifference;
-	@MapToColumn(column=19)
+	@MapToColumn(column=17)
 	private String CoercedToContinueWork;
-	@MapToColumn(column=20)
+	@MapToColumn(column=18)
 	private String LaborExploitPastThreeMonths;
-	@MapToColumn(column=21)
+	@MapToColumn(column=19)
 	private String CounselingReceived;
-	@MapToColumn(column=22)
+	@MapToColumn(column=20)
 	private String IndividualCounseling;
-	@MapToColumn(column=23)
+	@MapToColumn(column=21)
 	private String FamilyCounseling;
-	@MapToColumn(column=24)
+	@MapToColumn(column=22)
 	private String GroupCounseling;
-	@MapToColumn(column=25)
+	@MapToColumn(column=23)
 	private String SessionCountAtExit;
-	@MapToColumn(column=26)
+	@MapToColumn(column=24)
 	private String PostExitCounselingPlan;
-	@MapToColumn(column=27)
+	@MapToColumn(column=25)
 	private String SessionsInPlan;
-	@MapToColumn(column=28)
+	@MapToColumn(column=26)
 	private String DestinationSafeClient;
-	@MapToColumn(column=29)
+	@MapToColumn(column=27)
 	private String DestinationSafeWorker;
-	@MapToColumn(column=30)
+	@MapToColumn(column=28)
 	private String PosAdultConnections;
-	@MapToColumn(column=31)
+	@MapToColumn(column=29)
 	private String PosPeerConnections;
-	@MapToColumn(column=32)
+	@MapToColumn(column=30)
 	private String PosCommunityConnections;
-	@MapToColumn(column=33)
+	@MapToColumn(column=31)
 	private String AftercareDate;
-	@MapToColumn(column=34)
+	@MapToColumn(column=32)
 	private String AftercareProvided;
-	@MapToColumn(column=35)
+	@MapToColumn(column=33)
 	private String EmailSocialMedia;
-	@MapToColumn(column=36)
+	@MapToColumn(column=34)
 	private String Telephone;
-	@MapToColumn(column=37)
+	@MapToColumn(column=35)
 	private String InPersonIndividual;
-	@MapToColumn(column=38)
+	@MapToColumn(column=36)
 	private String InPersonGroup;
-	@MapToColumn(column=39)
+	@MapToColumn(column=37)
 	private String CMExitReason;
-	@MapToColumn(column=40)
+	@MapToColumn(column=38)
 	private String DateCreated;
-	@MapToColumn(column=41)
+	@MapToColumn(column=39)
 	private String DateUpdated;
-	@MapToColumn(column=42)
+	@MapToColumn(column=40)
 	private String UserID;
-	@MapToColumn(column=43)
+	@MapToColumn(column=41)
 	private String DateDeleted;
-	@MapToColumn(column=44)
+	@MapToColumn(column=42)
 	private String ExportID;
+	
+	
 	public String getExitID() {
 		return ExitID;
 	}
@@ -130,18 +128,7 @@ public class Exit {
 	public void setOtherDestination(String otherDestination) {
 		OtherDestination = otherDestination;
 	}
-	public String getAssessmentDisposition() {
-		return AssessmentDisposition;
-	}
-	public void setAssessmentDisposition(String assessmentDisposition) {
-		AssessmentDisposition = assessmentDisposition;
-	}
-	public String getOtherDisposition() {
-		return OtherDisposition;
-	}
-	public void setOtherDisposition(String otherDisposition) {
-		OtherDisposition = otherDisposition;
-	}
+
 	public String getHousingAssessment() {
 		return HousingAssessment;
 	}

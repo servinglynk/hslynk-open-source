@@ -2275,6 +2275,7 @@ CREATE TABLE "v2020".entryRHY
 	"id" uuid NOT NULL,
 	"enrollmentid" uuid,
 	"sexual_orientation" "v2020".sexual_orientation,
+	"sexual_orientation_other" character varying(200),
 	"unemployement_family_mbr" "v2020".unemployement_family_mbr,
 	"mental_health_issues_family_mbrily_mbr" "v2020".mental_health_issues_family_mbrily_mbr,
 	"physical_disability_family_mbr" "v2020".physical_disability_family_mbr,
@@ -2560,26 +2561,25 @@ with (
   oids=false
 );
 
-
 create table "v2020".inventory
 (
-   id uuid not null,
+  id uuid not null,
   householdtype "v2020".house_hold_type,
   bedtype "v2020".bed_type,
   coccode text,
   availabilty "v2020".availability,
   unitinventory integer,
   bed_inventory integer, -- Sandeep need to change this to five_val_dk_refused
-  ch_bed_inventory integer, -- Sandeep need to change this to five_val_dk_refused
+  ch_vet_bed_inventory integer,
+  youth_vet_bed_inventory integer,
   vet_bed_inventory integer, -- Sandeep need to change this to five_val_dk_refused
+  ch_youth_bed_inventory integer,
   youth_bed_inventory integer,-- Sandeep need to change this to five_val_dk_refused
+  ch_bed_inventory integer, -- Sandeep need to change this to five_val_dk_refused
   --youth_age_group integer,
-  facility_bed_inventory integer,
-  voucher_bed_inventory integer,
   other_bed_inventory integer,
   inventorystartdate timestamp,
   inventoryenddate timestamp,
-  hmisparticipatingbeds integer, --Sandeep change this to five_val_dk_refused
   --project_coc_id uuid,
   coc_id uuid,
   "project_group_code" character varying(8),
@@ -4201,5 +4201,5 @@ alter table v2020.housingassessmentdisposition add column submission_date  times
 alter table v2020.exitrhy add column submission_date  timestamp;
 alter table v2020.exithousingassessment add column submission_date  timestamp;
 
-
-
+alter table v2020.project drop column   victimServiceProvider;
+alter table v2020.organization add column victimServiceProvider "v2020".no_yes;

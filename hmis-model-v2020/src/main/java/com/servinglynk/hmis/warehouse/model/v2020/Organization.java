@@ -19,7 +19,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
+
+import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 
 /**
@@ -52,6 +55,8 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 	private String organizationname;
 	/** Field mapping. */
 	private String organizationcommonname;
+	/** Field mapping. */
+	private NoYesEnum victimServiceProvider;
 	/** Field mapping. */
 	private Set<Project> projects = new HashSet<Project>();
 	/**
@@ -146,6 +151,23 @@ public class Organization extends HmisBaseModel  implements Cloneable, Serializa
 		 */
 		public void setOrganizationcommonname(final String organizationcommonname) {
 			this.organizationcommonname = organizationcommonname;
+		}
+		
+		/**
+		 * @return the victimServiceProvider
+		 */
+		@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
+		@Basic( optional = true )
+		@Column( name = "victimServiceProvider" )
+		public NoYesEnum getVictimServiceProvider() {
+			return victimServiceProvider;
+		}
+
+		/**
+		 * @param victimServiceProvider the victimServiceProvider to set
+		 */
+		public void setVictimServiceProvider(NoYesEnum victimServiceProvider) {
+			this.victimServiceProvider = victimServiceProvider;
 		}
 	 /**
 	 * Return the value associated with the column: project.

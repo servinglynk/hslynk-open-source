@@ -79,8 +79,9 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	private ProjectResidentialaffiliationEnum residentialaffiliation;
 	private LocalDateTime operatingStartDate;
 	private LocalDateTime operatingEndDate;
-	private NoYesEnum victimServiceProvider;
+	
 	private ProjectHousingTypeEnum housingType;
+	private NoYesEnum hmisParticipatingProject;
 	private String projectname;
 	/** Field mapping. */
 	private String projectcommonname;
@@ -368,20 +369,20 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	}
 
 	/**
-	 * @return the victimServiceProvider
+	 * @return the hmisParticipatingProject
 	 */
 	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
 	@Basic( optional = true )
-	@Column( name = "victimServiceProvider" )
-	public NoYesEnum getVictimServiceProvider() {
-		return victimServiceProvider;
+	@Column( name = "hmisParticipatingProject" )
+	public NoYesEnum getHmisParticipatingProject() {
+		return hmisParticipatingProject;
 	}
 
 	/**
-	 * @param victimServiceProvider the victimServiceProvider to set
+	 * @param hmisParticipatingProject the hmisParticipatingProject to set
 	 */
-	public void setVictimServiceProvider(NoYesEnum victimServiceProvider) {
-		this.victimServiceProvider = victimServiceProvider;
+	public void setHmisParticipatingProject(NoYesEnum hmisParticipatingProject) {
+		this.hmisParticipatingProject = hmisParticipatingProject;
 	}
 
 	/**

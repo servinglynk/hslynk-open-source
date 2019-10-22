@@ -12,6 +12,8 @@ public class Organization extends ClientModel {
 	private String organizationName;
 
     private String organizationCommonName;
+    
+    private Integer victimServicesProvider;
 
 
 	public UUID getOrganizationId() {
@@ -36,9 +38,20 @@ public class Organization extends ClientModel {
 
 	public void setOrganizationCommonName(String organizationCommonName) {
 		this.organizationCommonName = organizationCommonName;
+	}
+
+	/**
+	 * @return the victimServicesProvider
+	 */
+	public Integer getVictimServicesProvider() {
+		return victimServicesProvider;
+	}
+
+	/**
+	 * @param victimServicesProvider the victimServicesProvider to set
+	 */
+	public void setVictimServicesProvider(Integer victimServicesProvider) {
+		this.victimServicesProvider = victimServicesProvider;
 	}	
-	
-	
-	
 	
 }

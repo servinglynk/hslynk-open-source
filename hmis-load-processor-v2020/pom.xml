@@ -18,7 +18,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.21.RELEASE</version>
+		<version>1.5.19.RELEASE</version>
 	</parent>
 	<dependencies>
 		<dependency>
@@ -141,6 +141,17 @@
 	</resources>
 		<plugins>
 			<plugin>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-maven-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <configuration>
+			                <mainClass>com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9</version>
 				<configuration>
@@ -165,127 +176,6 @@
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version><!--$NO-MVN-MAN-VER$-->
-				<configuration>
-					<mainClass>org.test.int1.Main</mainClass>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
-			<!-- executable part -->
-
-
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<filters>
-
-								<filter>
-									<artifact>*:*</artifact>
-									<excludes>
-										<exclude>META-INF/*.SF</exclude>
-										<exclude>META-INF/*.DSA</exclude>
-										<exclude>META-INF/*.RSA</exclude>
-									</excludes>
-								</filter>
-							</filters>
-							<transformers>
-								<transformer
-										implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>META-INF/spring.handlers</resource>
-								</transformer>
-								<transformer
-										implementation="org.springframework.boot.maven.PropertiesMergingResourceTransformer">
-									<resource>META-INF/spring.factories</resource>
-								</transformer>
-								<transformer
-										implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-									<resource>META-INF/spring.schemas</resource>
-								</transformer>
-								<transformer
-										implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-								<transformer
-										implementaton="org.springframework.boot"
-										implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
-								</transformer>
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>appassembler-maven-plugin</artifactId>
-				<version>1.3</version>
-				<configuration>
-
-					<programs>
-						<program>
-							<mainClass>com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
-							<name>main-processor-2020.sh</name>
-						</program>
-					</programs>
-
-					<useWildcardClassPath>true</useWildcardClassPath>
-					<repositoryLayout>flat</repositoryLayout>
-					<configurationSourceDirectory>${project.build.directory}/../src/main/resources
-					</configurationSourceDirectory>
-					<configurationDirectory>resources</configurationDirectory>
-					<copyConfigurationDirectory>true</copyConfigurationDirectory>
-					<includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
-					<assembleDirectory>${project.build.directory}/temp_build</assembleDirectory>
-
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>assemble</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<chmod file="${basedir}/target/temp_build/bin/main-processor-2020.sh"
-									   perm="ugo+rx"/>
-								<chmod file="${basedir}/target/temp_build/bin/main-processor-2020.bat"
-									   perm="ugo+rx"/>
-								<chmod file="${basedir}/src/main/scripts/start-processor-2020.sh"
-									   perm="ugo+rx"/>
-							    <chmod file="${basedir}/src/main/scripts/stop-processor-2020.sh"
-                                       perm="ugo+rx"/>
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

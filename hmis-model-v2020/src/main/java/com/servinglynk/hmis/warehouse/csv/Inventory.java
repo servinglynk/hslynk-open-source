@@ -11,38 +11,42 @@ public class Inventory {
 	@MapToColumn(column=2)
 	private String CoCCode;
 	@MapToColumn(column=3)
-	private String InformationDate;
-	@MapToColumn(column=4)
 	private String HouseholdType;
-	@MapToColumn(column=5)
+	@MapToColumn(column=4)
 	private String Availability;
-	@MapToColumn(column=6)
+	@MapToColumn(column=5)
 	private String UnitInventory;
-	@MapToColumn(column=7)
+	@MapToColumn(column=6)
 	private String BedInventory;
+	@MapToColumn(column=7)
+	private String CHVetBedInventory;
 	@MapToColumn(column=8)
-	private String CHBedInventory;
+	private String YouthVetBedInventory;
 	@MapToColumn(column=9)
 	private String VetBedInventory;
 	@MapToColumn(column=10)
-	private String YouthBedInventory;
+	private String CHYouthBedInventory;
 	@MapToColumn(column=11)
-	private String BedType;
+	private String YouthBedInventory;
 	@MapToColumn(column=12)
-	private String InventoryStartDate;
+	private String CHBedInventory;
 	@MapToColumn(column=13)
-	private String InventoryEndDate;
+	private String OtherBedInventory;
 	@MapToColumn(column=14)
-	private String HMISParticipatingBeds;
+	private String BedType;
 	@MapToColumn(column=15)
-	private String DateCreated;
+	private String InventoryStartDate;
 	@MapToColumn(column=16)
-	private String DateUpdated;
+	private String InventoryEndDate;
 	@MapToColumn(column=17)
-	private String UserID;
+	private String DateCreated;
 	@MapToColumn(column=18)
-	private String DateDeleted;
+	private String DateUpdated;
 	@MapToColumn(column=19)
+	private String UserID;
+	@MapToColumn(column=20)
+	private String DateDeleted;
+	@MapToColumn(column=21)
 	private String ExportID;
 	
 	
@@ -75,12 +79,6 @@ public class Inventory {
 	}
 	public void setCoCCode(String coCCode) {
 		CoCCode = coCCode;
-	}
-	public String getInformationDate() {
-		return InformationDate;
-	}
-	public void setInformationDate(String informationDate) {
-		InformationDate = informationDate;
 	}
 	public String getHouseholdType() {
 		return HouseholdType;
@@ -130,11 +128,54 @@ public class Inventory {
 	public void setYouthBedInventory(String youthBedInventory) {
 		YouthBedInventory = youthBedInventory;
 	}
-	public String getHMISParticipatingBeds() {
-		return HMISParticipatingBeds;
+	
+	/**
+	 * @return the cHVetBedInventory
+	 */
+	public String getCHVetBedInventory() {
+		return CHVetBedInventory;
 	}
-	public void setHMISParticipatingBeds(String hMISParticipatingBeds) {
-		HMISParticipatingBeds = hMISParticipatingBeds;
+	/**
+	 * @param cHVetBedInventory the cHVetBedInventory to set
+	 */
+	public void setCHVetBedInventory(String cHVetBedInventory) {
+		CHVetBedInventory = cHVetBedInventory;
+	}
+	/**
+	 * @return the youthVetBedInventory
+	 */
+	public String getYouthVetBedInventory() {
+		return YouthVetBedInventory;
+	}
+	/**
+	 * @param youthVetBedInventory the youthVetBedInventory to set
+	 */
+	public void setYouthVetBedInventory(String youthVetBedInventory) {
+		YouthVetBedInventory = youthVetBedInventory;
+	}
+	/**
+	 * @return the cHYouthBedInventory
+	 */
+	public String getCHYouthBedInventory() {
+		return CHYouthBedInventory;
+	}
+	/**
+	 * @param cHYouthBedInventory the cHYouthBedInventory to set
+	 */
+	public void setCHYouthBedInventory(String cHYouthBedInventory) {
+		CHYouthBedInventory = cHYouthBedInventory;
+	}
+	/**
+	 * @return the otherBedInventory
+	 */
+	public String getOtherBedInventory() {
+		return OtherBedInventory;
+	}
+	/**
+	 * @param otherBedInventory the otherBedInventory to set
+	 */
+	public void setOtherBedInventory(String otherBedInventory) {
+		OtherBedInventory = otherBedInventory;
 	}
 	public String getDateCreated() {
 		return DateCreated;
