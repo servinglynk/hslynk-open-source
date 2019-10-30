@@ -61,6 +61,7 @@ import com.servinglynk.hmis.warehouse.dao.HealthStatusDao;
 import com.servinglynk.hmis.warehouse.dao.HealthStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HealthinsuranceDao;
 import com.servinglynk.hmis.warehouse.dao.HealthinsuranceDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.HistoryDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.IncomeandsourcesDao;
 import com.servinglynk.hmis.warehouse.dao.IncomeandsourcesDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.InventoryDao;
@@ -389,5 +390,10 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public EventDaoImpl eventDao() {
 		return  new EventDaoImpl();
+	}
+	
+	@Bean
+	public HistoryDaoImpl historyDao() {
+		return new HistoryDaoImpl();
 	}
 }

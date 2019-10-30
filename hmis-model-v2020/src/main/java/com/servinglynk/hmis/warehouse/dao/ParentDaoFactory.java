@@ -50,4 +50,5 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	 AssessmentResultsDao getAssessmentResultsDao();
 	 CurrentLivingSituationDao getCurrentLivingSituationDao();
 	 EventDao getEventDao();
+	 HistoryDao getHistoryDao();
 }
