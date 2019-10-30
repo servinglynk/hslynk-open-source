@@ -684,4 +684,14 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
 	}
+	
+
+	@Autowired HistoryDao historyDao;
+
+	public HistoryDao getHistoryDao() {
+		return historyDao;
+	}
+	public void setHistoryDao(HistoryDao historyDao) {
+		this.historyDao = historyDao;
+	}
 }

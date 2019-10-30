@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Residentialmoveindate;
 public class ResidentialmoveindateConverter  extends BaseConverter {
 
@@ -17,6 +18,9 @@ public class ResidentialmoveindateConverter  extends BaseConverter {
        model.setResidentialmoveindateId(entity.getId());
        model.setResidentialmoveindate(entity.getMoveindate());
        if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/residentialmoveins/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

@@ -1,3 +1,4 @@
+
 package com.servinglynk.hmis.warehouse.service.config;
 
 import org.springframework.context.annotation.Bean;

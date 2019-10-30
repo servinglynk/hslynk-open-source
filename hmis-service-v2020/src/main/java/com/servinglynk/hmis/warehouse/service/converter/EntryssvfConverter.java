@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Entryssvf;
 import com.servinglynk.hmis.warehouse.enums.AnnualpercentamiEnum;
 import com.servinglynk.hmis.warehouse.enums.CrisisServicesUseEnum;
@@ -131,6 +132,10 @@ public class EntryssvfConverter  extends BaseConverter {
         	   	model.setUrgentReferral(Integer.parseInt(entity.getUrgentReferral().getValue()));
            
            if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
+           
+           if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+          	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/entryssvfs/"+entity.getId()+"/history"));
+             }
        return model;
    }
 
