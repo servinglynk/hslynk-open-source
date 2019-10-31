@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Affiliation;
 public class AffiliationConverter extends BaseConverter {
 
@@ -20,6 +21,8 @@ public class AffiliationConverter extends BaseConverter {
        if(entity.getResprojectid()!=null)
        model.setResprojectid(entity.getResprojectid());
        copyBeanProperties(entity, model);
+       if(entity.getProjectid()!=null)
+    	   model.addLink(new ActionLink("history","/projects/"+entity.getProjectid().getId()+"/affiliations/"+entity.getId()+"/history"));
        return model;
    }
 

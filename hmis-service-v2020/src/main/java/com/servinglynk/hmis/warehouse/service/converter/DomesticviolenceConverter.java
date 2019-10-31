@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Domesticviolence;
 import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
 import com.servinglynk.hmis.warehouse.enums.DomesticviolenceDomesticviolencevictimEnum;
@@ -41,6 +42,10 @@ if(entity.getInformationDate()!=null)
        model.setCurrentlyFleeing(entity.getCurrentlyFleeing());
        
        if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
+       
+       if(entity.getParentId() ==null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/domesticviolences/"+entity.getId()+"/history"));
+       }
        return model;
    }
 

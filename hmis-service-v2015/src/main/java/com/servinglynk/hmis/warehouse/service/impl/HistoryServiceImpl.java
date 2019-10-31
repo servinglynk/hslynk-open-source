@@ -36,7 +36,7 @@ public class HistoryServiceImpl extends ServiceBase implements HistoryService {
 		SecurityContext context =  SecurityContextHolder.getContext();
 		Authentication authentication =  context.getAuthentication();
 		LoggedInUser loggedInUser = null;
-		if(authentication.getPrincipal()!=null){
+		if(authentication!=null && authentication.getPrincipal()!=null){
 			loggedInUser = (LoggedInUser) authentication.getPrincipal();
 		}else {
 			throw new AccessDeniedException("User authentication required");
@@ -45,7 +45,7 @@ public class HistoryServiceImpl extends ServiceBase implements HistoryService {
 		
 		List returnData = new ArrayList();
 		List<?> data =	daoFactory.getHistoryDao().getEntityHistory(entityId, mapping.getEntityName(),loggedInUser.getProjectGroup(), startIndex, maxItems);
-		long count =	daoFactory.getHistoryDao().getEntityHistoryCount(entityId, mapping.getEntityName(), "MO0010");
+		long count =	daoFactory.getHistoryDao().getEntityHistoryCount(entityId, mapping.getEntityName(), loggedInUser.getProjectGroup());
 
 		for(Object entity : data) {
 				returnData.add(MethodUtils.invokeExactStaticMethod(Class.forName(mapping.getConverterClass()), "entityToModel", ConvertUtils.convert(entity, Class.forName(mapping.getEntityName()))));

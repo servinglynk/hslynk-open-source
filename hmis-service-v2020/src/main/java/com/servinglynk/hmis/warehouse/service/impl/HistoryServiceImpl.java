@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.core.model.Enrollment;
-import com.servinglynk.hmis.warehouse.model.v2014.HistoryEntityMapping;
+import com.servinglynk.hmis.warehouse.model.v2020.HistoryEntityMapping;
 import com.servinglynk.hmis.warehouse.service.HistoryService;
 import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException;
 
@@ -33,6 +33,7 @@ public class HistoryServiceImpl extends ServiceBase implements HistoryService {
 		HistoryEntityMapping mapping = daoFactory.getHistoryDao().getMapping(apiName);
 		if(mapping == null) throw new ResourceNotFoundException("History mapping not found");
 		
+		
 		SecurityContext context =  SecurityContextHolder.getContext();
 		Authentication authentication =  context.getAuthentication();
 		LoggedInUser loggedInUser = null;
@@ -41,9 +42,10 @@ public class HistoryServiceImpl extends ServiceBase implements HistoryService {
 		}else {
 			throw new AccessDeniedException("User authentication required");
 		}
+
 		
 		List returnData = new ArrayList();
-		List<?> data =	daoFactory.getHistoryDao().getEntityHistory(entityId, mapping.getEntityName(), loggedInUser.getProjectGroup(), startIndex, maxItems);
+		List<?> data =	daoFactory.getHistoryDao().getEntityHistory(entityId, mapping.getEntityName(),loggedInUser.getProjectGroup(), startIndex, maxItems);
 		long count =	daoFactory.getHistoryDao().getEntityHistoryCount(entityId, mapping.getEntityName(), loggedInUser.getProjectGroup());
 
 		for(Object entity : data) {

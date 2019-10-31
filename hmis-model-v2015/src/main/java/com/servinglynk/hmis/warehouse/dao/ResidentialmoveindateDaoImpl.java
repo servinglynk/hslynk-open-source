@@ -113,7 +113,7 @@ public class ResidentialmoveindateDaoImpl extends ParentDaoImpl implements
 	       delete(residentialmoveindate);
 	   }
 	   public com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate getResidentialmoveindateById(UUID residentialmoveindateId){
-		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Affiliation.class);
+		      DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate.class);
 		      criteria.add(Restrictions.eq("id", residentialmoveindateId));
 		      List<com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate> entities = (List<com.servinglynk.hmis.warehouse.model.v2015.Residentialmoveindate>) findByCriteria(criteria);
 		      if(!entities.isEmpty()) return entities.get(0);

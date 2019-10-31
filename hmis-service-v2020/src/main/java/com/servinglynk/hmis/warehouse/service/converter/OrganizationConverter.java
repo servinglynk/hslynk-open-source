@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Organization;
 public class OrganizationConverter {
 
@@ -17,6 +18,9 @@ public class OrganizationConverter {
        organization.setOrganizationCommonName(entity.getOrganizationcommonname());
        organization.setOrganizationId(entity.getId());
        organization.setOrganizationName(organization.getOrganizationName());
+       if(entity.getParentId() ==null ) {
+    	   organization.addLink(new ActionLink("history","/organizations/"+entity.getId()+"/history"));
+       }
        return organization;
    }
 

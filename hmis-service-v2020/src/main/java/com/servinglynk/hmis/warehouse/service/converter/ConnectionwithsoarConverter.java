@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter; 
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Connectionwithsoar;
 import com.servinglynk.hmis.warehouse.enums.ConnectionWithSoarEnum;
 public class ConnectionwithsoarConverter extends BaseConverter {
@@ -21,6 +22,9 @@ public class ConnectionwithsoarConverter extends BaseConverter {
        if(entity.getConnectionwithsoar()!=null)
     	   model.setConnectionwithsoar(Integer.parseInt(entity.getConnectionwithsoar().getValue()));
        copyBeanProperties(entity, model);
+       if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
+    	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/connectionwithsoars/"+entity.getId()+"/history"));
+       }
        return model;
    }
 
