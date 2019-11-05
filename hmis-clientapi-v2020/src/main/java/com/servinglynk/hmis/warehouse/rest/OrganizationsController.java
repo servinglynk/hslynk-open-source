@@ -35,14 +35,14 @@ public class OrganizationsController extends ControllerBase {
         return serviceFactory.getOrganizationService().updateOrganization(organization,session.getAccount().getUsername()); 
    }
 
-   @RequestMapping(value="/{organizationid}",method=RequestMethod.DELETE)
+   @RequestMapping(value="/{organizationId}",method=RequestMethod.DELETE)
    @APIMapping(value="CLIENT_API_DELETE_ORGANIZATION",checkTrustedApp=true,checkSessionToken=true)
    public Organization deleteOrganization(@PathVariable( "organizationId" ) UUID organizationId,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
         return serviceFactory.getOrganizationService().deleteOrganization(organizationId,session.getAccount().getUsername()); 
    }
 
-   @RequestMapping(value="/{organizationid}",method=RequestMethod.GET)
+   @RequestMapping(value="/{organizationId}",method=RequestMethod.GET)
    @APIMapping(value="CLIENT_API_GET_ORGANIZATION_BY_ID",checkTrustedApp=true,checkSessionToken=true)
    public Organization getOrganizationById(@PathVariable( "organizationId" ) UUID organizationId,HttpServletRequest request) throws Exception{
         return serviceFactory.getOrganizationService().getOrganizationById(organizationId); 
