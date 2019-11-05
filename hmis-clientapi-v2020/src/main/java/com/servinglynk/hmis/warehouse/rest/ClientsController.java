@@ -1918,7 +1918,7 @@ public class ClientsController extends ControllerBase {
 					session.getAccount().getUsername());
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentId}", method = RequestMethod.DELETE)
+		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}", method = RequestMethod.DELETE)
 		@APIMapping(value = "CLIENT_API_DELETE_ASSESSMENT", checkTrustedApp = true, checkSessionToken = true)
 		public void deleteAssessment(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -1936,7 +1936,7 @@ public class ClientsController extends ControllerBase {
 		@APIMapping(value = "CLIENT_API_GET_ASSESSMENT_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 		public Assessment getAssessmentById(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
-				@PathVariable("assessmentId") UUID assessmentId, HttpServletRequest request) throws Exception {
+				@PathVariable("assessmentid") UUID assessmentId, HttpServletRequest request) throws Exception {
 			serviceFactory.getClientService().getClientById(clientId);
 			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
 			return serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
