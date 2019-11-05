@@ -24,6 +24,7 @@ INSERT INTO base.hmis_redirect_uri(id, uri, trustedapp_id, created_at, created_b
 
  INSERT INTO base.hmis_api_method VALUES ('45552518-d070-5992-2ec8-05b3f9f745f2', 'CLIENT_API_UNMERGE', 'CLIENT_API_UNMERGE', 'CLIENT_API_UNMERGE', 'POST', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
   INSERT INTO base.hmis_api_method VALUES ('45552518-d070-5992-2ec8-05b3f9f745d5', 'CLIENT_API_MERGE', 'CLIENT_API_MERGE', 'CLIENT_API_MERGE', 'POST', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_api_method VALUES ('45552518-d070-5992-2ec8-05b3f9f745d8', 'CLIENT_API_GET_ALL_EXITRHY', 'CLIENT_API_GET_ALL_EXITRHY', 'CLIENT_API_GET_ALL_EXITRHY', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
  
 
 				
@@ -45,5 +46,8 @@ INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, cre
 
 INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','45552518-d070-5992-2ec8-05b3f9f745f2' , '5fd85889-aa2e-4c2a-a4e2-9dc927485245', current_date, 'MASTER DATA');
  INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bac','45552518-d070-5992-2ec8-05b3f9f745d5' , '5fd85889-aa2e-4c2a-a4e2-9dc927485246', current_date, 'MASTER DATA');
+  INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bae','45552518-d070-5992-2ec8-05b3f9f745d8' , '5fd85889-aa2e-4c2a-a4e2-9dc927485256', current_date, 'MASTER DATA');
+
+ 
 
 				

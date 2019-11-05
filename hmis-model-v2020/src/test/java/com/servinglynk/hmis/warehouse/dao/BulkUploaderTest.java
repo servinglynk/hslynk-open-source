@@ -197,7 +197,7 @@ public class BulkUploaderTest {
 //				bulkIds.add(411L);
 //				bulkIds.add(429L);
 //				bulkIds.add(413L);
-				bulkIds.add(611L);
+				bulkIds.add(622L);
 				
 				for(Long id : bulkIds) {
 					BulkUpload bulkUpload = factory.getBulkUploaderDao().performLoad(id,appender,true);

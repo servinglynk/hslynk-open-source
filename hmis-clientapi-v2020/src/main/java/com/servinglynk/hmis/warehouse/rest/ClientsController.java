@@ -1896,15 +1896,13 @@ public class ClientsController extends ControllerBase {
 		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessments", method = RequestMethod.POST)
 		@APIMapping(value = "CLIENT_API_CREATE_ASSESSMENT", checkTrustedApp = true, checkSessionToken = true)
 		public Assessment createAssessment(@PathVariable("clientid") UUID clientId,
-				@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody Assessment Assessment,
+				@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody Assessment assessment,
 				HttpServletRequest request) throws Exception {
 			Session session = sessionHelper.getSession(request);
 			serviceFactory.getClientService().getClientById(clientId);
-			serviceFactory.getAssessmentService().createAssessment(Assessment, enrollmentId,
+			com.servinglynk.hmis.warehouse.core.model.Assessment newAssessment = serviceFactory.getAssessmentService().createAssessment(assessment, enrollmentId,
 					session.getAccount().getUsername());
-			Assessment returnAssessment = new Assessment();
-			returnAssessment.setAssessmentId(Assessment.getAssessmentId());
-			return returnAssessment;
+			return newAssessment;
 		}
 
 		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}", method = RequestMethod.PUT)

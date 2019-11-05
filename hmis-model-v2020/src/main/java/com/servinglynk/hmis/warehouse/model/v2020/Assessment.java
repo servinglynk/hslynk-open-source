@@ -50,7 +50,7 @@ public class Assessment extends HmisBaseModel implements Cloneable, Serializable
 	private volatile java.util.UUID hashCode;
 	private UUID id;
 	private Enrollment enrollmentid;
-	private Client clientid;
+	private UUID clientId;
 	private LocalDateTime assessmentDate;
 	private String assessmentLocation;
 	private AssessmentTypeEnum assessmentType;
@@ -103,6 +103,21 @@ public class Assessment extends HmisBaseModel implements Cloneable, Serializable
 		this.id = id;
 	}
 
+	/**
+	 * @return the clientid
+	 */
+	@Basic( optional = false )
+	@Column( name = "client_id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	public UUID getClientId() {
+		return clientId;
+	}
+
+	/**
+	 * @param clientid the clientid to set
+	 */
+	public void setClientId(UUID clientid) {
+		this.clientId = clientid;
+	}
 
 	/**
 	 * Return the value associated with the column: entrydate.
@@ -146,29 +161,6 @@ public class Assessment extends HmisBaseModel implements Cloneable, Serializable
 		 */
 		public void setEnrollmentid(final Enrollment enrollmentid) {
 			this.enrollmentid = enrollmentid;
-		}
-		
-		
-		 /**
-		 * Return the value associated with the column: clientid.
-		 * @return A Client object (this.clientid)
-		 */
-		@ManyToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY )
-		@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-		@Basic( optional = true )
-		@JoinColumn(name = "client_id", nullable = true )
-		public Client getClientid() {
-			return this.clientid;
-
-		}
-
-
-		 /**
-		 * Set the value related to the column: clientid.
-		 * @param clientid the clientid value you wish to set
-		 */
-		public void setClientid(final Client clientid) {
-			this.clientid = clientid;
 		}
 		
 	/** Field mapping. */
