@@ -35,6 +35,8 @@ import javax.xml.validation.SchemaFactory;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
@@ -99,6 +101,8 @@ import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 @Component
 public class BulkUploadHelper2020 {
 	
+	@Autowired
+	Environment  env;
 	/**
 	 * Gets the source object from the upload location.
 	 * @param upload
@@ -110,7 +114,7 @@ public class BulkUploadHelper2020 {
 			// download file to temp folder
 			String tempFile = upload.getInputpath();
 			if(BooleanUtils.isTrue(isFileFromS3)) {
-				AwsS3Client client = new AwsS3Client();
+				AwsS3Client client = new AwsS3Client(env.getProperty("aws_access_key_id"),env.getProperty("aws_secret_access_key"));
 				tempFile = client.downloadFile(projectGroupEntity.getBucketName(), upload.getInputpath(),null);
 			}
 			if(inputPath !=null && StringUtils.equals("zip",getFileExtension(upload.getInputpath())) || StringUtils.equals("7z",getFileExtension(upload.getInputpath()))){

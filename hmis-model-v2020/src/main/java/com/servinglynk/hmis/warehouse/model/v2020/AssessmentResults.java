@@ -44,6 +44,7 @@ public class AssessmentResults extends HmisBaseModel implements Cloneable, Seria
 	private volatile java.util.UUID hashCode;
 	private UUID id;
 	private Enrollment enrollmentid;
+	private UUID clientId;
 	private Assessment assessment;
 	private String assessmentResult;
 	private String assessmentResultType;
@@ -96,7 +97,21 @@ public class AssessmentResults extends HmisBaseModel implements Cloneable, Seria
 	}
 
 
+	/**
+	 * @return the clientid
+	 */
+	@Basic( optional = false )
+	@Column( name = "client_id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	public UUID getClientId() {
+		return clientId;
+	}
 
+	/**
+	 * @param clientid the clientid to set
+	 */
+	public void setClientId(UUID clientid) {
+		this.clientId = clientid;
+	}
 	 /**
 		 * Return the value associated with the column: enrollmentid.
 		 * @return A Enrollment object (this.enrollmentid)

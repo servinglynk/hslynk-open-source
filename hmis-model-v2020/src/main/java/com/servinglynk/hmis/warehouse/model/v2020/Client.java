@@ -90,7 +90,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private Set<Enrollment> enrollments = new HashSet<Enrollment>();
 	/** Field mapping. */
-	private Set<Assessment> assessments = new HashSet<Assessment>();
+	//private Set<Assessment> assessments = new HashSet<Assessment>();
 	/** Field mapping. */
 
 	/** Field mapping. */
@@ -545,23 +545,23 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 			this.enrollments = enrollment;
 		}
 
-		 /**
-		 * @return the assessments
-		 */
-		@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "clientid"  )
-	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-		@Basic( optional = true )
-		@Column( nullable = true  )
-		public Set<Assessment> getAssessments() {
-			return assessments;
-		}
-
-		/**
-		 * @param assessments the assessments to set
-		 */
-		public void setAssessments(Set<Assessment> assessments) {
-			this.assessments = assessments;
-		}
+//		 /**
+//		 * @return the assessments
+//		 */
+//		@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "clientid"  )
+//	 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+//		@Basic( optional = true )
+//		@Column( nullable = true  )
+//		public Set<Assessment> getAssessments() {
+//			return assessments;
+//		}
+//
+//		/**
+//		 * @param assessments the assessments to set
+//		 */
+//		public void setAssessments(Set<Assessment> assessments) {
+//			this.assessments = assessments;
+//		}
 
 /**
     * Deep copy.
