@@ -22,12 +22,22 @@ public class CurrentLivingSituationConverter  extends BaseConverter {
    public static CurrentLivingSituation entityToModel (com.servinglynk.hmis.warehouse.model.v2020.CurrentLivingSituation entity) {
        CurrentLivingSituation model = new CurrentLivingSituation();
        model.setCurrentLivingSituationId(entity.getId());
-       model.setLeavesituation14days(entity.getLeavesituation14days().getValue());
-       model.setLivingSituation(entity.getLivingSituation().getValue());
+       NoYesEnum leavesituation14days = entity.getLeavesituation14days();
+       if(leavesituation14days !=null)
+    	   model.setLeavesituation14days(leavesituation14days.getValue());
+       LivingSituationEnum livingSituation = entity.getLivingSituation();
+       if(livingSituation !=null)
+    	   model.setLivingSituation(livingSituation.getValue());
        model.setLocationdetails(entity.getLocationdetails());
-       model.setMovedtwoormore(entity.getMovedtwoormore().getValue());
-       model.setResourcestoobtain(entity.getResourcestoobtain().getValue());
-       model.setSubsequentresidence(entity.getSubsequentresidence().getValue());
+       NoYesEnum movedtwoormore = entity.getMovedtwoormore();
+       if(movedtwoormore !=null)
+    	   model.setMovedtwoormore(movedtwoormore.getValue());
+       NoYesEnum resourcestoobtain = entity.getResourcestoobtain();
+       if(resourcestoobtain !=null)
+    	   model.setResourcestoobtain(resourcestoobtain.getValue());
+       NoYesEnum subsequentresidence = entity.getSubsequentresidence();
+       if(subsequentresidence !=null)
+    	   model.setSubsequentresidence(subsequentresidence.getValue());
        if(entity.getEnrollmentid() != null)
     	   model.setEnrollmentid(entity.getEnrollmentid().getId());
        
