@@ -2033,7 +2033,6 @@ public class ClientsController extends ControllerBase {
 		
 		// Assessment Result API begin
 		
-
 		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentResults", method = RequestMethod.POST)
 		@APIMapping(value = "CLIENT_API_CREATE_ASSESSMENT_RESULT", checkTrustedApp = true, checkSessionToken = true)
 		public AssessmentResult createAssessmentResult(@PathVariable("clientid") UUID clientId,
