@@ -1969,11 +1969,9 @@ public class ClientsController extends ControllerBase {
 				HttpServletRequest request) throws Exception {
 			Session session = sessionHelper.getSession(request);
 			serviceFactory.getClientService().getClientById(clientId);
-			serviceFactory.getAssessmentQuestionService().createAssessmentQuestion(AssessmentQuestion, enrollmentId,
+			com.servinglynk.hmis.warehouse.core.model.AssessmentQuestion createAssessmentQuestion = serviceFactory.getAssessmentQuestionService().createAssessmentQuestion(AssessmentQuestion, enrollmentId,
 					session.getAccount().getUsername());
-			AssessmentQuestion returnAssessmentQuestion = new AssessmentQuestion();
-			returnAssessmentQuestion.setAssessmentQuestionId(AssessmentQuestion.getAssessmentQuestionId());
-			return returnAssessmentQuestion;
+			return createAssessmentQuestion;
 		}
 
 		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentQuestions/{assessmentQuestionid}", method = RequestMethod.PUT)
@@ -2043,11 +2041,9 @@ public class ClientsController extends ControllerBase {
 				HttpServletRequest request) throws Exception {
 			Session session = sessionHelper.getSession(request);
 			serviceFactory.getClientService().getClientById(clientId);
-			serviceFactory.getAssessmentResultService().createAssessmentResult(AssessmentResult, enrollmentId,
+			com.servinglynk.hmis.warehouse.core.model.AssessmentResult createAssessmentResult = serviceFactory.getAssessmentResultService().createAssessmentResult(AssessmentResult, enrollmentId,
 					session.getAccount().getUsername());
-			AssessmentResult returnAssessmentResult = new AssessmentResult();
-			returnAssessmentResult.setAssessmentResultId(AssessmentResult.getAssessmentResultId());
-			return returnAssessmentResult;
+			return createAssessmentResult;
 		}
 
 		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentResults/{assessmentResultid}", method = RequestMethod.PUT)
@@ -2114,11 +2110,9 @@ public class ClientsController extends ControllerBase {
 				HttpServletRequest request) throws Exception {
 			Session session = sessionHelper.getSession(request);
 			serviceFactory.getClientService().getClientById(clientId);
-			serviceFactory.getEventService().createEvent(Event, enrollmentId,
+			com.servinglynk.hmis.warehouse.core.model.Event createEvent = serviceFactory.getEventService().createEvent(Event, enrollmentId,
 					session.getAccount().getUsername());
-			Event returnEvent = new Event();
-			returnEvent.setEventId(Event.getEventId());
-			return returnEvent;
+			return createEvent;
 		}
 
 		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/events/{eventid}", method = RequestMethod.PUT)
@@ -2185,11 +2179,9 @@ public class ClientsController extends ControllerBase {
 				HttpServletRequest request) throws Exception {
 			Session session = sessionHelper.getSession(request);
 			serviceFactory.getClientService().getClientById(clientId);
-			serviceFactory.getCurrentLivingSituationService().createCurrentLivingSituation(CurrentLivingSituation, enrollmentId,
+			com.servinglynk.hmis.warehouse.core.model.CurrentLivingSituation createCurrentLivingSituation = serviceFactory.getCurrentLivingSituationService().createCurrentLivingSituation(CurrentLivingSituation, enrollmentId,
 					session.getAccount().getUsername());
-			CurrentLivingSituation returnCurrentLivingSituation = new CurrentLivingSituation();
-			returnCurrentLivingSituation.setCurrentLivingSituationId(CurrentLivingSituation.getCurrentLivingSituationId());
-			return returnCurrentLivingSituation;
+			return createCurrentLivingSituation;
 		}
 
 		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/currentLivingSituations/{currentLivingSituationid}", method = RequestMethod.PUT)
