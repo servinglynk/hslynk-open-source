@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.AssessmentQuestion;
 import com.servinglynk.hmis.warehouse.core.model.AssessmentQuestions;
+import com.servinglynk.hmis.warehouse.model.v2020.Assessment;
 import com.servinglynk.hmis.warehouse.service.AssessmentQuestionService;
 import com.servinglynk.hmis.warehouse.service.converter.AssessmentQuestionConverter;
 import com.servinglynk.hmis.warehouse.service.exception.AssessmentQuestionsNotFoundException;
@@ -23,6 +24,11 @@ public class AssessmentQuestionsServiceImpl extends ServiceBase implements Asses
        com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pAssessmentQuestion.setEnrollmentid(pEnrollment);
+       UUID assessmentId = assessmentQuestion.getAssessmentId();
+       if(assessmentId != null) {
+    	   Assessment assessmentById = daoFactory.getAssessmentDao().getAssessmentById(assessmentQuestion.getAssessmentId());
+           pAssessmentQuestion.setAssessment(assessmentById);
+       }
        pAssessmentQuestion.setDateCreated(LocalDateTime.now());
        daoFactory.getProjectDao().populateUserProjectGroupCode(pAssessmentQuestion, caller);
        daoFactory.getAssessmentQuestionsDao().createAssessmentQuestions(pAssessmentQuestion);
@@ -41,6 +47,11 @@ public class AssessmentQuestionsServiceImpl extends ServiceBase implements Asses
 
        AssessmentQuestionConverter.modelToEntity(AssessmentQuestion, pAssessmentQuestion);
        pAssessmentQuestion.setEnrollmentid(pEnrollment);
+       UUID assessmentId = AssessmentQuestion.getAssessmentId();
+       if(assessmentId != null) {
+    	   Assessment assessmentById = daoFactory.getAssessmentDao().getAssessmentById(AssessmentQuestion.getAssessmentId());
+           pAssessmentQuestion.setAssessment(assessmentById);
+       }
        pAssessmentQuestion.setDateUpdated(LocalDateTime.now());
        pAssessmentQuestion.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getAssessmentQuestionsDao().updateAssessmentQuestions(pAssessmentQuestion);

@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
 import com.servinglynk.hmis.warehouse.core.model.AssessmentQuestion;
+import com.servinglynk.hmis.warehouse.model.v2020.Assessment;
 public class AssessmentQuestionConverter  extends BaseConverter {
 
    public static com.servinglynk.hmis.warehouse.model.v2020.AssessmentQuestions modelToEntity (AssessmentQuestion model ,com.servinglynk.hmis.warehouse.model.v2020.AssessmentQuestions entity) {
@@ -22,7 +23,10 @@ public class AssessmentQuestionConverter  extends BaseConverter {
        if(entity.getAssessmentQuestionOrder()  != null)
     	   model.setAssessmentQuestionOrder(entity.getAssessmentQuestionOrder());
        model.setEnrollmentid(entity.getEnrollmentid().getId());
-       model.setAssessmentId(entity.getAssessment().getId());
+       Assessment assessment = entity.getAssessment();
+       if(assessment !=null) {
+    	   model.setAssessmentId(entity.getAssessment().getId());
+       }
        model.setAssessmentQuestionId(entity.getId());
        return model;
    }

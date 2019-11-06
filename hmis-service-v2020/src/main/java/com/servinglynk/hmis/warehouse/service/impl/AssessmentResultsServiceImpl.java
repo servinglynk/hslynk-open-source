@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.AssessmentResult;
 import com.servinglynk.hmis.warehouse.core.model.AssessmentResults;
+import com.servinglynk.hmis.warehouse.model.v2020.Assessment;
 import com.servinglynk.hmis.warehouse.service.AssessmentResultService;
 import com.servinglynk.hmis.warehouse.service.converter.AssessmentResultConverter;
 import com.servinglynk.hmis.warehouse.service.exception.AssessmentResultsNotFoundException;
@@ -23,6 +24,11 @@ public class AssessmentResultsServiceImpl extends ServiceBase implements Assessm
        com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pAssessmentResult.setEnrollmentid(pEnrollment);
+       UUID assessmentId = assessmentResult.getAssessmentId();
+       if(assessmentId != null) {
+    	   Assessment assessmentById = daoFactory.getAssessmentDao().getAssessmentById(assessmentResult.getAssessmentId());
+    	   pAssessmentResult.setAssessment(assessmentById);
+       }
        pAssessmentResult.setDateCreated(LocalDateTime.now());
        daoFactory.getProjectDao().populateUserProjectGroupCode(pAssessmentResult, caller);
        daoFactory.getAssessmentResultsDao().createAssessmentResults(pAssessmentResult);
@@ -38,7 +44,11 @@ public class AssessmentResultsServiceImpl extends ServiceBase implements Assessm
        if(pEnrollment == null) throw new EnrollmentNotFound();
        com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults pAssessmentResult = daoFactory.getAssessmentResultsDao().getAssessmentResultsById(AssessmentResult.getAssessmentResultId());
        if(pAssessmentResult==null) throw new AssessmentResultsNotFoundException();
-
+       UUID assessmentId = AssessmentResult.getAssessmentId();
+       if(assessmentId != null) {
+    	   Assessment assessmentById = daoFactory.getAssessmentDao().getAssessmentById(AssessmentResult.getAssessmentId());
+    	   pAssessmentResult.setAssessment(assessmentById);
+       }
        AssessmentResultConverter.modelToEntity(AssessmentResult, pAssessmentResult);
        pAssessmentResult.setEnrollmentid(pEnrollment);
        pAssessmentResult.setDateUpdated(LocalDateTime.now());

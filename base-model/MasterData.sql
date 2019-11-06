@@ -51,3 +51,95 @@ INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, cre
  
 
 				
+
+  
+  INSERT INTO base.hmis_api_method VALUES ('45552518-d070-5992-2ec8-05b3f9f745d9', 'CLIENT_API_CREATE_ASSESSMENT', 'CLIENT_API_CREATE_ASSESSMENT', 'CLIENT_API_CREATE_ASSESSMENT', 'POST', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bae','45552518-d070-5992-2ec8-05b3f9f745d9' , '5fd85889-aa2e-4c2a-a4e2-9dc927485257', current_date, 'MASTER DATA');
+
+  INSERT INTO base.hmis_api_method VALUES ('5ebd9f2f-ac3b-4419-a31b-1d34bc0abd5d', 'CLIENT_API_UPDATE_ASSESSMENT', 'CLIENT_API_UPDATE_ASSESSMENT', 'CLIENT_API_UPDATE_ASSESSMENT', 'PUT', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(profile_id, api_method_id, id, created_at, created_by ) VALUES ('004aed07-b4d4-4696-b8f6-1607f6f49bae','5ebd9f2f-ac3b-4419-a31b-1d34bc0abd5d' , gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                            INSERT INTO base.hmis_api_method VALUES ('c614d61d-3ac3-4b84-9cae-979d0ee7cfc5', 'CLIENT_API_GET_ASSESSMENT_BY_ID', 'CLIENT_API_GET_ASSESSMENT_BY_ID', 'CLIENT_API_GET_ASSESSMENT_BY_ID', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('c614d61d-3ac3-4b84-9cae-979d0ee7cfc5','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+
+                                 INSERT INTO base.hmis_api_method VALUES ('fe2b8dd2-9709-4641-91f3-62f97be13559', 'CLIENT_API_DELETE_ASSESSMENT', 'CLIENT_API_DELETE_ASSESSMENT', 'CLIENT_API_GET_ASSESSMENT_BY_ID', 'DELETE', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('fe2b8dd2-9709-4641-91f3-62f97be13559','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+  
+        INSERT INTO base.hmis_api_method VALUES ('5d846fd5-a221-4ace-947f-164a88a2b13d', 'CLIENT_API_GET_ALL_ENROLLMENT_ASSESSMENT', 'CLIENT_API_GET_ALL_ENROLLMENT_ASSESSMENT', 'CLIENT_API_GET_ALL_ENROLLMENT_ASSESSMENT', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('5d846fd5-a221-4ace-947f-164a88a2b13d','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                      INSERT INTO base.hmis_api_method VALUES ('c614d61d-3ac3-4b84-9cae-979d0ee7cfc5', 'CLIENT_API_GET_ASSESSMENT_BY_ID', 'CLIENT_API_GET_ASSESSMENT_BY_ID', 'CLIENT_API_GET_ASSESSMENT_BY_ID', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('c614d61d-3ac3-4b84-9cae-979d0ee7cfc5','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+
+                                 INSERT INTO base.hmis_api_method VALUES ('fe2b8dd2-9709-4641-91f3-62f97be13559', 'CLIENT_API_DELETE_ASSESSMENT', 'CLIENT_API_DELETE_ASSESSMENT', 'CLIENT_API_GET_ASSESSMENT_BY_ID', 'DELETE', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('fe2b8dd2-9709-4641-91f3-62f97be13559','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+           INSERT INTO base.hmis_api_method VALUES ('5d846fd5-a221-4ace-947f-164a88a2b13d', 'CLIENT_API_GET_ALL_ENROLLMENT_ASSESSMENT', 'CLIENT_API_GET_ALL_ENROLLMENT_ASSESSMENT', 'CLIENT_API_GET_ALL_ENROLLMENT_ASSESSMENT', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('5d846fd5-a221-4ace-947f-164a88a2b13d','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+
+                                                            INSERT INTO base.hmis_api_method VALUES ('7f6f75aa-0955-4706-818b-19a2645aa623', 'CLIENT_API_CREATE_ASSESSMENT_QUESTION', 'CLIENT_API_CREATE_ASSESSMENT_QUESTION', 'CLIENT_API_CREATE_ASSESSMENT_QUESTION', 'POST', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('7f6f75aa-0955-4706-818b-19a2645aa623','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('0953b10f-363c-4e78-956b-834f2a0cc15f', 'CLIENT_API_UPDATE__ASSESSMENT_QUESTION', 'CLIENT_API_UPDATE__ASSESSMENT_QUESTION', 'CLIENT_API_UPDATE__ASSESSMENT_QUESTION', 'PUT', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('0953b10f-363c-4e78-956b-834f2a0cc15f','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('95e5bf42-b8d9-4a03-8b19-5b75046a49f3', 'CLIENT_API_DELETE__ASSESSMENT_QUESTION', 'CLIENT_API_DELETE__ASSESSMENT_QUESTION', 'CLIENT_API_DELETE__ASSESSMENT_QUESTION', 'DELETE', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('95e5bf42-b8d9-4a03-8b19-5b75046a49f3','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('22d3e01e-ce8b-4649-9484-a92ff85a6ce6', 'CLIENT_API_GET__ASSESSMENT_QUESTION_BY_ID', 'CLIENT_API_GET__ASSESSMENT_QUESTION_BY_ID', 'CLIENT_API_GET__ASSESSMENT_QUESTION_BY_ID', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('22d3e01e-ce8b-4649-9484-a92ff85a6ce6','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('618d4e72-3bac-47ab-9a90-cd1b3e2462e7', 'CLIENT_API_GET_ALL_ENROLLMENT__ASSESSMENT_QUESTION', 'CLIENT_API_GET_ALL_ENROLLMENT__ASSESSMENT_QUESTION', 'CLIENT_API_GET_ALL_ENROLLMENT__ASSESSMENT_QUESTION', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('618d4e72-3bac-47ab-9a90-cd1b3e2462e7','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+  
+  
+                                                            INSERT INTO base.hmis_api_method VALUES ('b88b5267-c4e1-437f-86d3-13162cc37f4a', 'CLIENT_API_CREATE_ASSESSMENT_RESULT', 'CLIENT_API_CREATE_ASSESSMENT_RESULT', 'CLIENT_API_CREATE_ASSESSMENT_RESULT', 'POST', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('b88b5267-c4e1-437f-86d3-13162cc37f4a','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('0c9557a5-805d-4af6-9719-15ef8df0e720', 'CLIENT_API_UPDATE__ASSESSMENT_RESULT', 'CLIENT_API_UPDATE__ASSESSMENT_RESULT', 'CLIENT_API_UPDATE__ASSESSMENT_RESULT', 'PUT', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('0c9557a5-805d-4af6-9719-15ef8df0e720','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('ab3582c4-51aa-4646-8bc6-cbfcaf849004', 'CLIENT_API_DELETE__ASSESSMENT_RESULT', 'CLIENT_API_DELETE__ASSESSMENT_RESULT', 'CLIENT_API_DELETE__ASSESSMENT_RESULT', 'DELETE', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('ab3582c4-51aa-4646-8bc6-cbfcaf849004','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('690e1b0b-8024-47f3-8453-3946dbbd7c2a', 'CLIENT_API_GET__ASSESSMENT_RESULT_BY_ID', 'CLIENT_API_GET__ASSESSMENT_RESULT_BY_ID', 'CLIENT_API_GET__ASSESSMENT_RESULT_BY_ID', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('690e1b0b-8024-47f3-8453-3946dbbd7c2a','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('cc1f8fa9-7ee0-4693-8d4b-62169c7c4399', 'CLIENT_API_GET_ALL_ENROLLMENT__ASSESSMENT_RESULT', 'CLIENT_API_GET_ALL_ENROLLMENT__ASSESSMENT_RESULT', 'CLIENT_API_GET_ALL_ENROLLMENT__ASSESSMENT_RESULT', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('cc1f8fa9-7ee0-4693-8d4b-62169c7c4399','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+
+                                                            INSERT INTO base.hmis_api_method VALUES ('5bab4c55-0e89-40ae-ba6b-0299d6399236', 'CLIENT_API_CREATE_EVENT', 'CLIENT_API_CREATE_EVENT', 'CLIENT_API_CREATE_EVENT', 'POST', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('5bab4c55-0e89-40ae-ba6b-0299d6399236','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('e7612451-3191-4a51-889c-d2a5cc7ce2a1', 'CLIENT_API_UPDATE_EVENT', 'CLIENT_API_UPDATE_EVENT', 'CLIENT_API_UPDATE_EVENT', 'PUT', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('e7612451-3191-4a51-889c-d2a5cc7ce2a1','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('ba8526bb-4f8d-4316-b093-8482985fd0fe', 'CLIENT_API_DELETE_EVENT', 'CLIENT_API_DELETE_EVENT', 'CLIENT_API_DELETE_EVENT', 'DELETE', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('ba8526bb-4f8d-4316-b093-8482985fd0fe','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('3a2d6ad6-9924-4f15-8522-97af782f30ea', 'CLIENT_API_GET_EVENT_BY_ID', 'CLIENT_API_GET_EVENT_BY_ID', 'CLIENT_API_GET_EVENT_BY_ID', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('3a2d6ad6-9924-4f15-8522-97af782f30ea','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('7732f822-841a-4d40-b529-b0c7d085e866', 'CLIENT_API_GET_ALL_ENROLLMENT_EVENT', 'CLIENT_API_GET_ALL_ENROLLMENT_EVENT', 'CLIENT_API_GET_ALL_ENROLLMENT_EVENT', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('7732f822-841a-4d40-b529-b0c7d085e866','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                          INSERT INTO base.hmis_api_method VALUES ('17ca88ea-5ba6-41f9-a6c7-080ffd243cd3', 'CLIENT_API_CREATE_CURRENT_LIVING_SITUATION', 'CLIENT_API_CREATE_CURRENT_LIVING_SITUATION', 'CLIENT_API_CREATE_CURRENT_LIVING_SITUATION', 'POST', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('17ca88ea-5ba6-41f9-a6c7-080ffd243cd3','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('fd78f677-be82-49e6-9332-ef183c917079', 'CLIENT_API_UPDATE_CURRENT_LIVING_SITUATION', 'CLIENT_API_UPDATE_CURRENT_LIVING_SITUATION', 'CLIENT_API_UPDATE_CURRENT_LIVING_SITUATION', 'PUT', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('fd78f677-be82-49e6-9332-ef183c917079','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('9970afbe-f222-4dae-9c55-07174f7e8f98', 'CLIENT_API_DELETE_CURRENT_LIVING_SITUATION', 'CLIENT_API_DELETE_CURRENT_LIVING_SITUATION', 'CLIENT_API_DELETE_CURRENT_LIVING_SITUATION', 'DELETE', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('9970afbe-f222-4dae-9c55-07174f7e8f98','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('79633f2b-c70c-4bf3-8e18-bcd55a2bdee6', 'CLIENT_API_GET_CURRENT_LIVING_SITUATION_BY_ID', 'CLIENT_API_GET_CURRENT_LIVING_SITUATION_BY_ID', 'CLIENT_API_GET_CURRENT_LIVING_SITUATION_BY_ID', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('79633f2b-c70c-4bf3-8e18-bcd55a2bdee6','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
+
+                                                         INSERT INTO base.hmis_api_method VALUES ('c5e76ddb-120f-4312-88ea-b61a75754e14', 'CLIENT_API_GET_ALL_ENROLLMENT_CURRENT_LIVING_SITUATION', 'CLIENT_API_GET_ALL_ENROLLMENT_CURRENT_LIVING_SITUATION', 'CLIENT_API_GET_ALL_ENROLLMENT_CURRENT_LIVING_SITUATION', 'GET', NULL, NULL, '2016-05-11', NULL, 'MASTER DATA', NULL, NULL, '55269f08-273f-4f68-ae9b-f98467b4d091', 0, NULL, NULL, NULL, true, true);
+  INSERT INTO base.hmis_profile_acl(api_method_id,profile_id, id, created_at, created_by ) VALUES ('c5e76ddb-120f-4312-88ea-b61a75754e14','004aed07-b4d4-4696-b8f6-1607f6f49bae', gen_random_uuid(), current_date, 'MASTER DATA');
