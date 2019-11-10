@@ -5,22 +5,7 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="hmis-base-serialize-2.16.6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-serialize/hmis-base-serialize">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="hmis-base-service-2.16.6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-service/hmis-base-service">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="hmis-fileupload-core-2.16.6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-fileupload-core/hmis-fileupload-core">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="hmis-base-model-2.16.6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-model/hmis-base-model">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="mq-core-client-2.16.6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/mq-core-client/mq-core-client">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="core-client-2.16.6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/core-client/core-client">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="hmis-s3-client-2.16.6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-s3-client/hmis-s3-client">
