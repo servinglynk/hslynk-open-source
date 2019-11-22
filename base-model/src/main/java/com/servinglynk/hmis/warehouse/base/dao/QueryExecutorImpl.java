@@ -337,28 +337,27 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 	public List<?> find(DetachedCriteria detachedCriteria){
 				return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
 	}
-
-	public List<?> getByCriteria(DetachedCriteria detachedCriteria){
-				return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
-	}
 	
 	public List<?> findByCriteria(DetachedCriteria detachedCriteria){
 		addingConditionsToCriteria(detachedCriteria);
 				return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
 	}
 	
-	public List<?> findByCriteriaWithOutDelete(DetachedCriteria detachedCriteria){
-		Criteria criteria = detachedCriteria.getExecutableCriteria(getCurrentSession());
-		return criteria.list();
+	public List<?> getByCriteria(DetachedCriteria detachedCriteria){
+		return detachedCriteria.getExecutableCriteria(getCurrentSession()).list();
 	}
 	
-
 	public List<?> getByCriteria(DetachedCriteria detachedCriteria,Integer firstResult,Integer maxResults){
 		Criteria criteria = detachedCriteria.getExecutableCriteria(getCurrentSession());
 		if(firstResult!=null && maxResults!=null) {
 			criteria.setFirstResult(firstResult);
 			criteria.setMaxResults(maxResults);		
 		}
+		return criteria.list();
+	}
+	
+	public List<?> findByCriteriaWithOutDelete(DetachedCriteria detachedCriteria){
+		Criteria criteria = detachedCriteria.getExecutableCriteria(getCurrentSession());
 		return criteria.list();
 	}
 	
@@ -370,7 +369,6 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 			criteria.setMaxResults(maxResults);		
 		}
 		return criteria.list();
-		
 	}
 	
 	@SuppressWarnings("unused")
@@ -384,32 +382,14 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 				if(authentication.getPrincipal()!=null){
 					LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
 					Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", entity.getProjectGroup());
-					if(!entity.getEnrollments().isEmpty()) {
-						Criterion enrollementsCriterion = Restrictions.in("enrollmentid.id",entity.getEnrollments());
-	                    Disjunction inDisjunction = Restrictions.disjunction();
-	                    	inDisjunction.add(projectGroupCriterion);
-	                    	inDisjunction.add(enrollementsCriterion);
-						detachedCriteria.add(inDisjunction);
-
-					}else {
-						detachedCriteria.add(projectGroupCriterion);
-					}
+						if(entity.getCheckProjectGroup())detachedCriteria.add(projectGroupCriterion);
 					detachedCriteria.add(Restrictions.eq("deleted", false));
 				}
 			}else if(clz.getSimpleName().equals("Enrollment")) {
 				if(authentication.getPrincipal()!=null){
 					LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
 					Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", entity.getProjectGroup());
-					if(!entity.getEnrollments().isEmpty()) {
-						Criterion enrollementsCriterion = Restrictions.in("id",entity.getEnrollments());
-	                    Disjunction inDisjunction = Restrictions.disjunction();
-	                    	inDisjunction.add(projectGroupCriterion);
-	                    	inDisjunction.add(enrollementsCriterion);
-						detachedCriteria.add(inDisjunction);
-
-					}else {
-						detachedCriteria.add(projectGroupCriterion);
-					}
+					if(entity.getCheckProjectGroup())	detachedCriteria.add(projectGroupCriterion);
 					detachedCriteria.add(Restrictions.eq("deleted", false));
 				}
 			}else 
@@ -417,19 +397,19 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 				if(authentication.getPrincipal()!=null){
 
 					LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
-					detachedCriteria.add(Restrictions.eq("projectGroupCode",entity.getProjectGroup()));
+					if(entity.getCheckProjectGroup())detachedCriteria.add(Restrictions.eq("projectGroupCode",entity.getProjectGroup()));
 					detachedCriteria.add(Restrictions.eq("deleted", false));
 					detachedCriteria.add(Restrictions.isNull("parentId"));
 				}
 			}else if (clz.getSuperclass().getSimpleName().equals("HMISModel")) {
 				if(authentication.getPrincipal()!=null){
 					LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
-					detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getProjectGroup()));
+					if(entity.getCheckProjectGroup())detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getProjectGroup()));
 					detachedCriteria.add(Restrictions.eq("deleted", false));
 				}
 			}else if(clz.getSimpleName().equals("HmisUser")) {
 				LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
-				detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getProjectGroup()));
+				if(entity.getCheckProjectGroup())detachedCriteria.add(Restrictions.eq("projectGroupCode", entity.getProjectGroup()));
 
 			}
 		return detachedCriteria;
@@ -443,20 +423,18 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 		 return (long)0;
 		 //TBD
 	}
-	public long getRowsCount(DetachedCriteria dCriteria){
-		dCriteria.setProjection(Projections.rowCount());
-		Criteria criteria = dCriteria.getExecutableCriteria(getCurrentSession());
-		return (long) criteria.uniqueResult();
-		 //TBD
-	}
-	
-
 	public long countRows(DetachedCriteria dCriteria){
 		addingConditionsToCriteria(dCriteria);
 		dCriteria.setProjection(Projections.rowCount());
 		Criteria criteria = dCriteria.getExecutableCriteria(getCurrentSession());
 		return (long) criteria.uniqueResult();
-		 //TBD
+	}
+	
+	public long getRowsCount(DetachedCriteria dCriteria){
+		addingConditionsToCriteria(dCriteria);
+		dCriteria.setProjection(Projections.rowCount());
+		Criteria criteria = dCriteria.getExecutableCriteria(getCurrentSession());
+		return (long) criteria.uniqueResult();
 	}
 	
 	protected Object[] executeNativeSQL(Class<?> className){

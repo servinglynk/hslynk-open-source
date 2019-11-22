@@ -5,6 +5,7 @@ import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
 import com.servinglynk.hmis.warehouse.base.service.BaseClientsService;
+import com.servinglynk.hmis.warehouse.base.service.BaseProjectService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
@@ -18,6 +19,8 @@ import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
+import com.servinglynk.hmis.warehouse.base.service.ProjectSharingRuleService;
+import com.servinglynk.hmis.warehouse.base.service.ProjectSubGroupService;
 import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
 import com.servinglynk.hmis.warehouse.base.service.RoleService;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
@@ -59,4 +62,7 @@ public interface BaseServiceFactory {
 	GlobalHouseHoldService getGlobalHouseHoldService();
 	SharingRuleService getSharingRuleService();
 	BaseClientsService getBaseClientsService();
+	ProjectSharingRuleService getProjectSharingRuleService();
+	BaseProjectService getBaseProjectService();
+	ProjectSubGroupService getProjectSubGroupService();
 }
