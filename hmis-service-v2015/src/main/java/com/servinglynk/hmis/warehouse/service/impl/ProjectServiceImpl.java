@@ -23,7 +23,7 @@ import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException
 public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
 
    @Transactional
-   public Project createProject(Project project,String caller){
+   public Project createProject(Project project,String caller) throws Exception {
 	   HmisUser user = daoFactory.getAccountDao().findByUsername(caller);
 
        com.servinglynk.hmis.warehouse.model.v2015.Project pProject = ProjectConverter.modelToEntity(project, null);
@@ -47,10 +47,11 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        daoFactory.getProjectDao().createProject(pProject);
        project.setProjectId(pProject.getId());
        
-       BaseProject baseProject = new BaseProject();
-       BeanUtils.copyProperties(project, baseProject);
-       baseProject.setSchemaYear(2015);
-       project.setProjectId(pProject.getId());
+       com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
+       org.apache.commons.beanutils.BeanUtils.copyProperties(baseProject,pProject);
+       baseProject.setUser(user);
+       baseProject.setSchemaYear("2015");
+       daoFactory.getBaseProjectDao().createProject(baseProject);
        }else {
           project.setProjectId(cProject.getId());
        }
@@ -60,7 +61,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
    }
 
    @Transactional
-   public Project updateProject(Project project,String caller){
+   public Project updateProject(Project project,String caller) throws Exception {
        com.servinglynk.hmis.warehouse.model.v2015.Project pProject = daoFactory.getProjectDao().getProjectById(project.getProjectId());
        if(pProject==null) throw new ProjectNotFoundException();
 
@@ -69,6 +70,10 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        pProject.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getProjectDao().updateProject(pProject);
        project.setProjectId(pProject.getId());
+       
+       com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
+       org.apache.commons.beanutils.BeanUtils.copyProperties(pProject, baseProject);
+       daoFactory.getBaseProjectDao().updateProject(baseProject);
        return project;
    }
 
@@ -78,6 +83,9 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        if(pProject==null) throw new ProjectNotFoundException();
 
        daoFactory.getProjectDao().deleteProject(pProject);
+       com.servinglynk.hmis.warehouse.model.base.Project baseProject = daoFactory.getBaseProjectDao().getProjectById(projectId);
+       if(baseProject!=null) daoFactory.getBaseProjectDao().deleteProject(baseProject);
+
        return new Project();
    }
 

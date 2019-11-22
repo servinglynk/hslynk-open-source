@@ -41,19 +41,7 @@ public class BaseClientDaoImpl extends QueryExecutorImpl implements BaseClientDa
 	public List<Client> getClientsByDedupId(UUID dedupId,Integer startIndex,Integer maxResults){
 		DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
 		criteria.add(Restrictions.eq("dedupClientId", dedupId));
-		criteria.add(Restrictions.isNull("parentId"));
-		criteria.add(Restrictions.eq("deleted", false));
-		if(AuditUtil.getSharedClients().isEmpty()) {
-			criteria.add(Restrictions.eq("projectGroupCode",AuditUtil.getLoginUserProjectGroup()));
-			}else {
-				Criterion clientsCriterion = Restrictions.in("id",AuditUtil.getSharedClients());
-				Criterion projectGroupCriterion =	Restrictions.eq("projectGroupCode",AuditUtil.getLoginUserProjectGroup());
-		        Disjunction inDisjunction = Restrictions.disjunction();
-		        	inDisjunction.add(projectGroupCriterion);
-		        	inDisjunction.add(clientsCriterion);
-		        	criteria.add(inDisjunction);
-			}
-		List<Client> clients = (List<Client>) getByCriteria(criteria, startIndex, maxResults);
+		List<Client> clients = (List<Client>) findByCriteria(criteria, startIndex, maxResults);
 		return clients;
 
 	}
@@ -63,17 +51,7 @@ public class BaseClientDaoImpl extends QueryExecutorImpl implements BaseClientDa
 		criteria.add(Restrictions.eq("dedupClientId", dedupId));
 		criteria.add(Restrictions.isNull("parentId"));
 		criteria.add(Restrictions.eq("deleted", false));
-		if(AuditUtil.getSharedClients().isEmpty()) {
-			criteria.add(Restrictions.eq("projectGroupCode",AuditUtil.getLoginUserProjectGroup()));
-			}else {
-				Criterion clientsCriterion = Restrictions.in("id",AuditUtil.getSharedClients());
-				Criterion projectGroupCriterion =	Restrictions.eq("projectGroupCode",AuditUtil.getLoginUserProjectGroup());
-		        Disjunction inDisjunction = Restrictions.disjunction();
-		        	inDisjunction.add(projectGroupCriterion);
-		        	inDisjunction.add(clientsCriterion);
-		        	criteria.add(inDisjunction);
-			}
-		return getRowsCount(criteria);
+		return countRows(criteria);
 	}
 
 }

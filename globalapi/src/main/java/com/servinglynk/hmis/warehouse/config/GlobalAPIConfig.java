@@ -28,6 +28,9 @@ import com.servinglynk.hmis.warehouse.rest.GlobalProjectsController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.MessagePublishController;
 import com.servinglynk.hmis.warehouse.rest.NotificationsController;
+import com.servinglynk.hmis.warehouse.rest.ProjectSharingRuleController;
+import com.servinglynk.hmis.warehouse.rest.ProjectSubGroupController;
+import com.servinglynk.hmis.warehouse.rest.ProjectsController;
 import com.servinglynk.hmis.warehouse.rest.SharingrulesController;
 
 @Configuration
@@ -128,5 +131,20 @@ public class GlobalAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public MessagePublishController messagePublishController() {
 		 return new MessagePublishController();
+	 }
+	 
+	 @Bean
+	 public ProjectsController projectsController() {
+		 return new ProjectsController();
+	 }
+	 
+	 @Bean
+	 public ProjectSharingRuleController projectSharingRuleController() {
+		 return new ProjectSharingRuleController();
+	 }
+	 
+	 @Bean
+	 public ProjectSubGroupController projectSubGroupController() {
+		 return new ProjectSubGroupController();
 	 }
 }

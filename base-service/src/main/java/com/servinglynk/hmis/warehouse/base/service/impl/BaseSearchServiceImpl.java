@@ -59,6 +59,7 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 	    Account account = serviceFactory.getAccountService().getAccount(session.getAccount(),false);
 	    
 	    	searchVo.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
+	    	searchVo.setUserId(account.getAccountId());
 	    Sort sorting = new Sort();
 	    sorting.setOrder(order);
 	    sorting.setField(sort);
