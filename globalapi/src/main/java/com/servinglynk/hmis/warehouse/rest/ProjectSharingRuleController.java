@@ -30,9 +30,9 @@ public class ProjectSharingRuleController extends ControllerBase {
 	
 	@RequestMapping(method=RequestMethod.DELETE,value="/{sharingruleid}")
 	@APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=true, checkTrustedApp=true)
-	public ProjectSharingRule deleteSharingRule(@PathVariable("sharingruleid") UUID sharingruleid,HttpServletRequest request) {
+	public void deleteSharingRule(@PathVariable("sharingruleid") UUID sharingruleid,HttpServletRequest request) {
 		Account caller = sessionHelper.getSession(request).getAccount();
-		return serviceFactory.getProjectSharingRuleService().deleteSharingRule(sharingruleid, caller);
+		 serviceFactory.getProjectSharingRuleService().deleteSharingRule(sharingruleid, caller);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET,value="/{sharingruleid}")
