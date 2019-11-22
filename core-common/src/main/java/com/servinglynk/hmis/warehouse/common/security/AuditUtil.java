@@ -47,7 +47,7 @@ public class AuditUtil {
 			}
 	}
 	
-	public static List<UUID> getSharedClients() {
+/*	public static List<UUID> getSharedClients() {
 		List<UUID> clients = new ArrayList<UUID>();
 		SecurityContext context =  SecurityContextHolder.getContext();
 		Authentication authentication =  context.getAuthentication();
@@ -71,5 +71,5 @@ public class AuditUtil {
 			}else {
 				return enrollments;
 			}
-	}
+	}*/
 }

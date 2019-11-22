@@ -11,6 +11,8 @@ import com.servinglynk.hmis.warehouse.base.dao.AccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.AccountDataChangeDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ApiMethodDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.BaseClientDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.BaseProjectDao;
+import com.servinglynk.hmis.warehouse.base.dao.BaseProjectDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDao;
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ClientConsentDaoImpl;
@@ -36,6 +38,9 @@ import com.servinglynk.hmis.warehouse.base.dao.PermissionSetDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ProfileAclDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ProfileDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.ProjectGroupDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ProjectSharingRuleDao;
+import com.servinglynk.hmis.warehouse.base.dao.ProjectSharingRuleDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.ProjectSubGroupDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.PropertyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.RedirectUriDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.RefreshTokenDaoImpl;
@@ -310,5 +315,20 @@ public class BaseDatabaseConfig {
 	@Bean
 	public ClientMetaDataDaoImpl clientMetaDataDao() {
 		return new ClientMetaDataDaoImpl();
+	}
+	
+	@Bean
+	public BaseProjectDaoImpl baseProjectDao() {
+		return new BaseProjectDaoImpl();
+	}
+	
+	@Bean
+	public ProjectSharingRuleDaoImpl projectSharingRuleDao() {
+		return new ProjectSharingRuleDaoImpl();
+	}
+	
+	@Bean
+	public ProjectSubGroupDaoImpl projectSubGroupDao() {
+		return new ProjectSubGroupDaoImpl();
 	}
 }

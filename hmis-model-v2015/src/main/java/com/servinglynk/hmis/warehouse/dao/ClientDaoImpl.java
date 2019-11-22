@@ -276,14 +276,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public com.servinglynk.hmis.warehouse.model.v2015.Client getClientById(UUID clientId) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2015.Client.class);
 		criteria.add(Restrictions.eq("id", clientId));
-		List<UUID> shatedClients = AuditUtil.getSharedClients();		
-		criteria.add(Restrictions.eq("id", clientId));
-		if(shatedClients.contains(clientId)) {
-		}else {
-			criteria.add(Restrictions.eq("projectGroupCode", AuditUtil.getLoginUserProjectGroup()));			
-		}
-			criteria.add(Restrictions.eq("deleted", false));
-		List<com.servinglynk.hmis.warehouse.model.v2015.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2015.Client>) getByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2015.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2015.Client>) findByCriteria(criteria);
 		if(clients.size()>0) return clients.get(0);
 		return null;
 	}

@@ -14,6 +14,7 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
+import com.servinglynk.hmis.warehouse.base.service.ProjectSubGroupService;
 import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
 import com.servinglynk.hmis.warehouse.base.service.SharingRuleService;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
@@ -24,6 +25,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.AccountServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ApiMethodServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.AuthorizationServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.BaseClientsServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.BaseProjectServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.BaseSearchServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.BulkUploadServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ClientConsentServiceImpl;
@@ -39,6 +41,8 @@ import com.servinglynk.hmis.warehouse.base.service.impl.PasswordResetServiceImpl
 import com.servinglynk.hmis.warehouse.base.service.impl.PermissionSetServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ProfileServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ProjectGroupServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.ProjectSharingRuleServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.ProjectSubGroupServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ReportConfigServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.RoleServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.SessionServiceImpl;
@@ -282,5 +286,18 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 		 return new BaseClientsServiceImpl();
 	 }
 	 
+	 @Bean
+	 public ProjectSharingRuleServiceImpl projectSharingRuleService() {
+		 return new ProjectSharingRuleServiceImpl();
+	 }
 	 
+	 @Bean
+	 public BaseProjectServiceImpl baseProjectService() {
+		 return new BaseProjectServiceImpl();
+	 }
+	 
+	 @Bean
+	 public ProjectSubGroupServiceImpl projectSubGroupService() {
+		 return new ProjectSubGroupServiceImpl();
+	 }
 }

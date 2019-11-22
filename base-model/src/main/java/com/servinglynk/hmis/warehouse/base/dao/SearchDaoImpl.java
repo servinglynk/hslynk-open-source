@@ -171,16 +171,6 @@ public class SearchDaoImpl
 				//  criteria.addOrder(Order.desc("dateUpdated"));
 		  } 
   }
-	if(AuditUtil.getSharedClients().isEmpty()) {
-	criteria.add(Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode()));
-	}else {
-		Criterion clientsCriterion = Restrictions.in("id",AuditUtil.getSharedClients());
-		Criterion projectGroupCriterion =	Restrictions.eq("projectGroupCode",searchRequest.getProjectGroupCode());
-        Disjunction inDisjunction = Restrictions.disjunction();
-        	inDisjunction.add(projectGroupCriterion);
-        	inDisjunction.add(clientsCriterion);
-        	criteria.add(inDisjunction);
-	}
 	criteria.add(Restrictions.isNull("parentId"));
 	criteria.add(Restrictions.eq("deleted", false));
 	criteria.add(Restrictions.isNotNull("dedupClientId"));
@@ -224,7 +214,7 @@ public class SearchDaoImpl
   String dob = null;
   name = "'%"+searchRequest.getFreeText()+"%'";
 	  
-	  String queryString = "select * from base.client_search_by_name('%"+searchRequest.getFreeText()+"%','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+")";
+	  String queryString = "select * from base.shared_client_search_by_name('%"+searchRequest.getFreeText()+"%','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+",'"+searchRequest.getUserId()+"')";
 	  
 	  
 	  try {
@@ -232,7 +222,7 @@ public class SearchDaoImpl
 			  name = null;
 			  dob  = null;
 			  id ="'"+ searchRequest.getFreeText()+"'";
-		   queryString = "select * from base.client_search_by_id('"+searchRequest.getFreeText()+"','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+")";
+		   queryString = "select * from base.shared_client_search_by_id('"+searchRequest.getFreeText()+"','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+",'"+searchRequest.getUserId()+"')";
 	  }catch (Exception e) {
 	}
 	  
@@ -242,7 +232,7 @@ public class SearchDaoImpl
 		  name = null;
 		  id =null;
 		  dob ="'"+ searchRequest.getFreeText()+"'";
-		  queryString = "select * from base.client_search_by_dob('"+searchRequest.getFreeText()+"','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+")";
+		  queryString = "select * from base.shared_client_search_by_dob('"+searchRequest.getFreeText()+"','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+",'"+searchRequest.getUserId()+"')";
 	  }catch (Exception e) {
 	}
 	  

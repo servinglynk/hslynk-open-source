@@ -1,8 +1,6 @@
 package com.servinglynk.hmis.warehouse.common.security;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,11 +11,9 @@ public class LoggedInUser implements UserDetails  {
 	
 	private String username;
 	private String projectGroup;
-	private List<UUID> enrollments = new ArrayList<>();
-	private List<UUID> clients= new ArrayList<>();
 	private UUID profileId;
 	private UUID userId;
-	
+	private Boolean checkProjectGroup = true;
 	public LoggedInUser(String username, String projectGroup,UUID profileId,UUID userId) {
 		super();
 		this.username = username;
@@ -26,14 +22,20 @@ public class LoggedInUser implements UserDetails  {
 		this.userId = userId;
 	}
 
-	public LoggedInUser(String username, String projectGroup,UUID profileId,UUID userId, List<UUID> enrollments, List<UUID> clients) {
+	public LoggedInUser(String username, String projectGroup, UUID profileId, UUID userId, Boolean checkProjectGroup) {
 		super();
 		this.username = username;
 		this.projectGroup = projectGroup;
 		this.profileId = profileId;
 		this.userId = userId;
-		this.enrollments = enrollments;
-		this.clients = clients;
+		this.checkProjectGroup = checkProjectGroup;
+	}
+
+	public Boolean getCheckProjectGroup() {
+		return checkProjectGroup;
+	}
+	public void setCheckProjectGroup(Boolean checkProjectGroup) {
+		this.checkProjectGroup = checkProjectGroup;
 	}
 
 	@Override
@@ -69,23 +71,6 @@ public class LoggedInUser implements UserDetails  {
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}
-
-
-	public List<UUID> getEnrollments() {
-		return enrollments;
-	}
-
-	public void setEnrollments(List<UUID> enrollments) {
-		this.enrollments = enrollments;
-	}
-
-	public List<UUID> getClients() {
-		return clients;
-	}
-
-	public void setClients(List<UUID> clients) {
-		this.clients = clients;
 	}
 
 	public String getProjectGroup() {

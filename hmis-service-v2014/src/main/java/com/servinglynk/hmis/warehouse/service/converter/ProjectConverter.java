@@ -101,7 +101,4 @@ public class ProjectConverter extends BaseConverter {
 	   globalProject.setSourceSystemId(project.getSourceSystemId());
 	   return globalProject;
    }
-
-
-
 }
