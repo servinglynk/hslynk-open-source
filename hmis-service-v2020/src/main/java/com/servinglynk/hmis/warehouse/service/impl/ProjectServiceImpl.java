@@ -73,7 +73,7 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
        org.apache.commons.beanutils.BeanUtils.copyProperties(pProject, baseProject);
        daoFactory.getBaseProjectDao().updateProject(baseProject);
-       return project;
+     return project;
    }
 
    @Transactional
@@ -84,7 +84,6 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        daoFactory.getProjectDao().deleteProject(pProject);
        com.servinglynk.hmis.warehouse.model.base.Project baseProject = daoFactory.getBaseProjectDao().getProjectById(projectId);
        if(baseProject!=null) daoFactory.getBaseProjectDao().deleteProject(baseProject);
-
        return new Project();
    }
 

@@ -198,7 +198,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		return countRows(criteria);
-	}
+  }
 
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {

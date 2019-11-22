@@ -284,7 +284,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2020.Client getClientById(UUID clientId) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Client.class);
-		criteria.add(Restrictions.eq("id", clientId));
+    criteria.add(Restrictions.eq("id", clientId));
 		List<com.servinglynk.hmis.warehouse.model.v2020.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2020.Client>) findByCriteria(criteria);
 		if(clients.size()>0) return clients.get(0);
 		return null;
