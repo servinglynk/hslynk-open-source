@@ -18,7 +18,7 @@ public class FileExport extends ClientModel {
 	private Date startDate;
 	private Date endDate;
 	private Long id;
-	private List<String> projectIds;
+	private List<Project> projectIds;
 	private String createdBy;
 	private String updatedBy;
 	/**
@@ -144,13 +144,13 @@ public class FileExport extends ClientModel {
 	/**
 	 * @return the projectIds
 	 */
-	public List<String> getProjectIds() {
+	public List<Project> getProjectIds() {
 		return projectIds;
 	}
 	/**
 	 * @param projectIds the projectIds to set
 	 */
-	public void setProjectIds(List<String> projectIds) {
+	public void setProjectIds(List<Project> projectIds) {
 		this.projectIds = projectIds;
 	}
 	/**

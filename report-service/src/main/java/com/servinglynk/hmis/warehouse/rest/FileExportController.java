@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
-import com.servinglynk.hmis.warehouse.core.model.ReportConfig;
-import com.servinglynk.hmis.warehouse.core.model.ReportConfigs;
+import com.servinglynk.hmis.warehouse.core.model.FileExport;
+import com.servinglynk.hmis.warehouse.core.model.FileExports;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.service.AWSService;
@@ -31,54 +31,54 @@ public class FileExportController extends ControllerBase {
 	private static final int BUFFER_SIZE = 4096;
 	
 		@RequestMapping(method = RequestMethod.POST)
-		@APIMapping(value="CREATE_FILE_EXPORT",checkSessionToken=true, checkTrustedApp=true)
-		public ReportConfig createReport(@RequestBody ReportConfig reportConfig,HttpServletRequest request) throws Exception {			
+		@APIMapping(value="CREATE_FILE_EXPORT",checkSessionToken=false, checkTrustedApp=false)
+		public FileExport createReport(@RequestBody FileExport fileExport,HttpServletRequest request) throws Exception {			
 		 Session session = sessionHelper.getSession(request);
 		 String username = session.getAccount().getUsername();
-		 ReportConfig createReportConfig = serviceFactory.getReportConfigService().createReportConfig(reportConfig,username);
-		 return createReportConfig;
+		 FileExport createFileExport = serviceFactory.getFileExportService().createFileExport(fileExport,username);
+		 return createFileExport;
 		}
 
 	 	@RequestMapping(method = RequestMethod.GET)
-		@APIMapping(value="GET_FILE_EXPORT_BY_USER",checkSessionToken=true, checkTrustedApp=true)
-		public ReportConfigs getReports(@RequestParam(value="startIndex", required=false) Integer startIndex, 
+		@APIMapping(value="GET_FILE_EXPORT_BY_USER",checkSessionToken=false, checkTrustedApp=false)
+		public FileExports getReports(@RequestParam(value="startIndex", required=false) Integer startIndex, 
                 @RequestParam(value="maxItems", required=false) Integer maxItems,HttpServletRequest request) throws Exception {			
 		 Session session = sessionHelper.getSession(request);
 		 String username = session.getAccount().getUsername();
-		 return  serviceFactory.getReportConfigService().getReportConfigsByUser(startIndex, maxItems, username);
+		 return  serviceFactory.getFileExportService().getFileExportsByUser(startIndex, maxItems, username);
 		}
 
-		@RequestMapping(value="/{reportConfigId}",method=RequestMethod.GET)
-		@APIMapping(value="GET_FILE_EXPORT_BY_ID",checkSessionToken=true, checkTrustedApp=true)
-		public ReportConfig getReportById(@PathVariable(value="reportConfigId") Long reportConfigId, 
+		@RequestMapping(value="/{fileExportId}",method=RequestMethod.GET)
+		@APIMapping(value="GET_FILE_EXPORT_BY_ID",checkSessionToken=false, checkTrustedApp=false)
+		public FileExport getReportById(@PathVariable(value="fileExportId") Long fileExportId, 
                 HttpServletRequest request) throws Exception {			
 		 Session session = sessionHelper.getSession(request);
 		 String username = session.getAccount().getUsername();
-		 return  serviceFactory.getReportConfigService().getReportConfigById(reportConfigId);
+		 return  serviceFactory.getFileExportService().getFileExportById(fileExportId);
 		}
 		
-		@RequestMapping(value="/{reportConfigId}",method=RequestMethod.PUT)
-		@APIMapping(value="UPDATE_FILE_EXPORT",checkSessionToken=true, checkTrustedApp=true)
-		public ReportConfig updateById(@PathVariable(value="reportConfigId") Long reportConfigId, 
-                HttpServletRequest request, @RequestBody ReportConfig reportConfig) throws Exception {			
+		@RequestMapping(value="/{fileExportId}",method=RequestMethod.PUT)
+		@APIMapping(value="UPDATE_FILE_EXPORT",checkSessionToken=false, checkTrustedApp=false)
+		public FileExport updateById(@PathVariable(value="fileExportId") Long fileExportId, 
+                HttpServletRequest request, @RequestBody FileExport fileExport) throws Exception {			
 		 Session session = sessionHelper.getSession(request);
 		 String username = session.getAccount().getUsername();
-		 return  serviceFactory.getReportConfigService().updateReportConfig(reportConfigId, reportConfig, username);
+		 return  serviceFactory.getFileExportService().updateFileExport(fileExportId, fileExport, username);
 		}
 		
-		@RequestMapping(value="/download/{reportConfigId}/{type}",method = RequestMethod.GET)
-		@APIMapping(value="GET_FILE_EXPORT_BY_USER",checkSessionToken=true, checkTrustedApp=true)
-		public void downloadPDFFile(@PathVariable(value="reportConfigId") Long reportConfigId,@PathVariable(value="type") String type,
+		@RequestMapping(value="/download/{fileExportId}/{type}",method = RequestMethod.GET)
+		@APIMapping(value="GET_FILE_EXPORT_BY_USER",checkSessionToken=false, checkTrustedApp=false)
+		public void downloadPDFFile(@PathVariable(value="fileExportId") Long fileExportId,@PathVariable(value="type") String type,
 				HttpServletRequest request, HttpServletResponse response) {
 			try {
 		        Session session = sessionHelper.getSession(request);
 		        String bucketName = session.getAccount().getProjectGroup().getBucketName();
-		        ReportConfig reportConfigById = serviceFactory.getReportConfigService().getReportConfigById(reportConfigId);
-		        if(reportConfigById != null && StringUtils.equals(reportConfigById.getProjectGroupCode(), session.getAccount().getProjectGroup().getProjectGroupCode())) {
-		        	InputStream inputStream = awsService.downloadFile(bucketName, "APR/"+reportConfigId+"."+type, null);
+		        FileExport fileExportById = serviceFactory.getFileExportService().getFileExportById(fileExportId);
+		        if(fileExportById != null && StringUtils.equals(fileExportById.getProjectGroupCode(), session.getAccount().getProjectGroup().getProjectGroupCode())) {
+		        	InputStream inputStream = awsService.downloadFile(bucketName, "APR/"+fileExportId+"."+type, null);
 			        response.setContentType("application/force-download");
-			        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+"."+type); 
-			        response.setHeader("x-filename",reportConfigId+"."+type); 
+			        response.setHeader("Content-Disposition", "attachment; filename="+fileExportId+"."+type); 
+			        response.setHeader("x-filename",fileExportId+"."+type); 
 			        IOUtils.copy(inputStream, response.getOutputStream());
 			        response.flushBuffer();
 			        inputStream.close();

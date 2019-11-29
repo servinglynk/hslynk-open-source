@@ -12,6 +12,7 @@ import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
+import com.servinglynk.hmis.warehouse.base.service.FileExportService;
 import com.servinglynk.hmis.warehouse.base.service.GenericEnrollmentService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalEnrollmentService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalHouseHoldService;
@@ -60,6 +61,9 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 	
 	@Autowired
 	private ReportConfigService reportConfigService;
+	
+	@Autowired
+	private FileExportService fileExportService;
 	
 	@Autowired
 	private ApiMethodService apiMethodService;
@@ -316,5 +320,13 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setBaseClientsService(BaseClientsService baseClientsService) {
 		this.baseClientsService = baseClientsService;
-	}	
+	}
+
+	public FileExportService getFileExportService() {
+		return fileExportService;
+	}
+
+	public void setFileExportService(FileExportService fileExportService) {
+		this.fileExportService = fileExportService;
+	}
 }

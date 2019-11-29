@@ -22,8 +22,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.servinglynk.hmis.warehouse.base.service.converter.ReportConfigConverter;
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.rest.FileExportController;
 import com.servinglynk.hmis.warehouse.rest.ReportConfigController;
 import com.servinglynk.hmis.warehouse.service.AWSService;
+import com.servinglynk.hmis.warehouse.service.FileExportWorker;
 import com.servinglynk.hmis.warehouse.service.ReportWorker;
 
 @Configuration
@@ -73,7 +75,11 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	public ReportWorker reportWorker(){
 		return new ReportWorker();
 	}
-
+	@Bean
+	public FileExportWorker fileExportWorker(){
+		return new FileExportWorker();
+	}
+	
 	@Bean
 	PropertyReaderServiceImpl propertyReaderService(){
 		return new PropertyReaderServiceImpl();
@@ -101,6 +107,11 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public ReportConfigController reportConfigController() {
 		return new ReportConfigController();
+	}
+	
+	@Bean
+	public FileExportController fileExportController() {
+		return new FileExportController();
 	}
 	
 	 @PostConstruct

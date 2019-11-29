@@ -69,10 +69,10 @@ public class FileExportParamEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "file_export_id", nullable=false, referencedColumnName="id")
-	public FileExportEntity getfileExport() {
+	public FileExportEntity getFileExport() {
 		return fileExport;
 	}
-	public void setfileExport(FileExportEntity fileExport) {
+	public void setFileExport(FileExportEntity fileExport) {
 		this.fileExport = fileExport;
 	}
 	@Column(name="key")

@@ -14,14 +14,14 @@ import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
 import com.servinglynk.hmis.warehouse.core.model.Notification;
 import com.servinglynk.hmis.warehouse.core.model.Parameter;
-import com.servinglynk.hmis.warehouse.core.model.ReportConfig;
-import com.servinglynk.hmis.warehouse.core.model.ReportConfigs;
+import com.servinglynk.hmis.warehouse.core.model.FileExport;
+import com.servinglynk.hmis.warehouse.core.model.FileExports;
 
 @Component
 @Service
-public class ReportWorker implements IReportWorker  {
+public class FileExportWorker implements IFileExportWorker  {
 	
-	final static Logger logger = Logger.getLogger(ReportWorker.class);
+	final static Logger logger = Logger.getLogger(FileExportWorker.class);
 
 	@Autowired
 	NotificationServiceClient notificationServiceClient;
@@ -34,20 +34,20 @@ public class ReportWorker implements IReportWorker  {
 	public void processReportWorkerLine() throws Exception{
 
 					try{
-						ReportConfigs reportConfigs = serviceFactory.getReportConfigService().getReportConfigByStatusEmailSent("COMPLETED",false);
+						FileExports reportConfigs = serviceFactory.getFileExportService().getFileExportByStatusEmailSent("COMPLETED",false);
 						if(reportConfigs != null) {
-							List<ReportConfig> reportConfigs2 = reportConfigs.getReportConfigs();
+							List<FileExport> reportConfigs2 = reportConfigs.getFileExports();
 							if(CollectionUtils.isNotEmpty(reportConfigs2)) {
-								for(ReportConfig reportConfig :  reportConfigs2) {
+								for(FileExport reportConfig :  reportConfigs2) {
 									if(reportConfig != null) {
 										Notification notification = new Notification();
 										notification.setMethod("EMAIL");
 										notification.setType("HMIS_EMAIL_NOTIFICATION");
-										notification.getParameters().addParameter(new Parameter("subject", "Hslynk: Your Apr Report"+reportConfig.getName() +" is ready!"));
+										notification.getParameters().addParameter(new Parameter("subject", "Hslynk: Your file export request "+reportConfig.getName() +" is ready!"));
 										StringBuilder builder = new StringBuilder();
 										builder.append(" Dear Customer, ");
 										builder.append(" <br/> ");
-										builder.append(" Your APR Report  \""+reportConfig.getName() +"\" is ready! ");
+										builder.append(" Your file export  \""+reportConfig.getName() +"\" is ready! ");
 										builder.append(" <br/> ");
 										builder.append(" Login to the HsLynk's admin application to download your report. ");
 										builder.append(" <br/> ");
@@ -62,15 +62,15 @@ public class ReportWorker implements IReportWorker  {
 										notification.setSender("support@hslynk.com");
 										notification.getRecipients().addToRecipient(reportConfig.getCreatedBy());
 										notificationServiceClient.createNotification(notification);	
-										ReportConfig reportConfigById = serviceFactory.getReportConfigService().getReportConfigById(reportConfig.getId());
+										FileExport reportConfigById = serviceFactory.getFileExportService().getFileExportById(reportConfig.getId());
 										reportConfigById.setEmailSent(true);
-										serviceFactory.getReportConfigService().updateReportConfig(reportConfig.getId(), reportConfigById, reportConfig.getUsername());
+										serviceFactory.getFileExportService().updateFileExport(reportConfig.getId(), reportConfigById, reportConfig.getUsername());
 									}
 							   }
 						   }
 						}
 					}catch(Exception e){
-						 logger.info("Report Creation failed ::::" + e.getMessage());
+						 logger.info("Export Creation failed ::::" + e.getMessage());
 						 e.printStackTrace();
 					}
 

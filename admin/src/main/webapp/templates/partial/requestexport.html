@@ -2,17 +2,17 @@
   <!-- Page Heading -->
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header"> Create Report Config </h1>
+      <h1 class="page-header"> Create Export</h1>
       <ol class="breadcrumb">
         <li> <i class="fa fa-dashboard"></i> <a href="#/admin/dashboard">Dashboard</a> </li>
-        <li class="active"> <i class="fa fa-table"></i> Create Report Config </li>
+        <li class="active"> <i class="fa fa-table"></i> Create Export </li>
       </ol>
     </div>
   </div>
   <!-- /.row -->
   <div class="row">
     <div class="col-lg-12">
-      <form ng-submit="submitForm()" ng-controller="createprojgrpCtrl" name="formRequestReport" id="form" enctype="multipart/form-data">
+      <form ng-submit="submitForm()" ng-controller="requestexportCtrl" name="formRequestExport" id="form" enctype="multipart/form-data">
         <div class="alert alert-success" ng-show="showSuccessAlert">
           <button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >X</button>
          {{successTextAlert}} </div>
@@ -25,19 +25,19 @@
             <input required ng-model="form.name"  name="name">
           </li>
           <li>
-            <label><span class="required">*</span>Report Level: </label>
+            <label><span class="required">*</span>Export Level: </label>
             <select required  ng-model="form.reportLevel" name="reportLevel">
-             <option value="">Select Report Level</option>
+             <option value="">Select Export Level</option>
               <option value="COC">Coc</option>
               <option value="PROJECT">Project</option>
             </select>
           </li>
            <li>
-            <label><span class="required">*</span>Report Type: </label>
+            <label><span class="required">*</span>Export Type: </label>
             <select required  ng-model="form.reportType" name="reportType">
-             <option value="">Select Report Type</option>
-              <option value="APR">APR</option>
-              <option value="AHAR">AHAR</option>
+             <option value="">Select Export Type</option>
+              <option value="HMIS">HMIS</option>
+              <option value="GENERIC">GENERIC</option>
             </select>
           </li>
            <li>
@@ -47,6 +47,12 @@
             <li>
             <label><span class="required">*</span>End Date: </label>
             <input required ng-model="form.endDate" type="date" name="endDate">
+          </li>
+               <li>
+            <label><span class="required">*</span>Project: </label>
+            
+            <select style="height:200px"multiple required ng-model="form.project" name="drpProject" ng-options="project.projectName for project in projects track by project.projectId">
+            </select>
           </li>
           <li>
             <label> </label>

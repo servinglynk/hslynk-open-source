@@ -10,7 +10,7 @@ import com.servinglynk.hmis.warehouse.base.service.FileExportService;
 import com.servinglynk.hmis.warehouse.base.service.converter.FileExportConverter;
 import com.servinglynk.hmis.warehouse.core.model.FileExport;
 import com.servinglynk.hmis.warehouse.core.model.FileExports;
-import com.servinglynk.hmis.warehouse.core.model.ReportProject;
+import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.FileExportEntity;
 import com.servinglynk.hmis.warehouse.model.base.FileExportParamEntity;
@@ -28,17 +28,17 @@ public class FileExportServiceImpl  extends ServiceBase implements FileExportSer
 		FileExport.setProjectGroupCode(user.getProjectGroupCode());
 		FileExportEntity modelToEntity = FileExportConverter.modelToEntity(FileExportEntity, FileExport);
 		FileExportEntity createFileExport = daoFactory.getFileExportDao().createFileExport(modelToEntity);
-		List<ReportProject> reportProjects = FileExport.getProjectIds();
+		List<Project> reportProjects = FileExport.getProjectIds();
 		if(CollectionUtils.isNotEmpty(reportProjects)) {
-			 for(ReportProject reportProject : reportProjects) {
-				 FileExportParamEntity FileExportParamEntity = new FileExportParamEntity();
-				 FileExportParamEntity.setCreatedBy(caller);
-				 FileExportParamEntity.setUpdatedBy(caller);
-				 FileExportParamEntity.setKey("PROJECT_ID");
-				 FileExportParamEntity.setValue(reportProject.getProjectId());
-				 FileExportParamEntity.setFileExport(createFileExport);
-				 FileExportParamEntity.setStatus("ACTIVE");
-				 daoFactory.getFileExportParamDao().createFileExportParam(FileExportParamEntity);
+			 for(Project reportProject : reportProjects) {
+				 FileExportParamEntity fileExportParamEntity = new FileExportParamEntity();
+				 fileExportParamEntity.setCreatedBy(caller);
+				 fileExportParamEntity.setUpdatedBy(caller);
+				 fileExportParamEntity.setKey("PROJECT_ID");
+				 fileExportParamEntity.setValue(reportProject.getProjectId());
+				 fileExportParamEntity.setFileExport(createFileExport);
+				 fileExportParamEntity.setStatus("ACTIVE");
+				 daoFactory.getFileExportParamDao().createFileExportParam(fileExportParamEntity);
 			 }
 		 }
 		return FileExportConverter.entityToModel(createFileExport);

@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
-public class ReportProject {
+public class Project {
 	private String projectId;
 	private String projectName;
 	public String getProjectId() {
