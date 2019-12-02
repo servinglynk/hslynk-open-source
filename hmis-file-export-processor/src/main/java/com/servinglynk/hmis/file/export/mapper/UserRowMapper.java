@@ -5,15 +5,15 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.servinglynk.hmis.file.export.Person;
+import com.servinglynk.hmis.file.export.User;
 
-public class UserRowMapper implements RowMapper<Person>{
+public class UserRowMapper implements RowMapper<User>{
 
 	  @Override
-	  public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-	   Person user = new Person();
-	   user.setFirstName(rs.getString("id"));
-	   user.setLastName(rs.getString("name"));
+	  public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+	   User user = new User();
+	   user.setFirstName(rs.getString("first_name"));
+	   user.setLastName(rs.getString("last_name"));
 	   
 	   return user;
 	  }

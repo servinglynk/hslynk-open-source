@@ -5,13 +5,10 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
@@ -20,10 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
-import com.servinglynk.hmis.file.export.reader.PersonReader;
 
 // tag::setup[]
 @Configuration
@@ -36,44 +32,84 @@ public class BatchConfiguration {
     @Autowired
     public StepBuilderFactory stepBuilderFactory;
     // end::setup[]
-
+    
+    private JdbcTemplate jdbcTemplate;
+    
     @Autowired
-    public PersonReader personReader;
+    public DataSource dataSource;
+    
+
+//    @Autowired
+//    public PersonReader personReader;
+
+//    @Autowired
+//    public PersonWriter personWriter;
+//    
+    @Autowired
+    public PersonItemProcessor personItemProcessor;
+    
+    @Bean
+    public JdbcCursorItemReader<User> reader(){
+	     JdbcCursorItemReader<User> reader = new JdbcCursorItemReader<User>();
+	     reader.setDataSource(dataSource());
+	     reader.setSql("SELECT first_name,last_name FROM base.hmis_user");
+	     reader.setRowMapper(new RowMapper<User>() {
+	            @Override
+	            public User mapRow(ResultSet rs, int i) throws SQLException {
+	                return new User(rs.getString("first_name"), rs.getString("last_name"));
+	            }
+	        });
+	     return reader;
+	    }
+    
+    
+    
+    @Bean
+	public FlatFileItemWriter<User> writer(){
+	     FlatFileItemWriter<User> writer = new FlatFileItemWriter<User>();
+	     writer.setResource(new ClassPathResource("users.csv"));
+	     writer.setLineAggregator(new DelimitedLineAggregator<User>() {{
+	      setDelimiter(",");
+	      setFieldExtractor(new BeanWrapperFieldExtractor<User>() {{
+	       setNames(new String[] { "firstName", "lastName" });
+	      }});
+	     }});
+	     
+	     return writer;
+	    }
     
     @Bean
     public DataSource dataSource() {
      final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-     dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-     dataSource.setUrl("jdbc:mysql://localhost/springbatch");
-     dataSource.setUsername("root");
-     dataSource.setPassword("root");
-     
+     dataSource.setDriverClassName("org.postgresql.Driver");
+     dataSource.setUrl("jdbc:postgresql://localhost:5432/hmis");
+     dataSource.setUsername("postgres");
+     dataSource.setPassword("postgres");
+     this.jdbcTemplate = new JdbcTemplate(dataSource);
      return dataSource;
     }
-
-    @Bean
-    public PersonItemProcessor processor() {
-        return new PersonItemProcessor();
-    }
     
-    // tag::jobstep[]
-    @Bean
-    public Job exportUserJob(JobCompletionNotificationListener listener, Step step1) {
-        return jobBuilderFactory.get("exportUserJob")
-            .incrementer(new RunIdIncrementer())
-            .listener(listener)
-            .flow(step1)
-            .end()
-            .build();
-    }
+
+
+    
+//    // tag::jobstep[]
+//    @Bean
+//    public Job exportUserJob(JobCompletionNotificationListener listener, Step step1) {
+//        return jobBuilderFactory.get("exportUserJob")
+//            .incrementer(new RunIdIncrementer())
+//            .listener(listener)
+//            .flow(step1)
+//            .end()
+//            .build();
+//    }
 
     @Bean
-    public Step step1(JdbcBatchItemWriter<Person> writer) {
+    public Step step1() {
         return stepBuilderFactory.get("step1")
-            .<Person, Person> chunk(10)
-            .reader(personReader)
-            .processor(processor())
-            .writer(writer)
+            .<User, User> chunk(10)
+            .reader(reader())
+            .processor(personItemProcessor)
+            .writer(writer())
             .build();
     }
     

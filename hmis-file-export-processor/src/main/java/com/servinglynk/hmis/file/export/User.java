@@ -1,14 +1,14 @@
 package com.servinglynk.hmis.file.export;
 
-public class Person {
+public class User {
 
     private String lastName;
     private String firstName;
 
-    public Person() {
+    public User() {
     }
 
-    public Person(String firstName, String lastName) {
+    public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }

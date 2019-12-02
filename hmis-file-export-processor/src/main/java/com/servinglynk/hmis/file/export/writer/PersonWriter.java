@@ -5,17 +5,17 @@ import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.core.io.ClassPathResource;
 
-import com.servinglynk.hmis.file.export.Person;
+import com.servinglynk.hmis.file.export.User;
 
-public class PersonWriter extends FlatFileItemWriter<Person> {
+public class PersonWriter extends FlatFileItemWriter<User> {
 
-	public FlatFileItemWriter<Person> writer(){
-	     FlatFileItemWriter<Person> writer = new FlatFileItemWriter<Person>();
+	public FlatFileItemWriter<User> writer(){
+	     FlatFileItemWriter<User> writer = new FlatFileItemWriter<User>();
 	     writer.setResource(new ClassPathResource("users.csv"));
-	     writer.setLineAggregator(new DelimitedLineAggregator<Person>() {{
+	     writer.setLineAggregator(new DelimitedLineAggregator<User>() {{
 	      setDelimiter(",");
-	      setFieldExtractor(new BeanWrapperFieldExtractor<Person>() {{
-	       setNames(new String[] { "id", "name" });
+	      setFieldExtractor(new BeanWrapperFieldExtractor<User>() {{
+	       setNames(new String[] { "firstName", "lastName" });
 	      }});
 	     }});
 	     
