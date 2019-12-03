@@ -11,9 +11,9 @@ import org.hibernate.engine.spi.SessionImplementor;
 
 import com.servinglynk.hmis.warehouse.util.GenericEnumType;
 
-public class ExportLevelEnumType  extends GenericEnumType<String, ReportLevelEnum> {
+public class ExportLevelEnumType  extends GenericEnumType<String, ExportLevelEnum> {
 	public ExportLevelEnumType() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-		super(ReportLevelEnum.class, ReportLevelEnum.values(), "getValue", Types.OTHER);
+		super(ExportLevelEnum.class, ExportLevelEnum.values(), "getValue", Types.OTHER);
 	}
 
 	@Override

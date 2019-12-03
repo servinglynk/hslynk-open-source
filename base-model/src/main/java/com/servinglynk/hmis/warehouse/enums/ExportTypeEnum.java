@@ -5,11 +5,9 @@ import java.util.Map;
 
 public enum ExportTypeEnum {
 	/** Enum Constant. */
-	APR("APR"),
+	HMIS("HMIS"),
 	/** Enum Constant. */
-	AHAR("AHAR"),
-	/** Enum Constant. */
-	CAPER("CAPER");
+	GENERIC("GENERIC");
 	
 private final String status;
 	
