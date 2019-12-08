@@ -21,11 +21,10 @@ import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
 
 // tag::setup[]
 @Configuration
@@ -39,17 +38,10 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
     public StepBuilderFactory stepBuilderFactory;
     // end::setup[]
     
-    private JdbcTemplate jdbcTemplate;
-    
-    @Autowired
-    public DataSource dataSource;
-    
 
 //    @Autowired
 //    public PersonReader personReader;
 
-//    @Autowired
-//    public PersonWriter personWriter;
 //    
     @Autowired
     public PersonItemProcessor personItemProcessor;
@@ -92,7 +84,6 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
      dataSource.setUrl("jdbc:postgresql://localhost:5432/hmis");
      dataSource.setUsername("postgres");
      dataSource.setPassword("postgres");
-     this.jdbcTemplate = new JdbcTemplate(dataSource);
      return dataSource;
     }
     

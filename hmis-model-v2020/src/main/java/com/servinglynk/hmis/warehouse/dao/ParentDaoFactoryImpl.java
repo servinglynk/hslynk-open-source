@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
+import com.servinglynk.hmis.warehouse.csv.converter.AffiliationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ProjectCsvConverter;
 
 @Component
 public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDaoFactory {
@@ -104,6 +106,10 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired private CurrentLivingSituationDao currentLivingSituationDao;
 	
 	@Autowired private EventDao eventDao;
+	
+	@Autowired private ProjectCsvConverter projectCsvConverter;
+	
+	@Autowired private AffiliationCsvConverter affiliationCsvConverter;
 	
 
 	/**
@@ -693,5 +699,21 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	}
 	public void setHistoryDao(HistoryDao historyDao) {
 		this.historyDao = historyDao;
+	}
+
+	public ProjectCsvConverter getProjectCsvConverter() {
+		return projectCsvConverter;
+	}
+
+	public void setProjectCsvConverter(ProjectCsvConverter projectCsvConverter) {
+		this.projectCsvConverter = projectCsvConverter;
+	}
+
+	public AffiliationCsvConverter getAffiliationCsvConverter() {
+		return affiliationCsvConverter;
+	}
+
+	public void setAffiliationCsvConverter(AffiliationCsvConverter affiliationCsvConverter) {
+		this.affiliationCsvConverter = affiliationCsvConverter;
 	}
 }

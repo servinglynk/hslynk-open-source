@@ -15,6 +15,8 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
+import com.servinglynk.hmis.warehouse.csv.converter.AffiliationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ProjectCsvConverter;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.AssessmentDaoImpl;
@@ -395,5 +397,14 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public HistoryDaoImpl historyDao() {
 		return new HistoryDaoImpl();
+	}
+	
+	@Bean
+	public ProjectCsvConverter projectCsvConverter() {
+		return new ProjectCsvConverter();
+	}
+	
+	@Bean AffiliationCsvConverter affiliationCsvConverter() {
+		return new AffiliationCsvConverter();
 	}
 }

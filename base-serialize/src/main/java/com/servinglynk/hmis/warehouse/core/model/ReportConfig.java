@@ -22,7 +22,7 @@ public class ReportConfig extends ClientModel{
 		private String cocId;
 		private String createdBy;
 		private String updatedBy;
-		private List<Project> projectIds = new ArrayList<>();
+		private List<ReportProject> projectIds = new ArrayList<>();
 		public String getName() {
 			return name;
 		}
@@ -89,10 +89,10 @@ public class ReportConfig extends ClientModel{
 		public void setCocId(String cocId) {
 			this.cocId = cocId;
 		}
-		public List<Project> getProjectIds() {
+		public List<ReportProject> getProjectIds() {
 			return projectIds;
 		}
-		public void setProjectIds(List<Project> projectIds) {
+		public void setProjectIds(List<ReportProject> projectIds) {
 			this.projectIds = projectIds;
 		}
 		public String getCreatedBy() {

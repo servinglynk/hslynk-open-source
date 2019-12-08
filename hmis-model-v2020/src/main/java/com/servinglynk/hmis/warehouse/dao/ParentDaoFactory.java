@@ -1,6 +1,8 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
+import com.servinglynk.hmis.warehouse.csv.converter.AffiliationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ProjectCsvConverter;
 
 public interface ParentDaoFactory extends BaseDaoFactory {
 	
@@ -51,4 +53,6 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	 CurrentLivingSituationDao getCurrentLivingSituationDao();
 	 EventDao getEventDao();
 	 HistoryDao getHistoryDao();
+	 ProjectCsvConverter getProjectCsvConverter();
+	 AffiliationCsvConverter getAffiliationCsvConverter();
 }

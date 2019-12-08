@@ -1,6 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
-public class Project {
+public class ReportProject {
 	private String projectId;
 	private String projectName;
 	public String getProjectId() {
@@ -15,4 +15,5 @@ public class Project {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+
 }

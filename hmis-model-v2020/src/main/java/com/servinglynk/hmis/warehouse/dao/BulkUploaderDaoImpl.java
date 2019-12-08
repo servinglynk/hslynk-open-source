@@ -2,10 +2,12 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +32,8 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Moveindate;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.FileExportEntity;
+import com.servinglynk.hmis.warehouse.model.base.FileExportParamEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2020.Affiliation;
 import com.servinglynk.hmis.warehouse.model.v2020.Client;
@@ -903,6 +907,39 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 			return upload;
 	}
+	
+	
+	@Override
+	@Transactional
+	public boolean performFileExport(FileExportEntity fileExport, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3) {
+		long startNanos = System.nanoTime();
+		try {
+			List<FileExportEntity> fileExportEntities = parentDaoFactory.getFileExportDao().getFileExportByStatusEmailSent("INITIAL", false);
+			if(CollectionUtils.isNotEmpty(fileExportEntities)) {
+				FileExportEntity fileExportEntity = fileExportEntities.get(0);
+				List<String> projectIds = new ArrayList<>();
+				List<FileExportParamEntity> fileExportParams = fileExportEntity.getFileExportParams();
+				for(FileExportParamEntity fileExportParam : fileExportParams) {
+					projectIds.add(fileExportParam.getValue());
+				}
+				// Get the Projects from the above criteria:
+				List<Project> projectsForExport = parentDaoFactory.getProjectDao().getProjectsForExport(fileExportEntity.getProjectGroupCode(), projectIds, fileExportEntity.getStartDate(), fileExportEntity.getEndDate());
+				// Now convert Project Entities to CSV
+				parentDaoFactory.getProjectCsvConverter().writeToCSV(projectsForExport);
+				for(Project project : projectsForExport) {
+					 Set<Affiliation> affiliations = project.getAffiliations();
+					 parentDaoFactory.getAffiliationCsvConverter().writeToCSV(affiliations);
+					 Set<Enrollment> enrollments = project.getEnrollments();
+				}
+				
+			}
+		} catch(Exception e) {
+			
+		}
+		return true;
+	}
+	
+			
 	
 }
 

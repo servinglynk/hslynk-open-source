@@ -10,10 +10,10 @@ import com.servinglynk.hmis.warehouse.base.service.FileExportService;
 import com.servinglynk.hmis.warehouse.base.service.converter.FileExportConverter;
 import com.servinglynk.hmis.warehouse.core.model.FileExport;
 import com.servinglynk.hmis.warehouse.core.model.FileExports;
-import com.servinglynk.hmis.warehouse.core.model.Project;
-import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+import com.servinglynk.hmis.warehouse.core.model.ReportProject;
 import com.servinglynk.hmis.warehouse.model.base.FileExportEntity;
 import com.servinglynk.hmis.warehouse.model.base.FileExportParamEntity;
+import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 
 public class FileExportServiceImpl  extends ServiceBase implements FileExportService {
 
@@ -28,14 +28,14 @@ public class FileExportServiceImpl  extends ServiceBase implements FileExportSer
 		FileExport.setProjectGroupCode(user.getProjectGroupCode());
 		FileExportEntity modelToEntity = FileExportConverter.modelToEntity(FileExportEntity, FileExport);
 		FileExportEntity createFileExport = daoFactory.getFileExportDao().createFileExport(modelToEntity);
-		List<Project> reportProjects = FileExport.getProjectIds();
+		List<ReportProject> reportProjects = FileExport.getProjectIds();
 		if(CollectionUtils.isNotEmpty(reportProjects)) {
-			 for(Project reportProject : reportProjects) {
+			 for(ReportProject reportProject : reportProjects) {
 				 FileExportParamEntity fileExportParamEntity = new FileExportParamEntity();
 				 fileExportParamEntity.setCreatedBy(caller);
 				 fileExportParamEntity.setUpdatedBy(caller);
 				 fileExportParamEntity.setKey("PROJECT_ID");
-				 fileExportParamEntity.setValue(reportProject.getProjectId());
+				 fileExportParamEntity.setValue(String.valueOf(reportProject.getProjectId()));
 				 fileExportParamEntity.setFileExport(createFileExport);
 				 fileExportParamEntity.setStatus("ACTIVE");
 				 daoFactory.getFileExportParamDao().createFileExportParam(fileExportParamEntity);

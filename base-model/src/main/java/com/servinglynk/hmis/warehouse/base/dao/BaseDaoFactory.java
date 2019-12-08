@@ -36,4 +36,5 @@ public interface BaseDaoFactory {
 	GlobalHouseHoldDao getGlobalHouseHoldDao();
 	SharingRuleDao getSharingRuleDao();
 	ClientMetaDataDao getClientMetaDataDao();
+	FileExportDao getFileExportDao();
 }

@@ -12,7 +12,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hmis.warehouse.core.model.ReportConfig;
-import com.servinglynk.hmis.warehouse.core.model.Project;
+import com.servinglynk.hmis.warehouse.core.model.ReportProject;
 import com.servinglynk.hmis.warehouse.enums.ReportLevelEnum;
 import com.servinglynk.hmis.warehouse.enums.ReportTypeEnum;
 import com.servinglynk.hmis.warehouse.model.base.ReportConfigEntity;
@@ -47,11 +47,11 @@ public class ReportConfigConverter {
 		reportConfig.setCreatedBy(reportConfigEntity.getCreatedBy());
 		reportConfig.setUpdatedBy(reportConfigEntity.getUpdatedBy());
 		List<ReportConfigParamEntity> reportConfigParams = reportConfigEntity.getReportConfigParams();
-		List<Project> projectIds = new ArrayList<>();
+		List<ReportProject> projectIds = new ArrayList<>();
 		if(CollectionUtils.isNotEmpty(reportConfigParams)) {
 			for(ReportConfigParamEntity  param : reportConfigParams) {
 				if(StringUtils.equals("PROJECT_ID",param.getKey())) {
-					Project reportProject = new Project();
+					ReportProject reportProject = new ReportProject();
 					reportProject.setProjectId(param.getValue());
 					projectIds.add(reportProject);
 				}

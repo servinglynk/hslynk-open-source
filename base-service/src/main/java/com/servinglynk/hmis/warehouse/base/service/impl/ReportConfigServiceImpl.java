@@ -10,7 +10,7 @@ import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
 import com.servinglynk.hmis.warehouse.base.service.converter.ReportConfigConverter;
 import com.servinglynk.hmis.warehouse.core.model.ReportConfig;
 import com.servinglynk.hmis.warehouse.core.model.ReportConfigs;
-import com.servinglynk.hmis.warehouse.core.model.Project;
+import com.servinglynk.hmis.warehouse.core.model.ReportProject;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.ReportConfigEntity;
 import com.servinglynk.hmis.warehouse.model.base.ReportConfigParamEntity;
@@ -28,14 +28,14 @@ public class ReportConfigServiceImpl  extends ServiceBase implements ReportConfi
 		reportConfig.setProjectGroupCode(user.getProjectGroupCode());
 		ReportConfigEntity modelToEntity = ReportConfigConverter.modelToEntity(reportConfigEntity, reportConfig);
 		ReportConfigEntity createReportConfig = daoFactory.getReportConfigDao().createReportConfig(modelToEntity);
-		List<Project> reportProjects = reportConfig.getProjectIds();
+		List<ReportProject> reportProjects = reportConfig.getProjectIds();
 		if(CollectionUtils.isNotEmpty(reportProjects)) {
-			 for(Project reportProject : reportProjects) {
+			 for(ReportProject reportProject : reportProjects) {
 				 ReportConfigParamEntity reportConfigParamEntity = new ReportConfigParamEntity();
 				 reportConfigParamEntity.setCreatedBy(caller);
 				 reportConfigParamEntity.setUpdatedBy(caller);
 				 reportConfigParamEntity.setKey("PROJECT_ID");
-				 reportConfigParamEntity.setValue(reportProject.getProjectId());
+				 reportConfigParamEntity.setValue(String.valueOf(reportProject.getProjectId()));
 				 reportConfigParamEntity.setReportConfig(createReportConfig);
 				 reportConfigParamEntity.setStatus("ACTIVE");
 				 daoFactory.getReportConfigParamDao().createReportConfigParam(reportConfigParamEntity);

@@ -8,7 +8,7 @@ import com.googlecode.jcsv.annotations.MapToColumn;
  * @author sdolia
  *
  */
-public class Services {
+public class Services extends BaseCSV {
 	@MapToColumn(column=0)
 	private String ServicesID;
 	@MapToColumn(column=1)

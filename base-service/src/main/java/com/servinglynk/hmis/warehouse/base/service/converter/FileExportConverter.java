@@ -11,7 +11,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hmis.warehouse.core.model.FileExport;
-import com.servinglynk.hmis.warehouse.core.model.Project;
+import com.servinglynk.hmis.warehouse.core.model.ReportProject;
 import com.servinglynk.hmis.warehouse.enums.ExportLevelEnum;
 import com.servinglynk.hmis.warehouse.enums.ExportTypeEnum;
 import com.servinglynk.hmis.warehouse.model.base.FileExportEntity;
@@ -46,11 +46,11 @@ public class FileExportConverter {
 		fileExport.setCreatedBy(fileExportEntity.getCreatedBy());
 		fileExport.setUpdatedBy(fileExportEntity.getUpdatedBy());
 		List<FileExportParamEntity> fileExportParams = fileExportEntity.getFileExportParams();
-		List<Project> projectIds = new ArrayList<>();
+		List<ReportProject> projectIds = new ArrayList<>();
 		if(CollectionUtils.isNotEmpty(fileExportParams)) {
 			for(FileExportParamEntity  param : fileExportParams) {
 				if(StringUtils.equals("PROJECT_ID",param.getKey())) {
-					Project reportProject = new Project();
+					ReportProject reportProject = new ReportProject();
 					reportProject.setProjectId(param.getValue());
 					projectIds.add(reportProject);
 				}
