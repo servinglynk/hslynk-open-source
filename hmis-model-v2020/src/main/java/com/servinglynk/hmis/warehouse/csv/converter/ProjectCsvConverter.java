@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.csv.converter;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.csv.BaseCSV;
+import com.servinglynk.hmis.warehouse.csv.Enrollment;
 import com.servinglynk.hmis.warehouse.csv.Project;
 
 @Component
@@ -33,7 +33,7 @@ public class ProjectCsvConverter extends BaseCsvConverter{
 			model.setOrganizationID(entity.getOrganizationid().getSourceSystemId());
 		
 		model.setProjectCommonName(entity.getProjectcommonname());
-		model.setProjectID(entity.getSourceSystemId());
+		model.setProjectID(getId(entity.getId()));
 		model.setProjectName(entity.getProjectname());
 		if(entity.getProjecttype() != null)
 			model.setProjectType(entity.getProjecttype().getValue());
@@ -49,25 +49,21 @@ public class ProjectCsvConverter extends BaseCsvConverter{
 		return model;
 	}
 	
-	public void writeToCSV(List<com.servinglynk.hmis.warehouse.model.v2020.Project> projects) {
-		List<BaseCSV> baseCSVs = new ArrayList<BaseCSV>();
-		Project obj = new Project();
-		try {
-		Field[] fields = obj.getClass().getDeclaredFields();
-		for(Field field : fields) {
-			field.setAccessible(true);
-			field.set(obj, field.getName());
+	public void writeToCSV(List<com.servinglynk.hmis.warehouse.model.v2020.Project> projects,boolean fillHeaders) {
+		List<BaseCSV> baseCSVs = null;
+		if(fillHeaders) {
+			baseCSVs = getBaseCSVs(new Enrollment());
+		}else {
+			baseCSVs = new ArrayList<BaseCSV>();
 		}
-		baseCSVs.add(obj);
-		
-		
+		try {
 		if(CollectionUtils.isNotEmpty(projects)) {
 			for(com.servinglynk.hmis.warehouse.model.v2020.Project project : projects) {
 				baseCSVs.add(entityToCsv(project));
 			}
 		}
 		
-			CsvFileWriter.writeToCsv("project.csv",baseCSVs);
+			CsvFileWriter.writeToCsv("Project.csv",baseCSVs);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 		 //e.printStackTrace();

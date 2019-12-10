@@ -16,7 +16,26 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.servinglynk.hmis.warehouse.base.dao.config.BaseDatabaseConfig;
 import com.servinglynk.hmis.warehouse.csv.converter.AffiliationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.AssessmentCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.AssessmentQuestionsCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.AssessmentResultsCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ClientCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.CurrentLivingSituationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.DisabilitiesCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EmploymentEducationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EnrollmentCocCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EnrollmentCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EventCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ExitCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ExportCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.FunderCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.HealthAndDvCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.IncomeBenefitsCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.InventoryCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.OrganizationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ProjectCocCsvConverter;
 import com.servinglynk.hmis.warehouse.csv.converter.ProjectCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ServicesCsvConverter;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDao;
 import com.servinglynk.hmis.warehouse.dao.AffiliationDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.AssessmentDaoImpl;
@@ -406,5 +425,74 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	
 	@Bean AffiliationCsvConverter affiliationCsvConverter() {
 		return new AffiliationCsvConverter();
+	}
+	
+	@Bean FunderCsvConverter funderCsvConverter() {
+		return new FunderCsvConverter();
+	}
+	@Bean EnrollmentCsvConverter enrollmentCsvConverter() {
+		return new EnrollmentCsvConverter();
+	}
+	@Bean AssessmentCsvConverter assessmentCsvConverter() {
+		return new AssessmentCsvConverter();
+	}
+	
+	@Bean AssessmentQuestionsCsvConverter assessmentQuestionsCsvConverter() {
+		return new AssessmentQuestionsCsvConverter();
+	}
+	@Bean AssessmentResultsCsvConverter assessmentResultsCsvConverter() {
+		return new AssessmentResultsCsvConverter();
+	}
+	
+	@Bean ClientCsvConverter clientCsvConverter() {
+		return new ClientCsvConverter();
+	}
+
+	@Bean CurrentLivingSituationCsvConverter currentLivingSituationCsvConverter() {
+		return new CurrentLivingSituationCsvConverter();
+	}
+	
+	@Bean DisabilitiesCsvConverter disabilitiesCsvConverter() {
+		return new DisabilitiesCsvConverter();
+	}
+	
+	@Bean EmploymentEducationCsvConverter employmentEducationCsvConverter() {
+		return new EmploymentEducationCsvConverter();
+	}
+	
+	@Bean EnrollmentCocCsvConverter enrollmentCocCsvConverter() {
+		return new EnrollmentCocCsvConverter();
+	}
+	
+	@Bean EventCsvConverter eventCsvConverter() {
+		return new EventCsvConverter();
+	}
+	@Bean ExitCsvConverter exitCsvConverter() {
+		return new ExitCsvConverter();
+	}
+	@Bean ExportCsvConverter exportCsvConverter() {
+		return new ExportCsvConverter();
+	}
+	
+	@Bean HealthAndDvCsvConverter healthAndDvCsvConverter() {
+		return new HealthAndDvCsvConverter();
+	}
+	
+	@Bean IncomeBenefitsCsvConverter incomeBenefitsCsvConverter() {
+		return new IncomeBenefitsCsvConverter();
+	}
+	
+	@Bean InventoryCsvConverter inventoryCsvConverter() {
+		return new InventoryCsvConverter();
+	}
+	@Bean OrganizationCsvConverter organizationCsvConverter() {
+		return new OrganizationCsvConverter();
+	}
+	@Bean ProjectCocCsvConverter projectCocCsvConverter() {
+		return new ProjectCocCsvConverter();
+	}
+	
+	@Bean ServicesCsvConverter servicesCsvConverter() {
+		return new ServicesCsvConverter();
 	}
 }

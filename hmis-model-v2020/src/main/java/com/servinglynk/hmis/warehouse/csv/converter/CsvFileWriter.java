@@ -50,7 +50,7 @@ public class CsvFileWriter  {
             }
         };
         
-        CSVWriter<BaseCSV> csvWriter = new CSVWriterBuilder<BaseCSV>(new FileWriter(file))
+        CSVWriter<BaseCSV> csvWriter = new CSVWriterBuilder<BaseCSV>(new FileWriter(file,true))
                 .entryConverter(entryConverter)
                 .strategy(new CSVStrategy(',', '"', '#', false, true))
                 .build();

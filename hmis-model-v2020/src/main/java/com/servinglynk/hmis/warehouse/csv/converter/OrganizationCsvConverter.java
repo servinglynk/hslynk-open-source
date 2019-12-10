@@ -7,20 +7,18 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import com.servinglynk.hmis.warehouse.csv.Affiliation;
+import com.servinglynk.hmis.warehouse.csv.Organization;
 import com.servinglynk.hmis.warehouse.csv.BaseCSV;
 
 @Component
-public class AffiliationCsvConverter extends BaseCsvConverter {
+public class OrganizationCsvConverter extends BaseCsvConverter {
 
-	public Affiliation entityToCsv(com.servinglynk.hmis.warehouse.model.v2020.Affiliation entity) {
-		 Affiliation model = new Affiliation();
+	public Organization entityToCsv(com.servinglynk.hmis.warehouse.model.v2020.Organization entity) {
+		 Organization model = new Organization();
+	     model.setOrganizationID(getId(entity.getId()));
 	     
-		 model.setAffiliationID(getId(entity.getId()));
-		 if(entity.getProjectid() !=null)
-			 model.setProjectID(entity.getProjectid().getSourceSystemId());  
-	     model.setResProjectID(entity.getResprojectid());
-
+		 model.setOrganizationCommonName(entity.getOrganizationcommonname());
+	     model.setOrganizationName(entity.getOrganizationname());
 	     if(entity.getUserId() !=null)
 			model.setUserID(entity.getUserId().toString());
 		model.setDateCreated(entity.getDateCreated().toString());
@@ -32,21 +30,17 @@ public class AffiliationCsvConverter extends BaseCsvConverter {
 		return model;
 	}
 	
-	public void writeToCSV(Set<com.servinglynk.hmis.warehouse.model.v2020.Affiliation> affiliations,boolean fillHeaders) {
+	public void writeToCSV(com.servinglynk.hmis.warehouse.model.v2020.Organization organization,boolean fillHeaders) {
 		List<BaseCSV> baseCSVs = null;
 		if(fillHeaders) {
-			baseCSVs = getBaseCSVs(new Affiliation());
+			baseCSVs = getBaseCSVs(new Organization());
 		}else {
 			baseCSVs = new ArrayList<BaseCSV>();
 		}
 		try {
 		
-		if(CollectionUtils.isNotEmpty(affiliations)) {
-			for(com.servinglynk.hmis.warehouse.model.v2020.Affiliation affiliation : affiliations) {
-				baseCSVs.add(entityToCsv(affiliation));
-			}
-		}
-			CsvFileWriter.writeToCsv("Affiliation.csv",baseCSVs);
+				baseCSVs.add(entityToCsv(organization));
+			CsvFileWriter.writeToCsv("Organization.csv",baseCSVs);
 			fillHeaders = false;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

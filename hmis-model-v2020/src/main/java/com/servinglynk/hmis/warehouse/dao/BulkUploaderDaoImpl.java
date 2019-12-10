@@ -923,13 +923,38 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 					projectIds.add(fileExportParam.getValue());
 				}
 				// Get the Projects from the above criteria:
+				boolean fillHeaders = true;
 				List<Project> projectsForExport = parentDaoFactory.getProjectDao().getProjectsForExport(fileExportEntity.getProjectGroupCode(), projectIds, fileExportEntity.getStartDate(), fileExportEntity.getEndDate());
 				// Now convert Project Entities to CSV
-				parentDaoFactory.getProjectCsvConverter().writeToCSV(projectsForExport);
+				parentDaoFactory.getProjectCsvConverter().writeToCSV(projectsForExport,fillHeaders);
+				
 				for(Project project : projectsForExport) {
-					 Set<Affiliation> affiliations = project.getAffiliations();
-					 parentDaoFactory.getAffiliationCsvConverter().writeToCSV(affiliations);
+					 parentDaoFactory.getOrganizationCsvConverter().writeToCSV(project.getOrganizationid(), fillHeaders);
+					 parentDaoFactory.getProjectCocCsvConverter().writeToCSV(project.getCocs(), fillHeaders);
+					 parentDaoFactory.getExportCsvConverter().writeToCSV(project.getExport(), fillHeaders);
+					 parentDaoFactory.getInventoryCsvConverter().writeToCSV(project.getInventories(), fillHeaders);
+					 parentDaoFactory.getAffiliationCsvConverter().writeToCSV(project.getAffiliations(),fillHeaders);
+					 parentDaoFactory.getFunderCsvConverter().writeToCSV(project.getFunders(),fillHeaders);
 					 Set<Enrollment> enrollments = project.getEnrollments();
+					 parentDaoFactory.getEnrollmentCsvConverter().writeToCSV(enrollments,fillHeaders);
+					 if(CollectionUtils.isNotEmpty(enrollments)) {
+						 for(com.servinglynk.hmis.warehouse.model.v2020.Enrollment enrollment : enrollments) {
+							 parentDaoFactory.getClientCsvConverter().writeToCSV(enrollment.getClient(), fillHeaders);
+							 parentDaoFactory.getAssessmentCsvConverter().writeToCSV(enrollment.getAssessments(), fillHeaders);
+							 parentDaoFactory.getAssessmentQuestionsCsvConverter().writeToCSV(enrollment.getAssessmentQuestions(), fillHeaders);
+							 parentDaoFactory.getAssessmentResultsCsvConverter().writeToCSV(enrollment.getAssessmentResults(), fillHeaders);
+							 parentDaoFactory.getCurrentLivingSituationCsvConverter().writeToCSV(enrollment.getCurrentLivingSituations(), fillHeaders);
+							 parentDaoFactory.getDisabilitiesCsvConverter().writeToCSV(enrollment.getDisabilitieses(), fillHeaders);
+							 parentDaoFactory.getEmploymentEducationCsvConverter().writeToCSV(enrollment, fillHeaders);
+							 parentDaoFactory.getEnrollmentCocCsvConverter().writeToCSV(enrollment.getEnrollmentCocs(), fillHeaders);
+							 parentDaoFactory.getExitCsvConverter().writeToCSV(enrollment.getExits(), fillHeaders);
+							 parentDaoFactory.getHealthAndDvCsvConverter().writeToCSV(enrollment, fillHeaders);
+							 parentDaoFactory.getIncomeBenefitsCsvConverter().writeToCSV(enrollment, fillHeaders);
+							 parentDaoFactory.getServicesCsvConverter().writeToCSV(enrollment, fillHeaders);
+							 fillHeaders = false;
+						 }
+					 }
+					 fillHeaders = false;
 				}
 				
 			}
