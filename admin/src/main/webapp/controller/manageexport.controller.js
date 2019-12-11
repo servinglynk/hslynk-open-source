@@ -34,8 +34,8 @@ app.controller('manageexportCtrl',['$scope','$location','$routeSegment','$http',
     
     $scope.downloadZIP =  function (exportId) {
         console.log('export config:'+exportId);
-        $scope.downloadId=exportId;
-        Service.DownloadZIP($http,$scope,
+        $scope.exportId=exportId;
+        Service.DownloadExportZIP($http,$scope,
      		    //success
      		    function(data){
         	 		console.log('export config download success :'+exportId);
