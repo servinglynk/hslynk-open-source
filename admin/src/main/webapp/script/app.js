@@ -54,9 +54,11 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
 		  .when('/admin/bulkuploadNew',      's2.bulkuploadNew')
 		   .when('/admin/managesync',      's2.managesync')
 		      .when('/admin/managereport',      's2.managereport')
+		       .when('/admin/manageexport',      's2.manageexport')
 		      .when('/admin/manageeligreq',      's2.manageeligreq')
        		  .when('/admin/setting',      's2.setting')
 			   .when('/admin/requestreport',      's2.requestreport')
+			   .when('/admin/requestexport',      's2.requestexport')
 			   .when('/admin/mergeclient',      's2.mergeclient')
 			   .when('/admin/unmergeclient',      's2.unmergeclient')
 			   .when('/admin/createprojgrp',      's2.createprojgrp')
@@ -99,6 +101,8 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
                 templateUrl: 'templates/partial/manageuser.html', controller: 'manageuserCtrl'})   
 		   .segment('managereport', {
                 templateUrl: 'templates/partial/managereport.html', controller: 'managereportCtrl'})   
+            .segment('manageexport', {
+                templateUrl: 'templates/partial/manageexport.html', controller: 'manageexportCtrl'}) 
             .segment('manageeligreq', {
                 templateUrl: 'templates/partial/manageeligreq.html', controller: 'manageeligreqCtrl'})   
 		  .segment('bulkupload', {
@@ -111,6 +115,8 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
                 templateUrl: 'templates/partial/setting.html', controller: 'settingCtrl'})   
 			 .segment('requestreport', {
                 templateUrl: 'templates/partial/requestreport.html', controller: 'requestreportCtrl'}) 
+              .segment('requestexport', {
+                templateUrl: 'templates/partial/requestexport.html', controller: 'requestexportCtrl'}) 
                .segment('mergeclient', {
                 templateUrl: 'templates/partial/mergeclient.html', controller: 'mergeclientCtrl'}) 
                 .segment('unmergeclient', {

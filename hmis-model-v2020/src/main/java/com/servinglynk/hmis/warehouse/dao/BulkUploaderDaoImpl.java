@@ -22,9 +22,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.AwsS3Client;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2020;
 import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
+import com.servinglynk.hmis.warehouse.dao.helper.ZipFileProcessor;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -927,7 +929,6 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				List<Project> projectsForExport = parentDaoFactory.getProjectDao().getProjectsForExport(fileExportEntity.getProjectGroupCode(), projectIds, fileExportEntity.getStartDate(), fileExportEntity.getEndDate());
 				// Now convert Project Entities to CSV
 				parentDaoFactory.getProjectCsvConverter().writeToCSV(projectsForExport,fillHeaders);
-				
 				for(Project project : projectsForExport) {
 					 parentDaoFactory.getOrganizationCsvConverter().writeToCSV(project.getOrganizationid(), fillHeaders);
 					 parentDaoFactory.getProjectCocCsvConverter().writeToCSV(project.getCocs(), fillHeaders);
@@ -956,6 +957,18 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 					 }
 					 fillHeaders = false;
 				}
+				ProjectGroupEntity projectGroupByGroupCode = parentDaoFactory.getProjectGroupDao().getProjectGroupByGroupCode(fileExportEntity.getProjectGroupCode());
+				
+	          	  // Get the bucket name from project group code.
+	            	ZipFileProcessor.createZipFile("/Users/sdolia/github/hmis-lynk-open-source/hmis-model-v2020/", "/Users/sdolia/github/hmis-lynk-open-source/",fileExportEntity.getId()+".zip");
+	            	
+	            	//SyncPostgresProcessor.updateReportConfig("BEFORE_S3", reportConfig.getId());
+	    		    String bucketName = projectGroupByGroupCode.getBucketName();
+	    			AwsS3Client client = new AwsS3Client();
+	    			client.uploadFile(fileExportEntity.getId()+".zip", "Export/"+fileExportEntity.getId()+".zip",bucketName);
+	    			// update the report config to 
+	    			fileExportEntity.setStatus("COMPLETED");
+	    			parentDaoFactory.getFileExportDao().updateFileExport(fileExportEntity);
 				
 			}
 		} catch(Exception e) {

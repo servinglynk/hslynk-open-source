@@ -54,9 +54,11 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
 		  .when('/admin/bulkuploadNew',      's2.bulkuploadNew')
 		   .when('/admin/managesync',      's2.managesync')
 		      .when('/admin/managereport',      's2.managereport')
+		       .when('/admin/manageexport',      's2.manageexport')
 		      .when('/admin/manageeligreq',      's2.manageeligreq')
        		  .when('/admin/setting',      's2.setting')
 			   .when('/admin/requestreport',      's2.requestreport')
+			   .when('/admin/requestexport',      's2.requestexport')
 			   .when('/admin/mergeclient',      's2.mergeclient')
 			   .when('/admin/unmergeclient',      's2.unmergeclient')
 			   .when('/admin/createprojgrp',      's2.createprojgrp')
@@ -99,6 +101,8 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
                 templateUrl: 'templates/partial/manageuser.html', controller: 'manageuserCtrl'})   
 		   .segment('managereport', {
                 templateUrl: 'templates/partial/managereport.html', controller: 'managereportCtrl'})   
+            .segment('manageexport', {
+                templateUrl: 'templates/partial/manageexport.html', controller: 'manageexportCtrl'}) 
             .segment('manageeligreq', {
                 templateUrl: 'templates/partial/manageeligreq.html', controller: 'manageeligreqCtrl'})   
 		  .segment('bulkupload', {
@@ -111,6 +115,8 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
                 templateUrl: 'templates/partial/setting.html', controller: 'settingCtrl'})   
 			 .segment('requestreport', {
                 templateUrl: 'templates/partial/requestreport.html', controller: 'requestreportCtrl'}) 
+              .segment('requestexport', {
+                templateUrl: 'templates/partial/requestexport.html', controller: 'requestexportCtrl'}) 
                .segment('mergeclient', {
                 templateUrl: 'templates/partial/mergeclient.html', controller: 'mergeclientCtrl'}) 
                 .segment('unmergeclient', {
@@ -356,6 +362,19 @@ var Service= ({
                 'Accept': 'application/json;odata=verbose'}
         }).success(function (data) {
             if(success)success(data.ReportConfigs.reportConfigs)
+        });
+    },
+    GetExports: function ($http, success,$scope) {
+        var apiurl = "/hmis-report-service/rest/export";
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data) {
+            if(success)success(data.FileExports.fileExports)
         });
     },
     GetFilesListRECENT: function ($http, success, $scope) {
@@ -680,7 +699,31 @@ SendRequestReport: function ($http,$scope, success,error) {
          if(success)success(data)
      }).error(error);
 },
-
+SendRequestExport: function ($http,$scope, success,error) {
+	data =$scope.form;
+     var apiurl = "/hmis-report-service/rest/export";
+     data = $scope.form;
+     $http({
+         method: 'POST',
+         url: apiurl,
+         data :
+         	{ "fileExport":{
+                 "name": data.name,
+                 "startDate":data.startDate,
+                 "endDate":data.endDate,
+                 "exportType" : data.reportType,
+                 "exportLevel":data.reportLevel,
+                 "projectIds" : data.project
+              }
+        },
+         headers: {
+           'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+             'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+             'Accept': 'application/json;odata=verbose'}
+     }).success(function (data) {
+         if(success)success(data)
+     }).error(error);
+},
 bulkupload: function ($http, $scope,file, success, error) {
     var apiurl = "/hmis-upload-service/rest/upload";
      var formData = new FormData();
@@ -1527,6 +1570,56 @@ app.controller('manageeligreqCtrl',['$scope','$location','$routeSegment','$http'
 app.controller('viewEligReqCtrl',['$scope', '$location', '$routeSegment', '$http', '$timeout', 'datajson', function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
     $scope.datajson = datajson;
 }]);
+;
+app.controller('manageexportCtrl',['$scope','$location','$routeSegment','$http','$modal', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http,$modal,$timeout, $sessionStorage) {
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	$scope.sessionToken = $sessionStorage.sessionToken;
+    Service.GetExports($http,
+    //success
+    function(data){
+       $scope.list = data;
+        $scope.currentPage = 1; //current page
+        $scope.entryLimit = 10; //max no of items to display in a page
+        $scope.filteredItems = $scope.list.length; //Initially for no filter  
+        $scope.totalItems = $scope.list.length;
+    },$scope)
+  
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.openlog =  function (projectIds) {
+        $scope.projectIds = projectIds;
+       console.log('Projects'+projectIds);
+       var modalInstance = $modal.open({
+            templateUrl: 'templates/partial/exportprojectspopopup.html',
+            controller: 'ModalInstanceLogCtrl',
+            resolve: {
+                'datajson': function () {
+                    return projectIds;
+                }
+            }
+        });
+    }
+    
+    $scope.downloadZIP =  function (exportId) {
+        console.log('export config:'+exportId);
+        $scope.exportId=exportId;
+        Service.DownloadZIP($http,$scope,
+     		    //success
+     		    function(data){
+        	 		console.log('export config download success :'+exportId);
+     		    },function(error) {})
+     }
+
+}]);
+
+
+app.controller('ModalInstanceLogCtrl',['$scope', '$location', '$routeSegment', '$http', '$timeout', 'datajson', function ($scope, $location, $routeSegment, $http, $timeout, datajson) {
+    $scope.datajson = datajson;
+}]);
 ;/* Login */
 app.filter('startFrom', function() {
     return function(input, start) {
@@ -1965,7 +2058,7 @@ app.controller('requestexportCtrl',['$scope','$location','$routeSegment','$http'
 											   
   $scope.submitForm = function() {
 	  
-       Service.SendRequestReport($http,$scope,
+       Service.SendRequestExport($http,$scope,
     //success
     function(data){
 	

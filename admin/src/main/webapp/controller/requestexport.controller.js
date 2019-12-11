@@ -14,7 +14,7 @@ app.controller('requestexportCtrl',['$scope','$location','$routeSegment','$http'
 											   
   $scope.submitForm = function() {
 	  
-       Service.SendRequestReport($http,$scope,
+       Service.SendRequestExport($http,$scope,
     //success
     function(data){
 	
