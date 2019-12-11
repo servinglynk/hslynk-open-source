@@ -76,7 +76,7 @@ public class ReportConfigController extends ControllerBase {
 		        ReportConfig reportConfigById = serviceFactory.getReportConfigService().getReportConfigById(reportConfigId);
 		        if(reportConfigById != null && StringUtils.equals(reportConfigById.getProjectGroupCode(), session.getAccount().getProjectGroup().getProjectGroupCode())) {
 		        	InputStream inputStream = awsService.downloadFile(bucketName, "APR/"+reportConfigId+"."+type, null);
-			        response.setContentType("application/force-download");
+			        response.setContentType("application/zip, application/octet-stream");
 			        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+"."+type); 
 			        response.setHeader("x-filename",reportConfigId+"."+type); 
 			        IOUtils.copy(inputStream, response.getOutputStream());
