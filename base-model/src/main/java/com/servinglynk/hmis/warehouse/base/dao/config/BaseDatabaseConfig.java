@@ -24,6 +24,8 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyAccountDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.DeveloperServiceDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.FileExportDaoImpl;
+import com.servinglynk.hmis.warehouse.base.dao.FileExportParamDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.GenericEnrollmentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.GlobalEnrollmentDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.GlobalHouseHoldDaoImpl;
@@ -305,6 +307,17 @@ public class BaseDatabaseConfig {
 	@Bean
 	public ReportConfigParamDaoImpl reportConfigParamDao() {
 		return new ReportConfigParamDaoImpl();
+	}
+	
+	
+	@Bean
+	public FileExportDaoImpl fileExportDao() {
+		return new FileExportDaoImpl();
+	}
+	
+	@Bean
+	public FileExportParamDaoImpl fileExportParamDao() {
+		return new FileExportParamDaoImpl();
 	}
 	
 	@Bean

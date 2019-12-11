@@ -142,6 +142,15 @@ CREATE TYPE "base".report_level AS ENUM (
 'COC',
 'PROJECT');
 
+CREATE TYPE "base".export_type AS ENUM (
+'HMIS',
+'GENERIC'
+);
+
+CREATE TYPE "base".export_level AS ENUM (
+'COC',
+'PROJECT');
+
 CREATE TABLE base.report_config
 (
   id serial NOT NULL,

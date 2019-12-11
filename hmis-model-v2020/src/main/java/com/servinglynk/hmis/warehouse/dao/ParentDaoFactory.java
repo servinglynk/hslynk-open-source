@@ -1,6 +1,27 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
+import com.servinglynk.hmis.warehouse.csv.converter.AffiliationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.AssessmentCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.AssessmentQuestionsCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.AssessmentResultsCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ClientCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.CurrentLivingSituationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.DisabilitiesCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EmploymentEducationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EnrollmentCocCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EnrollmentCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EventCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ExitCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ExportCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.FunderCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.HealthAndDvCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.IncomeBenefitsCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.InventoryCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.OrganizationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ProjectCocCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ProjectCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ServicesCsvConverter;
 
 public interface ParentDaoFactory extends BaseDaoFactory {
 	
@@ -51,4 +72,28 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	 CurrentLivingSituationDao getCurrentLivingSituationDao();
 	 EventDao getEventDao();
 	 HistoryDao getHistoryDao();
+	 ProjectCsvConverter getProjectCsvConverter();
+	 AffiliationCsvConverter getAffiliationCsvConverter();
+	 FunderCsvConverter getFunderCsvConverter();
+	 EnrollmentCsvConverter getEnrollmentCsvConverter();
+	 
+	 AssessmentCsvConverter getAssessmentCsvConverter();
+	 AssessmentQuestionsCsvConverter getAssessmentQuestionsCsvConverter();
+	 AssessmentResultsCsvConverter getAssessmentResultsCsvConverter();
+	 ClientCsvConverter getClientCsvConverter();
+	 CurrentLivingSituationCsvConverter getCurrentLivingSituationCsvConverter();
+	 DisabilitiesCsvConverter getDisabilitiesCsvConverter();
+	 EmploymentEducationCsvConverter getEmploymentEducationCsvConverter();
+	 EnrollmentCocCsvConverter getEnrollmentCocCsvConverter();
+	 EventCsvConverter getEventCsvConverter();
+	 ExitCsvConverter	getExitCsvConverter();
+	 ExportCsvConverter	getExportCsvConverter();
+	 HealthAndDvCsvConverter getHealthAndDvCsvConverter();
+	 IncomeBenefitsCsvConverter	getIncomeBenefitsCsvConverter();
+	 InventoryCsvConverter	getInventoryCsvConverter();
+	 OrganizationCsvConverter getOrganizationCsvConverter();
+	 ProjectCocCsvConverter	getProjectCocCsvConverter();
+	 ServicesCsvConverter	getServicesCsvConverter();
+	 
+	 
 }

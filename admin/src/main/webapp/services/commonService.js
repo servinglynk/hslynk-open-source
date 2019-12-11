@@ -135,6 +135,19 @@ var Service= ({
             if(success)success(data.ReportConfigs.reportConfigs)
         });
     },
+    GetExports: function ($http, success,$scope) {
+        var apiurl = "/hmis-report-service/rest/export";
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data) {
+            if(success)success(data.FileExports.fileExports)
+        });
+    },
     GetFilesListRECENT: function ($http, success, $scope) {
         var apiurl = "/hmis-upload-service/rest/bulk-upload?status=RECENT";
             $http({
@@ -457,7 +470,31 @@ SendRequestReport: function ($http,$scope, success,error) {
          if(success)success(data)
      }).error(error);
 },
-
+SendRequestExport: function ($http,$scope, success,error) {
+	data =$scope.form;
+     var apiurl = "/hmis-report-service/rest/export";
+     data = $scope.form;
+     $http({
+         method: 'POST',
+         url: apiurl,
+         data :
+         	{ "fileExport":{
+                 "name": data.name,
+                 "startDate":data.startDate,
+                 "endDate":data.endDate,
+                 "exportType" : data.reportType,
+                 "exportLevel":data.reportLevel,
+                 "projectIds" : data.project
+              }
+        },
+         headers: {
+           'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+             'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+             'Accept': 'application/json;odata=verbose'}
+     }).success(function (data) {
+         if(success)success(data)
+     }).error(error);
+},
 bulkupload: function ($http, $scope,file, success, error) {
     var apiurl = "/hmis-upload-service/rest/upload";
      var formData = new FormData();

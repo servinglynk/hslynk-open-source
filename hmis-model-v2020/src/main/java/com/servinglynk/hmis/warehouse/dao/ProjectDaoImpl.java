@@ -4,10 +4,13 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -205,6 +208,27 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	       criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 	       return countRows(criteria);
 	   }
+	   @Override
+	   public List<com.servinglynk.hmis.warehouse.model.v2020.Project> getProjectsForExport(String projectGroupCode,List<String> projectIds,LocalDateTime startDate, LocalDateTime endDate){
+	       List<UUID> projectUUIDs = new ArrayList<UUID>();
+	       if(CollectionUtils.isNotEmpty(projectIds)) {
+	    	   projectIds.forEach(projectId -> projectUUIDs.add(UUID.fromString(projectId)));
+	       }
+		   DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Project.class);
+	       criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
+	       criteria.add(Restrictions.in("id",projectUUIDs));
+	     
+	       Criterion dateCreatedStartDate = Restrictions.ge("dateCreated",startDate);
+	       Criterion dateUpdatedStartDate = Restrictions.ge("dateUpdated",startDate);
+	       Criterion dateCreatedEndDate = Restrictions.le("dateCreated",endDate);
+	       Criterion dateUpdatedEndDate = Restrictions.le("dateUpdated",endDate);
+	       
+	       criteria.add(Restrictions.or(dateCreatedStartDate,dateUpdatedStartDate));
+	       criteria.add(Restrictions.or(dateCreatedEndDate,dateUpdatedEndDate));
+	       
+	       return (List<com.servinglynk.hmis.warehouse.model.v2020.Project>) findByCriteria(criteria);
+	   }
+	   
 	   
 	   /***
 		 * populates User Id and project group code.

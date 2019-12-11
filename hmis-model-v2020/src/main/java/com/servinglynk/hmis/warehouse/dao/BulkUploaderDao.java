@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.FileExportEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 
 @Transactional(propagation = Propagation.REQUIRED) 
@@ -26,5 +27,7 @@ public interface BulkUploaderDao {
 	public BulkUpload processClientChildren(BulkUpload upload, ProjectGroupEntity projectGroupdEntity,Appender appender, Boolean isFileFromS3);
 	public void calculateChronicHomelessness(String projectGroupCode);
 	public BulkUpload performLoad(Long l, Appender appender,
+			Boolean isFileFromS3);
+	boolean performFileExport(FileExportEntity fileExport, ProjectGroupEntity projectGroupdEntity, Appender appender,
 			Boolean isFileFromS3);
 }

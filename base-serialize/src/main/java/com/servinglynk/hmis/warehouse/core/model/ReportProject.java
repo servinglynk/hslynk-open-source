@@ -15,4 +15,5 @@ public class ReportProject {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+
 }

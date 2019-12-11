@@ -6,7 +6,7 @@ import com.googlecode.jcsv.annotations.MapToColumn;
 
 
 @Record(minOccurs=0, maxOccurs=-1)
-public class Client {
+public class Client extends BaseCSV {
 	//PersonalID	FirstName	MiddleName	LastName	NameSuffix	NameDataQuality	
 	// SSN	SSNDataQuality	DOB	DOBDataQuality	AmIndAKNative	Asian	
 	// BlackAfAmerican	NativeHIOtherPacific	White	RaceNone	

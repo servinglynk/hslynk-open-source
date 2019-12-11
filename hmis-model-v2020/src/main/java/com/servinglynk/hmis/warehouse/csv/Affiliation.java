@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.csv;
 import com.googlecode.jcsv.annotations.MapToColumn;
 
 /*AffiliationID	ProjectID	ResProjectID	DateCreated	DateUpdated	UserID	DateDeleted	ExportID */
-public class Affiliation {
+public class Affiliation extends BaseCSV {
 	
 	@MapToColumn(column=0)
 	private String AffiliationID;

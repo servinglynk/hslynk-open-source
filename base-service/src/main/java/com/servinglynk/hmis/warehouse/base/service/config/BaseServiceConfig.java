@@ -31,6 +31,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.BulkUploadServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ClientConsentServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.ClientDataElementsServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.DeveloperCompanyServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.FileExportServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.GenericEnrollmentServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.GlobalEnrollmentServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.GlobalHouseHoldServiceImpl;
@@ -222,8 +223,13 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 		 return new BulkUploadServiceImpl();
 	 }
 	 @Bean
-	 public ReportConfigService reportConfigService() {
+	 public ReportConfigServiceImpl reportConfigService() {
 		 return new ReportConfigServiceImpl();
+	 }
+	 
+	 @Bean
+	 public FileExportServiceImpl fileExportService() {
+		 return new FileExportServiceImpl();
 	 }
 	 
 	 @Bean

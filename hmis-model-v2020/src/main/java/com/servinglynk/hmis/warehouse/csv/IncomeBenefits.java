@@ -18,7 +18,7 @@ DateDeleted	ExportID
  * @author sdolia
  *
  */
-public class IncomeBenefits {
+public class IncomeBenefits extends BaseCSV {
 	@MapToColumn(column=0)
 	private String IncomeBenefitsID;
 	@MapToColumn(column=1)

@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.csv;
 import com.googlecode.jcsv.annotations.MapToColumn;
 
 /*GeographyID	ProjectID	CoCCode	InformationDate	Geocode	GeographyType	Address1	Address2	City	State	ZIP	DateCreated	DateUpdated	UserID	DateDeleted	ExportID */
-public class Geography {
+public class Geography extends BaseCSV {
 	
 	@MapToColumn(column=0)
 	private String GeographyID;

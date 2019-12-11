@@ -1500,7 +1500,6 @@ public class BulkUploadHelper2020 {
 		    	  servicesModel.setUserID(srvcs.getUserID());
 		    	  servicesList.add(servicesModel);
 	    	  }
-	    	
 	      }
 	      sources.getSource().getExport().setServices(servicesList);
 	      sources.getSource().getExport().setContact(contactList);
