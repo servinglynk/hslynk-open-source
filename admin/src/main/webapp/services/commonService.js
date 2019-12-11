@@ -108,6 +108,42 @@ var Service= ({
             console.log(data);
         });
   },
+  DownloadExportZIP: function ($http,$scope, success, error) {
+  	  var apiurl = "/hmis-report-service/rest/export/download/"+$scope.exportId+"/zip";
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data, status, headers) {
+            headers = headers();
+            
+            var filename = headers['x-filename'];
+            var contentType = headers['content-type'];
+     
+            var linkElement = document.createElement('a');
+            try {
+                var blob = new Blob([data], { type: contentType });
+                var url = window.URL.createObjectURL(blob);
+     
+                linkElement.setAttribute('href', url);
+                linkElement.setAttribute("download", filename);
+     
+                var clickEvent = new MouseEvent("click", {
+                    "view": window,
+                    "bubbles": true,
+                    "cancelable": false
+                });
+                linkElement.dispatchEvent(clickEvent);
+            } catch (ex) {
+                console.log(ex);
+            }
+        }).error(function (data) {
+            console.log(data);
+        });
+  },
   GetUserByOrganization:function ($http,$scope, success, error) {
 	  $scope.organizationId ="b5598c6c-d021-4f5f-9695-77f7f4685ed2"
   	  var apiurl = "/hmis-user-service/rest/accounts/"+$scope.organizationId+"/users";
