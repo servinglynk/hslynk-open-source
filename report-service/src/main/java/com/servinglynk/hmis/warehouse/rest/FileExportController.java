@@ -75,7 +75,7 @@ public class FileExportController extends ControllerBase {
 		        String bucketName = session.getAccount().getProjectGroup().getBucketName();
 		        FileExport fileExportById = serviceFactory.getFileExportService().getFileExportById(fileExportId);
 		        if(fileExportById != null && StringUtils.equals(fileExportById.getProjectGroupCode(), session.getAccount().getProjectGroup().getProjectGroupCode())) {
-		        	InputStream inputStream = awsService.downloadFile(bucketName, "APR/"+fileExportId+"."+type, null);
+		        	InputStream inputStream = awsService.downloadFile(bucketName, "Export/"+fileExportId+"."+type, null);
 			        response.setContentType("application/force-download");
 			        response.setHeader("Content-Disposition", "attachment; filename="+fileExportId+"."+type); 
 			        response.setHeader("x-filename",fileExportId+"."+type); 
