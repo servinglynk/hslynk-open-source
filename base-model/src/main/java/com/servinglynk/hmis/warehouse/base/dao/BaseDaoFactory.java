@@ -40,7 +40,4 @@ public interface BaseDaoFactory {
 	ProjectSharingRuleDao getProjectSharingRuleDao();
 	ProjectSubGroupDao getProjectSubGroupDao();
 	FileExportDao getFileExportDao();
-	BaseProjectDao getBaseProjectDao();
-	ProjectSharingRuleDao getProjectSharingRuleDao();
-	ProjectSubGroupDao getProjectSubGroupDao();
 }
