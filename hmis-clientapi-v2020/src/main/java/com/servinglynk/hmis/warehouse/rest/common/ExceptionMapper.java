@@ -312,6 +312,20 @@ public class ExceptionMapper {
 			r.setErrorCode("REQUEST_RESOURCE_NOTFOUND");
 			ex.printStackTrace();
 			r.setErrorMessage(ex.getMessage());
+		
+	}catch (com.servinglynk.hmis.warehouse.service.exception.ResourceNotFound ex) {
+		logger.info("ResourceNotFoundException: " + ex.getMessage(), ex);
+		r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+		r.setErrorCode("REQUEST_RESOURCE_NOTFOUND");
+		ex.printStackTrace();
+		r.setErrorMessage(ex.getMessage());
+	}
+		catch (com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException ex) {
+			logger.info("ResourceNotFoundException: " + ex.getMessage(), ex);
+			r.setStatusCode(HttpServletResponse.SC_NOT_FOUND);
+			r.setErrorCode("REQUEST_RESOURCE_NOTFOUND");
+			ex.printStackTrace();
+			r.setErrorMessage(ex.getMessage());
 		}
 		catch (Throwable t) {
         	

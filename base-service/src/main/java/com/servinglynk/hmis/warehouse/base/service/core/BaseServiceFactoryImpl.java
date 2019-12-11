@@ -323,6 +323,36 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setBaseClientsService(BaseClientsService baseClientsService) {
 		this.baseClientsService = baseClientsService;
+	}	
+	
+	@Autowired private ProjectSharingRuleService projectSharingRuleService;
+
+	public ProjectSharingRuleService getProjectSharingRuleService() {
+		return projectSharingRuleService;
+	}
+
+	public void setProjectSharingRuleService(ProjectSharingRuleService projectSharingRuleService) {
+		this.projectSharingRuleService = projectSharingRuleService;
+	}
+	
+	@Autowired BaseProjectService baseProjectService;
+
+	public BaseProjectService getBaseProjectService() {
+		return baseProjectService;
+	}
+
+	public void setBaseProjectService(BaseProjectService baseProjectService) {
+		this.baseProjectService = baseProjectService;
+	}
+	
+	@Autowired ProjectSubGroupService projectSubGroupService;
+
+	public ProjectSubGroupService getProjectSubGroupService() {
+		return projectSubGroupService;
+	}
+
+	public void setProjectSubGroupService(ProjectSubGroupService projectSubGroupService) {
+		this.projectSubGroupService = projectSubGroupService;
 	}
 
 	public FileExportService getFileExportService() {
