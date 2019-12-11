@@ -34,7 +34,7 @@ app.controller('managereportCtrl',['$scope','$location','$routeSegment','$http',
     
     $scope.downloadZIP =  function (reportId) {
         console.log('Report config:'+reportId);
-        $scope.reportId=reportId;
+        $scope.downloadId=reportId;
         Service.DownloadZIP($http,$scope,
      		    //success
      		    function(data){
@@ -44,7 +44,7 @@ app.controller('managereportCtrl',['$scope','$location','$routeSegment','$http',
     
     $scope.downloadPDF =  function (reportId) {
        console.log('Report config:'+reportId);
-       $scope.reportId=reportId;
+       $scope.downloadId=reportId;
        Service.DownloadPDF($http,$scope,
     		    //success
     		    function(data){
