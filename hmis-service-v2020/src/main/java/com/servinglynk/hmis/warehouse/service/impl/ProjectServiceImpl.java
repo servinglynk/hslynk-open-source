@@ -73,7 +73,8 @@ public class ProjectServiceImpl extends ServiceBase implements ProjectService  {
        com.servinglynk.hmis.warehouse.model.base.Project baseProject = new com.servinglynk.hmis.warehouse.model.base.Project();
        org.apache.commons.beanutils.BeanUtils.copyProperties(pProject, baseProject);
        daoFactory.getBaseProjectDao().updateProject(baseProject);
-     return project;
+       return project;
+
    }
 
    @Transactional
