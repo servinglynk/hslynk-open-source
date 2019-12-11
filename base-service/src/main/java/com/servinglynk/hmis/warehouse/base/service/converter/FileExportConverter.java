@@ -40,8 +40,10 @@ public class FileExportConverter {
 		fileExport.setId(fileExportEntity.getId());
 		fileExport.setName(fileExportEntity.getName());
 		fileExport.setProjectGroupCode(fileExportEntity.getProjectGroupCode());
-		fileExport.setExportLevel(fileExportEntity.getExportLevel().getValue());
-		fileExport.setExportType(fileExportEntity.getExportType().getValue());
+		if(fileExportEntity.getExportLevel() != null)
+			fileExport.setExportLevel(fileExportEntity.getExportLevel().getValue());
+		if(fileExportEntity.getExportType()!= null)
+			fileExport.setExportType(fileExportEntity.getExportType().getValue());
 		fileExport.setStatus(fileExportEntity.getStatus());
 		fileExport.setCreatedBy(fileExportEntity.getCreatedBy());
 		fileExport.setUpdatedBy(fileExportEntity.getUpdatedBy());
