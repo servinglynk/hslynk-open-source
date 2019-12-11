@@ -172,21 +172,11 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 	@Override
 	public com.servinglynk.hmis.warehouse.model.v2017.Enrollment getEnrollmentByClientIdAndEnrollmentId(
 			UUID enrollmentId,UUID clientId) {
-		
-		List<UUID> sharedClients = AuditUtil.getSharedClients();
-		List<UUID> sharedEnrollments = AuditUtil.getSharedEnrollments();
-		
-		
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
 		criteria.add(Restrictions.eq("id",enrollmentId));
-		criteria.add(Restrictions.eq("deleted", false));
-		if(sharedClients.contains(clientId) && sharedEnrollments.contains(enrollmentId)) {			
-		}else {
-			criteria.add(Restrictions.eq("projectGroupCode", AuditUtil.getLoginUserProjectGroup()));
-		}
-		List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment> enrollments = (List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment>) getByCriteria(criteria);
+		List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment> enrollments = (List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment>) findByCriteria(criteria);
 		if(enrollments.size()>0) return enrollments.get(0);
 		return null;
 	}
@@ -197,25 +187,14 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
-		List<UUID> sharedClients = AuditUtil.getSharedClients();
-		if(!sharedClients.contains(clientId)) {
-			criteria.add(Restrictions.eq("projectGroupCode", AuditUtil.getLoginUserProjectGroup()));
-		}
-		criteria.add(Restrictions.eq("deleted", false));
-
-		return (List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment>) getByCriteria(criteria,startIndex,maxItems);
+		return (List<com.servinglynk.hmis.warehouse.model.v2017.Enrollment>) findByCriteria(criteria,startIndex,maxItems);
 	}
 
 	public long getEnrollmentCount(UUID clientId) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
-		List<UUID> sharedClients = AuditUtil.getSharedClients();
-		if(!sharedClients.contains(clientId)) {
-			criteria.add(Restrictions.eq("projectGroupCode", AuditUtil.getLoginUserProjectGroup()));
-		}
-		criteria.add(Restrictions.eq("deleted", false));
-		return getRowsCount(criteria);
+		return countRows(criteria);
 	}
 
 	@Override

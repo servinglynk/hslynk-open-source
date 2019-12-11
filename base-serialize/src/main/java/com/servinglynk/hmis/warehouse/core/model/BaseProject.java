@@ -18,7 +18,7 @@ public class BaseProject
     private Integer residentialAffiliation;
     private Integer targetPopulation;
     private Integer trackingMethod;
-    private Integer schemaYear;
+    private String schemaYear;
     private String link;
     private String projectGroup;
     private String sourceSystemId;
@@ -95,11 +95,11 @@ public class BaseProject
 		this.trackingMethod = trackingMethod;
 	}
 
-	public Integer getSchemaYear() {
+	public String getSchemaYear() {
 		return schemaYear;
 	}
 
-	public void setSchemaYear(Integer schemaYear) {
+	public void setSchemaYear(String schemaYear) {
 		this.schemaYear = schemaYear;
 	}
 

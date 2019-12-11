@@ -37,4 +37,7 @@ public interface BaseDaoFactory {
 	SharingRuleDao getSharingRuleDao();
 	ClientMetaDataDao getClientMetaDataDao();
 	FileExportDao getFileExportDao();
+	BaseProjectDao getBaseProjectDao();
+	ProjectSharingRuleDao getProjectSharingRuleDao();
+	ProjectSubGroupDao getProjectSubGroupDao();
 }

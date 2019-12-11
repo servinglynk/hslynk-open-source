@@ -6,8 +6,8 @@ import com.servinglynk.hmis.warehouse.core.model.Project;
 import com.servinglynk.hmis.warehouse.core.model.Projects;
 public interface ProjectService {
 
-   Project createProject(Project project,String caller);
-   Project updateProject(Project project,String caller);
+   Project createProject(Project project,String caller) throws Exception ;
+   Project updateProject(Project project,String caller) throws Exception;
    Project deleteProject(UUID projectId,String caller);
    Project getProjectById(UUID projectId);
    Projects getAllProjects(String projectGroupCode,Integer startIndex, Integer maxItems);

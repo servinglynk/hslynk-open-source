@@ -8,6 +8,7 @@ import com.servinglynk.hmis.warehouse.base.service.AccountService;
 import com.servinglynk.hmis.warehouse.base.service.ApiMethodService;
 import com.servinglynk.hmis.warehouse.base.service.AuthorizationService;
 import com.servinglynk.hmis.warehouse.base.service.BaseClientsService;
+import com.servinglynk.hmis.warehouse.base.service.BaseProjectService;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
@@ -22,6 +23,8 @@ import com.servinglynk.hmis.warehouse.base.service.PasswordResetService;
 import com.servinglynk.hmis.warehouse.base.service.PermissionSetService;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
 import com.servinglynk.hmis.warehouse.base.service.ProjectGroupService;
+import com.servinglynk.hmis.warehouse.base.service.ProjectSharingRuleService;
+import com.servinglynk.hmis.warehouse.base.service.ProjectSubGroupService;
 import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
 import com.servinglynk.hmis.warehouse.base.service.RoleService;
 import com.servinglynk.hmis.warehouse.base.service.SearchService;
@@ -328,5 +331,35 @@ public class BaseServiceFactoryImpl  implements BaseServiceFactory {
 
 	public void setFileExportService(FileExportService fileExportService) {
 		this.fileExportService = fileExportService;
+	}	
+	
+	@Autowired private ProjectSharingRuleService projectSharingRuleService;
+
+	public ProjectSharingRuleService getProjectSharingRuleService() {
+		return projectSharingRuleService;
+	}
+
+	public void setProjectSharingRuleService(ProjectSharingRuleService projectSharingRuleService) {
+		this.projectSharingRuleService = projectSharingRuleService;
+	}
+	
+	@Autowired BaseProjectService baseProjectService;
+
+	public BaseProjectService getBaseProjectService() {
+		return baseProjectService;
+	}
+
+	public void setBaseProjectService(BaseProjectService baseProjectService) {
+		this.baseProjectService = baseProjectService;
+	}
+	
+	@Autowired ProjectSubGroupService projectSubGroupService;
+
+	public ProjectSubGroupService getProjectSubGroupService() {
+		return projectSubGroupService;
+	}
+
+	public void setProjectSubGroupService(ProjectSubGroupService projectSubGroupService) {
+		this.projectSubGroupService = projectSubGroupService;
 	}
 }

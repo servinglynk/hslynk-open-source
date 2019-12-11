@@ -375,4 +375,34 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	public void setClientMetaDataDao(ClientMetaDataDao clientMetaDataDao) {
 		this.clientMetaDataDao = clientMetaDataDao;
 	}
+	
+	@Autowired
+	public BaseProjectDao baseProjectDao;
+
+	public BaseProjectDao getBaseProjectDao() {
+		return baseProjectDao;
+	}
+	public void setBaseProjectDao(BaseProjectDao baseProjectDao) {
+		this.baseProjectDao = baseProjectDao;
+	}
+	
+	@Autowired
+	public ProjectSharingRuleDao projectSharingRuleDao;
+
+	public ProjectSharingRuleDao getProjectSharingRuleDao() {
+		return projectSharingRuleDao;
+	}
+	public void setProjectSharingRuleDao(ProjectSharingRuleDao projectSharingRuleDao) {
+		this.projectSharingRuleDao = projectSharingRuleDao;
+	}
+	
+	@Autowired
+	public ProjectSubGroupDao projectSubGroupDao;
+
+	public ProjectSubGroupDao getProjectSubGroupDao() {
+		return projectSubGroupDao;
+	}
+	public void setProjectSubGroupDao(ProjectSubGroupDao projectSubGroupDao) {
+		this.projectSubGroupDao = projectSubGroupDao;
+	}	
 }
