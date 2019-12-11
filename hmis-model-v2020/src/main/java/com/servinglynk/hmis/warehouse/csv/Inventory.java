@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.csv;
 import com.googlecode.jcsv.annotations.MapToColumn;
 /*InventoryID	ProjectID	CoCCode	InformationDate	HouseholdType	BedType	Availability	UnitInventory	BedInventory	CHBedInventory	VetBedInventory	YouthBedInventory	YouthAgeGroup	InventoryStartDate	InventoryEndDate	HMISParticipatingBeds	DateCreated	DateUpdated	UserID	DateDeleted	ExportID
 */
-public class Inventory {
+public class Inventory extends BaseCSV {
 	@MapToColumn(column=0)
 	private String InventoryID;
 	@MapToColumn(column=1)

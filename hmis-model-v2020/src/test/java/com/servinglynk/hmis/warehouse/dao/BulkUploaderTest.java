@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -8,9 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
@@ -30,10 +27,9 @@ import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2020;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelperTest;
-import com.servinglynk.hmis.warehouse.domain.Sources;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.FileExportEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 
@@ -234,10 +230,27 @@ public class BulkUploaderTest {
 			bullkUpload.setProjectGroupCode("DP0003");
 			BulkUpload upload = factory.getBulkUploaderDao().processBase(bullkUpload,projectGrpEntity,appender,false);
 			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
-				
-					
 		} 
 
+		@Test
+		@Transactional
+		public void testFileExport() throws Exception
+		{
+			FileAppender appender = new FileAppender();
+			appender.setName("" + "test");
+			appender.setFile("logs/" +"test" + ".log");
+			appender.setImmediateFlush(true);
+			appender.setAppend(true);
+			appender.setLayout(new PatternLayout());
+			appender.activateOptions();
+			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
+			projectGrpEntity.setProjectGroupCode("DP0003");
+			FileExportEntity fileExport = new FileExportEntity();
+			factory.getBulkUploaderDao().performFileExport(fileExport, projectGrpEntity, appender, true);
+			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
+		} 
+		
+		
 	/* Sandeep TODO: Need to move this test to the base model.
 	@Test
 	public void testDeleted() throws Exception {
@@ -303,4 +316,7 @@ public class BulkUploaderTest {
 		factory.getBulkUploaderWorkerDao().insert(error2015_2);
 
 	}
+	
+	
+	
 }

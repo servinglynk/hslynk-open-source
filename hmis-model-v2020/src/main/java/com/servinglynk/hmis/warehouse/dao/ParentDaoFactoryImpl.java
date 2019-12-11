@@ -4,6 +4,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
+import com.servinglynk.hmis.warehouse.csv.converter.AffiliationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.AssessmentCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.AssessmentQuestionsCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.AssessmentResultsCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ClientCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.CurrentLivingSituationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.DisabilitiesCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EmploymentEducationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EnrollmentCocCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EnrollmentCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.EventCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ExitCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ExportCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.FunderCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.HealthAndDvCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.IncomeBenefitsCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.InventoryCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.OrganizationCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ProjectCocCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ProjectCsvConverter;
+import com.servinglynk.hmis.warehouse.csv.converter.ServicesCsvConverter;
 
 @Component
 public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDaoFactory {
@@ -105,6 +126,31 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	
 	@Autowired private EventDao eventDao;
 	
+	@Autowired private ProjectCsvConverter projectCsvConverter;
+	
+	@Autowired private AffiliationCsvConverter affiliationCsvConverter;
+	
+	@Autowired private FunderCsvConverter funderCsvConverter;
+	@Autowired private EnrollmentCsvConverter enrollmentCsvConverter;
+	
+	@Autowired private AssessmentCsvConverter assessmentCsvConverter;
+	@Autowired private AssessmentQuestionsCsvConverter  assessmentQuestionsCsvConverter;
+	@Autowired private AssessmentResultsCsvConverter  assessmentResultsCsvConverter;
+	@Autowired private ClientCsvConverter clientCsvConverter;
+	@Autowired private CurrentLivingSituationCsvConverter currentLivingSituationCsvConverter;
+	@Autowired private DisabilitiesCsvConverter disabilitiesCsvConverter;
+	@Autowired private EmploymentEducationCsvConverter employmentEducationCsvConverter;
+	@Autowired private EnrollmentCocCsvConverter enrollmentCocCsvConverter;
+	@Autowired private EventCsvConverter eventCsvConverter;
+	@Autowired private ExitCsvConverter  exitCsvConverter;
+	@Autowired private ExportCsvConverter exportCsvConverter;
+	@Autowired private HealthAndDvCsvConverter healthAndDvCsvConverter;
+	@Autowired private IncomeBenefitsCsvConverter incomeBenefitsCsvConverter;
+	@Autowired private InventoryCsvConverter  inventoryCsvConverter;
+	@Autowired private OrganizationCsvConverter organizationCsvConverter;
+	@Autowired private ProjectCocCsvConverter projectCocCsvConverter;
+	@Autowired private ServicesCsvConverter servicesCsvConverter;
+	 
 
 	/**
 	 * @return the bulkUploaderDao
@@ -693,5 +739,174 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	}
 	public void setHistoryDao(HistoryDao historyDao) {
 		this.historyDao = historyDao;
+	}
+
+	public ProjectCsvConverter getProjectCsvConverter() {
+		return projectCsvConverter;
+	}
+
+	public void setProjectCsvConverter(ProjectCsvConverter projectCsvConverter) {
+		this.projectCsvConverter = projectCsvConverter;
+	}
+
+	public AffiliationCsvConverter getAffiliationCsvConverter() {
+		return affiliationCsvConverter;
+	}
+
+	public void setAffiliationCsvConverter(AffiliationCsvConverter affiliationCsvConverter) {
+		this.affiliationCsvConverter = affiliationCsvConverter;
+	}
+
+	public FunderCsvConverter getFunderCsvConverter() {
+		return funderCsvConverter;
+	}
+
+	public void setFunderCsvConverter(FunderCsvConverter funderCsvConverter) {
+		this.funderCsvConverter = funderCsvConverter;
+	}
+
+	public EnrollmentCsvConverter getEnrollmentCsvConverter() {
+		return enrollmentCsvConverter;
+	}
+
+	public void setEnrollmentCsvConverter(EnrollmentCsvConverter enrollmentCsvConverter) {
+		this.enrollmentCsvConverter = enrollmentCsvConverter;
+	}
+
+	public AssessmentCsvConverter getAssessmentCsvConverter() {
+		return assessmentCsvConverter;
+	}
+
+	public void setAssessmentCsvConverter(AssessmentCsvConverter assessmentCsvConverter) {
+		this.assessmentCsvConverter = assessmentCsvConverter;
+	}
+
+	public AssessmentQuestionsCsvConverter getAssessmentQuestionsCsvConverter() {
+		return assessmentQuestionsCsvConverter;
+	}
+
+	public void setAssessmentQuestionsCsvConverter(AssessmentQuestionsCsvConverter assessmentQuestionsCsvConverter) {
+		this.assessmentQuestionsCsvConverter = assessmentQuestionsCsvConverter;
+	}
+
+	public AssessmentResultsCsvConverter getAssessmentResultsCsvConverter() {
+		return assessmentResultsCsvConverter;
+	}
+
+	public void setAssessmentResultsCsvConverter(AssessmentResultsCsvConverter assessmentResultsCsvConverter) {
+		this.assessmentResultsCsvConverter = assessmentResultsCsvConverter;
+	}
+
+	public ClientCsvConverter getClientCsvConverter() {
+		return clientCsvConverter;
+	}
+
+	public void setClientCsvConverter(ClientCsvConverter clientCsvConverter) {
+		this.clientCsvConverter = clientCsvConverter;
+	}
+
+	public CurrentLivingSituationCsvConverter getCurrentLivingSituationCsvConverter() {
+		return currentLivingSituationCsvConverter;
+	}
+
+	public void setCurrentLivingSituationCsvConverter(
+			CurrentLivingSituationCsvConverter currentLivingSituationCsvConverter) {
+		this.currentLivingSituationCsvConverter = currentLivingSituationCsvConverter;
+	}
+
+	public DisabilitiesCsvConverter getDisabilitiesCsvConverter() {
+		return disabilitiesCsvConverter;
+	}
+
+	public void setDisabilitiesCsvConverter(DisabilitiesCsvConverter disabilitiesCsvConverter) {
+		this.disabilitiesCsvConverter = disabilitiesCsvConverter;
+	}
+
+	public EmploymentEducationCsvConverter getEmploymentEducationCsvConverter() {
+		return employmentEducationCsvConverter;
+	}
+
+	public void setEmploymentEducationCsvConverter(EmploymentEducationCsvConverter employmentEducationCsvConverter) {
+		this.employmentEducationCsvConverter = employmentEducationCsvConverter;
+	}
+
+	public EnrollmentCocCsvConverter getEnrollmentCocCsvConverter() {
+		return enrollmentCocCsvConverter;
+	}
+
+	public void setEnrollmentCocCsvConverter(EnrollmentCocCsvConverter enrollmentCocCsvConverter) {
+		this.enrollmentCocCsvConverter = enrollmentCocCsvConverter;
+	}
+
+	public EventCsvConverter getEventCsvConverter() {
+		return eventCsvConverter;
+	}
+
+	public void setEventCsvConverter(EventCsvConverter eventCsvConverter) {
+		this.eventCsvConverter = eventCsvConverter;
+	}
+
+	public ExitCsvConverter getExitCsvConverter() {
+		return exitCsvConverter;
+	}
+
+	public void setExitCsvConverter(ExitCsvConverter exitCsvConverter) {
+		this.exitCsvConverter = exitCsvConverter;
+	}
+
+	public ExportCsvConverter getExportCsvConverter() {
+		return exportCsvConverter;
+	}
+
+	public void setExportCsvConverter(ExportCsvConverter exportCsvConverter) {
+		this.exportCsvConverter = exportCsvConverter;
+	}
+
+	public HealthAndDvCsvConverter getHealthAndDvCsvConverter() {
+		return healthAndDvCsvConverter;
+	}
+
+	public void setHealthAndDvCsvConverter(HealthAndDvCsvConverter healthAndDvCsvConverter) {
+		this.healthAndDvCsvConverter = healthAndDvCsvConverter;
+	}
+
+	public IncomeBenefitsCsvConverter getIncomeBenefitsCsvConverter() {
+		return incomeBenefitsCsvConverter;
+	}
+
+	public void setIncomeBenefitsCsvConverter(IncomeBenefitsCsvConverter incomeBenefitsCsvConverter) {
+		this.incomeBenefitsCsvConverter = incomeBenefitsCsvConverter;
+	}
+
+	public InventoryCsvConverter getInventoryCsvConverter() {
+		return inventoryCsvConverter;
+	}
+
+	public void setInventoryCsvConverter(InventoryCsvConverter inventoryCsvConverter) {
+		this.inventoryCsvConverter = inventoryCsvConverter;
+	}
+
+	public OrganizationCsvConverter getOrganizationCsvConverter() {
+		return organizationCsvConverter;
+	}
+
+	public void setOrganizationCsvConverter(OrganizationCsvConverter organizationCsvConverter) {
+		this.organizationCsvConverter = organizationCsvConverter;
+	}
+
+	public ProjectCocCsvConverter getProjectCocCsvConverter() {
+		return projectCocCsvConverter;
+	}
+
+	public void setProjectCocCsvConverter(ProjectCocCsvConverter projectCocCsvConverter) {
+		this.projectCocCsvConverter = projectCocCsvConverter;
+	}
+
+	public ServicesCsvConverter getServicesCsvConverter() {
+		return servicesCsvConverter;
+	}
+
+	public void setServicesCsvConverter(ServicesCsvConverter servicesCsvConverter) {
+		this.servicesCsvConverter = servicesCsvConverter;
 	}
 }

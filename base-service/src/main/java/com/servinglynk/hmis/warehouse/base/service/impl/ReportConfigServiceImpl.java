@@ -35,7 +35,7 @@ public class ReportConfigServiceImpl  extends ServiceBase implements ReportConfi
 				 reportConfigParamEntity.setCreatedBy(caller);
 				 reportConfigParamEntity.setUpdatedBy(caller);
 				 reportConfigParamEntity.setKey("PROJECT_ID");
-				 reportConfigParamEntity.setValue(reportProject.getProjectId());
+				 reportConfigParamEntity.setValue(String.valueOf(reportProject.getProjectId()));
 				 reportConfigParamEntity.setReportConfig(createReportConfig);
 				 reportConfigParamEntity.setStatus("ACTIVE");
 				 daoFactory.getReportConfigParamDao().createReportConfigParam(reportConfigParamEntity);

@@ -59,7 +59,7 @@ public class ReportWorker implements IReportWorker  {
 										builder.append(" HSLynk Team ");
 									//	builder.append("Dear Customer, Your Apr Report \"CHH_Permanent Housing\" is ready!\nLogin to the HsLynk's admin application to download your report.\nhttps://admin.hmislynk.com/\n Thanks \n Hslynk Team ");
 										notification.getParameters().addParameter(new Parameter("message", builder.toString()));
-										notification.setSender("support@hmislynk.com");
+										notification.setSender("support@hslynk.com");
 										notification.getRecipients().addToRecipient(reportConfig.getCreatedBy());
 										notificationServiceClient.createNotification(notification);	
 										ReportConfig reportConfigById = serviceFactory.getReportConfigService().getReportConfigById(reportConfig.getId());

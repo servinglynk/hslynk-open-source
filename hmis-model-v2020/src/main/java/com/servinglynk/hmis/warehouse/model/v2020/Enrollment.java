@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.model.v2020;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
@@ -79,6 +78,11 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 
 	/** Field mapping. */
 	private Set<Employment> employments = new HashSet<Employment>();
+	/** Field mapping. */
+	private Set<EnrollmentCoc> enrollmentCocs = new HashSet<EnrollmentCoc>();
+	
+	/** Field mapping. */
+	private Set<Education> educations = new HashSet<Education>();
 
 	/** Field mapping. */
 	private LocalDateTime entrydate;
@@ -108,6 +112,9 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	private Set<Incomeandsources> incomeandsourceses = new HashSet<Incomeandsources>();
 
+	/** Field mapping. */
+	private Set<ConnectionWithSoar> connectionWithSoars = new HashSet<ConnectionWithSoar>();
+
 
 	/** Field mapping. */
 	private Set<Medicalassistance> medicalassistances = new HashSet<Medicalassistance>();
@@ -126,7 +133,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private EnrollmentRelationshiptohohEnum relationshiptohoh;
 	
 	/** Field mapping. */
-	//private Set<Residentialmoveindate> residentialmoveindates = new HashSet<Residentialmoveindate>();
+	private Set<Moveindate> moveinDates = new HashSet<Moveindate>();
 
 	/** Field mapping. */
 	private Set<RhybcpStatus> rhybcpStatuses = new HashSet<RhybcpStatus>();
@@ -488,7 +495,62 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.employments = employment;
 	}
 
+	/* Return the value associated with the column: employment.
+	 * @return A Set&lt;EnrollmentCoc&gt; object (this.employment)
+	 */
+	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Set<EnrollmentCoc> getEnrollmentCocs() {
+		return this.enrollmentCocs;
+
+	}
+
+	/**
+	 * Adds a bi-directional link of type Employment to the employments set.
+	 * @param employment item to add
+	 */
+	public void addEmployment(EnrollmentCoc enrollmentCoc) {
+		enrollmentCoc.setEnrollmentid(this);
+		this.enrollmentCocs.add(enrollmentCoc);
+	}
+
+
 	 /**
+	 * Set the value related to the column: employment.
+	 * @param employment the employment value you wish to set
+	 */
+	public void setEnrollmentCocs(final Set<EnrollmentCoc> enrollmentCocs) {
+		this.enrollmentCocs = enrollmentCocs;
+	}
+	 /**
+	 * Return the value associated with the column: employment.
+	 * @return A Set&lt;Employment&gt; object (this.employment)
+	 */
+	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	 public Set<Education> getEducations() {
+		return educations;
+	}
+
+	public void setEducations(Set<Education> educations) {
+		this.educations = educations;
+	}
+
+	/**
+	 * Adds a bi-directional link of type Employment to the employments set.
+	 * @param employment item to add
+	 */
+	public void addEducation(Education education) {
+		education.setEnrollmentid(this);
+		this.educations.add(education);
+	}
+
+	
+	/**
 	 * Return the value associated with the column: entrydate.
 	 * @return A LocalDateTime object (this.entrydate)
 	 */
@@ -781,7 +843,42 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.incomeandsourceses = incomeandsources;
 	}
 
+	 /**
+	 * Return the value associated with the column: incomeandsources.
+	 * @return A Set&lt;Incomeandsources&gt; object (this.incomeandsources)
+	 */
+	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Set<ConnectionWithSoar> getConnectionWithSoars() {
+		return this.connectionWithSoars;
 
+	}
+
+	/**
+	 * Adds a bi-directional link of type Incomeandsources to the incomeandsourceses set.
+	 * @param incomeandsources item to add
+	 */
+	public void addIncomeandsources(ConnectionWithSoar connectionWithSoar) {
+		connectionWithSoar.setEnrollmentid(this);
+		this.connectionWithSoars.add(connectionWithSoar);
+	}
+
+
+	 /**
+	 * Set the value related to the column: incomeandsources.
+	 * @param incomeandsources the incomeandsources value you wish to set
+	 */
+	public void setConnectionWithSoars(final Set<ConnectionWithSoar> connectionWithSoars) {
+		this.connectionWithSoars = connectionWithSoars;
+	}
+
+	
+
+	
+	
+	
 	 /**
 	 * Return the value associated with the column: medicalassistance.
 	 * @return A Set&lt;Medicalassistance&gt; object (this.medicalassistance)
@@ -948,32 +1045,32 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	 * Return the value associated with the column: residentialmoveindate.
 	 * @return A Set&lt;Residentialmoveindate&gt; object (this.residentialmoveindate)
 	 */
- 	/*@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
+ 	@OneToMany( fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "enrollmentid"  )
  	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@Basic( optional = false )
 	@Column( nullable = false  )
-	public Set<Residentialmoveindate> getResidentialmoveindates() {
-		return this.residentialmoveindates;
+	public Set<Moveindate> getMoveinDates() {
+		return this.moveinDates;
 
-	}*/
+	}
 
 	/**
 	 * Adds a bi-directional link of type Residentialmoveindate to the residentialmoveindates set.
 	 * @param residentialmoveindate item to add
 	 */
-	/*public void addResidentialmoveindate(Residentialmoveindate residentialmoveindate) {
-		residentialmoveindate.setEnrollmentid(this);
-		this.residentialmoveindates.add(residentialmoveindate);
-	}*/
+	public void addMoveinDates(Moveindate moveindate) {
+		moveindate.setEnrollmentid(this);
+		this.moveinDates.add(moveindate);
+	}
 
 
 	 /**
 	 * Set the value related to the column: residentialmoveindate.
 	 * @param residentialmoveindate the residentialmoveindate value you wish to set
 	 */
-	/*public void setResidentialmoveindates(final Set<Residentialmoveindate> residentialmoveindate) {
-		this.residentialmoveindates = residentialmoveindate;
-	}*/
+	public void setMoveinDates(final Set<Moveindate> moveindates) {
+		this.moveinDates = moveindates;
+	}
 
 	 /**
 	 * Return the value associated with the column: rhybcpStatus.
@@ -1199,9 +1296,9 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		copy.setProject(this.getProject());
 		copy.setProjectGroupCode(this.getProjectGroupCode());
 		copy.setRelationshiptohoh(this.getRelationshiptohoh());
-		/*if (this.getResidentialmoveindates() != null) {
-			copy.getResidentialmoveindates().addAll(this.getResidentialmoveindates());
-		}*/
+		if (this.getMoveinDates() != null) {
+			copy.getMoveinDates().addAll(this.getMoveinDates());
+		}
 		if (this.getRhybcpStatuses() != null) {
 			copy.getRhybcpStatuses().addAll(this.getRhybcpStatuses());
 		}

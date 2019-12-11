@@ -2,10 +2,12 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -20,9 +22,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.AwsS3Client;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.dao.helper.BulkUploadHelper2020;
 import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
+import com.servinglynk.hmis.warehouse.dao.helper.ZipFileProcessor;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source;
@@ -30,6 +34,8 @@ import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Moveindate;
 import com.servinglynk.hmis.warehouse.enums.UploadStatus;
 import com.servinglynk.hmis.warehouse.model.base.BulkUpload;
+import com.servinglynk.hmis.warehouse.model.base.FileExportEntity;
+import com.servinglynk.hmis.warehouse.model.base.FileExportParamEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2020.Affiliation;
 import com.servinglynk.hmis.warehouse.model.v2020.Client;
@@ -903,6 +909,75 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		}
 			return upload;
 	}
+	
+	
+	@Override
+	@Transactional
+	public boolean performFileExport(FileExportEntity fileExport, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3) {
+		long startNanos = System.nanoTime();
+		try {
+			List<FileExportEntity> fileExportEntities = parentDaoFactory.getFileExportDao().getFileExportByStatusEmailSent("INITIAL", false);
+			if(CollectionUtils.isNotEmpty(fileExportEntities)) {
+				FileExportEntity fileExportEntity = fileExportEntities.get(0);
+				List<String> projectIds = new ArrayList<>();
+				List<FileExportParamEntity> fileExportParams = fileExportEntity.getFileExportParams();
+				for(FileExportParamEntity fileExportParam : fileExportParams) {
+					projectIds.add(fileExportParam.getValue());
+				}
+				// Get the Projects from the above criteria:
+				boolean fillHeaders = true;
+				List<Project> projectsForExport = parentDaoFactory.getProjectDao().getProjectsForExport(fileExportEntity.getProjectGroupCode(), projectIds, fileExportEntity.getStartDate(), fileExportEntity.getEndDate());
+				// Now convert Project Entities to CSV
+				parentDaoFactory.getProjectCsvConverter().writeToCSV(projectsForExport,fillHeaders);
+				for(Project project : projectsForExport) {
+					 parentDaoFactory.getOrganizationCsvConverter().writeToCSV(project.getOrganizationid(), fillHeaders);
+					 parentDaoFactory.getProjectCocCsvConverter().writeToCSV(project.getCocs(), fillHeaders);
+					 parentDaoFactory.getExportCsvConverter().writeToCSV(project.getExport(), fillHeaders);
+					 parentDaoFactory.getInventoryCsvConverter().writeToCSV(project.getInventories(), fillHeaders);
+					 parentDaoFactory.getAffiliationCsvConverter().writeToCSV(project.getAffiliations(),fillHeaders);
+					 parentDaoFactory.getFunderCsvConverter().writeToCSV(project.getFunders(),fillHeaders);
+					 Set<Enrollment> enrollments = project.getEnrollments();
+					 parentDaoFactory.getEnrollmentCsvConverter().writeToCSV(enrollments,fillHeaders);
+					 if(CollectionUtils.isNotEmpty(enrollments)) {
+						 for(com.servinglynk.hmis.warehouse.model.v2020.Enrollment enrollment : enrollments) {
+							 parentDaoFactory.getClientCsvConverter().writeToCSV(enrollment.getClient(), fillHeaders);
+							 parentDaoFactory.getAssessmentCsvConverter().writeToCSV(enrollment.getAssessments(), fillHeaders);
+							 parentDaoFactory.getAssessmentQuestionsCsvConverter().writeToCSV(enrollment.getAssessmentQuestions(), fillHeaders);
+							 parentDaoFactory.getAssessmentResultsCsvConverter().writeToCSV(enrollment.getAssessmentResults(), fillHeaders);
+							 parentDaoFactory.getCurrentLivingSituationCsvConverter().writeToCSV(enrollment.getCurrentLivingSituations(), fillHeaders);
+							 parentDaoFactory.getDisabilitiesCsvConverter().writeToCSV(enrollment.getDisabilitieses(), fillHeaders);
+							 parentDaoFactory.getEmploymentEducationCsvConverter().writeToCSV(enrollment, fillHeaders);
+							 parentDaoFactory.getEnrollmentCocCsvConverter().writeToCSV(enrollment.getEnrollmentCocs(), fillHeaders);
+							 parentDaoFactory.getExitCsvConverter().writeToCSV(enrollment.getExits(), fillHeaders);
+							 parentDaoFactory.getHealthAndDvCsvConverter().writeToCSV(enrollment, fillHeaders);
+							 parentDaoFactory.getIncomeBenefitsCsvConverter().writeToCSV(enrollment, fillHeaders);
+							 parentDaoFactory.getServicesCsvConverter().writeToCSV(enrollment, fillHeaders);
+							 fillHeaders = false;
+						 }
+					 }
+					 fillHeaders = false;
+				}
+				ProjectGroupEntity projectGroupByGroupCode = parentDaoFactory.getProjectGroupDao().getProjectGroupByGroupCode(fileExportEntity.getProjectGroupCode());
+				
+	          	  // Get the bucket name from project group code.
+	            	ZipFileProcessor.createZipFile("/Users/sdolia/github/hmis-lynk-open-source/hmis-model-v2020/", "/Users/sdolia/github/hmis-lynk-open-source/",fileExportEntity.getId()+".zip");
+	            	
+	            	//SyncPostgresProcessor.updateReportConfig("BEFORE_S3", reportConfig.getId());
+	    		    String bucketName = projectGroupByGroupCode.getBucketName();
+	    			AwsS3Client client = new AwsS3Client();
+	    			client.uploadFile(fileExportEntity.getId()+".zip", "Export/"+fileExportEntity.getId()+".zip",bucketName);
+	    			// update the report config to 
+	    			fileExportEntity.setStatus("COMPLETED");
+	    			parentDaoFactory.getFileExportDao().updateFileExport(fileExportEntity);
+				
+			}
+		} catch(Exception e) {
+			
+		}
+		return true;
+	}
+	
+			
 	
 }
 

@@ -2,7 +2,7 @@ package com.servinglynk.hmis.warehouse.csv;
 
 import com.googlecode.jcsv.annotations.MapToColumn;
 
-public class Site {
+public class Site extends BaseCSV {
 	@MapToColumn(column=0)
 	private String SiteID;
 	@MapToColumn(column=1)

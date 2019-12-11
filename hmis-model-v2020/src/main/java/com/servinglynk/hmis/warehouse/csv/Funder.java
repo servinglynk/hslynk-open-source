@@ -3,7 +3,7 @@ package com.servinglynk.hmis.warehouse.csv;
 import com.googlecode.jcsv.annotations.MapToColumn;
 										
 
-public class Funder {
+public class Funder extends BaseCSV {
 	@MapToColumn(column=0)
 	private String FunderID;
 	@MapToColumn(column=1)

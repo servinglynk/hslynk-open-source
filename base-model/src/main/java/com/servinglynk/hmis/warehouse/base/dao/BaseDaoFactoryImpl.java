@@ -16,6 +16,10 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	@Autowired
 	private ReportConfigParamDao reportConfigParamDao;
 	@Autowired
+	private FileExportDao fileExportDao;
+	@Autowired
+	private FileExportParamDao fileExportParamDao;
+	@Autowired
 	private AccountDao accountDao;
 	@Autowired
 	private VerificationDao verificationDao;
@@ -346,6 +350,18 @@ public class BaseDaoFactoryImpl implements BaseDaoFactory {
 	}
 	public void setReportConfigParamDao(ReportConfigParamDao reportConfigParamDao) {
 		this.reportConfigParamDao = reportConfigParamDao;
+	}
+	public FileExportDao getFileExportDao() {
+		return fileExportDao;
+	}
+	public void setFileExportDao(FileExportDao fileExportDao) {
+		this.fileExportDao = fileExportDao;
+	}
+	public FileExportParamDao getFileExportParamDao() {
+		return fileExportParamDao;
+	}
+	public void setFileExportParamDao(FileExportParamDao fileExportParamDao) {
+		this.fileExportParamDao = fileExportParamDao;
 	}
 	public SharingRuleDao getSharingRuleDao() {
 		return sharingRuleDao;

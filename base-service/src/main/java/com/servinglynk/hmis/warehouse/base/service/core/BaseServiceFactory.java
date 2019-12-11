@@ -10,6 +10,7 @@ import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
 import com.servinglynk.hmis.warehouse.base.service.ClientConsentService;
 import com.servinglynk.hmis.warehouse.base.service.ClientDataElementsService;
 import com.servinglynk.hmis.warehouse.base.service.DeveloperCompanyService;
+import com.servinglynk.hmis.warehouse.base.service.FileExportService;
 import com.servinglynk.hmis.warehouse.base.service.GenericEnrollmentService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalEnrollmentService;
 import com.servinglynk.hmis.warehouse.base.service.GlobalHouseHoldService;
@@ -43,6 +44,7 @@ public interface BaseServiceFactory {
 	VerificationService getVerificationService();
 	PasswordResetService getPasswordResetService();
 	ReportConfigService getReportConfigService();
+	FileExportService getFileExportService();
 	UsernameChangeService getUsernameChangeService();
 	ApiMethodService getApiMethodService();
 	RoleService getRoleService();

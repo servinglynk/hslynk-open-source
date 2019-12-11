@@ -4,7 +4,7 @@ import com.googlecode.jcsv.annotations.MapToColumn;
 														
 									
 
-public class EnrollmentCoC {
+public class EnrollmentCoC extends BaseCSV  {
 	@MapToColumn(column=0)
 	private String EnrollmentCOCID;
 	@MapToColumn(column=1)
