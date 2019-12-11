@@ -31,7 +31,7 @@ public class FileExportController extends ControllerBase {
 	private static final int BUFFER_SIZE = 4096;
 	
 		@RequestMapping(method = RequestMethod.POST)
-		@APIMapping(value="CREATE_FILE_EXPORT",checkSessionToken=false, checkTrustedApp=false)
+		@APIMapping(value="CREATE_FILE_EXPORT",checkSessionToken=true, checkTrustedApp=true)
 		public FileExport createReport(@RequestBody FileExport fileExport,HttpServletRequest request) throws Exception {			
 		 Session session = sessionHelper.getSession(request);
 		 String username = session.getAccount().getUsername();
@@ -40,7 +40,7 @@ public class FileExportController extends ControllerBase {
 		}
 
 	 	@RequestMapping(method = RequestMethod.GET)
-		@APIMapping(value="GET_FILE_EXPORT_BY_USER",checkSessionToken=false, checkTrustedApp=false)
+		@APIMapping(value="GET_FILE_EXPORT_BY_USER",checkSessionToken=true, checkTrustedApp=true)
 		public FileExports getReports(@RequestParam(value="startIndex", required=false) Integer startIndex, 
                 @RequestParam(value="maxItems", required=false) Integer maxItems,HttpServletRequest request) throws Exception {			
 		 Session session = sessionHelper.getSession(request);
@@ -49,7 +49,7 @@ public class FileExportController extends ControllerBase {
 		}
 
 		@RequestMapping(value="/{fileExportId}",method=RequestMethod.GET)
-		@APIMapping(value="GET_FILE_EXPORT_BY_ID",checkSessionToken=false, checkTrustedApp=false)
+		@APIMapping(value="GET_FILE_EXPORT_BY_ID",checkSessionToken=true, checkTrustedApp=true)
 		public FileExport getReportById(@PathVariable(value="fileExportId") Long fileExportId, 
                 HttpServletRequest request) throws Exception {			
 		 Session session = sessionHelper.getSession(request);
@@ -58,7 +58,7 @@ public class FileExportController extends ControllerBase {
 		}
 		
 		@RequestMapping(value="/{fileExportId}",method=RequestMethod.PUT)
-		@APIMapping(value="UPDATE_FILE_EXPORT",checkSessionToken=false, checkTrustedApp=false)
+		@APIMapping(value="UPDATE_FILE_EXPORT",checkSessionToken=true, checkTrustedApp=true)
 		public FileExport updateById(@PathVariable(value="fileExportId") Long fileExportId, 
                 HttpServletRequest request, @RequestBody FileExport fileExport) throws Exception {			
 		 Session session = sessionHelper.getSession(request);
@@ -67,7 +67,7 @@ public class FileExportController extends ControllerBase {
 		}
 		
 		@RequestMapping(value="/download/{fileExportId}/{type}",method = RequestMethod.GET)
-		@APIMapping(value="GET_FILE_EXPORT_BY_USER",checkSessionToken=false, checkTrustedApp=false)
+		@APIMapping(value="GET_FILE_EXPORT_BY_USER",checkSessionToken=true, checkTrustedApp=true)
 		public void downloadPDFFile(@PathVariable(value="fileExportId") Long fileExportId,@PathVariable(value="type") String type,
 				HttpServletRequest request, HttpServletResponse response) {
 			try {
