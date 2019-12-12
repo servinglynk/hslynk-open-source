@@ -80,7 +80,8 @@ var Service= ({
             headers: {
               'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
-                'Accept': 'application/json;odata=verbose'}
+                'Accept': 'application/json;odata=verbose',
+                'Content-Type' : 'application/zip'}
         }).success(function (data, status, headers) {
             headers = headers();
             
@@ -116,7 +117,8 @@ var Service= ({
             headers: {
               'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
-                'Accept': 'application/json;odata=verbose'}
+                'Accept': 'application/json;odata=verbose',
+                'Content-Type' : 'application/zip'}
         }).success(function (data, status, headers) {
             headers = headers();
             

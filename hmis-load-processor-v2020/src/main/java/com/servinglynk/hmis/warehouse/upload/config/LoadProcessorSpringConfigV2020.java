@@ -18,6 +18,7 @@ import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorker;
 import com.servinglynk.hmis.warehouse.upload.service.EnrollmentWorkerChildren;
 import com.servinglynk.hmis.warehouse.upload.service.ExitWorker;
 import com.servinglynk.hmis.warehouse.upload.service.ExitWorkerChildren;
+import com.servinglynk.hmis.warehouse.upload.service.FileExportWorker;
 import com.servinglynk.hmis.warehouse.upload.service.ReRunWorker;
 
 @Configuration
@@ -70,6 +71,11 @@ public class LoadProcessorSpringConfigV2020 {
 	@Bean
 	public ClientDedupWorker clientDedupWorker(){
 		return new ClientDedupWorker();
+	}
+	
+	@Bean
+	public FileExportWorker fileExportWorker(){
+		return new FileExportWorker();
 	}
 	
 }
