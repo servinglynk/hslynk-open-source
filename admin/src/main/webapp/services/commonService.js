@@ -111,6 +111,25 @@ var Service= ({
   },
   DownloadExportZIP: function ($http,$scope, success, error) {
   	  var apiurl = "/hmis-report-service/rest/export/download/"+$scope.exportId+"/zip";
+  	  
+  	 var filename =$scope.exportId+".zip";
+  	var xhr = new XMLHttpRequest();
+    xhr.open("GET", apiurl);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.responseType = "arraybuffer";
+    xhr.onload = function () {
+        if (this.status === 200) {
+            var blob = new Blob([xhr.response], {type: "application/zip"});       
+            var a = document.createElement('a');
+               a.href = URL.createObjectURL(blob);
+               a.download = filename;
+               a.click();
+        }
+    };
+    xhr.send();
+   },
+   
+   
         $http({
             method: 'GET',
             url: apiurl,
@@ -127,7 +146,7 @@ var Service= ({
      
             var linkElement = document.createElement('a');
             try {
-                var blob = new Blob([data], { type: contentType });
+            	var blob = new Blob([data], {type : contentType + ';charset=UTF-8'});
                 var url = window.URL.createObjectURL(blob);
      
                 linkElement.setAttribute('href', url);
