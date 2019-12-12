@@ -967,6 +967,8 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	    			for (File file : files) {
 	    			  file.delete();
 	    			}
+	    			fileExportEntity.setStatus("COMPLETED");
+	    			parentDaoFactory.getFileExportDao().updateFileExport(fileExportEntity);
 	    			
 	            	//SyncPostgresProcessor.updateReportConfig("BEFORE_S3", reportConfig.getId());
 	    		    String bucketName = projectGroupByGroupCode.getBucketName();
@@ -974,8 +976,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	    			client.uploadFile(fileExportEntity.getId()+".zip", "Export/"+fileExportEntity.getId()+".zip",bucketName);
 	    			// update the report config to 
 	    	
-	    			fileExportEntity.setStatus("COMPLETED");
-	    			parentDaoFactory.getFileExportDao().updateFileExport(fileExportEntity);
+	    			
 				
 			}
 		} catch(Exception e) {
