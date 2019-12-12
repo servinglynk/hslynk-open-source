@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import javax.xml.bind.UnmarshalException;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Appender;
 import org.hibernate.Criteria;
@@ -913,7 +914,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 	
 	@Override
 	@Transactional
-	public boolean performFileExport(FileExportEntity fileExport, ProjectGroupEntity projectGroupdEntity, Appender appender,Boolean isFileFromS3) {
+	public boolean performFileExport(FileExportEntity fileExport, Appender appender,Boolean isFileFromS3) {
 		long startNanos = System.nanoTime();
 		try {
 			List<FileExportEntity> fileExportEntities = parentDaoFactory.getFileExportDao().getFileExportByStatusEmailSent("INITIAL", false);
@@ -960,19 +961,25 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 				ProjectGroupEntity projectGroupByGroupCode = parentDaoFactory.getProjectGroupDao().getProjectGroupByGroupCode(fileExportEntity.getProjectGroupCode());
 				
 	          	  // Get the bucket name from project group code.
-	            	ZipFileProcessor.createZipFile("/Users/sdolia/github/hmis-lynk-open-source/hmis-model-v2020/", "/Users/sdolia/github/hmis-lynk-open-source/",fileExportEntity.getId()+".zip");
+	            	ZipFileProcessor.createZipFile("/Users/sdolia/github/hmis-lynk-open-source/hmis-load-processor-v2020/", "/Users/sdolia/github/hmis-lynk-open-source/",fileExportEntity.getId()+".zip");
 	            	
+	        		Collection<File> files =  FileUtils.listFiles(new File("/Users/sdolia/github/hmis-lynk-open-source/hmis-load-processor-v2020/"), new String[]{"csv"}, true);
+	    			for (File file : files) {
+	    			  file.delete();
+	    			}
+	    			
 	            	//SyncPostgresProcessor.updateReportConfig("BEFORE_S3", reportConfig.getId());
 	    		    String bucketName = projectGroupByGroupCode.getBucketName();
 	    			AwsS3Client client = new AwsS3Client();
 	    			client.uploadFile(fileExportEntity.getId()+".zip", "Export/"+fileExportEntity.getId()+".zip",bucketName);
 	    			// update the report config to 
+	    	
 	    			fileExportEntity.setStatus("COMPLETED");
 	    			parentDaoFactory.getFileExportDao().updateFileExport(fileExportEntity);
 				
 			}
 		} catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 		return true;
 	}
