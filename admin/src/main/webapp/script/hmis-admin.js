@@ -266,7 +266,7 @@ var Service= ({
         }).error(error);
   },
   DownloadPDF: function ($http,$scope, success, error) {
-          var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.reportId+"/pdf";
+          var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.downloadId+"/pdf";
         $http({
             method: 'GET',
             url: apiurl,
@@ -302,7 +302,43 @@ var Service= ({
       });
   },
   DownloadZIP: function ($http,$scope, success, error) {
-  	  var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.reportId+"/zip";
+  	  var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.downloadId+"/zip";
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data, status, headers) {
+            headers = headers();
+            
+            var filename = headers['x-filename'];
+            var contentType = headers['content-type'];
+     
+            var linkElement = document.createElement('a');
+            try {
+                var blob = new Blob([data], { type: contentType });
+                var url = window.URL.createObjectURL(blob);
+     
+                linkElement.setAttribute('href', url);
+                linkElement.setAttribute("download", filename);
+     
+                var clickEvent = new MouseEvent("click", {
+                    "view": window,
+                    "bubbles": true,
+                    "cancelable": false
+                });
+                linkElement.dispatchEvent(clickEvent);
+            } catch (ex) {
+                console.log(ex);
+            }
+        }).error(function (data) {
+            console.log(data);
+        });
+  },
+  DownloadExportZIP: function ($http,$scope, success, error) {
+  	  var apiurl = "/hmis-report-service/rest/export/download/"+$scope.exportId+"/zip";
         $http({
             method: 'GET',
             url: apiurl,
@@ -1607,7 +1643,7 @@ app.controller('manageexportCtrl',['$scope','$location','$routeSegment','$http',
     $scope.downloadZIP =  function (exportId) {
         console.log('export config:'+exportId);
         $scope.exportId=exportId;
-        Service.DownloadZIP($http,$scope,
+        Service.DownloadExportZIP($http,$scope,
      		    //success
      		    function(data){
         	 		console.log('export config download success :'+exportId);
@@ -1789,7 +1825,7 @@ app.controller('managereportCtrl',['$scope','$location','$routeSegment','$http',
     
     $scope.downloadZIP =  function (reportId) {
         console.log('Report config:'+reportId);
-        $scope.reportId=reportId;
+        $scope.downloadId=reportId;
         Service.DownloadZIP($http,$scope,
      		    //success
      		    function(data){
@@ -1799,7 +1835,7 @@ app.controller('managereportCtrl',['$scope','$location','$routeSegment','$http',
     
     $scope.downloadPDF =  function (reportId) {
        console.log('Report config:'+reportId);
-       $scope.reportId=reportId;
+       $scope.downloadId=reportId;
        Service.DownloadPDF($http,$scope,
     		    //success
     		    function(data){

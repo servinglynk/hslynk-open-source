@@ -28,6 +28,6 @@ public interface BulkUploaderDao {
 	public void calculateChronicHomelessness(String projectGroupCode);
 	public BulkUpload performLoad(Long l, Appender appender,
 			Boolean isFileFromS3);
-	boolean performFileExport(FileExportEntity fileExport, ProjectGroupEntity projectGroupdEntity, Appender appender,
+	boolean performFileExport(FileExportEntity fileExport, Appender appender,
 			Boolean isFileFromS3);
 }
