@@ -31,7 +31,7 @@ public class FileExportWorker implements IFileExportWorker  {
 	
 	@Transactional
 	@Scheduled(initialDelay=20,fixedDelay=10000)
-	public void processReportWorkerLine() throws Exception{
+	public void processtWorkerLine() throws Exception{
 
 					try{
 						FileExports reportConfigs = serviceFactory.getFileExportService().getFileExportByStatusEmailSent("COMPLETED",false);
