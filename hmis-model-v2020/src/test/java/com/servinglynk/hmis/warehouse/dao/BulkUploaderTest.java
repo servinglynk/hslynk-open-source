@@ -243,10 +243,8 @@ public class BulkUploaderTest {
 			appender.setAppend(true);
 			appender.setLayout(new PatternLayout());
 			appender.activateOptions();
-			ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-			projectGrpEntity.setProjectGroupCode("DP0003");
 			FileExportEntity fileExport = new FileExportEntity();
-			factory.getBulkUploaderDao().performFileExport(fileExport, projectGrpEntity, appender, true);
+			factory.getBulkUploaderDao().performFileExport(fileExport, appender, true);
 			//com.servinglynk.hmis.warehouse.model.stagv2015.Export exportEntity = exportDao.getExportById(upload.getExport().getId());
 		} 
 		
