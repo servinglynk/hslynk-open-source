@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.rest;
 
 import java.io.InputStream;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -75,13 +76,25 @@ public class FileExportController extends ControllerBase {
 		        String bucketName = session.getAccount().getProjectGroup().getBucketName();
 		        FileExport fileExportById = serviceFactory.getFileExportService().getFileExportById(fileExportId);
 		        if(fileExportById != null && StringUtils.equals(fileExportById.getProjectGroupCode(), session.getAccount().getProjectGroup().getProjectGroupCode())) {
-		        	InputStream inputStream = awsService.downloadFile(bucketName, "Export/"+fileExportId+"."+type, null);
-			        response.setContentType("application/zip, application/octet-stream");
-			        response.setHeader("Content-Disposition", "attachment; filename="+fileExportId+"."+type); 
-			        response.setHeader("x-filename",fileExportId+"."+type); 
-			        IOUtils.copy(inputStream, response.getOutputStream());
-			        response.flushBuffer();
-			        inputStream.close();
+		        	String fileName ="Export/"+fileExportId+"."+type;
+		        	System.out.println( "File name :::"+fileName);
+		        	InputStream inputStream = awsService.downloadFile(bucketName, fileName, null);
+		        	 ServletOutputStream outputStream = response.getOutputStream();
+		        	  response.setContentType("application/octet-stream");
+				        response.setHeader("Content-Disposition", "attachment; filename="+fileExportId+"."+type); 
+				        response.setHeader("x-filename",fileExportId+"."+type); 
+				        
+		            byte[] buffer = new byte[8 * 1024];
+		            int bytesRead;
+		            while ((bytesRead = inputStream.read(buffer)) != -1) {
+		            	outputStream.write(buffer, 0, bytesRead);
+		            }
+		            IOUtils.closeQuietly(inputStream);
+		            IOUtils.closeQuietly(outputStream);
+		        	 
+			      
+//			        IOUtils.copy(inputStream, outputStream);
+			       
 		        }else {
 		        	throw new AccessDeniedException("The User does not have access to download the report");
 		        }

@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.rest;
 
 import java.io.InputStream;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -79,9 +80,18 @@ public class ReportConfigController extends ControllerBase {
 			        response.setContentType("application/zip, application/octet-stream");
 			        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+"."+type); 
 			        response.setHeader("x-filename",reportConfigId+"."+type); 
-			        IOUtils.copy(inputStream, response.getOutputStream());
-			        response.flushBuffer();
-			        inputStream.close();
+			   	 ServletOutputStream outputStream = response.getOutputStream();
+	        	  response.setContentType("application/octet-stream");
+			        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+"."+type); 
+			        response.setHeader("x-filename",reportConfigId+"."+type); 
+			        
+	            byte[] buffer = new byte[8 * 1024];
+	            int bytesRead;
+	            while ((bytesRead = inputStream.read(buffer)) != -1) {
+	            	outputStream.write(buffer, 0, bytesRead);
+	            }
+	            IOUtils.closeQuietly(inputStream);
+	            IOUtils.closeQuietly(outputStream);
 		        }else {
 		        	throw new AccessDeniedException("The User does not have access to download the report");
 		        }
