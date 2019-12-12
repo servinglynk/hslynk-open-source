@@ -6,6 +6,6 @@ public interface IFileExportWorker  {
 	
 	
 	
-	public void processReportWorkerLine() throws Exception;
+	public void processtWorkerLine() throws Exception;
 
 }
