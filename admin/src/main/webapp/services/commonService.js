@@ -129,14 +129,14 @@ var Service= ({
         var linkElement = document.createElement('a');
         try {
          var file = new Blob([ data ], {
-             type : 'application/json'
+             type : 'application/zip' 
          });
          //trick to download store a file having its URL
          var fileURL = URL.createObjectURL(file);
          var a         = document.createElement('a');
          a.href        = fileURL; 
          a.target      = '_blank';
-         a.download    = filename;
+         a.download    = $scope.exportId+".zip";
          document.body.appendChild(a);
          a.click();
         } catch (ex) {
