@@ -110,61 +110,43 @@ var Service= ({
         });
   },
   DownloadExportZIP: function ($http,$scope, success, error) {
-  	  var apiurl = "/hmis-report-service/rest/export/download/"+$scope.exportId+"/zip";
   	  
-  	 var filename =$scope.exportId+".zip";
-  	var xhr = new XMLHttpRequest();
-    xhr.open("GET", apiurl);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.responseType = "arraybuffer";
-    xhr.onload = function () {
-        if (this.status === 200) {
-            var blob = new Blob([xhr.response], {type: "application/zip"});       
-            var a = document.createElement('a');
-               a.href = URL.createObjectURL(blob);
-               a.download = filename;
-               a.click();
+  	var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.exportId+"/zip";
+    $http({
+        method: 'GET',
+        url: apiurl,
+        headers: {
+          'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+            'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+            'Accept': 'application/json;odata=verbose',
+            'Content-Type' : 'application/zip'}
+    }).success(function (data, status, headers) {
+        headers = headers();
+        
+        var filename = headers['x-filename'];
+        var contentType = headers['content-type'];
+ 
+        var linkElement = document.createElement('a');
+        try {
+         var file = new Blob([ data ], {
+             type : 'application/json'
+         });
+         //trick to download store a file having its URL
+         var fileURL = URL.createObjectURL(file);
+         var a         = document.createElement('a');
+         a.href        = fileURL; 
+         a.target      = '_blank';
+         a.download    = filename;
+         document.body.appendChild(a);
+         a.click();
+        } catch (ex) {
+            console.log(ex);
         }
-    };
-    xhr.send();
+    }).error(function (data) {
+        console.log(data);
+    });
+    
    },
-   
-   
-        $http({
-            method: 'GET',
-            url: apiurl,
-            headers: {
-              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
-                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
-                'Accept': 'application/json;odata=verbose',
-                'Content-Type' : 'application/zip'}
-        }).success(function (data, status, headers) {
-            headers = headers();
-            
-            var filename = headers['x-filename'];
-            var contentType = headers['content-type'];
-     
-            var linkElement = document.createElement('a');
-            try {
-            	var blob = new Blob([data], {type : contentType + ';charset=UTF-8'});
-                var url = window.URL.createObjectURL(blob);
-     
-                linkElement.setAttribute('href', url);
-                linkElement.setAttribute("download", filename);
-     
-                var clickEvent = new MouseEvent("click", {
-                    "view": window,
-                    "bubbles": true,
-                    "cancelable": false
-                });
-                linkElement.dispatchEvent(clickEvent);
-            } catch (ex) {
-                console.log(ex);
-            }
-        }).error(function (data) {
-            console.log(data);
-        });
-  },
   GetUserByOrganization:function ($http,$scope, success, error) {
 	  $scope.organizationId ="b5598c6c-d021-4f5f-9695-77f7f4685ed2"
   	  var apiurl = "/hmis-user-service/rest/accounts/"+$scope.organizationId+"/users";
