@@ -129,7 +129,7 @@ var Service= ({
         var linkElement = document.createElement('a');
         try {
          var file = new Blob([ data ], {
-             type : 'application/zip'
+             type : 'application/zip' 
          });
          //trick to download store a file having its URL
          var fileURL = URL.createObjectURL(file);
