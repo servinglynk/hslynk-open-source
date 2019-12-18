@@ -16,7 +16,7 @@ app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http'
     //success
     function(data){
 	
-		$scope.successTextAlert = "Your Requset has been sent successfully.";
+		$scope.successTextAlert = "Your request has been sent successfully.";
 		$scope.showSuccessAlert = true;
 		$scope.form.name='';
 		$scope.form.desc='';

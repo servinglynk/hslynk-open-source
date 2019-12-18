@@ -16,7 +16,7 @@ app.controller('createorgCtrl',[ '$scope','$location','$routeSegment','$http', '
     //success
     function(data){
 	
-		$scope.successTextAlert = "Your Requset has been sent successfully.";
+		$scope.successTextAlert = "Your request has been sent successfully.";
 		$scope.showSuccessAlert = true;
 		$scope.form.email='';
 		$scope.form.report='';
