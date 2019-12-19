@@ -14,6 +14,18 @@ hmis-userservice/*
 hmis-survey-views/src/main/conf/*.conf
 .DS_Store
 
+**/target
+**/bin
+**/.settings
+**/.classpath
+**/.project
+**/.idea
+**/*.iml
+**/target
+**/bin
+
+
+
 hmis-admin/target/*
 hmis-admin/bin/*
 hmis-admin/node_modules/*
@@ -316,3 +328,8 @@ hmis-model-v2015/target/*
 >>>>>>> feature-multi-schema
 hmis-s3-client/.settings/org.eclipse.jdt.core.prefs
 hmis-s3-client/.settings/org.eclipse.jdt.core.prefs
+*.prefs
+*.prefs
+*.component
+admin/.settings/org.eclipse.wst.common.component
+*.component

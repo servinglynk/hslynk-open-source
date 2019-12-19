@@ -52,6 +52,8 @@ import com.servinglynk.hmis.warehouse.dao.HealthStatusDao;
 import com.servinglynk.hmis.warehouse.dao.HealthStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HealthinsuranceDao;
 import com.servinglynk.hmis.warehouse.dao.HealthinsuranceDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.HmisHouseholdDao;
+import com.servinglynk.hmis.warehouse.dao.HmisHouseholdDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HousingassessmentdispositionDao;
 import com.servinglynk.hmis.warehouse.dao.HousingassessmentdispositionDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.IncomeandsourcesDao;
@@ -357,5 +359,10 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	@Bean
 	public QuestionDaoImpl questionDao() {
 		return new QuestionDaoImpl();
+	}
+	
+	@Bean
+	public  HmisHouseholdDaoImpl hmisHouseholdDao() {
+		return new HmisHouseholdDaoImpl();
 	}
 }

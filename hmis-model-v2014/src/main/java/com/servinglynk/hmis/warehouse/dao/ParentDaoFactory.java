@@ -61,4 +61,5 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	InformationReleasesDao getInformationReleasesDao();
 	HmisTypeDao getHmisTypeDao();
 	QuestionDao getQuestionDao();
+	HmisHouseholdDao getHmisHouseholdDao();
 }
