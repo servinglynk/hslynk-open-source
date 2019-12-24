@@ -909,4 +909,13 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setServicesCsvConverter(ServicesCsvConverter servicesCsvConverter) {
 		this.servicesCsvConverter = servicesCsvConverter;
 	}
+	
+    @Autowired private HmisHouseholdDao hmisHouseholdDao;
+
+	public HmisHouseholdDao getHmisHouseholdDao() {
+		return hmisHouseholdDao;
+	}
+	public void setHmisHouseholdDao(HmisHouseholdDao hmisHouseholdDao) {
+		this.hmisHouseholdDao = hmisHouseholdDao;
+	}
 }

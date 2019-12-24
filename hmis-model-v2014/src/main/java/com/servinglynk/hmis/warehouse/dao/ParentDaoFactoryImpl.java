@@ -439,4 +439,13 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	public void setHistoryDao(HistoryDao historyDao) {
 		this.historyDao = historyDao;
 	}	
+	
+    @Autowired private HmisHouseholdDao hmisHouseholdDao;
+
+	public HmisHouseholdDao getHmisHouseholdDao() {
+		return hmisHouseholdDao;
+	}
+	public void setHmisHouseholdDao(HmisHouseholdDao hmisHouseholdDao) {
+		this.hmisHouseholdDao = hmisHouseholdDao;
+	}
 }
