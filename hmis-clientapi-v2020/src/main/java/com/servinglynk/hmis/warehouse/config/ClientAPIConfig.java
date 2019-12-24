@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.rest.BulkUploadErrorActivityController;
 import com.servinglynk.hmis.warehouse.rest.ClientsController;
 import com.servinglynk.hmis.warehouse.rest.HealthController;
 import com.servinglynk.hmis.warehouse.rest.HistoryController;
+import com.servinglynk.hmis.warehouse.rest.HmisHouseHoldController;
 import com.servinglynk.hmis.warehouse.rest.OrganizationsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsController;
 import com.servinglynk.hmis.warehouse.rest.ProjectsControllerV2;
@@ -117,5 +118,9 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public HistoryController historyController() {
 		 return new HistoryController();
+	 }
+	 @Bean
+	 public HmisHouseHoldController hmisHouseHoldController() {
+		 return new HmisHouseHoldController();
 	 }
 }

@@ -95,5 +95,5 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	 ProjectCocCsvConverter	getProjectCocCsvConverter();
 	 ServicesCsvConverter	getServicesCsvConverter();
 	 
-	 
+		HmisHouseholdDao getHmisHouseholdDao();
 }
