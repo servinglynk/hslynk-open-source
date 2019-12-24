@@ -17,6 +17,9 @@ public class GlobalHoudeHoldConverter {
 		model.setHmisHouseHoldId(entity.getHmisHouseHoldId());
 		model.setGenericHouseHoldId(entity.getGenericHouseHoldId());
 		model.setId(entity.getId());		
+		if(entity.getHmisHouseHoldId()!=null) {
+			model.setLink("/hmis-clientapi/rest/"+model.getShemaYear()+"/hmishouseholds/"+entity.getHmisHouseHoldId());
+		}
 		return model;
 	}
 	
