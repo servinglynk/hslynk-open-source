@@ -18,7 +18,7 @@ public class GlobalHouseHoldsMap {
 		this.globalHouseHoldMaps = globalHouseHoldMaps;
 	}
 	
-	public void addGlobalHoseHoldMap(GlobalHouseHoldMap globalHouseHoldMap) {
+	public void addGlobalHouseHoldMap(GlobalHouseHoldMap globalHouseHoldMap) {
 		this.globalHouseHoldMaps.add(globalHouseHoldMap);
 	}
 }

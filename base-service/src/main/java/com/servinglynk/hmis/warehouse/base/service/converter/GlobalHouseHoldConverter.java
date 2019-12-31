@@ -7,7 +7,7 @@ import com.servinglynk.hmis.warehouse.core.model.GlobalHouseHoldMap;
 import com.servinglynk.hmis.warehouse.model.base.GlobalHouseHoldEntity;
 import com.servinglynk.hmis.warehouse.model.base.GlobalHouseHoldMapEntity;
 
-public class GlobalHoudeHoldConverter {
+public class GlobalHouseHoldConverter {
 
 	
 	public static GlobalHouseHoldMap entityToModel(GlobalHouseHoldMapEntity entity) {
@@ -17,6 +17,9 @@ public class GlobalHoudeHoldConverter {
 		model.setHmisHouseHoldId(entity.getHmisHouseHoldId());
 		model.setGenericHouseHoldId(entity.getGenericHouseHoldId());
 		model.setId(entity.getId());		
+		if(entity.getHmisHouseHoldId()!=null) {
+			model.setLink("/hmis-clientapi/rest/"+model.getShemaYear()+"/hmishouseholds/"+entity.getHmisHouseHoldId());
+		}
 		return model;
 	}
 	
