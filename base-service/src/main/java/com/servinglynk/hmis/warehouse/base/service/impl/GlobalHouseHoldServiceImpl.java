@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.GlobalHouseHoldService;
-import com.servinglynk.hmis.warehouse.base.service.converter.GlobalHoudeHoldConverter;
+import com.servinglynk.hmis.warehouse.base.service.converter.GlobalHouseHoldConverter;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.GlobalHouseHold;
 import com.servinglynk.hmis.warehouse.core.model.GlobalHouseHoldMap;
@@ -29,7 +29,7 @@ public class GlobalHouseHoldServiceImpl extends ServiceBase implements GlobalHou
 		houseHoldEntity.setDateUpdated(LocalDateTime.now());
 		daoFactory.getGlobalHouseHoldDao().createGLobalHouseHold(houseHoldEntity);
 		for(GlobalHouseHoldMap map : globalHouseHold.getGlobalHouseHoldMaps().getGlobalHouseHoldMaps()) {
-			GlobalHouseHoldMapEntity mapEntity =GlobalHoudeHoldConverter.modelToEntity(null, map);
+			GlobalHouseHoldMapEntity mapEntity =GlobalHouseHoldConverter.modelToEntity(null, map);
 			mapEntity.setGlobalHouseHold(houseHoldEntity);
 			mapEntity.setUser(account.getAccountId());
 			mapEntity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
@@ -56,7 +56,7 @@ public class GlobalHouseHoldServiceImpl extends ServiceBase implements GlobalHou
 			daoFactory.getGlobalHouseHoldDao().deleteGLobalHouseHoldMap(entity);
 		}
 		for(GlobalHouseHoldMap map : globalHouseHold.getGlobalHouseHoldMaps().getGlobalHouseHoldMaps()) {
-			GlobalHouseHoldMapEntity mapEntity =GlobalHoudeHoldConverter.modelToEntity(null, map);
+			GlobalHouseHoldMapEntity mapEntity =GlobalHouseHoldConverter.modelToEntity(null, map);
 			mapEntity.setGlobalHouseHold(houseHoldEntity);
 			mapEntity.setUser(account.getAccountId());
 			mapEntity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
@@ -73,10 +73,10 @@ public class GlobalHouseHoldServiceImpl extends ServiceBase implements GlobalHou
 		GlobalHouseHoldEntity houseHoldEntity =	daoFactory.getGlobalHouseHoldDao().getGlobalHouseHoldByid(globalHouseHoldId);
 		if(houseHoldEntity==null) throw new ResourceNotFoundException("Global house hold not found");
 		List<GlobalHouseHoldMapEntity> mapEntities = daoFactory.getGlobalHouseHoldDao().getByGlobalHouseHoldMaps(houseHoldEntity.getId());
-		 globalHouseHold = GlobalHoudeHoldConverter.entityToModel(houseHoldEntity);
+		 globalHouseHold = GlobalHouseHoldConverter.entityToModel(houseHoldEntity);
 
 		for(GlobalHouseHoldMapEntity entity : mapEntities) {
-			globalHouseHold.getGlobalHouseHoldMaps().addGlobalHoseHoldMap(GlobalHoudeHoldConverter.entityToModel(entity));
+			globalHouseHold.getGlobalHouseHoldMaps().addGlobalHouseHoldMap(GlobalHouseHoldConverter.entityToModel(entity));
 
 		}
 		return globalHouseHold;
@@ -89,10 +89,10 @@ public class GlobalHouseHoldServiceImpl extends ServiceBase implements GlobalHou
 		List<GlobalHouseHoldEntity> houseHoldEntities =	daoFactory.getGlobalHouseHoldDao().getGlobalHouseHold(start,maxItems);
 		
 		for(GlobalHouseHoldEntity houseHoldEntity : houseHoldEntities) {
-			GlobalHouseHold model = GlobalHoudeHoldConverter.entityToModel(houseHoldEntity);
+			GlobalHouseHold model = GlobalHouseHoldConverter.entityToModel(houseHoldEntity);
 			List<GlobalHouseHoldMapEntity> mapEntities = daoFactory.getGlobalHouseHoldDao().getByGlobalHouseHoldMaps(houseHoldEntity.getId());
 			for(GlobalHouseHoldMapEntity entity : mapEntities) {
-					model.getGlobalHouseHoldMaps().addGlobalHoseHoldMap(GlobalHoudeHoldConverter.entityToModel(entity));
+					model.getGlobalHouseHoldMaps().addGlobalHouseHoldMap(GlobalHouseHoldConverter.entityToModel(entity));
 			}
 			globalHouseHolds.addGlobalHouseHold(model);
 		}

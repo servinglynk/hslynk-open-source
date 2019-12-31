@@ -7,7 +7,7 @@ import com.servinglynk.hmis.warehouse.core.model.GlobalHouseHoldMap;
 import com.servinglynk.hmis.warehouse.model.base.GlobalHouseHoldEntity;
 import com.servinglynk.hmis.warehouse.model.base.GlobalHouseHoldMapEntity;
 
-public class GlobalHoudeHoldConverter {
+public class GlobalHouseHoldConverter {
 
 	
 	public static GlobalHouseHoldMap entityToModel(GlobalHouseHoldMapEntity entity) {

@@ -5,10 +5,10 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("houseHoldMember")
-public class HouseHoldMember {
+public class HouseHoldMember  extends ClientModel {
 
 	private UUID houseHoldMemberId;
-	private UUID memberId;
+	private Client member;
 	private String relationWithHouseHold;
 	private UUID houseHoldId;
 	private String link;
@@ -19,11 +19,11 @@ public class HouseHoldMember {
 	public void setHouseHoldMemberId(UUID houseHoldMemberId) {
 		this.houseHoldMemberId = houseHoldMemberId;
 	}
-	public UUID getMemberId() {
-		return memberId;
+	public Client getMember() {
+		return member;
 	}
-	public void setMemberId(UUID memberId) {
-		this.memberId = memberId;
+	public void setMember(Client member) {
+		this.member = member;
 	}
 	public String getRelationWithHouseHold() {
 		return relationWithHouseHold;

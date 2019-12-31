@@ -15,16 +15,18 @@ import com.servinglynk.hmis.warehouse.model.v2020.Client;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisHouseHoldMember;
 import com.servinglynk.hmis.warehouse.service.HmisHouseHoldService;
 import com.servinglynk.hmis.warehouse.service.converter.HmisHouseHoldConverter;
+import com.servinglynk.hmis.warehouse.service.exception.InvalidRequest;
 import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException;
 
 public class HmisHouseHoldServiceImpl extends ServiceBase implements HmisHouseHoldService {
 
 	@Transactional
 	public HmisHousehold createHouseHold(HmisHousehold model,Account caller) {
-		Client client = daoFactory.getClientDao().getClientById(model.getHeadOfHouseHoldId());
-		if(client==null) throw new ResourceNotFoundException("Head of house hold not found "+model.getHeadOfHouseHoldId());
+		if(model.getHeadOfHouseHold()==null ||model.getHeadOfHouseHold().getClientId()==null) throw new InvalidRequest("head of house hold id is missing ");
+		Client client = daoFactory.getClientDao().getClientById(model.getHeadOfHouseHold().getClientId());
+		if(client==null) throw new ResourceNotFoundException("Head of house hold not found "+model.getHeadOfHouseHold());
 		com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold entity = new com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold();
-		entity.setHeadOfHouseholdId(model.getHeadOfHouseHoldId());
+		entity.setHeadOfHousehold(client);
 		entity.setDedupClientId(client.getDedupClientId());
 		entity.setDateCreated(LocalDateTime.now());
 		entity.setDateUpdated(LocalDateTime.now());
@@ -40,9 +42,10 @@ public class HmisHouseHoldServiceImpl extends ServiceBase implements HmisHouseHo
 	public void updateHouseHold(HmisHousehold model,Account caller) {
 		com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold entity = daoFactory.getHmisHouseholdDao().getHouseHoldById(model.getHouseHoldId());
 		if(entity == null) throw new ResourceNotFoundException("House hold not found"+model.getHouseHoldId());
-		Client client = daoFactory.getClientDao().getClientById(model.getHeadOfHouseHoldId());
-		if(client==null) throw new ResourceNotFoundException("Head of house hold not found "+model.getHeadOfHouseHoldId());
-		entity.setHeadOfHouseholdId(client.getId());
+		if(model.getHeadOfHouseHold()==null ||model.getHeadOfHouseHold().getClientId()==null) throw new InvalidRequest("head of house hold id is missing ");
+		Client client = daoFactory.getClientDao().getClientById(model.getHeadOfHouseHold().getClientId());
+		if(client==null) throw new ResourceNotFoundException("Head of house hold not found "+model.getHeadOfHouseHold().getClientId());
+		entity.setHeadOfHousehold(client);
 		entity.setDedupClientId(client.getDedupClientId());
 		entity.setDateUpdated(LocalDateTime.now());
 		entity.setUser(caller.getAccountId());
@@ -87,15 +90,16 @@ public class HmisHouseHoldServiceImpl extends ServiceBase implements HmisHouseHo
 	public void addHouseHoldMember(HouseHoldMember member, Account caller) {
 		com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold entity = daoFactory.getHmisHouseholdDao().getHouseHoldById(member.getHouseHoldId());
 		if(entity == null) throw new ResourceNotFoundException("House hold not found"+member.getHouseHoldId());
-		Client client = daoFactory.getClientDao().getClientById(member.getMemberId());
-		if(client==null) throw new ResourceNotFoundException("House hold member not found "+member.getMemberId());
+		if(member.getMember()==null || member.getMember().getClientId()==null) throw new InvalidRequest("member id is missing ");
+		Client client = daoFactory.getClientDao().getClientById(member.getMember().getClientId());
+		if(client==null) throw new ResourceNotFoundException("House hold member not found "+member.getMember().getClientId());
 		HmisHouseHoldMember houseHoldMember = new HmisHouseHoldMember();
 		houseHoldMember.setDateCreated(LocalDateTime.now());
 		houseHoldMember.setDateUpdated(LocalDateTime.now());
 		houseHoldMember.setDeleted(false);
 		houseHoldMember.setUser(caller.getAccountId());
 		houseHoldMember.setProjectGroupCode(caller.getProjectGroup().getProjectGroupCode());
-		houseHoldMember.setMemberId(client.getId());
+		houseHoldMember.setMember(client);
 		houseHoldMember.setHmisHousehold(entity);
 		houseHoldMember.setRelationWithHouseHold(member.getRelationWithHouseHold());
 		houseHoldMember.setMemberDedupId(client.getDedupClientId());

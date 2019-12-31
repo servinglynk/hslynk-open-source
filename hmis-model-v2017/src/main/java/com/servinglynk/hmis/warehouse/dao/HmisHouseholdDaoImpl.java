@@ -60,8 +60,9 @@ public class HmisHouseholdDaoImpl extends QueryExecutorImpl implements HmisHouse
 	public HmisHouseHoldMember getHouseHoldMember(UUID householdId, UUID memberId) {
 			DetachedCriteria criteria = DetachedCriteria.forClass(HmisHouseHoldMember.class);
 			criteria.createAlias("hmisHousehold", "hmisHousehold");
+			criteria.createAlias("member", "member");
 			criteria.add(Restrictions.eq("hmisHousehold.id", householdId));
-			criteria.add(Restrictions.eq("memberId", memberId));
+			criteria.add(Restrictions.eq("member.id", memberId));
 			List<HmisHouseHoldMember> entities = (List<HmisHouseHoldMember>) findByCriteria(criteria);
 			if(entities.isEmpty()) return null;
 		return entities.get(0);

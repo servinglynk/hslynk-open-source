@@ -20,7 +20,7 @@ import com.servinglynk.hmis.warehouse.model.base.HMISModel;
 public class HmisHouseHoldMember extends HMISModel implements Serializable {
 
 	private UUID id;
-	private UUID memberId;
+	private Client member;
 	private String relationWithHouseHold;
 	private HmisHousehold hmisHousehold;
 	private UUID memberDedupId;
@@ -38,14 +38,14 @@ public class HmisHouseHoldMember extends HMISModel implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "member_id")
-	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
-	public UUID getMemberId() {
-		return memberId;
+	@ManyToOne
+	@JoinColumn(name = "member_id", referencedColumnName = "id")
+	public Client getMember() {
+		return member;
 	}
 
-	public void setMemberId(UUID memberId) {
-		this.memberId = memberId;
+	public void setMember(Client member) {
+		this.member = member;
 	}
 
 	@Column(name = "relation_with_house_hold")
