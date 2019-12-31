@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
+import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.HmisHousehold;
 import com.servinglynk.hmis.warehouse.core.model.HouseHoldMember;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisHouseHoldMember;
@@ -9,9 +10,9 @@ public class HmisHouseHoldConverter {
 
 	public static HmisHousehold entityToModel(com.servinglynk.hmis.warehouse.model.v2014.HmisHousehold entity) {
 		HmisHousehold model = new HmisHousehold();
-		model.setHeadOfHouseHoldId(entity.getHeadOfHouseholdId());
+		model.setHeadOfHouseHold(ClientConverter.entityToModel(entity.getHeadOfHousehold()));
 		model.setHouseHoldId(entity.getId());
-		model.setLink("/hmis-clientapi/rest/v2014/clients/"+entity.getHeadOfHouseholdId());
+		model.addLink(new ActionLink("enrollments", "/hmis-clientapi/rest/v2014/clients/"+entity.getHeadOfHousehold().getId()+"/enrollments"));
 		for(HmisHouseHoldMember member : entity.getMembers()) {
 			if(!member.isDeleted())
 				model.addHouseHoldMember(HmisHouseHoldConverter.entityToModel(member));
@@ -23,9 +24,9 @@ public class HmisHouseHoldConverter {
 		HouseHoldMember model = new HouseHoldMember();
 		model.setHouseHoldId(entity.getHmisHousehold().getId());
 		model.setHouseHoldMemberId(entity.getId());
-		model.setMemberId(entity.getMemberId());
+		model.setMember(ClientConverter.entityToModel(entity.getMember()));
 		model.setRelationWithHouseHold(entity.getRelationWithHouseHold());
-		model.setLink("/hmis-clientapi/rest/v2014/clients/"+entity.getMemberId());		
+		model.addLink(new ActionLink("enrollments", "/hmis-clientapi/rest/v2014/clients/"+entity.getMember().getId()+"/enrollments"));
 		return model;
 	}
 }

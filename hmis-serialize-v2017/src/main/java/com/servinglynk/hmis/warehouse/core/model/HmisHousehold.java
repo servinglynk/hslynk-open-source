@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("hmisHousehold")
 public class HmisHousehold  extends ClientModel {
 	private UUID houseHoldId;
-	private UUID headOfHouseHoldId;
+	private Client headOfHouseHold;
 	private String link;
 	List<HouseHoldMember> houseHoldMembers = new ArrayList<HouseHoldMember>();
 	
@@ -19,11 +19,11 @@ public class HmisHousehold  extends ClientModel {
 	public void setHouseHoldId(UUID houseHoldId) {
 		this.houseHoldId = houseHoldId;
 	}
-	public UUID getHeadOfHouseHoldId() {
-		return headOfHouseHoldId;
+	public Client getHeadOfHouseHold() {
+		return headOfHouseHold;
 	}
-	public void setHeadOfHouseHoldId(UUID headOfHouseHoldId) {
-		this.headOfHouseHoldId = headOfHouseHoldId;
+	public void setHeadOfHouseHold(Client headOfHouseHold) {
+		this.headOfHouseHold = headOfHouseHold;
 	}
 	public String getLink() {
 		return link;
