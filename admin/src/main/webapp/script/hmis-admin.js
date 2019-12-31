@@ -358,14 +358,14 @@ var Service= ({
         var linkElement = document.createElement('a');
         try {
          var file = new Blob([ data ], {
-             type : 'application/json'
+             type : 'application/zip' 
          });
          //trick to download store a file having its URL
          var fileURL = URL.createObjectURL(file);
          var a         = document.createElement('a');
          a.href        = fileURL; 
          a.target      = '_blank';
-         a.download    = filename;
+         a.download    = $scope.exportId+".zip";
          document.body.appendChild(a);
          a.click();
         } catch (ex) {
@@ -1190,7 +1190,7 @@ app.controller('createorgCtrl',[ '$scope','$location','$routeSegment','$http', '
     //success
     function(data){
 	
-		$scope.successTextAlert = "Your Requset has been sent successfully.";
+		$scope.successTextAlert = "Your request has been sent successfully.";
 		$scope.showSuccessAlert = true;
 		$scope.form.email='';
 		$scope.form.report='';
@@ -1228,7 +1228,7 @@ app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http'
     //success
     function(data){
 	
-		$scope.successTextAlert = "Your Requset has been sent successfully.";
+		$scope.successTextAlert = "Your request has been sent successfully.";
 		$scope.showSuccessAlert = true;
 		$scope.form.name='';
 		$scope.form.desc='';
@@ -1263,7 +1263,7 @@ app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http'
     //success
     function(data){
 	
-		$scope.successTextAlert = "Your Requset has been sent successfully.";
+		$scope.successTextAlert = "Your request has been sent successfully.";
 		$scope.showSuccessAlert = true;
 		$scope.form.name='';
 		$scope.form.desc='';
@@ -1310,7 +1310,7 @@ app.controller('createuserCtrl',['$scope','$location','$routeSegment','$http', '
     //success
     function(data){
 	
-		$scope.successTextAlert = "Your Requset has been sent successfully.";
+		$scope.successTextAlert = "Your request has been sent successfully.";
 		$scope.showSuccessAlert = true;
 		$scope.form.firstName='';
 		$scope.form.lastName ='';
@@ -2101,7 +2101,7 @@ app.controller('requestexportCtrl',['$scope','$location','$routeSegment','$http'
     //success
     function(data){
 	
-		$scope.successTextAlert = "Your Requset has been sent successfully.";
+		$scope.successTextAlert = "Your request has been sent successfully.";
 		$scope.showSuccessAlert = true;
 		$scope.form.name='';
 		$scope.form.exportLevel='';
@@ -2143,7 +2143,7 @@ app.controller('requestreportCtrl',['$scope','$location','$routeSegment','$http'
     //success
     function(data){
 	
-		$scope.successTextAlert = "Your Requset has been sent successfully.";
+		$scope.successTextAlert = "Your request has been sent successfully.";
 		$scope.showSuccessAlert = true;
 		$scope.form.name='';
 		$scope.form.reportLevel='';
