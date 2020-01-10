@@ -83,6 +83,7 @@ import com.servinglynk.hmis.warehouse.dao.HealthStatusDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HealthinsuranceDao;
 import com.servinglynk.hmis.warehouse.dao.HealthinsuranceDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.HistoryDaoImpl;
+import com.servinglynk.hmis.warehouse.dao.HmisHouseholdDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.IncomeandsourcesDao;
 import com.servinglynk.hmis.warehouse.dao.IncomeandsourcesDaoImpl;
 import com.servinglynk.hmis.warehouse.dao.InventoryDao;
@@ -494,5 +495,10 @@ public class DatabaseConfig extends BaseDatabaseConfig{
 	
 	@Bean ServicesCsvConverter servicesCsvConverter() {
 		return new ServicesCsvConverter();
+	}
+	
+	@Bean
+	public  HmisHouseholdDaoImpl hmisHouseholdDao() {
+		return new HmisHouseholdDaoImpl();
 	}
 }

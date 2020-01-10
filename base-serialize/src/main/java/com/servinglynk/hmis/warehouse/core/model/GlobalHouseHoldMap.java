@@ -13,6 +13,7 @@ public class GlobalHouseHoldMap extends ClientModel {
 	private UUID hmisHouseHoldId;
 	@JsonProperty("schemaYear")
 	private String shemaYear;
+	private String link;
 	public UUID getId() {
 		return id;
 	}
@@ -36,5 +37,11 @@ public class GlobalHouseHoldMap extends ClientModel {
 	}
 	public void setShemaYear(String shemaYear) {
 		this.shemaYear = shemaYear;
+	}
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
 	}
 }

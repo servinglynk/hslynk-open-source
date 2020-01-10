@@ -36,6 +36,7 @@ import com.servinglynk.hmis.warehouse.service.impl.HMISTypeServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthinsuranceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HealthstatusServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.HistoryServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.HmisHouseHoldServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.IncomeAndSourceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.InventoryServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.MedicalassistanceServiceImpl;
@@ -292,6 +293,11 @@ public class ServiceConfig  {
 	 @Bean
 	 public HistoryServiceImpl historyService() {
 		 return new HistoryServiceImpl();
+	 }
+	 
+	 @Bean
+	 public HmisHouseHoldServiceImpl hmisHouseHoldService() {
+		 return new HmisHouseHoldServiceImpl();
 	 }
 	 
 }

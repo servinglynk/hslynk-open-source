@@ -27,6 +27,7 @@ import com.servinglynk.hmis.warehouse.service.HMISTypeService;
 import com.servinglynk.hmis.warehouse.service.HealthInsuranceService;
 import com.servinglynk.hmis.warehouse.service.HealthStatusService;
 import com.servinglynk.hmis.warehouse.service.HistoryService;
+import com.servinglynk.hmis.warehouse.service.HmisHouseHoldService;
 import com.servinglynk.hmis.warehouse.service.HousingAssessmentDispositionService;
 import com.servinglynk.hmis.warehouse.service.IncomeAndSourceService;
 import com.servinglynk.hmis.warehouse.service.InformationReleasesService;
@@ -605,5 +606,16 @@ public class ParentServiceFactoryImpl extends BaseServiceFactoryImpl  implements
 
 	public void setHistoryService(HistoryService historyService) {
 		this.historyService = historyService;
+	}
+	
+	@Autowired private HmisHouseHoldService hmisHouseHoldService;
+
+
+	public HmisHouseHoldService getHmisHouseHoldService() {
+		return hmisHouseHoldService;
+	}
+
+	public void setHmisHouseHoldService(HmisHouseHoldService hmisHouseHoldService) {
+		this.hmisHouseHoldService = hmisHouseHoldService;
 	}
 }

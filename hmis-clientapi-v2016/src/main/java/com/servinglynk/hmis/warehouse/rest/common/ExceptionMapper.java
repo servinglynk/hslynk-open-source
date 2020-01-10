@@ -44,6 +44,7 @@ import com.servinglynk.hmis.warehouse.service.exception.HealthinsuranceNotFoundE
 import com.servinglynk.hmis.warehouse.service.exception.HealthstatusNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.HousingAssessmentDispositionNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.IncomeAndSourceNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.InvalidRequest;
 import com.servinglynk.hmis.warehouse.service.exception.MedicalassistanceNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.NoncashbenefitsNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.PathstatusNotFoundException;
@@ -110,6 +111,13 @@ public class ExceptionMapper {
 		}  catch (InvalidParameterException ex) {
 
 			logger.info("InvalidParameterException: " + ex.getMessage(), ex);
+			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
+			r.setErrorCode(ERR_CODE_INVALID_PARAMETER);
+			r.setErrorMessage(ex.getMessage());
+
+		}		catch (InvalidRequest ex) {
+
+			logger.info("InvalidRequest: " + ex.getMessage(), ex);
 			r.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
 			r.setErrorCode(ERR_CODE_INVALID_PARAMETER);
 			r.setErrorMessage(ex.getMessage());
