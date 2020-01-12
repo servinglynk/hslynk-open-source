@@ -74,9 +74,17 @@ public class ProjectSubGroupServiceImpl extends ServiceBase implements ProjectSu
 	public void addProjectToProjectSubGroup(UUID projectSubGroupId, UUID projectId, Account account) {
 		ProjectSubGroupEntity entity = daoFactory.getProjectSubGroupDao().getProjectSubGroupById(projectSubGroupId);
 		if(entity == null) throw new ResourceNotFoundException("Project sub group not found "+projectSubGroupId);
-		
+
 		Project project = daoFactory.getBaseProjectDao().getProjectById(projectId);
-		if(project == null) throw new ResourceNotFoundException("Project not found "+projectId);
+	//	if(project == null) throw new ResourceNotFoundException("Project not found "+projectId);
+		
+		ProjectSubGroupEntity projectSubGroupEntity = daoFactory.getProjectSubGroupDao().getProjectSubGroupById(projectId);
+		/*
+		 * if(projectSubGroupEntity==null) {
+		 * 
+		 * }
+		 */
+		
 		
 		ProjectSubGroupProjectMapEntity mapEntity = new ProjectSubGroupProjectMapEntity();
 		mapEntity.setDateCreated(LocalDateTime.now());
@@ -86,6 +94,7 @@ public class ProjectSubGroupServiceImpl extends ServiceBase implements ProjectSu
 		mapEntity.setProjectSubGroup(entity);
 		mapEntity.setProjectId(project);
 		mapEntity.setUser(account.getAccountId());
+		mapEntity.setContainedProjectGroups(projectSubGroupEntity);
 		daoFactory.getProjectSubGroupDao().addProjectToProjectSubGroup(mapEntity);
 	}
 

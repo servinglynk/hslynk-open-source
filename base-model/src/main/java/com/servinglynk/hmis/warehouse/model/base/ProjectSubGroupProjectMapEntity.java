@@ -16,6 +16,8 @@ public class ProjectSubGroupProjectMapEntity extends HMISModel{
 	private UUID id;
 	private Project projectId;
 	private ProjectSubGroupEntity projectSubGroup;
+	private ProjectSubGroupEntity containedProjectGroups;
+	
 	
 	@Id
 	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
@@ -42,5 +44,14 @@ public class ProjectSubGroupProjectMapEntity extends HMISModel{
 	}
 	public void setProjectSubGroup(ProjectSubGroupEntity projectSubGroup) {
 		this.projectSubGroup = projectSubGroup;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "contained_project_groups" , referencedColumnName = "id")
+	public ProjectSubGroupEntity getContainedProjectGroups() {
+		return containedProjectGroups;
+	}
+	public void setContainedProjectGroups(ProjectSubGroupEntity containedProjectGroups) {
+		this.containedProjectGroups = containedProjectGroups;
 	}	
 }
