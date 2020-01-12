@@ -155,6 +155,15 @@
 				</plugin> -->
 		</plugins>
 	</build>
-
+<distributionManagement>
+   <repository>
+   <id>hslynk-releases</id>
+   <url>http://nexus.aws.hmislynk.com:8081/repository/maven-releases</url>
+   </repository>
+   <snapshotRepository>
+     <id>hslynk-snapshot</id>
+     <url>http://nexus.aws.hmislynk.com:8081/repository/maven-snapshot</url>
+     </snapshotRepository>
+  </distributionManagement>
 
 </project>

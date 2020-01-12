@@ -70,7 +70,7 @@
 		<module>report-service</module>
 		<module>user-service</module>
 		<module>developer-service</module>
-    <!--   	<module>global-household</module> -->
+    	  	<module>global-household</module>
 		<module>authorization-service</module>
 		<module>upload-service</module>
 		<module>client-dedup</module>
