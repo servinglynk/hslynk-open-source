@@ -12,6 +12,8 @@ public class ProjectSubGroup extends ClientModel {
 	private String projectSubGroupName;
 	
 	private List<BaseProject> projects = new ArrayList<BaseProject>();
+	private List<ProjectSubGroup> projectSubGroups = new ArrayList<ProjectSubGroup>(); 
+	
 	
 	public UUID getProjectSubGroupId() {
 		return projectSubGroupId;

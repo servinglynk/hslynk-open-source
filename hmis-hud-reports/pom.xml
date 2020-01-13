@@ -355,4 +355,14 @@
             </snapshots>
         </repository>
     </repositories>
+<distributionManagement>
+   <repository>
+   <id>hslynk-releases</id>
+   <url>https://repository.hslynk.com/repository/maven-releases</url>
+   </repository>
+   <snapshotRepository>
+     <id>hslynk-snapshot</id>
+     <url>https://repository.hslynk.com/repository/maven-snapshot</url>
+     </snapshotRepository>
+  </distributionManagement>  
 </project>
