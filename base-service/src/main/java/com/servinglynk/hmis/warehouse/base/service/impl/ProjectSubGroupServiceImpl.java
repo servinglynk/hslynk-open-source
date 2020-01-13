@@ -76,14 +76,10 @@ public class ProjectSubGroupServiceImpl extends ServiceBase implements ProjectSu
 		if(entity == null) throw new ResourceNotFoundException("Project sub group not found "+projectSubGroupId);
 
 		Project project = daoFactory.getBaseProjectDao().getProjectById(projectId);
-	//	if(project == null) throw new ResourceNotFoundException("Project not found "+projectId);
 		
-		ProjectSubGroupEntity projectSubGroupEntity = daoFactory.getProjectSubGroupDao().getProjectSubGroupById(projectId);
-		/*
-		 * if(projectSubGroupEntity==null) {
-		 * 
-		 * }
-		 */
+		ProjectSubGroupEntity projectSubGroupEntity  = daoFactory.getProjectSubGroupDao().getProjectSubGroupById(projectId);
+			
+		if(project == null && projectSubGroupEntity == null) throw new ResourceNotFoundException("Project/ Project Sub Group not found "+projectId);
 		
 		
 		ProjectSubGroupProjectMapEntity mapEntity = new ProjectSubGroupProjectMapEntity();
