@@ -78,7 +78,7 @@
 		<module>fileupload-core</module>
 		<module>hmis-mq-service</module>
 		<module>mq-core-client</module>
-		<module>admin</module>
+		<!--<module>admin</module> -->
 	</modules>
 <distributionManagement>
    <repository>
