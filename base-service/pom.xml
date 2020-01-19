@@ -20,7 +20,7 @@
 		<jsp-version>2.2.1</jsp-version>
 		<jstl-version>1.2</jstl-version>
 		<spring-version>4.3.22.RELEASE</spring-version>
-		<spring-security-version>4.2.11.RELEASE</spring-security-version>
+		<spring-security-version>4.2.13.RELEASE</spring-security-version>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
@@ -38,6 +38,7 @@
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-fileupload-core</artifactId>
 			<version>${parent.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 		<groupId>commons-lang</groupId>
