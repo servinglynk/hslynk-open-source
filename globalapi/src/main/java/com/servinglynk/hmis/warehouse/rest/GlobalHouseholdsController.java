@@ -17,7 +17,7 @@ import com.servinglynk.hmis.warehouse.core.model.GlobalHouseHolds;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 
 @RestController
-@RequestMapping("/global-households")
+@RequestMapping({"/global-households","/globalhouseholds"})
 public class GlobalHouseholdsController extends ControllerBase {
 
 	@RequestMapping(method=RequestMethod.POST)

@@ -19,7 +19,7 @@ import com.servinglynk.hmis.warehouse.core.model.GlobalProjectsMap;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 
 @RestController
-@RequestMapping("/global-projects")
+@RequestMapping({"/global-projects","/globalprojects"})
 public class GlobalProjectsController extends ControllerBase {
 	
 	@RequestMapping(method=RequestMethod.POST)

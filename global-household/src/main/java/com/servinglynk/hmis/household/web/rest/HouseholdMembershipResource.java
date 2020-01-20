@@ -40,7 +40,7 @@ import com.servinglynk.hmis.warehouse.core.model.Session;
  * REST controller for managing HouseholdMembership.
  */
 @RestController
-@RequestMapping("/generic-households")
+@RequestMapping({"/generic-households","/generichouseholds"})
 public class HouseholdMembershipResource  extends BaseResource {
 
     private final Logger log = LoggerFactory.getLogger(HouseholdMembershipResource.class);

@@ -34,7 +34,7 @@ import com.servinglynk.hmis.warehouse.model.FileInfo;
 import com.servinglynk.hmis.warehouse.service.AWSService;
 import com.servinglynk.hmis.warehouse.service.LocalFileUploadService;
 @RestController
-@RequestMapping("/bulk-upload")
+@RequestMapping({"/bulk-upload","/bulkupload"})
 public class BulkUploadController extends ControllerBase{
 	private static final Logger logger = LoggerFactory
 			.getLogger(BulkUploadController.class);

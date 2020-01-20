@@ -16,7 +16,7 @@ import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.ProjectSharingRule;
 import com.servinglynk.hmis.warehouse.core.model.ProjectSharingRules;
 
-@RequestMapping("/projectSharingRules")
+@RequestMapping({"/projectSharingRules","/projectsharingrules"})
 @RestController
 public class ProjectSharingRuleController extends ControllerBase {
 
