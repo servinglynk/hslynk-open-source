@@ -208,6 +208,10 @@ public class SyncPostgresProcessor extends Logging{
         try {
             connection = getConnection();
             switch (version) {
+	        	case V2020:
+	        		statement = connection.prepareStatement("UPDATE base.hmis_project_group SET tables_v2016_in_hbase=TRUE where project_group_code=?");
+	        		statement.setString(1, groupCode);
+	        		break;
             	case V2017:
             		statement = connection.prepareStatement("UPDATE base.hmis_project_group SET tables_v2016_in_hbase=TRUE where project_group_code=?");
             		statement.setString(1, groupCode);

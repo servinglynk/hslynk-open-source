@@ -17,10 +17,16 @@ public class Properties {
     public static String COMMON_TABLES;
     public static String PROJECT_GRP_WITH_CLIENT_IDS;
     public static String SLIM_TABLES;
+    
     public static String SYNC_2017_SCHEMA;
     public static String SYNC_2017_INCLUDE_TABLES;
     public static String SYNC_2017_EXCLUDE_TABLES;
     public static int SYNC_2017_PERIOD;
+    
+    public static String SYNC_2020_SCHEMA;
+    public static String SYNC_2020_INCLUDE_TABLES;
+    public static String SYNC_2020_EXCLUDE_TABLES;
+    public static int SYNC_2020_PERIOD;
     
     public static String SYNC_2016_SCHEMA;
     public static String SYNC_2016_INCLUDE_TABLES;
@@ -61,6 +67,13 @@ public class Properties {
             PROJECT_GRP_WITH_CLIENT_IDS =  getProperty("sync.proj-grp.withIdentifier",prop);
             COMMON_TABLES = getProperty("common.tables",prop);
             SLIM_TABLES =  getProperty("slim.tables",prop);
+            
+            
+            SYNC_2020_SCHEMA = getProperty("sync2020.schema",prop);
+            SYNC_2020_INCLUDE_TABLES = getProperty("sync2020.includetables",prop);
+            SYNC_2020_EXCLUDE_TABLES = getProperty("sync2020.excludetables",prop);
+            SYNC_2020_PERIOD = Integer.valueOf(getProperty("sync2020.period",prop));
+            
             SYNC_2017_SCHEMA = getProperty("sync2017.schema",prop);
             SYNC_2017_INCLUDE_TABLES = getProperty("sync2017.includetables",prop);
             SYNC_2017_EXCLUDE_TABLES = getProperty("sync2017.excludetables",prop);
