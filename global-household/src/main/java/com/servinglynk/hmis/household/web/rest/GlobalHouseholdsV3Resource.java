@@ -32,7 +32,7 @@ import com.servinglynk.hmis.household.web.rest.util.HeaderUtil;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 
 @RestController
-@RequestMapping("/v3/generic-households")
+@RequestMapping({"/v3/generic-households","/v3/generichouseholds"})
 public class GlobalHouseholdsV3Resource extends BaseResource {
 	
     private final Logger log = LoggerFactory.getLogger(GlobalHouseholdsV3Resource.class);
