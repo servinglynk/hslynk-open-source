@@ -16,7 +16,7 @@ import com.servinglynk.hmis.warehouse.core.model.GenericEnrollment;
 import com.servinglynk.hmis.warehouse.core.model.GenericEnrollments;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 
-@RequestMapping("/generic-enrollments")
+@RequestMapping({"/generic-enrollments","/genericenrollments"})
 @RestController
 public class GenericEnrollmentsController extends ControllerBase {
 	

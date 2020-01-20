@@ -1962,7 +1962,7 @@ public class ClientsController extends ControllerBase {
   // Assessment API ends
 		
   // Assessment Question API start
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentQuestions", method = RequestMethod.POST)
+		@RequestMapping(value = { "/{clientid}/enrollments/{enrollmentid}/assessmentQuestions", "/{clientid}/enrollments/{enrollmentid}/assessmentquestions"}, method = RequestMethod.POST)
 		@APIMapping(value = "CLIENT_API_CREATE_ASSESSMENT_QUESTION", checkTrustedApp = true, checkSessionToken = true)
 		public AssessmentQuestion createAssessmentQuestion(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody AssessmentQuestion AssessmentQuestion,
@@ -1974,7 +1974,7 @@ public class ClientsController extends ControllerBase {
 			return createAssessmentQuestion;
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentQuestions/{assessmentQuestionid}", method = RequestMethod.PUT)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentQuestions/{assessmentQuestionid}","/{clientid}/enrollments/{enrollmentid}/assessmentquestions/{assessmentQuestionid}"}, method = RequestMethod.PUT)
 		@APIMapping(value = "CLIENT_API_UPDATE__ASSESSMENT_QUESTION", checkTrustedApp = true, checkSessionToken = true)
 		public void updateAssessmentQuestion(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -1987,7 +1987,7 @@ public class ClientsController extends ControllerBase {
 					session.getAccount().getUsername());
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentQuestions/{assessmentQuestionid}", method = RequestMethod.DELETE)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentQuestions/{assessmentQuestionid}","/{clientid}/enrollments/{enrollmentid}/assessmentquestions/{assessmentQuestionid}"}, method = RequestMethod.DELETE)
 		@APIMapping(value = "CLIENT_API_DELETE__ASSESSMENT_QUESTION", checkTrustedApp = true, checkSessionToken = true)
 		public void deleteAssessmentQuestion(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -2001,7 +2001,7 @@ public class ClientsController extends ControllerBase {
 			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentQuestions/{assessmentQuestionid}", method = RequestMethod.GET)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentQuestions/{assessmentQuestionid}","/{clientid}/enrollments/{enrollmentid}/assessmentquestions/{assessmentQuestionid}"}, method = RequestMethod.GET)
 		@APIMapping(value = "CLIENT_API_GET__ASSESSMENT_QUESTION_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 		public AssessmentQuestion getAssessmentQuestionById(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -2011,7 +2011,7 @@ public class ClientsController extends ControllerBase {
 			return serviceFactory.getAssessmentQuestionService().getAssessmentQuestionById(assessmentQuestionid);
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentQuestions", method = RequestMethod.GET)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentQuestions","/{clientid}/enrollments/{enrollmentid}/assessmentquestions"}, method = RequestMethod.GET)
 		@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT__ASSESSMENT_QUESTION", checkTrustedApp = true, checkSessionToken = true)
 		public AssessmentQuestions getAllEnrollmentAssessmentQuestions(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -2033,7 +2033,7 @@ public class ClientsController extends ControllerBase {
 		
 		// Assessment Result API begin
 		
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentResults", method = RequestMethod.POST)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentResults","/{clientid}/enrollments/{enrollmentid}/assessmentresults"}, method = RequestMethod.POST)
 		@APIMapping(value = "CLIENT_API_CREATE_ASSESSMENT_RESULT", checkTrustedApp = true, checkSessionToken = true)
 		public AssessmentResult createAssessmentResult(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody AssessmentResult AssessmentResult,
@@ -2045,7 +2045,7 @@ public class ClientsController extends ControllerBase {
 			return createAssessmentResult;
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentResults/{assessmentResultid}", method = RequestMethod.PUT)
+		@RequestMapping(value = { "/{clientid}/enrollments/{enrollmentid}/assessmentResults/{assessmentResultid}","/{clientid}/enrollments/{enrollmentid}/assessmentresults/{assessmentResultid}"}, method = RequestMethod.PUT)
 		@APIMapping(value = "CLIENT_API_UPDATE__ASSESSMENT_RESULT", checkTrustedApp = true, checkSessionToken = true)
 		public void updateAssessmentResult(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -2058,7 +2058,7 @@ public class ClientsController extends ControllerBase {
 					session.getAccount().getUsername());
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentResults/{assessmentResultid}", method = RequestMethod.DELETE)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentResults/{assessmentResultid}","/{clientid}/enrollments/{enrollmentid}/assessmentresults/{assessmentResultid}"}, method = RequestMethod.DELETE)
 		@APIMapping(value = "CLIENT_API_DELETE__ASSESSMENT_RESULT", checkTrustedApp = true, checkSessionToken = true)
 		public void deleteAssessmentResult(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -2072,7 +2072,7 @@ public class ClientsController extends ControllerBase {
 			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentResults/{assessmentResultid}", method = RequestMethod.GET)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentResults/{assessmentResultid}","/{clientid}/enrollments/{enrollmentid}/assessmentresults/{assessmentResultid}"}, method = RequestMethod.GET)
 		@APIMapping(value = "CLIENT_API_GET__ASSESSMENT_RESULT_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 		public AssessmentResult getAssessmentResultById(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -2082,7 +2082,7 @@ public class ClientsController extends ControllerBase {
 			return serviceFactory.getAssessmentResultService().getAssessmentResultById(assessmentResultid);
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/assessmentResults", method = RequestMethod.GET)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentResults","/{clientid}/enrollments/{enrollmentid}/assessmentresults"}, method = RequestMethod.GET)
 		@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT__ASSESSMENT_RESULT", checkTrustedApp = true, checkSessionToken = true)
 		public AssessmentResults getAllEnrollmentAssessmentResults(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -2171,7 +2171,7 @@ public class ClientsController extends ControllerBase {
 		// Event API end
 		// Current Living Situation API start
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/currentLivingSituations", method = RequestMethod.POST)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/currentLivingSituations","/{clientid}/enrollments/{enrollmentid}/currentlivingsituations"}, method = RequestMethod.POST)
 		@APIMapping(value = "CLIENT_API_CREATE_CURRENT_LIVING_SITUATION", checkTrustedApp = true, checkSessionToken = true)
 		public CurrentLivingSituation createCurrentLivingSituation(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody CurrentLivingSituation CurrentLivingSituation,
@@ -2183,7 +2183,7 @@ public class ClientsController extends ControllerBase {
 			return createCurrentLivingSituation;
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/currentLivingSituations/{currentLivingSituationid}", method = RequestMethod.PUT)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/currentLivingSituations/{currentLivingSituationid}","/{clientid}/enrollments/{enrollmentid}/currentlivingsituations/{currentLivingSituationid}"}, method = RequestMethod.PUT)
 		@APIMapping(value = "CLIENT_API_UPDATE_CURRENT_LIVING_SITUATION", checkTrustedApp = true, checkSessionToken = true)
 		public void updateCurrentLivingSituation(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -2196,7 +2196,7 @@ public class ClientsController extends ControllerBase {
 					session.getAccount().getUsername());
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/currentLivingSituations/{currentLivingSituationid}", method = RequestMethod.DELETE)
+		@RequestMapping(value = { "/{clientid}/enrollments/{enrollmentid}/currentLivingSituations/{currentLivingSituationid}","/{clientid}/enrollments/{enrollmentid}/currentlivingsituations/{currentLivingSituationid}"}, method = RequestMethod.DELETE)
 		@APIMapping(value = "CLIENT_API_DELETE_CURRENT_LIVING_SITUATION", checkTrustedApp = true, checkSessionToken = true)
 		public void deleteCurrentLivingSituation(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -2210,7 +2210,7 @@ public class ClientsController extends ControllerBase {
 			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/currentLivingSituations/{currentLivingSituationid}", method = RequestMethod.GET)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/currentLivingSituations/{currentLivingSituationid}","/{clientid}/enrollments/{enrollmentid}/currentlivingsituations/{currentLivingSituationid}"}, method = RequestMethod.GET)
 		@APIMapping(value = "CLIENT_API_GET_CURRENT_LIVING_SITUATION_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 		public CurrentLivingSituation getCurrentLivingSituationById(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
@@ -2220,7 +2220,7 @@ public class ClientsController extends ControllerBase {
 			return serviceFactory.getCurrentLivingSituationService().getCurrentLivingSituationById(currentLivingSituationid);
 		}
 
-		@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/currentLivingSituations", method = RequestMethod.GET)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/currentLivingSituations","/{clientid}/enrollments/{enrollmentid}/currentlivingsituations"}, method = RequestMethod.GET)
 		@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT_CURRENT_LIVING_SITUATION", checkTrustedApp = true, checkSessionToken = true)
 		public CurrentLivingSituations getAllEnrollmentCurrentLivingSituations(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,

@@ -18,7 +18,7 @@ import com.servinglynk.hmis.warehouse.core.model.GlobalEnrollments;
 import com.servinglynk.hmis.warehouse.core.model.GlobalEnrollmentsMap;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 
-@RequestMapping("/clients/{clientDedupId}/global-enrollments")
+@RequestMapping({"/clients/{clientDedupId}/global-enrollments","/clients/{clientDedupId}/globalenrollments"})
 @RestController
 public class GlobalEnrollmentsController extends ControllerBase {
 	
