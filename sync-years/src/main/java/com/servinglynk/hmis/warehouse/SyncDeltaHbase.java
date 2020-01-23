@@ -52,11 +52,11 @@ public class SyncDeltaHbase extends Logging {
         this.projGrpWithIdentifier = Properties.PROJECT_GRP_WITH_CLIENT_IDS;
         switch (version) {
 	        case V2020:
-	            syncPeriod = Properties.SYNC_2017_PERIOD;
-	            syncSchema = Properties.SYNC_2017_SCHEMA;
-	            includeTables = Properties.SYNC_2017_INCLUDE_TABLES;
-	            excludeTables = Properties.SYNC_2017_EXCLUDE_TABLES;
-	            year = 2017;
+	            syncPeriod = Properties.SYNC_2020_PERIOD;
+	            syncSchema = Properties.SYNC_2020_SCHEMA;
+	            includeTables = Properties.SYNC_2020_INCLUDE_TABLES;
+	            excludeTables = Properties.SYNC_2020_EXCLUDE_TABLES;
+	            year = 2020;
 	            break;
 	        case V2017:
 	            syncPeriod = Properties.SYNC_2017_PERIOD;
