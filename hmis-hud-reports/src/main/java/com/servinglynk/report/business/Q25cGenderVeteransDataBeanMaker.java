@@ -23,7 +23,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 	public static List<Q25cGenderVeteransDataBean> getQ25cGenderVeteransList(ReportData data){
 		
 		String query = "select distinct(e.dedup_client_id)  from %s.enrollment e join %s.project p  on (e.projectid = p.id   %p ) "+
-			     " join %s.client c on (e.client_id = c.id and e.entrydate  >=  :startDate and  e.entrydate<=:endDate) "+ 
+			     " join %s.client c on (e.client_id = c.id and  e.entrydate<=:endDate) "+ 
 			     " where  1=1 ";
 				Q25cGenderVeteransDataBean q25cGenderVeteranTable = new Q25cGenderVeteransDataBean();
 				try {
@@ -92,7 +92,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						q25cGenderVeteranTable.setQ25cTransgendereFemaleToMaleWithChildAndAdults(BigInteger.valueOf(transgendereFemaleToMaleWithChildAndAdultsSize));
 						q25cGenderVeteranTable.setQ25cTransgendereFemaleToMaleUnknownHouseHold(BigInteger.valueOf(transgendereFemaleToMaleUnknownHouseHoldSize));
 		
-						List<String> other = getClients(data, query, null, true, "1", "4");
+						List<String> other = getClients(data, query, null, false, "1", "4");
 						List<String> otherWithoutChildren = getClients(data, query, projectsHHWithOutChildren, false, "1", "4");
 						List<String> otherWithChildAndAdults = getClients(data, query, projectsHHWithOneAdultChild, false, "1", "4");
 						List<String> otherUnknownHouseHold = getClients(data, query, projectsUnknownHouseHold, false, "1", "4");
@@ -122,7 +122,7 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						q25cGenderVeteranTable.setQ25cDKRWithChildAndAdults(BigInteger.valueOf(dkWithChildAndAdultsSize));
 						q25cGenderVeteranTable.setQ25cDKRUnknownHouseHold(BigInteger.valueOf(dkUnknownHouseHoldSize));
 		
-						List<String> informationMissing =  getClients(data, query, null, true, "1", "99");
+						List<String> informationMissing =  getClients(data, query, null, false, "1", "99");
 						List<String> informationMissingWithoutChildren =  getClients(data, query, projectsHHWithOutChildren, false, "1", "99");
 						List<String> informationMissingWithChildAndAdults =  getClients(data, query, projectsHHWithOneAdultChild, false, "1", "99");
 						List<String> informationMissingUnknownHouseHold =  getClients(data, query, projectsUnknownHouseHold, false, "1", "99");
@@ -162,6 +162,10 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 			StringBuilder builder = new StringBuilder(projectQuery);
 			Connection connection = null;
 			try {
+				
+				if(CollectionUtils.isEmpty(filteredProjectIds) && !allProjects) {
+					return q22Beans;
+				}
 				connection = ImpalaConnection.getConnection();
 				 List<String> projectIds = data.getProjectIds();
 				 if(CollectionUtils.isNotEmpty(projectIds)) {
@@ -184,6 +188,9 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 					 newQuery = query.replace("%p", " ");
 				 }
 					List<ClientModel> clients = data.getVeterans();
+					if(CollectionUtils.isEmpty(clients)) {
+						return q22Beans;
+					}
 					 if(CollectionUtils.isNotEmpty(clients)) {
 						 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
 						 int index = 0;
@@ -197,18 +204,31 @@ public class Q25cGenderVeteransDataBeanMaker extends BaseBeanMaker {
 						 enrollmentBuilder.append(" ) ");
 						 newQuery = newQuery + enrollmentBuilder.toString();
 					 }
-				if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
-					newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
-				}
-				if(StringUtils.equals("8", veteranStatus)) {
-					newQuery = newQuery + " and veteran_status  in ('8','9') ";
-				}
+					 
+					if(!StringUtils.equals("8", veteranStatus)) {
+						if( StringUtils.equals("0", veteranStatus)) {
+							newQuery = newQuery + " and (veteran_status is null  or veteran_status ='"+veteranStatus+"' ) " ;
+						} else {
+							newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
+						}
+					}
+					if(StringUtils.equals("8", veteranStatus)) {
+						newQuery = newQuery + " and veteran_status  in ('8','9') ";
+					}
+						
 				if(StringUtils.isNotBlank(gender) && !StringUtils.equals("8", gender)) {
 					newQuery = newQuery + " and gender ='"+gender+"' ";
 				}
-				if(StringUtils.equals("8", veteranStatus)) {
+				if(StringUtils.equals("8", gender)) {
 					newQuery = newQuery + " and gender  in ('8','9') ";
 				}
+				
+				
+				
+			
+				
+				
+				
 				
 				statement = connection.createStatement();
 				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));

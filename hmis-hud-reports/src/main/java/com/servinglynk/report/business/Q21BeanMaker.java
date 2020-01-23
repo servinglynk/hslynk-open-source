@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -18,35 +21,46 @@ import com.servinglynk.report.bean.Q21HealthInsuranceDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.HealthInsuranceModel;
+import com.servinglynk.report.model.IncomeAndSourceModel;
 
 public class Q21BeanMaker extends BaseBeanMaker {
 
 	public static List<Q21HealthInsuranceDataBean> getQ21HealthInsuranceList(ReportData data){
 		
 		Q21HealthInsuranceDataBean q21HealthInsuranceDataBeanTable = new Q21HealthInsuranceDataBean();
-		String entryQuery = " select  i.insurancefromanysource as insurancefromanysource , i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
+		String entryQuery = " select  i.insurancefromanysource as insurancefromanysource,i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
 				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices, "+
-				   "i.other_insurance as other_insurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e where e.id=i.enrollmentid  "+
-				  " and i.information_date = e.entrydate and i.information_date <= :startDate and i.information_date >= :endDate "+
-				  " and e.ageatentry >=18  and i.datacollectionstage = '1' ";
+				   "i.other_insurance as otherinsurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e where e.id=i.enrollmentid  "+
+				  "  and TO_DATE(i.information_date) = TO_DATE(e.entrydate) and i.information_date <= :endDate  %dedup"+
+				  " and e.ageatentry >=18  and i.datacollectionstage = '1'  order by e.dedup_client_id,i.information_date asc ";
 			       
 			String  exitQuery = " select  i.insurancefromanysource as insurancefromanysource , i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
 				  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices, "+
-				   "i.other_insurance as other_insurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e,%s.exit ext where e.id=i.enrollmentid  "+
+				   "i.other_insurance as otherinsurance, e.dedup_client_id  as dedup_client_id from %s.healthinsurance i, %s.enrollment e,%s.exit ext where e.id=i.enrollmentid  "+
 				  " and e.id = ext.enrollmentid "+
-					  " and i.information_date = ext.exitdate and i.information_date <= :startDate and i.information_date >= :endDate "+
-					  " and e.ageatentry >=18  and i.datacollectionstage = '3' ";
+					  "  and TO_DATE(i.information_date) = TO_DATE(ext.exitdate) and i.information_date <= :endDate  %dedup"+
+					  " and e.ageatentry >=18  and i.datacollectionstage = '3'  order by e.dedup_client_id,i.information_date asc ";
 				       
-			String stayersQuery = " select  nb.snap as snap ,nb.wic as wic ,nb.tanfchildcare as tanfchildcare,nb.tanftransportation as tanftransportation,nb.othertanf as othertanf,nb.benefitsfromanysource as benefitsfromanysource,e.dedup_client_id  as dedup_client_id from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb where e.id=i.enrollmentid  "+
-							" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :startDate and e.ageatentry >= 18 "+
-						" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= :endDate  )   "+
-						" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 ) ";   
+			String  stayersQuery = " select  i.insurancefromanysource as insurancefromanysource , i.medicaid as medicaid,i.medicare as medicare, i.statehealthinadults as statehealthinadults,"+
+					  "i.vamedicalservices as vamedicalservices,i.employerprovided as employerprovided, i.privatepay as privatepay,i.schip as schip,i.indianhealthservices as indianhealthservices, "+
+					   "i.other_insurance as otherinsurance, e.dedup_client_id  as dedup_client_id  from %s.healthinsurance i, %s.enrollment e where e.id=i.enrollmentid  "+
+						" and  i.information_date <= :endDate and e.ageatentry >= 18  %dedup "+
+						" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage='5' and datediff(now(),information_date) > 365 )  order by e.dedup_client_id,i.information_date asc ";  
 				
 			try {
 				if(data.isLiveMode()) {
-					List<HealthInsuranceModel> entryHealthInsurances = getHealthInsuranceModel(data, entryQuery, DataCollectionStage.ENTRY.getCode());
-					List<HealthInsuranceModel> stayersHealthInsurances = getHealthInsuranceModel(data, stayersQuery, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
-					List<HealthInsuranceModel> exitHealthInsurances = getHealthInsuranceModel(data, exitQuery, DataCollectionStage.EXIT	.getCode());
+					List<HealthInsuranceModel> entryHealthInsurancesUnfiltered = getHealthInsuranceModel(data, entryQuery, DataCollectionStage.ENTRY.getCode());
+					List<HealthInsuranceModel> stayersHealthInsurancesUnfiltered = getHealthInsuranceModel(data, stayersQuery, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
+					List<HealthInsuranceModel> exitHealthInsurances = new ArrayList<>();
+					if(CollectionUtils.isNotEmpty(data.getLeavers())) {
+						List<HealthInsuranceModel> exitHealthInsurancesUnfiltered = getHealthInsuranceModel(data, exitQuery, DataCollectionStage.EXIT.getCode());
+						exitHealthInsurances = getDedupedItemsForHealth(exitHealthInsurancesUnfiltered);
+					}
+				
+					List<HealthInsuranceModel> entryHealthInsurances = getDedupedItemsForHealth(entryHealthInsurancesUnfiltered);
+					
+					List<HealthInsuranceModel> stayersHealthInsurances = getDedupedItemsForHealth(stayersHealthInsurancesUnfiltered);
+					
 					if(CollectionUtils.isNotEmpty(entryHealthInsurances)) {
 						List<HealthInsuranceModel> medicaidHealthInsurance = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getMedicaid()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> medicareHealthInsurance = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getMedicare()) ).collect(Collectors.toList());
@@ -109,7 +123,7 @@ public class Q21BeanMaker extends BaseBeanMaker {
 						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtLatestStayers(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtLatestStayers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtLatestStayers(BigInteger.valueOf(0));
+						q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtLatestStayers(data.getNumOfAdultStayersNotRequiredAnnualAssesment());
 						q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
 						
@@ -173,7 +187,12 @@ public class Q21BeanMaker extends BaseBeanMaker {
 		return Arrays.asList(q21HealthInsuranceDataBeanTable);
 	}
 	
-	
+	public static List<HealthInsuranceModel> getDedupedItemsForHealth(List<HealthInsuranceModel> incomes) {
+		Map<String,HealthInsuranceModel> dedupIncomeAndSourceAtEntry = new HashMap<>();
+		incomes.forEach(income->  dedupIncomeAndSourceAtEntry.put(income.getDedupClientId(), income));
+		Collection<HealthInsuranceModel> values = dedupIncomeAndSourceAtEntry.values();
+		return new ArrayList(values);	
+	}
 	 public static List<HealthInsuranceModel> getHealthInsuranceModel(ReportData data,String query,String datacollectionStage) {
 		 List<HealthInsuranceModel> healthInsuranceModels = new ArrayList<HealthInsuranceModel>();
 			ResultSet resultSet = null;
@@ -182,15 +201,13 @@ public class Q21BeanMaker extends BaseBeanMaker {
 			try {
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
-//				if(StringUtils.equals(datacollectionStage, DataCollectionStage.ANNUAL_ASSESMENT.getCode())) {
-//					//statement.setDate(3, data.getReportEndDate());
-//				}
-				resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
+				String newQuery = buildQueryFromDataCollectionStage(datacollectionStage, query, data);
+				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 				
 			 while(resultSet.next()) {
 				 healthInsuranceModels.add(new HealthInsuranceModel(resultSet.getString("insurancefromanysource"), resultSet.getString("medicaid"), resultSet.getString("medicare"), 
 						 resultSet.getString("statehealthinadults"), resultSet.getString("vamedicalservices"), resultSet.getString("employerprovided"), 
-						 resultSet.getString("privatepay"), resultSet.getString("schip"), resultSet.getString("indianhealthservices"), resultSet.getString("otherinsurance"), resultSet.getString("dedupClientId")));
+						 resultSet.getString("privatepay"), resultSet.getString("schip"), resultSet.getString("indianhealthservices"), resultSet.getString("otherinsurance"), resultSet.getString("dedup_client_id")));
 				 }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -208,5 +225,8 @@ public class Q21BeanMaker extends BaseBeanMaker {
 			}
 			return healthInsuranceModels;
 		}	
+	 
+	 
+	 
 	
 }

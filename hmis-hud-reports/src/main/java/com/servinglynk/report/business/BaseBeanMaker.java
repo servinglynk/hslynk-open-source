@@ -19,8 +19,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -30,9 +32,11 @@ import org.apache.log4j.Logger;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.HomePageDataBean;
+import com.servinglynk.report.bean.Q19DataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.ContactModel;
+import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.DateOfEngagementModel;
 import com.servinglynk.report.model.DisabilitiesModel;
 import com.servinglynk.report.model.EnrollmentModel;
@@ -60,7 +64,7 @@ public class BaseBeanMaker {
 	 }
 	 protected static long subtractDate(Date from, Date to) {
 		 if(from != null && to != null) {
-			 long between = ChronoUnit.DAYS.between(LocalDate.parse(from.toString()),LocalDate.parse(to.toString()));
+			 long between = ChronoUnit.DAYS.between(LocalDate.parse(to.toString()),LocalDate.parse(from.toString()));
 			 return between;
 		 }
 		 return 0;
@@ -108,7 +112,9 @@ public class BaseBeanMaker {
 			query = query.replaceAll(":dedupClientId", data.getQueryDedupClientId());
 			if(query.contains("%e")) {
 				query = joinEnrollmentIds(query, data);
+				query = query.replace("%e", "");
 			}
+			
 			query = query.replaceAll("%s", schema);
 			System.out.println(query);
 			return query;
@@ -143,7 +149,10 @@ public class BaseBeanMaker {
 	public static int getDefaultIntValue() {
 		return 0;
 	}
-	 public static LocalDate lasWednesayOf(int year,int month) {
+	 public static LocalDate lasWednesayOf(Date date,int month) {
+		 Calendar cal = Calendar.getInstance();
+		 cal.setTime(date);
+		 int year = cal.get(Calendar.YEAR);
 		 return LocalDate.of(year, month, 1).with(lastDayOfMonth()).with(previousOrSame(DayOfWeek.WEDNESDAY));
 	  }
 	
@@ -204,21 +213,21 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
-	public static List<String> getEnrollmentFromDisabilities(String schema,ReportData data,String query) {
+	public static Set<String> getEnrollmentFromDisabilities(String schema,ReportData data,String query) {
 		ResultSet resultSet = null;
 		Statement statement = null;
 		Connection connection = null;
-		List<String>  models = new ArrayList<String>();
+		Set<String>  models = new HashSet<String>();
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
-			List<EnrollmentModel> enrollments = data.getActiveClients();
-			 if(CollectionUtils.isNotEmpty(enrollments)) {
+			StringBuilder builder = new StringBuilder(" and e.dedup_client_id in  ( ");
+			List<ClientModel> clients = data.getClients();
+			 if(CollectionUtils.isNotEmpty(clients)) {
 				 int count = 0;
-				 for(EnrollmentModel enrollment : enrollments) {
-					 builder.append("'"+enrollment.getProjectEntryID()+"'");
-					 if(count != enrollments.size()) {
+				 for(ClientModel client : clients) {
+					 builder.append("'"+client.getDedupClientId()+"'");
+					 if(count != clients.size()) {
 						 builder.append(",");
 					 }
 				 }
@@ -247,23 +256,23 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
-	public static List<String> getEnrollmentFromDisabilitiesForLeavers(String schema,ReportData data,String query) {
+	public static Set<String> getEnrollmentFromDisabilitiesForLeavers(String schema,ReportData data,String query) {
 		ResultSet resultSet = null;
 		Statement statement = null;
 		Connection connection = null;
-		List<String>  models = new ArrayList<String>();
+		Set<String>  models = new HashSet<String>();
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			StringBuilder builder = new StringBuilder(" and e.dedup_client_id in  ( ");
 			List<EnrollmentModel> enrollments = data.getAdultLeavers();
 			if(CollectionUtils.isEmpty(enrollments)){
-					 return new ArrayList<>();
+					 return new HashSet<>();
 			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
-					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 builder.append("'"+enrollment.getDedupClientId()+"'");
 					 if(count != enrollments.size()) {
 						 builder.append(",");
 					 }
@@ -301,22 +310,22 @@ public class BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
-			List<EnrollmentModel> enrollments = data.getActiveClients();
-			if(CollectionUtils.isEmpty(enrollments)){
+			StringBuilder builder = new StringBuilder(" and e.dedup_client_id in  ( ");
+			List<ClientModel> clients = data.getClients();
+			if(CollectionUtils.isEmpty(clients)){
 				 return new ArrayList<>();
 			}
-			 if(CollectionUtils.isNotEmpty(enrollments)) {
+			 if(CollectionUtils.isNotEmpty(clients)) {
 				 int count = 0;
-				 for(EnrollmentModel enrollment : enrollments) {
-					 builder.append("'"+enrollment.getProjectEntryID()+"'");
-					 if(count != enrollments.size()) {
+				 for(ClientModel client : clients) {
+					 builder.append("'"+client.getDedupClientId()+"'");
+					 if(count != clients.size()) {
 						 builder.append(",");
 					 }
 				 }
 			 }
 			 builder.deleteCharAt(builder.length() -1);
-			 builder.append(" ) group by enrollmentid ");
+			 builder.append(" ) group by dedup_client_id ");
 			String newQuery = query + builder.toString();
 			resultSet = statement.executeQuery(formatQuery(newQuery, schema, data));
 		 while(resultSet.next()) {
@@ -346,7 +355,7 @@ public class BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			StringBuilder builder = new StringBuilder(" and e.dedup_client_id in  ( ");
 			List<EnrollmentModel> enrollments = data.getAdultLeavers();
 			if(CollectionUtils.isEmpty(enrollments)){
 				 return new ArrayList<>();
@@ -357,14 +366,14 @@ public class BaseBeanMaker {
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
-					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 builder.append("'"+enrollment.getDedupClientId()+"'");
 					 if(count != enrollments.size()) {
 						 builder.append(",");
 					 }
 				 }
 			 }
 			 builder.deleteCharAt(builder.length() -1);
-			 builder.append(" ) group by enrollmentid ");
+			 builder.append(" ) group by dedup_client_id ");
 			String newQuery = query + builder.toString();
 			resultSet = statement.executeQuery(formatQuery(newQuery, schema, data));
 		 while(resultSet.next()) {
@@ -394,7 +403,7 @@ public class BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			StringBuilder builder = new StringBuilder(" and e.dedup_client_id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
 			if(CollectionUtils.isEmpty(enrollments)){
 				 return new ArrayList<>();
@@ -402,14 +411,14 @@ public class BaseBeanMaker {
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
-					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 builder.append("'"+enrollment.getDedupClientId()+"'");
 					 if(count != enrollments.size()) {
 						 builder.append(",");
 					 }
 				 }
 			 }
 			 builder.deleteCharAt(builder.length() -1);
-			 builder.append(" )  group by enrollmentid ");
+			 builder.append(" )  group by dedup_client_id ");
 			String newQuery = query + builder.toString();
 			resultSet = statement.executeQuery(formatQuery(newQuery,schema,data));
 		 while(resultSet.next()) {
@@ -431,23 +440,23 @@ public class BaseBeanMaker {
 		}
 		return models;
 	}
-	public static List<String> getEnrollmentFromDisabilitiesWithInformationDate(String schema,ReportData data,String query) {
+	public static Set<String> getEnrollmentFromDisabilitiesWithInformationDate(String schema,ReportData data,String query) {
 		ResultSet resultSet = null;
 		Statement statement = null;
 		Connection connection = null;
-		List<String>  models = new ArrayList<String>();
+		Set<String>  models = new HashSet<String>();
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.createStatement();
-			StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			StringBuilder builder = new StringBuilder(" and e.dedup_client_id in  ( ");
 			List<EnrollmentModel> enrollments = data.getActiveClients();
 			if(CollectionUtils.isEmpty(enrollments)){
-				 return new ArrayList<>();
+				 return new HashSet<>();
 			}
 			 if(CollectionUtils.isNotEmpty(enrollments)) {
 				 int count = 0;
 				 for(EnrollmentModel enrollment : enrollments) {
-					 builder.append("'"+enrollment.getProjectEntryID()+"'");
+					 builder.append("'"+enrollment.getDedupClientId()+"'");
 					 if(count != enrollments.size()) {
 						 builder.append(",");
 					 }
@@ -477,7 +486,7 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
-	public static List<String> getDomesticViolenceByVictim(final String schema,final String victim,ReportData data) {
+	public static List<String> getDomesticViolenceByVictim(final String schema,final String victim,ReportData data,String query) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
@@ -485,7 +494,7 @@ public class BaseBeanMaker {
 		try {
 			connection = ImpalaConnection.getConnection();
 			StringBuilder builder = new StringBuilder( " and e.id in  ( ");
-			List<EnrollmentModel> enrollments = data.getActiveClients();
+			List<EnrollmentModel> enrollments = data.getEnrollments();
 			if(CollectionUtils.isEmpty(enrollments)){
 				 return new ArrayList<>();
 			}
@@ -500,7 +509,7 @@ public class BaseBeanMaker {
 			 }
 			 builder.deleteCharAt(builder.length() -1);
 			 builder.append(" ) ");
-			 String newQuery = ReportQuery.GET_DOMESTIC_VIOLENCE_BY_VICTIM +"'"+victim+"'"+ builder.toString();
+			 String newQuery = query +"'"+victim+"'"+ builder.toString();
 			statement = connection.prepareStatement(formatQuery(newQuery,schema,data));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
@@ -580,6 +589,36 @@ public class BaseBeanMaker {
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
 			 ContactModel model = new ContactModel(resultSet.getString("id"), resultSet.getString("enrollmentid"), resultSet.getDate("contact_date"), resultSet.getString("contact_location"), resultSet.getString("source_system_id"));
+			 models.add(model);
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	
+	public static List<ContactModel> getContactsFromService(final String schema) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<ContactModel>  models = new ArrayList<ContactModel>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(ReportQuery.GET_ALL_CONTACTS_FROM_SERVICE,schema));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 ContactModel model = new ContactModel(resultSet.getString("id"), resultSet.getString("enrollmentid"), resultSet.getDate("dateprovided"), resultSet.getString("type_provided"), resultSet.getString("source_system_id"));
 			 models.add(model);
 		 }
 		} catch (SQLException e) {
@@ -692,10 +731,10 @@ public class BaseBeanMaker {
 			LocalDate currentDate = LocalDate.now();
 			if(entryDate !=null) {
 				@SuppressWarnings("deprecation")
-				LocalDate entryLocalDate = LocalDate.of(entryDate.getYear(), entryDate.getMonth(), entryDate.getDay());
+				LocalDate entryLocalDate = LocalDate.parse(entryDate.toString());
 				
 				Period p = Period.between(entryLocalDate, currentDate);
-				if(p.getDays() > 365 )
+				if(p.getYears() >= 1 )
 					return true;
 				else 
 					return false;
@@ -803,17 +842,188 @@ public class BaseBeanMaker {
 			}
 		}
 
-		public static List<IncomeAndSourceModel> getIncomeAndSource(String schema) {
+		public static List<EnrollmentModel> getClientsRequireAA(ReportData data,String query,DataCollectionStage dataColletionStage) {
+			ResultSet resultSet = null;
+			PreparedStatement statement = null;
+			Connection connection = null;
+			List<EnrollmentModel> models = new ArrayList<>();
+			try {
+				connection = ImpalaConnection.getConnection();
+				String newQuery = buildQuery(query,"STAYERS",data);
+				statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema(),data));
+				resultSet = statement.executeQuery();
+			 while(resultSet.next()) {
+				 EnrollmentModel model = new EnrollmentModel();
+				 model.setDedupClientId(resultSet.getString("dedup_client_id"));
+				 models.add(model);
+			 }
+			}
+			 catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (statement != null) {
+						try {
+							statement.close();
+							//connection.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				return models;
+			}
+		public static List<IncomeAndSourceModel> getQ19IncomeAndSource(ReportData data,String query,String reportType, DataCollectionStage dataCollectionStage) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
 			Connection connection = null;
 			List<IncomeAndSourceModel>  models = new ArrayList<IncomeAndSourceModel>();
 			try {
 				connection = ImpalaConnection.getConnection();
-				statement = connection.prepareStatement(String.format(ReportQuery.GET_INCOMEANDSOURCE,schema));
+				String newQuery = buildQuery(query,reportType,data);
+				statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema(),data));
 				resultSet = statement.executeQuery();
 			 while(resultSet.next()) {
-				 IncomeAndSourceModel model = new IncomeAndSourceModel( resultSet.getString("datacollectionstage"),resultSet.getString("enrollmentid"));
+				 IncomeAndSourceModel model = null;
+				 if(DataCollectionStage.ENTRY.equals(dataCollectionStage) || DataCollectionStage.ANNUAL_ASSESMENT.equals(dataCollectionStage)) {
+					 
+					 
+					 model = new IncomeAndSourceModel(resultSet.getString("datacollectionstage"), resultSet.getString("dedup_client_id"), resultSet.getDate("information_date"), resultSet.getDate("entrydate"), 
+							 resultSet.getFloat(1), resultSet.getFloat(2),  resultSet.getFloat(3) , resultSet.getFloat(4), 
+							 resultSet.getFloat(5), resultSet.getFloat(6), resultSet.getFloat(7), resultSet.getFloat(8), 
+							 resultSet.getFloat(9), resultSet.getFloat(10), resultSet.getFloat(11), resultSet.getFloat(12), 
+							 resultSet.getFloat(13), resultSet.getFloat(14),resultSet.getFloat(15), 
+							 resultSet.getString("incomefromanysource"), resultSet.getInt("ageatentry"),
+							 resultSet.getString("alimony"),
+							 resultSet.getString("childsupport"),
+							 resultSet.getString("earned"),
+							 resultSet.getString("ga"),
+							 resultSet.getString("othersource"),
+							 resultSet.getString("pension"),
+							 resultSet.getString("privatedisability"),
+							 resultSet.getString("socsecretirement"),
+							 resultSet.getString("ssdi"),
+							 resultSet.getString("ssi"),
+							 resultSet.getString("tanf"),
+							 resultSet.getString("unemployment"),
+							 resultSet.getString("vadisabilitynonservice"),
+							 resultSet.getString("vadisabilityservice"),
+							 resultSet.getString("workerscomp")
+							 );
+				 } else if(DataCollectionStage.EXIT.equals(dataCollectionStage)) {
+					 model = new IncomeAndSourceModel(resultSet.getString("datacollectionstage"), resultSet.getString("dedup_client_id"), resultSet.getDate("information_date"), resultSet.getDate("exitdate"), 
+							 resultSet.getFloat(1), resultSet.getFloat(2),  resultSet.getFloat(3) , resultSet.getFloat(4), 
+							 resultSet.getFloat(5), resultSet.getFloat(6), resultSet.getFloat(7), resultSet.getFloat(8), 
+							 resultSet.getFloat(9), resultSet.getFloat(10), resultSet.getFloat(11), resultSet.getFloat(12), 
+							 resultSet.getFloat(13), resultSet.getFloat(14),resultSet.getFloat(15), 
+							 resultSet.getString("incomefromanysource"),resultSet.getInt("ageatentry"),
+							 resultSet.getString("alimony"),
+							 resultSet.getString("childsupport"),
+							 resultSet.getString("earned"),
+							 resultSet.getString("ga"),
+							 resultSet.getString("othersource"),
+							 resultSet.getString("pension"),
+							 resultSet.getString("privatedisability"),
+							 resultSet.getString("socsecretirement"),
+							 resultSet.getString("ssdi"),
+							 resultSet.getString("ssi"),
+							 resultSet.getString("tanf"),
+							 resultSet.getString("unemployment"),
+							 resultSet.getString("vadisabilitynonservice"),
+							 resultSet.getString("vadisabilityservice"),
+							 resultSet.getString("workerscomp"));
+				 }
+				 
+				 models.add(model);
+			 }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (statement != null) {
+					try {
+						statement.close();
+						//connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			return models;
+		}
+		public static List<IncomeAndSourceModel> getIncomeAndSource(ReportData data,String query,DataCollectionStage dataColletionStage) {
+			ResultSet resultSet = null;
+			PreparedStatement statement = null;
+			Connection connection = null;
+			List<IncomeAndSourceModel>  models = new ArrayList<IncomeAndSourceModel>();
+			try {
+				connection = ImpalaConnection.getConnection();
+				String newQuery = buildQueryFromDataCollectionStage(dataColletionStage.getCode(),query,data);
+				statement = connection.prepareStatement(formatQuery(newQuery,data.getSchema(),data));
+				resultSet = statement.executeQuery();
+			 while(resultSet.next()) {
+				 /*
+				  * select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
+" vadisabilityserviceamount,workerscompamount,e.dedup_client_id as dedup_client_id,i.incomefromanysource,e.entrydate
+
+alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
+" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
+" vadisabilityserviceamount,workerscompamount,
+
+				  */
+				 IncomeAndSourceModel model = null;
+				 if(DataCollectionStage.ENTRY.equals(dataColletionStage) || DataCollectionStage.ANNUAL_ASSESMENT.equals(dataColletionStage)) {
+					 
+					 
+					 model = new IncomeAndSourceModel(resultSet.getString("datacollectionstage"), resultSet.getString("dedup_client_id"), resultSet.getDate("information_date"), resultSet.getDate("entrydate"), 
+							 resultSet.getFloat(1), resultSet.getFloat(2),  resultSet.getFloat(3) , resultSet.getFloat(4), 
+							 resultSet.getFloat(5), resultSet.getFloat(6), resultSet.getFloat(7), resultSet.getFloat(8), 
+							 resultSet.getFloat(9), resultSet.getFloat(10), resultSet.getFloat(11), resultSet.getFloat(12), 
+							 resultSet.getFloat(13), resultSet.getFloat(14),resultSet.getFloat(15), 
+							 resultSet.getString("incomefromanysource"), resultSet.getInt("ageatentry"),
+							 resultSet.getString("alimony"),
+							 resultSet.getString("childsupport"),
+							 resultSet.getString("earned"),
+							 resultSet.getString("ga"),
+							 resultSet.getString("othersource"),
+							 resultSet.getString("pension"),
+							 resultSet.getString("privatedisability"),
+							 resultSet.getString("socsecretirement"),
+							 resultSet.getString("ssdi"),
+							 resultSet.getString("ssi"),
+							 resultSet.getString("tanf"),
+							 resultSet.getString("unemployment"),
+							 resultSet.getString("vadisabilitynonservice"),
+							 resultSet.getString("vadisabilityservice"),
+							 resultSet.getString("workerscomp")
+							 );
+				 } else if(DataCollectionStage.EXIT.equals(dataColletionStage)) {
+					 model = new IncomeAndSourceModel(resultSet.getString("datacollectionstage"), resultSet.getString("dedup_client_id"), resultSet.getDate("information_date"), resultSet.getDate("exitdate"), 
+							 resultSet.getFloat(1), resultSet.getFloat(2),  resultSet.getFloat(3) , resultSet.getFloat(4), 
+							 resultSet.getFloat(5), resultSet.getFloat(6), resultSet.getFloat(7), resultSet.getFloat(8), 
+							 resultSet.getFloat(9), resultSet.getFloat(10), resultSet.getFloat(11), resultSet.getFloat(12), 
+							 resultSet.getFloat(13), resultSet.getFloat(14),resultSet.getFloat(15), 
+							 resultSet.getString("incomefromanysource"),resultSet.getInt("ageatentry"),
+							 resultSet.getString("alimony"),
+							 resultSet.getString("childsupport"),
+							 resultSet.getString("earned"),
+							 resultSet.getString("ga"),
+							 resultSet.getString("othersource"),
+							 resultSet.getString("pension"),
+							 resultSet.getString("privatedisability"),
+							 resultSet.getString("socsecretirement"),
+							 resultSet.getString("ssdi"),
+							 resultSet.getString("ssi"),
+							 resultSet.getString("tanf"),
+							 resultSet.getString("unemployment"),
+							 resultSet.getString("vadisabilitynonservice"),
+							 resultSet.getString("vadisabilityservice"),
+							 resultSet.getString("workerscomp"));
+				 }
+				 
 				 models.add(model);
 			 }
 			} catch (SQLException e) {
@@ -908,7 +1118,7 @@ public class BaseBeanMaker {
 				resultSet = statement.executeQuery(query);
 				String prevDedupClientId = "";
 			 while(resultSet.next()) {
-				 String dedupClientId = resultSet.getString("dedup_client_id");
+				 String dedupClientId = resultSet.getString("dedup_id");
 				 if(!StringUtils.equals(prevDedupClientId, dedupClientId)) {
 					 EnrollmentModel model = new EnrollmentModel(resultSet.getString("id"), 
 								// resultSet.getString("enrollment.continuouslyhomelessoneyear"),
@@ -1114,8 +1324,8 @@ public class BaseBeanMaker {
 				try {
 					connection = ImpalaConnection.getConnection();
 					statement = connection.createStatement();
-					
-					resultSet = statement.executeQuery(formatQuery(query,data.getSchema(), data));
+					String buildQueryFromDataCollectionStage = buildQueryFromDataCollectionStage(datacollectionStage, query, data);
+					resultSet = statement.executeQuery(formatQuery(buildQueryFromDataCollectionStage,data.getSchema(), data));
 					
 				 while(resultSet.next()) {
 					 count = resultSet.getInt(1);
@@ -1145,7 +1355,8 @@ public class BaseBeanMaker {
 					connection = ImpalaConnection.getConnection();
 					statement = connection.createStatement();
 					data.setQueryDataCollectionStage(datacollectionStage);
-					resultSet = statement.executeQuery(formatQuery(query,data.getSchema(),data));
+					String buildQueryFromDataCollectionStage = buildQueryFromDataCollectionStage(datacollectionStage, query, data);
+					resultSet = statement.executeQuery(formatQuery(buildQueryFromDataCollectionStage,data.getSchema(),data));
 					
 				 while(resultSet.next()) {
 					 count = resultSet.getInt(1);
@@ -1216,7 +1427,7 @@ public class BaseBeanMaker {
 					    /*** Bed nights = [minimum of ( [project exit date], [report end date] + 1) ]
 								– [maximum of ( [project start date], [report start date] ) ] 
 					    **/
-					   model.setNumberOfDays(subtractDate(getMinimumDate(model.getExitdate(),reportEndDate),getMaximumDate(model.getEntrydate(), reportStartDate)));
+					   model.setNumberOfDays(subtractDate(getMaximumDate(model.getExitdate(),reportEndDate),getMinimumDate(model.getEntrydate(), reportStartDate)));
 				}
 				if(StringUtils.equals("1",model.getProjectType()) && StringUtils.equals(model.getTrackingMethod(), "3")) {
 					/***
@@ -1235,7 +1446,7 @@ public class BaseBeanMaker {
 				}
 				
 				if(StringUtils.isNotEmpty(model.getProjectType()) && method3List.contains(model.getProjectType())) {
-					model.setNumberOfDays(subtractDate(getMinimumDate(model.getExitdate(),reportEndDate),getMaximumDate(model.getMoveInDate(), reportStartDate)));
+					model.setNumberOfDays(subtractDate(getMaximumDate(model.getExitdate(),reportEndDate),getMinimumDate(model.getEntrydate(), reportStartDate)));
 				}
 				
 			}
@@ -1247,14 +1458,27 @@ public class BaseBeanMaker {
 		        return new Date(c.getTimeInMillis());
 		    }
 			 public static Date getMinimumDate(Date date1, Date date2) {
-				 if(date1.before(date1)) {
+				 if(date1 == null)  {
+					 return date2;
+				 }
+				 if(date2 == null) {
+					 return date1;
+				 }
+				 
+				 if(date1.before(date2)) {
 					 return addDays(date1,1);
 				 }
 				return addDays(date2,1);
 			}
 			 
 			 public static Date getMaximumDate(Date date1, Date date2) {
-				 if(date1.after(date1)) {
+				 if(date1 == null)  {
+					 return date2;
+				 }
+				 if(date2 == null) {
+					 return date1;
+				 }
+				 if(date1.after(date2)) {
 					 return date1;
 				 }
 				return date2;
@@ -1365,6 +1589,14 @@ public class BaseBeanMaker {
 			    
 			    public static List<Q22BeanModel> getQ22BeanLengthOfStay(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,boolean withDestination) {
 					 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
+					 List<EnrollmentModel> enrollments = data.getAdultLeavers();
+					 if(CollectionUtils.isEmpty(filteredProjectIds) && !allProjects)
+					 {
+						 return q22Beans;
+					 }
+					 if(CollectionUtils.isEmpty(enrollments)) {
+						 return q22Beans;
+					 }
 						ResultSet resultSet = null;
 						Statement statement = null;
 						String projectQuery = " and p.id in ( ";
@@ -1394,7 +1626,6 @@ public class BaseBeanMaker {
 							 }
 							
 							 StringBuilder enrollmentBuilder = new StringBuilder(" and e.id in  ( ");
-								List<EnrollmentModel> enrollments = data.getActiveClients();
 								 if(CollectionUtils.isNotEmpty(enrollments)) {
 									 int index = 0;
 									 for(EnrollmentModel enrollment : enrollments) {
@@ -1414,8 +1645,8 @@ public class BaseBeanMaker {
 							 Date entryDate = resultSet.getDate("entrydate");
 							 Date moveinDate = resultSet.getDate("moveindate");
 							 
-							 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), null,null, 
-									 null,resultSet.getDate("exitdate"),entryDate,moveinDate,null);
+							 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), resultSet.getString("trackingmethod"),resultSet.getString("projecttype"), 
+									 resultSet.getDate("operatingstartdate"),resultSet.getDate("exitdate"),entryDate,moveinDate,null);
 							 populateBedNights(bean, data);
 							 if(withDestination) {
 								 bean.setDestination(resultSet.getString("destination"));
@@ -1442,7 +1673,11 @@ public class BaseBeanMaker {
 			    
 			    public static List<Q22BeanModel> getQ22BeanLengthOfStayForExit(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,boolean withDestination) {
 					 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
-						ResultSet resultSet = null;
+					 if(CollectionUtils.isEmpty(filteredProjectIds) && !allProjects)
+					 {
+						 return q22Beans;
+					 }	
+					 ResultSet resultSet = null;
 						Statement statement = null;
 						String projectQuery = " and p.id in ( ";
 						StringBuilder builder = new StringBuilder(projectQuery);
@@ -1495,8 +1730,8 @@ public class BaseBeanMaker {
 							 Date entryDate = resultSet.getDate("entrydate");
 							 Date moveinDate = resultSet.getDate("moveindate");
 							 
-							 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), null,null, 
-									 null,resultSet.getDate("exitdate"),entryDate,moveinDate,null);
+							 Q22BeanModel bean = new Q22BeanModel(resultSet.getString("dedup_client_id"), resultSet.getString("trackingmethod"),resultSet.getString("projecttype"), 
+									 resultSet.getDate("operatingstartdate"),resultSet.getDate("exitdate"),entryDate,moveinDate,null);
 							 populateBedNights(bean, data);
 							 if(withDestination) {
 								 bean.setDestination(resultSet.getString("destination"));
@@ -1521,6 +1756,51 @@ public class BaseBeanMaker {
 						return q22Beans;
 					}	
 			    
+			    public static String buildQueryFromDataCollectionStage(String datacollectionStage,String query, ReportData data) {
+			    	String reportType= "ALL";
+			    	if(StringUtils.equals(datacollectionStage, DataCollectionStage.ANNUAL_ASSESMENT.getCode())) {
+						reportType = "ANNUAL_ASSESMENT";
+					}else if(StringUtils.equals(datacollectionStage, DataCollectionStage.EXIT.getCode())) {
+						reportType = "LEAVERS";
+					}else if(StringUtils.equals(datacollectionStage, DataCollectionStage.ENTRY.getCode())) {
+						reportType = "ALL";
+					}
+					return buildQuery(query, reportType, data);
+			    }
+			    
+			    public static String buildQuery(String query, String reportType,ReportData data) {
+			    	StringBuilder builder = new StringBuilder();
+			    	String newQuery = "";
+			    	List<EnrollmentModel> enrollments =  null;
+			    	if(StringUtils.equals("LEAVERS", reportType) ) {
+			    		enrollments = data.getLeavers();
+					}else if(StringUtils.equals("STAYERS", reportType) ) {
+						enrollments = data.getActiveClients();
+					}else if(StringUtils.equals("ALL", reportType) ) {
+						enrollments = data.getEnrollments();
+					} else if(StringUtils.equals("ANNUAL_ASSESMENT", reportType) ) {
+						enrollments = data.getRequireAA();
+					}
+					 if(CollectionUtils.isNotEmpty(enrollments)) {
+						 builder.append(" and e.dedup_client_id in ( ");
+						 int count = 0;
+						 for(EnrollmentModel enrollment : enrollments) {
+							 builder.append("'"+enrollment.getDedupClientId()+"'");
+							 if(count != enrollments.size()) {
+								 builder.append(",");
+							 }
+						 }
+						 builder.deleteCharAt(builder.length()-1);
+						 builder.append(" ) ");
+					 }
+					 if(CollectionUtils.isNotEmpty(enrollments)) {
+						 newQuery = query.replace("%dedup", builder.toString());
+					 }else {
+						 newQuery = query.replace("%dedup", " ");
+					 }
+					 
+					 return newQuery;
+			    }
 			    public static List<Q22BeanModel> getQ22Bean(ReportData data,String query,String reportType) {
 					 List<Q22BeanModel> q22Beans = new ArrayList<Q22BeanModel>();
 						ResultSet resultSet = null;
@@ -1548,18 +1828,14 @@ public class BaseBeanMaker {
 							 }else {
 								 newQuery = query.replace("%p", " ");
 							 }
+							 
+							newQuery = buildQuery(newQuery, reportType, data);
 							statement = connection.createStatement();
-//							if(StringUtils.equals("LEAVERS", reportType) ) {
-//								statement.setDate(1, data.getReportStartDate());
-//								statement.setDate(2, data.getReportEndDate());
-//							}else if(StringUtils.equals("STAYERS", reportType) ) {
-//								statement.setDate(1, data.getReportEndDate());
-//								statement.setDate(2, data.getReportEndDate());
-//							}
+							
 							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 							
 						 while(resultSet.next()) {
-							 q22Beans.add(new Q22BeanModel(resultSet.getString("dedup_client_id"), resultSet.getString("projecttype"), resultSet.getString("trackingmethod"), 
+							 q22Beans.add(new Q22BeanModel(resultSet.getString("dedup_client_id"),resultSet.getString("trackingmethod"), resultSet.getString("projecttype"), 
 									 resultSet.getDate("operatingstartdate"),resultSet.getDate("exitdate"),resultSet.getDate("entrydate"),resultSet.getDate("moveindate"),null));
 							 }
 						} catch (SQLException e) {
@@ -1642,24 +1918,24 @@ public class BaseBeanMaker {
 								 newQuery = query.replace("%p", " ");
 							 }
 							 
-//							 String newQueryWithEnrollments = newQuery;
-//							 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
-//								List<EnrollmentModel> enrollments = data.getAdultLeavers();
-//								 if(CollectionUtils.isNotEmpty(enrollments)) {
-//									 int count = 0;
-//									 for(EnrollmentModel enrollment : enrollments) {
-//										 builderWithEnrollments.append("'"+enrollment.getProjectEntryID()+"'");
-//										 if(count != enrollments.size()) {
-//											 builderWithEnrollments.append(",");
-//										 }
-//									 }
-//								 }
-//								 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
-//								 builderWithEnrollments.append(" ) ");
-//								
-//								 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
+							 String newQueryWithEnrollments = newQuery;
+							 
+								List<EnrollmentModel> enrollments = data.getAdultLeavers();
+								 if(CollectionUtils.isNotEmpty(enrollments)) {
+									 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
+									 int count = 0;
+									 for(EnrollmentModel enrollment : enrollments) {
+										 builderWithEnrollments.append("'"+enrollment.getProjectEntryID()+"'");
+										 if(count != enrollments.size()) {
+											 builderWithEnrollments.append(",");
+										 }
+									 }
+									 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
+									 builderWithEnrollments.append(" ) ");
+									 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
+								 }
 							statement = connection.createStatement();
-							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
+							resultSet = statement.executeQuery(formatQuery(newQueryWithEnrollments,data.getSchema(),data));
 							
 						 while(resultSet.next()) {
 							 clients.add(resultSet.getString(1));
@@ -1748,6 +2024,870 @@ public class BaseBeanMaker {
 						return 0;
 					}
 					return 0;	
-				}				
+				}		
+				
+				public static int getFloatValue(ResultSet resultSet , String column) {
+					try {
+						Float value = (Float)resultSet.getFloat(column);
+						if(value != null) {
+							return value.intValue();
+						}
+						
+					} catch (SQLException e) {
+						return 0;
+					}
+					return 0;	
+				}		
+				
+			    public static List<IncomeAndSourceModel> filterMissingIncomeAndSource(List<IncomeAndSourceModel> incomeAndSources) {
+			    	List<IncomeAndSourceModel> filteredIncomeAndSource = new ArrayList<>();
+			    	if(CollectionUtils.isNotEmpty(incomeAndSources)) {
+			    		filteredIncomeAndSource  = incomeAndSources.parallelStream().filter(incomeAndSource -> StringUtils.equals("8", incomeAndSource.getIncomefromanysource()) || StringUtils.equals("9", incomeAndSource.getIncomefromanysource()) ||  StringUtils.equals("99", incomeAndSource.getIncomefromanysource())   || StringUtils.equals("8", incomeAndSource.getIncomefromanysource())).collect(Collectors.toList());
+			    	}
+			    	return filteredIncomeAndSource;
+			    }
+			    
+			    public static List<IncomeAndSourceModel> filterIdentifiedSource(List<IncomeAndSourceModel> incomeAndSources) {
+			    	List<IncomeAndSourceModel> filteredIncomeAndSource = new ArrayList<>();
+			    	if(CollectionUtils.isNotEmpty(incomeAndSources)) {
+			    		filteredIncomeAndSource  = incomeAndSources.parallelStream().filter(incomeAndSource -> StringUtils.equals("0", incomeAndSource.getIncomefromanysource()) 
+			    				&&
+			    				(isGreaterThanZero(incomeAndSource.getAlimonyamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getChildsupportamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getEarnedamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getGaamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getOthersourceamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getPensionamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getPrivatedisabilityamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getSocsecretirementamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getSsiamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getTanfamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getUnemploymentamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getVadisabilitynonserviceamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getVadisabilityserviceamount()) ||
+			    				 isGreaterThanZero(incomeAndSource.getWorkerscompamount())
+			    				)
+			    				).collect(Collectors.toList());
+			    	}
+			    	return filteredIncomeAndSource;
+			    }
+			
+			    public static List<IncomeAndSourceModel> filterUnIdentifiedSource(List<IncomeAndSourceModel> incomeAndSources) {
+			    	List<IncomeAndSourceModel> filteredIncomeAndSource = new ArrayList<>();
+			    	if(CollectionUtils.isNotEmpty(incomeAndSources)) {
+			    		filteredIncomeAndSource  = incomeAndSources.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getIncomefromanysource()) 
+			    				&&
+			    				(isLessThanEqualToZero(incomeAndSource.getAlimonyamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getChildsupportamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getEarnedamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getGaamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getOthersourceamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getPensionamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getPrivatedisabilityamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getSocsecretirementamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getSsiamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getTanfamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getUnemploymentamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getVadisabilitynonserviceamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getVadisabilityserviceamount()) &&
+			    				 isLessThanEqualToZero(incomeAndSource.getWorkerscompamount())
+			    				)
+			    				).collect(Collectors.toList());
+			    	}
+			    	return filteredIncomeAndSource;
+			    }
+			    
+
+				public static Map<String,Integer> getIncome(List<IncomeAndSourceModel> incomeAndSources) {
+					Map<String,Integer> incomes = new HashMap<>();
+					if(CollectionUtils.isNotEmpty(incomeAndSources)) {
+						for(IncomeAndSourceModel incomeAndSource : incomeAndSources ) {
+							int totalAmount = getFloat(incomeAndSource.getTotalmonthlyincome());
+							incomes.put(incomeAndSource.getDedupClientId(),totalAmount);
+						}
+					}
+					return incomes;
+				}
+				
+				public static int getIncomeCnt(List<IncomeAndSourceModel> incomeAndSources) {
+					Map<String, Integer> income = getIncome(incomeAndSources);
+					if(income != null) {
+						 Collection<String> values = income.keySet();
+						if(CollectionUtils.isNotEmpty(values)) {
+							return values.size();
+						}
+							
+					}
+					return 0;
+				}
+			    
+				
+				public static int getIncomeCntWithIncome(List<IncomeAndSourceModel> incomeAndSources) {
+					Map<String, Integer> income = getIncome(incomeAndSources);
+					int count  =0;
+					if(income != null) {
+						 Collection<Integer> values = income.values();
+						 
+						if(CollectionUtils.isNotEmpty(values)) {
+							for(Integer index : values ) {
+								if(index != null && index.intValue() > 0) {
+									count++;
+								}
+							}
+							return count;
+						}
+					}
+					return 0;
+				}
+				public static int getFloat(Float value) {
+					try {
+						if(value != null) {
+							return value.intValue();
+						}
+					} catch (Exception e) {
+						return 0;
+					}
+					return 0;	
+				}
+				
+				public static boolean isGreaterThanZero(Float value) {
+					 int intValue = getFloat(value);
+					 if(intValue > 0) {
+						 return true;
+					 }
+					 return false;
+				}
+				public static boolean isLessThanEqualToZero(Float value) {
+					 int intValue = getFloat(value);
+					 if(intValue == 0) {
+						 return true;
+					 }
+					 return false;
+				}
+				
+				 public static boolean isWithIn30DaysOfAnniversary(Date entryDate,Date informationDate) {
+					 Calendar cal = Calendar.getInstance();
+					 cal.setTime(entryDate);
+					 int day = cal.get(Calendar.DAY_OF_YEAR);
+					 
+					 Calendar cal2 = Calendar.getInstance();
+					 cal2.setTime(informationDate);
+					 int day2 = cal2.get(Calendar.DAY_OF_YEAR);
+					 
+					 int betweenDays = day - day2;
+					 
+					 if(betweenDays >= -30 && betweenDays <=30){
+						 return true;
+					 }
+					 return false;
+				 }
+				 
+				 
+					public static Q19DataBean populateEarnedIncome(List<IncomeAndSourceModel> incomeAtEntry,List<IncomeAndSourceModel> incomeAtAA,BigInteger allClientsBigInt) {
+						Q19DataBean q19DataBean = new Q19DataBean();
+						Map<String,BigInteger>  incomeMapAtEntry = new HashMap<>();
+						incomeAtEntry.forEach(incomeAndSource ->  {incomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getEarnedamount()))); } );
+						
+						Map<String,BigInteger>  incomeMapAtAA = new HashMap<>();
+						incomeAtAA.forEach(incomeAndSource -> { incomeMapAtAA.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getEarnedamount()))); });
+						
+						int retainIncomeCatLessAtAAThanAtEntry = 0;
+						int retainIncomeCatSameAtAAThanAtEntry = 0;
+						int retainIncomeCatGreaterAtAAThanAtEntry = 0;
+						int incomeAtStartWithOutAA = 0;
+						int didNotHaveIncomeATEntryortAA = 0;
+						BigInteger incomeCatLessAtAAThanAtEntry = BigInteger.ZERO;
+						BigInteger incomeCatGreaterAtAAThanAtEntry = BigInteger.ZERO;
+						BigInteger incomePerformaceMeasure = BigInteger.ZERO;
+						BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
+						
+						int noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = 0;
+						BigInteger sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = BigInteger.ZERO;
+						
+						Set<String> entryKeySet = incomeMapAtEntry.keySet();
+						Set<String> keySetAtAA = incomeMapAtAA.keySet();
+						
+						int sizeAtAA = getSize(keySetAtAA);
+						int sizeAtEntry = getSize(entryKeySet);
+						Set<String> processedClients = new HashSet<>();
+						if(sizeAtAA > sizeAtEntry || sizeAtAA == sizeAtEntry) {
+							for(String key : keySetAtAA) {
+								BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+								   
+								if(ea > 0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+									noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+									sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+								}
+								else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+									incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+									retainIncomeCatGreaterAtAAThanAtEntry++;
+								}
+								else if(ea >0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+									retainIncomeCatLessAtAAThanAtEntry++;
+									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+								}
+								else if(ea==aa && ea !=0) { // Income at Entry same as AA
+									retainIncomeCatSameAtAAThanAtEntry++;
+								}
+								else if(ea==0  || aa==0) {
+									didNotHaveIncomeATEntryortAA++;
+								}
+								processedClients.add(key);
+							}
+							// Now look from entry KeySet
+							Set<String> keySetAtEntry = incomeMapAtEntry.keySet();
+							if(CollectionUtils.isNotEmpty(keySetAtEntry) && CollectionUtils.isNotEmpty(processedClients)) {
+								for(String key : keySetAtEntry) {
+									if(!processedClients.contains(key)) {
+										incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+										incomeAtStartWithOutAA++;
+									}
+								}
+							}
+							
+						}else {
+							for(String key : entryKeySet) {
+								BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+								   
+								if(ea > 0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+									noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+									sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+								}
+								else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+									incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+									retainIncomeCatGreaterAtAAThanAtEntry++;
+								}
+								else if(ea >0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+									retainIncomeCatLessAtAAThanAtEntry++;
+									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+								}
+								else if(ea==aa && ea !=0) { // Income at Entry same as AA
+									retainIncomeCatSameAtAAThanAtEntry++;
+								}
+								else if(ea==0  || aa==0) {
+									didNotHaveIncomeATEntryortAA++;
+								}
+								
+								processedClients.add(key);
+							}
+							
+						// Now look from entry KeySet
+						Set<String> keySetAA = incomeMapAtAA.keySet();
+						if(CollectionUtils.isNotEmpty(keySetAA) && CollectionUtils.isNotEmpty(processedClients)) {
+							for(String key : keySetAA) {
+								if(!processedClients.contains(key)) {
+									noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+									BigInteger amountAtAA = incomeMapAtAA.get(key);
+									int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+									sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(BigInteger.valueOf(aa));
+						
+								}
+							 }
+						     }
+						  }
+							
+						
+						//#B
+						q19DataBean.setNoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(incomeAtStartWithOutAA));
+						if(CollectionUtils.isNotEmpty(incomeAtEntry) && incomeAtStartWithOutAA != 0 && incomeAtStartAndNotAtAA !=null) {
+							BigInteger average = incomeAtStartAndNotAtAA.divide(BigInteger.valueOf(incomeAtStartWithOutAA));
+							average = average.multiply(BigInteger.valueOf(-1));
+							q19DataBean.setAverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
+						}
+						
+						//#C
+						q19DataBean.setNoOfAdltsWithEarnedIncomeRetainedIncomeCategoryButHadLessDollar(BigInteger.valueOf(retainIncomeCatLessAtAAThanAtEntry));
+						if(retainIncomeCatLessAtAAThanAtEntry !=0 && retainIncomeCatLessAtAAThanAtEntry!=0) {
+							BigInteger retainIncomeAtAAThenAtEntryAmount = incomeCatLessAtAAThanAtEntry.divide(BigInteger.valueOf(retainIncomeCatLessAtAAThanAtEntry));
+							q19DataBean.setAverageChangeInEarnedIncomeRetainedIncomeCategoryButHadLessDollar(retainIncomeAtAAThenAtEntryAmount);
+						}
+						//#D
+						q19DataBean.setNoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.valueOf(retainIncomeCatSameAtAAThanAtEntry));
+						q19DataBean.setAverageChangeInEarnedIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.ZERO);
+						
+						//#E
+						q19DataBean.setNoOfAdltsWithEarnedIncomeRetainedIncomeCategoryAndIncreasedDollar(BigInteger.valueOf(retainIncomeCatGreaterAtAAThanAtEntry));
+						
+						int performanceMeasure=0;
+						//#F
+						q19DataBean.setNoOfAdltsWithEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(BigInteger.valueOf(noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome));
+						if(noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome != 0 && (sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome!= null && sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.compareTo(BigInteger.ZERO) >0)) {
+							BigInteger average = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.divide(BigInteger.valueOf(noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome));
+							performanceMeasure = performanceMeasure + average.intValue();
+									q19DataBean.setAverageChangeInEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(average);
+						}
+						
+						//#G
+						q19DataBean.setNoOfAdltsWithEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(didNotHaveIncomeATEntryortAA));
+						q19DataBean.setAverageChangeInEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.ZERO);
+						
+						
+						//#H 
+						if(allClientsBigInt != null) {
+							q19DataBean.setNoOfAdltsWithEarnedIncomeTotalAdult(allClientsBigInt);
+							q19DataBean.setAverageChangeInEarnedIncomeTotalAdult(BigInteger.ZERO);
+						}
+							
+						int totalPerformaceMeasure = retainIncomeCatGreaterAtAAThanAtEntry + noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome; 
+						q19DataBean.setNoOfAdltsWithEarnedIncomePerformanceMeasures(BigInteger.valueOf(totalPerformaceMeasure));
+							
+						if(retainIncomeCatGreaterAtAAThanAtEntry !=0 && incomeCatGreaterAtAAThanAtEntry.compareTo(BigInteger.ZERO) !=0) {
+							BigInteger retainIncomeCatGreater = BigInteger.valueOf(retainIncomeCatGreaterAtAAThanAtEntry);
+							BigInteger incomeCatGreaterAtAAThanAtEntryAmount = incomeCatGreaterAtAAThanAtEntry.divide(retainIncomeCatGreater);
+							q19DataBean.setAverageChangeInEarnedIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(incomeCatGreaterAtAAThanAtEntryAmount);
+							//#I = E + F
+							performanceMeasure = performanceMeasure + incomeCatGreaterAtAAThanAtEntryAmount.intValue();
+							incomePerformaceMeasure = BigInteger.valueOf(performanceMeasure);
+							BigInteger  incomePerformaceMeasureAverage =  incomePerformaceMeasure.divide(BigInteger.valueOf(2));
+							q19DataBean.setAverageChangeInEarnedIncomePerformanceMeasures(incomePerformaceMeasureAverage);
+						}
+						q19DataBean.setAverageChangeInEarnedIncomePercent(BigInteger.ZERO);
+							
+						   //#J = I/H
+							if(allClientsBigInt != null) {
+								int performancePercentage = ((totalPerformaceMeasure * 100)/allClientsBigInt.intValue());
+								q19DataBean.setNoOfAdltsWithEarnedIncomePercent(BigInteger.valueOf(performancePercentage));
+							}
+							
+						 if(retainIncomeCatGreaterAtAAThanAtEntry !=0 && (incomeCatGreaterAtAAThanAtEntry != null && incomeCatGreaterAtAAThanAtEntry.compareTo(BigInteger.ZERO) != 0)) {
+								BigInteger retainIncomeCatGreater = BigInteger.valueOf(retainIncomeCatGreaterAtAAThanAtEntry);
+								BigInteger earnedIncomeCatGreaterAtAAThanAtEntryAmount = incomeCatGreaterAtAAThanAtEntry.divide(retainIncomeCatGreater);
+								q19DataBean.setAverageChangeInEarnedIncomeRetainedIncomeCategoryAndIncreasedDollar(earnedIncomeCatGreaterAtAAThanAtEntryAmount);
+						
+							
+							}
+						return q19DataBean;
+					}
+					
+			
+					public static Q19DataBean populateOtherIncome(List<IncomeAndSourceModel> incomeAtEntry,List<IncomeAndSourceModel> incomeAtAA,BigInteger allClientsBigInt) {
+						Q19DataBean q19DataBean = new Q19DataBean();
+						
+						Map<String,BigInteger>  incomeMapAtEntry = new HashMap<>();
+						incomeAtEntry.forEach(incomeAndSource ->  {incomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount()) )); } );
+						
+						Map<String,BigInteger>  incomeMapAtAA = new HashMap<>();
+						incomeAtAA.forEach(incomeAndSource -> { incomeMapAtAA.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount()))); });
+						
+						int incomeAtStartWithOutAA = 0;
+					
+						int retainIncomeCatLessAtAAThanAtEntry = 0;
+						int retainIncomeCatSameAtAAThanAtEntry = 0;
+						int retainIncomeCatGreaterAtAAThanAtEntry = 0;
+						int didNotHaveIncomeATEntryButNotAtAA = 0;
+						BigInteger incomeCatLessAtAAThanAtEntry = BigInteger.ZERO;
+						BigInteger incomeCatGreaterAtAAThanAtEntry = BigInteger.ZERO;
+						BigInteger incomePerformaceMeasure = BigInteger.ZERO;
+						BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
+						int noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = 0;
+						BigInteger sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = BigInteger.ZERO;
+						Set<String> processedClients = new HashSet<>();
+						
+						Set<String> keySetAtAA = incomeMapAtAA.keySet();
+						Set<String> entryKeySet = incomeMapAtEntry.keySet();
+						int sizeAtAA = getSize(keySetAtAA);
+						int sizeAtEntry = getSize(entryKeySet);
+						if(sizeAtAA > sizeAtEntry || sizeAtAA == sizeAtEntry) {
+							for(String key : keySetAtAA) {
+								BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+								   
+								if(ea > 0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+									noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+									sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+								}
+								else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+									incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+									retainIncomeCatGreaterAtAAThanAtEntry++;
+								}
+								else if(ea >0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+									retainIncomeCatLessAtAAThanAtEntry++;
+									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+								}
+								else if(ea==aa && ea !=0) { // Income at Entry same as AA
+									retainIncomeCatSameAtAAThanAtEntry++;
+								}
+								else if(ea==0  || aa==0) {
+									didNotHaveIncomeATEntryButNotAtAA++;
+								}
+								processedClients.add(key);
+							}
+							// Now look from entry KeySet
+							// Now look from entry KeySet
+							Set<String> keySetAtEntry = incomeMapAtEntry.keySet();
+							if(CollectionUtils.isNotEmpty(keySetAtEntry) && CollectionUtils.isNotEmpty(processedClients)) {
+								for(String key : keySetAtEntry) {
+									if(!processedClients.contains(key)) {
+										incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+										incomeAtStartWithOutAA++;
+									}
+								}
+							}
+						}else {
+							for(String key : entryKeySet) {
+								BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+								   
+								if(ea > 0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+									noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+									sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+								}
+								else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+									incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+									retainIncomeCatGreaterAtAAThanAtEntry++;
+								}
+								else if(ea >0 && aa==0) { // Had income at start and no at AA 
+									incomeAtStartWithOutAA++;
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+								}
+								else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+									retainIncomeCatLessAtAAThanAtEntry++;
+									incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+								}
+								else if(ea==aa && ea !=0) { // Income at Entry same as AA
+									retainIncomeCatSameAtAAThanAtEntry++;
+								}
+								else if(ea==0  || aa==0) {
+									didNotHaveIncomeATEntryButNotAtAA++;
+								}
+							processedClients.add(key);
+						}
+						
+					// Now look from entry KeySet
+					Set<String> keySetAA = incomeMapAtAA.keySet();
+					if(CollectionUtils.isNotEmpty(keySetAA) && CollectionUtils.isNotEmpty(processedClients)) {
+						for(String key : keySetAA) {
+							if(!processedClients.contains(key)) {
+								noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(BigInteger.valueOf(aa));
+					
+							}
+						 }
+					     }
+					   }
+						
+						
+						//#B
+						if(CollectionUtils.isNotEmpty(incomeAtEntry) && incomeAtStartWithOutAA!=0) {
+							BigInteger average = incomeAtStartAndNotAtAA.divide(BigInteger.valueOf(incomeAtStartWithOutAA));
+							average = average.multiply(BigInteger.valueOf(-1));
+							q19DataBean.setAverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
+							q19DataBean.setNoOfAdultsWithOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(incomeAtStartWithOutAA));
+						}
+						
+						//#C
+						q19DataBean.setNoOfAdultsWithOtherIncomeRetainedIncomeCategoryButHadLessDollar(BigInteger.valueOf(retainIncomeCatLessAtAAThanAtEntry));
+						if(retainIncomeCatLessAtAAThanAtEntry !=0) {
+							BigInteger retainIncomeAtAAThenAtEntryAmount = incomeCatLessAtAAThanAtEntry.divide(BigInteger.valueOf(retainIncomeCatLessAtAAThanAtEntry));
+							q19DataBean.setAverageChangeInOtherIncomeRetainedIncomeCategoryButHadLessDollar(retainIncomeAtAAThenAtEntryAmount);
+						}
+						//#D
+						q19DataBean.setNoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.valueOf(retainIncomeCatSameAtAAThanAtEntry));
+						q19DataBean.setAverageChangeInOtherIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.ZERO);
+						
+						int performanceMeasure=0;
+						//#F
+						q19DataBean.setNoOfAdultsWithOtherIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(BigInteger.valueOf(noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome));
+						if(noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome != 0 && sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.compareTo(BigInteger.ZERO) > 0) {
+							BigInteger average = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.divide(BigInteger.valueOf(noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome));
+							performanceMeasure = average.intValue();
+							q19DataBean.setAverageChangeInOtherIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(average);
+						}
+						//#G
+						q19DataBean.setNoOfAdultsWithOtherIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(didNotHaveIncomeATEntryButNotAtAA));
+						q19DataBean.setAverageChangeInOtherIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.ZERO);
+						
+						List<IncomeAndSourceModel> totalIncomeAndSource = new ArrayList<>();
+						totalIncomeAndSource.addAll(incomeAtEntry);
+						totalIncomeAndSource.addAll(incomeAtAA);
+						Set<String>  totalAdults = new HashSet<>();
+						
+						if(CollectionUtils.isNotEmpty(totalIncomeAndSource)) {
+							for(IncomeAndSourceModel incomeAndSource : totalIncomeAndSource ) {
+								totalAdults.add(incomeAndSource.getDedupClientId());
+							}
+							
+						}
+						//#H 
+						if(allClientsBigInt != null) {
+							q19DataBean.setNoOfAdultsWithOtherIncomeTotalAdult(allClientsBigInt);
+							q19DataBean.setAverageChangeInOtherIncomeTotalAdult(BigInteger.ZERO);
+						}
+						
+							//#E
+							q19DataBean.setNoOfAdultsWithOtherIncomeRetainedIncomeCategoryAndIncreasedDollar(BigInteger.valueOf(retainIncomeCatGreaterAtAAThanAtEntry));
+							if(retainIncomeCatGreaterAtAAThanAtEntry !=0) {
+								BigInteger retainIncomeCatGreater = BigInteger.valueOf(retainIncomeCatGreaterAtAAThanAtEntry);
+								BigInteger incomeCatGreaterAtAAThanAtEntryAmount = incomeCatGreaterAtAAThanAtEntry.divide(retainIncomeCatGreater);
+								q19DataBean.setAverageChangeInOtherIncomeRetainedIncomeCategoryAndIncreasedDollar(incomeCatGreaterAtAAThanAtEntryAmount);
+								//#I = E + F
+								performanceMeasure = performanceMeasure + incomeCatGreaterAtAAThanAtEntryAmount.intValue();
+								incomePerformaceMeasure = BigInteger.valueOf(performanceMeasure);
+								BigInteger  incomePerformaceMeasureAverage =  incomePerformaceMeasure.divide(BigInteger.valueOf(2));
+								q19DataBean.setAverageChangeInOtherIncomePerformanceMeasures(incomePerformaceMeasureAverage);
+								
+							}
+							int totalPerformaceMeasure = retainIncomeCatGreaterAtAAThanAtEntry + noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome; 
+							q19DataBean.setNoOfAdultsWithOtherIncomePerformanceMeasures(BigInteger.valueOf(totalPerformaceMeasure));
+						
+							//#J = I/H
+							if(allClientsBigInt != null) {
+								int performancePercentage = ((totalPerformaceMeasure * 100)/allClientsBigInt.intValue());
+								q19DataBean.setNoOfAdultsWithOtherIncomePercent(BigInteger.valueOf(performancePercentage));
+								q19DataBean.setAverageChangeInOtherIncomePercent(BigInteger.ZERO);
+							}
+							
+						return q19DataBean;
+					}
+
+				
+				public static Q19DataBean populateOverallIncomeIncome(List<IncomeAndSourceModel> incomeAtEntry,List<IncomeAndSourceModel> incomeAtAA,BigInteger allClientsBigInt) {
+					Q19DataBean q19DataBean = new Q19DataBean();
+					Map<String,BigInteger>  incomeMapAtEntry = new HashMap<>();
+					incomeAtEntry.forEach(incomeAndSource ->  {incomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()))); } );
+					
+					Map<String,BigInteger>  incomeMapAtAA = new HashMap<>();
+					incomeAtAA.forEach(incomeAndSource -> { incomeMapAtAA.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()))); });
+					
+					int incomeAtStartWithOutAA = 0;
+					int retainIncomeCatLessAtAAThanAtEntry = 0;
+					int retainIncomeCatSameAtAAThanAtEntry = 0;
+					int retainIncomeCatGreaterAtAAThanAtEntry = 0;
+					int didNotHaveIncomeATEntryortAA = 0;
+					BigInteger incomeCatLessAtAAThanAtEntry = BigInteger.ZERO;
+					BigInteger incomeCatGreaterAtAAThanAtEntry = BigInteger.ZERO;
+					BigInteger incomePerformaceMeasure = BigInteger.ZERO;
+					BigInteger incomeAtStartAndNotAtAA = BigInteger.ZERO;
+					
+
+					
+					int noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = 0;
+					BigInteger sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = BigInteger.ZERO;
+					Set<String> processedClients = new HashSet<>();
+					Set<String> keySetAtAA = incomeMapAtAA.keySet();
+					Set<String> entryKeySet = incomeMapAtEntry.keySet();
+					int sizeAtAA = getSize(keySetAtAA);
+					int sizeAtEntry = getSize(entryKeySet);
+					if(sizeAtAA > sizeAtEntry || sizeAtAA == sizeAtEntry) {
+						for(String key : keySetAtAA) {
+							BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+							BigInteger amountAtAA = incomeMapAtAA.get(key);
+							int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+							 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+							   
+							if(ea > 0 && aa==0) { // Had income at start and no at AA 
+								incomeAtStartWithOutAA++;
+								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+							}
+							else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+								noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+								sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+							}
+							else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+								incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+								retainIncomeCatGreaterAtAAThanAtEntry++;
+							}
+							else if(ea >0 && aa==0) { // Had income at start and no at AA 
+								incomeAtStartWithOutAA++;
+								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+							}
+							else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+								retainIncomeCatLessAtAAThanAtEntry++;
+								incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+							}
+							else if(ea==aa && ea !=0) { // Income at Entry same as AA
+								retainIncomeCatSameAtAAThanAtEntry++;
+							}
+							else if(ea==0  || aa==0) {
+								didNotHaveIncomeATEntryortAA++;
+							}
+							processedClients.add(key);
+						}
+						// Now look from entry KeySet
+						Set<String> keySetAtEntry = incomeMapAtEntry.keySet();
+						if(CollectionUtils.isNotEmpty(keySetAtEntry) && CollectionUtils.isNotEmpty(processedClients)) {
+							for(String key : keySetAtEntry) {
+								if(!processedClients.contains(key)) {
+									incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+									incomeAtStartWithOutAA++;
+								}
+							}
+						}
+					}else {
+						for(String key : entryKeySet) {
+							BigInteger earnedAmountAtEntry = incomeMapAtEntry.get(key);
+							BigInteger amountAtAA = incomeMapAtAA.get(key);
+							int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+							 int ea = (earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO).intValue();
+							   
+							if(ea > 0 && aa==0) { // Had income at start and no at AA 
+								incomeAtStartWithOutAA++;
+								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+							}
+							else if(aa > ea && ea==0) { // Had income at AA and did not have income at Entry
+								noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+								sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(amountAtAA);
+							}
+							else if(ea < aa && aa !=0 && ea !=0) { // Had income increased in AA than at Entry
+								incomeCatGreaterAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(amountAtAA.subtract(earnedAmountAtEntry != null ? earnedAmountAtEntry : BigInteger.ZERO )) ;
+								retainIncomeCatGreaterAtAAThanAtEntry++;
+							}
+							else if(ea >0 && aa==0) { // Had income at start and no at AA 
+								incomeAtStartWithOutAA++;
+								incomeAtStartAndNotAtAA = incomeAtStartAndNotAtAA.add(incomeMapAtEntry.get(key));
+							}
+							else if(ea > aa && ea !=0) { // Income at Entry greater than AA
+								retainIncomeCatLessAtAAThanAtEntry++;
+								incomeCatLessAtAAThanAtEntry = incomeCatGreaterAtAAThanAtEntry.add(BigInteger.valueOf((ea-aa))) ;
+							}
+							else if(ea==aa && ea !=0) { // Income at Entry same as AA
+								retainIncomeCatSameAtAAThanAtEntry++;
+							}
+							else if(ea==0  || aa==0) {
+								didNotHaveIncomeATEntryortAA++;
+							}
+							processedClients.add(key);
+						}
+						
+					// Now look from entry KeySet
+					Set<String> keySetAA = incomeMapAtAA.keySet();
+					if(CollectionUtils.isNotEmpty(keySetAA) && CollectionUtils.isNotEmpty(processedClients)) {
+						for(String key : keySetAA) {
+							if(!processedClients.contains(key)) {
+								noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome ++;
+								BigInteger amountAtAA = incomeMapAtAA.get(key);
+								int aa = (amountAtAA != null ? amountAtAA : BigInteger.ZERO).intValue();
+								sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.add(BigInteger.valueOf(aa));
+					
+							}
+						 }
+					     }
+					   }
+						
+					
+					
+					//#B
+					q19DataBean.setNumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(BigInteger.valueOf(incomeAtStartWithOutAA));
+					if(CollectionUtils.isNotEmpty(incomeAtEntry) && incomeAtStartWithOutAA!=0) {
+						BigInteger average = incomeAtStartAndNotAtAA.divide(BigInteger.valueOf(incomeAtStartWithOutAA));
+						average = average.multiply(BigInteger.valueOf(-1));
+						q19DataBean.setAverageChangeInOverallIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup(average);
+					}
+					
+					//#C
+					q19DataBean.setNumberOfAdultsWithAnyIncomeRetainedIncomeCategoryButHadLessDollar(BigInteger.valueOf(retainIncomeCatLessAtAAThanAtEntry));
+					if(retainIncomeCatLessAtAAThanAtEntry !=0) {
+						BigInteger retainIncomeAtAAThenAtEntryAmount = incomeCatLessAtAAThanAtEntry.divide(BigInteger.valueOf(retainIncomeCatLessAtAAThanAtEntry));
+						q19DataBean.setAverageChangeInOverallIncomeRetainedIncomeCategoryButHadLessDollar(retainIncomeAtAAThenAtEntryAmount);
+					}
+					//#D
+					q19DataBean.setNumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.valueOf(retainIncomeCatSameAtAAThanAtEntry));
+					q19DataBean.setAverageChangeInOverallIncomeRetainedIncomeCategoryAndSameDollar(BigInteger.ZERO);
+					
+					int performanceMeasure = 0;
+					
+					q19DataBean.setNumberOfAdultsWithAnyIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(BigInteger.valueOf(noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome));
+					
+					//#F
+					if(noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome != 0 && sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.compareTo(BigInteger.ZERO) > 0) {
+						BigInteger average = sumadultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome.divide(BigInteger.valueOf(noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome));
+						performanceMeasure = average.intValue();
+							q19DataBean.setAverageChangeInOverallIncomeDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome(average);
+					}
+					//#G
+					q19DataBean.setNumberOfAdultsWithAnyIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.valueOf(didNotHaveIncomeATEntryortAA));
+					q19DataBean.setAverageChangeInOverallIncomeDidNotHaveTheIncomeCategoryAtEntryOrFollowup(BigInteger.ZERO);
+					
+					List<IncomeAndSourceModel> totalIncomeAndSource = new ArrayList<>();
+					totalIncomeAndSource.addAll(incomeAtEntry);
+					totalIncomeAndSource.addAll(incomeAtAA);
+					Set<String>  totalAdults = new HashSet<>();
+					
+					if(CollectionUtils.isNotEmpty(totalIncomeAndSource)) {
+						for(IncomeAndSourceModel incomeAndSource : totalIncomeAndSource ) {
+							totalAdults.add(incomeAndSource.getDedupClientId());
+						}
+						
+					}
+					//#H 
+					if(allClientsBigInt != null) {
+						q19DataBean.setNumberOfAdultsWithAnyIncomeTotalAdult(allClientsBigInt);
+						q19DataBean.setAverageChangeInOverallIncomeTotalAdult(BigInteger.ZERO);
+					}
+					
+						//#E
+						q19DataBean.setNumberOfAdultsWithAnyIncomeRetainedIncomeCategoryAndIncreasedDollar(BigInteger.valueOf(retainIncomeCatGreaterAtAAThanAtEntry));
+						
+						int totalPerformaceMeasure = retainIncomeCatGreaterAtAAThanAtEntry + noOfAdultsDidNotHaveTheIncomeCategoryAtEntryAndGainedTheIncome; 
+						q19DataBean.setNumberOfAdultsWithAnyIncomePerformanceMeasures(BigInteger.valueOf(totalPerformaceMeasure));
+					
+						if(retainIncomeCatGreaterAtAAThanAtEntry !=0 && incomeCatGreaterAtAAThanAtEntry.compareTo(BigInteger.ZERO) !=0) {
+							BigInteger retainIncomeCatGreater = BigInteger.valueOf(retainIncomeCatGreaterAtAAThanAtEntry);
+							BigInteger incomeCatGreaterAtAAThanAtEntryAmount = incomeCatGreaterAtAAThanAtEntry.divide(retainIncomeCatGreater);
+							q19DataBean.setAverageChangeInOverallIncomeRetainedIncomeCategoryAndIncreasedDollar(incomeCatGreaterAtAAThanAtEntryAmount);
+							//#I = E + F
+							performanceMeasure = performanceMeasure + incomeCatGreaterAtAAThanAtEntryAmount.intValue();
+							incomePerformaceMeasure = BigInteger.valueOf(performanceMeasure);
+							BigInteger  incomePerformaceMeasureAverage =  incomePerformaceMeasure.divide(BigInteger.valueOf(2));
+							q19DataBean.setAverageChangeInOverallIncomePerformanceMeasures(incomePerformaceMeasureAverage);
+						}
+					
+						//#J = I/H
+						if(totalPerformaceMeasure !=0 && allClientsBigInt != null) {
+							int finalPercent = ((totalPerformaceMeasure * 100)/allClientsBigInt.intValue());
+							q19DataBean.setNumberOfAdultsWithAnyIncomePercent(BigInteger.valueOf(finalPercent));
+							q19DataBean.setAverageChangeInOverallIncomePercent(BigInteger.ZERO);
+						}
+					return q19DataBean;
+				}
+				
+				public static List<IncomeAndSourceModel> getDedupedItems(List<IncomeAndSourceModel> incomes) {
+					Map<String,IncomeAndSourceModel> dedupIncomeAndSourceAtEntry = new HashMap<>();
+					incomes.forEach(income->  dedupIncomeAndSourceAtEntry.put(income.getDedupClientId(), income));
+					Collection<IncomeAndSourceModel> values = dedupIncomeAndSourceAtEntry.values();
+					return new ArrayList(values);	
+				}
+				
+				public static List<String> getClientsFromVeteranStatus(ReportData data,String query,List<String> filteredProjectIds, boolean allProjects,String veteranStatus, Boolean  chronicHomeless) {
+					 List<String> q22Beans = new ArrayList<String>();
+						ResultSet resultSet = null;
+						Statement statement = null;
+						String projectQuery = " and p.id in ( ";
+						StringBuilder builder = new StringBuilder(projectQuery);
+						Connection connection = null;
+						if(CollectionUtils.isEmpty(filteredProjectIds) && !allProjects) {
+							return q22Beans;
+						}
+						
+						List<ClientModel> clients = null;
+						if(StringUtils.equals("0", veteranStatus)) {
+							clients= data.getClients();
+						}else {
+							clients= data.getVeterans();
+						}
+						
+						if(CollectionUtils.isEmpty(clients)) {
+							return new ArrayList<>();
+						}
+						try {
+							connection = ImpalaConnection.getConnection();
+							 List<String> projectIds = data.getProjectIds();
+							 if(CollectionUtils.isNotEmpty(projectIds)) {
+								 int count = 0;
+								 for(String project : projectIds) {
+									 if ((filteredProjectIds !=null && filteredProjectIds.contains(project)) || allProjects) {
+										 builder.append("'"+project+"'");
+										 if(count != projectIds.size()) {
+											 builder.append(",");
+										 }
+									 }
+								 }
+							 }
+							 builder.deleteCharAt(builder.length()-1);
+							 builder.append(" ) ");
+							String newQuery = query;
+							 if(CollectionUtils.isNotEmpty(filteredProjectIds)) {
+								 newQuery = query.replace("%p", builder.toString());
+							 }else {
+								 newQuery = query.replace("%p", " ");
+							 }
+							 
+								 if(CollectionUtils.isNotEmpty(clients)) {
+									 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
+									 int index = 0;
+									 for(ClientModel client : clients) {
+										 enrollmentBuilder.append("'"+client.getDedupClientId()+"'");
+										 if(index != clients.size()) {
+											 enrollmentBuilder.append(",");
+										 }
+									 }
+									 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+									 enrollmentBuilder.append(" ) ");
+									 newQuery = newQuery + enrollmentBuilder.toString();
+								 }
+								
+							
+							if(StringUtils.isNotBlank(veteranStatus) && !StringUtils.equals("8", veteranStatus)) {
+								if( StringUtils.equals("0", veteranStatus)) {
+									newQuery = newQuery + " and (veteran_status is null  or veteran_status ='"+veteranStatus+"' ) " ;
+								} else {
+									newQuery = newQuery + " and veteran_status ='"+veteranStatus+"'" ;
+								}
+							}
+							if(StringUtils.equals("8", veteranStatus)) {
+								newQuery = newQuery + " and veteran_status  in ('8','9') ";
+							}
+							if(chronicHomeless != null) {
+								newQuery = newQuery + " and chronichomeless = "+chronicHomeless.booleanValue();
+							}
+							
+							statement = connection.createStatement();
+							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
+							
+						 while(resultSet.next()) {
+							
+							 
+							 String dedupClientId = resultSet.getString(1);
+							 q22Beans.add(dedupClientId);
+						 
+						 }
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+							if (statement != null) {
+								try {
+									statement.close();
+									//connection.close();
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						}
+						return q22Beans;
+					}	
+				
+
 }
 

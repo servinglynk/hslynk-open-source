@@ -3,9 +3,11 @@ package com.servinglynk.report.business;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.report.bean.Q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
@@ -40,14 +42,16 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 			List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 			List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 			List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
-
+			List<EnrollmentModel> leavers = data.getLeavers();
 			List<EnrollmentModel> enrollments = data.getEnrollments();
+			List<EnrollmentModel> newEnrollments = new ArrayList<>();
+			newEnrollments.addAll(enrollments);
+			newEnrollments.addAll(leavers);
 			// First of all lets get enrollments with in the report date range.
 			// i.e enrollment.getEntryDate() is with in the report start date
 			// and report end date.
-			List<EnrollmentModel> fileteredEnrollments = enrollments.parallelStream()
+			List<EnrollmentModel> fileteredEnrollments = newEnrollments.parallelStream()
 					.filter(enrollment -> enrollment.getEntrydate() != null
-							&& data.getReportStartDate().before(enrollment.getEntrydate())
 							&& data.getReportEndDate().after(enrollment.getEntrydate()))
 					.collect(Collectors.toList());
 
@@ -66,13 +70,14 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 				List<EnrollmentModel> janEnrollmentsHHWithOneAdultChild = janEnrollments.parallelStream()
 						.filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID()))
 						.collect(Collectors.toList());
+				
 				q07bDataBean.setHhCountJanUht(BigInteger.valueOf(
 						janEnrollmentsWithUnkownHouseHold != null ? janEnrollmentsWithUnkownHouseHold.size() : 0));
-				q07bDataBean.setHhCountJanWc(BigInteger
+				q07bDataBean.setHhCountJanWoc(BigInteger
 						.valueOf(janEnrollmentsHHWithChildren != null ? janEnrollmentsHHWithChildren.size() : 0));
 				q07bDataBean.setHhCountJanWca(BigInteger.valueOf(
 						janEnrollmentsHHWithOneAdultChild != null ? janEnrollmentsHHWithOneAdultChild.size() : 0));
-				q07bDataBean.setHhCountJanWoc(BigInteger
+				q07bDataBean.setHhCountJanWc(BigInteger
 						.valueOf(janEnrollmentsHHWithOutChildren != null ? janEnrollmentsHHWithOutChildren.size() : 0));
 			} else {
 				q07bDataBean.setHhJanTotal(BigInteger.valueOf(0));
@@ -96,14 +101,16 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 				List<EnrollmentModel> aprilEnrollmentsHHWithOneAdultChild = aprilEnrollments.parallelStream()
 						.filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID()))
 						.collect(Collectors.toList());
+				
 				q07bDataBean.setHhCountAprUht(BigInteger.valueOf(
 						aprilEnrollmentsWithUnkownHouseHold != null ? aprilEnrollmentsWithUnkownHouseHold.size() : 0));
-				q07bDataBean.setHhCountAprWc(BigInteger
+				q07bDataBean.setHhCountAprWoc(BigInteger
 						.valueOf(aprilEnrollmentsHHWithChildren != null ? aprilEnrollmentsHHWithChildren.size() : 0));
+				
 				q07bDataBean.setHhCountAprWca(BigInteger.valueOf(
-						aprilEnrollmentsHHWithOutChildren != null ? aprilEnrollmentsHHWithOutChildren.size() : 0));
-				q07bDataBean.setHhCountAprWoc(BigInteger.valueOf(
 						aprilEnrollmentsHHWithOneAdultChild != null ? aprilEnrollmentsHHWithOneAdultChild.size() : 0));
+				q07bDataBean.setHhCountAprWc(BigInteger.valueOf(
+						aprilEnrollmentsHHWithOutChildren != null ? aprilEnrollmentsHHWithOutChildren.size() : 0));
 				q07bDataBean.setHhAprTotal(BigInteger.valueOf(aprilEnrollments.size()));
 			} else {
 				q07bDataBean.setHhAprTotal(BigInteger.valueOf(0));
@@ -129,13 +136,13 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 						.collect(Collectors.toList());
 				q07bDataBean.setHhCountJulUht(BigInteger.valueOf(
 						julyEnrollmentsWithUnkownHouseHold != null ? julyEnrollmentsWithUnkownHouseHold.size() : 0));
-				q07bDataBean.setHhCountJulWc(BigInteger
+				q07bDataBean.setHhCountJulWoc(BigInteger
 						.valueOf(julyEnrollmentsHHWithChildren != null ? julyEnrollmentsHHWithChildren.size() : 0));
 				q07bDataBean.setHhCountJulWca(BigInteger.valueOf(
 						julyEnrollmentsHHWithOneAdultChild != null ? julyEnrollmentsHHWithOneAdultChild.size() : 0));
-				q07bDataBean.setHhCountJulWoc(BigInteger.valueOf(
+				q07bDataBean.setHhCountJulWc(BigInteger.valueOf(
 						julyEnrollmentsHHWithOutChildren != null ? julyEnrollmentsHHWithOutChildren.size() : 0));
-				q07bDataBean.setHhAprTotal(BigInteger.valueOf(aprilEnrollments.size()));
+				q07bDataBean.setHhJulTotal(BigInteger.valueOf(julyEnrollments.size()));
 			} else {
 				q07bDataBean.setHhJulTotal(BigInteger.valueOf(0));
 				q07bDataBean.setHhCountJulUht(BigInteger.valueOf(0));
@@ -159,13 +166,13 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 						.collect(Collectors.toList());
 				q07bDataBean.setHhCountOctUht(BigInteger.valueOf(
 						octEnrollmentsWithUnkownHouseHold != null ? octEnrollmentsWithUnkownHouseHold.size() : 0));
-				q07bDataBean.setHhCountOctWc(BigInteger
+				q07bDataBean.setHhCountOctWoc(BigInteger
 						.valueOf(octEnrollmentsHHWithChildren != null ? octEnrollmentsHHWithChildren.size() : 0));
 				q07bDataBean.setHhCountOctWca(BigInteger.valueOf(
 						octEnrollmentsHHWithOneAdultChild != null ? octEnrollmentsHHWithOneAdultChild.size() : 0));
-				q07bDataBean.setHhCountOctWoc(BigInteger
+				q07bDataBean.setHhCountOctWc(BigInteger
 						.valueOf(octEnrollmentsHHWithOutChildren != null ? octEnrollmentsHHWithOutChildren.size() : 0));
-				q07bDataBean.setHhOctTotal(BigInteger.valueOf(aprilEnrollments.size()));
+				q07bDataBean.setHhOctTotal(BigInteger.valueOf(octEnrollments.size()));
 			} else {
 				q07bDataBean.setHhOctTotal(BigInteger.valueOf(0));
 				q07bDataBean.setHhCountOctUht(BigInteger.valueOf(0));
@@ -181,7 +188,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 	}
 
 	public static void main(String args[]) {
-		System.out.println(lasWednesayOf(2018, 3).toString());
+		//System.out.println(lasWednesayOf(2018, 3).toString());
 	}
 
 	public static boolean isEnrollmentsFromLastWedForMonth(int year, int month, ReportData data,
@@ -194,15 +201,15 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 			List<ExitModel> finalEnrollment = exitForEnrollment.parallelStream()
 					.filter(exit -> exit.getExitdate() == null
 							|| (exit.getExitdate() != null && Util.getLocalDateFromUtilDate(exit.getExitdate())
-									.isBefore(lasWednesayOf(data.getReportEndDate().getYear(), month))))
+									.isBefore(lasWednesayOf(data.getReportEndDate(), month))))
 					.collect(Collectors.toList());
-			if (finalEnrollment != null) {
-				return true;
+			if (CollectionUtils.isNotEmpty(finalEnrollment)) {
+				return false;
 			}
 		} else {
 			return true;
 		}
-		return false;
+		return true;
 	}
 
 	public static List<EnrollmentModel> getEnrollments(List<EnrollmentModel> fileteredEnrollments, ReportData data,
@@ -213,12 +220,10 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 		List<String> otherProjectTypes = Arrays.asList(otherProjectTypesArray);
 		List<EnrollmentModel> enrollmentJanTotal = new ArrayList<EnrollmentModel>();
 		fileteredEnrollments.forEach(enrollment -> {
-			if (housingProjectTypes.contains(enrollment.getProjectID())
-					&& isEnrollmentsFromLastWedForMonth(data.getReportEndDate().getYear(), month, data, enrollment)) {
-				enrollmentJanTotal.add(enrollment);
-			} else if (otherProjectTypes.contains(enrollment.getProjectID())
-					&& isEnrollmentsFromLastWedForMonthForOtherProjectTypes(data.getReportEndDate().getYear(), month,
-							data, enrollment)) {
+			 Calendar cal = Calendar.getInstance();
+			 cal.setTime(data.getReportEndDate());
+			 int year = cal.get(Calendar.YEAR);
+			if (isEnrollmentsFromLastWedForMonth(year, month, data, enrollment)) {
 				enrollmentJanTotal.add(enrollment);
 			}
 		});
@@ -235,7 +240,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 			List<ExitModel> finalEnrollment = exitForEnrollment.parallelStream()
 					.filter(exit -> exit.getExitdate() == null
 							|| (exit.getExitdate() != null && Util.getLocalDateFromUtilDate(exit.getExitdate())
-									.compareTo(lasWednesayOf(data.getReportEndDate().getYear(), month)) <= 0))
+									.compareTo(lasWednesayOf(data.getReportEndDate(), month)) <= 0))
 					.collect(Collectors.toList());
 			if (finalEnrollment != null) {
 				return true;

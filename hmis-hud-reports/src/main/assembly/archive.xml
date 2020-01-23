@@ -12,7 +12,7 @@
             <outputDirectory>/</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${basedir}/conf</directory>
+            <directory>${basedir}/*resources</directory>
             <outputDirectory>/conf</outputDirectory>
         </fileSet>
         <fileSet>

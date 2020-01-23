@@ -2,6 +2,7 @@ package com.servinglynk.report.csvcontroller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,26 +24,25 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 public class CSVGenerator {
 
-	protected static InputStream getInputStream(String fileName) {
+	protected static InputStream getInputStream(String fileName,String path) {
+		InputStream inputStream1 = null;
 		try {
-			InputStream inputStream1 = null;
-			ClassLoader classLoader = CSVGenerator.class.getClassLoader();
-			return classLoader.getResourceAsStream(fileName);
+				inputStream1 = new FileInputStream(path+fileName);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return inputStream1;
 	}
 	
 	 @SuppressWarnings("unchecked")
 		public static void buildReport(List<?> dataBeanList,String jrxmlFileName,String csvFileName,ReportData data) {
 		 if(data.isSageReport()) {
 			 try {             
-					InputStream inputStream1 = getInputStream(jrxmlFileName);
+					InputStream inputStream1 = getInputStream(jrxmlFileName,data.getConfigPath());
+					JasperDesign jasperDesign1 = JRXmlLoader.load(inputStream1);
+					JasperReport jasperReport1 = JasperCompileManager.compileReport(jasperDesign1);
 			        Map parameters = new HashMap();
 			        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
-				    JasperDesign jasperDesign1 = JRXmlLoader.load(inputStream1);
-				    JasperReport jasperReport1 = JasperCompileManager.compileReport(jasperDesign1);
 				    JasperPrint jasperPrint1 = JasperFillManager.fillReport(jasperReport1, parameters, beanColDataSource);
 				    
 				    //		    JasperViewer.viewReport(jasperPrint1,false);

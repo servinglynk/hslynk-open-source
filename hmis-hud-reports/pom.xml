@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.servinglynk.hmis.warehouse</groupId>
   <artifactId>hmis-hud-reports</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>2.0</version>
   <name>hmis-hud-reports-csv_v2 Maven Webapp</name>
   <url>http://maven.apache.org</url>
@@ -148,6 +148,12 @@
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
         </dependency>
+           <dependency>
+            <groupId>com.servinglynk.hmis.warehouse</groupId>
+            <artifactId>hmis-s3-client</artifactId>
+            <version>2.14.20</version>
+        </dependency>
+        
 
         <dependency>
             <groupId>commons-digester</groupId>
@@ -187,7 +193,7 @@
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
-                <directory>src/main/conf</directory>
+                <directory>src/main/*resources</directory>
             </resource>
         </resources>
         <plugins>
@@ -231,15 +237,14 @@
                 <configuration>
                     <programs>
                         <program>
-                            <mainClass>com.servinglynk.hmis.warehouse.ReportGenerator</mainClass>
+                            <mainClass>com.servinglynk.report.engine.Reporter</mainClass>
                             <name>main-report.sh</name>
                         </program>
                     </programs>
-
                     <useWildcardClassPath>true</useWildcardClassPath>
                     <repositoryLayout>flat</repositoryLayout>
-                    <configurationSourceDirectory>${project.build.directory}/../src/main/conf
-                    </configurationSourceDirectory>
+                    <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+                    <configurationSourceDirectory>${project.build.directory}/../src/main/csvresources</configurationSourceDirectory>
                     <configurationDirectory>conf</configurationDirectory>
                     <copyConfigurationDirectory>true</copyConfigurationDirectory>
                     <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
@@ -355,14 +360,4 @@
             </snapshots>
         </repository>
     </repositories>
-<distributionManagement>
-   <repository>
-   <id>hslynk-releases</id>
-   <url>https://repository.hslynk.com/repository/maven-releases</url>
-   </repository>
-   <snapshotRepository>
-     <id>hslynk-snapshot</id>
-     <url>https://repository.hslynk.com/repository/maven-snapshot</url>
-     </snapshotRepository>
-  </distributionManagement>  
 </project>

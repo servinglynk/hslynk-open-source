@@ -1,264 +1,134 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.hive.connection.ImpalaConnection;
-import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean;
 import com.servinglynk.report.bean.ReportData;
-import com.servinglynk.report.model.DataCollectionStage;
-import com.servinglynk.report.model.IncomeSourceModel;
+import com.servinglynk.report.model.ClientModel;
+import com.servinglynk.report.model.IncomeAndSourceModel;
 import com.servinglynk.report.model.NoYesEnum;
 
 public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean> getQ25fCashIncomeCategoryIncomeCategoryByEntryList(ReportData data){
 		
-		Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean q18eData = new Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean();
+		Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean q25eData = new Q25fCashIncomeCategoryIncomeCategoryByEntryDataBean();
 		
 		if(data.isLiveMode()) {
 			try {
-			String query = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
-			" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
-			" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource  as incomefromanysource from %s.incomeandsources i, %s.enrollment e,%s.client c  where  e.client_id = c.id  and c.veteran_status= '1' and i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+
-			" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 ";
+		
+				List<ClientModel> veterans = data.getVeterans();
+				
+				if(CollectionUtils.isEmpty(veterans)) {
+					return Arrays.asList(q25eData);
+				}
+				Set<String> veteransDedup = new HashSet<>();
+				veterans.forEach(client -> veteransDedup.add(client.getDedupClientId()));
+				List<IncomeAndSourceModel> incomeEntry = data.getIncomeAndSourcesAtEntry();
+				List<IncomeAndSourceModel> incomeAtEntry  = incomeEntry.parallelStream().filter(income -> veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
+				List<IncomeAndSourceModel> incomeExit= data.getIncomeAndSourcesAtExit();
+				List<IncomeAndSourceModel> incomeAA = data.getIncomeAndSourcesAtAnnualAssesment();
+				List<IncomeAndSourceModel> incomeAtExit  = incomeExit.parallelStream().filter(income -> veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
+				Set<String> veteranAtExit = data.getVeteranAtExit();
+				List<IncomeAndSourceModel> incomeAtAnnualVeterans  = incomeAA.parallelStream().filter(income -> veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
+				List<IncomeAndSourceModel> incomeAtAnnualAssesment  = incomeAtAnnualVeterans.parallelStream().filter(income -> CollectionUtils.isNotEmpty(veteranAtExit) && veteranAtExit.contains(income.getDedupClientId())).collect(Collectors.toList());
+				
+				
+			q25eData.setQ25fAdultsWithIncomeInfoAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntry)));
+			q25eData.setQ25fAdultsWithIncomeInfoLeavers(BigInteger.valueOf(getIncomeCnt(incomeAtExit)));
+			q25eData.setQ25fAdultsWithIncomeInfoStayers(BigInteger.valueOf(getIncomeCnt(incomeAtAnnualAssesment)));
+			
+			List<IncomeAndSourceModel> earnedIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> getFloat(income.getEarnedamount()) > 0  &&  (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount())) ==0).collect(Collectors.toList());
+			List<IncomeAndSourceModel> earnedIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> getFloat(income.getEarnedamount()) >0 &&  (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount())) ==0).collect(Collectors.toList());
+			List<IncomeAndSourceModel> earnedIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getEarnedamount()) >0 &&  (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount())) ==0).collect(Collectors.toList());
+			
+			q25eData.setQ25fAdultsWithOnlyEarnedIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(earnedIncomeAtEntry)));
+			q25eData.setQ25fAdultsWithOnlyEarnedIncomeLeavers(BigInteger.valueOf(getIncomeCnt(earnedIncomeAtsAtExit)));
+			q25eData.setQ25fAdultsWithOnlyEarnedIncomeStayers(BigInteger.valueOf(getIncomeCnt(earnedIncomeAtAnnualAssesment)));
+			
+			List<IncomeAndSourceModel> bothEarnedAndOtherIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> getFloat(income.getEarnedamount()) >0 &&  (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount())) >0).collect(Collectors.toList());
+			List<IncomeAndSourceModel> bothEarnedAndOtherIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> getFloat(income.getEarnedamount()) >0 &&  (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount())) >0).collect(Collectors.toList());
+			List<IncomeAndSourceModel> bothEarnedAndOtherIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getEarnedamount()) >0 &&  (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount())) >0).collect(Collectors.toList());
+			
+			q25eData.setQ25fAdultsWithBothEarnedAndOtherAtEntry(BigInteger.valueOf(getIncomeCnt(bothEarnedAndOtherIncomeAtEntry)));
+			q25eData.setQ25fAdultsWithBothEarnedAndOtherLeavers(BigInteger.valueOf(getIncomeCnt(bothEarnedAndOtherIncomeAtsAtExit)));
+			q25eData.setQ25fAdultsWithBothEarnedAndOtherStayers(BigInteger.valueOf(getIncomeCnt(bothEarnedAndOtherIncomeAtAnnualAssesment)));
+			
+			List<IncomeAndSourceModel> noearnedIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> getFloat(income.getEarnedamount()) == 0).collect(Collectors.toList());
+			List<IncomeAndSourceModel> noearnedIncomeAtExit = incomeAtExit.parallelStream().filter(income -> getFloat(income.getEarnedamount()) == 0).collect(Collectors.toList());
+			List<IncomeAndSourceModel> noearnedIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getEarnedamount()) == 0).collect(Collectors.toList());			
+			
+			
+			List<IncomeAndSourceModel> otherIncomeAtEntry = noearnedIncomeAtEntry.parallelStream().filter(income -> (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount())) > 0).collect(Collectors.toList());
+			List<IncomeAndSourceModel> otherIncomeAtsAtExit = noearnedIncomeAtExit.parallelStream().filter(income -> (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount())) > 0).collect(Collectors.toList());
+			List<IncomeAndSourceModel> otherIncomeAtAnnualAssesment = noearnedIncomeAtAnnualAssesment.parallelStream().filter(income -> (getFloat(income.getTotalmonthlyincome()) - getFloat(income.getOthersourceamount())) > 0).collect(Collectors.toList());			
+			
+			
 
-					
+			q25eData.setQ25fAdultsWithOnlyOtherIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(otherIncomeAtEntry)));
+			q25eData.setQ25fAdultsWithOnlyOtherIncomeLeavers(BigInteger.valueOf(getIncomeCnt(otherIncomeAtsAtExit)));
+			q25eData.setQ25fAdultsWithOnlyOtherIncomeStayers(BigInteger.valueOf(getIncomeCnt(otherIncomeAtAnnualAssesment)));
 			
-			List<IncomeSourceModel> incomeAtEntry = getIncome(data.getSchema(), query , DataCollectionStage.ENTRY.getCode(),data);
-			List<IncomeSourceModel> incomeAtExit = getIncome(data.getSchema(), query, DataCollectionStage.EXIT.getCode(),data);
-			List<IncomeSourceModel> incomeAtAnnualAssesment = getQ18IncomeForAnnualAssesment(data, ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
-			
-			q18eData.setQ25fAdultsWithIncomeInfoAtEntry(BigInteger.valueOf(getSize(incomeAtEntry)));
-			q18eData.setQ25fAdultsWithIncomeInfoLeavers(BigInteger.valueOf(getSize(incomeAtExit)));
-			q18eData.setQ25fAdultsWithIncomeInfoStayers(BigInteger.valueOf(getSize(incomeAtAnnualAssesment)));
-			
-			List<IncomeSourceModel> earnedIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> income.getEarnedIncome() != null && income.getEarnedIncome().floatValue() >0 &&  income.getOtherIncome() != null && income.getOtherIncome().floatValue() ==0).collect(Collectors.toList());
-			List<IncomeSourceModel> earnedIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> income.getEarnedIncome() != null && income.getEarnedIncome().floatValue() >0 &&  income.getOtherIncome() != null && income.getOtherIncome().floatValue() ==0).collect(Collectors.toList());
-			List<IncomeSourceModel> earnedIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> income.getEarnedIncome() != null && income.getEarnedIncome().floatValue() >0 &&  income.getOtherIncome() != null && income.getOtherIncome().floatValue() ==0).collect(Collectors.toList());
-			
-			q18eData.setQ25fAdultsWithOnlyEarnedIncomeAtEntry(BigInteger.valueOf(getSize(earnedIncomeAtEntry)));
-			q18eData.setQ25fAdultsWithOnlyEarnedIncomeLeavers(BigInteger.valueOf(getSize(earnedIncomeAtsAtExit)));
-			q18eData.setQ25fAdultsWithOnlyEarnedIncomeStayers(BigInteger.valueOf(getSize(earnedIncomeAtAnnualAssesment)));
-			
-			List<IncomeSourceModel> bothEarnedAndOtherIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> income.getEarnedIncome() != null && income.getEarnedIncome().floatValue() >0 &&  income.getOtherIncome() != null && income.getOtherIncome().floatValue() >0).collect(Collectors.toList());
-			List<IncomeSourceModel> bothEarnedAndOtherIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> income.getEarnedIncome() != null && income.getEarnedIncome().floatValue() >0 &&  income.getOtherIncome() != null && income.getOtherIncome().floatValue() >0).collect(Collectors.toList());
-			List<IncomeSourceModel> bothEarnedAndOtherIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> income.getEarnedIncome() != null && income.getEarnedIncome().floatValue() >0 &&  income.getOtherIncome() != null && income.getOtherIncome().floatValue() >0).collect(Collectors.toList());
-			
-			q18eData.setQ25fAdultsWithBothEarnedAndOtherAtEntry(BigInteger.valueOf(getSize(bothEarnedAndOtherIncomeAtEntry)));
-			q18eData.setQ25fAdultsWithBothEarnedAndOtherLeavers(BigInteger.valueOf(getSize(bothEarnedAndOtherIncomeAtsAtExit)));
-			q18eData.setQ25fAdultsWithBothEarnedAndOtherStayers(BigInteger.valueOf(getSize(bothEarnedAndOtherIncomeAtAnnualAssesment)));
-			
-			List<IncomeSourceModel> noearnedIncomeAtEntry = getIncome(data.getSchema(), query+" and ( earnedamount = 0 or  earnedamount is null ) " , DataCollectionStage.ENTRY.getCode(),data);
-			List<IncomeSourceModel> noearnedIncomeAtExit = getIncome(data.getSchema(), query+" and ( earnedamount = 0 or  earnedamount is null) ", DataCollectionStage.EXIT.getCode(),data);
-			List<IncomeSourceModel> noearnedIncomeAtAnnualAssesment = getIncome(data.getSchema(), ReportQuery.REQUIRED_ANNUAL_ASSESMENT_QUERY+" and (  earnedamount = 0 or  earnedamount is null )  ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
-			
-			
-			List<IncomeSourceModel> otherIncomeAtEntry = noearnedIncomeAtEntry.parallelStream().filter(income ->  (income.getOtherIncome() != null  && income.getOtherIncome().floatValue() > 0)).collect(Collectors.toList());
-			List<IncomeSourceModel> otherIncomeAtsAtExit = noearnedIncomeAtExit.parallelStream().filter(income ->  (income.getOtherIncome() != null  && income.getOtherIncome().floatValue() > 0)).collect(Collectors.toList());
-			List<IncomeSourceModel> otherIncomeAtAnnualAssesment = noearnedIncomeAtAnnualAssesment.parallelStream().filter(income ->  (income.getOtherIncome() != null  && income.getOtherIncome().floatValue() > 0)).collect(Collectors.toList());
-			
+			List<IncomeAndSourceModel> dkIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.EIGHT.getValue(), income.getIncomefromanysource()) || StringUtils.equals(NoYesEnum.NINE.getValue(), income.getIncomefromanysource())) ).collect(Collectors.toList());
+			List<IncomeAndSourceModel> dkIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.EIGHT.getValue(), income.getIncomefromanysource()) || StringUtils.equals(NoYesEnum.NINE.getValue(), income.getIncomefromanysource())) ).collect(Collectors.toList());
+			List<IncomeAndSourceModel> dkIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.EIGHT.getValue(), income.getIncomefromanysource()) || StringUtils.equals(NoYesEnum.NINE.getValue(), income.getIncomefromanysource())) ).collect(Collectors.toList());
 
-			q18eData.setQ25fAdultsWithOnlyOtherIncomeAtEntry(BigInteger.valueOf(getSize(otherIncomeAtEntry)));
-			q18eData.setQ25fAdultsWithOnlyOtherIncomeLeavers(BigInteger.valueOf(getSize(otherIncomeAtsAtExit)));
-			q18eData.setQ25fAdultsWithOnlyOtherIncomeStayers(BigInteger.valueOf(getSize(otherIncomeAtAnnualAssesment)));
+			q25eData.setQ25fAdultsWithDontRefusedIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(dkIncomeAtEntry)));
+			q25eData.setQ25fAdultsWithDontRefusedIncomeLeavers(BigInteger.valueOf(getIncomeCnt(dkIncomeAtsAtExit)));
+			q25eData.setQ25fAdultsWithDontRefusedIncomeStayers(BigInteger.valueOf(getIncomeCnt(dkIncomeAtAnnualAssesment)));
 			
-			List<IncomeSourceModel> dkIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.EIGHT.getValue(), income.getIncomefromanysource()) || StringUtils.equals(NoYesEnum.NINE.getValue(), income.getIncomefromanysource())) ).collect(Collectors.toList());
-			List<IncomeSourceModel> dkIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.EIGHT.getValue(), income.getIncomefromanysource()) || StringUtils.equals(NoYesEnum.NINE.getValue(), income.getIncomefromanysource())) ).collect(Collectors.toList());
-			List<IncomeSourceModel> dkIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.EIGHT.getValue(), income.getIncomefromanysource()) || StringUtils.equals(NoYesEnum.NINE.getValue(), income.getIncomefromanysource())) ).collect(Collectors.toList());
-
-			q18eData.setQ25fAdultsWithDontRefusedIncomeAtEntry(BigInteger.valueOf(dkIncomeAtEntry != null ? dkIncomeAtEntry.size(): 0));
-			q18eData.setQ25fAdultsWithDontRefusedIncomeLeavers(BigInteger.valueOf(dkIncomeAtsAtExit != null ? dkIncomeAtsAtExit.size() : 0));
-			q18eData.setQ25fAdultsWithDontRefusedIncomeStayers(BigInteger.valueOf(dkIncomeAtAnnualAssesment  != null ? dkIncomeAtAnnualAssesment.size() : 0));
-			
-			List<IncomeSourceModel> missingIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.NINTY_NINE.getValue(), income.getIncomefromanysource()) )).collect(Collectors.toList());
-			List<IncomeSourceModel> missingIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.NINTY_NINE.getValue(), income.getIncomefromanysource()) )).collect(Collectors.toList());
-			List<IncomeSourceModel> missingIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.NINTY_NINE.getValue(), income.getIncomefromanysource()) )).collect(Collectors.toList());
+			List<IncomeAndSourceModel> missingIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.NINTY_NINE.getValue(), income.getIncomefromanysource()) )).collect(Collectors.toList());
+			List<IncomeAndSourceModel> missingIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.NINTY_NINE.getValue(), income.getIncomefromanysource()) )).collect(Collectors.toList());
+			List<IncomeAndSourceModel> missingIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> income != null && ( StringUtils.equals(NoYesEnum.NINTY_NINE.getValue(), income.getIncomefromanysource()) )).collect(Collectors.toList());
 			
 		
-			q18eData.setQ25fAdultsWithMissingInomeInfoAtEntry(BigInteger.valueOf(missingIncomeAtEntry != null ? missingIncomeAtEntry .size() :0));
-			q18eData.setQ25fAdultsWithMissingInomeInfoLeavers(BigInteger.valueOf(missingIncomeAtsAtExit != null ? missingIncomeAtsAtExit.size() :0 ));
-			q18eData.setQ25fAdultsWithMissingInomeInfoStayers(BigInteger.valueOf(missingIncomeAtAnnualAssesment != null ? missingIncomeAtAnnualAssesment.size() :0));
+			q25eData.setQ25fAdultsWithMissingInomeInfoAtEntry(BigInteger.valueOf(getIncomeCnt(missingIncomeAtEntry)));
+			q25eData.setQ25fAdultsWithMissingInomeInfoLeavers(BigInteger.valueOf(getIncomeCnt(missingIncomeAtsAtExit)));
+			q25eData.setQ25fAdultsWithMissingInomeInfoStayers(BigInteger.valueOf(getIncomeCnt(missingIncomeAtAnnualAssesment)));
 			
-			List<IncomeSourceModel> noIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> income.getIncomeAmount() != null && income.getIncomeAmount().floatValue() ==0 ).collect(Collectors.toList());
-			List<IncomeSourceModel> noIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> income.getIncomeAmount() != null && income.getIncomeAmount().floatValue() ==0).collect(Collectors.toList());
-			List<IncomeSourceModel> noIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> income.getIncomeAmount() != null && income.getIncomeAmount().floatValue() ==0).collect(Collectors.toList());
-			
-			
-			q18eData.setQ25fAdultsWithNoIncomeAtEntry(BigInteger.valueOf(noIncomeAtEntry !=null ? noIncomeAtEntry.size() :0));
-			q18eData.setQ25fAdultsWithNoIncomeLeavers(BigInteger.valueOf(noIncomeAtsAtExit != null ? noIncomeAtsAtExit.size() :0 ));
-			q18eData.setQ25fAdultsWithNoIncomeStayers(BigInteger.valueOf(noIncomeAtAnnualAssesment != null ? noIncomeAtAnnualAssesment.size() :0));
+			List<IncomeAndSourceModel> noIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) ==0 ).collect(Collectors.toList());
+			List<IncomeAndSourceModel> noIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
+			List<IncomeAndSourceModel> noIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) ==0).collect(Collectors.toList());
 			
 			
-		
-			q18eData.setQ25fNumberOfAdultStayersNotYetRequiredAtEntry(BigInteger.valueOf(0));
-			q18eData.setQ25fNumberOfAdultStayersNotYetRequiredLeavers(BigInteger.valueOf(0));
-			q18eData.setQ25fNumberOfAdultStayersNotYetRequiredStayers(data.getNumOfAdultStayersNotRequiredAnnualAssesment());
+			q25eData.setQ25fAdultsWithNoIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(noIncomeAtEntry)));
+			q25eData.setQ25fAdultsWithNoIncomeLeavers(BigInteger.valueOf(getIncomeCnt(noIncomeAtsAtExit)));
+			q25eData.setQ25fAdultsWithNoIncomeStayers(BigInteger.valueOf(getIncomeCnt(noIncomeAtAnnualAssesment)));
+			int sizeAtEntry = getSize(earnedIncomeAtEntry) + getSize(bothEarnedAndOtherIncomeAtEntry) + getSize(noearnedIncomeAtEntry) + getSize(otherIncomeAtEntry) + getSize(dkIncomeAtEntry) + getSize(missingIncomeAtEntry);
+			int sizeAtEsxit = getSize(earnedIncomeAtsAtExit) + getSize(bothEarnedAndOtherIncomeAtsAtExit) + getSize(noearnedIncomeAtExit) + getSize(otherIncomeAtsAtExit) + getSize(dkIncomeAtsAtExit)+ getSize(missingIncomeAtsAtExit);
+			int sizeAtAA = getSize(earnedIncomeAtAnnualAssesment) + getSize(bothEarnedAndOtherIncomeAtAnnualAssesment) + getSize(noearnedIncomeAtAnnualAssesment) + getSize(otherIncomeAtAnnualAssesment) + getSize(dkIncomeAtAnnualAssesment)+ getSize(missingIncomeAtAnnualAssesment);
+			q25eData.setQ25fNumberOfAdultStayersNotYetRequiredAtEntry(BigInteger.valueOf(0));
+			q25eData.setQ25fNumberOfAdultStayersNotYetRequiredLeavers(BigInteger.valueOf(0));
+			q25eData.setQ25fNumberOfAdultStayersNotYetRequiredStayers(BigInteger.valueOf(0));
 			
-			q18eData.setQ25fNumberOfAdultStayersWithoutRequiredAtEntry(BigInteger.valueOf(0));
-			q18eData.setQ25fNumberOfAdultStayersWithoutRequiredLeavers(BigInteger.valueOf(0));
-			q18eData.setQ25fNumberOfAdultStayersWithoutRequiredStayers(data.getNumOfAdultStayersWithoutRequiredAnnualAssesment());
+			q25eData.setQ25fNumberOfAdultStayersWithoutRequiredAtEntry(BigInteger.valueOf(0));
+			q25eData.setQ25fNumberOfAdultStayersWithoutRequiredLeavers(BigInteger.valueOf(0));
+			q25eData.setQ25fNumberOfAdultStayersWithoutRequiredStayers(BigInteger.valueOf(0));
 			
 			
-			q18eData.setQ25fTotalAdultsAtEntry(BigInteger.valueOf(getSize(data.getVeterans())));
-			q18eData.setQ25fTotalAdultsLeavers(data.getTotNoOfAdultLeavers());
-			q18eData.setQ25fTotalAdultsStayers(data.getTotNoOfAdultStayers());
+			q25eData.setQ25fTotalAdultsAtEntry(BigInteger.valueOf(getSize(data.getVeterans())));
+			q25eData.setQ25fTotalAdultsLeavers(BigInteger.valueOf(sizeAtEsxit));
+			q25eData.setQ25fTotalAdultsStayers(BigInteger.valueOf(sizeAtAA));
+			List<IncomeAndSourceModel> oneOrMoreIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >0 ).collect(Collectors.toList());
+			List<IncomeAndSourceModel> oneOrMoreIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >0).collect(Collectors.toList());
+			List<IncomeAndSourceModel> oneOrMoreIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> getFloat(income.getTotalmonthlyincome()) >0).collect(Collectors.toList());
 			
-			List<IncomeSourceModel> oneOrMoreIncomeAtEntry = incomeAtEntry.parallelStream().filter(income -> income.getIncomeAmount() != null && income.getIncomeAmount().floatValue() >0 ).collect(Collectors.toList());
-			List<IncomeSourceModel> oneOrMoreIncomeAtsAtExit = incomeAtExit.parallelStream().filter(income -> income.getIncomeAmount() != null && income.getIncomeAmount().floatValue() >0).collect(Collectors.toList());
-			List<IncomeSourceModel> oneOrMoreIncomeAtAnnualAssesment = incomeAtAnnualAssesment.parallelStream().filter(income -> income.getIncomeAmount() != null && income.getIncomeAmount().floatValue() >0).collect(Collectors.toList());
-			
-			q18eData.setQ25f1OrMoreSourceOfIncomeAtEntry(BigInteger.valueOf(oneOrMoreIncomeAtEntry != null ? oneOrMoreIncomeAtEntry.size() :0));
-			q18eData.setQ25f1OrMoreSourceOfIncomeLeavers(BigInteger.valueOf(oneOrMoreIncomeAtsAtExit != null ? oneOrMoreIncomeAtsAtExit.size() :0));
-			q18eData.setQ25f1OrMoreSourceOfIncomeStayers(BigInteger.valueOf(oneOrMoreIncomeAtAnnualAssesment != null ? oneOrMoreIncomeAtAnnualAssesment.size() :0));
+			q25eData.setQ25f1OrMoreSourceOfIncomeAtEntry(BigInteger.valueOf(getIncomeCnt(oneOrMoreIncomeAtEntry)));
+			q25eData.setQ25f1OrMoreSourceOfIncomeLeavers(BigInteger.valueOf(getIncomeCnt(oneOrMoreIncomeAtsAtExit)));
+			q25eData.setQ25f1OrMoreSourceOfIncomeStayers(BigInteger.valueOf(getIncomeCnt(oneOrMoreIncomeAtAnnualAssesment)));
 			} catch (Exception e) {
 				logger.error("Error in Q25fBeanMaker:" + e);
 			}
 			}
-			return Arrays.asList(q18eData);
-		}
-		
-		
-		
-		public static List<IncomeSourceModel> getIncome(String schema,String query,String datacollectionStage,ReportData data) {
-			List<IncomeSourceModel> incomes = new ArrayList<>();
-			ResultSet resultSet = null;
-			Statement statement = null;
-			Connection connection = null;
-			try {
-				connection = ImpalaConnection.getConnection();
-				statement = connection.createStatement();
-				data.setQueryDataCollectionStage(datacollectionStage);
-				resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
-			 while(resultSet.next()) {
-				 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
-				 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
-				 BigInteger totIncome = new BigInteger(String.valueOf(totalIncome));
-				 int earned = getFloatValue(resultSet,3);
-				 String earnedIncome = String.valueOf(earned);
-				 BigInteger earnedIncomeBigInt = new BigInteger(earnedIncome);
-				 String dedupClientId = (String) resultSet.getObject(16);
-				 BigInteger otherIncome = BigInteger.ZERO;
-				 if( totIncome != null &&  totIncome.longValue() > 0 ) {
-					 otherIncome = totIncome.subtract(earnedIncomeBigInt != null  && earnedIncomeBigInt.longValue() > 0 ? earnedIncomeBigInt : BigInteger.ZERO);
-				 }
-				 String incomefromanysource = (String) resultSet.getString("incomefromanysource");
-				 incomes.add(new IncomeSourceModel(totIncome, earnedIncomeBigInt, otherIncome, dedupClientId,incomefromanysource));
-			 }
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (statement != null) {
-					try {
-						statement.close();
-						//connection.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-			return incomes;
-		}
-		
-		public static List<IncomeSourceModel> getQ18IncomeForAnnualAssesment(ReportData data,String query,String datacollectionStage) {
-			List<IncomeSourceModel> incomes = new ArrayList<>();
-			ResultSet resultSet = null;
-			Statement statement = null;
-			Connection connection = null;
-			try {
-				connection = ImpalaConnection.getConnection();
-				statement = connection.createStatement();
-				data.setQueryDataCollectionStage(datacollectionStage);
-				 List<String> projectIds = data.getProjectIds();
-				 String projectQuery = " and p.id in ( ";
-				 StringBuilder builder = new StringBuilder(projectQuery);
-				 if(CollectionUtils.isNotEmpty(projectIds)) {
-					 for(String project : projectIds) {
-							 builder.append("'"+project+"'");
-							 builder.append(",");
-					 }
-				 }
-				 builder.deleteCharAt(builder.length()-1);
-				 builder.append(" ) ");
-				String newQuery = query;
-				newQuery = query.replace("%p", builder.toString());
-				resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
-				
-			 while(resultSet.next()) {
-				 int totalIncome = getFloatValue(resultSet,1)+getFloatValue(resultSet,2)+getFloatValue(resultSet,3)+getFloatValue(resultSet,4)+getFloatValue(resultSet,5)+getFloatValue(resultSet,6)+getFloatValue(resultSet,7)+
-				 getFloatValue(resultSet,8)+getFloatValue(resultSet,9)+getFloatValue(resultSet,10)+getFloatValue(resultSet,11)+getFloatValue(resultSet,12)+getFloatValue(resultSet,13)+getFloatValue(resultSet,14)+getFloatValue(resultSet,15);
-				 BigInteger totIncome = new BigInteger(String.valueOf(totalIncome));
-				 int earned = getFloatValue(resultSet,3);
-				 String earnedIncome = String.valueOf(earned);
-				 BigInteger earnedIncomeBigInt = new BigInteger(earnedIncome);
-				 String dedupClientId = (String) resultSet.getObject(16);
-				 BigInteger otherIncome = BigInteger.ZERO;
-				 if( totIncome != null &&  totIncome.longValue() > 0 ) {
-					 otherIncome = totIncome.subtract(earnedIncomeBigInt != null  && earnedIncomeBigInt.longValue() > 0 ? earnedIncomeBigInt : BigInteger.ZERO);
-				 }
-				 String incomefromanysource = (String) resultSet.getString("incomefromanysource");
-				 incomes.add(new IncomeSourceModel(totIncome, earnedIncomeBigInt, otherIncome, dedupClientId,incomefromanysource));
-			 }
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (statement != null) {
-					try {
-						statement.close();
-						//connection.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-			return incomes;
-		}
-		
-		public static int getIncomeCnt(String schema,String query,String datacollectionStage,ReportData data) {
-			ResultSet resultSet = null;
-			Statement statement = null;
-			Connection connection = null;
-			int count =0;
-			try {
-				connection = ImpalaConnection.getConnection();
-				statement = connection.createStatement();
-				data.setQueryDataCollectionStage(datacollectionStage);
-				
-				resultSet = statement.executeQuery(formatQuery(getQueryForProjectDB(data, query),schema,data));
-				
-			 while(resultSet.next()) {
-				 count = resultSet.getInt(1);
-		     }
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (statement != null) {
-					try {
-						statement.close();
-						//connection.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-			return count;
+			return Arrays.asList(q25eData);
 		}
 		
 	}
