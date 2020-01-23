@@ -66,11 +66,6 @@
 
         <dependency>
             <groupId>org.apache.hive</groupId>
-            <artifactId>hive-exec</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hive</groupId>
             <artifactId>hive-jdbc</artifactId>
             <version>1.2.1</version>
         </dependency>
@@ -83,6 +78,13 @@
             <groupId>org.apache.hive</groupId>
             <artifactId>hive-service</artifactId>
             <version>1.2.1</version>
+            <exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>org.pentaho</groupId>
+					<artifactId>pentaho-aggdesigner-algorithm</artifactId>
+				</exclusion>
+			</exclusions>
         </dependency>
 
         <dependency>
