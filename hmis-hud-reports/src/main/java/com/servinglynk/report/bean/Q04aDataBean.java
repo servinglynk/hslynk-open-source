@@ -12,7 +12,29 @@ public class Q04aDataBean extends ReportBean{
 	private String q04aOrgName;
 	private String q04aProjectId;
 	private String q04aProjectName;
+	private String q04acocNumber;
+	private String q04aGeoCode;
+	private String q04aVictimServiceProvider;
+	private String q04aReportStartDate;
+	private String q04aReportEndDate;
+	private String q04aHmisSoftwareName;
 	
+	
+	/***
+	 * 2.01.2	Organization Name
+2.01.1	Organization ID
+2.02.2	Project Name
+2.02.1	Project ID
+2.02.6	HMIS Project Type
+2.02.6C	Method for Tracking ES 
+2.02.6A	Is the Services Only (HMIS Project Type 6) affiliated with a residential project?
+2.02.6B	Identify the Project ID’s of the housing projects this project is affiliated with
+2.03.1	CoC Number
+2.03.2	Geocode
+2.01.3	Victim Service Provider
+
+	 * @return
+	 */
 	public BigInteger getQ04aHmisProjectIdService() {
 		return q04aHmisProjectIdService;
 	}
@@ -61,6 +83,41 @@ public class Q04aDataBean extends ReportBean{
 	public void setQ04aProjectName(String q04aProjectName) {
 		this.q04aProjectName = q04aProjectName;
 	}
-	
+	public String getQ04acocNumber() {
+		return q04acocNumber;
+	}
+	public void setQ04acocNumber(String q04acocNumber) {
+		this.q04acocNumber = q04acocNumber;
+	}
+	public String getQ04aGeoCode() {
+		return q04aGeoCode;
+	}
+	public void setQ04aGeoCode(String q04aGeoCode) {
+		this.q04aGeoCode = q04aGeoCode;
+	}
+	public String getQ04aVictimServiceProvider() {
+		return q04aVictimServiceProvider;
+	}
+	public void setQ04aVictimServiceProvider(String q04aVictimServiceProvider) {
+		this.q04aVictimServiceProvider = q04aVictimServiceProvider;
+	}
+	public String getQ04aReportStartDate() {
+		return q04aReportStartDate;
+	}
+	public void setQ04aReportStartDate(String q04aReportStartDate) {
+		this.q04aReportStartDate = q04aReportStartDate;
+	}
+	public String getQ04aReportEndDate() {
+		return q04aReportEndDate;
+	}
+	public void setQ04aReportEndDate(String q04aReportEndDate) {
+		this.q04aReportEndDate = q04aReportEndDate;
+	}
+	public String getQ04aHmisSoftwareName() {
+		return q04aHmisSoftwareName;
+	}
+	public void setQ04aHmisSoftwareName(String q04aHmisSoftwareName) {
+		this.q04aHmisSoftwareName = q04aHmisSoftwareName;
+	}
 	
 	}
