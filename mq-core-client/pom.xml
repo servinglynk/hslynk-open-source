@@ -8,7 +8,7 @@
 		<parent>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hslynk-parent</artifactId>
-			<version>2.19.4</version>
+			<version>2.19.5</version>
 	</parent>
 	<properties>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
