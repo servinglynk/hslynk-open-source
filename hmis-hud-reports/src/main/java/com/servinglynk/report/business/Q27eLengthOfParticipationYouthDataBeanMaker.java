@@ -19,26 +19,14 @@ public class Q27eLengthOfParticipationYouthDataBeanMaker extends BaseBeanMaker {
 		String allQuery = " select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
 				" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id) "+
 				" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
-				" where e.ageatentry > = 18 and e.ageatentry < = 24 and  e.entrydate >= :startDate and e.entrydate <= :endDate "+// Added age for youth.
+				" where e.ageatentry > = 18 and e.ageatentry < = 24  %dedup  "+// Added age for youth.
 				" order by e.dedup_client_id,p.operatingstartdate asc ";
-		
-		String leaversQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
-						" join  %s.exit ext  on  (ext.enrollmentid = e.id and ext.exitdate >= :startDate and ext.exitdate <= :endDate) "+
-						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
-						" where e.ageatentry > = 18 and e.ageatentry < = 24 and  e.entrydate >= :startDate and e.entrydate <= :endDate "+// Added age for youth.
-						" order by e.dedup_client_id,p.operatingstartdate asc ";
-				
-		String stayersQuery = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
-						" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and  e.entrydate <= :startDate and (ext.exitdate is null  or ext.exitdate > :endDate) ) "+
-						" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
-						" where e.ageatentry > = 18 and e.ageatentry < = 24 and  e.entrydate >= :startDate and e.entrydate <= :endDate "+ // Added age for youth.
-						" order by e.dedup_client_id,p.operatingstartdate asc ";
 		
 		try {
 			if(data.isLiveMode()) {
 				List<Q22BeanModel> allData = getQ22Bean(data, allQuery, "ALL");
-				List<Q22BeanModel> allLeaversData = getQ22Bean(data, leaversQuery,"LEAVERS");
-				List<Q22BeanModel> allStayersData = getQ22Bean(data, stayersQuery,"STAYERS");
+				List<Q22BeanModel> allLeaversData = getQ22Bean(data, allQuery,"LEAVERS");
+				List<Q22BeanModel> allStayersData = getQ22Bean(data, allQuery,"STAYERS");
 				
 				if(CollectionUtils.isNotEmpty(allData)) {
 					allData.forEach(q22Bean -> populateBedNights(q22Bean, data));

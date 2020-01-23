@@ -361,7 +361,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16251To500IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16251To500IncomeAtExitforLeavers}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="4e6d2b80-e75a-4686-8004-343e39bdd147"/>
@@ -385,7 +385,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q16251To500IncomeAtExitforLeavers}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q16251To500IncomeAtLatestFollowupforStayers}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
