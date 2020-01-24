@@ -9,26 +9,33 @@ public class Q06aReportValidationsTableDataBean extends ReportBean{
 	private BigInteger nameInfoMissing=BigInteger.valueOf(0);
 	private BigInteger nameDataIssue=BigInteger.valueOf(0);
 	private BigInteger namePercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger nameTotal = BigInteger.valueOf(0);
 	private BigInteger ssnCDK=BigInteger.valueOf(0);
 	private BigInteger ssnInfoMissing=BigInteger.valueOf(0);
 	private BigInteger ssnDataIssue=BigInteger.valueOf(0);
 	private BigInteger ssnPercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger ssnTotal= BigInteger.valueOf(0);
 	private BigInteger dobCDK=BigInteger.valueOf(0);
 	private BigInteger dobInfoMissing=BigInteger.valueOf(0);
 	private BigInteger dobDataIssue=BigInteger.valueOf(0);
 	private BigInteger dobPercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger dobTotal= BigInteger.valueOf(0);
 	private BigInteger raceCDK=BigInteger.valueOf(0);
 	private BigInteger raceInfoMissing=BigInteger.valueOf(0);
 	private BigInteger raceDataIssue=BigInteger.valueOf(0);
 	private BigInteger racePercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger raceTotal = BigInteger.valueOf(0);
 	private BigInteger ethnicityCDK=BigInteger.valueOf(0);
 	private BigInteger ethnicityInfoMissing=BigInteger.valueOf(0);
 	private BigInteger ethnicityDataIssue=BigInteger.valueOf(0);
 	private BigInteger ethnicityPercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger ethnicityTotal = BigInteger.valueOf(0);
 	private BigInteger genderCDK=BigInteger.valueOf(0);
 	private BigInteger genderInfoMissing=BigInteger.valueOf(0);
 	private BigInteger genderPercentageErrorRate=BigInteger.valueOf(0);
+	private BigInteger genderTotal = BigInteger.valueOf(0);
 	private BigInteger overAllPercentage=BigInteger.valueOf(0);
+	private BigInteger overAllTotal = BigInteger.valueOf(0);
 	public BigInteger getNameCDK() {
 		return nameCDK;
 	}
@@ -174,7 +181,46 @@ public class Q06aReportValidationsTableDataBean extends ReportBean{
 	public void setOverAllPercentage(BigInteger overAllPercentage) {
 		this.overAllPercentage = overAllPercentage;
 	}
-	
-	
-	
+	public BigInteger getNameTotal() {
+		return nameTotal;
+	}
+	public void setNameTotal(BigInteger nameTotal) {
+		this.nameTotal = nameTotal;
+	}
+	public BigInteger getSsnTotal() {
+		return ssnTotal;
+	}
+	public void setSsnTotal(BigInteger ssnTotal) {
+		this.ssnTotal = ssnTotal;
+	}
+	public BigInteger getDobTotal() {
+		return dobTotal;
+	}
+	public void setDobTotal(BigInteger dobTotal) {
+		this.dobTotal = dobTotal;
+	}
+	public BigInteger getRaceTotal() {
+		return raceTotal;
+	}
+	public void setRaceTotal(BigInteger raceTotal) {
+		this.raceTotal = raceTotal;
+	}
+	public BigInteger getEthnicityTotal() {
+		return ethnicityTotal;
+	}
+	public void setEthnicityTotal(BigInteger ethnicityTotal) {
+		this.ethnicityTotal = ethnicityTotal;
+	}
+	public BigInteger getGenderTotal() {
+		return genderTotal;
+	}
+	public void setGenderTotal(BigInteger genderTotal) {
+		this.genderTotal = genderTotal;
+	}
+	public BigInteger getOverAllTotal() {
+		return overAllTotal;
+	}
+	public void setOverAllTotal(BigInteger overAllTotal) {
+		this.overAllTotal = overAllTotal;
+	}
 }

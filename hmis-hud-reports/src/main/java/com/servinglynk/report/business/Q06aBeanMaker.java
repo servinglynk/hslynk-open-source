@@ -15,26 +15,33 @@ public class Q06aBeanMaker extends BaseBeanMaker {
 	public static  Long nameInfoMissing = 0L;
 	public static  Long nameDataIssue = 0L;
 	public static  Long namePercentageErrorRate = 0L;
+	public static  Long nameTotal = 0L;
 	public static  Long ssnCDK = 0L;
 	public static  Long ssnInfoMissing = 0L;
 	public static  Long ssnDataIssue = 0L;
 	public static  Long ssnPercentageErrorRate = 0L;
+	public static  Long ssnTotal= 0L;
 	public static  Long dobCDK = 0L;
 	public static  Long dobInfoMissing = 0L;
 	public static  Long dobDataIssue = 0L;
 	public static  Long dobPercentageErrorRate = 0L;
+	public static  Long dobTotal= 0L;
 	public static  Long raceCDK = 0L;
 	public static  Long raceInfoMissing = 0L;
 	public static  Long raceDataIssue = 0L;
 	public static Long racePercentageErrorRate = 0L;
+	public static Long raceTotal = 0L;
 	public static Long ethnicityCDK = 0L;
 	public static Long ethnicityInfoMissing = 0L;
 	public static Long ethnicityDataIssue = 0L;
 	public static Long ethnicityPercentageErrorRate = 0L;
+	public static Long ethnicityTotal = 0L;
 	public static Long genderCDK = 0L;
 	public static Long genderInfoMissing = 0L;
 	public static Long genderPercentageErrorRate = 0L;
+	public static Long genderTotal = 0L;
 	public static Long overAllPercentage = 0L;
+	public static Long overAllTotal = 0L;
 	
 	/***
 	 *  Sandeep TODO: Need to determine the value for DataIssue and PercentageErrorRate field.
@@ -118,30 +125,47 @@ public class Q06aBeanMaker extends BaseBeanMaker {
 				}
 			}
 			);
+			
+			nameTotal = nameCDK + nameInfoMissing + nameDataIssue;
+			ssnTotal = ssnCDK+ssnInfoMissing+ssnDataIssue;
+			dobTotal = dobCDK+dobInfoMissing+dobDataIssue;
+			raceTotal = raceCDK+raceInfoMissing+raceDataIssue;
+			ethnicityTotal = ethnicityCDK+ethnicityInfoMissing+ethnicityDataIssue;
+			genderTotal = genderCDK+genderInfoMissing;
+			overAllTotal = nameTotal + ssnTotal + dobTotal + raceTotal + ethnicityTotal + genderTotal;
 			q06aBean.setNameCDK(BigInteger.valueOf(nameCDK));
 			q06aBean.setNameInfoMissing(BigInteger.valueOf(nameInfoMissing));
 			q06aBean.setNameDataIssue(BigInteger.valueOf(nameDataIssue));
-			q06aBean.setNamePercentageErrorRate(BigInteger.valueOf((nameCDK+nameInfoMissing+nameDataIssue)/numOfClients));
+			q06aBean.setNameTotal(BigInteger.valueOf(nameTotal));
+			q06aBean.setNamePercentageErrorRate(BigInteger.valueOf(nameTotal/numOfClients));
 			q06aBean.setSsnCDK(BigInteger.valueOf(ssnCDK));
 			q06aBean.setSsnInfoMissing(BigInteger.valueOf(ssnInfoMissing));
 			q06aBean.setSsnDataIssue(BigInteger.valueOf(ssnDataIssue));
-			q06aBean.setSsnPercentageErrorRate(BigInteger.valueOf((ssnCDK+ssnInfoMissing+ssnDataIssue)/numOfClients));
+			q06aBean.setSsnTotal(BigInteger.valueOf(ssnTotal));
+			q06aBean.setSsnPercentageErrorRate(BigInteger.valueOf(ssnTotal/numOfClients));
 			q06aBean.setDobCDK(BigInteger.valueOf(ssnCDK));
 			q06aBean.setDobInfoMissing(BigInteger.valueOf(ssnInfoMissing));
 			q06aBean.setDobDataIssue(BigInteger.valueOf(dobDataIssue));
-			q06aBean.setDobPercentageErrorRate(BigInteger.valueOf((ssnCDK+ssnInfoMissing+dobDataIssue)/numOfClients)); 
+			q06aBean.setDobPercentageErrorRate(BigInteger.valueOf(dobTotal/numOfClients)); 
+			q06aBean.setDobTotal(BigInteger.valueOf(dobTotal));
 			q06aBean.setRaceCDK(BigInteger.valueOf(raceCDK));
 			q06aBean.setRaceInfoMissing(BigInteger.valueOf(raceInfoMissing));
 			q06aBean.setRaceDataIssue(BigInteger.valueOf(raceDataIssue));
-			q06aBean.setRacePercentageErrorRate(BigInteger.valueOf((raceCDK+raceInfoMissing+raceDataIssue)/numOfClients));
+			q06aBean.setRaceTotal(BigInteger.valueOf(raceTotal));
+			
+			q06aBean.setRacePercentageErrorRate(BigInteger.valueOf(raceTotal/numOfClients));
 			q06aBean.setEthnicityCDK(BigInteger.valueOf(ethnicityCDK));
 			q06aBean.setEthnicityInfoMissing(BigInteger.valueOf(ethnicityInfoMissing));
 			q06aBean.setEthnicityDataIssue(BigInteger.valueOf(ethnicityDataIssue));
-			q06aBean.setEthnicityPercentageErrorRate(BigInteger.valueOf((ethnicityCDK+ethnicityInfoMissing+ethnicityDataIssue)/numOfClients));
+			q06aBean.setEthnicityTotal(BigInteger.valueOf(ethnicityTotal));
+			q06aBean.setEthnicityPercentageErrorRate(BigInteger.valueOf(ethnicityTotal/numOfClients));
+			q06aBean.setGenderTotal(BigInteger.valueOf(genderTotal));
 			q06aBean.setGenderCDK(BigInteger.valueOf(genderCDK));
 			q06aBean.setGenderInfoMissing(BigInteger.valueOf(genderInfoMissing));
-			q06aBean.setGenderPercentageErrorRate(BigInteger.valueOf((genderCDK+genderInfoMissing)/numOfClients));
+			
+			q06aBean.setGenderPercentageErrorRate(BigInteger.valueOf(genderTotal/numOfClients));
 			q06aBean.setOverAllPercentage(BigInteger.valueOf(0));
+			q06aBean.setOverAllTotal(BigInteger.valueOf(overAllTotal));
 		}catch(Exception e) {
 			logger.error("Error in Q06aBeanMaker:"+e);
 		}
