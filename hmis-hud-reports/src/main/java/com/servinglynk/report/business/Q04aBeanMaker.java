@@ -5,7 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +44,17 @@ public class Q04aBeanMaker {
 					 q04aDataBean.setQ04aHmisProjectType(resultSet.getString("projecttype_desc"));
 					 q04aDataBean.setQ04aProjectId(resultSet.getString("source_system_id"));
 					 q04aDataBean.setQ04aMethodOfTracking(resultSet.getString("trackingmethod_desc"));
+						DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+						// dataBean.setHomePageEndDate(dateFormat.format(date));
+					 q04aDataBean.setQ04aReportStartDate(dateFormat.format(data.getReportStartDate()));
+					 q04aDataBean.setQ04aReportEndDate(dateFormat.format(data.getReportEndDate()));
+			
+					 q04aDataBean.setQ04aHmisSoftwareName("ServingLynk LLC");
+				 //	 q04aDataBean.setQ04aGeoCode(q04aGeoCode);
+				 //	 q04aDataBean.setQ04aVictimServiceProvider(q04aVictimServiceProvider);
+				//	 q04aDataBean.setQ04aAffiliatedResidentialProject(q04aAffiliatedResidentialProject);
+				//	 q04aDataBean.setQ04aProjectIdsOfAffiliation(q04aProjectIdsOfAffiliation);
+				  // q04aDataBean.setQ04acocNumber(q04acocNumber);
 					 String organizationId = resultSet.getString("organizationid");
 					 ProjectModel project = new ProjectModel(q04aDataBean.getQ04aProjectName(), q04aDataBean.getQ04aHmisProjectType(), id, q04aDataBean.getQ04aOrgId(),resultSet.getString("trackingmethod"));
 					 data.setProject(project);

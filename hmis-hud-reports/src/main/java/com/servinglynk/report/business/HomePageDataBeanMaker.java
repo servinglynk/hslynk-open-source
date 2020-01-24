@@ -160,10 +160,10 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			
 			if(CollectionUtils.isNotEmpty(projects)) {
 				List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projects.get(0).getProjectId(),data);
-				CSVGenerator.buildReport(q04aDataBeanList, "Q4a.jrxml", "Q4a.csv",data);
+				CSVGenerator.buildReport(q04aDataBeanList, "Q4a-1.jrxml", "Q4a.csv",data);
 			}else {
 				List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,null,data);
-				CSVGenerator.buildReport(q04aDataBeanList, "Q4a.jrxml", "Q4a.csv",data);
+				CSVGenerator.buildReport(q04aDataBeanList, "Q4a-1.jrxml", "Q4a.csv",data);
 			}
 			
 			
