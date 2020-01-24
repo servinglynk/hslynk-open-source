@@ -12,6 +12,8 @@ public class Q04aDataBean extends ReportBean{
 	private String q04aOrgName;
 	private String q04aProjectId;
 	private String q04aProjectName;
+	private String q04aAffiliatedResidentialProject;
+	private String q04aProjectIdsOfAffiliation;
 	private String q04acocNumber;
 	private String q04aGeoCode;
 	private String q04aVictimServiceProvider;
@@ -82,6 +84,18 @@ public class Q04aDataBean extends ReportBean{
 	}
 	public void setQ04aProjectName(String q04aProjectName) {
 		this.q04aProjectName = q04aProjectName;
+	}
+	public String getQ04aAffiliatedResidentialProject() {
+		return q04aAffiliatedResidentialProject;
+	}
+	public void setQ04aAffiliatedResidentialProject(String q04aAffiliatedResidentialProject) {
+		this.q04aAffiliatedResidentialProject = q04aAffiliatedResidentialProject;
+	}
+	public String getQ04aProjectIdsOfAffiliation() {
+		return q04aProjectIdsOfAffiliation;
+	}
+	public void setQ04aProjectIdsOfAffiliation(String q04aProjectIdsOfAffiliation) {
+		this.q04aProjectIdsOfAffiliation = q04aProjectIdsOfAffiliation;
 	}
 	public String getQ04acocNumber() {
 		return q04acocNumber;
