@@ -79,6 +79,21 @@
 	<field name="totUnknownHousehold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[totUnknownHousehold]]></fieldDescription>
 	</field>
+	<field name="pshRrhTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pshRrhTotal]]></fieldDescription>
+	</field>
+	<field name="pshRrhWithOutChildren" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pshRrhWithOutChildren]]></fieldDescription>
+	</field>
+	<field name="pshRrhWithChildAndAdults" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pshRrhWithChildAndAdults]]></fieldDescription>
+	</field>
+	<field name="pshRrhWithOnlychildren" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pshRrhWithOnlychildren]]></fieldDescription>
+	</field>
+	<field name="pshRrhUnknownHousehold" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pshRrhUnknownHousehold]]></fieldDescription>
+	</field>
 	<group name="Group5">
 		<groupFooter>
 			<band height="51">
@@ -549,7 +564,7 @@
 			</band>
 			<band height="24">
 				<staticText>
-					<reportElement x="0" y="0" width="115" height="24" forecolor="#000000" uuid="e9e55af9-4fd0-4e9a-a9ee-c0b6574d3536"/>
+					<reportElement x="0" y="0" width="115" height="24" uuid="e9e55af9-4fd0-4e9a-a9ee-c0b6574d3536"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -560,10 +575,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  Total]]></text>
+					<text><![CDATA[  For PSH & RRH – the total persons served who moved into housing]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="115" y="0" width="61" height="24" backcolor="#CCCCCC" uuid="171b6889-1e44-4133-9b42-4850a0a8f90b"/>
+					<reportElement mode="Opaque" x="115" y="0" width="61" height="24" uuid="171b6889-1e44-4133-9b42-4850a0a8f90b"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -572,10 +587,10 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{totTotal}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{pshRrhTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="260" y="0" width="99" height="24" backcolor="#CCCCCC" uuid="87979b7a-7096-4882-b795-eec13deb68eb"/>
+					<reportElement mode="Opaque" x="260" y="0" width="99" height="24" uuid="87979b7a-7096-4882-b795-eec13deb68eb"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -584,10 +599,10 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{totWithChildAndAdults}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{pshRrhWithChildAndAdults}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="359" y="0" width="99" height="24" backcolor="#CCCCCC" uuid="35eed267-228b-46b0-9000-8c0fa567ccb9"/>
+					<reportElement mode="Opaque" x="359" y="0" width="99" height="24" uuid="35eed267-228b-46b0-9000-8c0fa567ccb9"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -596,10 +611,10 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{totWithOnlychildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{pshRrhWithOnlychildren}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="458" y="0" width="97" height="24" backcolor="#CCCCCC" uuid="b7cbf078-c5df-4b87-ad14-b7b5d360ef0c"/>
+					<reportElement mode="Opaque" x="458" y="0" width="97" height="24" uuid="b7cbf078-c5df-4b87-ad14-b7b5d360ef0c"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -608,10 +623,10 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{totUnknownHousehold}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{pshRrhUnknownHousehold}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="176" y="0" width="84" height="24" backcolor="#CCCCCC" uuid="40b9f359-ce05-4f03-b6ab-4bf8cb1bec1b"/>
+					<reportElement mode="Opaque" x="176" y="0" width="84" height="24" uuid="40b9f359-ce05-4f03-b6ab-4bf8cb1bec1b"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -620,7 +635,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{totWithOutChildren}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{pshRrhWithOutChildren}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>

@@ -29,6 +29,11 @@ public class Q07aHouseholdsServedDataBean {
 	private BigInteger totWithChildAndAdults=BigInteger.valueOf(0);
 	private BigInteger totWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger totUnknownHousehold=BigInteger.valueOf(0);
+	private BigInteger pshRrhTotal = BigInteger.valueOf(0);
+	private BigInteger pshRrhWithOutChildren=BigInteger.valueOf(0);
+	private BigInteger pshRrhWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger pshRrhWithOnlychildren=BigInteger.valueOf(0);
+	private BigInteger pshRrhUnknownHousehold=BigInteger.valueOf(0);
 	public BigInteger getAdultsTotal() {
 		return adultsTotal;
 	}
@@ -180,6 +185,35 @@ public class Q07aHouseholdsServedDataBean {
 	public void setTotUnknownHousehold(BigInteger totUnknownHousehold) {
 		this.totUnknownHousehold = totUnknownHousehold;
 	}
-	
+	public BigInteger getPshRrhTotal() {
+		return pshRrhTotal;
+	}
+	public void setPshRrhTotal(BigInteger pshRrhTotal) {
+		this.pshRrhTotal = pshRrhTotal;
+	}
+	public BigInteger getPshRrhWithOutChildren() {
+		return pshRrhWithOutChildren;
+	}
+	public void setPshRrhWithOutChildren(BigInteger pshRrhWithOutChildren) {
+		this.pshRrhWithOutChildren = pshRrhWithOutChildren;
+	}
+	public BigInteger getPshRrhWithChildAndAdults() {
+		return pshRrhWithChildAndAdults;
+	}
+	public void setPshRrhWithChildAndAdults(BigInteger pshRrhWithChildAndAdults) {
+		this.pshRrhWithChildAndAdults = pshRrhWithChildAndAdults;
+	}
+	public BigInteger getPshRrhWithOnlychildren() {
+		return pshRrhWithOnlychildren;
+	}
+	public void setPshRrhWithOnlychildren(BigInteger pshRrhWithOnlychildren) {
+		this.pshRrhWithOnlychildren = pshRrhWithOnlychildren;
+	}
+	public BigInteger getPshRrhUnknownHousehold() {
+		return pshRrhUnknownHousehold;
+	}
+	public void setPshRrhUnknownHousehold(BigInteger pshRrhUnknownHousehold) {
+		this.pshRrhUnknownHousehold = pshRrhUnknownHousehold;
+	}
 	
 }
