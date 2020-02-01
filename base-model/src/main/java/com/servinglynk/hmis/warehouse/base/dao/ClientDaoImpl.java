@@ -31,7 +31,7 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 	@Autowired
 	BaseDaoFactory daoFactory;
 	
-//	@Autowired MessageSender messageSender;
+	@Autowired MessageSender messageSender;
 
 	@Override
 	public com.servinglynk.hmis.warehouse.model.base.Client createClient(
@@ -67,7 +67,7 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 			amqEvent.setPayload(data);
 			amqEvent.setModule("hmis");
 			amqEvent.setSubsystem("clientapi");
-//			messageSender.sendAmqMessage(amqEvent);	
+			messageSender.sendAmqMessage(amqEvent);	
 		
 	}
 
