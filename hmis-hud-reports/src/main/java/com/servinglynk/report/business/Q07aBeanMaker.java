@@ -131,15 +131,14 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         	q07aHouseholdsServed.setTotWithOnlychildren(BigInteger.valueOf(totWithOnlychildren));
         	q07aHouseholdsServed.setTotUnknownHousehold(BigInteger.valueOf(totUnknownHousehold));
         	
-        	String query = " select  e.dedup_client_id ,p.projecttype as projecttype,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
-					" left outer join  %s.moveindate mid  on  ( mid.enrollmentid = e.id and mid.moveindate is not null and mid.moveindate = :endDate ) "+
+			 
+        	String query = " select distinct e.dedup_client_id  from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
+					" left outer join  %s.moveindate mid  on  ( mid.enrollmentid = e.id ) "+
 					" where 1=1 %dedup " +
+					" and relationshiptohoh ='1' " +
+					" and mid.moveindate is not null and mid.moveindate <= :endDate "+
 					" order by e.dedup_client_id ";
         	
-        	List<String> pshRrhProjectsHHWithChildren  = getProjectsForHouseHoldType(data.getSchema(), getQueryForProjectDB(data,ReportQuery.PROJECT_WITH_HOUSEHOLD_ONLY_CHILDREN),data);
-        	List<String> pshRrhProjectsHHWithOneAdultChild  = getProjectsForHouseHoldType(data.getSchema(),  getQueryForProjectDB(data,ReportQuery.PROJECT_WITH_HOUSEHOLD_WITH_ONE_ADULT_CHILD),data);
-        	List<String> pshRrhProjectsHHWithOutChildren  = getProjectsForHouseHoldType(data.getSchema(),  getQueryForProjectDB(data,ReportQuery.PROJECT_WITH_HOUSEHOLD_WITHOUT_CHILDREN),data);
-        	List<String> pshRrhProjectsUnknownHouseHold  = getProjectsForHouseHoldType(data.getSchema(),  getQueryForProjectDB(data,ReportQuery.PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN),data);
         	
         	
         } catch (Exception e) {
