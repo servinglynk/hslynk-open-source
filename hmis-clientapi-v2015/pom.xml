@@ -21,6 +21,17 @@
 	</properties>
 
 	<dependencies>
+		     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	
 		<!-- Spring dependencies -->
 
 		<dependency>

@@ -31,7 +31,19 @@
 		<hibernate.version>4.2.0.Final</hibernate.version>
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 	</properties>
+	
 	<dependencies>
+		     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
