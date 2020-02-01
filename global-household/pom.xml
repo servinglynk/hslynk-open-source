@@ -95,7 +95,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.3-1101-jdbc41</version>
+			 
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -109,7 +109,7 @@
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
-			<version>1</version>
+ 
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -144,7 +144,7 @@
 			</plugin>
 
 			<!-- <plugin> <groupId>org.bsc.maven</groupId> <artifactId>maven-processor-plugin</artifactId> 
-				<version>2.2.4</version> <configuration> <defaultOutputDirectory> ${project.build.directory}/generated-sources 
+				   <configuration> <defaultOutputDirectory> ${project.build.directory}/generated-sources 
 				</defaultOutputDirectory> <processors> <processor>org.mapstruct.ap.MappingProcessor</processor> 
 				</processors> <options> <mapstruct.suppressGeneratorTimestamp>true</mapstruct.suppressGeneratorTimestamp> 
 				<mapstruct.defaultComponentModel>spring</mapstruct.defaultComponentModel> 
