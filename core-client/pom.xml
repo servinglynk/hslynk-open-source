@@ -23,9 +23,6 @@
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 		<spring.version>4.3.22.RELEASE</spring.version>
 	</properties>
-	<!-- <parent> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-parent</artifactId> 
-		<version>1.1.1.RELEASE</version> </parent> -->
-
 	<dependencies>
 		<!-- spring dependencies -->
 		<dependency>
