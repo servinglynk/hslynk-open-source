@@ -22,22 +22,22 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-solr</artifactId>
-			<version>1.1.1.RELEASE</version>
+			<version>${spring.boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-velocity</artifactId>
-			<version>1.1.1.RELEASE</version>
+			<version>${spring.boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<version>1.1.1.RELEASE</version>
+			<version>${spring.boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>1.1.1.RELEASE</version>
+			<version>${spring.boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
@@ -47,13 +47,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>5.0.2.RELEASE</version>
 			</dependency>
 		
 		 <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
-			<version>3.0.4.RELEASE</version>
 			</dependency>
 		
 		<dependency>
@@ -71,7 +69,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>1.1.1.RELEASE</version>
+			<version>${spring.boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -107,6 +105,7 @@
 
 	</dependencies>
 		<build>
+					<finalName>hmis-notification-service</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>

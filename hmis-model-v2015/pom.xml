@@ -245,42 +245,4 @@
 			
 		</plugins>
 	</build>
-<!-- 	<repositories>
-    <repository>
-      <id>central</id>
-      <name>Maven Repository Switchboard</name>
-      <layout>default</layout>
-      <url>http://52.39.104.238:8080/nexus/content/groups/public</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>central</id>
-      <name>Maven Plugin Repository</name>
-      <url>http://52.39.104.238:8080/nexus/content/groups/public</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories> 
-<distributionManagement>
-  <repository>
-     <id>deployment</id>
-     <name>Internal Releases</name>
-     <url>http://52.39.104.238:8080/nexus/content/repositories/releases/</url>
-  </repository>
-  <snapshotRepository>
-     <id>deployment</id>
-     <name>Internal Releases</name>
-     <url>http://52.39.104.238:8080/nexus/content/repositories/snapshots/</url>
-  </snapshotRepository>
-</distributionManagement> -->
 </project>

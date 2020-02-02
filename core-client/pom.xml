@@ -12,17 +12,6 @@
 	<scm>
 		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
 	</scm>
-	<properties>
-		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.7.5</org.slf4j-version>
-		<log4j-version>1.2.17</log4j-version>
-		<fasterxml-version>2.10.0</fasterxml-version>
-		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
-		<java-version>1.8</java-version>
-		<hibernate.version>4.2.0.Final</hibernate.version>
-		<commons.dbcp.version>1.4</commons.dbcp.version>
-		<spring.version>4.3.22.RELEASE</spring.version>
-	</properties>
 	<dependencies>
 		<!-- spring dependencies -->
 		<dependency>
