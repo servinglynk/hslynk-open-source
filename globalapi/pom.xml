@@ -7,9 +7,9 @@
 	<name>HMIS Global API</name>
 	<description>HMIS Global API</description>
 	<parent>
-		<groupId>com.servinglynk.hmis.warehouse</groupId>
-		<artifactId>hslynk-parent</artifactId>
-		<version>2.19.5</version>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hslynk-parent</artifactId>
+			<version>2.19.7</version>
 	</parent>
 	<dependencies>
 		<!-- Spring dependencies -->

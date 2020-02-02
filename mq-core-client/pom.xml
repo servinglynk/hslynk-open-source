@@ -5,10 +5,10 @@
 	<artifactId>mq-core-client</artifactId>
 	<name>Active MQ Core client </name>
 	<description>Core client for inter service calls (REST)</description>
-	<parent>
-		<groupId>com.servinglynk.hmis.warehouse</groupId>
-		<artifactId>hslynk-parent</artifactId>
-		<version>2.19.5</version>
+		<parent>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hslynk-parent</artifactId>
+			<version>2.19.7</version>
 	</parent>
 	<dependencies>
 		<dependency>

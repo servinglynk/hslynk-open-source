@@ -9,9 +9,9 @@
 		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
 	</scm>
 	<parent>
-		<groupId>com.servinglynk.hmis.warehouse</groupId>
-		<artifactId>hslynk-parent</artifactId>
-		<version>2.19.5</version>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hslynk-parent</artifactId>
+			<version>2.19.7</version>
 	</parent>
 	<dependencies>
 		<dependency>

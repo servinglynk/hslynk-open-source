@@ -5,10 +5,10 @@
 	<artifactId>hmis-notification-service</artifactId>
 	<packaging>war</packaging>
 	<name>Notification Service </name>
-	<parent>
-		<groupId>com.servinglynk.hmis.warehouse</groupId>
-		<artifactId>hslynk-parent</artifactId>
-		<version>2.19.5</version>
+	 <parent>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hslynk-parent</artifactId>
+			<version>2.19.7</version>
 	</parent>
 	<description>Notification Service </description>
 	<scm>
