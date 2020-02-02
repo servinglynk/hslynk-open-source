@@ -48,12 +48,14 @@ public class ActiveListView  extends Logging {
 	     	      builder.append(" SELECT distinct on (t.client_dedup_id) t.client_dedup_id,t.client_id,t.deleted,t.ignore_match_process,survey_score,survey_submission_date FROM housing_inventory.eligible_clients t ");
 	     	      builder.append(" inner join (  ");
 	     	      builder.append("	  select client_dedup_id,max(survey_submission_date) as maxDate from housing_inventory.eligible_clients tm ");
-	     	      builder.append("	  where tm.project_group_code= ? ");
+	     	      builder.append("	  where tm.project_group_code= ? and tm.deleted=false ");
 	     	      builder.append(" group by client_dedup_id ) tm ");
 	     	      builder.append(" on  t.client_dedup_id = tm.client_dedup_id ");
 	     	      builder.append(" and t.survey_submission_date = tm.maxDate and t.project_group_code=? ");
+	     	      builder.append(" and t.deleted=false and t.ignore_match_process=false ");
 	     	      builder.append(" and t.survey_submission_date >  ? ");
 	     	      builder.append(" order by t.client_dedup_id,survey_score desc" );
+	     	      
 	     	      connection = SyncPostgresProcessor.getConnection();
 		          statement = connection.prepareStatement(builder.toString());
 		          statement.setString(1, projectGroupCode);
