@@ -52,8 +52,7 @@ public class ActiveListView  extends Logging {
 	     	      builder.append(" group by client_dedup_id ) tm ");
 	     	      builder.append(" on  t.client_dedup_id = tm.client_dedup_id ");
 	     	      builder.append(" and t.survey_submission_date = tm.maxDate and t.project_group_code=? ");
-	     	      builder.append(" and t.deleted=false and t.ignore_match_process=false ");
-	     	      builder.append(" and t.survey_submission_date >  ? ");
+	     	      builder.append(" and t.date_updated >  ? ");
 	     	      builder.append(" order by t.client_dedup_id,survey_score desc" );
 	     	      
 	     	      connection = SyncPostgresProcessor.getConnection();
