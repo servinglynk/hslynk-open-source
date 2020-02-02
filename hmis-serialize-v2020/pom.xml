@@ -1,69 +1,60 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-serialize-v2020</artifactId>
 	<packaging>jar</packaging>
 	<name>hmis-serialize (v2020)</name>
 	<parent>
-			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hslynk-parent</artifactId>
-			<version>2.19.5</version>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+		<artifactId>hslynk-parent</artifactId>
+		<version>2.19.5</version>
 	</parent>
 	<scm>
 		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
 	</scm>
-	<properties>
-			<fasterxml-version>2.9.9</fasterxml-version>
-		<java-version>1.8</java-version>
-		<log4j-version>1.2.17</log4j-version>
-				<hibernate.version>4.2.0.Final</hibernate.version>
-		<org.slf4j-version>1.7.5</org.slf4j-version>
-		<spring.verson>4.3.22.RELEASE</spring.verson>
-	</properties>
 	<dependencies>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			  
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			  
+
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			 
+
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			  
+
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			  
+
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			  
+
 			<exclusions>
 				<exclusion>
 					<groupId>javax.mail</groupId>
@@ -88,13 +79,13 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			  
+
 		</dependency>
 
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
- 
+
 		</dependency>
 
 		<dependency>
@@ -109,42 +100,4 @@
 		</dependency>
 
 	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<additionalProjectnatures>
-						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-					</additionalProjectnatures>
-					<additionalBuildcommands>
-						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-					</additionalBuildcommands>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<webXml>${project.basedir}\src\main\webapp\WEB-INF\web.xml</webXml>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-					<compilerArgument>-Xlint:all</compilerArgument>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-
-		</plugins>
-	</build>
 </project>

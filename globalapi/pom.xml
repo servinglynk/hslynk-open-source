@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>hmis-globalpi</artifactId>
@@ -6,68 +7,58 @@
 	<name>HMIS Global API</name>
 	<description>HMIS Global API</description>
 	<parent>
-			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hslynk-parent</artifactId>
-			<version>2.19.5</version>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+		<artifactId>hslynk-parent</artifactId>
+		<version>2.19.5</version>
 	</parent>
-	<properties>
-			<fasterxml-version>2.10.0</fasterxml-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<java-version>1.8</java-version>
-		<spring.framework.version>4.3.22.RELEASE</spring.framework.version>
-		<hibernate.version>4.2.0.Final</hibernate.version>
-	</properties>
-
 	<dependencies>
 		<!-- Spring dependencies -->
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
- 
+
 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
- 
+
 			<scope>test</scope>
 		</dependency>
 
@@ -76,12 +67,12 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>commons-validator</groupId>
 			<artifactId>commons-validator</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
@@ -90,14 +81,14 @@
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
- 
+
 		</dependency>
 
 
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
- 
+
 			<scope>runtime</scope>
 		</dependency>
 
@@ -105,7 +96,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
- 
+
 			<scope>provided</scope>
 		</dependency>
 
@@ -113,53 +104,53 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
- 
+
 		</dependency>
 		<!-- Loging dependencies -->
 
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
- 
+
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
- 
+
 		</dependency>
 
 		<!-- Internal dependencies -->
-			<dependency>
-			 <groupId>com.servinglynk.hmis.warehouse</groupId>
-			  <artifactId>hmis-base-model</artifactId>
-			  <version>${parent.version}</version>
-			</dependency>		
-			<dependency>
-			 <groupId>com.servinglynk.hmis.warehouse</groupId>
-			  <artifactId>hmis-base-service</artifactId>
-			  <version>${parent.version}</version>
-			</dependency>			
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-base-model</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-base-service</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-base-serialize</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
-					<dependency>
-				<groupId>com.servinglynk.hmis.warehouse</groupId>
-				<artifactId>mq-core-client</artifactId>
-				<version>${parent.version}</version>
-			</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>mq-core-client</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-core-common</artifactId>
@@ -168,37 +159,16 @@
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.extended</artifactId>
- 
+
 		</dependency>
 		<dependency>
-    <groupId>com.thoughtworks.xstream</groupId>
-    <artifactId>xstream</artifactId>
-</dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+		</dependency>
 	</dependencies>
 
 
 	<build>
 		<finalName>hmis-globalapi</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				  
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-					<compilerArgument>-Xlint:all</compilerArgument>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 </project>

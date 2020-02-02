@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>hmis-clientapi-v2014</artifactId>
@@ -6,32 +7,22 @@
 	<name>HMIS Client API (v2014)</name>
 	<description>HMIS Client API</description>
 	<parent>
-			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hslynk-parent</artifactId>
-			<version>2.19.5</version>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+		<artifactId>hslynk-parent</artifactId>
+		<version>2.19.5</version>
 	</parent>
-	<properties>
-			<fasterxml-version>2.10.0</fasterxml-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<java-version>1.8</java-version>
-		<spring.framework.version>4.3.22.RELEASE</spring.framework.version>
-		<hibernate.version>4.2.0.Final</hibernate.version>
-	</properties>
-
 	<dependencies>
-	     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-        <dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-    
+
 		<!-- Spring dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -98,10 +89,8 @@
 		</dependency>
 
 		<!-- Marshaling dependencies -->
-<!-- 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> 
+			</dependency> -->
 
 		<!-- Loging dependencies -->
 
@@ -134,16 +123,16 @@
 			<artifactId>hmis-model-v2014</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
-			<dependency>
-			 <groupId>com.servinglynk.hmis.warehouse</groupId>
-			  <artifactId>hmis-base-model</artifactId>
-			  <version>${parent.version}</version>
-			</dependency>		
-			<dependency>
-			 <groupId>com.servinglynk.hmis.warehouse</groupId>
-			  <artifactId>hmis-base-service</artifactId>
-			  <version>${parent.version}</version>
-			</dependency>			
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-base-model</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-base-service</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-serialize-v2014</artifactId>
@@ -164,34 +153,13 @@
 			<artifactId>usertype.extended</artifactId>
 		</dependency>
 		<dependency>
-	<groupId>ch.qos.logback</groupId>
-	<artifactId>logback-classic</artifactId>
-</dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
 	</dependencies>
 
 
 	<build>
 		<finalName>hmis-clientapi-v2014</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				  
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-					<compilerArgument>-Xlint:all</compilerArgument>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 </project>

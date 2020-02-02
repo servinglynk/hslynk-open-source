@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-model-v2014</artifactId>
 	<name>hmis-model-v2014</name>
 	<packaging>jar</packaging>
@@ -12,31 +12,14 @@
 		<version>2.19.5</version>
 	</parent>
 	<scm>
-		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
- 	</scm>
-	<properties>
-		<java-version>1.8</java-version>
-		<servlet-version>3.0.1</servlet-version>
-		<jsp-version>2.2.1</jsp-version>
-		<jstl-version>1.2</jstl-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>	
-		<spring-version>4.3.22.RELEASE</spring-version>
-		<spring-security-version>3.2.0.RELEASE</spring-security-version>
-		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.7.5</org.slf4j-version>
-		<log4j-version>1.2.17</log4j-version>
-		
-		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
-		
-		<hibernate.version>4.2.0.Final</hibernate.version>
-		<commons.dbcp.version>1.4</commons.dbcp.version>
-	</properties>
+		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
+	</scm>
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			  
+
 			<exclusions>
 				<!-- Exclude Commons Logging in favor of SLF4j -->
 				<exclusion>
@@ -45,100 +28,96 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-			<dependency>
-        <groupId>com.googlecode.jcsv</groupId>
-        <artifactId>jcsv</artifactId>
-         
+		<dependency>
+			<groupId>com.googlecode.jcsv</groupId>
+			<artifactId>jcsv</artifactId>
+
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			 
+
 		</dependency>
 		<!-- JDBC -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			 
+
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			 
+
 		</dependency>
 		<dependency>
-		     <groupId>org.hibernate</groupId>
-   			 <artifactId>hibernate-search-orm</artifactId>
-   			  
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-orm</artifactId>
+
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
-			 
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			  
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			  
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			  
+
 		</dependency>
 		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-validator</artifactId>
-		     
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+
 		</dependency>
 		<dependency>
-   <groupId>javax.el</groupId>
-   <artifactId>javax.el-api</artifactId>
-     
-</dependency>
-<dependency>
-	<groupId>com.mysema.querydsl</groupId>
-	<artifactId>querydsl-jpa</artifactId>
-	  
-</dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+
+		</dependency>
 
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
-			  
+
 		</dependency>
 
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			  
+
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			  
+
 			<scope>runtime</scope>
 		</dependency>
-			<dependency>
-		  <groupId>org.beanio</groupId>
-  			<artifactId>beanio</artifactId>
-	 </dependency>
-		<!-- <dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			  
-			<scope>runtime</scope>
-		</dependency> -->
+		<dependency>
+			<groupId>org.beanio</groupId>
+			<artifactId>beanio</artifactId>
+		</dependency>
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
+			<scope>runtime</scope> </dependency> -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			  
+
 			<exclusions>
 				<exclusion>
 					<groupId>javax.mail</groupId>
@@ -159,87 +138,56 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-     	<groupId>org.jadira.usertype</groupId>
-     	<artifactId>usertype.extended</artifactId>
-     	  
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.extended</artifactId>
+
 		</dependency>
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
- 
+
 		</dependency>
 
 		<!-- Servlet API and JSTL -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			  
+
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>javax.servlet.jsp-api</artifactId>
-			  
+
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			  
-		</dependency>
-		
-		<dependency>
-    <groupId>org.opengis.cite.xerces</groupId>
-    <artifactId>xercesImpl-xsd11</artifactId>
-      
-</dependency>
 
-			<dependency>
-			 <groupId>com.servinglynk.hmis.warehouse</groupId>
-			  <artifactId>hmis-core-common</artifactId>
-			  <version>${parent.version}</version>
-			</dependency>
-			<dependency>
-			 <groupId>com.servinglynk.hmis.warehouse</groupId>
-			  <artifactId>hmis-base-model</artifactId>
-			  <version>${parent.version}</version>
-			</dependency>
+		</dependency>
+
+		<dependency>
+			<groupId>org.opengis.cite.xerces</groupId>
+			<artifactId>xercesImpl-xsd11</artifactId>
+
+		</dependency>
+
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-core-common</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>hmis-base-model</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hmis-s3-client</artifactId>
 			<version>${parent.version}</version>
 		</dependency>
 	</dependencies>
-			<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<additionalProjectnatures>
-						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-					</additionalProjectnatures>
-					<additionalBuildcommands>
-						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-					</additionalBuildcommands>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<source>${java-version}</source>
-					<target>${java-version}</target>
-					<compilerArgument>-Xlint:all</compilerArgument>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-			
-		</plugins>
-	</build>
 </project>

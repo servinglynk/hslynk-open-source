@@ -1,23 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-notification-service</artifactId>
 	<packaging>war</packaging>
 	<name>Notification Service </name>
-	 <parent>
-			<groupId>com.servinglynk.hmis.warehouse</groupId>
-			<artifactId>hslynk-parent</artifactId>
-			<version>2.19.5</version>
+	<parent>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+		<artifactId>hslynk-parent</artifactId>
+		<version>2.19.5</version>
 	</parent>
 	<description>Notification Service </description>
-	<scm>	
-		  	<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
- 	</scm>
-	<properties>
-			<fasterxml-version>2.10.0</fasterxml-version>
-		<failOnMissingWebXml>false</failOnMissingWebXml>
-	</properties>
+	<scm>
+		<connection>scm:https://github.com/servinglynk/hmis-lynk-open-source.git</connection>
+	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -47,22 +43,22 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			</dependency>
-		
-		 <dependency>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
-			</dependency>
-		
+		</dependency>
+
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-xml</artifactId>
- 
+
 		</dependency>
 
 
@@ -74,29 +70,29 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
- 
+
 		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
- 
+
 		</dependency>
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
- 
+
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			 
+
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -104,23 +100,7 @@
 		</dependency>
 
 	</dependencies>
-		<build>
-					<finalName>hmis-notification-service</finalName>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>2.5.1</version>
-					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
-						<compilerArgument>-Xlint:all</compilerArgument>
-						<showWarnings>true</showWarnings>
-						<showDeprecation>true</showDeprecation>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+	<build>
+		<finalName>hmis-notification-service</finalName>
 	</build>
 </project>
