@@ -150,25 +150,27 @@ public class ActiveListView  extends Logging {
 //	                       putsToDelete.add(key);
 //	                   }
 //	               });
-
-	               logger.info("Rows to delete for table " + postgresTable + ": " + putsToDelete.size());
+	               String rowsToDelete = "Rows to delete for table " + postgresTable + ": " + putsToDelete.size();
+	               logger.info(rowsToDelete);
 	               if (putsToDelete.size() > 0) {
 	                   syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
 	                   putsToDelete.clear();
 	               }
-
-	               logger.info("Rows to insert for table " + postgresTable + ": " + putsToInsert.size());
+	               
+	               String rowsToInsert = "Rows to insert for table " + postgresTable + ": " + putsToInsert.size();
+	               logger.info(rowsToInsert);
 	               if (putsToInsert.size() > 0) {
 	                   htable.put(putsToInsert);
 	                   putsToInsert.clear();
 	               }
-
-	               logger.info("Rows to update for table " + postgresTable + ": " + putsToUpdate.size());
+	               String rowsToUpdate = "Rows to update for table " + postgresTable + ": " + putsToUpdate.size();
+	               logger.info(rowsToUpdate);
 	               if (putsToUpdate.size() > 0) {
 	                   htable.put(putsToUpdate);
 	                   putsToUpdate.clear();
 	               }
-
+	               String message = "insert : "+putsToInsert.size() + " update : "+putsToUpdate.size() +" Delete : "+putsToDelete.size();
+	               SyncPostgresProcessor.hydrateSyncTable("survey", "active_list", "COMPLETED", message ,projectGroupCode);
 	        } catch (Exception ex) {
 	            logger.error("Exception:::"+ex.getMessage());
 	            ex.printStackTrace();
