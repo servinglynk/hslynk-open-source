@@ -517,11 +517,11 @@
 		<module>report-service</module>
 		<module>user-service</module>
 		<module>developer-service</module>
-		<module>hmis-load-processor-v2014</module>
+<!-- 		<module>hmis-load-processor-v2014</module>
 		<module>hmis-load-processor-v2015</module>
 		<module>hmis-load-processor-v2016</module>
 		<module>hmis-load-processor-v2017</module>
-		<module>hmis-load-processor-v2020</module>
+		<module>hmis-load-processor-v2020</module> -->
 		<!-- <module>global-household</module> -->
 		<module>authorization-service</module>
 		<module>upload-service</module>
