@@ -212,9 +212,10 @@ public class SearchDaoImpl
   	  String id = null;
   String name = null;
   String dob = null;
-  name = "'%"+searchRequest.getFreeText()+"%'";
+  System.out.println("search text "+searchRequest.getFreeText());
+  name = "'%"+searchRequest.getFreeText().replaceAll("'", "''")+"%'";
 	  
-	  String queryString = "select * from base.shared_client_search_by_name('%"+searchRequest.getFreeText()+"%','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+",'"+searchRequest.getUserId()+"')";
+	  String queryString = "select * from base.shared_client_search_by_name('%"+searchRequest.getFreeText().replaceAll("'", "''")+"%','"+searchRequest.getProjectGroupCode()+"','"+searchRequest.getSort().getField()+"','"+searchRequest.getSort().getOrder()+"',"+ searchRequest.getPagination().getFrom()+","+searchRequest.getPagination().getMaximum()+",'"+searchRequest.getUserId()+"')";
 	  
 	  
 	  try {
@@ -260,9 +261,7 @@ public class SearchDaoImpl
 	  		  .addScalar("rProjectGroupCode")
 	  		  .setResultTransformer(Transformers.aliasToBean(SearchClient.class));
 
-
 	  org.hibernate.Query countQuery = getCurrentSession().createSQLQuery("select datasize from base.search_client_count ("+id+" ,"+name+" ,"+dob+",'"+searchRequest.getProjectGroupCode()+"' ) ");
-      
 	  searchRequest.getPagination().setTotal(((BigInteger)countQuery.list().get(0)).intValue());
 
 	  return query.list();
