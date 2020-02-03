@@ -6,12 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +35,83 @@ public class ActiveListView  extends Logging {
 		syncHBaseImport.createHBASETable(tableName, logger);
 	}
 	
-	
+	 private Set<String> getDeletedIds(String hbaseTable, String projectGroupCode,String postgresTable,Properties props) {
+	       // log.info("Start sync for table: " + postgresTable);
+	        ResultSet resultSet;
+	        PreparedStatement statement;
+	        Connection connection;
+	        Set<String> deletedIds = new HashSet<String>();
+	        try {   
+	     	      StringBuilder builder  = new StringBuilder();
+	     	      builder.append("	  select client_dedup_id from housing_inventory.eligible_clients  ");
+	     	      builder.append("	  where project_group_code= ? and  ( deleted=true or ignore_match_process=true ) ");
+	     	      builder.append(" and date_updated >  ? ");
+	     	      connection = SyncPostgresProcessor.getConnection();
+		          statement = connection.prepareStatement(builder.toString());
+		          statement.setString(1, projectGroupCode);
+		          statement.setDate(2, getCutOffDate(props));
+		          resultSet = statement.executeQuery();
+	               while (resultSet.next()) {
+	                   String key = resultSet.getString(1);
+	                   deletedIds.add(key);
+	               }
+	               
+	       }catch (Exception ex) {
+	            logger.error("Exception:::"+ex.getMessage());
+	            ex.printStackTrace();
+	        }
+	        return deletedIds;
+	 }
+	 
+	 private void syncTableForDelete(String hbaseTable, String projectGroupCode,String postgresTable,Properties props) {
+		 ResultSet resultSet;
+	        HTable htable;
+	        PreparedStatement statement;
+	        Connection connection;
+	        List<String> putsToDelete = new ArrayList<>();
+	        try {   
+	     	      htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
+	     	      List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
+	     	      Set<String> deletedIds = getDeletedIds(hbaseTable, projectGroupCode, postgresTable, props);
+	     	      
+	     	     for(String dedupId : deletedIds )  {
+	     	    	 if(existingKeysInHbase.contains(dedupId)) {
+	     	    		 StringBuilder builder  = new StringBuilder();
+			     	      builder.append(" SELECT distinct on (t.client_dedup_id) t.client_dedup_id,t.client_id as client_id,t.ignore_match_process as ignore_match_process,survey_score,survey_submission_date FROM housing_inventory.eligible_clients t ");
+			     	      builder.append(" inner join (  ");
+			     	      builder.append("	  select client_dedup_id,max(survey_submission_date) as maxDate from housing_inventory.eligible_clients tm ");
+			     	      builder.append("	  where tm.project_group_code= ? and tm.deleted=false ");
+			     	      builder.append(" group by client_dedup_id ) tm ");
+			     	      builder.append(" on  t.client_dedup_id = tm.client_dedup_id ");
+			     	      builder.append(" and t.survey_submission_date = tm.maxDate and t.project_group_code=? ");
+			     	      builder.append(" and t.client_dedup_id =  ? ");
+			     	      builder.append(" and t.deleted=false and t.ignore_match_process=false ");
+			     	      builder.append(" order by t.client_dedup_id,survey_score desc" );
+			     	      
+			     	      connection = SyncPostgresProcessor.getConnection();
+				          statement = connection.prepareStatement(builder.toString());
+				          statement.setString(1, projectGroupCode);
+				          statement.setString(2, projectGroupCode);
+				          statement.setObject(3, UUID.fromString(dedupId));
+				          resultSet = statement.executeQuery();
+				          if(!resultSet.next()) {
+				        	  logger.info(" Deleting..."+dedupId);
+				        	  putsToDelete.add(dedupId);
+				          }
+	     	    	 }
+	     	     }
+	               String rowsToDelete = "Rows to delete for table " + postgresTable + ": " + putsToDelete.size();
+	               logger.info(rowsToDelete);
+	               if (putsToDelete.size() > 0) {
+	                   syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
+	                   putsToDelete.clear();
+	               }
+	        } catch (Exception ex) {
+	            logger.error("Exception:::"+ex.getMessage());
+	            ex.printStackTrace();
+	        }
+	     	      
+	 }
 	 private void syncTable(String hbaseTable, String projectGroupCode,String postgresTable,Properties props) {
 	       // log.info("Start sync for table: " + postgresTable);
 	        ResultSet resultSet;
@@ -45,7 +121,7 @@ public class ActiveListView  extends Logging {
 	        try {   
 	     	      htable = new HTable(HbaseUtil.getConfiguration(), hbaseTable);
 	     	      StringBuilder builder  = new StringBuilder();
-	     	      builder.append(" SELECT distinct on (t.client_dedup_id) t.client_dedup_id,t.client_id,t.deleted,t.ignore_match_process,survey_score,survey_submission_date FROM housing_inventory.eligible_clients t ");
+	     	      builder.append(" SELECT distinct on (t.client_dedup_id) t.client_dedup_id,t.client_id as client_id,t.ignore_match_process as ignore_match_process,survey_score,survey_submission_date FROM housing_inventory.eligible_clients t ");
 	     	      builder.append(" inner join (  ");
 	     	      builder.append("	  select client_dedup_id,max(survey_submission_date) as maxDate from housing_inventory.eligible_clients tm ");
 	     	      builder.append("	  where tm.project_group_code= ? and tm.deleted=false ");
@@ -53,6 +129,7 @@ public class ActiveListView  extends Logging {
 	     	      builder.append(" on  t.client_dedup_id = tm.client_dedup_id ");
 	     	      builder.append(" and t.survey_submission_date = tm.maxDate and t.project_group_code=? ");
 	     	      builder.append(" and t.date_updated >  ? ");
+	     	      builder.append(" and t.deleted=false and t.ignore_match_process=false ");
 	     	      builder.append(" order by t.client_dedup_id,survey_score desc" );
 	     	      
 	     	      connection = SyncPostgresProcessor.getConnection();
@@ -64,35 +141,17 @@ public class ActiveListView  extends Logging {
 		            
 	     	      List<String> existingKeysInHbase = syncHBaseImport.getAllKeyRecords(htable, logger);
 	               List<String> existingKeysInPostgres = new ArrayList<>();
-
-	               List<Put> putsToUpdate = new ArrayList<>();
+ 	               List<Put> putsToUpdate = new ArrayList<>();
 	               List<Put> putsToInsert = new ArrayList<>();
-	               List<String> putsToDelete = new ArrayList<>();
+	              
 	               while (resultSet.next()) {
-	                   Boolean markedForDelete = false;
-	                   try{
-	                   	markedForDelete = resultSet.getBoolean("deleted");
-	                   }catch (Exception ex){
-	                       logger.debug("table does not contained 'deleted' column", ex);
-	                   }
-	                   String key = resultSet.getString("client_dedup_id");
+	                   String key = resultSet.getString(1);
 	                   if(StringUtils.isBlank(key)){
 	                       continue;
 	                   }
 	                   String clientId= (String)resultSet.getString("client_id");
-	                   if (markedForDelete) {
-	                       if (existingKeysInHbase.contains(key)) {
-	                           putsToDelete.add(key);
-	                           if (putsToDelete.size() > syncHBaseImport.batchSize) {
-	                               syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
-	                               putsToDelete.clear();
-	                           }
-	                       } else {
-	                           log.debug("Skip row with key: " + key);
-	                           continue;
-	                       }
-	                   } else {
-	                   	 Put p = new Put(Bytes.toBytes(key));
+	                   Put p = new Put(Bytes.toBytes(key));
+	                   	
 	                   	 addColumn("ignore_match_process",String.valueOf(resultSet.getBoolean("ignore_match_process")), key, p,existingKeysInHbase);
 	                   	 addColumn("client_id",clientId, key, p,existingKeysInHbase);
 	                   	 addColumn("survey_score",String.valueOf(resultSet.getInt("survey_score")), key, p,existingKeysInHbase);
@@ -141,20 +200,25 @@ public class ActiveListView  extends Logging {
 	                               putsToInsert.clear();
 	                           }
 	                       }
+	                       existingKeysInPostgres.add(key);
 	                   }
-	                   existingKeysInPostgres.add(key);
-	               }
-//	               existingKeysInHbase.forEach(key -> {
-//	                   if(!existingKeysInPostgres.contains(key)){
-//	                       putsToDelete.add(key);
-//	                   }
-//	               });
-	               String rowsToDelete = "Rows to delete for table " + postgresTable + ": " + putsToDelete.size();
-	               logger.info(rowsToDelete);
-	               if (putsToDelete.size() > 0) {
-	                   syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
-	                   putsToDelete.clear();
-	               }
+	               
+//	               if(CollectionUtils.isNotEmpty(existingKeysInHbaseCopy)) {
+//	            	   existingKeysInHbaseCopy.removeAll(existingKeysInPostgres);  
+//	 	              if(CollectionUtils.isNotEmpty(existingKeysInHbaseCopy)) {
+//	 	            	  existingKeysInHbaseCopy.forEach(key -> {
+//	 	            		 logger.info("Deleting Key:::::::"+key);
+//	 	                       putsToDelete.add(key);
+//	 	               });
+//	 	              }
+//	               }
+	             
+//	               String rowsToDelete = "Rows to delete for table " + postgresTable + ": " + putsToDelete.size();
+//	               logger.info(rowsToDelete);
+//	               if (putsToDelete.size() > 0) {
+//	                   syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
+//	                   putsToDelete.clear();
+//	               }
 	               
 	               String rowsToInsert = "Rows to insert for table " + postgresTable + ": " + putsToInsert.size();
 	               logger.info(rowsToInsert);
@@ -168,7 +232,7 @@ public class ActiveListView  extends Logging {
 	                   htable.put(putsToUpdate);
 	                   putsToUpdate.clear();
 	               }
-	               String message = "insert : "+putsToInsert.size() + " update : "+putsToUpdate.size() +" Delete : "+putsToDelete.size();
+	               String message = "insert : "+putsToInsert.size() + " update : "+putsToUpdate.size() ;
 	               SyncPostgresProcessor.hydrateSyncTable("survey", "active_list", "COMPLETED", message ,projectGroupCode);
 	        } catch (Exception ex) {
 	            logger.error("Exception:::"+ex.getMessage());
@@ -178,10 +242,6 @@ public class ActiveListView  extends Logging {
 	        log.info("Sync done for table: " + postgresTable);
 	    }
 	 
-	 
-	 private void processDedupClients(String dedupClientId,String hbaseTable, String projectGroupCode,String postgresTable) {
-	   
-	 }
 	 private String getNotes(String key) {
 			ResultSet resultSet = null;
 			PreparedStatement statement = null;
@@ -332,6 +392,9 @@ public class ActiveListView  extends Logging {
              createHbaseTable(tableName);
              logger.info("Processing active list for project group code"+projectGroupCode);
              syncTable(tableName, projectGroupCode, "eligible_clients",props);
+             if(StringUtils.equals("false", props.ACTIVE_LIST_FULL)) {
+            	 syncTableForDelete(tableName, projectGroupCode, "eligible_clients",props);
+             }
          }
 	}
 	
@@ -342,6 +405,7 @@ public class ActiveListView  extends Logging {
 		props.generatePropValues();
 		ActiveListView view = new ActiveListView(logger);
 		view.processActiveList(props);
+		
 	}
 
 }

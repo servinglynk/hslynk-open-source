@@ -21,7 +21,7 @@ public class Properties {
     public static String HIVE_PASSWORD;
     public static String HIVE_DRIVER_URL;
     public static String ACTIVE_LIST_DAYS;
-
+    public static String ACTIVE_LIST_FULL;
     public void generatePropValues() throws Exception {
 
         InputStream in = null;
@@ -51,6 +51,7 @@ public class Properties {
             HIVE_PASSWORD = prop.getProperty("hive.password");
             HIVE_DRIVER_URL= prop.getProperty("hive.driverUrl");
             ACTIVE_LIST_DAYS = prop.getProperty("hive.activelist.days") != null ?  prop.getProperty("hive.activelist.days") : "15";
+            ACTIVE_LIST_FULL =prop.getProperty("hive.activelist.full") != null ?  prop.getProperty("hive.activelist.full") : "false";
         } catch (Exception e) {
             System.out.println("Exception: " + e);
             throw e;
