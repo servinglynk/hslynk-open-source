@@ -136,6 +136,7 @@ public class Q07aBeanMaker extends BaseBeanMaker {
 					" left outer join  %s.moveindate mid  on  ( mid.enrollmentid = e.id ) "+
 					" where 1=1 %dedup " +
 					" and relationshiptohoh ='1' " +
+					" and p.projecttype in ('3','13') "+
 					" and mid.moveindate is not null and mid.moveindate <= :endDate "+
 					" order by e.dedup_client_id ";
         	

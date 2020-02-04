@@ -190,7 +190,20 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 	public static void main(String args[]) {
 		//System.out.println(lasWednesayOf(2018, 3).toString());
 	}
-
+	/***
+	 * 2.	For project types 3 and 13 (Permanent Supportive Housing and Rapid Re-Housing): report the total count of all persons in the project where the head of household had a move in date on or before the LAST WEDNESDAY of January, April, July, and October, respectively. 
+			a.	[project start date] <= [point in time date]
+			b.	AND [project exit date] is null or > [point in time date]
+			c.	AND [housing move-in date] <= [point in time date]
+			3.	For all other project types: Report the total count of all persons in the project on the LAST WEDNESDAY of January, April, July, and October falling with the report date range.  
+			4.	For all housing project types (types 2, 3, 8, 9, 10, 13), the client must not be exited on the point-in-time date in order to be included ([project exit date] is null or > [point in time date]).
+			5.	For other project types (4, 6, and 14), the client’s [project exit date] may be on the point-in-time date and still be included on that date.
+	 * @param year
+	 * @param month
+	 * @param data
+	 * @param enrollment
+	 * @return
+	 */
 	public static boolean isEnrollmentsFromLastWedForMonth(int year, int month, ReportData data,
 			EnrollmentModel enrollment) {
 		List<ExitModel> exits = data.getExits();

@@ -19,7 +19,7 @@ import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ProjectModel;
 
-public class Q04aBeanMaker {
+public class Q04aBeanMaker extends BaseBeanMaker {
 	
 			public static List<Q04aDataBean> getQ04aDataBeanList(String schema, String projectId,ReportData data) {
 				Q04aDataBean q04aDataBean = new Q04aDataBean(); 
