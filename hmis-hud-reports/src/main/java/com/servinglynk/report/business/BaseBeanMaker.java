@@ -184,6 +184,36 @@ public class BaseBeanMaker {
 		}
 		return models;
 	}
+	
+	public static List<String> getQueryData(String schema,String query,ReportData data) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<String>  models = new ArrayList<String>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(formatQuery(query, schema, data));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.add(resultSet.getString(1));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	
 	public static List<String> getEnrollmentByLivingSituation(String schema,String query) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;

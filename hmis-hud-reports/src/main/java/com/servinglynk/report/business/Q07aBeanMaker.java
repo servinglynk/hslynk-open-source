@@ -139,7 +139,25 @@ public class Q07aBeanMaker extends BaseBeanMaker {
 					" and mid.moveindate is not null and mid.moveindate <= :endDate "+
 					" order by e.dedup_client_id ";
         	
+
+        	List<String> pshRrhTotalList = getQueryData(data.getSchema(),getQueryForProjectDB(data, query), data);
+        	int pshRrhTotal = pshRrhTotalList != null ? pshRrhTotalList.size() : 0;
+        	q07aHouseholdsServed.setPshRrhTotal(BigInteger.valueOf(pshRrhTotal));
+        	List<EnrollmentModel> pshRrhWithOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> pshRrhTotalList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+	        int pshRrhWithOutChildrenCount = pshRrhWithOutChildren != null ? pshRrhWithOutChildren.size() : 0;
+        	q07aHouseholdsServed.setPshRrhWithOutChildren(BigInteger.valueOf(pshRrhWithOutChildrenCount));
         	
+        	List<EnrollmentModel> pshRrhWithOnlychildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> pshRrhTotalList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+	        int pshRrhWithOnlychildrenCount = pshRrhWithOnlychildren != null ? pshRrhWithOnlychildren.size() : 0;
+        	q07aHouseholdsServed.setPshRrhWithOnlychildren(BigInteger.valueOf(pshRrhWithOnlychildrenCount));
+        	
+           	List<EnrollmentModel> pshRrhWithChildAndAdults = enrollmentsHHWithOneAdultChild.parallelStream().filter(enrollment -> pshRrhTotalList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+	        int pshRrhWithChildAndAdultsCount = pshRrhWithChildAndAdults != null ? pshRrhWithChildAndAdults.size() : 0;
+        	q07aHouseholdsServed.setPshRrhWithOnlychildren(BigInteger.valueOf(pshRrhWithChildAndAdultsCount));
+        	
+         	List<EnrollmentModel> pshRrhUnknownHousehold = enrollmentsUnknownHouseHold.parallelStream().filter(enrollment -> pshRrhTotalList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+	        int pshRrhUnknownHouseholdCount = pshRrhUnknownHousehold != null ? pshRrhUnknownHousehold.size() : 0;
+        	q07aHouseholdsServed.setPshRrhUnknownHousehold(BigInteger.valueOf(pshRrhUnknownHouseholdCount));
         	
         } catch (Exception e) {
 			logger.error("Error in Q07aBeanMaker:" + e);
