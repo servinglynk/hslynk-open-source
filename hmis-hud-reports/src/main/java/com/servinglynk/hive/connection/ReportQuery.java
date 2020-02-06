@@ -20,6 +20,19 @@ public static String GET_ALL_ENROLLMENTS = "select e.* from %s.client c,%s.enrol
 
 public static String GET_ALL_EXITS = "select ext.* from %s.exit ext, %s.enrollment e where  e.id = ext.enrollmentid and exitdate >= :startDate and exitdate <= :endDate and e.projectid in  ( "; 
 
+public static String GET_CLIENTS_MOVE_IN_DATE = " select distinct e.dedup_client_id, mid.moveindate,p.projecttype  from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
+		" left outer join  %s.moveindate mid  on  ( mid.enrollmentid = e.id ) "+
+		" where relationshiptohoh ='1' " +
+		" and p.projecttype in ('3','13') "+
+		" and mid.moveindate is not null and mid.moveindate <= :endDate "+
+		" order by e.dedup_client_id ";
+
+public static String MOVE_IN_DATE_QUERY = " select distinct e.dedup_client_id  from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
+		" left outer join  %s.moveindate mid  on  ( mid.enrollmentid = e.id ) "+
+		" where relationshiptohoh ='1' " +
+		" and p.projecttype in ('3','13') "+
+		" and mid.moveindate is not null and mid.moveindate <= :endDate "+
+		" order by e.dedup_client_id ";
 public static String GET_PROJECTS_BY_COC = "select * from %s.project where id in (select projectid from %s.coc where coc_id = ? )";
 public static String GET_PROJECTS = "select * from %s.project where id in (";
 public static String GET_ENROLLMENTS_BY_COC_ID = "select * from %s.enrollment where  entrydate >=:startDate and entrydate <= :endDate and projectid in (select projectid from %s.coc where id = ? ) ";

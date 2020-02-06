@@ -10,10 +10,12 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q07bPointInTimeCountHouseholdsLastWednesdayDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
+import com.servinglynk.report.model.MoveInDateModel;
 
 public class Q07bBeanMaker extends BaseBeanMaker {
 	;
@@ -50,12 +52,19 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 			// First of all lets get enrollments with in the report date range.
 			// i.e enrollment.getEntryDate() is with in the report start date
 			// and report end date.
+			
+			// Get dedup Ids and move in date.
+			List<MoveInDateModel> clientsWithMoveInDates = getClientsWithMoveInDates(data, ReportQuery.GET_CLIENTS_MOVE_IN_DATE);
+			
 			List<EnrollmentModel> fileteredEnrollments = newEnrollments.parallelStream()
 					.filter(enrollment -> enrollment.getEntrydate() != null
 							&& data.getReportEndDate().after(enrollment.getEntrydate()))
 					.collect(Collectors.toList());
+			/** Start filtering and applying all the below rules here 
+			 * 
+			  **/
 
-			List<EnrollmentModel> janEnrollments = getEnrollments(fileteredEnrollments, data, 1);
+			List<EnrollmentModel> janEnrollments = getEnrollments(fileteredEnrollments, data, 1, clientsWithMoveInDates);
 			if (janEnrollments != null) {
 				q07bDataBean.setHhJanTotal(BigInteger.valueOf(janEnrollments.size()));
 				List<EnrollmentModel> janEnrollmentsWithUnkownHouseHold = janEnrollments.parallelStream()
@@ -87,7 +96,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 				q07bDataBean.setHhCountJanWoc(BigInteger.valueOf(0));
 			}
 
-			List<EnrollmentModel> aprilEnrollments = getEnrollments(fileteredEnrollments, data, 4);
+			List<EnrollmentModel> aprilEnrollments = getEnrollments(fileteredEnrollments, data, 4, clientsWithMoveInDates);
 			if (aprilEnrollments != null) {
 				List<EnrollmentModel> aprilEnrollmentsWithUnkownHouseHold = aprilEnrollments.parallelStream()
 						.filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID()))
@@ -120,7 +129,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 				q07bDataBean.setHhCountAprWoc(BigInteger.valueOf(0));
 			}
 
-			List<EnrollmentModel> julyEnrollments = getEnrollments(fileteredEnrollments, data, 7);
+			List<EnrollmentModel> julyEnrollments = getEnrollments(fileteredEnrollments, data, 7, clientsWithMoveInDates);
 			if (julyEnrollments != null) {
 				List<EnrollmentModel> julyEnrollmentsWithUnkownHouseHold = julyEnrollments.parallelStream()
 						.filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID()))
@@ -150,7 +159,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 				q07bDataBean.setHhCountJulWca(BigInteger.valueOf(0));
 				q07bDataBean.setHhCountJulWoc(BigInteger.valueOf(0));
 			}
-			List<EnrollmentModel> octEnrollments = getEnrollments(fileteredEnrollments, data, 10);
+			List<EnrollmentModel> octEnrollments = getEnrollments(fileteredEnrollments, data, 10, clientsWithMoveInDates);
 			if (octEnrollments != null) {
 				List<EnrollmentModel> octEnrollmentsWithUnkownHouseHold = octEnrollments.parallelStream()
 						.filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID()))
@@ -226,17 +235,35 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 	}
 
 	public static List<EnrollmentModel> getEnrollments(List<EnrollmentModel> fileteredEnrollments, ReportData data,
-			int month) {
-		String[] housingProjectTypesArray = new String[] { "2", "3", "8", "9", "10", "13" };
-		String[] otherProjectTypesArray = new String[] { "4", "6", "14" };
-		List<String> housingProjectTypes = Arrays.asList(housingProjectTypesArray);
-		List<String> otherProjectTypes = Arrays.asList(otherProjectTypesArray);
+			int month, List<MoveInDateModel> clientsWithMoveInDates) {
+		
 		List<EnrollmentModel> enrollmentJanTotal = new ArrayList<EnrollmentModel>();
 		fileteredEnrollments.forEach(enrollment -> {
 			 Calendar cal = Calendar.getInstance();
 			 cal.setTime(data.getReportEndDate());
 			 int year = cal.get(Calendar.YEAR);
-			if (isEnrollmentsFromLastWedForMonth(year, month, data, enrollment)) {
+			 boolean pshRRFlag = false;
+			 if(CollectionUtils.isNotEmpty(clientsWithMoveInDates)) {
+				 
+				 List<MoveInDateModel> filteredMoveInDates = clientsWithMoveInDates.parallelStream().filter(moveInDate -> StringUtils.equals(moveInDate.getDedupClientId(), enrollment.getDedupClientId())).collect(Collectors.toList());
+				 if(CollectionUtils.isNotEmpty(filteredMoveInDates)) {
+					 MoveInDateModel moveInDate = filteredMoveInDates.get(0);
+					 if(StringUtils.equals("3", moveInDate.getProjectType()) || StringUtils.equals("13", moveInDate.getProjectType())) {
+						 if(enrollment.getEntrydate() != null && Util.getLocalDateFromUtilDate(enrollment.getEntrydate())
+									.compareTo(lasWednesayOf(data.getReportEndDate(), month)) <= 0 
+									&&				
+									moveInDate.getMoveInDate() != null  && Util.getLocalDateFromUtilDate(moveInDate.getMoveInDate())
+									.compareTo(lasWednesayOf(data.getReportEndDate(), month)) <= 0 	) {
+							 if (isEnrollmentsFromLastWedForMonth(year, month, data, enrollment) ) {
+									enrollmentJanTotal.add(enrollment);
+									 pshRRFlag = true;
+								}
+						 }
+					 }
+				 }
+			 }
+			 
+			if (isEnrollmentsFromLastWedForMonth(year, month, data, enrollment) && !pshRRFlag) {
 				enrollmentJanTotal.add(enrollment);
 			}
 		});

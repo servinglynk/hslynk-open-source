@@ -42,6 +42,7 @@ import com.servinglynk.report.model.DisabilitiesModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
+import com.servinglynk.report.model.MoveInDateModel;
 import com.servinglynk.report.model.ProjectModel;
 import com.servinglynk.report.model.Q22BeanModel;
 
@@ -69,6 +70,7 @@ public class BaseBeanMaker {
 		 }
 		 return 0;
 	 }
+	 
 	 protected static String joinProjectIds(String query,ReportData data) {
 		 StringBuilder builder = new StringBuilder("");
 			List<String> projectIds = data.getProjectIds();
@@ -213,7 +215,34 @@ public class BaseBeanMaker {
 		}
 		return models;
 	}
-	
+	public static List<MoveInDateModel> getClientsWithMoveInDates(ReportData data,String query){
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<MoveInDateModel>  models = new ArrayList<MoveInDateModel>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(String.format(query,data.getSchema()));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.add(new MoveInDateModel(resultSet.getString("1"), resultSet.getDate("2"), resultSet.getString("3")));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
 	public static List<String> getEnrollmentByLivingSituation(String schema,String query) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;

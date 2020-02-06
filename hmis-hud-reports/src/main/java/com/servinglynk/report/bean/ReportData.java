@@ -76,6 +76,11 @@ public class ReportData {
 	List<String> projectsHHWithOutChildren  =  new ArrayList<String>();
 	List<String> projectsUnknownHouseHold  =  new ArrayList<String>();
 	
+	private List<String> pshRrhTotal = null;
+	private List<EnrollmentModel> pshRrhWithOutChildren = null;
+	private List<EnrollmentModel> pshRrhWithChildAndAdults = null;
+	private List<EnrollmentModel> pshRrhWithOnlychildren = null;
+	private List<EnrollmentModel> pshRrhUnknownHousehold = null;
 	
 	private BigInteger totPersonsContacted = BigInteger.ZERO;
 	private BigInteger tpcFirstContactedHumanHabitation= BigInteger.ZERO;
@@ -852,5 +857,64 @@ public class ReportData {
 	public void setVeteranAtExit(Set<String> veteranAtExit) {
 		this.veteranAtExit = veteranAtExit;
 	}
-	
+	/**
+	 * @return the pshRrhTotal
+	 */
+	public List<String> getPshRrhTotal() {
+		return pshRrhTotal;
+	}
+	/**
+	 * @param pshRrhTotal the pshRrhTotal to set
+	 */
+	public void setPshRrhTotal(List<String> pshRrhTotal) {
+		this.pshRrhTotal = pshRrhTotal;
+	}
+	/**
+	 * @return the pshRrhWithOutChildren
+	 */
+	public List<EnrollmentModel> getPshRrhWithOutChildren() {
+		return pshRrhWithOutChildren;
+	}
+	/**
+	 * @param pshRrhWithOutChildren the pshRrhWithOutChildren to set
+	 */
+	public void setPshRrhWithOutChildren(List<EnrollmentModel> pshRrhWithOutChildren) {
+		this.pshRrhWithOutChildren = pshRrhWithOutChildren;
+	}
+	/**
+	 * @return the pshRrhWithChildAndAdults
+	 */
+	public List<EnrollmentModel> getPshRrhWithChildAndAdults() {
+		return pshRrhWithChildAndAdults;
+	}
+	/**
+	 * @param pshRrhWithChildAndAdults the pshRrhWithChildAndAdults to set
+	 */
+	public void setPshRrhWithChildAndAdults(List<EnrollmentModel> pshRrhWithChildAndAdults) {
+		this.pshRrhWithChildAndAdults = pshRrhWithChildAndAdults;
+	}
+	/**
+	 * @return the pshRrhWithOnlychildren
+	 */
+	public List<EnrollmentModel> getPshRrhWithOnlychildren() {
+		return pshRrhWithOnlychildren;
+	}
+	/**
+	 * @param pshRrhWithOnlychildren the pshRrhWithOnlychildren to set
+	 */
+	public void setPshRrhWithOnlychildren(List<EnrollmentModel> pshRrhWithOnlychildren) {
+		this.pshRrhWithOnlychildren = pshRrhWithOnlychildren;
+	}
+	/**
+	 * @return the pshRrhUnknownHousehold
+	 */
+	public List<EnrollmentModel> getPshRrhUnknownHousehold() {
+		return pshRrhUnknownHousehold;
+	}
+	/**
+	 * @param pshRrhUnknownHousehold the pshRrhUnknownHousehold to set
+	 */
+	public void setPshRrhUnknownHousehold(List<EnrollmentModel> pshRrhUnknownHousehold) {
+		this.pshRrhUnknownHousehold = pshRrhUnknownHousehold;
+	}
 }

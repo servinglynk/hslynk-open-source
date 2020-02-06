@@ -25,6 +25,7 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         	List<String> projectsHHWithOutChildren  = getProjectsForHouseHoldType(data.getSchema(),  getQueryForProjectDB(data,ReportQuery.PROJECT_WITH_HOUSEHOLD_WITHOUT_CHILDREN),data);
         	List<String> projectsUnknownHouseHold  = getProjectsForHouseHoldType(data.getSchema(),  getQueryForProjectDB(data,ReportQuery.PROJECT_WITH_HOUSEHOLD_TYPE_UNKNOWN),data);
         	
+  
         	data.setProjectsHHWithChildren(projectsHHWithChildren);
         	data.setProjectsHHWithOneAdultChild(projectsHHWithOneAdultChild);
         	data.setProjectsHHWithOutChildren(projectsHHWithOutChildren);
@@ -131,34 +132,31 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         	q07aHouseholdsServed.setTotWithOnlychildren(BigInteger.valueOf(totWithOnlychildren));
         	q07aHouseholdsServed.setTotUnknownHousehold(BigInteger.valueOf(totUnknownHousehold));
         	
-			 
-        	String query = " select distinct e.dedup_client_id  from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
-					" left outer join  %s.moveindate mid  on  ( mid.enrollmentid = e.id ) "+
-					" where 1=1 %dedup " +
-					" and relationshiptohoh ='1' " +
-					" and p.projecttype in ('3','13') "+
-					" and mid.moveindate is not null and mid.moveindate <= :endDate "+
-					" order by e.dedup_client_id ";
-        	
 
-        	List<String> pshRrhTotalList = getQueryData(data.getSchema(),getQueryForProjectDB(data, query), data);
+        	List<String> pshRrhTotalList = getQueryData(data.getSchema(),getQueryForProjectDB(data, ReportQuery.MOVE_IN_DATE_QUERY), data);
         	int pshRrhTotal = pshRrhTotalList != null ? pshRrhTotalList.size() : 0;
         	q07aHouseholdsServed.setPshRrhTotal(BigInteger.valueOf(pshRrhTotal));
+        	data.setPshRrhTotal(pshRrhTotalList);
+        	
         	List<EnrollmentModel> pshRrhWithOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> pshRrhTotalList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
 	        int pshRrhWithOutChildrenCount = pshRrhWithOutChildren != null ? pshRrhWithOutChildren.size() : 0;
         	q07aHouseholdsServed.setPshRrhWithOutChildren(BigInteger.valueOf(pshRrhWithOutChildrenCount));
+        	data.setPshRrhWithOutChildren(pshRrhWithOutChildren);
         	
         	List<EnrollmentModel> pshRrhWithOnlychildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> pshRrhTotalList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
 	        int pshRrhWithOnlychildrenCount = pshRrhWithOnlychildren != null ? pshRrhWithOnlychildren.size() : 0;
         	q07aHouseholdsServed.setPshRrhWithOnlychildren(BigInteger.valueOf(pshRrhWithOnlychildrenCount));
+        	data.setPshRrhWithOnlychildren(pshRrhWithOnlychildren);
         	
            	List<EnrollmentModel> pshRrhWithChildAndAdults = enrollmentsHHWithOneAdultChild.parallelStream().filter(enrollment -> pshRrhTotalList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
 	        int pshRrhWithChildAndAdultsCount = pshRrhWithChildAndAdults != null ? pshRrhWithChildAndAdults.size() : 0;
         	q07aHouseholdsServed.setPshRrhWithOnlychildren(BigInteger.valueOf(pshRrhWithChildAndAdultsCount));
+        	data.setPshRrhWithOnlychildren(pshRrhWithOnlychildren);
         	
          	List<EnrollmentModel> pshRrhUnknownHousehold = enrollmentsUnknownHouseHold.parallelStream().filter(enrollment -> pshRrhTotalList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
 	        int pshRrhUnknownHouseholdCount = pshRrhUnknownHousehold != null ? pshRrhUnknownHousehold.size() : 0;
         	q07aHouseholdsServed.setPshRrhUnknownHousehold(BigInteger.valueOf(pshRrhUnknownHouseholdCount));
+        	data.setPshRrhUnknownHousehold(pshRrhUnknownHousehold);
         	
         } catch (Exception e) {
 			logger.error("Error in Q07aBeanMaker:" + e);

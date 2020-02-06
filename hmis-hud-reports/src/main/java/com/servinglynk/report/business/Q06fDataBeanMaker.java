@@ -35,6 +35,7 @@ public class Q06fDataBeanMaker extends BaseBeanMaker {
 							&& StringUtils.equals("3", project.getTrackingMethod()))
 							|| StringUtils.equals("4", project.getProjectType()))
 					.collect(Collectors.toList());
+			
 			List<String> projectIds = new ArrayList<String>();
 			filteredProjects.forEach(project -> {
 				projectIds.add(project.getProjectId());
