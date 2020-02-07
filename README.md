@@ -1,6 +1,4 @@
-HSLynk is a human services platform developed by ServingLynk, Inc. in conjunction with a community of third-party developers and users. Pay-per-use hosting is offered at http://hslynk.com.  The docs, wiki, and issue tracker are all located at: https://github.com/servinglynk/hslynk-open-source-docs/wiki .  API documentation is at http://docs.hslynk.com
-
-[![Build Status](https://builds.hmislynk.com/buildStatus/icon?job=Build-hmis-master)](https://builds.hmislynk.com/view/HMIS%20Build/job/Build-hmis-master/)
+HSLynk is a human services platform developed by ServingLynk, Inc. in conjunction with a community of third-party developers and users. Pay-per-use hosting is offered at http://hslynk.com.  The docs, wiki, and issue tracker are all located at: https://github.com/servinglynk/hslynk-open-source-docs/wiki .  API documentation is at http://docs.hslynk.com.
 
 # HSLynk Human Services Data Warehouse
 All subdirectories in this repository contain HSLynk microservice code.
