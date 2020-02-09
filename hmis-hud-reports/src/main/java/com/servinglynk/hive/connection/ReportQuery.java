@@ -33,6 +33,11 @@ public static String MOVE_IN_DATE_QUERY = " select distinct e.dedup_client_id  f
 		" and p.projecttype in ('3','13') "+
 		" and mid.moveindate is not null and mid.moveindate <= :endDate "+
 		" order by e.dedup_client_id ";
+public static String CURRENT_LIVING_SITUATION_QUERY = " select e.id as enrollmentid ,cls.livingsituation as livingsituation  from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
+		" left outer join  %s.current_living_situation cls  on  ( cls.enrollmentid = e.id ) "+
+		" where relationshiptohoh ='1' " +
+		" and cls.livingsituation  "+
+		" order by e.id ";
 public static String GET_PROJECTS_BY_COC = "select * from %s.project where id in (select projectid from %s.coc where coc_id = ? )";
 public static String GET_PROJECTS = "select * from %s.project where id in (";
 public static String GET_ENROLLMENTS_BY_COC_ID = "select * from %s.enrollment where  entrydate >=:startDate and entrydate <= :endDate and projectid in (select projectid from %s.coc where id = ? ) ";

@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.servinglynk.report.bean.Q09aNumberPersonsContactedDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ContactModel;
+import com.servinglynk.report.model.CurrentLivingSituationModel;
 import com.servinglynk.report.model.DateOfEngagementModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
@@ -29,11 +30,14 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		List<ContactModel> contacts = getContacts(data.getSchema());
 		List<ContactModel> contactsFromService = getContactsFromService(data.getSchema());
+		List<CurrentLivingSituationModel> currentLivingSituations = getCurrentLivingSituationModel(data.getSchema(),data);
+		
 		if(CollectionUtils.isNotEmpty(contactsFromService)) {
 			contacts.addAll(contactsFromService);
 		}
 		
 		List<String> enrollmentIds = data.getEnrollmentIds();
+		
 		List<ContactModel> filteredContacts = contacts.parallelStream().filter(contact -> enrollmentIds.contains(contact.getEnrollmentId())).collect(Collectors.toList());
 		List<DateOfEngagementModel> dateOfEngagements = getDateOfEngagements(data.getSchema());
 		data.setContacts(filteredContacts);
@@ -56,8 +60,8 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 				   q09aNumberPersonsContactedDataBean.setTotPersonsContacted(BigInteger.valueOf(totalContacts != null ? totalContacts.size() : 0));
 				   data.setTotPersonsContacted(BigInteger.valueOf(totalContacts != null ? totalContacts.size() : 0));
 			   }
-			   
 		}
+		
 		Map<String,Date> enrollmentMap = new HashMap<>();
 		enrollments.forEach(enrollment-> enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate()));
 		Map<String,Date> dateOfEngagementMap = new HashMap<>();

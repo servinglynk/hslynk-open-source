@@ -36,6 +36,7 @@ import com.servinglynk.report.bean.Q19DataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.ContactModel;
+import com.servinglynk.report.model.CurrentLivingSituationModel;
 import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.DateOfEngagementModel;
 import com.servinglynk.report.model.DisabilitiesModel;
@@ -696,6 +697,40 @@ public class BaseBeanMaker {
 		}
 		return models;
 	}
+	
+	
+	public static List<CurrentLivingSituationModel> getCurrentLivingSituationModel(final String schema,final ReportData data) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<CurrentLivingSituationModel>  models = new ArrayList<CurrentLivingSituationModel>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(formatQuery(ReportQuery.CURRENT_LIVING_SITUATION_QUERY,schema,data));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 CurrentLivingSituationModel model = new CurrentLivingSituationModel(resultSet.getString("enrollmentid"), resultSet.getString("livingsituation"));
+			 models.add(model);
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	
+	
+	
 	public static List<DateOfEngagementModel> getDateOfEngagements(final String schema) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;

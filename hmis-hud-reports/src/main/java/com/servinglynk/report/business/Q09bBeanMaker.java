@@ -35,13 +35,6 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 		List<DateOfEngagementModel> filteredDOE = dateOfEngagements.parallelStream().filter(doe -> enrollmentIds.contains(doe.getEnrollmentId())).collect(Collectors.toList());
 		data.setDateOfEngagements(filteredDOE);
 
-		
-//		q09BNumberOfPersonsEngaged.setEngFirstContactRSS(BigInteger.valueOf(0));
-//		q09BNumberOfPersonsEngaged.setEng2to5FirstContactRSS(BigInteger.valueOf(0));
-//		q09BNumberOfPersonsEngaged.setEng6to9FirstContactRSS(BigInteger.valueOf(0));
-//		q09BNumberOfPersonsEngaged.setEng10FirstContactRSS(BigInteger.valueOf(0));
-//		q09BNumberOfPersonsEngaged.setRoeFirstContactRSS(BigInteger.valueOf(0));
-		
 		if(CollectionUtils.isNotEmpty(filteredContacts)) {
 			   Map<String, Long> totalContacts = filteredContacts.stream().collect(Collectors.groupingBy(ContactModel::getEnrollmentId, Collectors.counting()));
 			   if(totalContacts != null) {
