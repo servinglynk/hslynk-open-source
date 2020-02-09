@@ -60,24 +60,45 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 				   q09aNumberPersonsContactedDataBean.setTotPersonsContacted(BigInteger.valueOf(totalContacts != null ? totalContacts.size() : 0));
 				   data.setTotPersonsContacted(BigInteger.valueOf(totalContacts != null ? totalContacts.size() : 0));
 			   }
-		}
+		}	
 		
-		Map<String,Date> enrollmentMap = new HashMap<>();
-		enrollments.forEach(enrollment-> enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate()));
+		Map<String,Date> notStayingOnStreetsEnrollmentMap = new HashMap<>();
+//		a.	Column C = anything other than 16, 1, 18, 37, 8, 9, 99
+		List<String> notStayingOnStreetsExcludeList = Arrays.asList("16", "1", "18", "37", "8", "9", "99");
+		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(notStayingOnStreetsEnrollmentMap, enrollment, currentLivingSituations,null,notStayingOnStreetsExcludeList)   );
+		
+//		b.	Column D = 16, 1, 18
+		Map<String,Date> stayingOnStreetsEnrollmentMap = new HashMap<>();
+		List<String> stayingOnStreetsIncludeList = Arrays.asList("16", "1", "18");
+		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(stayingOnStreetsEnrollmentMap, enrollment, currentLivingSituations,stayingOnStreetsIncludeList,null)   );
+//		c.	Column E = 37, 8, 9, 99		
+		Map<String,Date> unabletoDetermineEnrollmentMap = new HashMap<>();
+		List<String> unabletoDetermineIncludeList = Arrays.asList("37", "8", "9", "99");
+		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(unabletoDetermineEnrollmentMap, enrollment, currentLivingSituations,unabletoDetermineIncludeList,null)   );
+		
+		
+		
 		Map<String,Date> dateOfEngagementMap = new HashMap<>();
 		dateOfEngagements.forEach(doe-> dateOfEngagementMap.put(doe.getEnrollmentId(), doe.getDateOfEngagement()));
 		List<ExitModel> exits = data.getExits();
 		Map<String,Date> exitMap = new HashMap<>();
 		exits.forEach(exit-> exitMap.put(exit.getProjectEntryID(), exit.getExitdate()));
-		
-		List<ContactModel> seperatedContacts = new ArrayList<>();
+
+		List<ContactModel> notStayingOnStreetSseperatedContacts = new ArrayList<>();
 		filteredContacts.forEach(
-				contact ->  { filterContacts(contact, seperatedContacts,enrollmentMap,dateOfEngagementMap,exitMap,data); }
+				contact ->  { filterContacts(contact, notStayingOnStreetSseperatedContacts,notStayingOnStreetsEnrollmentMap,dateOfEngagementMap,exitMap,data); }
 				);
-		
-		List<ContactModel> notStayingOnStreets = seperatedContacts.parallelStream().filter(contact -> StringUtils.equals("0", contact.getContactLocation())).collect(Collectors.toList());
-		List<ContactModel> stayingOnStreets = seperatedContacts.parallelStream().filter(contact ->StringUtils.equals("1", contact.getContactLocation())).collect(Collectors.toList());
-		List<ContactModel> unabletoDetermine = seperatedContacts.parallelStream().filter(contact -> contact.getContactLocation() == null || StringUtils.equals("2", contact.getContactLocation())).collect(Collectors.toList());
+		List<ContactModel> stayingOnStreetsseperatedContacts = new ArrayList<>();
+		filteredContacts.forEach(
+				contact ->  { filterContacts(contact, stayingOnStreetsseperatedContacts,stayingOnStreetsEnrollmentMap,dateOfEngagementMap,exitMap,data); }
+				);
+		List<ContactModel> unabletoDetermineSeperatedContacts = new ArrayList<>();
+		filteredContacts.forEach(
+				contact ->  { filterContacts(contact, unabletoDetermineSeperatedContacts,unabletoDetermineEnrollmentMap,dateOfEngagementMap,exitMap,data); }
+				);
+		List<ContactModel> notStayingOnStreets = notStayingOnStreetSseperatedContacts.parallelStream().filter(contact -> StringUtils.equals("0", contact.getContactLocation())).collect(Collectors.toList());
+		List<ContactModel> stayingOnStreets = stayingOnStreetsseperatedContacts.parallelStream().filter(contact ->StringUtils.equals("1", contact.getContactLocation())).collect(Collectors.toList());
+		List<ContactModel> unabletoDetermine = unabletoDetermineSeperatedContacts.parallelStream().filter(contact -> contact.getContactLocation() == null || StringUtils.equals("2", contact.getContactLocation())).collect(Collectors.toList());
 		
 		if(CollectionUtils.isNotEmpty(stayingOnStreets)) {
 			 Map<String, Long> totalContacts = stayingOnStreets.stream().collect(Collectors.groupingBy(ContactModel::getEnrollmentId, Collectors.counting()));
@@ -156,6 +177,28 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 					seperatedContacts.add(contact);
 				}
 			}
+		}
+	}
+	
+	/***
+	 * Filter enrollments via their current living situation: I'm also adding the enrollmentMap if the currentliving sitation is 
+	 * a.	Column C = anything other than 16, 1, 18, 37, 8, 9, 99
+		b.	Column D = 16, 1, 18
+		c.	Column E = 37, 8, 9, 99
+	 * @param enrollmentMap
+	 * @param enrollment
+	 * @param currentLivingSituations
+	 * @param includeList
+	 * @param excludeList
+	 */
+	private static void filterEnrollmentsByLivingSitation(Map<String, Date> enrollmentMap, EnrollmentModel enrollment, List<CurrentLivingSituationModel>  currentLivingSituations, List<String> includeList, List<String> excludeList) {
+		if(CollectionUtils.isNotEmpty(currentLivingSituations)) {
+			List<CurrentLivingSituationModel> currentLivingSituation = currentLivingSituations.parallelStream().filter(currentLivingSitation -> StringUtils.equals(currentLivingSitation.getEnrollmentId(), enrollment.getProjectEntryID()) &&  ((includeList!=null && includeList.contains(currentLivingSitation.getLivingsituation()))  || (excludeList!=null && !excludeList.contains(currentLivingSitation.getLivingsituation()) ))).collect(Collectors.toList());
+			if(CollectionUtils.isNotEmpty(currentLivingSituation)) {
+				enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate());
+			}
+		}else {
+			enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate());
 		}
 	}
 	public static void main(String args[]) {
