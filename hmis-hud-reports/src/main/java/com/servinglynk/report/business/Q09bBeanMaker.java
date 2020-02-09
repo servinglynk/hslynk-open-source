@@ -59,8 +59,6 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 			   
 		}
 		
-		
-		
 		Map<String,Date> notStayingOnStreetsEnrollmentMap = new HashMap<>();
 //		a.	Column C = anything other than 16, 1, 18, 37, 8, 9, 99
 		List<String> notStayingOnStreetsExcludeList = Arrays.asList("16", "1", "18", "37", "8", "9", "99");
