@@ -699,18 +699,17 @@ public class BaseBeanMaker {
 	}
 	
 	
-	public static List<CurrentLivingSituationModel> getCurrentLivingSituationModel(final String schema,final ReportData data) {
+	public static Map<String,String> getCurrentLivingSituationModel(final String schema,final ReportData data) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
 		Connection connection = null;
-		List<CurrentLivingSituationModel>  models = new ArrayList<CurrentLivingSituationModel>();
+		Map<String,String>  models = new HashMap<String, String>();
 		try {
 			connection = ImpalaConnection.getConnection();
 			statement = connection.prepareStatement(formatQuery(ReportQuery.CURRENT_LIVING_SITUATION_QUERY,schema,data));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
-			 CurrentLivingSituationModel model = new CurrentLivingSituationModel(resultSet.getString("enrollmentid"), resultSet.getString("livingsituation"));
-			 models.add(model);
+			 models.put(resultSet.getString("enrollmentid"), resultSet.getString("livingsituation"));
 		 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -1206,6 +1205,7 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 			Connection connection = null;
 			List<EnrollmentModel>  models = new ArrayList<EnrollmentModel>();
 			try {
+				Map<String,String> currentLivingSituationMap = getCurrentLivingSituationModel(data.getSchema(),data);
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
 				String query = formatQuery(getQueryForProjectDB(data,ReportQuery.GET_ENROLLMENTS_PROJECT_ID),schema, data);
@@ -1249,7 +1249,9 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 								 resultSet.getDate("datetostreetessh"),
 								 resultSet.getString("dedup_client_id"));
 					 prevDedupClientId = resultSet.getString("dedup_client_id");
-						 models.add(model);
+					 String livingSituation = currentLivingSituationMap.get(model.getProjectEntryID());
+					 model.setCurrentLivingSituation(livingSituation);
+					 models.add(model);
 				 }
 			 }
 			} catch (SQLException e) {

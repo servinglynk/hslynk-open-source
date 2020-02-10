@@ -81,6 +81,7 @@ public class EnrollmentModel extends BaseModel {
 	private String livingSituation;
 	private Date datetostreetessh;
 	private String dedupClientId;
+	private String currentLivingSituation;
 	/**
 	 * @return the projectEntryID
 	 */
@@ -403,7 +404,7 @@ public class EnrollmentModel extends BaseModel {
 		this.enrollment_source_system_id = enrollment_source_system_id;
 	}
 	public String getLivingSituation() {
-		return livingSituation;
+		return livingSituation != null ? livingSituation : currentLivingSituation;
 	}
 	public void setLivingSituation(String livingSituation) {
 		this.livingSituation = livingSituation;
@@ -426,5 +427,16 @@ public class EnrollmentModel extends BaseModel {
 	public void setDedupClientId(String dedupClientId) {
 		this.dedupClientId = dedupClientId;
 	}
-	
+	/**
+	 * @return the currentLivingSituation
+	 */
+	public String getCurrentLivingSituation() {
+		return currentLivingSituation;
+	}
+	/**
+	 * @param currentLivingSituation the currentLivingSituation to set
+	 */
+	public void setCurrentLivingSituation(String currentLivingSituation) {
+		this.currentLivingSituation = currentLivingSituation;
+	}
 }

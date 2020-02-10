@@ -87,7 +87,6 @@ import com.servinglynk.report.csvcontroller.CSVGenerator;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
-import com.servinglynk.report.model.IncomeAndSourceModel;
 import com.servinglynk.report.model.ProjectModel;
 
 public class HomePageDataBeanMaker extends BaseBeanMaker {
@@ -143,6 +142,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 					List<String> enrollmentIds = new ArrayList<String>(); 
 					if(CollectionUtils.isNotEmpty(enrollments)) {
 						for(EnrollmentModel enrollment : enrollments) {
+							enrollment.setCurrentLivingSituation("KLM");
 							enrollmentIds.add(enrollment.getProjectEntryID());
 						}
 					}

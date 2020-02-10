@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import com.servinglynk.report.bean.Q09aNumberPersonsContactedDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ContactModel;
-import com.servinglynk.report.model.CurrentLivingSituationModel;
 import com.servinglynk.report.model.DateOfEngagementModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
@@ -30,8 +29,6 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 		List<EnrollmentModel> enrollments = data.getEnrollments();
 		List<ContactModel> contacts = getContacts(data.getSchema());
 		List<ContactModel> contactsFromService = getContactsFromService(data.getSchema());
-		List<CurrentLivingSituationModel> currentLivingSituations = getCurrentLivingSituationModel(data.getSchema(),data);
-		
 		if(CollectionUtils.isNotEmpty(contactsFromService)) {
 			contacts.addAll(contactsFromService);
 		}
@@ -65,17 +62,16 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 		Map<String,Date> notStayingOnStreetsEnrollmentMap = new HashMap<>();
 //		a.	Column C = anything other than 16, 1, 18, 37, 8, 9, 99
 		List<String> notStayingOnStreetsExcludeList = Arrays.asList("16", "1", "18", "37", "8", "9", "99");
-		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(notStayingOnStreetsEnrollmentMap, enrollment, currentLivingSituations,null,notStayingOnStreetsExcludeList)   );
+		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(notStayingOnStreetsEnrollmentMap, enrollment,null,notStayingOnStreetsExcludeList)   );
 		
 //		b.	Column D = 16, 1, 18
 		Map<String,Date> stayingOnStreetsEnrollmentMap = new HashMap<>();
 		List<String> stayingOnStreetsIncludeList = Arrays.asList("16", "1", "18");
-		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(stayingOnStreetsEnrollmentMap, enrollment, currentLivingSituations,stayingOnStreetsIncludeList,null)   );
+		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(stayingOnStreetsEnrollmentMap, enrollment,stayingOnStreetsIncludeList,null)   );
 //		c.	Column E = 37, 8, 9, 99		
 		Map<String,Date> unabletoDetermineEnrollmentMap = new HashMap<>();
 		List<String> unabletoDetermineIncludeList = Arrays.asList("37", "8", "9", "99");
-		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(unabletoDetermineEnrollmentMap, enrollment, currentLivingSituations,unabletoDetermineIncludeList,null)   );
-		
+		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(unabletoDetermineEnrollmentMap, enrollment,unabletoDetermineIncludeList,null)   );
 		
 		
 		Map<String,Date> dateOfEngagementMap = new HashMap<>();
@@ -180,6 +176,7 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 		}
 	}
 	
+	
 	/***
 	 * Filter enrollments via their current living situation: I'm also adding the enrollmentMap if the currentliving sitation is 
 	 * a.	Column C = anything other than 16, 1, 18, 37, 8, 9, 99
@@ -191,16 +188,15 @@ public class Q09aDataBeanMaker extends BaseBeanMaker {
 	 * @param includeList
 	 * @param excludeList
 	 */
-	private static void filterEnrollmentsByLivingSitation(Map<String, Date> enrollmentMap, EnrollmentModel enrollment, List<CurrentLivingSituationModel>  currentLivingSituations, List<String> includeList, List<String> excludeList) {
-		if(CollectionUtils.isNotEmpty(currentLivingSituations)) {
-			List<CurrentLivingSituationModel> currentLivingSituation = currentLivingSituations.parallelStream().filter(currentLivingSitation -> StringUtils.equals(currentLivingSitation.getEnrollmentId(), enrollment.getProjectEntryID()) &&  ((includeList!=null && includeList.contains(currentLivingSitation.getLivingsituation()))  || (excludeList!=null && !excludeList.contains(currentLivingSitation.getLivingsituation()) ))).collect(Collectors.toList());
-			if(CollectionUtils.isNotEmpty(currentLivingSituation)) {
+	private static void filterEnrollmentsByLivingSitation(Map<String, Date> enrollmentMap, EnrollmentModel enrollment , List<String> includeList, List<String> excludeList) {
+			if((includeList!=null && (includeList.contains(enrollment.getLivingSituation()) )) 
+			|| (excludeList!=null && (!excludeList.contains(enrollment.getLivingSituation())))) {
 				enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate());
-			}
-		}else {
+			} else {
 			enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate());
-		}
+		  }
 	}
+	
 	public static void main(String args[]) {
 		List<ContactModel> filteredContacts = new ArrayList<ContactModel>();
 		ContactModel contact1 = new ContactModel("contactID", "enrollmentId", new Date(), "1", "sourceSystemId");
