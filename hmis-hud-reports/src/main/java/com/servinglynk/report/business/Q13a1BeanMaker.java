@@ -80,11 +80,13 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
     		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> drugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
 			List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> drugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
 			List<EnrollmentModel> unknownHouseHold = enrollmentsUnknownHouseHold.parallelStream().filter(enrollment -> drugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
-			List<EnrollmentModel> withOneAdultChild = enrollmentsHHWithOneAdultChild.parallelStream().filter(enrollment -> drugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+			List<EnrollmentModel> withOneAdults = enrollmentsHHWithOneAdults.parallelStream().filter(enrollment -> drugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+			List<EnrollmentModel> withOneChildren = enrollmentsHHWithOneChildren.parallelStream().filter(enrollment -> alcoholList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
 			
     		q13a1Bean.setQ13a1DrugAbuseTotal(BigInteger.valueOf(drugList.size()));
         	q13a1Bean.setQ13a1DrugAbuseWithoutChildren(BigInteger.valueOf(withOutChildren != null ?withOutChildren.size() :0));
-        	q13a1Bean.setQ13a1DrugAbuseWithChildAndAdults(BigInteger.valueOf(withOneAdultChild != null ? withOneAdultChild.size() : 0));
+        	q13a1Bean.setQ13a1DrugAbuseWithAdults(BigInteger.valueOf(withOneAdults != null ? withOneAdults.size() : 0));
+        	q13a1Bean.setQ13a1DrugAbuseWithChildren(BigInteger.valueOf(withOneChildren != null ? withOneChildren.size() : 0));
         	q13a1Bean.setQ13a1DrugAbuseWithOnlychildren(BigInteger.valueOf(withChildren != null ?withChildren.size():0));
         	q13a1Bean.setQ13a1DrugAbuseUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
     	}
@@ -95,11 +97,14 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
      		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     		List<EnrollmentModel> unknownHouseHold = enrollmentsUnknownHouseHold.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
-    		List<EnrollmentModel> withOneAdultChild = enrollmentsHHWithOneAdultChild.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
-    			
+    		List<EnrollmentModel> withOneAdults = enrollmentsHHWithOneAdults.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+    		List<EnrollmentModel> withOneChildren = enrollmentsHHWithOneChildren.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+    		
     		q13a1Bean.setQ13a1BothAlcoholAndDrugAbuseTotal(BigInteger.valueOf(alcoholAndDrugList.size()));
         	q13a1Bean.setQ13a1BothAlcoholAndDrugAbuseWithoutChildren(BigInteger.valueOf(withOutChildren != null ?withOutChildren.size() :0));
-        	q13a1Bean.setQ13a1BothAlcoholAndDrugAbuseWithChildAndAdults(BigInteger.valueOf(withOneAdultChild != null ? withOneAdultChild.size() : 0));
+        	q13a1Bean.setQ13a1BothAlcoholAndDrugAbuseWithAdults(BigInteger.valueOf(withOneAdults != null ? withOneAdults.size() : 0));
+        	q13a1Bean.setQ13a1BothAlcoholAndDrugAbuseWithChildren(BigInteger.valueOf(withOneChildren != null ? withOneChildren.size() : 0));
+        	
         	q13a1Bean.setQ13a1BothAlcoholAndDrugAbuseWithOnlychildren(BigInteger.valueOf(withChildren != null ?withChildren.size():0));
         	q13a1Bean.setQ13a1BothAlcoholAndDrugAbuseUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
         	
@@ -109,11 +114,13 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
     		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> chronicHealthConditionList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> chronicHealthConditionList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     		List<EnrollmentModel> unknownHouseHold = enrollmentsUnknownHouseHold.parallelStream().filter(enrollment -> chronicHealthConditionList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
-    		List<EnrollmentModel> withOneAdultChild = enrollmentsHHWithOneAdultChild.parallelStream().filter(enrollment -> chronicHealthConditionList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
-    			
+    		List<EnrollmentModel> withOneAdults = enrollmentsHHWithOneAdults.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+    		List<EnrollmentModel> withOneChildren = enrollmentsHHWithOneChildren.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+    				
     		q13a1Bean.setQ13a1ChronicHealthConditionTotal(BigInteger.valueOf(chronicHealthConditionList.size()));
         	q13a1Bean.setQ13a1ChronicHealthConditionWithoutChildren(BigInteger.valueOf(withOutChildren != null ?withOutChildren.size() :0));
-        	q13a1Bean.setQ13a1ChronicHealthConditionWithChildAndAdults(BigInteger.valueOf(withOneAdultChild != null ? withOneAdultChild.size() : 0));
+        	q13a1Bean.setQ13a1ChronicHealthConditionWithAdults(BigInteger.valueOf(withOneAdults != null ? withOneAdults.size() : 0));
+        	q13a1Bean.setQ13a1ChronicHealthConditionWithChildren(BigInteger.valueOf(withOneChildren != null ? withOneChildren.size() : 0));
         	q13a1Bean.setQ13a1ChronicHealthConditionWithOnlychildren(BigInteger.valueOf(withChildren != null ?withChildren.size():0));
         	q13a1Bean.setQ13a1ChronicHealthConditionUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
     	}
@@ -123,12 +130,15 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
     		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> hivaidsList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> hivaidsList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     		List<EnrollmentModel> unknownHouseHold = enrollmentsUnknownHouseHold.parallelStream().filter(enrollment -> hivaidsList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
-    		List<EnrollmentModel> withOneAdultChild = enrollmentsHHWithOneAdultChild.parallelStream().filter(enrollment -> hivaidsList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+    		List<EnrollmentModel> withOneAdults = enrollmentsHHWithOneAdults.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+    		List<EnrollmentModel> withOneChildren = enrollmentsHHWithOneChildren.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     			
     		q13a1Bean.setQ13a1HIVRelatedDiseasesTotal(BigInteger.valueOf(hivaidsList.size()));
         	q13a1Bean.setQ13a1HIVRelatedDiseasesWithoutChildren(BigInteger.valueOf(withOutChildren != null ?withOutChildren.size() :0));
         	q13a1Bean.setQ13a1HIVRelatedDiseasesWithOnlychildren(BigInteger.valueOf(withChildren != null ?withChildren.size():0));
-        	q13a1Bean.setQ13a1HIVRelatedDiseasesWithChildAndAdults(BigInteger.valueOf(withOneAdultChild != null ? withOneAdultChild.size() : 0));
+        	q13a1Bean.setQ13a1HIVRelatedDiseasesWithAdults(BigInteger.valueOf(withOneAdults != null ? withOneAdults.size() : 0));
+        	q13a1Bean.setQ13a1HIVRelatedDiseasesWithChildren(BigInteger.valueOf(withOneChildren != null ? withOneChildren.size() : 0));
+        	
         	q13a1Bean.setQ13a1HIVRelatedDiseasesUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
     	}
     	
@@ -137,11 +147,14 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
     		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> developmentDisabilityList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> developmentDisabilityList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     		List<EnrollmentModel> unknownHouseHold = enrollmentsUnknownHouseHold.parallelStream().filter(enrollment -> developmentDisabilityList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
-    		List<EnrollmentModel> withOneAdultChild = enrollmentsHHWithOneAdultChild.parallelStream().filter(enrollment -> developmentDisabilityList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+    		List<EnrollmentModel> withOneAdults = enrollmentsHHWithOneAdults.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+    		List<EnrollmentModel> withOneChildren = enrollmentsHHWithOneChildren.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     			
     		q13a1Bean.setQ13a1DevelopmentalDisabilityTotal(BigInteger.valueOf(developmentDisabilityList.size()));
         	q13a1Bean.setQ13a1DevelopmentalDisabilityWithoutChildren(BigInteger.valueOf(withOutChildren != null ?withOutChildren.size() :0));
-        	q13a1Bean.setQ13a1DevelopmentalDisabilityWithChildAndAdults(BigInteger.valueOf(withOneAdultChild != null ? withOneAdultChild.size() : 0));
+        	q13a1Bean.setQ13a1DevelopmentalDisabilityWithAdults(BigInteger.valueOf(withOneAdults != null ? withOneAdults.size() : 0));
+        	q13a1Bean.setQ13a1DevelopmentalDisabilityWithChildren(BigInteger.valueOf(withOneChildren != null ? withOneChildren.size() : 0));
+        	
         	q13a1Bean.setQ13a1DevelopmentalDisabilityWithOnlychildren(BigInteger.valueOf(withChildren != null ?withChildren.size():0));
         	q13a1Bean.setQ13a1DevelopmentalDisabilityUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
     	}
@@ -152,11 +165,14 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
     		List<EnrollmentModel> withChildren = enrollmentsHHWithChildren.parallelStream().filter(enrollment -> physicalDisabilitiyList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     		List<EnrollmentModel> withOutChildren = enrollmentsHHWithOutChildren.parallelStream().filter(enrollment -> physicalDisabilitiyList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     		List<EnrollmentModel> unknownHouseHold = enrollmentsUnknownHouseHold.parallelStream().filter(enrollment -> physicalDisabilitiyList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
-    		List<EnrollmentModel> withOneAdultChild = enrollmentsHHWithOneAdultChild.parallelStream().filter(enrollment -> physicalDisabilitiyList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+    		List<EnrollmentModel> withOneAdults = enrollmentsHHWithOneAdults.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
+    		List<EnrollmentModel> withOneChildren = enrollmentsHHWithOneChildren.parallelStream().filter(enrollment -> alcoholAndDrugList.contains(enrollment.getDedupClientId())).collect(Collectors.toList());
     			
     	   	q13a1Bean.setQ13a1PhysicalDisabilityTotal(BigInteger.valueOf(physicalDisabilitiyList.size()));
         	q13a1Bean.setQ13a1PhysicalDisabilityWithoutChildren(BigInteger.valueOf(withOutChildren != null ?withOutChildren.size() :0));
-        	q13a1Bean.setQ13a1PhysicalDisabilityWithChildAndAdults(BigInteger.valueOf(withOneAdultChild != null ? withOneAdultChild.size() : 0));
+        	q13a1Bean.setQ13a1PhysicalDisabilityWithAdults(BigInteger.valueOf(withOneAdults != null ? withOneAdults.size() : 0));
+        	q13a1Bean.setQ13a1PhysicalDisabilityWithChildren(BigInteger.valueOf(withOneChildren != null ? withOneChildren.size() : 0));
+        	
         	q13a1Bean.setQ13a1PhysicalDisabilityWithOnlychildren(BigInteger.valueOf(withChildren != null ?withChildren.size():0));
         	q13a1Bean.setQ13a1PhysicalDisabilityUnknowHousehold(BigInteger.valueOf(unknownHouseHold != null ?unknownHouseHold.size() :0));
     	}

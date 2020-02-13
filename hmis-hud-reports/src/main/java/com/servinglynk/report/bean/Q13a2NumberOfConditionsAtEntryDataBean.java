@@ -6,49 +6,57 @@ public class Q13a2NumberOfConditionsAtEntryDataBean {
 	
 	private BigInteger q13a2NoneTotal=BigInteger.valueOf(0);
 	private BigInteger q13a2NoneWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13a2NoneWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2NoneWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2NoneWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13a2NoneWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13a2NoneUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13a2Condition1Total=BigInteger.valueOf(0);
 	private BigInteger q13a2Condition1WithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13a2Condition1WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition1WithAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition1WithChildren=BigInteger.valueOf(0);
 	private BigInteger q13a2Condition1WithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13a2Condition1UnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13a2Condition2Total=BigInteger.valueOf(0);
 	private BigInteger q13a2Condition2WithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13a2Condition2WithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition2WithAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition2WithChildren=BigInteger.valueOf(0);
 	private BigInteger q13a2Condition2WithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13a2Condition2UnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13a2Condition3PlusTotal=BigInteger.valueOf(0);
 	private BigInteger q13a2Condition3PlusWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13a2Condition3PlusWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition3PlusWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2Condition3PlusWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13a2Condition3PlusWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13a2Condition3PlusUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13a2ConditionUnknownTotal=BigInteger.valueOf(0);
 	private BigInteger q13a2ConditionUnknownWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13a2ConditionUnknownWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2ConditionUnknownWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2ConditionUnknownWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13a2ConditionUnknownWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13a2ConditionUnknownUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13a2DontKnowRefusedTotal=BigInteger.valueOf(0);
 	private BigInteger q13a2DontKnowRefusedWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13a2DontKnowRefusedWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2DontKnowRefusedWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2DontKnowRefusedWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13a2DontKnowRefusedWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13a2DontKnowRefusedUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13a2InformationmissingTotal=BigInteger.valueOf(0);
 	private BigInteger q13a2InformationmissingWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13a2InformationmissingWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2InformationmissingWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2InformationmissingWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13a2InformationmissingWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13a2InformationmissingUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13a2TotalSummed=BigInteger.valueOf(0);
 	private BigInteger q13a2TotalWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13a2TotalWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2TotalWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13a2TotalWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13a2TotalWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13a2TotalUnknowHousehold=BigInteger.valueOf(0);
 	public BigInteger getQ13a2NoneTotal() {
@@ -63,12 +71,12 @@ public class Q13a2NumberOfConditionsAtEntryDataBean {
 	public void setQ13a2NoneWithoutChildren(BigInteger q13a2NoneWithoutChildren) {
 		this.q13a2NoneWithoutChildren = q13a2NoneWithoutChildren;
 	}
-	public BigInteger getQ13a2NoneWithChildAndAdults() {
-		return q13a2NoneWithChildAndAdults;
+	public BigInteger getQ13a2NoneWithAdults() {
+		return q13a2NoneWithAdults;
 	}
-	public void setQ13a2NoneWithChildAndAdults(
-			BigInteger q13a2NoneWithChildAndAdults) {
-		this.q13a2NoneWithChildAndAdults = q13a2NoneWithChildAndAdults;
+	public void setQ13a2NoneWithAdults(
+			BigInteger q13a2NoneWithAdults) {
+		this.q13a2NoneWithAdults = q13a2NoneWithAdults;
 	}
 	public BigInteger getQ13a2NoneWithOnlychildren() {
 		return q13a2NoneWithOnlychildren;
@@ -95,12 +103,12 @@ public class Q13a2NumberOfConditionsAtEntryDataBean {
 			BigInteger q13a2Condition1WithoutChildren) {
 		this.q13a2Condition1WithoutChildren = q13a2Condition1WithoutChildren;
 	}
-	public BigInteger getQ13a2Condition1WithChildAndAdults() {
-		return q13a2Condition1WithChildAndAdults;
+	public BigInteger getQ13a2Condition1WithAdults() {
+		return q13a2Condition1WithAdults;
 	}
-	public void setQ13a2Condition1WithChildAndAdults(
-			BigInteger q13a2Condition1WithChildAndAdults) {
-		this.q13a2Condition1WithChildAndAdults = q13a2Condition1WithChildAndAdults;
+	public void setQ13a2Condition1WithAdults(
+			BigInteger q13a2Condition1WithAdults) {
+		this.q13a2Condition1WithAdults = q13a2Condition1WithAdults;
 	}
 	public BigInteger getQ13a2Condition1WithOnlychildren() {
 		return q13a2Condition1WithOnlychildren;
@@ -129,12 +137,12 @@ public class Q13a2NumberOfConditionsAtEntryDataBean {
 			BigInteger q13a2Condition2WithoutChildren) {
 		this.q13a2Condition2WithoutChildren = q13a2Condition2WithoutChildren;
 	}
-	public BigInteger getQ13a2Condition2WithChildAndAdults() {
-		return q13a2Condition2WithChildAndAdults;
+	public BigInteger getQ13a2Condition2WithAdults() {
+		return q13a2Condition2WithAdults;
 	}
-	public void setQ13a2Condition2WithChildAndAdults(
-			BigInteger q13a2Condition2WithChildAndAdults) {
-		this.q13a2Condition2WithChildAndAdults = q13a2Condition2WithChildAndAdults;
+	public void setQ13a2Condition2WithAdults(
+			BigInteger q13a2Condition2WithAdults) {
+		this.q13a2Condition2WithAdults = q13a2Condition2WithAdults;
 	}
 	public BigInteger getQ13a2Condition2WithOnlychildren() {
 		return q13a2Condition2WithOnlychildren;
@@ -163,12 +171,12 @@ public class Q13a2NumberOfConditionsAtEntryDataBean {
 			BigInteger q13a2Condition3PlusWithoutChildren) {
 		this.q13a2Condition3PlusWithoutChildren = q13a2Condition3PlusWithoutChildren;
 	}
-	public BigInteger getQ13a2Condition3PlusWithChildAndAdults() {
-		return q13a2Condition3PlusWithChildAndAdults;
+	public BigInteger getQ13a2Condition3PlusWithAdults() {
+		return q13a2Condition3PlusWithAdults;
 	}
-	public void setQ13a2Condition3PlusWithChildAndAdults(
-			BigInteger q13a2Condition3PlusWithChildAndAdults) {
-		this.q13a2Condition3PlusWithChildAndAdults = q13a2Condition3PlusWithChildAndAdults;
+	public void setQ13a2Condition3PlusWithAdults(
+			BigInteger q13a2Condition3PlusWithAdults) {
+		this.q13a2Condition3PlusWithAdults = q13a2Condition3PlusWithAdults;
 	}
 	public BigInteger getQ13a2Condition3PlusWithOnlychildren() {
 		return q13a2Condition3PlusWithOnlychildren;
@@ -197,12 +205,12 @@ public class Q13a2NumberOfConditionsAtEntryDataBean {
 			BigInteger q13a2ConditionUnknownWithoutChildren) {
 		this.q13a2ConditionUnknownWithoutChildren = q13a2ConditionUnknownWithoutChildren;
 	}
-	public BigInteger getQ13a2ConditionUnknownWithChildAndAdults() {
-		return q13a2ConditionUnknownWithChildAndAdults;
+	public BigInteger getQ13a2ConditionUnknownWithAdults() {
+		return q13a2ConditionUnknownWithAdults;
 	}
-	public void setQ13a2ConditionUnknownWithChildAndAdults(
-			BigInteger q13a2ConditionUnknownWithChildAndAdults) {
-		this.q13a2ConditionUnknownWithChildAndAdults = q13a2ConditionUnknownWithChildAndAdults;
+	public void setQ13a2ConditionUnknownWithAdults(
+			BigInteger q13a2ConditionUnknownWithAdults) {
+		this.q13a2ConditionUnknownWithAdults = q13a2ConditionUnknownWithAdults;
 	}
 	public BigInteger getQ13a2ConditionUnknownWithOnlychildren() {
 		return q13a2ConditionUnknownWithOnlychildren;
@@ -231,12 +239,12 @@ public class Q13a2NumberOfConditionsAtEntryDataBean {
 			BigInteger q13a2DontKnowRefusedWithoutChildren) {
 		this.q13a2DontKnowRefusedWithoutChildren = q13a2DontKnowRefusedWithoutChildren;
 	}
-	public BigInteger getQ13a2DontKnowRefusedWithChildAndAdults() {
-		return q13a2DontKnowRefusedWithChildAndAdults;
+	public BigInteger getQ13a2DontKnowRefusedWithAdults() {
+		return q13a2DontKnowRefusedWithAdults;
 	}
-	public void setQ13a2DontKnowRefusedWithChildAndAdults(
-			BigInteger q13a2DontKnowRefusedWithChildAndAdults) {
-		this.q13a2DontKnowRefusedWithChildAndAdults = q13a2DontKnowRefusedWithChildAndAdults;
+	public void setQ13a2DontKnowRefusedWithAdults(
+			BigInteger q13a2DontKnowRefusedWithAdults) {
+		this.q13a2DontKnowRefusedWithAdults = q13a2DontKnowRefusedWithAdults;
 	}
 	public BigInteger getQ13a2DontKnowRefusedWithOnlychildren() {
 		return q13a2DontKnowRefusedWithOnlychildren;
@@ -266,12 +274,12 @@ public class Q13a2NumberOfConditionsAtEntryDataBean {
 			BigInteger q13a2InformationmissingWithoutChildren) {
 		this.q13a2InformationmissingWithoutChildren = q13a2InformationmissingWithoutChildren;
 	}
-	public BigInteger getQ13a2InformationmissingWithChildAndAdults() {
-		return q13a2InformationmissingWithChildAndAdults;
+	public BigInteger getQ13a2InformationmissingWithAdults() {
+		return q13a2InformationmissingWithAdults;
 	}
-	public void setQ13a2InformationmissingWithChildAndAdults(
-			BigInteger q13a2InformationmissingWithChildAndAdults) {
-		this.q13a2InformationmissingWithChildAndAdults = q13a2InformationmissingWithChildAndAdults;
+	public void setQ13a2InformationmissingWithAdults(
+			BigInteger q13a2InformationmissingWithAdults) {
+		this.q13a2InformationmissingWithAdults = q13a2InformationmissingWithAdults;
 	}
 	public BigInteger getQ13a2InformationmissingWithOnlychildren() {
 		return q13a2InformationmissingWithOnlychildren;
@@ -299,12 +307,12 @@ public class Q13a2NumberOfConditionsAtEntryDataBean {
 	public void setQ13a2TotalWithoutChildren(BigInteger q13a2TotalWithoutChildren) {
 		this.q13a2TotalWithoutChildren = q13a2TotalWithoutChildren;
 	}
-	public BigInteger getQ13a2TotalWithChildAndAdults() {
-		return q13a2TotalWithChildAndAdults;
+	public BigInteger getQ13a2TotalWithAdults() {
+		return q13a2TotalWithAdults;
 	}
-	public void setQ13a2TotalWithChildAndAdults(
-			BigInteger q13a2TotalWithChildAndAdults) {
-		this.q13a2TotalWithChildAndAdults = q13a2TotalWithChildAndAdults;
+	public void setQ13a2TotalWithAdults(
+			BigInteger q13a2TotalWithAdults) {
+		this.q13a2TotalWithAdults = q13a2TotalWithAdults;
 	}
 	public BigInteger getQ13a2TotalWithOnlychildren() {
 		return q13a2TotalWithOnlychildren;
@@ -318,7 +326,52 @@ public class Q13a2NumberOfConditionsAtEntryDataBean {
 	public void setQ13a2TotalUnknowHousehold(BigInteger q13a2TotalUnknowHousehold) {
 		this.q13a2TotalUnknowHousehold = q13a2TotalUnknowHousehold;
 	}
-	
-	
-
+	public BigInteger getQ13a2NoneWithChildren() {
+		return q13a2NoneWithChildren;
+	}
+	public void setQ13a2NoneWithChildren(BigInteger q13a2NoneWithChildren) {
+		this.q13a2NoneWithChildren = q13a2NoneWithChildren;
+	}
+	public BigInteger getQ13a2Condition1WithChildren() {
+		return q13a2Condition1WithChildren;
+	}
+	public void setQ13a2Condition1WithChildren(BigInteger q13a2Condition1WithChildren) {
+		this.q13a2Condition1WithChildren = q13a2Condition1WithChildren;
+	}
+	public BigInteger getQ13a2Condition2WithChildren() {
+		return q13a2Condition2WithChildren;
+	}
+	public void setQ13a2Condition2WithChildren(BigInteger q13a2Condition2WithChildren) {
+		this.q13a2Condition2WithChildren = q13a2Condition2WithChildren;
+	}
+	public BigInteger getQ13a2Condition3PlusWithChildren() {
+		return q13a2Condition3PlusWithChildren;
+	}
+	public void setQ13a2Condition3PlusWithChildren(BigInteger q13a2Condition3PlusWithChildren) {
+		this.q13a2Condition3PlusWithChildren = q13a2Condition3PlusWithChildren;
+	}
+	public BigInteger getQ13a2ConditionUnknownWithChildren() {
+		return q13a2ConditionUnknownWithChildren;
+	}
+	public void setQ13a2ConditionUnknownWithChildren(BigInteger q13a2ConditionUnknownWithChildren) {
+		this.q13a2ConditionUnknownWithChildren = q13a2ConditionUnknownWithChildren;
+	}
+	public BigInteger getQ13a2DontKnowRefusedWithChildren() {
+		return q13a2DontKnowRefusedWithChildren;
+	}
+	public void setQ13a2DontKnowRefusedWithChildren(BigInteger q13a2DontKnowRefusedWithChildren) {
+		this.q13a2DontKnowRefusedWithChildren = q13a2DontKnowRefusedWithChildren;
+	}
+	public BigInteger getQ13a2InformationmissingWithChildren() {
+		return q13a2InformationmissingWithChildren;
+	}
+	public void setQ13a2InformationmissingWithChildren(BigInteger q13a2InformationmissingWithChildren) {
+		this.q13a2InformationmissingWithChildren = q13a2InformationmissingWithChildren;
+	}
+	public BigInteger getQ13a2TotalWithChildren() {
+		return q13a2TotalWithChildren;
+	}
+	public void setQ13a2TotalWithChildren(BigInteger q13a2TotalWithChildren) {
+		this.q13a2TotalWithChildren = q13a2TotalWithChildren;
+	}
 }
