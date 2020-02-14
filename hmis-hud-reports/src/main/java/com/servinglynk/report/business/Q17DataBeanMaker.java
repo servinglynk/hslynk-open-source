@@ -1,6 +1,7 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -218,12 +219,18 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		q17CashIncomeSourcesDataBeanTable.setQ17WorkersCompensationAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(workerscompIncomeAtAnnualAssesment));
 		
 		
-		List<IncomeAndSourceModel> incomeAtEntry = data.getIncomeAndSourcesAtEntry();
 		List<IncomeAndSourceModel> incomeAtExit = data.getIncomeAndSourcesAtExit();
 		List<IncomeAndSourceModel> incomeAtAA = data.getIncomeAndSourcesAtAnnualAssesment();
 		
+		List<IncomeAndSourceModel> d17IncomeAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getIncomefromanysource()) ||  StringUtils.equals("2", incomeAndSource.getIncomefromanysource()) ).collect(Collectors.toList());
+		List<IncomeAndSourceModel> d17IncomeAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getIncomefromanysource()) ||  StringUtils.equals("2", incomeAndSource.getIncomefromanysource()) ).collect(Collectors.toList());
+		List<String> d17EntryList = new ArrayList<String>();
+		d17IncomeAtEntry.forEach(income -> d17EntryList.add(income.getDedupClientId()));
+		List<String> d17ExitList = new ArrayList<String>();
+		d17IncomeAtExit.forEach(income -> d17ExitList.add(income.getDedupClientId()));
+		d17EntryList.retainAll(d17ExitList);
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtEntry(BigInteger.ZERO);
-		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(getIncomeCntWithIncome(incomeAtExit)));
+		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(d17EntryList != null? d17EntryList.size() : 0));
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(getIncomeCntWithIncome(incomeAtAA)));
 		
 	
