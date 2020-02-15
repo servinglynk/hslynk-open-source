@@ -219,7 +219,6 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		q17CashIncomeSourcesDataBeanTable.setQ17WorkersCompensationAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(workerscompIncomeAtAnnualAssesment));
 		
 		
-		List<IncomeAndSourceModel> incomeAtExit = data.getIncomeAndSourcesAtExit();
 		List<IncomeAndSourceModel> incomeAtAA = data.getIncomeAndSourcesAtAnnualAssesment();
 		
 		List<IncomeAndSourceModel> d17IncomeAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getIncomefromanysource()) ||  StringUtils.equals("2", incomeAndSource.getIncomefromanysource()) ).collect(Collectors.toList());
