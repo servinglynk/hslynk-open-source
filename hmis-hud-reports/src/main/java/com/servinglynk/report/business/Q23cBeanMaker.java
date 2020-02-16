@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.servinglynk.report.bean.Q23bExitDestination90DaysOrLessDataBean;
 import com.servinglynk.report.bean.Q23cDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.Q22BeanModel;
