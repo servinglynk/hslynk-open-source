@@ -79,21 +79,6 @@
 	<field name="totUnknownHousehold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[totUnknownHousehold]]></fieldDescription>
 	</field>
-	<field name="pshRrhTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[pshRrhTotal]]></fieldDescription>
-	</field>
-	<field name="pshRrhWithOutChildren" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[pshRrhWithOutChildren]]></fieldDescription>
-	</field>
-	<field name="pshRrhWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[pshRrhWithChildAndAdults]]></fieldDescription>
-	</field>
-	<field name="pshRrhWithOnlychildren" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[pshRrhWithOnlychildren]]></fieldDescription>
-	</field>
-	<field name="pshRrhUnknownHousehold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[pshRrhUnknownHousehold]]></fieldDescription>
-	</field>
 	<group name="Group5">
 		<groupFooter>
 			<band height="51">

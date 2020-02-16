@@ -170,7 +170,7 @@ public class Q08bDataBeanMaker extends BaseBeanMaker {
 				q08bDataBean.setHhCountOctWoc(BigInteger.valueOf(0));
 			}
 		} catch (Exception e) {
-			logger.error("Error in Q07bBeanMaker:" + e);
+			logger.error("Error in Q08bBeanMaker:" + e);
 		}
 	}
 		return Arrays.asList(q08bDataBean);

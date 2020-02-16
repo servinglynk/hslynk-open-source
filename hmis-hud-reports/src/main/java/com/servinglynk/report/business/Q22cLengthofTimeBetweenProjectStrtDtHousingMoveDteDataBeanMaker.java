@@ -25,9 +25,8 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 		Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean q22cBean = new Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean();
 		
 		String query = " select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
-				  " join  %s.enrollment e1 on  (e.householdid = e1.householdid  and e1.relationshiptohoh ='1') "+
 				   "left outer join %s.exit ext on ( e.id = ext.enrollmentid ) "+
-			      " left outer join %s.moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  :startDate  and  mid.moveindate<= :endDate) "+
+			      " left outer join %s.moveindate mid on (e.id = mid.enrollmentid and mid.moveindate  >=  :startDate  and  mid.moveindate<= :endDate) "+
 			      " where e.entrydate >= :startDate and e.entrydate <= :endDate  %e " ;
 		String exitedQuery = 		  
 					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+

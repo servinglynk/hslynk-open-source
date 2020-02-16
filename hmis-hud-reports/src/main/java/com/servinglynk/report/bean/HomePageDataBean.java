@@ -68,8 +68,11 @@ public class HomePageDataBean {
 	private List<Q22bAverageAndMedianLengthOfParticipationInDaysDataBean> q22bAverageAndMedianLengthOfParticipationInDaysDataBean;
 	private List<Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean> q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean;
 	private List<Q22dLengthOfParticipationByHouseholdTypeDataBean> q22dLengthOfParticipationByHouseholdTypeDataBean;
+	
 	private List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysDataBean;
 	private List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessDataBean;
+	private List<Q23cDataBean> q23cDataBean;
+	
 	private List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitDataBean;
 	private List<Q25aNumberOfVeteransDataBean> q25aNumberOfVeteransDataBean;
 	private List<Q25bNumberOfVeteranHouseholdsDataBean> q25bNumberOfVeteranHouseholdsDataBean;
@@ -868,6 +871,13 @@ public class HomePageDataBean {
 	public void setQ23bExitDestination90DaysOrLessDataBean(
 			List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessDataBean) {
 		this.q23bExitDestination90DaysOrLessDataBean = q23bExitDestination90DaysOrLessDataBean;
+	}
+	
+	public List<Q23cDataBean> getQ23cDataBean() {
+		return q23cDataBean;
+	}
+	public void setQ23cDataBean(List<Q23cDataBean> q23cDataBean) {
+		this.q23cDataBean = q23cDataBean;
 	}
 	/**
 	 * @return the q24HomelessnessPreventionHousingAssessmentAtExitDataBean

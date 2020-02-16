@@ -32,6 +32,7 @@ public class Q06aReportValidationsTableDataBean extends ReportBean{
 	private BigInteger ethnicityTotal = BigInteger.valueOf(0);
 	private BigInteger genderCDK=BigInteger.valueOf(0);
 	private BigInteger genderInfoMissing=BigInteger.valueOf(0);
+	private BigInteger genderDataIssue = BigInteger.ZERO;
 	private BigInteger genderPercentageErrorRate=BigInteger.valueOf(0);
 	private BigInteger genderTotal = BigInteger.valueOf(0);
 	private BigInteger overAllPercentage=BigInteger.valueOf(0);
@@ -162,6 +163,13 @@ public class Q06aReportValidationsTableDataBean extends ReportBean{
 	}
 	public void setGenderCDK(BigInteger genderCDK) {
 		this.genderCDK = genderCDK;
+	}
+	
+	public BigInteger getGenderDataIssue() {
+		return genderDataIssue;
+	}
+	public void setGenderDataIssue(BigInteger genderDataIssue) {
+		this.genderDataIssue = genderDataIssue;
 	}
 	public BigInteger getGenderInfoMissing() {
 		return genderInfoMissing;

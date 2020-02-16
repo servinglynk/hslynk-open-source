@@ -54,7 +54,7 @@ public class Q07bBeanMaker extends BaseBeanMaker {
 			// and report end date.
 			
 			// Get dedup Ids and move in date.
-			List<MoveInDateModel> clientsWithMoveInDates = getClientsWithMoveInDates(data, ReportQuery.GET_CLIENTS_MOVE_IN_DATE);
+			List<MoveInDateModel> clientsWithMoveInDates = getClientsWithMoveInDates(data, formatQuery(ReportQuery.GET_CLIENTS_MOVE_IN_DATE,data.getSchema(),data));
 			
 			List<EnrollmentModel> fileteredEnrollments = newEnrollments.parallelStream()
 					.filter(enrollment -> enrollment.getEntrydate() != null

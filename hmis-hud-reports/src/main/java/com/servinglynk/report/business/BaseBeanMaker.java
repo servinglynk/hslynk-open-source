@@ -113,6 +113,7 @@ public class BaseBeanMaker {
 			query = query.replaceAll(":startDate", "'"+ data.getReportStartDate()+"'");
 			query = query.replaceAll(":endDate", "'"+ data.getReportEndDate()+"'");
 			query = query.replaceAll(":dedupClientId", data.getQueryDedupClientId());
+			query = getQueryForProjectDB(data, query);
 			if(query.contains("%e")) {
 				query = joinEnrollmentIds(query, data);
 				query = query.replace("%e", "");
@@ -223,7 +224,7 @@ public class BaseBeanMaker {
 		List<MoveInDateModel>  models = new ArrayList<MoveInDateModel>();
 		try {
 			connection = ImpalaConnection.getConnection();
-			statement = connection.prepareStatement(String.format(query,data.getSchema()));
+			statement = connection.prepareStatement(formatQuery(query,data.getSchema(),data));
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
 			 models.add(new MoveInDateModel(resultSet.getString("1"), resultSet.getDate("2"), resultSet.getString("3")));
@@ -721,7 +722,7 @@ public class BaseBeanMaker {
 					//connection.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 		}
