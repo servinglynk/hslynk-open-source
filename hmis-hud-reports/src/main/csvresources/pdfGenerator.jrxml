@@ -145,9 +145,6 @@
 	<field name="q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean]]></fieldDescription>
 	</field>
-	<field name="q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean" class="java.util.List">
-		<fieldDescription><![CDATA[q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean]]></fieldDescription>
-	</field>
 	<field name="q20aTypeOfNonCashBenefitSourcesDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q20aTypeOfNonCashBenefitSourcesDataBean]]></fieldDescription>
 	</field>
@@ -958,13 +955,6 @@
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="821f5cf0-6aed-4295-bb54-64f597170a50"/>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q19a2_Client_Cash_Income_Change_Income_Source_By_Entry.jasper"]]></subreportExpression>
-				</subreport>
-			</band>
-			<band height="36" splitType="Stretch">
-				<subreport runToBottom="true">
-					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
-					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean})]]></dataSourceExpression>
-					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q19a3_Client_Cash_Income_Change_Income_Source_By_Entry.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 			<band height="36" splitType="Stretch">
