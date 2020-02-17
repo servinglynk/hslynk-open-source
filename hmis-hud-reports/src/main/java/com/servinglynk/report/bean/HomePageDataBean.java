@@ -97,6 +97,7 @@ public class HomePageDataBean {
 	private List<Q27dResidencePriorToEntryYouthDataBean> q27dResidencePriorToEntryYouthDataBean;
 	private List<Q27eLengthOfParticipationYouthDataBean> q27eLengthOfParticipationYouthDataBean;
 	private List<Q27fExitDestinationYouthDataBean> q27fExitDestinationYouthDataBean;
+	private List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesDataBean;
 	private List<Q29aPerformanceMeasuresPermanentHousingProgramsDataBean> q29aPerformanceMeasuresPermanentHousingProgramsDataBean;
 	private List<Q29bPerformanceMeasuresTransitionalHousingProgramsDataBean> q29bPerformanceMeasuresTransitionalHousingProgramsDataBean;
 	private List<Q29cPerformanceMeasuresStreetOutreachProgramsDataBean> q29cPerformanceMeasuresStreetOutreachProgramsDataBean;
@@ -1256,6 +1257,17 @@ public class HomePageDataBean {
 			List<Q29ePerformanceMeasuresSafeHavensDataBean> q29ePerformanceMeasuresSafeHavensDataBean) {
 		this.q29ePerformanceMeasuresSafeHavensDataBean = q29ePerformanceMeasuresSafeHavensDataBean;
 	}
+	/**
+	 * @return the q27gCashIncomeSourcesDataBean
+	 */
+	public List<Q27gCashIncomeSourcesDataBean> getQ27gCashIncomeSourcesDataBean() {
+		return q27gCashIncomeSourcesDataBean;
+	}
+	/**
+	 * @param q27gCashIncomeSourcesDataBean the q27gCashIncomeSourcesDataBean to set
+	 */
+	public void setQ27gCashIncomeSourcesDataBean(List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesDataBean) {
+		this.q27gCashIncomeSourcesDataBean = q27gCashIncomeSourcesDataBean;
+	}
 	
-		
 }

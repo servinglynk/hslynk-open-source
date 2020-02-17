@@ -82,6 +82,7 @@ import com.servinglynk.report.bean.Q27cGenderYouthDataBean;
 import com.servinglynk.report.bean.Q27dResidencePriorToEntryYouthDataBean;
 import com.servinglynk.report.bean.Q27eLengthOfParticipationYouthDataBean;
 import com.servinglynk.report.bean.Q27fExitDestinationYouthDataBean;
+import com.servinglynk.report.bean.Q27gCashIncomeSourcesDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.csvcontroller.CSVGenerator;
 import com.servinglynk.report.model.ClientModel;
@@ -473,6 +474,10 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<Q27fExitDestinationYouthDataBean> q27fExitDestinationYouthList = Q27fExitDestinationYouthDataBeanMaker.getQ27fExitDestinationYouthList(data);
 			homePageDataBean.setQ27fExitDestinationYouthDataBean(q27fExitDestinationYouthList);
 			CSVGenerator.buildReport(q27fExitDestinationYouthList, "q27f.jrxml","Q27f.csv",data);
+			
+			List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesYouthList = Q27gDataBeanMaker.getQ27gTypeOfCashIncomeSourcesYouthList(data);
+			homePageDataBean.setQ27gCashIncomeSourcesDataBean(q27gCashIncomeSourcesYouthList);
+			CSVGenerator.buildReport(q27fExitDestinationYouthList, "q27g.jrxml","Q27g.csv",data);
 			
 			return Arrays.asList(homePageDataBean);
 	    }
