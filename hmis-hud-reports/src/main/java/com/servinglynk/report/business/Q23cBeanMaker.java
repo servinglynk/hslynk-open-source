@@ -304,11 +304,11 @@ public class Q23cBeanMaker extends BaseBeanMaker {
 				q23cDataBean.setQ23CB8HotelOrMotelPaidByClientWithOnlyChild(BigInteger.valueOf(withChildren23));
 				q23cDataBean.setQ23CB8HotelOrMotelPaidByClientUnknownHouseHold(BigInteger.valueOf(unknown23));
 				//32
-				q23cDataBean.setQ23CBHostHomeTotal(BigInteger.valueOf(allTotal23));
-				q23cDataBean.setQ23CB8HostHomeWithoutChild(BigInteger.valueOf(withoutChildren23));
-				q23cDataBean.setQ23CB8HostHomeWithChildAndAdults(BigInteger.valueOf(withChildAndAdult23));
-				q23cDataBean.setQ23CB8HostHomeWithOnlyChild(BigInteger.valueOf(withChildren23));
-				q23cDataBean.setQ23CB8HostHomeUnknownHouseHold(BigInteger.valueOf(unknown23));
+				q23cDataBean.setQ23CBHostHomeTotal(BigInteger.valueOf(allTotal32));
+				q23cDataBean.setQ23CB8HostHomeWithoutChild(BigInteger.valueOf(withoutChildren32));
+				q23cDataBean.setQ23CB8HostHomeWithChildAndAdults(BigInteger.valueOf(withChildAndAdult32));
+				q23cDataBean.setQ23CB8HostHomeWithOnlyChild(BigInteger.valueOf(withChildren32));
+				q23cDataBean.setQ23CB8HostHomeUnknownHouseHold(BigInteger.valueOf(unknown32));
 				
 			
 				

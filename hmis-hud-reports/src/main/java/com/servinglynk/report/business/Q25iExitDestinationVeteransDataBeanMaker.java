@@ -45,6 +45,8 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				int allTotal11 = getDestination(allData,  "22");
 				int allTotal12 = getDestination(allData,  "23");
 				int allTotal13 = getDestination(allData,  "31");
+				int allTotal33 = getDestination(allData, "33");
+				int allTotal34 = getDestination(allData, "34");
 				
 				int withoutChildren3 = getDestination(withoutChildren,  "26");
 				int withoutChildren4 = getDestination(withoutChildren,  "11");
@@ -57,7 +59,8 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				int withoutChildren11 = getDestination(withoutChildren,  "22");
 				int withoutChildren12 = getDestination(withoutChildren,  "23");
 				int withoutChildren13 = getDestination(withoutChildren,  "31");
-				
+				int withoutChildren33 = getDestination(withoutChildren, "33");
+				int withoutChildren34 = getDestination(withoutChildren, "34");
 				
 				int withChildAndAdults3 = getDestination(withChildAndAdults,  "26");
 				int withChildAndAdults4 = getDestination(withChildAndAdults,  "11");
@@ -70,6 +73,8 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				int withChildAndAdults11 = getDestination(withChildAndAdults,  "22");
 				int withChildAndAdults12 = getDestination(withChildAndAdults,  "23");
 				int withChildAndAdults13 = getDestination(withChildAndAdults,  "31");
+				int withChildAndAdults33 = getDestination(withChildAndAdults, "33");
+				int withChildAndAdults34 = getDestination(withChildAndAdults, "34");
 				
 				
 				int withChildren3 = getDestination(withChildren,  "26");
@@ -83,6 +88,8 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				int withChildren11 = getDestination(withChildren,  "22");
 				int withChildren12 = getDestination(withChildren,  "23");
 				int withChildren13 = getDestination(withChildren,  "31");
+				int withChildren33 = getDestination(withChildren, "33");
+				int withChildren34 = getDestination(withChildren, "34");
 				
 				int unknown3 = getDestination(unknown,  "26");
 				int unknown4 = getDestination(unknown,  "11");
@@ -95,7 +102,8 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				int unknown11 = getDestination(unknown,  "22");
 				int unknown12 = getDestination(unknown,  "23");
 				int unknown13 = getDestination(unknown,  "31");
-				
+				int unknown33 = getDestination(unknown, "33");
+				int unknown34 = getDestination(unknown, "34");
 	
 				//3
 				q25iExitDestinationVeteransTable.setQ25iA01MovedFromOneHOPWATotal(BigInteger.valueOf(allTotal3));
@@ -157,12 +165,24 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				q25iExitDestinationVeteransTable.setQ25iA10StayingOrLivingWithFriendsPermanentWithChildAndAdults(BigInteger.valueOf(withChildAndAdults12));
 				q25iExitDestinationVeteransTable.setQ25iA10StayingOrLivingWithFriendsPermanentWithOnlyChild(BigInteger.valueOf(withChildren12));
 				q25iExitDestinationVeteransTable.setQ25iA10StayingOrLivingWithFriendsPermanentUnknownHouseHold(BigInteger.valueOf(unknown12));
-				
-				int subTotal1AllData = allTotal3 + allTotal4+ allTotal5+ allTotal6+ allTotal7 + allTotal8 + allTotal9 + allTotal10 + allTotal11 + allTotal12 + allTotal13;
-				int subTotal1WithoutChild = withoutChildren3 + withoutChildren4+ withoutChildren5+ withoutChildren6+ withoutChildren7 + withoutChildren8 + withoutChildren9 + withoutChildren10 + withoutChildren11 + withoutChildren12 + withoutChildren13;
-				int subTotal1WithChildAndAdults = withChildAndAdults3 + withChildAndAdults4+ withChildAndAdults5+ withChildAndAdults6+ withChildAndAdults7 + withChildAndAdults8 + withChildAndAdults9 + withChildAndAdults10 + withChildAndAdults11 + withChildAndAdults12 + withChildAndAdults13;
-				int subTotal1WithChildren = withChildren3 + withChildren4+ withChildren5+ withChildren6+ withChildren7 + withChildren8 + withChildren9 + withChildren10 + withChildren11 + withChildren12 + withChildren13;
-				int subTotal1Unknown = unknown3 + unknown4+ unknown5+ unknown6+ unknown7 + unknown8 + unknown9 + unknown10 + unknown11 + unknown12 + unknown13;
+				//33
+				q25iExitDestinationVeteransTable.setQ25i13ClientByHVCVoucherTotal(BigInteger.valueOf(allTotal33));
+				q25iExitDestinationVeteransTable.setQ25i13ClientByHVCVoucherWithoutChild(BigInteger.valueOf(withoutChildren33));
+				q25iExitDestinationVeteransTable.setQ25i13ClientByHVCVoucherWithOnlyChild(BigInteger.valueOf(withChildren33));
+				q25iExitDestinationVeteransTable.setQ25i13ClientByHVCVoucherWithChildAndAdults(BigInteger.valueOf(withChildAndAdults33));
+				q25iExitDestinationVeteransTable.setQ25i13ClientByHVCVoucherUnknownHouseHold(BigInteger.valueOf(unknown33));
+				//34
+				q25iExitDestinationVeteransTable.setQ25i13RentalByClientPublicHousingTotal(BigInteger.valueOf(allTotal34));
+				q25iExitDestinationVeteransTable.setQ25i13RentalByClientPublicHousingWithoutChild(BigInteger.valueOf(withoutChildren34));
+				q25iExitDestinationVeteransTable.setQ25i13RentalByClientPublicHousingWithOnlyChild(BigInteger.valueOf(withChildren34));
+				q25iExitDestinationVeteransTable.setQ25i13RentalByClientPublicHousingWithChildAndAdults(BigInteger.valueOf(withChildAndAdults34));
+				q25iExitDestinationVeteransTable.setQ25i13RentalByClientPublicHousingUnknownHouseHold(BigInteger.valueOf(unknown33));
+			
+				int subTotal1AllData = allTotal3 + allTotal4+ allTotal5+ allTotal6+ allTotal7 + allTotal8 + allTotal9 + allTotal10 + allTotal11 + allTotal12 + allTotal13 + allTotal33 + allTotal34;
+				int subTotal1WithoutChild = withoutChildren3 + withoutChildren4+ withoutChildren5+ withoutChildren6+ withoutChildren7 + withoutChildren8 + withoutChildren9 + withoutChildren10 + withoutChildren11 + withoutChildren12 + withoutChildren13 + withoutChildren33 + withoutChildren34;
+				int subTotal1WithChildAndAdults = withChildAndAdults3 + withChildAndAdults4+ withChildAndAdults5+ withChildAndAdults6+ withChildAndAdults7 + withChildAndAdults8 + withChildAndAdults9 + withChildAndAdults10 + withChildAndAdults11 + withChildAndAdults12 + withChildAndAdults13 + withChildAndAdults33 + withChildAndAdults34;
+				int subTotal1WithChildren = withChildren3 + withChildren4+ withChildren5+ withChildren6+ withChildren7 + withChildren8 + withChildren9 + withChildren10 + withChildren11 + withChildren12 + withChildren13 + withChildren33 + withChildren34;
+				int subTotal1Unknown = unknown3 + unknown4+ unknown5+ unknown6+ unknown7 + unknown8 + unknown9 + unknown10 + unknown11 + unknown12 + unknown13 + unknown33 + unknown34;
 				
 				
 				//Sandeep TODO :  Missing row for # 13 Rental by client, with RRH or equivalent subsidy
@@ -188,6 +208,7 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				int allTotal21 = getDestination(allData,  "16");
 				int allTotal22 = getDestination(allData,  "18");
 				int allTotal23 = getDestination(allData,  "14");
+				int allTotal32 = getDestination(allData, "32");
 				
 				int withoutChildren16 = getDestination(withoutChildren,  "1");
 				int withoutChildren17 = getDestination(withoutChildren,  "27");
@@ -197,6 +218,7 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				int withoutChildren21 = getDestination(withoutChildren,  "16");
 				int withoutChildren22 = getDestination(withoutChildren,  "18");
 				int withoutChildren23 = getDestination(withoutChildren,  "14");
+				int withoutChildren32 = getDestination(withoutChildren, "32");
 				
 				int withChildAndAdult16 = getDestination(withChildAndAdults,  "1");
 				int withChildAndAdult17 = getDestination(withChildAndAdults,  "27");
@@ -206,6 +228,7 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				int withChildAndAdult21 = getDestination(withChildAndAdults,  "16");
 				int withChildAndAdult22 = getDestination(withChildAndAdults,  "18");
 				int withChildAndAdult23 = getDestination(withChildAndAdults,  "14");
+				int withChildAndAdult32 = getDestination(withChildAndAdults, "32");
 				
 				int withChildren16 = getDestination(withChildren,  "1");
 				int withChildren17 = getDestination(withChildren,  "27");
@@ -215,6 +238,7 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				int withChildren21 = getDestination(withChildren,  "16");
 				int withChildren22 = getDestination(withChildren,  "18");
 				int withChildren23 = getDestination(withChildren,  "14");
+				int withChildren32 = getDestination(withChildren, "32");
 				
 				int unknown16 = getDestination(unknown,  "1");
 				int unknown17 = getDestination(unknown,  "27");
@@ -224,12 +248,13 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				int unknown21 = getDestination(unknown,  "16");
 				int unknown22 = getDestination(unknown,  "18");
 				int unknown23 = getDestination(unknown,  "14");
+				int unknown32 = getDestination(unknown, "32");
 				
-				int subTotal2AllData =  allTotal16+ allTotal17 + allTotal18 + allTotal19 + allTotal20 + allTotal21 + allTotal22 + allTotal23;
-				int subTotal2WithoutChild =  withoutChildren16+ withoutChildren17 + withoutChildren18 + withoutChildren19 + withoutChildren20 + withoutChildren21 + withoutChildren22 + withoutChildren23;
-				int subTotal2WithChildAndAdults = withChildAndAdult16 + withChildAndAdult17 + withChildAndAdult18 + withChildAndAdult19 + withChildAndAdult20 + withChildAndAdult21 + withChildAndAdult22 + withChildAndAdult23;
-				int subTotal2WithChildren =  withChildren16+ withChildren17 + withChildren18 + withChildren19 + withChildren20 + withChildren21 + withChildren22 + withChildren23;
-				int subTotal2Unknown = unknown16+ unknown17 + unknown18 + unknown19 + unknown20 + unknown21 + unknown22 + unknown23;
+				int subTotal2AllData =  allTotal16+ allTotal17 + allTotal18 + allTotal19 + allTotal20 + allTotal21 + allTotal22 + allTotal23 + allTotal32;
+				int subTotal2WithoutChild =  withoutChildren16+ withoutChildren17 + withoutChildren18 + withoutChildren19 + withoutChildren20 + withoutChildren21 + withoutChildren22 + withoutChildren23 + withoutChildren32;
+				int subTotal2WithChildAndAdults = withChildAndAdult16 + withChildAndAdult17 + withChildAndAdult18 + withChildAndAdult19 + withChildAndAdult20 + withChildAndAdult21 + withChildAndAdult22 + withChildAndAdult23 + withChildAndAdult32;
+				int subTotal2WithChildren =  withChildren16+ withChildren17 + withChildren18 + withChildren19 + withChildren20 + withChildren21 + withChildren22 + withChildren23 + withChildren32;
+				int subTotal2Unknown = unknown16+ unknown17 + unknown18 + unknown19 + unknown20 + unknown21 + unknown22 + unknown23 + unknown32;
 				
 				//16
 				q25iExitDestinationVeteransTable.setQ25iB1EmergencyShelterTotal(BigInteger.valueOf(allTotal16));
@@ -280,6 +305,11 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				q25iExitDestinationVeteransTable.setQ25iB8HotelOrMotelPaidbyClientWithOnlyChild(BigInteger.valueOf(withChildren23));
 				q25iExitDestinationVeteransTable.setQ25iB8HotelOrMotelPaidbyClientUnknownHouseHold(BigInteger.valueOf(unknown23));
 				
+				q25iExitDestinationVeteransTable.setQ25iBHostHomeTotal(BigInteger.valueOf(allTotal32));
+				q25iExitDestinationVeteransTable.setQ25iB8HostHomeWithoutChild(BigInteger.valueOf(withoutChildren32));
+				q25iExitDestinationVeteransTable.setQ25iB8HostHomeWithChildAndAdults(BigInteger.valueOf(withChildAndAdult32));
+				q25iExitDestinationVeteransTable.setQ25iB8HostHomeWithOnlyChild(BigInteger.valueOf(withChildren32));
+				q25iExitDestinationVeteransTable.setQ25iB8HostHomeUnknownHouseHold(BigInteger.valueOf(unknown32));
 				//24
 				q25iExitDestinationVeteransTable.setQ25iBzTotTotal(BigInteger.valueOf(subTotal2AllData));
 				q25iExitDestinationVeteransTable.setQ25iBzTotWithoutChild(BigInteger.valueOf(subTotal2WithoutChild));
@@ -389,31 +419,31 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 //				q25iExitDestinationVeteransTable.setQ25iBDOtherDestinationsUnknownHouseHold(BigInteger.valueOf(0));
 //				
 				
-				int allTotal34 = getDestination(allData,  "29");
+				int allTotal34a = getDestination(allData,  "29");
 				int allTotal35 = getDestination(allData,  "24");
 				int allTotal36 = getDestination(allData,  "17");
 				int allTotal37 = getDestination(allData,  "8","9");
 				int allTotal38 = getDestination(allData,  "30","99");
 				
-				int withoutChildren34 = getDestination(withoutChildren,  "29");
+				int withoutChildren34a = getDestination(withoutChildren,  "29");
 				int withoutChildren35 = getDestination(withoutChildren,  "24");
 				int withoutChildren36 = getDestination(withoutChildren,  "17");
 				int withoutChildren37 = getDestination(withoutChildren,  "8","9");
 				int withoutChildren38 = getDestination(withoutChildren,  "30","99");
 				
-				int withChildAndAdult34 = getDestination(withChildAndAdults,  "29");
+				int withChildAndAdult34a = getDestination(withChildAndAdults,  "29");
 				int withChildAndAdult35 = getDestination(withChildAndAdults,  "24");
 				int withChildAndAdult36 = getDestination(withChildAndAdults,  "17");
 				int withChildAndAdult37 = getDestination(withChildAndAdults,  "8","9");
 				int withChildAndAdult38 = getDestination(withChildAndAdults,  "30","99");
 				
-				int withChildren34 = getDestination(withChildren,  "29");
+				int withChildren34a = getDestination(withChildren,  "29");
 				int withChildren35 = getDestination(withChildren,  "24");
 				int withChildren36 = getDestination(withChildren,  "17");
 				int withChildren37 = getDestination(withChildren, "8","9");
 				int withChildren38 = getDestination(withChildren,  "30","99");
 				
-				int unknown34 = getDestination(unknown,  "29");
+				int unknown34a = getDestination(unknown,  "29");
 				int unknown35 = getDestination(unknown,  "24");
 				int unknown36 = getDestination(unknown,  "17");
 				int unknown37 = getDestination(unknown,  "8","9");
@@ -422,17 +452,17 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				
 				int subTotal4AllData =  allTotal34+ allTotal35 + allTotal36 + allTotal37 + allTotal38 ;
 				int subTotal4WithoutChild =  withoutChildren34+ withoutChildren35 + withoutChildren36 + withoutChildren37 + withoutChildren38  ;
-				int subTotal4WithChildAndAdults = withChildAndAdult34 + withChildAndAdult35 + withChildAndAdult36 + withChildAndAdult37 + withChildAndAdult38 ;
+				int subTotal4WithChildAndAdults = withChildAndAdult34a + withChildAndAdult35 + withChildAndAdult36 + withChildAndAdult37 + withChildAndAdult38 ;
 				int subTotal4WithChildren =  withChildren34+ withChildren35  + withChildren36 + withChildren37 + withChildren38 ;
 				int subTotal4Unknown = unknown34+ unknown35 + unknown36 + unknown37 + unknown38 ;
 				
 				// Other Destination sub total above
 				//34
-				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectTotal(BigInteger.valueOf(allTotal34));
-				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectWithoutChild(BigInteger.valueOf(withoutChildren34));
-				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectWithChildAndAdults(BigInteger.valueOf(withChildAndAdult34));
-				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectWithOnlyChild(BigInteger.valueOf(withChildren34));
-				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectUnknownHouseHold(BigInteger.valueOf(unknown34));
+				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectTotal(BigInteger.valueOf(allTotal34a));
+				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectWithoutChild(BigInteger.valueOf(withoutChildren34a));
+				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectWithChildAndAdults(BigInteger.valueOf(withChildAndAdult34a));
+				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectWithOnlyChild(BigInteger.valueOf(withChildren34a));
+				q25iExitDestinationVeteransTable.setQ25iD1ResidentialProjectUnknownHouseHold(BigInteger.valueOf(unknown34a));
 				//35
 				q25iExitDestinationVeteransTable.setQ25iD2DeceasedTotal(BigInteger.valueOf(allTotal35));
 				q25iExitDestinationVeteransTable.setQ25iD2DeceasedWithoutChild(BigInteger.valueOf(withoutChildren35));

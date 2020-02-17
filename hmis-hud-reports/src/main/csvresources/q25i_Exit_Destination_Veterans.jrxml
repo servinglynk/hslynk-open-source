@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7da6e6d9-e7be-4924-b771-ee6dacf69497">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -558,7 +559,6 @@
 	<field name="q25iPercentageUnknownHouseHold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iPercentageUnknownHouseHold]]></fieldDescription>
 	</field>
-	
 	<field name="q25iA11RentalByClientTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iA11RentalByClientTotal]]></fieldDescription>
 	</field>
@@ -574,12 +574,54 @@
 	<field name="q25iA11RentalByClientUnknownHouseHold" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q25iA11RentalByClientUnknownHouseHold]]></fieldDescription>
 	</field>
-	
-	
-	
+	<field name="q25i13ClientByHVCVoucherTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25i13ClientByHVCVoucherTotal]]></fieldDescription>
+	</field>
+	<field name="q25i13ClientByHVCVoucherWithoutChild" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25i13ClientByHVCVoucherWithoutChild]]></fieldDescription>
+	</field>
+	<field name="q25i13ClientByHVCVoucherUnknownHouseHold" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25i13ClientByHVCVoucherUnknownHouseHold]]></fieldDescription>
+	</field>
+	<field name="q25i13ClientByHVCVoucherWithOnlyChild" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25i13ClientByHVCVoucherWithOnlyChild]]></fieldDescription>
+	</field>
+	<field name="q25i13ClientByHVCVoucherWithChildAndAdults" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25i13ClientByHVCVoucherWithChildAndAdults]]></fieldDescription>
+	</field>
+	<field name="q25i13RentalByClientPublicHousingTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25i13RentalByClientPublicHousingTotal]]></fieldDescription>
+	</field>
+	<field name="q25i13RentalByClientPublicHousingWithoutChild" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25i13RentalByClientPublicHousingWithoutChild]]></fieldDescription>
+	</field>
+	<field name="q25i13RentalByClientPublicHousingUnknownHouseHold" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25i13RentalByClientPublicHousingUnknownHouseHold]]></fieldDescription>
+	</field>
+	<field name="q25i13RentalByClientPublicHousingWithOnlyChild" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25i13RentalByClientPublicHousingWithOnlyChild]]></fieldDescription>
+	</field>
+	<field name="q25i13RentalByClientPublicHousingWithChildAndAdults" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25i13RentalByClientPublicHousingWithChildAndAdults]]></fieldDescription>
+	</field>
+	<field name="q25iBHostHomeTotal" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25iBHostHomeTotal]]></fieldDescription>
+	</field>
+	<field name="q25iB8HostHomeWithoutChild" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25iB8HostHomeWithoutChild]]></fieldDescription>
+	</field>
+	<field name="q25iB8HostHomeWithChildAndAdults" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25iB8HostHomeWithChildAndAdults]]></fieldDescription>
+	</field>
+	<field name="q25iB8HostHomeWithOnlyChild" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25iB8HostHomeWithOnlyChild]]></fieldDescription>
+	</field>
+	<field name="q25iB8HostHomeUnknownHouseHold" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q25iB8HostHomeUnknownHouseHold]]></fieldDescription>
+	</field>
 	<group name="Group5">
 		<groupFooter>
-		<band height="25">
+			<band height="25">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCCFF" uuid="b02bbc8e-1e0a-4b9d-9268-3760fa69784d"/>
 					<box>
@@ -1568,6 +1610,158 @@ children]]></text>
 			</band>
 			<band height="26">
 				<textField>
+					<reportElement x="462" y="0" width="93" height="26" uuid="0c3eaf9c-f7d2-4de7-89cc-a946048ebc8b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25i13ClientByHVCVoucherUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="97" height="26" uuid="04f0e709-d377-4007-9f3e-daa5b72e8d15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25i13ClientByHVCVoucherWithOnlyChild}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="275" y="0" width="90" height="26" uuid="a42191cb-a730-408e-8dd6-61522b89fd43"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25i13ClientByHVCVoucherWithChildAndAdults}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="8aa609fe-a6bb-4407-8d7a-0619a2de3b36"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Rental by client, with HCV voucher (tenant or project based)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="93" height="26" uuid="601f5db3-8d3b-4307-a3a4-891b02c27a3a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25i13ClientByHVCVoucherWithoutChild}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="b29e26c4-8620-4a02-8d45-7092c6816317"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25i13ClientByHVCVoucherTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="462" y="0" width="93" height="26" uuid="0c3eaf9c-f7d2-4de7-89cc-a946048ebc8b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25i13RentalByClientPublicHousingUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="97" height="26" uuid="04f0e709-d377-4007-9f3e-daa5b72e8d15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25i13RentalByClientPublicHousingWithOnlyChild}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="275" y="0" width="90" height="26" uuid="a42191cb-a730-408e-8dd6-61522b89fd43"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25i13RentalByClientPublicHousingWithChildAndAdults}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="8aa609fe-a6bb-4407-8d7a-0619a2de3b36"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  Rental by client in a public housing unit]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="93" height="26" uuid="601f5db3-8d3b-4307-a3a4-891b02c27a3a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25i13RentalByClientPublicHousingWithoutChild}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="b29e26c4-8620-4a02-8d45-7092c6816317"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25i13RentalByClientPublicHousingTotal}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -2266,6 +2460,82 @@ youth)]]></text>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{q25iB8HotelOrMotelPaidbyClientUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="462" y="0" width="93" height="26" uuid="f5e7270d-94bd-42f2-a4d0-12d55c9560b7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25iB8HostHomeUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="97" height="26" uuid="1f7f5463-27be-45df-8812-4ba888e2231b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25iB8HostHomeWithOnlyChild}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="275" y="0" width="90" height="26" uuid="df6ab7d9-ec6e-413d-a60f-b1968d192409"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25iB8HostHomeWithChildAndAdults}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="d4cc2a56-4ead-470d-a034-f0b98d214050"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Host Home (non-crisis)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="93" height="26" uuid="d834e0dc-90b5-48bd-8461-febb37fc9292"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25iB8HostHomeWithoutChild}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="65d162a5-839c-413c-8b80-b438046a866b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q25iBHostHomeTotal}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
