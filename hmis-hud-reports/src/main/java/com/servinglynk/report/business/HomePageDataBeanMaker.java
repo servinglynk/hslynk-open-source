@@ -47,7 +47,6 @@ import com.servinglynk.report.bean.Q17CashIncomeSourcesDataBean;
 import com.servinglynk.report.bean.Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
 import com.servinglynk.report.bean.Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean;
 import com.servinglynk.report.bean.Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
-import com.servinglynk.report.bean.Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.Q20aTypeOfNonCashBenefitSourcesDataBean;
 import com.servinglynk.report.bean.Q20bNumberOfNonCashBenefitSourcesDataBean;
 import com.servinglynk.report.bean.Q21HealthInsuranceDataBean;
@@ -58,6 +57,7 @@ import com.servinglynk.report.bean.Q22cLengthofTimeBetweenProjectStrtDtHousingMo
 import com.servinglynk.report.bean.Q22dLengthOfParticipationByHouseholdTypeDataBean;
 import com.servinglynk.report.bean.Q23aExitDestinationMoreThan90DaysDataBean;
 import com.servinglynk.report.bean.Q23bExitDestination90DaysOrLessDataBean;
+import com.servinglynk.report.bean.Q23cDataBean;
 import com.servinglynk.report.bean.Q24HomelessnessPreventionHousingAssessmentAtExitDataBean;
 import com.servinglynk.report.bean.Q25aNumberOfVeteransDataBean;
 import com.servinglynk.report.bean.Q25bNumberOfVeteranHouseholdsDataBean;
@@ -327,7 +327,8 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean(q19a2ClientCashIncomeChangeIncomeSourceByEntryList);
 			CSVGenerator.buildReport(q19a2ClientCashIncomeChangeIncomeSourceByEntryList, "q19a2.jrxml", "Q19a2.csv",data);
 			
-	        List<Q20aTypeOfNonCashBenefitSourcesDataBean> q20aTypeOfNonCashBenefitSourcesList = Q20aBeanMaker.getQ20aTypeOfNonCashBenefitSourcesList(data);
+
+			List<Q20aTypeOfNonCashBenefitSourcesDataBean> q20aTypeOfNonCashBenefitSourcesList = Q20aBeanMaker.getQ20aTypeOfNonCashBenefitSourcesList(data);
 			homePageDataBean.setQ20aTypeOfNonCashBenefitSourcesDataBean(q20aTypeOfNonCashBenefitSourcesList);
 			CSVGenerator.buildReport(q20aTypeOfNonCashBenefitSourcesList, "q20a.jrxml", "Q20a.csv",data);
 			
@@ -370,6 +371,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessList= Q23bExitDestination90DaysOrLessDataBeanMaker.getQ23bExitDestination90DaysOrLessList(data);
 			homePageDataBean.setQ23bExitDestination90DaysOrLessDataBean(q23bExitDestination90DaysOrLessList);
 			CSVGenerator.buildReport(q23bExitDestination90DaysOrLessList, "q23b.jrxml","Q23b.csv",data);
+			
+			List<Q23cDataBean> q23cBeanList = Q23cBeanMaker.getQ23cList(data);
+			homePageDataBean.setQ23cDataBean(q23cBeanList);
+			CSVGenerator.buildReport(q23bExitDestination90DaysOrLessList, "q23c.jrxml","Q23c.csv",data);
+			
 			if(1==2) {
 				List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitList= Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker.getQ24HomelessnessPreventionHousingAssessmentAtExitList(data);
 				homePageDataBean.setQ24HomelessnessPreventionHousingAssessmentAtExitDataBean(q24HomelessnessPreventionHousingAssessmentAtExitList);
