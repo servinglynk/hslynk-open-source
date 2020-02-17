@@ -75,6 +75,10 @@ public class ReportData {
 	List<String> projectsHHWithOneAdultChild  =  new ArrayList<String>();
 	List<String> projectsHHWithOutChildren  =  new ArrayList<String>();
 	List<String> projectsUnknownHouseHold  =  new ArrayList<String>();
+	private List<EnrollmentModel> adultWithChildren;
+	private List<EnrollmentModel> adultsWithOneAdultChild;
+	private List<EnrollmentModel> adultsWithOutChildren;
+	private List<EnrollmentModel> adultsUnknownHHType;
 	
 	private List<String> pshRrhTotal = null;
 	private List<EnrollmentModel> pshRrhWithOutChildren = null;
@@ -916,5 +920,53 @@ public class ReportData {
 	 */
 	public void setPshRrhUnknownHousehold(List<EnrollmentModel> pshRrhUnknownHousehold) {
 		this.pshRrhUnknownHousehold = pshRrhUnknownHousehold;
+	}
+	/**
+	 * @return the adultWithChildren
+	 */
+	public List<EnrollmentModel> getAdultWithChildren() {
+		return adultWithChildren;
+	}
+	/**
+	 * @param adultWithChildren the adultWithChildren to set
+	 */
+	public void setAdultWithChildren(List<EnrollmentModel> adultWithChildren) {
+		this.adultWithChildren = adultWithChildren;
+	}
+	/**
+	 * @return the adultsWithOneAdultChild
+	 */
+	public List<EnrollmentModel> getAdultsWithOneAdultChild() {
+		return adultsWithOneAdultChild;
+	}
+	/**
+	 * @param adultsWithOneAdultChild the adultsWithOneAdultChild to set
+	 */
+	public void setAdultsWithOneAdultChild(List<EnrollmentModel> adultsWithOneAdultChild) {
+		this.adultsWithOneAdultChild = adultsWithOneAdultChild;
+	}
+	/**
+	 * @return the adultsWithOutChildren
+	 */
+	public List<EnrollmentModel> getAdultsWithOutChildren() {
+		return adultsWithOutChildren;
+	}
+	/**
+	 * @param adultsWithOutChildren the adultsWithOutChildren to set
+	 */
+	public void setAdultsWithOutChildren(List<EnrollmentModel> adultsWithOutChildren) {
+		this.adultsWithOutChildren = adultsWithOutChildren;
+	}
+	/**
+	 * @return the adultsUnknownHHType
+	 */
+	public List<EnrollmentModel> getAdultsUnknownHHType() {
+		return adultsUnknownHHType;
+	}
+	/**
+	 * @param adultsUnknownHHType the adultsUnknownHHType to set
+	 */
+	public void setAdultsUnknownHHType(List<EnrollmentModel> adultsUnknownHHType) {
+		this.adultsUnknownHHType = adultsUnknownHHType;
 	}
 }
