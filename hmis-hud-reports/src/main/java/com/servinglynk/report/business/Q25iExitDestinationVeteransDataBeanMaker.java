@@ -304,7 +304,7 @@ public class Q25iExitDestinationVeteransDataBeanMaker extends BaseBeanMaker {
 				q25iExitDestinationVeteransTable.setQ25iB8HotelOrMotelPaidbyClientWithChildAndAdults(BigInteger.valueOf(withChildAndAdult23));
 				q25iExitDestinationVeteransTable.setQ25iB8HotelOrMotelPaidbyClientWithOnlyChild(BigInteger.valueOf(withChildren23));
 				q25iExitDestinationVeteransTable.setQ25iB8HotelOrMotelPaidbyClientUnknownHouseHold(BigInteger.valueOf(unknown23));
-				
+				//32
 				q25iExitDestinationVeteransTable.setQ25iBHostHomeTotal(BigInteger.valueOf(allTotal32));
 				q25iExitDestinationVeteransTable.setQ25iB8HostHomeWithoutChild(BigInteger.valueOf(withoutChildren32));
 				q25iExitDestinationVeteransTable.setQ25iB8HostHomeWithChildAndAdults(BigInteger.valueOf(withChildAndAdult32));

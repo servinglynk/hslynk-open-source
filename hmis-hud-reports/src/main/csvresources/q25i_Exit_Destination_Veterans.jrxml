@@ -3571,7 +3571,7 @@ youth)]]></text>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[  dz. Total]]></text>
+					<text><![CDATA[  dz. SubTotal]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="3d90d09f-408b-406b-8fa8-9b3ae56999a6"/>
