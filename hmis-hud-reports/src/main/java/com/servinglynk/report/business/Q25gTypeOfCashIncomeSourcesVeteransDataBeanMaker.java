@@ -161,7 +161,7 @@ public class Q25gTypeOfCashIncomeSourcesVeteransDataBeanMaker extends BaseBeanMa
 			
 			
 			String adultsIncomeQuery = " select distinct(e.dedup_client_id)  from %s.incomeandsources i, %s.enrollment e,%s.client c where  e.client_id = c.id and i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+ 
-					" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate order by e.dedup_client_id ";
+					" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and c.veteran_status= '1' and e.ageatentry >= 18 and i.incomefromanysource in ('1','2') by e.dedup_client_id ";
 			data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());
 			List<String> enrollmentsAtEnrty = getClients(data.getSchema(), adultsIncomeQuery,data);
 			data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());

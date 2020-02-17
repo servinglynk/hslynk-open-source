@@ -35,7 +35,6 @@ public class Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker extends
 					" and   e.id not in ( select enrollmentid from %s.exit  where exitdate <= :startDate )  "+
 					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 )   ";
 
-			
 			int alimonyIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and alimony ='1' ", DataCollectionStage.ENTRY.getCode(),data);
 			int alimonyIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +" and  alimony ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int alimonyIncomeAtAnnualAssesment = getIncomeCntForAnnualAssesment(data.getSchema(), annualAssesmentQuery +"  and alimony ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
@@ -162,7 +161,7 @@ public class Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker extends
 			
 			
 			String adultsIncomeQuery = " select e.dedup_client_id  from %s.incomeandsources i, %s.enrollment e,%s.client c where  e.client_id = c.id and i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+ 
-					" and i.information_date = e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate  order by dedup_client_id ";
+					" and i.information_date = e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.chronichomeless=true  and e.ageatentry >= 18 and i.incomefromanysource in ('1','2') order by dedup_client_id ";
 			data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());
 			List<String> enrollmentsAtEnrty = getClients(data.getSchema(), adultsIncomeQuery,data);
 			data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());

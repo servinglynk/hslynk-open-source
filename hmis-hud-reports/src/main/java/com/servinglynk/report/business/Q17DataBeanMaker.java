@@ -16,7 +16,7 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q17CashIncomeSourcesDataBean> getQ17CashIncomeSourcesList(ReportData data){
 		/**********************
-		 * ANY changs to this file needs changes in Q25g
+		 * ANY changs to this file needs changes in Q25g,Q26g
 		 */
 		Q17CashIncomeSourcesDataBean q17CashIncomeSourcesDataBeanTable =new Q17CashIncomeSourcesDataBean();
 		if(data.isLiveMode()) {
@@ -218,19 +218,22 @@ public class Q17DataBeanMaker extends BaseBeanMaker {
 		q17CashIncomeSourcesDataBeanTable.setQ17WorkersCompensationAtExitforLeavers(BigInteger.valueOf(workerscompIncomeAtExit));
 		q17CashIncomeSourcesDataBeanTable.setQ17WorkersCompensationAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(workerscompIncomeAtAnnualAssesment));
 		
-		
-		List<IncomeAndSourceModel> incomeAtAA = data.getIncomeAndSourcesAtAnnualAssesment();
-		
 		List<IncomeAndSourceModel> d17IncomeAtEntry = incomeAndSourcesAtEntry.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getIncomefromanysource()) ||  StringUtils.equals("2", incomeAndSource.getIncomefromanysource()) ).collect(Collectors.toList());
 		List<IncomeAndSourceModel> d17IncomeAtExit = incomeAndSourcesAtExit.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getIncomefromanysource()) ||  StringUtils.equals("2", incomeAndSource.getIncomefromanysource()) ).collect(Collectors.toList());
+		List<IncomeAndSourceModel> c17IncomeAtAA = incomeAndSourcesAtAnnualAssesment.parallelStream().filter(incomeAndSource -> StringUtils.equals("1", incomeAndSource.getIncomefromanysource()) ||  StringUtils.equals("2", incomeAndSource.getIncomefromanysource()) ).collect(Collectors.toList());
+		
 		List<String> d17EntryList = new ArrayList<String>();
 		d17IncomeAtEntry.forEach(income -> d17EntryList.add(income.getDedupClientId()));
 		List<String> d17ExitList = new ArrayList<String>();
 		d17IncomeAtExit.forEach(income -> d17ExitList.add(income.getDedupClientId()));
-		d17EntryList.retainAll(d17ExitList);
+		List<String> c17AAList = new ArrayList<String>();
+		c17IncomeAtAA.forEach(income -> c17AAList.add(income.getDedupClientId()));
+		d17ExitList.retainAll(d17EntryList);
+		c17AAList.retainAll(d17EntryList);
+		
 		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtEntry(BigInteger.ZERO);
-		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(d17EntryList != null? d17EntryList.size() : 0));
-		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(getIncomeCntWithIncome(incomeAtAA)));
+		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtExitforLeavers(BigInteger.valueOf(d17ExitList != null? d17ExitList.size() : 0));
+		q17CashIncomeSourcesDataBeanTable.setQ17AdultsWithIncomeAtLatestAnnualAssessmentforStayers(BigInteger.valueOf(c17AAList != null ? c17AAList.size() : 0));
 		
 	
 	} catch (Exception e) {

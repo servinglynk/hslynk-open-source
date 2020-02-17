@@ -74,6 +74,7 @@ public static String REQUIRED_ANNUAL_ASSESMENT_QUERY = "select  alimonyamount,ch
 + "from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='5' and  e.id=i.enrollmentid "+
 "  and datediff(i.information_date,e.entrydate) > 365 %dedup   order by e.dedup_client_id,e.entrydate asc ";
       
+
 public static String EXIT_INCOME_AND_SOURCE_QUERY = "select  alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pensionamount,privatedisabilityamount, "+
 		" socsecretirementamount,ssiamount,tanfamount,totalmonthlyincome,unemploymentamount,vadisabilitynonserviceamount, "+
 		" vadisabilityserviceamount,workerscompamount,e.dedup_client_id,i.incomefromanysource,ext.exitdate,i.datacollectionstage  as datacollectionstage,i.information_date,e.ageatentry, " +
