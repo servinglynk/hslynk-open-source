@@ -59,7 +59,7 @@ public class HomePageDataBean {
 	private List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
 	private List<Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean> q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean;
 	private List<Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
-	private List<Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
+	private List<DisabIncomeAndSourceDataBean> q19bDataBen;
 	private List<Q20aTypeOfNonCashBenefitSourcesDataBean> q20aTypeOfNonCashBenefitSourcesDataBean;
 	private List<Q20bNumberOfNonCashBenefitSourcesDataBean> q20bNumberOfNonCashBenefitSourcesDataBean;
 	private List<Q21HealthInsuranceDataBean> q21HealthInsuranceDataBean;
@@ -98,6 +98,8 @@ public class HomePageDataBean {
 	private List<Q27eLengthOfParticipationYouthDataBean> q27eLengthOfParticipationYouthDataBean;
 	private List<Q27fExitDestinationYouthDataBean> q27fExitDestinationYouthDataBean;
 	private List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesDataBean;
+	private List<DisabIncomeAndSourceDataBean> q27iDataBen;
+	
 	private List<Q29aPerformanceMeasuresPermanentHousingProgramsDataBean> q29aPerformanceMeasuresPermanentHousingProgramsDataBean;
 	private List<Q29bPerformanceMeasuresTransitionalHousingProgramsDataBean> q29bPerformanceMeasuresTransitionalHousingProgramsDataBean;
 	private List<Q29cPerformanceMeasuresStreetOutreachProgramsDataBean> q29cPerformanceMeasuresStreetOutreachProgramsDataBean;
@@ -731,17 +733,28 @@ public class HomePageDataBean {
 		this.q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean = q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 	}
 	/**
-	 * @return the q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean
+	 * @return the q19bDataBen
 	 */
-	public List<Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean> getQ19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean() {
-		return q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
+	public List<DisabIncomeAndSourceDataBean> getQ19bDataBen() {
+		return q19bDataBen;
 	}
 	/**
-	 * @param q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean the q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean to set
+	 * @param q19bDataBen the q19bDataBen to set
 	 */
-	public void setQ19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean(
-			List<Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean) {
-		this.q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean = q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
+	public void setQ19bDataBen(List<DisabIncomeAndSourceDataBean> q19bDataBen) {
+		this.q19bDataBen = q19bDataBen;
+	}
+	/**
+	 * @return the q27iDataBen
+	 */
+	public List<DisabIncomeAndSourceDataBean> getQ27iDataBen() {
+		return q27iDataBen;
+	}
+	/**
+	 * @param q27iDataBen the q27iDataBen to set
+	 */
+	public void setQ27iDataBen(List<DisabIncomeAndSourceDataBean> q27iDataBen) {
+		this.q27iDataBen = q27iDataBen;
 	}
 	/**
 	 * @return the q20aTypeOfNonCashBenefitSourcesDataBean

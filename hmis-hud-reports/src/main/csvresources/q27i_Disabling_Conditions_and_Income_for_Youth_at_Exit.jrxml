@@ -1,0 +1,2817 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0237625f-4a7d-4133-98c5-68aab5dfcedc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="earnedAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="earnedAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalAOEarned" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalAOEarned]]></fieldDescription>
+	</field>
+	<field name="earnedAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="earnedACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedACWithDisab]]></fieldDescription>
+	</field>
+	<field name="earnedACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalACEarned]]></fieldDescription>
+	</field>
+	<field name="totalACEarned" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalAOEarned]]></fieldDescription>
+	</field>
+	<field name="earnedACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="earnedUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="earnedUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalUKEarned" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalUKEarned]]></fieldDescription>
+	</field>
+	<field name="earnedUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="ssiAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="ssiAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalssiAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssiAO]]></fieldDescription>
+	</field>
+	<field name="ssiAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="ssiACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiACWithDisab]]></fieldDescription>
+	</field>
+	<field name="ssiACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalssiAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssiAC]]></fieldDescription>
+	</field>
+	<field name="ssiACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="ssiUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="ssiUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalssiUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssiUK]]></fieldDescription>
+	</field>
+	<field name="ssiUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="ssdiAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="ssdiAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalssdiAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssdiAO]]></fieldDescription>
+	</field>
+	<field name="ssdiAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="ssdiACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiACWithDisab]]></fieldDescription>
+	</field>
+	<field name="ssdiACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalssdiAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssdiAC]]></fieldDescription>
+	</field>
+	<field name="ssdiACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="ssdiUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="ssdiUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalssdiUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssdiUK]]></fieldDescription>
+	</field>
+	<field name="ssdiUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="vadisabilityserviceAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="vadisabilityserviceAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalvadisabilityserviceAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalvadisabilityserviceAO]]></fieldDescription>
+	</field>
+	<field name="vadisabilityserviceAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="vadisabilityserviceACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceACWithDisab]]></fieldDescription>
+	</field>
+	<field name="vadisabilityserviceACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalvadisabilityserviceAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalvadisabilityserviceAC]]></fieldDescription>
+	</field>
+	<field name="vadisabilityserviceACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="vadisabilityserviceUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="vadisabilityserviceUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalvadisabilityserviceUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalvadisabilityserviceUK]]></fieldDescription>
+	</field>
+	<field name="vadisabilityserviceUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="privatedisabilityAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="privatedisabilityAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalprivatedisabilityAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalprivatedisabilityAO]]></fieldDescription>
+	</field>
+	<field name="privatedisabilityAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="privatedisabilityACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityACWithDisab]]></fieldDescription>
+	</field>
+	<field name="privatedisabilityACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalprivatedisabilityAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalprivatedisabilityAC]]></fieldDescription>
+	</field>
+	<field name="privatedisabilityACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="privatedisabilityUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="privatedisabilityUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalprivatedisabilityUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalprivatedisabilityUK]]></fieldDescription>
+	</field>
+	<field name="privatedisabilityUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="workerscompAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="workerscompAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalworkerscompAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalworkerscompAO]]></fieldDescription>
+	</field>
+	<field name="workerscompAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="workerscompACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompACWithDisab]]></fieldDescription>
+	</field>
+	<field name="workerscompACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalworkerscompAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalworkerscompAC]]></fieldDescription>
+	</field>
+	<field name="workerscompACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="workerscompUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="workerscompUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalworkerscompUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalworkerscompUK]]></fieldDescription>
+	</field>
+	<field name="workerscompUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="tanfAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="tanfAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totaltanfAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totaltanfAO]]></fieldDescription>
+	</field>
+	<field name="tanfAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="tanfACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfACWithDisab]]></fieldDescription>
+	</field>
+	<field name="tanfACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totaltanfAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totaltanfAC]]></fieldDescription>
+	</field>
+	<field name="tanfACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="tanfUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="tanfUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totaltanfUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totaltanfUK]]></fieldDescription>
+	</field>
+	<field name="tanfUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="socsecretirementAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="socsecretirementAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalsocsecretirementAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalsocsecretirementAO]]></fieldDescription>
+	</field>
+	<field name="socsecretirementAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="socsecretirementACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementACWithDisab]]></fieldDescription>
+	</field>
+	<field name="socsecretirementACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalsocsecretirementAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalsocsecretirementAC]]></fieldDescription>
+	</field>
+	<field name="socsecretirementACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="socsecretirementUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="socsecretirementUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalsocsecretirementUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalsocsecretirementUK]]></fieldDescription>
+	</field>
+	<field name="socsecretirementUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="pensionAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="pensionAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalpensionAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalpensionAO]]></fieldDescription>
+	</field>
+	<field name="pensionAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="pensionACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionACWithDisab]]></fieldDescription>
+	</field>
+	<field name="pensionACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalpensionAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalpensionAC]]></fieldDescription>
+	</field>
+	<field name="pensionACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="pensionUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="pensionUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalpensionUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalpensionUK]]></fieldDescription>
+	</field>
+	<field name="pensionUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="childsupportAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="childsupportAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalchildsupportAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalchildsupportAO]]></fieldDescription>
+	</field>
+	<field name="childsupportAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="childsupportACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportACWithDisab]]></fieldDescription>
+	</field>
+	<field name="childsupportACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalchildsupportAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalchildsupportAC]]></fieldDescription>
+	</field>
+	<field name="childsupportACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="childsupportUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="childsupportUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalchildsupportUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalchildsupportUK]]></fieldDescription>
+	</field>
+	<field name="childsupportUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="othersourceAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="othersourceAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalothersourceAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalothersourceAO]]></fieldDescription>
+	</field>
+	<field name="othersourceAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="othersourceACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceACWithDisab]]></fieldDescription>
+	</field>
+	<field name="othersourceACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalothersourceAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalothersourceAC]]></fieldDescription>
+	</field>
+	<field name="othersourceACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="othersourceUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="othersourceUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalothersourceUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalothersourceUK]]></fieldDescription>
+	</field>
+	<field name="othersourceUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="noSourceAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="noSourceAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalnoSourceAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalnoSourceAO]]></fieldDescription>
+	</field>
+	<field name="noSourceAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="noSourceACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceACWithDisab]]></fieldDescription>
+	</field>
+	<field name="noSourceACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalnoSourceAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalnoSourceAC]]></fieldDescription>
+	</field>
+	<field name="noSourceACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="noSourceUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="noSourceUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalnoSourceUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalnoSourceUK]]></fieldDescription>
+	</field>
+	<field name="noSourceUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="totalAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="totalAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalAO]]></fieldDescription>
+	</field>
+	<field name="totalAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="totalACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalACWithDisab]]></fieldDescription>
+	</field>
+	<field name="totalACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalAC]]></fieldDescription>
+	</field>
+	<field name="totalACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="totalUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="totalUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalUK]]></fieldDescription>
+	</field>
+	<field name="totalUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalUKDisabPercentage]]></fieldDescription>
+	</field>
+	<group name="Group5">
+		<groupFooter>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCCFF" uuid="b02bbc8e-1e0a-4b9d-9268-3760fa69784d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Q27i: Disabling Conditions and Income for Youth at Exit]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="cf92dfc6-26f3-4cfe-9cda-7ac5a2590976"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Report Relevance:   COC-APR and ESG-CAPER]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="c67fde90-5ba5-4f27-a040-f93587ee3b9b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  Changes from APR V1.4:  NEW question]]></text>
+				</staticText>
+			</band>
+			<band height="86">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="71" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="e4f5ff90-2880-4390-9f36-b26024c20224"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="71" y="0" width="53" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="d1184f68-f495-4468-af7a-d330a2ce1f16"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[AO:
+Youth with Disabling Condition
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="124" y="0" width="48" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="dbfdff98-245c-4122-a83c-cf722dcd5d08"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[AO:
+Youth without Disabling Condition
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="172" y="0" width="43" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="034dc6de-33ad-4b91-8455-49b20b86734e"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[AO:
+Total Youth
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="215" y="0" width="54" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="672ad2f9-75fb-44f7-ae1b-8f42a7c442fe"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[AO:
+% with Disabling Condition by Source
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="269" y="0" width="38" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[AC:
+Youth with Disabling Condition
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="307" y="0" width="36" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[AC:
+Youth without Disabling Condition
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="343" y="0" width="33" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[AC:
+Total Youth
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="376" y="0" width="41" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[AC:
+% with Disabling Condition by Source
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="417" y="0" width="37" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[UK:
+Youth with Disabling Condition
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="454" y="0" width="30" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[UK:
+Youth without Disabling Condition
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="484" y="0" width="36" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[UK:
+Total Youth
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="520" y="0" width="35" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[UK:
+% with Disabling Condition by Source
+]]></text>
+				</staticText>
+			</band>
+			<band height="43">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{earnedACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalACEarned}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{earnedACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{earnedUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{earnedUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalUKEarned}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{earnedUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="43" uuid="0b73b9bc-585a-4fc5-9c0c-5ba3ecf8b97a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{earnedACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="43" uuid="5922e40b-6072-4046-9003-e8dd18401edd"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{earnedAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="43" uuid="6f5cb214-cc32-4a56-8da6-42c1693c0976"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalAOEarned}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="43" uuid="f334643f-29d2-4c23-b52c-3efa83020c42"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{earnedAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="43" uuid="493761d5-0369-4bda-b0ef-a9787d9002d7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{earnedAOWithDisab}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="43" forecolor="#000000" uuid="09e4b166-5c7a-42d1-89d4-ac503d871c0c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Earned Income]]></text>
+				</staticText>
+			</band>
+			<band height="50">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssiACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalssiAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssiACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssiUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssiUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalssiUK}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssiUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="50" uuid="4f28c5f4-fe2b-4032-8e00-a098868522cb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssiACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="50" uuid="7832297b-3f5c-4fca-bd28-98c8af4e0458"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssiAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="50" uuid="f8ef02ac-9f68-432d-b9cb-63579ebc5bf7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalssiAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="50" forecolor="#000000" uuid="f512544c-ffe3-4257-9c94-262ed07e910a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Supplemental Security Income (SSI)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="50" uuid="7852b012-f514-4921-ad12-9082cffb113f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssiAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="50" uuid="f6da7ea5-6478-481c-932b-f20f04089ffd"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssiAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="48">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssdiAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalssdiAO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssdiAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssdiUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssdiUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalssdiUK}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssdiUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="48" uuid="cf32cab2-81a1-4243-adee-aae991f6e828"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssdiACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="48" uuid="44169d6f-2011-44a1-b64e-cc72dd648e49"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssdiAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="48" uuid="a29f63c1-4005-422c-8852-ae10d239840f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalssdiAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="48" forecolor="#000000" uuid="87deb5b6-c310-47f6-b68e-20c9599d4e61"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Social Security Disability Insurance (SSDI)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="48" uuid="32d423d0-0ede-4554-a768-db0b001a6447"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssdiAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="48" uuid="092174a2-baa8-4256-8a73-66363f0f78d3"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ssdiAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{vadisabilityserviceACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalvadisabilityserviceAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{vadisabilityserviceACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{vadisabilityserviceUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{vadisabilityserviceUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalvadisabilityserviceUK}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{vadisabilityserviceUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="26" uuid="337b3de5-0bc4-426a-9aa7-555394361037"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{vadisabilityserviceACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="26" uuid="0afe9435-8a33-47f4-913b-0cf3b7fcd950"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{vadisabilityserviceAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="26" uuid="bf2b6765-1528-4d22-a3f5-571852a4c2ba"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalvadisabilityserviceAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="26" forecolor="#000000" uuid="361f6d1c-2857-4ce8-b5f0-6969d572027b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   VA Service-Connected Disability Compensation]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="26" uuid="c7d5be07-3222-4932-949c-8dd9544a9faf"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{vadisabilityserviceAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="26" uuid="09a6c5c5-00dd-4931-8abb-f4a819fd5930"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{vadisabilityserviceAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{privatedisabilityACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalprivatedisabilityAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{privatedisabilityACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{privatedisabilityUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{privatedisabilityUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalprivatedisabilityUK}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{privatedisabilityUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="26" uuid="1d10f74a-3093-47f2-bd50-6568a80a6321"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{privatedisabilityACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="26" uuid="65bb14d7-7529-4fee-811a-1a8deefac98a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{privatedisabilityAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="26" uuid="6262063a-d15d-4e37-a3be-352dc40c2178"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalprivatedisabilityAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="26" forecolor="#000000" uuid="58f86046-51b9-4d04-9cf4-d67bd0470372"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Private Disability Insurance]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="26" uuid="dde278ca-dc2a-4983-ac73-3b5e7b852038"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{privatedisabilityAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="26" uuid="8410c506-5254-4faf-af31-1c738cdd58a7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{privatedisabilityAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="42">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{workerscompACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalworkerscompAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{workerscompACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{workerscompUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{workerscompUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalworkerscompAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{workerscompUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="42" uuid="bfe216e9-2648-465b-93e5-f9b82034bfa1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{workerscompACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="42" uuid="63a57520-43b8-4e21-8198-418c7d32ca0a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{workerscompAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="42" uuid="79eccd4e-0381-4f25-b324-fdf8a9bf33d2"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalworkerscompAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="42" forecolor="#000000" uuid="94ac34e0-8a2f-48ef-8646-13a565d082a4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[  Worker's Compensation]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="42" uuid="af4c2236-71f4-42b3-a536-57a99dd00d5a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{workerscompAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="42" uuid="8bd7811c-949c-4037-813e-3e2c6d0e1179"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{workerscompAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tanfACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totaltanfAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tanfACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tanfUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tanfUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totaltanfUK}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tanfACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="26" uuid="43538e87-07fc-4db4-b6b0-3cca4db5d286"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tanfACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="26" uuid="bcaa74d2-735e-4563-9f27-0b8a6729d177"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tanfAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="26" uuid="35c0e084-7c91-40fc-9aed-137d7ba5ff09"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totaltanfAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="26" forecolor="#000000" uuid="bee08b00-b78c-4a55-ae38-9f954bc8e4ba"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Temporary Assistance for Needy Families (TANF)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="26" uuid="a6ae5037-a602-451f-b2df-342c99417ec3"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tanfAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="26" uuid="cab02e17-06c8-43a5-a0e5-163f2cd44391"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tanfAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="43">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{socsecretirementACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalsocsecretirementAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{socsecretirementACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{socsecretirementUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{socsecretirementUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalsocsecretirementAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{socsecretirementUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="43" uuid="3336266b-d3d5-49c6-b3f1-bb6b9c829733"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{socsecretirementACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="43" uuid="59d323ca-4157-4ca2-9088-5b139d44cd6c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{socsecretirementAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="43" uuid="476ca4fc-b430-47c1-871c-d90afcbdc228"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalsocsecretirementAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="43" forecolor="#000000" uuid="c650ba0b-9fc8-4de1-99ce-ffe149eca575"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Retirement Income from Social Security]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="43" uuid="31948a32-1df9-40b5-857d-62e646c77fda"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{socsecretirementAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="43" uuid="de75abf8-b1bb-4bc5-bd9f-587f77ea5d63"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{socsecretirementAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="39">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pensionACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalpensionAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pensionACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pensionUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pensionUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalpensionUK}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pensionUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="39" uuid="c9b2b1ba-384e-4471-af6c-c89048daa05e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pensionACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="39" uuid="5b6d2f6b-cde0-4660-85ee-0ce385f64259"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pensionAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="39" uuid="0405c457-79d0-4180-a361-983786bd6107"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalpensionAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="39" forecolor="#000000" uuid="74ef8b03-01db-43ec-87ca-b9d4ce1cb544"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Pension or retirement income from a former job]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="39" uuid="26593506-0641-47fc-94bb-2a3b8268528d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pensionAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="39" uuid="dfbb2f07-fd68-4744-b3de-e3468050f358"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pensionAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="40">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{childsupportACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalchildsupportAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{childsupportACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{childsupportUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{childsupportUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalchildsupportUK}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{childsupportUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="40" uuid="106e1b21-6013-4cdc-953a-4254fec36593"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{childsupportACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="40" uuid="383c48ce-6da4-4cc2-a424-7e9a055815d1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{childsupportAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="40" uuid="77cafa26-5fa4-4b97-bc31-fcbceb4506f7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalchildsupportAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="40" forecolor="#000000" uuid="8aa609fe-a6bb-4407-8d7a-0619a2de3b36"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Child Support]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="40" uuid="601f5db3-8d3b-4307-a3a4-891b02c27a3a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{childsupportAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="40" uuid="b29e26c4-8620-4a02-8d45-7092c6816317"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{childsupportAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{othersourceACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalothersourceAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{othersourceACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{othersourceUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{othersourceUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalothersourceUK}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{othersourceUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="26" uuid="0c3eaf9c-f7d2-4de7-89cc-a946048ebc8b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{othersourceACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="26" uuid="04f0e709-d377-4007-9f3e-daa5b72e8d15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{othersourceAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="26" uuid="a42191cb-a730-408e-8dd6-61522b89fd43"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalothersourceAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="26" forecolor="#000000" uuid="1d7ee3d5-8e2a-43f6-9db4-f20d7a34e69a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Other source]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="26" uuid="89d7552b-1a4a-49e9-9330-4eaf53206d47"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{othersourceAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="26" uuid="bc181c8a-e50d-439f-9b63-60dbc365d8a0"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{othersourceAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noSourceACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalnoSourceAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noSourceACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noSourceUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noSourceUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalnoSourceUK}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noSourceUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="26" uuid="5ad9cf25-662f-455a-a8e4-c001ac224f2b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noSourceACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="26" uuid="852627e0-4b87-4e62-b5a3-5e3e65efd97b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noSourceAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="26" uuid="1816bec3-70ca-4294-873e-b5f95da74ad8"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalnoSourceAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="26" forecolor="#000000" uuid="ef3b5a5e-c9c4-4420-b142-a4e19434b562"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   No Sources]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="26" uuid="35040341-69fa-480b-a7e2-2e31c8a4c072"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noSourceAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="26" uuid="37b0d687-0984-459b-b4b5-0a0f57ccf87a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noSourceAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalACWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalAC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalACDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalUKWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalUKWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalUK}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalUKDisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="269" y="0" width="38" height="26" uuid="167f1fb0-1a25-47cf-a288-7dbaa7a88d10"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalACWithDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="215" y="0" width="54" height="26" uuid="ea8883e8-2ea3-4694-b9a8-73a3adfc5f3f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalAODisabPercentage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="172" y="0" width="43" height="26" uuid="1c22679d-e314-4431-9a79-1272de36d71f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalAO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="26" forecolor="#000000" uuid="356246c3-0400-4477-8bbc-bc881d2589eb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Unduplicated Total Youth]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="124" y="0" width="48" height="26" uuid="3b122fab-c864-499b-903f-5205e46de33f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalAOWithOutDisab}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="53" height="26" uuid="283e6fd4-1fb9-438a-9356-1914b2bffdd0"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{totalAOWithDisab}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26"/>
+			<band height="26"/>
+		</groupFooter>
+	</group>
+</jasperReport>

@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hmis.warehouse.Properties;
 import com.servinglynk.hmis.warehouse.ReportConfig;
+import com.servinglynk.report.bean.DisabIncomeAndSourceDataBean;
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
@@ -328,7 +329,10 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean(q19a2ClientCashIncomeChangeIncomeSourceByEntryList);
 			CSVGenerator.buildReport(q19a2ClientCashIncomeChangeIncomeSourceByEntryList, "q19a2.jrxml", "Q19a2.csv",data);
 			
-
+			List<DisabIncomeAndSourceDataBean> q19bDataBeanList = Q19bBeanMaker.getQ19DataBean(data);
+			homePageDataBean.setQ19bDataBen(q19bDataBeanList);
+			CSVGenerator.buildReport(q19bDataBeanList, "q19b.jrxml", "Q19b.csv",data);
+		
 			List<Q20aTypeOfNonCashBenefitSourcesDataBean> q20aTypeOfNonCashBenefitSourcesList = Q20aBeanMaker.getQ20aTypeOfNonCashBenefitSourcesList(data);
 			homePageDataBean.setQ20aTypeOfNonCashBenefitSourcesDataBean(q20aTypeOfNonCashBenefitSourcesList);
 			CSVGenerator.buildReport(q20aTypeOfNonCashBenefitSourcesList, "q20a.jrxml", "Q20a.csv",data);
@@ -479,6 +483,10 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ27gCashIncomeSourcesDataBean(q27gCashIncomeSourcesYouthList);
 			CSVGenerator.buildReport(q27fExitDestinationYouthList, "q27g.jrxml","Q27g.csv",data);
 			
+			List<DisabIncomeAndSourceDataBean> q27iDataBeanList = Q27iBeanMaker.getQ27iDataBean(data);
+			homePageDataBean.setQ27iDataBen(q27iDataBeanList);
+			CSVGenerator.buildReport(q27iDataBeanList, "q27i.jrxml", "Q27i.csv",data);
+		
 			return Arrays.asList(homePageDataBean);
 	    }
 		
