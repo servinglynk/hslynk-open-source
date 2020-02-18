@@ -1,5 +1,7 @@
 package com.servinglynk.report.business;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +13,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
-import com.servinglynk.report.bean.Q25gTypeOfCashIncomeSourcesVeteransDataBean;
+import com.servinglynk.report.bean.DisabIncomeAndSourceDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
@@ -19,9 +21,9 @@ import com.servinglynk.report.model.HouseHoldType;
 
 public class Q19bBeanMaker extends BaseBeanMaker {
 	
-	public static List<Q25gTypeOfCashIncomeSourcesVeteransDataBean> getQ25gTypeOfCashIncomeSourcesVeteranList(ReportData data){
+	public static List<DisabIncomeAndSourceDataBean> getQ25gTypeOfCashIncomeSourcesVeteranList(ReportData data){
 		
-		Q25gTypeOfCashIncomeSourcesVeteransDataBean q25gDataBean = new Q25gTypeOfCashIncomeSourcesVeteransDataBean();
+		DisabIncomeAndSourceDataBean disabIncomeAndSourceDataBean = new DisabIncomeAndSourceDataBean();
 		
 		if(data.isLiveMode()) {
 			try{
@@ -34,124 +36,242 @@ public class Q19bBeanMaker extends BaseBeanMaker {
 			int totalAOEarned = earnedAOWithDisab + earnedAOWithOutDisab;
 			double earnedAODisabPercentage = earnedAOWithDisab/totalAOEarned ;
 			
+			disabIncomeAndSourceDataBean.setEarnedAOWithDisab(BigInteger.valueOf(earnedAOWithDisab));
+			disabIncomeAndSourceDataBean.setEarnedAOWithOutDisab(BigInteger.valueOf(earnedAOWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalAOEarned(BigInteger.valueOf(totalAOEarned));
+			disabIncomeAndSourceDataBean.setEarnedAODisabPercentage(BigDecimal.valueOf(earnedAODisabPercentage).toBigInteger());
+			
 			int earnedACWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +" and  earned ='1' and e.disablingcondition ='1' ", HouseHoldType.AC, data);
 			int earnedACWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +" and  earned ='1' and e.disablingcondition ='0' ", HouseHoldType.AC,data);
 			int totalACEarned = earnedACWithDisab + earnedACWithOutDisab;
 			double earnedACDisabPercentage = earnedACWithDisab/totalACEarned ;
+			
+			disabIncomeAndSourceDataBean.setEarnedACWithDisab(BigInteger.valueOf(earnedACWithDisab));
+			disabIncomeAndSourceDataBean.setEarnedACWithOutDisab(BigInteger.valueOf(earnedACWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalACEarned(BigInteger.valueOf(totalACEarned));
+			disabIncomeAndSourceDataBean.setEarnedACDisabPercentage(BigDecimal.valueOf(earnedACDisabPercentage).toBigInteger());
 			
 			int earnedUKWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +" and  earned ='1' and e.disablingcondition ='1' ", HouseHoldType.UK, data);
 			int earnedUKWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +" and  earned ='1' and e.disablingcondition ='0' ", HouseHoldType.UK,data);
 			int totalUKEarned = earnedUKWithDisab + earnedUKWithOutDisab;
 			double earnedUKDisabPercentage = earnedUKWithDisab/totalUKEarned ;
 		
-
+			disabIncomeAndSourceDataBean.setEarnedUKWithDisab(BigInteger.valueOf(earnedUKWithDisab));
+			disabIncomeAndSourceDataBean.setEarnedUKWithOutDisab(BigInteger.valueOf(earnedUKWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalUKEarned(BigInteger.valueOf(totalUKEarned));
+			disabIncomeAndSourceDataBean.setEarnedUKDisabPercentage(BigDecimal.valueOf(earnedUKDisabPercentage).toBigInteger());
+			
 			int ssiAOWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssi ='1' and e.disablingcondition ='1' ", HouseHoldType.AO,data);
 			int ssiAOWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssi ='1' and e.disablingcondition ='0' ", HouseHoldType.AO,data);
-			int totalssiAO = ssiAOWithDisab + ssiAOWithDisab;
+			int totalssiAO = ssiAOWithOutDisab + ssiAOWithDisab;
 			double ssiAODisabPercentage = ssiAOWithDisab/ssiAOWithDisab ;
+
+			disabIncomeAndSourceDataBean.setSsiAOWithDisab(BigInteger.valueOf(ssiAOWithDisab));
+			disabIncomeAndSourceDataBean.setSsiAOWithOutDisab(BigInteger.valueOf(ssiAOWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalssiAO(BigInteger.valueOf(totalssiAO));
+			disabIncomeAndSourceDataBean.setSsiAODisabPercentage(BigDecimal.valueOf(ssiAODisabPercentage).toBigInteger());
+			
 			
 			int ssiACWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssi ='1' and e.disablingcondition ='1' ", HouseHoldType.AC ,data);
 			int ssiACWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssi ='1' and e.disablingcondition ='0' ", HouseHoldType.AC,data);
-			int totalssiAC = ssiACWithDisab + ssiACWithDisab;
+			int totalssiAC = ssiACWithOutDisab + ssiACWithDisab;
 			double ssiACDisabPercentage = ssiACWithDisab/totalssiAC ;
+			
+			disabIncomeAndSourceDataBean.setSsiACWithDisab(BigInteger.valueOf(ssiACWithDisab));
+			disabIncomeAndSourceDataBean.setSsiACWithOutDisab(BigInteger.valueOf(ssiACWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalssiAC(BigInteger.valueOf(totalssiAC));
+			disabIncomeAndSourceDataBean.setSsiACDisabPercentage(BigDecimal.valueOf(ssiACDisabPercentage).toBigInteger());
+			
 			
 			int ssiUKWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssi ='1' and e.disablingcondition ='1' ", HouseHoldType.UK,data);
 			int ssiUKWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssi ='1' and e.disablingcondition ='0' ", HouseHoldType.UK,data);
 			int totalssiUK = ssiUKWithDisab + ssiUKWithOutDisab;
 			double ssiUKDisabPercentage = ssiUKWithDisab/totalssiUK ;
 			
+			disabIncomeAndSourceDataBean.setSsiACWithDisab(BigInteger.valueOf(ssiUKWithDisab));
+			disabIncomeAndSourceDataBean.setSsiACWithOutDisab(BigInteger.valueOf(ssiUKWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalssiAC(BigInteger.valueOf(totalssiUK));
+			disabIncomeAndSourceDataBean.setSsiACDisabPercentage(BigDecimal.valueOf(ssiUKDisabPercentage).toBigInteger());
 			
 			int ssdiAOWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssdi ='1' and e.disablingcondition ='1' ", HouseHoldType.AO,data);
 			int ssdiAOWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssdi ='1' and e.disablingcondition ='0' ", HouseHoldType.AO,data);
 			int totalssdiAO = ssdiAOWithDisab + ssdiAOWithOutDisab;
 			double ssdiAODisabPercentage = ssdiAOWithDisab/totalssdiAO ;
 			
+			disabIncomeAndSourceDataBean.setSsdiAOWithDisab(BigInteger.valueOf(ssdiAOWithDisab));
+			disabIncomeAndSourceDataBean.setSsdiAOWithOutDisab(BigInteger.valueOf(ssdiAOWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalssdiAO(BigInteger.valueOf(totalssdiAO));
+			disabIncomeAndSourceDataBean.setSsdiAODisabPercentage(BigDecimal.valueOf(ssdiAODisabPercentage).toBigInteger());
+		
 			int ssdiACWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssdi ='1' and e.disablingcondition ='1' ", HouseHoldType.AC,data);
 			int ssdiACWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssdi ='1' and e.disablingcondition ='0' ", HouseHoldType.AC,data);
 			int totalssdiAC = ssdiACWithDisab + ssdiACWithOutDisab;
 			double ssdiACDisabPercentage = ssdiACWithDisab/totalssdiAC ;
 			
+			disabIncomeAndSourceDataBean.setSsdiACWithDisab(BigInteger.valueOf(ssdiACWithDisab));
+			disabIncomeAndSourceDataBean.setSsdiACWithOutDisab(BigInteger.valueOf(ssdiACWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalssdiAC(BigInteger.valueOf(totalssdiAC));
+			disabIncomeAndSourceDataBean.setSsdiACDisabPercentage(BigDecimal.valueOf(ssdiACDisabPercentage).toBigInteger());
+		
 			int ssdiUKWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssdi ='1' and e.disablingcondition ='1' ", HouseHoldType.UK,data);
 			int ssdiUKWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and ssdi ='1' and e.disablingcondition ='0' ", HouseHoldType.UK,data);
-			int totalssdiUK = ssdiACWithDisab + ssdiACWithOutDisab;
+			int totalssdiUK = ssdiUKWithDisab + ssdiUKWithOutDisab;
 			double ssdiUKDisabPercentage = ssdiUKWithDisab/totalssdiUK ;
 			
+			disabIncomeAndSourceDataBean.setSsdiUKWithDisab(BigInteger.valueOf(ssdiUKWithDisab));
+			disabIncomeAndSourceDataBean.setSsdiUKWithOutDisab(BigInteger.valueOf(ssdiUKWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalssdiUK(BigInteger.valueOf(totalssdiUK));
+			disabIncomeAndSourceDataBean.setSsdiUKDisabPercentage(BigDecimal.valueOf(ssdiUKDisabPercentage).toBigInteger());
 			
 			int vadisabilityserviceAOWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and vadisabilityservice ='1' and e.disablingcondition ='1' ", HouseHoldType.AO,data);
 			int vadisabilityserviceAOWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and vadisabilityservice ='1' and e.disablingcondition ='0' ", HouseHoldType.AO,data);
-			int totalvadisabilityserviceAO = ssdiAOWithDisab + ssdiAOWithOutDisab;
+			int totalvadisabilityserviceAO = ssdiAOWithDisab + vadisabilityserviceAOWithOutDisab;
 			double vadisabilityserviceAODisabPercentage = vadisabilityserviceAOWithDisab/totalvadisabilityserviceAO ;
 
+			disabIncomeAndSourceDataBean.setVadisabilityserviceAOWithDisab(BigInteger.valueOf(vadisabilityserviceAOWithDisab));
+			disabIncomeAndSourceDataBean.setVadisabilityserviceAOWithOutDisab(BigInteger.valueOf(vadisabilityserviceAOWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalvadisabilityserviceAO(BigInteger.valueOf(totalvadisabilityserviceAO));
+			disabIncomeAndSourceDataBean.setVadisabilityserviceAODisabPercentage(BigDecimal.valueOf(vadisabilityserviceAODisabPercentage).toBigInteger());
+			
 			int vadisabilityserviceACWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and vadisabilityservice ='1' and e.disablingcondition ='1' ", HouseHoldType.AC,data);
 			int vadisabilityserviceACWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and vadisabilityservice ='1' and e.disablingcondition ='0' ", HouseHoldType.AC,data);
 			int totalvadisabilityserviceAC = vadisabilityserviceACWithDisab + vadisabilityserviceACWithOutDisab;
 			double vadisabilityserviceACDisabPercentage = vadisabilityserviceACWithDisab/totalvadisabilityserviceAC ;
 			
+			disabIncomeAndSourceDataBean.setVadisabilityserviceACWithDisab(BigInteger.valueOf(vadisabilityserviceACWithDisab));
+			disabIncomeAndSourceDataBean.setVadisabilityserviceACWithOutDisab(BigInteger.valueOf(vadisabilityserviceACWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalvadisabilityserviceAC(BigInteger.valueOf(totalvadisabilityserviceAC));
+			disabIncomeAndSourceDataBean.setVadisabilityserviceACDisabPercentage(BigDecimal.valueOf(vadisabilityserviceACDisabPercentage).toBigInteger());
+		
 			int vadisabilityserviceUKWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and vadisabilityservice ='1' and e.disablingcondition ='1' ", HouseHoldType.UK,data);
 			int vadisabilityserviceUKWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and vadisabilityservice ='1' and e.disablingcondition ='0' ", HouseHoldType.UK,data);
-			int totalvadisabilityserviceUK = vadisabilityserviceACWithDisab + vadisabilityserviceACWithOutDisab;
+			int totalvadisabilityserviceUK = vadisabilityserviceUKWithDisab + vadisabilityserviceUKWithOutDisab;
 			double vadisabilityserviceUKDisabPercentage = vadisabilityserviceUKWithDisab/totalvadisabilityserviceUK ;
 			
+			disabIncomeAndSourceDataBean.setVadisabilityserviceUKWithDisab(BigInteger.valueOf(vadisabilityserviceUKWithDisab));
+			disabIncomeAndSourceDataBean.setVadisabilityserviceUKWithOutDisab(BigInteger.valueOf(vadisabilityserviceUKWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalvadisabilityserviceUK(BigInteger.valueOf(totalvadisabilityserviceUK));
+			disabIncomeAndSourceDataBean.setVadisabilityserviceUKDisabPercentage(BigDecimal.valueOf(vadisabilityserviceUKDisabPercentage).toBigInteger());
 		
 			int privatedisabilityAOWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and privatedisability ='1' and e.disablingcondition ='1' ", HouseHoldType.AO,data);
 			int privatedisabilityAOWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and privatedisability ='1' and e.disablingcondition ='0' ", HouseHoldType.AO,data);
 			int totalprivatedisabilityAO = privatedisabilityAOWithDisab + privatedisabilityAOWithOutDisab;
 			double privatedisabilityAODisabPercentage = privatedisabilityAOWithDisab/totalprivatedisabilityAO ;
 			
+			disabIncomeAndSourceDataBean.setPrivatedisabilityAOWithDisab(BigInteger.valueOf(privatedisabilityAOWithDisab));
+			disabIncomeAndSourceDataBean.setPrivatedisabilityAOWithOutDisab(BigInteger.valueOf(privatedisabilityAOWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalprivatedisabilityAO(BigInteger.valueOf(totalprivatedisabilityAO));
+			disabIncomeAndSourceDataBean.setPrivatedisabilityAODisabPercentage(BigDecimal.valueOf(privatedisabilityAODisabPercentage).toBigInteger());
+		
 			int privatedisabilityACWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and privatedisability ='1' and e.disablingcondition ='1' ", HouseHoldType.AC,data);
 			int privatedisabilityACWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and privatedisability ='1' and e.disablingcondition ='0' ", HouseHoldType.AC,data);
 			int totalprivatedisabilityAC = privatedisabilityACWithDisab + privatedisabilityACWithOutDisab;
 			double privatedisabilityACDisabPercentage = privatedisabilityACWithDisab/totalprivatedisabilityAC ;
 			
+			disabIncomeAndSourceDataBean.setPrivatedisabilityACWithDisab(BigInteger.valueOf(privatedisabilityACWithDisab));
+			disabIncomeAndSourceDataBean.setPrivatedisabilityACWithOutDisab(BigInteger.valueOf(privatedisabilityACWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalprivatedisabilityAC(BigInteger.valueOf(totalprivatedisabilityAC));
+			disabIncomeAndSourceDataBean.setPrivatedisabilityACDisabPercentage(BigDecimal.valueOf(privatedisabilityACDisabPercentage).toBigInteger());
+			
 			int privatedisabilityUKWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and privatedisability ='1' and e.disablingcondition ='1' ", HouseHoldType.UK,data);
 			int privatedisabilityUKWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and privatedisability ='1' and e.disablingcondition ='0' ", HouseHoldType.UK,data);
-			int totalprivatedisabilityUK = privatedisabilityACWithDisab + privatedisabilityACWithOutDisab;
+			int totalprivatedisabilityUK = privatedisabilityUKWithDisab + privatedisabilityUKWithOutDisab;
 			double privatedisabilityUKDisabPercentage = privatedisabilityUKWithDisab/totalprivatedisabilityUK ;
 		
+			disabIncomeAndSourceDataBean.setPrivatedisabilityUKWithDisab(BigInteger.valueOf(privatedisabilityUKWithDisab));
+			disabIncomeAndSourceDataBean.setPrivatedisabilityUKWithOutDisab(BigInteger.valueOf(privatedisabilityUKWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalprivatedisabilityUK(BigInteger.valueOf(totalprivatedisabilityUK));
+			disabIncomeAndSourceDataBean.setPrivatedisabilityUKDisabPercentage(BigDecimal.valueOf(privatedisabilityUKDisabPercentage).toBigInteger());
+	
 			int workerscompAOWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and workerscomp ='1' and e.disablingcondition ='1' ", HouseHoldType.AO,data);
 			int workerscompAOWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and workerscomp ='1' and e.disablingcondition ='0' ", HouseHoldType.AO,data);
 			int totalworkerscompAO = workerscompAOWithDisab + workerscompAOWithOutDisab;
 			double workerscompAODisabPercentage = workerscompAOWithDisab/totalworkerscompAO ;
 			
+			disabIncomeAndSourceDataBean.setWorkerscompAOWithDisab(BigInteger.valueOf(workerscompAOWithDisab));
+			disabIncomeAndSourceDataBean.setWorkerscompAOWithOutDisab(BigInteger.valueOf(workerscompAOWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalworkerscompAO(BigInteger.valueOf(totalworkerscompAO));
+			disabIncomeAndSourceDataBean.setWorkerscompAODisabPercentage(BigDecimal.valueOf(workerscompAODisabPercentage).toBigInteger());
+	
 			int workerscompACWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and workerscomp ='1' and e.disablingcondition ='1' ", HouseHoldType.AC,data);
 			int workerscompACWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and workerscomp ='1' and e.disablingcondition ='0' ", HouseHoldType.AC,data);
 			int totalworkerscompAC = workerscompACWithDisab + workerscompACWithOutDisab;
 			double workerscompACDisabPercentage = workerscompACWithDisab/totalworkerscompAC ;
 			
+			disabIncomeAndSourceDataBean.setWorkerscompACWithDisab(BigInteger.valueOf(workerscompACWithDisab));
+			disabIncomeAndSourceDataBean.setWorkerscompACWithOutDisab(BigInteger.valueOf(workerscompACWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalworkerscompAC(BigInteger.valueOf(totalworkerscompAC));
+			disabIncomeAndSourceDataBean.setWorkerscompACDisabPercentage(BigDecimal.valueOf(workerscompACDisabPercentage).toBigInteger());
+			
 			int workerscompUKWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and workerscomp ='1' and e.disablingcondition ='1' ", HouseHoldType.UK,data);
 			int workerscompUKWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and workerscomp ='1' and e.disablingcondition ='0' ", HouseHoldType.UK,data);
-			int totalworkerscompUK = workerscompACWithDisab + workerscompACWithOutDisab;
+			int totalworkerscompUK = workerscompUKWithDisab + workerscompUKWithOutDisab;
 			double workerscompUKDisabPercentage = workerscompUKWithDisab/totalworkerscompUK ;
 		
+			disabIncomeAndSourceDataBean.setWorkerscompUKWithDisab(BigInteger.valueOf(workerscompUKWithDisab));
+			disabIncomeAndSourceDataBean.setWorkerscompUKWithOutDisab(BigInteger.valueOf(workerscompUKWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalworkerscompUK(BigInteger.valueOf(totalworkerscompUK));
+			disabIncomeAndSourceDataBean.setWorkerscompUKDisabPercentage(BigDecimal.valueOf(workerscompUKDisabPercentage).toBigInteger());
+	
 			int tanfAOWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and tanf ='1' and e.disablingcondition ='1' ", HouseHoldType.AO,data);
 			int tanfAOWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and tanf ='1' and e.disablingcondition ='0' ", HouseHoldType.AO,data);
 			int totaltanfAO = tanfAOWithDisab + tanfAOWithOutDisab;
 			double tanfAODisabPercentage = tanfAOWithDisab/totaltanfAO ;
 			
+			disabIncomeAndSourceDataBean.setTanfAOWithDisab(BigInteger.valueOf(tanfAOWithDisab));
+			disabIncomeAndSourceDataBean.setTanfAOWithOutDisab(BigInteger.valueOf(tanfAOWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotaltanfAO(BigInteger.valueOf(totaltanfAO));
+			disabIncomeAndSourceDataBean.setTanfAODisabPercentage(BigDecimal.valueOf(tanfAODisabPercentage).toBigInteger());
+	
 			int tanfACWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and tanf ='1' and e.disablingcondition ='1' ", HouseHoldType.AC,data);
 			int tanfACWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and tanf ='1' and e.disablingcondition ='0' ", HouseHoldType.AC,data);
 			int totaltanfAC = tanfACWithDisab + tanfACWithOutDisab;
 			double tanfACDisabPercentage = tanfACWithDisab/totaltanfAC ;
 			
+			disabIncomeAndSourceDataBean.setTanfACWithDisab(BigInteger.valueOf(tanfACWithDisab));
+			disabIncomeAndSourceDataBean.setTanfACWithOutDisab(BigInteger.valueOf(tanfACWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotaltanfAC(BigInteger.valueOf(totaltanfAC));
+			disabIncomeAndSourceDataBean.setTanfACDisabPercentage(BigDecimal.valueOf(tanfACDisabPercentage).toBigInteger());
+			
 			int tanfUKWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and tanf ='1' and e.disablingcondition ='1' ", HouseHoldType.UK,data);
 			int tanfUKWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and tanf ='1' and e.disablingcondition ='0' ", HouseHoldType.UK,data);
-			int totaltanfUK = tanfACWithDisab + tanfACWithOutDisab;
+			int totaltanfUK = tanfUKWithDisab + tanfUKWithOutDisab;
 			double tanfUKDisabPercentage = tanfUKWithDisab/totaltanfUK ;
 		
+			disabIncomeAndSourceDataBean.setTanfUKWithDisab(BigInteger.valueOf(tanfUKWithDisab));
+			disabIncomeAndSourceDataBean.setTanfUKWithOutDisab(BigInteger.valueOf(tanfUKWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotaltanfUK(BigInteger.valueOf(totaltanfUK));
+			disabIncomeAndSourceDataBean.setTanfUKDisabPercentage(BigDecimal.valueOf(tanfUKDisabPercentage).toBigInteger());
+			
 			int socsecretirementAOWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and socsecretirement ='1' and e.disablingcondition ='1' ", HouseHoldType.AO,data);
 			int socsecretirementAOWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and socsecretirement ='1' and e.disablingcondition ='0' ", HouseHoldType.AO,data);
 			int totalsocsecretirementAO = socsecretirementAOWithDisab + socsecretirementAOWithOutDisab;
 			double socsecretirementAODisabPercentage = socsecretirementAOWithDisab/totalsocsecretirementAO ;
+			
+			disabIncomeAndSourceDataBean.setSocsecretirementAOWithDisab(BigInteger.valueOf(socsecretirementAOWithDisab));
+			disabIncomeAndSourceDataBean.setSocsecretirementAOWithOutDisab(BigInteger.valueOf(socsecretirementAOWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalsocsecretirementAO(BigInteger.valueOf(totalsocsecretirementAO));
+			disabIncomeAndSourceDataBean.setSocsecretirementAODisabPercentage(BigDecimal.valueOf(socsecretirementAODisabPercentage).toBigInteger());
 			
 			int socsecretirementACWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and socsecretirement ='1' and e.disablingcondition ='1' ", HouseHoldType.AC,data);
 			int socsecretirementACWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and socsecretirement ='1' and e.disablingcondition ='0' ", HouseHoldType.AC,data);
 			int totalsocsecretirementAC = socsecretirementACWithDisab + socsecretirementACWithOutDisab;
 			double socsecretirementACDisabPercentage = socsecretirementACWithDisab/totalsocsecretirementAC ;
 			
+			disabIncomeAndSourceDataBean.setSocsecretirementACWithDisab(BigInteger.valueOf(socsecretirementACWithDisab));
+			disabIncomeAndSourceDataBean.setSocsecretirementACWithOutDisab(BigInteger.valueOf(socsecretirementACWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalsocsecretirementAC(BigInteger.valueOf(totalsocsecretirementAC));
+			disabIncomeAndSourceDataBean.setSocsecretirementACDisabPercentage(BigDecimal.valueOf(socsecretirementACDisabPercentage).toBigInteger());
+			
 			int socsecretirementUKWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and socsecretirement ='1' and e.disablingcondition ='1' ", HouseHoldType.UK,data);
 			int socsecretirementUKWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and socsecretirement ='1' and e.disablingcondition ='0' ", HouseHoldType.UK,data);
-			int totalsocsecretirementUK = socsecretirementACWithDisab + socsecretirementACWithOutDisab;
+			int totalsocsecretirementUK = socsecretirementUKWithDisab + socsecretirementUKWithOutDisab;
 			double socsecretirementUKDisabPercentage = socsecretirementUKWithDisab/totalsocsecretirementUK ;
+		
+			disabIncomeAndSourceDataBean.setSocsecretirementUKWithDisab(BigInteger.valueOf(socsecretirementUKWithDisab));
+			disabIncomeAndSourceDataBean.setSocsecretirementUKWithOutDisab(BigInteger.valueOf(socsecretirementUKWithOutDisab));
+			disabIncomeAndSourceDataBean.setTotalsocsecretirementUK(BigInteger.valueOf(totalsocsecretirementUK));
+			disabIncomeAndSourceDataBean.setSocsecretirementUKDisabPercentage(BigDecimal.valueOf(socsecretirementUKDisabPercentage).toBigInteger());
 		
 			
 			int pensionAOWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and pension ='1' and e.disablingcondition ='1' ", HouseHoldType.AO,data);
@@ -198,7 +318,7 @@ public class Q19bBeanMaker extends BaseBeanMaker {
 			
 			int othersourceUKWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and  ( othersource ='1' or alimony ='1' or unemployment ='1' or vadisabilitynonservice='1' or ga='1' ) and e.disablingcondition ='1' ", HouseHoldType.UK,data);
 			int othersourceUKWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and  ( othersource ='1' or alimony ='1' or unemployment ='1' or vadisabilitynonservice='1' or ga='1' ) and e.disablingcondition ='0' ", HouseHoldType.UK,data);
-			int totalothersourceUK = othersourceACWithDisab + othersourceACWithOutDisab;
+			int totalothersourceUK = othersourceUKWithDisab + othersourceUKWithOutDisab;
 			double othersourceUKDisabPercentage = othersourceUKWithDisab/totalothersourceUK ;
 		
 			
@@ -214,15 +334,15 @@ public class Q19bBeanMaker extends BaseBeanMaker {
 			
 			int noSourceUKWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and incomefromanysource ='0' and e.disablingcondition ='1' ", HouseHoldType.UK,data);
 			int noSourceUKWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +"  and incomefromanysource ='0' and e.disablingcondition ='0' ", HouseHoldType.UK,data);
-			int totalnoSourceUK = noSourceACWithDisab + noSourceACWithOutDisab;
+			int totalnoSourceUK = noSourceUKWithDisab + noSourceUKWithOutDisab;
 			double noSourceUKDisabPercentage = noSourceUKWithDisab/totalnoSourceUK ;
 			
 
 		} catch (Exception e) {
-			logger.error("Error in Q17BeanMaker:" + e);
+			logger.error("Error in Q19bBeanMaker:" + e);
 		}
 			}
-			return Arrays.asList(q25gDataBean);
+			return Arrays.asList(disabIncomeAndSourceDataBean);
 		}
 		
 		public static List<String> getClients(String schema,String query,ReportData data) {

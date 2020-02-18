@@ -474,54 +474,6 @@
 	</field>
 	<group name="Group5">
 		<groupFooter>
-			<band height="25">
-				<staticText>
-					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCCFF" uuid="b02bbc8e-1e0a-4b9d-9268-3760fa69784d"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[   Q19b: Disabling Conditions and Income for Adults at Exit]]></text>
-				</staticText>
-			</band>
-			<band height="25">
-				<staticText>
-					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="cf92dfc6-26f3-4cfe-9cda-7ac5a2590976"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[   Report Relevance:   COC-APR and ESG-CAPER]]></text>
-				</staticText>
-			</band>
-			<band height="25">
-				<staticText>
-					<reportElement mode="Opaque" x="0" y="1" width="388" height="24" backcolor="#CCCC00" uuid="c67fde90-5ba5-4f27-a040-f93587ee3b9b"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[  Changes from APR V1.4:  NEW question]]></text>
-				</staticText>
-			</band>
 			<band height="86">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="71" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="e4f5ff90-2880-4390-9f36-b26024c20224"/>
@@ -2810,8 +2762,6 @@ Total Adults
 					<textFieldExpression><![CDATA[$F{totalAOWithDisab}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26"/>
-			<band height="26"/>
 		</groupFooter>
 	</group>
 </jasperReport>

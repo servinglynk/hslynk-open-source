@@ -191,6 +191,22 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger noSourceUKWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalnoSourceUK = BigInteger.ZERO;
 	private BigInteger noSourceUKDisabPercentage = BigInteger.ZERO;
+	
+	private BigInteger totalAOWithDisab = BigInteger.ZERO;
+	private BigInteger totalAOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalAO = BigInteger.ZERO;
+	private BigInteger totalAODisabPercentage = BigInteger.ZERO;
+	
+	private BigInteger totalACWithDisab = BigInteger.ZERO;
+	private BigInteger totalACWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalAC = BigInteger.ZERO;
+	private BigInteger totalACDisabPercentage = BigInteger.ZERO;
+	
+	private BigInteger totalUKWithDisab = BigInteger.ZERO;
+	private BigInteger totalUKWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalUK = BigInteger.ZERO;
+	private BigInteger totalUKDisabPercentage = BigInteger.ZERO;
+	
 	/**
 	 * @return the earnedAOWithDisab
 	 */
@@ -1918,5 +1934,151 @@ public class DisabIncomeAndSourceDataBean {
 	 */
 	public void setNoSourceUKDisabPercentage(BigInteger noSourceUKDisabPercentage) {
 		this.noSourceUKDisabPercentage = noSourceUKDisabPercentage;
+	}
+	/**
+	 * @return the totalAOWithDisab
+	 */
+	public BigInteger getTotalAOWithDisab() {
+		return totalAOWithDisab;
+	}
+	/**
+	 * @param totalAOWithDisab the totalAOWithDisab to set
+	 */
+	public void setTotalAOWithDisab(BigInteger totalAOWithDisab) {
+		this.totalAOWithDisab = totalAOWithDisab;
+	}
+	/**
+	 * @return the totalAOWithOutDisab
+	 */
+	public BigInteger getTotalAOWithOutDisab() {
+		return totalAOWithOutDisab;
+	}
+	/**
+	 * @param totalAOWithOutDisab the totalAOWithOutDisab to set
+	 */
+	public void setTotalAOWithOutDisab(BigInteger totalAOWithOutDisab) {
+		this.totalAOWithOutDisab = totalAOWithOutDisab;
+	}
+	
+	/**
+	 * @return the totalAODisabPercentage
+	 */
+	public BigInteger getTotalAODisabPercentage() {
+		return totalAODisabPercentage;
+	}
+	/**
+	 * @param totalAODisabPercentage the totalAODisabPercentage to set
+	 */
+	public void setTotalAODisabPercentage(BigInteger totalAODisabPercentage) {
+		this.totalAODisabPercentage = totalAODisabPercentage;
+	}
+	/**
+	 * @return the totalACWithDisab
+	 */
+	public BigInteger getTotalACWithDisab() {
+		return totalACWithDisab;
+	}
+	/**
+	 * @param totalACWithDisab the totalACWithDisab to set
+	 */
+	public void setTotalACWithDisab(BigInteger totalACWithDisab) {
+		this.totalACWithDisab = totalACWithDisab;
+	}
+	/**
+	 * @return the totalACWithOutDisab
+	 */
+	public BigInteger getTotalACWithOutDisab() {
+		return totalACWithOutDisab;
+	}
+	/**
+	 * @param totalACWithOutDisab the totalACWithOutDisab to set
+	 */
+	public void setTotalACWithOutDisab(BigInteger totalACWithOutDisab) {
+		this.totalACWithOutDisab = totalACWithOutDisab;
+	}
+	
+	/**
+	 * @return the totalACDisabPercentage
+	 */
+	public BigInteger getTotalACDisabPercentage() {
+		return totalACDisabPercentage;
+	}
+	/**
+	 * @param totalACDisabPercentage the totalACDisabPercentage to set
+	 */
+	public void setTotalACDisabPercentage(BigInteger totalACDisabPercentage) {
+		this.totalACDisabPercentage = totalACDisabPercentage;
+	}
+	/**
+	 * @return the totalUKWithDisab
+	 */
+	public BigInteger getTotalUKWithDisab() {
+		return totalUKWithDisab;
+	}
+	/**
+	 * @param totalUKWithDisab the totalUKWithDisab to set
+	 */
+	public void setTotalUKWithDisab(BigInteger totalUKWithDisab) {
+		this.totalUKWithDisab = totalUKWithDisab;
+	}
+	/**
+	 * @return the totalUKWithOutDisab
+	 */
+	public BigInteger getTotalUKWithOutDisab() {
+		return totalUKWithOutDisab;
+	}
+	/**
+	 * @param totalUKWithOutDisab the totalUKWithOutDisab to set
+	 */
+	public void setTotalUKWithOutDisab(BigInteger totalUKWithOutDisab) {
+		this.totalUKWithOutDisab = totalUKWithOutDisab;
+	}
+	/**
+	 * @return the totalUKDisabPercentage
+	 */
+	public BigInteger getTotalUKDisabPercentage() {
+		return totalUKDisabPercentage;
+	}
+	/**
+	 * @param totalUKDisabPercentage the totalUKDisabPercentage to set
+	 */
+	public void setTotalUKDisabPercentage(BigInteger totalUKDisabPercentage) {
+		this.totalUKDisabPercentage = totalUKDisabPercentage;
+	}
+	/**
+	 * @return the totalAO
+	 */
+	public BigInteger getTotalAO() {
+		return totalAO;
+	}
+	/**
+	 * @param totalAO the totalAO to set
+	 */
+	public void setTotalAO(BigInteger totalAO) {
+		this.totalAO = totalAO;
+	}
+	/**
+	 * @return the totalAC
+	 */
+	public BigInteger getTotalAC() {
+		return totalAC;
+	}
+	/**
+	 * @param totalAC the totalAC to set
+	 */
+	public void setTotalAC(BigInteger totalAC) {
+		this.totalAC = totalAC;
+	}
+	/**
+	 * @return the totalUK
+	 */
+	public BigInteger getTotalUK() {
+		return totalUK;
+	}
+	/**
+	 * @param totalUK the totalUK to set
+	 */
+	public void setTotalUK(BigInteger totalUK) {
+		this.totalUK = totalUK;
 	}
 }
