@@ -4,21 +4,6 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<field name="q23CAPermanentDestinationsTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q23CAPermanentDestinationsTotal]]></fieldDescription>
-	</field>
-	<field name="q23CAPermanentDestinationsWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q23CAPermanentDestinationsWithoutChild]]></fieldDescription>
-	</field>
-	<field name="q23CAPermanentDestinationsWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q23CAPermanentDestinationsWithChildAndAdults]]></fieldDescription>
-	</field>
-	<field name="q23CAPermanentDestinationsWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q23CAPermanentDestinationsWithOnlyChild]]></fieldDescription>
-	</field>
-	<field name="q23CAPermanentDestinationsUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q23CAPermanentDestinationsUnknownHouseHold]]></fieldDescription>
-	</field>
 	<field name="q23CA01MovedFromOneHOPWATotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q23CA01MovedFromOneHOPWATotal]]></fieldDescription>
 	</field>

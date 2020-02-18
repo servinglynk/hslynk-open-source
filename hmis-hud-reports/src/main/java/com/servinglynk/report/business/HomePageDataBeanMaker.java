@@ -383,7 +383,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			
 			List<Q23cDataBean> q23cBeanList = Q23cBeanMaker.getQ23cList(data);
 			homePageDataBean.setQ23cDataBean(q23cBeanList);
-			CSVGenerator.buildReport(q23bExitDestination90DaysOrLessList, "q23c.jrxml","Q23c.csv",data);
+			CSVGenerator.buildReport(q23cBeanList, "q23c.jrxml","Q23c.csv",data);
 			
 			if(1==2) {
 				List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitList= Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker.getQ24HomelessnessPreventionHousingAssessmentAtExitList(data);
