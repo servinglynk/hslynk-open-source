@@ -25,13 +25,13 @@ public class Q27gDataBeanMaker extends BaseBeanMaker {
 			if(data.isLiveMode()) {
 				try{
 				String entryQuery = " select count(e.dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e ,%s.client c where  e.client_id = c.id and   e.id=i.enrollmentid "+ 
-									" and TO_DATE(i.information_date) = TO_DATE(e.entrydate)  and i.information_date <= :endDate and c.veteran_status= '1' and i.datacollectionstage='1' and e.ageatentry >= 18 and and e.ageatentry <= 25 ";
+									" and TO_DATE(i.information_date) = TO_DATE(e.entrydate)  and i.information_date <= :endDate and c.veteran_status= '1' and i.datacollectionstage='1' and e.ageatentry >= 18 and e.ageatentry <= 25 ";
 				
 				String exitQuery = " select count(e.dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e ,%s.client c,%s.exit ext where  e.client_id = c.id and   e.id=i.enrollmentid  and   e.id=ext.enrollmentid"+ 
-						" and TO_DATE(i.information_date) = TO_DATE(ext.exitdate)  and i.information_date <= :endDate and c.veteran_status= '1' and i.datacollectionstage='3' and e.ageatentry >= 18 and and e.ageatentry <= 25 ";
+						" and TO_DATE(i.information_date) = TO_DATE(ext.exitdate)  and i.information_date <= :endDate and c.veteran_status= '1' and i.datacollectionstage='3' and e.ageatentry >= 18 and e.ageatentry <= 25 ";
 
 				String annualAssesmentQuery = " select count(distinct(e.dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e,%s.client c where   e.client_id = c.id and  e.id=i.enrollmentid and c.veteran_status= '1' "+ 
-						" and i.information_date >= e.entrydate and i.datacollectionstage='5' and i.information_date >= e.entrydate and i.information_date <= :endDate  and e.ageatentry >= 18 and and e.ageatentry <= 25 ";
+						" and i.information_date >= e.entrydate and i.datacollectionstage='5' and i.information_date >= e.entrydate and i.information_date <= :endDate  and e.ageatentry >= 18 and e.ageatentry <= 25 ";
 
 				
 				int alimonyIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and alimony ='1' ", DataCollectionStage.ENTRY.getCode(),data);

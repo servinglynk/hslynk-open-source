@@ -145,6 +145,9 @@
 	<field name="q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean]]></fieldDescription>
 	</field>
+	<field name="q19bDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q19bDataBean]]></fieldDescription>
+	</field>
 	<field name="q20aTypeOfNonCashBenefitSourcesDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q20aTypeOfNonCashBenefitSourcesDataBean]]></fieldDescription>
 	</field>
@@ -165,6 +168,9 @@
 	</field>
 	<field name="q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean]]></fieldDescription>
+	</field>
+	<field name="q22eDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q22eDataBean]]></fieldDescription>
 	</field>
 	<field name="q22dLengthOfParticipationByHouseholdTypeDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q22dLengthOfParticipationByHouseholdTypeDataBean]]></fieldDescription>
@@ -243,6 +249,15 @@
 	</field>
 	<field name="q27fExitDestinationYouthDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q27fExitDestinationYouthDataBean]]></fieldDescription>
+	</field>
+	<field name="q27gCashIncomeSourcesDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q27gCashIncomeSourcesDataBean]]></fieldDescription>
+	</field>
+	<field name="q27hDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q27hDataBean]]></fieldDescription>
+	</field>
+	<field name="q27iDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q27iDataBean]]></fieldDescription>
 	</field>
 	<group name="Group4">
 		<groupHeader>
@@ -959,6 +974,13 @@
 			</band>
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="821f5cf0-6aed-4295-bb54-64f597170a50"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q19bDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q19b_Disabling_Conditions_and_Income_for_Adults_at_Exit.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36" splitType="Stretch">
+				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q20aTypeOfNonCashBenefitSourcesDataBean})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q20a_Type_Of_Non_Cash_Benefit_Sources.jasper"]]></subreportExpression>
@@ -1011,6 +1033,13 @@
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q22dLengthOfParticipationByHouseholdTypeDataBean})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q22d_Length_Of_Participation_By_HouseholdType.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36" splitType="Stretch">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q22eDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q22e_Length_Of_Participation_By_HouseholdType.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 			<band height="36" splitType="Stretch">
@@ -1186,6 +1215,27 @@
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q27fExitDestinationYouthDataBean})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q27f_Exit_Destination_Youth.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36" splitType="Stretch">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q27gCashIncomeSourcesDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q27g_Type_of_Cash_Income_Sources_Youth.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36" splitType="Stretch">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q27hDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q27h_Client_Cash_Income_Category_Earned_Other_Income.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36" splitType="Stretch">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q27iDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q27i_Disabling_Conditions_and_Income_for_Youth_at_Exit.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupFooter>

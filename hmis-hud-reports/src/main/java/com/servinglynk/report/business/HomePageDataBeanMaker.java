@@ -334,7 +334,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			CSVGenerator.buildReport(q19a2ClientCashIncomeChangeIncomeSourceByEntryList, "q19a2.jrxml", "Q19a2.csv",data);
 			
 			List<DisabIncomeAndSourceDataBean> q19bDataBeanList = Q19bBeanMaker.getQ19DataBean(data);
-			homePageDataBean.setQ19bDataBen(q19bDataBeanList);
+			homePageDataBean.setQ19bDataBean(q19bDataBeanList);
 			CSVGenerator.buildReport(q19bDataBeanList, "q19b.jrxml", "Q19b.csv",data);
 		
 			List<Q20aTypeOfNonCashBenefitSourcesDataBean> q20aTypeOfNonCashBenefitSourcesList = Q20aBeanMaker.getQ20aTypeOfNonCashBenefitSourcesList(data);
@@ -492,7 +492,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			CSVGenerator.buildReport(q27hCashIncomeCategoryYouthList, "q27h.jrxml","Q27h.csv",data);
 			
 			List<DisabIncomeAndSourceDataBean> q27iDataBeanList = Q27iBeanMaker.getQ27iDataBean(data);
-			homePageDataBean.setQ27iDataBen(q27iDataBeanList);
+			homePageDataBean.setQ27iDataBean(q27iDataBeanList);
 			CSVGenerator.buildReport(q27iDataBeanList, "q27i.jrxml", "Q27i.csv",data);
 		
 			return Arrays.asList(homePageDataBean);
