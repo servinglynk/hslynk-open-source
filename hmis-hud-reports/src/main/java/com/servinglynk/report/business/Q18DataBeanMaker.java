@@ -17,15 +17,8 @@ public class Q18DataBeanMaker extends BaseBeanMaker {
 	public static List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> getQ18ClientCashIncomeCategoryEarnedOtherIncomeList(ReportData data){
 		
 		Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean q18eData = new Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean();
-//		
-//		String query = " select count(dedup_client_id)  from %s.incomeandsources i, %s.enrollment e where i.datacollectionstage='1' and  e.project_entry_id=i.enrollmentid "+ 
-//				" and i.information_date >= e.entrydate and i.information_date >= ? and i.information_date <= ? and e.ageatentry >= 18 ";
-//
-		String query = " select distinct(dedup_client_id) from %s.enrollment e where   datediff(:endDate,e.entrydate) < 365 and entrydate >=:startDate and entrydate<=:endDate";
 		if(data.isLiveMode()) {
 		try {
-	
-		
 		List<IncomeAndSourceModel> incomeAtEntry = data.getIncomeAndSourcesAtEntry();
 		List<IncomeAndSourceModel> incomeAtExit = data.getIncomeAndSourcesAtExit();
 		List<IncomeAndSourceModel> incomeAndSourcesAtAnnualAssesment = data.getIncomeAndSourcesAtAnnualAssesment();
