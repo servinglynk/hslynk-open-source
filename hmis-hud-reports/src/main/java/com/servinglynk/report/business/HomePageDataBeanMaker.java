@@ -56,6 +56,7 @@ import com.servinglynk.report.bean.Q22a2LengthOfParticipationESGProjectsDataBean
 import com.servinglynk.report.bean.Q22bAverageAndMedianLengthOfParticipationInDaysDataBean;
 import com.servinglynk.report.bean.Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean;
 import com.servinglynk.report.bean.Q22dLengthOfParticipationByHouseholdTypeDataBean;
+import com.servinglynk.report.bean.Q22eDataBean;
 import com.servinglynk.report.bean.Q23aExitDestinationMoreThan90DaysDataBean;
 import com.servinglynk.report.bean.Q23bExitDestination90DaysOrLessDataBean;
 import com.servinglynk.report.bean.Q23cDataBean;
@@ -372,6 +373,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ22dLengthOfParticipationByHouseholdTypeDataBean(q22dLengthOfParticipationByHouseholdTypeDataBeanList);
 			CSVGenerator.buildReport(q22dLengthOfParticipationByHouseholdTypeDataBeanList,"Q22d.jrxml","Q22d.csv",data);
 			}
+			
+			List<Q22eDataBean> q22eDataBeanList = Q22eBeanMaker.getQ22eDataBeanList(data);
+			homePageDataBean.setQ22eDataBean(q22eDataBeanList);
+			CSVGenerator.buildReport(q22eDataBeanList, "q22e.jrxml","Q22e.csv",data);
+			
 			
 			List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysList = Q23aExitDestinationMoreThan90DaysDataBeanMaker.getQ23ExitDestinationMoreThan90DaysList(data);
 			homePageDataBean.setQ23ExitDestinationMoreThan90DaysDataBean(q23ExitDestinationMoreThan90DaysList);
