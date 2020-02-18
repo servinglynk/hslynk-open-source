@@ -1,232 +1,440 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0237625f-4a7d-4133-98c5-68aab5dfcedc">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<field name="q19BAbleToMaintainWithoutSubsidyTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainWithoutSubsidyTotal]]></fieldDescription>
+	<field name="earnedAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedAOWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainWithoutSubsidyWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainWithoutSubsidyWithoutChild]]></fieldDescription>
+	<field name="earnedAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedAOWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainWithoutSubsidyWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainWithoutSubsidyWithChildAndAdults]]></fieldDescription>
+	<field name="totalAOEarned" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalAOEarned]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainWithoutSubsidyWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainWithoutSubsidyWithOnlyChild]]></fieldDescription>
+	<field name="earnedAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedAODisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainWithoutSubsidyUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainWithoutSubsidyUnknownHouseHold]]></fieldDescription>
+	<field name="earnedACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedACWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainWithSubsidyTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainWithSubsidyTotal]]></fieldDescription>
+	<field name="earnedACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalACEarned]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainWithSubsidyWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainWithSubsidyWithoutChild]]></fieldDescription>
+	<field name="totalACEarned" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalAOEarned]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainWithSubsidyWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainWithSubsidyWithChildAndAdults]]></fieldDescription>
+	<field name="earnedACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedACDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainWithSubsidyWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainWithSubsidyWithOnlyChild]]></fieldDescription>
+	<field name="earnedUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedUKWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainWithSubsidyUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainWithSubsidyUnknownHouseHold]]></fieldDescription>
+	<field name="earnedUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedUKWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainOngoingSubsidyTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainOngoingSubsidyTotal]]></fieldDescription>
+	<field name="totalUKEarned" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalUKEarned]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainOngoingSubsidyWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainOngoingSubsidyWithoutChild]]></fieldDescription>
+	<field name="earnedUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[earnedUKDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainOngoingSubsidyWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainOngoingSubsidyWithChildAndAdults]]></fieldDescription>
+	<field name="ssiAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiAOWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainOngoingSubsidyWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainOngoingSubsidyWithOnlyChild]]></fieldDescription>
+	<field name="ssiAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiAOWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainOngoingSubsidyUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainOngoingSubsidyUnknownHouseHold]]></fieldDescription>
+	<field name="totalssiAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssiAO]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainOtherThanSubsidyTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainOtherThanSubsidyTotal]]></fieldDescription>
+	<field name="ssiAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiAODisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainOtherThanSubsidyWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainOtherThanSubsidyWithoutChild]]></fieldDescription>
+	<field name="ssiACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiACWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainOtherThanSubsidyWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainOtherThanSubsidyWithChildAndAdults]]></fieldDescription>
+	<field name="ssiACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiACWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainOtherThanSubsidyWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainOtherThanSubsidyWithOnlyChild]]></fieldDescription>
+	<field name="totalssiAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssiAC]]></fieldDescription>
 	</field>
-	<field name="q19BAbleToMaintainOtherThanSubsidyUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BAbleToMaintainOtherThanSubsidyUnknownHouseHold]]></fieldDescription>
+	<field name="ssiACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiACDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BMovedWithOngoingSubsidyTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedWithOngoingSubsidyTotal]]></fieldDescription>
+	<field name="ssiUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiUKWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedWithOngoingSubsidyWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedWithOngoingSubsidyWithoutChild]]></fieldDescription>
+	<field name="ssiUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiUKWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedWithOngoingSubsidyWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedWithOngoingSubsidyWithChildAndAdults]]></fieldDescription>
+	<field name="totalssiUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssiUK]]></fieldDescription>
 	</field>
-	<field name="q19BMovedWithOngoingSubsidyWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedWithOngoingSubsidyWithOnlyChild]]></fieldDescription>
+	<field name="ssiUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssiUKDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BMovedWithOngoingSubsidyUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedWithOngoingSubsidyUnknownHouseHold]]></fieldDescription>
+	<field name="ssdiAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiAOWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedWithoutOngoingSubsidyTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedWithoutOngoingSubsidyTotal]]></fieldDescription>
+	<field name="ssdiAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiAOWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedWithoutOngoingSubsidyWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedWithoutOngoingSubsidyWithoutChild]]></fieldDescription>
+	<field name="totalssdiAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssdiAO]]></fieldDescription>
 	</field>
-	<field name="q19BMovedWithoutOngoingSubsidyWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedWithoutOngoingSubsidyWithChildAndAdults]]></fieldDescription>
+	<field name="ssdiAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiAODisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BMovedWithoutOngoingSubsidyWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedWithoutOngoingSubsidyWithOnlyChild]]></fieldDescription>
+	<field name="ssdiACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiACWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedWithoutOngoingSubsidyUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedWithoutOngoingSubsidyUnknownHouseHold]]></fieldDescription>
+	<field name="ssdiACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiACWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedTemporaryBasisTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedTemporaryBasisTotal]]></fieldDescription>
+	<field name="totalssdiAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssdiAC]]></fieldDescription>
 	</field>
-	<field name="q19BMovedTemporaryBasisWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedTemporaryBasisWithoutChild]]></fieldDescription>
+	<field name="ssdiACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiACDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BMovedTemporaryBasisWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedTemporaryBasisWithChildAndAdults]]></fieldDescription>
+	<field name="ssdiUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiUKWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedTemporaryBasisWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedTemporaryBasisWithOnlyChild]]></fieldDescription>
+	<field name="ssdiUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiUKWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedTemporaryBasisUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedTemporaryBasisUnknownHouseHold]]></fieldDescription>
+	<field name="totalssdiUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalssdiUK]]></fieldDescription>
 	</field>
-	<field name="q19BMovedPermenantBasisTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedPermenantBasisTotal]]></fieldDescription>
+	<field name="ssdiUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[ssdiUKDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BMovedPermenantBasisWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedPermenantBasisWithoutChild]]></fieldDescription>
+	<field name="vadisabilityserviceAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceAOWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedPermenantBasisWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedPermenantBasisWithChildAndAdults]]></fieldDescription>
+	<field name="vadisabilityserviceAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceAOWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedPermenantBasisWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedPermenantBasisWithOnlyChild]]></fieldDescription>
+	<field name="totalvadisabilityserviceAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalvadisabilityserviceAO]]></fieldDescription>
 	</field>
-	<field name="q19BMovedPermenantBasisUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedPermenantBasisUnknownHouseHold]]></fieldDescription>
+	<field name="vadisabilityserviceAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceAODisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BMovedToTransitionalTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedToTransitionalTotal]]></fieldDescription>
+	<field name="vadisabilityserviceACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceACWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedToTransitionalWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedToTransitionalWithoutChild]]></fieldDescription>
+	<field name="vadisabilityserviceACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceACWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BMovedToTransitionalWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedToTransitionalWithChildAndAdults]]></fieldDescription>
+	<field name="totalvadisabilityserviceAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalvadisabilityserviceAC]]></fieldDescription>
 	</field>
-	<field name="q19BMovedToTransitionalWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedToTransitionalWithOnlyChild]]></fieldDescription>
+	<field name="vadisabilityserviceACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceACDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BMovedToTransitionalUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BMovedToTransitionalUnknownHouseHold]]></fieldDescription>
+	<field name="vadisabilityserviceUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceUKWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BClientBecameHomelessTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientBecameHomelessTotal]]></fieldDescription>
+	<field name="vadisabilityserviceUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceUKWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BClientBecameHomelessWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientBecameHomelessWithoutChild]]></fieldDescription>
+	<field name="totalvadisabilityserviceUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalvadisabilityserviceUK]]></fieldDescription>
 	</field>
-	<field name="q19BClientBecameHomelessWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientBecameHomelessWithChildAndAdults]]></fieldDescription>
+	<field name="vadisabilityserviceUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[vadisabilityserviceUKDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BClientBecameHomelessWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientBecameHomelessWithOnlyChild]]></fieldDescription>
+	<field name="privatedisabilityAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityAOWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BClientBecameHomelessUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientBecameHomelessUnknownHouseHold]]></fieldDescription>
+	<field name="privatedisabilityAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityAOWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BClientWenToJailTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientWenToJailTotal]]></fieldDescription>
+	<field name="totalprivatedisabilityAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalprivatedisabilityAO]]></fieldDescription>
 	</field>
-	<field name="q19BClientWenToJailWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientWenToJailWithoutChild]]></fieldDescription>
+	<field name="privatedisabilityAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityAODisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BClientWenToJailWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientWenToJailWithChildAndAdults]]></fieldDescription>
+	<field name="privatedisabilityACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityACWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BClientWenToJailWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientWenToJailWithOnlyChild]]></fieldDescription>
+	<field name="privatedisabilityACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityACWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BClientWenToJailUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientWenToJailUnknownHouseHold]]></fieldDescription>
+	<field name="totalprivatedisabilityAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalprivatedisabilityAC]]></fieldDescription>
 	</field>
-	<field name="q19BClientDiedTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientDiedTotal]]></fieldDescription>
+	<field name="privatedisabilityACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityACDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BClientDiedWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientDiedWithoutChild]]></fieldDescription>
+	<field name="privatedisabilityUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityUKWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BClientDiedWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientDiedWithChildAndAdults]]></fieldDescription>
+	<field name="privatedisabilityUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityUKWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BClientDiedWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientDiedWithOnlyChild]]></fieldDescription>
+	<field name="totalprivatedisabilityUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalprivatedisabilityUK]]></fieldDescription>
 	</field>
-	<field name="q19BClientDiedUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientDiedUnknownHouseHold]]></fieldDescription>
+	<field name="privatedisabilityUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[privatedisabilityUKDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BClientDoesntKnowTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientDoesntKnowTotal]]></fieldDescription>
+	<field name="workerscompAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompAOWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BClientDoesntKnowWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientDoesntKnowWithoutChild]]></fieldDescription>
+	<field name="workerscompAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompAOWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BClientDoesntKnowWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientDoesntKnowWithChildAndAdults]]></fieldDescription>
+	<field name="totalworkerscompAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalworkerscompAO]]></fieldDescription>
 	</field>
-	<field name="q19BClientDoesntKnowWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientDoesntKnowWithOnlyChild]]></fieldDescription>
+	<field name="workerscompAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompAODisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BClientDoesntKnowUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BClientDoesntKnowUnknownHouseHold]]></fieldDescription>
+	<field name="workerscompACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompACWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BDataNotCollectedTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BDataNotCollectedTotal]]></fieldDescription>
+	<field name="workerscompACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompACWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BDataNotCollectedWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BDataNotCollectedWithoutChild]]></fieldDescription>
+	<field name="totalworkerscompAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalworkerscompAC]]></fieldDescription>
 	</field>
-	<field name="q19BDataNotCollectedWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BDataNotCollectedWithChildAndAdults]]></fieldDescription>
+	<field name="workerscompACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompACDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BDataNotCollectedWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BDataNotCollectedWithOnlyChild]]></fieldDescription>
+	<field name="workerscompUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompUKWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BDataNotCollectedUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BDataNotCollectedUnknownHouseHold]]></fieldDescription>
+	<field name="workerscompUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompUKWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BTotTotal" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BTotTotal]]></fieldDescription>
+	<field name="totalworkerscompUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalworkerscompUK]]></fieldDescription>
 	</field>
-	<field name="q19BTotWithoutChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BTotWithoutChild]]></fieldDescription>
+	<field name="workerscompUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[workerscompUKDisabPercentage]]></fieldDescription>
 	</field>
-	<field name="q19BTotWithChildAndAdults" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BTotWithChildAndAdults]]></fieldDescription>
+	<field name="tanfAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfAOWithDisab]]></fieldDescription>
 	</field>
-	<field name="q19BTotWithOnlyChild" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BTotWithOnlyChild]]></fieldDescription>
+	<field name="tanfAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfAOWithOutDisab]]></fieldDescription>
 	</field>
-	<field name="q19BTotUnknownHouseHold" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q19BTotUnknownHouseHold]]></fieldDescription>
+	<field name="totaltanfAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totaltanfAO]]></fieldDescription>
+	</field>
+	<field name="tanfAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="tanfACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfACWithDisab]]></fieldDescription>
+	</field>
+	<field name="tanfACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totaltanfAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totaltanfAC]]></fieldDescription>
+	</field>
+	<field name="tanfACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="tanfUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="tanfUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totaltanfUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totaltanfUK]]></fieldDescription>
+	</field>
+	<field name="tanfUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[tanfUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="socsecretirementAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="socsecretirementAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalsocsecretirementAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalsocsecretirementAO]]></fieldDescription>
+	</field>
+	<field name="socsecretirementAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="socsecretirementACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementACWithDisab]]></fieldDescription>
+	</field>
+	<field name="socsecretirementACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalsocsecretirementAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalsocsecretirementAC]]></fieldDescription>
+	</field>
+	<field name="socsecretirementACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="socsecretirementUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="socsecretirementUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalsocsecretirementUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalsocsecretirementUK]]></fieldDescription>
+	</field>
+	<field name="socsecretirementUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[socsecretirementUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="pensionAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="pensionAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalpensionAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalpensionAO]]></fieldDescription>
+	</field>
+	<field name="pensionAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="pensionACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionACWithDisab]]></fieldDescription>
+	</field>
+	<field name="pensionACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalpensionAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalpensionAC]]></fieldDescription>
+	</field>
+	<field name="pensionACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="pensionUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="pensionUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalpensionUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalpensionUK]]></fieldDescription>
+	</field>
+	<field name="pensionUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[pensionUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="childsupportAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="childsupportAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalchildsupportAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalchildsupportAO]]></fieldDescription>
+	</field>
+	<field name="childsupportAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="childsupportACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportACWithDisab]]></fieldDescription>
+	</field>
+	<field name="childsupportACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalchildsupportAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalchildsupportAC]]></fieldDescription>
+	</field>
+	<field name="childsupportACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="childsupportUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="childsupportUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalchildsupportUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalchildsupportUK]]></fieldDescription>
+	</field>
+	<field name="childsupportUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[childsupportUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="othersourceAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="othersourceAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalothersourceAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalothersourceAO]]></fieldDescription>
+	</field>
+	<field name="othersourceAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="othersourceACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceACWithDisab]]></fieldDescription>
+	</field>
+	<field name="othersourceACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalothersourceAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalothersourceAC]]></fieldDescription>
+	</field>
+	<field name="othersourceACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="othersourceUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="othersourceUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalothersourceUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalothersourceUK]]></fieldDescription>
+	</field>
+	<field name="othersourceUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[othersourceUKDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="noSourceAOWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceAOWithDisab]]></fieldDescription>
+	</field>
+	<field name="noSourceAOWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceAOWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalnoSourceAO" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalnoSourceAO]]></fieldDescription>
+	</field>
+	<field name="noSourceAODisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceAODisabPercentage]]></fieldDescription>
+	</field>
+	<field name="noSourceACWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceACWithDisab]]></fieldDescription>
+	</field>
+	<field name="noSourceACWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceACWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalnoSourceAC" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalnoSourceAC]]></fieldDescription>
+	</field>
+	<field name="noSourceACDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceACDisabPercentage]]></fieldDescription>
+	</field>
+	<field name="noSourceUKWithDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceUKWithDisab]]></fieldDescription>
+	</field>
+	<field name="noSourceUKWithOutDisab" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceUKWithOutDisab]]></fieldDescription>
+	</field>
+	<field name="totalnoSourceUK" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[totalnoSourceUK]]></fieldDescription>
+	</field>
+	<field name="noSourceUKDisabPercentage" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[noSourceUKDisabPercentage]]></fieldDescription>
 	</field>
 	<group name="Group5">
 		<groupFooter>
@@ -358,6 +566,22 @@ Total Adults
 ]]></text>
 				</staticText>
 				<staticText>
+					<reportElement mode="Opaque" x="269" y="0" width="38" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[AC:
+Adult with Disabling Condition
+]]></text>
+				</staticText>
+				<staticText>
 					<reportElement mode="Opaque" x="307" y="0" width="36" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
 					<box>
 						<pen lineWidth="0.75"/>
@@ -387,22 +611,6 @@ Adult without Disabling Condition
 					</textElement>
 					<text><![CDATA[AC:
 Total Adults
-]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="269" y="0" width="38" height="86" forecolor="#666666" backcolor="#E6E6E6" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
-					<box>
-						<pen lineWidth="0.75"/>
-						<topPen lineWidth="0.75"/>
-						<leftPen lineWidth="0.75"/>
-						<bottomPen lineWidth="0.75"/>
-						<rightPen lineWidth="0.75"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					</textElement>
-					<text><![CDATA[AC:
-Adult with Disabling Condition
 ]]></text>
 				</staticText>
 				<staticText>
@@ -488,6 +696,90 @@ Total Adults
 			</band>
 			<band height="43">
 				<textField>
+					<reportElement x="307" y="0" width="36" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement x="269" y="0" width="38" height="43" uuid="0b73b9bc-585a-4fc5-9c0c-5ba3ecf8b97a"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -523,20 +815,6 @@ Total Adults
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyWithChildAndAdults}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="0" y="0" width="71" height="43" forecolor="#000000" uuid="09e4b166-5c7a-42d1-89d4-ac503d871c0c"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="true"/>
-					</textElement>
-					<text><![CDATA[   Earned Income]]></text>
-				</staticText>
 				<textField>
 					<reportElement x="124" y="0" width="48" height="43" uuid="f334643f-29d2-4c23-b52c-3efa83020c42"/>
 					<box>
@@ -559,10 +837,108 @@ Total Adults
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyTotal}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{earnedAOWithDisab}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="71" height="43" forecolor="#000000" uuid="09e4b166-5c7a-42d1-89d4-ac503d871c0c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   Earned Income]]></text>
+				</staticText>
 			</band>
 			<band height="50">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="50" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
 				<textField>
 					<reportElement x="269" y="0" width="38" height="50" uuid="4f28c5f4-fe2b-4032-8e00-a098868522cb"/>
 					<box>
@@ -640,6 +1016,90 @@ Total Adults
 			</band>
 			<band height="48">
 				<textField>
+					<reportElement x="307" y="0" width="36" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="48" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement x="269" y="0" width="38" height="48" uuid="cf32cab2-81a1-4243-adee-aae991f6e828"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -715,6 +1175,90 @@ Total Adults
 				</textField>
 			</band>
 			<band height="26">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
 				<textField>
 					<reportElement x="269" y="0" width="38" height="26" uuid="337b3de5-0bc4-426a-9aa7-555394361037"/>
 					<box>
@@ -792,6 +1336,90 @@ Total Adults
 			</band>
 			<band height="26">
 				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement x="269" y="0" width="38" height="26" uuid="1d10f74a-3093-47f2-bd50-6568a80a6321"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -867,6 +1495,90 @@ Total Adults
 				</textField>
 			</band>
 			<band height="42">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="42" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
 				<textField>
 					<reportElement x="269" y="0" width="38" height="42" uuid="bfe216e9-2648-465b-93e5-f9b82034bfa1"/>
 					<box>
@@ -944,6 +1656,90 @@ Total Adults
 			</band>
 			<band height="26">
 				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement x="269" y="0" width="38" height="26" uuid="43538e87-07fc-4db4-b6b0-3cca4db5d286"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -1019,6 +1815,90 @@ Total Adults
 				</textField>
 			</band>
 			<band height="43">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="43" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
 				<textField>
 					<reportElement x="269" y="0" width="38" height="43" uuid="3336266b-d3d5-49c6-b3f1-bb6b9c829733"/>
 					<box>
@@ -1096,6 +1976,90 @@ Total Adults
 			</band>
 			<band height="39">
 				<textField>
+					<reportElement x="307" y="0" width="36" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="39" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement x="269" y="0" width="38" height="39" uuid="c9b2b1ba-384e-4471-af6c-c89048daa05e"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -1171,6 +2135,90 @@ Total Adults
 				</textField>
 			</band>
 			<band height="40">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="40" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
 				<textField>
 					<reportElement x="269" y="0" width="38" height="40" uuid="106e1b21-6013-4cdc-953a-4254fec36593"/>
 					<box>
@@ -1248,6 +2296,90 @@ Total Adults
 			</band>
 			<band height="26">
 				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement x="269" y="0" width="38" height="26" uuid="0c3eaf9c-f7d2-4de7-89cc-a946048ebc8b"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -1323,6 +2455,90 @@ Total Adults
 				</textField>
 			</band>
 			<band height="26">
+				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
 				<textField>
 					<reportElement x="269" y="0" width="38" height="26" uuid="5ad9cf25-662f-455a-a8e4-c001ac224f2b"/>
 					<box>
@@ -1400,6 +2616,90 @@ Total Adults
 			</band>
 			<band height="26">
 				<textField>
+					<reportElement x="307" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="343" y="0" width="33" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="376" y="0" width="41" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="417" y="0" width="37" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="0" width="30" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="484" y="0" width="36" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="520" y="0" width="35" height="26" uuid="a0c7b784-b364-4dde-a351-c4aec5469a5c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q19BAbleToMaintainWithoutSubsidyUnknownHouseHold}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement x="269" y="0" width="38" height="26" uuid="167f1fb0-1a25-47cf-a288-7dbaa7a88d10"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -1474,13 +2774,6 @@ Total Adults
 					<textFieldExpression><![CDATA[$F{q19BClientDoesntKnowTotal}]]></textFieldExpression>
 				</textField>
 			</band>
-			
-			<!-- -->
-			
-			
-			<!-- -->
-			
-			
 			<band height="26"/>
 			<band height="26"/>
 		</groupFooter>

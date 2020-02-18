@@ -12,7 +12,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ReportQuery;
-import com.servinglynk.report.bean.Q19DataBean;
+import com.servinglynk.report.bean.DisabIncomeAndSourceDataBean;
 import com.servinglynk.report.bean.Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.ReportData;
@@ -50,20 +50,20 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 						List<IncomeAndSourceModel> earnedIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
 						List<IncomeAndSourceModel> earnedIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage())).collect(Collectors.toList());
 						
-						Q19DataBean earnedIncome = populateEarnedIncome(earnedIncomeAtEntry,earnedIncomeATEntryButNotAtAA,allClientsBigInt);
+						DisabIncomeAndSourceDataBean earnedIncome = populateEarnedIncome(earnedIncomeAtEntry,earnedIncomeATEntryButNotAtAA,allClientsBigInt);
 						hydrateEarnedIncome(earnedIncome,q19a2Bean);
 						
 						
 						List<IncomeAndSourceModel> otherIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
 						List<IncomeAndSourceModel> otherIncomeATEntryButNotAtAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage())).collect(Collectors.toList());
 					
-						Q19DataBean otherIncome = populateOtherIncome(otherIncomeAtEntry,otherIncomeATEntryButNotAtAA,allClientsBigInt);
+						DisabIncomeAndSourceDataBean otherIncome = populateOtherIncome(otherIncomeAtEntry,otherIncomeATEntryButNotAtAA,allClientsBigInt);
 						hydrateOtherIncome(otherIncome, q19a2Bean);
 						
 						List<IncomeAndSourceModel> totalIncomeAtEntry = incomes.parallelStream().filter(income -> StringUtils.equals("1",income.getDataCollectionStage())).collect(Collectors.toList());
 						List<IncomeAndSourceModel> totalIncomeATAA = incomes.parallelStream().filter(income -> StringUtils.equals("3",income.getDataCollectionStage())).collect(Collectors.toList());
 						
-						Q19DataBean overallIncome = populateOverallIncomeIncome(totalIncomeAtEntry,totalIncomeATAA,allClientsBigInt);
+						DisabIncomeAndSourceDataBean overallIncome = populateOverallIncomeIncome(totalIncomeAtEntry,totalIncomeATAA,allClientsBigInt);
 						hydrateOverallIncome(overallIncome, q19a2Bean);
 						
 					}
@@ -76,7 +76,7 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 		
 	}
 	
-	public static void 	hydrateEarnedIncome(Q19DataBean q19dataBean,Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a2Bean) {
+	public static void 	hydrateEarnedIncome(DisabIncomeAndSourceDataBean q19dataBean,Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a2Bean) {
 		//#B
 		    q19a2Bean.setQ19a2AverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit(q19dataBean.getAverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());
 			q19a2Bean.setQ19a2NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit(q19dataBean.getNoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());
@@ -110,7 +110,7 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 			q19a2Bean.setQ19a2AverageChangeInEarnedIncomePercent(BigInteger.ZERO);
 	   }
 	   
-	   public static void 	hydrateOtherIncome(Q19DataBean q19dataBean,Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a2Bean) {
+	   public static void 	hydrateOtherIncome(DisabIncomeAndSourceDataBean q19dataBean,Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a2Bean) {
 		//#B
 		    q19a2Bean.setQ19a2AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit(q19dataBean.getAverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());
 			q19a2Bean.setQ19a2NoOfAdultsWithOtherIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit(q19dataBean.getNoOfAdultsWithOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());
@@ -145,7 +145,7 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 	   }
 	
 	
-	public static void 	hydrateOverallIncome(Q19DataBean q19dataBean,Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a2Bean) {
+	public static void 	hydrateOverallIncome(DisabIncomeAndSourceDataBean q19dataBean,Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a2Bean) {
 		//#B
 		    q19a2Bean.setQ19a2AverageChangeInOverallIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit(q19dataBean.getAverageChangeInOverallIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());
 			q19a2Bean.setQ19a2NumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndDidNotHaveAtExit(q19dataBean.getNumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());

@@ -10,7 +10,7 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.servinglynk.hive.connection.ReportQuery;
-import com.servinglynk.report.bean.Q19DataBean;
+import com.servinglynk.report.bean.DisabIncomeAndSourceDataBean;
 import com.servinglynk.report.bean.Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.ReportData;
@@ -56,14 +56,14 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 						
 						int total = getIncomeCnt(incomes);
 						BigInteger allClientsBigInt = BigInteger.valueOf(total);
-						Q19DataBean earnedIncome = populateEarnedIncome(incomeAndSourcesAtEntry,incomesatAA,allClientsBigInt );
+						DisabIncomeAndSourceDataBean earnedIncome = populateEarnedIncome(incomeAndSourcesAtEntry,incomesatAA,allClientsBigInt );
 						hydrateEarnedIncome(earnedIncome,q19a3Bean);
 						
 						
-						Q19DataBean otherIncome = populateOtherIncome(incomeAndSourcesAtEntry,incomesatAA,allClientsBigInt);
+						DisabIncomeAndSourceDataBean otherIncome = populateOtherIncome(incomeAndSourcesAtEntry,incomesatAA,allClientsBigInt);
 						hydrateOtherIncome(otherIncome, q19a3Bean);
 						
-						Q19DataBean overallIncome = populateOverallIncomeIncome(incomeAndSourcesAtEntry,incomesatAA,allClientsBigInt);
+						DisabIncomeAndSourceDataBean overallIncome = populateOverallIncomeIncome(incomeAndSourcesAtEntry,incomesatAA,allClientsBigInt);
 						hydrateOverallIncome(overallIncome, q19a3Bean);
 						
 					}
@@ -76,7 +76,7 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 		
 	}
 
-	public static void 	hydrateEarnedIncome(Q19DataBean q19dataBean,Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a3Bean) {
+	public static void 	hydrateEarnedIncome(DisabIncomeAndSourceDataBean q19dataBean,Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a3Bean) {
 		//#B
 		    q19a3Bean.setQ19a3AverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit(q19dataBean.getAverageChangeInEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());
 			q19a3Bean.setQ19a3NoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit(q19dataBean.getNoOfAdltsWithEarnedIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());
@@ -110,7 +110,7 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 			q19a3Bean.setQ19a3AverageChangeInEarnedIncomePercent(BigInteger.ZERO);
 	   }
 	   
-	   public static void 	hydrateOtherIncome(Q19DataBean q19dataBean,Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a3Bean) {
+	   public static void 	hydrateOtherIncome(DisabIncomeAndSourceDataBean q19dataBean,Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a3Bean) {
 		//#B
 		    q19a3Bean.setQ19a3AverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit(q19dataBean.getAverageChangeInOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());
 			q19a3Bean.setQ19a3NoOfAdultsWithOtherIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit(q19dataBean.getNoOfAdultsWithOtherIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());
@@ -145,7 +145,7 @@ public class Q19a3DataBeanMaker extends BaseBeanMaker {
 	   }
 	
 	
-	public static void 	hydrateOverallIncome(Q19DataBean q19dataBean,Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a3DataBean) {
+	public static void 	hydrateOverallIncome(DisabIncomeAndSourceDataBean q19dataBean,Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean q19a3DataBean) {
 		//#B
 		    q19a3DataBean.setQ19a3AverageChangeInOverallIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit(q19dataBean.getAverageChangeInOverallIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());
 			q19a3DataBean.setQ19a3NumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndDidNotHavefollowupOrExit(q19dataBean.getNumberOfAdultsWithAnyIncomeHadIncomeCategoryAtEntryAndNotHaveFollowup());

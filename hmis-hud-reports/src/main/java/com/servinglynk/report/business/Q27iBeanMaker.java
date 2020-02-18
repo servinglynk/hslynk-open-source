@@ -11,23 +11,22 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
-import com.servinglynk.report.bean.Q25gTypeOfCashIncomeSourcesVeteransDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.HouseHoldType;
 
-public class Q19bBeanMaker extends BaseBeanMaker {
+public class Q27iBeanMaker extends BaseBeanMaker {
 	
-	public static List<Q25gTypeOfCashIncomeSourcesVeteransDataBean> getQ25gTypeOfCashIncomeSourcesVeteranList(ReportData data){
+	public static List<Q27iDataBean> getQ27iYouthList(ReportData data){
 		
-		Q25gTypeOfCashIncomeSourcesVeteransDataBean q25gDataBean = new Q25gTypeOfCashIncomeSourcesVeteransDataBean();
+		Q27iDataBean q25gDataBean = new Q27iDataBean();
 		
 		if(data.isLiveMode()) {
 			try{
 			
 			String exitQuery = " select count(e.dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e ,%s.client c,%s.exit ext where  e.client_id = c.id and   e.id=i.enrollmentid  and   e.id=ext.enrollmentid "+ 
-					" and TO_DATE(i.information_date) = TO_DATE(ext.exitdate)  and i.information_date <= :endDate  and i.datacollectionstage='3' and e.ageatentry >= 18 and i.incomefromanysource is not null and i.incomefromanysource not in ('8','9','99) and e.disablingcondition is not null and e.disablingcondition not in ('8','9','99)  ";
+					" and TO_DATE(i.information_date) = TO_DATE(ext.exitdate)  and i.information_date <= :endDate  and i.datacollectionstage='3' and e.ageatentry >= 18  and e.ageatentry <= 25 and i.incomefromanysource is not null and i.incomefromanysource not in ('8','9','99) and e.disablingcondition is not null and e.disablingcondition not in ('8','9','99)  ";
 	
 			int earnedAOWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +" and  earned ='1' and e.disablingcondition ='1' ", HouseHoldType.AO, data);
 			int earnedAOWithOutDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +" and  earned ='1' and e.disablingcondition ='0' ", HouseHoldType.AO,data);

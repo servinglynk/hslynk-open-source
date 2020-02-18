@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.HomePageDataBean;
-import com.servinglynk.report.bean.Q19DataBean;
+import com.servinglynk.report.bean.DisabIncomeAndSourceDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.ContactModel;
@@ -2280,8 +2280,8 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 				 }
 				 
 				 
-					public static Q19DataBean populateEarnedIncome(List<IncomeAndSourceModel> incomeAtEntry,List<IncomeAndSourceModel> incomeAtAA,BigInteger allClientsBigInt) {
-						Q19DataBean q19DataBean = new Q19DataBean();
+					public static DisabIncomeAndSourceDataBean populateEarnedIncome(List<IncomeAndSourceModel> incomeAtEntry,List<IncomeAndSourceModel> incomeAtAA,BigInteger allClientsBigInt) {
+						DisabIncomeAndSourceDataBean q19DataBean = new DisabIncomeAndSourceDataBean();
 						Map<String,BigInteger>  incomeMapAtEntry = new HashMap<>();
 						incomeAtEntry.forEach(incomeAndSource ->  {incomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getEarnedamount()))); } );
 						
@@ -2479,8 +2479,8 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 					}
 					
 			
-					public static Q19DataBean populateOtherIncome(List<IncomeAndSourceModel> incomeAtEntry,List<IncomeAndSourceModel> incomeAtAA,BigInteger allClientsBigInt) {
-						Q19DataBean q19DataBean = new Q19DataBean();
+					public static DisabIncomeAndSourceDataBean populateOtherIncome(List<IncomeAndSourceModel> incomeAtEntry,List<IncomeAndSourceModel> incomeAtAA,BigInteger allClientsBigInt) {
+						DisabIncomeAndSourceDataBean q19DataBean = new DisabIncomeAndSourceDataBean();
 						
 						Map<String,BigInteger>  incomeMapAtEntry = new HashMap<>();
 						incomeAtEntry.forEach(incomeAndSource ->  {incomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()) - getFloat(incomeAndSource.getEarnedamount()) )); } );
@@ -2678,8 +2678,8 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 					}
 
 				
-				public static Q19DataBean populateOverallIncomeIncome(List<IncomeAndSourceModel> incomeAtEntry,List<IncomeAndSourceModel> incomeAtAA,BigInteger allClientsBigInt) {
-					Q19DataBean q19DataBean = new Q19DataBean();
+				public static DisabIncomeAndSourceDataBean populateOverallIncomeIncome(List<IncomeAndSourceModel> incomeAtEntry,List<IncomeAndSourceModel> incomeAtAA,BigInteger allClientsBigInt) {
+					DisabIncomeAndSourceDataBean q19DataBean = new DisabIncomeAndSourceDataBean();
 					Map<String,BigInteger>  incomeMapAtEntry = new HashMap<>();
 					incomeAtEntry.forEach(incomeAndSource ->  {incomeMapAtEntry.put(incomeAndSource.getDedupClientId(), BigInteger.valueOf(getFloat(incomeAndSource.getTotalmonthlyincome()))); } );
 					
