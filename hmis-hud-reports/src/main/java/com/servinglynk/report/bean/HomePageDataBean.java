@@ -98,6 +98,7 @@ public class HomePageDataBean {
 	private List<Q27eLengthOfParticipationYouthDataBean> q27eLengthOfParticipationYouthDataBean;
 	private List<Q27fExitDestinationYouthDataBean> q27fExitDestinationYouthDataBean;
 	private List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesDataBean;
+	private List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q27hDataBean;
 	private List<DisabIncomeAndSourceDataBean> q27iDataBen;
 	
 	private List<Q29aPerformanceMeasuresPermanentHousingProgramsDataBean> q29aPerformanceMeasuresPermanentHousingProgramsDataBean;
@@ -1282,5 +1283,16 @@ public class HomePageDataBean {
 	public void setQ27gCashIncomeSourcesDataBean(List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesDataBean) {
 		this.q27gCashIncomeSourcesDataBean = q27gCashIncomeSourcesDataBean;
 	}
-	
+	/**
+	 * @return the q27hDataBean
+	 */
+	public List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> getQ27hDataBean() {
+		return q27hDataBean;
+	}
+	/**
+	 * @param q27hDataBean the q27hDataBean to set
+	 */
+	public void setQ27hDataBean(List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q27hDataBean) {
+		this.q27hDataBean = q27hDataBean;
+	}
 }

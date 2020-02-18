@@ -3,7 +3,9 @@ package com.servinglynk.report.business;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -142,14 +144,18 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 					
 					List<ClientModel> allClients = getClients(schema,data);
 					List<String> enrollmentIds = new ArrayList<String>(); 
+					List<String> youthList = new ArrayList<String>(); 
 					if(CollectionUtils.isNotEmpty(enrollments)) {
 						for(EnrollmentModel enrollment : enrollments) {
 							enrollment.setCurrentLivingSituation("KLM");
 							enrollmentIds.add(enrollment.getProjectEntryID());
+							if(enrollment.getAgeatentry() >=18  && enrollment.getAgeatentry() <=25) {
+								youthList.add(enrollment.getDedupClientId());
+							}
 						}
 					}
 				//	enrollments.forEach(enrollment -> { enrollmentIds.add(enrollment.getProjectEntryID());});
-					
+					data.setYouthList(youthList);
 					data.setClients(allClients);
 					List<ExitModel> allExits = getAllExits(schema, data);
 					List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
@@ -162,10 +168,10 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			
 			if(CollectionUtils.isNotEmpty(projects)) {
 				List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projects.get(0).getProjectId(),data);
-				CSVGenerator.buildReport(q04aDataBeanList, "Q4a-1.jrxml", "Q4a.csv",data);
+				CSVGenerator.buildReport(q04aDataBeanList, "q4a.jrxml", "Q4a.csv",data);
 			}else {
 				List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,null,data);
-				CSVGenerator.buildReport(q04aDataBeanList, "Q4a-1.jrxml", "Q4a.csv",data);
+				CSVGenerator.buildReport(q04aDataBeanList, "q4a.jrxml", "Q4a.csv",data);
 			}
 			
 			
@@ -482,6 +488,10 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesYouthList = Q27gDataBeanMaker.getQ27gTypeOfCashIncomeSourcesYouthList(data);
 			homePageDataBean.setQ27gCashIncomeSourcesDataBean(q27gCashIncomeSourcesYouthList);
 			CSVGenerator.buildReport(q27fExitDestinationYouthList, "q27g.jrxml","Q27g.csv",data);
+			
+			List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q27hCashIncomeCategoryYouthList = Q27hDataBeanMaker.getQ27hClientCashIncomeCategoryEarnedOtherIncomeList(data);
+			homePageDataBean.setQ27hDataBean(q27hCashIncomeCategoryYouthList);
+			CSVGenerator.buildReport(q27hCashIncomeCategoryYouthList, "q27h.jrxml","Q27h.csv",data);
 			
 			List<DisabIncomeAndSourceDataBean> q27iDataBeanList = Q27iBeanMaker.getQ27iDataBean(data);
 			homePageDataBean.setQ27iDataBen(q27iDataBeanList);

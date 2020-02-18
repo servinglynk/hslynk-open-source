@@ -97,6 +97,7 @@ public class ReportData {
 	private BigInteger totHhWithChildAndAdults=BigInteger.valueOf(0);
 	private BigInteger totHhWothOnlyChild=BigInteger.valueOf(0);
 	private BigInteger totHhUnknownHhType=BigInteger.valueOf(0);
+	private List<String> youthList = new ArrayList<String>();
 	
 	/**
 	 * @return the queryDataCollectionStage
@@ -968,5 +969,17 @@ public class ReportData {
 	 */
 	public void setAdultsUnknownHHType(List<EnrollmentModel> adultsUnknownHHType) {
 		this.adultsUnknownHHType = adultsUnknownHHType;
+	}
+	/**
+	 * @return the youthList
+	 */
+	public List<String> getYouthList() {
+		return youthList;
+	}
+	/**
+	 * @param youthList the youthList to set
+	 */
+	public void setYouthList(List<String> youthList) {
+		this.youthList = youthList;
 	}
 }
