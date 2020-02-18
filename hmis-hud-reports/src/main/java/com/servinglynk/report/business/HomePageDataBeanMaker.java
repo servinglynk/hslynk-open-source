@@ -485,7 +485,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			
 			List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesYouthList = Q27gDataBeanMaker.getQ27gTypeOfCashIncomeSourcesYouthList(data);
 			homePageDataBean.setQ27gCashIncomeSourcesDataBean(q27gCashIncomeSourcesYouthList);
-			CSVGenerator.buildReport(q27fExitDestinationYouthList, "q27g.jrxml","Q27g.csv",data);
+			CSVGenerator.buildReport(q27gCashIncomeSourcesYouthList, "q27g.jrxml","Q27g.csv",data);
 			
 			List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q27hCashIncomeCategoryYouthList = Q27hDataBeanMaker.getQ27hClientCashIncomeCategoryEarnedOtherIncomeList(data);
 			homePageDataBean.setQ27hDataBean(q27hCashIncomeCategoryYouthList);

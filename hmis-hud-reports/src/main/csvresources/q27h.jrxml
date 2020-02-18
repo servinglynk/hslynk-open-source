@@ -4,104 +4,104 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="162"/>
-	<field name="q27hAdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithOnlyEarnedIncomeNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithOnlyEarnedIncomeNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithOnlyEarnedIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithOnlyEarnedIncomeNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithOnlyOtherIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithOnlyOtherIncomeNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithOnlyOtherIncomeNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithOnlyOtherIncomeNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithOnlyOtherIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithOnlyOtherIncomeNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18AdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithNoIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithNoIncomeNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18AdultsWithNoIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithNoIncomeNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithNoOtherNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithNoOtherNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18AdultsWithNoOtherNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithNoOtherNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithNoIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithNoIncomeNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18AdultsWithNoIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithNoIncomeNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithDKRNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithDKRNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18AdultsWithDKRNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithDKRNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithDKRNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithDKRNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18AdultsWithDKRNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithDKRNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithDKRNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithDKRNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18AdultsWithDKRNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithDKRNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithMissingInfoNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithMissingInfoNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18AdultsWithMissingInfoNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithMissingInfoNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithMissingInfoNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithMissingInfoNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18AdultsWithMissingInfoNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithMissingInfoNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithMissingInfoNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithMissingInfoNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18AdultsWithMissingInfoNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithMissingInfoNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
-	<field name="q27hNumberOfAdultStayersNotRequiredNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hNumberOfAdultStayersNotRequiredNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hNumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hNumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hNumberOfAdultStayersNotRequiredNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hNumberOfAdultStayersNotRequiredNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
-	<field name="q27hNumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hNumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hNumberOfAdultStayersWithoutRequiredNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hNumberOfAdultStayersWithoutRequiredNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hNumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hNumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
-	<field name="q27hTotalAdultsNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hTotalAdultsNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18TotalAdultsNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18TotalAdultsNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hTotalAdultsNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hTotalAdultsNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18TotalAdultsNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18TotalAdultsNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hTotalAdultsNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hTotalAdultsNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18TotalAdultsNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18TotalAdultsNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
-	<field name="q27hOneOrMoreSourceofIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hOneOrMoreSourceofIncomeNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18OneOrMoreSourceofIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18OneOrMoreSourceofIncomeNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hOneOrMoreSourceofIncomeNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hOneOrMoreSourceofIncomeNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18OneOrMoreSourceofIncomeNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18OneOrMoreSourceofIncomeNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hOneOrMoreSourceofIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hOneOrMoreSourceofIncomeNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18OneOrMoreSourceofIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18OneOrMoreSourceofIncomeNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry]]></fieldDescription>
+	<field name="q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup]]></fieldDescription>
+	<field name="q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup]]></fieldDescription>
 	</field>
-	<field name="q27hAdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit" class="java.math.BigInteger">
-		<fieldDescription><![CDATA[q27hAdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit]]></fieldDescription>
+	<field name="q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit]]></fieldDescription>
 	</field>
 	<group name="Group5">
 		<groupFooter>
@@ -188,7 +188,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="609a8f3f-52a0-450b-ab3c-9183d057cfbf"/>
@@ -200,7 +200,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithOnlyEarnedIncomeNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="ca52eb45-c0fc-45a2-ae6d-55d638b96a47"/>
@@ -212,7 +212,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithOnlyEarnedIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -240,7 +240,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithOnlyOtherIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="5a92831a-3f59-4e16-bed6-999303a6c9eb"/>
@@ -252,7 +252,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithOnlyOtherIncomeNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="28dda373-b150-497b-894b-817367ce4d1e"/>
@@ -264,7 +264,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithOnlyOtherIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="39">
@@ -292,7 +292,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="39" uuid="282f882b-766c-4119-9a8f-d3b51d27698b"/>
@@ -304,7 +304,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="39" uuid="8bb1aa4b-c666-437a-a33a-f0f6639c01e0"/>
@@ -316,7 +316,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -344,7 +344,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithNoIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithNoIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="3bdec47b-f730-4ee2-902e-072661915e4e"/>
@@ -356,7 +356,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithNoOtherNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithNoOtherNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="045e2de9-2d53-46e1-8425-d05c1f5d4d08"/>
@@ -368,7 +368,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithNoIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithNoIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="61">
@@ -396,7 +396,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithDKRNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithDKRNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="61" uuid="1d8db343-8552-4f06-8976-b429db861273"/>
@@ -408,7 +408,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithDKRNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithDKRNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="61" uuid="510ed651-0f97-4faf-be57-b5c29cbee491"/>
@@ -420,7 +420,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithDKRNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithDKRNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -448,7 +448,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithMissingInfoNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithMissingInfoNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="a03c5c56-3062-4b6d-8cbb-4fbf5e99877b"/>
@@ -460,7 +460,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithMissingInfoNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithMissingInfoNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="c44bcc22-774c-47c0-b7e8-a0f73e3ec102"/>
@@ -472,7 +472,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithMissingInfoNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithMissingInfoNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="61">
@@ -500,7 +500,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hNumberOfAdultStayersNotRequiredNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="61" uuid="39763fce-442c-4a34-9fcb-1cbbef54b69d"/>
@@ -512,7 +512,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hNumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="61" uuid="11a8a487-a2fb-4825-b85b-42bd104dfdf1"/>
@@ -524,7 +524,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hNumberOfAdultStayersNotRequiredNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="79">
@@ -552,7 +552,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hNumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="79" uuid="7905ff16-5468-47da-a69c-63acfd856c37"/>
@@ -564,7 +564,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hNumberOfAdultStayersWithoutRequiredNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="79" uuid="e893ff1e-1445-4080-b1b9-6230301cbeb0"/>
@@ -576,7 +576,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hNumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -604,7 +604,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hTotalAdultsNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18TotalAdultsNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="183" height="26" uuid="dfb3ae63-2729-44d8-b765-c7284dfd8c8f"/>
@@ -616,7 +616,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hTotalAdultsNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18TotalAdultsNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="365" y="0" width="190" height="26" uuid="8031018d-d5ac-4d98-83b1-6db4cf7ab36e"/>
@@ -628,7 +628,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hTotalAdultsNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18TotalAdultsNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -642,7 +642,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hOneOrMoreSourceofIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18OneOrMoreSourceofIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="4af51c40-6211-4a02-a3f9-87bc48857a02"/>
@@ -668,7 +668,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hOneOrMoreSourceofIncomeNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18OneOrMoreSourceofIncomeNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="26" uuid="1f7ff260-2f96-4251-889d-359460a79aac"/>
@@ -680,7 +680,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hOneOrMoreSourceofIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18OneOrMoreSourceofIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="39">
@@ -694,7 +694,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="0" width="117" height="39" forecolor="#000000" uuid="f114f22a-01e2-4bbc-8a4d-77738847bbed"/>
@@ -720,7 +720,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="117" y="0" width="65" height="39" uuid="607c2e3a-9d3e-4058-b8f7-6c76229d4acd"/>
@@ -732,7 +732,7 @@
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q27hAdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>

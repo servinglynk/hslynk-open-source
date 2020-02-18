@@ -518,7 +518,7 @@ public static List<DisabIncomeAndSourceDataBean> getDisabIncomeAndSourceDataBean
 		}
 		
 		 protected static String joinEnrollmentIds(String query,ReportData data, HouseHoldType houseHoldType) {
-			 StringBuilder builder = new StringBuilder(" and e.id in  ( ");
+			 StringBuilder builder = new StringBuilder();
 			 
 				List<EnrollmentModel> enrollments = null;
 				if(HouseHoldType.AO == houseHoldType) {
@@ -529,6 +529,7 @@ public static List<DisabIncomeAndSourceDataBean> getDisabIncomeAndSourceDataBean
 					enrollments = data.getAdultsUnknownHHType();
 				}
 				 if(CollectionUtils.isNotEmpty(enrollments)) {
+					 builder.append(" and e.id in  ( ");
 					 int count = 0;
 					 for(EnrollmentModel enrollment : enrollments) {
 						 builder.append("'"+enrollment.getProjectEntryID()+"'");
@@ -536,9 +537,9 @@ public static List<DisabIncomeAndSourceDataBean> getDisabIncomeAndSourceDataBean
 							 builder.append(",");
 						 }
 					 }
+					 builder.deleteCharAt(builder.length() -1);
+					 builder.append(" ) ");
 				 }
-				 builder.deleteCharAt(builder.length() -1);
-				 builder.append(" ) ");
 				String newQuery = query + builder.toString();
 				return newQuery;
 		 }
