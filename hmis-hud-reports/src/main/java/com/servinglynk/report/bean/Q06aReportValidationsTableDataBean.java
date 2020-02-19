@@ -32,7 +32,7 @@ public class Q06aReportValidationsTableDataBean extends ReportBean{
 	private BigInteger ethnicityTotal = BigInteger.valueOf(0);
 	private BigInteger genderCDK=BigInteger.valueOf(0);
 	private BigInteger genderInfoMissing=BigInteger.valueOf(0);
-	private BigInteger genderDataIssue = BigInteger.ZERO;
+	private BigInteger genderDataIssue = BigInteger.valueOf(0);
 	private BigInteger genderPercentageErrorRate=BigInteger.valueOf(0);
 	private BigInteger genderTotal = BigInteger.valueOf(0);
 	private BigInteger overAllPercentage=BigInteger.valueOf(0);

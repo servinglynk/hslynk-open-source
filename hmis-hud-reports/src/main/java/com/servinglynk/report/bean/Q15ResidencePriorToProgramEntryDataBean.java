@@ -125,12 +125,218 @@ public class Q15ResidencePriorToProgramEntryDataBean {
 	private BigInteger q15OwnedByclientWithSubsidyWithChildOnly=BigInteger.valueOf(0);
 	private BigInteger q15OwnedByclientWithSubsidyUnknowHousehold=BigInteger.valueOf(0);
 	
+	private BigInteger q15RentalByClientWithHVCTotal=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientWithHVCWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientWithHVCWithChildandAdult=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientWithHVCWithchildOnly=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientWithHVCUnknownHousehold=BigInteger.valueOf(0);
+	
+	private BigInteger q15RentalByClientWithRRHSubsidyTotal=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientWithRRHSubsidyWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientWithRRHSubsidyWithChildandAdult=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientWithRRHSubsidyWithchildOnly=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientWithRRHSubsidyUnknownHousehold=BigInteger.valueOf(0);
+	
+	
 	private BigInteger q15RentalByClientNoSubsidyTotal=BigInteger.valueOf(0);
 	private BigInteger q15RentalByClientNoSubsidyWithoutChild=BigInteger.valueOf(0);
 	private BigInteger q15RentalByClientNoSubsidyWithChildandAdult=BigInteger.valueOf(0);
 	private BigInteger q15RentalByClientNoSubsidyWithchildOnly=BigInteger.valueOf(0);
 	private BigInteger q15RentalByClientNoSubsidyUnknownHousehold=BigInteger.valueOf(0);
+
 	
+	private BigInteger q15RentalByClientInPublishHousingTotal=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientInPublishHousingWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientInPublishHousingWithChildandAdult=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientInPublishHousingWithchildOnly=BigInteger.valueOf(0);
+	private BigInteger q15RentalByClientInPublishHousingUnknownHousehold=BigInteger.valueOf(0);
+
+	
+	/**
+	 * @return the q15RentalByClientWithHVCTotal
+	 */
+	public BigInteger getQ15RentalByClientWithHVCTotal() {
+		return q15RentalByClientWithHVCTotal;
+	}
+	/**
+	 * @param q15RentalByClientWithHVCTotal the q15RentalByClientWithHVCTotal to set
+	 */
+	public void setQ15RentalByClientWithHVCTotal(BigInteger q15RentalByClientWithHVCTotal) {
+		this.q15RentalByClientWithHVCTotal = q15RentalByClientWithHVCTotal;
+	}
+	/**
+	 * @return the q15RentalByClientWithHVCWithoutChild
+	 */
+	public BigInteger getQ15RentalByClientWithHVCWithoutChild() {
+		return q15RentalByClientWithHVCWithoutChild;
+	}
+	/**
+	 * @param q15RentalByClientWithHVCWithoutChild the q15RentalByClientWithHVCWithoutChild to set
+	 */
+	public void setQ15RentalByClientWithHVCWithoutChild(BigInteger q15RentalByClientWithHVCWithoutChild) {
+		this.q15RentalByClientWithHVCWithoutChild = q15RentalByClientWithHVCWithoutChild;
+	}
+	/**
+	 * @return the q15RentalByClientWithHVCWithChildandAdult
+	 */
+	public BigInteger getQ15RentalByClientWithHVCWithChildandAdult() {
+		return q15RentalByClientWithHVCWithChildandAdult;
+	}
+	/**
+	 * @param q15RentalByClientWithHVCWithChildandAdult the q15RentalByClientWithHVCWithChildandAdult to set
+	 */
+	public void setQ15RentalByClientWithHVCWithChildandAdult(BigInteger q15RentalByClientWithHVCWithChildandAdult) {
+		this.q15RentalByClientWithHVCWithChildandAdult = q15RentalByClientWithHVCWithChildandAdult;
+	}
+	/**
+	 * @return the q15RentalByClientWithHVCWithchildOnly
+	 */
+	public BigInteger getQ15RentalByClientWithHVCWithchildOnly() {
+		return q15RentalByClientWithHVCWithchildOnly;
+	}
+	/**
+	 * @param q15RentalByClientWithHVCWithchildOnly the q15RentalByClientWithHVCWithchildOnly to set
+	 */
+	public void setQ15RentalByClientWithHVCWithchildOnly(BigInteger q15RentalByClientWithHVCWithchildOnly) {
+		this.q15RentalByClientWithHVCWithchildOnly = q15RentalByClientWithHVCWithchildOnly;
+	}
+	/**
+	 * @return the q15RentalByClientWithHVCUnknownHousehold
+	 */
+	public BigInteger getQ15RentalByClientWithHVCUnknownHousehold() {
+		return q15RentalByClientWithHVCUnknownHousehold;
+	}
+	/**
+	 * @param q15RentalByClientWithHVCUnknownHousehold the q15RentalByClientWithHVCUnknownHousehold to set
+	 */
+	public void setQ15RentalByClientWithHVCUnknownHousehold(BigInteger q15RentalByClientWithHVCUnknownHousehold) {
+		this.q15RentalByClientWithHVCUnknownHousehold = q15RentalByClientWithHVCUnknownHousehold;
+	}
+	/**
+	 * @return the q15RentalByClientWithRRHSubsidyTotal
+	 */
+	public BigInteger getQ15RentalByClientWithRRHSubsidyTotal() {
+		return q15RentalByClientWithRRHSubsidyTotal;
+	}
+	/**
+	 * @param q15RentalByClientWithRRHSubsidyTotal the q15RentalByClientWithRRHSubsidyTotal to set
+	 */
+	public void setQ15RentalByClientWithRRHSubsidyTotal(BigInteger q15RentalByClientWithRRHSubsidyTotal) {
+		this.q15RentalByClientWithRRHSubsidyTotal = q15RentalByClientWithRRHSubsidyTotal;
+	}
+	/**
+	 * @return the q15RentalByClientWithRRHSubsidyWithoutChild
+	 */
+	public BigInteger getQ15RentalByClientWithRRHSubsidyWithoutChild() {
+		return q15RentalByClientWithRRHSubsidyWithoutChild;
+	}
+	/**
+	 * @param q15RentalByClientWithRRHSubsidyWithoutChild the q15RentalByClientWithRRHSubsidyWithoutChild to set
+	 */
+	public void setQ15RentalByClientWithRRHSubsidyWithoutChild(BigInteger q15RentalByClientWithRRHSubsidyWithoutChild) {
+		this.q15RentalByClientWithRRHSubsidyWithoutChild = q15RentalByClientWithRRHSubsidyWithoutChild;
+	}
+	/**
+	 * @return the q15RentalByClientWithRRHSubsidyWithChildandAdult
+	 */
+	public BigInteger getQ15RentalByClientWithRRHSubsidyWithChildandAdult() {
+		return q15RentalByClientWithRRHSubsidyWithChildandAdult;
+	}
+	/**
+	 * @param q15RentalByClientWithRRHSubsidyWithChildandAdult the q15RentalByClientWithRRHSubsidyWithChildandAdult to set
+	 */
+	public void setQ15RentalByClientWithRRHSubsidyWithChildandAdult(
+			BigInteger q15RentalByClientWithRRHSubsidyWithChildandAdult) {
+		this.q15RentalByClientWithRRHSubsidyWithChildandAdult = q15RentalByClientWithRRHSubsidyWithChildandAdult;
+	}
+	/**
+	 * @return the q15RentalByClientWithRRHSubsidyWithchildOnly
+	 */
+	public BigInteger getQ15RentalByClientWithRRHSubsidyWithchildOnly() {
+		return q15RentalByClientWithRRHSubsidyWithchildOnly;
+	}
+	/**
+	 * @param q15RentalByClientWithRRHSubsidyWithchildOnly the q15RentalByClientWithRRHSubsidyWithchildOnly to set
+	 */
+	public void setQ15RentalByClientWithRRHSubsidyWithchildOnly(BigInteger q15RentalByClientWithRRHSubsidyWithchildOnly) {
+		this.q15RentalByClientWithRRHSubsidyWithchildOnly = q15RentalByClientWithRRHSubsidyWithchildOnly;
+	}
+	/**
+	 * @return the q15RentalByClientWithRRHSubsidyUnknownHousehold
+	 */
+	public BigInteger getQ15RentalByClientWithRRHSubsidyUnknownHousehold() {
+		return q15RentalByClientWithRRHSubsidyUnknownHousehold;
+	}
+	/**
+	 * @param q15RentalByClientWithRRHSubsidyUnknownHousehold the q15RentalByClientWithRRHSubsidyUnknownHousehold to set
+	 */
+	public void setQ15RentalByClientWithRRHSubsidyUnknownHousehold(
+			BigInteger q15RentalByClientWithRRHSubsidyUnknownHousehold) {
+		this.q15RentalByClientWithRRHSubsidyUnknownHousehold = q15RentalByClientWithRRHSubsidyUnknownHousehold;
+	}
+	/**
+	 * @return the q15RentalByClientInPublishHousingTotal
+	 */
+	public BigInteger getQ15RentalByClientInPublishHousingTotal() {
+		return q15RentalByClientInPublishHousingTotal;
+	}
+	/**
+	 * @param q15RentalByClientInPublishHousingTotal the q15RentalByClientInPublishHousingTotal to set
+	 */
+	public void setQ15RentalByClientInPublishHousingTotal(BigInteger q15RentalByClientInPublishHousingTotal) {
+		this.q15RentalByClientInPublishHousingTotal = q15RentalByClientInPublishHousingTotal;
+	}
+	/**
+	 * @return the q15RentalByClientInPublishHousingWithoutChild
+	 */
+	public BigInteger getQ15RentalByClientInPublishHousingWithoutChild() {
+		return q15RentalByClientInPublishHousingWithoutChild;
+	}
+	/**
+	 * @param q15RentalByClientInPublishHousingWithoutChild the q15RentalByClientInPublishHousingWithoutChild to set
+	 */
+	public void setQ15RentalByClientInPublishHousingWithoutChild(BigInteger q15RentalByClientInPublishHousingWithoutChild) {
+		this.q15RentalByClientInPublishHousingWithoutChild = q15RentalByClientInPublishHousingWithoutChild;
+	}
+	/**
+	 * @return the q15RentalByClientInPublishHousingWithChildandAdult
+	 */
+	public BigInteger getQ15RentalByClientInPublishHousingWithChildandAdult() {
+		return q15RentalByClientInPublishHousingWithChildandAdult;
+	}
+	/**
+	 * @param q15RentalByClientInPublishHousingWithChildandAdult the q15RentalByClientInPublishHousingWithChildandAdult to set
+	 */
+	public void setQ15RentalByClientInPublishHousingWithChildandAdult(
+			BigInteger q15RentalByClientInPublishHousingWithChildandAdult) {
+		this.q15RentalByClientInPublishHousingWithChildandAdult = q15RentalByClientInPublishHousingWithChildandAdult;
+	}
+	/**
+	 * @return the q15RentalByClientInPublishHousingWithchildOnly
+	 */
+	public BigInteger getQ15RentalByClientInPublishHousingWithchildOnly() {
+		return q15RentalByClientInPublishHousingWithchildOnly;
+	}
+	/**
+	 * @param q15RentalByClientInPublishHousingWithchildOnly the q15RentalByClientInPublishHousingWithchildOnly to set
+	 */
+	public void setQ15RentalByClientInPublishHousingWithchildOnly(
+			BigInteger q15RentalByClientInPublishHousingWithchildOnly) {
+		this.q15RentalByClientInPublishHousingWithchildOnly = q15RentalByClientInPublishHousingWithchildOnly;
+	}
+	/**
+	 * @return the q15RentalByClientInPublishHousingUnknownHousehold
+	 */
+	public BigInteger getQ15RentalByClientInPublishHousingUnknownHousehold() {
+		return q15RentalByClientInPublishHousingUnknownHousehold;
+	}
+	/**
+	 * @param q15RentalByClientInPublishHousingUnknownHousehold the q15RentalByClientInPublishHousingUnknownHousehold to set
+	 */
+	public void setQ15RentalByClientInPublishHousingUnknownHousehold(
+			BigInteger q15RentalByClientInPublishHousingUnknownHousehold) {
+		this.q15RentalByClientInPublishHousingUnknownHousehold = q15RentalByClientInPublishHousingUnknownHousehold;
+	}
 	private BigInteger q15RentalByClientWithVASHSubsidyTotal=BigInteger.valueOf(0);
 	private BigInteger q15RentalByClientWithVASHSubsidyWithoutChild=BigInteger.valueOf(0);
 	private BigInteger q15RentalByClientWithVASHSubsidyWithchildandAdult=BigInteger.valueOf(0);

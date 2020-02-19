@@ -66,7 +66,7 @@ public class Reporter {
     			
     			
     			// update the report config to 
-    			SyncPostgresProcessor.updateReportConfig("COMPLETED", reportConfig.getId());
+    			//SyncPostgresProcessor.updateReportConfig("COMPLETED", reportConfig.getId());
     		}
 			//SendEmail.generateAndSendEmail("sandeep.dolia@gmail.com", "");
         } catch (Exception e) {

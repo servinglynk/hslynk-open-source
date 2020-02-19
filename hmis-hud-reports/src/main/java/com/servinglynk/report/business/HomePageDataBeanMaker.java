@@ -99,7 +99,7 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			HomePageDataBean homePageDataBean = new HomePageDataBean();
 			
 			ReportData data = new ReportData();
-			data.setLiveMode(true);
+			data.setLiveMode(false);
 			data.setReportStartDate(reportConfig.getStartDate());
 			data.setReportEndDate(reportConfig.getEndDate());
 			data.setConfigPath(props.APR_CONFIG_LOCATION);

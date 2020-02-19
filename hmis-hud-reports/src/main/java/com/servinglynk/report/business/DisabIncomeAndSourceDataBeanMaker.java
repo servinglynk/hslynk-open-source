@@ -411,7 +411,7 @@ public static List<DisabIncomeAndSourceDataBean> getDisabIncomeAndSourceDataBean
 					+tanfAOWithOutDisab+socsecretirementAOWithOutDisab+pensionAOWithOutDisab+childsupportAOWithOutDisab
 					+othersourceAOWithOutDisab+noSourceAOWithOutDisab;
 					
-					int overallTotalAOEarned = totalAOEarned+totalssiAO+totalssdiAO+totalvadisabilityserviceAO
+			int overallTotalAOEarned = totalAOEarned+totalssiAO+totalssdiAO+totalvadisabilityserviceAO
 					+totalprivatedisabilityAO+totalworkerscompAO+totaltanfAO+totalsocsecretirementAO+totalpensionAO
 					+totalchildsupportAO+totalothersourceAO+totalnoSourceAO;	
 					
@@ -420,15 +420,15 @@ public static List<DisabIncomeAndSourceDataBean> getDisabIncomeAndSourceDataBean
 					disabIncomeAndSourceDataBean.setTotalAO(BigInteger.valueOf(overallTotalAOEarned));
 			// AC	
 					
-					int overallTotalACDisab= earnedACWithDisab+ssiACWithDisab+ssdiACWithDisab+vadisabilityserviceACWithDisab
+			int overallTotalACDisab= earnedACWithDisab+ssiACWithDisab+ssdiACWithDisab+vadisabilityserviceACWithDisab
 					+privatedisabilityACWithDisab+workerscompACWithDisab+tanfACWithDisab+socsecretirementACWithDisab
 					+pensionACWithDisab+childsupportACWithDisab+othersourceACWithDisab+noSourceACWithDisab;
 					
-					int overallTotalACWithOutDisab =earnedACWithOutDisab+ssiACWithOutDisab+ssdiACWithOutDisab+vadisabilityserviceACWithOutDisab
+			int overallTotalACWithOutDisab =earnedACWithOutDisab+ssiACWithOutDisab+ssdiACWithOutDisab+vadisabilityserviceACWithOutDisab
 					+privatedisabilityACWithOutDisab+workerscompACWithOutDisab+tanfACWithOutDisab+socsecretirementACWithOutDisab
 					+pensionACWithOutDisab+childsupportACWithOutDisab+othersourceACWithOutDisab+noSourceACWithOutDisab;
 					
-					int overallTotalACEarned = totalACEarned+totalssiAC+totalssdiAC+totalvadisabilityserviceAC
+			int overallTotalACEarned = totalACEarned+totalssiAC+totalssdiAC+totalvadisabilityserviceAC
 					+totalprivatedisabilityAC+totalworkerscompAC+totaltanfAC+totalsocsecretirementAC
 					+totalpensionAC+totalchildsupportAC+totalothersourceAC+totalnoSourceAC;
 					
@@ -437,16 +437,16 @@ public static List<DisabIncomeAndSourceDataBean> getDisabIncomeAndSourceDataBean
 					disabIncomeAndSourceDataBean.setTotalAC(BigInteger.valueOf(overallTotalACEarned));
 		
 					
-					//UK
-					int overallTotalUKDisab= earnedUKWithDisab+ssiUKWithDisab+ssdiUKWithDisab+vadisabilityserviceUKWithDisab
+			//UK
+			int overallTotalUKDisab= earnedUKWithDisab+ssiUKWithDisab+ssdiUKWithDisab+vadisabilityserviceUKWithDisab
 					+privatedisabilityUKWithDisab+workerscompUKWithDisab+tanfUKWithDisab+socsecretirementUKWithDisab
 					+pensionUKWithDisab+childsupportUKWithDisab+othersourceUKWithDisab+noSourceUKWithDisab;
 					
-					int overallTotalUKWithOutDisab =earnedUKWithOutDisab+ssiUKWithOutDisab+ssdiUKWithOutDisab+vadisabilityserviceUKWithOutDisab
+			int overallTotalUKWithOutDisab =earnedUKWithOutDisab+ssiUKWithOutDisab+ssdiUKWithOutDisab+vadisabilityserviceUKWithOutDisab
 					+privatedisabilityUKWithOutDisab+workerscompUKWithOutDisab+tanfUKWithOutDisab+socsecretirementUKWithOutDisab
 					+pensionUKWithOutDisab+childsupportUKWithOutDisab+noSourceUKWithOutDisab+othersourceUKWithOutDisab;
 					
-					int overallTotalUKEarned = totalUKEarned+totalssiUK+totalssdiUK+totalvadisabilityserviceUK
+			int overallTotalUKEarned = totalUKEarned+totalssiUK+totalssdiUK+totalvadisabilityserviceUK
 					+totalprivatedisabilityUK+totalworkerscompUK+totaltanfUK+totalsocsecretirementUK
 					+totalpensionUK+totalchildsupportUK+totalothersourceUK+totalnoSourceUK;
 
@@ -531,6 +531,8 @@ public static List<DisabIncomeAndSourceDataBean> getDisabIncomeAndSourceDataBean
 					enrollments = data.getAdultWithChildren();
 				} else if (HouseHoldType.UK == houseHoldType) {
 					enrollments = data.getAdultsUnknownHHType();
+				} else if (HouseHoldType.CO == houseHoldType) {
+					enrollments = data.getAdultsWithOneAdultChild();
 				}
 				 if(CollectionUtils.isNotEmpty(enrollments)) {
 					 builder.append(" and e.id in  ( ");

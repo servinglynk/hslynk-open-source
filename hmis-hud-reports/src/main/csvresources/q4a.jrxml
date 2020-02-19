@@ -54,9 +54,9 @@
 	</field>
 	<group name="Group5">
 		<groupFooter>
-			<band height="57">
+			<band height="37">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="6" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="8fedbab8-7fc1-4a72-b2aa-19a58ba36bba"/>
+					<reportElement mode="Opaque" x="0" y="0" width="117" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="8fedbab8-7fc1-4a72-b2aa-19a58ba36bba"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -70,7 +70,7 @@
 					<text><![CDATA[Organization Name	]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="117" y="6" width="83" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="9a7967e9-7015-4259-a2f3-1968798f4557"/>
+					<reportElement mode="Opaque" x="117" y="0" width="83" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="9a7967e9-7015-4259-a2f3-1968798f4557"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -84,7 +84,7 @@
 					<text><![CDATA[Organization ID]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="200" y="6" width="75" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="55d17026-d7e9-4ea6-b974-80c1a0c30d5d"/>
+					<reportElement mode="Opaque" x="200" y="0" width="75" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="55d17026-d7e9-4ea6-b974-80c1a0c30d5d"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -98,7 +98,7 @@
 					<text><![CDATA[Project Name]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="275" y="6" width="90" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="b00e4ed7-efdd-400a-876f-b11e8561309e"/>
+					<reportElement mode="Opaque" x="275" y="0" width="90" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="b00e4ed7-efdd-400a-876f-b11e8561309e"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -112,7 +112,7 @@
 					<text><![CDATA[Project ID]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="365" y="6" width="97" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="8df2ad49-277b-49b7-8571-4b562cd99b26"/>
+					<reportElement mode="Opaque" x="365" y="0" width="97" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="8df2ad49-277b-49b7-8571-4b562cd99b26"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -126,7 +126,7 @@
 					<text><![CDATA[HMIS Project Type]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="462" y="6" width="93" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="e0deb5f7-6849-44cc-bfb9-16c394e2812c"/>
+					<reportElement mode="Opaque" x="462" y="0" width="93" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="e0deb5f7-6849-44cc-bfb9-16c394e2812c"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -140,7 +140,7 @@
 					<text><![CDATA[Method for Tracking ES]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="672" y="6" width="83" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="b34761b1-79b8-4e32-af92-9bb064eb7ab1"/>
+					<reportElement mode="Opaque" x="672" y="0" width="83" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="b34761b1-79b8-4e32-af92-9bb064eb7ab1"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -154,7 +154,7 @@
 					<text><![CDATA[Project IDs of affiliations]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="920" y="6" width="97" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="160c61fe-8aa9-4a3c-bb34-d7bfcf09b0f5"/>
+					<reportElement mode="Opaque" x="920" y="0" width="97" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="160c61fe-8aa9-4a3c-bb34-d7bfcf09b0f5"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -168,7 +168,7 @@
 					<text><![CDATA[Victim Service Provider]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="1017" y="7" width="93" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="ed599e03-0c7a-49b5-96f9-1bbbb1f28edd"/>
+					<reportElement mode="Opaque" x="1017" y="0" width="94" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="ed599e03-0c7a-49b5-96f9-1bbbb1f28edd"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -182,7 +182,7 @@
 					<text><![CDATA[HMIS Software Name]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="830" y="6" width="90" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="cfa396f2-86c9-4905-b9f4-0dc8585dde89"/>
+					<reportElement mode="Opaque" x="830" y="0" width="90" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="cfa396f2-86c9-4905-b9f4-0dc8585dde89"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -196,7 +196,7 @@
 					<text><![CDATA[Geocode]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="755" y="6" width="75" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="ff732c21-1822-40a3-ad14-8833bb397697"/>
+					<reportElement mode="Opaque" x="755" y="0" width="75" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="ff732c21-1822-40a3-ad14-8833bb397697"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -210,7 +210,7 @@
 					<text><![CDATA[CoC Number]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="555" y="6" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="560f6ca2-8f1f-4df7-adbe-37f54932c50b"/>
+					<reportElement mode="Opaque" x="555" y="0" width="117" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="560f6ca2-8f1f-4df7-adbe-37f54932c50b"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -224,7 +224,7 @@
 					<text><![CDATA[Affiliated with a residential project]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="1111" y="6" width="93" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="cd7e5e9c-156b-4c44-aaae-4a2eb4da4a2a"/>
+					<reportElement mode="Opaque" x="1111" y="0" width="93" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="cd7e5e9c-156b-4c44-aaae-4a2eb4da4a2a"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -238,7 +238,7 @@
 					<text><![CDATA[Report Start Date]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="1205" y="6" width="93" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="fe4c1491-4854-4cbd-b5cf-c5b8591005d0"/>
+					<reportElement mode="Opaque" x="1204" y="0" width="93" height="37" forecolor="#666666" backcolor="#E6E6E6" uuid="fe4c1491-4854-4cbd-b5cf-c5b8591005d0"/>
 					<box>
 						<pen lineWidth="0.75"/>
 						<topPen lineWidth="0.75"/>
@@ -252,9 +252,9 @@
 					<text><![CDATA[Report End Date]]></text>
 				</staticText>
 			</band>
-			<band height="86">
+			<band height="26">
 				<textField>
-					<reportElement x="117" y="-1" width="83" height="26" uuid="a714bf97-1531-4374-9342-5df130024c76"/>
+					<reportElement x="117" y="0" width="83" height="26" uuid="a714bf97-1531-4374-9342-5df130024c76"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -266,7 +266,7 @@
 					<textFieldExpression><![CDATA[$F{q04aOrgId}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="200" y="-1" width="75" height="26" uuid="d48f29de-5a28-4fe0-8022-2fcca9dfdbde"/>
+					<reportElement x="200" y="0" width="75" height="26" uuid="d48f29de-5a28-4fe0-8022-2fcca9dfdbde"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -278,7 +278,7 @@
 					<textFieldExpression><![CDATA[$F{q04aProjectName}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="275" y="-1" width="90" height="26" uuid="eaec4b22-e5fc-47d4-be67-3e588eb9a96e"/>
+					<reportElement x="275" y="0" width="90" height="26" uuid="eaec4b22-e5fc-47d4-be67-3e588eb9a96e"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -290,7 +290,7 @@
 					<textFieldExpression><![CDATA[$F{q04aProjectId}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="365" y="-1" width="97" height="26" uuid="9c292a58-4924-436c-8526-53c3709d1160"/>
+					<reportElement x="365" y="0" width="97" height="26" uuid="9c292a58-4924-436c-8526-53c3709d1160"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -302,7 +302,7 @@
 					<textFieldExpression><![CDATA[$F{q04aHmisProjectType}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="-1" width="93" height="26" uuid="8d535c55-54bd-4bf9-9679-685ca4a32b0d"/>
+					<reportElement x="462" y="0" width="93" height="26" uuid="8d535c55-54bd-4bf9-9679-685ca4a32b0d"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -314,7 +314,7 @@
 					<textFieldExpression><![CDATA[$F{q04aMethodOfTracking}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="555" y="-1" width="117" height="26" uuid="03d930ce-49cd-4b88-ab64-a60bab4eb35a"/>
+					<reportElement x="555" y="0" width="117" height="26" uuid="03d930ce-49cd-4b88-ab64-a60bab4eb35a"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -326,7 +326,7 @@
 					<textFieldExpression><![CDATA[$F{q04aAffiliatedResidentialProject}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="672" y="-1" width="83" height="26" uuid="9afa1c8a-73a1-4fd6-9ee2-a1fe7d47cb75"/>
+					<reportElement x="672" y="0" width="83" height="26" uuid="9afa1c8a-73a1-4fd6-9ee2-a1fe7d47cb75"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -338,7 +338,7 @@
 					<textFieldExpression><![CDATA[$F{q04aProjectIdsOfAffiliation}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="755" y="-1" width="75" height="26" uuid="a876e5a3-fb6f-47a3-8449-ab8aefe418da"/>
+					<reportElement x="755" y="0" width="75" height="26" uuid="a876e5a3-fb6f-47a3-8449-ab8aefe418da"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -350,7 +350,7 @@
 					<textFieldExpression><![CDATA[$F{q04acocNumber}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="1018" y="-1" width="93" height="26" uuid="dacdcfd3-ee2a-45d5-af11-6c2cc3b756a5"/>
+					<reportElement x="1017" y="0" width="94" height="26" uuid="dacdcfd3-ee2a-45d5-af11-6c2cc3b756a5"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -362,7 +362,7 @@
 					<textFieldExpression><![CDATA[$F{q04aHmisSoftwareName}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="830" y="-1" width="90" height="26" uuid="0e8c6b20-5900-41db-9a0c-3b9cbe995507"/>
+					<reportElement x="830" y="0" width="90" height="26" uuid="0e8c6b20-5900-41db-9a0c-3b9cbe995507"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -374,7 +374,7 @@
 					<textFieldExpression><![CDATA[$F{q04aGeoCode}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="920" y="-1" width="97" height="26" uuid="755a6198-bbc8-494c-b360-18c3689477bc"/>
+					<reportElement x="920" y="0" width="97" height="26" uuid="755a6198-bbc8-494c-b360-18c3689477bc"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -386,7 +386,7 @@
 					<textFieldExpression><![CDATA[$F{q04aVictimServiceProvider}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="1111" y="-1" width="93" height="26" uuid="a0d07614-f342-4f72-965c-8faa30224bd7"/>
+					<reportElement x="1111" y="0" width="93" height="26" uuid="a0d07614-f342-4f72-965c-8faa30224bd7"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -398,7 +398,7 @@
 					<textFieldExpression><![CDATA[$F{q04aReportStartDate}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="1204" y="-1" width="93" height="26" uuid="57d6140a-d7f1-41a5-b387-2454be38db79"/>
+					<reportElement x="1204" y="0" width="93" height="26" uuid="57d6140a-d7f1-41a5-b387-2454be38db79"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -410,7 +410,7 @@
 					<textFieldExpression><![CDATA[$F{q04aReportEndDate}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="0" y="-1" width="117" height="26" uuid="fad1f90b-ea99-4656-936e-66741e5882d6"/>
+					<reportElement x="0" y="0" width="117" height="26" uuid="fad1f90b-ea99-4656-936e-66741e5882d6"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -422,12 +422,6 @@
 					<textFieldExpression><![CDATA[$F{q04aOrgName}]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="26"/>
-			<band height="26"/>
-			<band height="26"/>
-			<band height="38"/>
-			<band height="26"/>
-			<band height="26"/>
 			<band height="26"/>
 		</groupFooter>
 	</group>

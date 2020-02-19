@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.report.bean.Q06aReportValidationsTableDataBean;
@@ -11,37 +12,37 @@ import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 
 public class Q06aBeanMaker extends BaseBeanMaker {
-	public static Long nameCDK = 0L;
-	public static  Long nameInfoMissing = 0L;
-	public static  Long nameDataIssue = 0L;
-	public static  Long namePercentageErrorRate = 0L;
-	public static  Long nameTotal = 0L;
-	public static  Long ssnCDK = 0L;
-	public static  Long ssnInfoMissing = 0L;
-	public static  Long ssnDataIssue = 0L;
-	public static  Long ssnPercentageErrorRate = 0L;
-	public static  Long ssnTotal= 0L;
-	public static  Long dobCDK = 0L;
-	public static  Long dobInfoMissing = 0L;
-	public static  Long dobDataIssue = 0L;
-	public static  Long dobPercentageErrorRate = 0L;
-	public static  Long dobTotal= 0L;
-	public static  Long raceCDK = 0L;
-	public static  Long raceInfoMissing = 0L;
-	public static  Long raceDataIssue = 0L;
-	public static Long racePercentageErrorRate = 0L;
-	public static Long raceTotal = 0L;
-	public static Long ethnicityCDK = 0L;
-	public static Long ethnicityInfoMissing = 0L;
-	public static Long ethnicityDataIssue = 0L;
-	public static Long ethnicityPercentageErrorRate = 0L;
-	public static Long ethnicityTotal = 0L;
-	public static Long genderCDK = 0L;
-	public static Long genderInfoMissing = 0L;
-	public static Long genderPercentageErrorRate = 0L;
-	public static Long genderTotal = 0L;
-	public static Long overAllPercentage = 0L;
-	public static Long overAllTotal = 0L;
+	public static int nameCDK = 0;
+	public static  int nameInfoMissing = 0;
+	public static  int nameDataIssue = 0;
+	public static  int namePercentageErrorRate = 0;
+	public static  int nameTotal = 0;
+	public static  int ssnCDK = 0;
+	public static  int ssnInfoMissing = 0;
+	public static  int ssnDataIssue = 0;
+	public static  int ssnPercentageErrorRate = 0;
+	public static  int ssnTotal= 0;
+	public static  int dobCDK = 0;
+	public static  int dobInfoMissing = 0;
+	public static  int dobDataIssue = 0;
+	public static  int dobPercentageErrorRate = 0;
+	public static  int dobTotal= 0;
+	public static  int raceCDK = 0;
+	public static  int raceInfoMissing = 0;
+	public static  int raceDataIssue = 0;
+	public static int racePercentageErrorRate = 0;
+	public static int raceTotal = 0;
+	public static int ethnicityCDK = 0;
+	public static int ethnicityInfoMissing = 0;
+	public static int ethnicityDataIssue = 0;
+	public static int ethnicityPercentageErrorRate = 0;
+	public static int ethnicityTotal = 0;
+	public static int genderCDK = 0;
+	public static int genderInfoMissing = 0;
+	public static int genderPercentageErrorRate = 0;
+	public static int genderTotal = 0;
+	public static int overAllPercentage = 0;
+	public static int overAllTotal = 0;
 	
 	/***
 	 *  Sandeep TODO: Need to determine the value for DataIssue and PercentageErrorRate field.
@@ -52,8 +53,10 @@ public class Q06aBeanMaker extends BaseBeanMaker {
 		Q06aReportValidationsTableDataBean q06aBean = new Q06aReportValidationsTableDataBean();
 		if(data.isLiveMode()) {
 		try {
+			int numOfClients = 0;
 			List<ClientModel> clients = data.getClients();
-			Long numOfClients = Long.valueOf(clients.size());
+			if(CollectionUtils.isNotEmpty(clients)) {
+				numOfClients = clients.size();
 			clients.forEach(client -> { 
 				
 				if(StringUtils.equals("8", client.getName_data_quality()) || StringUtils.equals("9", client.getName_data_quality()))  {
@@ -125,6 +128,7 @@ public class Q06aBeanMaker extends BaseBeanMaker {
 				}
 			}
 			);
+			}
 			
 			nameTotal = nameCDK + nameInfoMissing + nameDataIssue;
 			ssnTotal = ssnCDK+ssnInfoMissing+ssnDataIssue;
