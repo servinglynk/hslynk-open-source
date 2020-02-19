@@ -41,7 +41,7 @@ public class Reporter {
     		logger.info("Starting hud reports process....");
     		ReportConfig reportConfig = SyncPostgresProcessor.getReportConfigByStatus("INITIAL");
     		if(reportConfig != null) {
-    			SyncPostgresProcessor.updateReportConfig("INPROGRESS", reportConfig.getId());
+    			//SyncPostgresProcessor.updateReportConfig("INPROGRESS", reportConfig.getId());
     			String reportId = String.valueOf(reportConfig.getId());
             	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig,props);
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);

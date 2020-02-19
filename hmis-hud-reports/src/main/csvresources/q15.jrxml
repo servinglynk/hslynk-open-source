@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="615141f9-6d0f-4780-b2ee-8b913ba7c4b4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="546"/>
+	<property name="ireport.y" value="595"/>
 	<field name="q15HomeLessSituationsTotal" class="java.math.BigInteger">
 		<fieldDescription><![CDATA[q15HomeLessSituationsTotal]]></fieldDescription>
 	</field>
@@ -2074,18 +2074,6 @@ homeless criteria]]></text>
 					<textFieldExpression><![CDATA[$F{q15RentalByClientWithHVCWithoutChild}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="0" width="93" height="26" uuid="5bc0e658-86c7-4c53-87f2-46f37717caac"/>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q15RentalByClientWithHVCUnknownHousehold]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="a81b43b6-2327-45ea-b0aa-20fab0eca36e"/>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -2108,6 +2096,18 @@ homeless criteria]]></text>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{q15RentalByClientWithHVCWithchildOnly}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="462" y="0" width="93" height="26" uuid="27f57894-8833-488d-93ff-eac45c604012"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q15RentalByClientWithHVCUnknownHousehold}]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="26">
@@ -2150,7 +2150,7 @@ homeless criteria]]></text>
 					<textFieldExpression><![CDATA[$F{q15RentalByClientInPublishHousingWithoutChild}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="0" width="93" height="26" uuid="5bc0e658-86c7-4c53-87f2-46f37717caac"/>
+					<reportElement x="462" y="0" width="462" height="26" uuid="ed1c4604-903d-48aa-ae72-b8a12d3e8eca"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -2159,7 +2159,7 @@ homeless criteria]]></text>
 						<rightPen lineWidth="0.5"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{q15RentalByClientInPublishHousingUnknownHousehold]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{q15RentalByClientInPublishHousingUnknownHousehold}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="182" y="0" width="93" height="26" uuid="a81b43b6-2327-45ea-b0aa-20fab0eca36e"/>
