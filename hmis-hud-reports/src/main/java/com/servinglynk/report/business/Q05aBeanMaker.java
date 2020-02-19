@@ -30,7 +30,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			List<EnrollmentModel> adults = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
 			List<EnrollmentModel> children = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() < 18 && enrollment.getAgeatentry() !=0 ).collect(Collectors.toList());
 			List<EnrollmentModel> youthUnder25 = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() >= 18 && enrollment.getAgeatentry() <= 24  && enrollment.getAgeatentry() !=0).collect(Collectors.toList());
-			List<EnrollmentModel> ageUnknown = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() == 0).collect(Collectors.toList());
+			List<ClientModel> ageUnknown = clients.parallelStream().filter(enrollment-> enrollment.getAge() == 0).collect(Collectors.toList());
 			
 			List<EnrollmentModel> chronicHomeless = enrollments.parallelStream().filter(enrollment -> enrollment.isChronichomeless()).collect(Collectors.toList());
 			data.setChronicHomeLess(chronicHomeless);

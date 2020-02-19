@@ -259,7 +259,7 @@ public class Q22eBeanMaker extends BaseBeanMaker {
 				int overallWithChildrenSize = totalWithChildrenSize + notYetMovedIntoHousingWithChildrenSize + dncWithChildrenSize ;
 				int overallUnknownSize = totalUnknownSize + notYetMovedIntoHousingLessUnknownSize + dncUnknownSize ;
 				
-				q22deDataBean.setQ22eTotTotal(BigInteger.valueOf(overallSize)); 
+				q22deDataBean.setQ22eTotTotal(BigInteger.valueOf(getSize(data.getActiveClients()))); 
 				q22deDataBean.setQ22eTotWithoutChildren(BigInteger.valueOf(overallWithoutChildrenSize));
 				q22deDataBean.setQ22eTotWithChildAndAdults(BigInteger.valueOf(overallChildAndAdultsSize));
 				q22deDataBean.setQ22eTotWithOnlychildren(BigInteger.valueOf(overallWithChildrenSize));
