@@ -2150,7 +2150,7 @@ homeless criteria]]></text>
 					<textFieldExpression><![CDATA[$F{q15RentalByClientInPublishHousingWithoutChild}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="462" y="0" width="462" height="26" uuid="ed1c4604-903d-48aa-ae72-b8a12d3e8eca"/>
+					<reportElement x="462" y="0" width="93" height="26" uuid="ed1c4604-903d-48aa-ae72-b8a12d3e8eca"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
