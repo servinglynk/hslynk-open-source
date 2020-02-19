@@ -8,6 +8,6 @@ import com.servinglynk.report.bean.ReportData;
 public class Q27iBeanMaker extends DisabIncomeAndSourceDataBeanMaker {
 	
 	public static List<DisabIncomeAndSourceDataBean> getQ27iDataBean(ReportData data){
-		return getDisabIncomeAndSourceDataBean(data," and ageatentry<=25 ");
+		return getDisabIncomeAndSourceDataBean(data,true);
 	}
 }

@@ -8,6 +8,6 @@ import com.servinglynk.report.bean.ReportData;
 public class Q19bBeanMaker extends DisabIncomeAndSourceDataBeanMaker {
 	
 	public static List<DisabIncomeAndSourceDataBean> getQ19DataBean(ReportData data){
-		return getDisabIncomeAndSourceDataBean(data,null);
+		return getDisabIncomeAndSourceDataBean(data,false);
 	}
 }
