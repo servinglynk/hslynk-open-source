@@ -14,6 +14,11 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger totalACEarned = BigInteger.ZERO;
 	private BigInteger earnedACDisabPercentage = BigInteger.ZERO;
 	
+	private BigInteger earnedCOWithDisab = BigInteger.ZERO;
+	private BigInteger earnedCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalCOEarned = BigInteger.ZERO;
+	private BigInteger earnedCODisabPercentage = BigInteger.ZERO;
+	
 	private BigInteger earnedUKWithDisab = BigInteger.ZERO;
 	private BigInteger earnedUKWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalUKEarned = BigInteger.ZERO;
@@ -29,6 +34,11 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger ssiACWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalssiAC = BigInteger.ZERO;
 	private BigInteger ssiACDisabPercentage = BigInteger.ZERO;
+	
+	private BigInteger ssiCOWithDisab = BigInteger.ZERO;
+	private BigInteger ssiCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalssiCO = BigInteger.ZERO;
+	private BigInteger ssiCODisabPercentage = BigInteger.ZERO;
 	
 	private BigInteger ssiUKWithDisab = BigInteger.ZERO;
 	private BigInteger ssiUKWithOutDisab = BigInteger.ZERO;
@@ -46,6 +56,12 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger totalssdiAC = BigInteger.ZERO;
 	private BigInteger ssdiACDisabPercentage = BigInteger.ZERO;
 	
+	private BigInteger ssdiCOWithDisab = BigInteger.ZERO;
+	private BigInteger ssdiCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalssdiCO = BigInteger.ZERO;
+	private BigInteger ssdiCODisabPercentage = BigInteger.ZERO;
+	
+	
 	private BigInteger ssdiUKWithDisab = BigInteger.ZERO;
 	private BigInteger ssdiUKWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalssdiUK = BigInteger.ZERO;
@@ -62,11 +78,15 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger totalvadisabilityserviceAC = BigInteger.ZERO;
 	private BigInteger vadisabilityserviceACDisabPercentage = BigInteger.ZERO;
 	
+	private BigInteger vadisabilityserviceCOWithDisab = BigInteger.ZERO;
+	private BigInteger vadisabilityserviceCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalvadisabilityserviceCO = BigInteger.ZERO;
+	private BigInteger vadisabilityserviceCODisabPercentage = BigInteger.ZERO;
+	
 	private BigInteger vadisabilityserviceUKWithDisab = BigInteger.ZERO;
 	private BigInteger vadisabilityserviceUKWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalvadisabilityserviceUK = BigInteger.ZERO;
 	private BigInteger vadisabilityserviceUKDisabPercentage = BigInteger.ZERO;
-	
 
 	private BigInteger privatedisabilityAOWithDisab = BigInteger.ZERO;
 	private BigInteger privatedisabilityAOWithOutDisab = BigInteger.ZERO;
@@ -77,6 +97,11 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger privatedisabilityACWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalprivatedisabilityAC = BigInteger.ZERO;
 	private BigInteger privatedisabilityACDisabPercentage = BigInteger.ZERO;
+	
+	private BigInteger privatedisabilityCOWithDisab = BigInteger.ZERO;
+	private BigInteger privatedisabilityCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalprivatedisabilityCO = BigInteger.ZERO;
+	private BigInteger privatedisabilityCODisabPercentage = BigInteger.ZERO;
 	
 	private BigInteger privatedisabilityUKWithDisab = BigInteger.ZERO;
 	private BigInteger privatedisabilityUKWithOutDisab = BigInteger.ZERO;
@@ -93,6 +118,11 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger totalworkerscompAC = BigInteger.ZERO;
 	private BigInteger workerscompACDisabPercentage = BigInteger.ZERO;
 	
+	private BigInteger workerscompCOWithDisab = BigInteger.ZERO;
+	private BigInteger workerscompCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalworkerscompCO = BigInteger.ZERO;
+	private BigInteger workerscompCODisabPercentage = BigInteger.ZERO;
+	
 	private BigInteger workerscompUKWithDisab = BigInteger.ZERO;
 	private BigInteger workerscompUKWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalworkerscompUK = BigInteger.ZERO;
@@ -107,6 +137,11 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger tanfACWithOutDisab = BigInteger.ZERO;
 	private BigInteger totaltanfAC = BigInteger.ZERO;
 	private BigInteger tanfACDisabPercentage = BigInteger.ZERO;
+	
+	private BigInteger tanfCOWithDisab = BigInteger.ZERO;
+	private BigInteger tanfCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totaltanfCO = BigInteger.ZERO;
+	private BigInteger tanfCODisabPercentage = BigInteger.ZERO;
 	
 	private BigInteger tanfUKWithDisab = BigInteger.ZERO;
 	private BigInteger tanfUKWithOutDisab = BigInteger.ZERO;
@@ -123,12 +158,16 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger totalsocsecretirementAC = BigInteger.ZERO;
 	private BigInteger socsecretirementACDisabPercentage = BigInteger.ZERO;
 	
+	private BigInteger socsecretirementCOWithDisab = BigInteger.ZERO;
+	private BigInteger socsecretirementCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalsocsecretirementCO = BigInteger.ZERO;
+	private BigInteger socsecretirementCODisabPercentage = BigInteger.ZERO;
+	
 	private BigInteger socsecretirementUKWithDisab = BigInteger.ZERO;
 	private BigInteger socsecretirementUKWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalsocsecretirementUK = BigInteger.ZERO;
 	private BigInteger socsecretirementUKDisabPercentage = BigInteger.ZERO;
 
-	
 	private BigInteger pensionAOWithDisab = BigInteger.ZERO;
 	private BigInteger pensionAOWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalpensionAO = BigInteger.ZERO;
@@ -138,6 +177,11 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger pensionACWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalpensionAC = BigInteger.ZERO;
 	private BigInteger pensionACDisabPercentage = BigInteger.ZERO;
+	
+	private BigInteger pensionCOWithDisab = BigInteger.ZERO;
+	private BigInteger pensionCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalpensionCO = BigInteger.ZERO;
+	private BigInteger pensionCODisabPercentage = BigInteger.ZERO;
 	
 	private BigInteger pensionUKWithDisab = BigInteger.ZERO;
 	private BigInteger pensionUKWithOutDisab = BigInteger.ZERO;
@@ -155,6 +199,11 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger totalchildsupportAC = BigInteger.ZERO;
 	private BigInteger childsupportACDisabPercentage = BigInteger.ZERO;
 	
+	private BigInteger childsupportCOWithDisab = BigInteger.ZERO;
+	private BigInteger childsupportCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalchildsupportCO = BigInteger.ZERO;
+	private BigInteger childsupportCODisabPercentage = BigInteger.ZERO;
+	
 	private BigInteger childsupportUKWithDisab = BigInteger.ZERO;
 	private BigInteger childsupportUKWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalchildsupportUK = BigInteger.ZERO;
@@ -170,6 +219,11 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger othersourceACWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalothersourceAC = BigInteger.ZERO;
 	private BigInteger othersourceACDisabPercentage =BigInteger.ZERO;
+	
+	private BigInteger othersourceCOWithDisab = BigInteger.ZERO;
+	private BigInteger othersourceCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalothersourceCO = BigInteger.ZERO;
+	private BigInteger othersourceCODisabPercentage =BigInteger.ZERO;
 	
 	private BigInteger othersourceUKWithDisab = BigInteger.ZERO;
 	private BigInteger othersourceUKWithOutDisab = BigInteger.ZERO;
@@ -187,6 +241,11 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger totalnoSourceAC = BigInteger.ZERO;
 	private BigInteger noSourceACDisabPercentage = BigInteger.ZERO;
 	
+	private BigInteger noSourceCOWithDisab = BigInteger.ZERO;
+	private BigInteger noSourceCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalnoSourceCO = BigInteger.ZERO;
+	private BigInteger noSourceCODisabPercentage = BigInteger.ZERO;
+	
 	private BigInteger noSourceUKWithDisab = BigInteger.ZERO;
 	private BigInteger noSourceUKWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalnoSourceUK = BigInteger.ZERO;
@@ -201,6 +260,11 @@ public class DisabIncomeAndSourceDataBean {
 	private BigInteger totalACWithOutDisab = BigInteger.ZERO;
 	private BigInteger totalAC = BigInteger.ZERO;
 	private BigInteger totalACDisabPercentage = BigInteger.ZERO;
+	
+	private BigInteger totalCOWithDisab = BigInteger.ZERO;
+	private BigInteger totalCOWithOutDisab = BigInteger.ZERO;
+	private BigInteger totalCO = BigInteger.ZERO;
+	private BigInteger totalCODisabPercentage = BigInteger.ZERO;
 	
 	private BigInteger totalUKWithDisab = BigInteger.ZERO;
 	private BigInteger totalUKWithOutDisab = BigInteger.ZERO;
@@ -2080,5 +2144,629 @@ public class DisabIncomeAndSourceDataBean {
 	 */
 	public void setTotalUK(BigInteger totalUK) {
 		this.totalUK = totalUK;
+	}
+	/**
+	 * @return the earnedCOWithDisab
+	 */
+	public BigInteger getEarnedCOWithDisab() {
+		return earnedCOWithDisab;
+	}
+	/**
+	 * @param earnedCOWithDisab the earnedCOWithDisab to set
+	 */
+	public void setEarnedCOWithDisab(BigInteger earnedCOWithDisab) {
+		this.earnedCOWithDisab = earnedCOWithDisab;
+	}
+	/**
+	 * @return the earnedCOWithOutDisab
+	 */
+	public BigInteger getEarnedCOWithOutDisab() {
+		return earnedCOWithOutDisab;
+	}
+	/**
+	 * @param earnedCOWithOutDisab the earnedCOWithOutDisab to set
+	 */
+	public void setEarnedCOWithOutDisab(BigInteger earnedCOWithOutDisab) {
+		this.earnedCOWithOutDisab = earnedCOWithOutDisab;
+	}
+	/**
+	 * @return the totalCOEarned
+	 */
+	public BigInteger getTotalCOEarned() {
+		return totalCOEarned;
+	}
+	/**
+	 * @param totalCOEarned the totalCOEarned to set
+	 */
+	public void setTotalCOEarned(BigInteger totalCOEarned) {
+		this.totalCOEarned = totalCOEarned;
+	}
+	/**
+	 * @return the earnedCODisabPercentage
+	 */
+	public BigInteger getEarnedCODisabPercentage() {
+		return earnedCODisabPercentage;
+	}
+	/**
+	 * @param earnedCODisabPercentage the earnedCODisabPercentage to set
+	 */
+	public void setEarnedCODisabPercentage(BigInteger earnedCODisabPercentage) {
+		this.earnedCODisabPercentage = earnedCODisabPercentage;
+	}
+	/**
+	 * @return the ssiCOWithDisab
+	 */
+	public BigInteger getSsiCOWithDisab() {
+		return ssiCOWithDisab;
+	}
+	/**
+	 * @param ssiCOWithDisab the ssiCOWithDisab to set
+	 */
+	public void setSsiCOWithDisab(BigInteger ssiCOWithDisab) {
+		this.ssiCOWithDisab = ssiCOWithDisab;
+	}
+	/**
+	 * @return the ssiCOWithOutDisab
+	 */
+	public BigInteger getSsiCOWithOutDisab() {
+		return ssiCOWithOutDisab;
+	}
+	/**
+	 * @param ssiCOWithOutDisab the ssiCOWithOutDisab to set
+	 */
+	public void setSsiCOWithOutDisab(BigInteger ssiCOWithOutDisab) {
+		this.ssiCOWithOutDisab = ssiCOWithOutDisab;
+	}
+	/**
+	 * @return the totalssiCO
+	 */
+	public BigInteger getTotalssiCO() {
+		return totalssiCO;
+	}
+	/**
+	 * @param totalssiCO the totalssiCO to set
+	 */
+	public void setTotalssiCO(BigInteger totalssiCO) {
+		this.totalssiCO = totalssiCO;
+	}
+	/**
+	 * @return the ssiCODisabPercentage
+	 */
+	public BigInteger getSsiCODisabPercentage() {
+		return ssiCODisabPercentage;
+	}
+	/**
+	 * @param ssiCODisabPercentage the ssiCODisabPercentage to set
+	 */
+	public void setSsiCODisabPercentage(BigInteger ssiCODisabPercentage) {
+		this.ssiCODisabPercentage = ssiCODisabPercentage;
+	}
+	/**
+	 * @return the ssdiCOWithDisab
+	 */
+	public BigInteger getSsdiCOWithDisab() {
+		return ssdiCOWithDisab;
+	}
+	/**
+	 * @param ssdiCOWithDisab the ssdiCOWithDisab to set
+	 */
+	public void setSsdiCOWithDisab(BigInteger ssdiCOWithDisab) {
+		this.ssdiCOWithDisab = ssdiCOWithDisab;
+	}
+	/**
+	 * @return the ssdiCOWithOutDisab
+	 */
+	public BigInteger getSsdiCOWithOutDisab() {
+		return ssdiCOWithOutDisab;
+	}
+	/**
+	 * @param ssdiCOWithOutDisab the ssdiCOWithOutDisab to set
+	 */
+	public void setSsdiCOWithOutDisab(BigInteger ssdiCOWithOutDisab) {
+		this.ssdiCOWithOutDisab = ssdiCOWithOutDisab;
+	}
+	/**
+	 * @return the totalssdiCO
+	 */
+	public BigInteger getTotalssdiCO() {
+		return totalssdiCO;
+	}
+	/**
+	 * @param totalssdiCO the totalssdiCO to set
+	 */
+	public void setTotalssdiCO(BigInteger totalssdiCO) {
+		this.totalssdiCO = totalssdiCO;
+	}
+	/**
+	 * @return the ssdiCODisabPercentage
+	 */
+	public BigInteger getSsdiCODisabPercentage() {
+		return ssdiCODisabPercentage;
+	}
+	/**
+	 * @param ssdiCODisabPercentage the ssdiCODisabPercentage to set
+	 */
+	public void setSsdiCODisabPercentage(BigInteger ssdiCODisabPercentage) {
+		this.ssdiCODisabPercentage = ssdiCODisabPercentage;
+	}
+	/**
+	 * @return the vadisabilityserviceCOWithDisab
+	 */
+	public BigInteger getVadisabilityserviceCOWithDisab() {
+		return vadisabilityserviceCOWithDisab;
+	}
+	/**
+	 * @param vadisabilityserviceCOWithDisab the vadisabilityserviceCOWithDisab to set
+	 */
+	public void setVadisabilityserviceCOWithDisab(BigInteger vadisabilityserviceCOWithDisab) {
+		this.vadisabilityserviceCOWithDisab = vadisabilityserviceCOWithDisab;
+	}
+	/**
+	 * @return the vadisabilityserviceCOWithOutDisab
+	 */
+	public BigInteger getVadisabilityserviceCOWithOutDisab() {
+		return vadisabilityserviceCOWithOutDisab;
+	}
+	/**
+	 * @param vadisabilityserviceCOWithOutDisab the vadisabilityserviceCOWithOutDisab to set
+	 */
+	public void setVadisabilityserviceCOWithOutDisab(BigInteger vadisabilityserviceCOWithOutDisab) {
+		this.vadisabilityserviceCOWithOutDisab = vadisabilityserviceCOWithOutDisab;
+	}
+	/**
+	 * @return the totalvadisabilityserviceCO
+	 */
+	public BigInteger getTotalvadisabilityserviceCO() {
+		return totalvadisabilityserviceCO;
+	}
+	/**
+	 * @param totalvadisabilityserviceCO the totalvadisabilityserviceCO to set
+	 */
+	public void setTotalvadisabilityserviceCO(BigInteger totalvadisabilityserviceCO) {
+		this.totalvadisabilityserviceCO = totalvadisabilityserviceCO;
+	}
+	/**
+	 * @return the vadisabilityserviceCODisabPercentage
+	 */
+	public BigInteger getVadisabilityserviceCODisabPercentage() {
+		return vadisabilityserviceCODisabPercentage;
+	}
+	/**
+	 * @param vadisabilityserviceCODisabPercentage the vadisabilityserviceCODisabPercentage to set
+	 */
+	public void setVadisabilityserviceCODisabPercentage(BigInteger vadisabilityserviceCODisabPercentage) {
+		this.vadisabilityserviceCODisabPercentage = vadisabilityserviceCODisabPercentage;
+	}
+	/**
+	 * @return the privatedisabilityCOWithDisab
+	 */
+	public BigInteger getPrivatedisabilityCOWithDisab() {
+		return privatedisabilityCOWithDisab;
+	}
+	/**
+	 * @param privatedisabilityCOWithDisab the privatedisabilityCOWithDisab to set
+	 */
+	public void setPrivatedisabilityCOWithDisab(BigInteger privatedisabilityCOWithDisab) {
+		this.privatedisabilityCOWithDisab = privatedisabilityCOWithDisab;
+	}
+	/**
+	 * @return the privatedisabilityCOWithOutDisab
+	 */
+	public BigInteger getPrivatedisabilityCOWithOutDisab() {
+		return privatedisabilityCOWithOutDisab;
+	}
+	/**
+	 * @param privatedisabilityCOWithOutDisab the privatedisabilityCOWithOutDisab to set
+	 */
+	public void setPrivatedisabilityCOWithOutDisab(BigInteger privatedisabilityCOWithOutDisab) {
+		this.privatedisabilityCOWithOutDisab = privatedisabilityCOWithOutDisab;
+	}
+	/**
+	 * @return the totalprivatedisabilityCO
+	 */
+	public BigInteger getTotalprivatedisabilityCO() {
+		return totalprivatedisabilityCO;
+	}
+	/**
+	 * @param totalprivatedisabilityCO the totalprivatedisabilityCO to set
+	 */
+	public void setTotalprivatedisabilityCO(BigInteger totalprivatedisabilityCO) {
+		this.totalprivatedisabilityCO = totalprivatedisabilityCO;
+	}
+	/**
+	 * @return the privatedisabilityCODisabPercentage
+	 */
+	public BigInteger getPrivatedisabilityCODisabPercentage() {
+		return privatedisabilityCODisabPercentage;
+	}
+	/**
+	 * @param privatedisabilityCODisabPercentage the privatedisabilityCODisabPercentage to set
+	 */
+	public void setPrivatedisabilityCODisabPercentage(BigInteger privatedisabilityCODisabPercentage) {
+		this.privatedisabilityCODisabPercentage = privatedisabilityCODisabPercentage;
+	}
+	/**
+	 * @return the workerscompCOWithDisab
+	 */
+	public BigInteger getWorkerscompCOWithDisab() {
+		return workerscompCOWithDisab;
+	}
+	/**
+	 * @param workerscompCOWithDisab the workerscompCOWithDisab to set
+	 */
+	public void setWorkerscompCOWithDisab(BigInteger workerscompCOWithDisab) {
+		this.workerscompCOWithDisab = workerscompCOWithDisab;
+	}
+	/**
+	 * @return the workerscompCOWithOutDisab
+	 */
+	public BigInteger getWorkerscompCOWithOutDisab() {
+		return workerscompCOWithOutDisab;
+	}
+	/**
+	 * @param workerscompCOWithOutDisab the workerscompCOWithOutDisab to set
+	 */
+	public void setWorkerscompCOWithOutDisab(BigInteger workerscompCOWithOutDisab) {
+		this.workerscompCOWithOutDisab = workerscompCOWithOutDisab;
+	}
+	/**
+	 * @return the totalworkerscompCO
+	 */
+	public BigInteger getTotalworkerscompCO() {
+		return totalworkerscompCO;
+	}
+	/**
+	 * @param totalworkerscompCO the totalworkerscompCO to set
+	 */
+	public void setTotalworkerscompCO(BigInteger totalworkerscompCO) {
+		this.totalworkerscompCO = totalworkerscompCO;
+	}
+	/**
+	 * @return the workerscompCODisabPercentage
+	 */
+	public BigInteger getWorkerscompCODisabPercentage() {
+		return workerscompCODisabPercentage;
+	}
+	/**
+	 * @param workerscompCODisabPercentage the workerscompCODisabPercentage to set
+	 */
+	public void setWorkerscompCODisabPercentage(BigInteger workerscompCODisabPercentage) {
+		this.workerscompCODisabPercentage = workerscompCODisabPercentage;
+	}
+	/**
+	 * @return the tanfCOWithDisab
+	 */
+	public BigInteger getTanfCOWithDisab() {
+		return tanfCOWithDisab;
+	}
+	/**
+	 * @param tanfCOWithDisab the tanfCOWithDisab to set
+	 */
+	public void setTanfCOWithDisab(BigInteger tanfCOWithDisab) {
+		this.tanfCOWithDisab = tanfCOWithDisab;
+	}
+	/**
+	 * @return the tanfCOWithOutDisab
+	 */
+	public BigInteger getTanfCOWithOutDisab() {
+		return tanfCOWithOutDisab;
+	}
+	/**
+	 * @param tanfCOWithOutDisab the tanfCOWithOutDisab to set
+	 */
+	public void setTanfCOWithOutDisab(BigInteger tanfCOWithOutDisab) {
+		this.tanfCOWithOutDisab = tanfCOWithOutDisab;
+	}
+	/**
+	 * @return the totaltanfCO
+	 */
+	public BigInteger getTotaltanfCO() {
+		return totaltanfCO;
+	}
+	/**
+	 * @param totaltanfCO the totaltanfCO to set
+	 */
+	public void setTotaltanfCO(BigInteger totaltanfCO) {
+		this.totaltanfCO = totaltanfCO;
+	}
+	/**
+	 * @return the tanfCODisabPercentage
+	 */
+	public BigInteger getTanfCODisabPercentage() {
+		return tanfCODisabPercentage;
+	}
+	/**
+	 * @param tanfCODisabPercentage the tanfCODisabPercentage to set
+	 */
+	public void setTanfCODisabPercentage(BigInteger tanfCODisabPercentage) {
+		this.tanfCODisabPercentage = tanfCODisabPercentage;
+	}
+	/**
+	 * @return the socsecretirementCOWithDisab
+	 */
+	public BigInteger getSocsecretirementCOWithDisab() {
+		return socsecretirementCOWithDisab;
+	}
+	/**
+	 * @param socsecretirementCOWithDisab the socsecretirementCOWithDisab to set
+	 */
+	public void setSocsecretirementCOWithDisab(BigInteger socsecretirementCOWithDisab) {
+		this.socsecretirementCOWithDisab = socsecretirementCOWithDisab;
+	}
+	/**
+	 * @return the socsecretirementCOWithOutDisab
+	 */
+	public BigInteger getSocsecretirementCOWithOutDisab() {
+		return socsecretirementCOWithOutDisab;
+	}
+	/**
+	 * @param socsecretirementCOWithOutDisab the socsecretirementCOWithOutDisab to set
+	 */
+	public void setSocsecretirementCOWithOutDisab(BigInteger socsecretirementCOWithOutDisab) {
+		this.socsecretirementCOWithOutDisab = socsecretirementCOWithOutDisab;
+	}
+	/**
+	 * @return the totalsocsecretirementCO
+	 */
+	public BigInteger getTotalsocsecretirementCO() {
+		return totalsocsecretirementCO;
+	}
+	/**
+	 * @param totalsocsecretirementCO the totalsocsecretirementCO to set
+	 */
+	public void setTotalsocsecretirementCO(BigInteger totalsocsecretirementCO) {
+		this.totalsocsecretirementCO = totalsocsecretirementCO;
+	}
+	/**
+	 * @return the socsecretirementCODisabPercentage
+	 */
+	public BigInteger getSocsecretirementCODisabPercentage() {
+		return socsecretirementCODisabPercentage;
+	}
+	/**
+	 * @param socsecretirementCODisabPercentage the socsecretirementCODisabPercentage to set
+	 */
+	public void setSocsecretirementCODisabPercentage(BigInteger socsecretirementCODisabPercentage) {
+		this.socsecretirementCODisabPercentage = socsecretirementCODisabPercentage;
+	}
+	/**
+	 * @return the pensionCOWithDisab
+	 */
+	public BigInteger getPensionCOWithDisab() {
+		return pensionCOWithDisab;
+	}
+	/**
+	 * @param pensionCOWithDisab the pensionCOWithDisab to set
+	 */
+	public void setPensionCOWithDisab(BigInteger pensionCOWithDisab) {
+		this.pensionCOWithDisab = pensionCOWithDisab;
+	}
+	/**
+	 * @return the pensionCOWithOutDisab
+	 */
+	public BigInteger getPensionCOWithOutDisab() {
+		return pensionCOWithOutDisab;
+	}
+	/**
+	 * @param pensionCOWithOutDisab the pensionCOWithOutDisab to set
+	 */
+	public void setPensionCOWithOutDisab(BigInteger pensionCOWithOutDisab) {
+		this.pensionCOWithOutDisab = pensionCOWithOutDisab;
+	}
+	/**
+	 * @return the totalpensionCO
+	 */
+	public BigInteger getTotalpensionCO() {
+		return totalpensionCO;
+	}
+	/**
+	 * @param totalpensionCO the totalpensionCO to set
+	 */
+	public void setTotalpensionCO(BigInteger totalpensionCO) {
+		this.totalpensionCO = totalpensionCO;
+	}
+	/**
+	 * @return the pensionCODisabPercentage
+	 */
+	public BigInteger getPensionCODisabPercentage() {
+		return pensionCODisabPercentage;
+	}
+	/**
+	 * @param pensionCODisabPercentage the pensionCODisabPercentage to set
+	 */
+	public void setPensionCODisabPercentage(BigInteger pensionCODisabPercentage) {
+		this.pensionCODisabPercentage = pensionCODisabPercentage;
+	}
+	/**
+	 * @return the childsupportCOWithDisab
+	 */
+	public BigInteger getChildsupportCOWithDisab() {
+		return childsupportCOWithDisab;
+	}
+	/**
+	 * @param childsupportCOWithDisab the childsupportCOWithDisab to set
+	 */
+	public void setChildsupportCOWithDisab(BigInteger childsupportCOWithDisab) {
+		this.childsupportCOWithDisab = childsupportCOWithDisab;
+	}
+	/**
+	 * @return the childsupportCOWithOutDisab
+	 */
+	public BigInteger getChildsupportCOWithOutDisab() {
+		return childsupportCOWithOutDisab;
+	}
+	/**
+	 * @param childsupportCOWithOutDisab the childsupportCOWithOutDisab to set
+	 */
+	public void setChildsupportCOWithOutDisab(BigInteger childsupportCOWithOutDisab) {
+		this.childsupportCOWithOutDisab = childsupportCOWithOutDisab;
+	}
+	/**
+	 * @return the totalchildsupportCO
+	 */
+	public BigInteger getTotalchildsupportCO() {
+		return totalchildsupportCO;
+	}
+	/**
+	 * @param totalchildsupportCO the totalchildsupportCO to set
+	 */
+	public void setTotalchildsupportCO(BigInteger totalchildsupportCO) {
+		this.totalchildsupportCO = totalchildsupportCO;
+	}
+	/**
+	 * @return the childsupportCODisabPercentage
+	 */
+	public BigInteger getChildsupportCODisabPercentage() {
+		return childsupportCODisabPercentage;
+	}
+	/**
+	 * @param childsupportCODisabPercentage the childsupportCODisabPercentage to set
+	 */
+	public void setChildsupportCODisabPercentage(BigInteger childsupportCODisabPercentage) {
+		this.childsupportCODisabPercentage = childsupportCODisabPercentage;
+	}
+	/**
+	 * @return the othersourceCOWithDisab
+	 */
+	public BigInteger getOthersourceCOWithDisab() {
+		return othersourceCOWithDisab;
+	}
+	/**
+	 * @param othersourceCOWithDisab the othersourceCOWithDisab to set
+	 */
+	public void setOthersourceCOWithDisab(BigInteger othersourceCOWithDisab) {
+		this.othersourceCOWithDisab = othersourceCOWithDisab;
+	}
+	/**
+	 * @return the othersourceCOWithOutDisab
+	 */
+	public BigInteger getOthersourceCOWithOutDisab() {
+		return othersourceCOWithOutDisab;
+	}
+	/**
+	 * @param othersourceCOWithOutDisab the othersourceCOWithOutDisab to set
+	 */
+	public void setOthersourceCOWithOutDisab(BigInteger othersourceCOWithOutDisab) {
+		this.othersourceCOWithOutDisab = othersourceCOWithOutDisab;
+	}
+	/**
+	 * @return the totalothersourceCO
+	 */
+	public BigInteger getTotalothersourceCO() {
+		return totalothersourceCO;
+	}
+	/**
+	 * @param totalothersourceCO the totalothersourceCO to set
+	 */
+	public void setTotalothersourceCO(BigInteger totalothersourceCO) {
+		this.totalothersourceCO = totalothersourceCO;
+	}
+	/**
+	 * @return the othersourceCODisabPercentage
+	 */
+	public BigInteger getOthersourceCODisabPercentage() {
+		return othersourceCODisabPercentage;
+	}
+	/**
+	 * @param othersourceCODisabPercentage the othersourceCODisabPercentage to set
+	 */
+	public void setOthersourceCODisabPercentage(BigInteger othersourceCODisabPercentage) {
+		this.othersourceCODisabPercentage = othersourceCODisabPercentage;
+	}
+	/**
+	 * @return the noSourceCOWithDisab
+	 */
+	public BigInteger getNoSourceCOWithDisab() {
+		return noSourceCOWithDisab;
+	}
+	/**
+	 * @param noSourceCOWithDisab the noSourceCOWithDisab to set
+	 */
+	public void setNoSourceCOWithDisab(BigInteger noSourceCOWithDisab) {
+		this.noSourceCOWithDisab = noSourceCOWithDisab;
+	}
+	/**
+	 * @return the noSourceCOWithOutDisab
+	 */
+	public BigInteger getNoSourceCOWithOutDisab() {
+		return noSourceCOWithOutDisab;
+	}
+	/**
+	 * @param noSourceCOWithOutDisab the noSourceCOWithOutDisab to set
+	 */
+	public void setNoSourceCOWithOutDisab(BigInteger noSourceCOWithOutDisab) {
+		this.noSourceCOWithOutDisab = noSourceCOWithOutDisab;
+	}
+	/**
+	 * @return the totalnoSourceCO
+	 */
+	public BigInteger getTotalnoSourceCO() {
+		return totalnoSourceCO;
+	}
+	/**
+	 * @param totalnoSourceCO the totalnoSourceCO to set
+	 */
+	public void setTotalnoSourceCO(BigInteger totalnoSourceCO) {
+		this.totalnoSourceCO = totalnoSourceCO;
+	}
+	/**
+	 * @return the noSourceCODisabPercentage
+	 */
+	public BigInteger getNoSourceCODisabPercentage() {
+		return noSourceCODisabPercentage;
+	}
+	/**
+	 * @param noSourceCODisabPercentage the noSourceCODisabPercentage to set
+	 */
+	public void setNoSourceCODisabPercentage(BigInteger noSourceCODisabPercentage) {
+		this.noSourceCODisabPercentage = noSourceCODisabPercentage;
+	}
+	/**
+	 * @return the totalCOWithDisab
+	 */
+	public BigInteger getTotalCOWithDisab() {
+		return totalCOWithDisab;
+	}
+	/**
+	 * @param totalCOWithDisab the totalCOWithDisab to set
+	 */
+	public void setTotalCOWithDisab(BigInteger totalCOWithDisab) {
+		this.totalCOWithDisab = totalCOWithDisab;
+	}
+	/**
+	 * @return the totalCOWithOutDisab
+	 */
+	public BigInteger getTotalCOWithOutDisab() {
+		return totalCOWithOutDisab;
+	}
+	/**
+	 * @param totalCOWithOutDisab the totalCOWithOutDisab to set
+	 */
+	public void setTotalCOWithOutDisab(BigInteger totalCOWithOutDisab) {
+		this.totalCOWithOutDisab = totalCOWithOutDisab;
+	}
+	/**
+	 * @return the totalCO
+	 */
+	public BigInteger getTotalCO() {
+		return totalCO;
+	}
+	/**
+	 * @param totalCO the totalCO to set
+	 */
+	public void setTotalCO(BigInteger totalCO) {
+		this.totalCO = totalCO;
+	}
+	/**
+	 * @return the totalCODisabPercentage
+	 */
+	public BigInteger getTotalCODisabPercentage() {
+		return totalCODisabPercentage;
+	}
+	/**
+	 * @param totalCODisabPercentage the totalCODisabPercentage to set
+	 */
+	public void setTotalCODisabPercentage(BigInteger totalCODisabPercentage) {
+		this.totalCODisabPercentage = totalCODisabPercentage;
 	}
 }
