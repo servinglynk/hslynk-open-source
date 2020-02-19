@@ -4,22 +4,23 @@ import java.math.BigInteger;
 
 public class Q04aDataBean extends ReportBean{
 	
-	private BigInteger q04aHmisProjectIdService;
-	private String q04aHmisProjectType;
-	private BigInteger q04aIdentityProjectId;
-	private String q04aMethodOfTracking;
-	private String q04aOrgId;
-	private String q04aOrgName;
-	private String q04aProjectId;
-	private String q04aProjectName;
-	private String q04aAffiliatedResidentialProject;
-	private String q04aProjectIdsOfAffiliation;
-	private String q04acocNumber;
-	private String q04aGeoCode;
-	private String q04aVictimServiceProvider;
+	 static final String SPACE = "0";
+	private BigInteger q04aHmisProjectIdService=BigInteger.ZERO;
+	private String q04aHmisProjectType=SPACE;
+	private BigInteger q04aIdentityProjectId=BigInteger.ZERO;
+	private String q04aMethodOfTracking=SPACE;
+	private String q04aOrgId=SPACE;
+	private String q04aOrgName=SPACE;
+	private String q04aProjectId=SPACE;
+	private String q04aProjectName=SPACE;
+	private String q04aAffiliatedResidentialProject=SPACE;
+	private String q04aProjectIdsOfAffiliation=SPACE;
+	private String q04acocNumber=SPACE;
+	private String q04aGeoCode=SPACE;
+	private String q04aVictimServiceProvider=SPACE;
 	private String q04aReportStartDate;
 	private String q04aReportEndDate;
-	private String q04aHmisSoftwareName;
+	private String q04aHmisSoftwareName=SPACE;
 	
 	
 	/***

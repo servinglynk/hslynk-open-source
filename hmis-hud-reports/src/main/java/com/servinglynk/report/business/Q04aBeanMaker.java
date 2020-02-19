@@ -23,11 +23,18 @@ public class Q04aBeanMaker extends BaseBeanMaker {
 	
 			public static List<Q04aDataBean> getQ04aDataBeanList(String schema, String projectId,ReportData data) {
 				Q04aDataBean q04aDataBean = new Q04aDataBean(); 
+				q04aDataBean.setQ04acocNumber("OH-507");
+				q04aDataBean.setQ04aHmisProjectType("1");
 				if(data.isLiveMode()) {
 					if(StringUtils.isNotBlank(projectId)) {
 					populateProject(schema, projectId, q04aDataBean,data);
 					}
 				}
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				// dataBean.setHomePageEndDate(dateFormat.format(date));
+				q04aDataBean.setQ04aReportStartDate(dateFormat.format(data.getReportStartDate()));
+				q04aDataBean.setQ04aReportEndDate(dateFormat.format(data.getReportEndDate()));
+	
 				return Arrays.asList(q04aDataBean);
 			}
 			public static void populateProject(String schema,String id, Q04aDataBean q04aDataBean,ReportData data ) {
@@ -41,14 +48,10 @@ public class Q04aBeanMaker extends BaseBeanMaker {
 					resultSet = statement.executeQuery();
 					while(resultSet.next()) {
 					 q04aDataBean.setQ04aProjectName(resultSet.getString("projectname"));
-					 q04aDataBean.setQ04aHmisProjectType(resultSet.getString("projecttype_desc"));
+					 q04aDataBean.setQ04aHmisProjectType(resultSet.getString("projecttype"));
 					 q04aDataBean.setQ04aProjectId(resultSet.getString("source_system_id"));
 					 q04aDataBean.setQ04aMethodOfTracking(resultSet.getString("trackingmethod_desc"));
-						DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-						// dataBean.setHomePageEndDate(dateFormat.format(date));
-					 q04aDataBean.setQ04aReportStartDate(dateFormat.format(data.getReportStartDate()));
-					 q04aDataBean.setQ04aReportEndDate(dateFormat.format(data.getReportEndDate()));
-			
+				
 					 q04aDataBean.setQ04aHmisSoftwareName("ServingLynk LLC");
 				 //	 q04aDataBean.setQ04aGeoCode(q04aGeoCode);
 				 //	 q04aDataBean.setQ04aVictimServiceProvider(q04aVictimServiceProvider);
