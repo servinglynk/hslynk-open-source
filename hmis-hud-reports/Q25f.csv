@@ -1,10 +1,10 @@
 Conditions at Exit for Leavers,Number of Veterans at Start,Number of Veterans at Annual Assessment (Stayers),Number of Veterans at Exit (Leavers)
 "  Veterans with Only Earned Income (i.e., Employment Income)",0,0,0
-  Veterans with Only Other Income,0,0,0
+  Veterans with Only Other Income,1,0,0
   Veterans with Both Earned and Other Income,0,0,0
-  Veterans with No Income,0,0,0
+  Veterans with No Income,1,1,1
   Veterans with Client Doesn’t Know/Client Refused Income Information,0,0,0
   Veterans with Missing Income Information,0,0,0
    Number of veterans not yet required to have an annual assessment,0,0,0
    Number of veterans without required annual assessment,0,0,0
-  Total Veterans,0,0,0
+  Total Veterans,2,0,1

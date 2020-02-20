@@ -1,6 +1,7 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +24,9 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 		List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
-		
+		List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
+		enrollments.addAll(data.getActiveClients());
+		enrollments.addAll(data.getLeavers());
 		// mental health -- select enrollment_id from disabilities where datacollectionstage =1 and disabilitytype='9'
 		// alcohol --select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='10' and disabilityresponse='1'
 		// drug -- select project_entry_id from disabilities where datacollectionstage = '1' and disabilitytype='10' and disabilityresponse='2'
@@ -36,7 +39,6 @@ public class Q13a1BeanMaker extends BaseBeanMaker {
 		String query = " select distinct(e.dedup_client_id) from %s.disabilities d, %s.enrollment e where e.id =d.enrollmentid and information_date >=:startDate and TO_DATE(information_date)=TO_DATE(e.entrydate) and datacollectionstage = '1'    and information_date <= :endDate ";
 		
 		Set<String> mentalHealthList = getEnrollmentFromDisabilities(data.getSchema(),data, query+" and disabilitytype='9' ");
-		List<EnrollmentModel> enrollments = data.getEnrollments();   
 		List<EnrollmentModel> enrollmentsHHWithChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 		List<EnrollmentModel> enrollmentsHHWithOutChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 		List<EnrollmentModel> enrollmentsHHWithOneAdults = enrollments.parallelStream().filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID()) && enrollment.getAgeatentry() > 18 ).collect(Collectors.toList());

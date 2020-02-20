@@ -1,6 +1,7 @@
 package com.servinglynk.report.business;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -27,8 +28,11 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 		List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 		List<String> projectsHHWithChildren = data.getProjectsHHWithChildren();
 		List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
+		List<EnrollmentModel> enrollments = new ArrayList<EnrollmentModel>();
+		enrollments.addAll(data.getActiveClients());
+		enrollments.addAll(data.getLeavers());
 		
-		List<EnrollmentModel> enrollments = data.getActiveClients();
+		
 		List<EnrollmentModel>  ewithChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 		List<EnrollmentModel>  ewithOutChildren = enrollments.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
 		List<EnrollmentModel> enrollmentsHHWithOneAdults = enrollments.parallelStream().filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID()) && enrollment.getAgeatentry() > 18 ).collect(Collectors.toList());
@@ -261,7 +265,7 @@ public class Q13a2BeanMaker extends BaseBeanMaker {
 	    	q13a2Bean.setQ13a2InformationmissingUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
 		}
 		
-    	q13a2Bean.setQ13a2TotalSummed(BigInteger.valueOf(getSize(enrollments)));
+    	q13a2Bean.setQ13a2TotalSummed(BigInteger.valueOf(getSize(data.getClients())));
     	q13a2Bean.setQ13a2TotalWithoutChildren(totalWOC);
     	q13a2Bean.setQ13a2TotalWithAdults(totalWA);
     	q13a2Bean.setQ13a2TotalWithChildren(totalWC);

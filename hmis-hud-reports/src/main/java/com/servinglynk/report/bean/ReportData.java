@@ -53,7 +53,7 @@ public class ReportData {
 	private BigInteger totNumOfPersonServed;
 	private BigInteger numOfAdults;
 	private BigInteger numOfChildren;
-	private BigInteger numOfPersonsWithUnknownAge;
+	private List<ClientModel> personsWithUnknownAge;
 	private BigInteger totNoOfAdultStayers;
 	private BigInteger totNoOfAdultLeavers;
 	private BigInteger noOfVeterans;
@@ -295,22 +295,22 @@ public class ReportData {
 		return numOfChildren;
 	}
 	/**
+	 * @return the personsWithUnknownAge
+	 */
+	public List<ClientModel> getPersonsWithUnknownAge() {
+		return personsWithUnknownAge;
+	}
+	/**
+	 * @param personsWithUnknownAge the personsWithUnknownAge to set
+	 */
+	public void setPersonsWithUnknownAge(List<ClientModel> personsWithUnknownAge) {
+		this.personsWithUnknownAge = personsWithUnknownAge;
+	}
+	/**
 	 * @param numOfChildren the numOfChildren to set
 	 */
 	public void setNumOfChildren(BigInteger numOfChildren) {
 		this.numOfChildren = numOfChildren;
-	}
-	/**
-	 * @return the numOfPersonsWithUnknownAge
-	 */
-	public BigInteger getNumOfPersonsWithUnknownAge() {
-		return numOfPersonsWithUnknownAge;
-	}
-	/**
-	 * @param numOfPersonsWithUnknownAge the numOfPersonsWithUnknownAge to set
-	 */
-	public void setNumOfPersonsWithUnknownAge(BigInteger numOfPersonsWithUnknownAge) {
-		this.numOfPersonsWithUnknownAge = numOfPersonsWithUnknownAge;
 	}
 	/**
 	 * @return the totNoOfAdultStayers

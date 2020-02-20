@@ -69,7 +69,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			bean.setTotNumOfPersonServed(BigInteger.valueOf(clients !=null ? clients.size() : 0));
 			bean.setNumOfAdults(BigInteger.valueOf(adults !=null ?adults.size() : 0));
 			bean.setNumOfChildren(BigInteger.valueOf(children !=null ? children.size() : 0));
-			bean.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(ageUnknown !=null ? ageUnknown.size() :0));
+			bean.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(getSize(ageUnknown)));
 			
 			
 			bean.setNoOfChildHeadsOfHousehold(BigInteger.valueOf(childHoh !=null ? childHoh.size() : 0));
@@ -97,7 +97,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			data.setTotNumOfPersonServed(bean.getTotNumOfPersonServed());  //Refers --> Total number of persons served 
 			data.setNumOfAdults(bean.getNumOfAdults()); //Refers --> Number of adults (age 18 or over)
 			data.setNumOfChildren(bean.getNumOfChildren()); //Refers --> Number of children (under age 18)
-			data.setNumOfPersonsWithUnknownAge(bean.getNumOfPersonsWithUnknownAge()); // Refers --> Number of persons with unknown age
+			data.setPersonsWithUnknownAge(ageUnknown); // Refers --> Number of persons with unknown age
 			data.setTotNoOfAdultLeavers(bean.getTotNoOfAdultLeavers()); //Refers --> Number of adult leavers
 			data.setNumOfAdultandHeadOfHHLeavers(bean.getNumOfAdultandHeadOfHHLeavers()); // Refers --> Number of adult and head of household leavers
 			data.setTotNoOfAdultStayers(bean.getTotNoOfAdultStayers()); // Refers --> Number of adult stayers

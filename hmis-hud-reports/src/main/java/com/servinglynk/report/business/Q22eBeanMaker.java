@@ -221,11 +221,11 @@ public class Q22eBeanMaker extends BaseBeanMaker {
 				List<Q22BeanModel>  notYetMovedIntoHousingWithChildren = withChildren.parallelStream().filter(q22BeanModel -> q22BeanModel.isNotYetMovedIntoHousing()).collect(Collectors.toList());
 				List<Q22BeanModel>  notYetMovedIntoHousingLessUnknown = unknown.parallelStream().filter(q22BeanModel -> q22BeanModel.isNotYetMovedIntoHousing()).collect(Collectors.toList());
 					
-				int notYetMovedIntoHousingAllDataSize = q22Bean7DaysOrLessAllData != null ? q22Bean7DaysOrLessAllData.size() :0;
-				int notYetMovedIntoHousingWithoutChildrenSize = q22Bean7DaysOrLessWithoutChildren != null ? q22Bean7DaysOrLessWithoutChildren.size() : 0;
-				int notYetMovedIntoHousingWithChildAndAdultsSize = q22Bean7DaysOrLessWithChildAndAdults != null ? q22Bean7DaysOrLessWithChildAndAdults.size() :0;
-				int notYetMovedIntoHousingWithChildrenSize =  q22Bean7DaysOrLessWithChildren != null ? q22Bean7DaysOrLessWithChildren.size() : 0;
-				int notYetMovedIntoHousingLessUnknownSize = q22Bean7DaysOrLessUnknown != null ? q22Bean7DaysOrLessUnknown.size() : 0;
+				int notYetMovedIntoHousingAllDataSize = getSize(notYetMovedIntoHousingAllData);
+				int notYetMovedIntoHousingWithoutChildrenSize = getSize(notYetMovedIntoHousingWithoutChildren);
+				int notYetMovedIntoHousingWithChildAndAdultsSize = getSize(notYetMovedIntoHousingWithChildAndAdults);
+				int notYetMovedIntoHousingWithChildrenSize =  getSize(notYetMovedIntoHousingWithChildren);
+				int notYetMovedIntoHousingLessUnknownSize = getSize(notYetMovedIntoHousingLessUnknown);
 				
 				q22deDataBean.setQ22eNotYetMovedIntoHousingTotal(BigInteger.valueOf(notYetMovedIntoHousingAllDataSize));
 				q22deDataBean.setQ22eNotYetMovedIntoHousingWithOnlychildren(BigInteger.valueOf(notYetMovedIntoHousingWithoutChildrenSize));
@@ -259,7 +259,7 @@ public class Q22eBeanMaker extends BaseBeanMaker {
 				int overallWithChildrenSize = totalWithChildrenSize + notYetMovedIntoHousingWithChildrenSize + dncWithChildrenSize ;
 				int overallUnknownSize = totalUnknownSize + notYetMovedIntoHousingLessUnknownSize + dncUnknownSize ;
 				
-				q22deDataBean.setQ22eTotTotal(BigInteger.valueOf(getSize(data.getActiveClients()))); 
+				q22deDataBean.setQ22eTotTotal(BigInteger.valueOf(getSize(data.getClients()))); 
 				q22deDataBean.setQ22eTotWithoutChildren(BigInteger.valueOf(overallWithoutChildrenSize));
 				q22deDataBean.setQ22eTotWithChildAndAdults(BigInteger.valueOf(overallChildAndAdultsSize));
 				q22deDataBean.setQ22eTotWithOnlychildren(BigInteger.valueOf(overallWithChildrenSize));

@@ -120,7 +120,7 @@ public class Q07aBeanMaker extends BaseBeanMaker {
         	q07aHouseholdsServed.setChildUnknownHousehold(BigInteger.valueOf(childClientsUnknownHHTypeCount));
         	
         	
-        	q07aHouseholdsServed.setClientDKRTotal(data.getNumOfPersonsWithUnknownAge());
+        	q07aHouseholdsServed.setClientDKRTotal(BigInteger.valueOf(getSize(ageUnknown)));
         	q07aHouseholdsServed.setClientDKRWithOutChildren(BigInteger.valueOf(ageUnknownClientsWithOutChildrenCount));
         	q07aHouseholdsServed.setClientDKRWithChildAndAdults(BigInteger.valueOf(ageUnknownClientWithOneAdultChildCount));
         	q07aHouseholdsServed.setClientDKRWithOnlychildren(BigInteger.valueOf(ageUnknownWithOnlyChildrenCount));
