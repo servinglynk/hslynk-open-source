@@ -86,9 +86,10 @@ public class Q21BeanMaker extends BaseBeanMaker {
 						q21HealthInsuranceDataBeanTable.setQ21HStateHealthInsuranceForAdultsAtEntry(BigInteger.valueOf(stateHealthInsuranceForAdults != null ? stateHealthInsuranceForAdults.size() :0));
 						q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtEntry(BigInteger.valueOf(indianHealthServicesProgram != null ? indianHealthServicesProgram.size() :0));
 						q21HealthInsuranceDataBeanTable.setQ21JOtherAtEntry(BigInteger.valueOf(other != null ? other.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtEntry(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtEntry(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtEntry(BigInteger.valueOf(0));
+						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtEntry(BigInteger.valueOf(getSize(noHealthInsurance)));
+						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtEntry(BigInteger.valueOf(getSize(clientRefused)));
+						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtEntry(BigInteger.valueOf(getSize(dataNotCollected)));
+						
 						q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtEntry(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtEntry(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtEntry(BigInteger.valueOf(0));
@@ -120,10 +121,11 @@ public class Q21BeanMaker extends BaseBeanMaker {
 						q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtLatestStayers(BigInteger.valueOf(indianHealthServicesProgram != null ? indianHealthServicesProgram.size() :0));
 						q21HealthInsuranceDataBeanTable.setQ21JOtherAtLatestStayers(BigInteger.valueOf(other != null ? other.size() :0));
 						
-						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtLatestStayers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtLatestStayers(BigInteger.valueOf(0));
+						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtLatestStayers(BigInteger.valueOf(getSize(noHealthInsurance)));
+						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtLatestStayers(BigInteger.valueOf(getSize(clientRefused)));
+						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtLatestStayers(BigInteger.valueOf(getSize(dataNotCollected)));
 						q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtLatestStayers(data.getNumOfAdultStayersNotRequiredAnnualAssesment());
+						
 						q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
 						
@@ -145,34 +147,21 @@ public class Q21BeanMaker extends BaseBeanMaker {
 						List<HealthInsuranceModel> dataNotCollected = exitHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
 						
 						
-						q21HealthInsuranceDataBeanTable.setQ21AMedicaidHealthInsuranceAtExitLeavers(BigInteger.valueOf(medicaidHealthInsurance != null ?medicaidHealthInsurance.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21BMedicaidHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21CStateChildHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21DVAMedicalServicesAtExitLeavers(BigInteger.valueOf(0));	
-						q21HealthInsuranceDataBeanTable.setQ21EEmployerProvidedHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21FHealthInsuranceThroughCobraAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21GPrivatePayHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21HStateHealthInsuranceForAdultsAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21JOtherAtExitLeavers(BigInteger.valueOf(0));
+						q21HealthInsuranceDataBeanTable.setQ21AMedicaidHealthInsuranceAtExitLeavers(BigInteger.valueOf(medicaidHealthInsurance != null ? medicaidHealthInsurance.size() : 0));
+						q21HealthInsuranceDataBeanTable.setQ21BMedicaidHealthInsuranceAtExitLeavers(BigInteger.valueOf(medicareHealthInsurance != null ? medicareHealthInsurance.size() :0));
+						q21HealthInsuranceDataBeanTable.setQ21CStateChildHealthInsuranceAtExitLeavers(BigInteger.valueOf(stateChildHealthInsurance != null ? stateChildHealthInsurance.size() :0));
+						q21HealthInsuranceDataBeanTable.setQ21DVAMedicalServicesAtExitLeavers(BigInteger.valueOf(medicalServices != null ? medicalServices.size() :0));
+						q21HealthInsuranceDataBeanTable.setQ21EEmployerProvidedHealthInsuranceAtExitLeavers(BigInteger.valueOf(employerProvidedHealthInsurance != null ? employerProvidedHealthInsurance.size() :0));
+						q21HealthInsuranceDataBeanTable.setQ21FHealthInsuranceThroughCobraAtExitLeavers(BigInteger.valueOf(healthInsuranceThroughCobra != null ? healthInsuranceThroughCobra.size() :0));
+						q21HealthInsuranceDataBeanTable.setQ21GPrivatePayHealthInsuranceAtExitLeavers(BigInteger.valueOf(privatePayHealthInsurance != null ?privatePayHealthInsurance.size() :0));
+						q21HealthInsuranceDataBeanTable.setQ21HStateHealthInsuranceForAdultsAtExitLeavers(BigInteger.valueOf(stateHealthInsuranceForAdults != null ? stateHealthInsuranceForAdults.size() :0));
+						q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtExitLeavers(BigInteger.valueOf(indianHealthServicesProgram != null ? indianHealthServicesProgram.size() :0));
+						q21HealthInsuranceDataBeanTable.setQ21JOtherAtExitLeavers(BigInteger.valueOf(other != null ? other.size() :0));
 						
+						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtExitLeavers(BigInteger.valueOf(getSize(noHealthInsurance)));
+						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtExitLeavers(BigInteger.valueOf(getSize(clientRefused)));
+						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtExitLeavers(BigInteger.valueOf(getSize(dataNotCollected)));
 						
-						
-						q21HealthInsuranceDataBeanTable.setQ21BMedicaidHealthInsuranceAtLatestStayers(BigInteger.valueOf(medicareHealthInsurance != null ? medicareHealthInsurance.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21CStateChildHealthInsuranceAtLatestStayers(BigInteger.valueOf(stateChildHealthInsurance != null ? stateChildHealthInsurance.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21DVAMedicalServicesAtLatestStayers(BigInteger.valueOf(medicalServices != null ? medicalServices.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21EEmployerProvidedHealthInsuranceAtLatestStayers(BigInteger.valueOf(employerProvidedHealthInsurance != null ? employerProvidedHealthInsurance.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21FHealthInsuranceThroughCobraAtLatestStayers(BigInteger.valueOf(healthInsuranceThroughCobra != null ? healthInsuranceThroughCobra.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21GPrivatePayHealthInsuranceAtLatestStayers(BigInteger.valueOf(privatePayHealthInsurance != null ?privatePayHealthInsurance.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21HStateHealthInsuranceForAdultsAtLatestStayers(BigInteger.valueOf(stateHealthInsuranceForAdults != null ? stateHealthInsuranceForAdults.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtLatestStayers(BigInteger.valueOf(indianHealthServicesProgram != null ? indianHealthServicesProgram.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21JOtherAtLatestStayers(BigInteger.valueOf(other != null ? other.size() :0));
-						
-						
-						
-						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtExitLeavers(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtExitLeavers(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
 						q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
