@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,6 @@ import com.servinglynk.report.bean.Q21HealthInsuranceDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.HealthInsuranceModel;
-import com.servinglynk.report.model.IncomeAndSourceModel;
 
 public class Q21BeanMaker extends BaseBeanMaker {
 
@@ -49,18 +47,22 @@ public class Q21BeanMaker extends BaseBeanMaker {
 				
 			try {
 				if(data.isLiveMode()) {
-					List<HealthInsuranceModel> entryHealthInsurancesUnfiltered = getHealthInsuranceModel(data, entryQuery, DataCollectionStage.ENTRY.getCode());
-					List<HealthInsuranceModel> stayersHealthInsurancesUnfiltered = getHealthInsuranceModel(data, stayersQuery, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
-					List<HealthInsuranceModel> exitHealthInsurances = new ArrayList<>();
-					if(CollectionUtils.isNotEmpty(data.getLeavers())) {
-						List<HealthInsuranceModel> exitHealthInsurancesUnfiltered = getHealthInsuranceModel(data, exitQuery, DataCollectionStage.EXIT.getCode());
-						exitHealthInsurances = getDedupedItemsForHealth(exitHealthInsurancesUnfiltered);
-					}
-				
-					List<HealthInsuranceModel> entryHealthInsurances = getDedupedItemsForHealth(entryHealthInsurancesUnfiltered);
+					List<HealthInsuranceModel> entryHealthInsurances = getHealthInsuranceModel(data, entryQuery, DataCollectionStage.ENTRY.getCode());
+					List<HealthInsuranceModel> stayersHealthInsurances = getHealthInsuranceModel(data, stayersQuery, DataCollectionStage.ANNUAL_ASSESMENT.getCode());
+					List<HealthInsuranceModel> exitHealthInsurances = getHealthInsuranceModel(data, exitQuery, DataCollectionStage.EXIT.getCode());
 					
-					List<HealthInsuranceModel> stayersHealthInsurances = getDedupedItemsForHealth(stayersHealthInsurancesUnfiltered);
-					
+					List<String> noHealthInsuranceList = Arrays.asList(new String[] { "0", "1"});
+					List<String> cdkInsuranceList = Arrays.asList(new String[] { "8", "9"});
+					List<String> dataNotCollectedInsuranceList = Arrays.asList(new String[] { "99"});
+//					List<HealthInsuranceModel> exitHealthInsurances = new ArrayList<>();
+//					if(CollectionUtils.isNotEmpty(data.getLeavers())) {
+//						List<HealthInsuranceModel> exitHealthInsurancesUnfiltered = getHealthInsuranceModel(data, exitQuery, DataCollectionStage.EXIT.getCode());
+//						exitHealthInsurances = getDedupedItemsForHealth(exitHealthInsurancesUnfiltered);
+//					}
+//				
+//					List<HealthInsuranceModel> entryHealthInsurances = getDedupedItemsForHealth(entryHealthInsurancesUnfiltered);
+//					List<HealthInsuranceModel> stayersHealthInsurances = getDedupedItemsForHealth(stayersHealthInsurancesUnfiltered);
+//					
 					if(CollectionUtils.isNotEmpty(entryHealthInsurances)) {
 						List<HealthInsuranceModel> medicaidHealthInsurance = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getMedicaid()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> medicareHealthInsurance = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getMedicare()) ).collect(Collectors.toList());
@@ -72,9 +74,6 @@ public class Q21BeanMaker extends BaseBeanMaker {
 						List<HealthInsuranceModel> stateHealthInsuranceForAdults = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getStatehealthinadults()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> indianHealthServicesProgram = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getIndianhealthservices()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> other = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getOtherinsurance()) ).collect(Collectors.toList());
-						List<HealthInsuranceModel> noHealthInsurance = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
-						List<HealthInsuranceModel> clientRefused = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
-						List<HealthInsuranceModel> dataNotCollected = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
 						
 						q21HealthInsuranceDataBeanTable.setQ21AMedicaidHealthInsuranceAtEntry(BigInteger.valueOf(medicaidHealthInsurance != null ? medicaidHealthInsurance.size() : 0));
 						q21HealthInsuranceDataBeanTable.setQ21BMedicaidHealthInsuranceAtEntry(BigInteger.valueOf(medicareHealthInsurance != null ? medicareHealthInsurance.size() :0));
@@ -86,19 +85,19 @@ public class Q21BeanMaker extends BaseBeanMaker {
 						q21HealthInsuranceDataBeanTable.setQ21HStateHealthInsuranceForAdultsAtEntry(BigInteger.valueOf(stateHealthInsuranceForAdults != null ? stateHealthInsuranceForAdults.size() :0));
 						q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtEntry(BigInteger.valueOf(indianHealthServicesProgram != null ? indianHealthServicesProgram.size() :0));
 						q21HealthInsuranceDataBeanTable.setQ21JOtherAtEntry(BigInteger.valueOf(other != null ? other.size() :0));
-						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtEntry(BigInteger.valueOf(getSize(noHealthInsurance)));
-						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtEntry(BigInteger.valueOf(getSize(clientRefused)));
-						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtEntry(BigInteger.valueOf(getSize(dataNotCollected)));
 						
+						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtEntry(BigInteger.valueOf(getHealthInsuranceBySourceType(entryHealthInsurances, noHealthInsuranceList)));
+						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtEntry(BigInteger.valueOf(getHealthInsuranceBySourceType(entryHealthInsurances, cdkInsuranceList)));
+						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtEntry(BigInteger.valueOf(getHealthInsuranceBySourceType(entryHealthInsurances, dataNotCollectedInsuranceList)));
 						q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtEntry(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtEntry(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtEntry(BigInteger.valueOf(0));
 						
+						q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtEntry(BigInteger.valueOf(getDedupWithIncomeWith1Count(entryHealthInsurances)));
+						q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtEntry(BigInteger.valueOf(getDedupWithIncomeWithMoreThan1Count(entryHealthInsurances)));
 					}
 					if(CollectionUtils.isNotEmpty(stayersHealthInsurances)) {
 						List<HealthInsuranceModel> medicaidHealthInsurance = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getMedicaid()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> medicareHealthInsurance = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getMedicare()) ).collect(Collectors.toList());
-						List<HealthInsuranceModel> stateChildHealthInsurance = entryHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getStatehealthinadults()) ).collect(Collectors.toList());
+						List<HealthInsuranceModel> stateChildHealthInsurance = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getStatehealthinadults()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> medicalServices = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> employerProvidedHealthInsurance = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getEmployerprovided()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> healthInsuranceThroughCobra = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getInsurancefromanysource()) ).collect(Collectors.toList());
@@ -106,9 +105,7 @@ public class Q21BeanMaker extends BaseBeanMaker {
 						List<HealthInsuranceModel> stateHealthInsuranceForAdults = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getStatehealthinadults()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> indianHealthServicesProgram = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getIndianhealthservices()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> other = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getOtherinsurance()) ).collect(Collectors.toList());
-						List<HealthInsuranceModel> noHealthInsurance = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
-						List<HealthInsuranceModel> clientRefused = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
-						List<HealthInsuranceModel> dataNotCollected = stayersHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
+					
 						
 						q21HealthInsuranceDataBeanTable.setQ21AMedicaidHealthInsuranceAtLatestStayers(BigInteger.valueOf(medicaidHealthInsurance != null ? medicaidHealthInsurance.size() : 0));
 						q21HealthInsuranceDataBeanTable.setQ21BMedicaidHealthInsuranceAtLatestStayers(BigInteger.valueOf(medicareHealthInsurance != null ? medicareHealthInsurance.size() :0));
@@ -121,13 +118,13 @@ public class Q21BeanMaker extends BaseBeanMaker {
 						q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtLatestStayers(BigInteger.valueOf(indianHealthServicesProgram != null ? indianHealthServicesProgram.size() :0));
 						q21HealthInsuranceDataBeanTable.setQ21JOtherAtLatestStayers(BigInteger.valueOf(other != null ? other.size() :0));
 						
-						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtLatestStayers(BigInteger.valueOf(getSize(noHealthInsurance)));
-						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtLatestStayers(BigInteger.valueOf(getSize(clientRefused)));
-						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtLatestStayers(BigInteger.valueOf(getSize(dataNotCollected)));
+						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtLatestStayers(BigInteger.valueOf(getHealthInsuranceBySourceType(stayersHealthInsurances, noHealthInsuranceList)));
+						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtLatestStayers(BigInteger.valueOf(getHealthInsuranceBySourceType(stayersHealthInsurances, cdkInsuranceList)));
+						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtLatestStayers(BigInteger.valueOf(getHealthInsuranceBySourceType(stayersHealthInsurances, dataNotCollectedInsuranceList)));
 						q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtLatestStayers(data.getNumOfAdultStayersNotRequiredAnnualAssesment());
 						
-						q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(0));
+						q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(getDedupWithIncomeWith1Count(stayersHealthInsurances)));
+						q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtLatestStayers(BigInteger.valueOf(getDedupWithIncomeWithMoreThan1Count(stayersHealthInsurances)));
 						
 					}
 					
@@ -142,9 +139,6 @@ public class Q21BeanMaker extends BaseBeanMaker {
 						List<HealthInsuranceModel> stateHealthInsuranceForAdults = exitHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getStatehealthinadults()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> indianHealthServicesProgram = exitHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getIndianhealthservices()) ).collect(Collectors.toList());
 						List<HealthInsuranceModel> other = exitHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getOtherinsurance()) ).collect(Collectors.toList());
-						List<HealthInsuranceModel> noHealthInsurance = exitHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
-						List<HealthInsuranceModel> clientRefused = exitHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
-						List<HealthInsuranceModel> dataNotCollected = exitHealthInsurances.parallelStream().filter(healthInsurance -> isPositive(healthInsurance.getVamedicalservices()) ).collect(Collectors.toList());
 						
 						
 						q21HealthInsuranceDataBeanTable.setQ21AMedicaidHealthInsuranceAtExitLeavers(BigInteger.valueOf(medicaidHealthInsurance != null ? medicaidHealthInsurance.size() : 0));
@@ -158,13 +152,13 @@ public class Q21BeanMaker extends BaseBeanMaker {
 						q21HealthInsuranceDataBeanTable.setQ21IIndianHealthServicesProgramAtExitLeavers(BigInteger.valueOf(indianHealthServicesProgram != null ? indianHealthServicesProgram.size() :0));
 						q21HealthInsuranceDataBeanTable.setQ21JOtherAtExitLeavers(BigInteger.valueOf(other != null ? other.size() :0));
 						
-						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtExitLeavers(BigInteger.valueOf(getSize(noHealthInsurance)));
-						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtExitLeavers(BigInteger.valueOf(getSize(clientRefused)));
-						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtExitLeavers(BigInteger.valueOf(getSize(dataNotCollected)));
-						
+						q21HealthInsuranceDataBeanTable.setQ21KNoHealthInsuranceAtExitLeavers(BigInteger.valueOf(getHealthInsuranceBySourceType(exitHealthInsurances, noHealthInsuranceList)));
+						q21HealthInsuranceDataBeanTable.setQ21LClientRefusedAtExitLeavers(BigInteger.valueOf(getHealthInsuranceBySourceType(exitHealthInsurances, cdkInsuranceList)));
+						q21HealthInsuranceDataBeanTable.setQ21MDataNotCollectedAtExitLeavers(BigInteger.valueOf(getHealthInsuranceBySourceType(exitHealthInsurances, dataNotCollectedInsuranceList)));
 						q21HealthInsuranceDataBeanTable.setQ21NNoOfAdultStayersNotRequiredAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
-						q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtExitLeavers(BigInteger.valueOf(0));
+						
+						q21HealthInsuranceDataBeanTable.setQ21O1SourceOfHealthInsuranceAtExitLeavers(BigInteger.valueOf(getDedupWithIncomeWith1Count(exitHealthInsurances)));
+						q21HealthInsuranceDataBeanTable.setQ21PMoreThan1SourceOfHealthInsuranceAtExitLeavers(BigInteger.valueOf(getDedupWithIncomeWithMoreThan1Count(exitHealthInsurances)));
 		
 					}
 				}
@@ -175,13 +169,142 @@ public class Q21BeanMaker extends BaseBeanMaker {
 		
 		return Arrays.asList(q21HealthInsuranceDataBeanTable);
 	}
+	// Row 16
+	public static int getDedupWithIncomeWith1Count(List<HealthInsuranceModel> incomes) {
+		if(CollectionUtils.isNotEmpty(incomes)) {
+			String[] method1 = new String[] { "0", "1"};
+			List<String> method1List = Arrays.asList(method1);
+			Map<String,Integer>  dedupMap = getDedupedItemsForHealth(incomes, method1List);
+			 Map<String,Integer> result = dedupMap.entrySet()
+				      .stream()
+				      .filter(map -> (map.getValue() == 1))
+				      .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+			 if(result != null) {
+				 return getSize(result.keySet());
+			 }
+		}
+		return 0;
+	}
+	// Row 17
+	public static int getDedupWithIncomeWithMoreThan1Count(List<HealthInsuranceModel> incomes) {
+		if(CollectionUtils.isNotEmpty(incomes)) {
+			String[] method1 = new String[] { "0", "1"};
+			List<String> method1List = Arrays.asList(method1);
+			Map<String,Integer>  dedupMap = getDedupedItemsForHealth(incomes, method1List);
+			 Map<String,Integer> result = dedupMap.entrySet()
+				      .stream()
+				      .filter(map ->  (map.getValue() > 1))
+				      .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+			 if(result != null) {
+				 return getSize(result.keySet());
+			 }
+		}
+		return 0;
+	}
 	
+	public static Map<String,Integer> getDedupedItemsForHealth(List<HealthInsuranceModel> incomes, List<String> containsList) {
+		Map<String,Integer> incomeMap = new HashMap<>();
+		for(HealthInsuranceModel income : incomes) {
+			int count= 0;
+				if(containsList.contains(income.getEmployerprovided())) {
+					count++;
+				}
+				if(containsList.contains(income.getMedicare())) {
+					count++;
+				}
+				if(containsList.contains(income.getMedicaid())) {
+					count++;
+				}
+				if(containsList.contains(income.getIndianhealthservices())) {
+					count++;
+				}
+				if(containsList.contains(income.getOtherinsurance()) ) {
+					count++;
+				}
+				if(containsList.contains(income.getPrivatepay())) {
+					count++;
+				}
+				if(containsList.contains(income.getSchip())) {
+					count++;
+				}
+				if(containsList.contains(income.getStatehealthinadults())) {
+					count++;
+				}
+				if(containsList.contains(income.getVamedicalservices())) {
+					count++;
+				}
+			Integer totalCount = incomeMap.get(income.getDedupClientId());
+			if(totalCount != null) {
+				incomeMap.put(income.getDedupClientId(), totalCount + count);
+			}else {
+				incomeMap.put(income.getDedupClientId(), count);
+			}
+		}
+		return incomeMap;	
+	}
+	// Row 12,13,14
+	public static int getHealthInsuranceBySourceType(List<HealthInsuranceModel> incomes, List<String> containsList) {
+		Map<String,Integer> incomeMap = new HashMap<>();
+		for(HealthInsuranceModel income : incomes) {
+			int count= 0;
+			if(containsList.contains(income.getInsurancefromanysource()))  {
+				if(StringUtils.isBlank(income.getEmployerprovided()) || StringUtils.equals("0", income.getEmployerprovided())) {
+					count++;
+				}
+				if(StringUtils.isBlank(income.getMedicare()) || StringUtils.equals("0", income.getMedicare())) {
+					count++;
+				}
+				if(containsList.contains(income.getMedicaid())) {
+					count++;
+				}
+				if(StringUtils.isBlank(income.getIndianhealthservices()) || StringUtils.equals("0", income.getIndianhealthservices())) {
+					count++;
+				}
+				if(StringUtils.isBlank(income.getOtherinsurance()) || StringUtils.equals("0", income.getOtherinsurance())) {
+					count++;
+				}
+				if(StringUtils.isBlank(income.getPrivatepay()) || StringUtils.equals("0", income.getPrivatepay())) {
+					count++;
+				}
+				if(StringUtils.isBlank(income.getSchip()) || StringUtils.equals("0", income.getSchip())) {
+					count++;
+				}
+				if(StringUtils.isBlank(income.getStatehealthinadults()) || StringUtils.equals("0", income.getStatehealthinadults())) {
+					count++;
+				}
+				if(StringUtils.isBlank(income.getVamedicalservices()) || StringUtils.equals("0", income.getVamedicalservices())) {
+					count++;
+				}
+			}
+			Integer totalCount = incomeMap.get(income.getDedupClientId());
+			if(totalCount != null) {
+				incomeMap.put(income.getDedupClientId(), totalCount + count);
+			}else {
+				incomeMap.put(income.getDedupClientId(), count);
+			}
+			
+			Map<String,Integer> result = incomeMap.entrySet()
+				      .stream()
+				      .filter(map ->  (map.getValue() > 1))
+				      .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+			 if(result != null) {
+				 return getSize(result.keySet());
+			 }
+		}
+		return incomeMap;	
+	}
+	
+	
+	
+	/*
 	public static List<HealthInsuranceModel> getDedupedItemsForHealth(List<HealthInsuranceModel> incomes) {
 		Map<String,HealthInsuranceModel> dedupIncomeAndSourceAtEntry = new HashMap<>();
-		incomes.forEach(income->  dedupIncomeAndSourceAtEntry.put(income.getDedupClientId(), income));
+		incomes.forEach(income->   dedupIncomeAndSourceAtEntry.put(income.getDedupClientId(), income));
 		Collection<HealthInsuranceModel> values = dedupIncomeAndSourceAtEntry.values();
 		return new ArrayList(values);	
 	}
+	*/
+	
 	 public static List<HealthInsuranceModel> getHealthInsuranceModel(ReportData data,String query,String datacollectionStage) {
 		 List<HealthInsuranceModel> healthInsuranceModels = new ArrayList<HealthInsuranceModel>();
 			ResultSet resultSet = null;
