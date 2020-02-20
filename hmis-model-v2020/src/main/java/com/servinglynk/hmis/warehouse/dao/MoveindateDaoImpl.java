@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
+import com.servinglynk.hmis.warehouse.enums.DataCollectionStageEnum;
+import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -42,9 +44,12 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements MoveindateDao {
 						moveindateModel = getModelObject(domain, expMoveindates, data, modelMap);
 						moveindateModel.setMoveindate(BasicDataGenerator.getLocalDateTime(expMoveindates.getMoveInDate()));
 						//moveindateModel.setInpermanenthousing(MoveindateInpermanenthousin.lookupEnum((expMoveindates.getInPermanentHousing())));
+						moveindateModel.setSubmissionDate(BasicDataGenerator.getLocalDateTime(expMoveindates.getMoveInDate()));
 						moveindateModel.setDateCreated(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateCreated()));
 						moveindateModel.setDateUpdated(BasicDataGenerator.getLocalDateTime(expMoveindates.getDateUpdated()));
-						
+						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, expMoveindates.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
+						moveindateModel.setEnrollmentid(enrollmentModel);
+						moveindateModel.setExport(exportEntity);
 						performSaveOrUpdate(moveindateModel,domain);
 					}catch(Exception e ){
 						String errorMessage = "Exception beause of the MoveInDate::"+expMoveindates.getMoveInDateID() +" Exception ::"+e.getMessage();
