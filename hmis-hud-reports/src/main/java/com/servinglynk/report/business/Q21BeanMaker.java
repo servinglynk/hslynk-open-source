@@ -291,7 +291,7 @@ public class Q21BeanMaker extends BaseBeanMaker {
 				 return getSize(result.keySet());
 			 }
 		}
-		return incomeMap;	
+		return 0;	
 	}
 	
 	

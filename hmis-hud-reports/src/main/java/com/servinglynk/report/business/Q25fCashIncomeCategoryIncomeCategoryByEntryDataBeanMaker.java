@@ -104,7 +104,7 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 			q25eData.setQ25fAdultsWithNoIncomeStayers(BigInteger.valueOf(getIncomeCnt(noIncomeAtAnnualAssesment)));
 			int sizeAtEntry = getSize(earnedIncomeAtEntry) + getSize(bothEarnedAndOtherIncomeAtEntry) + getSize(noearnedIncomeAtEntry) + getSize(otherIncomeAtEntry) + getSize(dkIncomeAtEntry) + getSize(missingIncomeAtEntry);
 			int sizeAtEsxit = getSize(earnedIncomeAtsAtExit) + getSize(bothEarnedAndOtherIncomeAtsAtExit) + getSize(noearnedIncomeAtExit) + getSize(otherIncomeAtsAtExit) + getSize(dkIncomeAtsAtExit)+ getSize(missingIncomeAtsAtExit);
-			int sizeAtAA = getSize(earnedIncomeAtAnnualAssesment) + getSize(bothEarnedAndOtherIncomeAtAnnualAssesment) + getSize(noearnedIncomeAtAnnualAssesment) + getSize(otherIncomeAtAnnualAssesment) + getSize(dkIncomeAtAnnualAssesment)+ getSize(missingIncomeAtAnnualAssesment);
+			int sizeAtAA = getSize(earnedIncomeAtAnnualAssesment) + getSize(bothEarnedAndOtherIncomeAtAnnualAssesment) + getSize(noearnedIncomeAtAnnualAssesment) + getSize(otherIncomeAtAnnualAssesment) + getSize(dkIncomeAtAnnualAssesment)+ getSize(missingIncomeAtAnnualAssesment) +getSize(noIncomeAtAnnualAssesment);
 			q25eData.setQ25fNumberOfAdultStayersNotYetRequiredAtEntry(BigInteger.valueOf(0));
 			q25eData.setQ25fNumberOfAdultStayersNotYetRequiredLeavers(BigInteger.valueOf(0));
 			q25eData.setQ25fNumberOfAdultStayersNotYetRequiredStayers(BigInteger.valueOf(0));

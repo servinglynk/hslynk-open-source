@@ -26,8 +26,7 @@ public class Q22eBeanMaker extends BaseBeanMaker {
 	
 		String query = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,e.datetostreetessh,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
 				" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and (ext.exitdate is null  or ext.exitdate > :endDate) ) "+
-				" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
-				" order by e.dedup_client_id";
+				" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) ";
 
 		
 		Q22eDataBean q22deDataBean =new Q22eDataBean();

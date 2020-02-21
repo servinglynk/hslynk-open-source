@@ -547,6 +547,53 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
+	
+	public static int getIncomeCntForVeterans(String schema,String query,String datacollectionStage,ReportData data) {
+		ResultSet resultSet = null;
+		Statement statement = null;
+		Connection connection = null;
+		int count =0;
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.createStatement();
+			data.setQueryDataCollectionStage(datacollectionStage);
+			List<ClientModel> clients = data.getVeterans();
+			if(CollectionUtils.isEmpty(clients)) {
+				return count;
+			}
+			 if(CollectionUtils.isNotEmpty(clients)) {
+				 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
+				 int index = 0;
+				 for(ClientModel client : clients) {
+					 enrollmentBuilder.append("'"+client.getDedupClientId()+"'");
+					 if(index != clients.size()) {
+						 enrollmentBuilder.append(",");
+					 }
+				 }
+				 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+				 enrollmentBuilder.append(" ) ");
+				 query = query + enrollmentBuilder.toString();
+			 }
+		 resultSet = statement.executeQuery(formatQuery(query,schema,data));
+		 while(resultSet.next()) {
+			 count = resultSet.getInt(1);
+	     }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return count;
+	}
 	public static List<String> getDomesticViolenceByVictim(final String schema,final String victim,ReportData data,String query) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
@@ -2015,24 +2062,8 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 								 newQuery = query.replace("%p", " ");
 							 }
 							 
-							 String newQueryWithEnrollments = newQuery;
-							 
-								List<EnrollmentModel> enrollments = data.getAdultLeavers();
-								 if(CollectionUtils.isNotEmpty(enrollments)) {
-									 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
-									 int count = 0;
-									 for(EnrollmentModel enrollment : enrollments) {
-										 builderWithEnrollments.append("'"+enrollment.getProjectEntryID()+"'");
-										 if(count != enrollments.size()) {
-											 builderWithEnrollments.append(",");
-										 }
-									 }
-									 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
-									 builderWithEnrollments.append(" ) ");
-									 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
-								 }
 							statement = connection.createStatement();
-							resultSet = statement.executeQuery(formatQuery(newQueryWithEnrollments,data.getSchema(),data));
+							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 							
 						 while(resultSet.next()) {
 							 clients.add(resultSet.getString(1));

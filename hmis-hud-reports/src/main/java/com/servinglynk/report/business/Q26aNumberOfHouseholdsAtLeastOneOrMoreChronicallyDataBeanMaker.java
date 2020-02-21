@@ -28,10 +28,10 @@ public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker exte
 				List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 				List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
 				
-				String chronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless=true and entrydate >=:startDate and entrydate <=:endDate and e.projectid = p.id %p  ";
-				String noChronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless=false  and entrydate >=:startDate and entrydate <=:endDate and e.projectid = p.id %p  ";
-				String dnKChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id  and e.disablingcondition in ('8','9')  and entrydate >=:startDate and entrydate <=:endDate  and e.projectid = p.id %p  ";
-				String dnCChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition ='99'  and entrydate >=:startDate and entrydate <=:endDate  and e.projectid = p.id %p  ";
+				String chronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless=true and entrydate <=:endDate and e.projectid = p.id %p  and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) ";
+				String noChronicHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.chronichomeless=false  and entrydate <=:endDate and e.projectid = p.id %p  and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) ";
+				String dnKChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id  and e.disablingcondition in ('8','9')  and entrydate <=:endDate  and e.projectid = p.id %p and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) ";
+				String dnCChHomelessQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and e.disablingcondition ='99'  and entrydate <=:endDate  and e.projectid = p.id %p and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) ";
 				
 				int chSize = getSize(data.getChronicHomeLess());
 				int chWithoutChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOutChildren, false));
@@ -46,10 +46,10 @@ public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker exte
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aChronicallyHomelessUnknownHouseholdType(BigInteger.valueOf(chUnknownHouseHoldSize));
 
 				int noChSize = getSize(getClients(data, noChronicHomelessQuery, null, true));
-				int noChWithoutChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOutChildren, false));
-				int noChChildAndAdultsSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOneAdultChild, false));
-				int noChWithOnlyChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithChildren, false));
-				int noChUnknownHouseHoldSize = getSize(getClients(data, chronicHomelessQuery, projectsUnknownHouseHold, false));
+				int noChWithoutChildSize = getSize(getClients(data, noChronicHomelessQuery, projectsHHWithOutChildren, false));
+				int noChChildAndAdultsSize = getSize(getClients(data, noChronicHomelessQuery, projectsHHWithOneAdultChild, false));
+				int noChWithOnlyChildSize = getSize(getClients(data, noChronicHomelessQuery, projectsHHWithChildren, false));
+				int noChUnknownHouseHoldSize = getSize(getClients(data, noChronicHomelessQuery, projectsUnknownHouseHold, false));
 				
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aNotChronicallyHomelessTotal(BigInteger.valueOf(noChSize));
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aNotChronicallyHomelessWithoutChild(BigInteger.valueOf(noChWithoutChildSize));
@@ -58,10 +58,10 @@ public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker exte
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aNotChronicallyHomelessUnknownHouseholdType(BigInteger.valueOf(noChUnknownHouseHoldSize));
 				
 				int clientRefusedCHSize = getSize(getClients(data, dnKChHomelessQuery, null, true));
-				int clientRefusedCHWithoutChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOutChildren, false));
-				int clientRefusedCHChildAndAdultsSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOneAdultChild, false));
-				int clientRefusedCHWithOnlyChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithChildren, false));
-				int clientRefusedCHUnknownHouseHoldSize = getSize(getClients(data, chronicHomelessQuery, projectsUnknownHouseHold, false));
+				int clientRefusedCHWithoutChildSize = getSize(getClients(data, dnKChHomelessQuery, projectsHHWithOutChildren, false));
+				int clientRefusedCHChildAndAdultsSize = getSize(getClients(data, dnKChHomelessQuery, projectsHHWithOneAdultChild, false));
+				int clientRefusedCHWithOnlyChildSize = getSize(getClients(data, dnKChHomelessQuery, projectsHHWithChildren, false));
+				int clientRefusedCHUnknownHouseHoldSize = getSize(getClients(data, dnKChHomelessQuery, projectsUnknownHouseHold, false));
 				
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aClientRefusedTotal(BigInteger.valueOf(clientRefusedCHSize));
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aClientRefusedWithoutChild(BigInteger.valueOf(clientRefusedCHWithoutChildSize));
@@ -70,10 +70,10 @@ public class Q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyDataBeanMaker exte
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aClientRefusedUnknownHouseholdType(BigInteger.valueOf(clientRefusedCHUnknownHouseHoldSize));
 				
 				int dncCHSize = getSize(getClients(data, dnCChHomelessQuery, null, true));
-				int dncCHHWithoutChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOutChildren, false));
-				int dncCHChildAndAdultsSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithOneAdultChild, false));
-				int dncCHWithOnlyChildSize = getSize(getClients(data, chronicHomelessQuery, projectsHHWithChildren, false));
-				int dncCHUnknownHouseHoldSize = getSize(getClients(data, chronicHomelessQuery, projectsUnknownHouseHold, false));
+				int dncCHHWithoutChildSize = getSize(getClients(data, dnCChHomelessQuery, projectsHHWithOutChildren, false));
+				int dncCHChildAndAdultsSize = getSize(getClients(data, dnCChHomelessQuery, projectsHHWithOneAdultChild, false));
+				int dncCHWithOnlyChildSize = getSize(getClients(data, dnCChHomelessQuery, projectsHHWithChildren, false));
+				int dncCHUnknownHouseHoldSize = getSize(getClients(data, dnCChHomelessQuery, projectsUnknownHouseHold, false));
 				
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aDataNotCollectedTotal(BigInteger.valueOf(dncCHSize));
 				q26aNumberOfHouseholdsAtLeastOneOrMoreChronicallyTable.setQ26aDataNotCollectedWithoutChild(BigInteger.valueOf(dncCHHWithoutChildSize));
