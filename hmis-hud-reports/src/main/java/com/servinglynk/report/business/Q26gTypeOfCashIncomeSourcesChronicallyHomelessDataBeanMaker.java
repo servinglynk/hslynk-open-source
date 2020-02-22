@@ -10,11 +10,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.DataCollectionStage;
+import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker extends BaseBeanMaker{
 	
@@ -239,6 +242,26 @@ public class Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker extends
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
 				data.setQueryDataCollectionStage(datacollectionStage);
+				
+				if(StringUtils.equals("EXIT", datacollectionStage)) {
+					List<EnrollmentModel> clients = data.getLeavers();
+					if(CollectionUtils.isEmpty(clients)) {
+						return count;
+					}
+					 if(CollectionUtils.isNotEmpty(clients)) {
+						 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
+						 int index = 0;
+						 for(EnrollmentModel client : clients) {
+							 enrollmentBuilder.append("'"+client.getDedupClientId()+"'");
+							 if(index != clients.size()) {
+								 enrollmentBuilder.append(",");
+							 }
+						 }
+						 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+						 enrollmentBuilder.append(" ) ");
+						 query = query + enrollmentBuilder.toString();
+					 }
+				}
 				resultSet = statement.executeQuery(formatQuery(query,schema,data));
 				
 			 while(resultSet.next()) {

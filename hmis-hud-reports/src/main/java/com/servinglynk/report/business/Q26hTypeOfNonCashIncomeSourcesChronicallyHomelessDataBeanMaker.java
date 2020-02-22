@@ -18,21 +18,21 @@ public class Q26hTypeOfNonCashIncomeSourcesChronicallyHomelessDataBeanMaker exte
 		/********
 		 * Any changes here needs change to Q26h
 		 */
-		String entryQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.incomeandsources i,%s.enrollment e, %s.noncashbenefits nb,%s.client c where e.id=i.enrollmentid  "+
-		      "   and nb.enrollmentid = e.id and c.id = e.client_id and e.chronichomeless=true "+
-			  " and i.information_date = e.entrydate and i.information_date <= :startDate and i.information_date >= :endDate "+
-			  " and e.ageatentry >=18  and i.datacollectionstage = :datacollectionstage ";
-		       
-		String exitQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.incomeandsources i, %s.enrollment e,%s.noncashbenefits nb,%s.exit ext,%s.client c  where e.id=i.enrollmentid  "+
-			      "   and nb.enrollmentid = e.id and e.id = ext.enrollmentid  and c.id = e.client_id and e.chronichomeless=true  "+
-				  " and i.information_date = ext.exitdate and i.information_date <= :startDate and i.information_date >= :endDate "+
-				  " and e.ageatentry >=18  and i.datacollectionstage = :datacollectionstage ";
+		String entryQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.enrollment e, %s.noncashbenefits nb,%s.client c  where  "+
+			      "   nb.enrollmentid = e.id "+
+			      "  and TO_DATE(nb.information_date) = TO_DATE(e.entrydate) "+
+				  "  and nb.information_date <= :endDate "+
+				  " and e.ageatentry >=18  and nb.datacollectionstage = '1'   and c.id = e.client_id and e.chronichomeless=true   ";
 			       
-		String stayersQuery = " select count(distinct(e.dedup_client_id)) as cnt  from %s.incomeandsources i, %s.enrollment e, %s.noncashbenefits nb,%s.client c where   e.id=i.enrollmentid "+
-					"   and nb.enrollmentid = e.id  and c.id = e.client_id and e.chronichomeless=true "+
-					" and i.information_date >= e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.ageatentry >= 18 "+
-					" and   e.id not in ( select enrollmentid from %s.exit  where  exitdate <= :endDate  )   "+
-					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 ) ";
+			String exitQuery = " select  count(distinct(e.dedup_client_id)) as cnt from %s.enrollment e,%s.noncashbenefits nb,%s.exit ext,%s.client c  where  "+
+				      "   nb.enrollmentid = e.id and e.id = ext.enrollmentid   and c.id = e.client_id and e.chronichomeless=true  "+
+					  "  and TO_DATE(nb.information_date) = TO_DATE(ext.exitdate) and  nb.information_date <= :endDate "+
+					  " and e.ageatentry >=18  and nb.datacollectionstage = '3' ";
+				       
+			String stayersQuery = " select count(distinct(e.dedup_client_id)) as cnt  from  %s.enrollment e, %s.noncashbenefits nb,%s.client c  where "+
+						"    nb.enrollmentid = e.id   and c.id = e.client_id and e.chronichomeless=true   "+
+						" and  nb.information_date <= :endDate and e.ageatentry >= 18 "+
+						" and nb.datacollectionstage in ('1','2','5')  ";
 			try {
 				if(data.isLiveMode()) {
 					q26hTypeOfNonCashIncomeSourcesChronicallyHomelessTable.setQ26hSupplementalNutritionalATANFChildCareServicesstanceAtEntry(BigInteger.valueOf(getIncomeCnt(data, entryQuery +" and nb.snap='1' ", DataCollectionStage.ENTRY.getCode())));

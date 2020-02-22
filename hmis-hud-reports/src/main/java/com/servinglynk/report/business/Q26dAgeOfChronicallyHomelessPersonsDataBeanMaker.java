@@ -141,9 +141,9 @@ public class Q26dAgeOfChronicallyHomelessPersonsDataBeanMaker extends BaseBeanMa
 
 				
 				int total = chless17Size + ch18To24Size + ch25To34Size + ch35To44Size + ch45To54Size + ch55To61Size + ch62PlusSize + chDKNSize + chDNCSize;
-				int withoutChildSize = chless17WithoutChildSize + ch18To24WithoutChildSize + ch25To34WithoutChildSize + ch35To44WithoutChildSize + ch55To61WithoutChildSize + ch62PlusWithoutChildSize + chDKNWithoutChildSize + chDNCWithoutChildSize;
-				int withChildAndAdultsSize = chless17WithChildAndAdultsSize + ch18To24WithChildAndAdultsSize + ch25To34WithChildAndAdultsSize + ch35To44WithChildAndAdultsSize + ch45To54WithoutChildSize + ch55To61WithChildAndAdultsSize + ch62PlusWithChildAndAdultsSize + chDKNWithChildAndAdultsSize + chDNCWithChildAndAdultsSize;
-				int withOnlyChildSize = chless17WithOnlyChildSize + ch18To24WithOnlyChildSize + ch25To34WithOnlyChildSize + ch35To44WithOnlyChildSize + ch45To54WithChildAndAdultsSize + ch45To54WithOnlyChildSize + ch55To61WithOnlyChildSize + ch62PlusWithOnlyChildSize + chDKNWithOnlyChildSize + chDNCWithOnlyChildSize;
+				int withoutChildSize = chless17WithoutChildSize + ch18To24WithoutChildSize + ch25To34WithoutChildSize + ch35To44WithoutChildSize  + ch45To54WithoutChildSize + ch55To61WithoutChildSize + ch62PlusWithoutChildSize + chDKNWithoutChildSize + chDNCWithoutChildSize;
+				int withChildAndAdultsSize = chless17WithChildAndAdultsSize + ch18To24WithChildAndAdultsSize + ch25To34WithChildAndAdultsSize + ch35To44WithChildAndAdultsSize + ch45To54WithChildAndAdultsSize + ch55To61WithChildAndAdultsSize + ch62PlusWithChildAndAdultsSize + chDKNWithChildAndAdultsSize + chDNCWithChildAndAdultsSize;
+				int withOnlyChildSize = chless17WithOnlyChildSize + ch18To24WithOnlyChildSize + ch25To34WithOnlyChildSize + ch35To44WithOnlyChildSize + ch45To54WithOnlyChildSize + ch55To61WithOnlyChildSize + ch62PlusWithOnlyChildSize + chDKNWithOnlyChildSize + chDNCWithOnlyChildSize;
 				int unknownHouseHoldSize = chless17UnknownHouseHoldSize + ch18To24UnknownHouseHoldSize + ch25To34UnknownHouseHoldSize + ch35To44UnknownHouseHoldSize + ch45To54UnknownHouseHoldSize + ch55To61UnknownHouseHoldSize + ch62PlusUnknownHouseHoldSize + chDKNUnknownHouseHoldSize + chDNCUnknownHouseHoldSize;
 			
 				
