@@ -7,7 +7,7 @@ app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http'
 	
 	Service.GetProjectList($http,	
     //success
-    function(data){$scope.projects =data;  }),
+    function(data){$scope.projects =data;  }, function(error) {}, $scope),
 											   
 											   
   $scope.submitForm = function() {
