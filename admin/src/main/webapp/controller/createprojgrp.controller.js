@@ -4,11 +4,7 @@ app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http'
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
-	
-	Service.GetProjectList($http,	
-    //success
-    function(data){$scope.projects =data;  }, function(error) {}, $scope),
-											   
+	$scope.sessionToken = $sessionStorage.sessionToken;	
 											   
   $scope.submitForm = function() {
 	  
