@@ -24,7 +24,7 @@ public class Q22eBeanMaker extends BaseBeanMaker {
 	
 	public static List<Q22eDataBean> getQ22eDataBeanList(ReportData data){
 	
-		String query = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,e.datetostreetessh,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
+		String query = "select  e.dedup_client_id ,p.projecttype,p.trackingmethod,e.datetostreetessh,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p %e ) "+
 				" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id and (ext.exitdate is null  or ext.exitdate > :endDate) ) "+
 				" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) ";
 
@@ -322,7 +322,7 @@ public class Q22eBeanMaker extends BaseBeanMaker {
 					 }
 					 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
 					 enrollmentBuilder.append(" ) ");
-					String finalQuery = newQuery + enrollmentBuilder.toString();
+					String finalQuery = newQuery.replace("%e", enrollmentBuilder.toString());
 				statement = connection.createStatement();
 				resultSet = statement.executeQuery(formatQuery(finalQuery,data.getSchema(),data));
 				

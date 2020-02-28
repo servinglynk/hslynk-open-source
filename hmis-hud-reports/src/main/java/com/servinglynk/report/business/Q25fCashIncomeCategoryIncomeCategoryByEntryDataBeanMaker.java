@@ -37,9 +37,9 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 				List<IncomeAndSourceModel> incomeExit= data.getIncomeAndSourcesAtExit();
 				List<IncomeAndSourceModel> incomeAA = data.getIncomeAndSourcesAtAnnualAssesment();
 				List<IncomeAndSourceModel> incomeAtExit  = incomeExit.parallelStream().filter(income -> veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
-				Set<String> veteranAtExit = data.getVeteranAtExit();
+			//	Set<String> veteranAtExit = data.getVeteranAtExit();
 				List<IncomeAndSourceModel> incomeAtAnnualVeterans  = incomeAA.parallelStream().filter(income -> veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
-				List<IncomeAndSourceModel> incomeAtAnnualAssesment  = incomeAtAnnualVeterans.parallelStream().filter(income -> CollectionUtils.isNotEmpty(veteranAtExit) && veteranAtExit.contains(income.getDedupClientId())).collect(Collectors.toList());
+				List<IncomeAndSourceModel> incomeAtAnnualAssesment  = incomeAtAnnualVeterans.parallelStream().filter(income -> CollectionUtils.isNotEmpty(veteransDedup) && veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
 				
 				
 			q25eData.setQ25fAdultsWithIncomeInfoAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntry)));

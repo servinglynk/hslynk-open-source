@@ -631,7 +631,7 @@ public class Q23cBeanMaker extends BaseBeanMaker {
 
 	public static int  getDestination (List<Q22BeanModel> q22Beans , String destination1,String destination2) {
 		if(CollectionUtils.isNotEmpty(q22Beans)) {
-			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> q22BeanModel.getNumberOfDays() < numOfDays  && ( StringUtils.equals(destination1, q22BeanModel.getDestination())  || StringUtils.equals(destination2, q22BeanModel.getDestination()) )).collect(Collectors.toList());
+			List<Q22BeanModel>  q22Bean7DaysOrLessAllData = q22Beans.parallelStream().filter(q22BeanModel -> ( StringUtils.equals(destination1, q22BeanModel.getDestination())  || StringUtils.equals(destination2, q22BeanModel.getDestination()) )).collect(Collectors.toList());
 			return q22Bean7DaysOrLessAllData.size();
 		}
 		 return 0;

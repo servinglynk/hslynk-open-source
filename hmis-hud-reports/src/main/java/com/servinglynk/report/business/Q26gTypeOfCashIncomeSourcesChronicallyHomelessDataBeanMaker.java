@@ -243,7 +243,7 @@ public class Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker extends
 				statement = connection.createStatement();
 				data.setQueryDataCollectionStage(datacollectionStage);
 				
-				if(StringUtils.equals("EXIT", datacollectionStage)) {
+				if(StringUtils.equals(DataCollectionStage.EXIT.getCode(), datacollectionStage)) {
 					List<EnrollmentModel> clients = data.getLeavers();
 					if(CollectionUtils.isEmpty(clients)) {
 						return count;

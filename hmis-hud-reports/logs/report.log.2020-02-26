@@ -1,5 +1,4 @@
-2020-02-27 08:56:16 main Reporter [INFO] Starting hud reports process....
-2020-02-27 09:38:34 main JRFillSubreport [ERROR] Fill 1: exception
+2020-02-26 08:39:22 main JRFillSubreport [ERROR] Fill 1: exception
 net.sf.jasperreports.engine.JRException: Error retrieving field value from bean : genderDataIssues
 	at net.sf.jasperreports.engine.data.JRAbstractBeanDataSource.getBeanProperty(JRAbstractBeanDataSource.java:123)
 	at net.sf.jasperreports.engine.data.JRAbstractBeanDataSource.getFieldValue(JRAbstractBeanDataSource.java:96)
@@ -24,7 +23,7 @@ Caused by: java.lang.NoSuchMethodException: Unknown property 'genderDataIssues' 
 	at org.apache.commons.beanutils.PropertyUtils.getProperty(PropertyUtils.java:426)
 	at net.sf.jasperreports.engine.data.JRAbstractBeanDataSource.getBeanProperty(JRAbstractBeanDataSource.java:111)
 	... 15 more
-2020-02-27 09:38:34 main Reporter [ERROR] net.sf.jasperreports.engine.JRRuntimeException: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean : genderDataIssues
+2020-02-26 08:39:22 main Reporter [ERROR] net.sf.jasperreports.engine.JRRuntimeException: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean : genderDataIssues
 net.sf.jasperreports.engine.JRRuntimeException: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean : genderDataIssues
 	at net.sf.jasperreports.engine.fill.JRFillSubreport.prepare(JRFillSubreport.java:809)
 	at net.sf.jasperreports.engine.fill.JRFillElementContainer.prepareElements(JRFillElementContainer.java:331)
@@ -66,8 +65,8 @@ Caused by: java.lang.NoSuchMethodException: Unknown property 'genderDataIssues' 
 	at org.apache.commons.beanutils.PropertyUtils.getProperty(PropertyUtils.java:426)
 	at net.sf.jasperreports.engine.data.JRAbstractBeanDataSource.getBeanProperty(JRAbstractBeanDataSource.java:111)
 	... 15 more
-2020-02-27 17:10:20 main Reporter [INFO] Starting hud reports process....
-2020-02-27 17:46:18 main JRFillSubreport [ERROR] Fill 1: exception
+2020-02-26 22:03:31 main Reporter [INFO] Starting hud reports process....
+2020-02-26 22:38:34 main JRFillSubreport [ERROR] Fill 1: exception
 net.sf.jasperreports.engine.JRException: Error retrieving field value from bean : genderDataIssues
 	at net.sf.jasperreports.engine.data.JRAbstractBeanDataSource.getBeanProperty(JRAbstractBeanDataSource.java:123)
 	at net.sf.jasperreports.engine.data.JRAbstractBeanDataSource.getFieldValue(JRAbstractBeanDataSource.java:96)
@@ -92,7 +91,7 @@ Caused by: java.lang.NoSuchMethodException: Unknown property 'genderDataIssues' 
 	at org.apache.commons.beanutils.PropertyUtils.getProperty(PropertyUtils.java:426)
 	at net.sf.jasperreports.engine.data.JRAbstractBeanDataSource.getBeanProperty(JRAbstractBeanDataSource.java:111)
 	... 15 more
-2020-02-27 17:46:18 main Reporter [ERROR] net.sf.jasperreports.engine.JRRuntimeException: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean : genderDataIssues
+2020-02-26 22:38:34 main Reporter [ERROR] net.sf.jasperreports.engine.JRRuntimeException: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean : genderDataIssues
 net.sf.jasperreports.engine.JRRuntimeException: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean : genderDataIssues
 	at net.sf.jasperreports.engine.fill.JRFillSubreport.prepare(JRFillSubreport.java:809)
 	at net.sf.jasperreports.engine.fill.JRFillElementContainer.prepareElements(JRFillElementContainer.java:331)
