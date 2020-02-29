@@ -315,11 +315,11 @@ var Service= ({
             headers = headers();
             
             var filename = headers['x-filename'];
-            var contentType = headers['content-type'];
+            var contentType = headers['Content-Type'];
      
             var linkElement = document.createElement('a');
             try {
-                var blob = new Blob([data], { type: contentType });
+                var blob = new Blob([data], {type : contentType + ';charset=UTF-8'});
                 var url = window.URL.createObjectURL(blob);
      
                 linkElement.setAttribute('href', url);
@@ -1216,11 +1216,7 @@ app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http'
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
-	
-	Service.GetProjectList($http,	
-    //success
-    function(data){$scope.projects =data;  }),
-											   
+	$scope.sessionToken = $sessionStorage.sessionToken;	
 											   
   $scope.submitForm = function() {
 	  
