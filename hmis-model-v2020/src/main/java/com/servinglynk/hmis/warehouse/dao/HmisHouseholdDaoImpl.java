@@ -1,20 +1,26 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
+import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisHouseHoldMember;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold;
 
 public class HmisHouseholdDaoImpl extends QueryExecutorImpl implements HmisHouseholdDao {
 
+	@Autowired ParentDaoFactory parentDaoFactory;
+	
 	public HmisHousehold createHouseHold(HmisHousehold entity) {
 		entity.setId(UUID.randomUUID());
 		insert(entity);
+		this.createHouseHoldMedataInfo(entity);
 		return entity;
 	}
 	
@@ -24,6 +30,7 @@ public class HmisHouseholdDaoImpl extends QueryExecutorImpl implements HmisHouse
 	
 	public void deleteHouseHold(HmisHousehold entity) {
 		delete(entity);
+		this.deleteClientMedataInfo(entity);
 	}
 	
 	public HmisHousehold getHouseHoldById(UUID householeId) {
@@ -66,5 +73,30 @@ public class HmisHouseholdDaoImpl extends QueryExecutorImpl implements HmisHouse
 			List<HmisHouseHoldMember> entities = (List<HmisHouseHoldMember>) findByCriteria(criteria);
 			if(entities.isEmpty()) return null;
 		return entities.get(0);
+	}
+	
+	
+	public void createHouseHoldMedataInfo(com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold hmisHousehold) {
+		ClientMetaDataEntity metaDataEntity = new ClientMetaDataEntity();
+		metaDataEntity.setId(UUID.randomUUID());
+		metaDataEntity.setClientId(hmisHousehold.getHeadOfHousehold().getId());
+		metaDataEntity.setClientDedupId(hmisHousehold.getHeadOfHousehold().getDedupClientId());
+		metaDataEntity.setDate(LocalDateTime.now());
+		metaDataEntity.setDateCreated(LocalDateTime.now());
+		metaDataEntity.setDateUpdated(LocalDateTime.now());
+		metaDataEntity.setDeleted(false);
+		metaDataEntity.setMetaDataIdentifier(hmisHousehold.getId());
+		metaDataEntity.setType("hmishouseholds");
+		metaDataEntity.setProjectGroupCode(hmisHousehold.getProjectGroupCode());
+		metaDataEntity.setUserId(hmisHousehold.getUser());
+		metaDataEntity.setAdditionalInfo("{\"houseHoldId\":\""+hmisHousehold.getId()+"\",\"schemaYear\":\"2020\",\"clientId\":\""+hmisHousehold.getHeadOfHousehold().getId()+"\"}");
+		parentDaoFactory.getClientMetaDataDao().createClientMetaData(metaDataEntity);
+	}
+	
+	public void deleteClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold hmisHousehold) {
+		ClientMetaDataEntity metaDataEntity = parentDaoFactory.getClientMetaDataDao().findByIdentifier(hmisHousehold.getId());
+		metaDataEntity.setDateUpdated(LocalDateTime.now());
+		metaDataEntity.setDeleted(true);
+		parentDaoFactory.getClientMetaDataDao().updateClientMetaData(metaDataEntity);
 	}
 }
