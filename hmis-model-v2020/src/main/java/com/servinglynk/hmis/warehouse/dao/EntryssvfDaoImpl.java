@@ -45,6 +45,9 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 				com.servinglynk.hmis.warehouse.model.v2020.Entryssvf entrySsvfModel = null;
 				try {
 					entrySsvfModel = getModelObject(domain, entrySSVF,data,modelMap);
+					if(entrySsvfModel.isIgnored()) {
+						continue;
+					}
 					if(entrySSVF.getAddressDataQuality() !=null)
 						entrySsvfModel.setAddressDataQuality(LastPermAddressAddressDataQualityEnum.lookupEnum(entrySSVF.getAddressDataQuality()));
 					entrySsvfModel.setDeleted(false);
@@ -121,13 +124,15 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryssvf();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.Entryssvf model = new com.servinglynk.hmis.warehouse.model.v2020.Entryssvf();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryssvf.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+		
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Entryssvf model = new com.servinglynk.hmis.warehouse.model.v2020.Entryssvf();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryssvf.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,entryssvf.getEntrySSVFID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,entryssvf.getEntrySSVFID(),data);
+		return modelFromDB;
 	}
 
 	@Override

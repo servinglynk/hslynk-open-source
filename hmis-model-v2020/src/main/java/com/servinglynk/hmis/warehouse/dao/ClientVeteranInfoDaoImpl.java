@@ -57,6 +57,8 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 				try {
 					vInfo = getModelObject(domain, veteranInfo, data, modelMap);
 					if(vInfo.isIgnored()) {
+							continue;
+					}
 						vInfo.setAfghanistanOef(VeteranInfoAfghanistanOefEnum
 								.lookupEnum(veteranInfo
 												.getAfghanistanOEF()));
@@ -97,7 +99,6 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 						vInfo.setClient(client);
 						vInfo.setExport(exportEntity);
 						performSaveOrUpdate(vInfo,domain);
-					}
 				} catch (Exception e) {
 					String errorMessage = "Exception because of the client::" + veteranInfo.getClientVeteranInfoID() + " Exception ::" + e.getMessage();
 					if(vInfo != null){
@@ -123,6 +124,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 		// We always insert for a Full refresh and update if the record exists for Delta refresh
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo) getModel(com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo.class, clientVeteranInfo.getClientVeteranInfoID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
 		if(domain.isReUpload()) {
 			if(modelFromDB != null) {
 				return modelFromDB;
@@ -132,12 +134,19 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo model = new com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(clientVeteranInfo.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,clientVeteranInfo.getClientVeteranInfoID(),data);
-		return model;
+		
+		if(modelFromDB == null) {
+			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo();
+			modelFromDB.setId(UUID.randomUUID());
+			modelFromDB.setRecordToBeInserted(true);
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare model = new com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare();
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(clientVeteranInfo.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+		}
+		
+		hydrateCommonFields(modelFromDB, domain,clientVeteranInfo.getClientVeteranInfoID(),data);
+		return modelFromDB;
 	}
 
 	@Override

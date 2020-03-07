@@ -44,6 +44,9 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 			for(Education education : educationList)
 			{
 				com.servinglynk.hmis.warehouse.model.v2020.Education educationModel = getModelObject(domain, education,data,modelMap);
+				 if(educationModel.isIgnored()) {
+						continue;
+				 }
 				educationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(education.getDateCreated()));
 				educationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(education.getDateUpdated()));
 				educationModel
@@ -78,17 +81,19 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 			modelFromDB.setRecordToBeInserted(true);
 			return modelFromDB;
 		}
+		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Education();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Education model = new com.servinglynk.hmis.warehouse.model.v2020.Education();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(education.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Education model = new com.servinglynk.hmis.warehouse.model.v2020.Education();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(education.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,education.getEducationID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,education.getEducationID(),data);
+		return modelFromDB;
 	}
 
 	@Override

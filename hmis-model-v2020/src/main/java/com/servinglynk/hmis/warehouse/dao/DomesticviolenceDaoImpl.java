@@ -40,6 +40,9 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 				Domesticviolence domesticviolenceModel = null;
 				try {
 					domesticviolenceModel = getModelObject(domain, domesticViolence,data,modelMap);
+					 if(domesticviolenceModel.isIgnored()) {
+							continue;
+					 }
 					domesticviolenceModel.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum((domesticViolence.getDomesticViolenceVictim())));
 					domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum((domesticViolence.getWhenOccurred())));
 					domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
@@ -89,13 +92,15 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence model = new com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+		
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence model = new com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,domesticViolence.getDomesticViolenceID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,domesticViolence.getDomesticViolenceID(),data);
+		return modelFromDB;
 	}
 
 

@@ -64,6 +64,9 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				com.servinglynk.hmis.warehouse.model.v2020.Project projectModel = null;
 				try {
 					projectModel = getModelObject(domain, project,data,modelMap);
+					 if(projectModel.isIgnored()) {
+							continue;
+						}
 					//projectModel.setAffiliations(affiliation);
 					projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(project.getContinuumProject()));
 					Organization organization = (Organization) getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
@@ -81,8 +84,10 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 					projectModel.setExport(exportEntity);
-					manageGolbalProjects(projectModel, domain.getUpload().getProjectGroupCode(), domain.getUserId(), "2020");
-					performSaveOrUpdate(projectModel,domain);
+					if(!projectModel.isIgnored()) {
+						manageGolbalProjects(projectModel, domain.getUpload().getProjectGroupCode(), domain.getUserId(), "2020");
+						performSaveOrUpdate(projectModel,domain);
+					}
 				}catch(Exception e) {
 					String errorMessage = "Exception because of the project::"+project.getProjectID() +" Exception ::"+e.getMessage();
 					if(projectModel != null){
@@ -168,8 +173,8 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,project.getProjectID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,project.getProjectID(),data);
+		return modelFromDB;
 	}
 	
 

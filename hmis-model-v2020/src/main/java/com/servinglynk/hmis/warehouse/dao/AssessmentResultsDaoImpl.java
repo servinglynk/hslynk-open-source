@@ -45,9 +45,13 @@ public class AssessmentResultsDaoImpl extends ParentDaoImpl implements Assessmen
 					com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults assessmentResultsModel = null;
 					try {
 						assessmentResultsModel = getModelObject(domain, assessmentResults,data,modelMap);
-						
+						if(assessmentResultsModel.isIgnored()) {
+							continue;
+						}
 						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, assessmentResults.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
-						assessmentResultsModel.setEnrollmentid(enrollmentModel);
+						if(assessmentResultsModel.getEnrollmentid() == null) {
+							assessmentResultsModel.setEnrollmentid(enrollmentModel);
+						}
 						assessmentResultsModel.setExport(exportEntity);
 						com.servinglynk.hmis.warehouse.model.v2020.Assessment assessment = (com.servinglynk.hmis.warehouse.model.v2020.Assessment) getModel(com.servinglynk.hmis.warehouse.model.v2020.Assessment.class, assessmentResults.getAssessmentID(),getProjectGroupCode(domain),true,assessmentModelMap, domain.getUpload().getId());
 						assessmentResultsModel.setAssessment(assessment);
@@ -90,30 +94,20 @@ public class AssessmentResultsDaoImpl extends ParentDaoImpl implements Assessmen
 		public  com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults getModelObject(ExportDomain domain, AssessmentResults assessmentResults,Data data, Map<String,HmisBaseModel> modelMap) {
 			com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults modelFromDB = null;
 			// We always insert for a Full refresh and update if the record exists for Delta refresh
-			if(!isFullRefresh(domain))
 				modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults) getModel(com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults.class, assessmentResults.getAssessmentResultID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
-			if(domain.isReUpload()) {
-				if(modelFromDB != null) {
-					return modelFromDB;
-				}
+			if(modelFromDB == null) {
 				modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults();
 				modelFromDB.setId(UUID.randomUUID());
 				modelFromDB.setRecordToBeInserted(true);
-				return modelFromDB;
-			}
-			com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults model = null;
-			if(modelFromDB == null) {
-				model = new com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults();
-				model.setId(UUID.randomUUID());
-				model.setRecordToBeInserted(true);
 			}else {
-				org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+				com.servinglynk.hmis.warehouse.model.v2020.Assessment model = new com.servinglynk.hmis.warehouse.model.v2020.Assessment();
+				// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(assessmentResults.getDateUpdated()));
 				performMatch(domain, modelFromDB, model, data);
 			}
-		
-			hydrateCommonFields(model, domain,assessmentResults.getAssessmentResultID(),data);
-			return model;
+			hydrateCommonFields(modelFromDB, domain,assessmentResults.getAssessmentResultID(),data);
+			return modelFromDB;
+			
 		}
 
 		@Override
