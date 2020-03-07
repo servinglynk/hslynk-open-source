@@ -60,6 +60,9 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 				com.servinglynk.hmis.warehouse.model.v2020.Exit exitModel = null;
 				try {
 					exitModel = getModelObject(domain, exit, data, modelMap);
+					if(exitModel.isIgnored()) {
+						continue;
+					}
 					exitModel.setDestination(ExitDestinationEnum.lookupEnum((exit.getDestination())));
 					exitModel.setOtherdestination(exit.getOtherDestination());
 					exitModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateCreated()));
@@ -108,13 +111,15 @@ public class ExitDaoImpl extends ParentDaoImpl implements ExitDao {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Exit();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.Exit model = new com.servinglynk.hmis.warehouse.model.v2020.Exit();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+		
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Exit model = new com.servinglynk.hmis.warehouse.model.v2020.Exit();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exit.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,exit.getExitID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,exit.getExitID(),data);
+		return modelFromDB;
 	}
 
 	@Override

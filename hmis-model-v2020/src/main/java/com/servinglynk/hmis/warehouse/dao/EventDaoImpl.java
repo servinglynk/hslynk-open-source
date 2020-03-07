@@ -44,6 +44,9 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 					com.servinglynk.hmis.warehouse.model.v2020.Event eventModel = null;
 					try {
 						eventModel = getModelObject(domain, event,data,modelMap);
+						if(eventModel.isIgnored()) {
+							continue;
+						}
 						eventModel.setEventDate(BasicDataGenerator.getLocalDateTime(event.getEventDate()));
 						eventModel.setResultDate(BasicDataGenerator.getLocalDateTime(event.getResultDate()));
 						eventModel.setEvent(EventTypeEnum.lookupEnum(event.getEvent()));
@@ -103,8 +106,8 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 				performMatch(domain, modelFromDB, model, data);
 			}
 		
-			hydrateCommonFields(model, domain,Event.getEventID(),data);
-			return model;
+			hydrateCommonFields(modelFromDB, domain,Event.getEventID(),data);
+			return modelFromDB;
 		}
 
 		@Override

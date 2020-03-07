@@ -50,6 +50,9 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				try {
 					
 					rhybcpstatusModel = getModelObject(domain, rhybcpStatus,data,modelMap);
+					if(rhybcpstatusModel.isIgnored()) {
+						continue;
+					}
 					rhybcpstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
 					rhybcpstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
 					if(rhybcpStatus.getEligibleForRHY() !=null)
@@ -108,8 +111,8 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,rhybcpStatus.getRHYBCPStatusID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,rhybcpStatus.getRHYBCPStatusID(),data);
+		return modelFromDB;
 	}
 	
 	@Override

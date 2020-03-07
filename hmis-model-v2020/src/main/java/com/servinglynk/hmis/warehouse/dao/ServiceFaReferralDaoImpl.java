@@ -54,6 +54,9 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 				    	  contactCount++;
 					  }else {
 							serviceFaReferralModel = getModelObject(domain, serviceFaReferrals,data,modelMap);
+							if(serviceFaReferralModel.isIgnored()) {
+								continue;
+							}
 							serviceFaReferralModel.setDateprovided(BasicDataGenerator.getLocalDateTime(serviceFaReferrals.getDateCreated()));
 							serviceFaReferralModel.setFaAmount(new BigDecimal(serviceFaReferrals.getFAAmount()));
 							serviceFaReferralModel.setOtherTypeProvided(serviceFaReferrals.getOtherTypeProvided());
@@ -112,13 +115,14 @@ public class ServiceFaReferralDaoImpl extends ParentDaoImpl implements ServiceFa
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral model = new com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral model = new com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(services.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,services.getServicesID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,services.getServicesID(),data);
+		return modelFromDB;
 	}
 	
 	

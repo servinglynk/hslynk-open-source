@@ -49,6 +49,9 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 				com.servinglynk.hmis.warehouse.model.v2020.Contact contactModel = null;
 				try {
 					contactModel = getModelObject(domain, contacts, data, modelMap);
+					 if(contactModel.isIgnored()) {
+							continue;
+					 }
 					contactModel.setContactDate(BasicDataGenerator.getLocalDateTime(contacts.getContactDate()));
 					contactModel.setContactLocation(ContactLocationEnum.lookupEnum((contacts
 							.getContactLocation())));
@@ -118,13 +121,15 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Contact();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.Contact model = new com.servinglynk.hmis.warehouse.model.v2020.Contact();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(contact.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+		
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Contact model = new com.servinglynk.hmis.warehouse.model.v2020.Contact();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(contact.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,contact.getContactID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,contact.getContactID(),data);
+		return modelFromDB;
 	}
 
 	

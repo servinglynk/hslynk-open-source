@@ -48,6 +48,9 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.v2020.HealthStatus healthStatusModel = null;
 				try {
 					healthStatusModel = getModelObject(domain, healthStatus,data,modelMap);
+					if(healthStatusModel.isIgnored()) {
+						continue;
+					}
 					healthStatusModel.setDueDate(BasicDataGenerator.getLocalDateTime(healthStatus.getDueDate()));
 					healthStatusModel.setHealthCategory(HealthStatusHealthCategoryEnum.lookupEnum((healthStatus.getHealthCategory())));
 					healthStatusModel.setHealthStatus(HealthStatusHealthStatusEnum.lookupEnum((healthStatus.getHealthStatus())));
@@ -106,13 +109,14 @@ public class HealthStatusDaoImpl extends ParentDaoImpl implements
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.HealthStatus();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.HealthStatus model = new com.servinglynk.hmis.warehouse.model.v2020.HealthStatus();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.HealthStatus model = new com.servinglynk.hmis.warehouse.model.v2020.HealthStatus();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthStatus.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,healthStatus.getHealthStatusID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,healthStatus.getHealthStatusID(),data);
+		return modelFromDB;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2020.HealthStatus createHealthStatus(com.servinglynk.hmis.warehouse.model.v2020.HealthStatus HealthStatus){
 	       HealthStatus.setId(UUID.randomUUID());

@@ -41,6 +41,9 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 					com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare rhyAfterCareModel = null;
 					try {
 						rhyAfterCareModel = getModelObject(domain, rhyAfterCare, data, modelMap);
+						 if(rhyAfterCareModel.isIgnored()) {
+								continue;
+							}
 						rhyAfterCareModel.setAfterProvided(NoYesEnum.lookupEnum((rhyAfterCare.getAfterCareProvided())));
 						rhyAfterCareModel.setEmailSocialMedia(NoYesEnum.lookupEnum(rhyAfterCare.getEmailSocialMedia()));
 						rhyAfterCareModel.setInPersonGroup(NoYesEnum.lookupEnum(rhyAfterCare.getInPersonIndividual()));
@@ -91,12 +94,13 @@ public class RHYAfterCareDaoImpl extends ParentDaoImpl implements RHYAfterCareDa
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare model = new com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare();
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expRhyAfterCare.getAfterCareDate()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare model = new com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare();
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expRhyAfterCare.getAfterCareDate()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,expRhyAfterCare.getRhyAfterCareID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,expRhyAfterCare.getRhyAfterCareID(),data);
+		return modelFromDB;
 	}
 	
 	@Override

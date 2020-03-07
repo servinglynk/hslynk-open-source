@@ -56,6 +56,9 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 				Noncashbenefits noncashbenefitsModel = null;
 				try{
 					noncashbenefitsModel = getModelObject(domain, nonCashBenefits,data,modelMap);
+					if(noncashbenefitsModel.isIgnored()) {
+						continue;
+					}
 					noncashbenefitsModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(nonCashBenefits.getDateCreated()));
 					noncashbenefitsModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(nonCashBenefits.getDateUpdated()));
 					noncashbenefitsModel.setBenefitsfromanysource(NoncashbenefitsBenefitsfromanysourceEnum.lookupEnum((nonCashBenefits.getBenefitsFromAnySource())));
@@ -115,13 +118,14 @@ public class NoncashbenefitsDaoImpl extends ParentDaoImpl implements
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Noncashbenefits();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Noncashbenefits model = new com.servinglynk.hmis.warehouse.model.v2020.Noncashbenefits();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(noncashbenefits.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Noncashbenefits model = new com.servinglynk.hmis.warehouse.model.v2020.Noncashbenefits();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(noncashbenefits.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,noncashbenefits.getNonCashBenefitsID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,noncashbenefits.getNonCashBenefitsID(),data);
+		return modelFromDB;
 	}
 	
 

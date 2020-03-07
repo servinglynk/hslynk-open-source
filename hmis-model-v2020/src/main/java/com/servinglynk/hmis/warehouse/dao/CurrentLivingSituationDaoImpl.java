@@ -47,6 +47,9 @@ public class CurrentLivingSituationDaoImpl extends ParentDaoImpl implements Curr
 				com.servinglynk.hmis.warehouse.model.v2020.CurrentLivingSituation currentLivingSituationModel = null;
 				try {
 					currentLivingSituationModel = getModelObject(domain, currentLivingSituation, data, modelMap);
+					 if(currentLivingSituationModel.isIgnored()) {
+							continue;
+					 }
 					currentLivingSituationModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(currentLivingSituation.getDateCreated()));
 					currentLivingSituationModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(currentLivingSituation.getDateUpdated()));
 					currentLivingSituationModel.setLivingSituation(LivingSituationEnum.lookupEnum(currentLivingSituation.getCurrentLivingSituation()));
@@ -99,13 +102,14 @@ public class CurrentLivingSituationDaoImpl extends ParentDaoImpl implements Curr
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.CurrentLivingSituation();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.CurrentLivingSituation model = new com.servinglynk.hmis.warehouse.model.v2020.CurrentLivingSituation();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(currentLivingSituation.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.CurrentLivingSituation model = new com.servinglynk.hmis.warehouse.model.v2020.CurrentLivingSituation();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(currentLivingSituation.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,currentLivingSituation.getCurrentLivingSitID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,currentLivingSituation.getCurrentLivingSitID(),data);
+		return modelFromDB;
 	}
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {

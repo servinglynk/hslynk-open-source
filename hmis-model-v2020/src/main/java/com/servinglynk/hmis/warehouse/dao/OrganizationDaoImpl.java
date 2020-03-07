@@ -53,6 +53,9 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 				 com.servinglynk.hmis.warehouse.model.v2020.Organization organizationModel = null;
 				 try {
 					 organizationModel = getModelObject(domain, organization,data,modelMap);
+					 if(organizationModel.isIgnored()) {
+							continue;
+						}
 					 organizationModel.setOrganizationcommonname(organization.getOrganizationCommonName());
 					 organizationModel.setVictimServiceProvider(NoYesEnum.lookupEnum(organization.getVictimServicesProvider()));
 					 organizationModel.setOrganizationname(organization.getOrganizationName());
@@ -105,8 +108,8 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(organization.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,organization.getOrganizationID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,organization.getOrganizationID(),data);
+		return modelFromDB;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2020.Organization createOrganization(com.servinglynk.hmis.warehouse.model.v2020.Organization organization){
 		   organization.setId(UUID.randomUUID());

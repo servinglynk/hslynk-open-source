@@ -64,6 +64,9 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				Incomeandsources incomeAndSourcesModel = null;
 				try {
 					incomeAndSourcesModel = getModelObject(domain, incomeAndSources,data,modelMap);
+					if(incomeAndSourcesModel.isIgnored()) {
+						continue;
+					}
 					incomeAndSourcesModel.setAlimony(IncomeandsourcesAlimonyEnum.lookupEnum((incomeAndSources.getAlimony())));
 					incomeAndSourcesModel.setAlimonyamount(new BigDecimal(incomeAndSources.getAlimonyAmount()));
 					incomeAndSourcesModel.setChildsupport(IncomeandsourcesChildsupportEnum.lookupEnum((incomeAndSources.getChildSupport())));
@@ -143,13 +146,14 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources model = new com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeandsources.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources model = new com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeandsources.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,incomeandsources.getIncomeAndSourcesID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,incomeandsources.getIncomeAndSourcesID(),data);
+		return modelFromDB;
 	}
 	
 

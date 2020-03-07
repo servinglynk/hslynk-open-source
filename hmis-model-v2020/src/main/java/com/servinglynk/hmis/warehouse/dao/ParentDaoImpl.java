@@ -89,7 +89,7 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	    public void hydrateCommonFields(HmisBaseModel baseModel,ExportDomain domain, String sourceId,Data data) {
 			String projectGroupCode = domain.getUpload().getProjectGroupCode();
 			baseModel.setProjectGroupCode( projectGroupCode !=null ? projectGroupCode : "PG0001");
-			baseModel.setActive(false);
+			baseModel.setActive(true);
 			baseModel.setSync(false);
 			HmisUser user = domain.getUpload().getUser();
 			if(user != null)
@@ -106,15 +106,15 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 				if(modelFromDB != null) {
 					modelMatch(modelFromDB, model);
 				}	
-				if(!model.isIgnored()) {
-					if(!model.isRecordToBoInserted()) {
+				if(!modelFromDB.isIgnored()) {
+					if(!modelFromDB.isRecordToBoInserted()) {
 						data.j++;
 					}
-					if(model.isRecordToBoInserted()) {
+					if(modelFromDB.isRecordToBoInserted()) {
 						data.i++;
 					}
 				}
-				if(model.isIgnored()) {
+				if(modelFromDB.isIgnored()) {
 					data.ignore++;
 				}
 			}else {
@@ -131,13 +131,13 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 		}
 	    protected void modelMatch(com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel modelFromDB,com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel model) {
 	    	if(model.getDateUpdatedFromSource() ==null || modelFromDB.getDateUpdatedFromSource() == null) {
-				model.setIgnored(true);
+	    		modelFromDB.setIgnored(true);
 				return;
 			}
 			if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) == 0) {
-					model.setIgnored(true);	
+				modelFromDB.setIgnored(true);	
 				}else if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) > 0) {
-					model.setRecordToBeInserted(false); //record already inserted , We need to update this.
+					modelFromDB.setRecordToBeInserted(false); //record already inserted , We need to update this.
 					populateModelId(modelFromDB, model);
 				}else if( model.getDateUpdatedFromSource().compareTo(modelFromDB.getDateUpdatedFromSource()) < 0) {
 						 // model = record in the file. modelFromDB = record in DB.
@@ -278,6 +278,10 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 	 * @param model
 	 */
 	protected void performSaveOrUpdate(HmisBaseModel model,ExportDomain domain) {
+		if(model.isIgnored()) {
+			logger.info("Ignoring this record because is already exists:::"+model.toString());
+			return;
+		}
 		getCurrentSession().flush();
         getCurrentSession().clear();
 		if(domain.isReUpload()) {
@@ -285,10 +289,6 @@ public abstract class ParentDaoImpl<T extends Object> extends QueryExecutorImpl 
 			model.setDateUpdated(LocalDateTime.now());
 		}
 		else {
-			if(model.isIgnored()) {
-				logger.info("Ignoring this record because is already exists:::"+model.toString());
-				return;
-			}
 			model.setDateUpdated(LocalDateTime.now());
 			if(!model.isRecordToBoInserted()) {
 				update(model);

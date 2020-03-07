@@ -45,6 +45,9 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 				com.servinglynk.hmis.warehouse.model.v2020.Funder funderModel = null;
 				try {
 					funderModel = getModelObject(domain, funder,data,modelMap);
+					if(funderModel.isIgnored()) {
+						continue;
+					}
 					funderModel.setFunder(FunderFunderEnum.lookupEnum((funder.getFunder())));
 					//funderModel.setGrantid(funder.getGrantID());
 					funderModel.setStartdate(BasicDataGenerator.getLocalDateTime(funder.getStartDate()));
@@ -95,13 +98,15 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Funder();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true);
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Funder model = new com.servinglynk.hmis.warehouse.model.v2020.Funder();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Funder model = new com.servinglynk.hmis.warehouse.model.v2020.Funder();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,funder.getFunderID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,funder.getFunderID(),data);
+		return modelFromDB;
 	}
 
 	public void hydrateHBASE(SyncDomain domain) {
