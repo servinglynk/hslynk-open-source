@@ -109,14 +109,16 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Exitrhy();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Exitrhy();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}else {
 			com.servinglynk.hmis.warehouse.model.v2020.Exitrhy model = new com.servinglynk.hmis.warehouse.model.v2020.Exitrhy();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

@@ -81,14 +81,16 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.VashExitReason();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.VashExitReason();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}else {
 			com.servinglynk.hmis.warehouse.model.v2020.VashExitReason model = new com.servinglynk.hmis.warehouse.model.v2020.VashExitReason();
 			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expVASHExitReason.getDateCreated()));

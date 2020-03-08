@@ -100,14 +100,16 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Coc();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Coc();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
 		}else {
 			com.servinglynk.hmis.warehouse.model.v2020.Coc model = new com.servinglynk.hmis.warehouse.model.v2020.Coc();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

@@ -50,6 +50,8 @@ public enum LivingSituationEnum {
 	EIGHT("8"),
 	/** Enum Constant. */
 	NINE("9"),
+	TEN("10"),
+	ELEVEN("11"),
 	TWELVE("12"),
 	THIRTEEN("13"),
 	FOURTEEN("14"),
@@ -66,7 +68,16 @@ public enum LivingSituationEnum {
 	TWENTY_FIVE("25"),
 	TWENTY_SIX("26"),
 	TWENTY_SEVEN("27"),
-	
+	TWENTY_EIGHT("28"),
+	TWENTY_NINE("29"),
+	THIRTY("30"),
+	THIRTY_ONE("31"),
+	THIRTY_TWO("32"),
+	THIRTY_THREE("33"),
+	THIRTY_FOUR("34"),
+	THIRTY_FIVE("35"),
+	THIRTY_SIX("36"),
+	THIRTY_SEVEN("37"),
 	/** Enum Constant. */
 	/*
 	19 = Rental by client, with VASH subsidy

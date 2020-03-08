@@ -98,7 +98,8 @@ public class AssessmentResultsDaoImpl extends ParentDaoImpl implements Assessmen
 			if(modelFromDB == null) {
 				modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults();
 				modelFromDB.setId(UUID.randomUUID());
-				modelFromDB.setRecordToBeInserted(true);
+				modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			}else {
 				com.servinglynk.hmis.warehouse.model.v2020.Assessment model = new com.servinglynk.hmis.warehouse.model.v2020.Assessment();
 				// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

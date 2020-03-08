@@ -95,14 +95,16 @@ public class OrganizationDaoImpl extends ParentDaoImpl implements
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Organization();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Organization();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}
 		com.servinglynk.hmis.warehouse.model.v2020.Organization model = new com.servinglynk.hmis.warehouse.model.v2020.Organization();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

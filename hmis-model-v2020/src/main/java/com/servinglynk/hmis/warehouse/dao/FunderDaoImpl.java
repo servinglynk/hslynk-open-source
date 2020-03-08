@@ -49,7 +49,8 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 						continue;
 					}
 					funderModel.setFunder(FunderFunderEnum.lookupEnum((funder.getFunder())));
-					//funderModel.setGrantid(funder.getGrantID());
+					funderModel.setGrantid(funder.getGrantID());
+					funderModel.setOtherFunder(funder.getOtherFunder());
 					funderModel.setStartdate(BasicDataGenerator.getLocalDateTime(funder.getStartDate()));
 					funderModel.setEnddate(BasicDataGenerator.getLocalDateTime(funder.getEndDate()));
 					funderModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(funder.getDateCreated()));
@@ -90,14 +91,16 @@ public class FunderDaoImpl extends ParentDaoImpl implements FunderDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Funder();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Funder();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}else {
 			com.servinglynk.hmis.warehouse.model.v2020.Funder model = new com.servinglynk.hmis.warehouse.model.v2020.Funder();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

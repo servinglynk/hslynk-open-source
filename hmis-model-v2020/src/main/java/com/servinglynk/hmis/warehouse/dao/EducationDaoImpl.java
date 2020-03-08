@@ -78,14 +78,16 @@ public class EducationDaoImpl extends ParentDaoImpl implements EducationDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Education();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Education();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}else {
 			com.servinglynk.hmis.warehouse.model.v2020.Education model = new com.servinglynk.hmis.warehouse.model.v2020.Education();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

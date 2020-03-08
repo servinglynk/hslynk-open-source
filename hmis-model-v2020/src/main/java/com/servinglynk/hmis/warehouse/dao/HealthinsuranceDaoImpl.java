@@ -124,7 +124,8 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}else {
 			com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance model = new com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

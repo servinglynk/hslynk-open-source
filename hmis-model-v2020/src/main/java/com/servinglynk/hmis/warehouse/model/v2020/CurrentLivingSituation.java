@@ -55,6 +55,7 @@ public class CurrentLivingSituation extends HmisBaseModel implements Cloneable, 
 	private NoYesEnum subsequentresidence;
 	private NoYesEnum resourcestoobtain;
 	private NoYesEnum movedtwoormore;
+	private NoYesEnum leaseOwn60Day;
 
 	/*
 	 * current_living_situation
@@ -236,6 +237,26 @@ public class CurrentLivingSituation extends HmisBaseModel implements Cloneable, 
 	 */
 	public void setSubsequentresidence(NoYesEnum subsequentresidence) {
 		this.subsequentresidence = subsequentresidence;
+	}
+
+	/**
+	 * @return the leaseOwn60Day
+	 */
+	/**
+	 * @return the subsequentresidence
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
+	@Basic( optional = true )
+	@Column( name = "leaseOwn60Day" )	
+	public NoYesEnum getLeaseOwn60Day() {
+		return leaseOwn60Day;
+	}
+
+	/**
+	 * @param leaseOwn60Day the leaseOwn60Day to set
+	 */
+	public void setLeaseOwn60Day(NoYesEnum leaseOwn60Day) {
+		this.leaseOwn60Day = leaseOwn60Day;
 	}
 
 	/**

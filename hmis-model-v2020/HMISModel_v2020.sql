@@ -1272,6 +1272,12 @@ INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSit
  INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSituation','25','Rental by client, with GPD TIP subsidy','ACTIVE'); 
  INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSituation','26','Residential project or halfway house with no homeless criteria','ACTIVE'); 
  INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSituation','27','Interim housing','ACTIVE'); 
+ 
+ 
+ 
+ 
+ 
+ 
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSituation','99','Data not collected','ACTIVE'); 
 
 
@@ -1318,6 +1324,10 @@ INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSit
 	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','41','VA:  Grant Per Diem – Service Intensive Transitional Housing','ACTIVE');
 	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','42','VA:  Grant Per Diem – Transition in Place','ACTIVE');
 	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','43','HUD:CoC – Youth Homeless Demonstration Program','ACTIVE');
+	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','44','HUD: CoC – Joint Component TH/RRH','ACTIVE');
+	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','45','VA: Grant per Diem – Case Management/Housing Retention','ACTIVE');
+	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','46','Local or Other Funding Source (Please Specify)','ACTIVE');
+	
 			
 	 
  INSERT INTO "v2020".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','1','Out of age range');
@@ -3225,7 +3235,7 @@ create table "v2020".connectionwithsoar
 	sync boolean DEFAULT false,
 		constraint "connectionwithsoar_pkey" primary key ("id"),
 		constraint "connectionwithsoar_fkey" foreign key ("enrollmentid")
-		references v2020.exit("id") match simple
+		references v2020.enrollment("id") match simple
 		on update no action on delete no action
 )
 with (

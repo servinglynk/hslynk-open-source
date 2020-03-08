@@ -99,18 +99,22 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc model = new com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc model = new com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(modelFromDB, domain,enrollmentCoc.getEnrollmentCoCID(),data);
 		return modelFromDB;
 	}

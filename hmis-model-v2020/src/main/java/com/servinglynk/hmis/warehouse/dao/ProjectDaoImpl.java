@@ -84,10 +84,8 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 					projectModel.setExport(exportEntity);
-					if(!projectModel.isIgnored()) {
-						manageGolbalProjects(projectModel, domain.getUpload().getProjectGroupCode(), domain.getUserId(), "2020");
-						performSaveOrUpdate(projectModel,domain);
-					}
+					manageGolbalProjects(projectModel, domain.getUpload().getProjectGroupCode(), domain.getUserId(), "2020");
+					performSaveOrUpdate(projectModel,domain);
 				}catch(Exception e) {
 					String errorMessage = "Exception because of the project::"+project.getProjectID() +" Exception ::"+e.getMessage();
 					if(projectModel != null){
@@ -114,6 +112,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			entity = new GlobalProjectEntity();
 			entity.setProjectCommonName(project.getProjectcommonname());
 			entity.setProjectName(project.getProjectname());
+			entity.setSourceSystemId(project.getSourceSystemId());
 			entity.setId(project.getId());
 			entity.setDescription(project.getProjectname());
 			entity.setDateCreated(LocalDateTime.now());
@@ -160,14 +159,16 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Project();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Project();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}
 		com.servinglynk.hmis.warehouse.model.v2020.Project model = new com.servinglynk.hmis.warehouse.model.v2020.Project();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

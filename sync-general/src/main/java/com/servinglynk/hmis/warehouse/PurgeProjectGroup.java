@@ -23,14 +23,14 @@ public class PurgeProjectGroup extends Logging {
 	public void purge(String projectGroupCode) throws Exception {
 		
 		List<String> schemas = new ArrayList<>();
-		schemas.add("v2014");
-		schemas.add("v2015");
-		schemas.add("v2016");
-		schemas.add("v2017");
-		schemas.add("base");
-		schemas.add("survey");
-		schemas.add("housing_inventory");
-		schemas.add("notificationdb");
+//		schemas.add("v2014");
+//		schemas.add("v2015");
+//		schemas.add("v2016");
+		schemas.add("v2020");
+//		schemas.add("base");
+//		schemas.add("survey");
+//		schemas.add("housing_inventory");
+//		schemas.add("notificationdb");
 		for(String schema : schemas) {
 			disableTriggers(schema);
 			List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);
@@ -95,7 +95,7 @@ public class PurgeProjectGroup extends Logging {
 		
 		PurgeProjectGroup view = new PurgeProjectGroup(logger);
 
-	    view.purge("SA0005");
+	    view.purge("BA0007");
 
 	}
 

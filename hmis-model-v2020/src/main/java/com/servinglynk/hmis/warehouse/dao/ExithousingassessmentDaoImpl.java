@@ -91,13 +91,15 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		} else {
 			com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment model = new com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

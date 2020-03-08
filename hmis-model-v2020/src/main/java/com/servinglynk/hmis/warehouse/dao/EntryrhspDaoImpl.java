@@ -101,13 +101,15 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		} else {
 			com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp model = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

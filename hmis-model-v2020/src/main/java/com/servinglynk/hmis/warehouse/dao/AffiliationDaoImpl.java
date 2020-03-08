@@ -87,14 +87,16 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 				}
 				modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Affiliation();
 				modelFromDB.setId(UUID.randomUUID());
-				modelFromDB.setRecordToBeInserted(true);
+				modelFromDB.setRecordToBeInserted(true); 
+				data.i++;
 				return modelFromDB;
 			}
 			
 			if(modelFromDB == null) {
 				modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Affiliation();
 				modelFromDB.setId(UUID.randomUUID());
-				modelFromDB.setRecordToBeInserted(true);
+				modelFromDB.setRecordToBeInserted(true); 
+				data.i++;
 			}else {
 				com.servinglynk.hmis.warehouse.model.v2020.HealthStatus model = new com.servinglynk.hmis.warehouse.model.v2020.HealthStatus();
 				// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

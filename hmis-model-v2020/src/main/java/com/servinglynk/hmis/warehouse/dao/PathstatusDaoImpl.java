@@ -52,6 +52,7 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 						}
 					pathstatusModel.setClientEnrolledInPath(BasicDataGenerator.getLongValue(pathStatus.getClientEnrolledInPATH()));
 					pathstatusModel.setReasonNotEnrolled(PathstatusReasonnotenrolledEnum.lookupEnum(String.valueOf(pathStatus.getReasonNotEnrolled())));
+					pathstatusModel.setDateOfStatus(BasicDataGenerator.getLocalDateTime(pathStatus.getDateOfStatus()));
 					pathstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateCreated()));
 					pathstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(pathStatus.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, pathStatus.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
@@ -90,14 +91,16 @@ public class PathstatusDaoImpl extends ParentDaoImpl implements PathstatusDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Pathstatus();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Pathstatus();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}else {
 			com.servinglynk.hmis.warehouse.model.v2020.Pathstatus model = new com.servinglynk.hmis.warehouse.model.v2020.Pathstatus();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

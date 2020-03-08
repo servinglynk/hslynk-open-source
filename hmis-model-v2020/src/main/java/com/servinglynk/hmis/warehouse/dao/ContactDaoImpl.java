@@ -113,14 +113,16 @@ public class ContactDaoImpl extends ParentDaoImpl implements ContactDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Contact();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Contact();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		} else {
 			com.servinglynk.hmis.warehouse.model.v2020.Contact model = new com.servinglynk.hmis.warehouse.model.v2020.Contact();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
