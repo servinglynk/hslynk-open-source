@@ -126,6 +126,7 @@ public class ClientDaoImpl extends BaseDaoImpl implements ClientDao {
 	 */
 	public UUID determindDedupId(com.servinglynk.hmis.warehouse.model.base.Client baseClient,String projectGroupCode) {
 		String ssid = baseClient.getSourceSystemId();
+		baseClient.setProjectGroupCode(projectGroupCode);
 		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(projectGroupCode);
 		UUID dedupedId = null;
 		if(projectGroupEntity.isDetermineDedupBySsid() && StringUtils.isNotBlank(ssid)) {
