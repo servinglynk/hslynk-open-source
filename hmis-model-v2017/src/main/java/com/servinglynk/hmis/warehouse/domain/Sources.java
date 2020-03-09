@@ -9564,7 +9564,7 @@ public class Sources {
                 protected float alimonyAmount;
                 @XmlElement(name = "OtherSource")
                 protected String otherSource;
-                @XmlElement(name = "OtherAmount")
+                @XmlElement(name = "OtherSourceAmount")
                 protected float otherAmount;
                 @XmlElement(name = "OtherSourceIdentify", required = true)
                 protected String otherSourceIdentify;

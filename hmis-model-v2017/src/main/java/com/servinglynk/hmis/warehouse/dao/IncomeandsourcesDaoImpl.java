@@ -69,6 +69,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 					incomeAndSourcesModel.setChildsupport(IncomeandsourcesChildsupportEnum.lookupEnum((incomeAndSources.getChildSupport())));
 					incomeAndSourcesModel.setChildsupportamount(new BigDecimal(incomeAndSources.getChildSupportAmount()));
 					incomeAndSourcesModel.setEarned(IncomeandsourcesEarnedEnum.lookupEnum((incomeAndSources.getEarned())));
+					incomeAndSourcesModel.setEarnedamount(new BigDecimal(incomeAndSources.getEarnedAmount()));
 					incomeAndSourcesModel.setGa(IncomeandsourcesGaEnum.lookupEnum((incomeAndSources.getGA())));
 					incomeAndSourcesModel.setGaamount(new BigDecimal(incomeAndSources.getGAAmount()));
 					incomeAndSourcesModel.setIncomefromanysource(IncomeandsourcesIncomefromanysourceEnum.lookupEnum((incomeAndSources.getIncomeFromAnySource())));
@@ -82,7 +83,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 					incomeAndSourcesModel.setSocsecretirement(IncomeandsourcesSocsecretirementEnum.lookupEnum(incomeAndSources.getSocSecRetirement()));
 					incomeAndSourcesModel.setSocsecretirementamount( new BigDecimal(incomeAndSources.getSocSecRetirementAmount()));
 					incomeAndSourcesModel.setSsdi(IncomeandsourcesSsdiEnum.lookupEnum(incomeAndSources.getSSDI()));
-					incomeAndSourcesModel.setSsdiamount(new BigDecimal(incomeAndSources.getSSIAmount()));
+					incomeAndSourcesModel.setSsdiamount(new BigDecimal(incomeAndSources.getSSDIAmount()));
 					incomeAndSourcesModel.setSsi(IncomeandsourcesSsiEnum.lookupEnum((incomeAndSources.getSSI())));
 					incomeAndSourcesModel.setSsiamount(new BigDecimal(incomeAndSources.getSSIAmount()));
 					incomeAndSourcesModel.setTanf(IncomeandsourcesTanfEnum.lookupEnum((incomeAndSources.getTANF())));

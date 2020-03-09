@@ -120,6 +120,20 @@ CREATE TYPE "v2020".tcell_viralload_source AS ENUM('1','2','3','99');
 CREATE TYPE "v2020".viral_load_available AS ENUM('0','1','2','8','9','99');
 
 CREATE TYPE "v2020".livingSituation AS ENUM('1','2','3','4','5','6','7','8','9','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','99');
+
+alter TYPE "v2020".livingSituation add value '10';
+alter TYPE "v2020".livingSituation add value '11';
+alter TYPE "v2020".livingSituation add value '29';
+alter TYPE "v2020".livingSituation add value '30';
+alter TYPE "v2020".livingSituation add value '29';
+alter TYPE "v2020".livingSituation add value '30';
+alter TYPE "v2020".livingSituation add value '31';
+alter TYPE "v2020".livingSituation add value '32';
+alter TYPE "v2020".livingSituation add value '33';
+alter TYPE "v2020".livingSituation add value '34';
+alter TYPE "v2020".livingSituation add value '35';
+alter TYPE "v2020".livingSituation add value '36';
+alter TYPE "v2020".livingSituation add value '37';
 CREATE TYPE "v2020".lengthOfStay AS ENUM('2','3','4','5','8','9','10','11','99');
 CREATE TYPE "v2020".literalHomelessHistory AS ENUM('0','1','2','99');
 CREATE TYPE "v2020".timeToHousingLoss as ENUM('0','1','2','3','99');
@@ -368,6 +382,8 @@ CREATE TYPE "v2020".sexual_orientation AS ENUM (
 '8',
 '9',
 '99');
+alter TYPE "v2020".sexual_orientation add value '6';
+
 CREATE TYPE "v2020".subsidy_information  AS ENUM (
 '1',
 '2',
@@ -1272,6 +1288,12 @@ INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSit
  INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSituation','25','Rental by client, with GPD TIP subsidy','ACTIVE'); 
  INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSituation','26','Residential project or halfway house with no homeless criteria','ACTIVE'); 
  INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSituation','27','Interim housing','ACTIVE'); 
+ 
+ 
+ 
+ 
+ 
+ 
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSituation','99','Data not collected','ACTIVE'); 
 
 
@@ -1318,6 +1340,10 @@ INSERT INTO "v2020".hmis_type (name,value,description,status) values ('livingSit
 	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','41','VA:  Grant Per Diem – Service Intensive Transitional Housing','ACTIVE');
 	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','42','VA:  Grant Per Diem – Transition in Place','ACTIVE');
 	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','43','HUD:CoC – Youth Homeless Demonstration Program','ACTIVE');
+	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','44','HUD: CoC – Joint Component TH/RRH','ACTIVE');
+	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','45','VA: Grant per Diem – Case Management/Housing Retention','ACTIVE');
+	INSERT INTO "v2020".hmis_type  (name,value,description,status) values ('funder','46','Local or Other Funding Source (Please Specify)','ACTIVE');
+	
 			
 	 
  INSERT INTO "v2020".hmis_type (name,status,value,description) values ('reason_no_services','ACTIVE','1','Out of age range');
@@ -3225,7 +3251,7 @@ create table "v2020".connectionwithsoar
 	sync boolean DEFAULT false,
 		constraint "connectionwithsoar_pkey" primary key ("id"),
 		constraint "connectionwithsoar_fkey" foreign key ("enrollmentid")
-		references v2020.exit("id") match simple
+		references v2020.enrollment("id") match simple
 		on update no action on delete no action
 )
 with (
@@ -3876,6 +3902,19 @@ where picklist_group_name='contact_location';
 ALTER TYPE v2020.years_juvenile_justice add value '99';
 ALTER TYPE v2020.years_child_welfr_forest_care add value '99';
 ALTER TYPE v2020.no_yes add value '2';
+alter TYPE "v2020".federal_partner_components add value '35';
+alter TYPE "v2020".federal_partner_components add value '36';
+alter TYPE "v2020".federal_partner_components add value '37';
+alter TYPE "v2020".federal_partner_components add value '38';
+alter TYPE "v2020".federal_partner_components add value '39';
+alter TYPE "v2020".federal_partner_components add value '40';
+alter TYPE "v2020".federal_partner_components add value '41';
+alter TYPE "v2020".federal_partner_components add value '42';
+alter TYPE "v2020".federal_partner_components add value '43';
+alter TYPE "v2020".federal_partner_components add value '44';
+alter TYPE "v2020".federal_partner_components add value '45';
+alter TYPE "v2020".federal_partner_components add value '46';
+
 
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('after_provided','8','Client doesn''t know','ACTIVE');
 

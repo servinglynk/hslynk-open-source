@@ -49,6 +49,9 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 				com.servinglynk.hmis.warehouse.model.v2020.Employment employmentModel = null;
 				try {
 					employmentModel = getModelObject(domain, employment, data, modelMap);
+					if(employmentModel.isIgnored()) {
+						continue;
+					}
 					employmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateCreated()));
 					employmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
 					employmentModel.setEmployed(EmploymentEmployedEnum.lookupEnum((employment.getEmployed())));
@@ -93,20 +96,23 @@ public class EmploymentDaoImpl extends ParentDaoImpl implements EmploymentDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Employment();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Employment();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.Employment model = new com.servinglynk.hmis.warehouse.model.v2020.Employment();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Employment model = new com.servinglynk.hmis.warehouse.model.v2020.Employment();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(employment.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,employment.getEmploymentID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,employment.getEmploymentID(),data);
+		return modelFromDB;
 	}
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {

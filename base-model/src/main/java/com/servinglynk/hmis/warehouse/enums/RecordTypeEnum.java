@@ -34,9 +34,14 @@ public enum RecordTypeEnum {
 	/** Enum Constant. */
 	ONE_FORTY_THREE("143"),
 	/** Enum Constant. */
+	ONE_FORTY_FOUR("144"),
+	/** Enum Constant. */
+	ONE_FIFTY_ONE("151"),
+	/** Enum Constant. */
 	ONE_FIFTY_TWO("152"),
 	/** Enum Constant. */
 	TWO_HUNDRED_TEN("210");
+	
 	/**
 	 * Internal storage of status field value, see the Enum spec for
  	 * clarification.

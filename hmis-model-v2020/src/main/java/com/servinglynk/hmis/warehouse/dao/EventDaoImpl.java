@@ -36,6 +36,7 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 			List<Event> events = export.getEvent();
 			Data data =new Data();
 			Map<String,HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Event.class, getProjectGroupCode(domain));
+			Map<String,HmisBaseModel> clientModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Client.class, getProjectGroupCode(domain));
 			com.servinglynk.hmis.warehouse.model.v2020.Export exportEntity = (com.servinglynk.hmis.warehouse.model.v2020.Export) getModel(com.servinglynk.hmis.warehouse.model.v2020.Export.class,domain.getExport().getExportID(),getProjectGroupCode(domain),false,exportModelMap, domain.getUpload().getId());
 			if(CollectionUtils.isNotEmpty(events))
 			{
@@ -44,6 +45,9 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 					com.servinglynk.hmis.warehouse.model.v2020.Event eventModel = null;
 					try {
 						eventModel = getModelObject(domain, event,data,modelMap);
+						if(eventModel.isIgnored()) {
+							continue;
+						}
 						eventModel.setEventDate(BasicDataGenerator.getLocalDateTime(event.getEventDate()));
 						eventModel.setResultDate(BasicDataGenerator.getLocalDateTime(event.getResultDate()));
 						eventModel.setEvent(EventTypeEnum.lookupEnum(event.getEvent()));
@@ -52,6 +56,14 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 						eventModel.setReferralResult(event.getReferralResult());
 						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, event.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						eventModel.setEnrollmentid(enrollmentModel);
+						com.servinglynk.hmis.warehouse.model.v2020.Client client = (com.servinglynk.hmis.warehouse.model.v2020.Client) getModel(com.servinglynk.hmis.warehouse.model.v2020.Client.class, event.getPersonalID(),getProjectGroupCode(domain),true,clientModelMap, domain.getUpload().getId());
+						if(client != null) {
+							eventModel.setClientId(client.getId());
+						}else {
+							 if(enrollmentModel != null){
+								 eventModel.setClientId(enrollmentModel.getClient().getId());
+							 }
+						}
 						
 						eventModel.setExport(exportEntity);
 						eventModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(event.getDateCreated()));
@@ -89,22 +101,24 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 				}
 				modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Event();
 				modelFromDB.setId(UUID.randomUUID());
-				modelFromDB.setRecordToBeInserted(true);
+				modelFromDB.setRecordToBeInserted(true); 
+				data.i++;
 				return modelFromDB;
 			}
-			com.servinglynk.hmis.warehouse.model.v2020.Event model = null;
+			
 			if(modelFromDB == null) {
-				model = new com.servinglynk.hmis.warehouse.model.v2020.Event();
-				model.setId(UUID.randomUUID());
-				model.setRecordToBeInserted(true);
+				modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Event();
+				modelFromDB.setId(UUID.randomUUID());
+				modelFromDB.setRecordToBeInserted(true);
+				data.i++;
 			}else {
-				org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+				com.servinglynk.hmis.warehouse.model.v2020.Event model = new com.servinglynk.hmis.warehouse.model.v2020.Event();
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(Event.getDateUpdated()));
 				performMatch(domain, modelFromDB, model, data);
 			}
 		
-			hydrateCommonFields(model, domain,Event.getEventID(),data);
-			return model;
+			hydrateCommonFields(modelFromDB, domain,Event.getEventID(),data);
+			return modelFromDB;
 		}
 
 		@Override

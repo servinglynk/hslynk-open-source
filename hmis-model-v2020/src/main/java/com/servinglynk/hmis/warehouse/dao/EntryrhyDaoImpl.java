@@ -64,6 +64,9 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 				com.servinglynk.hmis.warehouse.model.v2020.Entryrhy entryRhyModel = null;
 				try {
 					entryRhyModel = getModelObject(domain, entryRhys,data,modelMap);
+					if(entryRhyModel.isIgnored()) {
+						continue;
+					}
 					entryRhyModel.setAlcoholDrugAbuseFamilyMbr(EntryRHYAlcoholDrugAbuseFamEnum.lookupEnum((entryRhys.getAlcoholDrugAbuseFam())));
 					entryRhyModel.setCountOutReachReferralApproaches(BasicDataGenerator.getIntegerValue(entryRhys.getCountOutreachReferralApproaches()));
 					entryRhyModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(entryRhys.getDateCreated()));
@@ -149,21 +152,24 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.Entryrhy model = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryrhy.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Entryrhy model = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryrhy.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,entryrhy.getEntryRHYID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,entryrhy.getEntryRHYID(),data);
+		return modelFromDB;
 	}
 
 

@@ -60,7 +60,10 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				com.servinglynk.hmis.warehouse.model.v2020.Enrollment enrollmentModel = null;
 				try {
 					enrollmentModel = getModelObject(domain, enrollment,data,modelMap);
-//				enrollmentModel
+					if(enrollmentModel.isIgnored()) {
+						continue;
+					}
+	//				enrollmentModel
 //						.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum((enrollment
 //								.getContinuouslyHomelessOneYear())));
 //					enrollmentModel.setHousingstatus(EnrollmentHousingstatusEnum.lookupEnum((enrollment.getHousingStatus())));
@@ -125,12 +128,14 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Enrollment();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2020.Enrollment();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2020.Enrollment();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
 		hydrateCommonFields(modelFromDB, domain,enrollment.getEnrollmentID(),data);
 		return modelFromDB;
 	}

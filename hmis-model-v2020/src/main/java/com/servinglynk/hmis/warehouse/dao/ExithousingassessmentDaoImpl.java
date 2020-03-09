@@ -48,6 +48,9 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 					Exithousingassessment exithousingassessmentModel = null;
 					try {
 						exithousingassessmentModel = getModelObject(domain, exitHousingAssessment, data, modelMap);
+						if(exithousingassessmentModel.isIgnored()) {
+							continue;
+						}
 						exithousingassessmentModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateCreated()));
 						exithousingassessmentModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitHousingAssessment.getDateUpdated()));
 						exithousingassessmentModel.setHousingassessment(ExithousingassessmentHousingassessmentEnum.lookupEnum((exitHousingAssessment.getHousingAssessment())));
@@ -88,20 +91,24 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment model = new com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exithousingassessment.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+		
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment model = new com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exithousingassessment.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,exithousingassessment.getExitHousingAssessmentID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,exithousingassessment.getExitHousingAssessmentID(),data);
+		return modelFromDB;
 	}
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {

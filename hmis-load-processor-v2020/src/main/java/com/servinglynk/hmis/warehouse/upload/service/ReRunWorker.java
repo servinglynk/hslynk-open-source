@@ -66,7 +66,6 @@ public class ReRunWorker implements IReRunWorker  {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
 	}
 	
 	private void moveFile(String inputPath,String outputPath) throws IOException

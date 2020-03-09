@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -14,10 +15,10 @@ import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Affiliation;
+import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Project;
-import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -42,6 +43,9 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 					com.servinglynk.hmis.warehouse.model.v2020.Affiliation affiliationModel = null;
 					try {
 						affiliationModel = getModelObject(domain, affiliation,data,modelMap);
+						 if(affiliationModel.isIgnored()) {
+								continue;
+						 }
 						affiliationModel.setResprojectid(affiliation.getResProjectID());
 						Project project = (Project) getModel(Project.class,affiliation.getProjectID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						affiliationModel.setExport(exportEntity);
@@ -76,28 +80,31 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 			// We always insert for a Full refresh and update if the record exists for Delta refresh
 			if(!isFullRefresh(domain))
 				modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Affiliation) getModel(com.servinglynk.hmis.warehouse.model.v2020.Affiliation.class, affiliation.getAffiliationID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
+		
 			if(domain.isReUpload()) {
 				if(modelFromDB != null) {
 					return modelFromDB;
 				}
 				modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Affiliation();
 				modelFromDB.setId(UUID.randomUUID());
-				modelFromDB.setRecordToBeInserted(true);
+				modelFromDB.setRecordToBeInserted(true); 
+				data.i++;
 				return modelFromDB;
 			}
-			com.servinglynk.hmis.warehouse.model.v2020.Affiliation model = null;
+			
 			if(modelFromDB == null) {
-				model = new com.servinglynk.hmis.warehouse.model.v2020.Affiliation();
-				model.setId(UUID.randomUUID());
-				model.setRecordToBeInserted(true);
+				modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Affiliation();
+				modelFromDB.setId(UUID.randomUUID());
+				modelFromDB.setRecordToBeInserted(true); 
+				data.i++;
 			}else {
-				org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+				com.servinglynk.hmis.warehouse.model.v2020.HealthStatus model = new com.servinglynk.hmis.warehouse.model.v2020.HealthStatus();
+				// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
 				performMatch(domain, modelFromDB, model, data);
 			}
-		
-			hydrateCommonFields(model, domain,affiliation.getAffiliationID(),data);
-			return model;
+			hydrateCommonFields(modelFromDB, domain,affiliation.getAffiliationID(),data);
+			return modelFromDB;
 		}
 
 		@Override

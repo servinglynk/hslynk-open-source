@@ -41,6 +41,9 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 				com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp entryRhspModel = null;
 				try {
 					entryRhspModel = getModelObject(domain, entryRhsp,data,modelMap);
+					if(entryRhspModel.isIgnored()) {
+						continue;
+					}
 					entryRhspModel.setWorstHousingSituation(BasicDataGenerator.getIntegerValue(entryRhsp.getWorstHousingSituation()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, entryRhsp.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					entryRhspModel.setEnrollmentid(enrollmentModel);
@@ -98,20 +101,23 @@ public class EntryrhspDaoImpl extends ParentDaoImpl implements EntryrhspDao{
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp model = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryrhsp.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp model = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(entryrhsp.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,entryrhsp.getEntryRHSPID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,entryrhsp.getEntryRHSPID(),data);
+		return modelFromDB;
 	}
 
     

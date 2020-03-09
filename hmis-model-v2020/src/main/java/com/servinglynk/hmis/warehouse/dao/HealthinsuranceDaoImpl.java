@@ -63,6 +63,9 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 				Healthinsurance healthinsuranceModel = null;
 				try {
 					healthinsuranceModel = getModelObject(domain, healthInsurance,data,modelMap);
+					if(healthinsuranceModel.isIgnored()) {
+						continue;
+					}
 					healthinsuranceModel.setCobra(BasicDataGenerator.getIntegerValue(healthInsurance.getCOBRA()));
 					healthinsuranceModel.setEmployerprovided(BasicDataGenerator.getIntegerValue(healthInsurance.getEmployerProvided()));
 					healthinsuranceModel.setInsurancefromanysource(HealthinsuranceInsurancefromanysourceEnum.lookupEnum((healthInsurance.getInsuranceFromAnySource())));
@@ -118,29 +121,19 @@ public class HealthinsuranceDaoImpl extends ParentDaoImpl implements
 		if(!isFullRefresh(domain))
 			modelFromDB = (com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance) getModel(com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance.class, healthinsurance.getHealthInsuranceID(), getProjectGroupCode(domain),false,modelMap, domain.getUpload().getId());
 		
-		if(domain.isReUpload()) {
-			if(modelFromDB != null) {
-				hydrateCommonFields(modelFromDB, domain,healthinsurance.getHealthInsuranceID(),data);
-				return modelFromDB;
-			}
-			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance();
-			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
-			hydrateCommonFields(modelFromDB, domain,healthinsurance.getHealthInsuranceID(),data);
-			return modelFromDB;
-		}
-		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance model = new com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthinsurance.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance model = new com.servinglynk.hmis.warehouse.model.v2020.Healthinsurance();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(healthinsurance.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,healthinsurance.getHealthInsuranceID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,healthinsurance.getHealthInsuranceID(),data);
+		return modelFromDB;
 	}
 
 	@Override
