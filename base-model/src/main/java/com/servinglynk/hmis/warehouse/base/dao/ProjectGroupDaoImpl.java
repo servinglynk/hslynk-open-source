@@ -59,7 +59,7 @@ public class ProjectGroupDaoImpl extends BaseDaoImpl implements ProjectGroupDao 
 	   public List<String> getAllActiveProjectGroupCodes(){
 		   List<String> projectGroupCodes = new ArrayList<String>();
 	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity.class);
-	       criteria.add(Restrictions.eq("active",true));
+	       criteria.add(Restrictions.eq("billable",true));
 	       List<com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity> projectGrps = (List<com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity>) findByCriteria(criteria);
 	       if(CollectionUtils.isNotEmpty(projectGrps)) {
 	    	   for(com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity projectGrp : projectGrps ) {
