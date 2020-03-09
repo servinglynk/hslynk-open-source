@@ -37,4 +37,6 @@ public interface AccountService {
 	
 	boolean checkClientConsentAuthorizationForUser(Account account, UUID clientid);
 
+	void passwordUpdateByAdmin(Account account, PasswordChange passwordChange, String username);
+
 }

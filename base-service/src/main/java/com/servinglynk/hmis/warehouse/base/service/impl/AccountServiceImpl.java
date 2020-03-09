@@ -37,6 +37,7 @@ import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.Roles;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
+import com.servinglynk.hmis.warehouse.fileupload.common.SecurityUril;
 import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.PermissionSetEntity;
@@ -417,5 +418,50 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 			sessionEntity.setExpiresAt(new Date(System.currentTimeMillis() +  (sessionEntity.getTrustedApp().getExpirationTime() * 1000) ));
 			daoFactory.getSessionDao().updateSessionEntity(sessionEntity);
 		}
+	}
+
+	@Transactional
+	public void passwordUpdateByAdmin(Account account, PasswordChange passwordChange, String username) {
+		HmisUser pAccount = daoFactory.getAccountDao().findByUsername(account.getUsername());
+		
+		HmisUser loginUser = daoFactory.getAccountDao().findByUsername(username);
+
+		if(pAccount==null) throw new AccountNotFoundException();
+		
+		if(!passwordChange.getNewPassword().equals(passwordChange.getConfirmNewPassword())) {
+			throw new InvalidParameterException("new password and confirm password not matched");
+		}
+		
+		if(!pAccount.getProjectGroupCode().equals(loginUser.getProjectGroupCode())) {
+			throw new AccessDeniedException("Loggedin user does not have permission to change password for this user");
+		}
+		
+		pAccount.setPassword(HMISCryptographer.Encrypt(passwordChange.getNewPassword()));
+		pAccount.setForcePasswordChange(false);
+		daoFactory.getAccountDao().updateAccount(pAccount);
+		Notification notification = new Notification();
+		notification.setMethod("EMAIL");
+		if(pAccount.getProjectGroupEntity()!=null)
+			notification.setSender(pAccount.getProjectGroupEntity().getSenderEmail());
+		notification.setType("HMIS_ADMIN_PASSWORD_UPDATE_USER");
+		notification.getRecipients().addToRecipient(pAccount.getEmailAddress());
+		notification.getParameters().addParameter(new Parameter("username", pAccount.getFirstName()+" "+pAccount.getLastName()));
+		notification.getParameters().addParameter(new Parameter("password", passwordChange.getNewPassword()));
+		notificationServiceClient.createNotification(notification);
+		
+
+		
+		Notification notification1 = new Notification();
+		notification1.setMethod("EMAIL");
+			notification1.setSender(loginUser.getEmailAddress());
+			if(pAccount.getProjectGroupEntity()!=null)
+				notification1.setSender(pAccount.getProjectGroupEntity().getSenderEmail());
+		notification1.setType("HMIS_ADMIN_PASSWORD_UPDATE_ADMIN");
+		notification1.getRecipients().addToRecipient(loginUser.getEmailAddress());
+		notification1.getParameters().addParameter(new Parameter("username", loginUser.getFirstName()+" "+loginUser.getLastName()));
+		notification1.getParameters().addParameter(new Parameter("user", pAccount.getUsername()));
+		notificationServiceClient.createNotification(notification1);
+		
+		
 	}
 }
