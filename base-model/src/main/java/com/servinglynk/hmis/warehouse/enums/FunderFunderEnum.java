@@ -76,7 +76,31 @@ public enum FunderFunderEnum {
 	/** Enum Constant. */
 	THIRTY_THREE("33"),
 	/** Enum Constant. */
-	THIRTY_FOUR("34");
+	THIRTY_FOUR("34"),
+	/** Enum Constant. */
+	THIRTY_FIVE("35"),
+	/** Enum Constant. */
+	THIRTY_SIX("36"),
+	/** Enum Constant. */
+	THIRTY_SEVEN("37"),
+	/** Enum Constant. */
+	THIRTY_EIGHT("38"),
+	/** Enum Constant. */
+	THIRTY_NINE("39"),
+	/** Enum Constant. */
+	FORTY("40"),
+	/** Enum Constant. */
+	FORTY_ONE("41"),
+	/** Enum Constant. */
+	FORTY_TWO("42"),
+	/** Enum Constant. */
+	FORTY_THREE("43"),
+	/** Enum Constant. */
+	FORTY_FOUR("44"),
+	/** Enum Constant. */
+	FORTY_FIVE("45"),
+	/** Enum Constant. */
+	FORTY_FIX("46");
 	/**
 	 * Internal storage of status field value, see the Enum spec for
  	 * clarification.

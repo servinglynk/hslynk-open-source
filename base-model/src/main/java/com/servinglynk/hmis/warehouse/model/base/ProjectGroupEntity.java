@@ -30,6 +30,8 @@ public class ProjectGroupEntity  {
     
    // private boolean active;
     
+    private boolean billable;
+    
     private String senderEmail;
     
     @javax.persistence.Id
@@ -81,6 +83,15 @@ public class ProjectGroupEntity  {
 	public void setSkipuseridentifers(boolean skipuseridentifers) {
 		this.skipuseridentifers = skipuseridentifers;
 	}
+	
+	@Column(name="is_billable")
+	public boolean isBillable() {
+		return billable;
+	}
+	public void setBillable(boolean billable) {
+		this.billable = billable;
+	}
+	
 //	@Column(name="active")
 //	public boolean isActitve() {
 //		return active;

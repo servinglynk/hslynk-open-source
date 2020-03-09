@@ -45,8 +45,10 @@ public class ConnectionWithSoarDaoImpl extends ParentDaoImpl implements Connecti
 				 com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar connectionWithSoarModel = null;
 				 try {
 					 connectionWithSoarModel = getModelObject(domain, connectionWithSOAR,data,modelMap);
-					 if(connectionWithSOAR.getConnectionWithSOAR() !=null)
-						 connectionWithSoarModel.setConnectionwithsoar(ConnectionWithSoarEnum.lookupEnum(connectionWithSOAR.getConnectionWithSOAR()));
+					 if(connectionWithSoarModel.isIgnored()) {
+							continue;
+						}
+					connectionWithSoarModel.setConnectionwithsoar(ConnectionWithSoarEnum.lookupEnum(connectionWithSOAR.getConnectionWithSOAR()));
 					 connectionWithSoarModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateCreated()));
 					 connectionWithSoarModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSOAR.getDateUpdated()));
 					 Enrollment enrollment = (Enrollment) getModel(ConnectionWithSoar.class, connectionWithSOAR.getEnrollmentID(), getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
@@ -85,21 +87,24 @@ public class ConnectionWithSoarDaoImpl extends ParentDaoImpl implements Connecti
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar model = new com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSoar.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar model = new com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(connectionWithSoar.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,connectionWithSoar.getConnectionWithSOARID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,connectionWithSoar.getConnectionWithSOARID(),data);
+		return modelFromDB;
 	}
 	   public com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar createConnectionWithSoar(com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar connectionWithSoar){
 		   connectionWithSoar.setId(UUID.randomUUID());

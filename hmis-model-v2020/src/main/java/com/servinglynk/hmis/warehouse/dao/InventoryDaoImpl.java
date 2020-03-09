@@ -84,8 +84,7 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 						inventoryModel.setOtherBedInventory(Integer.parseInt(inventory.getOtherBedInventory()));
 				
 					inventoryModel.setDeleted(false);
-					
-					
+					inventoryModel.setCoccode(inventory.getCoCCode());
 					
 					/*Enrollment enrollmentModel = (Enrollment) get(Enrollment.class, domain.getEnrollmentProjectEntryIDMap().get(entryRhsps.getEntryRHSPID()));
 				entryRhspModel.setEnrollmentid(enrollmentModel);*/
@@ -129,21 +128,23 @@ public class InventoryDaoImpl extends ParentDaoImpl implements InventoryDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Inventory();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Inventory();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}
 		com.servinglynk.hmis.warehouse.model.v2020.Inventory model = new com.servinglynk.hmis.warehouse.model.v2020.Inventory();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(inventory.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,inventory.getInventoryID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,inventory.getInventoryID(),data);
+		return modelFromDB;
 	}
 	
 	

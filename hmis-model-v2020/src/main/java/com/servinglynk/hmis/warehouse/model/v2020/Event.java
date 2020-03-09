@@ -49,12 +49,14 @@ public class Event extends HmisBaseModel implements Cloneable, Serializable {
 	private volatile java.util.UUID hashCode;
 	private UUID id;
 	private Enrollment enrollmentid;
+	private UUID clientId;
 	private LocalDateTime eventDate;
 	private LocalDateTime resultDate;
 	private String locationcrisisorphhousing;
 	private String referralResult;
 	private EventTypeEnum event;
 	private NoYesEnum referralCaseManageAfter;
+	
 
 	/*   event_date  date,
    event  v2020.event_type,
@@ -88,6 +90,21 @@ public class Event extends HmisBaseModel implements Cloneable, Serializable {
 		this.eventDate = eventDate;
 	}
 
+	/**
+	 * @return the clientid
+	 */
+	@Basic( optional = false )
+	@Column( name = "client_id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	public UUID getClientId() {
+		return clientId;
+	}
+
+	/**
+	 * @param clientid the clientid to set
+	 */
+	public void setClientId(UUID clientid) {
+		this.clientId = clientid;
+	}
 	/**
 	 * @return the resultDate
 	 */

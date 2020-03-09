@@ -48,6 +48,9 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 				com.servinglynk.hmis.warehouse.model.v2020.Exitrhy exitrhyModel = null;
 				try {
 					exitrhyModel = getModelObject(domain, exitrhy,data,modelMap);
+					if(exitrhyModel.isIgnored()) {
+						continue;
+					}
 					exitrhyModel.setEarlyExitReason(ExitRHYEarlyExitReasonEnum.lookupEnum(exitrhy.getEarlyExitReason()));
 					exitrhyModel.setProjectCompletionStatus(ProjectcompletionstatusProjectcompletionstatusEnum.lookupEnum( exitrhy.getProjectCompletionStatus()));
 
@@ -106,21 +109,25 @@ public class ExitrhyDaoImpl extends ParentDaoImpl implements ExitrhyDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Exitrhy();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Exitrhy();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Exitrhy model = new com.servinglynk.hmis.warehouse.model.v2020.Exitrhy();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhy.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Exitrhy model = new com.servinglynk.hmis.warehouse.model.v2020.Exitrhy();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(exitrhy.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,exitrhy.getExitRHYID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,exitrhy.getExitRHYID(),data);
+		return modelFromDB;
 	}
 	
 	@Override

@@ -50,13 +50,15 @@ public class Funder extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private FunderFunderEnum funder;
 	/** Field mapping. */
-	private java.util.UUID grantid;
+	private String grantid;
 	/** Field mapping. */
 	private java.util.UUID id;
 	/** Field mapping. */
 	private Project projectid;
 	/** Field mapping. */
 	private LocalDateTime startdate;
+	/** Field mapping. */
+	private String otherFunder;
 	/** Field mapping. */
 	/**
 	 * Default constructor, mainly for hibernate use.
@@ -141,23 +143,37 @@ public class Funder extends HmisBaseModel implements Cloneable, Serializable {
 	 * @return A java.util.UUID object (this.grantid)
 	 */
 	@Basic( optional = true )
-	@org.hibernate.annotations.Type(type="pg-uuid")
-	public java.util.UUID getGrantid() {
+	@Column
+	public String getGrantid() {
 		return this.grantid;
 
 	}
-
-
-
 	 /**
 	 * Set the value related to the column: grantid.
 	 * @param grantid the grantid value you wish to set
 	 */
-	public void setGrantid(final java.util.UUID grantid) {
+	public void setGrantid(final String grantid) {
 		this.grantid = grantid;
 	}
 
+	
 	 /**
+	 * @return the otherFunder
+	 */
+	@Basic( optional = true )
+	@Column
+	public String getOtherFunder() {
+		return otherFunder;
+	}
+
+	/**
+	 * @param otherFunder the otherFunder to set
+	 */
+	public void setOtherFunder(String otherFunder) {
+		this.otherFunder = otherFunder;
+	}
+
+	/**
 	 * Return the value associated with the column: id.
 	 * @return A java.util.UUID object (this.id)
 	 */

@@ -50,6 +50,9 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 				com.servinglynk.hmis.warehouse.model.v2020.Disabilities disabilitiesModel = getModelObject(domain, disabilities, data, modelMap);
 				try {
 					disabilitiesModel = getModelObject(domain, disabilities,data,modelMap);
+					 if(disabilitiesModel.isIgnored()) {
+							continue;
+					 }
 					disabilitiesModel.setDisabilityresponse(BasicDataGenerator.getIntegerValue(disabilities.getDisabilityResponse()));
 					disabilitiesModel.setIndefiniteandimpairs(DisabilitiesIndefiniteandimpairsEnum.lookupEnum((disabilities.getIndefiniteAndImpairsIndependence())));
 					disabilitiesModel.setTcellcount(Integer.getInteger((disabilities.getTCellCount())));
@@ -96,20 +99,23 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Disabilities();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Disabilities();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.Disabilities model = new com.servinglynk.hmis.warehouse.model.v2020.Disabilities();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Disabilities model = new com.servinglynk.hmis.warehouse.model.v2020.Disabilities();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(disabilities.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,disabilities.getDisabilitiesID(),data);
-		return model;
+			hydrateCommonFields(modelFromDB, domain,disabilities.getDisabilitiesID(),data);
+		return modelFromDB;
 	}
 	
 	@Override

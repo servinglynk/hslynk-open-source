@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -294,11 +295,14 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 	@Override
 	public List<com.servinglynk.hmis.warehouse.model.v2014.Client> getAllNullDedupIdClients() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Client.class);
-		criteria.add(Restrictions.isNull("dedupClientId"));
-		criteria.add(Restrictions.neOrIsNotNull("firstName", ""));
-		criteria.add(Restrictions.neOrIsNotNull("lastName", ""));
 		List<String> allActiveProjectGroupCodes = daoFactory.getProjectGroupDao().getAllActiveProjectGroupCodes();
+		criteria.add(Restrictions.isNull("dedupClientId"));
+		Criterion firstNameCriterion = Restrictions.isNotNull("firstName");
+		Criterion lastNameCriterion = Restrictions.isNotNull("lastName");
+		criteria.add(Restrictions.and(firstNameCriterion,lastNameCriterion));
 		criteria.add(Restrictions.in("projectGroupCode", allActiveProjectGroupCodes));
+		criteria.add(Restrictions.isNotNull("version"));
+		criteria.add(Restrictions.le("version",3));
 		List<com.servinglynk.hmis.warehouse.model.v2014.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2014.Client>) findByCriteria(criteria);
 		return clients;
 	}

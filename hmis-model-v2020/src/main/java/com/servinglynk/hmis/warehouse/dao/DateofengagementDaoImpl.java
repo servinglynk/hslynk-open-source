@@ -44,6 +44,9 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 				Dateofengagement dateOfEngagementModel = null;
 			 try {
 				 dateOfEngagementModel = getModelObject(domain, dateOfEngagement,data,modelMap);
+				 if(dateOfEngagementModel.isIgnored()) {
+						continue;
+				 }
 				 dateOfEngagementModel.setDateofengagement(BasicDataGenerator.getLocalDateTime(dateOfEngagement.getDateOfEngagement()));
 				 Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, dateOfEngagement.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 				 dateOfEngagementModel.setEnrollmentid(enrollmentModel);
@@ -84,21 +87,24 @@ public class DateofengagementDaoImpl extends ParentDaoImpl implements
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		} else {
+			com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement model = new com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateofengagement.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement model = new com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(dateofengagement.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,dateofengagement.getDateOfEngagementID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,dateofengagement.getDateOfEngagementID(),data);
+		return modelFromDB;
 	}
 
 

@@ -28,6 +28,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 		com.servinglynk.hmis.warehouse.model.v2020.Export exportModel = null;
 		try {
 			exportModel = getModelObject(domain, export, data, modelMap);
+			if(!exportModel.isIgnored()) {
 			exportModel.setExportDate(BasicDataGenerator.getLocalDateTime(export.getExportDate()));
 			exportModel.setExportdirective(export.getExportDirective());
 			exportModel.setExportperiodtype(export.getExportPeriodType());
@@ -37,6 +38,7 @@ public class ExportDaoImpl extends ParentDaoImpl implements ExportDao {
 			exportModel.setSource(sourceEntity);
 			domain.setExportId(exportModel.getId());
 			performSaveOrUpdate(exportModel,domain);
+			}
 		}catch (Exception ex){
 			String errorMessage = "Exception because of the export::"+exportModel.getId() +" Exception ::"+ex.getMessage();
 			if(exportModel != null){

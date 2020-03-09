@@ -42,6 +42,9 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements MoveindateDao {
 					com.servinglynk.hmis.warehouse.model.v2020.Moveindate moveindateModel = null;
 					try {
 						moveindateModel = getModelObject(domain, expMoveindates, data, modelMap);
+						if(moveindateModel.isIgnored()) {
+							continue;
+						}
 						moveindateModel.setMoveindate(BasicDataGenerator.getLocalDateTime(expMoveindates.getMoveInDate()));
 						//moveindateModel.setInpermanenthousing(MoveindateInpermanenthousin.lookupEnum((expMoveindates.getInPermanentHousing())));
 						moveindateModel.setSubmissionDate(BasicDataGenerator.getLocalDateTime(expMoveindates.getMoveInDate()));
@@ -83,20 +86,24 @@ public class MoveindateDaoImpl extends ParentDaoImpl implements MoveindateDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Moveindate();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Moveindate();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Moveindate model = new com.servinglynk.hmis.warehouse.model.v2020.Moveindate();
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expMoveInDate.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Moveindate model = new com.servinglynk.hmis.warehouse.model.v2020.Moveindate();
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expMoveInDate.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,expMoveInDate.getMoveInDateID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,expMoveInDate.getMoveInDateID(),data);
+		return modelFromDB;
 	}
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {

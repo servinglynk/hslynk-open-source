@@ -50,6 +50,9 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 				try {
 					
 					rhybcpstatusModel = getModelObject(domain, rhybcpStatus,data,modelMap);
+					if(rhybcpstatusModel.isIgnored()) {
+						continue;
+					}
 					rhybcpstatusModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateCreated()));
 					rhybcpstatusModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
 					if(rhybcpStatus.getEligibleForRHY() !=null)
@@ -95,21 +98,23 @@ public class RhybcpstatusDaoImpl extends ParentDaoImpl implements
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}
 		com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus model = new com.servinglynk.hmis.warehouse.model.v2020.RhybcpStatus();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(rhybcpStatus.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,rhybcpStatus.getRHYBCPStatusID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,rhybcpStatus.getRHYBCPStatusID(),data);
+		return modelFromDB;
 	}
 	
 	@Override
