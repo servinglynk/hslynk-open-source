@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.Role;
 import com.servinglynk.hmis.warehouse.core.model.Roles;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountAlreadyExistsException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 
@@ -172,6 +173,25 @@ public class AccountsController extends ControllerBase {
 		serviceFactory.getAccountService().updatePassword(account, passwordChange, session.getAccount().getUsername());
 		return new PasswordChange();
 	}
+	
+	@RequestMapping(value = "/{userid}/passwordupdate", method = RequestMethod.PUT)
+	@APIMapping(value="USR_PASSWORD_UPDATE",checkSessionToken=true, checkTrustedApp=true)
+	public PasswordChange passwordUpdateByAdmin( @PathVariable("userid") String userid,@RequestBody PasswordChange passwordChange,
+			HttpServletRequest request) throws Exception {
+
+		Session session = sessionHelper.getSession(request);
+		Account account = new Account();
+		account.setUsername(userid); 
+		if(session.getAccount().getRoles().get(0).getRoleName().equalsIgnoreCase("CUSTADMIN") || 
+				session.getAccount().getRoles().get(0).getRoleName().equalsIgnoreCase("SUPERADMIN")) {
+			serviceFactory.getAccountService().passwordUpdateByAdmin(account, passwordChange, session.getAccount().getUsername());
+			return new PasswordChange();			
+		}else {
+			throw new AccessDeniedException("Customer admin only can perform this operation ");
+		}
+
+	}
+	
 				
 	public void validateAccess(Account requestAccount,Account loginUser,String userId) throws Exception {
 		if(userId.equalsIgnoreCase("self")){
