@@ -64,11 +64,15 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 				Incomeandsources incomeAndSourcesModel = null;
 				try {
 					incomeAndSourcesModel = getModelObject(domain, incomeAndSources,data,modelMap);
+					if(incomeAndSourcesModel.isIgnored()) {
+						continue;
+					}
 					incomeAndSourcesModel.setAlimony(IncomeandsourcesAlimonyEnum.lookupEnum((incomeAndSources.getAlimony())));
 					incomeAndSourcesModel.setAlimonyamount(new BigDecimal(incomeAndSources.getAlimonyAmount()));
 					incomeAndSourcesModel.setChildsupport(IncomeandsourcesChildsupportEnum.lookupEnum((incomeAndSources.getChildSupport())));
 					incomeAndSourcesModel.setChildsupportamount(new BigDecimal(incomeAndSources.getChildSupportAmount()));
 					incomeAndSourcesModel.setEarned(IncomeandsourcesEarnedEnum.lookupEnum((incomeAndSources.getEarned())));
+					incomeAndSourcesModel.setEarnedamount(new BigDecimal(incomeAndSources.getEarnedAmount()));
 					incomeAndSourcesModel.setGa(IncomeandsourcesGaEnum.lookupEnum((incomeAndSources.getGA())));
 					incomeAndSourcesModel.setGaamount(new BigDecimal(incomeAndSources.getGAAmount()));
 					incomeAndSourcesModel.setIncomefromanysource(IncomeandsourcesIncomefromanysourceEnum.lookupEnum((incomeAndSources.getIncomeFromAnySource())));
@@ -82,7 +86,7 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 					incomeAndSourcesModel.setSocsecretirement(IncomeandsourcesSocsecretirementEnum.lookupEnum(incomeAndSources.getSocSecRetirement()));
 					incomeAndSourcesModel.setSocsecretirementamount( new BigDecimal(incomeAndSources.getSocSecRetirementAmount()));
 					incomeAndSourcesModel.setSsdi(IncomeandsourcesSsdiEnum.lookupEnum(incomeAndSources.getSSDI()));
-					incomeAndSourcesModel.setSsdiamount(new BigDecimal(incomeAndSources.getSSIAmount()));
+					incomeAndSourcesModel.setSsdiamount(new BigDecimal(incomeAndSources.getSSDIAmount()));
 					incomeAndSourcesModel.setSsi(IncomeandsourcesSsiEnum.lookupEnum((incomeAndSources.getSSI())));
 					incomeAndSourcesModel.setSsiamount(new BigDecimal(incomeAndSources.getSSIAmount()));
 					incomeAndSourcesModel.setTanf(IncomeandsourcesTanfEnum.lookupEnum((incomeAndSources.getTANF())));
@@ -136,20 +140,23 @@ public class IncomeandsourcesDaoImpl extends ParentDaoImpl implements
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources model = new com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeandsources.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources model = new com.servinglynk.hmis.warehouse.model.v2020.Incomeandsources();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(incomeandsources.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,incomeandsources.getIncomeAndSourcesID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,incomeandsources.getIncomeAndSourcesID(),data);
+		return modelFromDB;
 	}
 	
 

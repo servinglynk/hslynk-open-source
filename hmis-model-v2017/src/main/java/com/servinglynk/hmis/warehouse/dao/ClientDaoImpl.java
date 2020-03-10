@@ -327,20 +327,15 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	@Override
 	public List<com.servinglynk.hmis.warehouse.model.v2017.Client> getAllNullDedupIdClients() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2017.Client.class);
+		List<String> allActiveProjectGroupCodes = daoFactory.getProjectGroupDao().getAllActiveProjectGroupCodes();
 		criteria.add(Restrictions.isNull("dedupClientId"));
 		Criterion firstNameCriterion = Restrictions.isNotNull("firstName");
 		Criterion lastNameCriterion = Restrictions.isNotNull("lastName");
-	//	Criterion dobNameCriterion = Restrictions.isNotNull("dob");
-	//	Criterion ssnNameCriterion = Restrictions.isNotNull("ssn");
 		criteria.add(Restrictions.and(firstNameCriterion,lastNameCriterion));
-	//	criteria.add(Restrictions.and(dobNameCriterion,ssnNameCriterion));
-		List<String> allActiveProjectGroupCodes = new  ArrayList<>();
-		allActiveProjectGroupCodes.add("DP0003");
-		allActiveProjectGroupCodes.add("MO0010");
-		allActiveProjectGroupCodes.add("HO0002");
-		allActiveProjectGroupCodes.add("SA0005");
-		allActiveProjectGroupCodes.add("SB0006");
 		criteria.add(Restrictions.in("projectGroupCode", allActiveProjectGroupCodes));
+		Criterion versionNullCriterion = Restrictions.isNotNull("version");
+		Criterion versionLessThan3Criterion = Restrictions.le("version",3L);
+		criteria.add(Restrictions.or(versionNullCriterion,versionLessThan3Criterion));
 		List<com.servinglynk.hmis.warehouse.model.v2017.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2017.Client>) findByCriteria(criteria);
 		return clients;
 	}

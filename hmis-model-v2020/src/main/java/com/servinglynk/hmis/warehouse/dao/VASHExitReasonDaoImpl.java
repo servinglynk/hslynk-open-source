@@ -42,6 +42,9 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 					com.servinglynk.hmis.warehouse.model.v2020.VashExitReason vashExitReasonModel = null;
 					try {
 						vashExitReasonModel = getModelObject(domain, expVASHExitReason, data, modelMap);
+						 if(vashExitReasonModel.isIgnored()) {
+								continue;
+							}
 						vashExitReasonModel.setCmExitReason(CMExitReasonEnum.lookupEnum(expVASHExitReason.getCmExitReason()));
 						vashExitReasonModel.setExport(exportEntity);
 						com.servinglynk.hmis.warehouse.model.v2020.Exit exit = (com.servinglynk.hmis.warehouse.model.v2020.Exit) getModel(com.servinglynk.hmis.warehouse.model.v2020.Exit.class,expVASHExitReason.getExitID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
@@ -78,20 +81,23 @@ public class VASHExitReasonDaoImpl extends ParentDaoImpl implements VASHExitReas
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.VashExitReason();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.VashExitReason();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.VashExitReason model = new com.servinglynk.hmis.warehouse.model.v2020.VashExitReason();
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expVASHExitReason.getDateCreated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.VashExitReason model = new com.servinglynk.hmis.warehouse.model.v2020.VashExitReason();
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(expVASHExitReason.getDateCreated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,expVASHExitReason.getVashExitReasonID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,expVASHExitReason.getVashExitReasonID(),data);
+		return modelFromDB;
 	}
 	
 	@Override

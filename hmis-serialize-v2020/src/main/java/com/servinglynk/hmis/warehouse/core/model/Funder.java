@@ -20,7 +20,7 @@ public class Funder extends ClientModel{
 
     private Integer funder;
     @JsonProperty("grantId")
-    private UUID grantid;
+    private String grantid;
     
     @JsonSerialize(using=JsonDateSerializer.class)
     @JsonDeserialize(using=JsonDateDeserializer.class)
@@ -47,10 +47,10 @@ public class Funder extends ClientModel{
     public void setFunder(Integer funder){
         this.funder = funder;
     }
-    public UUID getGrantid(){
+    public String getGrantid(){
         return grantid;
     }
-    public void setGrantid(UUID grantid){
+    public void setGrantid(String grantid){
         this.grantid = grantid;
     }
     public LocalDateTime getStartdate(){

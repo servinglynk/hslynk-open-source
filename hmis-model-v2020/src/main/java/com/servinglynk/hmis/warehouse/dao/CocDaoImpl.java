@@ -49,6 +49,9 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 				com.servinglynk.hmis.warehouse.model.v2020.Coc cocModel = null;
 				try {
 					cocModel = getModelObject(domain, coc,data,modelMap);
+					if(cocModel.isIgnored()) {
+						continue;
+					}
 					cocModel.setCoccode(coc.getCoCCode());
 					cocModel.setAddress1(coc.getAddress1());
 					cocModel.setAddress2(coc.getAddress2());
@@ -97,21 +100,24 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Coc();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Coc();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Coc model = new com.servinglynk.hmis.warehouse.model.v2020.Coc();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Coc model = new com.servinglynk.hmis.warehouse.model.v2020.Coc();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(coc.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,coc.getCoCCode(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,coc.getCoCCode(),data);
+		return modelFromDB;
 	}
 
 	@Override

@@ -23,7 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * A class providing methods for generating random data for basic data types.
  *
- * @author robertam
+ * @author sdolia
  */
 public class BasicDataGenerator {
 

@@ -413,13 +413,13 @@ public class Sources {
             protected List<EntrySSVF> entrySSVF;
             @XmlElement(name = "Project", required = true)
             protected List<Project> project;
-            @XmlElement(name = "CoC", required = true)
+            @XmlElement(name = "ProjectCoC", required = true)
             protected List<ProjectCoC> coC;
             @XmlElement(name = "MoveInDate", required = true)
             protected List<Moveindate> moveInDate;
             @XmlElement(name = "RHYBCPStatus", required = true)
             protected List<RHYBCPStatus> rhybcpStatus;
-            @XmlElement(name = "Services", required = true)
+            @XmlElement(name = "ServiceFAReferral", required = true)
             protected List<Services> services;
             @XmlElement(name = "Site", required = true)
             protected List<Site> site;
@@ -427,11 +427,11 @@ public class Sources {
             protected List<ClientVeteranInfo> clientVeteranInfo;
             @XmlElement(name = "EntryRHY", required = true)
             protected List<EntryRHY> entryRHY;
-            @XmlElement(name = "ConnectionWithSoar", required = true)
+            @XmlElement(name = "ConnectionWithSOAR", required = true)
             protected List<ConnectionWithSOAR> connectionWithSOAR;
             @XmlElement(name = "VASHExitReason", required = true)
             protected List<VASHExitReason> vashExitReason;
-            @XmlElement(name = "RHYAfterCare", required = true)
+            @XmlElement(name = "RHYAftercare", required = true)
             protected List<RHYAfterCare> rhyAfterCare;
             @XmlElement(name = "EntryRHSP", required = true)
             protected List<EntryRHSP> entryRHSP;
@@ -6246,9 +6246,9 @@ public class Sources {
                 protected String householdID;
                 @XmlElement(name = "RelationshipToHoH")
                 protected String relationshipToHoH;
-                @XmlElement(name = "livingSituation")
+                @XmlElement(name = "LivingSituation")
                 protected String livingSituation;
-                @XmlElement(name = "lengthOfStay")
+                @XmlElement(name = "LengthOfStay")
                 protected String lengthOfStay;
                 @XmlElement(name="LOSUnderThreshold")
                 protected String losUnderThreshold;
@@ -6649,7 +6649,7 @@ public class Sources {
                 protected String enrollmentCoCID;
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
-                @XmlElement(name = "CocCode", required = true)
+                @XmlElement(name = "CoCCode", required = true)
                 protected String cocCode;
                 @XmlElement(name="HouseholdID")
                 protected String householdID;
@@ -10785,7 +10785,7 @@ public class Sources {
                 protected float alimonyAmount;
                 @XmlElement(name = "OtherSource")
                 protected String otherSource;
-                @XmlElement(name = "OtherAmount")
+                @XmlElement(name = "OtherSourceAmount")
                 protected float otherAmount;
                 @XmlElement(name = "OtherSourceIdentify", required = true)
                 protected String otherSourceIdentify;
@@ -12488,9 +12488,9 @@ public class Sources {
                 protected String rentalAssistanceOngoing;
                 @XmlElement(name = "RentalAssistanceTemp")
                 protected String rentalAssistanceTemp;
-                @XmlElement(name = "OtherSource")
+                @XmlElement(name = "OtherBenefitsSource")
                 protected String otherSource;
-                @XmlElement(name = "OtherSourceIdentify", required = true)
+                @XmlElement(name = "OtherBenefitsSourceIdentify", required = true)
                 protected String otherSourceIdentify;
                 @XmlAttribute
                 protected String dataCollectionStage;
@@ -13670,7 +13670,7 @@ public class Sources {
                 protected String rhybcpStatusID;
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;
-                @XmlElement(name = "StatusDate", required = true)
+                @XmlElement(name = "DateOfBCPStatus", required = true)
                 protected XMLGregorianCalendar statusDate;
                 @XmlElement(name = "EligibleForRHY")
                 protected String eligibleForRHY;

@@ -64,6 +64,9 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 				com.servinglynk.hmis.warehouse.model.v2020.Project projectModel = null;
 				try {
 					projectModel = getModelObject(domain, project,data,modelMap);
+					 if(projectModel.isIgnored()) {
+							continue;
+						}
 					//projectModel.setAffiliations(affiliation);
 					projectModel.setContinuumproject(ProjectContinuumprojectEnum.lookupEnum(project.getContinuumProject()));
 					Organization organization = (Organization) getModel(Organization.class, project.getOrganizationID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
@@ -109,6 +112,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			entity = new GlobalProjectEntity();
 			entity.setProjectCommonName(project.getProjectcommonname());
 			entity.setProjectName(project.getProjectname());
+			entity.setSourceSystemId(project.getSourceSystemId());
 			entity.setId(project.getId());
 			entity.setDescription(project.getProjectname());
 			entity.setDateCreated(LocalDateTime.now());
@@ -155,21 +159,23 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Project();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Project();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 		}
 		com.servinglynk.hmis.warehouse.model.v2020.Project model = new com.servinglynk.hmis.warehouse.model.v2020.Project();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,project.getProjectID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,project.getProjectID(),data);
+		return modelFromDB;
 	}
 	
 

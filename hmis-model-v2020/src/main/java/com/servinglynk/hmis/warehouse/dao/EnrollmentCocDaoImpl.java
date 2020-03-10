@@ -53,6 +53,9 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 				EnrollmentCoc enrollmentCocModel = null;
 				try {
 					enrollmentCocModel = getModelObject(domain, enrollmentCoc,data,modelMap);
+					if(enrollmentCocModel.isIgnored()) {
+						continue;
+					}
 					enrollmentCocModel.setCocCode(enrollmentCoc.getCocCode());
 					enrollmentCocModel.setHouseholdId(enrollmentCoc.getHouseholdID());
 					enrollmentCocModel.setInformationDate(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateCreated()));
@@ -96,20 +99,24 @@ public class EnrollmentCocDaoImpl extends ParentDaoImpl implements
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+			data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc model = new com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
+
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc model = new com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollmentCoc.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,enrollmentCoc.getEnrollmentCoCID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,enrollmentCoc.getEnrollmentCoCID(),data);
+		return modelFromDB;
 	}
 	@Override
 	public void hydrateHBASE(SyncDomain syncDomain) {

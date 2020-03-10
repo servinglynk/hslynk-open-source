@@ -20,6 +20,8 @@ public enum SexualorientationSexualorientationEnum {
 	/** Enum Constant. */
 	FIVE("5"),
 	/** Enum Constant. */
+	SIX("6"),
+	/** Enum Constant. */
 	EIGHT("8"),
 	/** Enum Constant. */
 	NINE("9"),

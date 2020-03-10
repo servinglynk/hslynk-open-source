@@ -51,6 +51,9 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 				Medicalassistance medicalassistanceModel = null;
 				try {
 					medicalassistanceModel = getModelObject(domain, medicalAssistance,data,modelMap);
+					if(medicalassistanceModel.isIgnored()) {
+						continue;
+					}
 					medicalassistanceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateCreated()));
 					medicalassistanceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(medicalAssistance.getDateUpdated()));
 					medicalassistanceModel.setAdap(MedicalassistanceAdapEnum.lookupEnum((medicalAssistance.getADAP())));
@@ -96,21 +99,24 @@ public class MedicalassistanceDaoImpl extends ParentDaoImpl implements
 			}
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
 			return modelFromDB;
 		}
 		
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance();
 			modelFromDB.setId(UUID.randomUUID());
-			modelFromDB.setRecordToBeInserted(true);
+			modelFromDB.setRecordToBeInserted(true); 
+data.i++;
+		}else {
+			com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance model = new com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance();
+			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(medicalassistance.getDateUpdated()));
+			performMatch(domain, modelFromDB, model, data);
 		}
-		com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance model = new com.servinglynk.hmis.warehouse.model.v2020.Medicalassistance();
-		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-		model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(medicalassistance.getDateUpdated()));
-		performMatch(domain, modelFromDB, model, data);
-		hydrateCommonFields(model, domain,medicalassistance.getMedicalAssistanceID(),data);
-		return model;
+		hydrateCommonFields(modelFromDB, domain,medicalassistance.getMedicalAssistanceID(),data);
+		return modelFromDB;
 	}
 	
 
