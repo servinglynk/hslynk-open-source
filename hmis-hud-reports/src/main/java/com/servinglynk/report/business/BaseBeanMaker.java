@@ -1289,13 +1289,14 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 								 null, 
 								 resultSet.getString("client_id"), 
 								// resultSet.getInt("yearshomeless"), 
-								 resultSet.getInt("ageatentry"),
+								 resultSet.getInt("age"),
 								 resultSet.getBoolean("chronichomeless"), 
 								 resultSet.getString("source_system_id"),
 								 resultSet.getDate("date_created_from_source"),
 								 resultSet.getString("livingsituation"),
 								 resultSet.getDate("datetostreetessh"),
-								 resultSet.getString("dedup_client_id"));
+								 resultSet.getString("dedup_client_id"),
+								 resultSet.getInt("age"));
 					 prevDedupClientId = resultSet.getString("dedup_client_id");
 					 String livingSituation = currentLivingSituationMap.get(model.getProjectEntryID());
 					 model.setCurrentLivingSituation(livingSituation);

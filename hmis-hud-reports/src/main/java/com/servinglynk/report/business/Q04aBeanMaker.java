@@ -51,7 +51,7 @@ public class Q04aBeanMaker extends BaseBeanMaker {
 					 q04aDataBean.setQ04aProjectName(resultSet.getString("projectname"));
 					 q04aDataBean.setQ04aHmisProjectType(resultSet.getString("projecttype"));
 					 q04aDataBean.setQ04aProjectId(resultSet.getString("source_system_id"));
-					 q04aDataBean.setQ04aMethodOfTracking(resultSet.getString("trackingmethod"));
+					// q04aDataBean.setQ04aMethodOfTracking(resultSet.getString("trackingmethod"));
 				
 					 q04aDataBean.setQ04aHmisSoftwareName("ServingLynk LLC");
 				 //	 q04aDataBean.setQ04aGeoCode(q04aGeoCode);
@@ -68,7 +68,7 @@ public class Q04aBeanMaker extends BaseBeanMaker {
 					q04aDataBean.setQ04aProjectName("projectname");
 					 q04aDataBean.setQ04aHmisProjectType("1");
 					 q04aDataBean.setQ04aProjectId("source_system_id");
-					 q04aDataBean.setQ04aMethodOfTracking("1");
+					 q04aDataBean.setQ04aMethodOfTracking("0");
 					 q04aDataBean.setQ04aIdentityProjectId(BigInteger.ZERO);
 					 q04aDataBean.setQ04aHmisProjectIdService(BigInteger.ZERO);
 					

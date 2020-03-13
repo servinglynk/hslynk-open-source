@@ -30,9 +30,9 @@ public static List<DisabIncomeAndSourceDataBean> getDisabIncomeAndSourceDataBean
 			try{
 			
 			String exitQuery = " select count(e.dedup_client_id) as cnt  from %s.incomeandsources i, %s.enrollment e ,%s.client c,%s.exit ext where  e.client_id = c.id and   e.id=i.enrollmentid  and   e.id=ext.enrollmentid "+ 
-					" and TO_DATE(i.information_date) = TO_DATE(ext.exitdate)  and i.information_date <= :endDate  and i.datacollectionstage='3' and e.ageatentry >= 18 and i.incomefromanysource is not null and i.incomefromanysource not in ('8','9','99') and e.disablingcondition is not null and e.disablingcondition not in ('8','9','99')  ";
+					" and TO_DATE(i.information_date) = TO_DATE(ext.exitdate)  and i.information_date <= :endDate  and i.datacollectionstage='3' and c.age >= 18 and i.incomefromanysource is not null and i.incomefromanysource not in ('8','9','99') and e.disablingcondition is not null and e.disablingcondition not in ('8','9','99')  ";
 			if(isForYouth) {
-				exitQuery =  exitQuery + "  and ageatentry<=25 " ;
+				exitQuery =  exitQuery + "  and age<=25 " ;
 			}
 			
 			int earnedAOWithDisab = getIncomeCntByHouseHoldType(data.getSchema(), exitQuery +" and  earned ='1' and e.disablingcondition ='1' ", HouseHoldType.AO, data);

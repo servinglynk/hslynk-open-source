@@ -18,7 +18,7 @@ public class EnrollmentModel extends BaseModel {
 			String timeshomelesspastthreeyears_desc, String yearshomeless,
 			String personalID, int ageatentry, boolean chronichomeless,
 			String enrollment_source_system_id,Date dateCreatedFromSource, String livingSituation,Date datetostreetessh,
-			String dedupClientId) {
+			String dedupClientId,int age) {
 		super();
 		this.projectEntryID = projectEntryID;
 		this.continuouslyhomelessoneyear = continuouslyhomelessoneyear;
@@ -50,6 +50,7 @@ public class EnrollmentModel extends BaseModel {
 		this.livingSituation = livingSituation;
 		this.datetostreetessh = datetostreetessh;
 		this.dedupClientId = dedupClientId;
+		this.age = age;
 	}
 	private String projectEntryID;
 	private String continuouslyhomelessoneyear;
@@ -82,6 +83,7 @@ public class EnrollmentModel extends BaseModel {
 	private Date datetostreetessh;
 	private String dedupClientId;
 	private String currentLivingSituation;
+	private int age;
 	/**
 	 * @return the projectEntryID
 	 */
@@ -439,4 +441,17 @@ public class EnrollmentModel extends BaseModel {
 	public void setCurrentLivingSituation(String currentLivingSituation) {
 		this.currentLivingSituation = currentLivingSituation;
 	}
+	/**
+	 * @return the age
+	 */
+	public int getAge() {
+		return age;
+	}
+	/**
+	 * @param age the age to set
+	 */
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
 }

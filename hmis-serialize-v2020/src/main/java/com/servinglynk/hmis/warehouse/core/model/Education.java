@@ -20,7 +20,9 @@ public class Education extends ClientModel{
 
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
-
+      
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       public LocalDateTime getInformationDate() {
 		return informationDate;
 	}
