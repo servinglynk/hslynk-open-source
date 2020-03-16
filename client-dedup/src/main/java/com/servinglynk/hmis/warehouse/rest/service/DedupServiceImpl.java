@@ -157,6 +157,9 @@ public class DedupServiceImpl implements DedupService{
 		if(person.getDateOfBirth() !=null)  {
 			requestBody = requestBody+"<dateOfBirth>"+convertStringToDate(person.getDateOfBirth())+"</dateOfBirth>";
 		}
+		if(person.getSector() !=null)  {
+			requestBody = requestBody+"<sector>"+person.getSector()+"</sector>";
+		}
 		requestBody = requestBody+"</person>";
 		logger.info("Request Body"+requestBody);
 		return requestBody;	
@@ -284,7 +287,7 @@ public class DedupServiceImpl implements DedupService{
 		person.setFamilyName(StringUtils.isNotEmpty(personParam.getFamilyName()) ? personParam.getFamilyName().toLowerCase() : personParam.getFamilyName() );
 		person.setGivenName(StringUtils.isNotEmpty(personParam.getGivenName()) ? personParam.getGivenName().toLowerCase() : personParam.getGivenName() );
 		person.setDateOfBirth(personParam.getDateOfBirth());
-		person.setCustom5(personParam.getCustom5());
+		person.setSector(personParam.getSector());
 		return person;
 	}
 
