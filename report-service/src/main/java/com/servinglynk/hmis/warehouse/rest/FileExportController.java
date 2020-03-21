@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,38 +71,28 @@ public class FileExportController extends ControllerBase {
 		
 		@RequestMapping(value="/download/{fileExportId}/{type}",method = RequestMethod.GET)
 		@APIMapping(value="GET_FILE_EXPORT_BY_USER",checkSessionToken=true, checkTrustedApp=true)
-		public void downloadPDFFile(@PathVariable(value="fileExportId") Long fileExportId,@PathVariable(value="type") String type,
+		public ResponseEntity<ByteArrayResource>  downloadPDFFile(@PathVariable(value="fileExportId") Long fileExportId,@PathVariable(value="type") String type,
 				HttpServletRequest request, HttpServletResponse response) {
 			try {
 		        Session session = sessionHelper.getSession(request);
 		        String bucketName = session.getAccount().getProjectGroup().getBucketName();
 		        FileExport fileExportById = serviceFactory.getFileExportService().getFileExportById(fileExportId);
 		        if(fileExportById != null && StringUtils.equals(fileExportById.getProjectGroupCode(), session.getAccount().getProjectGroup().getProjectGroupCode())) {
-		        	String fileName ="Export/"+fileExportId+"."+type;
-		        	System.out.println( "File name :::"+fileName);
-		        	InputStream inputStream = awsService.downloadFile(bucketName, fileName, null);
-		        	 ServletOutputStream outputStream = response.getOutputStream();
-		        	  response.setContentType("application/octet-stream");
-				        response.setHeader("Content-Disposition", "attachment; filename="+fileExportId+"."+type); 
-				        response.setHeader("x-filename",fileExportId+"."+type); 
-				        
-		            byte[] buffer = new byte[8 * 1024];
-		            int bytesRead;
-		            while ((bytesRead = inputStream.read(buffer)) != -1) {
-		            	outputStream.write(buffer, 0, bytesRead);
-		            }
-		            IOUtils.closeQuietly(inputStream);
-		            IOUtils.closeQuietly(outputStream);
-		        	 
-			      
-//			        IOUtils.copy(inputStream, outputStream);
-			       
+		        	InputStream inputStream = awsService.downloadFile(bucketName, "Export/"+fileExportById+"."+type, null);
+			        response.setContentType("application/force-download");
+			        response.setHeader("Content-Disposition", "attachment; filename="+fileExportById.getId()+"."+type); 
+			        response.setHeader("x-filename",fileExportById.getId()+"."+type); 
+			        IOUtils.copy(inputStream, response.getOutputStream());
+			        response.flushBuffer();
+			        inputStream.close();
 		        }else {
 		        	throw new AccessDeniedException("The User does not have access to download the report");
 		        }
+			      
 		    } catch (Exception e){
 		        logger.debug("Request could not be completed at this moment. Please try again.");
 		        e.printStackTrace();
 		    }
+			return null;
 		}
 }
