@@ -1,14 +1,19 @@
 package com.servinglynk.hmis.warehouse.rest;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,9 +72,32 @@ public class ReportConfigController extends ControllerBase {
 		 return  serviceFactory.getReportConfigService().updateReportConfig(reportConfigId, reportConfig, username);
 		}
 		
-		@RequestMapping(value="/download/{reportConfigId}/{type}",method = RequestMethod.GET)
+		@RequestMapping(value="/downloadZIP/{reportConfigId}",method = RequestMethod.GET)
 		@APIMapping(value="GET_REPORT_CONFIG_BY_USER",checkSessionToken=true, checkTrustedApp=true)
-		public void downloadPDFFile(@PathVariable(value="reportConfigId") Long reportConfigId,@PathVariable(value="type") String type,
+		public void downloadZIPFile(@PathVariable(value="reportConfigId") Long reportConfigId,
+				HttpServletRequest request, HttpServletResponse response) {
+			try {
+		        Session session = sessionHelper.getSession(request);
+		        String bucketName = session.getAccount().getProjectGroup().getBucketName();
+		        String downloadFile = awsService.downloadFile1(bucketName, "APR/"+reportConfigId+".zip", null);
+		        InputStream inputStream = new FileInputStream(downloadFile);
+		        response.setContentType("application/force-download");
+		        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+".zip"); 
+		        response.setHeader("x-filename",reportConfigId+".zip"); 
+		        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+".zip"); 
+		        response.setHeader("x-filename",reportConfigId+".zip"); 
+		        IOUtils.copy(inputStream, response.getOutputStream());
+		        response.flushBuffer();
+		        inputStream.close();
+			}catch (Exception e){
+		        logger.debug("Request could not be completed at this moment. Please try again.");
+		        e.printStackTrace();
+		    }
+		}
+		
+		@RequestMapping(value="/download/{reportConfigId}/{type}",method = RequestMethod.POST)
+		@APIMapping(value="GET_REPORT_CONFIG_BY_USER",checkSessionToken=true, checkTrustedApp=true)
+		public ResponseEntity<byte[]> downloadPDFFile(@PathVariable(value="reportConfigId") Long reportConfigId,@PathVariable(value="type") String type,
 				HttpServletRequest request, HttpServletResponse response) {
 			try {
 		        Session session = sessionHelper.getSession(request);
@@ -77,27 +105,20 @@ public class ReportConfigController extends ControllerBase {
 		        ReportConfig reportConfigById = serviceFactory.getReportConfigService().getReportConfigById(reportConfigId);
 		        if(reportConfigById != null && StringUtils.equals(reportConfigById.getProjectGroupCode(), session.getAccount().getProjectGroup().getProjectGroupCode())) {
 		        	InputStream inputStream = awsService.downloadFile(bucketName, "APR/"+reportConfigId+"."+type, null);
-			        response.setContentType("application/zip, application/octet-stream");
+			        response.setContentType("application/force-download");
 			        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+"."+type); 
 			        response.setHeader("x-filename",reportConfigId+"."+type); 
-			   	 ServletOutputStream outputStream = response.getOutputStream();
-	        	  response.setContentType("application/octet-stream");
-			        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+"."+type); 
-			        response.setHeader("x-filename",reportConfigId+"."+type); 
-			        
-	            byte[] buffer = new byte[8 * 1024];
-	            int bytesRead;
-	            while ((bytesRead = inputStream.read(buffer)) != -1) {
-	            	outputStream.write(buffer, 0, bytesRead);
-	            }
-	            IOUtils.closeQuietly(inputStream);
-	            IOUtils.closeQuietly(outputStream);
+			        IOUtils.copy(inputStream, response.getOutputStream());
+			        response.flushBuffer();
+			        inputStream.close();
 		        }else {
 		        	throw new AccessDeniedException("The User does not have access to download the report");
 		        }
+		        
 		    } catch (Exception e){
 		        logger.debug("Request could not be completed at this moment. Please try again.");
 		        e.printStackTrace();
 		    }
+			 return null;
 		}
 }

@@ -1,10 +1,13 @@
 package com.servinglynk.hmis.warehouse.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +66,25 @@ public class AWSService extends BaseRegistry {
         return objectData;
     }
     
+    public String downloadFile1(String bucketName, String keyName, String tmpPath) throws IOException {
+    	 S3Object object = getS3Client().getObject(
+                 new GetObjectRequest(bucketName, keyName));
+         InputStream objectData = object.getObjectContent();
+         String name = keyName.contains("/") ? keyName.substring(keyName.lastIndexOf('/') + 1) : keyName;
+         String path = saveFile(objectData, name);
+         objectData.close();
+         return path;
+    }
+	 
+	 private String saveFile(InputStream input, String name)
+	            throws IOException {
+	        File file = new File(name);
+	        OutputStream outputStream = new FileOutputStream(file);
+	        IOUtils.copy(input, outputStream);
+	        outputStream.close();
+	        return file.getAbsolutePath();
+	    }
+	 
    
 	private AWSCredentials credential(Properties properties) {
 		String awsId = (String)properties.get("aws_access_key_id");
