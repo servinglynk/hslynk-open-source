@@ -155,7 +155,7 @@ public class DedupHelper {
 			String dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").format(person.getDateOfBirth());
 			requestBody = requestBody+ " \"dateOfBirth\":  \""+ dateOfBirth + "\"";
 		}
-		if(person.getCustom5() !=null && !"".equals(person.getCustom5())) {
+		if(person.getSector() !=null && !"".equals(person.getSector())) {
 			requestBody = requestBody +",";
 			requestBody = requestBody+ " \"sector\":  \""+person.getSector()+"\"";
 		}
