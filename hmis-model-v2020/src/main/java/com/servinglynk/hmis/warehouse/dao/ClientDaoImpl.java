@@ -333,8 +333,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		Criterion lastNameCriterion = Restrictions.isNotNull("lastName");
 		criteria.add(Restrictions.and(firstNameCriterion,lastNameCriterion));
 		criteria.add(Restrictions.in("projectGroupCode", allActiveProjectGroupCodes));
-		criteria.add(Restrictions.isNotNull("version"));
-		criteria.add(Restrictions.le("version",3));
+		
+		Criterion nullVersionCriterion = Restrictions.isNull("version");
+		Criterion versionLessThan3Criterion = Restrictions.le("version",3L);
+		criteria.add(Restrictions.or(nullVersionCriterion,versionLessThan3Criterion));
 		List<com.servinglynk.hmis.warehouse.model.v2020.Client> clients = (List<com.servinglynk.hmis.warehouse.model.v2020.Client>) findByCriteria(criteria);
 		return clients;
 	}
@@ -354,13 +356,20 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			 client.setDateUpdated(LocalDateTime.now());
 			 if(StringUtils.isNotBlank(dedupedId)) {
 				 client.setDedupClientId(UUID.fromString(dedupedId));
-				 getCurrentSession().update(client);
 				 basClient.setDedupClientId(UUID.fromString(dedupedId));
 				 basClient.setDateUpdated(LocalDateTime.now());
 				 insert(basClient);
 				 getCurrentSession().flush();
 				 getCurrentSession().clear();
 			 }
+			 Long version = client.getVersion();
+		    	if(version != null) {
+		    		version++;
+		    	} else {
+		    		version = 1L;
+		    	}
+		    	client.setVersion(version);
+			 getCurrentSession().update(client);
 	    }catch(Exception e) {
 	    	Long version = client.getVersion();
 	    	if(version != null) {
