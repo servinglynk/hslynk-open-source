@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @JsonRootName("serviceFaReferral")
 public class Servicefareferral extends ClientModel{
 
-		@JsonProperty("erviceFaReferralId")		
+		@JsonProperty("serviceFaReferralId")		
       private UUID servicefareferralId;
       
       @JsonSerialize(using=JsonDateSerializer.class)
