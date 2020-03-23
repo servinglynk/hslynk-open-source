@@ -16,6 +16,7 @@ import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException;
 
 public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentService {
 
@@ -54,9 +55,13 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		com.servinglynk.hmis.warehouse.model.v2015.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());		
 		if(pEnrollment == null) throw new EnrollmentNotFound();
 		
+		com.servinglynk.hmis.warehouse.model.v2015.HmisHousehold pHmisHousehold = daoFactory.getHmisHouseholdDao().getHouseHoldById(enrollment.getHmisHouseholdId());
+		if(pHmisHousehold==null) throw new ResourceNotFoundException("HmisHouseHold Not found "+enrollment.getHouseholdid());
+		
 		EnrollmentConveter.modelToEntity(enrollment, pEnrollment);
 		pEnrollment.setClient(pClient);		
 		pEnrollment.setProject(pProject);
+		pEnrollment.setHmisHousehold(pHmisHousehold);
 	 	pEnrollment.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
 		pEnrollment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
