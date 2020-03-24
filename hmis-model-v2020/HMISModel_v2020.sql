@@ -4082,6 +4082,8 @@ with (
   oids=false
 );
 
+alter table v2020.assessment add column dedup_client_id  uuid;
+
 create table "v2020".assessment_questions
 (
   "id" uuid not null,

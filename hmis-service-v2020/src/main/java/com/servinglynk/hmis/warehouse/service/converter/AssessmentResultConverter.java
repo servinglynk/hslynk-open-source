@@ -22,6 +22,8 @@ public class AssessmentResultConverter  extends BaseConverter {
        if(assessment != null)
     	   model.setAssessmentId(assessment.getId());
        model.setEnrollmentid(entity.getEnrollmentid().getId());
+       if(entity.getDedupClientId() != null)
+    	   model.setDedupClientId(model.getDedupClientId());
        return model;
    }
 
