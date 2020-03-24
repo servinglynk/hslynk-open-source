@@ -76,7 +76,7 @@ public class ProjectsController extends ControllerBase {
 
    // ProjectCOC API start
    
-   @RequestMapping(value="/{projectid}/projectCocs",method=RequestMethod.POST)
+   @RequestMapping(value="/{projectid}/projectcocs",method=RequestMethod.POST)
    @APIMapping(value="CLIENT_API_CREATE_PROJECTCOC",checkTrustedApp=true,checkSessionToken=true)
    public Projectcoc createProjectcoc(@PathVariable("projectid") UUID projectId ,@RequestBody Projectcoc projectcoc,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
@@ -86,7 +86,7 @@ public class ProjectsController extends ControllerBase {
         return returnProjectcoc;
    }
 
-   @RequestMapping(value="/{projectid}/projectCocs/{projectcocid}",method=RequestMethod.PUT)
+   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}",method=RequestMethod.PUT)
    @APIMapping(value="CLIENT_API_UPDATE_PROJECTCOC",checkTrustedApp=true,checkSessionToken=true)
    public void updateProjectcoc(@PathVariable("projectid") UUID projectId ,@PathVariable( "projectcocid" ) UUID projectcocId,@RequestBody Projectcoc projectcoc,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
@@ -94,7 +94,7 @@ public class ProjectsController extends ControllerBase {
         serviceFactory.getProjectcocService().updateProjectcoc(projectcoc,projectId,session.getAccount().getUsername()); 
    }
 
-   @RequestMapping(value="/{projectid}/projectCocs/{projectcocid}",method=RequestMethod.DELETE)
+   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}",method=RequestMethod.DELETE)
    @APIMapping(value="CLIENT_API_DELETE_PROJECTCOC",checkTrustedApp=true,checkSessionToken=true)
    public void deleteProjectcoc(@PathVariable("projectid") UUID projectId ,@PathVariable( "projectcocid" ) UUID projectcocId,
 		   HttpServletRequest request,HttpServletResponse response) throws Exception{
@@ -105,14 +105,14 @@ public class ProjectsController extends ControllerBase {
         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
    }
 
-   @RequestMapping(value="/{projectid}/projectCocs/{projectcocid}",method=RequestMethod.GET)
+   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}",method=RequestMethod.GET)
    @APIMapping(value="CLIENT_API_GET_PROJECTCOC_BY_ID",checkTrustedApp=true,checkSessionToken=true)
    public Projectcoc getProjectcocById(@PathVariable("projectid") UUID projectId ,@PathVariable( "projectcocid" ) UUID projectcocId,HttpServletRequest request) throws Exception{
 	   			serviceFactory.getProjectService().getProjectById(projectId);
         return serviceFactory.getProjectcocService().getProjectcocById(projectcocId); 
    }
 
-   @RequestMapping(value="/{projectid}/projectCocs",method=RequestMethod.GET)
+   @RequestMapping(value="/{projectid}/projectcocs",method=RequestMethod.GET)
    @APIMapping(value="CLIENT_API_GET_ALL_PROJECT_PROJECTCOC",checkTrustedApp=true,checkSessionToken=true)
    public Projectcocs getAllEnrollmentProjectcocs( @PathVariable("projectid") UUID projectId ,
                        @RequestParam(value="startIndex", required=false) Integer startIndex, 
@@ -233,7 +233,7 @@ public class ProjectsController extends ControllerBase {
    // Inventory API start
    
    
-   @RequestMapping(value="/{projectid}/projectCocs/{projectcocid}/inventories",method=RequestMethod.POST)
+   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/inventories",method=RequestMethod.POST)
    @APIMapping(value="CLIENT_API_CREATE_INVENTORY",checkTrustedApp=true,checkSessionToken=true)
    public Inventory createInventory(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid ,@RequestBody Inventory inventory,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
@@ -245,7 +245,7 @@ public class ProjectsController extends ControllerBase {
         return returnInventory;
    }
 
-   @RequestMapping(value="/{projectid}/projectCocs/{projectcocid}/inventories/{inventoryid}",method=RequestMethod.PUT)
+   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/inventories/{inventoryid}",method=RequestMethod.PUT)
    @APIMapping(value="CLIENT_API_UPDATE_INVENTORY",checkTrustedApp=true,checkSessionToken=true)
    public void updateInventory(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid ,@PathVariable( "inventoryid" ) UUID inventoryId,@RequestBody Inventory inventory,HttpServletRequest request) throws Exception{
         Session session = sessionHelper.getSession(request); 
@@ -254,7 +254,7 @@ public class ProjectsController extends ControllerBase {
         serviceFactory.getInventoryService().updateInventory(inventory,projectcocid,session.getAccount().getUsername()); 
    }
 
-   @RequestMapping(value="/{projectid}/projectCocs/{projectcocid}/inventories/{inventoryid}",method=RequestMethod.DELETE)
+   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/inventories/{inventoryid}",method=RequestMethod.DELETE)
    @APIMapping(value="CLIENT_API_DELETE_INVENTORY",checkTrustedApp=true,checkSessionToken=true)
    public void deleteInventory(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid,
 		   @PathVariable( "inventoryid" ) UUID inventoryId,HttpServletRequest request,HttpServletResponse response) throws Exception{
@@ -265,7 +265,7 @@ public class ProjectsController extends ControllerBase {
         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
    }
 
-   @RequestMapping(value="/{projectid}/projeCtcocs/{projectcocid}/inventories/{inventoryid}",method=RequestMethod.GET)
+   @RequestMapping(value="/{projectid}/projectcocs/{projectcocid}/inventories/{inventoryid}",method=RequestMethod.GET)
    @APIMapping(value="CLIENT_API_GET_INVENTORY_BY_ID",checkTrustedApp=true,checkSessionToken=true)
    public Inventory getInventoryById(@PathVariable("projectcocid") UUID projectcocid, @PathVariable("projectid") UUID projectid ,@PathVariable( "inventoryid" ) UUID inventoryId,HttpServletRequest request) throws Exception{
        serviceFactory.getProjectService().getProjectById(projectid);
