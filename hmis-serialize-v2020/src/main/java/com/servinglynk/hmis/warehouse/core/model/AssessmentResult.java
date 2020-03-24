@@ -13,6 +13,7 @@ public class AssessmentResult extends ClientModel {
     private UUID assessmentResultId;
 	private UUID enrollmentid;
 	private UUID clientid;
+	private UUID dedupClientId;
 	private UUID  assessmentId;
 	private String assessmentResult;
 	private String assessmentResultType;
@@ -88,5 +89,16 @@ public class AssessmentResult extends ClientModel {
 	public void setAssessmentResultType(String assessmentResultType) {
 		this.assessmentResultType = assessmentResultType;
 	}
-	
+	/**
+	 * @return the dedupClientid
+	 */
+	public UUID getDedupClientId() {
+		return dedupClientId;
+	}
+	/**
+	 * @param dedupClientid the dedupClientid to set
+	 */
+	public void setDedupClientId(UUID dedupClientId) {
+		this.dedupClientId = dedupClientId;
+	}
  }

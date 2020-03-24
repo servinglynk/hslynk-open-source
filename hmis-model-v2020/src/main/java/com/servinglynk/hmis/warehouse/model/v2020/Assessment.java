@@ -51,6 +51,7 @@ public class Assessment extends HmisBaseModel implements Cloneable, Serializable
 	private UUID id;
 	private Enrollment enrollmentid;
 	private UUID clientId;
+	private UUID dedupClientId;
 	private LocalDateTime assessmentDate;
 	private String assessmentLocation;
 	private AssessmentTypeEnum assessmentType;
@@ -117,6 +118,22 @@ public class Assessment extends HmisBaseModel implements Cloneable, Serializable
 	 */
 	public void setClientId(UUID clientid) {
 		this.clientId = clientid;
+	}
+
+	/**
+	 * @return the dedupClientId
+	 */
+	@Basic( optional = false )
+	@Column( name = "dedup_client_id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	public UUID getDedupClientId() {
+		return dedupClientId;
+	}
+
+	/**
+	 * @param dedupClientId the dedupClientId to set
+	 */
+	public void setDedupClientId(UUID dedupClientId) {
+		this.dedupClientId = dedupClientId;
 	}
 
 	/**
