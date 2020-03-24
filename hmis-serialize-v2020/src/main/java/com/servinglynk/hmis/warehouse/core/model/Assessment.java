@@ -16,6 +16,7 @@ public class Assessment extends ClientModel{
     private UUID assessmentId;
 	private UUID enrollmentid;
 	private UUID clientid;
+	private UUID dedupClientId;
 	 @JsonSerialize(using=JsonDateSerializer.class)
      @JsonDeserialize(using=JsonDateDeserializer.class)
 	private LocalDateTime assessmentDate;
@@ -118,5 +119,17 @@ public class Assessment extends ClientModel{
 	 */
 	public void setPrioritizationStatus(String prioritizationStatus) {
 		this.prioritizationStatus = prioritizationStatus;
+	}
+	/**
+	 * @return the dedupClientid
+	 */
+	public UUID getDedupClientId() {
+		return dedupClientId;
+	}
+	/**
+	 * @param dedupClientid the dedupClientid to set
+	 */
+	public void setDedupClientId(UUID dedupClientid) {
+		this.dedupClientId = dedupClientid;
 	}
  }

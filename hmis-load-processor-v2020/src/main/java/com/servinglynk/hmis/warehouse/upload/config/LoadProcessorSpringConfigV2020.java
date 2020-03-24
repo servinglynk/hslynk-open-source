@@ -11,6 +11,7 @@ import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDaoImpl;
 import com.servinglynk.hmis.warehouse.config.DatabaseConfig;
 import com.servinglynk.hmis.warehouse.config.StandAloneDBPoolConfig;
 import com.servinglynk.hmis.warehouse.upload.service.BaseWorker;
+import com.servinglynk.hmis.warehouse.upload.service.ChronicHomelessnesCalculator;
 import com.servinglynk.hmis.warehouse.upload.service.ClientDedupWorker;
 import com.servinglynk.hmis.warehouse.upload.service.ClientWorkerChildren;
 import com.servinglynk.hmis.warehouse.upload.service.DisabilitiesWorker;
@@ -76,6 +77,11 @@ public class LoadProcessorSpringConfigV2020 {
 	@Bean
 	public FileExportWorker fileExportWorker(){
 		return new FileExportWorker();
+	}
+	
+	@Bean
+	public ChronicHomelessnesCalculator chronicHomelessnesCalculator(){
+		return new ChronicHomelessnesCalculator();
 	}
 	
 }

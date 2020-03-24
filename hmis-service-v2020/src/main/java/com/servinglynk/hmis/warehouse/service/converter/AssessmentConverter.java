@@ -18,6 +18,8 @@ public class AssessmentConverter  extends BaseConverter {
        if(model.getPrioritizationStatus() != null)
     	   entity.setPrioritizationStatus(PrioritizationStatusEnum.lookupEnum(model.getPrioritizationStatus()));
        entity.setId(model.getAssessmentId());
+       if(model.getDedupClientId() != null)
+    	   entity.setDedupClientId(model.getDedupClientId());
        return entity;
    }
 
@@ -27,13 +29,16 @@ public class AssessmentConverter  extends BaseConverter {
        entity.setAssessmentDate(model.getAssessmentDate());
        if(entity.getAssessmentLevel() != null)
     	   model.setAssessmentLevel(entity.getAssessmentLevel().getValue());
-       if(model.getAssessmentLocation() != null) 
+       if(entity.getAssessmentLocation() != null) 
     	   model.setAssessmentLocation(model.getAssessmentLocation());
-       if(model.getAssessmentType() != null)
+       if(entity.getAssessmentType() != null)
     	   model.setAssessmentType(entity.getAssessmentType().getValue());
-       if(model.getPrioritizationStatus() != null)
+       if(entity.getPrioritizationStatus() != null)
     	   model.setPrioritizationStatus(entity.getPrioritizationStatus().getValue());
        model.setAssessmentId(entity.getId());
+       if(entity.getDedupClientId() != null)
+    	   model.setDedupClientId(model.getDedupClientId());
+     
        model.setEnrollmentid(entity.getEnrollmentid().getId());
        return model;
    }
