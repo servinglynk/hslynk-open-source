@@ -175,6 +175,9 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	private Set<Youthcriticalissues> youthcriticalissueses = new HashSet<Youthcriticalissues>();
 	private boolean chronicHomeless;
 	
+	private HmisHousehold hmisHousehold;
+	
+	
 	private String source;
 	
 	/**
@@ -1457,8 +1460,19 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		this.source = source;
 	}
 
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "hmis_house_hold_id", nullable = true )
+   public HmisHousehold getHmisHousehold() {
+		return hmisHousehold;
+	}
 
-   /**
+	public void setHmisHousehold(HmisHousehold hmisHousehold) {
+		this.hmisHousehold = hmisHousehold;
+	}
+
+/**
     * Deep copy.
 	* @return cloned object
 	* @throws CloneNotSupportedException on error

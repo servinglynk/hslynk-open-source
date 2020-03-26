@@ -28,6 +28,8 @@ public class HmisHouseHoldServiceImpl extends ServiceBase implements HmisHouseHo
 		com.servinglynk.hmis.warehouse.model.v2014.HmisHousehold entity = new com.servinglynk.hmis.warehouse.model.v2014.HmisHousehold();
 		entity.setHeadOfHousehold(client);
 		entity.setDedupClientId(client.getDedupClientId());
+		if(model.getSourceSystemHouseHoldId()!=null) entity.setSourceSystemHouseHoldId(model.getSourceSystemHouseHoldId());
+		if(model.getSourceSystemId()!=null) entity.setSourceSystemId(model.getSourceSystemId());
 		entity.setDateCreated(LocalDateTime.now());
 		entity.setDateUpdated(LocalDateTime.now());
 		entity.setDeleted(false);
@@ -46,6 +48,8 @@ public class HmisHouseHoldServiceImpl extends ServiceBase implements HmisHouseHo
 		Client client = daoFactory.getClientDao().getClientById(model.getHeadOfHouseHold().getClientId());
 		if(client==null) throw new ResourceNotFoundException("Head of house hold not found "+model.getHeadOfHouseHold().getClientId());
 		entity.setHeadOfHousehold(client);
+		if(model.getSourceSystemHouseHoldId()!=null) entity.setSourceSystemHouseHoldId(model.getSourceSystemHouseHoldId());
+		if(model.getSourceSystemId()!=null) entity.setSourceSystemId(model.getSourceSystemId());
 		entity.setDedupClientId(client.getDedupClientId());
 		entity.setDateUpdated(LocalDateTime.now());
 		entity.setUser(caller.getAccountId());
