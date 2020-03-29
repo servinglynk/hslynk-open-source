@@ -7,8 +7,8 @@ import com.servinglynk.hmis.warehouse.core.model.AssessmentQuestions;
 
 public interface AssessmentQuestionService {
 	
-	   AssessmentQuestion createAssessmentQuestion(AssessmentQuestion AssessmentQuestion,UUID enrollmentId,String caller);
-	   AssessmentQuestion updateAssessmentQuestion(AssessmentQuestion AssessmentQuestion,UUID enrollmentId,String caller);
+	   AssessmentQuestion createAssessmentQuestion(AssessmentQuestion AssessmentQuestion,String caller);
+	   AssessmentQuestion updateAssessmentQuestion(AssessmentQuestion AssessmentQuestion,String caller);
 	   AssessmentQuestion deleteAssessmentQuestion(UUID AssessmentQuestionId,String caller);
 	   AssessmentQuestion getAssessmentQuestionById(UUID AssessmentQuestionId);
 	   AssessmentQuestions getAllEnrollmentAssessmentQuestions(UUID enrollmentId,Integer startIndex, Integer maxItems);

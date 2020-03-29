@@ -1210,14 +1210,13 @@ $scope.switchBool = function(value) {
    $scope[value] = !$scope[value];
 };
 }]);
-;
-app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
+;app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
+		
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
-	$scope.sessionToken = $sessionStorage.sessionToken;	
-											   
+	
   $scope.submitForm = function() {
 	  
        Service.createProjectGroup($http,$scope,

@@ -17,7 +17,9 @@ public class Education extends ClientModel{
       private Integer lastgradecompleted;
 
       private Integer schoolStatus;
-
+      
+      @JsonSerialize(using=JsonDateSerializer.class)
+      @JsonDeserialize(using=JsonDateDeserializer.class)
       private LocalDateTime informationDate;
       private Integer dataCollectionStage;
 

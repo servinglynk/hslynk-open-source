@@ -13,22 +13,32 @@ import com.servinglynk.hmis.warehouse.model.v2020.Assessment;
 import com.servinglynk.hmis.warehouse.service.AssessmentQuestionService;
 import com.servinglynk.hmis.warehouse.service.converter.AssessmentQuestionConverter;
 import com.servinglynk.hmis.warehouse.service.exception.AssessmentQuestionsNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 
 
 public class AssessmentQuestionsServiceImpl extends ServiceBase implements AssessmentQuestionService  {
 
    @Transactional
-   public AssessmentQuestion createAssessmentQuestion(AssessmentQuestion assessmentQuestion,UUID enrollmentId,String caller){
+   public AssessmentQuestion createAssessmentQuestion(AssessmentQuestion assessmentQuestion,String caller){
        com.servinglynk.hmis.warehouse.model.v2020.AssessmentQuestions pAssessmentQuestion = AssessmentQuestionConverter.modelToEntity(assessmentQuestion, null);
-       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(assessmentQuestion.getEnrollmentid());
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pAssessmentQuestion.setEnrollmentid(pEnrollment);
+       
+       com.servinglynk.hmis.warehouse.model.v2020.Client pClient = daoFactory.getClientDao().getClientById(assessmentQuestion.getClientid());
+       if(pClient == null) {  throw new ClientNotFoundException(); }
+       else {
+    	   pAssessmentQuestion.setClientId(pClient.getId());
+    	   pAssessmentQuestion.setDedupClientId(pClient.getDedupClientId());
+       }
        UUID assessmentId = assessmentQuestion.getAssessmentId();
        if(assessmentId != null) {
     	   Assessment assessmentById = daoFactory.getAssessmentDao().getAssessmentById(assessmentQuestion.getAssessmentId());
-           pAssessmentQuestion.setAssessment(assessmentById);
+    	   pAssessmentQuestion.setAssessment(assessmentById);
        }
+       
        pAssessmentQuestion.setDateCreated(LocalDateTime.now());
        daoFactory.getProjectDao().populateUserProjectGroupCode(pAssessmentQuestion, caller);
        daoFactory.getAssessmentQuestionsDao().createAssessmentQuestions(pAssessmentQuestion);
@@ -39,24 +49,31 @@ public class AssessmentQuestionsServiceImpl extends ServiceBase implements Asses
 
 
    @Transactional
-   public AssessmentQuestion updateAssessmentQuestion(AssessmentQuestion AssessmentQuestion,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+   public AssessmentQuestion updateAssessmentQuestion(AssessmentQuestion assessmentQuestion,String caller){
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(assessmentQuestion.getEnrollmentid());
        if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2020.AssessmentQuestions pAssessmentQuestion = daoFactory.getAssessmentQuestionsDao().getAssessmentQuestionsById(AssessmentQuestion.getAssessmentQuestionId());
+       com.servinglynk.hmis.warehouse.model.v2020.AssessmentQuestions pAssessmentQuestion = daoFactory.getAssessmentQuestionsDao().getAssessmentQuestionsById(assessmentQuestion.getAssessmentQuestionId());
        if(pAssessmentQuestion==null) throw new AssessmentQuestionsNotFoundException();
 
-       AssessmentQuestionConverter.modelToEntity(AssessmentQuestion, pAssessmentQuestion);
+       AssessmentQuestionConverter.modelToEntity(assessmentQuestion, pAssessmentQuestion);
        pAssessmentQuestion.setEnrollmentid(pEnrollment);
-       UUID assessmentId = AssessmentQuestion.getAssessmentId();
+      
+       com.servinglynk.hmis.warehouse.model.v2020.Client pClient = daoFactory.getClientDao().getClientById(assessmentQuestion.getClientid());
+       if(pClient == null) {  throw new ClientNotFoundException(); }
+       else {
+    	   pAssessmentQuestion.setClientId(pClient.getId());
+    	   pAssessmentQuestion.setDedupClientId(pClient.getDedupClientId());
+       }
+       UUID assessmentId = assessmentQuestion.getAssessmentId();
        if(assessmentId != null) {
-    	   Assessment assessmentById = daoFactory.getAssessmentDao().getAssessmentById(AssessmentQuestion.getAssessmentId());
-           pAssessmentQuestion.setAssessment(assessmentById);
+    	   Assessment assessmentById = daoFactory.getAssessmentDao().getAssessmentById(assessmentQuestion.getAssessmentId());
+    	   pAssessmentQuestion.setAssessment(assessmentById);
        }
        pAssessmentQuestion.setDateUpdated(LocalDateTime.now());
        pAssessmentQuestion.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getAssessmentQuestionsDao().updateAssessmentQuestions(pAssessmentQuestion);
-       AssessmentQuestion.setAssessmentQuestionId(pAssessmentQuestion.getId());
-       return AssessmentQuestion;
+       assessmentQuestion.setAssessmentQuestionId(pAssessmentQuestion.getId());
+       return assessmentQuestion;
    }
 
 
