@@ -13,17 +13,25 @@ import com.servinglynk.hmis.warehouse.model.v2020.Assessment;
 import com.servinglynk.hmis.warehouse.service.AssessmentResultService;
 import com.servinglynk.hmis.warehouse.service.converter.AssessmentResultConverter;
 import com.servinglynk.hmis.warehouse.service.exception.AssessmentResultsNotFoundException;
+import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 
 
 public class AssessmentResultsServiceImpl extends ServiceBase implements AssessmentResultService  {
 
    @Transactional
-   public AssessmentResult createAssessmentResult(AssessmentResult assessmentResult,UUID enrollmentId,String caller){
+   public AssessmentResult createAssessmentResult(AssessmentResult assessmentResult,String caller){
        com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults pAssessmentResult = AssessmentResultConverter.modelToEntity(assessmentResult, null);
-       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(assessmentResult.getEnrollmentid());
        if(pEnrollment == null) throw new EnrollmentNotFound();
        pAssessmentResult.setEnrollmentid(pEnrollment);
+       
+       com.servinglynk.hmis.warehouse.model.v2020.Client pClient = daoFactory.getClientDao().getClientById(assessmentResult.getClientid());
+       if(pClient == null) {  throw new ClientNotFoundException(); }
+       else {
+    	    pAssessmentResult.setClientId(pClient.getId());
+    	    pAssessmentResult.setDedupClientId(pClient.getDedupClientId());
+       }
        UUID assessmentId = assessmentResult.getAssessmentId();
        if(assessmentId != null) {
     	   Assessment assessmentById = daoFactory.getAssessmentDao().getAssessmentById(assessmentResult.getAssessmentId());
@@ -39,29 +47,39 @@ public class AssessmentResultsServiceImpl extends ServiceBase implements Assessm
 
 
    @Transactional
-   public AssessmentResult updateAssessmentResult(AssessmentResult AssessmentResult,UUID enrollmentId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
-       if(pEnrollment == null) throw new EnrollmentNotFound();
-       com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults pAssessmentResult = daoFactory.getAssessmentResultsDao().getAssessmentResultsById(AssessmentResult.getAssessmentResultId());
+   public AssessmentResult updateAssessmentResult(AssessmentResult assessmentResult,String caller){
+       com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults pAssessmentResult = daoFactory.getAssessmentResultsDao().getAssessmentResultsById(assessmentResult.getAssessmentResultId());
        if(pAssessmentResult==null) throw new AssessmentResultsNotFoundException();
-       UUID assessmentId = AssessmentResult.getAssessmentId();
+       
+       com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(assessmentResult.getEnrollmentid());
+       if(pEnrollment == null) throw new EnrollmentNotFound();
+       pAssessmentResult.setEnrollmentid(pEnrollment);
+       
+       com.servinglynk.hmis.warehouse.model.v2020.Client pClient = daoFactory.getClientDao().getClientById(assessmentResult.getClientid());
+       if(pClient == null) {  throw new ClientNotFoundException(); }
+       else {
+    	    pAssessmentResult.setClientId(pClient.getId());
+    	    pAssessmentResult.setDedupClientId(pClient.getDedupClientId());
+       }
+       UUID assessmentId = assessmentResult.getAssessmentId();
        if(assessmentId != null) {
-    	   Assessment assessmentById = daoFactory.getAssessmentDao().getAssessmentById(AssessmentResult.getAssessmentId());
+    	   Assessment assessmentById = daoFactory.getAssessmentDao().getAssessmentById(assessmentResult.getAssessmentId());
     	   pAssessmentResult.setAssessment(assessmentById);
        }
-       AssessmentResultConverter.modelToEntity(AssessmentResult, pAssessmentResult);
+       
+       AssessmentResultConverter.modelToEntity(assessmentResult, pAssessmentResult);
        pAssessmentResult.setEnrollmentid(pEnrollment);
        pAssessmentResult.setDateUpdated(LocalDateTime.now());
        pAssessmentResult.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
        daoFactory.getAssessmentResultsDao().updateAssessmentResults(pAssessmentResult);
-       AssessmentResult.setAssessmentResultId(pAssessmentResult.getId());
-       return AssessmentResult;
+       assessmentResult.setAssessmentResultId(pAssessmentResult.getId());
+       return assessmentResult;
    }
 
 
    @Transactional
-   public AssessmentResult deleteAssessmentResult(UUID AssessmentResultId,String caller){
-       com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults pAssessmentResult = daoFactory.getAssessmentResultsDao().getAssessmentResultsById(AssessmentResultId);
+   public AssessmentResult deleteAssessmentResult(UUID assessmentResultId,String caller){
+       com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults pAssessmentResult = daoFactory.getAssessmentResultsDao().getAssessmentResultsById(assessmentResultId);
        if(pAssessmentResult==null) throw new AssessmentResultsNotFoundException();
 
        daoFactory.getAssessmentResultsDao().deleteAssessmentResults(pAssessmentResult);
@@ -70,8 +88,8 @@ public class AssessmentResultsServiceImpl extends ServiceBase implements Assessm
 
 
    @Transactional
-   public AssessmentResult getAssessmentResultById(UUID AssessmentResultId){
-       com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults pAssessmentResult = daoFactory.getAssessmentResultsDao().getAssessmentResultsById(AssessmentResultId);
+   public AssessmentResult getAssessmentResultById(UUID assessmentResultId){
+       com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults pAssessmentResult = daoFactory.getAssessmentResultsDao().getAssessmentResultsById(assessmentResultId);
        if(pAssessmentResult==null) throw new AssessmentResultsNotFoundException();
        return AssessmentResultConverter.entityToModel( pAssessmentResult );
    }

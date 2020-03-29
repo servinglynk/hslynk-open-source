@@ -1962,58 +1962,82 @@ public class ClientsController extends ControllerBase {
   // Assessment API ends
 		
   // Assessment Question API start
-		@RequestMapping(value = { "/{clientid}/enrollments/{enrollmentid}/assessmentQuestions", "/{clientid}/enrollments/{enrollmentid}/assessmentquestions"}, method = RequestMethod.POST)
+		@RequestMapping(value = { "/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentquestions"}, method = RequestMethod.POST)
 		@APIMapping(value = "CLIENT_API_CREATE_ASSESSMENT_QUESTION", checkTrustedApp = true, checkSessionToken = true)
-		public AssessmentQuestion createAssessmentQuestion(@PathVariable("clientid") UUID clientId,
-				@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody AssessmentQuestion AssessmentQuestion,
+		public AssessmentQuestion createAssessmentQuestion(@PathVariable("clientid") UUID clientId, @PathVariable("assessmentid") UUID assessmentId,
+				@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody AssessmentQuestion assessmentQuestion,
 				HttpServletRequest request) throws Exception {
+			
+			assessmentQuestion.setClientid(clientId);
+			assessmentQuestion.setEnrollmentid(enrollmentId);
+			assessmentQuestion.setAssessmentId(assessmentId);
+			
+			serviceFactory.getClientService().getClientById(clientId);
+			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
+			
 			Session session = sessionHelper.getSession(request);
 			serviceFactory.getClientService().getClientById(clientId);
-			com.servinglynk.hmis.warehouse.core.model.AssessmentQuestion createAssessmentQuestion = serviceFactory.getAssessmentQuestionService().createAssessmentQuestion(AssessmentQuestion, enrollmentId,
+			com.servinglynk.hmis.warehouse.core.model.AssessmentQuestion createAssessmentQuestion = serviceFactory.getAssessmentQuestionService().createAssessmentQuestion(assessmentQuestion,
 					session.getAccount().getUsername());
 			return createAssessmentQuestion;
 		}
 
-		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentQuestions/{assessmentQuestionid}","/{clientid}/enrollments/{enrollmentid}/assessmentquestions/{assessmentQuestionid}"}, method = RequestMethod.PUT)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentQuestions/{assessmentquestionid}","/{clientid}/enrollments/{enrollmentid}/assessmentquestions/{assessmentQuestionid}"}, method = RequestMethod.PUT)
 		@APIMapping(value = "CLIENT_API_UPDATE__ASSESSMENT_QUESTION", checkTrustedApp = true, checkSessionToken = true)
 		public void updateAssessmentQuestion(@PathVariable("clientid") UUID clientId,
-				@PathVariable("enrollmentid") UUID enrollmentId,
-				@PathVariable("assessmentQuestionid") UUID assessmentQuestionid, @RequestBody AssessmentQuestion AssessmentQuestion,
+				@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("assessmentid") UUID assessmentId,
+				@PathVariable("assessmentquestionid") UUID assessmentQuestionid, @RequestBody AssessmentQuestion assessmentQuestion,
 				HttpServletRequest request) throws Exception {
-			Session session = sessionHelper.getSession(request);
-			AssessmentQuestion.setAssessmentQuestionId(assessmentQuestionid);
+			
+			assessmentQuestion.setClientid(clientId);
+			assessmentQuestion.setEnrollmentid(enrollmentId);
+			assessmentQuestion.setAssessmentId(assessmentId);
+			
 			serviceFactory.getClientService().getClientById(clientId);
-			serviceFactory.getAssessmentQuestionService().updateAssessmentQuestion(AssessmentQuestion, enrollmentId,
+			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
+			
+			Session session = sessionHelper.getSession(request);
+			assessmentQuestion.setAssessmentQuestionId(assessmentQuestionid);
+			serviceFactory.getClientService().getClientById(clientId);
+			serviceFactory.getAssessmentQuestionService().updateAssessmentQuestion(assessmentQuestion ,
 					session.getAccount().getUsername());
 		}
 
-		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentQuestions/{assessmentQuestionid}","/{clientid}/enrollments/{enrollmentid}/assessmentquestions/{assessmentQuestionid}"}, method = RequestMethod.DELETE)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentquestions/{assessmentquestionid}"}, method = RequestMethod.DELETE)
 		@APIMapping(value = "CLIENT_API_DELETE__ASSESSMENT_QUESTION", checkTrustedApp = true, checkSessionToken = true)
-		public void deleteAssessmentQuestion(@PathVariable("clientid") UUID clientId,
+		public void deleteAssessmentQuestion(@PathVariable("clientid") UUID clientId, @PathVariable("assessmentid") UUID assessmentId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
-				@PathVariable("assessmentQuestionid") UUID assessmentQuestionid, HttpServletRequest request,
+				@PathVariable("assessmentquestionid") UUID assessmentQuestionid, HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
+			
 			Session session = sessionHelper.getSession(request);
+			
 			serviceFactory.getClientService().getClientById(clientId);
 			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
+			
 			serviceFactory.getAssessmentQuestionService().deleteAssessmentQuestion(assessmentQuestionid,
 					session.getAccount().getUsername());
 			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		}
 
-		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentQuestions/{assessmentQuestionid}","/{clientid}/enrollments/{enrollmentid}/assessmentquestions/{assessmentQuestionid}"}, method = RequestMethod.GET)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentquestions/{assessmentquestionid}"}, method = RequestMethod.GET)
 		@APIMapping(value = "CLIENT_API_GET__ASSESSMENT_QUESTION_BY_ID", checkTrustedApp = true, checkSessionToken = true)
-		public AssessmentQuestion getAssessmentQuestionById(@PathVariable("clientid") UUID clientId,
+		public AssessmentQuestion getAssessmentQuestionById(@PathVariable("clientid") UUID clientId, @PathVariable("assessmentid") UUID assessmentId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
-				@PathVariable("assessmentQuestionid") UUID assessmentQuestionid, HttpServletRequest request) throws Exception {
+				@PathVariable("assessmentquestionid") UUID assessmentQuestionid, HttpServletRequest request) throws Exception {
 			serviceFactory.getClientService().getClientById(clientId);
 			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
+			
 			return serviceFactory.getAssessmentQuestionService().getAssessmentQuestionById(assessmentQuestionid);
 		}
 
-		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentQuestions","/{clientid}/enrollments/{enrollmentid}/assessmentquestions"}, method = RequestMethod.GET)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentquestions"}, method = RequestMethod.GET)
 		@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT__ASSESSMENT_QUESTION", checkTrustedApp = true, checkSessionToken = true)
-		public AssessmentQuestions getAllEnrollmentAssessmentQuestions(@PathVariable("clientid") UUID clientId,
+		public AssessmentQuestions getAllEnrollmentAssessmentQuestions(@PathVariable("clientid") UUID clientId, @PathVariable("assessmentid") UUID assessmentId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
 				@RequestParam(value = "startIndex", required = false) Integer startIndex,
 				@RequestParam(value = "maxItems", required = false) Integer maxItems, HttpServletRequest request)
@@ -2025,6 +2049,8 @@ public class ClientsController extends ControllerBase {
 
 			serviceFactory.getClientService().getClientById(clientId);
 			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
+			
 			return serviceFactory.getAssessmentQuestionService().getAllEnrollmentAssessmentQuestions(enrollmentId, startIndex,
 					maxItems);
 		}
@@ -2033,59 +2059,78 @@ public class ClientsController extends ControllerBase {
 		
 		// Assessment Result API begin
 		
-		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentResults","/{clientid}/enrollments/{enrollmentid}/assessmentresults"}, method = RequestMethod.POST)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentresults"}, method = RequestMethod.POST)
 		@APIMapping(value = "CLIENT_API_CREATE_ASSESSMENT_RESULT", checkTrustedApp = true, checkSessionToken = true)
 		public AssessmentResult createAssessmentResult(@PathVariable("clientid") UUID clientId,
-				@PathVariable("enrollmentid") UUID enrollmentId, @RequestBody AssessmentResult AssessmentResult,
+				@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("assessmentid") UUID assessmentId,@RequestBody AssessmentResult assessmentResult,
 				HttpServletRequest request) throws Exception {
 			Session session = sessionHelper.getSession(request);
+			assessmentResult.setClientid(clientId);
+			assessmentResult.setEnrollmentid(enrollmentId);
+			assessmentResult.setAssessmentId(assessmentId);
+			
 			serviceFactory.getClientService().getClientById(clientId);
-			com.servinglynk.hmis.warehouse.core.model.AssessmentResult createAssessmentResult = serviceFactory.getAssessmentResultService().createAssessmentResult(AssessmentResult, enrollmentId,
+			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
+			
+			com.servinglynk.hmis.warehouse.core.model.AssessmentResult createAssessmentResult = serviceFactory.getAssessmentResultService().createAssessmentResult(assessmentResult,
 					session.getAccount().getUsername());
 			return createAssessmentResult;
 		}
 
-		@RequestMapping(value = { "/{clientid}/enrollments/{enrollmentid}/assessmentResults/{assessmentResultid}","/{clientid}/enrollments/{enrollmentid}/assessmentresults/{assessmentResultid}"}, method = RequestMethod.PUT)
+		@RequestMapping(value = { "/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentresults/{assessmentresultid}"}, method = RequestMethod.PUT)
 		@APIMapping(value = "CLIENT_API_UPDATE__ASSESSMENT_RESULT", checkTrustedApp = true, checkSessionToken = true)
 		public void updateAssessmentResult(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
-				@PathVariable("assessmentResultid") UUID assessmentResultid, @RequestBody AssessmentResult AssessmentResult,
+				@PathVariable("assessmentid") UUID assessmentId,
+				@PathVariable("assessmentresultid") UUID assessmentResultid, @RequestBody AssessmentResult assessmentResult,
 				HttpServletRequest request) throws Exception {
 			Session session = sessionHelper.getSession(request);
-			AssessmentResult.setAssessmentResultId(assessmentResultid);
+			assessmentResult.setAssessmentResultId(assessmentResultid);
+			assessmentResult.setAssessmentId(assessmentId);
+			assessmentResult.setClientid(clientId);
+			
 			serviceFactory.getClientService().getClientById(clientId);
-			serviceFactory.getAssessmentResultService().updateAssessmentResult(AssessmentResult, enrollmentId,
+			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
+			
+			serviceFactory.getAssessmentResultService().updateAssessmentResult(assessmentResult,
 					session.getAccount().getUsername());
 		}
 
-		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentResults/{assessmentResultid}","/{clientid}/enrollments/{enrollmentid}/assessmentresults/{assessmentResultid}"}, method = RequestMethod.DELETE)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentresults/{assessmentresultid}"}, method = RequestMethod.DELETE)
 		@APIMapping(value = "CLIENT_API_DELETE__ASSESSMENT_RESULT", checkTrustedApp = true, checkSessionToken = true)
 		public void deleteAssessmentResult(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
-				@PathVariable("assessmentResultid") UUID assessmentResultid, HttpServletRequest request,
+				@PathVariable("assessmentid") UUID assessmentId,
+				@PathVariable("assessmentresultid") UUID assessmentResultid, HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
 			Session session = sessionHelper.getSession(request);
 			serviceFactory.getClientService().getClientById(clientId);
 			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
 			serviceFactory.getAssessmentResultService().deleteAssessmentResult(assessmentResultid,
 					session.getAccount().getUsername());
 			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		}
 
-		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentResults/{assessmentResultid}","/{clientid}/enrollments/{enrollmentid}/assessmentresults/{assessmentResultid}"}, method = RequestMethod.GET)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentresults/{assessmentresultid}"}, method = RequestMethod.GET)
 		@APIMapping(value = "CLIENT_API_GET__ASSESSMENT_RESULT_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 		public AssessmentResult getAssessmentResultById(@PathVariable("clientid") UUID clientId,
 				@PathVariable("enrollmentid") UUID enrollmentId,
-				@PathVariable("assessmentResultid") UUID assessmentResultid, HttpServletRequest request) throws Exception {
+				@PathVariable("assessmentid") UUID assessmentId,
+				@PathVariable("assessmentresultid") UUID assessmentResultid, HttpServletRequest request) throws Exception {
 			serviceFactory.getClientService().getClientById(clientId);
 			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
+			
 			return serviceFactory.getAssessmentResultService().getAssessmentResultById(assessmentResultid);
 		}
 
-		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessmentResults","/{clientid}/enrollments/{enrollmentid}/assessmentresults"}, method = RequestMethod.GET)
+		@RequestMapping(value = {"/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentresults"}, method = RequestMethod.GET)
 		@APIMapping(value = "CLIENT_API_GET_ALL_ENROLLMENT__ASSESSMENT_RESULT", checkTrustedApp = true, checkSessionToken = true)
 		public AssessmentResults getAllEnrollmentAssessmentResults(@PathVariable("clientid") UUID clientId,
-				@PathVariable("enrollmentid") UUID enrollmentId,
+				@PathVariable("enrollmentid") UUID enrollmentId,@PathVariable("assessmentid") UUID assessmentId,
 				@RequestParam(value = "startIndex", required = false) Integer startIndex,
 				@RequestParam(value = "maxItems", required = false) Integer maxItems, HttpServletRequest request)
 						throws Exception {
@@ -2096,6 +2141,8 @@ public class ClientsController extends ControllerBase {
 
 			serviceFactory.getClientService().getClientById(clientId);
 			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getAssessmentService().getAssessmentById(assessmentId);
+			
 			return serviceFactory.getAssessmentResultService().getAllEnrollmentAssessmentResults(enrollmentId, startIndex,
 					maxItems);
 		}

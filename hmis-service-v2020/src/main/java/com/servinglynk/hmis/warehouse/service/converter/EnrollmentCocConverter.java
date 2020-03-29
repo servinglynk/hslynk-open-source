@@ -26,7 +26,7 @@ public class EnrollmentCocConverter  extends BaseConverter {
        if(entity.getDataCollectionStage() !=null)
     	   model.setDataCollectionStage(Integer.parseInt(entity.getDataCollectionStage().getValue()));
          model.setCocCode(entity.getCocCode());
-
+         model.setInformationDate(entity.getInformationDate());
          if(entity.getSubmissionDate()!=null) model.setSubmissionDate(entity.getSubmissionDate());
          if(entity.getParentId() ==null && entity.getEnrollmentid()!=null && entity.getEnrollmentid().getClient()!=null) {
       	   model.addLink(new ActionLink("history","/clients/"+entity.getEnrollmentid().getClient().getId()+"/enrollments/"+entity.getEnrollmentid().getId()+"/enrollmentcocs/"+entity.getId()+"/history"));
