@@ -56,6 +56,7 @@ public class Event extends HmisBaseModel implements Cloneable, Serializable {
 	private String referralResult;
 	private EventTypeEnum event;
 	private NoYesEnum referralCaseManageAfter;
+	private NoYesEnum probsoldivrrresult;
 	
 
 	/*   event_date  date,
@@ -186,6 +187,24 @@ public class Event extends HmisBaseModel implements Cloneable, Serializable {
 	 */
 	public void setReferralCaseManageAfter(NoYesEnum referralCaseManageAfter) {
 		this.referralCaseManageAfter = referralCaseManageAfter;
+	}
+
+	
+	/**
+	 * @return the probsoldivrrresult
+	 */
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.NoYesEnumType")
+	@Basic( optional = true )
+	@Column( name = "probsoldivrrresult" )
+	public NoYesEnum getProbsoldivrrresult() {
+		return probsoldivrrresult;
+	}
+
+	/**
+	 * @param probsoldivrrresult the probsoldivrrresult to set
+	 */
+	public void setProbsoldivrrresult(NoYesEnum probsoldivrrresult) {
+		this.probsoldivrrresult = probsoldivrrresult;
 	}
 
 	/** Return the type of this class. Useful for when dealing with proxies.
