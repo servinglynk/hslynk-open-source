@@ -4219,6 +4219,7 @@ with (
   oids=false
 );        
 
+alter table v2020.event add column probsoldivrrresult v2020.no_yes_refused;
 
 alter table v2020.assessment add column client_id uuid;
 alter table v2020.assessment_questions  add column client_id uuid;
@@ -4308,3 +4309,18 @@ INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','8
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','12','Referral to Joint TH-RRH project/unit/resource opening','ACTIVE');
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','13','Referral to RRH project resource opening','ACTIVE');
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','15','Referral to Other PH project resource opening','ACTIVE');
+
+
+insert into v2020.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template,uri_object_field) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad36','Referral Result','Referral Result',
+'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'referralResult',
+false,'4.20.D','/v2020/clients/{clientid}/enrollments/{enrollmentid}/events/{eventid}','event.referralResult');
+
+INSERT INTO "v2020".hmis_type (id,name,value,description,status) values (1876,'referralResult','1','Successful referral: client accepted','ACTIVE');
+INSERT INTO "v2020".hmis_type (id,name,value,description,status) values (1877,'referralResult','2','Unsuccessful referral: client rejected','ACTIVE');
+INSERT INTO "v2020".hmis_type (id,name,value,description,status) values (1878,'referralResult','3','Unsuccessful referral: client rejected','ACTIVE');
+
+
+
+
+
