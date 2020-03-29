@@ -612,7 +612,10 @@ INSERT INTO "v2020".hmis_type (name,value,description,status) values ('unemploym
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('unemployment','1','Yes','ACTIVE');
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('unemployment','99','Data not collected','ACTIVE');
 
-
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('dataCollectionStage','1','Project entry','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('dataCollectionStage','2','Update','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('dataCollectionStage','3','Project exit','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('dataCollectionStage','5','Annual assessment','ACTIVE');
 
 
 INSERT INTO "v2020".hmis_type (name,value,description,status) values ('earned','0','No','ACTIVE');
@@ -3972,6 +3975,10 @@ insert into v2020.question(id,question_description,display_text,question_data_ty
 'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'disabilityresponse',
 false,'4.10.2','/v2020/clients/{clientid}/enrollments/{enrollmentid}/disabilities/{disabilityid}','disabilities.disabilityresponse');
 
+insert into v2020.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template,uri_object_field) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad29','Data Collection Stage','Data Collection Stage',
+'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'dataCollectionStage',
+false,'5.03.1','/v2020/clients/{clientid}/enrollments/{enrollmentid}/enrollmentcocs/{enrollmentcocid}','enrollmentCoc.dataCollectionStage');
 
 
 
@@ -4248,3 +4255,56 @@ alter table v2020.exithousingassessment add column submission_date  timestamp;
 alter table v2020.project drop column   victimServiceProvider;
 alter table v2020.organization add column victimServiceProvider "v2020".no_yes;
 
+insert into v2020.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template,uri_object_field) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad31','Assessment Type','Assessment Type',
+'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'assessmentType',
+false,'4.19.3','/v2020/clients/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}','assessment.assessmentType');
+
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('assessmentType','1','Phone','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('assessmentType','2','Virtual','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('assessmentType','3','In Person','ACTIVE');
+
+
+insert into v2020.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template,uri_object_field) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad32','Assessment Level','Assessment Level',
+'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'assessmentLevel',
+false,'4.19.4','/v2020/clients/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}','assessment.assessmentLevel');
+
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('assessmentLevel','1','Crisis Needs Assessment','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('assessmentLevel','2','Housing Needs Assessment','ACTIVE');
+
+insert into v2020.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template,uri_object_field) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad33','Prioritization Status','Prioritization Status',
+'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'prioritizationStatus',
+false,'4.19.4','/v2020/clients/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}','assessment.prioritizationStatus');
+
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('prioritizationStatus','1','Placed on prioritization list','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('prioritizationStatus','2','Not placed on prioritization list','ACTIVE');
+
+
+insert into v2020.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template,uri_object_field) values
+('024c9acd-d3e1-4cc4-9800-a9db85edad35','Event','Event',
+'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'event',
+false,'4.20.2','/v2020/clients/{clientid}/enrollments/{enrollmentid}/events/{eventid}','event.event');
+
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','1','Referral to Prevention Assistance project','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','4','Referral to scheduled Coordinated Entry Housing Needs Assessment','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','5','Referral to Post-placement/ follow-up case management','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','6','Referral to Street Outreach project or services','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','9','Referral to Non-continuum services: No availability in continuum services','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','10','Referral to Emergency Shelter bed opening','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','11','Referral to Transitional Housing bed/unit opening','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','14','Referral to PSH project resource opening','ACTIVE');
+
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','2','Problem Solving/Diversion/Rapid Resolution intervention or service','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','3','Referral to scheduled Coordinated Entry Crisis Needs Assessment','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','4','Referral to scheduled Coordinated Entry Housing Needs Assessment','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','7','Referral to Housing Navigation project or services','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','8','Referral to Non-continuum services: Ineligible for continuum services','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','12','Referral to Joint TH-RRH project/unit/resource opening','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','13','Referral to RRH project resource opening','ACTIVE');
+INSERT INTO "v2020".hmis_type (name,value,description,status) values ('event','15','Referral to Other PH project resource opening','ACTIVE');
