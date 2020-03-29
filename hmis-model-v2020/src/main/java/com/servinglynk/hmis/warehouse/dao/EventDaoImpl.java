@@ -53,6 +53,7 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 						eventModel.setEvent(EventTypeEnum.lookupEnum(event.getEvent()));
 						eventModel.setLocationcrisisorphhousing(event.getLocationCrisisOrPHHousing());
 						eventModel.setReferralCaseManageAfter(NoYesEnum.lookupEnum(event.getReferralCaseManageAfter()));
+						eventModel.setProbsoldivrrresult(NoYesEnum.lookupEnum(event.getProbSolDivRRResult()));
 						eventModel.setReferralResult(event.getReferralResult());
 						Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, event.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 						eventModel.setEnrollmentid(enrollmentModel);
