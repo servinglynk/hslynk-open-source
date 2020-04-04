@@ -1224,6 +1224,7 @@ public class BulkUploadHelper2020 {
 	    	  projectModel.setResidentialAffiliation(prjt.getResidentialAffiliation());
 	    	  projectModel.setTargetPopulation((prjt.getTargetPopulation()));
 	    	  projectModel.setTrackingMethod((prjt.getTrackingMethod()));
+	    	  projectModel.setPitCount(prjt.getPITCount());
 	    	  projectModel.setUserID(prjt.getUserID());
 	    	  projectModel.setHousingType(prjt.getHousingType());
 	    	  projectModel.setOperatingEndDate(getXMLGregorianCalendar(prjt.getOperatingEndDate()));

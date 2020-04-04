@@ -81,6 +81,16 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 					projectModel.setHousingType(ProjectHousingTypeEnum.lookupEnum(project.getHousingType()));
 					projectModel.setTargetpopulation(ProjectTargetpopulationEnum.lookupEnum(project.getTargetPopulation()));
 					projectModel.setTrackingmethod(ProjectTrackingmethodEnum.lookupEnum(project.getTrackingMethod()));
+					String pitCount = project.getPitCount();
+					if(pitCount !=null) {
+						try 
+						{
+							int parseInt = Integer.parseInt(pitCount);
+							projectModel.setPitCount(parseInt);
+						}catch(NumberFormatException e) {
+							// Eat the NFE
+						}
+					}
 					projectModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateCreated()));
 					projectModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(project.getDateUpdated()));
 					projectModel.setExport(exportEntity);
