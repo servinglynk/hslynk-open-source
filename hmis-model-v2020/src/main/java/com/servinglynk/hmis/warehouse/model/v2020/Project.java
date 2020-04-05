@@ -91,6 +91,8 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 	private ProjectTargetpopulationEnum targetpopulation;
 	/** Field mapping. */
 	private ProjectTrackingmethodEnum trackingmethod;
+	/** Field mapping. */
+	private Integer pitCount;
 	
 	private String source;
 	/** Field mapping. */
@@ -560,6 +562,24 @@ public class Project extends HmisBaseModel implements Cloneable, Serializable {
 			this.source = source;
 		}
 		
+		
+	/**
+		 * @return the pitCount
+		 */
+		 @Column(name="pitcount")
+		public Integer getPitCount() {
+			return pitCount;
+		}
+
+		/**
+		 * @param pitCount the pitCount to set
+		 */
+		public void setPitCount(Integer pitCount) {
+			this.pitCount = pitCount;
+		}
+
+
+
 	/** Field mapping. */
 	protected Export export;
 	 /**

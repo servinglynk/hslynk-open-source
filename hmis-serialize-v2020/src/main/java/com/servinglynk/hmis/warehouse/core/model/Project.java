@@ -29,7 +29,7 @@ public class Project extends ClientModel {
     @JsonDeserialize(using=JsonDateDeserializer.class)
     private LocalDateTime operatingEndDate;
     private Integer housingType;
- 
+    private Integer pitCount;
 	private String source;
 	private String sourceSystemId;
     
@@ -172,5 +172,19 @@ public class Project extends ClientModel {
 
 	public void setSourceSystemId(String sourceSystemId) {
 		this.sourceSystemId = sourceSystemId;
+	}
+
+	/**
+	 * @return the pitCount
+	 */
+	public Integer getPitCount() {
+		return pitCount;
+	}
+
+	/**
+	 * @param pitCount the pitCount to set
+	 */
+	public void setPitCount(Integer pitCount) {
+		this.pitCount = pitCount;
 	}
 }

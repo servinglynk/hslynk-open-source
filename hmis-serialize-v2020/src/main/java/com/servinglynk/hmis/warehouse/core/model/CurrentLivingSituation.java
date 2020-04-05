@@ -17,7 +17,7 @@ public class CurrentLivingSituation extends ClientModel {
 	private String resourcestoobtain;
 	private String movedtwoormore;
 	private String currentLivingSituation;
-	
+	private String leaseown60day;
 	/*
 	/**
 	 * @return the currentLivingSituation
@@ -142,5 +142,16 @@ public class CurrentLivingSituation extends ClientModel {
 	public void setMovedtwoormore(String movedtwoormore) {
 		this.movedtwoormore = movedtwoormore;
 	}
-	
+	/**
+	 * @return the leaseown60day
+	 */
+	public String getLeaseown60day() {
+		return leaseown60day;
+	}
+	/**
+	 * @param leaseown60day the leaseown60day to set
+	 */
+	public void setLeaseown60day(String leaseown60day) {
+		this.leaseown60day = leaseown60day;
+	}
 }

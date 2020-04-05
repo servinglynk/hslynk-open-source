@@ -14,7 +14,7 @@ public class CurrentLivingSituationConverter  extends BaseConverter {
        entity.setMovedtwoormore(NoYesEnum.lookupEnum(model.getMovedtwoormore()));
        entity.setResourcestoobtain(NoYesEnum.lookupEnum(model.getResourcestoobtain()));
        entity.setSubsequentresidence(NoYesEnum.lookupEnum(model.getSubsequentresidence()));
-       
+       entity.setLeaseOwn60Day(NoYesEnum.lookupEnum(model.getLeaseown60day()));
        return entity;
    }
 
@@ -38,6 +38,9 @@ public class CurrentLivingSituationConverter  extends BaseConverter {
        NoYesEnum subsequentresidence = entity.getSubsequentresidence();
        if(subsequentresidence !=null)
     	   model.setSubsequentresidence(subsequentresidence.getValue());
+       NoYesEnum leaseOwn60Days = entity.getLeaseOwn60Day();
+       if(leaseOwn60Days != null)
+    	   model.setLeaseown60day(leaseOwn60Days.getValue());
        if(entity.getEnrollmentid() != null)
     	   model.setEnrollmentid(entity.getEnrollmentid().getId());
        
