@@ -36,6 +36,8 @@ public class ProjectConverter extends BaseConverter {
     	   entity.setHmisParticipatingProject(NoYesEnum.lookupEnum(model.getHmisParticipatingProject().toString()));
        if(model.getSourceSystemId()!=null)
     	   entity.setSourceSystemId(model.getSourceSystemId());
+       if(model.getPitCount() != null)
+    	    entity.setPitCount(model.getPitCount());
        entity.setSource("2020");
        return entity;
    }
@@ -61,7 +63,7 @@ public class ProjectConverter extends BaseConverter {
 
        project.setProjectGroup(entity.getProjectGroupCode());
        project.setSourceSystemId(entity.getSourceSystemId());
-
+   	   project.setPitCount(entity.getPitCount());
        copyBeanProperties(entity, project);
        return project;
    }
@@ -88,6 +90,7 @@ public class ProjectConverter extends BaseConverter {
        project.setSource(entity.getSource());
        project.setSourceSystemId(entity.getSourceSystemId());
        copyBeanProperties(entity, project);
+       project.setPitCount(entity.getPitCount());
        if(entity.getParentId() ==null ) {
     	   project.addLink(new ActionLink("history","/projects/"+entity.getId()+"/history"));
        }
