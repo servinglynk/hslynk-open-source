@@ -30,6 +30,8 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setEntrydate(enrollment.getEntryDate());
 		if(enrollment.getHouseholdid()!=null)
 		pEnrollment.setHouseholdid(enrollment.getHouseholdid());
+
+
 		if(enrollment.getMonthshomelesspastthreeyears()!=null)
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment.getMonthshomelesspastthreeyears().toString()));
 	/*	if(enrollment.getProjectentryid()!=null)
@@ -47,8 +49,7 @@ public class EnrollmentConveter extends BaseConverter {
 		if(enrollment.getPreviousStreetESSH()!=null)
 		pEnrollment.setPreviousStreetESSH(NoYesEnum.lookupEnum(enrollment.getPreviousStreetESSH().toString()));
 		if(enrollment.getDateToStreetESSH() != null) 
-			pEnrollment.setEntrydate(enrollment.getDateToStreetESSH());
-
+			pEnrollment.setDateToStreetESSH(enrollment.getDateToStreetESSH());
 		return pEnrollment;
 	}
 
@@ -73,7 +74,13 @@ public class EnrollmentConveter extends BaseConverter {
 		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
 		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(pEnrollment.getDatetostreetessh());
-
+		if(pEnrollment.getHmisHousehold()!=null) {
+			enrollment.setHmisHouseholdId(pEnrollment.getHmisHousehold().getId());
+			enrollment.addLink(new ActionLink("hmisHouseHold","/hmis-clientapi/rest/v2020/hmishouseholds/"+pEnrollment.getHmisHousehold().getId()));
+		}
+	     if(pEnrollment.getParentId() ==null && pEnrollment.getClient()!=null) {
+	    	   enrollment.addLink(new ActionLink("history","/clients/"+pEnrollment.getClient().getId()+"/enrollments/"+pEnrollment.getId()+"/history"));
+	       }
 		copyBeanProperties(pEnrollment, enrollment);
 
 		return enrollment;
@@ -99,12 +106,17 @@ public class EnrollmentConveter extends BaseConverter {
 		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
 		enrollment.setSource(pEnrollment.getSource());
-		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(pEnrollment.getDatetostreetessh());
 
+		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(pEnrollment.getDatetostreetessh());
+		if(pEnrollment.getHmisHousehold()!=null) {
+			enrollment.setHmisHouseholdId(pEnrollment.getHmisHousehold().getId());
+			enrollment.addLink(new ActionLink("hmisHouseHold","/hmis-clientapi/rest/v2020/hmishouseholds/"+pEnrollment.getHmisHousehold().getId()));
+		}
 		copyBeanProperties(pEnrollment, enrollment);
 	       if(pEnrollment.getParentId() ==null && pEnrollment.getClient()!=null) {
 	    	   enrollment.addLink(new ActionLink("history","/clients/"+pEnrollment.getClient().getId()+"/enrollments/"+pEnrollment.getId()+"/history"));
 	       }
+
 		return enrollment;
 	}
 }

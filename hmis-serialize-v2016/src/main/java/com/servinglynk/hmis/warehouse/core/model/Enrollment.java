@@ -33,6 +33,7 @@ public class Enrollment extends ClientModel {
 	private Integer losunderthreshold;
 	private Integer previousStreetESSH;
 	private String source;
+	private UUID hmisHouseholdId;
 	
 	public Integer getEntryfromstreetessh() {
 		return entryfromstreetessh;
@@ -247,6 +248,14 @@ public class Enrollment extends ClientModel {
 
 	public void setSource(String source) {
 		this.source = source;
+	}
+
+	public UUID getHmisHouseholdId() {
+		return hmisHouseholdId;
+	}
+
+	public void setHmisHouseholdId(UUID hmisHouseholdId) {
+		this.hmisHouseholdId = hmisHouseholdId;
 	}
 	
 }

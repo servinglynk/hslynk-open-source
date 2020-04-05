@@ -12,6 +12,8 @@ public class HmisHousehold  extends ClientModel {
 	private Client headOfHouseHold;
 	private String link;
 	List<HouseHoldMember> houseHoldMembers = new ArrayList<HouseHoldMember>();
+	private String sourceSystemHouseHoldId;
+	private String sourceSystemId;
 	
 	public UUID getHouseHoldId() {
 		return houseHoldId;
@@ -42,4 +44,18 @@ public class HmisHousehold  extends ClientModel {
 	public void addHouseHoldMember(HouseHoldMember member) {
 		this.houseHoldMembers.add(member);
 	}
+	public String getSourceSystemHouseHoldId() {
+		return sourceSystemHouseHoldId;
+	}
+	public void setSourceSystemHouseHoldId(String sourceSystemHouseHoldId) {
+		this.sourceSystemHouseHoldId = sourceSystemHouseHoldId;
+	}
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
+	}
+	
+	
 }

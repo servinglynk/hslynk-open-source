@@ -147,7 +147,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	/** Field mapping. */
 	private Integer ageAtEntry;
 	private boolean chronicHomeless;
-	
+	private HmisHousehold hmisHousehold;
 	private String source;
 
 	/**
@@ -1134,6 +1134,16 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.source = source;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "hmis_house_hold_id", nullable = true )
+   public HmisHousehold getHmisHousehold() {
+		return hmisHousehold;
+	}
+
+	public void setHmisHousehold(HmisHousehold hmisHousehold) {
+		this.hmisHousehold = hmisHousehold;
+	}
+	
    /**
     * Deep copy.
 	* @return cloned object

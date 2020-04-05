@@ -32,6 +32,8 @@ public class HmisHouseHoldServiceImpl extends ServiceBase implements HmisHouseHo
 		entity.setDateUpdated(LocalDateTime.now());
 		entity.setDeleted(false);
 		entity.setUser(caller.getAccountId());
+		if(model.getSourceSystemHouseHoldId()!=null) entity.setSourceSystemHouseHoldId(model.getSourceSystemHouseHoldId());
+		if(model.getSourceSystemId()!=null) entity.setSourceSystemId(model.getSourceSystemId());
 		entity.setProjectGroupCode(caller.getProjectGroup().getProjectGroupCode());
 		daoFactory.getHmisHouseholdDao().createHouseHold(entity);
 		model.setHouseHoldId(entity.getId());
@@ -49,6 +51,8 @@ public class HmisHouseHoldServiceImpl extends ServiceBase implements HmisHouseHo
 		entity.setDedupClientId(client.getDedupClientId());
 		entity.setDateUpdated(LocalDateTime.now());
 		entity.setUser(caller.getAccountId());
+		if(model.getSourceSystemHouseHoldId()!=null) entity.setSourceSystemHouseHoldId(model.getSourceSystemHouseHoldId());
+		if(model.getSourceSystemId()!=null) entity.setSourceSystemId(model.getSourceSystemId());
 		daoFactory.getHmisHouseholdDao().updateHouseHold(entity);
 	}
 

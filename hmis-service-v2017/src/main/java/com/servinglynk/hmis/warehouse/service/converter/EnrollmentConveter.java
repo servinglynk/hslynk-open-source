@@ -28,8 +28,7 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingcondition().toString()));
 		if(enrollment.getEntrydate()!=null)
 		pEnrollment.setEntrydate(enrollment.getEntrydate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-		if(enrollment.getHouseholdid()!=null)
-		pEnrollment.setHouseholdid(enrollment.getHouseholdid());
+		
 		if(enrollment.getMonthshomelesspastthreeyears()!=null)
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment.getMonthshomelesspastthreeyears().toString()));
 	/*	if(enrollment.getProjectentryid()!=null)
@@ -73,7 +72,10 @@ public class EnrollmentConveter extends BaseConverter {
 		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
 		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(Date.from(pEnrollment.getDatetostreetessh().atZone(ZoneId.systemDefault()).toInstant()));
-
+		if(pEnrollment.getHmisHousehold()!=null) {
+			enrollment.setHmisHouseholdId(pEnrollment.getHmisHousehold().getId());
+			enrollment.addLink(new ActionLink("hmisHouseHold","/hmis-clientapi/rest/v2017/hmishouseholds/"+pEnrollment.getHmisHousehold().getId()));
+		}
 		copyBeanProperties(pEnrollment, enrollment);
 	       if(pEnrollment.getParentId() ==null && pEnrollment.getClient()!=null) {
 	    	   enrollment.addLink(new ActionLink("history","/clients/"+pEnrollment.getClient().getId()+"/enrollments/"+pEnrollment.getId()+"/history"));
@@ -102,7 +104,10 @@ public class EnrollmentConveter extends BaseConverter {
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
 		enrollment.setSource(pEnrollment.getSource());
 		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(Date.from(pEnrollment.getDatetostreetessh().atZone(ZoneId.systemDefault()).toInstant()));
-
+		if(pEnrollment.getHmisHousehold()!=null) {
+			enrollment.setHmisHouseholdId(pEnrollment.getHmisHousehold().getId());
+			enrollment.addLink(new ActionLink("hmisHouseHold","/hmis-clientapi/rest/v2017/hmishouseholds/"+pEnrollment.getHmisHousehold().getId()));
+		}
 		copyBeanProperties(pEnrollment, enrollment);
 	       if(pEnrollment.getParentId() ==null && pEnrollment.getClient()!=null) {
 	    	   enrollment.addLink(new ActionLink("history","/clients/"+pEnrollment.getClient().getId()+"/enrollments/"+pEnrollment.getId()+"/history"));

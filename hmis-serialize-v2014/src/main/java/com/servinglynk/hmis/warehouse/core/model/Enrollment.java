@@ -31,6 +31,7 @@ public class Enrollment extends ClientModel {
 	private int  yearshomeless;
 	private UUID  clientId;
 	private String source;
+	private UUID hmisHouseholdId;
 	
 
 	public Enrollment(){
@@ -208,5 +209,13 @@ public class Enrollment extends ClientModel {
 
 	public void setSource(String source) {
 		this.source = source;
+	}
+
+	public UUID getHmisHouseholdId() {
+		return hmisHouseholdId;
+	}
+
+	public void setHmisHouseholdId(UUID hmisHouseholdId) {
+		this.hmisHouseholdId = hmisHouseholdId;
 	}
 }
