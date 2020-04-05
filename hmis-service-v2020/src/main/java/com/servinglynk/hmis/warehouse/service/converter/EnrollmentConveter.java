@@ -49,7 +49,7 @@ public class EnrollmentConveter extends BaseConverter {
 		if(enrollment.getPreviousStreetESSH()!=null)
 		pEnrollment.setPreviousStreetESSH(NoYesEnum.lookupEnum(enrollment.getPreviousStreetESSH().toString()));
 		if(enrollment.getDateToStreetESSH() != null) 
-			pEnrollment.setDateToStreetESSH(enrollment.getDateToStreetESSH());
+			pEnrollment.setDatetostreetessh(enrollment.getDateToStreetESSH());
 		return pEnrollment;
 	}
 
