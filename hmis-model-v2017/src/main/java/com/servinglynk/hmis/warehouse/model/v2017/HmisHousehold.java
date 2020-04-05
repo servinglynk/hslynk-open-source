@@ -31,6 +31,9 @@ public class HmisHousehold extends HMISModel implements Serializable {
 	private Client headOfHousehold;
 	private UUID dedupClientId;
 	private List<HmisHouseHoldMember> members = new ArrayList<HmisHouseHoldMember>();
+	private String sourceSystemHouseHoldId;
+	private String sourceSystemId;
+	
 	
 	@Id
 	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
@@ -72,5 +75,23 @@ public class HmisHousehold extends HMISModel implements Serializable {
 
 	public void setMembers(List<HmisHouseHoldMember> members) {
 		this.members = members;
+	}
+	
+	@Column(name = "source_system_house_hold_id")
+	public String getSourceSystemHouseHoldId() {
+		return sourceSystemHouseHoldId;
+	}
+
+	public void setSourceSystemHouseHoldId(String sourceSystemHouseHoldId) {
+		this.sourceSystemHouseHoldId = sourceSystemHouseHoldId;
+	}
+
+	@Column(name = "source_system_id")
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
 	}
 }

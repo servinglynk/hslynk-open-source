@@ -6,5 +6,5 @@ public interface DaoFactory {
 
 	ClientMetaDataRepository getClientMetaDataRepository();
 	ClientManagementDao getClientManagementDao();
-	
+	GlobalHouseHoldDao getGlobalHouseHoldDao();	
 }

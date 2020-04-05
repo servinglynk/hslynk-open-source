@@ -27,8 +27,7 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingcondition().toString()));
 		if(enrollment.getEntrydate()!=null)
 		pEnrollment.setEntrydate(enrollment.getEntrydate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-		if(enrollment.getHouseholdid()!=null)
-		pEnrollment.setHouseholdid(enrollment.getHouseholdid());
+		
 		if(enrollment.getHousingstatus()!=null)
 		pEnrollment.setHousingstatus(EnrollmentHousingstatusEnum.lookupEnum(enrollment.getHousingstatus().toString()));
 		if(enrollment.getMonthshomelesspastthreeyears()!=null)
@@ -85,6 +84,10 @@ public class EnrollmentConveter extends BaseConverter {
 	       if(pEnrollment.getParentId() ==null && pEnrollment.getClient()!=null) {
 	    	   enrollment.addLink(new ActionLink("history","/clients/"+pEnrollment.getClient().getId()+"/enrollments/"+pEnrollment.getId()+"/history"));
 	       }
+			if(pEnrollment.getHmisHousehold()!=null) {
+				enrollment.setHmisHouseholdId(pEnrollment.getHmisHousehold().getId());
+				enrollment.addLink(new ActionLink("hmisHouseHold","/hmis-clientapi/rest/v2015/hmishouseholds/"+pEnrollment.getHmisHousehold().getId()));
+			}
 		return enrollment;
 	}
 	
@@ -113,6 +116,11 @@ public class EnrollmentConveter extends BaseConverter {
 		enrollment.setEnrollmentId(pEnrollment.getId());
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
 		enrollment.setSource(pEnrollment.getSource());
+		if(pEnrollment.getHmisHousehold()!=null) {
+			enrollment.setHmisHouseholdId(pEnrollment.getHmisHousehold().getId());
+			enrollment.addLink(new ActionLink("hmisHouseHold","/hmis-clientapi/rest/v2015/hmishouseholds/"+pEnrollment.getHmisHousehold().getId()));
+		}
+		
 		copyBeanProperties(pEnrollment, enrollment);
 	       if(pEnrollment.getParentId() ==null && pEnrollment.getClient()!=null) {
 	    	   enrollment.addLink(new ActionLink("history","/clients/"+pEnrollment.getClient().getId()+"/enrollments/"+pEnrollment.getId()+"/history"));
