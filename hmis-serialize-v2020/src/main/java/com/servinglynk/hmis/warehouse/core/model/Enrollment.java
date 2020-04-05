@@ -90,6 +90,7 @@ public class Enrollment extends ClientModel {
 	EnrollmentLinks enrollmentLinks;
 	
 	Map<String,Map<String,List<ExitActionLinks>>> exitLinks;
+	private UUID hmisHouseholdId;
 	
 
 	
@@ -324,6 +325,14 @@ public class Enrollment extends ClientModel {
 
 	public void setExitLinks(Map<String,Map<String,List<ExitActionLinks>>> exitLinks) {
 		this.exitLinks = exitLinks;
+	}
+
+	public UUID getHmisHouseholdId() {
+		return hmisHouseholdId;
+	}
+
+	public void setHmisHouseholdId(UUID hmisHouseholdId) {
+		this.hmisHouseholdId = hmisHouseholdId;
 	}
 
 /*	public List<ExitActionLink> getExitLinks() {

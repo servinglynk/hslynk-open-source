@@ -1,7 +1,9 @@
 package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -9,6 +11,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
+import com.servinglynk.hmis.warehouse.client.MessageSender;
+import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisHouseHoldMember;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisHousehold;
@@ -16,11 +20,14 @@ import com.servinglynk.hmis.warehouse.model.v2016.HmisHousehold;
 public class HmisHouseholdDaoImpl extends QueryExecutorImpl implements HmisHouseholdDao {
 	
 	@Autowired ParentDaoFactory parentDaoFactory;
+	
+	@Autowired MessageSender messageSender;
 
 	public HmisHousehold createHouseHold(HmisHousehold entity) {
 		entity.setId(UUID.randomUUID());
 		insert(entity);
 		this.createHouseHoldMedataInfo(entity);
+		this.createGlobalHouseHold(entity);
 		return entity;
 	}
 	
@@ -91,6 +98,29 @@ public class HmisHouseholdDaoImpl extends QueryExecutorImpl implements HmisHouse
 		metaDataEntity.setUserId(hmisHousehold.getUser());
 		metaDataEntity.setAdditionalInfo("{\"houseHoldId\":\""+hmisHousehold.getId()+"\",\"schemaYear\":\"2016\",\"clientId\":\""+hmisHousehold.getHeadOfHousehold().getId()+"\"}");
 		parentDaoFactory.getClientMetaDataDao().createClientMetaData(metaDataEntity);
+	}
+	
+	public void createGlobalHouseHold(HmisHousehold hmisHousehold) {
+		if(hmisHousehold.getSourceSystemId()!=null) {
+			// creating active mq request
+			AMQEvent amqEvent = new AMQEvent();
+	
+			amqEvent.setEventType("globalHouseHold");
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("hmisHouseHoldId", hmisHousehold.getId());
+			data.put("clientId", hmisHousehold.getHeadOfHousehold().getId());
+			data.put("dedupClientId", hmisHousehold.getHeadOfHousehold().getDedupClientId());
+			data.put("deleted", false);
+			data.put("projectGroupCode", hmisHousehold.getProjectGroupCode());
+			data.put("userId", hmisHousehold.getUser());
+			data.put("sourceSystemId",hmisHousehold.getSourceSystemId());
+			data.put("sourceSystemHouseHoldId",hmisHousehold.getSourceSystemHouseHoldId());
+			data.put("schema","2016");
+			amqEvent.setPayload(data);
+			amqEvent.setModule("client-api");
+			amqEvent.setSubsystem("v2016");
+			messageSender.sendAmqMessage(amqEvent);
+		}
 	}
 	
 	public void deleteClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2016.HmisHousehold hmisHousehold) {

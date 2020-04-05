@@ -141,7 +141,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private LivingSituationEnum livingSituation;
 	private LengthOfStayEnum lengthOfStay;
 	private String source;
-
+	private HmisHousehold hmisHousehold;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -1024,6 +1024,16 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 		this.source = source;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "hmis_house_hold_id", nullable = true )
+   public HmisHousehold getHmisHousehold() {
+		return hmisHousehold;
+	}
+
+	public void setHmisHousehold(HmisHousehold hmisHousehold) {
+		this.hmisHousehold = hmisHousehold;
+	}
+	
 /**
     * Deep copy.
 	* @return cloned object
