@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class Rhybcpstatuses extends PaginatedModel{
 
 
-       @JsonProperty("rhybcpstatuses") 
+       @JsonProperty("rhybcpStatuses") 
        List<Rhybcpstatus>rhybcpstatuses = new ArrayList<Rhybcpstatus>();
        public List<Rhybcpstatus> getRhybcpstatuses() {
            return rhybcpstatuses;
