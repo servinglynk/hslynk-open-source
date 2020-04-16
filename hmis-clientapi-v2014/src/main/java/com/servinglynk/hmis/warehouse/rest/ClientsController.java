@@ -135,7 +135,7 @@ public class ClientsController extends ControllerBase {
 	@APIMapping(value="CLIENT_API_CREATE_ENROLLMENT",checkSessionToken=true,checkTrustedApp=true)
 	public Enrollment createEnrollment(@RequestBody Enrollment enrollment,@PathVariable("clientid") UUID clientId ,HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
-		serviceFactory.getEnrollmentService().createEnrollment(enrollment, clientId, session.getAccount().getUsername());
+		serviceFactory.getEnrollmentService().createEnrollment(enrollment, clientId, session.getAccount());
 		Enrollment returnEnrollment = new Enrollment();
 		returnEnrollment.setEnrollmentId(enrollment.getEnrollmentId());
 		return returnEnrollment;

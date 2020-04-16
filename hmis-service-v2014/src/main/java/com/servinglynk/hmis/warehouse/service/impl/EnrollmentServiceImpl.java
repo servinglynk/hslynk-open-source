@@ -8,7 +8,9 @@ import java.util.UUID;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
+import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Enrollments;
+import com.servinglynk.hmis.warehouse.core.model.HmisHousehold;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.converter.EnrollmentConveter;
@@ -23,23 +25,31 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Override
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment createEnrollment(
-			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
+			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,Account caller) {
 		com.servinglynk.hmis.warehouse.model.v2014.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 		
 		com.servinglynk.hmis.warehouse.model.v2014.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
 		if(pProject==null) throw new ProjectNotFoundException();
 		
-		com.servinglynk.hmis.warehouse.model.v2014.HmisHousehold pHmisHousehold = daoFactory.getHmisHouseholdDao().getHouseHoldById(enrollment.getHmisHouseholdId());
-		if(pHmisHousehold==null) throw new ResourceNotFoundException("HmisHouseHold Not found "+enrollment.getHouseholdid());
 		
+		com.servinglynk.hmis.warehouse.model.v2014.HmisHousehold pHmisHousehold = null;
+		
+		if(enrollment.getHmisHouseholdId()!=null) {
+			pHmisHousehold = daoFactory.getHmisHouseholdDao().getHouseHoldById(enrollment.getHmisHouseholdId());
+			if(pHmisHousehold==null) throw new ResourceNotFoundException("HmisHouseHold Not found "+enrollment.getHouseholdid());
+		}else {
+			HmisHousehold hmisHousehold = new HmisHousehold();
+			hmisHousehold.setSourceSystemHouseHoldId(enrollment.getHouseholdid());
+			pHmisHousehold = serviceFactory.getHmisHouseHoldService().createHmisHousehold(pClient,hmisHousehold, null);
+		}
 		com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);
 		pEnrollment.setClient(pClient);		
 		pEnrollment.setProject(pProject);
 		pEnrollment.setHmisHousehold(pHmisHousehold);
 		//pEnrollment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
 		pEnrollment.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-		daoFactory.getProjectDao().populateUserProjectGroupCode(pEnrollment, caller);
+		daoFactory.getProjectDao().populateUserProjectGroupCode(pEnrollment, caller.getUsername());
 		daoFactory.getEnrollmentDao().createEnrollment(pEnrollment);
 
 		enrollment.setEnrollmentId(pEnrollment.getId());
@@ -59,13 +69,16 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
 		if(pEnrollment == null) throw new EnrollmentNotFound();
 		
-		com.servinglynk.hmis.warehouse.model.v2014.HmisHousehold pHmisHousehold = daoFactory.getHmisHouseholdDao().getHouseHoldById(enrollment.getHmisHouseholdId());
-		if(pHmisHousehold==null) throw new ResourceNotFoundException("HmisHouseHold Not found "+enrollment.getHouseholdid());
-		
 		EnrollmentConveter.modelToEntity(enrollment, pEnrollment);
+		if(enrollment.getHmisHouseholdId()!=null) {
+			com.servinglynk.hmis.warehouse.model.v2014.HmisHousehold pHmisHousehold = daoFactory.getHmisHouseholdDao().getHouseHoldById(enrollment.getHmisHouseholdId());
+			if(pHmisHousehold==null) throw new ResourceNotFoundException("HmisHouseHold Not found "+enrollment.getHouseholdid());
+			pEnrollment.setHmisHousehold(pHmisHousehold);
+		}
+		
 		pEnrollment.setClient(pClient);		
 		pEnrollment.setProject(pProject);
-		pEnrollment.setHmisHousehold(pHmisHousehold);
+
 	//	pEnrollment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
 		pEnrollment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);

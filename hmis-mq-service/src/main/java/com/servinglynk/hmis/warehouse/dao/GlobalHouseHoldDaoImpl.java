@@ -25,7 +25,7 @@ public class GlobalHouseHoldDaoImpl implements GlobalHouseHoldDao {
 		Session session = entityManager.unwrap(Session.class);
 		
 		DetachedCriteria criteria = DetachedCriteria.forClass(GlobalHouseHoldMapEntity.class);
-		criteria.add(Restrictions.eq("sourceSystemId", sourceSystemId));
+//		criteria.add(Restrictions.eq("sourceSystemId", sourceSystemId));
 		criteria.add(Restrictions.eq("sourceSystemHouseHoldId", sourceSystemHouseHoldId));
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 //		criteria.add(Restrictions.eq("deleted", false));
