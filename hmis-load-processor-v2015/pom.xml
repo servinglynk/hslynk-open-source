@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>com.servinglynk.hmis.warehouse</groupId>
 		<artifactId>hslynk-parent</artifactId>
-		<version>2.20.6</version>
+		<version>2.20.9</version>
 	</parent>
 	<dependencies>
 		<dependency>
@@ -179,6 +179,28 @@
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
+					<plugin>
+		    <artifactId>maven-assembly-plugin</artifactId>
+		    <executions>
+		      <execution>
+		        <phase>package</phase>
+		        <goals>
+		          <goal>single</goal>
+		        </goals>
+		      </execution>
+		    </executions>
+		    <configuration>
+		      <archive>
+		        <manifest>
+		          <addClasspath>true</addClasspath>
+		          <mainClass>com.servinglynk.hmis.warehouse.upload.Processor</mainClass>
+		        </manifest>
+		      </archive>
+		      <descriptorRefs>
+		        <descriptorRef>jar-with-dependencies</descriptorRef>
+		      </descriptorRefs>
+		    </configuration>
+		  </plugin> 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
