@@ -9,7 +9,6 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +26,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.FirstName;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.LastName;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.MiddleName;
+import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.SSN;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
@@ -39,6 +41,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
+import com.servinglynk.hmis.warehouse.enums.HashStatusEnum;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
@@ -193,19 +196,27 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 
 
 	public void populateClient(Client client,com.servinglynk.hmis.warehouse.model.v2017.Client clientModel) {
-		if (client.getLastName() != null) {
-			clientModel.setLastName(client.getLastName().getValue());
+		LastName lastName = client.getLastName();
+		if (lastName != null) {
+			clientModel.setLastName(lastName.getValue());
+			clientModel.setLastNameHashStatus(HashStatusEnum.lookupEnum(lastName.getHashStatus()));
 		}
-		if (client.getMiddleName() != null) {
-			clientModel.setMiddleName(client.getMiddleName().getValue());
+		MiddleName middleName = client.getMiddleName();
+		if (middleName != null) {
+			clientModel.setMiddleName(middleName.getValue());
+			clientModel.setMiddleNameHashStatus(HashStatusEnum.lookupEnum(middleName.getHashStatus()));
 		}
-		if (client.getFirstName() != null) {
-			clientModel.setFirstName(client.getFirstName().getValue());
+		FirstName firstName = client.getFirstName();
+		if (firstName != null) {
+			clientModel.setFirstName(firstName.getValue());
+			clientModel.setFirstNameHashStatus(HashStatusEnum.lookupEnum(firstName.getHashStatus()));
 		}
 		clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
 				.getDOB()));
-		if (client.getSSN() != null) {
-			clientModel.setSsn(client.getSSN().getValue());
+		SSN ssn = client.getSSN();
+		if (ssn != null) {
+			clientModel.setSsn(ssn.getValue());
+			clientModel.setSsnHashStatus(HashStatusEnum.lookupEnum(ssn.getHashStatus()));
 		}
     }
 	
