@@ -9,6 +9,7 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -26,13 +27,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.FirstName;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.LastName;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.MiddleName;
-import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client.SSN;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
@@ -41,7 +39,6 @@ import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
-import com.servinglynk.hmis.warehouse.enums.HashStatusEnum;
 import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
@@ -111,6 +108,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 							.lookupEnum(String.valueOf(client.getEthnicity())));
 					clientModel.setGender(ClientGenderEnum.lookupEnum(String
 							.valueOf(client.getGender())));
+				
 
 					clientModel
 							.setNameDataQuality(ClientNameDataQualityEnum
@@ -132,6 +130,8 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					clientModel.setExport(exportEntity);
 					hydrateCommonFields(clientModel, domain, client.getPersonalID(), data);
 					//makes a microservice all to the dedup micro service
+					
+					
 					if(!clientModel.isIgnored()) {
 						if(!clientModel.isRecordToBoInserted()) {
 							++data.j;
@@ -193,27 +193,19 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 
 
 	public void populateClient(Client client,com.servinglynk.hmis.warehouse.model.v2020.Client clientModel) {
-		LastName lastName = client.getLastName();
-		if (lastName != null) {
-			clientModel.setLastName(lastName.getValue());
-			clientModel.setLastNameHashStatus(HashStatusEnum.lookupEnum(lastName.getHashStatus()));
+		if (client.getLastName() != null) {
+			clientModel.setLastName(client.getLastName().getValue());
 		}
-		MiddleName middleName = client.getMiddleName();
-		if (middleName != null) {
-			clientModel.setMiddleName(middleName.getValue());
-			clientModel.setMiddleNameHashStatus(HashStatusEnum.lookupEnum(middleName.getHashStatus()));
+		if (client.getMiddleName() != null) {
+			clientModel.setMiddleName(client.getMiddleName().getValue());
 		}
-		FirstName firstName = client.getFirstName();
-		if (firstName != null) {
-			clientModel.setFirstName(firstName.getValue());
-			clientModel.setFirstNameHashStatus(HashStatusEnum.lookupEnum(firstName.getHashStatus()));
+		if (client.getFirstName() != null) {
+			clientModel.setFirstName(client.getFirstName().getValue());
 		}
 		clientModel.setDob(BasicDataGenerator.getLocalDateTime(client
 				.getDOB()));
-		SSN ssn = client.getSSN();
-		if (ssn != null) {
-			clientModel.setSsn(ssn.getValue());
-			clientModel.setSsnHashStatus(HashStatusEnum.lookupEnum(ssn.getHashStatus()));
+		if (client.getSSN() != null) {
+			clientModel.setSsn(client.getSSN().getValue());
 		}
     }
 	

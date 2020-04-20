@@ -26,7 +26,6 @@ import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
-import com.servinglynk.hmis.warehouse.enums.HashStatusEnum;
 
 
 /**
@@ -91,14 +90,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	private ClientSsnDataQualityEnum ssnDataQuality;
 	/** Field mapping. */
 	private ClientVeteranStatusEnum veteranStatus;
-	/** Field mapping. */
-	private HashStatusEnum firstNameHashStatus;
-	/** Field mapping. */
-	private HashStatusEnum lastNameHashStatus;
-	/** Field mapping. */
-	private HashStatusEnum middleNameHashStatus;
-	/** Field mapping. */
-	private HashStatusEnum ssnHashStatus;
 	private LocalDateTime dob;
 	private String sourceSystemId;
 	private String schemaYear;
@@ -485,73 +476,6 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	}
 
 
-	/**
-	 * @return the firstNameHashStatus
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.HashStatusEnumType")
-	@Basic( optional = true )
-	@Column( name = "first_name_hash_status"  )
-	public HashStatusEnum getFirstNameHashStatus() {
-		return firstNameHashStatus;
-	}
-
-	/**
-	 * @param firstNameHashStatus the firstNameHashStatus to set
-	 */
-	public void setFirstNameHashStatus(HashStatusEnum firstNameHashStatus) {
-		this.firstNameHashStatus = firstNameHashStatus;
-	}
-
-	/**
-	 * @return the lastNameHashStatus
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.HashStatusEnumType")
-	@Basic( optional = true )
-	@Column( name = "last_name_hash_status"  )
-	public HashStatusEnum getLastNameHashStatus() {
-		return lastNameHashStatus;
-	}
-
-	/**
-	 * @param lastNameHashStatus the lastNameHashStatus to set
-	 */
-	public void setLastNameHashStatus(HashStatusEnum lastNameHashStatus) {
-		this.lastNameHashStatus = lastNameHashStatus;
-	}
-
-	/**
-	 * @return the middleNameHashStatus
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.HashStatusEnumType")
-	@Basic( optional = true )
-	@Column( name = "middle_name_hash_status"  )
-	public HashStatusEnum getMiddleNameHashStatus() {
-		return middleNameHashStatus;
-	}
-
-	/**
-	 * @param middleNameHashStatus the middleNameHashStatus to set
-	 */
-	public void setMiddleNameHashStatus(HashStatusEnum middleNameHashStatus) {
-		this.middleNameHashStatus = middleNameHashStatus;
-	}
-
-	/**
-	 * @return the ssnHashStatus
-	 */
-	@Type(type = "com.servinglynk.hmis.warehouse.enums.HashStatusEnumType")
-	@Basic( optional = true )
-	@Column( name = "ssn_name_hash_status"  )
-	public HashStatusEnum getSsnHashStatus() {
-		return ssnHashStatus;
-	}
-
-	/**
-	 * @param ssnHashStatus the ssnHashStatus to set
-	 */
-	public void setSsnHashStatus(HashStatusEnum ssnHashStatus) {
-		this.ssnHashStatus = ssnHashStatus;
-	}
 
 	 /**
 	 * Set the value related to the column: veteranStatus.

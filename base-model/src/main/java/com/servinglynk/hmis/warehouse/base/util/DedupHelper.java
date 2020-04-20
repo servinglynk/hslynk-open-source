@@ -144,9 +144,6 @@ public class DedupHelper {
 		if(person.getSsn() !=null && !"".equals(person.getSsn())) {
 			requestBody =requestBody+"\"ssn\": \"" +person.getSsn()+"\",";
 		}
-		if(person.getSsn() !=null && !"".equals(person.getSsn())) {
-			requestBody =requestBody+"\"placeOfBirth\": \"" +person.getSsn()+"\",";
-		}
 		if(person.getGivenName() !=null && !"".equals(person.getGivenName())) {
 			requestBody = requestBody +"\"givenName\":  \""+person.getGivenName()+"\",";
 		}

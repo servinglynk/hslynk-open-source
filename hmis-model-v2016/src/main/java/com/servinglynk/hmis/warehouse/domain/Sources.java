@@ -2298,7 +2298,7 @@ public class Sources {
                     @XmlValue
                     protected String value;
                     @XmlAttribute
-                    protected String hashStatus;
+                    protected Byte hashStatus;
 
                     /**
                      * Gets the value of the value property.
@@ -2332,7 +2332,7 @@ public class Sources {
                      *     {@link Byte }
                      *     
                      */
-                    public String getHashStatus() {
+                    public Byte getHashStatus() {
                         return hashStatus;
                     }
 
@@ -2344,7 +2344,7 @@ public class Sources {
                      *     {@link Byte }
                      *     
                      */
-                    public void setHashStatus(String value) {
+                    public void setHashStatus(Byte value) {
                         this.hashStatus = value;
                     }
 
@@ -2377,7 +2377,7 @@ public class Sources {
                     @XmlValue
                     protected String value;
                     @XmlAttribute
-                    protected String hashStatus;
+                    protected Byte hashStatus;
 
                     /**
                      * Gets the value of the value property.
@@ -2411,7 +2411,7 @@ public class Sources {
                      *     {@link Byte }
                      *     
                      */
-                    public String getHashStatus() {
+                    public Byte getHashStatus() {
                         return hashStatus;
                     }
 
@@ -2423,7 +2423,7 @@ public class Sources {
                      *     {@link Byte }
                      *     
                      */
-                    public void setHashStatus(String value) {
+                    public void setHashStatus(Byte value) {
                         this.hashStatus = value;
                     }
 
@@ -2456,7 +2456,7 @@ public class Sources {
                     @XmlValue
                     protected String value;
                     @XmlAttribute
-                    protected String hashStatus;
+                    protected Byte hashStatus;
 
                     /**
                      * Gets the value of the value property.
@@ -2490,7 +2490,7 @@ public class Sources {
                      *     {@link Byte }
                      *     
                      */
-                    public String getHashStatus() {
+                    public Byte getHashStatus() {
                         return hashStatus;
                     }
 
@@ -2502,7 +2502,7 @@ public class Sources {
                      *     {@link Byte }
                      *     
                      */
-                    public void setHashStatus(String value) {
+                    public void setHashStatus(Byte value) {
                         this.hashStatus = value;
                     }
 
@@ -2535,7 +2535,7 @@ public class Sources {
                     @XmlValue
                     protected String value;
                     @XmlAttribute
-                    protected String hashStatus;
+                    protected Byte hashStatus;
 
                     /**
                      * Gets the value of the value property.
@@ -2569,7 +2569,7 @@ public class Sources {
                      *     {@link Byte }
                      *     
                      */
-                    public String getHashStatus() {
+                    public Byte getHashStatus() {
                         return hashStatus;
                     }
 
@@ -2581,7 +2581,7 @@ public class Sources {
                      *     {@link Byte }
                      *     
                      */
-                    public void setHashStatus(String value) {
+                    public void setHashStatus(Byte value) {
                         this.hashStatus = value;
                     }
 
