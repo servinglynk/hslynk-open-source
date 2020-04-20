@@ -70,7 +70,7 @@ public class DedupHelper {
 	   	        //gender.setGenderCd(genderCd);
 	   	        person.setGender(gender);
 	        }
-	        person.setCustom14(client.getProjectGroupCode());
+	        person.setSector(client.getProjectGroupCode());
 	        String requestBody = parsePersonObjectToXMLString(person);
 	        HttpEntity<String> entityHttp = new HttpEntity<String>(requestBody, headers); 
 	        ResponseEntity<Object> responseObject = restTemplate.exchange(url, HttpMethod.POST, entityHttp, Object.class);
@@ -155,9 +155,9 @@ public class DedupHelper {
 			String dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").format(person.getDateOfBirth());
 			requestBody = requestBody+ " \"dateOfBirth\":  \""+ dateOfBirth + "\"";
 		}
-		if(person.getCustom14() !=null && !"".equals(person.getCustom14())) {
+		if(person.getSector() !=null && !"".equals(person.getSector())) {
 			requestBody = requestBody +",";
-			requestBody = requestBody+ " \"custom14\":  \""+person.getCustom14()+"\"";
+			requestBody = requestBody+ " \"sector\":  \""+person.getSector()+"\"";
 		}
 		requestBody = requestBody.replaceAll(",,", ",");
 		requestBody = requestBody.replaceAll("(,)*$", "");

@@ -1483,9 +1483,3 @@ alter table base.bulk_upload add column hud_version varchar(100);
 
 alter table base.client drop column ssn_old;
 alter table base.client drop column dob_old;
-
- CREATE TYPE "base".hash_status AS ENUM('1','2','3','4');   
-  alter table "base".client add column first_name_hash_status  "base".hash_status;
-  alter table "base".client add column last_name_hash_status  "base".hash_status;
-  alter table "base".client add column middle_name_hash_status  "base".hash_status;
-  alter table "base".client add column ssn_name_hash_status  "base".hash_status;

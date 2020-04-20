@@ -157,11 +157,8 @@ public class DedupServiceImpl implements DedupService{
 		if(person.getDateOfBirth() !=null)  {
 			requestBody = requestBody+"<dateOfBirth>"+convertStringToDate(person.getDateOfBirth())+"</dateOfBirth>";
 		}
-		if(person.getCustom14() !=null)  {
-			requestBody = requestBody+"<custom14>"+person.getCustom14()+"</custom14>";
-		}
-		if(person.getCustom15() !=null)  {
-			requestBody = requestBody+"<custom15>"+person.getCustom15()+"</custom15>";
+		if(person.getSector() !=null)  {
+			requestBody = requestBody+"<sector>"+person.getSector()+"</sector>";
 		}
 		requestBody = requestBody+"</person>";
 		logger.info("Request Body"+requestBody);
@@ -290,16 +287,12 @@ public class DedupServiceImpl implements DedupService{
 		person.setFamilyName(StringUtils.isNotEmpty(personParam.getFamilyName()) ? personParam.getFamilyName().toLowerCase() : personParam.getFamilyName() );
 		person.setGivenName(StringUtils.isNotEmpty(personParam.getGivenName()) ? personParam.getGivenName().toLowerCase() : personParam.getGivenName() );
 		person.setDateOfBirth(personParam.getDateOfBirth());
-		person.setCustom14(personParam.getCustom14());
-		person.setCustom15(personParam.getSsn());
+		person.setSector(personParam.getSector());
 		return person;
 	}
 
 	private String sanitizeSSN(String ssn) {
 		if(StringUtils.isNotEmpty(ssn)) {
-			if(ssn.length() > 11) {
-				return StringUtils.EMPTY;
-			}
 			String newSSN = ssn.replaceAll("[^a-zA-Z0-9\\s+]", "");
 			String finalSSN = newSSN.replaceAll("[a-zA-Z]","");
 			
@@ -311,6 +304,7 @@ public class DedupServiceImpl implements DedupService{
 			   StringUtils.equals(finalSSN, "0")) {
 				return StringUtils.EMPTY;
 			}
+			
 			return finalSSN;
 		}
 		return ssn;
