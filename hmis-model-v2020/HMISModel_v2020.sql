@@ -1,3 +1,4 @@
+
 DROP SCHEMA IF EXISTS "v2020" cascade;
 CREATE SCHEMA "v2020";
 DROP TABLE IF EXISTS "v2020".hmis_type;
@@ -4321,6 +4322,9 @@ INSERT INTO "v2020".hmis_type (id,name,value,description,status) values (1877,'r
 INSERT INTO "v2020".hmis_type (id,name,value,description,status) values (1878,'referralResult','3','Unsuccessful referral: client rejected','ACTIVE');
 
 
-
-
-
+  CREATE TYPE "v2020".hash_status AS ENUM('1','2','3','4');
+  alter table "v2020".client add column first_name_hash_status  "v2020".hash_status;
+  alter table "v2020".client add column last_name_hash_status  "v2020".hash_status;
+  alter table "v2020".client add column middle_name_hash_status  "v2020".hash_status;
+  alter table "v2020".client add column ssn_name_hash_status  "v2020".hash_status;
+  

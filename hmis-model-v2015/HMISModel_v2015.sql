@@ -2912,3 +2912,9 @@ alter table v2015.client ADD COLUMN email_address character varying(266);
 alter table v2015.client ADD COLUMN phone_number character varying(16);
 alter table v2015.client drop column ssn_old;
 alter table v2015.client drop column dob_old;
+
+  CREATE TYPE "v2015".hash_status AS ENUM('1','2','3','4');
+    alter table "v2015".client add column first_name_hash_status  "v2015".hash_status;
+  alter table "v2015".client add column last_name_hash_status  "v2015".hash_status;
+  alter table "v2015".client add column middle_name_hash_status  "v2015".hash_status;
+  alter table "v2015".client add column ssn_name_hash_status  "v2015".hash_status;
