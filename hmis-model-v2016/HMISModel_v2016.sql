@@ -2978,3 +2978,11 @@ WITH (
 
 alter table v2016.client drop column ssn_old;
 alter table v2016.client drop column dob_old;
+
+
+  CREATE TYPE "v2016".hash_status AS ENUM('1','2','3','4');
+    
+    alter table "v2016".client add column first_name_hash_status  "v2016".hash_status;
+  alter table "v2016".client add column last_name_hash_status  "v2016".hash_status;
+  alter table "v2016".client add column middle_name_hash_status  "v2016".hash_status;
+  alter table "v2016".client add column ssn_name_hash_status  "v2016".hash_status;
