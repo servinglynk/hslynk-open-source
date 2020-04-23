@@ -14,6 +14,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
+import com.servinglynk.hmis.warehouse.enums.HashStatusEnum;
 
 public class ClientConverter {
 
@@ -48,6 +49,16 @@ public class ClientConverter {
 		pClient.setVeteranStatus(ClientVeteranStatusEnum.lookupEnum(client.getVeteranStatus()));
 	    if(client.getSourceSystemId()!=null)
 	    	pClient.setSourceSystemId(client.getSourceSystemId());
+	    if(StringUtils.isNotBlank(client.getFirstNameHashStatus()))
+	    pClient.setFirstNameHashStatus(HashStatusEnum.lookupEnum(client.getFirstNameHashStatus()));
+	    if(StringUtils.isNotBlank(client.getLastNameHashStatus()))
+		pClient.setLastNameHashStatus(HashStatusEnum.lookupEnum(client.getLastNameHashStatus()));
+	    if(StringUtils.isNotBlank(client.getMiddleNameHashStatus()))
+		pClient.setMiddleNameHashStatus(HashStatusEnum.lookupEnum(client.getMiddleNameHashStatus()));
+	    if(StringUtils.isNotBlank(client.getSsnHashStatus()))
+		pClient.setSsnHashStatus(HashStatusEnum.lookupEnum(client.getSsnHashStatus()));
+	    if(StringUtils.isNotBlank(client.getSsnHashed()))
+		pClient.setSsn(client.getSsnHashed());
 		return pClient;
 	}
 
@@ -85,6 +96,15 @@ public class ClientConverter {
 	    	client.setSourceSystemId(pClient.getSourceSystemId());
 	    if(pClient.getDedupClientId() !=null)
 	    	client.setDedupClientId(pClient.getDedupClientId());
+	    if(pClient.getFirstNameHashStatus() !=null)
+	    	client.setFirstNameHashStatus(pClient.getFirstNameHashStatus().getValue());
+	    if(pClient.getLastNameHashStatus() !=null)
+		    client.setLastNameHashStatus(pClient.getLastNameHashStatus().getValue());
+	    if(pClient.getMiddleNameHashStatus() !=null)
+		    client.setMiddleNameHashStatus(pClient.getMiddleNameHashStatus().getValue());
+	    if(pClient.getSsnHashStatus() !=null)
+		    client.setSsnHashStatus(pClient.getSsnHashStatus().getValue());
+	    
 	    if(pClient.getParentId()==null)
 	    	client.addLink(new ActionLink("history","/client/"+pClient.getId()+"/history"));
 //		copyBeanProperties(pClient,client);

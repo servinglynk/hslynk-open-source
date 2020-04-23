@@ -13309,7 +13309,7 @@ public class Sources {
                 "targetPopulation",
                 "operatingStartDate", 
                 "operatingEndDate", 
-                "PITCount",
+                "pitCount",
                 "housingType",
                 "projectCommonName"
             })
