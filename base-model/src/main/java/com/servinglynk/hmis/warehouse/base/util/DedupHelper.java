@@ -44,7 +44,7 @@ public class DedupHelper {
 	    	MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-16"));
 	    	headers.setContentType(mediaType);
 	        headers.set("OPENEMPI_SESSION_KEY", sessionKey);
-	        String url = "http://localhost:8080/hmis-client-dedup/rest/api/v1/"+"dedup";
+	        String url = env.getRequiredProperty(OPENEMPI_HOST)+"dedup";
 	        Person person = new Person();
 	        person.setGivenName(client.getFirstName());
 	        person.setFamilyName(client.getLastName());
