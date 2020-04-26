@@ -153,7 +153,7 @@ public class EntryrhyDaoImpl extends ParentDaoImpl implements  EntryrhyDao{
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true); 
-data.i++;
+			data.i++;
 			return modelFromDB;
 		}
 		
@@ -161,7 +161,7 @@ data.i++;
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true); 
-data.i++;
+			data.i++;
 		} else {
 			com.servinglynk.hmis.warehouse.model.v2020.Entryrhy model = new com.servinglynk.hmis.warehouse.model.v2020.Entryrhy();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

@@ -15,7 +15,7 @@ public class EventConverter  extends BaseConverter {
 	       entity.setReferralCaseManageAfter(NoYesEnum.lookupEnum(model.getLocationcrisisorphhousing()));
 	       entity.setReferralResult(model.getReferralResult());
 	       entity.setResultDate(model.getResultDate());
-	    
+	       entity.setProbsoldivrrresult(NoYesEnum.lookupEnum(model.getProbsoldivrrresult()));
 	       return entity;
 	   }
 
@@ -26,9 +26,12 @@ public class EventConverter  extends BaseConverter {
 	       model.setEvent(entity.getEvent().getValue());
 	       model.setEventDate(model.getEventDate());
 	       model.setLocationcrisisorphhousing(entity.getLocationcrisisorphhousing());
-	       model.setReferralCaseManageAfter(entity.getLocationcrisisorphhousing());
+	       if(entity.getReferralCaseManageAfter() != null)
+	       model.setReferralCaseManageAfter(entity.getReferralCaseManageAfter().getValue());
 	       model.setReferralResult(entity.getReferralResult());
 	       model.setResultDate(entity.getResultDate());
+	       if(entity.getProbsoldivrrresult() != null)
+	       model.setProbsoldivrrresult(entity.getProbsoldivrrresult().getValue());
 	       if(entity.getEnrollmentid() != null)
 	    	   model.setEnrollmentid(entity.getEnrollmentid().getId());
 	       

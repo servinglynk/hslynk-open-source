@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName("enrollment")
 public class Enrollment extends ClientModel {
@@ -20,11 +23,16 @@ public class Enrollment extends ClientModel {
 	@JsonProperty("disablingCondition")
 	private Integer  disablingcondition;
 	
-	@JsonProperty("entryDate")
-	private Date  entrydate;
 	
-	@JsonProperty("dateToStreetESSH")
-	private Date  dateToStreetESSH;
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
+    @JsonProperty("dateToStreetESSH")
+    private LocalDateTime dateToStreetESSH;
+    
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
+    @JsonProperty("entryDate")
+    private LocalDateTime entryDate;
 	
 	@JsonProperty("householdId")
 	private String  householdid;
@@ -83,7 +91,7 @@ public class Enrollment extends ClientModel {
 	
 	Map<String,Map<String,List<ExitActionLinks>>> exitLinks;
 	private UUID hmisHouseholdId;
-	
+	private UUID genericHouseHoldId;
 
 	
 	public Enrollment(){
@@ -119,18 +127,32 @@ public class Enrollment extends ClientModel {
 		this.disablingcondition = disablingcondition;
 	}
 
-	public Date getEntrydate() {
-		return entrydate;
-	}
-
-	public void setEntrydate(Date entrydate) {
-		this.entrydate = entrydate;
-	}
-	public Date getDateToStreetESSH() {
+	/**
+	 * @return the dateToStreetESSH
+	 */
+	public LocalDateTime getDateToStreetESSH() {
 		return dateToStreetESSH;
 	}
-	public void setDateToStreetESSH(Date dateToStreetESSH) {
+
+	/**
+	 * @param dateToStreetESSH the dateToStreetESSH to set
+	 */
+	public void setDateToStreetESSH(LocalDateTime dateToStreetESSH) {
 		this.dateToStreetESSH = dateToStreetESSH;
+	}
+
+	/**
+	 * @return the entryDate
+	 */
+	public LocalDateTime getEntryDate() {
+		return entryDate;
+	}
+
+	/**
+	 * @param entryDate the entryDate to set
+	 */
+	public void setEntryDate(LocalDateTime entryDate) {
+		this.entryDate = entryDate;
 	}
 
 	public String getHouseholdid() {
@@ -313,6 +335,14 @@ public class Enrollment extends ClientModel {
 		this.hmisHouseholdId = hmisHouseholdId;
 	}
 
+	public UUID getGenericHouseHoldId() {
+		return genericHouseHoldId;
+	}
+
+	public void setGenericHouseHoldId(UUID genericHouseHoldId) {
+		this.genericHouseHoldId = genericHouseHoldId;
+	}
+
 /*	public List<ExitActionLink> getExitLinks() {
 		return exitLinks;
 	}
@@ -321,5 +351,4 @@ public class Enrollment extends ClientModel {
 		this.exitLinks = exitLinks;
 	}*/
 
-	
 }

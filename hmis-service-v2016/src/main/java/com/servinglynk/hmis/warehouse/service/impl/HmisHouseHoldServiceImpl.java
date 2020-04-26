@@ -40,6 +40,23 @@ public class HmisHouseHoldServiceImpl extends ServiceBase implements HmisHouseHo
 		return model;
 	}
 
+	
+	@Transactional
+	public com.servinglynk.hmis.warehouse.model.v2016.HmisHousehold createHmisHousehold(Client client,HmisHousehold model,Account caller){
+		com.servinglynk.hmis.warehouse.model.v2016.HmisHousehold entity = new com.servinglynk.hmis.warehouse.model.v2016.HmisHousehold();
+		entity.setHeadOfHousehold(client);
+		entity.setDedupClientId(client.getDedupClientId());
+		if(model.getSourceSystemHouseHoldId()!=null) entity.setSourceSystemHouseHoldId(model.getSourceSystemHouseHoldId());
+		if(model.getSourceSystemId()!=null) entity.setSourceSystemId(model.getSourceSystemId());
+		entity.setDateCreated(LocalDateTime.now());
+		entity.setDateUpdated(LocalDateTime.now());
+		entity.setDeleted(false);
+		entity.setUser(caller.getAccountId());
+		entity.setProjectGroupCode(caller.getProjectGroup().getProjectGroupCode());
+		daoFactory.getHmisHouseholdDao().createHouseHold(entity);
+		return entity;
+	}
+	
 	@Transactional
 	public void updateHouseHold(HmisHousehold model,Account caller) {
 		com.servinglynk.hmis.warehouse.model.v2016.HmisHousehold entity = daoFactory.getHmisHouseholdDao().getHouseHoldById(model.getHouseHoldId());

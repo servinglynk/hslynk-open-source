@@ -7,4 +7,6 @@ import com.servinglynk.hmis.warehouse.dao.DaoFactory;
 public abstract class BaseService {
 
 	@Autowired protected DaoFactory daoFactory;
+	
+//	@Autowired protected BaseDaoFactory baseDaoFactory;
 }

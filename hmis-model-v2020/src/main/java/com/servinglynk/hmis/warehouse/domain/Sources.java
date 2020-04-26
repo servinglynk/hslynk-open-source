@@ -13309,6 +13309,7 @@ public class Sources {
                 "targetPopulation",
                 "operatingStartDate", 
                 "operatingEndDate", 
+                "pitCount",
                 "housingType",
                 "projectCommonName"
             })
@@ -13324,6 +13325,8 @@ public class Sources {
                 protected String continuumProject;
                 @XmlElement(name = "ProjectType")
                 protected String projectType;
+                @XmlElement(name = "PITCount")
+                protected String pitCount;
                 @XmlElement(name = "HMISParticipatingProject")
                 protected String hmisParticipatingProject;
                 @XmlElement(name = "ResidentialAffiliation")
@@ -13372,6 +13375,20 @@ public class Sources {
                 }
 
                 /**
+				 * @return the pitCount
+				 */
+				public String getPitCount() {
+					return pitCount;
+				}
+
+				/**
+				 * @param pitCount the pitCount to set
+				 */
+				public void setPitCount(String pitCount) {
+					this.pitCount = pitCount;
+				}
+
+				/**
                  * Gets the value of the organizationID property.
                  * 
                  */
@@ -14101,7 +14118,7 @@ public class Sources {
             })
             public static class Services {
 
-                @XmlElement(name = "ServicesID", required = true)
+                @XmlElement(name = "ServiceFAReferralID", required = true)
                 protected String servicesID;
                 @XmlElement(name = "EnrollmentID", required = true)
                 protected String enrollmentID;

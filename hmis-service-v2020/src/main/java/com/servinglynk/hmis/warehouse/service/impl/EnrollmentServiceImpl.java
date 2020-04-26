@@ -2,14 +2,20 @@ package com.servinglynk.hmis.warehouse.service.impl;
 
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.SortedPagination;
+import com.servinglynk.hmis.warehouse.client.MessageSender;
 import com.servinglynk.hmis.warehouse.core.model.Enrollments;
+import com.servinglynk.hmis.warehouse.core.model.HmisHousehold;
+import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.service.EnrollmentLinksService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
@@ -18,37 +24,50 @@ import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ProjectNotFoundException;
-import com.servinglynk.hmis.warehouse.service.exception.ProjectcocNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException;
 
 public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentService {
 	
 	@Autowired
 	EnrollmentLinksService enrollmentLinksService;
+	
+	@Autowired MessageSender messageSender;
 
 	@Override
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment createEnrollment(
-			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
+			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,Boolean updateGenericHouseHold,Session session) {
 		com.servinglynk.hmis.warehouse.model.v2020.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 
 		com.servinglynk.hmis.warehouse.model.v2020.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
 		if(pProject==null) throw new ProjectNotFoundException();
 		
-		com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold pHmisHousehold = daoFactory.getHmisHouseholdDao().getHouseHoldById(enrollment.getHmisHouseholdId());
-		if(pHmisHousehold==null) throw new ResourceNotFoundException("HmisHouseHold Not found "+enrollment.getHouseholdid());
-
+		com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold pHmisHousehold = null;
+		
+		if(enrollment.getHmisHouseholdId()!=null) {
+			pHmisHousehold = daoFactory.getHmisHouseholdDao().getHouseHoldById(enrollment.getHmisHouseholdId());
+			if(pHmisHousehold==null) throw new ResourceNotFoundException("HmisHouseHold Not found "+enrollment.getHouseholdid());
+		}else {
+			HmisHousehold hmisHousehold = new HmisHousehold();
+			hmisHousehold.setSourceSystemHouseHoldId(enrollment.getHouseholdid());
+			pHmisHousehold = serviceFactory.getHmisHouseHoldService().createHmisHousehold(pClient,hmisHousehold, null);
+		}
 
 		com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);
 		pEnrollment.setClient(pClient);
 		pEnrollment.setProject(pProject);
 		pEnrollment.setHmisHousehold(pHmisHousehold);
-		daoFactory.getProjectDao().populateUserProjectGroupCode(pEnrollment, caller);
+		pEnrollment.setGenericHouseHoldId(enrollment.getGenericHouseHoldId());
+		daoFactory.getProjectDao().populateUserProjectGroupCode(pEnrollment, session.getAccount().getUsername());
 		pEnrollment.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().createEnrollment(pEnrollment);
+		if(enrollment.getGenericHouseHoldId()!=null && updateGenericHouseHold) {
+			this.publishGenericHouseHold(enrollment, session);
+		}
 
 		enrollment.setEnrollmentId(pEnrollment.getId());
+		
 		return enrollment;
 	}
 
@@ -69,11 +88,13 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 			pEnrollment.setProject(pProject);
 		}
 		
-		com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold pHmisHousehold = daoFactory.getHmisHouseholdDao().getHouseHoldById(enrollment.getHmisHouseholdId());
-		if(pHmisHousehold==null) throw new ResourceNotFoundException("HmisHouseHold Not found "+enrollment.getHouseholdid());
-		
+		if(enrollment.getHmisHouseholdId()!=null) {
+			com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold pHmisHousehold = daoFactory.getHmisHouseholdDao().getHouseHoldById(enrollment.getHmisHouseholdId());
+			if(pHmisHousehold==null) throw new ResourceNotFoundException("HmisHouseHold Not found "+enrollment.getHouseholdid());
+			pEnrollment.setHmisHousehold(pHmisHousehold);		
+		}
 		pEnrollment.setClient(pClient);
-		pEnrollment.setHmisHousehold(pHmisHousehold);
+
 	 	pEnrollment.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
 		pEnrollment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
@@ -161,5 +182,25 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 
 
 		return enrollments;
+	}
+	
+	public void publishGenericHouseHold(com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment, Session session) {
+		 try {
+			  AMQEvent event = new AMQEvent();
+			  event.setEventType("enrollment.generichousehold");
+			  Map<String, Object> data  = new HashMap<String, Object>();
+			  data.put("sessionToken", session.getToken());
+			  data.put("clientId",session.getClientTypeId());
+			  data.put("userId", session.getAccount().getAccountId());
+			  data.put("projectGroupCode", session.getAccount().getProjectGroup().getProjectGroupCode());
+			  data.put("enrollemnt", enrollment.toJSONString());
+			  data.put("schemaYear", "2020");
+			  event.setPayload(data);
+			  event.setSubsystem("enrollments");
+			  event.setCreatedAt(new Date());
+			  messageSender.sendAmqMessage(event);
+		 }catch (Exception e) {	
+			 e.printStackTrace();
+		 }
 	}
 }

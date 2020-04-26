@@ -26,8 +26,12 @@ public class EnrollmentConveter extends BaseConverter {
 		}
 		if(enrollment.getDisablingcondition()!=null)
 		pEnrollment.setDisablingcondition(EnrollmentDisablingconditionEnum.lookupEnum(enrollment.getDisablingcondition().toString()));
-		if(enrollment.getEntrydate()!=null)
-		pEnrollment.setEntrydate(enrollment.getEntrydate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+		if(enrollment.getEntryDate()!=null)
+		pEnrollment.setEntrydate(enrollment.getEntryDate());
+		if(enrollment.getHouseholdid()!=null)
+		pEnrollment.setHouseholdid(enrollment.getHouseholdid());
+
+
 		if(enrollment.getMonthshomelesspastthreeyears()!=null)
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment.getMonthshomelesspastthreeyears().toString()));
 	/*	if(enrollment.getProjectentryid()!=null)
@@ -44,8 +48,8 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setLosunderthreshold(NoYesEnum.lookupEnum(enrollment.getLosunderthreshold().toString()));
 		if(enrollment.getPreviousStreetESSH()!=null)
 		pEnrollment.setPreviousStreetESSH(NoYesEnum.lookupEnum(enrollment.getPreviousStreetESSH().toString()));
-		if(enrollment.getDateToStreetESSH() != null) 
-			pEnrollment.setEntrydate(enrollment.getDateToStreetESSH().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+		if(enrollment.getDateToStreetESSH() != null)
+			pEnrollment.setDatetostreetessh(enrollment.getDateToStreetESSH());
 		return pEnrollment;
 	}
 
@@ -53,7 +57,7 @@ public class EnrollmentConveter extends BaseConverter {
 	public static Enrollment entityToModel(com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment){
 		Enrollment enrollment = new Enrollment();
 		if(pEnrollment.getDisablingcondition()!=null)		enrollment.setDisablingcondition(Integer.parseInt(pEnrollment.getDisablingcondition().getValue()));
-		if(pEnrollment.getEntrydate()!=null) enrollment.setEntrydate(Date.from(pEnrollment.getEntrydate().atZone(ZoneId.systemDefault()).toInstant()));
+		if(pEnrollment.getEntrydate()!=null) enrollment.setEntryDate(pEnrollment.getEntrydate());
 		if(pEnrollment.getHouseholdid()!=null) enrollment.setHouseholdid(pEnrollment.getHouseholdid());
 		if(pEnrollment.getMonthshomelesspastthreeyears()!=null) enrollment.setMonthshomelesspastthreeyears(Integer.parseInt(pEnrollment.getMonthshomelesspastthreeyears().getValue()));
 /*		if(pEnrollment.getProjectentryid()!=null) enrollment.setProjectentryid(pEnrollment.getProjectentryid());
@@ -69,7 +73,7 @@ public class EnrollmentConveter extends BaseConverter {
 		if(pEnrollment.getPreviousStreetESSH()!=null)
 		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
-		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(Date.from(pEnrollment.getDatetostreetessh().atZone(ZoneId.systemDefault()).toInstant()));
+		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(pEnrollment.getDatetostreetessh());
 		if(pEnrollment.getHmisHousehold()!=null) {
 			enrollment.setHmisHouseholdId(pEnrollment.getHmisHousehold().getId());
 			enrollment.addLink(new ActionLink("hmisHouseHold","/hmis-clientapi/rest/v2020/hmishouseholds/"+pEnrollment.getHmisHousehold().getId()));
@@ -85,7 +89,7 @@ public class EnrollmentConveter extends BaseConverter {
 	public static Enrollment entityToModelv2(com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment){
 		Enrollment enrollment = new Enrollment();
 		if(pEnrollment.getDisablingcondition()!=null)		enrollment.setDisablingcondition(Integer.parseInt(pEnrollment.getDisablingcondition().getValue()));
-		if(pEnrollment.getEntrydate()!=null) enrollment.setEntrydate(Date.from(pEnrollment.getEntrydate().atZone(ZoneId.systemDefault()).toInstant()));
+		if(pEnrollment.getEntrydate()!=null) enrollment.setEntryDate(pEnrollment.getEntrydate());
 		if(pEnrollment.getHouseholdid()!=null) enrollment.setHouseholdid(pEnrollment.getHouseholdid());
 		if(pEnrollment.getMonthshomelesspastthreeyears()!=null) enrollment.setMonthshomelesspastthreeyears(Integer.parseInt(pEnrollment.getMonthshomelesspastthreeyears().getValue()));
 /*		if(pEnrollment.getProjectentryid()!=null) enrollment.setProjectentryid(pEnrollment.getProjectentryid());
@@ -102,7 +106,8 @@ public class EnrollmentConveter extends BaseConverter {
 		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
 		enrollment.setSource(pEnrollment.getSource());
-		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(Date.from(pEnrollment.getDatetostreetessh().atZone(ZoneId.systemDefault()).toInstant()));
+
+		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(pEnrollment.getDatetostreetessh());
 		if(pEnrollment.getHmisHousehold()!=null) {
 			enrollment.setHmisHouseholdId(pEnrollment.getHmisHousehold().getId());
 			enrollment.addLink(new ActionLink("hmisHouseHold","/hmis-clientapi/rest/v2020/hmishouseholds/"+pEnrollment.getHmisHousehold().getId()));

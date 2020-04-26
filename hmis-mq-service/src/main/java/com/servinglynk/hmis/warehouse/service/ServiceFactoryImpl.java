@@ -11,6 +11,8 @@ public class ServiceFactoryImpl implements ServiceFactory {
 	@Autowired private ClientManagementService clientManagementService;
 	
 	@Autowired private GlobalHouseHoldService globalHouseHoldService;
+	
+	@Autowired private EnrollmentService enrollmentService;
 
 	public ClientMetaDataService getClientMetaDataService() {
 		return clientMetaDataService;
@@ -34,5 +36,13 @@ public class ServiceFactoryImpl implements ServiceFactory {
 
 	public void setGlobalHouseHoldService(GlobalHouseHoldService globalHouseHoldService) {
 		this.globalHouseHoldService = globalHouseHoldService;
+	}
+
+	public EnrollmentService getEnrollmentService() {
+		return enrollmentService;
+	}
+
+	public void setEnrollmentService(EnrollmentService enrollmentService) {
+		this.enrollmentService = enrollmentService;
 	}
 }

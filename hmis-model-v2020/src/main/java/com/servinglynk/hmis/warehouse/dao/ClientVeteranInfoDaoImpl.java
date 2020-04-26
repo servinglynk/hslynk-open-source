@@ -132,7 +132,7 @@ public class ClientVeteranInfoDaoImpl extends ParentDaoImpl implements ClientVet
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true); 
-data.i++;
+			data.i++;
 			return modelFromDB;
 		}
 		
@@ -140,9 +140,9 @@ data.i++;
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true); 
-data.i++;
+			data.i++;
 		}else {
-			com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare model = new com.servinglynk.hmis.warehouse.model.v2020.RHYAfterCare();
+			com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo model = new com.servinglynk.hmis.warehouse.model.v2020.ClientVeteranInfo();
 			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(clientVeteranInfo.getDateUpdated()));
 			performMatch(domain, modelFromDB, model, data);
 		}

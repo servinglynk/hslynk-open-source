@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.WeakHashMap;
 
 import javax.persistence.Basic;
@@ -176,7 +177,7 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 	private boolean chronicHomeless;
 	
 	private HmisHousehold hmisHousehold;
-	
+	private UUID genericHouseHoldId;
 	
 	private String source;
 	
@@ -1472,6 +1473,16 @@ public class Enrollment extends HmisBaseModel  implements Cloneable, Serializabl
 		this.hmisHousehold = hmisHousehold;
 	}
 
+	@Column(name = "generic_household_id")
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	public UUID getGenericHouseHoldId() {
+		return genericHouseHoldId;
+	}
+
+	public void setGenericHouseHoldId(UUID genericHouseHoldId) {
+		this.genericHouseHoldId = genericHouseHoldId;
+	}
+	
 /**
     * Deep copy.
 	* @return cloned object

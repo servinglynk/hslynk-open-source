@@ -5,4 +5,5 @@ public interface ServiceFactory {
 	ClientMetaDataService getClientMetaDataService() ;
 	ClientManagementService getClientManagementService();
 	GlobalHouseHoldService getGlobalHouseHoldService();
+	EnrollmentService getEnrollmentService();
 }
