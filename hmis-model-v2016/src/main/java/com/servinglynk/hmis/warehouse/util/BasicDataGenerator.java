@@ -814,7 +814,7 @@ public class BasicDataGenerator {
 			try {
 				  final int offsetSeconds = value.toGregorianCalendar().toZonedDateTime().getOffset().getTotalSeconds();
 			        final LocalDateTime localDateTime = value.toGregorianCalendar().toZonedDateTime().toLocalDateTime(); // this simply ignores the timeZone
-			        return localDateTime.minusSeconds(offsetSeconds); // ajust according to the time-zone offet
+			        return localDateTime; // ajust according to the time-zone offet
 			}catch (Exception e) {
 				//eat the exception but log it.
 				

@@ -98,7 +98,7 @@ public class AffiliationDaoImpl extends ParentDaoImpl implements AffiliationDao 
 				modelFromDB.setRecordToBeInserted(true); 
 				data.i++;
 			}else {
-				com.servinglynk.hmis.warehouse.model.v2020.HealthStatus model = new com.servinglynk.hmis.warehouse.model.v2020.HealthStatus();
+				com.servinglynk.hmis.warehouse.model.v2020.Affiliation model = new com.servinglynk.hmis.warehouse.model.v2020.Affiliation();
 				// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
 				model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(affiliation.getDateUpdated()));
 				performMatch(domain, modelFromDB, model, data);
