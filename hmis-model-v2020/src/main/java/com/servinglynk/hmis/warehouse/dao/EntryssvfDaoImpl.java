@@ -126,14 +126,14 @@ public class EntryssvfDaoImpl extends ParentDaoImpl implements EntryssvfDao{
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryssvf();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true); 
-data.i++;
+			data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Entryssvf();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true); 
-data.i++;
+			data.i++;
 		} else {
 			com.servinglynk.hmis.warehouse.model.v2020.Entryssvf model = new com.servinglynk.hmis.warehouse.model.v2020.Entryssvf();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

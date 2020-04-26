@@ -137,10 +137,10 @@ public class BulkUploaderTest {
 				appender.setLayout(new PatternLayout());
 				appender.activateOptions();
 				List<Long> bulkIds = new ArrayList<>();
-				bulkIds.add(630L);
+				bulkIds.add(639L);
 				
 				for(Long id : bulkIds) {
-					BulkUpload bulkUpload = factory.getBulkUploaderDao().performLoad(id,appender,false);
+					BulkUpload bulkUpload = factory.getBulkUploaderDao().performLoad(id,appender,true);
 				}
 				
 	}

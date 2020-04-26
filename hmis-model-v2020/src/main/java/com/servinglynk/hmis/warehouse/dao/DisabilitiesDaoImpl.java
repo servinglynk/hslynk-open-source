@@ -100,14 +100,14 @@ public class DisabilitiesDaoImpl extends ParentDaoImpl implements
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Disabilities();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true); 
-data.i++;
+			data.i++;
 			return modelFromDB;
 		}
 		if(modelFromDB == null) {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Disabilities();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true); 
-data.i++;
+			data.i++;
 		} else {
 			com.servinglynk.hmis.warehouse.model.v2020.Disabilities model = new com.servinglynk.hmis.warehouse.model.v2020.Disabilities();
 			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
