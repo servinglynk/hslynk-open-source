@@ -139,7 +139,7 @@ public class BasicTestMethods {
 	       executor.setHeaderValue("Authorization","HMISUserAuth session_token="+session.getToken());
 	       
 	       Enrollment enrollment = TestData.getEnrollment(clientId);
-	       enrollment = serviceFactory.getEnrollmentService().createEnrollment(enrollment,clientId, Constants.AUDIT_USER_UNIT_TEST);
+	    //   enrollment = serviceFactory.getEnrollmentService().createEnrollment(enrollment,clientId, Constants.AUDIT_USER_UNIT_TEST);
 	       assertNotNull(enrollment.getEnrollmentId());
 	       System.out.println(enrollment.getEnrollmentId());
 		return enrollment.getEnrollmentId();
