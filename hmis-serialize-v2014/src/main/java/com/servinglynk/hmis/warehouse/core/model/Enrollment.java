@@ -32,7 +32,7 @@ public class Enrollment extends ClientModel {
 	private UUID  clientId;
 	private String source;
 	private UUID hmisHouseholdId;
-	
+	private UUID genericHouseHoldId;
 
 	public Enrollment(){
 		
@@ -218,4 +218,13 @@ public class Enrollment extends ClientModel {
 	public void setHmisHouseholdId(UUID hmisHouseholdId) {
 		this.hmisHouseholdId = hmisHouseholdId;
 	}
+
+	public UUID getGenericHouseHoldId() {
+		return genericHouseHoldId;
+	}
+
+	public void setGenericHouseHoldId(UUID genericHouseHoldId) {
+		this.genericHouseHoldId = genericHouseHoldId;
+	}
+	
 }

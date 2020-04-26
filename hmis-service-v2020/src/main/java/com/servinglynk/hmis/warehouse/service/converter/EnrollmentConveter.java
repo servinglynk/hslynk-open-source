@@ -48,7 +48,7 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setLosunderthreshold(NoYesEnum.lookupEnum(enrollment.getLosunderthreshold().toString()));
 		if(enrollment.getPreviousStreetESSH()!=null)
 		pEnrollment.setPreviousStreetESSH(NoYesEnum.lookupEnum(enrollment.getPreviousStreetESSH().toString()));
-		if(enrollment.getDateToStreetESSH() != null) 
+		if(enrollment.getDateToStreetESSH() != null)
 			pEnrollment.setDatetostreetessh(enrollment.getDateToStreetESSH());
 		return pEnrollment;
 	}
