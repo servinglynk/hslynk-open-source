@@ -45,6 +45,7 @@ public class AssessmentResults extends HmisBaseModel implements Cloneable, Seria
 	private UUID id;
 	private Enrollment enrollmentid;
 	private UUID clientId;
+	private UUID dedupClientId;
 	private Assessment assessment;
 	private String assessmentResult;
 	private String assessmentResultType;
@@ -112,6 +113,23 @@ public class AssessmentResults extends HmisBaseModel implements Cloneable, Seria
 	public void setClientId(UUID clientid) {
 		this.clientId = clientid;
 	}
+	
+	/**
+	 * @return the dedupClientId
+	 */
+	@Basic( optional = false )
+	@Column( name = "dedup_client_id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	public UUID getDedupClientId() {
+		return dedupClientId;
+	}
+
+	/**
+	 * @param dedupClientId the dedupClientId to set
+	 */
+	public void setDedupClientId(UUID dedupClientId) {
+		this.dedupClientId = dedupClientId;
+	}
+	
 	 /**
 		 * Return the value associated with the column: enrollmentid.
 		 * @return A Enrollment object (this.enrollmentid)

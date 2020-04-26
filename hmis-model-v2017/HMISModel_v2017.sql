@@ -3977,3 +3977,11 @@ false,'4.10.2','/v2017/clients/{clientid}/enrollments/{enrollmentid}/disabilitie
 
 alter table v2017.client drop column ssn_old;
 alter table v2017.client drop column dob_old;
+
+
+
+ CREATE TYPE "v2017".hash_status AS ENUM('1','2','3','4');
+    alter table "v2017".client add column first_name_hash_status  "v2017".hash_status;
+  alter table "v2017".client add column last_name_hash_status  "v2017".hash_status;
+  alter table "v2017".client add column middle_name_hash_status  "v2017".hash_status;
+  alter table "v2017".client add column ssn_name_hash_status  "v2017".hash_status;

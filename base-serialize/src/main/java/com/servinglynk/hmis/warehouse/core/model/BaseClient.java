@@ -44,6 +44,11 @@ public class BaseClient  {
 	private String projectGroupCode;
 	private String phoneNumber;
 	private String emailAddress;
+	private String firstNameHashStatus;
+	private String lastNameHashStatus;
+	private String middleNameHashStatus;
+	private String ssnHashStatus;
+	private String ssnHashed;
 	
 	private ActionLinks actionLinks;
 	private Map<String, ActionLinks> links;
@@ -310,6 +315,66 @@ public class BaseClient  {
 
 	public void setUpdatedTime(LocalDateTime updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+	/**
+	 * @return the firstNameHashStatus
+	 */
+	public String getFirstNameHashStatus() {
+		return firstNameHashStatus;
+	}
+	/**
+	 * @param firstNameHashStatus the firstNameHashStatus to set
+	 */
+	public void setFirstNameHashStatus(String firstNameHashStatus) {
+		this.firstNameHashStatus = firstNameHashStatus;
+	}
+	/**
+	 * @return the lastNameHashStatus
+	 */
+	public String getLastNameHashStatus() {
+		return lastNameHashStatus;
+	}
+	/**
+	 * @param lastNameHashStatus the lastNameHashStatus to set
+	 */
+	public void setLastNameHashStatus(String lastNameHashStatus) {
+		this.lastNameHashStatus = lastNameHashStatus;
+	}
+	/**
+	 * @return the middleNameHashStatus
+	 */
+	public String getMiddleNameHashStatus() {
+		return middleNameHashStatus;
+	}
+	/**
+	 * @param middleNameHashStatus the middleNameHashStatus to set
+	 */
+	public void setMiddleNameHashStatus(String middleNameHashStatus) {
+		this.middleNameHashStatus = middleNameHashStatus;
+	}
+	/**
+	 * @return the ssnHashStatus
+	 */
+	public String getSsnHashStatus() {
+		return ssnHashStatus;
+	}
+	/**
+	 * @param ssnHashStatus the ssnHashStatus to set
+	 */
+	public void setSsnHashStatus(String ssnHashStatus) {
+		this.ssnHashStatus = ssnHashStatus;
+	}
+	/**
+	 * @return the ssnHashed
+	 */
+	public String getSsnHashed() {
+		return ssnHashed;
+	}
+	/**
+	 * @param ssnHashed the ssnHashed to set
+	 */
+	public void setSsnHashed(String ssnHashed) {
+		this.ssnHashed = ssnHashed;
 	}
 	
 }

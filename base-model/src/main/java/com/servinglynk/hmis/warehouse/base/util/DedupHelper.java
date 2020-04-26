@@ -70,7 +70,7 @@ public class DedupHelper {
 	   	        //gender.setGenderCd(genderCd);
 	   	        person.setGender(gender);
 	        }
-	        person.setSector(client.getProjectGroupCode());
+	        person.setCustom14(client.getProjectGroupCode());
 	        String requestBody = parsePersonObjectToXMLString(person);
 	        HttpEntity<String> entityHttp = new HttpEntity<String>(requestBody, headers); 
 	        ResponseEntity<Object> responseObject = restTemplate.exchange(url, HttpMethod.POST, entityHttp, Object.class);
@@ -144,6 +144,9 @@ public class DedupHelper {
 		if(person.getSsn() !=null && !"".equals(person.getSsn())) {
 			requestBody =requestBody+"\"ssn\": \"" +person.getSsn()+"\",";
 		}
+		if(person.getSsn() !=null && !"".equals(person.getSsn())) {
+			requestBody =requestBody+"\"placeOfBirth\": \"" +person.getSsn()+"\",";
+		}
 		if(person.getGivenName() !=null && !"".equals(person.getGivenName())) {
 			requestBody = requestBody +"\"givenName\":  \""+person.getGivenName()+"\",";
 		}
@@ -155,9 +158,9 @@ public class DedupHelper {
 			String dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").format(person.getDateOfBirth());
 			requestBody = requestBody+ " \"dateOfBirth\":  \""+ dateOfBirth + "\"";
 		}
-		if(person.getSector() !=null && !"".equals(person.getSector())) {
+		if(person.getCustom14() !=null && !"".equals(person.getCustom14())) {
 			requestBody = requestBody +",";
-			requestBody = requestBody+ " \"sector\":  \""+person.getSector()+"\"";
+			requestBody = requestBody+ " \"custom14\":  \""+person.getCustom14()+"\"";
 		}
 		requestBody = requestBody.replaceAll(",,", ",");
 		requestBody = requestBody.replaceAll("(,)*$", "");

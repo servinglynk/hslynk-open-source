@@ -12,6 +12,8 @@ public class AssessmentQuestionConverter  extends BaseConverter {
        if(model.getAssessmentQuestionOrder()  != null)
        entity.setAssessmentQuestionOrder(model.getAssessmentQuestionOrder());
        entity.setId(model.getAssessmentQuestionId());
+       if(model.getDedupClientId() != null)
+    	   entity.setDedupClientId(model.getDedupClientId());
        return entity;
    }
 

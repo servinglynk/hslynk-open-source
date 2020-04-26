@@ -268,12 +268,14 @@ var Service= ({
   DownloadPDF: function ($http,$scope, success, error) {
           var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.downloadId+"/pdf";
         $http({
-            method: 'GET',
+            method: 'POST',
             url: apiurl,
+            responseType :'arraybuffer',
             headers: {
               'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
-                'Accept': 'application/json;odata=verbose'}
+                'Accept': 'application/json;odata=verbose'
+                }
       }).success(function (data, status, headers) {
           headers = headers();
           
@@ -304,7 +306,7 @@ var Service= ({
   DownloadZIP: function ($http,$scope, success, error) {
   	  var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.downloadId+"/zip";
         $http({
-            method: 'GET',
+            method: 'POST',
             url: apiurl,
             headers: {
               'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
@@ -314,35 +316,25 @@ var Service= ({
         }).success(function (data, status, headers) {
             headers = headers();
             
-            var filename = headers['x-filename'];
-            var contentType = headers['Content-Type'];
+            var fileName = headers['x-filename'];
+            var contentType = headers['content-Type'];
      
-            var linkElement = document.createElement('a');
-            try {
-                var blob = new Blob([data], {type : contentType + ';charset=UTF-8'});
-                var url = window.URL.createObjectURL(blob);
-     
-                linkElement.setAttribute('href', url);
-                linkElement.setAttribute("download", filename);
-     
-                var clickEvent = new MouseEvent("click", {
-                    "view": window,
-                    "bubbles": true,
-                    "cancelable": false
-                });
-                linkElement.dispatchEvent(clickEvent);
-            } catch (ex) {
-                console.log(ex);
-            }
-        }).error(function (data) {
-            console.log(data);
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            var blob = new Blob([data], {type: "application/zip"}),
+                    url = window.URL.createObjectURL(blob);
+                a.href = url;
+                a.download = name;
+                a.click();
+                window.URL.revokeObjectURL(url);
         });
   },
   DownloadExportZIP: function ($http,$scope, success, error) {
   	  
   	var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.exportId+"/zip";
     $http({
-        method: 'GET',
+        method: 'POST',
         url: apiurl,
         headers: {
           'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
@@ -350,31 +342,31 @@ var Service= ({
             'Accept': 'application/json;odata=verbose',
             'Content-Type' : 'application/zip'}
     }).success(function (data, status, headers) {
-        headers = headers();
-        
+    	headers = headers();
+
         var filename = headers['x-filename'];
         var contentType = headers['content-type'];
- 
+
         var linkElement = document.createElement('a');
         try {
-         var file = new Blob([ data ], {
-             type : 'application/zip' 
-         });
-         //trick to download store a file having its URL
-         var fileURL = URL.createObjectURL(file);
-         var a         = document.createElement('a');
-         a.href        = fileURL; 
-         a.target      = '_blank';
-         a.download    = $scope.exportId+".zip";
-         document.body.appendChild(a);
-         a.click();
+            var blob = new Blob([data], { type: "application/zip" });
+            var url = window.URL.createObjectURL(blob);
+
+            linkElement.setAttribute('href', url);
+            linkElement.setAttribute("download", filename);
+
+            var clickEvent = new MouseEvent("click", {
+                "view": window,
+                "bubbles": true,
+                "cancelable": false
+            });
+            linkElement.dispatchEvent(clickEvent);
         } catch (ex) {
             console.log(ex);
         }
     }).error(function (data) {
         console.log(data);
     });
-    
    },
   GetUserByOrganization:function ($http,$scope, success, error) {
 	  $scope.organizationId ="b5598c6c-d021-4f5f-9695-77f7f4685ed2"
@@ -1210,14 +1202,13 @@ $scope.switchBool = function(value) {
    $scope[value] = !$scope[value];
 };
 }]);
-;
-app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
+;app.controller('createprojgrpCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$sessionStorage) {
+		
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
 	}
-	$scope.sessionToken = $sessionStorage.sessionToken;	
-											   
+	
   $scope.submitForm = function() {
 	  
        Service.createProjectGroup($http,$scope,

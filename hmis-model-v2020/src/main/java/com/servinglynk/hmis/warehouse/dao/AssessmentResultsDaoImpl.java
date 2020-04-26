@@ -59,6 +59,7 @@ public class AssessmentResultsDaoImpl extends ParentDaoImpl implements Assessmen
 						com.servinglynk.hmis.warehouse.model.v2020.Client client = (com.servinglynk.hmis.warehouse.model.v2020.Client) getModel(com.servinglynk.hmis.warehouse.model.v2020.Client.class, assessmentResults.getPersonalID(),getProjectGroupCode(domain),true,clientModelMap, domain.getUpload().getId());
 						if(client != null) {
 							assessmentResultsModel.setClientId(client.getId());
+							assessmentResultsModel.setDedupClientId(client.getDedupClientId());
 						}else {
 							 if(enrollmentModel != null){
 								 assessmentResultsModel.setClientId(enrollmentModel.getClient().getId());

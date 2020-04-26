@@ -22,6 +22,7 @@ public class Event extends ClientModel {
 	private String referralResult;
 	private String event;
 	private String referralCaseManageAfter;
+	private String probsoldivrrresult;
 	/**
 	 * @return the eventId
 	 */
@@ -117,5 +118,17 @@ public class Event extends ClientModel {
 	 */
 	public void setReferralCaseManageAfter(String referralCaseManageAfter) {
 		this.referralCaseManageAfter = referralCaseManageAfter;
+	}
+	/**
+	 * @return the probsoldivrrresult
+	 */
+	public String getProbsoldivrrresult() {
+		return probsoldivrrresult;
+	}
+	/**
+	 * @param probsoldivrrresult the probsoldivrrresult to set
+	 */
+	public void setProbsoldivrrresult(String probsoldivrrresult) {
+		this.probsoldivrrresult = probsoldivrrresult;
 	}
 }

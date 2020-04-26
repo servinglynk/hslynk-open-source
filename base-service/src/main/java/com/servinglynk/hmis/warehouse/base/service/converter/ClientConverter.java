@@ -3,6 +3,8 @@ package com.servinglynk.hmis.warehouse.base.service.converter;
 import java.time.ZoneId;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.servinglynk.hmis.warehouse.core.model.BaseClient;
 
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
@@ -11,6 +13,7 @@ import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientNameDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
+import com.servinglynk.hmis.warehouse.enums.HashStatusEnum;
 import com.servinglynk.hmis.warehouse.model.SearchClient;
 
 public class ClientConverter {
@@ -43,6 +46,16 @@ public class ClientConverter {
 		pClient.setSsn(client.getSsn());
 	    if(client.getSsnDataQuality()!=null)
 		pClient.setSsnDataQuality(ClientSsnDataQualityEnum.lookupEnum(client.getSsnDataQuality()+""));
+	    if(StringUtils.isNotBlank(client.getFirstNameHashStatus()))
+	    pClient.setFirstNameHashStatus(HashStatusEnum.lookupEnum(client.getFirstNameHashStatus()));
+	    if(StringUtils.isNotBlank(client.getLastNameHashStatus()))
+		pClient.setLastNameHashStatus(HashStatusEnum.lookupEnum(client.getLastNameHashStatus()));
+	    if(StringUtils.isNotBlank(client.getMiddleNameHashStatus()))
+		pClient.setMiddleNameHashStatus(HashStatusEnum.lookupEnum(client.getMiddleNameHashStatus()));
+	    if(StringUtils.isNotBlank(client.getSsnHashStatus()))
+		pClient.setSsnHashStatus(HashStatusEnum.lookupEnum(client.getSsnHashStatus()));
+	    if(StringUtils.isNotBlank(client.getSsnHashed()))
+		pClient.setSsn(client.getSsnHashed());
 		
 		return pClient;
 	}
@@ -91,6 +104,14 @@ public class ClientConverter {
 	    		client.setEmailAddress(pClient.getEmailAddress());
 	    if(pClient.getVeteranStatus()!=null)
 	    	 client.setVeteranStatus(Integer.parseInt(pClient.getVeteranStatus().getValue()));
+	    if(pClient.getFirstNameHashStatus() !=null)
+	    	client.setFirstNameHashStatus(pClient.getFirstNameHashStatus().getValue());
+	    if(pClient.getLastNameHashStatus() !=null)
+		    client.setLastNameHashStatus(pClient.getLastNameHashStatus().getValue());
+	    if(pClient.getMiddleNameHashStatus() !=null)
+		    client.setMiddleNameHashStatus(pClient.getMiddleNameHashStatus().getValue());
+	    if(pClient.getSsnHashStatus() !=null)
+		    client.setSsnHashStatus(pClient.getSsnHashStatus().getValue());
 //		copyBeanProperties(pClient,client);
 	return client;
 	}
@@ -139,6 +160,7 @@ public class ClientConverter {
 	    		client.setEmailAddress(pClient.getrEmailAddress());
 	    if(pClient.getrVeteranStatus()!=null)
 	    	 client.setVeteranStatus(Integer.parseInt(pClient.getrVeteranStatus().getValue()));
+	    
 		return client;
 	}
 }
