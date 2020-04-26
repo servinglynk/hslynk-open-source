@@ -19,6 +19,8 @@ public class Session extends ClientModel {
 	private Date modifiedAt;
 	private Date expiresAt;
 	private int nextAction;
+	@JsonIgnore
+	private String clientTypeId;
 	
 	@JsonIgnore
 	List<UUID> sharedClients = new ArrayList<UUID>();
@@ -103,5 +105,13 @@ public class Session extends ClientModel {
 
 	public void setSharedEnrollments(List<UUID> sharedEnrollments) {
 		this.sharedEnrollments = sharedEnrollments;
+	}
+
+	public String getClientTypeId() {
+		return clientTypeId;
+	}
+
+	public void setClientTypeId(String clientTypeId) {
+		this.clientTypeId = clientTypeId;
 	}
 }

@@ -14,6 +14,9 @@ public class DaoFactoryImpl implements DaoFactory {
 	
 	@Autowired private GlobalHouseHoldDao globalHouseHoldDao;
 
+	@Autowired private EnrollmentDao enrollmentDao;
+	
+	
 	public ClientMetaDataRepository getClientMetaDataRepository() {
 		return clientMetaDataRepository;
 	}
@@ -36,5 +39,13 @@ public class DaoFactoryImpl implements DaoFactory {
 
 	public void setGlobalHouseHoldDao(GlobalHouseHoldDao globalHouseHoldDao) {
 		this.globalHouseHoldDao = globalHouseHoldDao;
+	}
+
+	public EnrollmentDao getEnrollmentDao() {
+		return enrollmentDao;
+	}
+
+	public void setEnrollmentDao(EnrollmentDao enrollmentDao) {
+		this.enrollmentDao = enrollmentDao;
 	}
 }

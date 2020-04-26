@@ -133,9 +133,12 @@ public class ClientsController extends ControllerBase {
 	
 	@RequestMapping(value="/{clientid}/enrollments",method=RequestMethod.POST)
 	@APIMapping(value="CLIENT_API_CREATE_ENROLLMENT",checkSessionToken=true,checkTrustedApp=true)
-	public Enrollment createEnrollment(@RequestBody Enrollment enrollment,@PathVariable("clientid") UUID clientId ,HttpServletRequest request) throws Exception {
+	public Enrollment createEnrollment(@RequestBody Enrollment enrollment,@PathVariable("clientid") UUID clientId ,
+			@RequestParam(value = "updateGenericHouseHold",required = false,defaultValue = "true") Boolean updateGenericHouseHold,
+			HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
-		serviceFactory.getEnrollmentService().createEnrollment(enrollment, clientId, session.getAccount());
+		serviceFactory.getEnrollmentService().createEnrollment(enrollment, clientId,updateGenericHouseHold,
+				session);
 		Enrollment returnEnrollment = new Enrollment();
 		returnEnrollment.setEnrollmentId(enrollment.getEnrollmentId());
 		return returnEnrollment;

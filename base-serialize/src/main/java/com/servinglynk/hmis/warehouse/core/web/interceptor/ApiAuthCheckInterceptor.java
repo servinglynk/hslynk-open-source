@@ -82,6 +82,7 @@ public class ApiAuthCheckInterceptor extends HandlerInterceptorAdapter /*impleme
 		Session session = new Session();
 		session.setToken(apiAuthCheck.getAccessToken());
 		session.setAccount(apiAuthCheck.getAccount());
+		session.setClientTypeId(apiAuthCheck.getTrustedApp().getTrustedAppId());
 		this.sessionHelper.setSession(session, request);
 
 		Map pathVariables = (Map) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);

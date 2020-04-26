@@ -45,7 +45,7 @@ public class EnrollmentConveter extends BaseConverter {
 		if(enrollment.getPreviousStreetESSH()!=null)
 		pEnrollment.setPreviousStreetESSH(NoYesEnum.lookupEnum(enrollment.getPreviousStreetESSH().toString()));
 		if(enrollment.getDateToStreetESSH() != null) 
-			pEnrollment.setEntrydate(enrollment.getDateToStreetESSH().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+			pEnrollment.setDatetostreetessh(enrollment.getDateToStreetESSH().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		return pEnrollment;
 	}
 

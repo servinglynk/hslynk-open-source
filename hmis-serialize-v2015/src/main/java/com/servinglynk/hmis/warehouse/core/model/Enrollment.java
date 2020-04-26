@@ -32,6 +32,7 @@ public class Enrollment extends ClientModel {
 	private Integer entryfromstreetessh;
 	private String source;
 	private UUID hmisHouseholdId;
+	private UUID genericHouseHoldId;
 	
 	public Integer getEntryfromstreetessh() {
 		return entryfromstreetessh;
@@ -226,6 +227,14 @@ public class Enrollment extends ClientModel {
 
 	public void setHmisHouseholdId(UUID hmisHouseholdId) {
 		this.hmisHouseholdId = hmisHouseholdId;
+	}
+
+	public UUID getGenericHouseHoldId() {
+		return genericHouseHoldId;
+	}
+
+	public void setGenericHouseHoldId(UUID genericHouseHoldId) {
+		this.genericHouseHoldId = genericHouseHoldId;
 	}
 	
 }
