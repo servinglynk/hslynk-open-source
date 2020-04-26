@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.WeakHashMap;
 
 import javax.persistence.Basic;
@@ -142,6 +143,7 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 	private LengthOfStayEnum lengthOfStay;
 	private String source;
 	private HmisHousehold hmisHousehold;
+	private UUID genericHouseHoldId;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -1032,6 +1034,16 @@ public class Enrollment extends HmisBaseModel implements Cloneable, Serializable
 
 	public void setHmisHousehold(HmisHousehold hmisHousehold) {
 		this.hmisHousehold = hmisHousehold;
+	}
+	
+	@Column(name = "generic_household_id")
+	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
+	public UUID getGenericHouseHoldId() {
+		return genericHouseHoldId;
+	}
+
+	public void setGenericHouseHoldId(UUID genericHouseHoldId) {
+		this.genericHouseHoldId = genericHouseHoldId;
 	}
 	
 /**

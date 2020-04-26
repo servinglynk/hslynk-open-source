@@ -10,7 +10,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
-import com.servinglynk.hmis.warehouse.client.authorizationservice.AuthorizationServiceClient;
+import com.servinglynk.hmis.warehouse.client.authorizationservice.IAuthorizationClient;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
@@ -26,6 +26,8 @@ public class ApiAuthCheckInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private TrustedAppHelper trustedAppHelper;
 	
+	@Autowired IAuthorizationClient client;
+	
 	
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HandlerMethod handlerMethod = null;
@@ -40,7 +42,7 @@ public class ApiAuthCheckInterceptor extends HandlerInterceptorAdapter {
 			apiMethodAuthorizationCheck.setApiMethodId(apiMapping.value());
 			apiMethodAuthorizationCheck.setAccessToken(accessToken);
 			apiMethodAuthorizationCheck.setTrustedAppId(trustedApp);
-			AuthorizationServiceClient client = new AuthorizationServiceClient();
+			//AuthorizationServiceClient client = new AuthorizationServiceClient();
 			ApiMethodAuthorizationCheck clientresponse = client.checkApiAuthorization(apiMethodAuthorizationCheck);
 		
 			Session session = new Session();
