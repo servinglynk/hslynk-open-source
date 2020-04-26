@@ -242,7 +242,7 @@ public class DedupServiceImpl implements DedupService{
 			Person person = getSanitizedPerson(personParam);
 		// PART 3: Now is the time to select a potential match.
 			// Custom10 field is set to a value if the client provides partial SSN.
-			 if(StringUtils.isNotEmpty(person.getSsn())  && person.getSsn().length() ==9)  {
+			 if(StringUtils.isNotEmpty(person.getCustom15()))  {
 					List<Person>  unMatchedPersons = getPersonsBySSN(person,sessionKey);
 					// PART 6 : Complete SSN AND • Two of (First Name/First Name Alias, Last Name/Last Name Alias, Date of Birth)
 					List<Person> matchingPersons = unMatchingRecordsForCompleteSSN(unMatchedPersons,person);
@@ -361,27 +361,27 @@ public class DedupServiceImpl implements DedupService{
 		
 		
 		//Fetch by First Name and SSN
-		if(!StringUtils.isEmpty(person.getGivenName()) && !StringUtils.isEmpty(person.getSsn())) {
+		if(!StringUtils.isEmpty(person.getGivenName()) && !StringUtils.isEmpty(person.getCustom15())) {
 			Person firstNameSSNPerson = new Person();
 			firstNameSSNPerson.setGivenName(person.getGivenName());
-			firstNameSSNPerson.setSsn(person.getSsn());
+			firstNameSSNPerson.setSsn(person.getCustom15());
 			List<Person> firstNameSSNPersons = findMatchingPersonsByAttributes(firstNameSSNPerson, sessionKey);
 			matchingPersons.addAll(getNonDuplicatePersons(firstNameSSNPersons,uniqueIdentifiers));
 		}
 		
 		//Fetch by Last Name and SSN
-		if(!StringUtils.isEmpty(person.getFamilyName()) && !StringUtils.isEmpty(person.getSsn())) {
+		if(!StringUtils.isEmpty(person.getFamilyName()) && !StringUtils.isEmpty(person.getCustom15())) {
 			Person lastNameSSNPerson = new Person();
 			lastNameSSNPerson.setFamilyName(person.getFamilyName());
-			lastNameSSNPerson.setSsn(person.getSsn());
+			lastNameSSNPerson.setSsn(person.getCustom15());
 			List<Person> lastNameSSNPersons = findMatchingPersonsByAttributes(lastNameSSNPerson, sessionKey);
 			matchingPersons.addAll(getNonDuplicatePersons(lastNameSSNPersons,uniqueIdentifiers));
 		}
 		//Fetch by Date of Birth and SSN
-		if(!StringUtils.isEmpty(person.getSsn()) && person.getDateOfBirth() !=null) {
+		if(!StringUtils.isEmpty(person.getCustom15()) && person.getDateOfBirth() !=null) {
 			Person dobSSNPerson = new Person();
 			dobSSNPerson.setDateOfBirth(person.getDateOfBirth());
-			dobSSNPerson.setSsn(person.getSsn());
+			dobSSNPerson.setCustom15(person.getCustom15());
 			List<Person> dobSSNPersonPersons = findMatchingPersonsByAttributes(dobSSNPerson, sessionKey);
 			matchingPersons.addAll(getNonDuplicatePersons(dobSSNPersonPersons,uniqueIdentifiers));
 		}
@@ -453,7 +453,7 @@ public class DedupServiceImpl implements DedupService{
 						
 					}
 					
-					if(StringUtils.isNotBlank(matchingPerson.getSsn())  && StringUtils.isNotBlank(person.getSsn()) && StringUtils.equals(matchingPerson.getSsn(), person.getSsn())) {
+					if(StringUtils.isNotBlank(matchingPerson.getCustom15())  && StringUtils.isNotBlank(person.getCustom15()) && StringUtils.equals(matchingPerson.getCustom15(), person.getCustom15())) {
 						points = points+3;
 					}
 					person.setPoints(points);
@@ -509,7 +509,7 @@ public class DedupServiceImpl implements DedupService{
 						
 					}
 					
-					if(StringUtils.equals(matchingPerson.getSsn(), person.getSsn())) {
+					if(StringUtils.equals(matchingPerson.getCustom15(), person.getCustom15())) {
 						points = points+3;
 					}
 					person.setPoints(points);
@@ -542,7 +542,7 @@ public class DedupServiceImpl implements DedupService{
 		if(!CollectionUtils.isEmpty(persons)) {
 			for(Person newPerson : persons) {
 				if(newPerson !=null ) {
-					if(StringUtils.isNotBlank(person.getSsn()) && !StringUtils.equals(newPerson.getSsn(), person.getSsn())) {
+					if(StringUtils.isNotBlank(person.getCustom15()) && !StringUtils.equals(newPerson.getCustom15(), person.getCustom15())) {
 						continue;
 					}
 					if(newPerson.getGivenName() == null) {
@@ -581,12 +581,12 @@ public class DedupServiceImpl implements DedupService{
 	}
 	private List<Person> getPersonsBySSN(Person person,String sessionKey) {
 		Person personWithCompleteSSN = new Person();
-		personWithCompleteSSN.setSsn(person.getSsn());
+		personWithCompleteSSN.setCustom15(person.getCustom15());
 		return findMatchingPersonsByAttributes(personWithCompleteSSN, sessionKey);
 	}
 	private boolean isRecordFitForMatching(Person person) {
 		if(person !=null) {
-			if(StringUtils.isEmpty(person.getSsn()) && StringUtils.isEmpty(person.getGivenName()) && StringUtils.isEmpty(person.getFamilyName()) && person.getDateOfBirth() == null) {
+			if(StringUtils.isEmpty(person.getCustom15()) && StringUtils.isEmpty(person.getGivenName()) && StringUtils.isEmpty(person.getFamilyName()) && person.getDateOfBirth() == null) {
 				return false;
 			}
 			// This method returns true then it means that not all the fields are null. SSN,Given name, Family name and Date Of Birth.
@@ -603,6 +603,7 @@ public class DedupServiceImpl implements DedupService{
      		person.setDateOfBirth(getDateInFormat(dob));
      	}
  		person.setSsn((String)linkedPersons.get("ssn"));
+ 		person.setCustom15((String)linkedPersons.get("custom15"));
  		person.setGivenName((String)linkedPersons.get("givenName"));
  		person.setFamilyName((String)linkedPersons.get("familyName"));
  		Integer personId =  Integer.parseInt((String)linkedPersons.get("personId"));
