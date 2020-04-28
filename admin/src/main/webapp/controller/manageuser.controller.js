@@ -1,5 +1,4 @@
-
-app.controller('manageuserCtrl',['$scope','$location','$routeSegment','$http', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+app.controller('manageuserCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$modal', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
@@ -15,9 +14,20 @@ app.controller('manageuserCtrl',['$scope','$location','$routeSegment','$http', '
         $scope.totalItems = $scope.list.length;
     },function(error) {})
   
+    
     $scope.setPage = function (pageNo) {
         $scope.currentPage = pageNo;
-    };
+    },
 
-
+    $scope.openlog = function (id,name) {
+        var modalInstance = $modal.open({
+        templateUrl: 'templates/partial/updatepasswordpopup.html',
+        controller: 'ModalInstanceLogCtrl',
+        resolve: {
+            'datajson': function () {
+                return {"id":id,"username":name};
+            }
+        }
+        });
+    }
 }]);

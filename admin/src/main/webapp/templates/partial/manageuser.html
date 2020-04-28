@@ -31,6 +31,7 @@
            	  <th>Last Name </th>
               <th>Role </th>
               <th class="center">Status</th>
+              <th class="center">Action</th>
             </tr>
           </thead>
      <tbody>
@@ -41,6 +42,7 @@
               <td>{{data.lastName}}</td>
               <td>{{data.roles.role[0].roleDescription}}</td>
               <td  class="center">{{data.status}}</td>
+               <td> <a ng-href="#/admin/updatepassword/{{data.accountId}}"> update password </a></td>
               </tr>
           </tbody>
         </table>
