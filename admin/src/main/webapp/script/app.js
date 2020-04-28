@@ -77,7 +77,7 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
 			   .when('/admin/manageuser',      's2.manageuser')
 			     .when('/admin/onboardfellow', 's2.onboardfellow')
                  .when('/admin/errormessage/:id', 's2.errormessage')
-				 
+				  .when('/admin/updatepassword/:id', 's2.updatepassword')
 				  .when('/admin/onboardfellowgroup',      's2.onboardfellow.onboardfellowgroup')
    			    .when('/admin/onboardfellowuser',      's2.onboardfellow.onboardfellowuser')
 
@@ -95,6 +95,10 @@ app.config(['$routeSegmentProvider', '$routeProvider', function($routeSegmentPro
                 templateUrl: 'templates/partial/managefiles.html', controller: 'managefilesCtrl'})
           .segment('errormessage', {
               templateUrl: 'templates/partial/errormessage.html', controller: 'errormessageCtrl'
+             
+          } )
+              .segment('updatepassword', {
+              templateUrl: 'templates/partial/updatepassword.html', controller: 'updateUserPwdCtrl'
              
           } )
                 .segment('manageuser', {
