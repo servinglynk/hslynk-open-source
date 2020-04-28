@@ -30,7 +30,7 @@
                <li ng-class="{active: ('s2.manageprojgrp' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageprojgrp' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage Group</a> </li>
             </ul>
           </li> 
-             <li ng-show="roleName === 'SUPERADMIN'"> <a href="javascript:;" data-toggle="collapse" data-target="#demo4" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> User<i class="fa fa-fw fa-caret-down"></i></a>
+             <li ng-show="roleName === 'SUPERADMIN' || roleName ==='CUSTADMIN' "> <a href="javascript:;" data-toggle="collapse" data-target="#demo4" class="collapsed"><i class="fa fa-fw fa-arrows-v"></i> User<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo4" class="collapse" style="height: 0px;">
                <li ng-class="{active: ('s2.createuser' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.createuser' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Create User</a> </li>
                <li ng-class="{active: ('s2.manageuser' | routeSegmentStartsWith)}"> <a ng-href="#{{ 's2.manageuser' | routeSegmentUrl }}"><i class="fa fa-fw fa-file"></i> Manage User</a> </li>
