@@ -617,31 +617,64 @@ GetEligReq: function ($http,$scope, success) {
         if(success)success(data)
     });
 },
-    createUser : function ($http, $scope, success, error) {
-        var apiurl = "/hmis-user-service/rest/accounts";
+	getAccountById : function ($http, $scope, success, error) {
+            var apiurl = "/hmis-user-service/rest/accounts/"+$scope.accountId;
+            $http({
+                method: 'GET',
+                url: apiurl,
+                headers: {
+                  'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                    'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                    'Accept': 'application/json;odata=verbose'}
+            }).success(function (data) {
+                if(success)success(data)
+            }).error(error);
+         },
+        createUser : function ($http, $scope, success, error) {
+             var apiurl = "/hmis-user-service/rest/accounts";
+             data = $scope.form;
+             $http({
+                 method: 'POST',
+                 url: apiurl,
+                 data :
+                 	{ "account":{
+                         "username": data.username,
+                         "emailAddress":data.emailAddress,
+                         "password":data.password,
+                         "confirmPassword" : data.confirmPassword,
+                         "firstName":data.firstName,
+                         "middleName":data.middleName,
+                         "lastName":data.lastName,
+                         "role" : {
+                         	"id": data.role.id
+                         },
+                         "projectGroup" : {
+                         	projectGroupId : data.projectgroup.projectGroupId
+                         },
+                         "profile" : {
+                         	"id" : data.profile.id
+                         }
+                      }
+                },
+                 headers: {
+                   'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                     'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                     'Accept': 'application/json;odata=verbose'}
+             }).success(function (data) {
+                 if(success)success(data)
+             }).error(error);
+             },
+    updateAccountPassword : function ($http, $scope, success, error) {
+        var apiurl = "/hmis-user-service/rest/accounts/"+$scope.username+"/passwordupdate";
         data = $scope.form;
         $http({
-            method: 'POST',
+            method: 'PUT',
             url: apiurl,
             data :
-            	{ "account":{
-                    "username": data.username,
-                    "emailAddress":data.emailAddress,
-                    "password":data.password,
-                    "confirmPassword" : data.confirmPassword,
-                    "firstName":data.firstName,
-                    "middleName":data.middleName,
-                    "lastName":data.lastName,
-                    "role" : {
-                    	"id": data.role.id
-                    },
-                    "projectGroup" : {
-                    	projectGroupId : data.projectgroup.projectGroupId
-                    },
-                    "profile" : {
-                    	"id" : data.profile.id
-                    }
-                 }
+            	{ "passwordChange":{
+                    "newPassword": data.newPassword,
+                    "confirmNewPassword":data.confirmNewPassword
+            	}
            },
             headers: {
               'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
