@@ -850,31 +850,64 @@ GetEligReq: function ($http,$scope, success) {
         if(success)success(data)
     });
 },
-    createUser : function ($http, $scope, success, error) {
-        var apiurl = "/hmis-user-service/rest/accounts";
+	getAccountById : function ($http, $scope, success, error) {
+            var apiurl = "/hmis-user-service/rest/accounts/"+$scope.accountId;
+            $http({
+                method: 'GET',
+                url: apiurl,
+                headers: {
+                  'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                    'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                    'Accept': 'application/json;odata=verbose'}
+            }).success(function (data) {
+                if(success)success(data)
+            }).error(error);
+         },
+        createUser : function ($http, $scope, success, error) {
+             var apiurl = "/hmis-user-service/rest/accounts";
+             data = $scope.form;
+             $http({
+                 method: 'POST',
+                 url: apiurl,
+                 data :
+                 	{ "account":{
+                         "username": data.username,
+                         "emailAddress":data.emailAddress,
+                         "password":data.password,
+                         "confirmPassword" : data.confirmPassword,
+                         "firstName":data.firstName,
+                         "middleName":data.middleName,
+                         "lastName":data.lastName,
+                         "role" : {
+                         	"id": data.role.id
+                         },
+                         "projectGroup" : {
+                         	projectGroupId : data.projectgroup.projectGroupId
+                         },
+                         "profile" : {
+                         	"id" : data.profile.id
+                         }
+                      }
+                },
+                 headers: {
+                   'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                     'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                     'Accept': 'application/json;odata=verbose'}
+             }).success(function (data) {
+                 if(success)success(data)
+             }).error(error);
+             },
+    updateAccountPassword : function ($http, $scope, success, error) {
+        var apiurl = "/hmis-user-service/rest/accounts/"+$scope.username+"/passwordupdate";
         data = $scope.form;
         $http({
-            method: 'POST',
+            method: 'PUT',
             url: apiurl,
             data :
-            	{ "account":{
-                    "username": data.username,
-                    "emailAddress":data.emailAddress,
-                    "password":data.password,
-                    "confirmPassword" : data.confirmPassword,
-                    "firstName":data.firstName,
-                    "middleName":data.middleName,
-                    "lastName":data.lastName,
-                    "role" : {
-                    	"id": data.role.id
-                    },
-                    "projectGroup" : {
-                    	projectGroupId : data.projectgroup.projectGroupId
-                    },
-                    "profile" : {
-                    	"id" : data.profile.id
-                    }
-                 }
+            	{ "passwordChange":{
+                    "newPassword": data.newPassword,
+                    "confirmNewPassword":data.confirmNewPassword
+            	}
            },
             headers: {
               'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
@@ -1887,8 +1920,7 @@ app.controller('managesyncCtrl',['$scope','$location','$routeSegment','$http', '
   
 }]);
 
-;
-app.controller('manageuserCtrl',['$scope','$location','$routeSegment','$http', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
+;app.controller('manageuserCtrl',['$scope','$location','$routeSegment','$http', '$timeout','$modal', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout,$modal, $sessionStorage) {
 	$scope.sessionToken = $sessionStorage.sessionToken;
 	if($sessionStorage.isLoggedIn){
 		$("#userDetails").html($sessionStorage.account.emailAddress);	
@@ -1904,11 +1936,22 @@ app.controller('manageuserCtrl',['$scope','$location','$routeSegment','$http', '
         $scope.totalItems = $scope.list.length;
     },function(error) {})
   
+    
     $scope.setPage = function (pageNo) {
         $scope.currentPage = pageNo;
-    };
+    },
 
-
+    $scope.openlog = function (id,name) {
+        var modalInstance = $modal.open({
+        templateUrl: 'templates/partial/updatepasswordpopup.html',
+        controller: 'ModalInstanceLogCtrl',
+        resolve: {
+            'datajson': function () {
+                return {"id":id,"username":name};
+            }
+        }
+        });
+    }
 }]);
 ;
 app.controller('mergeclientCtrl',['$scope','$location','$routeSegment','$http','$modal', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http,$modal, $timeout, $sessionStorage) {
@@ -2249,6 +2292,56 @@ $scope.showErrorAlert = true;})
 			    //success
 			    function(data){ alert('Un merge successful!'); },function(error) {});
 	};
+	// switch flag
+$scope.switchBool = function(value) {
+   $scope[value] = !$scope[value];
+};
+}]);
+;
+app.controller('updateUserPwdCtrl',['$scope','$location','$routeParams','$routeSegment','$http', '$timeout','$sessionStorage', function($scope,$location,$routeParams,$routeSegment,$http, $timeout,$sessionStorage) {
+		
+	$scope.sessionToken = $sessionStorage.sessionToken;
+	if($sessionStorage.isLoggedIn){
+		$("#userDetails").html($sessionStorage.account.emailAddress);	
+	}
+	
+	$scope.accountId = $routeParams.id;
+	
+    Service.getAccountById($http,$scope,
+    	    //success
+    	    function (data) {
+    	        $scope.username = data.account.username;
+    	    },function(data){console.log('error when getting accont by id');})
+
+    $scope.setPageErrorMessage = function (pageNo) {
+        $scope.currentPageErrorMessage = pageNo;
+    };
+ 
+ 
+  $scope.submitForm = function() {
+    	$scope.errorTextAlert= "";
+    	$scope.showErrorAlert = false;
+       Service.updateAccountPassword($http,$scope,
+    //success
+    function(data){
+	
+		$scope.successTextAlert = "Your request has been sent successfully.";
+		$scope.showSuccessAlert = true;
+		$scope.form.firstName='';
+		$scope.form.lastName ='';
+		$scope.form.username ='';
+		$scope.form.password ='';
+		$scope.form.emailAddress ='';
+
+},
+	//error
+	function(errors){
+	$scope.errorTextAlert = errors.errors.error[0].message;
+	$scope.showErrorAlert = true;
+})
+	
+       
+    };
 	// switch flag
 $scope.switchBool = function(value) {
    $scope[value] = !$scope[value];
