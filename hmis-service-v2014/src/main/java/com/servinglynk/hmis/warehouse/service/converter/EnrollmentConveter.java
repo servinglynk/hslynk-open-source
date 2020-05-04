@@ -54,7 +54,8 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setYearshomeless(enrollment.getYearshomeless());
 		if(enrollment.getMonthshomelesspastthreeyears()!=null)
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment.getMonthshomelesspastthreeyears().toString()));
-		
+		if(enrollment.getHouseholdid()!=null)
+				pEnrollment.setHouseholdid(enrollment.getHouseholdid());
 		return pEnrollment;
 	}
 	
