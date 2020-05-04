@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.dao;
 import java.util.List;
 import java.util.UUID;
 
+import com.servinglynk.hmis.warehouse.model.v2020.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisHouseHoldMember;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold;
 
@@ -17,4 +18,5 @@ public interface HmisHouseholdDao {
 	void addHouseHoldMember(HmisHouseHoldMember houseHoldMember);
 	void removeHouseHoldMember(HmisHouseHoldMember houseHoldMember);
 	HmisHouseHoldMember getHouseHoldMember(UUID householdId,UUID memberId);
+	UUID createBulkUploadHouseHold(Enrollment enrollment);
 }

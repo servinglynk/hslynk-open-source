@@ -14,6 +14,7 @@ import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.client.MessageSender;
 import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
+import com.servinglynk.hmis.warehouse.model.v2016.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisHouseHoldMember;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisHousehold;
 
@@ -128,5 +129,32 @@ public class HmisHouseholdDaoImpl extends QueryExecutorImpl implements HmisHouse
 		metaDataEntity.setDateUpdated(LocalDateTime.now());
 		metaDataEntity.setDeleted(true);
 		parentDaoFactory.getClientMetaDataDao().updateClientMetaData(metaDataEntity);
+	}
+	
+	
+	public UUID createBulkUploadHouseHold(Enrollment enrollment) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(HmisHousehold.class);
+		criteria.add(Restrictions.eq("sourceSystemHouseHoldId", enrollment.getHouseholdid()));
+		criteria.add(Restrictions.eq("projectGroupCode", enrollment.getProjectGroupCode()));
+		criteria.add(Restrictions.eq("deleted", false));
+		List<HmisHousehold> households = (List<HmisHousehold>) find(criteria);
+		HmisHousehold hmisHousehold = null;
+		if(households.isEmpty()) {
+			hmisHousehold = new HmisHousehold();
+			hmisHousehold.setId(UUID.randomUUID());
+			hmisHousehold.setDateCreated(LocalDateTime.now());
+			hmisHousehold.setDateUpdated(LocalDateTime.now());
+			hmisHousehold.setProjectGroupCode(enrollment.getProjectGroupCode());
+			hmisHousehold.setUser(enrollment.getUserId());
+			hmisHousehold.setHeadOfHousehold(enrollment.getClient());
+			hmisHousehold.setDedupClientId(enrollment.getClient().getDedupClientId());
+			hmisHousehold.setDeleted(false);
+			hmisHousehold.setSourceSystemHouseHoldId(enrollment.getHouseholdid());
+			hmisHousehold.setSourceSystemId(enrollment.getSourceSystemId());
+			insert(hmisHousehold);
+		}else {
+			hmisHousehold = households.get(0);
+		}
+		return hmisHousehold.getId();
 	}
 }
