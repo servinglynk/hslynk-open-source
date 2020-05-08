@@ -43,6 +43,7 @@ public class GlobalEnrollmentConveter {
 		model.setSource(entity.getSource());
 	//	model.setDateCreated(entity.getDateCreated());
 	//	model.setDateUpdated(entity.getDateUpdated());
+		if(entity.getGenericEnrollmentEntity()!=null)model.setGenericEnrollmentId(entity.getGenericEnrollmentEntity().getId());
 		model.setLink("hmis-clientapi/v"+entity.getSource()+"/rest/clients/"+entity.getClientId()+"/enrollments/"+entity.getEnrollmentId());
 		return model;
 	}

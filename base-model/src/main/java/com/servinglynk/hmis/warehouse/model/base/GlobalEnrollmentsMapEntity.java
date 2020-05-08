@@ -21,6 +21,7 @@ public class GlobalEnrollmentsMapEntity extends HMISModel {
 	private UUID enrollmentId;
 	private UUID clientId;
 	private String source;
+	private GenericEnrollmentEntity genericEnrollmentEntity;
 	
 	@Id
 	@Column( name = "id", nullable = false  ) @org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
@@ -63,4 +64,15 @@ public class GlobalEnrollmentsMapEntity extends HMISModel {
 	public void setSource(String source) {
 		this.source = source;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "generic_enrollment_id", referencedColumnName="id")
+	public GenericEnrollmentEntity getGenericEnrollmentEntity() {
+		return genericEnrollmentEntity;
+	}
+	public void setGenericEnrollmentEntity(GenericEnrollmentEntity genericEnrollmentEntity) {
+		this.genericEnrollmentEntity = genericEnrollmentEntity;
+	}
+	
+	
 }

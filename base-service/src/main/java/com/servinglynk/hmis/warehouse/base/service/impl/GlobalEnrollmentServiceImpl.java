@@ -15,6 +15,7 @@ import com.servinglynk.hmis.warehouse.core.model.GlobalEnrollment;
 import com.servinglynk.hmis.warehouse.core.model.GlobalEnrollmentMap;
 import com.servinglynk.hmis.warehouse.core.model.GlobalEnrollments;
 import com.servinglynk.hmis.warehouse.core.model.GlobalEnrollmentsMap;
+import com.servinglynk.hmis.warehouse.model.base.GenericEnrollmentEntity;
 import com.servinglynk.hmis.warehouse.model.base.GlobalEnrollmentEntity;
 import com.servinglynk.hmis.warehouse.model.base.GlobalEnrollmentsMapEntity;
 import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFound;
@@ -84,16 +85,25 @@ public class GlobalEnrollmentServiceImpl extends ServiceBase implements GlobalEn
 		daoFactory.getGlobalEnrollmentDao().removeAllEnrollments(globalEnrollmentId);
 		List<UUID> enrollmentIds = new ArrayList<UUID>();
 		for(GlobalEnrollmentMap enrollment : enrollments.getGlobalEnrollmentMaps()) {
-			if(!enrollmentIds.contains(enrollment.getEnrollmentId())) {
-				enrollmentIds.add(enrollment.getEnrollmentId());
+			
 				GlobalEnrollmentsMapEntity enrollmentsMapEntity = GlobalEnrollmentConveter.modelToEntity(null, enrollment);
+				
 				enrollmentsMapEntity.setUser(account.getAccountId());
 				enrollmentsMapEntity.setDateCreated(LocalDateTime.now());
 				enrollmentsMapEntity.setDateUpdated(LocalDateTime.now());
 				enrollmentsMapEntity.setProjectGroupCode(account.getProjectGroup().getProjectGroupCode());
 				enrollmentsMapEntity.setGlobalEnrollment(entity);
-				daoFactory.getGlobalEnrollmentDao().createEnrollmentMap(enrollmentsMapEntity);
-			}
+				if(enrollment.getGenericEnrollmentId()!=null) {
+					GenericEnrollmentEntity enrollmentEntity = daoFactory.getGenericEnrollmentDao().getById(enrollment.getGenericEnrollmentId());
+					if(enrollmentEntity!=null) {
+						enrollmentsMapEntity.setGenericEnrollmentEntity(enrollmentEntity);
+						daoFactory.getGlobalEnrollmentDao().createEnrollmentMap(enrollmentsMapEntity);
+					}
+				}
+				if(enrollment.getEnrollmentId()!=null && !enrollmentIds.contains(enrollment.getEnrollmentId())) {
+					enrollmentIds.add(enrollment.getEnrollmentId());
+					daoFactory.getGlobalEnrollmentDao().createEnrollmentMap(enrollmentsMapEntity);
+				}
 		}
 		
 	}
