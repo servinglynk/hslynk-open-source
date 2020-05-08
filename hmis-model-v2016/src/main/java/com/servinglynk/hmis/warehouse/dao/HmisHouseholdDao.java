@@ -18,5 +18,5 @@ public interface HmisHouseholdDao {
 	void addHouseHoldMember(HmisHouseHoldMember houseHoldMember);
 	void removeHouseHoldMember(HmisHouseHoldMember houseHoldMember);
 	HmisHouseHoldMember getHouseHoldMember(UUID householdId,UUID memberId);
-	UUID createBulkUploadHouseHold(Enrollment enrollment);
+	HmisHousehold fetchBulkUploadHouseHold(Enrollment enrollment);
 }

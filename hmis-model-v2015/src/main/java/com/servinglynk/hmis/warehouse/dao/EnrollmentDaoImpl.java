@@ -5,15 +5,10 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
-import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -22,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.base.util.ErrorType;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -34,7 +30,9 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstay
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
+import com.servinglynk.hmis.warehouse.model.v2015.Error2015;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2015.HmisHousehold;
 import com.servinglynk.hmis.warehouse.model.v2015.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -133,6 +131,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 							enrollmentModel.setClient(client);
 						}
 					}
+					HmisHousehold hmisHouseHold = parentDaoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(enrollmentModel);
+					enrollmentModel.setHmisHousehold(hmisHouseHold);
 					enrollmentModel.setExport(exportEntity);
 					performSaveOrUpdate(enrollmentModel);
 					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
