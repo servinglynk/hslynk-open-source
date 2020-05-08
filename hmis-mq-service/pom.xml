@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.servinglynk.hmis.warehouse</groupId>
 		<artifactId>hslynk-parent</artifactId>
-		<version>2.21.1</version>
+		<version>2.21.3</version>
 	</parent>
 	<artifactId>hmis-mq-service</artifactId>
 	<packaging>war</packaging>
