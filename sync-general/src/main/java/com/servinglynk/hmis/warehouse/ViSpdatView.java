@@ -54,7 +54,7 @@ public class ViSpdatView  extends Logging {
 	            for(Response response : responsesForSurvey) {
 	            	 Boolean deleted = response.getDeleted();
 	            	 key = response.getSubmissionId();
-	            	 log.info("Processing submission_id: " + key);
+	            	 System.out.println("Processing submission_id: " + key);
 	            	 p = new Put(Bytes.toBytes(key));
 	                if (deleted !=null && deleted.booleanValue()) {
 	                    if (existingKeysInHbase.contains(key)) {
@@ -74,6 +74,7 @@ public class ViSpdatView  extends Logging {
 	                    	addColumn("survey_id",String.valueOf(survey.getSurveyId()), key, p);
 	                    	addColumn("survey_date",getCreatedAtString(response.getSurveyResponseDate()), key, p);
 	     	            	 if (existingKeysInHbase.contains(key)) {
+	     	            		System.out.println("Processing Client: " + response.getClientId());
 	     	            		 	putsToUpdate.add(p);
 	 	     	                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
 	 	     	                            htable.put(putsToUpdate);
@@ -81,6 +82,7 @@ public class ViSpdatView  extends Logging {
 	 	     	                        }
 	     	            		 	}
 	     	                      else {
+	     	                    	 System.out.println("Processing Client: " + response.getClientId());
 	     	                        putsToInsert.add(p);
 	     	                        if (putsToInsert.size() > syncHBaseImport.batchSize) {
 	     	                            htable.put(putsToInsert);
@@ -94,6 +96,7 @@ public class ViSpdatView  extends Logging {
 	                previousSubmissionId = response.getSubmissionId();
 	                isFirstRecord =false;
 	                if(StringUtils.isNotBlank(response.getResponseText())) {
+	                	 System.out.println("Processing Response: " + response.getResponseText());
 	                	 addColumn(response.getQuestionId(),String.valueOf(response.getResponseText()), key, p);
 	                }
 	            }
@@ -138,7 +141,7 @@ public class ViSpdatView  extends Logging {
 	    }
 	 
 	public void addColumn(String column, String value,String key,Put p) {
-		 if(StringUtils.isNotBlank(value) && p !=null) {
+		 if(StringUtils.isNotBlank(column) && StringUtils.isNotBlank(value) && p !=null) {
 			  p.addColumn(Bytes.toBytes("CF"),
 	                  Bytes.toBytes(column),
 	                  Bytes.toBytes(value));

@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -30,6 +29,7 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 import com.servinglynk.hmis.warehouse.model.v2017.Error2017;
 import com.servinglynk.hmis.warehouse.model.v2017.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2017.HmisHousehold;
 import com.servinglynk.hmis.warehouse.model.v2017.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -95,6 +95,9 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.
 					// Very important logic needs to come here via a Microservice call.
 					enrollmentModel.setClient(client);
+					HmisHousehold hmisHouseHold = parentDaoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(enrollmentModel);
+					enrollmentModel.setHmisHousehold(hmisHouseHold);
+			
 					enrollmentModel.setExport(exportEntity);
 					performSaveOrUpdate(enrollmentModel, domain);
 //					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
