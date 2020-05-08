@@ -2,20 +2,16 @@ package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.UUID;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("enrollment")
 public class GlobalEnrollmentMap  extends ClientModel {
 	
 	private UUID id;
-	@NotNull(message="Enrollment id is required")
 	private UUID enrollmentId;
-	@NotNull(message="Client id is required")
 	private UUID clientId;
-	@NotNull(message="Enrollment source is required")
-	private String source;
+	private String source;	
+	private UUID genericEnrollmentId;
 	
 	
 	private String link;
@@ -49,5 +45,11 @@ public class GlobalEnrollmentMap  extends ClientModel {
 	}
 	public void setLink(String link) {
 		this.link = link;
+	}
+	public UUID getGenericEnrollmentId() {
+		return genericEnrollmentId;
+	}
+	public void setGenericEnrollmentId(UUID genericEnrollmentId) {
+		this.genericEnrollmentId = genericEnrollmentId;
 	}
 }

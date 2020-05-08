@@ -30,6 +30,7 @@ import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2020.HmisHousehold;
 import com.servinglynk.hmis.warehouse.model.v2020.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
@@ -93,6 +94,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					enrollmentModel.setPreviousStreetESSH(NoYesEnum.lookupEnum(enrollment.getPreviousStreetESSH()));
 					com.servinglynk.hmis.warehouse.model.v2020.Project project = (Project) getModel(com.servinglynk.hmis.warehouse.model.v2020.Project.class,enrollment.getProjectID(),getProjectGroupCode(domain),true,projectModelMap, domain.getUpload().getId());
 					enrollmentModel.setProject(project);
+				    HmisHousehold hmisHouseHold = parentDaoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(enrollmentModel);
+					enrollmentModel.setHmisHousehold(hmisHouseHold);
 					enrollmentModel.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(enrollment.getTimesHomelessPastThreeYears()));
 					com.servinglynk.hmis.warehouse.model.v2020.Client client = (com.servinglynk.hmis.warehouse.model.v2020.Client) getModel(com.servinglynk.hmis.warehouse.model.v2020.Client.class, enrollment.getPersonalID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());
 					//TODO: Need to add Unduping logic here and get a unique Client for enrollments.

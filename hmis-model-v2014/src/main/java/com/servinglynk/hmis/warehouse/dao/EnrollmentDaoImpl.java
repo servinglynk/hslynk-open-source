@@ -5,8 +5,6 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -14,22 +12,15 @@ import java.util.UUID;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
-import com.servinglynk.hmis.warehouse.common.security.LoggedInUser;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentContinuouslyhomelessoneyearEnum;
@@ -46,6 +37,7 @@ import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2014.Error2014;
 import com.servinglynk.hmis.warehouse.model.v2014.HmisBaseModel;
+import com.servinglynk.hmis.warehouse.model.v2014.HmisHousehold;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
 
 /**
@@ -134,6 +126,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					.getOtherResidencePrior());
 			com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Project.class, enrollment.getProjectID(), getProjectGroupCode(domain), true, projectModelMap, domain.getUpload().getId());
 			model.setProject(project);
+			HmisHousehold hmisHouseHold = parentDaoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(model);
+			model.setHmisHousehold(hmisHouseHold);
 			model.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
 			if (enrollment.getPersonalID() != null) {
 				com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Client.class, enrollment.getPersonalID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
