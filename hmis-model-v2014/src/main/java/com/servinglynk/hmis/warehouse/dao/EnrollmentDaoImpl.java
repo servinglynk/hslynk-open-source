@@ -126,8 +126,6 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					.getOtherResidencePrior());
 			com.servinglynk.hmis.warehouse.model.v2014.Project project = (com.servinglynk.hmis.warehouse.model.v2014.Project) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Project.class, enrollment.getProjectID(), getProjectGroupCode(domain), true, projectModelMap, domain.getUpload().getId());
 			model.setProject(project);
-			HmisHousehold hmisHouseHold = parentDaoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(model);
-			model.setHmisHousehold(hmisHouseHold);
 			model.setTimeshomelesspastthreeyears(EnrollmentTimeshomelesspastthreeyearsEnum.lookupEnum(BasicDataGenerator.getStringValue(enrollment.getTimesHomelessPastThreeYears())));
 			if (enrollment.getPersonalID() != null) {
 				com.servinglynk.hmis.warehouse.model.v2014.Client client = (com.servinglynk.hmis.warehouse.model.v2014.Client) getModel(Enrollment.class.getSimpleName(),com.servinglynk.hmis.warehouse.model.v2014.Client.class, enrollment.getPersonalID(), getProjectGroupCode(domain), true, relatedModelMap, domain.getUpload().getId());
@@ -144,6 +142,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					model.setClient(client);
 				}
 			}
+			HmisHousehold hmisHouseHold = parentDaoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(model);
+			model.setHmisHousehold(hmisHouseHold);
 			model.setExport(exportEntity);
 			performSaveOrUpdate(model);
 			if(!model.isIgnored()) createClientMedataInfo(model);
