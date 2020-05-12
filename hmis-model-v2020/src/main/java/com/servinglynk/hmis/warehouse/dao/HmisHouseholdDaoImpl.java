@@ -131,6 +131,7 @@ public class HmisHouseholdDaoImpl extends QueryExecutorImpl implements HmisHouse
 		parentDaoFactory.getClientMetaDataDao().updateClientMetaData(metaDataEntity);
 	}
 	
+
 	public HmisHousehold fetchBulkUploadHouseHold(Enrollment enrollment) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(HmisHousehold.class);
 		criteria.add(Restrictions.eq("sourceSystemHouseHoldId", enrollment.getHouseholdid()));
@@ -151,9 +152,25 @@ public class HmisHouseholdDaoImpl extends QueryExecutorImpl implements HmisHouse
 			hmisHousehold.setSourceSystemHouseHoldId(enrollment.getHouseholdid());
 			hmisHousehold.setSourceSystemId(enrollment.getSourceSystemId());
 			insert(hmisHousehold);
+			this.createGlobalHouseHold(hmisHousehold);
+			this.createHouseHoldMedataInfo(hmisHousehold);
 		}else {
 			hmisHousehold = households.get(0);
 		}
+		
+		HmisHouseHoldMember member = new HmisHouseHoldMember();
+		member.setDateCreated(LocalDateTime.now());
+		member.setId(UUID.randomUUID());
+		member.setDateCreated(LocalDateTime.now());
+		member.setDateUpdated(LocalDateTime.now());
+		member.setProjectGroupCode(enrollment.getProjectGroupCode());
+		member.setUser(enrollment.getUserId());
+		member.setDeleted(false);
+		member.setHmisHousehold(hmisHousehold);
+		member.setMember(enrollment.getClient());
+		member.setMemberDedupId(enrollment.getClient().getDedupClientId());
+		insert(member);
+		
 		return hmisHousehold;
 	}
 }
