@@ -64,6 +64,7 @@ public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
 			HouseholdMembership membership = new HouseholdMembership();
 			membership.setGlobalClientId(globalHouseholdDTO.getHeadOfHouseholdId());
 			membership.setGlobalHousehold(globalHousehold);
+			membership.setSchemaYear(globalHouseholdDTO.getSchemaYear());
 			membership.setClientLink(globalHouseholdDTO.getLink());
 			globalHousehold.getMembers().add(membership);
 		}

@@ -32,6 +32,7 @@ public class Client {
 	private String phoneNumber;
 	private String emailAddress;
 	private String clientLink;
+	private String schemaYear;
 	
 	public UUID getClientId() {
 		return clientId;
@@ -176,5 +177,11 @@ public class Client {
 	}
 	public void setClientLink(String clientLink) {
 		this.clientLink = clientLink;
+	}
+	public String getSchemaYear() {
+		return schemaYear;
+	}
+	public void setSchemaYear(String schemaYear) {
+		this.schemaYear = schemaYear;
 	}	
 }
