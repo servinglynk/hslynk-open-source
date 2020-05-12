@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.service.impl;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,6 +41,12 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		com.servinglynk.hmis.warehouse.model.v2014.Project pProject  = daoFactory.getProjectDao().getProjectById(enrollment.getProjectid());
 		if(pProject==null) throw new ProjectNotFoundException();
 		
+		com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);		
+		pEnrollment.setDateCreated(LocalDateTime.now());
+		pEnrollment.setDateUpdated(LocalDateTime.now());
+		daoFactory.getProjectDao().populateUserProjectGroupCode(pEnrollment, session.getAccount().getUsername());
+		pEnrollment.setClient(pClient);	
+		
 		
 		com.servinglynk.hmis.warehouse.model.v2014.HmisHousehold pHmisHousehold = null;
 		
@@ -49,16 +56,14 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		}else {
 			HmisHousehold hmisHousehold = new HmisHousehold();
 			hmisHousehold.setSourceSystemHouseHoldId(enrollment.getHouseholdid());
-			pHmisHousehold = serviceFactory.getHmisHouseHoldService().createHmisHousehold(pClient,hmisHousehold, null);
+			pHmisHousehold = daoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(pEnrollment);
 		}
-		com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = EnrollmentConveter.modelToEntity(enrollment, null);
-		pEnrollment.setClient(pClient);		
+
+		
 		pEnrollment.setProject(pProject);
 		pEnrollment.setHmisHousehold(pHmisHousehold);
 		pEnrollment.setGenericHouseHoldId(enrollment.getGenericHouseHoldId());
 		//pEnrollment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
-		pEnrollment.setDateCreated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-		daoFactory.getProjectDao().populateUserProjectGroupCode(pEnrollment, session.getAccount().getUsername());
 		daoFactory.getEnrollmentDao().createEnrollment(pEnrollment);
 
 		enrollment.setEnrollmentId(pEnrollment.getId());

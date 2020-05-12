@@ -29,11 +29,46 @@ public class EnrollmentServiceImpl extends BaseService implements EnrollmentServ
 		List<Client> clients  = daoFactory.getEnrollmentDao().getGenericHousehold(geniricHousehold, sessionModel.getProjectGroupCode(),schemaYear);
 		for(Client client : clients) {
 			HttpHeaders headers =  getHttpHeader(sessionModel.getClientId(), sessionModel.getSessionToken());
-			this.createEnrollment(schemaYear,client.getClientId(), enrollment, headers);
+			if(client.getSchemaYear().equalsIgnoreCase(schemaYear)) {
+				this.createEnrollment(schemaYear,client.getClientId(), enrollment, headers);
+			}else {
+				Client otherClient = this.getClient(client.getClientId(),headers,client.getSchemaYear());
+				Client newClient = this.createClient(otherClient,headers,schemaYear);
+				this.createEnrollment(schemaYear,newClient.getClientId(), enrollment, headers);
+			}
 		}
 	}
 
 	
+	private Client createClient(Client otherClient, HttpHeaders headers, String schemaYear) {
+		JSONObjectMapper jsonObjectMapper = new JSONObjectMapper();
+		try {
+			HttpEntity<Client> requestEntity = new HttpEntity<Client>(otherClient,headers);
+			ResponseEntity<Client> responseEntity =	restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+schemaYear+"/rest/clients", HttpMethod.POST,requestEntity, Client.class);
+			System.out.println("enrollment created "+responseEntity.getStatusCodeValue());
+			return responseEntity.getBody();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+	private Client getClient(UUID clientId, HttpHeaders headers, String schemaYear) {
+		JSONObjectMapper jsonObjectMapper = new JSONObjectMapper();
+		try {
+			HttpEntity<Client> requestEntity = new HttpEntity<Client>(headers);
+			ResponseEntity<Client> responseEntity =	restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+schemaYear+"/rest/clients/"+clientId, HttpMethod.GET,requestEntity, Client.class);
+			System.out.println("enrollment created "+responseEntity.getStatusCodeValue());
+			return responseEntity.getBody();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		// 
+		return null;
+	}
+
+
 	public void createEnrollment(String schemaYear,UUID clientId,EnrollmentModel enrollmentModel,HttpHeaders headers) {
 		JSONObjectMapper jsonObjectMapper = new JSONObjectMapper();
 		try {

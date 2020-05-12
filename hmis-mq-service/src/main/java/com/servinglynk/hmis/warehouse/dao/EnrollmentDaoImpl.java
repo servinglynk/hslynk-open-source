@@ -25,11 +25,12 @@ public class EnrollmentDaoImpl implements EnrollmentDao {
 	public List<Client> getGenericHousehold(UUID genericHouseholdId,String projectGroupCode,String schemaYear) {
 		List<Client> clients = new ArrayList<Client>();
 		Session session = entityManager.unwrap(Session.class);
-		String query = "select global_client_id as \"clientId\", client_link  as \"clientLink\" from housing_inventory.household_membership where global_household_id = '"+genericHouseholdId+"' and schema_year = '"+schemaYear+"' and project_group_code = '"+projectGroupCode+"'";
+		String query = "select global_client_id as \"clientId\",schema_year as \"schemaYear\", client_link  as \"clientLink\" from housing_inventory.household_membership where global_household_id = '"+genericHouseholdId+"' and  project_group_code = '"+projectGroupCode+"'";
 		System.out.println("households query "+query);
 		List<Client> data =  session.createSQLQuery(query)
 				.addScalar("clientId",org.hibernate.type.PostgresUUIDType.INSTANCE)
 				  .addScalar("clientLink")
+				  .addScalar("schemaYear")
 				.setResultTransformer(Transformers.aliasToBean(Client.class))
 				.list();
 		
