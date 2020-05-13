@@ -76,23 +76,10 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 				com.servinglynk.hmis.warehouse.model.v2015.Client clientModel = null;
 				try {
 					clientModel = (com.servinglynk.hmis.warehouse.model.v2015.Client) modelMap.get(client.getPersonalID());
-					if(clientModel != null) {
-						if(projectGroupEntity.isDetermineDedupBySsid()) {
-							clientModel.setRecordToBeInserted(false);
-						}
-					}else {
+					if(clientModel == null) {
 						clientModel = new com.servinglynk.hmis.warehouse.model.v2015.Client();
 						clientModel.setRecordToBeInserted(true);
 						populateClient(client, clientModel);
-					}
-					/**
-					 * This is where the deduping happens We check if a client with the same information exists and
-					 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
-					 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
-					 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
-					 */
-					if(clientModel.isRecordToBoInserted()) {
-						 clientModel = getClientFromDedup(clientModel, client, projectGroupCode);
 					}
 					clientModel.setDateCreatedFromSource(BasicDataGenerator
 							.getLocalDateTime(client.getDateCreated()));
@@ -142,6 +129,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						}
 					}
 					//makes a microservice all to the dedup micro service
+					com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
+					BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
+					UUID dedupId = daoFactory.getHmisClientDao().determindDedupId(target,projectGroupCode);
+					clientModel.setDedupClientId(dedupId);
+					
 					performSaveOrUpdate(clientModel);
 					UUID userId = clientModel.getUserId();
 					if(clientModel.isRecordToBoInserted()) {
@@ -152,10 +144,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					}
 					// Inserting client in base schema	
 					if(!clientModel.isIgnored()) {
-						com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
-						BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 						target.setDateUpdated(LocalDateTime.now());
 						target.setSchemaYear("2015");
+						target.setDedupClientId(clientModel.getDedupClientId());
 						insertOrUpdate(target);	
 					}
 //					}

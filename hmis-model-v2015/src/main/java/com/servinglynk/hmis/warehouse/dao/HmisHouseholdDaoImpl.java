@@ -14,6 +14,7 @@ import com.servinglynk.hmis.warehouse.base.dao.QueryExecutorImpl;
 import com.servinglynk.hmis.warehouse.client.MessageSender;
 import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
+import com.servinglynk.hmis.warehouse.model.v2015.Client;
 import com.servinglynk.hmis.warehouse.model.v2015.Enrollment;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisHouseHoldMember;
 import com.servinglynk.hmis.warehouse.model.v2015.HmisHousehold;
@@ -158,20 +159,24 @@ public class HmisHouseholdDaoImpl extends QueryExecutorImpl implements HmisHouse
 		}else {
 			hmisHousehold = households.get(0);
 		}
-		
-		HmisHouseHoldMember member = new HmisHouseHoldMember();
-		member.setDateCreated(LocalDateTime.now());
-		member.setId(UUID.randomUUID());
-		member.setDateCreated(LocalDateTime.now());
-		member.setDateUpdated(LocalDateTime.now());
-		member.setProjectGroupCode(enrollment.getProjectGroupCode());
-		member.setUser(enrollment.getUserId());
-		member.setDeleted(false);
-		member.setHmisHousehold(hmisHousehold);
-		member.setMember(enrollment.getClient());
-		member.setMemberDedupId(enrollment.getClient().getDedupClientId());
-		insert(member);
-		
+		Client client = enrollment.getClient();
+		if(enrollment.getClient() !=  null) {
+			HmisHouseHoldMember houseHoldMember = getHouseHoldMember(hmisHousehold.getId(), client.getId());
+			if(houseHoldMember == null) {
+				HmisHouseHoldMember member = new HmisHouseHoldMember();
+				member.setDateCreated(LocalDateTime.now());
+				member.setId(UUID.randomUUID());
+				member.setDateCreated(LocalDateTime.now());
+				member.setDateUpdated(LocalDateTime.now());
+				member.setProjectGroupCode(enrollment.getProjectGroupCode());
+				member.setUser(enrollment.getUserId());
+				member.setDeleted(false);
+				member.setHmisHousehold(hmisHousehold);
+				member.setMember(enrollment.getClient());
+				member.setMemberDedupId(enrollment.getClient().getDedupClientId());
+				insert(member);
+			}
+		}
 		return hmisHousehold;
 }
 }
