@@ -43,7 +43,6 @@ import com.servinglynk.hmis.warehouse.enums.ClientRaceEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientSsnDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientVeteranStatusEnum;
 import com.servinglynk.hmis.warehouse.enums.HashStatusEnum;
-import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.v2016.Error2016;
 import com.servinglynk.hmis.warehouse.model.v2016.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -74,32 +73,17 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		String projectGroupCode= getProjectGroupCode(domain);
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Map<String, HmisBaseModel> modelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2016.Client.class, getProjectGroupCode(domain));
-		ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupByGroupCode(domain.getUpload().getProjectGroupCode());
 		List<Client> clients = export.getClient();
 		if (clients != null && clients.size() > 0) {
 			for (Client client : clients) {
 				com.servinglynk.hmis.warehouse.model.v2016.Client clientModel = null;
 				try {
 					clientModel = (com.servinglynk.hmis.warehouse.model.v2016.Client) modelMap.get(client.getPersonalID());
-					if(clientModel != null) {
-						if(projectGroupEntity.isDetermineDedupBySsid()) {
-							clientModel.setRecordToBeInserted(false);
-						}
-					}else {
+					if(clientModel == null) {
 						clientModel = new com.servinglynk.hmis.warehouse.model.v2016.Client();
 						clientModel.setRecordToBeInserted(true);
 						populateClient(client, clientModel);
 					}
-					/**
-					 * This is where the deduping happens We check if a client with the same information exists and
-					 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
-					 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
-					 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
-					 */
-					if(clientModel.isRecordToBoInserted()) {
-						 clientModel = getClientFromDedup(clientModel, client, projectGroupCode);
-					}
-
 					clientModel.setDateCreatedFromSource(BasicDataGenerator
 							.getLocalDateTime(client.getDateCreated()));
 					clientModel
@@ -138,9 +122,14 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					clientModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateCreated()));
 					clientModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(client.getDateUpdated()));
 					clientModel.setExport(exportEntity);
-					//makes a microservice all to the dedup micro service
-					performSaveOrUpdate(clientModel);
 					hydrateCommonFields(clientModel, domain, client.getPersonalID(), data);
+					//makes a microservice all to the dedup micro service
+					com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
+					BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
+					UUID dedupId = daoFactory.getHmisClientDao().determindDedupId(target,projectGroupCode);
+					clientModel.setDedupClientId(dedupId);
+					performSaveOrUpdate(clientModel);
+					
 					if(!clientModel.isIgnored()) {
 						if(!clientModel.isRecordToBoInserted()) {
 							++data.j;
@@ -158,10 +147,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					}
 					// Inserting client in base schema	
 					if(!clientModel.isIgnored()) {
-						com.servinglynk.hmis.warehouse.model.base.Client target = new com.servinglynk.hmis.warehouse.model.base.Client();
-						BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 						target.setDateUpdated(LocalDateTime.now());
 						target.setSchemaYear("2016");
+						target.setDedupClientId(clientModel.getDedupClientId());
 						insertOrUpdate(target);	
 					}
 //					}

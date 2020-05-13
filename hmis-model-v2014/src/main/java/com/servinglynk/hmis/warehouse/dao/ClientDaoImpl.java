@@ -80,23 +80,10 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			String projectGroupCode = domain.getUpload().getProjectGroupCode();
 			try {
 				model = (com.servinglynk.hmis.warehouse.model.v2014.Client) modelMap.get(client.getPersonalID());
-				if(model != null) {
-					if(determineDedupBySsid) {
-						model.setRecordToBeInserted(false);
-					}
-				}else {
+				if(model == null) {
 					model = new com.servinglynk.hmis.warehouse.model.v2014.Client();
 					model.setRecordToBeInserted(true);
 					populateClient(client, model);
-				}
-				/**
-				 * This is where the deduping happens We check if a client with the same information exists and
-				 *  If it exist then the dedupClient Object below will not be null and we will pass on its ID into the enrollment object later on.
-				 *  But if a client does not exist we create a new client and the ClientUUID is passed on to the map.
-				 *  This will we will not create new client records in the client table if a client is enrollment at multiple organizations.
-				 */
-				if(model.isRecordToBoInserted()) {
-					 model = getClientFromDedup(model, client, projectGroupCode);
 				}
 			model
 					.setDobDataQuality(ClientDobDataQualityEnum
@@ -139,6 +126,11 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 					++data.i;
 				}
 			}
+			com.servinglynk.hmis.warehouse.model.base.Client  target = new com.servinglynk.hmis.warehouse.model.base.Client();
+			BeanUtils.copyProperties(model, target, new String[] {"enrollments","veteranInfoes"});
+			UUID dedupId = daoFactory.getHmisClientDao().determindDedupId(target,projectGroupCode);
+			model.setDedupClientId(dedupId);
+			
 			performSaveOrUpdate(model);	
 			UUID userId = model.getUserId();
 			if(model.isRecordToBoInserted()) {
@@ -149,11 +141,10 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			}
 			// Inserting client in base schema	
 			if(!model.isIgnored()) {
-				com.servinglynk.hmis.warehouse.model.base.Client base = new com.servinglynk.hmis.warehouse.model.base.Client();
-				BeanUtils.copyProperties(model, base, new String[] {"enrollments","veteranInfoes"});
-				base.setDateUpdated(LocalDateTime.now());
-				base.setSchemaYear("2014");
-				insertOrUpdate(base);	
+				target.setDateUpdated(LocalDateTime.now());
+				target.setSchemaYear("2014");
+				target.setDedupClientId(model.getDedupClientId());
+				insertOrUpdate(target);	
 			}
 			// Inserting client in base schema		
 		

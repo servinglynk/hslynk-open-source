@@ -40,15 +40,8 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 			pClient.setDedupClientId(dedupedId);
 			baseClient.setDedupClientId(dedupedId);
 		}
-		com.servinglynk.hmis.warehouse.model.v2014.Client clientByDedupCliendId = daoFactory.getClientDao().getClientByDedupCliendId(dedupedId, projectGroupCode);
-		if(clientByDedupCliendId == null) {
-			daoFactory.getClientDao().createClient(pClient,baseClient);
-			client.setClientId(pClient.getId());
-		}else {
-			client.setClientId(clientByDedupCliendId.getId());
-			updateClient(client, caller);
-		}
-		client.setDedupClientId(pClient.getDedupClientId());
+	   daoFactory.getClientDao().createClient(pClient,baseClient);
+	   client.setDedupClientId(pClient.getDedupClientId());
 		return client;
 	}
 

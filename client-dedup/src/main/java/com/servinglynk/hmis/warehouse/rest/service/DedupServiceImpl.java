@@ -242,7 +242,7 @@ public class DedupServiceImpl implements DedupService{
 			Person person = getSanitizedPerson(personParam);
 		// PART 3: Now is the time to select a potential match.
 			// Custom10 field is set to a value if the client provides partial SSN.
-			 if(StringUtils.isNotEmpty(person.getCustom15()))  {
+			 if((StringUtils.isNotEmpty(person.getCustom15()) &&  person.getCustom15().length()== 15 ) || StringUtils.isNotBlank(person.getSsn()) && person.getSsn().length() ==9)  {
 					List<Person>  unMatchedPersons = getPersonsBySSN(person,sessionKey);
 					// PART 6 : Complete SSN AND • Two of (First Name/First Name Alias, Last Name/Last Name Alias, Date of Birth)
 					List<Person> matchingPersons = unMatchingRecordsForCompleteSSN(unMatchedPersons,person);

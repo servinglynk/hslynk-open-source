@@ -97,7 +97,6 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					enrollmentModel.setClient(client);
 					HmisHousehold hmisHouseHold = parentDaoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(enrollmentModel);
 					enrollmentModel.setHmisHousehold(hmisHouseHold);
-			
 					enrollmentModel.setExport(exportEntity);
 					performSaveOrUpdate(enrollmentModel, domain);
 //					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
