@@ -124,6 +124,7 @@ CREATE TYPE "v2020".livingSituation AS ENUM('1','2','3','4','5','6','7','8','9',
 
 alter TYPE "v2020".livingSituation add value '10';
 alter TYPE "v2020".livingSituation add value '11';
+alter TYPE "v2020".livingSituation add value '28';
 alter TYPE "v2020".livingSituation add value '29';
 alter TYPE "v2020".livingSituation add value '30';
 alter TYPE "v2020".livingSituation add value '29';
