@@ -42,6 +42,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 		}
 	   daoFactory.getClientDao().createClient(pClient,baseClient);
 	   client.setDedupClientId(pClient.getDedupClientId());
+	   client.setClientId(pClient.getId());
 		return client;
 	}
 

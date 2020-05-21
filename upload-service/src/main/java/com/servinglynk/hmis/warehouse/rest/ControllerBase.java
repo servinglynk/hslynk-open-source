@@ -57,7 +57,7 @@ public abstract class ControllerBase {
         	 hudVersion = "6.1";
          else if(StringUtils.equals("611", version) || StringUtils.equals("612", version))
         	 hudVersion = StringUtils.equals("611", version) ? "6.1.11" : "6.1.12" ;
-         else if(StringUtils.equals("FY2020", version))
+         else if(StringUtils.equals("2020", version))
         	 hudVersion = "FY2020";
 	    
 	    return hudVersion;
