@@ -27,6 +27,7 @@ import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.ApiGroup;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
+import com.servinglynk.hmis.warehouse.core.model.ApiMethodGroup;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethods;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperCompanies;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperCompany;
@@ -341,6 +342,17 @@ public class DeveloperCompanyServiceImpl extends ServiceBase implements Develope
 		daoFactory.getDeveloperServiceDao().create(pService);
 
 		service.setServiceId(pService.getExternalId());
+		
+		List<ApiGroupEntity> pApiGroupEntities = daoFactory.getApiMethodDao().getApiMethods();
+		for(ApiGroupEntity apiGroupEntity : pApiGroupEntities) {
+			for(ApiMethodEntity pApiMethod : apiGroupEntity.getApiMethods()) {
+				ServiceApiMethodEntity pServiceApiMethod = new ServiceApiMethodEntity();
+				pServiceApiMethod.setApiMethod(pApiMethod);
+				pServiceApiMethod.setCreatedBy(requestingService);
+				pServiceApiMethod.setService(pService);
+				daoFactory.getServiceApiMethodDao().create(pServiceApiMethod);
+			}
+		}
 		
 		HmisUser superAdminUser = daoFactory.getAccountDao().findByUsername("superadmin@hmis.com");
 		

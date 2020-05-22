@@ -77,7 +77,7 @@ public class AccountDaoImpl extends QueryExecutorImpl implements AccountDao {
 	DetachedCriteria criteria = DetachedCriteria.forClass(HmisUser.class);
 	criteria.createAlias("verification", "verification");
 	criteria.add(Restrictions.eq("verification.id",id));
-	List<HmisUser> accounts = (List<HmisUser>) findByCriteria(criteria);
+	List<HmisUser> accounts = (List<HmisUser>) find(criteria);
 	if(accounts.size()>0) return accounts.get(0);
 	return null;
 	}
