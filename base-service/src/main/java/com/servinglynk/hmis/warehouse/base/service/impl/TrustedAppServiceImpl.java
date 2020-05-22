@@ -533,7 +533,7 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 				else	{
 					logger.debug("trustedApp {} does not require api-method checks", trustedAppId);
 				}
-				
+				apiAuthCheck.setTrustedApp(TrustedAppConverter.convertToTrustedAppPlain(trustedAppEntity, logoPath()));
 				/** check if Annotation has been set to NOT to check Session Token **/
 				if(apiAuthCheck.getCheckSessionToken()!=null && !apiAuthCheck.getCheckSessionToken()) return apiAuthCheck;
 				
@@ -593,7 +593,7 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 						account.setAccountId(pSessionToken.getAccount().getId());
 					apiAuthCheck.setAccount(serviceFactory.getAccountService().getAccount(account, true));
 				}
-				apiAuthCheck.setTrustedApp(TrustedAppConverter.convertToTrustedAppPlain(trustedAppEntity, logoPath()));
+				
 				this.logAPIAccess(pApiMethod, apiAuthCheck.getAccount());
 				return apiAuthCheck;
 	}
