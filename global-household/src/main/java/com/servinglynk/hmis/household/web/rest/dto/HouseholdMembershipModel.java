@@ -36,7 +36,7 @@ public class HouseholdMembershipModel implements Serializable {
 	@JsonSerialize(using=JsonDateTimeSerializer.class)
 	private LocalDateTime dateUpdated;
 
-    private String relationshipToHeadOfHousehold;
+    private Integer relationshipToHeadOfHousehold;
 
     @JsonProperty("genericHouseholdId")
     private UUID globalHouseholdId;
@@ -67,11 +67,11 @@ public class HouseholdMembershipModel implements Serializable {
     public void setGlobalClientId(UUID globalClientId) {
         this.globalClientId = globalClientId;
     }
-    public String getRelationshipToHeadOfHousehold() {
+    public Integer getRelationshipToHeadOfHousehold() {
         return relationshipToHeadOfHousehold;
     }
 
-    public void setRelationshipToHeadOfHousehold(String relationshipToHeadOfHousehold) {
+    public void setRelationshipToHeadOfHousehold(Integer relationshipToHeadOfHousehold) {
         this.relationshipToHeadOfHousehold = relationshipToHeadOfHousehold;
     }
 

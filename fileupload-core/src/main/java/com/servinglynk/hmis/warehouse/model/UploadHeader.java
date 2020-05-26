@@ -15,7 +15,8 @@ public class UploadHeader  {
 	private String documentCategory;
 	private String documentInfo;
 	private String bucketName;
-
+	private String uploadFolder;
+	
 	List<UploadLine> uploads = new ArrayList<>();
 
 	private Parameters parameters=new Parameters();
@@ -87,5 +88,11 @@ public class UploadHeader  {
 	}
 	public void setUploads(List<UploadLine> uploads) {
 		this.uploads = uploads;
+	}
+	public String getUploadFolder() {
+		return uploadFolder;
+	}
+	public void setUploadFolder(String uploadFolder) {
+		this.uploadFolder = uploadFolder;
 	}
 }

@@ -168,6 +168,11 @@
 			<version>${spring.boot.version}</version>
 			<scope>test</scope>
 		</dependency>
+				<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>mq-core-client</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

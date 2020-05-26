@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.household.domain.Client;
 import com.servinglynk.hmis.household.domain.HouseholdMembership;
+import com.servinglynk.hmis.household.enums.RelationshipToHOfHEnum;
 import com.servinglynk.hmis.household.repository.ClientRepository;
 import com.servinglynk.hmis.household.repository.GlobalHouseholdRepository;
 import com.servinglynk.hmis.household.web.rest.dto.HouseholdMembershipModel;
@@ -29,7 +30,9 @@ public class HouseholdMembershipMapperImplV3 {
 			householdMembershipDTO.setDateUpdated(householdMembership.getDateUpdated());
 			householdMembershipDTO.setGlobalClientId(householdMembership.getGlobalClientId());
 			householdMembershipDTO.setGlobalHouseholdId(householdMembership.getGlobalHousehold().getGlobalHouseholdId());
-			householdMembershipDTO.setRelationshipToHeadOfHousehold(householdMembership.getRelationshipToHeadOfHousehold());
+			if(householdMembership.getRelationshipToHeadOfHousehold()!=null) {
+				householdMembershipDTO.setRelationshipToHeadOfHousehold(Integer.parseInt(householdMembership.getRelationshipToHeadOfHousehold().getValue()));
+			}
 			householdMembershipDTO.setHouseholdMembershipId(householdMembership.getHouseholdMembershipId());
 			householdMembershipDTO.setUserId(householdMembership.getUserId());
 			householdMembershipDTO.setLink(householdMembership.getClientLink());
@@ -62,7 +65,9 @@ public class HouseholdMembershipMapperImplV3 {
 		householdMembership.setDateUpdated(householdMembershipDTO.getDateUpdated());
 		householdMembership.setGlobalClientId(householdMembershipDTO.getGlobalClientId());
 		householdMembership.setGlobalHousehold(globalHouseholdRepository.findOne(householdMembershipDTO.getGlobalHouseholdId()));		
-		householdMembership.setRelationshipToHeadOfHousehold(householdMembershipDTO.getRelationshipToHeadOfHousehold());
+		if(householdMembershipDTO.getRelationshipToHeadOfHousehold()!=null) {
+			householdMembership.setRelationshipToHeadOfHousehold(RelationshipToHOfHEnum.lookupEnum(householdMembershipDTO.getRelationshipToHeadOfHousehold().toString()));
+		}
 		householdMembership.setHouseholdMembershipId(householdMembershipDTO.getHouseholdMembershipId());
 		householdMembership.setClientLink(householdMembershipDTO.getLink());
 		householdMembership.setSchemaYear(householdMembershipDTO.getSchemaYear());
