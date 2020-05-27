@@ -1,7 +1,9 @@
 package com.servinglynk.hmis.household.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,14 @@ import com.servinglynk.hmis.household.repository.HouseholdMembershipRepository;
 import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdModel;
 import com.servinglynk.hmis.household.web.rest.mapper.GlobalHouseholdMapperV3;
 import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
+import com.servinglynk.hmis.warehouse.client.MessageSender;
+import com.servinglynk.hmis.warehouse.model.AMQEvent;
 
 @Component("globalHouseHoldServiveV3")
 public class GlobalHouseHoldServiveV3 {
 	
+	
+	@Autowired MessageSender messageSender; 
 	
 	@Autowired
 	GlobalHouseholdRepository globalHouseholdRepository;
@@ -43,7 +49,26 @@ public class GlobalHouseHoldServiveV3 {
 		}
 		 globalHousehold = globalHouseholdMapper.modelToEntity(globalHouseholdModel, globalHousehold);
 		globalHouseholdRepository.save(globalHousehold);		
+		
+		this.publishGlobalHouseHold(globalHousehold);
 		return globalHouseholdMapper.entityToModel(globalHousehold);
+	}
+	
+    private void publishGlobalHouseHold(GlobalHousehold globalHousehold) {
+		AMQEvent amqEvent = new AMQEvent();
+		
+		amqEvent.setEventType("globalHouseHold");
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("genericHouseHoldId", globalHousehold.getGlobalHouseholdId());
+		data.put("clientId", globalHousehold.getHeadOfHouseholdId());
+		data.put("dedupClientId", globalHousehold.getDedupClientId());
+		data.put("deleted", false);
+		data.put("projectGroupCode", globalHousehold.getProjectGroupCode());
+		data.put("userId", globalHousehold.getUserId());
+		amqEvent.setPayload(data);
+		amqEvent.setModule("client-api");
+		amqEvent.setSubsystem("generic-household");
+		messageSender.sendAmqMessage(amqEvent);	
 	}
 
 	public GlobalHouseholdModel update(GlobalHouseholdModel globalHouseholdModel) {

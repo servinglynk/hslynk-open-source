@@ -28,7 +28,7 @@ public class GlobalHouseHoldListener extends BaseListener {
 			if(event.getPayload().get("sourceSystemId")!=null)model.setSourceSystemId(event.getPayload().get("sourceSystemId").toString());
 			if(event.getPayload().get("sourceSystemHouseHoldId")!=null)model.setSourceSystemHouseHoldId(event.getPayload().get("sourceSystemHouseHoldId").toString());
 			if(event.getPayload().get("schema")!=null)model.setSchema(event.getPayload().get("schema").toString());
-		
+			if(event.getPayload().get("genericHouseHoldId")!=null) model.setGenericHouseHoldId(UUID.fromString(event.getPayload().get("genericHouseHoldId").toString()));
 			if(!model.getDeleted())
 				serviceFactory.getGlobalHouseHoldService().createGlobalHouseHold(model);
 			else

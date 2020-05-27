@@ -98,8 +98,11 @@ public class FileUploadServiceImpl extends BaseRegistry implements FileUploadSer
 			uploadLineEntity.setFileSize(file.getSize());
 			uploadLineEntity.setContentType(fileType);
 			uploadLineEntity.setBucketName(content.getBucketName());
-			uploadLineEntity.setFileName(this.getRemoteFileName(file.getOriginalFilename()));
-			
+			if(content.getUploadFolder()!=null) {
+				uploadLineEntity.setFileName(content.getUploadFolder()+"/"+ this.getRemoteFileName(file.getOriginalFilename()));
+			}else {
+				uploadLineEntity.setFileName(this.getRemoteFileName(file.getOriginalFilename()));
+			}
 			fileUploadHandlerFactory.getFileUploadHandler(uploadType.getStorageType()).uploadDocument(uploadLineEntity,
 					file);
 			content.setUploadFileId(entity.getId());
