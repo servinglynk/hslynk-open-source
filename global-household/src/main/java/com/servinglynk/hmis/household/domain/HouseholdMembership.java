@@ -37,7 +37,7 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
     private UUID globalClientId;
     
     @Type(type="com.servinglynk.hmis.household.enums.RelationshipToHOfHEnumType")
-    @Column(name = "relationship_to_head_of_household_new")
+    @Column(name = "relationship_to_head_of_household")
     private RelationshipToHOfHEnum relationshipToHeadOfHousehold;
 
     @ManyToOne
