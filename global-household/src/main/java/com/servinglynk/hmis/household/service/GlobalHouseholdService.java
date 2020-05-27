@@ -2,7 +2,9 @@ package com.servinglynk.hmis.household.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -23,6 +25,8 @@ import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
 import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdModel;
 import com.servinglynk.hmis.household.web.rest.mapper.GlobalHouseholdMapper;
 import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
+import com.servinglynk.hmis.warehouse.client.MessageSender;
+import com.servinglynk.hmis.warehouse.model.AMQEvent;
 
 /**
  * Service Implementation for managing GlobalHousehold.
@@ -32,6 +36,8 @@ import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
 public class GlobalHouseholdService {
 
     private final Logger log = LoggerFactory.getLogger(GlobalHouseholdService.class);
+    
+    @Autowired MessageSender messageSender;
     
     //@Inject
     @Autowired
@@ -61,10 +67,32 @@ public class GlobalHouseholdService {
         List<GlobalHousehold> globalHouseholds = globalHouseholdMapper.globalHouseholdDTOsToGlobalHouseholds(lgolobalHouseholdDTOs);
         globalHouseholdRepository.save(globalHouseholds);
        List<GlobalHouseholdDTO> result = globalHouseholdMapper.globalHouseholdsToGlobalHouseholdDTOs(globalHouseholds);
-        return result;
+       
+       for(GlobalHousehold globalHousehold : globalHouseholds) {
+    	   this.publishGlobalHouseHold(globalHousehold);
+       }
+       
+       return result;
     }
     
-    @Transactional
+    private void publishGlobalHouseHold(GlobalHousehold globalHousehold) {
+		AMQEvent amqEvent = new AMQEvent();
+		
+		amqEvent.setEventType("globalHouseHold");
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("genericHouseHoldId", globalHousehold.getGlobalHouseholdId());
+		data.put("clientId", globalHousehold.getHeadOfHouseholdId());
+		data.put("dedupClientId", globalHousehold.getDedupClientId());
+		data.put("deleted", false);
+		data.put("projectGroupCode", globalHousehold.getProjectGroupCode());
+		data.put("userId", globalHousehold.getUserId());
+		amqEvent.setPayload(data);
+		amqEvent.setModule("client-api");
+		amqEvent.setSubsystem("generic-household");
+		messageSender.sendAmqMessage(amqEvent);	
+	}
+
+	@Transactional
     public List<GlobalHouseholdDTO> update(List<GlobalHouseholdDTO> globalHouseholdDTOs) {
         log.debug("Request to save GlobalHousehold : {}", globalHouseholdDTOs);
         List<GlobalHouseholdDTO> lgolobalHouseholdDTOs=new ArrayList<GlobalHouseholdDTO>();

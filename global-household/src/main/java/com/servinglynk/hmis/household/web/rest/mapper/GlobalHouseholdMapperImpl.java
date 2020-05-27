@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.servinglynk.hmis.household.domain.Client;
 import com.servinglynk.hmis.household.domain.GlobalHousehold;
 import com.servinglynk.hmis.household.domain.HouseholdMembership;
+import com.servinglynk.hmis.household.enums.RelationshipToHOfHEnum;
 import com.servinglynk.hmis.household.repository.ClientRepository;
 import com.servinglynk.hmis.household.web.rest.dto.GlobalHouseholdDTO;
 import com.servinglynk.hmis.household.web.rest.util.SecurityContextUtil;
@@ -64,6 +65,7 @@ public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
 			HouseholdMembership membership = new HouseholdMembership();
 			membership.setGlobalClientId(globalHouseholdDTO.getHeadOfHouseholdId());
 			membership.setGlobalHousehold(globalHousehold);
+			membership.setRelationshipToHeadOfHousehold(RelationshipToHOfHEnum.lookupEnum("1"));
 			membership.setSchemaYear(globalHouseholdDTO.getSchemaYear());
 			membership.setClientLink(globalHouseholdDTO.getLink());
 			globalHousehold.getMembers().add(membership);

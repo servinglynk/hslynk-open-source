@@ -159,7 +159,7 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 		header.setUploadType("CONSENT_UPLOAD");
 		header.setBucketName(loginUser.getProjectGroup().getBucketName());
 		if(entity.getConsentDocument()!=null)	header.setUploadFileId(entity.getConsentDocument());
-		
+		header.setUploadFolder("CONSENT_DOCS/"+clientid);
 		UploadHeader upload = fileUploadServiceFactory.getFileUploadService().uploadDocument(multipartFile, header);
 		if(entity.getConsentDocument()==null)
 			 entity.setConsentDocument(upload.getUploadFileId());

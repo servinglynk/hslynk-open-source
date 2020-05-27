@@ -13,6 +13,7 @@ public class HmisHouseHoldModel {
 	private String sourceSystemId;
 	private String sourceSystemHouseHoldId;
 	private String schema;
+	private UUID genericHouseHoldId;
 	
 	public UUID getClientId() {
 		return clientId;
@@ -67,5 +68,11 @@ public class HmisHouseHoldModel {
 	}
 	public void setHmisHouseHoldId(UUID hmisHouseHoldId) {
 		this.hmisHouseHoldId = hmisHouseHoldId;
+	}
+	public UUID getGenericHouseHoldId() {
+		return genericHouseHoldId;
+	}
+	public void setGenericHouseHoldId(UUID genericHouseHoldId) {
+		this.genericHouseHoldId = genericHouseHoldId;
 	}
 }

@@ -15,7 +15,12 @@ public class GlobalHouseHoldServiceImpl extends BaseService implements  GlobalHo
 
 	@Transactional
 	public void createGlobalHouseHold(HmisHouseHoldModel model) {
-		GlobalHouseHoldEntity entity =	daoFactory.getGlobalHouseHoldDao().getGlobalHouseHold(model.getSourceSystemId(), model.getSourceSystemHouseHoldId(), model.getProjectGroupCode());
+		GlobalHouseHoldEntity entity = null;
+		if(model.getSourceSystemId() == null && model.getSourceSystemHouseHoldId()!=null) {
+			 entity =	daoFactory.getGlobalHouseHoldDao().getGlobalHouseHold(model.getSourceSystemId(), model.getSourceSystemHouseHoldId(), model.getProjectGroupCode());			
+		}
+		
+
 		if(entity==null) {
 			entity = new GlobalHouseHoldEntity();
 			entity.setDateCreated(LocalDateTime.now());
@@ -33,10 +38,11 @@ public class GlobalHouseHoldServiceImpl extends BaseService implements  GlobalHo
 		mapEntity.setSchemaYear(model.getSchema());
 		mapEntity.setProjectGroupCode(model.getProjectGroupCode());
 		mapEntity.setGlobalHouseHold(entity);
-		mapEntity.setHmisHouseHoldId(model.getClientId());
-		mapEntity.setSchemaYear(model.getSchema());
-		mapEntity.setSourceSystemHouseHoldId(model.getSourceSystemHouseHoldId());
-		mapEntity.setSourceSystemId(model.getSourceSystemId());
+		if(model.getHmisHouseHoldId()!=null)mapEntity.setHmisHouseHoldId(model.getHmisHouseHoldId());
+		if(model.getGenericHouseHoldId()!=null) mapEntity.setGenericHouseHoldId(model.getGenericHouseHoldId());
+		if(model.getSchema()!=null)mapEntity.setSchemaYear(model.getSchema());
+		if(model.getSourceSystemHouseHoldId()!=null)mapEntity.setSourceSystemHouseHoldId(model.getSourceSystemHouseHoldId());
+		if(model.getSourceSystemId()!=null) mapEntity.setSourceSystemId(model.getSourceSystemId());
 		daoFactory.getGlobalHouseHoldDao().addGlobalHouseHoldMap(mapEntity);
 	}
 

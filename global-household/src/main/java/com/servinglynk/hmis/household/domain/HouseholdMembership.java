@@ -2,6 +2,7 @@ package com.servinglynk.hmis.household.domain;
 import java.io.Serializable;
 import java.util.UUID;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
+import com.servinglynk.hmis.household.enums.RelationshipToHOfHEnum;
 
 /**
  * A HouseholdMembership.
@@ -31,9 +35,10 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
     @Column(name = "global_client_id")
 	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
     private UUID globalClientId;
-
+    
+    @Type(type="com.servinglynk.hmis.household.enums.RelationshipToHOfHEnumType")
     @Column(name = "relationship_to_head_of_household")
-    private String relationshipToHeadOfHousehold;
+    private RelationshipToHOfHEnum relationshipToHeadOfHousehold;
 
     @ManyToOne
     @JoinColumn(name="global_household_id")
@@ -66,11 +71,11 @@ public class HouseholdMembership extends GlobalHouseholdBaseEntity implements Se
         this.globalClientId = globalClientId;
     }
 
-    public String getRelationshipToHeadOfHousehold() {
+    public RelationshipToHOfHEnum getRelationshipToHeadOfHousehold() {
         return relationshipToHeadOfHousehold;
     }
 
-    public void setRelationshipToHeadOfHousehold(String relationshipToHeadOfHousehold) {
+    public void setRelationshipToHeadOfHousehold(RelationshipToHOfHEnum relationshipToHeadOfHousehold) {
         this.relationshipToHeadOfHousehold = relationshipToHeadOfHousehold;
     }
 
