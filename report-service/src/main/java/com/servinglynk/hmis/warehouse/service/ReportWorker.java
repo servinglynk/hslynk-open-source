@@ -45,7 +45,7 @@ public class ReportWorker implements IReportWorker  {
 										Notification notification = new Notification();
 										notification.setMethod("EMAIL");
 										notification.setType("HMIS_EMAIL_NOTIFICATION");
-										notification.getParameters().addParameter(new Parameter("subject", "Hslynk: Your Apr Report"+reportConfig.getName() +" is ready!"));
+										notification.getParameters().addParameter(new Parameter("subject", "HSLynk: Your Apr Report "+reportConfig.getName() + " is ready!"));
 										StringBuilder builder = new StringBuilder();
 										builder.append(" Dear Customer, ");
 										builder.append(" <br/> ");
