@@ -514,7 +514,6 @@
 		<module>hmis-clientapi-v2020</module>
 		<module>notification-core</module>
 		<module>notification-service</module>
-		<module>hmis-upload-service</module>
 		<module>report-service</module>
 		<module>user-service</module>
 		<module>developer-service</module>
