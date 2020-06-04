@@ -142,12 +142,18 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 			  try {
 				  	Map<String,String> addInfo = mapper.readValue(entity.getAdditionalInfo(), Map.class);
 				  	ActionLinks actionlinks = typeLinks.get(entity.getType());
-				  	if(actionlinks ==null) actionlinks = new ActionLinks();
-				  			ActionLink link = new ActionLink();
-				  			link.setHref(this.buildURL(environment.getProperty("linksTo."+entity.getType()),addInfo));
-				  			link.setRel(entity.getMetaDataIdentifier().toString());
-				  			actionlinks.addLink(link);
-				  	typeLinks.put(entity.getType(), actionlinks);
+				  	if(actionlinks ==null ) actionlinks = new ActionLinks();
+				  		
+				  		if(environment.getProperty("linksTo."+entity.getType())!=null) {
+				  				
+				  				ActionLink link = new ActionLink();
+				  				link.setHref(this.buildURL(environment.getProperty("linksTo."+entity.getType()),addInfo));
+				  				link.setRel(entity.getMetaDataIdentifier().toString());
+				  				actionlinks.addLink(link);
+				  				typeLinks.put(entity.getType(), actionlinks);
+				  		
+				  			}
+				  	
 			  }catch (Exception e) {
 				  e.printStackTrace();
 			  }

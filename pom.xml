@@ -7,7 +7,7 @@
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hslynk-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>2.21.8</version>
+	<version>2.21.10</version>
 	<name>hslynk-parent</name>
 	<properties>
 		<!-- Unique entry point for version number management. -->
@@ -516,7 +516,7 @@
 		<module>notification-service</module>
 		<module>report-service</module>
 		<module>user-service</module>
-		<module>developer-service</module>
+ 		<module>developer-service</module>
   		<module>hmis-load-processor-v2014</module>
 		<module>hmis-load-processor-v2015</module>
 		<module>hmis-load-processor-v2016</module>
@@ -531,6 +531,7 @@
 		<module>hmis-mq-service</module>
 		<module>mq-core-client</module>
 		<module>admin</module>
+
 	</modules>
 	<distributionManagement>
 		<repository>
