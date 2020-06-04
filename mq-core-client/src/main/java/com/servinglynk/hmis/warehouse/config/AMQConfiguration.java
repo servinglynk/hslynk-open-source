@@ -27,7 +27,7 @@ public class AMQConfiguration {
 	    activeMQConnectionFactory.setBrokerURL(env.getProperty("spring.activemq.broker-url"));
 	    activeMQConnectionFactory.setUserName(env.getProperty("spring.activemq.user"));
 	    activeMQConnectionFactory.setPassword(env.getProperty("spring.activemq.password"));
-	    
+	    activeMQConnectionFactory.setTrustAllPackages(true);
 /*	    activeMQConnectionFactory.setBrokerURL("ssl://b-2de21e05-9a0f-4835-b552-2362ef819794-1.mq.us-west-2.amazonaws.com:61617");
 	    activeMQConnectionFactory.setUserName("admin");
 	    activeMQConnectionFactory.setPassword("u$S$63KTdsgO");*/

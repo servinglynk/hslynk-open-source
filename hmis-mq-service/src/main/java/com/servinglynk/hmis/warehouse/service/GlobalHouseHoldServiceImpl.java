@@ -3,16 +3,24 @@ package com.servinglynk.hmis.warehouse.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.servinglynk.hmis.warehouse.converter.ClientMetaDataConverter;
+import com.servinglynk.hmis.warehouse.entity.ClientMetaDataEntity;
 import com.servinglynk.hmis.warehouse.entity.GlobalHouseHoldEntity;
 import com.servinglynk.hmis.warehouse.entity.GlobalHouseHoldMapEntity;
+import com.servinglynk.hmis.warehouse.model.ClientMetaDataModel;
 import com.servinglynk.hmis.warehouse.model.HmisHouseHoldModel;
+import com.servinglynk.hmis.warehouse.model.JSONObjectMapper;
 
 @Component
 public class GlobalHouseHoldServiceImpl extends BaseService implements  GlobalHouseHoldService {
 
+	@Autowired ClientMetaDataService clientMetaDataService;
+	
 	@Transactional
 	public void createGlobalHouseHold(HmisHouseHoldModel model) {
 		GlobalHouseHoldEntity entity = null;
@@ -44,8 +52,33 @@ public class GlobalHouseHoldServiceImpl extends BaseService implements  GlobalHo
 		if(model.getSourceSystemHouseHoldId()!=null)mapEntity.setSourceSystemHouseHoldId(model.getSourceSystemHouseHoldId());
 		if(model.getSourceSystemId()!=null) mapEntity.setSourceSystemId(model.getSourceSystemId());
 		daoFactory.getGlobalHouseHoldDao().addGlobalHouseHoldMap(mapEntity);
+		model.setGlobalHouseholdId(entity.getId());
+		this.createClientMetadata(model);
 	}
 
+	public void createClientMetadata(HmisHouseHoldModel hmisHouseHoldModel) {
+		JSONObjectMapper mapper = new JSONObjectMapper();
+		ClientMetaDataModel metaData = new ClientMetaDataModel();
+		metaData.setUserId(hmisHouseHoldModel.getUserId());
+		metaData.setClientId(hmisHouseHoldModel.getClientId());
+		metaData.setClientDedupId(hmisHouseHoldModel.getDedupClientId());
+		metaData.setDate(LocalDateTime.now());
+		metaData.setProjectGroupCode(hmisHouseHoldModel.getProjectGroupCode());
+		metaData.setDeleted(false);
+		metaData.setMetaDataIdentifier(hmisHouseHoldModel.getGlobalHouseholdId());
+		metaData.setType("globalHouseHolds");
+		metaData.setId(hmisHouseHoldModel.getGlobalHouseholdId());
+		try {
+			metaData.setAdditionalInfo(mapper.writeValueAsString(hmisHouseHoldModel));
+		} catch (JsonProcessingException e) {
+		}
+		
+//		clientMetaDataService.createClientMetaData(metaData);
+		ClientMetaDataEntity entity = daoFactory.getClientMetaDataRepository().findFirstByMetaDataIdentifier(metaData.getMetaDataIdentifier());
+		ClientMetaDataEntity entity2 = ClientMetaDataConverter.modelToEntity(entity, metaData);
+		daoFactory.getClientMetaDataRepository().save(entity2);
+	}
+	
 	@Transactional
 	public void deleteGlobalHouseHold(HmisHouseHoldModel model) {
 		List<GlobalHouseHoldMapEntity> entities = daoFactory.getGlobalHouseHoldDao().getGlobalHouseHoldMapById(model.getHmisHouseHoldId(), model.getProjectGroupCode(), model.getSchema());
