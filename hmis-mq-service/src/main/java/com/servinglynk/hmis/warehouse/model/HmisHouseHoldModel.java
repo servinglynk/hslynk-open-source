@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public class HmisHouseHoldModel {
 	
+	private UUID globalHouseholdId;
 	private UUID hmisHouseHoldId;
 	private UUID clientId;
 	private UUID dedupClientId;
@@ -74,5 +75,11 @@ public class HmisHouseHoldModel {
 	}
 	public void setGenericHouseHoldId(UUID genericHouseHoldId) {
 		this.genericHouseHoldId = genericHouseHoldId;
+	}
+	public UUID getGlobalHouseholdId() {
+		return globalHouseholdId;
+	}
+	public void setGlobalHouseholdId(UUID globalHouseholdId) {
+		this.globalHouseholdId = globalHouseholdId;
 	}
 }
