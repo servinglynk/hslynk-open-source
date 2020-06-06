@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.base.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -10,12 +11,16 @@ import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.base.service.ProfileService;
 import com.servinglynk.hmis.warehouse.base.service.converter.ApiMethodConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.ProfileConverter;
+import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethod;
 import com.servinglynk.hmis.warehouse.core.model.Profile;
 import com.servinglynk.hmis.warehouse.core.model.Profiles;
+import com.servinglynk.hmis.warehouse.core.model.Role;
+import com.servinglynk.hmis.warehouse.core.model.Roles;
 import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProfileACLEntity;
 import com.servinglynk.hmis.warehouse.model.base.ProfileEntity;
+import com.servinglynk.hmis.warehouse.model.base.RoleEntity;
 import com.servinglynk.hmis.warehouse.service.exception.ApiMethodNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ProfileNotFoundException;
 
@@ -109,11 +114,10 @@ public class ProfileServiceImpl extends ServiceBase implements ProfileService {
 	}
 
 	@Transactional
-	public Profiles getAllProfiles(Integer startIndex, Integer maxItems) {
+	public Profiles getAllProfiles(Account account,Integer startIndex, Integer maxItems) {
 		
 		Profiles profiles = new Profiles();
-		
-		List<ProfileEntity> profileEntities = daoFactory.getProfileDao().getProfiles(startIndex,maxItems);
+		List<ProfileEntity> profileEntities = daoFactory.getProfileDao().getProfiles(account.getProfile(),startIndex,maxItems);
 		
 		for(ProfileEntity profileEntity : profileEntities){
 			profiles.addProfile(ProfileConverter.entityToModel(profileEntity));

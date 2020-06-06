@@ -31,6 +31,9 @@ public class ProfileEntity extends BaseModel{
 	@Column(name="profile_description")
 	protected String profileDescription;
 	
+	@Column(name="profile_level")
+	protected Integer profileLevel;
+	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="profileEntity")
 	List<ProfileACLEntity> profileACLEntities= new ArrayList<ProfileACLEntity>(); 
 
@@ -67,7 +70,12 @@ public class ProfileEntity extends BaseModel{
 	public void setProfileACLEntities(List<ProfileACLEntity> profileACLEntities) {
 		this.profileACLEntities = profileACLEntities;
 	}
-	
 
+	public Integer getProfileLevel() {
+		return profileLevel;
+	}
 
+	public void setProfileLevel(Integer profileLevel) {
+		this.profileLevel = profileLevel;
+	}
 }
