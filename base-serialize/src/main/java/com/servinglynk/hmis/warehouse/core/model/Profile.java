@@ -12,6 +12,7 @@ public class Profile  extends ClientModel {
 	private UUID profileId;
 	private String profileName;
 	private String profileDescription;
+	private Integer profileLevel;
 	private List<ApiMethod> apiMethods=new ArrayList<ApiMethod>();	
 	public UUID getId() {
 		return profileId;
@@ -41,4 +42,11 @@ public class Profile  extends ClientModel {
 	public void addApiMethod(ApiMethod apiMethod){
 		this.apiMethods.add(apiMethod);
 	}
+	public Integer getProfileLevel() {
+		return profileLevel;
+	}
+	public void setProfileLevel(Integer profileLevel) {
+		this.profileLevel = profileLevel;
+	}
+	
 }
