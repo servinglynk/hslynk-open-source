@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.Profile;
 import com.servinglynk.hmis.warehouse.core.model.Profiles;
+import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 
 @RestController
 @RequestMapping("/profiles")
@@ -60,8 +62,8 @@ public class ProfilesController extends ControllerBase {
 		if (maxItems == null)	{
 			maxItems = 30;
 		}
-		
-		return serviceFactory.getProfileService().getAllProfiles(startIndex,maxItems);
+		Session session = sessionHelper.getSession(request);
+		return serviceFactory.getProfileService().getAllProfiles(session.getAccount().getAccountId(),startIndex,maxItems);
 	}
 	
 	
