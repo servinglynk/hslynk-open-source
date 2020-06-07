@@ -11,5 +11,5 @@ public interface ProfileService {
 	Profile updateProfile(Profile profile,String caller);
 	Profile deleteProfile(UUID profileId,String caller);
 	Profile getProfile(UUID profileId);
-	Profiles getAllProfiles(Integer startIndex, Integer maxItems);
+	Profiles getAllProfiles(UUID userId, Integer startIndex, Integer maxItems);
 }
