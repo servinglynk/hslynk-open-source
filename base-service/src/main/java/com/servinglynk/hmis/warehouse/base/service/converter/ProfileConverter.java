@@ -11,6 +11,7 @@ public class ProfileConverter {
 		profile.setId(profileEntity.getId());
 		profile.setProfileDescription(profileEntity.getProfileDescription());
 		profile.setProfileName(profileEntity.getProfileName());		
+		profile.setProfileLevel(profileEntity.getProfileLevel());
 		return profile;
 	}
 
@@ -21,6 +22,7 @@ public class ProfileConverter {
 		}
 		profileEntity.setProfileDescription(profile.getProfileDescription());
 		profileEntity.setProfileName(profile.getProfileName());		
+		profileEntity.setProfileLevel(profile.getProfileLevel());
 		return profileEntity;
 	}
 }
