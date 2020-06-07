@@ -11,6 +11,6 @@ public interface ProfileDao {
 	ProfileEntity updateProfile(ProfileEntity profileEntity);
 	void deleteProfile(ProfileEntity profileEntity);
 	ProfileEntity getProfileById(UUID profileId);
-	List<ProfileEntity> getProfiles(ProfileEntity profile,Integer startIndex, Integer maxItems);
+	List<ProfileEntity> getProfiles(Integer profileLevel,Integer startIndex, Integer maxItems);
 	long getProfileCount();
 }

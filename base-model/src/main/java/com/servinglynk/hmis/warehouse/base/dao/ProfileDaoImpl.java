@@ -33,10 +33,10 @@ public class ProfileDaoImpl extends QueryExecutorImpl implements ProfileDao {
 	}
 
 	@Override
-	public List<ProfileEntity> getProfiles(ProfileEntity profile, Integer startIndex, Integer maxItems) {
+	public List<ProfileEntity> getProfiles(Integer profileLevel, Integer startIndex, Integer maxItems) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(ProfileEntity.class);
-		if(profile != null && profile.getProfileLevel() != null)  {
-			criteria.add(Restrictions.ge("profileLevel", profile.getProfileLevel()));
+		if(profileLevel != null)  {
+			criteria.add(Restrictions.ge("profileLevel", profileLevel));
 		}else {
 			criteria.add(Restrictions.gt("profileLevel", 1));
 		}
