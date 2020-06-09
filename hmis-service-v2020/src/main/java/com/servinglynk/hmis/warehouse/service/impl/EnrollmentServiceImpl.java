@@ -207,4 +207,24 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 			 e.printStackTrace();
 		 }
 	}
+	
+	public void publishChronicHomelessness(com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment, Session session) {
+		 try {
+			  AMQEvent event = new AMQEvent();
+			  event.setEventType("enrollment.chronichomeless");
+			  Map<String, Object> data  = new HashMap<String, Object>();
+			  data.put("sessionToken", session.getToken());
+			  data.put("clientId",session.getClientTypeId());
+			  data.put("userId", session.getAccount().getAccountId());
+			  data.put("projectGroupCode", session.getAccount().getProjectGroup().getProjectGroupCode());
+			  data.put("enrollmentId", enrollment.getId());
+			  data.put("schemaYear", "2020");
+			  event.setPayload(data);
+			  event.setSubsystem("enrollments");
+			  event.setCreatedAt(new Date());
+			  messageSender.sendAmqMessage(event);
+		 }catch (Exception e) {	
+			 e.printStackTrace();
+		 }
+	}
 }
