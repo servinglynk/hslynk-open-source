@@ -1,13 +1,10 @@
 package com.servinglynk.hmis.warehouse;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +22,8 @@ public class ViSpdatView  extends Logging {
 
 	 private SyncHBaseProcessor syncHBaseImport;
 	 private Logger logger;
+	 int inserted =0;
+	 int updated= 0;
 	 
 	 public ViSpdatView(Logger logger) throws Exception {
 	        this.logger = logger;
@@ -70,25 +69,12 @@ public class ViSpdatView  extends Logging {
 	                } else {
 	            	if(!StringUtils.equals(key, previousSubmissionId) && !isFirstRecord) {
 	            		  if(p != null) {
-	            			addColumn("client_id",String.valueOf(response.getClientId()), key, p);
-	                    	addColumn("survey_id",String.valueOf(survey.getSurveyId()), key, p);
-	                    	addColumn("survey_date",getCreatedAtString(response.getSurveyResponseDate()), key, p);
-	     	            	 if (existingKeysInHbase.contains(key)) {
-	     	            		System.out.println("Processing Client: " + response.getClientId());
-	     	            		 	putsToUpdate.add(p);
-	 	     	                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
-	 	     	                            htable.put(putsToUpdate);
-	 	     	                            putsToUpdate.clear();
-	 	     	                        }
-	     	            		 	}
-	     	                      else {
-	     	                    	 System.out.println("Processing Client: " + response.getClientId());
-	     	                        putsToInsert.add(p);
-	     	                        if (putsToInsert.size() > syncHBaseImport.batchSize) {
-	     	                            htable.put(putsToInsert);
-	     	                            putsToInsert.clear();
-	     	                        }
-	     	                    }
+	            			addColumn("client_id",String.valueOf(response.getClientId()), key, p,existingKeysInHbase);
+	                    	addColumn("survey_id",String.valueOf(survey.getSurveyId()), key, p,existingKeysInHbase);
+	                    	addColumn("survey_date",getCreatedAtString(response.getSurveyResponseDate()), key, p,existingKeysInHbase);
+	     	            		 	System.out.println("Processing Client: " + response.getClientId());
+	 	     	                     htable.put(p);
+	 	     	                     updated++;
 	     	                existingKeysInPostgres.add(key);
 	            		  }
 	     	            }
@@ -96,38 +82,24 @@ public class ViSpdatView  extends Logging {
 	                previousSubmissionId = response.getSubmissionId();
 	                isFirstRecord =false;
 	                if(StringUtils.isNotBlank(response.getResponseText())) {
-	                	 System.out.println("Processing Response: " + response.getResponseText());
-	                	 addColumn(response.getQuestionId(),String.valueOf(response.getResponseText()), key, p);
+	                	 System.out.println("Processing Response: " + response.getResponseText() + " for question : "+ response.getQuestionId());
+	                	 addColumn(response.getQuestionId(),String.valueOf(response.getResponseText()), key, p,existingKeysInHbase);
+	                	 htable.put(p);
 	                }
 	            }
-	            if(p != null) {
-	            	 if (existingKeysInHbase.contains(key)) {
-	                        putsToUpdate.add(p);
-	                        if (putsToUpdate.size() > syncHBaseImport.batchSize) {
-	                            htable.put(putsToUpdate);
-	                            putsToUpdate.clear();
-	                        }
-	                    } else {
-	                        putsToInsert.add(p);
-	                        if (putsToInsert.size() > syncHBaseImport.batchSize) {
-	                            htable.put(putsToInsert);
-	                            putsToInsert.clear();
-	                        }
-	                    }
-	                existingKeysInPostgres.add(key);
-	            }
+	            htable.put(p);
 	                   	           
 	            logger.info("Rows to delete for table " + hbaseTable + ": " + putsToDelete.size());
 	            if (putsToDelete.size() > 0) {
 	                syncHBaseImport.deleteDataInBatch(htable, putsToDelete, logger);
 	            }
 
-	            logger.info("Rows to insert for table " + hbaseTable + ": " + putsToInsert.size());
+	            logger.info("Rows to insert for table " + hbaseTable + ": " + updated);
 	            if (putsToInsert.size() > 0) {
 	                htable.put(putsToInsert);
 	            }
 
-	            logger.info("Rows to update for table " + hbaseTable + ": " + putsToUpdate.size());
+	            logger.info("Rows to update for table " + hbaseTable + ": " +updated);
 	            if (putsToUpdate.size() > 0) {
 	                htable.put(putsToUpdate);
 	            }
@@ -140,14 +112,23 @@ public class ViSpdatView  extends Logging {
 	        log.info("Sync done for table: " + hbaseTable);
 	    }
 	 
-	public void addColumn(String column, String value,String key,Put p) {
-		 if(StringUtils.isNotBlank(column) && StringUtils.isNotBlank(value) && p !=null) {
-			  p.addColumn(Bytes.toBytes("CF"),
-	                  Bytes.toBytes(column),
-	                  Bytes.toBytes(value));
+	public void addColumn(String column, String value,String key,Put p,List<String> existingKeysInHbase) {
+		System.out.println(" Add Column :"+column + " value :"+value);
+		 if(StringUtils.isNotBlank(value) && StringUtils.isNotBlank(column) && !StringUtils.equals("null",column)  ) {
+			if(existingKeysInHbase.contains(key)) {
+				System.out.println(" Add Column :"+column + " value :"+value + " update" );
+				  p.add(Bytes.toBytes("CF"),
+		                  Bytes.toBytes(column),
+		                  Bytes.toBytes(value));
+			}else {
+				System.out.println(" Add Column :"+column + " value :"+value + " add column" );
+				p.addColumn(Bytes.toBytes("CF"),
+		                  Bytes.toBytes(column),
+		                  Bytes.toBytes(value));
+			}
+			  
 		 }
 	 }
-	 
 	 private String getCreatedAtString(Timestamp timestamp) {
 		 String pattern = "yyyy-MM-dd HH:mm:ss";
 		    SimpleDateFormat format = new SimpleDateFormat(pattern);
