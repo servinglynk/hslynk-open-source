@@ -39,7 +39,24 @@ public class EnrollmentServiceImpl extends BaseService implements EnrollmentServ
 		}
 	}
 
+	@Override
+	public void calCulateChronicHomelessness(SessionModel sessionModel,String schemaYear) {
+			HttpHeaders headers =  getHttpHeader(sessionModel.getClientId(), sessionModel.getSessionToken());
+			calCulateChronicHomelessness(schemaYear, sessionModel.getClientId(), sessionModel.getEnrollmentId(), headers);
+	}
 	
+	
+	private void calCulateChronicHomelessness(String schemaYear,String clientId, String enrollmentId, HttpHeaders headers) {
+		JSONObjectMapper jsonObjectMapper = new JSONObjectMapper();
+		try {
+			HttpEntity<EnrollmentModel> requestEntity = new HttpEntity<EnrollmentModel>(null,headers);
+			ResponseEntity<EnrollmentModel> responseEntity =	restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+schemaYear+"/rest/clients/"+clientId+"/enrollments/"+enrollmentId+"/calculatechronichomeless", HttpMethod.GET,requestEntity,EnrollmentModel.class);
+			System.out.println("enrollment created "+responseEntity.getStatusCodeValue());
+			System.out.println("enrollment created "+responseEntity.getBody().getEnrollmentId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
 	private Client createClient(Client otherClient, HttpHeaders headers, String schemaYear) {
 		JSONObjectMapper jsonObjectMapper = new JSONObjectMapper();
 		try {
