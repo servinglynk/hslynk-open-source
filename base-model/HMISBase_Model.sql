@@ -1489,3 +1489,9 @@ alter table base.client drop column dob_old;
   alter table "base".client add column last_name_hash_status  "base".hash_status;
   alter table "base".client add column middle_name_hash_status  "base".hash_status;
   alter table "base".client add column ssn_name_hash_status  "base".hash_status;
+  
+  
+  
+  INSERT INTO fileupload.hmis_upload_mimetype (id,upload_type_id,mime_type,max_size_in_kb,display_name) VALUES 
+('0c0ec9a0-d77f-4a51-96da-76e562623c71','eefd2549-7902-4546-8731-6648a02ec7c7','image/png',NULL,'PNG')
+;
