@@ -18,6 +18,7 @@ import com.servinglynk.hmis.warehouse.core.model.HmisHousehold;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.converter.EnrollmentConveter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
@@ -167,6 +168,16 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		return enrollments;
 	}
 	
+	@Override
+	@Transactional
+	public com.servinglynk.hmis.warehouse.core.model.Enrollment calculateChronicHomelessness(
+			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
+		com.servinglynk.hmis.warehouse.model.v2015.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
+		daoFactory.getChronicHomelessCalcHelper().isEnrollmentChronicHomeless(pEnrollment);
+		com.servinglynk.hmis.warehouse.model.v2015.Enrollment updateEnrollment = daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
+		return EnrollmentConveter.entityToModel(updateEnrollment);
+	}
+	
 	public void publishGenericHouseHold(com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment, Session session) {
 		 try {
 			  AMQEvent event = new AMQEvent();
@@ -177,6 +188,25 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 			  data.put("userId", session.getAccount().getAccountId());
 			  data.put("projectGroupCode", session.getAccount().getProjectGroup().getProjectGroupCode());
 			  data.put("enrollemnt", enrollment.toJSONString());
+			  data.put("schemaYear", "2015");
+			  event.setPayload(data);
+			  event.setSubsystem("enrollments");
+			  event.setCreatedAt(new Date());
+			  messageSender.sendAmqMessage(event);
+		 }catch (Exception e) {	
+			 e.printStackTrace();
+		 }
+	}
+	
+	public void publishChronicHomelessCalculation(UUID clientId,UUID enrollmentId, String schemaYear, Session session) {
+		 try {
+			  AMQEvent event = new AMQEvent();
+			  event.setEventType("enrollment.chronichomeless");
+			  Map<String, Object> data  = new HashMap<String, Object>();
+			  data.put("sessionToken", session.getToken());
+			  data.put("clientId",session.getClientTypeId());
+			  data.put("userId", session.getAccount().getAccountId());
+			  data.put("projectGroupCode", session.getAccount().getProjectGroup().getProjectGroupCode());
 			  data.put("schemaYear", "2015");
 			  event.setPayload(data);
 			  event.setSubsystem("enrollments");

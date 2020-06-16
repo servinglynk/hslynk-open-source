@@ -78,7 +78,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Override
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment updateEnrollment(
-			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
+			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
 		com.servinglynk.hmis.warehouse.model.v2020.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
 		if(pEnrollment == null) throw new EnrollmentNotFound();
@@ -102,7 +102,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	 	pEnrollment.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
 		pEnrollment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
-
+		publishChronicHomelessCalculation(clientId, pEnrollment.getId(), "2020", session);
 		return enrollment;
 	}
 
@@ -188,6 +188,16 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		return enrollments;
 	}
 	
+	@Override
+	@Transactional
+	public com.servinglynk.hmis.warehouse.core.model.Enrollment calculateChronicHomelessness(
+			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
+		com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
+		daoFactory.getChronicHomelessCalcHelper().isEnrollmentChronicHomeless(pEnrollment);
+		com.servinglynk.hmis.warehouse.model.v2020.Enrollment updateEnrollment = daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
+		return EnrollmentConveter.entityToModel(updateEnrollment);
+	}
+	
 	public void publishGenericHouseHold(com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment, Session session) {
 		 try {
 			  AMQEvent event = new AMQEvent();
@@ -208,7 +218,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		 }
 	}
 	
-	public void publishChronicHomelessness(com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment, Session session) {
+	public void publishChronicHomelessCalculation(UUID clientId,UUID enrollmentId, String schemaYear, Session session) {
 		 try {
 			  AMQEvent event = new AMQEvent();
 			  event.setEventType("enrollment.chronichomeless");
@@ -217,8 +227,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 			  data.put("clientId",session.getClientTypeId());
 			  data.put("userId", session.getAccount().getAccountId());
 			  data.put("projectGroupCode", session.getAccount().getProjectGroup().getProjectGroupCode());
-			  data.put("enrollmentId", enrollment.getId());
-			  data.put("schemaYear", "2020");
+			  data.put("schemaYear", "2014");
 			  event.setPayload(data);
 			  event.setSubsystem("enrollments");
 			  event.setCreatedAt(new Date());

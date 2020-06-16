@@ -19,6 +19,7 @@ import com.servinglynk.hmis.warehouse.core.model.HmisHousehold;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.converter.EnrollmentConveter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
@@ -74,10 +75,21 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		return enrollment;
 	}
 
+
+	@Override
+	@Transactional
+	public com.servinglynk.hmis.warehouse.core.model.Enrollment calculateChronicHomelessness(
+			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
+		com.servinglynk.hmis.warehouse.model.v2014.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
+		daoFactory.getChronicHomelessCalcHelper().isEnrollmentChronicHomeless(pEnrollment);
+		Enrollment updateEnrollment = daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
+		return EnrollmentConveter.entityToModel(updateEnrollment);
+	}
+	
 	@Override
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment updateEnrollment(
-			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
+			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
 		com.servinglynk.hmis.warehouse.model.v2014.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 		
@@ -96,11 +108,12 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		
 		pEnrollment.setClient(pClient);		
 		pEnrollment.setProject(pProject);
-
+		
 	//	pEnrollment.setUser(daoFactory.getHmisUserDao().findByUsername(caller));
 		pEnrollment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+		
 		daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
-
+		publishChronicHomelessCalculation(clientId, pEnrollment.getId(), "2014", session);
 		return enrollment;
 	}
 
@@ -180,6 +193,25 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 			  data.put("userId", session.getAccount().getAccountId());
 			  data.put("projectGroupCode", session.getAccount().getProjectGroup().getProjectGroupCode());
 			  data.put("enrollemnt", enrollment.toJSONString());
+			  data.put("schemaYear", "2014");
+			  event.setPayload(data);
+			  event.setSubsystem("enrollments");
+			  event.setCreatedAt(new Date());
+			  messageSender.sendAmqMessage(event);
+		 }catch (Exception e) {	
+			 e.printStackTrace();
+		 }
+	}
+	
+	public void publishChronicHomelessCalculation(UUID clientId,UUID enrollmentId, String schemaYear, Session session) {
+		 try {
+			  AMQEvent event = new AMQEvent();
+			  event.setEventType("enrollment.chronichomeless");
+			  Map<String, Object> data  = new HashMap<String, Object>();
+			  data.put("sessionToken", session.getToken());
+			  data.put("clientId",session.getClientTypeId());
+			  data.put("userId", session.getAccount().getAccountId());
+			  data.put("projectGroupCode", session.getAccount().getProjectGroup().getProjectGroupCode());
 			  data.put("schemaYear", "2014");
 			  event.setPayload(data);
 			  event.setSubsystem("enrollments");

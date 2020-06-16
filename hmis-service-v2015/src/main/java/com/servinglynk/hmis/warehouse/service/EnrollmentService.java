@@ -14,4 +14,5 @@ public interface EnrollmentService {
 	Enrollment getEnrollmentByClientIdAndEnrollmentId(UUID enrollmentId,UUID clientId);
 	Enrollment getEnrollmentByEnrollmentId(UUID enrollmentId);
 	Enrollments getEnrollmentsByClientId(UUID clientId,String loginUser,Integer startIndex, Integer maxItems);
+	Enrollment calculateChronicHomelessness(Enrollment enrollment, UUID clientId, String caller, Session session);
 }
