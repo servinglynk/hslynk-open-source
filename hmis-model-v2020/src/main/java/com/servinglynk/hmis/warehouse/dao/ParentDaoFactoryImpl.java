@@ -25,6 +25,7 @@ import com.servinglynk.hmis.warehouse.csv.converter.OrganizationCsvConverter;
 import com.servinglynk.hmis.warehouse.csv.converter.ProjectCocCsvConverter;
 import com.servinglynk.hmis.warehouse.csv.converter.ProjectCsvConverter;
 import com.servinglynk.hmis.warehouse.csv.converter.ServicesCsvConverter;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 
 @Component
 public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDaoFactory {
@@ -105,7 +106,6 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	private ClientDao clientDao;
 	@Autowired
 	private ConnectionWithSoarDao connectionWithSoarDao;
-	
 	@Autowired
 	private BulkUploadActivityDao bulkUploadActivityDao;
 	
@@ -150,7 +150,21 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	@Autowired private OrganizationCsvConverter organizationCsvConverter;
 	@Autowired private ProjectCocCsvConverter projectCocCsvConverter;
 	@Autowired private ServicesCsvConverter servicesCsvConverter;
-	 
+	@Autowired private ChronicHomelessCalcHelper chronicHomelessCalcHelper;
+
+	/**
+	 * @return the chronicHomelessCalcHelper
+	 */
+	public ChronicHomelessCalcHelper getChronicHomelessCalcHelper() {
+		return chronicHomelessCalcHelper;
+	}
+
+	/**
+	 * @param chronicHomelessCalcHelper the chronicHomelessCalcHelper to set
+	 */
+	public void setChronicHomelessCalcHelper(ChronicHomelessCalcHelper chronicHomelessCalcHelper) {
+		this.chronicHomelessCalcHelper = chronicHomelessCalcHelper;
+	}
 
 	/**
 	 * @return the bulkUploaderDao

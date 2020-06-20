@@ -2,6 +2,7 @@ package com.servinglynk.hmis.warehouse.dao;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactory;
 import com.servinglynk.hmis.warehouse.base.dao.BulkUploaderWorkerDao;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 
 public interface ParentDaoFactory extends BaseDaoFactory {
 	
@@ -62,5 +63,6 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	HmisTypeDao getHmisTypeDao();
 	QuestionDao getQuestionDao();
 	HistoryDao getHistoryDao();
+	ChronicHomelessCalcHelper getChronicHomelessCalcHelper();
 	HmisHouseholdDao getHmisHouseholdDao();
 }
