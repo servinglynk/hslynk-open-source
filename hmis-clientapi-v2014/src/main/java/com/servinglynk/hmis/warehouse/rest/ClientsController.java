@@ -150,10 +150,20 @@ public class ClientsController extends ControllerBase {
 	public void updateEnrollment(@RequestBody Enrollment enrollment,@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
 		enrollment.setEnrollmentId(enrollmentId);
-		serviceFactory.getEnrollmentService().updateEnrollment(enrollment, clientId, session.getAccount().getUsername());
+		serviceFactory.getEnrollmentService().updateEnrollment(enrollment, clientId, session.getAccount().getUsername(),session);
 	}
 	
-	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}",method=RequestMethod.DELETE)
+
+	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/calculatechronichomeless",method=RequestMethod.GET)
+	@APIMapping(value="CLIENT_API_GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
+	public Enrollment calculateChronicHomelessness(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
+		Session session = sessionHelper.getSession(request);
+		com.servinglynk.hmis.warehouse.core.model.Enrollment  enrollment = new com.servinglynk.hmis.warehouse.core.model.Enrollment();
+		enrollment.setEnrollmentId(enrollmentId);
+		return serviceFactory.getEnrollmentService().calculateChronicHomelessness(enrollment,clientId,session.getAccount().getUsername(),session);
+	}
+	
+	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/",method=RequestMethod.DELETE)
 	@APIMapping(value="CLIENT_API_DELETE_ENROLLMENT",checkSessionToken=true,checkTrustedApp=true)
 	public void deleteEnrollment(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId
 			,HttpServletRequest request,HttpServletResponse response) throws Exception {

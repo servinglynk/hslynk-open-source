@@ -22,6 +22,7 @@ import com.servinglynk.hmis.warehouse.csv.converter.OrganizationCsvConverter;
 import com.servinglynk.hmis.warehouse.csv.converter.ProjectCocCsvConverter;
 import com.servinglynk.hmis.warehouse.csv.converter.ProjectCsvConverter;
 import com.servinglynk.hmis.warehouse.csv.converter.ServicesCsvConverter;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 
 public interface ParentDaoFactory extends BaseDaoFactory {
 	
@@ -94,6 +95,6 @@ public interface ParentDaoFactory extends BaseDaoFactory {
 	 OrganizationCsvConverter getOrganizationCsvConverter();
 	 ProjectCocCsvConverter	getProjectCocCsvConverter();
 	 ServicesCsvConverter	getServicesCsvConverter();
-	 
-		HmisHouseholdDao getHmisHouseholdDao();
+	 ChronicHomelessCalcHelper getChronicHomelessCalcHelper();
+	 HmisHouseholdDao getHmisHouseholdDao();
 }

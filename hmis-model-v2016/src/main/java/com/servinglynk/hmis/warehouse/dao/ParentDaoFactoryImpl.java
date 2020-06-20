@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.base.dao.BaseDaoFactoryImpl;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 
 @Component
 public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDaoFactory {
@@ -94,7 +95,21 @@ public class ParentDaoFactoryImpl extends BaseDaoFactoryImpl implements ParentDa
 	
 	@Autowired private HmisTypeDao hmisTypeDao;
 	@Autowired private QuestionDao questionDao;
+	@Autowired private ChronicHomelessCalcHelper chronicHomelessCalcHelper;
 
+	/**
+	 * @return the chronicHomelessCalcHelper
+	 */
+	public ChronicHomelessCalcHelper getChronicHomelessCalcHelper() {
+		return chronicHomelessCalcHelper;
+	}
+
+	/**
+	 * @param chronicHomelessCalcHelper the chronicHomelessCalcHelper to set
+	 */
+	public void setChronicHomelessCalcHelper(ChronicHomelessCalcHelper chronicHomelessCalcHelper) {
+		this.chronicHomelessCalcHelper = chronicHomelessCalcHelper;
+	}
 	/**
 	 * @return the bulkUploaderDao
 	 */

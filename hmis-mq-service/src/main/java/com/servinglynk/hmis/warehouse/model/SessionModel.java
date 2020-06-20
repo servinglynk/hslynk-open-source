@@ -8,6 +8,7 @@ public class SessionModel {
 	private String clientId;
 	private String projectGroupCode;
 	private UUID userId;
+	private String enrollmentId;
 	public String getSessionToken() {
 		return sessionToken;
 	}
@@ -32,4 +33,17 @@ public class SessionModel {
 	public void setUserId(UUID userId) {
 		this.userId = userId;
 	}
+	/**
+	 * @return the enrollmentId
+	 */
+	public String getEnrollmentId() {
+		return enrollmentId;
+	}
+	/**
+	 * @param enrollmentId the enrollmentId to set
+	 */
+	public void setEnrollmentId(String enrollmentId) {
+		this.enrollmentId = enrollmentId;
+	}
+	
 }
