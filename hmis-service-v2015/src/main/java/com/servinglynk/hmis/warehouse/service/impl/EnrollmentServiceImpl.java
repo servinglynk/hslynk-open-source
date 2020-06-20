@@ -18,7 +18,6 @@ import com.servinglynk.hmis.warehouse.core.model.HmisHousehold;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
-import com.servinglynk.hmis.warehouse.model.v2014.Enrollment;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.converter.EnrollmentConveter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
@@ -74,7 +73,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Override
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment updateEnrollment(
-			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller) {
+			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
 		com.servinglynk.hmis.warehouse.model.v2015.Client pClient = daoFactory.getClientDao().getClientById(clientId);
 		if(pClient==null) throw new ClientNotFoundException();
 		
@@ -98,7 +97,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	 	pEnrollment.setUserId(daoFactory.getHmisUserDao().findByUsername(caller).getId());
 		pEnrollment.setDateUpdated((new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 		daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
-
+		publishChronicHomelessCalculation(clientId, pEnrollment.getId(), "2015", session);
 		return enrollment;
 	}
 
@@ -168,15 +167,16 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		return enrollments;
 	}
 	
+
 	@Override
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment calculateChronicHomelessness(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
 		com.servinglynk.hmis.warehouse.model.v2015.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
-		daoFactory.getChronicHomelessCalcHelper().isEnrollmentChronicHomeless(pEnrollment);
-		com.servinglynk.hmis.warehouse.model.v2015.Enrollment updateEnrollment = daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
-		return EnrollmentConveter.entityToModel(updateEnrollment);
+		publishChronicHomelessCalculation(clientId, pEnrollment.getId(), "2015", session);
+		return EnrollmentConveter.entityToModel(pEnrollment);
 	}
+	
 	
 	public void publishGenericHouseHold(com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment, Session session) {
 		 try {

@@ -172,9 +172,8 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment calculateChronicHomelessness(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
 		com.servinglynk.hmis.warehouse.model.v2016.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
-		daoFactory.getChronicHomelessCalcHelper().isEnrollmentChronicHomeless(pEnrollment);
-		com.servinglynk.hmis.warehouse.model.v2016.Enrollment updateEnrollment = daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
-		return EnrollmentConveter.entityToModel(updateEnrollment);
+		publishChronicHomelessCalculation(clientId, pEnrollment.getId(), "2016", session);
+		return EnrollmentConveter.entityToModel(pEnrollment);
 	}
 	
 	public void publishGenericHouseHold(com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment, Session session) {

@@ -194,9 +194,8 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment calculateChronicHomelessness(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
 		com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
-		daoFactory.getChronicHomelessCalcHelper().isEnrollmentChronicHomeless(pEnrollment);
-		com.servinglynk.hmis.warehouse.model.v2017.Enrollment updateEnrollment = daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
-		return EnrollmentConveter.entityToModel(updateEnrollment);
+		publishChronicHomelessCalculation(clientId, pEnrollment.getId(), "2017", session);
+		return EnrollmentConveter.entityToModel(pEnrollment);
 	}
 	
 	public void publishGenericHouseHold(com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment, Session session) {
@@ -219,17 +218,17 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 		 }
 	}
 	
-	
 	public void publishChronicHomelessCalculation(UUID clientId,UUID enrollmentId, String schemaYear, Session session) {
 		 try {
 			  AMQEvent event = new AMQEvent();
 			  event.setEventType("enrollment.chronichomeless");
 			  Map<String, Object> data  = new HashMap<String, Object>();
 			  data.put("sessionToken", session.getToken());
-			  data.put("clientId",session.getClientTypeId());
+			  data.put("clientId",clientId);
+			  data.put("enrollmentId", enrollmentId);
 			  data.put("userId", session.getAccount().getAccountId());
 			  data.put("projectGroupCode", session.getAccount().getProjectGroup().getProjectGroupCode());
-			  data.put("schemaYear", "2017");
+			  data.put("schemaYear", schemaYear);
 			  event.setPayload(data);
 			  event.setSubsystem("enrollments");
 			  event.setCreatedAt(new Date());

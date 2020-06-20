@@ -9,7 +9,7 @@ import com.servinglynk.hmis.warehouse.core.model.Session;
 public interface EnrollmentService {
 
 	Enrollment createEnrollment(Enrollment enrollment,UUID clientId,Boolean updateGenericHouseHold, Session session);
-	Enrollment updateEnrollment(Enrollment enrollment,UUID clientId,String caller);
+	Enrollment updateEnrollment(Enrollment enrollment,UUID clientId,String caller, Session session);
 	Enrollment deleteEnrollment(UUID enrollmentId,UUID clientId,String caller);
 	Enrollment getEnrollmentByClientIdAndEnrollmentId(UUID enrollmentId,UUID clientId);
 	Enrollment getEnrollmentByEnrollmentId(UUID enrollmentId);
