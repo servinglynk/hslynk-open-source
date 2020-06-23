@@ -19,6 +19,8 @@ import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Type;
 import org.hibernate.proxy.HibernateProxy;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.servinglynk.hmis.warehouse.enums.ClientDobDataQualityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientEthnicityEnum;
 import com.servinglynk.hmis.warehouse.enums.ClientGenderEnum;
@@ -47,6 +49,7 @@ import com.servinglynk.hmis.warehouse.enums.HashStatusEnum;
             resultClass = Client.class
     )
 })
+@JsonNaming(value = PropertyNamingStrategy.LowerCaseStrategy.class)
 public class Client extends HmisBaseModel implements Cloneable, Serializable {
 
 	/** Serial Version UID. */

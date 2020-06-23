@@ -17,6 +17,7 @@ import java.util.UUID;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 
+import org.apache.activemq.command.ActiveMQQueue;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -24,9 +25,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.JmsException;
+import org.springframework.jms.core.JmsTemplate;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.common.JsonUtil;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
@@ -268,6 +272,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);	
+			createOrUpdatebaseCleint(baseClient);
 			return client;
 	}
 
@@ -279,6 +284,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			update(client);
 			update(baseClient);
 			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), client.isDeleted(), "UPDATE",null,null);
+			createOrUpdatebaseCleint(baseClient);
 		return client;
 	}
 
@@ -368,5 +374,31 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		 insert(basClient);
 		 getCurrentSession().flush();
 		 getCurrentSession().clear();
+	}
+	
+	@Autowired JmsTemplate jmsMessagingTemplate;
+	
+	public void createOrUpdatebaseCleint(com.servinglynk.hmis.warehouse.model.base.Client baseCleint) {
+
+		ActiveMQQueue queue = new ActiveMQQueue("cache.base.cleint");
+		try {
+			jmsMessagingTemplate.convertAndSend(queue,JsonUtil.coneveterObejctToString(baseCleint));
+		} catch (JmsException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteCleint(com.servinglynk.hmis.warehouse.model.base.Client baseCleint) {
+
+		ActiveMQQueue queue = new ActiveMQQueue("delete.cached.base.cleint");
+		try {
+			jmsMessagingTemplate.convertAndSend(queue, baseCleint);
+		} catch (JmsException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

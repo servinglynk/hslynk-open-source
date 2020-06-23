@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.Criterion;
@@ -23,9 +24,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.JmsException;
+import org.springframework.jms.core.JmsTemplate;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.common.JsonUtil;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
@@ -251,6 +255,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);
+			createOrUpdatebaseCleint(baseClient);
 			return client;
 	}
 
@@ -261,6 +266,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		baseClient.setSchemaYear("2017");
 			update(client);
 			update(baseClient);
+			createOrUpdatebaseCleint(baseClient);
 		return client;
 	}
 
@@ -359,5 +365,31 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	    	logger.error("Error populate dedup id for client: "+client.getId() + " name :"+ client.getFirstName(),e);
 	    }
 	    
+	}
+	
+	@Autowired JmsTemplate jmsMessagingTemplate;
+	
+	public void createOrUpdatebaseCleint(com.servinglynk.hmis.warehouse.model.base.Client baseCleint) {
+
+		ActiveMQQueue queue = new ActiveMQQueue("cache.base.cleint");
+		try {
+			jmsMessagingTemplate.convertAndSend(queue,JsonUtil.coneveterObejctToString(baseCleint));
+		} catch (JmsException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteCleint(com.servinglynk.hmis.warehouse.model.base.Client baseCleint) {
+
+		ActiveMQQueue queue = new ActiveMQQueue("delete.cached.base.cleint");
+		try {
+			jmsMessagingTemplate.convertAndSend(queue, baseCleint);
+		} catch (JmsException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
