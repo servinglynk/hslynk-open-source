@@ -530,8 +530,8 @@
 		<module>fileupload-core</module>
 		<module>hmis-mq-service</module>
 		<module>mq-core-client</module>
+		<module>hmis-pupsub-service</module>
 		<module>admin</module>
-
 	</modules>
 	<distributionManagement>
 		<repository>
