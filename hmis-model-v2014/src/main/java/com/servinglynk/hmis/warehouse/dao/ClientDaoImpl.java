@@ -3,18 +3,13 @@
  */
 package com.servinglynk.hmis.warehouse.dao;
 
-import java.text.DateFormat;
-import java.text.Format;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -22,10 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.JmsException;
+import org.springframework.jms.core.JmsTemplate;
 
 import com.servinglynk.hmis.warehouse.base.util.DedupHelper;
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
-import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
+import com.servinglynk.hmis.warehouse.common.JsonUtil;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export.Client;
@@ -212,6 +209,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			insert(client);
 			baseClient.setId(client.getId());
 			insert(baseClient);	
+			createOrUpdatebaseCleint(baseClient);
 		return client;
 	}
 
@@ -232,6 +230,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			update(client);
 			update(baseClient);
 			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), client.isDeleted(), "UPDATE", null, null);
+			createOrUpdatebaseCleint(baseClient);
 		return client;
 	}
 
@@ -241,6 +240,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client client) {
 			delete(client);
 			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), true, "DELETE",null,null);
+		//	deleteCleint(baseCleint);
 	}
 
 
@@ -323,5 +323,31 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Client.class);	
 		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
 		return countRows(criteria);
+	}
+	
+	@Autowired JmsTemplate jmsMessagingTemplate;
+	
+	public void createOrUpdatebaseCleint(com.servinglynk.hmis.warehouse.model.base.Client baseCleint) {
+
+		ActiveMQQueue queue = new ActiveMQQueue("cache.base.cleint");
+		try {
+			jmsMessagingTemplate.convertAndSend(queue,JsonUtil.coneveterObejctToString(baseCleint));
+		} catch (JmsException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteCleint(com.servinglynk.hmis.warehouse.model.base.Client baseCleint) {
+
+		ActiveMQQueue queue = new ActiveMQQueue("delete.cached.base.cleint");
+		try {
+			jmsMessagingTemplate.convertAndSend(queue, baseCleint);
+		} catch (JmsException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

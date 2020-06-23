@@ -8,14 +8,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.JmsException;
+import org.springframework.jms.core.JmsTemplate;
 
 import com.servinglynk.hmis.warehouse.base.util.ErrorType;
+import com.servinglynk.hmis.warehouse.common.JsonUtil;
 import com.servinglynk.hmis.warehouse.domain.ExportDomain;
 import com.servinglynk.hmis.warehouse.domain.Sources.Source.Export;
 import com.servinglynk.hmis.warehouse.domain.SyncDomain;
@@ -205,6 +209,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 
 	}
 	
+	@Autowired JmsTemplate jmsMessagingTemplate;
+	
 	public void createClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2017.Enrollment enrollment) {
 		ClientMetaDataEntity metaDataEntity = new ClientMetaDataEntity();
 		metaDataEntity.setId(UUID.randomUUID());
@@ -220,6 +226,15 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		metaDataEntity.setUserId(enrollment.getUserId());
 		metaDataEntity.setAdditionalInfo("{\"enrollmentId\":\""+enrollment.getId()+"\",\"schemaYear\":\"2017\",\"clientId\":\""+enrollment.getClient().getId()+"\"}");
 		parentDaoFactory.getClientMetaDataDao().createClientMetaData(metaDataEntity);
+		
+		ActiveMQQueue queue = new ActiveMQQueue("cache.cleint.metadtata");
+		try {
+			jmsMessagingTemplate.convertAndSend(queue,JsonUtil.coneveterObejctToString(metaDataEntity));
+		} catch (JmsException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void deleteClientMedataInfo(com.servinglynk.hmis.warehouse.model.v2017.Enrollment enrollment) {

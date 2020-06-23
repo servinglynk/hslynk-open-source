@@ -17,7 +17,8 @@ public class SearchRequest
 String projectGroupCode;
 Boolean isProcSearch;
 UUID userId;
-
+Integer startIndex;
+Integer maxItems;
 List<UUID> clients = new ArrayList<>();
 
 private Map<String, Object> searchParams= new HashMap<String,Object>();
@@ -121,4 +122,21 @@ public UUID getUserId() {
 public void setUserId(UUID userId) {
 	this.userId = userId;
 }
+
+public Integer getStartIndex() {
+	return startIndex;
+}
+
+public void setStartIndex(Integer startIndex) {
+	this.startIndex = startIndex;
+}
+
+public Integer getMaxItems() {
+	return maxItems;
+}
+
+public void setMaxItems(Integer maxItems) {
+	this.maxItems = maxItems;
+}
+
 }
