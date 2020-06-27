@@ -78,7 +78,12 @@ public class ClientConsentServiceImpl extends ServiceBase implements ClientConse
 	public ClientConsent getClientConsentId(UUID clientConsentId) {
 		ClientConsentEntity entity = daoFactory.getClientConsentDao().getClientConsentId(clientConsentId);
 		if(entity == null) throw new ResourceNotFoundException(" Client Consent not found "+clientConsentId);
-		return ClientConsentConverter.entityToModel(entity);
+		ClientConsent model = ClientConsentConverter.entityToModel(entity);
+		List<ClientConsentProjectMapEntity> projectMapEntities = daoFactory.getClientConsentDao().getClientConsentProjectMap(entity.getId());
+		for(ClientConsentProjectMapEntity mapEntity : projectMapEntities) {
+			model.addGlobalProject(GlobalProjectConveter.entityToModel(mapEntity.getGlobalProject()));
+		}	
+		return model;
 	}
 
 	@Transactional
