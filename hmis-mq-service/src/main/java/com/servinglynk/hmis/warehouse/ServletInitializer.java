@@ -1,9 +1,9 @@
 package com.servinglynk.hmis.warehouse;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.web.WebApplicationInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-public class ServletInitializer extends org.springframework.boot.web.support.SpringBootServletInitializer { //implements WebApplicationInitializer {
+public class ServletInitializer extends SpringBootServletInitializer { //implements WebApplicationInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

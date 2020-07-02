@@ -77,6 +77,8 @@ public class GlobalHouseHoldServiceImpl extends BaseService implements  GlobalHo
 		ClientMetaDataEntity entity = daoFactory.getClientMetaDataRepository().findFirstByMetaDataIdentifier(metaData.getMetaDataIdentifier());
 		ClientMetaDataEntity entity2 = ClientMetaDataConverter.modelToEntity(entity, metaData);
 		daoFactory.getClientMetaDataRepository().save(entity2);
+		
+		clientMetaDataService.indexClientMetadata(entity2);
 	}
 	
 	@Transactional

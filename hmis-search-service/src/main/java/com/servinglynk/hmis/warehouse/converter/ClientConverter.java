@@ -14,8 +14,8 @@ public class ClientConverter {
 			BaseClient client = new BaseClient();
 		    if(pClient.getDob()!=null)
 			client.setDob(pClient.getDob());
-		    if(pClient.getDobDataQuality()!=null)
-			client.setDobDataQuality(Integer.parseInt(pClient.getDobDataQuality().getValue()));
+		    if(pClient.getDobdataquality()!=null)
+			client.setDobDataQuality(Integer.parseInt(pClient.getDobdataquality().getValue()));
 		    if(pClient.getEthnicity()!=null)
 			client.setEthnicity(Integer.parseInt(pClient.getEthnicity().getValue()));
 		    if(pClient.getFirstname()!=null)

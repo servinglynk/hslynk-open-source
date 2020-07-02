@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.common;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -39,7 +38,7 @@ public class JsonUtil {
 		mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES,true);
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE);
 		  SimpleModule simpleModule = new SimpleModule();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		  simpleModule.addSerializer(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
 				@Override
 				public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers)
@@ -71,7 +70,13 @@ public class JsonUtil {
 			@Override
 			public Date deserialize(JsonParser p, DeserializationContext ctxt)
 					throws IOException, JsonProcessingException {
-				return new Date(p.getLongValue());
+				try {
+					return 	dateFormat.parse(p.getText());
+				} catch (Exception e) {					
+					e.printStackTrace();
+				}
+				return null;
+				//return new Date(p.getLongValue());
 			}
 			
 		});

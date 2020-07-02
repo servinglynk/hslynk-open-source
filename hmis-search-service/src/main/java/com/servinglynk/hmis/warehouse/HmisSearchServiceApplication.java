@@ -1,12 +1,7 @@
 package com.servinglynk.hmis.warehouse;
 
-import java.net.InetAddress;
-
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -22,6 +17,12 @@ import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
+import com.servinglynk.hmis.warehouse.rest.interceptor.ApiMehtodAuthCheckInterceptor;
 
 @SpringBootApplication
 @EnableJms
@@ -31,7 +32,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableElasticsearchRepositories(basePackages ="com.servinglynk.hmis.warehouse.repository" )
 @ComponentScan(basePackages =  { "com.servinglynk.hmis.warehouse"})
 @EntityScan("com.servinglynk.hmis.warehouse.model")
-public class HmisPupsubServiceApplication {
+public class HmisSearchServiceApplication extends WebMvcConfigurerAdapter  {
 
 	
 	
@@ -75,7 +76,7 @@ public class HmisPupsubServiceApplication {
 		
 		  @Bean public RestHighLevelClient restClient() {
 			  ClientConfiguration clientConfiguration = ClientConfiguration.builder() 
-				      .connectedTo("vpc-dev-es-68-mwqonyq2crqavdgsiif2vrltbu.us-west-2.es.amazonaws.com:443")
+				      .connectedTo(env.getProperty("es.service.url"))
 				      .usingSsl()
 				    //  .withConnectTimeout(millis)
 				      .build();
@@ -84,4 +85,26 @@ public class HmisPupsubServiceApplication {
 
 		  
 		  }
+		  
+		  
+		  @Bean
+			public TrustedAppHelper trustedAppHelper(){
+				return new TrustedAppHelper();
+			}
+			
+			
+			@Bean
+			public SessionHelper sessionHelper(){
+				return new SessionHelper();
+			}
+
+			@Bean
+			ApiMehtodAuthCheckInterceptor apiMehtodAuthCheckInterceptor() {
+				return new ApiMehtodAuthCheckInterceptor();
+			}
+			 
+				 @Override
+			    public void addInterceptors(InterceptorRegistry registry) {
+			        registry.addInterceptor(apiMehtodAuthCheckInterceptor());
+				 }
 }

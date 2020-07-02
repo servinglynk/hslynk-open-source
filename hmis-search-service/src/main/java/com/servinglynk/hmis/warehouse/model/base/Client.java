@@ -41,7 +41,7 @@ public class Client implements Cloneable, Serializable {
 	private String id;
 	@Field(name ="dedupclientid",fielddata = true,type = FieldType.Text)
 	private String dedupclientid;
-	private ClientDobDataQualityEnum dobDataQuality;
+	private ClientDobDataQualityEnum dobdataquality;
 	private ClientEthnicityEnum ethnicity;
 	@Field(name="firstname",fielddata = true,type = FieldType.Text)
 	private String firstname;
@@ -102,11 +102,11 @@ public class Client implements Cloneable, Serializable {
 	public void setDedupclientid(String dedupclientid) {
 		this.dedupclientid = dedupclientid;
 	}
-	public ClientDobDataQualityEnum getDobDataQuality() {
-		return dobDataQuality;
+	public ClientDobDataQualityEnum getDobdataquality() {
+		return dobdataquality;
 	}
-	public void setDobDataQuality(ClientDobDataQualityEnum dobDataQuality) {
-		this.dobDataQuality = dobDataQuality;
+	public void setDobdataquality(ClientDobDataQualityEnum dobdataquality) {
+		this.dobdataquality = dobdataquality;
 	}
 	public ClientEthnicityEnum getEthnicity() {
 		return ethnicity;
