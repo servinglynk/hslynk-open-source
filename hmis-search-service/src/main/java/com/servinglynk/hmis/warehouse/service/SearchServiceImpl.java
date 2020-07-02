@@ -19,8 +19,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.swing.plaf.ListUI;
 
+import org.apache.catalina.security.SecurityUtil;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -30,8 +30,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -39,7 +37,6 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.servinglynk.hmis.warehouse.common.JsonUtil;
 import com.servinglynk.hmis.warehouse.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.ActionLink;
@@ -53,6 +50,7 @@ import com.servinglynk.hmis.warehouse.model.base.Client;
 import com.servinglynk.hmis.warehouse.model.base.ClientMetaData;
 import com.servinglynk.hmis.warehouse.repository.ClientElasticRepository;
 import com.servinglynk.hmis.warehouse.repository.ClientMetaDataRepository;
+import com.servinglynk.hmis.warehouse.util.SecurityContextUtil;
 
 @Service
 public class SearchServiceImpl extends BaseService implements SearchService {
@@ -77,7 +75,7 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 			   UUID.fromString(searchRequest.getFreeText());
 			   Sort sort = Sort.by("dedupclientid").descending();
 			   Pageable page = PageRequest.of(this.getPageNumber(searchRequest.getStartIndex(), searchRequest.getMaxItems()), searchRequest.getMaxItems(),sort);
-				Page<Client>  clients = clientRepository.findByDedupclientidOrId(searchRequest.getFreeText(),searchRequest.getFreeText(),page);
+				Page<Client>  clients = clientRepository.findByDedupclientidOrIdAndProjectgroupcode(searchRequest.getFreeText(),searchRequest.getFreeText(),SecurityContextUtil.getUserProjectGroup(),page);
 				dedupIdFilter = false;
 				queryExecuted = true;
 				total = clients.getContent().size();
@@ -97,7 +95,7 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 			   calStart.set(Calendar.SECOND, 0);
 			   calStart.set(Calendar.MILLISECOND, 0);
 			   Sort sort = Sort.by("dedupclientid").descending();
-			 List<Client> clients = clientRepository.findByDobBetween(calStart.getTime().getTime(),(calStart.getTime().getTime()+86399000),sort);
+			 List<Client> clients = clientRepository.findByDobBetweenAndProjectgroupcode(calStart.getTime().getTime(),(calStart.getTime().getTime()+86399000),SecurityContextUtil.getUserProjectGroup(),sort);
 			 dedupIdFilter = true;
 				queryExecuted = true;
 				
@@ -109,10 +107,9 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 	   // filter by name , ssn , sourceSystemId
 		   if(!queryExecuted) {
 			   Sort sort = Sort.by("dedupclientid").descending();
-				List<Client> clients = clientRepository.findByFullnameContainsOrNameContainsOrSsnOrSourcesystemidAndProjectgroupcode(searchRequest.getFreeText(),searchRequest.getFreeText(),searchRequest.getFreeText(),searchRequest.getFreeText(),"PG0001",sort);
+				List<Client> clients = clientRepository.findByNameAndProjectgroupcode(searchRequest.getFreeText(),SecurityContextUtil.getUserProjectGroup(),sort);
 				dedupIdFilter = true;
 				queryExecuted = true;
-				
 				filterClients = new ArrayList<Client>(clients);
 		   }
 		   List<Client> clients = new ArrayList<Client>();
@@ -244,8 +241,20 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 	//	criteria.add(Restrictions.eq("projectGroupCode", "HO0002"));
 		List<Client> clients =	criteria.getExecutableCriteria(session).list();
 		for(Client client : clients) {
-		//	listener.createClient(JsonUtil.coneveterObejctToString(client));
+			listener.cacheClient(JsonUtil.coneveterObejctToString(client));
 		}
 		
 	}
+	/*
+	public void cacheClientMetadatas() throws Exception  {
+		Session session = entityManager.unwrap(Session.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientMetaDataEntity.class);
+		criteria.add(Restrictions.eq("deleted", false));
+	//	criteria.add(Restrictions.eq("projectGroupCode", "HO0002"));
+		List<Client> clients =	criteria.getExecutableCriteria(session).list();
+		for(Client client : clients) {
+			listener.cacheClient(JsonUtil.coneveterObejctToString(client));
+		}
+	
+	} */
 }

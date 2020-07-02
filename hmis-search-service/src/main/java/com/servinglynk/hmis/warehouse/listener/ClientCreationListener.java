@@ -17,11 +17,11 @@ public class ClientCreationListener {
 	@JmsListener(destination = "cache.base.cleint")
 	public void cacheClient(String client) {
 		try {
-			
+			System.out.println("cleint Data "+client);
 		Client clientEntity = JsonUtil.getObjectMapper().readValue(client, Client.class);
 		clientEntity.setFullname(StringUtils.join(clientEntity.getFirstname(),clientEntity.getMiddlename(),clientEntity.getLastname()));
 		clientEntity.setName(StringUtils.join(clientEntity.getFirstname(),clientEntity.getLastname()));	
-		if(clientEntity.getParentid()!=null && !clientEntity.isDeleted() && clientEntity.getDedupclientid()!=null)
+		if(clientEntity.getParentid()==null && !clientEntity.isDeleted() && clientEntity.getDedupclientid()!=null)
 			clientElasticRepository.save(clientEntity);
 		}catch (Exception e) {
 			e.printStackTrace();

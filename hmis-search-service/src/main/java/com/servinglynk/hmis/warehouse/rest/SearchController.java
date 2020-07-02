@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.model.SearchRequest;
 import com.servinglynk.hmis.warehouse.model.SearchResults;
 import com.servinglynk.hmis.warehouse.service.SearchService;
@@ -21,7 +22,7 @@ public class SearchController {
 	@Autowired SearchService searchService;
 	
 		@RequestMapping(method = RequestMethod.GET,value =  "/{searchentity}")
-		
+		@APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=true, checkTrustedApp=true)
 	  public SearchResults baseSearch( @PathVariable("searchentity") String searchentity,
 			  @RequestParam(value="q", required=false,defaultValue="") String searchterm, 
 			  @RequestParam(value="consentGroupId",required=false) String consentGroupId,

@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 
+import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,8 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
+import org.springframework.data.elasticsearch.client.ClientConfiguration;
+import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
@@ -89,5 +92,18 @@ public class HmisMqServiceApplication {
  
         return xmlConverter;
 	}
+	
+	
+	  @Bean public RestHighLevelClient restClient() {
+		  ClientConfiguration clientConfiguration = ClientConfiguration.builder() 
+			      .connectedTo(env.getProperty("es.service.url"))
+			      .usingSsl()
+			  //    .withConnectTimeout(millis)
+			      .build();
+
+			    return RestClients.create(clientConfiguration).rest(); 
+
+	  
+	  }
 	
 }
