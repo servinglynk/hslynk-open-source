@@ -12,11 +12,10 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import com.servinglynk.hmis.warehouse.model.base.Client;
 
 //@Repository
-public interface ClientElasticRepository  extends ElasticsearchRepository<Client, String>{ 
+public interface ClientElasticRepository  extends ElasticsearchRepository<Client, String> , ClientCustomRepository { 
 //	List<Client> findByFirstName(String name);
 	
-	@Query(value = "{\"match\": {\"dedupclientid\": {\"query\": \"?0\"}}}")
-	List<Client> findByDedupClientId(String dedupClientId);
+	List<Client> findByNameAndProjectgroupcode(String dedupClientId,String projecrGroupCode,Sort sort);
 	
 	List<Client> findByDedupclientid(String dedupClientId);
 
@@ -34,4 +33,13 @@ public interface ClientElasticRepository  extends ElasticsearchRepository<Client
 			String freeText3, String freeText4, String string, Sort sort);
 
 	List<Client> findByDobBetween(Long date, Long date2, Sort sort);
+
+	Page<Client> findByDedupclientidOrIdAndProjectgroupcode(String freeText, String freeText2, String string,
+			Pageable page);
+
+	List<Client> findByDobBetweenAndProjectgroupcode(long time, long l, String string, Sort sort);
+	
+
+	List<Client> findByProjectgroupcodeAndFullnameContainsOrNameContainsOrSsnOrSourcesystemid(String freeText,
+			String freeText2, String freeText3, String freeText4, String string, Sort sort);
 }

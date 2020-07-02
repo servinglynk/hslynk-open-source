@@ -8,12 +8,12 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class PropertyReader {
 	
-	private final static Logger logger = Logger.getLogger(PropertyReader.class);
+//	private final static Logger logger = Logger.getLogger(PropertyReader.class);
 
 	private Properties properties = new Properties();
 	
@@ -62,18 +62,20 @@ public class PropertyReader {
 				}
 			}
 		} catch (SQLException exc) {
-			logger.error("Failed to initialize property cache for table[" + table + "] service [" + serviceName + "] ", exc);
+			System.out.println("Failed to initialize property cache for table[" + table + "] service [" + serviceName + "] ");
+			exc.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				pstmt.close();
 				conn.close();
 			} catch (Exception exc) {
-				logger.error("Failed to close rs, pstmt, conn!", exc);
+				System.out.println("Failed to close rs, pstmt, conn!");
+				exc.printStackTrace();
 			}
 		}
 		
-		logger.info("Initializing property cache for table[" + table + "] service [" + serviceName + "] .........................END");
+		System.out.println("Initializing property cache for table[" + table + "] service [" + serviceName + "] .........................END");
 	}
 
 
