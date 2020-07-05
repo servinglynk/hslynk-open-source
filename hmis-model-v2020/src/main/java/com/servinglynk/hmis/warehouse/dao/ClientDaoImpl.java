@@ -141,7 +141,9 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						target.setId(clientModel.getId());
 						target.setDedupClientId(clientModel.getDedupClientId());
 						insertOrUpdate(target);	
+						createOrUpdatebaseCleint(target);
 					}
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 					String errorMessage = "Exception beause of the client::" + client.toString() + " Exception ::" + e.getMessage();
