@@ -155,6 +155,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 						target.setSchemaYear("2016");
 						target.setDedupClientId(clientModel.getDedupClientId());
 						insertOrUpdate(target);	
+						createOrUpdatebaseCleint(target);
 					}
 //					}
 				} catch (Exception e) {

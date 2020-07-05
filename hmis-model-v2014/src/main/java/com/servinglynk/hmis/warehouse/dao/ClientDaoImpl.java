@@ -142,6 +142,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 				target.setSchemaYear("2014");
 				target.setDedupClientId(model.getDedupClientId());
 				insertOrUpdate(target);	
+				createOrUpdatebaseCleint(target);
 			}
 			// Inserting client in base schema		
 		
