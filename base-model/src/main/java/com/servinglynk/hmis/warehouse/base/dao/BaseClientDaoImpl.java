@@ -54,4 +54,13 @@ public class BaseClientDaoImpl extends QueryExecutorImpl implements BaseClientDa
 		return countRows(criteria);
 	}
 
+	@Override
+	public List<Client> getAllClients() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
+		criteria.add(Restrictions.isNotNull("dedupClientId"));
+		criteria.add(Restrictions.isNull("parentId"));
+		criteria.add(Restrictions.eq("deleted", false));
+		return (List<Client>) find(criteria);
+	}
+
 }

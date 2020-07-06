@@ -22,7 +22,6 @@ public class EnrollmentServiceImpl extends BaseService implements EnrollmentServ
 	
 	@Autowired RestTemplate restTemplate;
 	
-	@Override
 	public void updateEnrollment(EnrollmentModel enrollment,SessionModel sessionModel,String schemaYear) {
 		
 		UUID geniricHousehold = enrollment.getGenericHouseHoldId();
@@ -39,7 +38,6 @@ public class EnrollmentServiceImpl extends BaseService implements EnrollmentServ
 		}
 	}
 
-	@Override
 	public void calCulateChronicHomelessness(SessionModel sessionModel,String schemaYear) {
 			HttpHeaders headers =  getHttpHeader(sessionModel.getClientId(), sessionModel.getSessionToken());
 			calCulateChronicHomelessness(schemaYear, sessionModel.getClientId(), sessionModel.getEnrollmentId(), headers);

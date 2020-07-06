@@ -241,7 +241,7 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 			com.servinglynk.hmis.warehouse.model.v2014.Client client) {
 			delete(client);
 			daoFactory.getClientTrackerDao().createTracker(client.getId(), client.getProjectGroupCode(), true, "DELETE",null,null);
-		//	deleteCleint(baseCleint);
+			deleteCacheClient(client);
 	}
 
 
@@ -340,11 +340,11 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 		}
 	}
 
-	public void deleteCleint(com.servinglynk.hmis.warehouse.model.base.Client baseCleint) {
+	public void deleteCacheClient(com.servinglynk.hmis.warehouse.model.v2014.Client client) {
 
 		ActiveMQQueue queue = new ActiveMQQueue("delete.cached.base.cleint");
 		try {
-			jmsMessagingTemplate.convertAndSend(queue, baseCleint);
+			jmsMessagingTemplate.convertAndSend(queue, client.getId()+"");
 		} catch (JmsException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

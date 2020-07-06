@@ -20,6 +20,17 @@
 	</properties>
 
 	<dependencies>
+	<dependency>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+		<artifactId>mq-core-client</artifactId>
+		<version>2.22.24</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-all</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
 		<dependency>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 		<artifactId>hmis-base-serialize</artifactId>

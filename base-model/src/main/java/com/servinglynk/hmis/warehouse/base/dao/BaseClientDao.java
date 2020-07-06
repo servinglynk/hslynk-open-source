@@ -13,4 +13,5 @@ public interface BaseClientDao {
 	void updateClient(Client client);
 	List<Client> getClientsByDedupId(UUID dedupId,Integer startIndex,Integer maxResults);
 	Long getClientsCountByDedupId(UUID dedupId);
+	List<Client> getAllClients();
 }
