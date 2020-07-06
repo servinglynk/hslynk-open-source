@@ -42,7 +42,9 @@ public class ClientCustomRepositoryImpl implements ClientCustomRepository {
 		Criteria pgcodeCriteria = new Criteria("projectgroupcode").is(projectGroupCode);		
 		Criteria criteria = idCriteria.or(dedupIdCriteria);
 		Criteria finalCriteria = criteria.and(pgcodeCriteria);
-		
+		if(page == null) {
+			return elasticsearchOperations.queryForPage(new CriteriaQuery(finalCriteria), Client.class);
+		}
 		return elasticsearchOperations.queryForPage(new CriteriaQuery(finalCriteria,page), Client.class);
 
 	}

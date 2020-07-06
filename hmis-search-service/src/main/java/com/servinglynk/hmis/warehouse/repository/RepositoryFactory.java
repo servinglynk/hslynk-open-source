@@ -11,6 +11,8 @@ public class RepositoryFactory {
 	//@Autowired
 	ClientRepository clientRepository;
 	
+	@Autowired
+	ClientMetaDataRepository clientMetaDataRepository;
 	
 	public ClientElasticRepository getClientElasticRepository() {
 		return clientElasticRepository;
@@ -23,5 +25,11 @@ public class RepositoryFactory {
 	}
 	public void setClientRepository(ClientRepository clientRepository) {
 		this.clientRepository = clientRepository;
+	}
+	public ClientMetaDataRepository getClientMetaDataRepository() {
+		return clientMetaDataRepository;
+	}
+	public void setClientMetaDataRepository(ClientMetaDataRepository clientMetaDataRepository) {
+		this.clientMetaDataRepository = clientMetaDataRepository;
 	}	
 }

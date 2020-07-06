@@ -21,6 +21,7 @@ public class ClientManagementDaoImpl implements ClientManagementDao {
 		session.createSQLQuery(query).list();
 	}
 
+	@Override
 	public void mergeClientIdentities(UUID currentDedupId, UUID targetDedupId, UUID clientId, String projectGroupCode) {
 		Session session = entityManager.unwrap(Session.class);
 		String query = "select * from base.\"mergeClientIdenties\" ('"+currentDedupId+"','"+targetDedupId+"','"+clientId+"','"+projectGroupCode+"')";
@@ -28,6 +29,7 @@ public class ClientManagementDaoImpl implements ClientManagementDao {
 		session.createSQLQuery(query).list();
 	}
 
+	@Override
 	public List<UUID> getMergeableClients(UUID clientDedupId, String projectGroupCode) {
 		Session session = entityManager.unwrap(Session.class);
 		String query ="select * from base.client where dedup_client_id = '"+clientDedupId+"' and project_group_code ='"+projectGroupCode+"'";

@@ -1,5 +1,8 @@
 package com.servinglynk.hmis.warehouse.service;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,12 @@ public class ClientManagementServiceImpl extends BaseService implements ClientMa
 
 	@Transactional
 	public void mergeClientIdentities(ClientMetaDataModel model) {
+		
+		List<UUID> cleintIds =	daoFactory.getClientManagementDao().getMergeableClients(model.getClientDedupId(),model.getProjectGroupCode());
+		for(UUID clientId : cleintIds) {
+			
+		}
+		
 		daoFactory.getClientManagementDao().mergeClientIdentities(model.getClientDedupId(),model.getNewDedulClientId(),model.getClientId() ,model.getProjectGroupCode());
 		
 	}

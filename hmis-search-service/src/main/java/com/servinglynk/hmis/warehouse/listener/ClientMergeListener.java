@@ -2,18 +2,25 @@ package com.servinglynk.hmis.warehouse.listener;
 
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.ClientMetaDataModel;
 import com.servinglynk.hmis.warehouse.model.JSONObjectMapper;
+import com.servinglynk.hmis.warehouse.service.ClientManagementService;
 
-//@Component
-public class ClientMergeListener extends BaseListener {
+@Component
+public class ClientMergeListener  {
+	
+	@Autowired ClientManagementService clientManagementService;
 
-	//@JmsListener(destination="client.merge")
+	@JmsListener(destination="client.merge")
 	public void listeneQueue(String eventString) {
+		
+
+		
 		System.out.println("inside client.merge listener");
 		JSONObjectMapper mapper = new JSONObjectMapper();
 		try {
@@ -27,7 +34,7 @@ public class ClientMergeListener extends BaseListener {
 			if(event.getPayload().get("projectGroupCode")!=null) model.setProjectGroupCode(event.getPayload().get("projectGroupCode").toString());
 			model.setType(event.getEventType());
 
-				serviceFactory.getClientManagementService().mergeClientIdentities(model);
+			clientManagementService.mergeClientIdentities(model);
 			
 		}catch (Exception e) {
 		e.printStackTrace();	
