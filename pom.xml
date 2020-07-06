@@ -474,7 +474,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.0</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
@@ -529,9 +528,9 @@
 		<module>client-dedup</module>
 		<module>globalapi</module>
 		<module>fileupload-core</module>
-		 <module>hmis-mq-service</module> 
+		 <!-- <module>hmis-mq-service</module>  -->
 		<module>mq-core-client</module>
-		 <module>hmis-search-service</module> 
+		<!--  <module>hmis-search-service</module>  -->
 		<module>admin</module>
 		
 	</modules>
