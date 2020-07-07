@@ -277,7 +277,7 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 	public void deleteClient(
 			com.servinglynk.hmis.warehouse.model.v2017.Client client) {
 			delete(client);
-		
+			deleteCacheClient(client);
 	}
 
 
@@ -383,11 +383,11 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 		}
 	}
 
-	public void deleteCleint(com.servinglynk.hmis.warehouse.model.base.Client baseCleint) {
+	public void deleteCacheClient(com.servinglynk.hmis.warehouse.model.v2017.Client client) {
 
 		ActiveMQQueue queue = new ActiveMQQueue("delete.cached.base.cleint");
 		try {
-			jmsMessagingTemplate.convertAndSend(queue, baseCleint);
+			jmsMessagingTemplate.convertAndSend(queue,  client.getId()+"");
 		} catch (JmsException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

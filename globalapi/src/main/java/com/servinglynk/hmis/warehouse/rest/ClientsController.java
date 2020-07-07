@@ -55,4 +55,16 @@ public class ClientsController extends ControllerBase {
 		Session session = sessionHelper.getSession(request);
 		return serviceFactory.getBaseClientsService().unmergeClient(client, session.getAccount().getUsername(), clientId);
 	}
+	
+	@RequestMapping(value = "/clients", method = RequestMethod.POST)
+	@APIMapping(value = "CLIENT_API_UNMERGE", checkSessionToken = false, checkTrustedApp = false) 
+	public void elasticCacheData() {
+		serviceFactory.getBaseClientsService().cacheClientData();
+	}
+	
+	@RequestMapping(value = "/clientsmetadata", method = RequestMethod.POST)
+	@APIMapping(value = "CLIENT_API_UNMERGE", checkSessionToken = false, checkTrustedApp = false) 
+	public void elasticCacheMetaData() {
+		serviceFactory.getBaseClientsService().cacheClientMetaData();;
+	}
 }

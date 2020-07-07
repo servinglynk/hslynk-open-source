@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
@@ -32,6 +33,7 @@ import com.servinglynk.hmis.warehouse.rest.interceptor.ApiMehtodAuthCheckInterce
 @EnableElasticsearchRepositories(basePackages ="com.servinglynk.hmis.warehouse.repository" )
 @ComponentScan(basePackages =  { "com.servinglynk.hmis.warehouse"})
 @EntityScan("com.servinglynk.hmis.warehouse.model")
+@Import({com.servinglynk.hmis.warehouse.config.AMQConfiguration.class})
 public class HmisSearchServiceApplication extends WebMvcConfigurerAdapter  {
 
 	
@@ -49,7 +51,7 @@ public class HmisSearchServiceApplication extends WebMvcConfigurerAdapter  {
 	
 	@Autowired Environment env;
 	
-
+/*
 	
 	 @Bean
 	  public ActiveMQConnectionFactory senderActiveMQConnectionFactory() {
@@ -74,7 +76,10 @@ public class HmisSearchServiceApplication extends WebMvcConfigurerAdapter  {
 	    return new JmsTemplate(senderActiveMQConnectionFactory());
 	  }	
 		
-		  @Bean public RestHighLevelClient restClient() {
+	*/
+	
+	@Bean 
+	public RestHighLevelClient restClient() {
 			  ClientConfiguration clientConfiguration = ClientConfiguration.builder() 
 				      .connectedTo(env.getProperty("es.service.url"))
 				      .usingSsl()

@@ -12,4 +12,8 @@ public interface BaseClientsService {
 	MergeClient mergeClient(MergeClient client, String caller, UUID clientId);
 
 	MergeClient unmergeClient(MergeClient client, String caller, UUID clientId);
+
+	void cacheClientData();
+	
+	void cacheClientMetaData();
 }
