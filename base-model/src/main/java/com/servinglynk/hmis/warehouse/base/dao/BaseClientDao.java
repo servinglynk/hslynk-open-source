@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 
 public interface BaseClientDao {
 
@@ -14,4 +15,6 @@ public interface BaseClientDao {
 	List<Client> getClientsByDedupId(UUID dedupId,Integer startIndex,Integer maxResults);
 	Long getClientsCountByDedupId(UUID dedupId);
 	List<Client> getAllClients();
+	
+	List<ClientMetaDataEntity> getAllClientsMetadata();
 }

@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.servinglynk.hmis.warehouse.common.security.AuditUtil;
 import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 
 public class BaseClientDaoImpl extends QueryExecutorImpl implements BaseClientDao {
 
@@ -60,7 +61,22 @@ public class BaseClientDaoImpl extends QueryExecutorImpl implements BaseClientDa
 		criteria.add(Restrictions.isNotNull("dedupClientId"));
 		criteria.add(Restrictions.isNull("parentId"));
 		criteria.add(Restrictions.eq("deleted", false));
+		criteria.add(Restrictions.in("projectGroupCode", new String[]{"TT0013"
+}));
 		return (List<Client>) find(criteria);
 	}
 
+	
+	public List<ClientMetaDataEntity> getAllClientsMetadata() {
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientMetaDataEntity.class);
+		criteria.add(Restrictions.eq("deleted", false));
+		criteria.add(Restrictions.in("projectGroupCode", new String[]{"TE0003",
+				"LS0024",
+				"HO0002",
+				"BA0007",
+				"TH0008"
+
+}));
+		return (List<ClientMetaDataEntity>) find(criteria);
+	}
 }
