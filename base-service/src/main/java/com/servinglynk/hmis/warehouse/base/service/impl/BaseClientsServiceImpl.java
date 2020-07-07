@@ -17,6 +17,7 @@ import com.servinglynk.hmis.warehouse.common.JsonUtil;
 import com.servinglynk.hmis.warehouse.core.model.BaseClients;
 import com.servinglynk.hmis.warehouse.core.model.MergeClient;
 import com.servinglynk.hmis.warehouse.model.base.Client;
+import com.servinglynk.hmis.warehouse.model.base.ClientMetaDataEntity;
 import com.servinglynk.hmis.warehouse.service.exception.ClientNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundException;
 
@@ -84,8 +85,24 @@ public class BaseClientsServiceImpl extends ServiceBase implements BaseClientsSe
 	public void cacheClientData() {
 		List<Client> clients = daoFactory.getBaseClientDao().getAllClients();
 		for(Client client : clients) {
-			
+				client.setUser(null);
 			ActiveMQQueue queue =  new ActiveMQQueue("cache.base.cleint");
+			try {
+				jmsMessagingTemplate.convertAndSend(queue,JsonUtil.coneveterObejctToString(client));
+			} catch (JmsException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Transactional
+	public void cacheClientMetaData() {
+		List<ClientMetaDataEntity> clients = daoFactory.getBaseClientDao().getAllClientsMetadata();
+		for(ClientMetaDataEntity client : clients) {
+				
+			ActiveMQQueue queue =  new ActiveMQQueue("cache.cleint.metadtata");
 			try {
 				jmsMessagingTemplate.convertAndSend(queue,JsonUtil.coneveterObejctToString(client));
 			} catch (JmsException e) {

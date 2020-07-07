@@ -1,7 +1,6 @@
 package com.servinglynk.hmis.warehouse.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,15 +25,14 @@ public class ClientManagementServiceImpl extends BaseService implements ClientMa
 	@Transactional
 	public void mergeClientIdentities(ClientMetaDataModel model) {
 		
-		List<UUID> cleintIds =	clientManagementDao.getMergeableClients(model.getClientDedupId(),model.getProjectGroupCode());
-		for(UUID clientId : cleintIds) {
-			Page<Client> clients	= repositoryFactory.getClientElasticRepository().findByDedupclientidOrIdAndProjectgroupcode(clientId+"", clientId+"",model.getProjectGroupCode() , null);
+
+			Page<Client> clients	= repositoryFactory.getClientElasticRepository().findByDedupclientidOrIdAndProjectgroupcode(model.getClientDedupId()+"", model.getClientDedupId()+"",model.getProjectGroupCode() , null);
 			if(clients.getContent().size()!=0) {
 				Client client = clients.getContent().get(0);
 				client.setDedupclientid(model.getNewDedulClientId()+"");
 				repositoryFactory.getClientElasticRepository().save(client);
 			}
-		}
+		
 		
 		List<ClientMetaData> clientMetaDatas = repositoryFactory.getClientMetaDataRepository().findByClientdedupidAndProjectgroupcode(model.getClientDedupId()+"", model.getProjectGroupCode());
 		for(ClientMetaData metaData : clientMetaDatas) {
