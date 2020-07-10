@@ -135,10 +135,10 @@ public class ConsentsController extends ControllerBase {
 		try {
 		Document document = serviceFactory.getClientConsentService().downloadConsentDocument(clientid, consentid, documentId);
 		
-         inputStream = new BufferedInputStream(new FileInputStream(document.getFile()));
+         inputStream = new BufferedInputStream(document.getFileStream());
 
 		
-        FileCopyUtils.copy(inputStream, response.getOutputStream());
+        FileCopyUtils.copy(document.getFileStream(), response.getOutputStream());
 		}finally {
 			if(inputStream!=null)
 				inputStream.close();

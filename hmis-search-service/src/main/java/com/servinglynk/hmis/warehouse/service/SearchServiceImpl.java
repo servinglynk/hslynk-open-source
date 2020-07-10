@@ -82,27 +82,30 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 				returnClients = new ArrayList<Client>(clients.getContent());
 		   }catch (Exception e) {
 			   e.printStackTrace();
+			   // filter by date of birth day
+			   
+			   try {
+					 Date date = formatter.parse(searchRequest.getFreeText());
+					  Calendar calStart = new GregorianCalendar();
+					   calStart.setTime(date);
+					   calStart.set(Calendar.HOUR_OF_DAY, 0);
+					   calStart.set(Calendar.MINUTE, 0);
+					   calStart.set(Calendar.SECOND, 0);
+					   calStart.set(Calendar.MILLISECOND, 0);
+					   Sort sort = Sort.by("dedupclientid").descending();
+					   if(!queryExecuted) {
+					 List<Client> clients = clientRepository.findByDobBetweenAndProjectgroupcode(calStart.getTime().getTime(),(calStart.getTime().getTime()+86399000),SecurityContextUtil.getUserProjectGroup(),sort);
+					 dedupIdFilter = true;
+						queryExecuted = true;
+						
+						filterClients = new ArrayList<Client>(clients);
+					   }
+				  }catch (Exception ex) {
+					  ex.printStackTrace();
+				}
 		}
 		   
-		   // filter by date of birth day
-		   
-	   try {
-			 Date date = formatter.parse(searchRequest.getFreeText());
-			  Calendar calStart = new GregorianCalendar();
-			   calStart.setTime(date);
-			   calStart.set(Calendar.HOUR_OF_DAY, 0);
-			   calStart.set(Calendar.MINUTE, 0);
-			   calStart.set(Calendar.SECOND, 0);
-			   calStart.set(Calendar.MILLISECOND, 0);
-			   Sort sort = Sort.by("dedupclientid").descending();
-			 List<Client> clients = clientRepository.findByDobBetweenAndProjectgroupcode(calStart.getTime().getTime(),(calStart.getTime().getTime()+86399000),SecurityContextUtil.getUserProjectGroup(),sort);
-			 dedupIdFilter = true;
-				queryExecuted = true;
-				
-				filterClients = new ArrayList<Client>(clients);
-		  }catch (Exception e) {
-			  e.printStackTrace();
-		}
+
 	   
 	   // filter by name , ssn , sourceSystemId
 		   if(!queryExecuted) {

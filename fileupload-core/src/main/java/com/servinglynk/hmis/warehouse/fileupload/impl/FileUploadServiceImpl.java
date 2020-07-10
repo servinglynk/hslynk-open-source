@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.fileupload.impl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,16 +124,16 @@ public class FileUploadServiceImpl extends BaseRegistry implements FileUploadSer
 	public Document downloadDocument(UUID documentId) throws FileNotFoundException, IOException {
 		UploadLineEntity uploadLine = daoFactory.getUploadLineDao().findById(documentId);
 
-		File file = fileUploadHandlerFactory.getFileUploadHandler(uploadLine.getUploadLocation())
-				.downloadDocument(uploadLine);
+		InputStream stream= fileUploadHandlerFactory.getFileUploadHandler(uploadLine.getUploadLocation())
+				.downloadFile(uploadLine);
 		
 		Document document = new Document();
 		document.setFileName(uploadLine.getFileName());
 		document.setMimeType(uploadLine.getContentType());
 		document.setSize(uploadLine.getFileSize());
 		document.setDocumentId(uploadLine.getId());
-		document.setFile(file);
-
+	//	document.setFile(file);
+		document.setFileStream(stream);	
 		return document;
 	}
 	

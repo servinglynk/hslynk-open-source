@@ -1,6 +1,7 @@
 package com.servinglynk.hmis.warehouse.model;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.UUID;
 
 public class Document {
@@ -10,6 +11,7 @@ public class Document {
 	private String fileName;
 	private UUID documentId;
 	private File file;
+	private InputStream fileStream;
 	
 	public String getMimeType() {
 		return mimeType;
@@ -40,5 +42,11 @@ public class Document {
 	}
 	public void setFile(File file) {
 		this.file = file;
+	}
+	public InputStream getFileStream() {
+		return fileStream;
+	}
+	public void setFileStream(InputStream fileStream) {
+		this.fileStream = fileStream;
 	}
 }
