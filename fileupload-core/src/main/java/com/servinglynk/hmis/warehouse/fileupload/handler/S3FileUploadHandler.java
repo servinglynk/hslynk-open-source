@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.fileupload.handler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +38,10 @@ public class S3FileUploadHandler extends BaseRegistry implements FileUploadHandl
 		getS3Client().getObject(new GetObjectRequest(entity.getBucketName(), entity.getFileName()),file);
 		
 		return file;
+	}
+	
+	public InputStream downloadFile(UploadLineEntity entity) throws FileNotFoundException, IOException {		
+		return 	getS3Client().getObject(new GetObjectRequest(entity.getBucketName(), entity.getFileName())).getObjectContent();
 	}
 
 	@Override

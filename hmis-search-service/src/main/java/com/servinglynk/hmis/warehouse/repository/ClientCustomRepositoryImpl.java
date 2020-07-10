@@ -2,13 +2,19 @@ package com.servinglynk.hmis.warehouse.repository;
 
 import java.util.List;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.Operator;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.query.Criteria;
 import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.warehouse.model.base.Client;
@@ -20,33 +26,53 @@ public class ClientCustomRepositoryImpl implements ClientCustomRepository {
 	
 @Autowired	ElasticsearchOperations elasticsearchOperations;
 	
-	public List<Client> findByNameAndProjectgroupcode(String freeText, String projectGroupCode, Sort sort){
+	
+	 public List<Client> findByNameAndProjectgroupcode(String freeText, String projectGroupCode, Sort sort){
+	 
 		
 		System.out.println(" inside custome implementation");
 		Criteria fullnameCriteria = new Criteria("fullname").contains(freeText);
 		Criteria nameCriteria = new Criteria("name").contains(freeText);
 		Criteria ssnCriteria = new Criteria("ssn").contains(freeText);
 		Criteria sourcesystemidCriteria = new Criteria("sourcesystemid").contains(freeText);
-		Criteria pgcodeCriteria = new Criteria("projectgroupcode").is(projectGroupCode);		
+		Criteria pgcodeCriteria = new Criteria("projectgroupcode").is(projectGroupCode);	
+	
 		Criteria criteria = fullnameCriteria.or(nameCriteria).or(ssnCriteria).or(sourcesystemidCriteria);
 		Criteria finalCriteria = criteria.and(pgcodeCriteria);
 		
 		return elasticsearchOperations.queryForList(new CriteriaQuery(finalCriteria), Client.class);
 	}
 
+		/*public List<Client> findByNameAndProjectgroupcode(String freeText, String projectGroupCode, Sort sort) {
+			Pageable page = PageRequest.of(0, 9999, sort);
+			BoolQueryBuilder nameQuery = QueryBuilders.boolQuery();
+			nameQuery.should(QueryBuilders.matchQuery("fullname", freeText).operator(Operator.OR))
+			//.should(QueryBuilders.matchQuery("sourcesystemid", freeText).operator(Operator.OR))
+			.should(QueryBuilders.matchQuery("name", freeText).operator(Operator.OR))
+			.should(QueryBuilders.matchQuery("ssn", freeText));
+		
+			BoolQueryBuilder pgQuery = QueryBuilders.boolQuery();
+			pgQuery.should(QueryBuilders.matchQuery("projectgroupcode", projectGroupCode));
+			BoolQueryBuilder finalBoolQuery = new BoolQueryBuilder();
+			finalBoolQuery.must(nameQuery);
+			finalBoolQuery.must(pgQuery);
+			SearchQuery searchQuery = new NativeSearchQueryBuilder().withPageable(page).withQuery(finalBoolQuery).build();
+			return elasticsearchOperations.queryForList(searchQuery, Client.class);
+		
+		}*/
+
 	@Override
 	public Page<Client> findByDedupclientidOrIdAndProjectgroupcode(String freeText, String freeText2, String projectGroupCode,
 			Pageable page) {
-		Criteria idCriteria = new Criteria("id").is(freeText);
-		Criteria dedupIdCriteria = new Criteria("dedupclientid").is(freeText);
-		Criteria pgcodeCriteria = new Criteria("projectgroupcode").is(projectGroupCode);		
-		Criteria criteria = idCriteria.or(dedupIdCriteria);
+		System.out.println(" inside custome implementation");
+		Criteria fullnameCriteria = new Criteria("id").contains(freeText);
+		Criteria nameCriteria = new Criteria("dedupclientid").contains(freeText);
+		Criteria pgcodeCriteria = new Criteria("projectgroupcode").is(projectGroupCode);	
+	
+		Criteria criteria = fullnameCriteria.or(nameCriteria);
 		Criteria finalCriteria = criteria.and(pgcodeCriteria);
-		if(page == null) {
-			return elasticsearchOperations.queryForPage(new CriteriaQuery(finalCriteria), Client.class);
-		}
+		
 		return elasticsearchOperations.queryForPage(new CriteriaQuery(finalCriteria,page), Client.class);
-
 	}
 
 	@Override

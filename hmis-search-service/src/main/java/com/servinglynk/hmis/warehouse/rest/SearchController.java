@@ -17,7 +17,7 @@ import com.servinglynk.hmis.warehouse.service.SearchService;
 
 @RestController
 @RequestMapping("/el/search")
-public class SearchController {
+public class SearchController extends BaseController{
 
 	@Autowired SearchService searchService;
 	

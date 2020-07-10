@@ -186,8 +186,12 @@ public class ClientsController extends ControllerBase {
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_ENROLLMENT_BY_ID", checkSessionToken = true, checkTrustedApp = true)
 	public Enrollment getClientEnrollmentById(@PathVariable("clientid") UUID clientId,
-			@PathVariable("enrollmentid") UUID enrollmentId, HttpServletRequest request) throws Exception {
-		return serviceFactory.getEnrollmentServiceV2().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			@PathVariable("enrollmentid") UUID enrollmentId, 
+			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,	
+			HttpServletRequest request) throws Exception {
+		serviceFactory.getClientService().getClientById(clientId);
+		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId,includeChildLinks);
+		//return serviceFactory.getEnrollmentServiceV2().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
 	}
 	
 	@RequestMapping(value = "/{clientid}/enrollments", method = RequestMethod.GET)
