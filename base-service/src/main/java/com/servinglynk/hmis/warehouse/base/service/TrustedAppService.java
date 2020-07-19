@@ -1,12 +1,16 @@
 package com.servinglynk.hmis.warehouse.base.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroups;
 import com.servinglynk.hmis.warehouse.core.model.RedirectUri;
 import com.servinglynk.hmis.warehouse.core.model.TrustedApp;
 import com.servinglynk.hmis.warehouse.core.model.TrustedAppStatus;
+import com.servinglynk.hmis.warehouse.core.model.TrustedApps;
 
 public interface TrustedAppService {
 
@@ -29,4 +33,11 @@ public interface TrustedAppService {
 			String userService);
 	
 	public TrustedApp getBasicTrustedAppInfo(String trustedAppId,String caller);
+	
+	
+	void addProjectGroupToTrustedApp(String trustedAppId, ProjectGroup projectGroup);
+	
+	void deleteProjectGroupToTrustedApp(String trustedAppId, UUID projectgroupid);
+	public ProjectGroups getTrustedAppProjectGroups(String trustedAppId);
+	public TrustedApps getTrustedApps();
 }

@@ -13,7 +13,7 @@ import com.servinglynk.hmis.warehouse.model.JSONObjectMapper;
 @Component
 public class SurveyResponseListener extends BaseListener {
 
-	@JmsListener(destination="survey.submissions1")
+	@JmsListener(destination="survey.submissions")
 	public void listeneQueue(String eventString) {
 		System.out.println("inside survey.submissions listener");
 		JSONObjectMapper mapper = new JSONObjectMapper();

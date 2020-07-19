@@ -1,11 +1,13 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("client")
@@ -41,6 +43,9 @@ public class Client extends ClientModel {
 	private String middleNameHashStatus;
 	private String ssnHashStatus;
 	private String ssnHashed;
+	
+	@JsonProperty("clildLinks")
+	private Map<String, ActionLinks> goldenViewLinks;
 	
 	public UUID getClientId() {
 		return clientId;
@@ -239,6 +244,11 @@ public class Client extends ClientModel {
 	 */
 	public void setSsnHashed(String ssnHashed) {
 		this.ssnHashed = ssnHashed;
+	}
+	public Map<String, ActionLinks> getGoldenViewLinks() {
+		return goldenViewLinks;
+	}
+	public void setGoldenViewLinks(Map<String, ActionLinks> goldenViewLinks) {
+		this.goldenViewLinks = goldenViewLinks;
 	}	
-	
 }

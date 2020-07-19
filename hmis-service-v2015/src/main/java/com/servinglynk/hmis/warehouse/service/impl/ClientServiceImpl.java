@@ -94,6 +94,7 @@ public class ClientServiceImpl extends ServiceBase implements ClientService {
 			client.setPhoneNumber(baseClient.getPhoneNumber());
 			client.setEmailAddress(baseClient.getEmailAddress());
 		}		
+		client.setGoldenViewLinks(serviceFactory.getBaseSearchService().getActionLinks(baseClient));
 		return client;
 	}
 

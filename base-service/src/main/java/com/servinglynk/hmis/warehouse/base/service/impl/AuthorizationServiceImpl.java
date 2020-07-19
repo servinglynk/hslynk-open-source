@@ -43,6 +43,7 @@ import com.servinglynk.hmis.warehouse.model.base.ServiceApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.ServiceEntity;
 import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.base.TrustedAppEntity;
+import com.servinglynk.hmis.warehouse.model.base.TrustedAppProjectGroupMapEntity;
 import com.servinglynk.hmis.warehouse.service.exception.AccountConsentNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountDisabledException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
@@ -144,6 +145,11 @@ public class AuthorizationServiceImpl extends ServiceBase implements Authorizati
 		}
 		else	{
 			logger.debug("trustedApp {} is ACTIVE", trustedAppId);
+		}
+		
+		if(trustedAppEntity.getProjectGroupCheckCheckRequired()) {
+			List<TrustedAppProjectGroupMapEntity> mapEntities = daoFactory.getTrustedAppDao().projectGroupHasTrustedAppAccess(trustedAppEntity.getExternalId(), pAccount.getProjectGroupCode());
+			if(mapEntities.isEmpty()) throw new UserAuthenticationFailedException("TrustedApp does not have access for project group");
 		}
 		
 		// From this point on we need to create an OAuthAuthorization. Newly created information needs to be reported back i.e. consent token, auth code or refresh token

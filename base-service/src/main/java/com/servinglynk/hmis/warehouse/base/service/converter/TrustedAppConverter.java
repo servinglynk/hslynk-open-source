@@ -4,8 +4,10 @@ package com.servinglynk.hmis.warehouse.base.service.converter;
 import com.servinglynk.hmis.warehouse.common.ValidationUtil;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperCompany;
 import com.servinglynk.hmis.warehouse.core.model.DeveloperService;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.TrustedApp;
 import com.servinglynk.hmis.warehouse.model.base.TrustedAppEntity;
+import com.servinglynk.hmis.warehouse.model.base.TrustedAppProjectGroupMapEntity;
 
 
 public class TrustedAppConverter {
@@ -158,4 +160,5 @@ public class TrustedAppConverter {
 		
 		return trustedAppEntity;
 	}
+
 }

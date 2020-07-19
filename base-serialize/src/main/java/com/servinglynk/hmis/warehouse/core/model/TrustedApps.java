@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,5 +22,10 @@ public class TrustedApps extends PaginatedModel	{
 		this.trustedApps = trustedApps;
 	}
 
+	
+	public void addTrustedApp(TrustedApp trustedApp) {
+		if(this.trustedApps==null) trustedApps = new ArrayList<TrustedApp>();
+		this.trustedApps.add(trustedApp);
+	}
 	
 }
