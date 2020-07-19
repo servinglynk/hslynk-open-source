@@ -6,6 +6,7 @@ import static com.servinglynk.hmis.warehouse.common.Constants.ACCOUNT_STATUS_PEN
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,7 @@ import com.servinglynk.hmis.warehouse.model.base.AccountLockoutEntity;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.base.TrustedAppEntity;
+import com.servinglynk.hmis.warehouse.model.base.TrustedAppProjectGroupMapEntity;
 import com.servinglynk.hmis.warehouse.service.exception.AccountDisabledException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountLockedoutException;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
@@ -183,6 +185,14 @@ public class SessionServiceImpl extends ServiceBase implements SessionService  {
 		} else if(pAccount.getStatus().equals(Constants.ACCOUNT_STATUS_INACTIVE)){
 			throw new AccessDeniedException("Account is inactive");
 		} 
+		
+		if(trustedAppEntity.getProjectGroupCheckCheckRequired()) {
+			List<TrustedAppProjectGroupMapEntity> mapEntities = daoFactory.getTrustedAppDao().projectGroupHasTrustedAppAccess(trustedAppEntity.getExternalId(), pAccount.getProjectGroupCode());
+			
+			if(mapEntities.isEmpty()) {
+				throw new AccessDeniedException("TrustedApp does not have access for project group ");
+			}
+		}
 
 		if(!pAccount.isTwoFactorAuthentication()){
 			this.createSession(session, trustedAppId, auditUser);

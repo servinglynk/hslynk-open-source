@@ -100,20 +100,21 @@ public abstract class ClientModel {
 		this.updatedTime = updatedTime;
 	}
 	
-	List<ActionLink> links;
+	
+	  List<ActionLink> links;
 
-	public List<ActionLink> getLinks() {
-		return links;
-	}
+		public List<ActionLink> getLinks() {
+			return links;
+		}
 
+		public void setLinks(List<ActionLink> links) {
+			this.links = links;
+		}
 
-
-	public void setLinks(List<ActionLink> links) {
-		this.links = links;
-	}
-
-	public void addLink(ActionLink link) {
-		if(this.links==null) this.links = new ArrayList<ActionLink>();
-		  this.links.add(link);
-	}
+		public void addLink(ActionLink link) {
+			if (this.links == null)
+				this.links = new ArrayList<ActionLink>();
+			this.links.add(link);
+		}
+	 
 }

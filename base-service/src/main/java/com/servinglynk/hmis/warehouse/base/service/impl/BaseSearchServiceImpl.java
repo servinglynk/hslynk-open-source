@@ -163,6 +163,38 @@ public class BaseSearchServiceImpl extends ServiceBase implements SearchService 
 		  return typeLinks;
 	  }
 	  
+	  @Transactional
+	  public Map<String, ActionLinks> getActionLinks(Client client) {
+		  Map<String,Map<String, ActionLink>> links = new HashMap<>();
+		  Map<String, ActionLinks> typeLinks = new HashMap<>();
+		  ActionLinks actionLinks = new ActionLinks();
+		  ObjectMapper mapper = new ObjectMapper();
+		  List<ClientMetaDataEntity> entities = daoFactory.getClientMetaDataDao().findClientMetaData(client.getDedupClientId());
+		  for(ClientMetaDataEntity entity : entities) {
+			  try {
+				  	Map<String,String> addInfo = mapper.readValue(entity.getAdditionalInfo(), Map.class);
+				  	ActionLinks actionlinks = typeLinks.get(entity.getType());
+				  	if(actionlinks ==null ) actionlinks = new ActionLinks();
+				  		
+				  		if(environment.getProperty("linksTo."+entity.getType())!=null) {
+				  				
+				  				ActionLink link = new ActionLink();
+				  				link.setHref(this.buildURL(environment.getProperty("linksTo."+entity.getType()),addInfo));
+				  				link.setRel(entity.getMetaDataIdentifier().toString());
+				  				actionlinks.addLink(link);
+				  				typeLinks.put(entity.getType(), actionlinks);
+				  		
+				  			}
+				  	
+			  }catch (Exception e) {
+				  e.printStackTrace();
+			  }
+
+		  }
+		  
+		  return typeLinks;
+	  }
+	  
 		public  String buildURL(String urlString, Map<String,String> params) {
 			MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
 		    for (Entry<String, String> entry : params.entrySet()) {

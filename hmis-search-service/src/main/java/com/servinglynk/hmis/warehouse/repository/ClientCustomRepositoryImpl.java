@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.warehouse.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -40,7 +41,14 @@ public class ClientCustomRepositoryImpl implements ClientCustomRepository {
 		Criteria criteria = fullnameCriteria.or(nameCriteria).or(ssnCriteria).or(sourcesystemidCriteria);
 		Criteria finalCriteria = criteria.and(pgcodeCriteria);
 		
-		return elasticsearchOperations.queryForList(new CriteriaQuery(finalCriteria), Client.class);
+		List<Client> clients = elasticsearchOperations.queryForList(new CriteriaQuery(finalCriteria), Client.class);
+		Criteria SourceCriteria = sourcesystemidCriteria.and(pgcodeCriteria);
+		List<Client> sourceClients = elasticsearchOperations.queryForList(new CriteriaQuery(SourceCriteria), Client.class);
+		//clients.addAll(sourceClients);
+		List<Client> returnClients = new ArrayList<Client>();
+		returnClients.addAll(clients);
+		returnClients.addAll(sourceClients);
+		return returnClients;
 	}
 
 		/*public List<Client> findByNameAndProjectgroupcode(String freeText, String projectGroupCode, Sort sort) {
@@ -69,10 +77,15 @@ public class ClientCustomRepositoryImpl implements ClientCustomRepository {
 		Criteria nameCriteria = new Criteria("dedupclientid").contains(freeText);
 		Criteria pgcodeCriteria = new Criteria("projectgroupcode").is(projectGroupCode);	
 	
-		Criteria criteria = fullnameCriteria.or(nameCriteria);
-		Criteria finalCriteria = criteria.and(pgcodeCriteria);
+		//Criteria criteria = fullnameCriteria.or(nameCriteria);
+		Criteria finalCriteria = fullnameCriteria.and(pgcodeCriteria);
 		
-		return elasticsearchOperations.queryForPage(new CriteriaQuery(finalCriteria,page), Client.class);
+		Page<Client> clients = elasticsearchOperations.queryForPage(new CriteriaQuery(finalCriteria,page), Client.class);
+		if(clients.getContent().isEmpty()) {
+			Criteria finalCriteria1 = nameCriteria.and(pgcodeCriteria);
+			return elasticsearchOperations.queryForPage(new CriteriaQuery(finalCriteria1,page), Client.class);
+		}
+		return clients;
 	}
 
 	@Override
