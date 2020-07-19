@@ -18,6 +18,7 @@ import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -104,12 +105,17 @@ public class ApiMehtodAuthCheckInterceptor extends HandlerInterceptorAdapter {
 
 		System.out.println("Authorization url "+env.getProperty("elbhost")+"/hmis-user-service/rest/apimethodauthcheck/"+authCheck.getApiMethodId());
 		HttpEntity entity = new HttpEntity(headers);
+		try {
 		 ResponseEntity<ApiMethodAuthorizationCheck> response = restTemplate.exchange(env.getProperty("elbhost")+"/hmis-user-service/rest/apimethodauthcheck/"+authCheck.getApiMethodId(),HttpMethod.GET,entity ,ApiMethodAuthorizationCheck.class);
-		if(response.getStatusCodeValue() == 200) {
+		//if(response.getStatusCodeValue() == 200) {
 			return response.getBody();
-		}else {
-//			mapper.readValue(response.getBody(), Errors.class);
-			return null;
+		//}else {
+		//return null;
+		//}
+		}catch (HttpClientErrorException e) {
+			System.out.println("status code "+e.getStatusCode().value());
+			System.out.println("error message"+e.getResponseBodyAsString());
+			throw e;
 		}
 
 	}
