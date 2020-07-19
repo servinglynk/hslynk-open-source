@@ -243,6 +243,11 @@ public class Client extends ClientModel {
 	 */
 	public void setSsnHashed(String ssnHashed) {
 		this.ssnHashed = ssnHashed;
+	}
+	public Map<String, ActionLinks> getGoldenViewLinks() {
+		return goldenViewLinks;
+	}
+	public void setGoldenViewLinks(Map<String, ActionLinks> goldenViewLinks) {
+		this.goldenViewLinks = goldenViewLinks;
 	}	
-	
 }
