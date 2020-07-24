@@ -126,7 +126,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 //			domain.setReUpload(true);
 	//		domain.setReloadAll(true);
 			upload.setDescription("enrollment");
-			domain.setReloadAll(true);
+			//domain.setReloadAll(true);
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 			parentDaoFactory.getSourceDao().hydrateStaging(domain,null,null);
 			Map<String, HmisBaseModel> sourceMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Source.class, getProjectGroupCode(domain));

@@ -106,7 +106,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					enrollmentModel.setExport(exportEntity);
 					HmisHousehold hmisHouseHold = parentDaoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(enrollmentModel);
 					enrollmentModel.setHmisHousehold(hmisHouseHold);
-					performSaveOrUpdate(enrollmentModel, domain);
+					getCurrentSession().update(enrollmentModel);
 //					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollment::"+enrollment.getEnrollmentID() +" Exception ::"+e.getMessage();
@@ -138,10 +138,10 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 			modelFromDB.setRecordToBeInserted(true); 
 			data.i++;
 		}else {
-			com.servinglynk.hmis.warehouse.model.v2020.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2020.Enrollment();
-			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
-			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
-			performMatch(domain, modelFromDB, model, data);
+//			com.servinglynk.hmis.warehouse.model.v2020.Enrollment model = new com.servinglynk.hmis.warehouse.model.v2020.Enrollment();
+//			// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);
+//			model.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(enrollment.getDateUpdated()));
+//			performMatch(domain, modelFromDB, model, data);
 		}
 		hydrateCommonFields(modelFromDB, domain,enrollment.getEnrollmentID(),data);
 		return modelFromDB;

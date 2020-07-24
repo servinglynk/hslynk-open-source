@@ -137,7 +137,7 @@ public class BulkUploaderTest {
 				appender.setLayout(new PatternLayout());
 				appender.activateOptions();
 				List<Long> bulkIds = new ArrayList<>();
-				bulkIds.add(645L);
+				bulkIds.add(685L);
 				
 				for(Long id : bulkIds) {
 					BulkUpload bulkUpload = factory.getBulkUploaderDao().performLoad(id,appender,true);
@@ -228,7 +228,7 @@ public class BulkUploaderTest {
 		List<BulkUpload> uploads = factory.getBulkUploaderWorkerDao().findBulkUploadByStatus("STAGING");
 		for(BulkUpload upload : uploads) {
 			if(upload !=null && upload.getExportId() !=null) {
-				dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode(),upload.getExportId());		
+			//	dao.deleteLiveByProjectGroupCode(upload.getProjectGroupCode(),upload.getExportId());		
 			}
 		}
 		
