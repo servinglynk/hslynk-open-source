@@ -34,10 +34,10 @@
           </li>
            <li>
             <label><span class="required">*</span>Report Type: </label>
-            <select required  ng-model="form.reportType" name="reportType">
+            <select required  ng-mod-el="form.reportType" name="reportType">
              <option value="">Select Report Type</option>
               <option value="APR">APR</option>
-              <option value="AHAR">AHAR</option>
+              <option value="LSA">LSA</option>
             </select>
           </li>
            <li>
@@ -50,7 +50,7 @@
           </li>
                <li>
             <label><span class="required">*</span>Project: </label>
-            
+
             <select style="height:200px"multiple required ng-model="form.project" name="drpProject" ng-options="project.projectName for project in projects track by project.projectId">
             </select>
           </li>
