@@ -30,7 +30,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			List<EnrollmentModel> adults = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
 			List<EnrollmentModel> children = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() < 18 && enrollment.getAgeatentry() !=0 ).collect(Collectors.toList());
 			List<EnrollmentModel> youthUnder25 = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() >= 18 && enrollment.getAgeatentry() <= 24  && enrollment.getAgeatentry() !=0).collect(Collectors.toList());
-			List<EnrollmentModel> ageUnknown = enrollments.parallelStream().filter(enrollment-> enrollment.getAgeatentry() == 0).collect(Collectors.toList());
+			List<ClientModel> ageUnknown = clients.parallelStream().filter(enrollment-> enrollment.getAge() == 0).collect(Collectors.toList());
 			
 			List<EnrollmentModel> chronicHomeless = enrollments.parallelStream().filter(enrollment -> enrollment.isChronichomeless()).collect(Collectors.toList());
 			data.setChronicHomeLess(chronicHomeless);
@@ -55,11 +55,11 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 						" order by e.dedup_client_id ";
 						*/
 			
-			List<EnrollmentModel> adultStayers = enrollments.parallelStream().filter(enrollment -> !enrollmentsFromExit.contains(enrollment.getProjectEntryID()) && enrollment.getAgeatentry() > 18).collect(Collectors.toList());
+			List<EnrollmentModel> adultStayers = enrollments.parallelStream().filter(enrollment -> !enrollmentsFromExit.contains(enrollment.getProjectEntryID()) && enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
 			List<EnrollmentModel> adultStayersHoh365Days = adultStayers.parallelStream().filter(enrollment -> inProjectForMoreThan365Days(enrollment.getEntrydate()) && StringUtils.equals("1", enrollment.getRelationshiptohoh())).collect(Collectors.toList());
 			data.setAdultStayersHoh365Days(adultStayersHoh365Days);
 			List<ClientModel> veterans = clients.parallelStream().filter(client -> StringUtils.equals("1",client.getVeteran_status())).collect(Collectors.toList());
-			List<EnrollmentModel> adultHohWithLeavers = adultLeavers.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() > 18).collect(Collectors.toList());
+			List<EnrollmentModel> adultHohWithLeavers = adultLeavers.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() >= 18).collect(Collectors.toList());
 			data.setAdultStayers(adultStayers);
 			data.setVeterans(veterans);
 			List<EnrollmentModel> childHoh = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("1", enrollment.getRelationshiptohoh()) && enrollment.getAgeatentry() < 18 && enrollment.getAgeatentry() !=0).collect(Collectors.toList());
@@ -69,7 +69,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			bean.setTotNumOfPersonServed(BigInteger.valueOf(clients !=null ? clients.size() : 0));
 			bean.setNumOfAdults(BigInteger.valueOf(adults !=null ?adults.size() : 0));
 			bean.setNumOfChildren(BigInteger.valueOf(children !=null ? children.size() : 0));
-			bean.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(ageUnknown !=null ? ageUnknown.size() :0));
+			bean.setNumOfPersonsWithUnknownAge(BigInteger.valueOf(getSize(ageUnknown)));
 			
 			
 			bean.setNoOfChildHeadsOfHousehold(BigInteger.valueOf(childHoh !=null ? childHoh.size() : 0));
@@ -97,7 +97,7 @@ public class Q05aBeanMaker extends BaseBeanMaker {
 			data.setTotNumOfPersonServed(bean.getTotNumOfPersonServed());  //Refers --> Total number of persons served 
 			data.setNumOfAdults(bean.getNumOfAdults()); //Refers --> Number of adults (age 18 or over)
 			data.setNumOfChildren(bean.getNumOfChildren()); //Refers --> Number of children (under age 18)
-			data.setNumOfPersonsWithUnknownAge(bean.getNumOfPersonsWithUnknownAge()); // Refers --> Number of persons with unknown age
+			data.setPersonsWithUnknownAge(ageUnknown); // Refers --> Number of persons with unknown age
 			data.setTotNoOfAdultLeavers(bean.getTotNoOfAdultLeavers()); //Refers --> Number of adult leavers
 			data.setNumOfAdultandHeadOfHHLeavers(bean.getNumOfAdultandHeadOfHHLeavers()); // Refers --> Number of adult and head of household leavers
 			data.setTotNoOfAdultStayers(bean.getTotNoOfAdultStayers()); // Refers --> Number of adult stayers

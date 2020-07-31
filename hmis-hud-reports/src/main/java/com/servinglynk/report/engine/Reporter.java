@@ -41,7 +41,7 @@ public class Reporter {
     		logger.info("Starting hud reports process....");
     		ReportConfig reportConfig = SyncPostgresProcessor.getReportConfigByStatus("INITIAL");
     		if(reportConfig != null) {
-    			SyncPostgresProcessor.updateReportConfig("INPROGRESS", reportConfig.getId());
+    			//SyncPostgresProcessor.updateReportConfig("INPROGRESS", reportConfig.getId());
     			String reportId = String.valueOf(reportConfig.getId());
             	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig,props);
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
@@ -51,7 +51,6 @@ public class Reporter {
         	    InputStream inputStream = new FileInputStream(file);
         		JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
         		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-        	
         		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
         		JasperExportManager.exportReportToPdfFile(jasperPrint,reportId+".pdf"); 
         		SyncPostgresProcessor.updateReportConfig("BEFORE_ZIP_CREATION", reportConfig.getId());
@@ -62,6 +61,8 @@ public class Reporter {
     			AwsS3Client client = new AwsS3Client();
     			client.uploadFile(props.APR_FILE_LOCATION+reportId+".pdf", "APR/"+reportId+".pdf",bucketName);
     			client.uploadFile(props.APR_FILE_LOCATION+reportId+".zip", "APR/"+reportId+".zip",bucketName);
+    			
+    			
     			// update the report config to 
     			SyncPostgresProcessor.updateReportConfig("COMPLETED", reportConfig.getId());
     		}

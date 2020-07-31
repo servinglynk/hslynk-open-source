@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hmis.warehouse.Properties;
 import com.servinglynk.hmis.warehouse.ReportConfig;
+import com.servinglynk.report.bean.DisabIncomeAndSourceDataBean;
 import com.servinglynk.report.bean.HomePageDataBean;
 import com.servinglynk.report.bean.Q04aDataBean;
 import com.servinglynk.report.bean.Q05aHMISComparableDBDataQualityDataBean;
@@ -47,7 +48,6 @@ import com.servinglynk.report.bean.Q17CashIncomeSourcesDataBean;
 import com.servinglynk.report.bean.Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
 import com.servinglynk.report.bean.Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean;
 import com.servinglynk.report.bean.Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
-import com.servinglynk.report.bean.Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 import com.servinglynk.report.bean.Q20aTypeOfNonCashBenefitSourcesDataBean;
 import com.servinglynk.report.bean.Q20bNumberOfNonCashBenefitSourcesDataBean;
 import com.servinglynk.report.bean.Q21HealthInsuranceDataBean;
@@ -56,8 +56,10 @@ import com.servinglynk.report.bean.Q22a2LengthOfParticipationESGProjectsDataBean
 import com.servinglynk.report.bean.Q22bAverageAndMedianLengthOfParticipationInDaysDataBean;
 import com.servinglynk.report.bean.Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean;
 import com.servinglynk.report.bean.Q22dLengthOfParticipationByHouseholdTypeDataBean;
+import com.servinglynk.report.bean.Q22eDataBean;
 import com.servinglynk.report.bean.Q23aExitDestinationMoreThan90DaysDataBean;
 import com.servinglynk.report.bean.Q23bExitDestination90DaysOrLessDataBean;
+import com.servinglynk.report.bean.Q23cDataBean;
 import com.servinglynk.report.bean.Q24HomelessnessPreventionHousingAssessmentAtExitDataBean;
 import com.servinglynk.report.bean.Q25aNumberOfVeteransDataBean;
 import com.servinglynk.report.bean.Q25bNumberOfVeteranHouseholdsDataBean;
@@ -82,12 +84,12 @@ import com.servinglynk.report.bean.Q27cGenderYouthDataBean;
 import com.servinglynk.report.bean.Q27dResidencePriorToEntryYouthDataBean;
 import com.servinglynk.report.bean.Q27eLengthOfParticipationYouthDataBean;
 import com.servinglynk.report.bean.Q27fExitDestinationYouthDataBean;
+import com.servinglynk.report.bean.Q27gCashIncomeSourcesDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.csvcontroller.CSVGenerator;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
-import com.servinglynk.report.model.IncomeAndSourceModel;
 import com.servinglynk.report.model.ProjectModel;
 
 public class HomePageDataBeanMaker extends BaseBeanMaker {
@@ -141,16 +143,22 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 					
 					List<ClientModel> allClients = getClients(schema,data);
 					List<String> enrollmentIds = new ArrayList<String>(); 
+					List<String> youthList = new ArrayList<String>(); 
 					if(CollectionUtils.isNotEmpty(enrollments)) {
 						for(EnrollmentModel enrollment : enrollments) {
+							enrollment.setCurrentLivingSituation("KLM");
 							enrollmentIds.add(enrollment.getProjectEntryID());
+							if(enrollment.getAgeatentry() >=18  && enrollment.getAgeatentry() <=25) {
+								youthList.add(enrollment.getDedupClientId());
+							}
 						}
 					}
 				//	enrollments.forEach(enrollment -> { enrollmentIds.add(enrollment.getProjectEntryID());});
-					
+					data.setYouthList(youthList);
 					data.setClients(allClients);
 					List<ExitModel> allExits = getAllExits(schema, data);
 					List<ExitModel> filteredExits = allExits.parallelStream().filter(exit -> enrollmentIds.contains(exit.getProjectEntryID())).collect(Collectors.toList());
+					
 					data.setExits(filteredExits);
 				
 				}catch(Exception e) {
@@ -160,10 +168,10 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			
 			if(CollectionUtils.isNotEmpty(projects)) {
 				List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,projects.get(0).getProjectId(),data);
-				CSVGenerator.buildReport(q04aDataBeanList, "Q4a.jrxml", "Q4a.csv",data);
+				CSVGenerator.buildReport(q04aDataBeanList, "q4a.jrxml", "Q4a.csv",data);
 			}else {
 				List<Q04aDataBean> q04aDataBeanList = Q04aBeanMaker.getQ04aDataBeanList(schema,null,data);
-				CSVGenerator.buildReport(q04aDataBeanList, "Q4a.jrxml", "Q4a.csv",data);
+				CSVGenerator.buildReport(q04aDataBeanList, "q4a.jrxml", "Q4a.csv",data);
 			}
 			
 			
@@ -327,11 +335,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean(q19a2ClientCashIncomeChangeIncomeSourceByEntryList);
 			CSVGenerator.buildReport(q19a2ClientCashIncomeChangeIncomeSourceByEntryList, "q19a2.jrxml", "Q19a2.csv",data);
 			
-			List<Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a3ClientCashIncomeChangeIncomeSourceByEntryList = Q19a3DataBeanMaker.getQ19a3ClientCashIncomeChangeIncomeSourceByEntryList(data);
-	        homePageDataBean.setQ19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean(q19a3ClientCashIncomeChangeIncomeSourceByEntryList);
-	        CSVGenerator.buildReport(q19a3ClientCashIncomeChangeIncomeSourceByEntryList, "q19a3.jrxml", "Q19a3.csv",data);
-	        
-	        List<Q20aTypeOfNonCashBenefitSourcesDataBean> q20aTypeOfNonCashBenefitSourcesList = Q20aBeanMaker.getQ20aTypeOfNonCashBenefitSourcesList(data);
+			List<DisabIncomeAndSourceDataBean> q19bDataBeanList = Q19bBeanMaker.getQ19DataBean(data);
+			homePageDataBean.setQ19bDataBean(q19bDataBeanList);
+			CSVGenerator.buildReport(q19bDataBeanList, "q19b.jrxml", "Q19b.csv",data);
+		
+			List<Q20aTypeOfNonCashBenefitSourcesDataBean> q20aTypeOfNonCashBenefitSourcesList = Q20aBeanMaker.getQ20aTypeOfNonCashBenefitSourcesList(data);
 			homePageDataBean.setQ20aTypeOfNonCashBenefitSourcesDataBean(q20aTypeOfNonCashBenefitSourcesList);
 			CSVGenerator.buildReport(q20aTypeOfNonCashBenefitSourcesList, "q20a.jrxml", "Q20a.csv",data);
 			
@@ -367,6 +375,11 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			CSVGenerator.buildReport(q22dLengthOfParticipationByHouseholdTypeDataBeanList,"Q22d.jrxml","Q22d.csv",data);
 			}
 			
+			List<Q22eDataBean> q22eDataBeanList = Q22eBeanMaker.getQ22eDataBeanList(data);
+			homePageDataBean.setQ22eDataBean(q22eDataBeanList);
+			CSVGenerator.buildReport(q22eDataBeanList, "q22e.jrxml","Q22e.csv",data);
+			
+			if(1==2) {
 			List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysList = Q23aExitDestinationMoreThan90DaysDataBeanMaker.getQ23ExitDestinationMoreThan90DaysList(data);
 			homePageDataBean.setQ23ExitDestinationMoreThan90DaysDataBean(q23ExitDestinationMoreThan90DaysList);
 			CSVGenerator.buildReport(q23ExitDestinationMoreThan90DaysList, "q23a.jrxml","Q23a.csv",data);
@@ -374,6 +387,12 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessList= Q23bExitDestination90DaysOrLessDataBeanMaker.getQ23bExitDestination90DaysOrLessList(data);
 			homePageDataBean.setQ23bExitDestination90DaysOrLessDataBean(q23bExitDestination90DaysOrLessList);
 			CSVGenerator.buildReport(q23bExitDestination90DaysOrLessList, "q23b.jrxml","Q23b.csv",data);
+			}
+			
+			List<Q23cDataBean> q23cBeanList = Q23cBeanMaker.getQ23cList(data);
+			homePageDataBean.setQ23cDataBean(q23cBeanList);
+			CSVGenerator.buildReport(q23cBeanList, "q23c.jrxml","Q23c.csv",data);
+			
 			if(1==2) {
 				List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitList= Q24HomelessnessPreventionHousingAssessmentAtExitDataBeanMaker.getQ24HomelessnessPreventionHousingAssessmentAtExitList(data);
 				homePageDataBean.setQ24HomelessnessPreventionHousingAssessmentAtExitDataBean(q24HomelessnessPreventionHousingAssessmentAtExitList);
@@ -472,6 +491,18 @@ public class HomePageDataBeanMaker extends BaseBeanMaker {
 			homePageDataBean.setQ27fExitDestinationYouthDataBean(q27fExitDestinationYouthList);
 			CSVGenerator.buildReport(q27fExitDestinationYouthList, "q27f.jrxml","Q27f.csv",data);
 			
+			List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesYouthList = Q27gDataBeanMaker.getQ27gTypeOfCashIncomeSourcesYouthList(data);
+			homePageDataBean.setQ27gCashIncomeSourcesDataBean(q27gCashIncomeSourcesYouthList);
+			CSVGenerator.buildReport(q27gCashIncomeSourcesYouthList, "q27g.jrxml","Q27g.csv",data);
+			
+			List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q27hCashIncomeCategoryYouthList = Q27hDataBeanMaker.getQ27hClientCashIncomeCategoryEarnedOtherIncomeList(data);
+			homePageDataBean.setQ27hDataBean(q27hCashIncomeCategoryYouthList);
+			CSVGenerator.buildReport(q27hCashIncomeCategoryYouthList, "q27h.jrxml","Q27h.csv",data);
+			
+			List<DisabIncomeAndSourceDataBean> q27iDataBeanList = Q27iBeanMaker.getQ27iDataBean(data);
+			homePageDataBean.setQ27iDataBean(q27iDataBeanList);
+			CSVGenerator.buildReport(q27iDataBeanList, "q27i.jrxml", "Q27i.csv",data);
+		
 			return Arrays.asList(homePageDataBean);
 	    }
 		

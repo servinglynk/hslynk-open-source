@@ -53,7 +53,7 @@ public class ReportData {
 	private BigInteger totNumOfPersonServed;
 	private BigInteger numOfAdults;
 	private BigInteger numOfChildren;
-	private BigInteger numOfPersonsWithUnknownAge;
+	private List<ClientModel> personsWithUnknownAge;
 	private BigInteger totNoOfAdultStayers;
 	private BigInteger totNoOfAdultLeavers;
 	private BigInteger noOfVeterans;
@@ -75,7 +75,16 @@ public class ReportData {
 	List<String> projectsHHWithOneAdultChild  =  new ArrayList<String>();
 	List<String> projectsHHWithOutChildren  =  new ArrayList<String>();
 	List<String> projectsUnknownHouseHold  =  new ArrayList<String>();
+	private List<EnrollmentModel> adultWithChildren;
+	private List<EnrollmentModel> adultsWithOneAdultChild;
+	private List<EnrollmentModel> adultsWithOutChildren;
+	private List<EnrollmentModel> adultsUnknownHHType;
 	
+	private List<String> pshRrhTotal = null;
+	private List<EnrollmentModel> pshRrhWithOutChildren = null;
+	private List<EnrollmentModel> pshRrhWithChildAndAdults = null;
+	private List<EnrollmentModel> pshRrhWithOnlychildren = null;
+	private List<EnrollmentModel> pshRrhUnknownHousehold = null;
 	
 	private BigInteger totPersonsContacted = BigInteger.ZERO;
 	private BigInteger tpcFirstContactedHumanHabitation= BigInteger.ZERO;
@@ -88,6 +97,7 @@ public class ReportData {
 	private BigInteger totHhWithChildAndAdults=BigInteger.valueOf(0);
 	private BigInteger totHhWothOnlyChild=BigInteger.valueOf(0);
 	private BigInteger totHhUnknownHhType=BigInteger.valueOf(0);
+	private List<String> youthList = new ArrayList<String>();
 	
 	/**
 	 * @return the queryDataCollectionStage
@@ -285,22 +295,22 @@ public class ReportData {
 		return numOfChildren;
 	}
 	/**
+	 * @return the personsWithUnknownAge
+	 */
+	public List<ClientModel> getPersonsWithUnknownAge() {
+		return personsWithUnknownAge;
+	}
+	/**
+	 * @param personsWithUnknownAge the personsWithUnknownAge to set
+	 */
+	public void setPersonsWithUnknownAge(List<ClientModel> personsWithUnknownAge) {
+		this.personsWithUnknownAge = personsWithUnknownAge;
+	}
+	/**
 	 * @param numOfChildren the numOfChildren to set
 	 */
 	public void setNumOfChildren(BigInteger numOfChildren) {
 		this.numOfChildren = numOfChildren;
-	}
-	/**
-	 * @return the numOfPersonsWithUnknownAge
-	 */
-	public BigInteger getNumOfPersonsWithUnknownAge() {
-		return numOfPersonsWithUnknownAge;
-	}
-	/**
-	 * @param numOfPersonsWithUnknownAge the numOfPersonsWithUnknownAge to set
-	 */
-	public void setNumOfPersonsWithUnknownAge(BigInteger numOfPersonsWithUnknownAge) {
-		this.numOfPersonsWithUnknownAge = numOfPersonsWithUnknownAge;
 	}
 	/**
 	 * @return the totNoOfAdultStayers
@@ -852,5 +862,124 @@ public class ReportData {
 	public void setVeteranAtExit(Set<String> veteranAtExit) {
 		this.veteranAtExit = veteranAtExit;
 	}
-	
+	/**
+	 * @return the pshRrhTotal
+	 */
+	public List<String> getPshRrhTotal() {
+		return pshRrhTotal;
+	}
+	/**
+	 * @param pshRrhTotal the pshRrhTotal to set
+	 */
+	public void setPshRrhTotal(List<String> pshRrhTotal) {
+		this.pshRrhTotal = pshRrhTotal;
+	}
+	/**
+	 * @return the pshRrhWithOutChildren
+	 */
+	public List<EnrollmentModel> getPshRrhWithOutChildren() {
+		return pshRrhWithOutChildren;
+	}
+	/**
+	 * @param pshRrhWithOutChildren the pshRrhWithOutChildren to set
+	 */
+	public void setPshRrhWithOutChildren(List<EnrollmentModel> pshRrhWithOutChildren) {
+		this.pshRrhWithOutChildren = pshRrhWithOutChildren;
+	}
+	/**
+	 * @return the pshRrhWithChildAndAdults
+	 */
+	public List<EnrollmentModel> getPshRrhWithChildAndAdults() {
+		return pshRrhWithChildAndAdults;
+	}
+	/**
+	 * @param pshRrhWithChildAndAdults the pshRrhWithChildAndAdults to set
+	 */
+	public void setPshRrhWithChildAndAdults(List<EnrollmentModel> pshRrhWithChildAndAdults) {
+		this.pshRrhWithChildAndAdults = pshRrhWithChildAndAdults;
+	}
+	/**
+	 * @return the pshRrhWithOnlychildren
+	 */
+	public List<EnrollmentModel> getPshRrhWithOnlychildren() {
+		return pshRrhWithOnlychildren;
+	}
+	/**
+	 * @param pshRrhWithOnlychildren the pshRrhWithOnlychildren to set
+	 */
+	public void setPshRrhWithOnlychildren(List<EnrollmentModel> pshRrhWithOnlychildren) {
+		this.pshRrhWithOnlychildren = pshRrhWithOnlychildren;
+	}
+	/**
+	 * @return the pshRrhUnknownHousehold
+	 */
+	public List<EnrollmentModel> getPshRrhUnknownHousehold() {
+		return pshRrhUnknownHousehold;
+	}
+	/**
+	 * @param pshRrhUnknownHousehold the pshRrhUnknownHousehold to set
+	 */
+	public void setPshRrhUnknownHousehold(List<EnrollmentModel> pshRrhUnknownHousehold) {
+		this.pshRrhUnknownHousehold = pshRrhUnknownHousehold;
+	}
+	/**
+	 * @return the adultWithChildren
+	 */
+	public List<EnrollmentModel> getAdultWithChildren() {
+		return adultWithChildren;
+	}
+	/**
+	 * @param adultWithChildren the adultWithChildren to set
+	 */
+	public void setAdultWithChildren(List<EnrollmentModel> adultWithChildren) {
+		this.adultWithChildren = adultWithChildren;
+	}
+	/**
+	 * @return the adultsWithOneAdultChild
+	 */
+	public List<EnrollmentModel> getAdultsWithOneAdultChild() {
+		return adultsWithOneAdultChild;
+	}
+	/**
+	 * @param adultsWithOneAdultChild the adultsWithOneAdultChild to set
+	 */
+	public void setAdultsWithOneAdultChild(List<EnrollmentModel> adultsWithOneAdultChild) {
+		this.adultsWithOneAdultChild = adultsWithOneAdultChild;
+	}
+	/**
+	 * @return the adultsWithOutChildren
+	 */
+	public List<EnrollmentModel> getAdultsWithOutChildren() {
+		return adultsWithOutChildren;
+	}
+	/**
+	 * @param adultsWithOutChildren the adultsWithOutChildren to set
+	 */
+	public void setAdultsWithOutChildren(List<EnrollmentModel> adultsWithOutChildren) {
+		this.adultsWithOutChildren = adultsWithOutChildren;
+	}
+	/**
+	 * @return the adultsUnknownHHType
+	 */
+	public List<EnrollmentModel> getAdultsUnknownHHType() {
+		return adultsUnknownHHType;
+	}
+	/**
+	 * @param adultsUnknownHHType the adultsUnknownHHType to set
+	 */
+	public void setAdultsUnknownHHType(List<EnrollmentModel> adultsUnknownHHType) {
+		this.adultsUnknownHHType = adultsUnknownHHType;
+	}
+	/**
+	 * @return the youthList
+	 */
+	public List<String> getYouthList() {
+		return youthList;
+	}
+	/**
+	 * @param youthList the youthList to set
+	 */
+	public void setYouthList(List<String> youthList) {
+		this.youthList = youthList;
+	}
 }

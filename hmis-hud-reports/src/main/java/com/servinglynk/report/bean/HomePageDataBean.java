@@ -59,7 +59,7 @@ public class HomePageDataBean {
 	private List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean;
 	private List<Q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean> q19a1ClientCashIncomeChangeIncomeSourceEntryDataBean;
 	private List<Q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
-	private List<Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
+	private List<DisabIncomeAndSourceDataBean> q19bDataBean;
 	private List<Q20aTypeOfNonCashBenefitSourcesDataBean> q20aTypeOfNonCashBenefitSourcesDataBean;
 	private List<Q20bNumberOfNonCashBenefitSourcesDataBean> q20bNumberOfNonCashBenefitSourcesDataBean;
 	private List<Q21HealthInsuranceDataBean> q21HealthInsuranceDataBean;
@@ -68,8 +68,10 @@ public class HomePageDataBean {
 	private List<Q22bAverageAndMedianLengthOfParticipationInDaysDataBean> q22bAverageAndMedianLengthOfParticipationInDaysDataBean;
 	private List<Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean> q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean;
 	private List<Q22dLengthOfParticipationByHouseholdTypeDataBean> q22dLengthOfParticipationByHouseholdTypeDataBean;
+	private List<Q22eDataBean> q22eDataBean;
 	private List<Q23aExitDestinationMoreThan90DaysDataBean> q23ExitDestinationMoreThan90DaysDataBean;
 	private List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessDataBean;
+	private List<Q23cDataBean> q23cDataBean;
 	private List<Q24HomelessnessPreventionHousingAssessmentAtExitDataBean> q24HomelessnessPreventionHousingAssessmentAtExitDataBean;
 	private List<Q25aNumberOfVeteransDataBean> q25aNumberOfVeteransDataBean;
 	private List<Q25bNumberOfVeteranHouseholdsDataBean> q25bNumberOfVeteranHouseholdsDataBean;
@@ -94,6 +96,10 @@ public class HomePageDataBean {
 	private List<Q27dResidencePriorToEntryYouthDataBean> q27dResidencePriorToEntryYouthDataBean;
 	private List<Q27eLengthOfParticipationYouthDataBean> q27eLengthOfParticipationYouthDataBean;
 	private List<Q27fExitDestinationYouthDataBean> q27fExitDestinationYouthDataBean;
+	private List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesDataBean;
+	private List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q27hDataBean;
+	private List<DisabIncomeAndSourceDataBean> q27iDataBean;
+	
 	private List<Q29aPerformanceMeasuresPermanentHousingProgramsDataBean> q29aPerformanceMeasuresPermanentHousingProgramsDataBean;
 	private List<Q29bPerformanceMeasuresTransitionalHousingProgramsDataBean> q29bPerformanceMeasuresTransitionalHousingProgramsDataBean;
 	private List<Q29cPerformanceMeasuresStreetOutreachProgramsDataBean> q29cPerformanceMeasuresStreetOutreachProgramsDataBean;
@@ -727,17 +733,28 @@ public class HomePageDataBean {
 		this.q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean = q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean;
 	}
 	/**
-	 * @return the q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean
+	 * @return the q19bDataBen
 	 */
-	public List<Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean> getQ19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean() {
-		return q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
+	public List<DisabIncomeAndSourceDataBean> getQ19bDataBean() {
+		return q19bDataBean;
 	}
 	/**
-	 * @param q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean the q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean to set
+	 * @param q19bDataBen the q19bDataBen to set
 	 */
-	public void setQ19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean(
-			List<Q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean> q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean) {
-		this.q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean = q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean;
+	public void setQ19bDataBean(List<DisabIncomeAndSourceDataBean> q19bDataBen) {
+		this.q19bDataBean = q19bDataBen;
+	}
+	/**
+	 * @return the q27iDataBen
+	 */
+	public List<DisabIncomeAndSourceDataBean> getQ27iDataBean() {
+		return q27iDataBean;
+	}
+	/**
+	 * @param q27iDataBen the q27iDataBen to set
+	 */
+	public void setQ27iDataBean(List<DisabIncomeAndSourceDataBean> q27iDataBen) {
+		this.q27iDataBean = q27iDataBen;
 	}
 	/**
 	 * @return the q20aTypeOfNonCashBenefitSourcesDataBean
@@ -844,6 +861,18 @@ public class HomePageDataBean {
 		this.q22dLengthOfParticipationByHouseholdTypeDataBean = q22dLengthOfParticipationByHouseholdTypeDataBean;
 	}
 	/**
+	 * @return the q22eDataBean
+	 */
+	public List<Q22eDataBean> getQ22eDataBean() {
+		return q22eDataBean;
+	}
+	/**
+	 * @param q22eDataBean the q22eDataBean to set
+	 */
+	public void setQ22eDataBean(List<Q22eDataBean> q22eDataBean) {
+		this.q22eDataBean = q22eDataBean;
+	}
+	/**
 	 * @return the q23ExitDestinationMoreThan90DaysDataBean
 	 */
 	public List<Q23aExitDestinationMoreThan90DaysDataBean> getQ23ExitDestinationMoreThan90DaysDataBean() {
@@ -868,6 +897,13 @@ public class HomePageDataBean {
 	public void setQ23bExitDestination90DaysOrLessDataBean(
 			List<Q23bExitDestination90DaysOrLessDataBean> q23bExitDestination90DaysOrLessDataBean) {
 		this.q23bExitDestination90DaysOrLessDataBean = q23bExitDestination90DaysOrLessDataBean;
+	}
+	
+	public List<Q23cDataBean> getQ23cDataBean() {
+		return q23cDataBean;
+	}
+	public void setQ23cDataBean(List<Q23cDataBean> q23cDataBean) {
+		this.q23cDataBean = q23cDataBean;
 	}
 	/**
 	 * @return the q24HomelessnessPreventionHousingAssessmentAtExitDataBean
@@ -1246,6 +1282,28 @@ public class HomePageDataBean {
 			List<Q29ePerformanceMeasuresSafeHavensDataBean> q29ePerformanceMeasuresSafeHavensDataBean) {
 		this.q29ePerformanceMeasuresSafeHavensDataBean = q29ePerformanceMeasuresSafeHavensDataBean;
 	}
-	
-		
+	/**
+	 * @return the q27gCashIncomeSourcesDataBean
+	 */
+	public List<Q27gCashIncomeSourcesDataBean> getQ27gCashIncomeSourcesDataBean() {
+		return q27gCashIncomeSourcesDataBean;
+	}
+	/**
+	 * @param q27gCashIncomeSourcesDataBean the q27gCashIncomeSourcesDataBean to set
+	 */
+	public void setQ27gCashIncomeSourcesDataBean(List<Q27gCashIncomeSourcesDataBean> q27gCashIncomeSourcesDataBean) {
+		this.q27gCashIncomeSourcesDataBean = q27gCashIncomeSourcesDataBean;
+	}
+	/**
+	 * @return the q27hDataBean
+	 */
+	public List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> getQ27hDataBean() {
+		return q27hDataBean;
+	}
+	/**
+	 * @param q27hDataBean the q27hDataBean to set
+	 */
+	public void setQ27hDataBean(List<Q18ClientCashIncomeCategoryEarnedOtherIncomeDataBean> q27hDataBean) {
+		this.q27hDataBean = q27hDataBean;
+	}
 }

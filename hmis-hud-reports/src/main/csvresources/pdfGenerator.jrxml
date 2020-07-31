@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3feafea8-94bf-4f1e-9bd9-d3383e4be27b">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/> 
+	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -144,8 +145,8 @@
 	<field name="q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q19a2ClientCashIncomeChangeIncomeSourceByEntryDataBean]]></fieldDescription>
 	</field>
-	<field name="q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean" class="java.util.List">
-		<fieldDescription><![CDATA[q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean]]></fieldDescription>
+	<field name="q19bDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q19bDataBean]]></fieldDescription>
 	</field>
 	<field name="q20aTypeOfNonCashBenefitSourcesDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q20aTypeOfNonCashBenefitSourcesDataBean]]></fieldDescription>
@@ -159,27 +160,23 @@
 	<field name="q22a1LengthOfParticipationCoCProjectsDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q22a1LengthOfParticipationCoCProjectsDataBean]]></fieldDescription>
 	</field>
-	
 	<field name="q22a2LengthOfParticipationESGProjectsDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q22a2LengthOfParticipationESGProjectsDataBean]]></fieldDescription>
 	</field>
-	
 	<field name="q22bAverageAndMedianLengthOfParticipationInDaysDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q22bAverageAndMedianLengthOfParticipationInDaysDataBean]]></fieldDescription>
 	</field>
 	<field name="q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean]]></fieldDescription>
 	</field>
+	<field name="q22eDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q22eDataBean]]></fieldDescription>
+	</field>
 	<field name="q22dLengthOfParticipationByHouseholdTypeDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q22dLengthOfParticipationByHouseholdTypeDataBean]]></fieldDescription>
 	</field>
-	
-	<field name="q23ExitDestinationMoreThan90DaysDataBean" class="java.util.List">
-		<fieldDescription><![CDATA[q23ExitDestinationMoreThan90DaysDataBean]]></fieldDescription>
-	</field>
-	
-	<field name="q23bExitDestination90DaysOrLessDataBean" class="java.util.List">
-		<fieldDescription><![CDATA[q23bExitDestination90DaysOrLessDataBean]]></fieldDescription>
+	<field name="q23cDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q23cDataBean]]></fieldDescription>
 	</field>
 	<field name="q24HomelessnessPreventionHousingAssessmentAtExitDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q24HomelessnessPreventionHousingAssessmentAtExitDataBean]]></fieldDescription>
@@ -252,6 +249,15 @@
 	</field>
 	<field name="q27fExitDestinationYouthDataBean" class="java.util.List">
 		<fieldDescription><![CDATA[q27fExitDestinationYouthDataBean]]></fieldDescription>
+	</field>
+	<field name="q27gCashIncomeSourcesDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q27gCashIncomeSourcesDataBean]]></fieldDescription>
+	</field>
+	<field name="q27hDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q27hDataBean]]></fieldDescription>
+	</field>
+	<field name="q27iDataBean" class="java.util.List">
+		<fieldDescription><![CDATA[q27iDataBean]]></fieldDescription>
 	</field>
 	<group name="Group4">
 		<groupHeader>
@@ -817,7 +823,7 @@
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="cd336f81-b646-4cb5-b5e8-fa5799192c8e"/>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q09aNumberPersonsContactedDataBean})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q09a_Number_Persons_Contacted.jasper"]]></subreportExpression>
-				</subreport> 
+				</subreport>
 			</band>
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
@@ -968,9 +974,9 @@
 			</band>
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
-					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
-					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q19a3ClientCashIncomeChangeIncomeSourceByEntryDataBean})]]></dataSourceExpression>
-					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q19a3_Client_Cash_Income_Change_Income_Source_By_Entry.jasper"]]></subreportExpression>
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="821f5cf0-6aed-4295-bb54-64f597170a50"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q19bDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q19b_Disabling_Conditions_and_Income_for_Adults_at_Exit.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 			<band height="36" splitType="Stretch">
@@ -987,7 +993,6 @@
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q20b_Number_Of_Non_Cash_Benefit_Sources.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			   
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
@@ -995,7 +1000,6 @@
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q21_Health_Insurance.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
@@ -1003,7 +1007,6 @@
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q22a1_Length_Of_Participation_CoC_Projects.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
@@ -1011,7 +1014,6 @@
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q22a2_Length_Of_Participation_ESG_Projects.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
@@ -1019,7 +1021,6 @@
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q22b_Average_And_Median_Length_Of_Participation_In_Days.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
@@ -1027,7 +1028,6 @@
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q22c_Length_of_Time_Between_Project_StrtDt_HousingMoveDte.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
@@ -1035,23 +1035,20 @@
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q22d_Length_Of_Participation_By_HouseholdType.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
-					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q23ExitDestinationMoreThan90DaysDataBean})]]></dataSourceExpression>
-					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q23a_Exit_Destination_More_Than_90_Days.jasper"]]></subreportExpression>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q22eDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q22e_Length_Of_Participation_By_HouseholdType.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
-					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q23bExitDestination90DaysOrLessDataBean})]]></dataSourceExpression>
-					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q23b_Exit_Destination_90_Days_Or_Less.jasper"]]></subreportExpression>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q23cDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q23c_Exit_Destination.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			
 			<band height="36" splitType="Stretch">
 				<subreport runToBottom="true">
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
@@ -1218,6 +1215,27 @@
 					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q27fExitDestinationYouthDataBean})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q27f_Exit_Destination_Youth.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36" splitType="Stretch">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q27gCashIncomeSourcesDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q27g_Type_of_Cash_Income_Sources_Youth.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36" splitType="Stretch">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q27hDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q27h_Client_Cash_Income_Category_Earned_Other_Income.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="36" splitType="Stretch">
+				<subreport runToBottom="true">
+					<reportElement x="-14" y="-5" width="39" height="40" uuid="652db979-06fa-4761-8fc3-d3f6d19f178e"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{q27iDataBean})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "q27i_Disabling_Conditions_and_Income_for_Youth_at_Exit.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupFooter>

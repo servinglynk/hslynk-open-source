@@ -117,7 +117,7 @@ public class Q10aBeanMaker extends BaseBeanMaker {
 			q10AGenderOfAdults.setDkrUHHT(BigInteger.valueOf(adultsFemaleUHHT != null ?adultsFemaleUHHT.size() :0));
 		}
 	
-		List<ClientModel> clientMissing = adults.parallelStream().filter(client->StringUtils.equals("99",client.getGender())).collect(Collectors.toList());
+		List<ClientModel> clientMissing = adults.parallelStream().filter(client->client.getGender() == null || StringUtils.equals("99",client.getGender()) ).collect(Collectors.toList());
 		if(CollectionUtils.isNotEmpty(clientMissing)) {
 			List<String> missingInfoClients = new ArrayList<>();
 			clientMissing.forEach(client-> { missingInfoClients.add(client.getDedupClientId()); });

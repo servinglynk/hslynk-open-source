@@ -22,10 +22,8 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 		if(data.isLiveMode()) {
 		try{
 		String[] missing = new String[] {"8","9","99"};
-		List<String> missingList = Arrays.asList(missing);
-	  	
-			List<ClientModel> clients = data.getClients();
-			List<ClientModel> mai = clients.parallelStream().filter(client -> client.getAge()==0).collect(Collectors.toList());
+		List<String> missingList = Arrays.asList(missing);	
+	  		List<ClientModel> mai = data.getPersonsWithUnknownAge();
 			List<ClientModel> maiMale = mai.parallelStream().filter(client->StringUtils.equals("1",client.getGender())).collect(Collectors.toList());
 			
 			List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
@@ -149,7 +147,7 @@ public class Q10cBeanMaker extends BaseBeanMaker{
 						.add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getInfomissingMAIUHHT())).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getOtherMAIUHHT())).add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getTransgenderFMMAIUHHT()))
 						.add(getBigIntValue(q10cGenderofPersonsMissingAgeInformation.getTransgenderMFMAIUHHT()));
 			
-			q10cGenderofPersonsMissingAgeInformation.setTotMAISubtotal(totSubTotal);
+			q10cGenderofPersonsMissingAgeInformation.setTotMAISubtotal(BigInteger.valueOf(getSize(mai)));
 			q10cGenderofPersonsMissingAgeInformation.setSubtotalMAIWOC(subtotalWOC);
 			q10cGenderofPersonsMissingAgeInformation.setSubtotalMAIWCA(subtotalWCA);
 			q10cGenderofPersonsMissingAgeInformation.setSubtotalMAIUHHT(subtotalUHHT);

@@ -37,9 +37,9 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 				List<IncomeAndSourceModel> incomeExit= data.getIncomeAndSourcesAtExit();
 				List<IncomeAndSourceModel> incomeAA = data.getIncomeAndSourcesAtAnnualAssesment();
 				List<IncomeAndSourceModel> incomeAtExit  = incomeExit.parallelStream().filter(income -> veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
-				Set<String> veteranAtExit = data.getVeteranAtExit();
+			//	Set<String> veteranAtExit = data.getVeteranAtExit();
 				List<IncomeAndSourceModel> incomeAtAnnualVeterans  = incomeAA.parallelStream().filter(income -> veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
-				List<IncomeAndSourceModel> incomeAtAnnualAssesment  = incomeAtAnnualVeterans.parallelStream().filter(income -> CollectionUtils.isNotEmpty(veteranAtExit) && veteranAtExit.contains(income.getDedupClientId())).collect(Collectors.toList());
+				List<IncomeAndSourceModel> incomeAtAnnualAssesment  = incomeAtAnnualVeterans.parallelStream().filter(income -> CollectionUtils.isNotEmpty(veteransDedup) && veteransDedup.contains(income.getDedupClientId())).collect(Collectors.toList());
 				
 				
 			q25eData.setQ25fAdultsWithIncomeInfoAtEntry(BigInteger.valueOf(getIncomeCnt(incomeAtEntry)));
@@ -104,7 +104,7 @@ public class Q25fCashIncomeCategoryIncomeCategoryByEntryDataBeanMaker extends Ba
 			q25eData.setQ25fAdultsWithNoIncomeStayers(BigInteger.valueOf(getIncomeCnt(noIncomeAtAnnualAssesment)));
 			int sizeAtEntry = getSize(earnedIncomeAtEntry) + getSize(bothEarnedAndOtherIncomeAtEntry) + getSize(noearnedIncomeAtEntry) + getSize(otherIncomeAtEntry) + getSize(dkIncomeAtEntry) + getSize(missingIncomeAtEntry);
 			int sizeAtEsxit = getSize(earnedIncomeAtsAtExit) + getSize(bothEarnedAndOtherIncomeAtsAtExit) + getSize(noearnedIncomeAtExit) + getSize(otherIncomeAtsAtExit) + getSize(dkIncomeAtsAtExit)+ getSize(missingIncomeAtsAtExit);
-			int sizeAtAA = getSize(earnedIncomeAtAnnualAssesment) + getSize(bothEarnedAndOtherIncomeAtAnnualAssesment) + getSize(noearnedIncomeAtAnnualAssesment) + getSize(otherIncomeAtAnnualAssesment) + getSize(dkIncomeAtAnnualAssesment)+ getSize(missingIncomeAtAnnualAssesment);
+			int sizeAtAA = getSize(earnedIncomeAtAnnualAssesment) + getSize(bothEarnedAndOtherIncomeAtAnnualAssesment) + getSize(noearnedIncomeAtAnnualAssesment) + getSize(otherIncomeAtAnnualAssesment) + getSize(dkIncomeAtAnnualAssesment)+ getSize(missingIncomeAtAnnualAssesment) +getSize(noIncomeAtAnnualAssesment);
 			q25eData.setQ25fNumberOfAdultStayersNotYetRequiredAtEntry(BigInteger.valueOf(0));
 			q25eData.setQ25fNumberOfAdultStayersNotYetRequiredLeavers(BigInteger.valueOf(0));
 			q25eData.setQ25fNumberOfAdultStayersNotYetRequiredStayers(BigInteger.valueOf(0));

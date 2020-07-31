@@ -15,6 +15,7 @@ public class Q22BeanModel extends BaseModel {
 	private long numberOfDays=0;
 	private boolean dataNotCollected ;
 	private String destination;
+	private boolean notYetMovedIntoHousing;
 	
 	
 	public Q22BeanModel(String dedupClientId, String trackingMethod, String projectType, Date operatingStartDate,Date exitdate,Date entrydate,Date moveInDate,Date bedNightDate) {
@@ -160,4 +161,18 @@ public class Q22BeanModel extends BaseModel {
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
+	/**
+	 * @return the notYetMovedIntoHousing
+	 */
+	public boolean isNotYetMovedIntoHousing() {
+		return notYetMovedIntoHousing;
+	}
+	/**
+	 * @param notYetMovedIntoHousing the notYetMovedIntoHousing to set
+	 */
+	public void setNotYetMovedIntoHousing(boolean notYetMovedIntoHousing) {
+		this.notYetMovedIntoHousing = notYetMovedIntoHousing;
+	}
+	
+	
 }

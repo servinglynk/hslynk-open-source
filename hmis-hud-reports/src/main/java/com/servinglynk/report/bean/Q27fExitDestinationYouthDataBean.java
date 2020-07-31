@@ -256,6 +256,23 @@ public class Q27fExitDestinationYouthDataBean {
 	private BigInteger q27fPercentageWithChildOnly=BigInteger.valueOf(0);
 	private BigInteger q27fPercentageUnknownHouseHoldtype=BigInteger.valueOf(0);
 	
+	private BigInteger q27f13ClientByHVCVoucherTotal=BigInteger.valueOf(0);
+	private BigInteger q27f13ClientByHVCVoucherWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27f13ClientByHVCVoucherUnknownHouseHold=BigInteger.valueOf(0);
+	private BigInteger q27f13ClientByHVCVoucherWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q27f13ClientByHVCVoucherWithChildAndAdults=BigInteger.valueOf(0);
+	
+	private BigInteger q27f13RentalByClientPublicHousingTotal=BigInteger.valueOf(0);
+	private BigInteger q27f13RentalByClientPublicHousingWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27f13RentalByClientPublicHousingUnknownHouseHold=BigInteger.valueOf(0);
+	private BigInteger q27f13RentalByClientPublicHousingWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q27f13RentalByClientPublicHousingWithChildAndAdults=BigInteger.valueOf(0);
+	
+	private BigInteger q27fBHostHomeTotal=BigInteger.valueOf(0);
+	private BigInteger q27fB8HostHomeWithoutChild=BigInteger.valueOf(0);
+	private BigInteger q27fB8HostHomeWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q27fB8HostHomeWithOnlyChild=BigInteger.valueOf(0);
+	private BigInteger q27fB8HostHomeUnknownHouseHold=BigInteger.valueOf(0);
 	
 	/**
 	 * @return the q27fA11RentalByClientTotal
@@ -1587,6 +1604,187 @@ public class Q27fExitDestinationYouthDataBean {
 			BigInteger q27fPercentageUnknownHouseHoldtype) {
 		this.q27fPercentageUnknownHouseHoldtype = q27fPercentageUnknownHouseHoldtype;
 	}
-	
-	
+	/**
+	 * @return the q27f13ClientByHVCVoucherTotal
+	 */
+	public BigInteger getQ27f13ClientByHVCVoucherTotal() {
+		return q27f13ClientByHVCVoucherTotal;
+	}
+	/**
+	 * @param q27f13ClientByHVCVoucherTotal the q27f13ClientByHVCVoucherTotal to set
+	 */
+	public void setQ27f13ClientByHVCVoucherTotal(BigInteger q27f13ClientByHVCVoucherTotal) {
+		this.q27f13ClientByHVCVoucherTotal = q27f13ClientByHVCVoucherTotal;
+	}
+	/**
+	 * @return the q27f13ClientByHVCVoucherWithoutChild
+	 */
+	public BigInteger getQ27f13ClientByHVCVoucherWithoutChild() {
+		return q27f13ClientByHVCVoucherWithoutChild;
+	}
+	/**
+	 * @param q27f13ClientByHVCVoucherWithoutChild the q27f13ClientByHVCVoucherWithoutChild to set
+	 */
+	public void setQ27f13ClientByHVCVoucherWithoutChild(BigInteger q27f13ClientByHVCVoucherWithoutChild) {
+		this.q27f13ClientByHVCVoucherWithoutChild = q27f13ClientByHVCVoucherWithoutChild;
+	}
+	/**
+	 * @return the q27f13ClientByHVCVoucherUnknownHouseHold
+	 */
+	public BigInteger getQ27f13ClientByHVCVoucherUnknownHouseHold() {
+		return q27f13ClientByHVCVoucherUnknownHouseHold;
+	}
+	/**
+	 * @param q27f13ClientByHVCVoucherUnknownHouseHold the q27f13ClientByHVCVoucherUnknownHouseHold to set
+	 */
+	public void setQ27f13ClientByHVCVoucherUnknownHouseHold(BigInteger q27f13ClientByHVCVoucherUnknownHouseHold) {
+		this.q27f13ClientByHVCVoucherUnknownHouseHold = q27f13ClientByHVCVoucherUnknownHouseHold;
+	}
+	/**
+	 * @return the q27f13ClientByHVCVoucherWithOnlyChild
+	 */
+	public BigInteger getQ27f13ClientByHVCVoucherWithOnlyChild() {
+		return q27f13ClientByHVCVoucherWithOnlyChild;
+	}
+	/**
+	 * @param q27f13ClientByHVCVoucherWithOnlyChild the q27f13ClientByHVCVoucherWithOnlyChild to set
+	 */
+	public void setQ27f13ClientByHVCVoucherWithOnlyChild(BigInteger q27f13ClientByHVCVoucherWithOnlyChild) {
+		this.q27f13ClientByHVCVoucherWithOnlyChild = q27f13ClientByHVCVoucherWithOnlyChild;
+	}
+	/**
+	 * @return the q27f13ClientByHVCVoucherWithChildAndAdults
+	 */
+	public BigInteger getQ27f13ClientByHVCVoucherWithChildAndAdults() {
+		return q27f13ClientByHVCVoucherWithChildAndAdults;
+	}
+	/**
+	 * @param q27f13ClientByHVCVoucherWithChildAndAdults the q27f13ClientByHVCVoucherWithChildAndAdults to set
+	 */
+	public void setQ27f13ClientByHVCVoucherWithChildAndAdults(BigInteger q27f13ClientByHVCVoucherWithChildAndAdults) {
+		this.q27f13ClientByHVCVoucherWithChildAndAdults = q27f13ClientByHVCVoucherWithChildAndAdults;
+	}
+	/**
+	 * @return the q27f13RentalByClientPublicHousingTotal
+	 */
+	public BigInteger getQ27f13RentalByClientPublicHousingTotal() {
+		return q27f13RentalByClientPublicHousingTotal;
+	}
+	/**
+	 * @param q27f13RentalByClientPublicHousingTotal the q27f13RentalByClientPublicHousingTotal to set
+	 */
+	public void setQ27f13RentalByClientPublicHousingTotal(BigInteger q27f13RentalByClientPublicHousingTotal) {
+		this.q27f13RentalByClientPublicHousingTotal = q27f13RentalByClientPublicHousingTotal;
+	}
+	/**
+	 * @return the q27f13RentalByClientPublicHousingWithoutChild
+	 */
+	public BigInteger getQ27f13RentalByClientPublicHousingWithoutChild() {
+		return q27f13RentalByClientPublicHousingWithoutChild;
+	}
+	/**
+	 * @param q27f13RentalByClientPublicHousingWithoutChild the q27f13RentalByClientPublicHousingWithoutChild to set
+	 */
+	public void setQ27f13RentalByClientPublicHousingWithoutChild(BigInteger q27f13RentalByClientPublicHousingWithoutChild) {
+		this.q27f13RentalByClientPublicHousingWithoutChild = q27f13RentalByClientPublicHousingWithoutChild;
+	}
+	/**
+	 * @return the q27f13RentalByClientPublicHousingUnknownHouseHold
+	 */
+	public BigInteger getQ27f13RentalByClientPublicHousingUnknownHouseHold() {
+		return q27f13RentalByClientPublicHousingUnknownHouseHold;
+	}
+	/**
+	 * @param q27f13RentalByClientPublicHousingUnknownHouseHold the q27f13RentalByClientPublicHousingUnknownHouseHold to set
+	 */
+	public void setQ27f13RentalByClientPublicHousingUnknownHouseHold(
+			BigInteger q27f13RentalByClientPublicHousingUnknownHouseHold) {
+		this.q27f13RentalByClientPublicHousingUnknownHouseHold = q27f13RentalByClientPublicHousingUnknownHouseHold;
+	}
+	/**
+	 * @return the q27f13RentalByClientPublicHousingWithOnlyChild
+	 */
+	public BigInteger getQ27f13RentalByClientPublicHousingWithOnlyChild() {
+		return q27f13RentalByClientPublicHousingWithOnlyChild;
+	}
+	/**
+	 * @param q27f13RentalByClientPublicHousingWithOnlyChild the q27f13RentalByClientPublicHousingWithOnlyChild to set
+	 */
+	public void setQ27f13RentalByClientPublicHousingWithOnlyChild(
+			BigInteger q27f13RentalByClientPublicHousingWithOnlyChild) {
+		this.q27f13RentalByClientPublicHousingWithOnlyChild = q27f13RentalByClientPublicHousingWithOnlyChild;
+	}
+	/**
+	 * @return the q27f13RentalByClientPublicHousingWithChildAndAdults
+	 */
+	public BigInteger getQ27f13RentalByClientPublicHousingWithChildAndAdults() {
+		return q27f13RentalByClientPublicHousingWithChildAndAdults;
+	}
+	/**
+	 * @param q27f13RentalByClientPublicHousingWithChildAndAdults the q27f13RentalByClientPublicHousingWithChildAndAdults to set
+	 */
+	public void setQ27f13RentalByClientPublicHousingWithChildAndAdults(
+			BigInteger q27f13RentalByClientPublicHousingWithChildAndAdults) {
+		this.q27f13RentalByClientPublicHousingWithChildAndAdults = q27f13RentalByClientPublicHousingWithChildAndAdults;
+	}
+	/**
+	 * @return the q27fBHostHomeTotal
+	 */
+	public BigInteger getQ27fBHostHomeTotal() {
+		return q27fBHostHomeTotal;
+	}
+	/**
+	 * @param q27fBHostHomeTotal the q27fBHostHomeTotal to set
+	 */
+	public void setQ27fBHostHomeTotal(BigInteger q27fBHostHomeTotal) {
+		this.q27fBHostHomeTotal = q27fBHostHomeTotal;
+	}
+	/**
+	 * @return the q27fB8HostHomeWithoutChild
+	 */
+	public BigInteger getQ27fB8HostHomeWithoutChild() {
+		return q27fB8HostHomeWithoutChild;
+	}
+	/**
+	 * @param q27fB8HostHomeWithoutChild the q27fB8HostHomeWithoutChild to set
+	 */
+	public void setQ27fB8HostHomeWithoutChild(BigInteger q27fB8HostHomeWithoutChild) {
+		this.q27fB8HostHomeWithoutChild = q27fB8HostHomeWithoutChild;
+	}
+	/**
+	 * @return the q27fB8HostHomeWithChildAndAdults
+	 */
+	public BigInteger getQ27fB8HostHomeWithChildAndAdults() {
+		return q27fB8HostHomeWithChildAndAdults;
+	}
+	/**
+	 * @param q27fB8HostHomeWithChildAndAdults the q27fB8HostHomeWithChildAndAdults to set
+	 */
+	public void setQ27fB8HostHomeWithChildAndAdults(BigInteger q27fB8HostHomeWithChildAndAdults) {
+		this.q27fB8HostHomeWithChildAndAdults = q27fB8HostHomeWithChildAndAdults;
+	}
+	/**
+	 * @return the q27fB8HostHomeWithOnlyChild
+	 */
+	public BigInteger getQ27fB8HostHomeWithOnlyChild() {
+		return q27fB8HostHomeWithOnlyChild;
+	}
+	/**
+	 * @param q27fB8HostHomeWithOnlyChild the q27fB8HostHomeWithOnlyChild to set
+	 */
+	public void setQ27fB8HostHomeWithOnlyChild(BigInteger q27fB8HostHomeWithOnlyChild) {
+		this.q27fB8HostHomeWithOnlyChild = q27fB8HostHomeWithOnlyChild;
+	}
+	/**
+	 * @return the q27fB8HostHomeUnknownHouseHold
+	 */
+	public BigInteger getQ27fB8HostHomeUnknownHouseHold() {
+		return q27fB8HostHomeUnknownHouseHold;
+	}
+	/**
+	 * @param q27fB8HostHomeUnknownHouseHold the q27fB8HostHomeUnknownHouseHold to set
+	 */
+	public void setQ27fB8HostHomeUnknownHouseHold(BigInteger q27fB8HostHomeUnknownHouseHold) {
+		this.q27fB8HostHomeUnknownHouseHold = q27fB8HostHomeUnknownHouseHold;
+	}
 }

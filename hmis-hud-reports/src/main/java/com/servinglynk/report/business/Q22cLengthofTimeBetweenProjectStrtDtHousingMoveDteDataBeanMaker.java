@@ -25,9 +25,8 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 		Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean q22cBean = new Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBean();
 		
 		String query = " select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
-				  " join  %s.enrollment e1 on  (e.householdid = e1.householdid  and e1.relationshiptohoh ='1') "+
 				   "left outer join %s.exit ext on ( e.id = ext.enrollmentid ) "+
-			      " left outer join %s.moveindate mid on (e1.id = mid.enrollmentid and mid.moveindate  >=  :startDate  and  mid.moveindate<= :endDate) "+
+			      " left outer join %s.moveindate mid on (e.id = mid.enrollmentid and mid.moveindate  >=  :startDate  and  mid.moveindate<= :endDate) "+
 			      " where e.entrydate >= :startDate and e.entrydate <= :endDate  %e " ;
 		String exitedQuery = 		  
 					" select distinct(e.dedup_client_id ),e.entrydate,mid.moveindate,ext.exitdate from %s.enrollment e join %s.project p  on (e.projectid = p.id  %p ) "+
@@ -161,7 +160,7 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 					for(Q22BeanModel q22BeanModel : withoutChildren) {
 						count = count + q22BeanModel.getNumberOfDays();
 					}
-					q22cBean.setQ22cAvgLengthWithoutChildren(BigInteger.valueOf(count/allData.size()));
+					q22cBean.setQ22cAvgLengthWithoutChildren(BigInteger.valueOf(count/withoutChildren.size()));
 				}
 				
 				if(CollectionUtils.isNotEmpty(withChildAndAdults)) {
@@ -169,21 +168,21 @@ public class Q22cLengthofTimeBetweenProjectStrtDtHousingMoveDteDataBeanMaker ext
 					for(Q22BeanModel q22BeanModel : withChildAndAdults) {
 						count = count + q22BeanModel.getNumberOfDays();
 					}
-					q22cBean.setQ22cAvgLengthWithChildAndAdults(BigInteger.valueOf(count/allData.size()));
+					q22cBean.setQ22cAvgLengthWithChildAndAdults(BigInteger.valueOf(count/withChildAndAdults.size()));
 				}
 				if(CollectionUtils.isNotEmpty(withChildren)) {
 					long count = 0;
 					for(Q22BeanModel q22BeanModel : withChildren) {
 						count = count + q22BeanModel.getNumberOfDays();
 					}
-					q22cBean.setQ22cAvgLengthWithOnlychildren(BigInteger.valueOf(count/allData.size()));
+					q22cBean.setQ22cAvgLengthWithOnlychildren(BigInteger.valueOf(count/withChildren.size()));
 				}
 				if(CollectionUtils.isNotEmpty(unknown)) {
 					long count = 0;
 					for(Q22BeanModel q22BeanModel : unknown) {
 						count = count + q22BeanModel.getNumberOfDays();
 					}
-					q22cBean.setQ22cAvgLengthUnknowHousehold(BigInteger.valueOf(count/allData.size()));
+					q22cBean.setQ22cAvgLengthUnknowHousehold(BigInteger.valueOf(count/unknown.size()));
 				}
 				
 				List<Q22BeanModel> allExitData = getQ22Bean(data, exitedQuery, null, true);

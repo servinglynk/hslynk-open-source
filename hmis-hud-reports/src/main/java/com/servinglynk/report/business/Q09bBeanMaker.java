@@ -35,13 +35,6 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 		List<DateOfEngagementModel> filteredDOE = dateOfEngagements.parallelStream().filter(doe -> enrollmentIds.contains(doe.getEnrollmentId())).collect(Collectors.toList());
 		data.setDateOfEngagements(filteredDOE);
 
-		
-//		q09BNumberOfPersonsEngaged.setEngFirstContactRSS(BigInteger.valueOf(0));
-//		q09BNumberOfPersonsEngaged.setEng2to5FirstContactRSS(BigInteger.valueOf(0));
-//		q09BNumberOfPersonsEngaged.setEng6to9FirstContactRSS(BigInteger.valueOf(0));
-//		q09BNumberOfPersonsEngaged.setEng10FirstContactRSS(BigInteger.valueOf(0));
-//		q09BNumberOfPersonsEngaged.setRoeFirstContactRSS(BigInteger.valueOf(0));
-		
 		if(CollectionUtils.isNotEmpty(filteredContacts)) {
 			   Map<String, Long> totalContacts = filteredContacts.stream().collect(Collectors.groupingBy(ContactModel::getEnrollmentId, Collectors.counting()));
 			   if(totalContacts != null) {
@@ -63,22 +56,43 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 			   }
 			   
 		}
-		Map<String,Date> enrollmentMap = new HashMap<>();
-		enrollments.forEach(enrollment-> enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate()));
+		
+		Map<String,Date> notStayingOnStreetsEnrollmentMap = new HashMap<>();
+//		a.	Column C = anything other than 16, 1, 18, 37, 8, 9, 99
+		List<String> notStayingOnStreetsExcludeList = Arrays.asList("16", "1", "18", "37", "8", "9", "99");
+		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(notStayingOnStreetsEnrollmentMap, enrollment,null,notStayingOnStreetsExcludeList)   );
+		
+//		b.	Column D = 16, 1, 18
+		Map<String,Date> stayingOnStreetsEnrollmentMap = new HashMap<>();
+		List<String> stayingOnStreetsIncludeList = Arrays.asList("16", "1", "18");
+		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(stayingOnStreetsEnrollmentMap, enrollment,stayingOnStreetsIncludeList,null)   );
+//		c.	Column E = 37, 8, 9, 99		
+		Map<String,Date> unabletoDetermineEnrollmentMap = new HashMap<>();
+		List<String> unabletoDetermineIncludeList = Arrays.asList("37", "8", "9", "99");
+		enrollments.forEach(enrollment->    filterEnrollmentsByLivingSitation(unabletoDetermineEnrollmentMap, enrollment,unabletoDetermineIncludeList,null)   );
+		
 		Map<String,Date> dateOfEngagementMap = new HashMap<>();
 		dateOfEngagements.forEach(doe-> dateOfEngagementMap.put(doe.getEnrollmentId(), doe.getDateOfEngagement()));
 		List<ExitModel> exits = data.getExits();
 		Map<String,Date> exitMap = new HashMap<>();
 		exits.forEach(exit-> exitMap.put(exit.getProjectEntryID(), exit.getExitdate()));
-		
-		List<ContactModel> seperatedContacts = new ArrayList<>();
+
+		List<ContactModel> notStayingOnStreetSseperatedContacts = new ArrayList<>();
 		filteredContacts.forEach(
-				contact ->  { filterContacts(contact, seperatedContacts,enrollmentMap,dateOfEngagementMap,exitMap,data); }
+				contact ->  { filterContacts(contact, notStayingOnStreetSseperatedContacts,notStayingOnStreetsEnrollmentMap,dateOfEngagementMap,exitMap,data); }
 				);
+		List<ContactModel> stayingOnStreetsseperatedContacts = new ArrayList<>();
+		filteredContacts.forEach(
+				contact ->  { filterContacts(contact, stayingOnStreetsseperatedContacts,stayingOnStreetsEnrollmentMap,dateOfEngagementMap,exitMap,data); }
+				);
+		List<ContactModel> unabletoDetermineSeperatedContacts = new ArrayList<>();
+		filteredContacts.forEach(
+				contact ->  { filterContacts(contact, unabletoDetermineSeperatedContacts,unabletoDetermineEnrollmentMap,dateOfEngagementMap,exitMap,data); }
+				);
+		List<ContactModel> notStayingOnStreets = notStayingOnStreetSseperatedContacts.parallelStream().filter(contact -> StringUtils.equals("0", contact.getContactLocation())).collect(Collectors.toList());
+		List<ContactModel> stayingOnStreets = stayingOnStreetsseperatedContacts.parallelStream().filter(contact ->StringUtils.equals("1", contact.getContactLocation())).collect(Collectors.toList());
+		List<ContactModel> unabletoDetermine = unabletoDetermineSeperatedContacts.parallelStream().filter(contact -> contact.getContactLocation() == null || StringUtils.equals("2", contact.getContactLocation())).collect(Collectors.toList());
 		
-		List<ContactModel> notStayingOnStreets = seperatedContacts.parallelStream().filter(contact -> StringUtils.equals("0", contact.getContactLocation())).collect(Collectors.toList());
-		List<ContactModel> stayingOnStreets = seperatedContacts.parallelStream().filter(contact ->StringUtils.equals("1", contact.getContactLocation())).collect(Collectors.toList());
-		List<ContactModel> unabletoDetermine = seperatedContacts.parallelStream().filter(contact -> contact.getContactLocation() == null || StringUtils.equals("2", contact.getContactLocation())).collect(Collectors.toList());
 		
 		if(CollectionUtils.isNotEmpty(stayingOnStreets)) {
 			 Map<String, Long> totalContacts = stayingOnStreets.stream().collect(Collectors.groupingBy(ContactModel::getEnrollmentId, Collectors.counting()));
@@ -172,6 +186,26 @@ public class Q09bBeanMaker extends BaseBeanMaker {
 				}
 			}
 		}
+	}
+	
+	/***
+	 * Filter enrollments via their current living situation: I'm also adding the enrollmentMap if the currentliving sitation is 
+	 * a.	Column C = anything other than 16, 1, 18, 37, 8, 9, 99
+		b.	Column D = 16, 1, 18
+		c.	Column E = 37, 8, 9, 99
+	 * @param enrollmentMap
+	 * @param enrollment
+	 * @param currentLivingSituations
+	 * @param includeList
+	 * @param excludeList
+	 */
+	private static void filterEnrollmentsByLivingSitation(Map<String, Date> enrollmentMap, EnrollmentModel enrollment , List<String> includeList, List<String> excludeList) {
+			if((includeList!=null && (includeList.contains(enrollment.getLivingSituation()) )) 
+			|| (excludeList!=null && (!excludeList.contains(enrollment.getLivingSituation())))) {
+				enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate());
+			} else {
+			enrollmentMap.put(enrollment.getProjectEntryID(), enrollment.getEntrydate());
+		  }
 	}
 	public static void main(String args[]) {
 		List<ContactModel> filteredContacts = new ArrayList<ContactModel>();

@@ -16,10 +16,12 @@ public class Q27eLengthOfParticipationYouthDataBeanMaker extends BaseBeanMaker {
 	public static List<Q27eLengthOfParticipationYouthDataBean> getQ27eLengthOfParticipationYouthList(ReportData data){
 		
 		Q27eLengthOfParticipationYouthDataBean q27eLengthOfParticipationYouthTable = new Q27eLengthOfParticipationYouthDataBean();
+		
 		String allQuery = " select  e.dedup_client_id ,p.projecttype,p.trackingmethod,p.operatingstartdate,ext.exitdate,e.entrydate,mid.moveindate from %s.enrollment e join %s.project p  on (e.projectid = p.id %p ) "+
+				" join %s.client c on ( e.client_id=c.id ) "+
 				" left outer join  %s.exit ext  on  (ext.enrollmentid = e.id) "+
 				" left outer join  %s.moveindate mid  on  (mid.enrollmentid = e.id) "+
-				" where e.ageatentry > = 18 and e.ageatentry < = 24  %dedup  "+// Added age for youth.
+				" where c.age > = 18 and c.age < = 24  %dedup  "+// Added age for youth.
 				" order by e.dedup_client_id,p.operatingstartdate asc ";
 		
 		try {

@@ -42,6 +42,7 @@ public class CSVGenerator {
 					JasperDesign jasperDesign1 = JRXmlLoader.load(inputStream1);
 					JasperReport jasperReport1 = JasperCompileManager.compileReport(jasperDesign1);
 			        Map parameters = new HashMap();
+				    parameters.put("SUBREPORT_DIR",data.getConfigPath() );
 			        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
 				    JasperPrint jasperPrint1 = JasperFillManager.fillReport(jasperReport1, parameters, beanColDataSource);
 				    
@@ -49,7 +50,7 @@ public class CSVGenerator {
 				    
 				    OutputStream ouputStream  = new FileOutputStream(new File(csvFileName));
 				    ByteArrayOutputStream byteArrayOutputStream   = new ByteArrayOutputStream();
-				    
+			
 				    JRCsvExporter exporterCSV = new JRCsvExporter();
 				    exporterCSV.setParameter(JRCsvExporterParameter.JASPER_PRINT,jasperPrint1);
 				    exporterCSV.setParameter(JRCsvExporterParameter.OUTPUT_STREAM,byteArrayOutputStream);
