@@ -1221,13 +1221,14 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 						 resultSet.getString("ageatentry"), 
 						 resultSet.getString("client_id"), 
 						// resultSet.getInt("yearshomeless"), 
-						 0,
+						 resultSet.getInt("age"),
 						 (Boolean)resultSet.getBoolean("chronichomeless"), 
 						 resultSet.getString("source_system_id"),
 						 resultSet.getDate("date_created_from_source"),
 						 resultSet.getString("livingSituation"),
 						 resultSet.getDate("datetostreetessh"),
-						 resultSet.getString("dedup_client_id"));
+						 resultSet.getString("dedup_client_id"),
+						 resultSet.getInt("age"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {
