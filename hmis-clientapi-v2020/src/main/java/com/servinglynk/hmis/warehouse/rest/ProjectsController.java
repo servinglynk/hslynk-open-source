@@ -125,6 +125,16 @@ public class ProjectsController extends ControllerBase {
         return serviceFactory.getProjectcocService().getAllProjectCocs(projectId,startIndex,maxItems); 
    }
    
+   @RequestMapping(value="/projectcocs",method=RequestMethod.GET)
+   @APIMapping(value="CLIENT_API_GET_ALL_PROJECT_PROJECTCOC",checkTrustedApp=true,checkSessionToken=true)
+   public Projectcocs getAllProjectcocs(
+                       @RequestParam(value="startIndex", required=false) Integer startIndex, 
+                       @RequestParam(value="maxItems", required=false) Integer maxItems,
+                       HttpServletRequest request) throws Exception {
+           if (startIndex == null) startIndex =0;
+           if (maxItems == null) maxItems =30;
+        return serviceFactory.getProjectcocService().getAllCocsByDistictCocCode();
+   }
    
    // Affiliation API start
    

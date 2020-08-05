@@ -11,7 +11,7 @@ var filesCollection="";
 }]);*/
 var Service= ({
 	GetProjectList: function ($http, success,error,$scope) {
-        var apiurl = "/hmis-globalapi/rest/globalprojects?maxItems=200";
+        var apiurl = "/hmis-clientapi-v2020/rest/v2/projects?maxItems=200";
         $http({
             method: 'GET',
             url: apiurl,
@@ -20,7 +20,20 @@ var Service= ({
                 'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
                 'Accept': 'application/json;odata=verbose'}
         }).success(function (data) {
-            if(success)success(data.globalProjects.globalProjects)
+            if(success)success(data.projects.projects)
+        }).error(error);
+    },
+    GetCocCode: function ($http, success,error,$scope) {
+        var apiurl = "/hmis-clientapi-v2020/rest/projects/projectcocs";
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data) {
+            if(success)success(data.projectCocs.projectCocs)
         }).error(error);
     },
     GetUserInfo: function ($http,$scope, success, error) {
@@ -49,18 +62,18 @@ var Service= ({
                 }
       }).success(function (data, status, headers) {
           headers = headers();
-
+          
           var filename = headers['x-filename'];
           var contentType = headers['content-type'];
-
+   
           var linkElement = document.createElement('a');
           try {
               var blob = new Blob([data], { type: contentType });
               var url = window.URL.createObjectURL(blob);
-
+   
               linkElement.setAttribute('href', url);
               linkElement.setAttribute("download", filename);
-
+   
               var clickEvent = new MouseEvent("click", {
                   "view": window,
                   "bubbles": true,
@@ -86,10 +99,10 @@ var Service= ({
                 'Content-Type' : 'application/zip'}
         }).success(function (data, status, headers) {
             headers = headers();
-
+            
             var fileName = headers['x-filename'];
             var contentType = headers['content-Type'];
-
+     
             var a = document.createElement("a");
             document.body.appendChild(a);
             a.style = "display: none";
@@ -102,7 +115,7 @@ var Service= ({
         });
   },
   DownloadExportZIP: function ($http,$scope, success, error) {
-
+  	  
   	var apiurl = "/hmis-report-service/rest/reports/download/"+$scope.exportId+"/zip";
     $http({
         method: 'POST',
@@ -490,7 +503,7 @@ SendRequestReport: function ($http,$scope, success,error) {
                  "endDate":data.endDate,
                  "reportType" : data.reportType,
                  "reportLevel":data.reportLevel,
-                 "projectIds" : data.project
+                 "projectIds" : data.project ? data.project  : data.coc
               }
         },
          headers: {

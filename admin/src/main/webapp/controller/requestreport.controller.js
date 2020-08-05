@@ -10,7 +10,22 @@ app.controller('requestreportCtrl',['$scope','$location','$routeSegment','$http'
 	function(){$scope.errorTextAlert = "Error, Something gone wrong with getting projects.";
 	$scope.showErrorAlert = true;},
 	$scope)
-
+	
+		Service.GetCocCode($http,
+    //success
+    function(data){$scope.cocs =data;  },//error
+	function(){$scope.errorTextAlert = "Error, Something gone wrong with getting projects.";
+	$scope.showErrorAlert = true;},
+	$scope)
+	
+$scope.onSelectChange = function() {
+	if($scope.form.reportType ==='LSA') {
+		$scope.showLSA = true;
+	}else {
+		$scope.showLSA = false;
+	}
+		
+},
   $scope.submitForm = function() {
 
        Service.SendRequestReport($http,$scope,
