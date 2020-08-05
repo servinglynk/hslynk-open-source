@@ -1,9 +1,9 @@
-,Total,  a. Without children,  b. With children and adults,c. With only children,  d. Unknown household type
-   a. None,0,0,0,0,0
-   b. 1 condition,1,1,0,0,0
-   c. 2 conditions,8,6,0,0,0
-   d. 3+ conditions,22,16,0,0,0
-   e. Condition unknown,0,0,0,0,0
-   f. Client Doesn't Know/Client Refused,0,0,0,0,0
-   g. Data Not Collected,0,0,0,0,0
-   h. Total,31,23,0,0,0
+,Total,  a. Without children,  b. Adults in HH with Children & Adults,  b. Children in HH with Children & Adults,c. With only children,  d. Unknown household type
+   a. None,0,0,0,0,0,0
+   b. 1 condition,1,1,0,0,0,0
+   c. 2 conditions,8,8,0,0,0,0
+   d. 3+ conditions,22,22,0,0,0,0
+   e. Condition unknown,0,0,0,0,0,0
+   f. Client Doesn't Know/Client Refused,0,0,0,0,0,0
+   g. Data Not Collected,0,0,0,0,0,0
+   h. Total,31,31,0,0,0,0

@@ -10,6 +10,7 @@ public class ReportConfig {
 	private Date startDate;
 	private Date endDate;
 	private String cocId;
+	private String cocCode;
 	
 	private boolean isSageReport;
 	public ReportConfig() {
@@ -68,4 +69,11 @@ public class ReportConfig {
 	public void setCocId(String cocId) {
 		this.cocId = cocId;
 	}
+	public String getCocCode() {
+		return cocCode;
+	}
+	public void setCocCode(String cocCode) {
+		this.cocCode = cocCode;
+	}
+	
 }

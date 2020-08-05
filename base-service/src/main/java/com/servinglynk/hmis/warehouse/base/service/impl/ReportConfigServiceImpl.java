@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
@@ -36,6 +37,10 @@ public class ReportConfigServiceImpl  extends ServiceBase implements ReportConfi
 				 reportConfigParamEntity.setUpdatedBy(caller);
 				 reportConfigParamEntity.setKey("PROJECT_ID");
 				 reportConfigParamEntity.setValue(String.valueOf(reportProject.getProjectId()));
+				 if(StringUtils.isNotEmpty(reportProject.getCocCode())) {
+					 reportConfigParamEntity.setKey("COC_CODE");
+					 reportConfigParamEntity.setValue(reportProject.getCocCode());
+				 }
 				 reportConfigParamEntity.setReportConfig(createReportConfig);
 				 reportConfigParamEntity.setStatus("ACTIVE");
 				 daoFactory.getReportConfigParamDao().createReportConfigParam(reportConfigParamEntity);

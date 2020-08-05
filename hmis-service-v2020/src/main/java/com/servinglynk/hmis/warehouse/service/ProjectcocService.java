@@ -11,4 +11,5 @@ public interface ProjectcocService {
    Projectcoc deleteProjectcoc(UUID projectId,String caller);
    Projectcoc getProjectcocById(UUID projectId);
    Projectcocs getAllProjectCocs(UUID projectId,Integer startIndex, Integer maxItems);
+   Projectcocs getAllCocsByDistictCocCode();
 }

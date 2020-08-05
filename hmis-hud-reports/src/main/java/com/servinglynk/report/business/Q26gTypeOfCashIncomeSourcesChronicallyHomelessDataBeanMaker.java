@@ -10,11 +10,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.servinglynk.hive.connection.ImpalaConnection;
 import com.servinglynk.report.bean.Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBean;
 import com.servinglynk.report.bean.ReportData;
+import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.DataCollectionStage;
+import com.servinglynk.report.model.EnrollmentModel;
 
 public class Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker extends BaseBeanMaker{
 	
@@ -35,7 +38,6 @@ public class Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker extends
 					" and   e.id not in ( select enrollmentid from %s.exit  where exitdate <= :startDate )  "+
 					" and   e.id not in ( select enrollmentid from %s.enrollment_coc where datacollectionstage=:datacollectionstage and datediff(now(),information_date) > 365 )   ";
 
-			
 			int alimonyIncomeAtEntry = getIncomeCnt(data.getSchema(), entryQuery +" and alimony ='1' ", DataCollectionStage.ENTRY.getCode(),data);
 			int alimonyIncomeAtExit = getIncomeCnt(data.getSchema(), exitQuery +" and  alimony ='1' ", DataCollectionStage.EXIT.getCode(),data);
 			int alimonyIncomeAtAnnualAssesment = getIncomeCntForAnnualAssesment(data.getSchema(), annualAssesmentQuery +"  and alimony ='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(),data);
@@ -162,7 +164,7 @@ public class Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker extends
 			
 			
 			String adultsIncomeQuery = " select e.dedup_client_id  from %s.incomeandsources i, %s.enrollment e,%s.client c where  e.client_id = c.id and i.datacollectionstage=:datacollectionstage and  e.id=i.enrollmentid "+ 
-					" and i.information_date = e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate  order by dedup_client_id ";
+					" and i.information_date = e.entrydate and i.information_date >= :startDate and i.information_date <= :endDate and e.chronichomeless=true  and e.ageatentry >= 18 and i.incomefromanysource in ('1','2') order by dedup_client_id ";
 			data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());
 			List<String> enrollmentsAtEnrty = getClients(data.getSchema(), adultsIncomeQuery,data);
 			data.setQueryDataCollectionStage(DataCollectionStage.EXIT.getCode());
@@ -240,6 +242,26 @@ public class Q26gTypeOfCashIncomeSourcesChronicallyHomelessDataBeanMaker extends
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
 				data.setQueryDataCollectionStage(datacollectionStage);
+				
+				if(StringUtils.equals(DataCollectionStage.EXIT.getCode(), datacollectionStage)) {
+					List<EnrollmentModel> clients = data.getLeavers();
+					if(CollectionUtils.isEmpty(clients)) {
+						return count;
+					}
+					 if(CollectionUtils.isNotEmpty(clients)) {
+						 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
+						 int index = 0;
+						 for(EnrollmentModel client : clients) {
+							 enrollmentBuilder.append("'"+client.getDedupClientId()+"'");
+							 if(index != clients.size()) {
+								 enrollmentBuilder.append(",");
+							 }
+						 }
+						 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+						 enrollmentBuilder.append(" ) ");
+						 query = query + enrollmentBuilder.toString();
+					 }
+				}
 				resultSet = statement.executeQuery(formatQuery(query,schema,data));
 				
 			 while(resultSet.next()) {

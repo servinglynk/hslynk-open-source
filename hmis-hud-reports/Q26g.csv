@@ -1,19 +1,19 @@
 ,Income at Start,Income at Latest Annual Assessment for Stayers,Income at Exit for Leavers
-  a. Earned income,0,0,459
-  b. Unemployment insurance,0,0,31
-  c. Supplemental Security Income (SSI),0,0,1548
-  d. Social Security Disability Insurance ,0,0,618
+  a. Earned income,0,0,0
+  b. Unemployment insurance,0,0,0
+  c. Supplemental Security Income (SSI),0,0,5
+  d. Social Security Disability Insurance ,0,0,1
 "  e. VA service-connected
 Disability
-Compensation",0,0,1548
-  f. VA Non-Service Connected Disability Pension,0,0,187
-  g. Private Disability Insurance,0,0,4
+Compensation",0,0,5
+  f. VA Non-Service Connected Disability Pension,0,0,0
+  g. Private Disability Insurance,0,0,0
   h. Worker’s Compensation,0,0,0
-  i. Temporary Assistance for Needy ,0,0,133
-  j. General Assistance (GA),0,0,1268
-  k. Retirement Income from Social Security,0,0,198
-  l. Pension or retirement income ,0,0,72
-  m. Child Support,0,0,28
-  n. Alimony (Spousal Support),0,0,5
-  o. Other Source,0,0,86
-  p. Chronically Homeless Persons with Income Information at Start and Annual Assessment/Exit,0,0,41
+  i. Temporary Assistance for Needy ,0,0,0
+  j. General Assistance (GA),0,0,7
+  k. Retirement Income from Social Security,0,0,0
+  l. Pension or retirement income ,0,0,0
+  m. Child Support,0,0,0
+  n. Alimony (Spousal Support),0,0,0
+  o. Other Source,0,0,0
+  p. Chronically Homeless Persons with Income Information at Start and Annual Assessment/Exit,0,0,12

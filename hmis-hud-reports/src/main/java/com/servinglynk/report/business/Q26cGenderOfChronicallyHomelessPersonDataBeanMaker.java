@@ -17,14 +17,14 @@ public class Q26cGenderOfChronicallyHomelessPersonDataBeanMaker extends BaseBean
 			List<String> projectsHHWithOneAdultChild = data.getProjectsHHWithOneAdultChild();
 			List<String> projectsHHWithOutChildren = data.getProjectsHHWithOutChildren();
 			List<String> projectsUnknownHouseHold = data.getProjectsUnknownHouseHold();
-			
-			String maleCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.gender = '1' and e.chronichomeless=true and e.projectid = p.id %p  ";
-			String femaleCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.gender = '0' and e.chronichomeless=false and e.projectid = p.id %p  ";
-			String transFemaleCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.gender = '2' and e.disablingcondition in ('8','9') and e.projectid = p.id %p ";
-			String transMaleCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.gender = '3' and e.disablingcondition ='99' and e.projectid = p.id %p ";
-			String genderNotConfirmingCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.gender = '4' and e.disablingcondition ='99' and e.projectid = p.id %p ";
-			String dkrCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.gender in ('8','9')  and e.disablingcondition ='99' and e.projectid = p.id %p ";
-			String dncCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.gender = '99' and e.disablingcondition ='99' and e.projectid = p.id %p ";
+
+			String maleCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and entrydate <= :endDate and c.gender = '1' and e.chronichomeless=true and e.projectid = p.id %p and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) ";
+			String femaleCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id  and entrydate <= :endDate and c.gender = '0' and e.chronichomeless=true and e.projectid = p.id %p  and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) ";
+			String transFemaleCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and entrydate <= :endDate and c.gender = '2' and e.disablingcondition in ('8','9') and e.projectid = p.id %p  and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) ";
+			String transMaleCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and entrydate <= :endDate and c.gender = '3' and e.disablingcondition ='99' and e.projectid = p.id %p  and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) ";
+			String genderNotConfirmingCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and entrydate <= :endDate and c.gender = '4' and e.disablingcondition ='99' and e.projectid = p.id %p  and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) ";
+			String dkrCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.gender in ('8','9')   and entrydate <= :endDate  and e.disablingcondition ='99' and e.projectid = p.id %p and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate )  ";
+			String dncCHQuery ="select distinct(e.dedup_client_id) from %s.enrollment e,%s.client c,%s.project p  where c.id =e.client_id and c.gender = '99'  and entrydate <= :endDate and e.disablingcondition ='99' and e.projectid = p.id %p  and e.id not in ( select enrollmentid from %s.exit ext where  ext.exitdate is null  or  ext.exitdate <= :startDate ) ";
 			
 			if(data.isLiveMode()) {
 			

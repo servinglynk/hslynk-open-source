@@ -28,7 +28,7 @@ public class ProjectGroupEntity  {
     private boolean skipuseridentifers;
     private boolean determineDedupBySsid;
     
-   // private boolean active;
+    private boolean active;
     
     private boolean billable;
     
@@ -92,13 +92,13 @@ public class ProjectGroupEntity  {
 		this.billable = billable;
 	}
 	
-//	@Column(name="active")
-//	public boolean isActitve() {
-//		return active;
-//	}
-//	public void setActive(boolean active) {
-//		this.active = active;
-//	}
+	@Column(name="active")
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 	
 	
 	@Column(name="sender_email")
