@@ -25,19 +25,19 @@
             <input required ng-model="form.name"  name="name">
           </li>
           <li>
-            <label><span class="required">*</span>Report Level: </label>
-            <select required  ng-model="form.reportLevel" name="reportLevel">
-             <option value="">Select Report Level</option>
-              <option value="COC">Coc</option>
-              <option value="PROJECT">Project</option>
-            </select>
-          </li>
-           <li>
             <label><span class="required">*</span>Report Type: </label>
             <select required  ng-model="form.reportType" name="reportType" ng-change="onSelectChange()">
              <option value="">Select Report Type</option>
               <option value="APR">APR</option>
               <option value="LSA">LSA</option>
+            </select>
+          </li>
+          <li>
+            <label><span class="required">*</span>Report Level: </label>
+            <select required  ng-model="form.reportLevel" name="reportLevel">
+             <option value="">Select Report Level</option>
+              <option value="COC">Coc</option>
+              <option value="PROJECT">Project</option>
             </select>
           </li>
            <li>

@@ -21,8 +21,10 @@ app.controller('requestreportCtrl',['$scope','$location','$routeSegment','$http'
 $scope.onSelectChange = function() {
 	if($scope.form.reportType ==='LSA') {
 		$scope.showLSA = true;
+		$scope.form.reportLevel = 'COC';
 	}else {
 		$scope.showLSA = false;
+		$scope.form.reportLevel = 'PROJECT';
 	}
 		
 },
