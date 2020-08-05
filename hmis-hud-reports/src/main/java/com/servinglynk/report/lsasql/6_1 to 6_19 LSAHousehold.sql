@@ -656,9 +656,9 @@ Date:  4/20/2020
 	--"LastInactive" = ("FirstEntry" - 1 day) for any household where "Stat" <> 5
 	--  and for any household where "Stat" = 5 but there is no enrollment for the "HouseholdID"/"HHType"
 	--  active in the six days prior to First Entry. 
-	update lsa."tlsa_Household"
-set hh.LastInactive = case 
-			when dateadd(dd, -1, hh."FirstEntry") < '2012-09-30' then '2012-09-30'
+update lsa."tlsa_Household"
+set "LastInactive" = case 
+			when dateadd('d', -1, hh."FirstEntry") < '2012-09-30' then '2012-09-30'
 			else  dateadd('d', -1, hh."FirstEntry") end
 		, "Step" = '6.12.1'
 	from lsa."tlsa_Household" hh 

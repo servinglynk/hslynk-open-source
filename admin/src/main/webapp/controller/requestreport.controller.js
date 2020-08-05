@@ -1,23 +1,22 @@
 
 app.controller('requestreportCtrl',['$scope','$location','$routeSegment','$http', '$timeout', '$sessionStorage', function($scope,$location,$routeSegment,$http, $timeout, $sessionStorage) {
 	if($sessionStorage.isLoggedIn){
-		$("#userDetails").html($sessionStorage.account.emailAddress);	
+		$("#userDetails").html($sessionStorage.account.emailAddress);
 	}
-	$scope.sessionToken = $sessionStorage.sessionToken;								 
+	$scope.sessionToken = $sessionStorage.sessionToken;
 	Service.GetProjectList($http,
     //success
     function(data){$scope.projects =data;  },//error
 	function(){$scope.errorTextAlert = "Error, Something gone wrong with getting projects.";
 	$scope.showErrorAlert = true;},
 	$scope)
-											   
-											   
+
   $scope.submitForm = function() {
-	  
+
        Service.SendRequestReport($http,$scope,
     //success
     function(data){
-	
+
 		$scope.successTextAlert = "Your request has been sent successfully.";
 		$scope.showSuccessAlert = true;
 		$scope.form.name='';
@@ -26,14 +25,14 @@ app.controller('requestreportCtrl',['$scope','$location','$routeSegment','$http'
 		$scope.form.startDate='';
 		$scope.form.endDate='';
 		$scope.form.project=[];
-		
+
 
 },
 	//error
 	function(){$scope.errorTextAlert = "Error, Something gone wrong.";
 $scope.showErrorAlert = true;})
-	
-       
+
+
     };
 	// switch flag
 $scope.switchBool = function(value) {
