@@ -1,4 +1,4 @@
-package com.servinglynk.report.business;
+	package com.servinglynk.report.business;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.servinglynk.hive.connection.ReportQuery;
 import com.servinglynk.report.bean.Q08aDataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
@@ -55,6 +56,26 @@ public class Q08aDataBeanMaker extends BaseBeanMaker {
 			q08aDataBean.setTotHhWithChildAndAdults(
 					BigInteger.valueOf(getSize(enrollmentsHHWithOneAdultChild)));
 			
+        	List<String> pshRrhTotalList = data.getPshRrhTotal();
+        	int pshRrhTotal = pshRrhTotalList != null ? pshRrhTotalList.size() : 0;
+        	q08aDataBean.setPshRrhTotal(BigInteger.valueOf(pshRrhTotal));
+        	
+        	List<EnrollmentModel> pshRrhWithOutChildren = data.getPshRrhWithOutChildren();
+	        int pshRrhWithOutChildrenCount = pshRrhWithOutChildren != null ? pshRrhWithOutChildren.size() : 0;
+	        q08aDataBean.setPshRrhWithOutChildren(BigInteger.valueOf(pshRrhWithOutChildrenCount));
+        	
+        	List<EnrollmentModel> pshRrhWithOnlychildren = data.getPshRrhWithOnlychildren();
+	        int pshRrhWithOnlychildrenCount = pshRrhWithOnlychildren != null ? pshRrhWithOnlychildren.size() : 0;
+	        q08aDataBean.setPshRrhWithOnlychildren(BigInteger.valueOf(pshRrhWithOnlychildrenCount));
+        	
+           	List<EnrollmentModel> pshRrhWithChildAndAdults = data.getPshRrhWithChildAndAdults();
+           	int pshRrhWithChildAndAdultsCount = pshRrhWithChildAndAdults != null ? pshRrhWithChildAndAdults.size() : 0;
+	        q08aDataBean.setPshRrhWithOnlychildren(BigInteger.valueOf(pshRrhWithChildAndAdultsCount));
+        	
+         	List<EnrollmentModel> pshRrhUnknownHousehold = data.getPshRrhUnknownHousehold();
+         	int pshRrhUnknownHouseholdCount = pshRrhUnknownHousehold != null ? pshRrhUnknownHousehold.size() : 0;
+	        q08aDataBean.setPshRrhUnknownHousehold(BigInteger.valueOf(pshRrhUnknownHouseholdCount));
+	        
 			data.setOverAllTotHouseHolds(q08aDataBean.getOverAllTotHouseHolds());
 			data.setTotHhWithoutChild(q08aDataBean.getTotHhWithoutChild());
 			data.setTotHhUnknownHhType(q08aDataBean.getTotHhUnknownHhType());

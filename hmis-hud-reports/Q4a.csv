@@ -1,8 +1,2 @@
-Organization name,null
-Organization ID,null
-Project name,null
-Project ID,null
-HMIS Project Type,null
-Method of tracking ES,null
-"If HMIS Project ID = 6 (S Only), is the Services Only (HMIS Project Type 6) affiliated with a residential project?",null
-Identify the Project ID's of the housing projects this project is affiliated with,null
+Organization Name	,Organization ID,Project Name,Project ID,HMIS Project Type,Method for Tracking ES,Affiliated with a residential project,Project IDs of affiliations,CoC Number,Geocode,Victim Service Provider,HMIS Software Name,Report Start Date,Report End Date
+CHH_Permanent Housing Project_Mental ,34,projectname,source_system_id,1,0,0,0,OH-507,0,0,ServingLynk LLC,2017-07-01,2018-06-30

@@ -6,49 +6,57 @@ public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 	
 	private BigInteger q13b1MentalIllnessTotal=BigInteger.valueOf(0);
 	private BigInteger q13b1MentalIllnessWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13b1MentalIllnessWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1MentalIllnessWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1MentalIllnessWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13b1MentalIllnessWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13b1MentalIllnessUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13b1AlcoholAbuseTotal=BigInteger.valueOf(0);
 	private BigInteger q13b1AlcoholAbuseWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13b1AlcoholAbuseWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1AlcoholAbuseWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1AlcoholAbuseWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13b1AlcoholAbuseWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13b1AlcoholAbuseUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13b1DrugAbuseTotal=BigInteger.valueOf(0);
 	private BigInteger q13b1DrugAbuseWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13b1DrugAbuseWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1DrugAbuseWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1DrugAbuseWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13b1DrugAbuseWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13b1DrugAbuseUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13b1BothAlcoholAndDrugAbuseTotal=BigInteger.valueOf(0);
 	private BigInteger q13b1BothAlcoholAndDrugAbuseWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13b1BothAlcoholAndDrugAbuseWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1BothAlcoholAndDrugAbuseWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1BothAlcoholAndDrugAbuseWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13b1BothAlcoholAndDrugAbuseWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13b1BothAlcoholAndDrugAbuseUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13b1ChronicHealthConditionTotal=BigInteger.valueOf(0);
 	private BigInteger q13b1ChronicHealthConditionWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13b1ChronicHealthConditionWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1ChronicHealthConditionWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1ChronicHealthConditionWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13b1ChronicHealthConditionWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13b1ChronicHealthConditionUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13b1HIVRelatedDiseasesTotal=BigInteger.valueOf(0);
 	private BigInteger q13b1HIVRelatedDiseasesWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13b1HIVRelatedDiseasesWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1HIVRelatedDiseasesWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1HIVRelatedDiseasesWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13b1HIVRelatedDiseasesWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13b1HIVRelatedDiseasesUnknowHousehold=BigInteger.valueOf(0);
 
 	private BigInteger q13b1DevelopmentalDisabilityTotal=BigInteger.valueOf(0);
 	private BigInteger q13b1DevelopmentalDisabilityWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13b1DevelopmentalDisabilityWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1DevelopmentalDisabilityWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1DevelopmentalDisabilityWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13b1DevelopmentalDisabilityWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13b1DevelopmentalDisabilityUnknowHousehold=BigInteger.valueOf(0);
 	
 	private BigInteger q13b1PhysicalDisabilityTotal=BigInteger.valueOf(0);
 	private BigInteger q13b1PhysicalDisabilityWithoutChildren=BigInteger.valueOf(0);
-	private BigInteger q13b1PhysicalDisabilityWithChildAndAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1PhysicalDisabilityWithAdults=BigInteger.valueOf(0);
+	private BigInteger q13b1PhysicalDisabilityWithChildren=BigInteger.valueOf(0);
 	private BigInteger q13b1PhysicalDisabilityWithOnlychildren=BigInteger.valueOf(0);
 	private BigInteger q13b1PhysicalDisabilityUnknowHousehold=BigInteger.valueOf(0);
 	public BigInteger getQ13b1MentalIllnessTotal() {
@@ -64,12 +72,12 @@ public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 			BigInteger q13b1MentalIllnessWithoutChildren) {
 		this.q13b1MentalIllnessWithoutChildren = q13b1MentalIllnessWithoutChildren;
 	}
-	public BigInteger getQ13b1MentalIllnessWithChildAndAdults() {
-		return q13b1MentalIllnessWithChildAndAdults;
+	public BigInteger getQ13b1MentalIllnessWithAdults() {
+		return q13b1MentalIllnessWithAdults;
 	}
-	public void setQ13b1MentalIllnessWithChildAndAdults(
-			BigInteger q13b1MentalIllnessWithChildAndAdults) {
-		this.q13b1MentalIllnessWithChildAndAdults = q13b1MentalIllnessWithChildAndAdults;
+	public void setQ13b1MentalIllnessWithAdults(
+			BigInteger q13b1MentalIllnessWithAdults) {
+		this.q13b1MentalIllnessWithAdults = q13b1MentalIllnessWithAdults;
 	}
 	public BigInteger getQ13b1MentalIllnessWithOnlychildren() {
 		return q13b1MentalIllnessWithOnlychildren;
@@ -98,12 +106,12 @@ public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 			BigInteger q13b1AlcoholAbuseWithoutChildren) {
 		this.q13b1AlcoholAbuseWithoutChildren = q13b1AlcoholAbuseWithoutChildren;
 	}
-	public BigInteger getQ13b1AlcoholAbuseWithChildAndAdults() {
-		return q13b1AlcoholAbuseWithChildAndAdults;
+	public BigInteger getQ13b1AlcoholAbuseWithAdults() {
+		return q13b1AlcoholAbuseWithAdults;
 	}
-	public void setQ13b1AlcoholAbuseWithChildAndAdults(
-			BigInteger q13b1AlcoholAbuseWithChildAndAdults) {
-		this.q13b1AlcoholAbuseWithChildAndAdults = q13b1AlcoholAbuseWithChildAndAdults;
+	public void setQ13b1AlcoholAbuseWithAdults(
+			BigInteger q13b1AlcoholAbuseWithAdults) {
+		this.q13b1AlcoholAbuseWithAdults = q13b1AlcoholAbuseWithAdults;
 	}
 	public BigInteger getQ13b1AlcoholAbuseWithOnlychildren() {
 		return q13b1AlcoholAbuseWithOnlychildren;
@@ -132,12 +140,12 @@ public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 			BigInteger q13b1DrugAbuseWithoutChildren) {
 		this.q13b1DrugAbuseWithoutChildren = q13b1DrugAbuseWithoutChildren;
 	}
-	public BigInteger getQ13b1DrugAbuseWithChildAndAdults() {
-		return q13b1DrugAbuseWithChildAndAdults;
+	public BigInteger getQ13b1DrugAbuseWithAdults() {
+		return q13b1DrugAbuseWithAdults;
 	}
-	public void setQ13b1DrugAbuseWithChildAndAdults(
-			BigInteger q13b1DrugAbuseWithChildAndAdults) {
-		this.q13b1DrugAbuseWithChildAndAdults = q13b1DrugAbuseWithChildAndAdults;
+	public void setQ13b1DrugAbuseWithAdults(
+			BigInteger q13b1DrugAbuseWithAdults) {
+		this.q13b1DrugAbuseWithAdults = q13b1DrugAbuseWithAdults;
 	}
 	public BigInteger getQ13b1DrugAbuseWithOnlychildren() {
 		return q13b1DrugAbuseWithOnlychildren;
@@ -167,12 +175,12 @@ public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 			BigInteger q13b1BothAlcoholAndDrugAbuseWithoutChildren) {
 		this.q13b1BothAlcoholAndDrugAbuseWithoutChildren = q13b1BothAlcoholAndDrugAbuseWithoutChildren;
 	}
-	public BigInteger getQ13b1BothAlcoholAndDrugAbuseWithChildAndAdults() {
-		return q13b1BothAlcoholAndDrugAbuseWithChildAndAdults;
+	public BigInteger getQ13b1BothAlcoholAndDrugAbuseWithAdults() {
+		return q13b1BothAlcoholAndDrugAbuseWithAdults;
 	}
-	public void setQ13b1BothAlcoholAndDrugAbuseWithChildAndAdults(
-			BigInteger q13b1BothAlcoholAndDrugAbuseWithChildAndAdults) {
-		this.q13b1BothAlcoholAndDrugAbuseWithChildAndAdults = q13b1BothAlcoholAndDrugAbuseWithChildAndAdults;
+	public void setQ13b1BothAlcoholAndDrugAbuseWithAdults(
+			BigInteger q13b1BothAlcoholAndDrugAbuseWithAdults) {
+		this.q13b1BothAlcoholAndDrugAbuseWithAdults = q13b1BothAlcoholAndDrugAbuseWithAdults;
 	}
 	public BigInteger getQ13b1BothAlcoholAndDrugAbuseWithOnlychildren() {
 		return q13b1BothAlcoholAndDrugAbuseWithOnlychildren;
@@ -202,12 +210,12 @@ public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 			BigInteger q13b1ChronicHealthConditionWithoutChildren) {
 		this.q13b1ChronicHealthConditionWithoutChildren = q13b1ChronicHealthConditionWithoutChildren;
 	}
-	public BigInteger getQ13b1ChronicHealthConditionWithChildAndAdults() {
-		return q13b1ChronicHealthConditionWithChildAndAdults;
+	public BigInteger getQ13b1ChronicHealthConditionWithAdults() {
+		return q13b1ChronicHealthConditionWithAdults;
 	}
-	public void setQ13b1ChronicHealthConditionWithChildAndAdults(
-			BigInteger q13b1ChronicHealthConditionWithChildAndAdults) {
-		this.q13b1ChronicHealthConditionWithChildAndAdults = q13b1ChronicHealthConditionWithChildAndAdults;
+	public void setQ13b1ChronicHealthConditionWithAdults(
+			BigInteger q13b1ChronicHealthConditionWithAdults) {
+		this.q13b1ChronicHealthConditionWithAdults = q13b1ChronicHealthConditionWithAdults;
 	}
 	public BigInteger getQ13b1ChronicHealthConditionWithOnlychildren() {
 		return q13b1ChronicHealthConditionWithOnlychildren;
@@ -237,12 +245,12 @@ public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 			BigInteger q13b1hivRelatedDiseasesWithoutChildren) {
 		q13b1HIVRelatedDiseasesWithoutChildren = q13b1hivRelatedDiseasesWithoutChildren;
 	}
-	public BigInteger getQ13b1HIVRelatedDiseasesWithChildAndAdults() {
-		return q13b1HIVRelatedDiseasesWithChildAndAdults;
+	public BigInteger getQ13b1HIVRelatedDiseasesWithAdults() {
+		return q13b1HIVRelatedDiseasesWithAdults;
 	}
-	public void setQ13b1HIVRelatedDiseasesWithChildAndAdults(
-			BigInteger q13b1hivRelatedDiseasesWithChildAndAdults) {
-		q13b1HIVRelatedDiseasesWithChildAndAdults = q13b1hivRelatedDiseasesWithChildAndAdults;
+	public void setQ13b1HIVRelatedDiseasesWithAdults(
+			BigInteger q13b1hivRelatedDiseasesWithAdults) {
+		q13b1HIVRelatedDiseasesWithAdults = q13b1hivRelatedDiseasesWithAdults;
 	}
 	public BigInteger getQ13b1HIVRelatedDiseasesWithOnlychildren() {
 		return q13b1HIVRelatedDiseasesWithOnlychildren;
@@ -272,12 +280,12 @@ public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 			BigInteger q13b1DevelopmentalDisabilityWithoutChildren) {
 		this.q13b1DevelopmentalDisabilityWithoutChildren = q13b1DevelopmentalDisabilityWithoutChildren;
 	}
-	public BigInteger getQ13b1DevelopmentalDisabilityWithChildAndAdults() {
-		return q13b1DevelopmentalDisabilityWithChildAndAdults;
+	public BigInteger getQ13b1DevelopmentalDisabilityWithAdults() {
+		return q13b1DevelopmentalDisabilityWithAdults;
 	}
-	public void setQ13b1DevelopmentalDisabilityWithChildAndAdults(
-			BigInteger q13b1DevelopmentalDisabilityWithChildAndAdults) {
-		this.q13b1DevelopmentalDisabilityWithChildAndAdults = q13b1DevelopmentalDisabilityWithChildAndAdults;
+	public void setQ13b1DevelopmentalDisabilityWithAdults(
+			BigInteger q13b1DevelopmentalDisabilityWithAdults) {
+		this.q13b1DevelopmentalDisabilityWithAdults = q13b1DevelopmentalDisabilityWithAdults;
 	}
 	public BigInteger getQ13b1DevelopmentalDisabilityWithOnlychildren() {
 		return q13b1DevelopmentalDisabilityWithOnlychildren;
@@ -307,12 +315,12 @@ public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 			BigInteger q13b1PhysicalDisabilityWithoutChildren) {
 		this.q13b1PhysicalDisabilityWithoutChildren = q13b1PhysicalDisabilityWithoutChildren;
 	}
-	public BigInteger getQ13b1PhysicalDisabilityWithChildAndAdults() {
-		return q13b1PhysicalDisabilityWithChildAndAdults;
+	public BigInteger getQ13b1PhysicalDisabilityWithAdults() {
+		return q13b1PhysicalDisabilityWithAdults;
 	}
-	public void setQ13b1PhysicalDisabilityWithChildAndAdults(
-			BigInteger q13b1PhysicalDisabilityWithChildAndAdults) {
-		this.q13b1PhysicalDisabilityWithChildAndAdults = q13b1PhysicalDisabilityWithChildAndAdults;
+	public void setQ13b1PhysicalDisabilityWithAdults(
+			BigInteger q13b1PhysicalDisabilityWithAdults) {
+		this.q13b1PhysicalDisabilityWithAdults = q13b1PhysicalDisabilityWithAdults;
 	}
 	public BigInteger getQ13b1PhysicalDisabilityWithOnlychildren() {
 		return q13b1PhysicalDisabilityWithOnlychildren;
@@ -328,7 +336,52 @@ public class Q13b1PhysicalAndMentalHealthConditionsAtExitDataBean {
 			BigInteger q13b1PhysicalDisabilityUnknowHousehold) {
 		this.q13b1PhysicalDisabilityUnknowHousehold = q13b1PhysicalDisabilityUnknowHousehold;
 	}
-
-	
-
+	public BigInteger getQ13b1MentalIllnessWithChildren() {
+		return q13b1MentalIllnessWithChildren;
+	}
+	public void setQ13b1MentalIllnessWithChildren(BigInteger q13b1MentalIllnessWithChildren) {
+		this.q13b1MentalIllnessWithChildren = q13b1MentalIllnessWithChildren;
+	}
+	public BigInteger getQ13b1AlcoholAbuseWithChildren() {
+		return q13b1AlcoholAbuseWithChildren;
+	}
+	public void setQ13b1AlcoholAbuseWithChildren(BigInteger q13b1AlcoholAbuseWithChildren) {
+		this.q13b1AlcoholAbuseWithChildren = q13b1AlcoholAbuseWithChildren;
+	}
+	public BigInteger getQ13b1DrugAbuseWithChildren() {
+		return q13b1DrugAbuseWithChildren;
+	}
+	public void setQ13b1DrugAbuseWithChildren(BigInteger q13b1DrugAbuseWithChildren) {
+		this.q13b1DrugAbuseWithChildren = q13b1DrugAbuseWithChildren;
+	}
+	public BigInteger getQ13b1BothAlcoholAndDrugAbuseWithChildren() {
+		return q13b1BothAlcoholAndDrugAbuseWithChildren;
+	}
+	public void setQ13b1BothAlcoholAndDrugAbuseWithChildren(BigInteger q13b1BothAlcoholAndDrugAbuseWithChildren) {
+		this.q13b1BothAlcoholAndDrugAbuseWithChildren = q13b1BothAlcoholAndDrugAbuseWithChildren;
+	}
+	public BigInteger getQ13b1ChronicHealthConditionWithChildren() {
+		return q13b1ChronicHealthConditionWithChildren;
+	}
+	public void setQ13b1ChronicHealthConditionWithChildren(BigInteger q13b1ChronicHealthConditionWithChildren) {
+		this.q13b1ChronicHealthConditionWithChildren = q13b1ChronicHealthConditionWithChildren;
+	}
+	public BigInteger getQ13b1HIVRelatedDiseasesWithChildren() {
+		return q13b1HIVRelatedDiseasesWithChildren;
+	}
+	public void setQ13b1HIVRelatedDiseasesWithChildren(BigInteger q13b1hivRelatedDiseasesWithChildren) {
+		q13b1HIVRelatedDiseasesWithChildren = q13b1hivRelatedDiseasesWithChildren;
+	}
+	public BigInteger getQ13b1DevelopmentalDisabilityWithChildren() {
+		return q13b1DevelopmentalDisabilityWithChildren;
+	}
+	public void setQ13b1DevelopmentalDisabilityWithChildren(BigInteger q13b1DevelopmentalDisabilityWithChildren) {
+		this.q13b1DevelopmentalDisabilityWithChildren = q13b1DevelopmentalDisabilityWithChildren;
+	}
+	public BigInteger getQ13b1PhysicalDisabilityWithChildren() {
+		return q13b1PhysicalDisabilityWithChildren;
+	}
+	public void setQ13b1PhysicalDisabilityWithChildren(BigInteger q13b1PhysicalDisabilityWithChildren) {
+		this.q13b1PhysicalDisabilityWithChildren = q13b1PhysicalDisabilityWithChildren;
+	}
 }

@@ -107,7 +107,43 @@ public class SyncPostgresProcessor extends Logging{
         }
         return reportConfig;
     }
-    
+    public static ReportConfig getReportConfigByStatusReportType(String status,String reportType) throws Exception{
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        Connection connection = null;
+        ReportConfig reportConfig = null; 
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("select id,project_group_code,start_date,end_date,coc_id from base.report_config where status = ? and report_type= ? ");
+            statement.setString(1, status);
+            statement.setString(2, reportType);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+            	Long reportConfigId = resultSet.getLong("id"); 
+            	String projectGroupCode = resultSet.getString("project_group_code");
+            	Date startDate = resultSet.getDate("start_date");
+            	Date endDate = resultSet.getDate("end_date");
+            	String cocId = resultSet.getString("coc_id");
+            	reportConfig = new ReportConfig(reportConfigId, projectGroupCode, null	, startDate, endDate, true,cocId);
+            	populateProject(reportConfig);
+            	populateCoc(reportConfig);
+            }
+        }catch (Exception ex){
+            throw ex;
+        }
+        finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                    //connection.close();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    logger.error(e);
+                }
+            }
+        }
+        return reportConfig;
+    }
     public static void updateReportConfig(String status,Long id) throws Exception{
         PreparedStatement statement = null;
         Connection connection = null;
@@ -183,6 +219,35 @@ public class SyncPostgresProcessor extends Logging{
             }
         }
         reportConfig.setProjectds(projects);
+    }
+    
+    public static void populateCoc(ReportConfig reportConfig) throws Exception{
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = getConnection();
+            statement = connection.prepareStatement("select value from base.report_config_param where  report_config_id= ? and key='COC' ");
+            statement.setLong(1, reportConfig.getId());
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+            	String coc = resultSet.getString("value");
+            	reportConfig.setCocCode(coc);
+            }
+        }catch (Exception ex){
+            throw ex;
+        }
+        finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                    //connection.close();
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    logger.error(e);
+                }
+            }
+        }
     }
 
    

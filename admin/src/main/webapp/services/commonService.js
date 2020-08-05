@@ -11,7 +11,7 @@ var filesCollection="";
 }]);*/
 var Service= ({
 	GetProjectList: function ($http, success,error,$scope) {
-        var apiurl = "/hmis-clientapi-v2017/rest/v2/projects?maxItems=200";
+        var apiurl = "/hmis-clientapi-v2020/rest/v2/projects?maxItems=200";
         $http({
             method: 'GET',
             url: apiurl,
@@ -21,6 +21,19 @@ var Service= ({
                 'Accept': 'application/json;odata=verbose'}
         }).success(function (data) {
             if(success)success(data.projects.projects)
+        }).error(error);
+    },
+    GetCocCode: function ($http, success,error,$scope) {
+        var apiurl = "/hmis-clientapi-v2020/rest/projects/projectcocs";
+        $http({
+            method: 'GET',
+            url: apiurl,
+            headers: {
+              'X-HMIS-TrustedApp-Id': 'MASTER_TRUSTED_APP',
+                'Authorization': 'HMISUserAuth session_token='+$scope.sessionToken,
+                'Accept': 'application/json;odata=verbose'}
+        }).success(function (data) {
+            if(success)success(data.projectCocs.projectCocs)
         }).error(error);
     },
     GetUserInfo: function ($http,$scope, success, error) {
@@ -490,7 +503,7 @@ SendRequestReport: function ($http,$scope, success,error) {
                  "endDate":data.endDate,
                  "reportType" : data.reportType,
                  "reportLevel":data.reportLevel,
-                 "projectIds" : data.project
+                 "projectIds" : data.project ? data.project  : data.coc
               }
         },
          headers: {

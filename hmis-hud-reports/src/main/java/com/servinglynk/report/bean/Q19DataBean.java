@@ -1,3 +1,4 @@
+  
 package com.servinglynk.report.bean;
 
 import java.math.BigInteger;
@@ -441,6 +442,4 @@ public class Q19DataBean {
 			BigInteger AverageChangeInOverallIncomePercent) {
 		this.AverageChangeInOverallIncomePercent = AverageChangeInOverallIncomePercent;
 	}
-
-	
 }

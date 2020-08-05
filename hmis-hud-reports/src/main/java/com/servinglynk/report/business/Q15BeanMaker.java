@@ -458,7 +458,82 @@ public class Q15BeanMaker extends BaseBeanMaker {
 			q15Bean.setQ15OwnedByclientWithSubsidyUnknowHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
 		}
 		
-		   
+		List<EnrollmentModel> rentalByClientWithRRH = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("31", enrollment.getLivingSituation())).collect(Collectors.toList());
+		if(CollectionUtils.isNotEmpty(rentalByClientWithRRH)) {
+			List<EnrollmentModel> withChildren = rentalByClientWithRRH.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> withOutChildren = rentalByClientWithRRH.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> withOneAdultChild = rentalByClientWithRRH.parallelStream().filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> unknownHouseHold = rentalByClientWithRRH.parallelStream().filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			
+			int withOutChildrenIntSize = withOutChildren != null ?withOutChildren.size() :0 ;
+			int withOneAdultChildIntSize = withOneAdultChild != null ?withOneAdultChild.size() :0;
+			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
+			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
+			
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithRRH.size()));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			
+			q15Bean.setQ15RentalByClientWithRRHSubsidyTotal(BigInteger.valueOf(rentalByClientWithRRH.size()));
+			q15Bean.setQ15RentalByClientWithRRHSubsidyWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
+			q15Bean.setQ15RentalByClientWithRRHSubsidyWithChildandAdult(BigInteger.valueOf(withOneAdultChildIntSize));
+			q15Bean.setQ15RentalByClientWithRRHSubsidyWithchildOnly(BigInteger.valueOf(withChildrenIntSize));
+			q15Bean.setQ15RentalByClientWithRRHSubsidyUnknownHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
+		}
+		
+		List<EnrollmentModel> rentalByClientWithHVC = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("33", enrollment.getLivingSituation())).collect(Collectors.toList());
+		if(CollectionUtils.isNotEmpty(rentalByClientWithHVC)) {
+			List<EnrollmentModel> withChildren = rentalByClientWithHVC.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> withOutChildren = rentalByClientWithHVC.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> withOneAdultChild = rentalByClientWithHVC.parallelStream().filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> unknownHouseHold = rentalByClientWithHVC.parallelStream().filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			
+			int withOutChildrenIntSize = withOutChildren != null ?withOutChildren.size() :0 ;
+			int withOneAdultChildIntSize = withOneAdultChild != null ?withOneAdultChild.size() :0;
+			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
+			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
+			
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientWithHVC.size()));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			
+			q15Bean.setQ15RentalByClientWithHVCTotal(BigInteger.valueOf(rentalByClientWithRRH.size()));
+			q15Bean.setQ15RentalByClientWithHVCWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
+			q15Bean.setQ15RentalByClientWithHVCWithChildandAdult(BigInteger.valueOf(withOneAdultChildIntSize));
+			q15Bean.setQ15RentalByClientWithHVCWithchildOnly(BigInteger.valueOf(withChildrenIntSize));
+			q15Bean.setQ15RentalByClientWithHVCUnknownHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
+		}
+		
+		List<EnrollmentModel> rentalByClientInPublicHousing = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("33", enrollment.getLivingSituation())).collect(Collectors.toList());
+		if(CollectionUtils.isNotEmpty(rentalByClientWithHVC)) {
+			List<EnrollmentModel> withChildren = rentalByClientInPublicHousing.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> withOutChildren = rentalByClientInPublicHousing.parallelStream().filter(enrollment -> projectsHHWithOutChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> withOneAdultChild = rentalByClientInPublicHousing.parallelStream().filter(enrollment -> projectsHHWithOneAdultChild.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			List<EnrollmentModel> unknownHouseHold = rentalByClientInPublicHousing.parallelStream().filter(enrollment -> projectsUnknownHouseHold.contains(enrollment.getProjectID())).collect(Collectors.toList());
+			
+			int withOutChildrenIntSize = withOutChildren != null ?withOutChildren.size() :0 ;
+			int withOneAdultChildIntSize = withOneAdultChild != null ?withOneAdultChild.size() :0;
+			int withChildrenIntSize = withChildren != null ?withChildren.size() :0;
+			int unknownHouseHoldIntSize = unknownHouseHold !=null ?unknownHouseHold.size() :0;
+			
+			otherLocationOverallTotal=otherLocationOverallTotal.add(BigInteger.valueOf(rentalByClientInPublicHousing.size()));
+			otherLocationTotalWithOnlyChild=otherLocationTotalWithOnlyChild.add(BigInteger.valueOf(withChildrenIntSize));
+			otherLocationTotalWOC=otherLocationTotalWOC.add(BigInteger.valueOf(withOutChildrenIntSize));
+			otherLocationTotalWCA=otherLocationTotalWCA.add(BigInteger.valueOf(withOneAdultChildIntSize));
+			otherLocationTotalUHHT=otherLocationTotalUHHT.add(BigInteger.valueOf(unknownHouseHoldIntSize));
+			
+			q15Bean.setQ15RentalByClientInPublishHousingTotal(BigInteger.valueOf(rentalByClientWithRRH.size()));
+			q15Bean.setQ15RentalByClientInPublishHousingWithoutChild(BigInteger.valueOf(withOutChildrenIntSize));
+			q15Bean.setQ15RentalByClientInPublishHousingWithChildandAdult(BigInteger.valueOf(withOneAdultChildIntSize));
+			q15Bean.setQ15RentalByClientInPublishHousingWithchildOnly(BigInteger.valueOf(withChildrenIntSize));
+			q15Bean.setQ15RentalByClientInPublishHousingUnknownHousehold(BigInteger.valueOf(unknownHouseHoldIntSize));
+		}
+		
+		
 		List<EnrollmentModel> rentalByClientNoSubsidy = enrollments.parallelStream().filter(enrollment -> StringUtils.equals("22", enrollment.getLivingSituation())).collect(Collectors.toList());
 		if(CollectionUtils.isNotEmpty(rentalByClientNoSubsidy)) {
 			List<EnrollmentModel> withChildren = rentalByClientNoSubsidy.parallelStream().filter(enrollment -> projectsHHWithChildren.contains(enrollment.getProjectID())).collect(Collectors.toList());

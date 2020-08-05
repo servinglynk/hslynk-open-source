@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.core.model;
 public class ReportProject {
 	private String projectId;
 	private String projectName;
+	private String cocCode;
 	public String getProjectId() {
 		return projectId;
 	}
@@ -15,5 +16,10 @@ public class ReportProject {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-
+	public String getCocCode() {
+		return cocCode;
+	}
+	public void setCocCode(String cocCode) {
+		this.cocCode = cocCode;
+	}
 }

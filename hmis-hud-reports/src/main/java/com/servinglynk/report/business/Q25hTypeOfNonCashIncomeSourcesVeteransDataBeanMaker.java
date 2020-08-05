@@ -36,29 +36,30 @@ public class Q25hTypeOfNonCashIncomeSourcesVeteransDataBeanMaker extends BaseBea
 						//" and datediff(nb.information_date,e.entrydate) > 365 ";
 			try {
 			if(data.isLiveMode()) {
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hSupplementalNutritionalAssistanceAtEntry(BigInteger.valueOf(getIncomeCnt(data, entryQuery +" and nb.snap='1' ", DataCollectionStage.ENTRY.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hSupplementalNutritionalAssistanceStayers(BigInteger.valueOf(getIncomeForAnnualAssesment(data, stayersQuery +" and nb.snap='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hSupplementalNutritionalAssistanceLeavers(BigInteger.valueOf(getIncomeCnt(data, exitQuery +" and nb.snap='1' ", DataCollectionStage.EXIT.getCode())));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hSupplementalNutritionalAssistanceAtEntry(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(),entryQuery +" and nb.snap='1' ", DataCollectionStage.ENTRY.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hSupplementalNutritionalAssistanceStayers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), stayersQuery +" and nb.snap='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hSupplementalNutritionalAssistanceLeavers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), exitQuery +" and nb.snap='1' ", DataCollectionStage.EXIT.getCode(), data)));
 
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hWICAtEntry(BigInteger.valueOf(getIncomeCnt(data, entryQuery +" and nb.wic='1' ", DataCollectionStage.ENTRY.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hWICStayers(BigInteger.valueOf(getIncomeForAnnualAssesment(data, stayersQuery +" and nb.wic='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hWICLeavers(BigInteger.valueOf(getIncomeCnt(data, exitQuery +" and  nb.wic='1' ", DataCollectionStage.EXIT.getCode())));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hWICAtEntry(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), entryQuery +" and nb.wic='1' ", DataCollectionStage.ENTRY.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hWICStayers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), stayersQuery +" and nb.wic='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hWICLeavers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), exitQuery +" and  nb.wic='1' ", DataCollectionStage.EXIT.getCode(), data)));
 
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFChildCareServicesAtEntry(BigInteger.valueOf(getIncomeCnt(data, entryQuery +" and nb.tanfchildcare='1' ", DataCollectionStage.ENTRY.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFChildCareServicesStayers(BigInteger.valueOf(getIncomeForAnnualAssesment(data, stayersQuery +" and nb.tanfchildcare='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFChildCareServicesLeavers(BigInteger.valueOf(getIncomeCnt(data, exitQuery +" and nb.tanfchildcare='1' ", DataCollectionStage.EXIT.getCode())));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFChildCareServicesAtEntry(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), entryQuery +" and nb.tanfchildcare='1' ", DataCollectionStage.ENTRY.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFChildCareServicesStayers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), stayersQuery +" and nb.tanfchildcare='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFChildCareServicesLeavers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), exitQuery +" and nb.tanfchildcare='1' ", DataCollectionStage.EXIT.getCode(), data)));
 
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFTransportationServicesAtEntry(BigInteger.valueOf(getIncomeCnt(data, entryQuery +" and nb.tanftransportation='1' ", DataCollectionStage.ENTRY.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFTransportationServicesStayers(BigInteger.valueOf(getIncomeForAnnualAssesment(data, stayersQuery +" and nb.tanftransportation='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFTransportationServicesLeavers(BigInteger.valueOf(getIncomeCnt(data, exitQuery +" and nb.tanftransportation='1' ", DataCollectionStage.EXIT.getCode())));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFTransportationServicesAtEntry(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), entryQuery +" and nb.tanftransportation='1' ", DataCollectionStage.ENTRY.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFTransportationServicesStayers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), stayersQuery +" and nb.tanftransportation='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hTANFTransportationServicesLeavers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), exitQuery +" and nb.tanftransportation='1' ", DataCollectionStage.EXIT.getCode(), data)));
 
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherTANFFundedServicesAtEntry(BigInteger.valueOf(getIncomeCnt(data, entryQuery +" and nb.othertanf='1' ", DataCollectionStage.ENTRY.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherTANFFundedServicesStayers(BigInteger.valueOf(getIncomeForAnnualAssesment(data, stayersQuery +" and nb.othertanf='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherTANFFundedServicesLeavers(BigInteger.valueOf(getIncomeCnt(data, exitQuery +" and nb.othertanf='1' ", DataCollectionStage.EXIT.getCode())));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherTANFFundedServicesAtEntry(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), entryQuery +" and nb.othertanf='1' ", DataCollectionStage.ENTRY.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherTANFFundedServicesStayers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), stayersQuery +" and nb.othertanf='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherTANFFundedServicesLeavers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), exitQuery +" and nb.othertanf='1' ", DataCollectionStage.EXIT.getCode(), data)));
 
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherSourceAtEntry(BigInteger.valueOf(getIncomeCnt(data, entryQuery +" and nb.othersource='1' ", DataCollectionStage.ENTRY.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherSourceStayers(BigInteger.valueOf(getIncomeForAnnualAssesment(data, stayersQuery +" and nb.othersource='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode())));
-					Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherSourceLeavers(BigInteger.valueOf(getIncomeCnt(data, exitQuery +" and nb.othersource='1' ", DataCollectionStage.EXIT.getCode())));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherSourceAtEntry(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), entryQuery +" and nb.othersource='1' ", DataCollectionStage.ENTRY.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherSourceStayers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), stayersQuery +" and nb.othersource='1' ", DataCollectionStage.ANNUAL_ASSESMENT.getCode(), data)));
+				Q25hTypeOfNonCashBenefitSourcesTable.setQ25hOtherSourceLeavers(BigInteger.valueOf(getIncomeCntForVeterans(data.getSchema(), exitQuery +" and nb.othersource='1' ", DataCollectionStage.EXIT.getCode(), data)));
+
 				}
 			}catch(Exception e) {
 				logger.error("Error in Q25hBeanMaker:" + e);

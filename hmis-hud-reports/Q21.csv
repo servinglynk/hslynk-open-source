@@ -1,17 +1,17 @@
 ,At Start,At Annual Assessment for Stayers,At Exit for Leavers
    MEDICAID,27,13,8
-   MEDICARE,4,0,0
-   State Children's Health Insurance ,1,0,0
+   MEDICARE,4,2,0
+   State Children's Health Insurance ,1,1,0
   Veteran's Administration (VA) ,0,0,0
    Employer - Provided Health Insurance,0,0,0
-  Health Insurance obtained through ,23,6,0
+  Health Insurance obtained through ,23,13,6
    Private Pay Health Insurance,0,0,0
-   State Health Insurance for Adults,1,0,0
+   State Health Insurance for Adults,1,1,0
    Indian Health Services Program,0,0,0
    Other,0,0,0
-   No Health Insurance,0,0,0
+   No Health Insurance,1,1,1
    Client Doesn't Know/Client Refused,0,0,0
    Data not Collected,0,0,0
    Number of Stayers not yet Required To ,0,9,0
    1 Source of Health Insurance,0,0,0
-   More than 1 Source of Health Insurance,0,0,0
+   More than 1 Source of Health Insurance,31,14,8

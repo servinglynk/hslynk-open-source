@@ -83,6 +83,18 @@ public class ProjectcocServiceImpl extends ServiceBase implements ProjectcocServ
         cocs.setPagination(pagination);
         return cocs;
    }
-
+   @Transactional
+   public Projectcocs getAllCocsByDistictCocCode(){
+	   Projectcocs cocs = new Projectcocs();
+        List<com.servinglynk.hmis.warehouse.model.v2020.Coc> entities = daoFactory.getCocDao().getAllCocsByDistictCocCode();
+        for(com.servinglynk.hmis.warehouse.model.v2020.Coc entity : entities){
+        	cocs.addProjectcoc(CocConverter.entityToModel(entity));
+        }
+        SortedPagination pagination = new SortedPagination();
+        pagination.setReturned(cocs.getProjectcocs().size());
+        pagination.setTotal((int)entities.size());
+        cocs.setPagination(pagination);
+        return cocs;
+   }
 
 }

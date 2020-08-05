@@ -178,7 +178,4 @@ public class Q19a2DataBeanMaker extends BaseBeanMaker {
 			q19a2Bean.setQ19a2NumberOfAdultsWithAnyIncomePercent(q19dataBean.getNumberOfAdultsWithAnyIncomePercent());
 			q19a2Bean.setQ19a2AverageChangeInOverallIncomePercent(BigInteger.ZERO);
 	   }
-
-
-	
 }

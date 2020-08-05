@@ -12,6 +12,8 @@ children",  Unknown household type
 "   a09. Staying or living with family, permanent tenure",0,0,0,0,0
 "   a10. Staying or living with friends, permanent tenure",0,0,0,0,0
 "   a11. Rental by client, with RRH or equivalent subsidy",0,0,0,0,0
+"   Rental by client, with HCV voucher ",0,0,0,0,0
+  Rental by client in a public housing unit,0,0,0,0,0
    az. Subtotal,0,0,0,0,0
    b. Temporary Destinations,,,,,
 "   b1. Emergency shelter, including hotel or motel paid for with
@@ -24,6 +26,7 @@ emergency shelter voucher",0,0,0,0,0
   b6. Place not meant for human habitation,0,0,0,0,0
    b7. Safe Haven,0,0,0,0,0
    b8. Hotel or motel paid by client,0,0,0,0,0
+   Host Home (non-crisis),0,0,0,0,0
    bz. Subtotal,0,0,0,0,0
    c. Institutional Settings,,,,,
   c1. Foster care home or group foster care ,0,0,0,0,0

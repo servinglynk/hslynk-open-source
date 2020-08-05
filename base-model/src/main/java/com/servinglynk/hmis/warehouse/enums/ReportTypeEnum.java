@@ -9,6 +9,8 @@ public enum ReportTypeEnum {
 	/** Enum Constant. */
 	AHAR("AHAR"),
 	/** Enum Constant. */
+	LSA("LSA"),
+	/** Enum Constant. */
 	CAPER("CAPER");
 	
 private final String status;

@@ -36,12 +36,14 @@ import com.servinglynk.report.bean.Q19DataBean;
 import com.servinglynk.report.bean.ReportData;
 import com.servinglynk.report.model.ClientModel;
 import com.servinglynk.report.model.ContactModel;
+import com.servinglynk.report.model.CurrentLivingSituationModel;
 import com.servinglynk.report.model.DataCollectionStage;
 import com.servinglynk.report.model.DateOfEngagementModel;
 import com.servinglynk.report.model.DisabilitiesModel;
 import com.servinglynk.report.model.EnrollmentModel;
 import com.servinglynk.report.model.ExitModel;
 import com.servinglynk.report.model.IncomeAndSourceModel;
+import com.servinglynk.report.model.MoveInDateModel;
 import com.servinglynk.report.model.ProjectModel;
 import com.servinglynk.report.model.Q22BeanModel;
 
@@ -69,6 +71,7 @@ public class BaseBeanMaker {
 		 }
 		 return 0;
 	 }
+	 
 	 protected static String joinProjectIds(String query,ReportData data) {
 		 StringBuilder builder = new StringBuilder("");
 			List<String> projectIds = data.getProjectIds();
@@ -110,6 +113,7 @@ public class BaseBeanMaker {
 			query = query.replaceAll(":startDate", "'"+ data.getReportStartDate()+"'");
 			query = query.replaceAll(":endDate", "'"+ data.getReportEndDate()+"'");
 			query = query.replaceAll(":dedupClientId", data.getQueryDedupClientId());
+			query = getQueryForProjectDB(data, query);
 			if(query.contains("%e")) {
 				query = joinEnrollmentIds(query, data);
 				query = query.replace("%e", "");
@@ -167,6 +171,63 @@ public class BaseBeanMaker {
 			resultSet = statement.executeQuery();
 		 while(resultSet.next()) {
 			 models.add(resultSet.getString(1));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	
+	public static List<String> getQueryData(String schema,String query,ReportData data) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<String>  models = new ArrayList<String>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(formatQuery(query, schema, data));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.add(resultSet.getString(1));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	public static List<MoveInDateModel> getClientsWithMoveInDates(ReportData data,String query){
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		List<MoveInDateModel>  models = new ArrayList<MoveInDateModel>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(formatQuery(query,data.getSchema(),data));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.add(new MoveInDateModel(resultSet.getString("1"), resultSet.getDate("2"), resultSet.getString("3")));
 		 }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -486,6 +547,53 @@ public class BaseBeanMaker {
 		return models;
 	}
 	
+	
+	public static int getIncomeCntForVeterans(String schema,String query,String datacollectionStage,ReportData data) {
+		ResultSet resultSet = null;
+		Statement statement = null;
+		Connection connection = null;
+		int count =0;
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.createStatement();
+			data.setQueryDataCollectionStage(datacollectionStage);
+			List<ClientModel> clients = data.getVeterans();
+			if(CollectionUtils.isEmpty(clients)) {
+				return count;
+			}
+			 if(CollectionUtils.isNotEmpty(clients)) {
+				 StringBuilder enrollmentBuilder = new StringBuilder(" and e.dedup_client_id in  ( ");
+				 int index = 0;
+				 for(ClientModel client : clients) {
+					 enrollmentBuilder.append("'"+client.getDedupClientId()+"'");
+					 if(index != clients.size()) {
+						 enrollmentBuilder.append(",");
+					 }
+				 }
+				 enrollmentBuilder.deleteCharAt(enrollmentBuilder.length() -1);
+				 enrollmentBuilder.append(" ) ");
+				 query = query + enrollmentBuilder.toString();
+			 }
+		 resultSet = statement.executeQuery(formatQuery(query,schema,data));
+		 while(resultSet.next()) {
+			 count = resultSet.getInt(1);
+	     }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return count;
+	}
 	public static List<String> getDomesticViolenceByVictim(final String schema,final String victim,ReportData data,String query) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
@@ -637,6 +745,39 @@ public class BaseBeanMaker {
 		}
 		return models;
 	}
+	
+	
+	public static Map<String,String> getCurrentLivingSituationModel(final String schema,final ReportData data) {
+		ResultSet resultSet = null;
+		PreparedStatement statement = null;
+		Connection connection = null;
+		Map<String,String>  models = new HashMap<String, String>();
+		try {
+			connection = ImpalaConnection.getConnection();
+			statement = connection.prepareStatement(formatQuery(ReportQuery.CURRENT_LIVING_SITUATION_QUERY,schema,data));
+			resultSet = statement.executeQuery();
+		 while(resultSet.next()) {
+			 models.put(resultSet.getString("enrollmentid"), resultSet.getString("livingsituation"));
+		 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+					//connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
+			}
+		}
+		return models;
+	}
+	
+	
+	
 	public static List<DateOfEngagementModel> getDateOfEngagements(final String schema) {
 		ResultSet resultSet = null;
 		PreparedStatement statement = null;
@@ -1080,13 +1221,14 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 						 resultSet.getString("ageatentry"), 
 						 resultSet.getString("client_id"), 
 						// resultSet.getInt("yearshomeless"), 
-						 0,
+						 resultSet.getInt("age"),
 						 (Boolean)resultSet.getBoolean("chronichomeless"), 
 						 resultSet.getString("source_system_id"),
 						 resultSet.getDate("date_created_from_source"),
 						 resultSet.getString("livingSituation"),
 						 resultSet.getDate("datetostreetessh"),
-						 resultSet.getString("dedup_client_id"));
+						 resultSet.getString("dedup_client_id"),
+						 resultSet.getInt("age"));
 				 models.add(model);
 			 }
 			} catch (SQLException e) {
@@ -1112,6 +1254,7 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 			Connection connection = null;
 			List<EnrollmentModel>  models = new ArrayList<EnrollmentModel>();
 			try {
+				Map<String,String> currentLivingSituationMap = getCurrentLivingSituationModel(data.getSchema(),data);
 				connection = ImpalaConnection.getConnection();
 				statement = connection.createStatement();
 				String query = formatQuery(getQueryForProjectDB(data,ReportQuery.GET_ENROLLMENTS_PROJECT_ID),schema, data);
@@ -1147,15 +1290,18 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 								 null, 
 								 resultSet.getString("client_id"), 
 								// resultSet.getInt("yearshomeless"), 
-								 resultSet.getInt("ageatentry"),
+								 resultSet.getInt("age"),
 								 resultSet.getBoolean("chronichomeless"), 
 								 resultSet.getString("source_system_id"),
 								 resultSet.getDate("date_created_from_source"),
 								 resultSet.getString("livingsituation"),
 								 resultSet.getDate("datetostreetessh"),
-								 resultSet.getString("dedup_client_id"));
+								 resultSet.getString("dedup_client_id"),
+								 resultSet.getInt("age"));
 					 prevDedupClientId = resultSet.getString("dedup_client_id");
-						 models.add(model);
+					 String livingSituation = currentLivingSituationMap.get(model.getProjectEntryID());
+					 model.setCurrentLivingSituation(livingSituation);
+					 models.add(model);
 				 }
 			 }
 			} catch (SQLException e) {
@@ -1918,24 +2064,8 @@ alimonyamount,childsupportamount,earnedamount,gaamount,othersourceamount,pension
 								 newQuery = query.replace("%p", " ");
 							 }
 							 
-							 String newQueryWithEnrollments = newQuery;
-							 
-								List<EnrollmentModel> enrollments = data.getAdultLeavers();
-								 if(CollectionUtils.isNotEmpty(enrollments)) {
-									 StringBuilder builderWithEnrollments = new StringBuilder(" and e.id in  ( ");
-									 int count = 0;
-									 for(EnrollmentModel enrollment : enrollments) {
-										 builderWithEnrollments.append("'"+enrollment.getProjectEntryID()+"'");
-										 if(count != enrollments.size()) {
-											 builderWithEnrollments.append(",");
-										 }
-									 }
-									 builderWithEnrollments.deleteCharAt(builderWithEnrollments.length() -1);
-									 builderWithEnrollments.append(" ) ");
-									 newQueryWithEnrollments =	 newQueryWithEnrollments + builderWithEnrollments.toString();
-								 }
 							statement = connection.createStatement();
-							resultSet = statement.executeQuery(formatQuery(newQueryWithEnrollments,data.getSchema(),data));
+							resultSet = statement.executeQuery(formatQuery(newQuery,data.getSchema(),data));
 							
 						 while(resultSet.next()) {
 							 clients.add(resultSet.getString(1));

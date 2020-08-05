@@ -12,7 +12,10 @@ import java.util.UUID;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +29,7 @@ import com.servinglynk.hmis.warehouse.domain.SyncDomain;
 import com.servinglynk.hmis.warehouse.enums.GeographyTypeEnum;
 import com.servinglynk.hmis.warehouse.model.v2020.Coc;
 import com.servinglynk.hmis.warehouse.model.v2020.Error2020;
+import com.servinglynk.hmis.warehouse.model.v2020.HMISTypeModel;
 import com.servinglynk.hmis.warehouse.model.v2020.HmisBaseModel;
 import com.servinglynk.hmis.warehouse.model.v2020.Project;
 import com.servinglynk.hmis.warehouse.util.BasicDataGenerator;
@@ -246,11 +250,13 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 
 
 	@Override
-	public List<Coc> getAllCocs(UUID projectId, Integer startIndex, Integer maxItems) {
+	public List<com.servinglynk.hmis.warehouse.model.v2020.Coc> getAllCocsByDistictCocCode() {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Coc.class);	
-		criteria.createAlias("projectid","projectid");
-		criteria.add(Restrictions.eq("projectid.id", projectId));
-		List<com.servinglynk.hmis.warehouse.model.v2020.Coc> coc = (List<com.servinglynk.hmis.warehouse.model.v2020.Coc>) findByCriteria(criteria,startIndex,maxItems);
+		ProjectionList projectionList = Projections.projectionList();	
+		projectionList.add(Projections.distinct(Projections.property("coccode")),"coccode");
+		criteria.setProjection(projectionList);
+		criteria.setResultTransformer(Transformers.aliasToBean(com.servinglynk.hmis.warehouse.model.v2020.Coc.class));
+		List<com.servinglynk.hmis.warehouse.model.v2020.Coc> coc = (List<com.servinglynk.hmis.warehouse.model.v2020.Coc>) findByCriteria(criteria);
 		return coc;
 	}
 
@@ -262,6 +268,15 @@ public class CocDaoImpl  extends ParentDaoImpl implements CocDao{
 		criteria.createAlias("projectid","projectid");
 		criteria.add(Restrictions.eq("projectid.id", projectId));
 		return countRows(criteria);
+	}
+
+	@Override
+	public List<Coc> getAllCocs(UUID projectId, Integer startIndex, Integer maxItems) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Coc.class);	
+		criteria.createAlias("projectid","projectid");
+		criteria.add(Restrictions.eq("projectid.id", projectId));
+		List<com.servinglynk.hmis.warehouse.model.v2020.Coc> coc = (List<com.servinglynk.hmis.warehouse.model.v2020.Coc>) findByCriteria(criteria,startIndex,maxItems);
+		return coc;
 	}
 
 

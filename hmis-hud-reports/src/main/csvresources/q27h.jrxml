@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CDDQ_V2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9e06b684-bc08-4d5e-8091-a0420585e0f7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="162"/>
+	<field name="q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithNoIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithNoIncomeNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithNoOtherNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithNoOtherNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithNoIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithNoIncomeNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithDKRNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithDKRNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithDKRNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithDKRNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithDKRNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithDKRNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithMissingInfoNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithMissingInfoNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithMissingInfoNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithMissingInfoNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithMissingInfoNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithMissingInfoNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<field name="q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<field name="q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<field name="q18TotalAdultsNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18TotalAdultsNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18TotalAdultsNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18TotalAdultsNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18TotalAdultsNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18TotalAdultsNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<field name="q18OneOrMoreSourceofIncomeNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18OneOrMoreSourceofIncomeNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18OneOrMoreSourceofIncomeNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18OneOrMoreSourceofIncomeNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18OneOrMoreSourceofIncomeNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18OneOrMoreSourceofIncomeNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup]]></fieldDescription>
+	</field>
+	<field name="q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit]]></fieldDescription>
+	</field>
+	<group name="Group5">
+		<groupFooter>
+			<band height="49">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="117" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="5aa88bfd-4e7c-41e7-b824-0ca101e43879"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Number of Youth By Income Category]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="117" y="0" width="65" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="d0d4dd1d-a644-4bc5-a155-d06ab6fe7ba6"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Number of Youth at Start]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="182" y="0" width="185" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="c851a560-cf39-461b-9370-fcac0dd4c917"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Number of Youth at Annual Assessment (Stayers)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="365" y="0" width="190" height="49" forecolor="#666666" backcolor="#E6E6E6" uuid="d8b9a4ba-feca-4c2e-ab32-febb922aa079"/>
+					<box>
+						<pen lineWidth="0.75"/>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Number of Youth at Exit (Leavers)]]></text>
+				</staticText>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="c9ad8ed7-1473-455d-b2cb-7478a36a0e9a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   a. Youth with Only Earned Income (i.e., Employment Income)]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="7a0305cb-6f5f-41d4-b171-2b9d2bd7a2d1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="609a8f3f-52a0-450b-ab3c-9183d057cfbf"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="ca52eb45-c0fc-45a2-ae6d-55d638b96a47"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyEarnedIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="0c435a64-30cd-49a2-8ad5-0231c11d23bf"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   b. Youth with Only Other Income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="0b1ebe11-c821-40f4-80b3-c6c4761036c5"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="5a92831a-3f59-4e16-bed6-999303a6c9eb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="28dda373-b150-497b-894b-817367ce4d1e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithOnlyOtherIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="39">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="39" forecolor="#000000" uuid="198764a6-a2ef-4a07-9caa-62a9e7ea29b9"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   c. Youth with Both Earned and Other Income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="39" uuid="ee529b74-1fdf-46a0-a32b-181c929b6b39"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="39" uuid="282f882b-766c-4119-9a8f-d3b51d27698b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithBothEarnedAndOtherNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="39" uuid="8bb1aa4b-c666-437a-a33a-f0f6639c01e0"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithBothEarnedAndOtherIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="d5c53cc5-e743-4905-aec1-72e6ea84dcc9"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   d. Youth with No Income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="6ae40614-52af-4371-8146-b9ff81c59ab1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithNoIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="3bdec47b-f730-4ee2-902e-072661915e4e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithNoOtherNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="045e2de9-2d53-46e1-8425-d05c1f5d4d08"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithNoIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="61">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="61" forecolor="#000000" uuid="7b8c3f0c-5e6e-47f6-8cf3-c1a0ea8a37e1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   e. Youth with Client Doesn't Know/Client Refused Income Information]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="61" uuid="86a886b2-d456-451f-995c-3acf7a1b9672"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithDKRNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="61" uuid="1d8db343-8552-4f06-8976-b429db861273"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithDKRNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="61" uuid="510ed651-0f97-4faf-be57-b5c29cbee491"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithDKRNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="300d2ee3-4671-4a81-88c6-339ecfb600ce"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   f. Youth with Missing Income Information]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="951cd527-d9be-4f28-bba4-d3d07cc755dc"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithMissingInfoNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="a03c5c56-3062-4b6d-8cbb-4fbf5e99877b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithMissingInfoNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="c44bcc22-774c-47c0-b7e8-a0f73e3ec102"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithMissingInfoNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="61">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="61" forecolor="#000000" uuid="fe27734e-ceea-43d0-b938-71f0ae8a0488"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   g. Number of adult stayers not yet required to have an annual assessment]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="61" uuid="598ed6c7-1d9c-4272-9517-ac6c2b621e76"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="61" uuid="39763fce-442c-4a34-9fcb-1cbbef54b69d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="61" uuid="11a8a487-a2fb-4825-b85b-42bd104dfdf1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersNotRequiredNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="79">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="79" forecolor="#000000" uuid="d3509bc8-888c-407d-86ea-12e1ddd7644c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   h. Number of adult stayers without required annual assessment]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="79" uuid="5ec3a994-4071-4c17-b450-9d25d78bce3b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="79" uuid="7905ff16-5468-47da-a69c-63acfd856c37"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="79" uuid="e893ff1e-1445-4080-b1b9-6230301cbeb0"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18NumberOfAdultStayersWithoutRequiredNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="12cddbfe-46b4-4893-8266-55565e9bc5e2"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   i. Total adults]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="6c14968a-8628-44e7-8803-8035bc1c1cf0"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18TotalAdultsNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="dfb3ae63-2729-44d8-b765-c7284dfd8c8f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18TotalAdultsNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="8031018d-d5ac-4d98-83b1-6db4cf7ab36e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18TotalAdultsNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="26">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="26" uuid="1d2005d8-7776-410c-aa65-0b29c679588c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18OneOrMoreSourceofIncomeNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="26" forecolor="#000000" uuid="4af51c40-6211-4a02-a3f9-87bc48857a02"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   j. 1 or more source of income]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="26" uuid="737b4155-901e-4292-a5b6-91cc8d1dde85"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18OneOrMoreSourceofIncomeNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="26" uuid="1f7ff260-2f96-4251-889d-359460a79aac"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18OneOrMoreSourceofIncomeNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="39">
+				<textField>
+					<reportElement x="365" y="0" width="190" height="39" uuid="138a2c14-574e-4934-a509-002a65b328f5"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtExit}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="117" height="39" forecolor="#000000" uuid="f114f22a-01e2-4bbc-8a4d-77738847bbed"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[   k. Youth with Income Information at Start and Annual Assessment/Exit]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="182" y="0" width="183" height="39" uuid="7eadde76-1f68-44b8-b0cf-74df08646f78"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtFollowup}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="117" y="0" width="65" height="39" uuid="607c2e3a-9d3e-4058-b8f7-6c76229d4acd"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{q18AdultsWithIncomeInfoAtEntryNumberOfAdultsAtEntry}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+</jasperReport>

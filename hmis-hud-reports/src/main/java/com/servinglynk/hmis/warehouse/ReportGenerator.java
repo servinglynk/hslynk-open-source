@@ -41,8 +41,7 @@ public class ReportGenerator extends Logging {
 	}
 	
 		
-        @SuppressWarnings({ "unchecked", "unlikely-arg-type" })
-        
+    @SuppressWarnings({ "unchecked", "unlikely-arg-type" })
     private void exportToPDF(boolean sageReport) {
         try {         
         	Properties props = new Properties();
@@ -65,4 +64,7 @@ public class ReportGenerator extends Logging {
             logger.error(e, e);
         }
     }
+        
+        
+    
 }
