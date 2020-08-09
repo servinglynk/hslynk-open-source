@@ -1,0 +1,9 @@
+ProjectCoCID,ProjectID,CoCCode,Geocode,Address1,Address2,City,State,ZIP,GeographyType,DateCreated,DateUpdated,UserID,DateDeleted,ExportID
+"afdad21a-1e72-4e60-80b2-a1c12100fada","1098c370-b5e2-4c04-aa14-99d0668147e8","XX-500","391062","123 Anywhere Ave.","","Springfield","XX","12345",1,"yyyy-06-dd 12:mm:00","yyyy-06-dd 12:mm:00",,,12345
+"d874c00d-84b4-4346-ac79-3144f23ce483","339da772-a8b2-4c8c-a80b-ce38098b6959","XX-500","391062","123 Anywhere Ave.","","Springfield","XX","12345",1,"yyyy-06-dd 12:mm:00","yyyy-06-dd 12:mm:00",,,12345
+"e0a2e88f-c0dc-48ec-ace7-5880d10c94eb","3c21b121-4ec6-457f-9a92-e887ff2aea88","XX-500","391062","365 Apple Road","","Springfield","XX","54321",2,"yyyy-06-dd 12:mm:00","yyyy-06-dd 12:mm:00",,,12345
+"d21f9913-555f-4753-8a32-76635ca085c0","60b3bdd0-47b5-4984-9406-1b46cdeb3cd6","XX-500","391062","115 Orchardview Dr.","","Springfield","XX","54321",2,"yyyy-06-dd 12:mm:00","yyyy-06-dd 12:mm:00",,,12345
+"3fe98ce4-db09-4e5b-8c3c-c2ad1696527b","773fa99b-9fd5-475d-8443-e77af5031272","XX-500","391062","347 Saigon Dr.","","Springfield","XX","54321",2,"yyyy-06-dd 12:mm:00","yyyy-06-dd 12:mm:00",,,12345
+"902b0a2e-7fd4-494e-8acf-35da0dce6405","2ff327bb-6ee9-40fc-a309-16f87d063a19","XX-500","391062","875 Pagoda Ln.","","Springfield","XX","54321",2,"yyyy-06-dd 12:mm:00","yyyy-06-dd 12:mm:00",,,12345
+"f3055ebc-667a-4c68-8ba2-f0ab5aad903b","2d955398-3e16-415a-8e82-767e45e895f4","XX-500","391062","123 Anywhere Ave.","","Springfield","XX","12345",1,"yyyy-06-dd 12:mm:00","yyyy-06-dd 12:mm:00",,,12345
+"6cfd64c9-0964-4a5c-85c7-35768a0e7b8a","7a406cc1-100c-4437-88e1-f6dec73d28d4","XX-500","391062","123 Main St.","","Springfield","XX","12345",1,"yyyy-06-dd 12:mm:00","yyyy-06-dd 12:mm:00",,,12345
