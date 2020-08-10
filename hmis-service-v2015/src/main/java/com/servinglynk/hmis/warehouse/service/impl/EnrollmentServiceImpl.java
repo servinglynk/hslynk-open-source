@@ -18,6 +18,7 @@ import com.servinglynk.hmis.warehouse.core.model.HmisHousehold;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+import com.servinglynk.hmis.warehouse.service.EnrollmentLinksService;
 import com.servinglynk.hmis.warehouse.service.EnrollmentService;
 import com.servinglynk.hmis.warehouse.service.converter.EnrollmentConveter;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
@@ -29,6 +30,9 @@ import com.servinglynk.hmis.warehouse.service.exception.ResourceNotFoundExceptio
 public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentService {
 
 	@Autowired MessageSender messageSender;
+	
+	@Autowired
+	EnrollmentLinksService enrollmentLinksService;
 	
 	@Override
 	@Transactional
@@ -116,21 +120,33 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	@Override
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment getEnrollmentByClientIdAndEnrollmentId(
-			UUID enrollmentId, UUID clientId) {
+			UUID enrollmentId, UUID clientId,boolean includeChildLinks) {
 		com.servinglynk.hmis.warehouse.model.v2015.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
 		if(pEnrollment == null) throw new EnrollmentNotFound();
 
-		return EnrollmentConveter.entityToModel(pEnrollment);
+		com.servinglynk.hmis.warehouse.core.model.Enrollment model = EnrollmentConveter.entityToModel(pEnrollment);
+		if(includeChildLinks) {
+			model.setEntryLinks(enrollmentLinksService.getEntryLinks(pEnrollment.getClient().getId(), pEnrollment.getId()));
+			model.setEnrollmentLinks(enrollmentLinksService.getEnrollmentLinks(clientId, enrollmentId));
+			model.setExitLinks(enrollmentLinksService.getExitLinks(clientId, enrollmentId));
+		}
+		return model;
 	}
 	
 	@Override
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment getEnrollmentByEnrollmentId(
-			UUID enrollmentId) {
+			UUID enrollmentId,boolean includeChildLinks) {
 		com.servinglynk.hmis.warehouse.model.v2015.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollmentId);
 		if(pEnrollment == null) throw new EnrollmentNotFound();
 
-		return EnrollmentConveter.entityToModel(pEnrollment);
+		com.servinglynk.hmis.warehouse.core.model.Enrollment model = EnrollmentConveter.entityToModel(pEnrollment);
+		if(includeChildLinks) {
+			model.setEntryLinks(enrollmentLinksService.getEntryLinks(pEnrollment.getClient().getId(), pEnrollment.getId()));
+			model.setEnrollmentLinks(enrollmentLinksService.getEnrollmentLinks(pEnrollment.getClient().getId(), enrollmentId));
+			model.setExitLinks(enrollmentLinksService.getExitLinks(pEnrollment.getClient().getId(), enrollmentId));
+		}
+		return model;
 	}
 
 	@Override

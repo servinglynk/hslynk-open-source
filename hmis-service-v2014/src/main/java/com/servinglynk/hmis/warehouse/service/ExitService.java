@@ -9,6 +9,6 @@ public interface ExitService {
    Exit createExit(Exit exit,UUID enrollmentId,String caller);
    Exit updateExit(Exit exit,UUID enrollmentId,String caller);
    Exit deleteExit(UUID exitId,String caller);
-   Exit getExitById(UUID exitId);
+   Exit getExitById(UUID exitId,boolean includeChildLinks);
    Exits getAllEnrollmentExits(UUID enrollmentId,Integer startIndex, Integer maxItems);
 }

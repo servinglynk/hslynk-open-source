@@ -5,18 +5,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.warehouse.SortedPagination;
 import com.servinglynk.hmis.warehouse.core.model.Exit;
+import com.servinglynk.hmis.warehouse.core.model.Exits;
+import com.servinglynk.hmis.warehouse.service.EnrollmentLinksService;
 import com.servinglynk.hmis.warehouse.service.ExitService;
 import com.servinglynk.hmis.warehouse.service.converter.ExitConverter;
-import com.servinglynk.hmis.warehouse.core.model.Exits;
 import com.servinglynk.hmis.warehouse.service.exception.EnrollmentNotFound;
 import com.servinglynk.hmis.warehouse.service.exception.ExitNotFoundException;
-import com.servinglynk.hmis.warehouse.SortedPagination;
 
 
 public class ExitServiceImpl extends ServiceBase implements ExitService  {
+	
+	@Autowired
+	EnrollmentLinksService enrollmentLinksService;
 
    @Transactional
    public Exit createExit(Exit exit,UUID enrollmentId,String caller){
@@ -61,11 +66,15 @@ public class ExitServiceImpl extends ServiceBase implements ExitService  {
 
 
    @Transactional
-   public Exit getExitById(UUID exitId){
+   public Exit getExitById(UUID exitId,boolean includeChildLinks){
        com.servinglynk.hmis.warehouse.model.v2016.Exit pExit = daoFactory.getExitDao().getExitById(exitId);
        if(pExit==null) throw new ExitNotFoundException();
 
-       return ExitConverter.entityToModel( pExit );
+       Exit exit = ExitConverter.entityToModel( pExit );
+       if(includeChildLinks) {
+    	   exit.setExitLinks(enrollmentLinksService.getExitLinks(pExit.getEnrollmentid().getClient().getId(), pExit.getEnrollmentid().getId(),exitId));
+       }
+       return exit;
    }
 
 
