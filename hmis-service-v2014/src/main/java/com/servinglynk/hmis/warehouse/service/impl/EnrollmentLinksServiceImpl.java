@@ -22,29 +22,21 @@ import com.servinglynk.hmis.warehouse.core.model.EnrollmentExitLinks;
 import com.servinglynk.hmis.warehouse.core.model.EnrollmentLinks;
 import com.servinglynk.hmis.warehouse.core.model.ExitActionLink;
 import com.servinglynk.hmis.warehouse.core.model.ExitActionLinks;
-import com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar;
-import com.servinglynk.hmis.warehouse.model.v2017.Contact;
-import com.servinglynk.hmis.warehouse.model.v2017.Dateofengagement;
-import com.servinglynk.hmis.warehouse.model.v2017.Disabilities;
-import com.servinglynk.hmis.warehouse.model.v2017.Domesticviolence;
-import com.servinglynk.hmis.warehouse.model.v2017.Education;
-import com.servinglynk.hmis.warehouse.model.v2017.Employment;
-import com.servinglynk.hmis.warehouse.model.v2017.EnrollmentCoc;
-import com.servinglynk.hmis.warehouse.model.v2017.Entryrhsp;
-import com.servinglynk.hmis.warehouse.model.v2017.Entryrhy;
-import com.servinglynk.hmis.warehouse.model.v2017.Entryssvf;
-import com.servinglynk.hmis.warehouse.model.v2017.Exit;
-import com.servinglynk.hmis.warehouse.model.v2017.Exithousingassessment;
-import com.servinglynk.hmis.warehouse.model.v2017.Exitrhy;
-import com.servinglynk.hmis.warehouse.model.v2017.HealthStatus;
-import com.servinglynk.hmis.warehouse.model.v2017.Healthinsurance;
-import com.servinglynk.hmis.warehouse.model.v2017.Housingassessmentdisposition;
-import com.servinglynk.hmis.warehouse.model.v2017.Incomeandsources;
-import com.servinglynk.hmis.warehouse.model.v2017.Medicalassistance;
-import com.servinglynk.hmis.warehouse.model.v2017.Moveindate;
-import com.servinglynk.hmis.warehouse.model.v2017.Noncashbenefits;
-import com.servinglynk.hmis.warehouse.model.v2017.Pathstatus;
-import com.servinglynk.hmis.warehouse.model.v2017.ServiceFaReferral;
+import com.servinglynk.hmis.warehouse.model.v2014.Dateofengagement;
+import com.servinglynk.hmis.warehouse.model.v2014.Disabilities;
+import com.servinglynk.hmis.warehouse.model.v2014.Domesticviolence;
+import com.servinglynk.hmis.warehouse.model.v2014.Employment;
+import com.servinglynk.hmis.warehouse.model.v2014.EnrollmentCoc;
+import com.servinglynk.hmis.warehouse.model.v2014.Exit;
+import com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment;
+import com.servinglynk.hmis.warehouse.model.v2014.HealthStatus;
+import com.servinglynk.hmis.warehouse.model.v2014.Healthinsurance;
+import com.servinglynk.hmis.warehouse.model.v2014.Housingassessmentdisposition;
+import com.servinglynk.hmis.warehouse.model.v2014.Incomeandsources;
+import com.servinglynk.hmis.warehouse.model.v2014.Medicalassistance;
+import com.servinglynk.hmis.warehouse.model.v2014.Noncashbenefits;
+import com.servinglynk.hmis.warehouse.model.v2014.Pathstatus;
+import com.servinglynk.hmis.warehouse.model.v2014.Residentialmoveindate;
 import com.servinglynk.hmis.warehouse.service.EnrollmentLinksService;
 
 public class EnrollmentLinksServiceImpl extends ServiceBase implements EnrollmentLinksService{
@@ -252,9 +244,6 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	@Transactional
 	public EnrollmentEntryLinks getEntryLinks(UUID clientId,UUID enrollmentId) {
 		EnrollmentEntryLinks entryLinks = new EnrollmentEntryLinks();		
-			entryLinks.setRhsps(this.getEntryRhspsLinks(clientId, enrollmentId));
-			entryLinks.setEntryrhys(this.getEntryrhysLinks(clientId, enrollmentId));
-			entryLinks.setEntryssvfs(this.getEntryssvfsLinks(clientId, enrollmentId));
 			
 			if(entryLinks.getRhsps().isEmpty()) entryLinks.setRhsps(null);
 			if(entryLinks.getEntryrhys().isEmpty()) entryLinks.setEntryrhys(null);
@@ -266,11 +255,9 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	public EnrollmentLinks getEnrollmentLinks(UUID clientId,UUID enrollmentId) {
 		EnrollmentLinks enrollmentLinks = new EnrollmentLinks();
 	//	enrollmentLinks.setConnectionwithsoars(setConnectionwithsoarsLinks(clientId, enrollmentId));
-		enrollmentLinks.setContacts(getContactsLinks(clientId, enrollmentId));
 		enrollmentLinks.setDateOfEngagements(getDateOfEngagementsLinks(clientId, enrollmentId));
 		enrollmentLinks.setDisabilities(getDisabilitiesLinks(clientId, enrollmentId));
 		enrollmentLinks.setDomesticViolences(getDomesticViolencesLinks(clientId, enrollmentId));
-		enrollmentLinks.setEducations(getEducationsLinks(clientId, enrollmentId));
 		enrollmentLinks.setEmployments(getEmploymentsLinks(clientId, enrollmentId));
 		enrollmentLinks.setEnrollmentcocs(getEnrollmentcocsLinks(clientId, enrollmentId));
 		enrollmentLinks.setHealthinsurances(getHealthinsurancesLinks(clientId, enrollmentId));
@@ -280,7 +267,6 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		enrollmentLinks.setNoncashbenefits(getNoncashbenefitsLinks(clientId, enrollmentId));
 		enrollmentLinks.setPathstatuses(getPathstatusesLinks(clientId, enrollmentId));
 		enrollmentLinks.setResidentialMoveinDates(getResidentialMoveinDatesLinks(clientId, enrollmentId));
-		enrollmentLinks.setServiceFaReferrals(getServiceFaReferralsLinks(clientId, enrollmentId));
 		
 		
 		if(enrollmentLinks.getContacts().isEmpty())  enrollmentLinks.setContacts(null);
@@ -302,142 +288,6 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		return enrollmentLinks;
 	}
 	
-	public Map<String,Map<String,List<ActionLinks>>> getEntryRhspsLinks(UUID clientId,UUID enrollmentId) {
-		
-		
-		
-		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<Entryrhsp> data = daoFactory.getEntryrhspDao().getAllEnrollmentEntryrhsps(enrollmentId, null,null);
-		for(Entryrhsp entity : data) {
-			LocalDateTime date = entity.getDateUpdated();
-			
-			String collectionStage = "unspecified_stage";
-
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
-				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}	
-		}
-		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
-			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
-			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
-
-				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
-				List<ActionLinks> links = new ArrayList<>();
-				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
-
-					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGroupBy(stageLinks.getKey());
-					 
-					  for(UUID id : stageLinks.getValue()) {
-						  
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhsps/"+id));		
-					  }
-					  links.add(actionLinks);
-					  linksMap.put(stageLinks.getKey(), links);
-				}
-				stagesLinkMap.put(dateInfoLinks.getKey(), links);
-			}
-			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
-		}
-		
-		
-		return dateLinks;
-	}
-	
-	public Map<String,Map<String,List<ActionLinks>>> getEntryrhysLinks(UUID clientId,UUID enrollmentId) {
-		
-		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<Entryrhy> data = daoFactory.getEntryrhyDao().getAllEnrollmentEntryrhys(enrollmentId, null,null);
-		for(Entryrhy entity : data) {
-			LocalDateTime date = entity.getInformationDate();
-			if(date == null) date = entity.getDateUpdated();
-			
-			String collectionStage = "unspecified_stage";
-			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
-
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
-				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
-			} else {
-				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
-		}
-				
-		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
-			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>(new DateComparator());			
-			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
-
-				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
-				List<ActionLinks> links = new ArrayList<>();
-				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
-
-					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGroupBy(stageLinks.getKey());
-					// 
-					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryrhys/"+id));
-					  }
-					  links.add(actionLinks);
-					  linksMap.put(stageLinks.getKey(), links);
-				}
-				stagesLinkMap.put(dateInfoLinks.getKey(), links);
-			}
-			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
-		}
-					
-		return dateLinks;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Map<String,Map<String,List<ActionLinks>>> getEntryssvfsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<Entryssvf> data = daoFactory.getEntryssvfDao().getAllEnrollmentEntryssvfs(enrollmentId, null,null);
-		for(Entryssvf entity : data) {
-
-			LocalDateTime date = entity.getDateUpdated();
-			
-			String collectionStage = "unspecified_stage";
-			
-
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
-				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
-		}
-		
-		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
-			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
-			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
-
-				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
-				List<ActionLinks> links = new ArrayList<>();
-				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
-					// 
-
-					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGroupBy(stageLinks.getKey());
-					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/entryssvfs/"+id));
-					  }
-					  links.add(actionLinks);
-					  linksMap.put(stageLinks.getKey(), links);
-				}
-				stagesLinkMap.put(dateInfoLinks.getKey(), links);
-			}
-			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
-		}
-		
-	return dateLinks;
-
-	}
-	
 	public Map<String,Map<String,List<ActionLinks>>> getEnrollmentcocsLinks(UUID clientId,UUID enrollmentId) {
 		
 		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
@@ -450,9 +300,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			String collectionStage = "unspecified_stage";
 			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
+			if(entity.getInformationDate()!=null) {
 				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
 			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
@@ -471,7 +319,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					actionLinks.setGroupBy(stageLinks.getKey());
 					 
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/enrollmentcocs/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/enrollmentcocs/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -484,71 +332,20 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	return dateLinks;
 	}
 	
-	public Map<String,Map<String,List<ActionLinks>>> getEducationsLinks(UUID clientId,UUID enrollmentId) {
-		
-		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<Education> data = daoFactory.getEducationDao().getAllEnrollmentEducations(enrollmentId, null,null);
-		for(Education entity : data) {
-			LocalDateTime date = entity.getInformationDate();
-			if(date == null) date = entity.getDateUpdated();
-			
-			String collectionStage = "unspecified_stage";
-			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
-
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
-				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
-			} else {
-				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
-		}
-		
-		
-		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
-			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>(new DateComparator());			
-			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
-
-				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
-				List<ActionLinks> links = new ArrayList<>();
-				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
-
-					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGroupBy(stageLinks.getKey());
-					  for(UUID id : stageLinks.getValue()) {
-						  	actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
-//							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/educations/"+id));
-					  }
-					  links.add(actionLinks);
-					  linksMap.put(stageLinks.getKey(), links);
-				}
-				stagesLinkMap.put(dateInfoLinks.getKey(), links);
-			}
-			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
-		}
-					
-	return dateLinks;
-
-
-	}
-/*
+	
+	/*
 	public Map<String,Map<String,List<ActionLinks>>> setConnectionwithsoarsLinks(UUID clientId,UUID enrollmentId) {
 		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
 		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<ConnectionWithSoar> data = daoFactory.getConnectionWithSoarDao().getAllConnectionWithSoar(enrollmentId, null,null);
-		for(ConnectionWithSoar entity : data) {
+		List<Connectionwithsoar> data = daoFactory.getConnectionwithsoarDao().getAllExitConnectionwithsoars(enrollmentId, null,null);
+		for(Connectionwithsoar entity : data) {
 
 			LocalDateTime date = entity.getDateUpdated();
 			
 			String collectionStage = "unspecified_stage";
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
-	}
+		}
 		
 		
 		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
@@ -563,7 +360,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/contacts/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/contacts/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -577,51 +374,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 
 
 	}
-*/	
-	public Map<String,Map<String,List<ActionLinks>>> getContactsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<Contact> data = daoFactory.getContactDao().getAllEnrollmentContacts(enrollmentId, null,null);
-		for(Contact entity : data) {
-
-			LocalDateTime date = entity.getDateUpdated();
-			
-			String collectionStage = "unspecified_stage";
-
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
-				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
-	}
-		
-		
-		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
-			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
-			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
-
-				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
-				List<ActionLinks> links = new ArrayList<>();
-				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
-					// 
-
-					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGroupBy(stageLinks.getKey());
-					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/contacts/"+id));
-					  }
-					  links.add(actionLinks);
-					  linksMap.put(stageLinks.getKey(), links);
-				}
-				stagesLinkMap.put(dateInfoLinks.getKey(), links);
-			}
-			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
-		}
-			
-	return dateLinks;
-
-
-	}
+	*/
 	public Map<String,Map<String,List<ActionLinks>>> getDateOfEngagementsLinks(UUID clientId,UUID enrollmentId) {
 		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
 		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
@@ -632,12 +385,9 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			
 			String collectionStage = "unspecified_stage";
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
-	}
+				
+		}
 		
 		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
 			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
@@ -651,7 +401,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/dateofengagements/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/dateofengagements/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -678,9 +428,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			String collectionStage = "unspecified_stage";
 			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
+			if(entity.getInformationDate()!=null) {
 				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
 			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
@@ -699,7 +447,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/disabilities/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/disabilities/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -724,9 +472,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			String collectionStage = "unspecified_stage";
 			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
+			if(entity.getInformationDate()!=null) {
 				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
 			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
@@ -746,7 +492,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 						  
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/domesticviolences/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/domesticviolences/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -771,9 +517,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			String collectionStage = "unspecified_stage";
 			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
+			if(entity.getInformationDate()!=null) {
 				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
 			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
@@ -791,7 +535,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/employments/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/employments/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -816,9 +560,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			String collectionStage = "unspecified_stage";
 			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
+			if(entity.getInformationDate()!=null) {
 				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
 			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
@@ -837,7 +579,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthinsurances/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthinsurances/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -863,9 +605,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			String collectionStage = "unspecified_stage";
 			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
+			if(entity.getInformationDate()!=null) {
 				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
 			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
@@ -884,7 +624,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthstatuses/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/healthstatuses/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -910,9 +650,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			String collectionStage = "unspecified_stage";
 			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
+			if(entity.getInformationDate()!=null) {
 				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
 			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
@@ -931,7 +669,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/incomeandsources/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/incomeandsources/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -956,9 +694,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			String collectionStage = "unspecified_stage";
 			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
+			if(entity.getInformationDate()!=null) {
 				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
 			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
@@ -977,7 +713,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/medicalassistances/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/medicalassistances/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1002,9 +738,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			String collectionStage = "unspecified_stage";
 			if(entity.getDataCollectionStage()!=null) collectionStage = entity.getDataCollectionStage().getValue();
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			}else if(entity.getInformationDate()!=null) {
+			if(entity.getInformationDate()!=null) {
 				this.groupByStage(entity.getInformationDate(),"informationDate",collectionStage,content, entity.getId());
 			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
@@ -1023,7 +757,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/noncashbenefits/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1040,19 +774,15 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	public Map<String,Map<String,List<ActionLinks>>> getResidentialMoveinDatesLinks(UUID clientId,UUID enrollmentId) {
 		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
 		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<Moveindate> data = daoFactory.getResidentialmoveindateDao().getAllEnrollmentResidentialmoveindates(enrollmentId, null,null);
-		for(Moveindate entity : data) {
+		List<Residentialmoveindate> data = daoFactory.getResidentialmoveindateDao().getAllEnrollmentResidentialmoveindates(enrollmentId, null,null);
+		for(Residentialmoveindate entity : data) {
 
 			LocalDateTime date = entity.getDateUpdated();
 			
 			String collectionStage = "unspecified_stage";
 
-
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
+
 		}
 		
 		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
@@ -1067,7 +797,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/residentialmoveindates/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/residentialmoveindates/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1089,11 +819,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			
 			String collectionStage = "unspecified_stage";
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
 		}
 		
 		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
@@ -1108,49 +834,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/pathstatuses/"+id));
-					  }
-					  links.add(actionLinks);
-					  linksMap.put(stageLinks.getKey(), links);
-				}
-				stagesLinkMap.put(dateInfoLinks.getKey(), links);
-			}
-			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
-		}
-		
-	
-	return dateLinks;
-	}
-	public Map<String,Map<String,List<ActionLinks>>> getServiceFaReferralsLinks(UUID clientId,UUID enrollmentId) {
-		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<ServiceFaReferral> data = daoFactory.getServiceFaReferralDao().getAllEnrollmentServiceFaReferrals(enrollmentId, null,null);
-		for(ServiceFaReferral entity : data) {
-
-			LocalDateTime date = entity.getDateUpdated();
-			
-			String collectionStage = "unspecified_stage";
-
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
-				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
-		}
-		
-		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
-			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
-			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
-
-				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
-				List<ActionLinks> links = new ArrayList<>();
-				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
-					 
-
-					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGroupBy(stageLinks.getKey());
-					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/servicefareferrals/"+id));
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/pathstatuses/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1175,11 +859,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		for(Exit entity : data) {
 			String collectionStage = "unspecified_stage";
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
+
 		}			
 			for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
 				Map<String,List<ExitActionLinks>> stagesLinkMap = new TreeMap<>();			
@@ -1193,11 +874,11 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 						ExitActionLinks actionLinks = new ExitActionLinks();
 						actionLinks.setGroupBy(stageLinks.getKey());
 						  for(UUID id : stageLinks.getValue()) {
-							  ExitActionLink actionLink = new ExitActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+id); 
+							  ExitActionLink actionLink = new ExitActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+id); 
 								EnrollmentExitLinks exitLinks = new EnrollmentExitLinks();
 								actionLink.setExitHousingAssessments(this.getExitHousingAssessmentsLinks(clientId, enrollmentId, id));
 								//actionLink.setExitPaths(this.getExitPathsLinks(clientId, enrollmentId, entity.getId()));
-								actionLink.setExitrhys(this.getExitrhysLinks(clientId, enrollmentId, id));
+								//actionLink.setExitrhys(this.getExitrhysLinks(clientId, enrollmentId, id));
 								actionLink.setHousingAssessmentDispositions(this.getHousingAssessmentDispositionsLinks(clientId, enrollmentId, id));
 								
 								if(actionLink.getExitHousingAssessments().isEmpty())  actionLink.setExitHousingAssessments(null);
@@ -1219,7 +900,6 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		return dateLinks;
 	}
 	
-	
 	@Transactional
 	public Map<String,Map<String,List<ExitActionLinks>>> getExitLinks(UUID clientId,UUID enrollmentId,UUID exitId){
 		//List<ExitActionLink> actionLinks = new ArrayList<ExitActionLink>();
@@ -1230,11 +910,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
 			String collectionStage = "unspecified_stage";
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
+
 					
 			for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
 				Map<String,List<ExitActionLinks>> stagesLinkMap = new TreeMap<>();			
@@ -1248,11 +925,11 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 						ExitActionLinks actionLinks = new ExitActionLinks();
 						actionLinks.setGroupBy(stageLinks.getKey());
 						  for(UUID id : stageLinks.getValue()) {
-							  ExitActionLink actionLink = new ExitActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+id); 
+							  ExitActionLink actionLink = new ExitActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+id); 
 								EnrollmentExitLinks exitLinks = new EnrollmentExitLinks();
 								actionLink.setExitHousingAssessments(this.getExitHousingAssessmentsLinks(clientId, enrollmentId, id));
 								//actionLink.setExitPaths(this.getExitPathsLinks(clientId, enrollmentId, entity.getId()));
-								actionLink.setExitrhys(this.getExitrhysLinks(clientId, enrollmentId, id));
+								//actionLink.setExitrhys(this.getExitrhysLinks(clientId, enrollmentId, id));
 								actionLink.setHousingAssessmentDispositions(this.getHousingAssessmentDispositionsLinks(clientId, enrollmentId, id));
 								
 								if(actionLink.getExitHousingAssessments().isEmpty())  actionLink.setExitHousingAssessments(null);
@@ -1277,18 +954,14 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	public Map<String,Map<String,List<ActionLinks>>> getExitHousingAssessmentsLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
 		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
 		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<Exithousingassessment> data = daoFactory.getExithousingassessmentDao().getAllExitExithousingassessments(exitId, null,null);
+		List<Exithousingassessment> data = daoFactory.getExithousingassessmentDao().getAllExitExithousingassessments(enrollmentId, null,null);
 		for(Exithousingassessment entity : data) {
 
 			LocalDateTime date = entity.getDateUpdated();
 			
 			String collectionStage = "unspecified_stage";
 
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
 		}
 		
 		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
@@ -1303,7 +976,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exithousingassessments/"+id));	  
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exithousingassessments/"+id));	  
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1326,12 +999,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 			
 			String collectionStage = "unspecified_stage";
 
-
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}	
 		}
 		
 		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
@@ -1346,7 +1014,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					ActionLinks actionLinks = new ActionLinks();
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/housingassessmentdispositions/"+id));	
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/housingassessmentdispositions/"+id));	
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
@@ -1364,53 +1032,11 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		List<ActionLink> links = new ArrayList<ActionLink>();
 		List<ServiceFaReferral> data = daoFactory.get.getAllEnrollmentServiceFaReferrals(enrollmentId, null,null);
 		for(ServiceFaReferral entity : data) {
-			actionLinks.addLink(new ActionLink(entity.getId()+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/serviceFaReferrals/"+entity.getId()));
+			actionLinks.addLink(new ActionLink(entity.getId()+"", "/hmis-clientapi/rest/v2014/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/serviceFaReferrals/"+entity.getId()));
 		}
 		return links;
 	}*/
 	
-	public Map<String,Map<String,List<ActionLinks>>> getExitrhysLinks(UUID clientId,UUID enrollmentId,UUID exitId) {
-		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
-		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
-		List<Exitrhy> data = daoFactory.getExitrhyDao().getAllExitExitrhys(exitId, null,null);
-		for(Exitrhy entity : data) {
-			LocalDateTime date = entity.getDateUpdated();
-			
-			String collectionStage = "unspecified_stage";
-
-			if(entity.getSubmissionDate()!=null) {
-				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
-			} else {
-				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
-			}
-		}
-		
-		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
-			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
-			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
-
-				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
-				List<ActionLinks> links = new ArrayList<>();
-				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
-					 
-
-					ActionLinks actionLinks = new ActionLinks();
-					actionLinks.setGroupBy(stageLinks.getKey());
-					  for(UUID id : stageLinks.getValue()) {
-							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2017/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+exitId+"/exitrhys/"+id));
-					  }
-					  links.add(actionLinks);
-					  linksMap.put(stageLinks.getKey(), links);
-				}
-				stagesLinkMap.put(dateInfoLinks.getKey(), links);
-			}
-			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
-		}
-		
-	
-	return dateLinks;
-
-	}
 
 	class DateComparator implements Comparator<String> {
         DateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");//or your pattern

@@ -22,6 +22,7 @@ import com.servinglynk.hmis.warehouse.core.model.EnrollmentExitLinks;
 import com.servinglynk.hmis.warehouse.core.model.EnrollmentLinks;
 import com.servinglynk.hmis.warehouse.core.model.ExitActionLink;
 import com.servinglynk.hmis.warehouse.core.model.ExitActionLinks;
+import com.servinglynk.hmis.warehouse.model.v2020.Assessment;
 import com.servinglynk.hmis.warehouse.model.v2020.Contact;
 import com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement;
 import com.servinglynk.hmis.warehouse.model.v2020.Disabilities;
@@ -32,6 +33,7 @@ import com.servinglynk.hmis.warehouse.model.v2020.EnrollmentCoc;
 import com.servinglynk.hmis.warehouse.model.v2020.Entryrhsp;
 import com.servinglynk.hmis.warehouse.model.v2020.Entryrhy;
 import com.servinglynk.hmis.warehouse.model.v2020.Entryssvf;
+import com.servinglynk.hmis.warehouse.model.v2020.Event;
 import com.servinglynk.hmis.warehouse.model.v2020.Exit;
 import com.servinglynk.hmis.warehouse.model.v2020.Exithousingassessment;
 import com.servinglynk.hmis.warehouse.model.v2020.Exitrhy;
@@ -278,7 +280,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		enrollmentLinks.setPathstatuses(getPathstatusesLinks(clientId, enrollmentId));
 		enrollmentLinks.setResidentialMoveinDates(getResidentialMoveinDatesLinks(clientId, enrollmentId));
 		enrollmentLinks.setServiceFaReferrals(getServiceFaReferralsLinks(clientId, enrollmentId));
-		
+		enrollmentLinks.setEvents(getEventsLinks(clientId, enrollmentId));
+		enrollmentLinks.setAssessments(getAssessmentsLinks(clientId, enrollmentId));
 		
 		if(enrollmentLinks.getContacts().isEmpty())  enrollmentLinks.setContacts(null);
 		if(enrollmentLinks.getDateOfEngagements().isEmpty()) enrollmentLinks.setDateOfEngagements(null);
@@ -295,7 +298,8 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		if(enrollmentLinks.getPathstatuses().isEmpty()) enrollmentLinks.setPathstatuses(null);
 		if(enrollmentLinks.getResidentialMoveinDates().isEmpty()) enrollmentLinks.setResidentialMoveinDates(null);
 		if(enrollmentLinks.getServiceFaReferrals().isEmpty()) enrollmentLinks.setServiceFaReferrals(null);
-		
+		if(enrollmentLinks.getEvents().isEmpty()) enrollmentLinks.setEvents(null);
+		if(enrollmentLinks.getAssessments().isEmpty()) enrollmentLinks.setAssessments(null);
 		return enrollmentLinks;
 	}
 	
@@ -1072,6 +1076,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	
 	return dateLinks;
 	}
+	
 	public Map<String,Map<String,List<ActionLinks>>> getServiceFaReferralsLinks(UUID clientId,UUID enrollmentId) {
 		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
 		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
@@ -1115,6 +1120,85 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 	return dateLinks;
 	}
 	
+	public Map<String,Map<String,List<ActionLinks>>> getEventsLinks(UUID clientId,UUID enrollmentId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
+		List<Event> data = daoFactory.getEventDao().getAllEnrollmentEvents(enrollmentId, null,null);
+		for(Event entity : data) {
+
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+		}
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/events/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+		
+	
+	return dateLinks;
+	}
+	
+	
+	public Map<String,Map<String,List<ActionLinks>>> getAssessmentsLinks(UUID clientId,UUID enrollmentId) {
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
+		List<Assessment> data = daoFactory.getAssessmentDao().getAllEnrollmentAssessments(enrollmentId, null,null);
+		for(Assessment entity : data) {
+
+			LocalDateTime date = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+		}
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					 
+
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/assessments/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+		
+	
+	return dateLinks;
+	}
+	
 	@Transactional
 	public Map<String,Map<String,List<ExitActionLinks>>> getExitLinks(UUID clientId,UUID enrollmentId){
 		//List<ExitActionLink> actionLinks = new ArrayList<ExitActionLink>();
@@ -1132,6 +1216,59 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
 			}
 		}			
+			for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+				Map<String,List<ExitActionLinks>> stagesLinkMap = new TreeMap<>();			
+
+				for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+					Map<String,List<ExitActionLinks>> linksMap = new HashMap<>();
+
+					List<ExitActionLinks> links = new ArrayList<>();
+					for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+						ExitActionLinks actionLinks = new ExitActionLinks();
+						actionLinks.setGroupBy(stageLinks.getKey());
+						  for(UUID id : stageLinks.getValue()) {
+							  ExitActionLink actionLink = new ExitActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/exits/"+id); 
+								EnrollmentExitLinks exitLinks = new EnrollmentExitLinks();
+								actionLink.setExitHousingAssessments(this.getExitHousingAssessmentsLinks(clientId, enrollmentId, id));
+								//actionLink.setExitPaths(this.getExitPathsLinks(clientId, enrollmentId, entity.getId()));
+								actionLink.setExitrhys(this.getExitrhysLinks(clientId, enrollmentId, id));
+								if(actionLink.getExitHousingAssessments().isEmpty())  actionLink.setExitHousingAssessments(null);
+								if(actionLink.getExitPaths().isEmpty()) actionLink.setExitPaths(null);
+								if(actionLink.getExitrhys().isEmpty()) actionLink.setExitrhys(null);
+								if(actionLink.getHousingAssessmentDispositions().isEmpty()) actionLink.setHousingAssessmentDispositions(null);
+								actionLinks.add(actionLink);
+						  }
+						  links.add(actionLinks);
+						  linksMap.put(stageLinks.getKey(), links);
+					}
+					stagesLinkMap.put(dateInfoLinks.getKey(), links);
+				}
+				dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+			}
+
+			
+			
+		return dateLinks;
+	}
+	
+	@Transactional
+	public Map<String,Map<String,List<ExitActionLinks>>> getExitLinks(UUID clientId,UUID enrollmentId,UUID exitId){
+		//List<ExitActionLink> actionLinks = new ArrayList<ExitActionLink>();
+		
+		Exit entity = daoFactory.getExitDao().getExitById(exitId);
+		Map<String,Map<String,List<ExitActionLinks>>> dateLinks = new HashMap();
+		
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
+	
+			String collectionStage = "unspecified_stage";
+
+			if(entity.getSubmissionDate()!=null) {
+				this.groupByStage(entity.getSubmissionDate(),"submissionDate",collectionStage,content, entity.getId());
+			} else {
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+			}
+				
 			for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
 				Map<String,List<ExitActionLinks>> stagesLinkMap = new TreeMap<>();			
 

@@ -1,6 +1,8 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -33,6 +35,12 @@ public class Enrollment extends ClientModel {
 	private String source;
 	private UUID hmisHouseholdId;
 	private UUID genericHouseHoldId;
+	
+	EnrollmentEntryLinks entryLinks;
+	
+	EnrollmentLinks enrollmentLinks;
+	
+	Map<String,Map<String,List<ExitActionLinks>>> exitLinks;
 
 	public Enrollment(){
 		
@@ -226,5 +234,30 @@ public class Enrollment extends ClientModel {
 	public void setGenericHouseHoldId(UUID genericHouseHoldId) {
 		this.genericHouseHoldId = genericHouseHoldId;
 	}
+
+	public EnrollmentEntryLinks getEntryLinks() {
+		return entryLinks;
+	}
+
+	public void setEntryLinks(EnrollmentEntryLinks entryLinks) {
+		this.entryLinks = entryLinks;
+	}
+
+	public EnrollmentLinks getEnrollmentLinks() {
+		return enrollmentLinks;
+	}
+
+	public void setEnrollmentLinks(EnrollmentLinks enrollmentLinks) {
+		this.enrollmentLinks = enrollmentLinks;
+	}
+
+	public Map<String, Map<String, List<ExitActionLinks>>> getExitLinks() {
+		return exitLinks;
+	}
+
+	public void setExitLinks(Map<String, Map<String, List<ExitActionLinks>>> exitLinks) {
+		this.exitLinks = exitLinks;
+	}
+	
 	
 }

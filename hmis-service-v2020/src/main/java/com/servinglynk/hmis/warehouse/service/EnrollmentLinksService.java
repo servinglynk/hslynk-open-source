@@ -13,4 +13,5 @@ public interface EnrollmentLinksService {
 	EnrollmentEntryLinks getEntryLinks(UUID clientId,UUID enrollmentId);
 	EnrollmentLinks getEnrollmentLinks(UUID clientId,UUID enrollmentId);
 	Map<String,Map<String,List<ExitActionLinks>>> getExitLinks(UUID clientId,UUID enrollmentId);
+	Map<String,Map<String,List<ExitActionLinks>>> getExitLinks(UUID clientId,UUID enrollmentId,UUID exitId);
 }

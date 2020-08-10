@@ -150,7 +150,7 @@ public class EventDaoImpl extends ParentDaoImpl implements EventDao {
 		   
 		   @Override
 			public List<com.servinglynk.hmis.warehouse.model.v2020.Event> getAllEnrollmentEvents(
-					UUID enrollmentId, int startIndex, int maxItems) {
+					UUID enrollmentId, Integer startIndex, Integer maxItems) {
 				   DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Event.class);
 			       criteria.createAlias("enrollmentid", "enrollmentid");
 			       criteria.add(Restrictions.eq("enrollmentid.id", enrollmentId));
