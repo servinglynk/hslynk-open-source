@@ -108,6 +108,8 @@ public class TrustedAppEntity extends BaseModel {
 	@JoinColumn(name = "trusted_app_admin", referencedColumnName="id")
 	private HmisUser trustedAppAdmin;
 
+	@Column(name = "project_group_check_required")
+	private Boolean projectGroupCheckCheckRequired;
 
 
 	@OneToMany(mappedBy = "containerTrustedApp")
@@ -123,7 +125,8 @@ public class TrustedAppEntity extends BaseModel {
 	@Column(name="status")
 	private String status;
 	
-
+	@OneToMany(mappedBy = "trustedApp")
+	private List<TrustedAppProjectGroupMapEntity> trustedAppProjectGroups;
 	
 	
 	public void setId(UUID id) {
@@ -340,5 +343,16 @@ public class TrustedAppEntity extends BaseModel {
 
 	public void setTrustedAppAdmin(HmisUser trustedAppAdmin) {
 		this.trustedAppAdmin = trustedAppAdmin;
+	}
+
+
+	public Boolean getProjectGroupCheckCheckRequired() {
+		return projectGroupCheckCheckRequired;
+	}
+
+
+	public void setProjectGroupCheckCheckRequired(Boolean projectGroupCheckCheckRequired) {
+		this.projectGroupCheckCheckRequired = projectGroupCheckCheckRequired;
 	}   
+
 }

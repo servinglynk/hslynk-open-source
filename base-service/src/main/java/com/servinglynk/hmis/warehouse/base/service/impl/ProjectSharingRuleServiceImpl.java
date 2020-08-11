@@ -65,7 +65,7 @@ public class ProjectSharingRuleServiceImpl extends ServiceBase implements Projec
 	public Boolean isSharedClient(UUID clientId, UUID accountId, String projectGroupCode) {
 		List<UUID> sharedClients =	daoFactory.getProjectSharingRuleDao().getSharedClients(accountId,projectGroupCode);
 		if(sharedClients.contains(clientId)) return true;
-		throw new ResourceNotFoundException("client not found "+clientId);
+		return false;
 	}
 
 	@Transactional

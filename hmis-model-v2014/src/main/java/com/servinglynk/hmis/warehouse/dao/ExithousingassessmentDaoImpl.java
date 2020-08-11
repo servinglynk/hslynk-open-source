@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,4 +100,11 @@ public class ExithousingassessmentDaoImpl extends ParentDaoImpl implements
 		
 		return model;
 	}
+	
+	   public List<com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment> getAllExitExithousingassessments(UUID enrollmentId,Integer startIndex, Integer maxItems){
+	       DetachedCriteria criteria=DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment.class);
+	       criteria.createAlias("exitid", "exitid");
+	       criteria.add(Restrictions.eq("exitid.id", enrollmentId));
+	       return (List<com.servinglynk.hmis.warehouse.model.v2014.Exithousingassessment>) findByCriteria(criteria,startIndex,maxItems);
+	   }
 }

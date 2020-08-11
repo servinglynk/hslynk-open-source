@@ -16,5 +16,6 @@ public interface ConnectionWithSoarDao extends ParentDao {
 	   List<ConnectionWithSoar> getAllEnrollmentConnectionwithsoars(UUID enrollmentId, Integer startIndex,
 			Integer maxItems);
 	   long getEnrollmentConnectionwithsoarsCount(UUID enrollmentId);
+	   List<com.servinglynk.hmis.warehouse.model.v2017.ConnectionWithSoar> getAllConnectionWithSoar(UUID enrollmentId,Integer startIndex, Integer maxItems);
 	   
 }

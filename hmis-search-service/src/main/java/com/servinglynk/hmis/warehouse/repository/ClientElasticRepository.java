@@ -22,7 +22,13 @@ public interface ClientElasticRepository  extends ElasticsearchRepository<Client
 	List<Client> findDistinctDedupclientidByDedupclientid(String freeText);
 
 	Page<Client> findByDedupclientidOrId(String freeText, String string, Pageable page);
+	List<Client> findByDedupclientidAndProjectgroupcode(String freeText, String string);
+	List<Client> findByIdAndProjectgroupcode(String freeText, String string);
 
+	Page<Client> findByDedupclientidAndProjectgroupcode(String freeText, String string, Pageable page);
+	Page<Client> findByIdAndProjectgroupcode(String freeText, String string, Pageable page);
+
+	
 	List<Client> findByFullnameOrNameOrSsnOrSourcesystemidAndProjectgroupcode(String freeText, String freeText2,
 			String freeText3, String freeText4, String string);
 

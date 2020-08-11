@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.warehouse.base.service.TrustedAppService;
 import com.servinglynk.hmis.warehouse.base.service.converter.AccountConverter;
+import com.servinglynk.hmis.warehouse.base.service.converter.ProjectGroupConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.TrustedAppConverter;
 import com.servinglynk.hmis.warehouse.base.service.converter.TrustedAppStatusConverter;
 import com.servinglynk.hmis.warehouse.client.notificationservice.NotificationServiceClient;
@@ -31,11 +33,14 @@ import com.servinglynk.hmis.warehouse.core.model.ApiMethodAuthorizationCheck;
 import com.servinglynk.hmis.warehouse.core.model.Notification;
 import com.servinglynk.hmis.warehouse.core.model.Parameter;
 import com.servinglynk.hmis.warehouse.core.model.Parameters;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
+import com.servinglynk.hmis.warehouse.core.model.ProjectGroups;
 import com.servinglynk.hmis.warehouse.core.model.Recipients;
 import com.servinglynk.hmis.warehouse.core.model.RedirectUri;
 import com.servinglynk.hmis.warehouse.core.model.Session;
 import com.servinglynk.hmis.warehouse.core.model.TrustedApp;
 import com.servinglynk.hmis.warehouse.core.model.TrustedAppStatus;
+import com.servinglynk.hmis.warehouse.core.model.TrustedApps;
 import com.servinglynk.hmis.warehouse.core.model.exception.AccessDeniedException;
 import com.servinglynk.hmis.warehouse.core.model.exception.IllegalBusinessStateException;
 import com.servinglynk.hmis.warehouse.core.model.exception.InvalidParameterException;
@@ -46,6 +51,7 @@ import com.servinglynk.hmis.warehouse.core.model.exception.TrustedAppNotFoundExc
 import com.servinglynk.hmis.warehouse.model.base.APIAccessEntity;
 import com.servinglynk.hmis.warehouse.model.base.AccountConsentEntity;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
+import com.servinglynk.hmis.warehouse.model.base.ProjectGroupEntity;
 import com.servinglynk.hmis.warehouse.model.base.ApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.DeveloperServiceEntity;
 import com.servinglynk.hmis.warehouse.model.base.RedirectUriEntity;
@@ -53,12 +59,14 @@ import com.servinglynk.hmis.warehouse.model.base.RefreshToken;
 import com.servinglynk.hmis.warehouse.model.base.ServiceApiMethodEntity;
 import com.servinglynk.hmis.warehouse.model.base.SessionEntity;
 import com.servinglynk.hmis.warehouse.model.base.TrustedAppEntity;
+import com.servinglynk.hmis.warehouse.model.base.TrustedAppProjectGroupMapEntity;
 import com.servinglynk.hmis.warehouse.model.base.TrustedAppStatusEntity;
 import com.servinglynk.hmis.warehouse.service.exception.AccountNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.DeveloperCompanyNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.DeveloperServiceNotFoundException;
 import com.servinglynk.hmis.warehouse.service.exception.DuplicateDataException;
 import com.servinglynk.hmis.warehouse.service.exception.InvalidRedirectUriException;
+import com.servinglynk.hmis.warehouse.service.exception.ProjectcocNotFoundException;
 
 
 public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppService {
@@ -722,5 +730,61 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 		return trustedApp;
 	}
 
+	
+	@Transactional
+	public void addProjectGroupToTrustedApp(String trustedAppId, ProjectGroup projectGroup) {
+		 TrustedAppEntity trustedAppEntity = daoFactory.getTrustedAppDao().findByExternalId(trustedAppId);
+		 if(trustedAppEntity==null){
+			 throw new TrustedAppNotFoundException("TrustedApp " + trustedAppId + " not found");
+		 }
+		 
+		 ProjectGroupEntity projectGroupEntity = daoFactory.getProjectGroupDao().getProjectGroupById(projectGroup.getProjectGroupId());
+		 if(projectGroupEntity==null){
+			 throw new ProjectcocNotFoundException("Project Group " + trustedAppId + " not found");
+		 }
+		 
+		 TrustedAppProjectGroupMapEntity mapEntity = new TrustedAppProjectGroupMapEntity();
+		 mapEntity.setProjectGroup(projectGroupEntity);
+		 mapEntity.setTrustedApp(trustedAppEntity);
+		 mapEntity.setCreatedAt(new Date());
+		 mapEntity.setCreatedBy("USER_SERVICE");
+		 mapEntity.setModifiedAt(new Date());
+		 mapEntity.setModifiedBy("USER_SERVICE");
+		 
+		 daoFactory.getTrustedAppDao().addProjectGroupToTrustedApp(mapEntity);
+		 
+	}
+	
+	@Transactional
+	public void deleteProjectGroupToTrustedApp(String trustedAppId, UUID projectGroupId) {
+
+		List<TrustedAppProjectGroupMapEntity> entities =	daoFactory.getTrustedAppDao().getTrustedAppProjectGroups(trustedAppId, projectGroupId);
+			
+		 daoFactory.getTrustedAppDao().deleteProjectGroupToTrustedApp(entities);
+		 
+	}
+
+
+	@Transactional
+	public ProjectGroups getTrustedAppProjectGroups(String trustedAppId) {
+		ProjectGroups projectGroups = new ProjectGroups();
+		List<TrustedAppProjectGroupMapEntity> entities =	daoFactory.getTrustedAppDao().projectGroupHasTrustedAppAccess(trustedAppId, null);
+		for(TrustedAppProjectGroupMapEntity entity : entities) {
+			projectGroups.addProjectGroup(ProjectGroupConverter.entityToModel(entity.getProjectGroup()));
+		}	
+		return projectGroups;
+	}
+
+
+	@Transactional
+	public TrustedApps getTrustedApps() {
+		TrustedApps trustedApps = new TrustedApps();
+		
+		List<TrustedAppEntity> entities = daoFactory.getTrustedAppDao().getAllTrustedApps();
+		for(TrustedAppEntity entity : entities) {
+			trustedApps.addTrustedApp(TrustedAppConverter.convertToTrustedAppPlain(entity, null));
+		}
+		return trustedApps;
+	}
 
 }

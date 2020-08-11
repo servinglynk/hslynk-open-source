@@ -1,6 +1,8 @@
 package com.servinglynk.hmis.warehouse.core.model; 
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -15,6 +17,8 @@ public class Exit extends ClientModel{
 
        private String otherDestination;
        private Integer destination;
+    	Map<String,Map<String,List<ExitActionLinks>>> exitLinks;
+       
      /*  
        @JsonProperty("enrollment")
        private Enrollment enrollment;*/
@@ -49,6 +53,14 @@ public class Exit extends ClientModel{
 
 	public void setDestination(Integer destination) {
 		this.destination = destination;
+	}
+
+	public Map<String, Map<String, List<ExitActionLinks>>> getExitLinks() {
+		return exitLinks;
+	}
+
+	public void setExitLinks(Map<String, Map<String, List<ExitActionLinks>>> exitLinks) {
+		this.exitLinks = exitLinks;
 	}
 	
 	

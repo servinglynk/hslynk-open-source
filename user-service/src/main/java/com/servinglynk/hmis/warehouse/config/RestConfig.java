@@ -34,6 +34,7 @@ import com.servinglynk.hmis.warehouse.rest.ProjectGroupController;
 import com.servinglynk.hmis.warehouse.rest.PropertyController;
 import com.servinglynk.hmis.warehouse.rest.RolesController;
 import com.servinglynk.hmis.warehouse.rest.SessionsController;
+import com.servinglynk.hmis.warehouse.rest.TrustedAppController;
 import com.servinglynk.hmis.warehouse.rest.VerificationsController;
 
 @Configuration
@@ -162,5 +163,10 @@ public class RestConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public APIAccessController accessController() {
 		 return new APIAccessController();
+	 }
+	 
+	 @Bean
+	 public TrustedAppController trustedAppController() {
+		 return new TrustedAppController();
 	 }
 }

@@ -75,7 +75,11 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 			   UUID.fromString(searchRequest.getFreeText());
 			   Sort sort = Sort.by("dedupclientid").descending();
 			   Pageable page = PageRequest.of(this.getPageNumber(searchRequest.getStartIndex(), searchRequest.getMaxItems()), searchRequest.getMaxItems(),sort);
-				Page<Client>  clients = clientRepository.findByDedupclientidOrIdAndProjectgroupcode(searchRequest.getFreeText(),searchRequest.getFreeText(),SecurityContextUtil.getUserProjectGroup(),page);
+				Page<Client>  clients = clientRepository.findByDedupclientidAndProjectgroupcode(searchRequest.getFreeText(),SecurityContextUtil.getUserProjectGroup(),page);
+				if(clients.isEmpty()) {
+					clients = clientRepository.findByIdAndProjectgroupcode(searchRequest.getFreeText(),SecurityContextUtil.getUserProjectGroup(),page);
+				}
+//				Page<Client>  clients = clientRepository.findByDedupclientidOrIdAndProjectgroupcode(searchRequest.getFreeText(),searchRequest.getFreeText(),SecurityContextUtil.getUserProjectGroup(),page);
 				dedupIdFilter = false;
 				queryExecuted = true;
 				total = clients.getContent().size();

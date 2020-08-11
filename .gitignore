@@ -10,7 +10,7 @@ bin/*
 *.DS_Store
 target
 bin
-user-service/*
+#user-service/*
 hmis-survey-views/src/main/conf/*.conf
 .DS_Store
 
