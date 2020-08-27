@@ -6,4 +6,5 @@ public interface ServiceFactory {
 	ClientManagementService getClientManagementService();
 	GlobalHouseHoldService getGlobalHouseHoldService();
 	EnrollmentService getEnrollmentService();
+	HmisPostingService getHmisPostingService();
 }

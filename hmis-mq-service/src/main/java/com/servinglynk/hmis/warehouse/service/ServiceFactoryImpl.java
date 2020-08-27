@@ -13,6 +13,8 @@ public class ServiceFactoryImpl implements ServiceFactory {
 	@Autowired private GlobalHouseHoldService globalHouseHoldService;
 	
 	@Autowired private EnrollmentService enrollmentService;
+	
+	@Autowired private HmisPostingService hmisPostingService;
 
 	public ClientMetaDataService getClientMetaDataService() {
 		return clientMetaDataService;
@@ -44,5 +46,13 @@ public class ServiceFactoryImpl implements ServiceFactory {
 
 	public void setEnrollmentService(EnrollmentService enrollmentService) {
 		this.enrollmentService = enrollmentService;
+	}
+
+	public HmisPostingService getHmisPostingService() {
+		return hmisPostingService;
+	}
+
+	public void setHmisPostingService(HmisPostingService hmisPostingService) {
+		this.hmisPostingService = hmisPostingService;
 	}
 }
