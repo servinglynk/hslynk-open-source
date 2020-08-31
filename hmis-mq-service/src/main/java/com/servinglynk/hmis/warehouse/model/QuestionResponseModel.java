@@ -8,9 +8,11 @@ public class QuestionResponseModel {
 	private String questionText;
 	private String responseText;
 	private UUID responseId;
-	private String updateUrlTemplate;
-	
 	private String questionClassification;
+	private String updateUrlTemplate;
+	private String uriObjectField;
+	private String hmisLink;
+	
 	public UUID getQuestionId() {
 		return questionId;
 	}
@@ -46,5 +48,17 @@ public class QuestionResponseModel {
 	}
 	public void setUpdateUrlTemplate(String updateUrlTemplate) {
 		this.updateUrlTemplate = updateUrlTemplate;
+	}
+	public String getUriObjectField() {
+		return uriObjectField;
+	}
+	public void setUriObjectField(String uriObjectField) {
+		this.uriObjectField = uriObjectField;
+	}
+	public String getHmisLink() {
+		return hmisLink;
+	}
+	public void setHmisLink(String hmisLink) {
+		this.hmisLink = hmisLink;
 	}
 }
