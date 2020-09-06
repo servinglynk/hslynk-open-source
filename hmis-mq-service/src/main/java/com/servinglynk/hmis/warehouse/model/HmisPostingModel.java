@@ -5,23 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("hmisPosting")
 public class HmisPostingModel {
 
 	private UUID clientId;
+	private UUID dedupClientId;
 	private UUID surveyId;
 	private LocalDateTime entryDate;
+	private LocalDateTime submissionDate;
 	private LocalDateTime exitDate;
 	private LocalDateTime informationDate;
 	private String surveyCategory;
 	private String projectGroupCode;
-	private String userId;
-	private String schemaVersion;
+	private UUID userId;
 	private UUID globalProjectId;
 	private String hmisPostingStatus;
-	List<QuestionResponseModel> questionResponses = new ArrayList<>();
+	private String schemaVersion;
+	List<QuestionResponseModel> questionResponses = new ArrayList<QuestionResponseModel>();
 	
 	public UUID getClientId() {
 		return clientId;
@@ -65,10 +67,10 @@ public class HmisPostingModel {
 	public void setProjectGroupCode(String projectGroupCode) {
 		this.projectGroupCode = projectGroupCode;
 	}
-	public String getUserId() {
+	public UUID getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(UUID userId) {
 		this.userId = userId;
 	}
 	public String getSchemaVersion() {
@@ -83,11 +85,17 @@ public class HmisPostingModel {
 	public void setQuestionResponses(List<QuestionResponseModel> questionResponses) {
 		this.questionResponses = questionResponses;
 	}
-	public UUID getGlobalProjectId() {
-		return globalProjectId;
+	public LocalDateTime getSubmissionDate() {
+		return submissionDate;
 	}
-	public void setGlobalProjectId(UUID globalProjectId) {
-		this.globalProjectId = globalProjectId;
+	public void setSubmissionDate(LocalDateTime submissionDate) {
+		this.submissionDate = submissionDate;
+	}
+	public UUID getDedupClientId() {
+		return dedupClientId;
+	}
+	public void setDedupClientId(UUID dedupClientId) {
+		this.dedupClientId = dedupClientId;
 	}
 	public String getHmisPostingStatus() {
 		return hmisPostingStatus;
@@ -95,4 +103,11 @@ public class HmisPostingModel {
 	public void setHmisPostingStatus(String hmisPostingStatus) {
 		this.hmisPostingStatus = hmisPostingStatus;
 	}
+	public UUID getGlobalProjectId() {
+		return globalProjectId;
+	}
+	public void setGlobalProjectId(UUID globalProjectId) {
+		this.globalProjectId = globalProjectId;
+	}
+	
 }
