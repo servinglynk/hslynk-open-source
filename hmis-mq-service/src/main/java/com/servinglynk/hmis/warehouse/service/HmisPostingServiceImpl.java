@@ -72,6 +72,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 		} 
 		return null;
 	}
+	
 	/***
 	 * Get Version specific projectId to create the enrollment.
 	 * If a version specific projectId does not exists, create one and return it.
@@ -218,17 +219,17 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 			for(String questionResponseKey : keySet) {
 				List<QuestionResponseModel> list = questionResponseMap.get(questionResponseKey);
 				String rootName = "";
-				if(CollectionUtils.isEmpty(list)) {
+				if(!CollectionUtils.isEmpty(list)) {
 					Map<String, Object> map = new HashMap<>();
 					for(QuestionResponseModel questionResponseModel : list) {
 						String uriObjectField = questionResponseModel.getUriObjectField();
-						String[] split = StringUtils.split(".");
+						String[] split = StringUtils.split(uriObjectField, ".");
 						rootName = split[0];
-						 map.put(split[1], questionResponseModel.getResponseText());
+						 map.put(split[1], StringUtils.isNotBlank(questionResponseModel.getPickListValueCode()) ? questionResponseModel.getPickListValueCode() : questionResponseModel.getResponseText());
 					}
 					objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 					String jsonObj = objectMapper.writer().withRootName(rootName).writeValueAsString(map);
-					String url = getUrl(questionResponseKey,enrollmentId, exitId, projectId,hmisPostingModel.getClientId(), null);
+					String url = getUrl(questionResponseKey,hmisPostingModel.getClientId(), enrollmentId, exitId, projectId, null);
 					// Create the url from the uriObjectFied.
 					makeAPICall(jsonObj, headers, url, HttpMethod.POST);
 					
@@ -240,16 +241,22 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 	private String getUrl(String requestPath,UUID clientId,UUID enrollmentId, UUID exitId, UUID projectId,UUID id) {
 		if(StringUtils.startsWith(requestPath, "/")) {
 			requestPath = StringUtils.substring(requestPath, 1);
-				requestPath = StringUtils.substring(requestPath, StringUtils.lastIndexOf("/", requestPath), requestPath.length());
-				if(id !=null) {
-					requestPath = requestPath +"/"+id;
-				}
-			
+			requestPath = StringUtils.substring(requestPath, 0, StringUtils.lastIndexOf(requestPath, "/"));
+			if(id !=null) {
+				requestPath = requestPath +"/"+id;
+			}
+			if(StringUtils.indexOf(requestPath, "/2020/rest") == -1) {
+				requestPath = StringUtils.replace(requestPath, "2020", "2020/rest");
+			}
 			if(requestPath != null) {
-				requestPath = StringUtils.replace(requestPath, "{enrollmentid}", enrollmentId.toString());
-				requestPath = StringUtils.replace(requestPath, "{exitid}", exitId.toString());
-				requestPath = StringUtils.replace(requestPath, "{projectid}", exitId.toString());
-				requestPath = StringUtils.replace(requestPath, "{clientid}", clientId.toString());
+				if(enrollmentId !=null)
+					requestPath = StringUtils.replace(requestPath, "{enrollmentid}", enrollmentId.toString());
+				if(exitId !=null)
+					requestPath = StringUtils.replace(requestPath, "{exitid}", exitId.toString());
+				if(projectId !=null)
+					requestPath = StringUtils.replace(requestPath, "{projectid}", projectId.toString());
+				if(clientId !=null)
+					requestPath = StringUtils.replace(requestPath, "{clientid}", clientId.toString());
 			}
 		}
 		String url = "http://hmiselb.aws.hmislynk.com/hmis-clientapi-"+requestPath;
@@ -280,5 +287,4 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 		headers.setContentType(mediaType);
 		return headers;
 	}
-
 }

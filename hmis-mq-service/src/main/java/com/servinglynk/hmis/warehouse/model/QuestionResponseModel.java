@@ -7,6 +7,7 @@ public class QuestionResponseModel {
 	private UUID questionId;
 	private String questionText;
 	private String responseText;
+	private String pickListValueCode;
 	private UUID responseId;
 	private String questionClassification;
 	private String updateUrlTemplate;
@@ -60,5 +61,11 @@ public class QuestionResponseModel {
 	}
 	public void setHmisLink(String hmisLink) {
 		this.hmisLink = hmisLink;
+	}
+	public String getPickListValueCode() {
+		return pickListValueCode;
+	}
+	public void setPickListValueCode(String pickListValueCode) {
+		this.pickListValueCode = pickListValueCode;
 	}
 }

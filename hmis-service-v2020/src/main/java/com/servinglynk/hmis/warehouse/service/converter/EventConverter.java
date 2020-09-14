@@ -23,7 +23,8 @@ public class EventConverter  extends BaseConverter {
 	   public static Event entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Event entity) {
 	       Event model = new Event();
 	       model.setEventId(entity.getId());
-	       model.setEvent(entity.getEvent().getValue());
+	       if(entity.getEvent() !=null)
+	    	   model.setEvent(entity.getEvent().getValue());
 	       model.setEventDate(model.getEventDate());
 	       model.setLocationcrisisorphhousing(entity.getLocationcrisisorphhousing());
 	       if(entity.getReferralCaseManageAfter() != null)

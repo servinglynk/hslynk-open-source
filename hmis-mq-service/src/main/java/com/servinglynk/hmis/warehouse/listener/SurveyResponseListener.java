@@ -39,20 +39,23 @@ public class SurveyResponseListener extends BaseListener {
 					}else {
 						serviceFactory.getClientMetaDataService().createClientMetaData(model);
 					}
-					String hmisPosting = event.getPayload().get("hmisPosting").toString();
-					System.out.println("hmisPosting data "+hmisPosting);
-					JSONObjectMapper objectMapper = new JSONObjectMapper();
-					objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-					HmisPostingsModel hmisPostingsModel = objectMapper.readValue(hmisPosting, HmisPostingsModel.class);
-				if(hmisPostingsModel != null) {
-					HmisPostingModel hmisPostingModel = hmisPostingsModel.getHmisPosting();
-					SessionModel sessionModel = new SessionModel();
-					sessionModel.setClientId(event.getPayload().get("trustedAppId").toString());
-					sessionModel.setProjectGroupCode(event.getPayload().get("projectGroupCode").toString());
-					sessionModel.setSessionToken(event.getPayload().get("sessionToken").toString());
-					
-					serviceFactory.getHmisPostingService().postHmis(hmisPostingModel, sessionModel);
-				}
+					Object hmisPostingObj = event.getPayload().get("hmisPosting");
+					if(hmisPostingObj != null) {
+						String hmisPosting = hmisPostingObj.toString();
+							System.out.println("hmisPosting data "+hmisPosting);
+							JSONObjectMapper objectMapper = new JSONObjectMapper();
+							objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+							HmisPostingsModel hmisPostingsModel = objectMapper.readValue(hmisPosting, HmisPostingsModel.class);
+							if(hmisPostingsModel != null) {
+								HmisPostingModel hmisPostingModel = hmisPostingsModel.getHmisPosting();
+								SessionModel sessionModel = new SessionModel();
+								sessionModel.setClientId(event.getPayload().get("trustedAppId").toString());
+								sessionModel.setProjectGroupCode(event.getPayload().get("projectGroupCode").toString());
+								sessionModel.setSessionToken(event.getPayload().get("sessionToken").toString());
+								
+								serviceFactory.getHmisPostingService().postHmis(hmisPostingModel, sessionModel);
+							}
+					}
 							}catch (Exception e) {
 		e.printStackTrace();	
 		}
