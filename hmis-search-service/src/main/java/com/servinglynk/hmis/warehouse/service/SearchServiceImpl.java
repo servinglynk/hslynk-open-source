@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 
-import org.apache.catalina.security.SecurityUtil;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
