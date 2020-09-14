@@ -9,13 +9,16 @@ public class EventConverter  extends BaseConverter {
 	   public static com.servinglynk.hmis.warehouse.model.v2020.Event modelToEntity (Event model ,com.servinglynk.hmis.warehouse.model.v2020.Event entity) {
 	       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Event();
 	       entity.setId(model.getEventId());
-	       entity.setEvent(EventTypeEnum.lookupEnum(model.getEvent()));
+	       if(model.getEvent() !=null)
+	    	   entity.setEvent(EventTypeEnum.lookupEnum(model.getEvent()));
 	       entity.setEventDate(model.getEventDate());
 	       entity.setLocationcrisisorphhousing(model.getLocationcrisisorphhousing());
-	       entity.setReferralCaseManageAfter(NoYesEnum.lookupEnum(model.getLocationcrisisorphhousing()));
+	       if(model.getLocationcrisisorphhousing() !=null)
+	    	   entity.setReferralCaseManageAfter(NoYesEnum.lookupEnum(model.getLocationcrisisorphhousing()));
 	       entity.setReferralResult(model.getReferralResult());
 	       entity.setResultDate(model.getResultDate());
-	       entity.setProbsoldivrrresult(NoYesEnum.lookupEnum(model.getProbsoldivrrresult()));
+	       if(model.getProbsoldivrrresult() !=null)
+	    	   entity.setProbsoldivrrresult(NoYesEnum.lookupEnum(model.getProbsoldivrrresult()));
 	       return entity;
 	   }
 

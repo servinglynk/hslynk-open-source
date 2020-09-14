@@ -21,6 +21,7 @@ public class HmisPostingModel {
 	private String projectGroupCode;
 	private UUID userId;
 	private UUID globalProjectId;
+	private UUID globalEnrollmentId;
 	private String hmisPostingStatus;
 	private String schemaVersion;
 	List<QuestionResponseModel> questionResponses = new ArrayList<QuestionResponseModel>();
@@ -109,5 +110,10 @@ public class HmisPostingModel {
 	public void setGlobalProjectId(UUID globalProjectId) {
 		this.globalProjectId = globalProjectId;
 	}
-	
+	public UUID getGlobalEnrollmentId() {
+		return globalEnrollmentId;
+	}
+	public void setGlobalEnrollmentId(UUID globalEnrollmentId) {
+		this.globalEnrollmentId = globalEnrollmentId;
+	}
 }
