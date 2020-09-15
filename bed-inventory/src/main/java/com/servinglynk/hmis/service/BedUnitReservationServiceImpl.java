@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.entity.BedUnitEntity;
 import com.servinglynk.hmis.entity.BedUnitReservationEntity;
 import com.servinglynk.hmis.model.BedUnitReservation;
 import com.servinglynk.hmis.model.BedUnitReservations;
@@ -17,7 +18,10 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 
 	@Transactional
 	public BedUnitReservation createBedUnitReservation(BedUnitReservation room) {
+		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findOne(room.getBedUnit().getId());
+		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed Unit "+room.getBedUnit().getId()+" not found");
 		BedUnitReservationEntity entity = BedUnitReservationConverter.modelToEntity(room,null);
+		entity.setBedUnit(bedUnitEntity);
 		daoFactory.getBedUnitReservationRepository().save(entity);
 		room.setId(entity.getId());
 		return room;

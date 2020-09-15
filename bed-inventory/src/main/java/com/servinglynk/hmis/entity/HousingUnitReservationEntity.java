@@ -32,12 +32,10 @@ public class HousingUnitReservationEntity extends BaseEntity {
 	@Column(name = "reserved_household_id")
 	private UUID reservedHouseholdId;
 	
-	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Column(name = "occupancy_start_date")
+	@Column(name = "reservation_start_date")
 	private Date reservationStateDate; 
 	
-	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-	@Column(name = "occupancy_end_date")
+	@Column(name = "reservation_end_date")
 	private Date reservationEndDateDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY )

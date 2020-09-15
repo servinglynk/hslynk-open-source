@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,9 @@ public class BedUnitReservationController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@APIMapping(value = "CREATE_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
-	BedUnitReservation createBedUnitReservation(BedUnitReservation bedUnitReservation) {
+	BedUnitReservation createBedUnitReservation(@RequestBody BedUnitReservation bedUnitReservation,
+			@PathVariable("bedunitid") UUID bedunitid) {
+		bedUnitReservation.setBedUnitId(bedunitid);
 		return serviceFactory.getBedReservationService().createBedUnitReservation(bedUnitReservation);
 	}
 	

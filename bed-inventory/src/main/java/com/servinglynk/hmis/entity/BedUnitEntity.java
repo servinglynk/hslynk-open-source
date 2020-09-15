@@ -28,7 +28,7 @@ public class BedUnitEntity extends BaseEntity {
 	@Column(name = "occupancy")
 	private Boolean occupancy;
 	
-	@Column(name = "occupancy_capacity")
+	@Column(name = "occupant_capacity")
 	private Integer occupantCapacity;
 	
 	@Column(name = "overflow")

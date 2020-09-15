@@ -18,7 +18,8 @@ public class RoomConverter {
 		model.setName(entity.getName());
 		model.setOccupantCapacity(entity.getOccupantCapacity());
 		model.setShelter(ShelterConverter.entityToModel(entity.getShelterEntity()));
-		return null;
+		model.setId(entity.getId());
+		return model;
 	}
 
 }

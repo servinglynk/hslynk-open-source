@@ -46,4 +46,8 @@ public class BedUnit {
 	public void setRoom(RoomModel room) {
 		this.room = room;
 	}
+	public void setRoomId(UUID roomid) {
+		if(this.room == null) room = new RoomModel();
+		room.setId(roomid);		
+	}
 }

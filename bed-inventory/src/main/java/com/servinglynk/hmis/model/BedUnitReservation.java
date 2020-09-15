@@ -3,12 +3,16 @@ package com.servinglynk.hmis.model;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class BedUnitReservation {
 
 	private UUID id;
 	private UUID reservedCleintId;
 	private UUID reservedHouseholdId;
+	 @JsonFormat(pattern = "yyyy-MM-dd")
 	private Date reservationStateDate; 
+	 @JsonFormat(pattern = "yyyy-MM-dd")
 	private Date reservationEndDateDate;
 	
 	private BedUnit bedUnit;
@@ -47,5 +51,9 @@ public class BedUnitReservation {
 	}
 	public void setBedUnit(BedUnit bedUnit) {
 		this.bedUnit = bedUnit;
+	}
+	public void setBedUnitId(UUID bedunitid) {
+		if(this.bedUnit == null) this.bedUnit = new BedUnit();
+		this.bedUnit.setId(bedunitid);		
 	}
 }

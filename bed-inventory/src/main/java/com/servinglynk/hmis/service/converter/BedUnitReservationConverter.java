@@ -20,7 +20,7 @@ public class BedUnitReservationConverter {
 		model.setReservationStateDate(entity.getReservationStateDate());
 		model.setReservedCleintId(entity.getReservedCleintId());
 		model.setReservedHouseholdId(entity.getReservedHouseholdId());
-		model.setBedUnit(BedUnitConverter.entityToModel(entity.getBedUnit()));
+		if(entity.getBedUnit()!=null) model.setBedUnit(BedUnitConverter.entityToModel(entity.getBedUnit()));
 		model.setId(entity.getId());
 		return model;
 	}

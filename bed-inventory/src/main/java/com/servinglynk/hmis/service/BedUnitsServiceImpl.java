@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.entity.BedUnitEntity;
+import com.servinglynk.hmis.entity.RoomEntity;
 import com.servinglynk.hmis.model.BedUnit;
 import com.servinglynk.hmis.model.BedUnits;
 import com.servinglynk.hmis.service.converter.BedUnitConverter;
@@ -17,7 +18,10 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 
 	@Transactional
 	public BedUnit createBedUnit(BedUnit bedUnit) {
+		RoomEntity roomEntity =  daoFactory.getRoomRepository().findOne(bedUnit.getRoom().getId());
+		if(roomEntity == null) throw new ResourceNotFoundException("Room "+bedUnit.getRoom().getId()+" not found");
 		BedUnitEntity entity = BedUnitConverter.modelToEntity(bedUnit,null);
+		entity.setRoom(roomEntity);
 		daoFactory.getBedUnitRepository().save(entity);
 		bedUnit.setId(entity.getId());
 		return bedUnit;
