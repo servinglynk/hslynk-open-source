@@ -387,12 +387,8 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			try {
 				String url = "http://ceselb.aws.hmislynk.com/survey-api/rest/clientsurveysubmissions/"+hmisPostingModel.getClientSurveySubmissionId();
-				String jsonObj = objectMapper.writer().withRootName("response").writeValueAsString(map);
-				Object responseObject = makeAPICall(jsonObj, headers, url, httpMethod);
-		        LinkedHashMap<Object, Map> persons = (LinkedHashMap<Object, Map>) responseObject;
-		        Set<Entry<Object, Map>> entrySet = persons.entrySet();
-		        Entry<Object, Map> next = entrySet.iterator().next();
-		        logger.info("key:"+next.getKey() + " value:"+next.getValue());
+				String jsonObj = objectMapper.writer().withRootName("clientsurveysubmission").writeValueAsString(map);
+				makeAPICall(jsonObj, headers, url, httpMethod);
 			} catch (JsonMappingException e) {
 				logger.error(" Error when updateResponse is called", e.getCause());
 			} catch (JsonProcessingException e) {
