@@ -43,9 +43,9 @@ import com.servinglynk.hmis.warehouse.service.PropertyReader;
 @EnableAsync
 public class HmisMqServiceApplication {
 
-/*	public static void main(String[] args) {
-		SpringApplication.run(HmisMqServiceApplication.class, args);
-	}*/
+//	public static void main(String[] args) {
+//		SpringApplication.run(HmisMqServiceApplication.class, args);
+//	}
 
 
 	@Autowired  Environment env;

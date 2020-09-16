@@ -9,7 +9,8 @@ public class ServicefareferralConverter  extends BaseConverter {
        if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.ServiceFaReferral();
        entity.setId(model.getServicefareferralId());
        entity.setDateprovided(model.getDateprovided());
-       entity.setRecordType(RecordTypeEnum.lookupEnum(String.valueOf(model.getRecordType().intValue())));
+       if(model.getRecordType() != null)
+    	   entity.setRecordType(RecordTypeEnum.lookupEnum(String.valueOf(model.getRecordType().intValue())));
        entity.setTypeProvided(model.getTypeProvided());
        entity.setOtherTypeProvided(model.getOtherTypeProvided());
        entity.setSubTypeProvided(model.getSubTypeProvided());

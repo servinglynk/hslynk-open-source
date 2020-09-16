@@ -33,7 +33,8 @@ public class ProjectsController extends ControllerBase {
    @RequestMapping(method=RequestMethod.POST)
    @APIMapping(value="CLIENT_API_CREATE_PROJECT",checkTrustedApp=true,checkSessionToken=true)
    public Project createProject(@RequestBody Project project,HttpServletRequest request) throws Exception{
-        Session session = sessionHelper.getSession(request); 
+        Session session = sessionHelper.getSession(request);
+        System.out.println(project.toJSONString());
         serviceFactory.getProjectService().createProject(project,session.getAccount().getUsername()); 
         Project returnProject = new Project();
         returnProject.setProjectId(project.getProjectId());
