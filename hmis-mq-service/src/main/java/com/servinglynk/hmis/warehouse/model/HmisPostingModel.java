@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
-import com.fasterxml.jackson.annotation.JsonRootName;
-
 public class HmisPostingModel {
 
 	private UUID clientId;
@@ -22,6 +19,7 @@ public class HmisPostingModel {
 	private UUID userId;
 	private UUID globalProjectId;
 	private UUID globalEnrollmentId;
+	private UUID clientSurveySubmissionId;
 	private String hmisPostingStatus;
 	private String schemaVersion;
 	List<QuestionResponseModel> questionResponses = new ArrayList<QuestionResponseModel>();
@@ -115,5 +113,11 @@ public class HmisPostingModel {
 	}
 	public void setGlobalEnrollmentId(UUID globalEnrollmentId) {
 		this.globalEnrollmentId = globalEnrollmentId;
+	}
+	public UUID getClientSurveySubmissionId() {
+		return clientSurveySubmissionId;
+	}
+	public void setClientSurveySubmissionId(UUID clientSurveySubmissionId) {
+		this.clientSurveySubmissionId = clientSurveySubmissionId;
 	}
 }
