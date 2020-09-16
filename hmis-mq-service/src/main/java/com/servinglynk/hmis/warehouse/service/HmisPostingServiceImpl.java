@@ -66,9 +66,9 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 						}
 					}
 					String hmisLink  = "/hmis-clientapi/rest/v"+hmisPostingModel.getSchemaVersion()+"/clients/"+hmisPostingModel.getClientId()+"/enrollments/"+enrollmentId;
-					updateClientSurveySubmission(hmisPostingModel, httpHeader, hmisLink, HttpMethod.PUT);
 					postQuestionsToHmis(hmisPostingModel, httpHeader, enrollmentId, null);
 					postAssessmentQuestions(hmisPostingModel, httpHeader, enrollmentId);
+					updateClientSurveySubmission(hmisPostingModel, httpHeader, hmisLink, HttpMethod.PUT);
 			}
 	}
 	
@@ -383,6 +383,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("hmisLink", StringUtils.replace(hmisLink, "http://hmiselb.aws.hmislynk.com", ""));
 		map.put("globalEnrollmentId", hmisPostingModel.getGlobalEnrollmentId());
+		map.put("hmisPostingStatus", "DONE");
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			try {
