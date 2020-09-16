@@ -84,17 +84,18 @@ public class EnrollmentServiceImpl extends BaseService implements EnrollmentServ
 	}
 
 
-	public void createEnrollment(String schemaYear,UUID clientId,EnrollmentModel enrollmentModel,HttpHeaders headers) {
+	public UUID createEnrollment(String schemaYear,UUID clientId,EnrollmentModel enrollmentModel,HttpHeaders headers) {
 		JSONObjectMapper jsonObjectMapper = new JSONObjectMapper();
 		try {
 			HttpEntity<EnrollmentModel> requestEntity = new HttpEntity<EnrollmentModel>(enrollmentModel,headers);
 			ResponseEntity<EnrollmentModel> responseEntity =	restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+schemaYear+"/rest/clients/"+clientId+"/enrollments?updateGenericHouseHold=false", HttpMethod.POST,requestEntity, EnrollmentModel.class);
 			System.out.println("enrollment created "+responseEntity.getStatusCodeValue());
 			System.out.println("enrollment created "+responseEntity.getBody().getEnrollmentId());
+			return responseEntity.getBody().getEnrollmentId();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		
+		return null;
 	}
 	public HttpHeaders getHttpHeader(String clientId, String sessionToken) {
 		HttpHeaders headers = new HttpHeaders();
