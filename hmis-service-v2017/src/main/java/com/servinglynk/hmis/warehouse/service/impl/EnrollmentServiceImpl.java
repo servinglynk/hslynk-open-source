@@ -16,6 +16,7 @@ import com.servinglynk.hmis.warehouse.client.MessageSender;
 import com.servinglynk.hmis.warehouse.core.model.Enrollments;
 import com.servinglynk.hmis.warehouse.core.model.HmisHousehold;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.service.EnrollmentLinksService;
@@ -35,6 +36,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	
 	@Autowired MessageSender messageSender;
 
+	@Autowired ChronicHomelessCalcHelper chronicHomelessCalcHelper;
 	@Override
 	@Transactional
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment createEnrollment(
@@ -194,7 +196,8 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment calculateChronicHomelessness(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
 		com.servinglynk.hmis.warehouse.model.v2017.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
-		publishChronicHomelessCalculation(clientId, pEnrollment.getId(), "2017", session);
+		boolean enrollmentChronicHomeless = chronicHomelessCalcHelper.isEnrollmentChronicHomeless(pEnrollment);
+		pEnrollment.setChronicHomeless(enrollmentChronicHomeless);
 		return EnrollmentConveter.entityToModel(pEnrollment);
 	}
 	
