@@ -533,8 +533,8 @@
 		<!--  <module>hmis-search-service</module>  -->
 		<module>admin</module>
 
-		<module>hmis-mq-service</module>
-		<module>hmis-search-service</module>
+	<!-- 	<module>hmis-mq-service</module>
+		<module>hmis-search-service</module> -->
 	</modules>
 	<distributionManagement>
 		<repository>
