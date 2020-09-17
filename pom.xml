@@ -532,7 +532,9 @@
 		<module>mq-core-client</module>
 		<!--  <module>hmis-search-service</module>  -->
 		<module>admin</module>
-		
+
+	<!-- 	<module>hmis-mq-service</module>
+		<module>hmis-search-service</module> -->
 	</modules>
 	<distributionManagement>
 		<repository>
@@ -544,5 +546,11 @@
 			<url>http://nexus.aws.hmislynk.com:8081/repository/maven-snapshot</url>
 		</snapshotRepository>
 	</distributionManagement>
-
+<repositories>
+  <repository>
+    <id>central maven repo</id>
+    <name>central maven repo https</name>
+    <url>https://repo.maven.apache.org/maven2</url>
+  </repository>
+</repositories>
 </project>
