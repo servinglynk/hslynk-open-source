@@ -127,7 +127,9 @@
     <artifactId>commons-lang3</artifactId>
 </dependency>
 	</dependencies>
-
+	<build>
+	<finalName>hmis-mq-service</finalName>
+	</build>
 	<!-- <build>
 		<plugins>
 			<plugin>
