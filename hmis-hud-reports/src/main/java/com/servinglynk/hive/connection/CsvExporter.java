@@ -4,11 +4,12 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,39 +27,49 @@ public class CsvExporter  extends Logging {
 			String sql = "SELECT * FROM ".concat(schema).concat(".").concat(table) +" where "+field+"="+reportId;
 
 			Statement statement = connection.createStatement();
+			ResultSet result = null;
+			try {
+				result = statement.executeQuery(sql);
+			} catch(Exception e) {
+				// Eat the exception
+			}
+			if(result != null) {
+				fileWriter = new BufferedWriter(new FileWriter(schema+"/"+csvFileName));
 
-			ResultSet result = statement.executeQuery(sql);
+				int columnCount = writeHeaderLine(result);
 
-			fileWriter = new BufferedWriter(new FileWriter(schema+"/"+csvFileName));
+				while (result.next()) {
+					String line = "";
 
-			int columnCount = writeHeaderLine(result);
+					for (int i = 1; i <= columnCount; i++) {
+						ResultSetMetaData metaData = result.getMetaData();
+						String column = metaData.getColumnName(i);
+						Object valueObject = result.getObject(column);
+						String valueString = "";
+						if(column.contains("ID") && valueObject != null) {
+							valueString = valueObject.toString();
+							if(valueString.length() == 36) {
+								valueString = valueString.substring(0, valueString.indexOf("-"));
+							}
+						}
 
-			while (result.next()) {
-				String line = "";
+						if (valueObject instanceof String) {
+							valueString = "\"" + escapeDoubleQuotes(valueString) + "\"";
+						}
 
-				for (int i = 1; i <= columnCount; i++) {
-					Object valueObject = result.getObject(i);
-					String valueString = "";
+						line = line.concat(valueString);
 
-					if (valueObject != null)
-						valueString = valueObject.toString();
-
-					if (valueObject instanceof String) {
-						valueString = "\"" + escapeDoubleQuotes(valueString) + "\"";
+						if (i != columnCount) {
+							line = line.concat(",");
+						}
 					}
 
-					line = line.concat(valueString);
-
-					if (i != columnCount) {
-						line = line.concat(",");
-					}
+					fileWriter.newLine();
+					fileWriter.write(line);
 				}
 
-				fileWriter.newLine();
-				fileWriter.write(line);
+				fileWriter.close();
 			}
-
-			fileWriter.close();
 
 		} catch (SQLException e) {
 			System.out.println("Datababse error:");
@@ -71,10 +82,25 @@ public class CsvExporter  extends Logging {
 	}
 
 	private String getFileName(String tableName) {
+		if(StringUtils.contains(tableName, "Organization")) {
+			return "Organization.csv";
+		}
+		if(StringUtils.contains(tableName, "ProjectCoC")) {
+			return "ProjectCoC.csv";
+		}
+		if(StringUtils.contains(tableName, "Project")) {
+			return "Project.csv";
+		}
+		if(StringUtils.contains(tableName, "Funder")) {
+			return "Funder.csv";
+		}
+		if(StringUtils.contains(tableName, "Inventory")) {
+			return "Inventory.csv";
+		}
 		if(StringUtils.isNotBlank(tableName)) {
-			tableName = tableName.replaceAll("_","");
-			tableName = tableName.substring(1,tableName.length()-1);
-			tableName = StringUtils.capitalize(tableName);
+			tableName = tableName.replaceAll("\"", "");
+			String[] split = tableName.split("_");
+			tableName = split[0].toUpperCase()+split[1];
 		}
 		return tableName+".csv";
 	}
@@ -84,16 +110,21 @@ public class CsvExporter  extends Logging {
 		ResultSetMetaData metaData = result.getMetaData();
 		int numberOfColumns = metaData.getColumnCount();
 		String headerLine = "";
-
+		int columnCnt = 0;
 // exclude the first column which is the ID field
 		for (int i = 1; i <= numberOfColumns; i++) {
 			String columnName = metaData.getColumnName(i);
-			headerLine = headerLine.concat(columnName).concat(",");
+			if(StringUtils.isNotBlank(columnName) && (!StringUtils.equals(columnName, "project_group_code") && !StringUtils.equals(columnName, "Step"))) {
+				headerLine = headerLine.concat(columnName).concat(",");
+				columnCnt++;
+			}
+			
+			
 		}
 
 		fileWriter.write(headerLine.substring(0, headerLine.length() - 1));
 
-		return numberOfColumns;
+		return columnCnt;
 	}
 
 	private String escapeDoubleQuotes(String value) {
@@ -104,6 +135,19 @@ public class CsvExporter  extends Logging {
 		Properties props = new Properties();
 		props.generatePropValues();
 		CsvExporter exporter = new CsvExporter();
-		exporter.export("lsa","\"lsa_Person\"","\"ReportID\"",12345);
+		Map<String,String> csvs = new HashMap<>();
+		csvs.put("\"lsa_Calculated\"","\"ReportID\"");
+		csvs.put("\"lsa_Exit\"","\"ReportID\"");
+		csvs.put("\"lsa_Funder\"","\"ExportID\"");
+		csvs.put("\"lsa_Inventory\"","\"ExportID\"");
+		csvs.put("\"lsa_Organization\"","\"ExportID\"");
+		csvs.put("\"lsa_Project\"","\"ExportID\"");
+		csvs.put("\"lsa_ProjectCoC\"","\"ExportID\"");
+		csvs.put("\"lsa_Person\"","\"ReportID\"");
+		csvs.put("\"lsa_Report\"","\"ReportID\"");
+		csvs.put("\"lsa_HouseHold\"","\"ReportID\"");
+		for (Map.Entry<String,String> entry : csvs.entrySet())   {
+			exporter.export("lsa",entry.getKey(),entry.getValue(),12345);
+		}
 	}
 }

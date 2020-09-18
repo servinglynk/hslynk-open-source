@@ -52,7 +52,7 @@ public class LSAReportGenerator  extends Logging {
 	    			
 	    			//StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "fun_lsareport_parameters_and_vendor_info");
 	    			for (Map.Entry<String,String> entry : csvs.entrySet())   {
-	    				csvExporter.export("lsa",entry.getKey(),entry.getValue(),12345);
+	    				csvExporter.export("LSA",entry.getKey(),entry.getValue(),12345);
 	    			}
 	        		SyncPostgresProcessor.updateReportConfig("BEFORE_ZIP_CREATION", reportConfig.getId());
 	            	  // Get the bucket name from project group code.
