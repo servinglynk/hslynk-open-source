@@ -8,6 +8,7 @@ public class HousingUnitOccupant {
 	private UUID id;
 	private UUID clientId;
 	private UUID dedupClientId;
+	private UUID enrollmentId;
 	private Date occupancyStartDate;
 	private Date occupancyEndDate;
 	private Boolean isActive;
@@ -55,5 +56,11 @@ public class HousingUnitOccupant {
 	}
 	public void setHousingUnit(HousingUnit housingUnit) {
 		this.housingUnit = housingUnit;
+	}
+	public UUID getEnrollmentId() {
+		return enrollmentId;
+	}
+	public void setEnrollmentId(UUID enrollmentId) {
+		this.enrollmentId = enrollmentId;
 	}
 }

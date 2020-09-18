@@ -7,6 +7,7 @@ public class BedOccupant {
 	private UUID id;
 	private UUID clientId;
 	private UUID dedupClientId;
+	private UUID enrollmentId;
 	private Date occupancyStartDate;
 	private Date occupancyEndDate;
 	private Boolean isActive;
@@ -52,5 +53,11 @@ public class BedOccupant {
 	}
 	public void setBedUnit(BedUnit bedUnit) {
 		this.bedUnit = bedUnit;
+	}
+	public UUID getEnrollmentId() {
+		return enrollmentId;
+	}
+	public void setEnrollmentId(UUID enrollmentId) {
+		this.enrollmentId = enrollmentId;
 	}
 }

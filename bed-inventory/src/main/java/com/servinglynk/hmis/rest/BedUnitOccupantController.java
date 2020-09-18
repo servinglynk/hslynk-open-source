@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.servinglynk.hmis.annotation.APIMapping;
 import com.servinglynk.hmis.model.BedOccupant;
 import com.servinglynk.hmis.model.BedOccupants;
+import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 
 @RestController
 @RequestMapping("/bedunits/{bedunitid}/occupants")

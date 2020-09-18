@@ -8,5 +8,8 @@ public class BaseService {
 	
 	@Autowired 
 	protected DaoFactory daoFactory;
+	
+	@Autowired
+	protected ValidationService validationService;
 
 }

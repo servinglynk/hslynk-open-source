@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.servinglynk.hmis.annotation.APIMapping;
 import com.servinglynk.hmis.model.HousingUnitReservation;
 import com.servinglynk.hmis.model.HousingUnitReservations;
+import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 
 @RestController
 @RequestMapping("/housingunits/{housingunitid}/reservations")

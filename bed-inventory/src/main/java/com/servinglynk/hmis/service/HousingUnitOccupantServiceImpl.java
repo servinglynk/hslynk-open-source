@@ -18,6 +18,8 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 	@Transactional
 	public HousingUnitOccupant createHousingUnitOccupant(HousingUnitOccupant housingUnitUnit) {
 		HousingUnitOccupantEntity entity = HousingUnitOccupantConverter.modelToEntity(housingUnitUnit,null);
+		entity.setDedupClientId(validationService.validateCleintId(housingUnitUnit.getClientId()));
+		entity.setEnrollmentType(validationService.validateEnrillment(housingUnitUnit.getEnrollmentId()));
 		daoFactory.getHousingUnitOccupantRepository().save(entity);
 		housingUnitUnit.setId(entity.getId());
 		return housingUnitUnit;
@@ -28,6 +30,8 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 		HousingUnitOccupantEntity entity =  daoFactory.getHousingUnitOccupantRepository().findOne(housingUnitUnit.getId());
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitOccupant "+housingUnitUnit.getId()+" not found");
 		entity = HousingUnitOccupantConverter.modelToEntity(housingUnitUnit,entity);
+		entity.setDedupClientId(validationService.validateCleintId(housingUnitUnit.getClientId()));
+		entity.setEnrollmentType(validationService.validateEnrillment(housingUnitUnit.getEnrollmentId()));
 		daoFactory.getHousingUnitOccupantRepository().save(entity);
 	}
 	

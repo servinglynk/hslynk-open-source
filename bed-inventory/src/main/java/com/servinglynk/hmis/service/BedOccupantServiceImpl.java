@@ -18,6 +18,8 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 	@Transactional
 	public BedOccupant createBedOccupant(BedOccupant bedUnit) {
 		BedOccupantEntity entity = BedOccupantConverter.modelToEntity(bedUnit,null);
+		entity.setDedupClientId(validationService.validateCleintId(bedUnit.getClientId()));
+		entity.setEnrollmentType(validationService.validateEnrillment(bedUnit.getEnrollmentId()));
 		daoFactory.getBedOccupantRepository().save(entity);
 		bedUnit.setId(entity.getId());
 		return bedUnit;
@@ -28,6 +30,8 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findOne(bedUnit.getId());
 		if(entity == null) throw new ResourceNotFoundException("BedOccupant "+bedUnit.getId()+" not found");
 		entity = BedOccupantConverter.modelToEntity(bedUnit,entity);
+		entity.setDedupClientId(validationService.validateCleintId(bedUnit.getClientId()));
+		entity.setEnrollmentType(validationService.validateEnrillment(bedUnit.getEnrollmentId()));
 		daoFactory.getBedOccupantRepository().save(entity);
 	}
 	

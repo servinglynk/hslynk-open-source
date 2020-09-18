@@ -45,6 +45,13 @@ public class BedOccupantEntity extends BaseEntity {
 	@Column(name = "is_active")
 	private Boolean isActive;
 	
+	@Column(name = "enrollment_id")
+	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
+	private UUID enrollemntId;
+	
+	@Column(name = "enrollment_type")
+	private String enrollmentType;
+	
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "bed_id", nullable = true )
 	private BedUnitEntity bedUnit;
@@ -90,5 +97,17 @@ public class BedOccupantEntity extends BaseEntity {
 	}
 	public void setBedUnit(BedUnitEntity bedUnit) {
 		this.bedUnit = bedUnit;
+	}
+	public UUID getEnrollemntId() {
+		return enrollemntId;
+	}
+	public void setEnrollemntId(UUID enrollemntId) {
+		this.enrollemntId = enrollemntId;
+	}
+	public String getEnrollmentType() {
+		return enrollmentType;
+	}
+	public void setEnrollmentType(String enrollmentType) {
+		this.enrollmentType = enrollmentType;
 	}
 }

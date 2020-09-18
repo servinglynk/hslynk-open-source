@@ -7,8 +7,10 @@
 	<artifactId>bed-inventory-api</artifactId>
 	<packaging>war</packaging>
 
-	<name>hmis-global-household</name>
-	<description>global-household APIs</description>
+
+	<name>Bed Inventory API</name>
+	<description>Bed Inventory APIs</description>
+
 
 	<parent>
 		<groupId>com.servinglynk.hmis.warehouse</groupId>
@@ -173,7 +175,24 @@
 			<version>${spring.boot.version}</version>
 			<scope>test</scope>
 		</dependency>
-				
+
+				<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>4.2.13.RELEASE</version>
+</dependency>
+		<dependency>
+			<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>core-client</artifactId>
+			<version>${parent.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -181,17 +200,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-			<!-- <plugin> <groupId>org.bsc.maven</groupId> <artifactId>maven-processor-plugin</artifactId> 
-				   <configuration> <defaultOutputDirectory> ${project.build.directory}/generated-sources 
-				</defaultOutputDirectory> <processors> <processor>org.mapstruct.ap.MappingProcessor</processor> 
-				</processors> <options> <mapstruct.suppressGeneratorTimestamp>true</mapstruct.suppressGeneratorTimestamp> 
-				<mapstruct.defaultComponentModel>spring</mapstruct.defaultComponentModel> 
-				</options> </configuration> <executions> <execution> <id>process</id> <phase>generate-sources</phase> 
-				<goals> <goal>process</goal> </goals> </execution> </executions> <dependencies> 
-				<dependency> <groupId>org.mapstruct</groupId> <artifactId>mapstruct-processor</artifactId> 
-				<version>${org.mapstruct.version}</version> </dependency> </dependencies> 
-				</plugin> -->
 		</plugins>
 	</build>
 
