@@ -151,6 +151,15 @@ hmis-model-*/*.iml
 hmis-model-*/target
 hmis-model-*/bin
 
+bed-inventory/target/*
+bed-inventory/.settings/*
+bed-inventory/.classpath
+bed-inventory/.project
+bed-inventory/.idea
+bed-inventory/*.iml
+bed-inventory/target
+bed-inventory/bin
+
 notification-core/target/*
 notification-core/bin/*
 notification-core/.settings/*

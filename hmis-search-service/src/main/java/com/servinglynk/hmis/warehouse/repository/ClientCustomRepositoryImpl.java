@@ -39,15 +39,24 @@ public class ClientCustomRepositoryImpl implements ClientCustomRepository {
 		Criteria pgcodeCriteria = new Criteria("projectgroupcode").is(projectGroupCode);	
 	
 		Criteria criteria = fullnameCriteria.or(nameCriteria).or(ssnCriteria).or(sourcesystemidCriteria);
-		Criteria finalCriteria = criteria.and(pgcodeCriteria);
+		Criteria finalCriteria = fullnameCriteria.and(pgcodeCriteria);
 		
 		List<Client> clients = elasticsearchOperations.queryForList(new CriteriaQuery(finalCriteria), Client.class);
+		Criteria namecriteria = nameCriteria.and(pgcodeCriteria);
+		List<Client> nameClients = elasticsearchOperations.queryForList(new CriteriaQuery(namecriteria), Client.class);
+
+		Criteria ssncriteria = nameCriteria.and(pgcodeCriteria);
+		List<Client> ssnClients = elasticsearchOperations.queryForList(new CriteriaQuery(ssncriteria), Client.class);
+
+		
 		Criteria SourceCriteria = sourcesystemidCriteria.and(pgcodeCriteria);
 		List<Client> sourceClients = elasticsearchOperations.queryForList(new CriteriaQuery(SourceCriteria), Client.class);
 		//clients.addAll(sourceClients);
 		List<Client> returnClients = new ArrayList<Client>();
 		returnClients.addAll(clients);
 		returnClients.addAll(sourceClients);
+		returnClients.addAll(nameClients);
+		returnClients.addAll(ssnClients);
 		return returnClients;
 	}
 
