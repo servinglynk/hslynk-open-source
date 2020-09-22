@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.servinglynk.hmis.interceptor.ApiAuthCheckInterceptor;
+import com.servinglynk.hmis.repository.BaseRepositoryFactoryBean;
 import com.servinglynk.hmis.service.PropertyReader;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
@@ -27,7 +28,7 @@ import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
 
 @Configuration
 @EnableWebMvc
-@EnableJpaRepositories(basePackages = "com.servinglynk.hmis.repository")
+@EnableJpaRepositories(basePackages = "com.servinglynk.hmis.repository",repositoryFactoryBeanClass=BaseRepositoryFactoryBean.class)
 @EntityScan(basePackages = "com.servinglynk.hmis.entity")
 @ComponentScan(basePackages = "com.servinglynk.hmis")
 public class BedInventoryConfig  extends WebMvcConfigurerAdapter {
@@ -77,7 +78,7 @@ public class BedInventoryConfig  extends WebMvcConfigurerAdapter {
 	}
 	 @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
-	    //    registry.addInterceptor(authCheckInterceptor());
+	        registry.addInterceptor(authCheckInterceptor());
 	 }
 	 
 	 @Bean
