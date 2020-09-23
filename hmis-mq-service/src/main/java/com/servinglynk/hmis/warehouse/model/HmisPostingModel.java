@@ -1,6 +1,5 @@
 package com.servinglynk.hmis.warehouse.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,10 +9,10 @@ public class HmisPostingModel {
 	private UUID clientId;
 	private UUID dedupClientId;
 	private UUID surveyId;
-	private LocalDateTime entryDate;
-	private LocalDateTime submissionDate;
-	private LocalDateTime exitDate;
-	private LocalDateTime informationDate;
+	private String entryDate;
+	private String submissionDate;
+	private String exitDate;
+	private String informationDate;
 	private String surveyCategory;
 	private String projectGroupCode;
 	private UUID userId;
@@ -36,22 +35,22 @@ public class HmisPostingModel {
 	public void setSurveyId(UUID surveyId) {
 		this.surveyId = surveyId;
 	}
-	public LocalDateTime getEntryDate() {
+	public String getEntryDate() {
 		return entryDate;
 	}
-	public void setEntryDate(LocalDateTime entryDate) {
+	public void setEntryDate(String entryDate) {
 		this.entryDate = entryDate;
 	}
-	public LocalDateTime getExitDate() {
+	public String getExitDate() {
 		return exitDate;
 	}
-	public void setExitDate(LocalDateTime exitDate) {
+	public void setExitDate(String exitDate) {
 		this.exitDate = exitDate;
 	}
-	public LocalDateTime getInformationDate() {
+	public String getInformationDate() {
 		return informationDate;
 	}
-	public void setInformationDate(LocalDateTime informationDate) {
+	public void setInformationDate(String informationDate) {
 		this.informationDate = informationDate;
 	}
 	public String getSurveyCategory() {
@@ -84,10 +83,10 @@ public class HmisPostingModel {
 	public void setQuestionResponses(List<QuestionResponseModel> questionResponses) {
 		this.questionResponses = questionResponses;
 	}
-	public LocalDateTime getSubmissionDate() {
+	public String getSubmissionDate() {
 		return submissionDate;
 	}
-	public void setSubmissionDate(LocalDateTime submissionDate) {
+	public void setSubmissionDate(String submissionDate) {
 		this.submissionDate = submissionDate;
 	}
 	public UUID getDedupClientId() {

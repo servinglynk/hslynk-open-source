@@ -88,7 +88,7 @@ public class EnrollmentServiceImpl extends BaseService implements EnrollmentServ
 		JSONObjectMapper jsonObjectMapper = new JSONObjectMapper();
 		try {
 			HttpEntity<EnrollmentModel> requestEntity = new HttpEntity<EnrollmentModel>(enrollmentModel,headers);
-			ResponseEntity<EnrollmentModel> responseEntity =	restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+schemaYear+"/rest/clients/"+clientId+"/enrollments?updateGenericHouseHold=false", HttpMethod.POST,requestEntity, EnrollmentModel.class);
+			ResponseEntity<EnrollmentModel> responseEntity =	restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-clientapi-"+schemaYear+"/rest/clients/"+clientId+"/enrollments?updateGenericHouseHold=false", HttpMethod.POST,requestEntity, EnrollmentModel.class);
 			System.out.println("enrollment created "+responseEntity.getStatusCodeValue());
 			System.out.println("enrollment created "+responseEntity.getBody().getEnrollmentId());
 			return responseEntity.getBody().getEnrollmentId();

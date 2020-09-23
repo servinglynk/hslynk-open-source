@@ -39,6 +39,7 @@ public class SurveyResponseListener extends BaseListener {
 					}else {
 						serviceFactory.getClientMetaDataService().createClientMetaData(model);
 					}
+					
 					Object hmisPostingObj = event.getPayload().get("hmisPosting");
 					if(hmisPostingObj != null) {
 						String hmisPosting = hmisPostingObj.toString();
@@ -55,7 +56,7 @@ public class SurveyResponseListener extends BaseListener {
 								
 								serviceFactory.getHmisPostingService().postHmis(hmisPostingModel, sessionModel);
 							}
-					}
+						}
 							}catch (Exception e) {
 		e.printStackTrace();	
 		}

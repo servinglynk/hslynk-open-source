@@ -1,8 +1,7 @@
 package com.servinglynk.hmis.warehouse.service;
 
 import java.nio.charset.Charset;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -116,6 +115,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 	private UUID getVersionSpecificProjectId(HmisPostingModel hmisPostingModel, HttpHeaders headers) {
 		GlobalProjectModel globalProjectById = getGlobalProjectById(hmisPostingModel.getGlobalProjectId(), headers);
 		String schemaVersion = hmisPostingModel.getSchemaVersion();
+		schemaVersion = StringUtils.substring(schemaVersion,1);
 		GlobalProjectsMap projectsMap = globalProjectById.getProjects();
 		if(projectsMap != null) {
 			List<GlobalProjectMap> globalProjectMaps = projectsMap.getGlobalProjectMaps();
@@ -170,7 +170,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 				try {
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		String jsonObj = objectMapper.writer().withRootName("project").writeValueAsString(map);
-		String url = "http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+hmisPostingModel.getSchemaVersion()+"/rest/projects";
+		String url = "http://hmiselb.aws.hmislynk.com/hmis-clientapi-"+hmisPostingModel.getSchemaVersion()+"/rest/projects";
 		//
 		 Object responseObject = makeAPICall(jsonObj, headers, url, HttpMethod.POST);
         LinkedHashMap<Object, Map> persons = (LinkedHashMap<Object, Map>) responseObject;
@@ -204,7 +204,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 				try {
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		String jsonObj = objectMapper.writer().withRootName("assessment").writeValueAsString(map);
-		String requestPath = hmisPostingModel.getSchemaVersion()+"/{clientid}/enrollments/{enrollmentid}/assessments";
+		String requestPath = hmisPostingModel.getSchemaVersion()+"/rest/clients/{clientid}/enrollments/{enrollmentid}/assessments";
 		//
 		String url = getAssessmentUrl(requestPath, hmisPostingModel.getClientId(), enrollmentId, null, null);
 		 Object responseObject = makeAPICall(jsonObj, headers, url, HttpMethod.POST);
@@ -233,9 +233,10 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 		try {
 			EnrollmentModel enrollmentModel = new EnrollmentModel();
 			enrollmentModel.setClientId(hmisPostingModel.getClientId());
-			LocalDateTime entryDate = hmisPostingModel.getEntryDate();
+			 String entryDate = hmisPostingModel.getEntryDate();
 			if(entryDate != null) {
-				Date entryUtilDate = Date.from(entryDate.atZone(ZoneId.systemDefault()).toInstant());
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date entryUtilDate = sdf.parse(entryDate);
 				enrollmentModel.setEntryDate(entryUtilDate);
 			}
 			UUID projectId = getVersionSpecificProjectId(hmisPostingModel, headers);
@@ -297,10 +298,10 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 			Map<String,List<QuestionResponseModel>> questionResponseMap = new HashMap<>();
 			for( QuestionResponseModel questionResponseModel : questionResponses) {
 				logger.info(questionResponseModel.getUriObjectField());
-				List<QuestionResponseModel> list = questionResponseMap.get(questionResponseModel.getUriObjectField());
+				List<QuestionResponseModel> list = questionResponseMap.get(questionResponseModel.getUpdateUrlTemplate());
 				if(!CollectionUtils.isEmpty(list)) {
 					list.add(questionResponseModel);
-					questionResponseMap.put(questionResponseModel.getUriObjectField(), list);
+					questionResponseMap.put(questionResponseModel.getUpdateUrlTemplate(), list);
 				} else {
 					List<QuestionResponseModel>  questionResponseModels = new ArrayList<QuestionResponseModel>();
 					questionResponseModels.add(questionResponseModel);
@@ -359,11 +360,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 			try {
 				String url = "http://ceselb.aws.hmislynk.com/survey-api/rest/v3/clients/"+hmisPostingModel.getDedupClientId()+"/surveys/"+hmisPostingModel.getSurveyId()+"/responses/"+responseId;
 				String jsonObj = objectMapper.writer().withRootName("response").writeValueAsString(map);
-				Object responseObject = makeAPICall(jsonObj, headers, url, httpMethod);
-		        LinkedHashMap<Object, Map> persons = (LinkedHashMap<Object, Map>) responseObject;
-		        Set<Entry<Object, Map>> entrySet = persons.entrySet();
-		        Entry<Object, Map> next = entrySet.iterator().next();
-		        logger.info("key:"+next.getKey() + " value:"+next.getValue());
+				makeAPICall(jsonObj, headers, url, httpMethod);
 			} catch (JsonMappingException e) {
 				logger.error(" Error when updateResponse is called", e.getCause());
 			} catch (JsonProcessingException e) {
@@ -419,7 +416,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 				if(StringUtils.equals(questionResponseModel.getQuestionClassification(), "CES")) {
 					try {
 						UUID assessmentId = null;
-						if(isAssessmentCreated) {
+						if(!isAssessmentCreated) {
 							assessmentId = createAssessment(headers, hmisPostingModel, enrollmentId);
 							isAssessmentCreated = true;
 						}
@@ -430,10 +427,19 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 							map.put("dedupClientId", String.valueOf(hmisPostingModel.getDedupClientId()));
 						objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						String jsonObj = objectMapper.writer().withRootName("assessmentQuestion").writeValueAsString(map);
-						String requestPath = hmisPostingModel.getSchemaVersion()+"/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentquestions";
+						String requestPath = hmisPostingModel.getSchemaVersion()+"/rest/clients/{clientid}/enrollments/{enrollmentid}/assessments/{assessmentid}/assessmentquestions";
 						String url = getAssessmentUrl(requestPath,hmisPostingModel.getClientId(), enrollmentId, assessmentId, null);
 						// Create the url from the uriObjectFied.
-						makeAPICall(jsonObj, headers, url, HttpMethod.POST);
+						Object responseObject = makeAPICall(jsonObj, headers, url, HttpMethod.POST);
+						LinkedHashMap<Object, Map> persons = (LinkedHashMap<Object, Map>) responseObject;
+				        Set<Entry<Object, Map>> entrySet = persons.entrySet();
+				        Entry<Object, Map> next = entrySet.iterator().next();
+				        logger.info("key:"+next.getKey() + " value:"+next.getValue());
+				        Map value = next.getValue();
+						String rootId = (String)value.get("assessmentQuestionId");
+						List<UUID> responses = new ArrayList<>();
+						responses.add(questionResponseModel.getResponseId());
+						updateResponse(hmisPostingModel,responses , headers, url+"/"+rootId, HttpMethod.PUT);
 					} catch (Exception e) {
 						logger.error(" Error when creating assessment questions", e.getCause());
 					}
@@ -495,14 +501,14 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 			if(StringUtils.indexOf(requestPath, "/2020/rest") == -1) {
 				requestPath = StringUtils.replace(requestPath, "2020", "2020/rest");
 			}
-			if(requestPath != null) {
-				if(enrollmentId !=null)
-					requestPath = StringUtils.replace(requestPath, "{enrollmentid}", enrollmentId.toString());
-				if(assessmentId !=null)
-					requestPath = StringUtils.replace(requestPath, "{assessmentid}", assessmentId.toString());
-				if(clientId !=null)
-					requestPath = StringUtils.replace(requestPath, "{clientid}", clientId.toString());
-			}
+		}
+		if(requestPath != null) {
+			if(enrollmentId !=null)
+				requestPath = StringUtils.replace(requestPath, "{enrollmentid}", enrollmentId.toString());
+			if(assessmentId !=null)
+				requestPath = StringUtils.replace(requestPath, "{assessmentid}", assessmentId.toString());
+			if(clientId !=null)
+				requestPath = StringUtils.replace(requestPath, "{clientid}", clientId.toString());
 		}
 		String url = "http://hmiselb.aws.hmislynk.com/hmis-clientapi-"+requestPath;
 		return url;
