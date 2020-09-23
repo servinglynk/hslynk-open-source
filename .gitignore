@@ -329,3 +329,6 @@ hmis-model-v2015/target/*
 *.prefs
 *.prefs
 admin/.settings/org.eclipse.jdt.core.prefs
+bed-inventory/.settings/*
+bed-inventory/.settings/*
+bed-inventory/.settings/*

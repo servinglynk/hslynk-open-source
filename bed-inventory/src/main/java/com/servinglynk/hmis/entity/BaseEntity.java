@@ -1,23 +1,32 @@
 package com.servinglynk.hmis.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
+import org.codehaus.jackson.annotate.JsonCreator;
 import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.servinglynk.hmis.config.SecurityUtil;
 abstract
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 	
 	@Column(name = "deleted")
-	private boolean deleted;
+	private Boolean deleted;
 	
 	@CreatedDate
 	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
@@ -33,9 +42,26 @@ public class BaseEntity {
 	@Column(name = "PROJECT_GROUP_CODE")
 	private String projectGroupCode;
 	
+	@CreatedBy
+	@LastModifiedBy
+	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
+	@Column(name = "user_id")
+	private UUID userId;
 
-	public boolean isDeleted() {
+	public UUID getUserId() {
+		return userId;
+	}
+
+	public void setUserId(UUID userId) {
+		this.userId = userId;
+	}
+
+	public Boolean getDeleted() {
 		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public void setDeleted(boolean deleted) {
@@ -64,5 +90,18 @@ public class BaseEntity {
 		this.projectGroupCode = projectGroupCode;
 	}
 	
+	
+	
+	@PrePersist
+	public void init() {
+		this.setProjectGroupCode(SecurityUtil.getUserProjectGroup());
+		if(this.getDeleted()==null) this.setDeleted(false);
+		this.setUserId(SecurityUtil.getUserAccountId());
+	}
+	
+	@PreUpdate
+	public void update() {
+		this.setUserId(SecurityUtil.getUserAccountId());
+	}
 	
 }

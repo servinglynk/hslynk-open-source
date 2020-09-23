@@ -18,7 +18,7 @@ import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 public class BedUnitReservationController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.POST)
-	@APIMapping(value = "CREATE_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
+	@APIMapping(value = "CREATE_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
 	BedUnitReservation createBedUnitReservation(@RequestBody BedUnitReservation bedUnitReservation,
 			@PathVariable("bedunitid") UUID bedunitid) {
 		bedUnitReservation.setBedUnitId(bedunitid);
@@ -26,26 +26,26 @@ public class BedUnitReservationController extends BaseController{
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT,value = "/{reservationid}")
-	@APIMapping(value = "UPDATE_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
+	@APIMapping(value = "UPDATE_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
 	void updateBedUnitReservation(BedUnitReservation bedUnitReservation,@PathVariable("reservationid") UUID reservationid) {
 		bedUnitReservation.setId(reservationid);
 		serviceFactory.getBedReservationService().updateBedUnitReservation(bedUnitReservation);
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE,value = "/{reservationid}")
-	@APIMapping(value = "DELETE_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
+	@APIMapping(value = "DELETE_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
 	void deleteBedUnitReservation(@PathVariable("reservationid") UUID bedUnitReservationId) {
 		serviceFactory.getBedReservationService().deleteBedUnitReservation(bedUnitReservationId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,value = "/{reservationid}")
-	@APIMapping(value = "GET_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
+	@APIMapping(value = "GET_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
 	BedUnitReservation getBedUnitReservation(@PathVariable("reservationid") UUID bedUnitReservationId) {
 		return serviceFactory.getBedReservationService().getBedUnitReservation(bedUnitReservationId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	@APIMapping(value = "GET_OCCUPANTS",checkSessionToken = true,checkTrustedApp = true)
+	@APIMapping(value = "GET_RESERVATIONS",checkSessionToken = true,checkTrustedApp = true)
 	BedUnitReservations getBedUnitReservations(Pageable pageable) {
 		return serviceFactory.getBedReservationService().getBedUnitReservations(pageable);
 	}
