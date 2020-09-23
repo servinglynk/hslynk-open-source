@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hmis-mq-service</artifactId>
-	<version>2.23</version>
+	<version>2.23.2</version>
 	<packaging>war</packaging>
 	<name>hmis-search-service</name>
 
@@ -18,7 +18,7 @@
 
 	<properties>
 		<java-version>1.8</java-version>
-		<hslynk.version>2.23</hslynk.version>
+		<hslynk.version>2.23.2</hslynk.version>
 	</properties>
 
 	<dependencies>
