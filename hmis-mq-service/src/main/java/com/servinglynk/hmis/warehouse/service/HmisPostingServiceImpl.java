@@ -409,13 +409,13 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		List<QuestionResponseModel> questionResponses = hmisPostingModel.getQuestionResponses();
 		boolean isAssessmentCreated = false;
+		UUID assessmentId = null;
 		if(!CollectionUtils.isEmpty(questionResponses)) {
 			Map<String,List<QuestionResponseModel>> questionResponseMap = new HashMap<>();
 			for( QuestionResponseModel questionResponseModel : questionResponses) {
 				logger.info(questionResponseModel.getUriObjectField());
 				if(StringUtils.equals(questionResponseModel.getQuestionClassification(), "CES")) {
 					try {
-						UUID assessmentId = null;
 						if(!isAssessmentCreated) {
 							assessmentId = createAssessment(headers, hmisPostingModel, enrollmentId);
 							isAssessmentCreated = true;
