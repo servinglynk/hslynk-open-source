@@ -2,6 +2,8 @@ package com.servinglynk.hmis.warehouse.listener;
 
 import java.util.UUID;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +18,7 @@ import com.servinglynk.hmis.warehouse.model.SessionModel;
 
 @Component
 public class SurveyResponseListener extends BaseListener {
-
+	protected final Log logger = LogFactory.getLog(getClass());
 	@JmsListener(destination="survey.submissions")
 	public void listeneQueue(String eventString) {
 		System.out.println("inside survey.submissions listener");
@@ -33,7 +35,7 @@ public class SurveyResponseListener extends BaseListener {
 			if(event.getPayload().get("projectGroupCode")!=null) model.setProjectGroupCode(event.getPayload().get("projectGroupCode").toString());
 			model.setType("surveySubmissions");
 			if(event.getPayload().get("userId")!=null) model.setUserId(UUID.fromString(event.getPayload().get("userId").toString()));
-			
+			logger.info("######## survey.submissions listener for submission_id ######"+model.getMetaDataIdentifier());
 					if(Boolean.parseBoolean(event.getPayload().get("deleted").toString())) {
 						serviceFactory.getClientMetaDataService().deleteClientMetaData(model);
 					}else {
