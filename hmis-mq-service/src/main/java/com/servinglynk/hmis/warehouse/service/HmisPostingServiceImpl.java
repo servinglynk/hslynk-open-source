@@ -138,15 +138,17 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 	 */
 	private UUID getVersionSpecificEnrollmentId(HmisPostingModel hmisPostingModel, HttpHeaders headers) {
 		GlobalEnrollment globalEnrollmentById = getGlobalEnrollmentById(hmisPostingModel.getGlobalEnrollmentId(), headers);
-		String schemaVersion = hmisPostingModel.getSchemaVersion();
-		GlobalEnrollmentsMap enrollments = globalEnrollmentById.getEnrollments();
-		if(enrollments != null) {
-			 List<GlobalEnrollmentMap> globalEnrollmentMaps = enrollments.getGlobalEnrollmentMaps();
-			if(!CollectionUtils.isEmpty(globalEnrollmentMaps)) {
-				for(GlobalEnrollmentMap globalEnrollmentMap : globalEnrollmentMaps) {
-						if(StringUtils.equals(schemaVersion, globalEnrollmentMap.getSource())) {
-							return globalEnrollmentMap.getEnrollmentId();
-						}
+		if(globalEnrollmentById != null) {
+			String schemaVersion = hmisPostingModel.getSchemaVersion();
+			GlobalEnrollmentsMap enrollments = globalEnrollmentById.getEnrollments();
+			if(enrollments != null) {
+				 List<GlobalEnrollmentMap> globalEnrollmentMaps = enrollments.getGlobalEnrollmentMaps();
+				if(!CollectionUtils.isEmpty(globalEnrollmentMaps)) {
+					for(GlobalEnrollmentMap globalEnrollmentMap : globalEnrollmentMaps) {
+							if(StringUtils.equals(schemaVersion, globalEnrollmentMap.getSource())) {
+								return globalEnrollmentMap.getEnrollmentId();
+							}
+					}
 				}
 			}
 		}
@@ -323,6 +325,8 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 							responseIds.add(questionResponseModel.getResponseId());
 							map.put(split[1], StringUtils.isNotBlank(questionResponseModel.getPickListValueCode()) ? questionResponseModel.getPickListValueCode() : questionResponseModel.getResponseText());
 						}
+						map.put("dataCollectionStage", hmisPostingModel.getSurveyCategory());
+						map.put("informationDate", hmisPostingModel.getInformationDate());
 						objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						String jsonObj = objectMapper.writer().withRootName(rootName).writeValueAsString(map);
 						String url = getUrl(questionResponseKey,hmisPostingModel.getClientId(), enrollmentId, exitId, projectId, null);

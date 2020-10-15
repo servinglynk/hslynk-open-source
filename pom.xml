@@ -7,7 +7,7 @@
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hslynk-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>2.23.2</version>
+	<version>2.24</version>
 	<name>hslynk-parent</name>
 	<properties>
 		<!-- Unique entry point for version number management. -->
@@ -21,7 +21,7 @@
 		<fasterxml.version>2.10.0</fasterxml.version>
 		<jackson.mapper.version>1.8.5</jackson.mapper.version>
 		<spring.version>4.3.22.RELEASE</spring.version>
-		<spring-security-version>4.2.13.RELEASE</spring-security-version>
+		<spring-security-version>4.2.16.RELEASE</spring-security-version>
 		<hibernate.version>4.2.0.Final</hibernate.version>
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 		<jsp-version>2.2.1</jsp-version>
@@ -32,32 +32,32 @@
 	</properties>
 	<dependencyManagement>
 		<dependencies>
-		<dependency>
-    <groupId>javax.transaction</groupId>
-    <artifactId>javax.transaction-api</artifactId>
-    <version>1.3</version>
-</dependency>
-		
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-ehcache</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
+			<dependency>
+				<groupId>javax.transaction</groupId>
+				<artifactId>javax.transaction-api</artifactId>
+				<version>1.3</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-ehcache</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.apache.poi</groupId>
 				<artifactId>poi</artifactId>
 				<version>3.12-beta1</version>
 			</dependency>
-	<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk-core</artifactId>
-			<version>1.9.37</version>
-		</dependency>
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk-s3</artifactId>
-			<version>1.9.37</version>
-		</dependency>
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-core</artifactId>
+				<version>1.9.37</version>
+			</dependency>
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-s3</artifactId>
+				<version>1.9.37</version>
+			</dependency>
 
 			<dependency>
 				<groupId>javax.xml</groupId>
@@ -104,7 +104,7 @@
 			<dependency>
 				<groupId>com.fasterxml.jackson.datatype</groupId>
 				<artifactId>jackson-datatype-jsr310</artifactId>
-				<version>2.4.0</version>
+				<version>2.9.8</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-codec</groupId>
@@ -189,21 +189,21 @@
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-         <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-         <version>4.5.2</version>
-    </dependency>
-    <dependency>
-		    <groupId>joda-time</groupId>
-		    <artifactId>joda-time</artifactId>
-		    <version>2.8.2</version>
-		</dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>2.5</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.5.2</version>
+			</dependency>
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+				<version>2.8.2</version>
+			</dependency>
 			<dependency>
 				<groupId>javax.servlet.jsp</groupId>
 				<artifactId>javax.servlet.jsp-api</artifactId>
@@ -278,7 +278,7 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-compress</artifactId>
-				<version>1.18</version>
+				<version>1.19</version>
 			</dependency>
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
@@ -288,7 +288,7 @@
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
-				<version>1.2.14</version>
+				<version>1.2.17</version>
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -417,7 +417,7 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>5.2.4.Final</version>
+				<version>5.3.6.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -466,11 +466,11 @@
 	</dependencyManagement>
 	<build>
 		<plugins>
-					 <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.0.0</version>
-        </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -516,25 +516,32 @@
 		<module>notification-service</module>
 		<module>report-service</module>
 		<module>user-service</module>
- 		<module>developer-service</module>
-  		 <module>hmis-load-processor-v2014</module>
+		<module>developer-service</module>
+		<module>hmis-load-processor-v2014</module>
 		<module>hmis-load-processor-v2015</module>
 		<module>hmis-load-processor-v2016</module>
 		<module>hmis-load-processor-v2017</module>
-		<module>hmis-load-processor-v2020</module> 
+		<module>hmis-load-processor-v2020</module>
 		<!-- <module>global-household</module> -->
 		<module>authorization-service</module>
 		<module>upload-service</module>
 		<module>client-dedup</module>
 		<module>globalapi</module>
 		<module>fileupload-core</module>
+
 		 <module>hmis-mq-service</module>
+
+		<!-- <module>hmis-mq-service</module> -->
+
 		<module>mq-core-client</module>
-		<!--  <module>hmis-search-service</module>  -->
+		<module>subscription-service</module>
+		<module>hmis-event-service</module>
+		<!-- <module>hmis-search-service</module> -->
 		<module>admin</module>
 
-	<!-- 	<module>hmis-mq-service</module>
-		<module>hmis-search-service</module> -->
+		<!-- <module>hmis-mq-service</module> <module>hmis-search-service</module> -->
+
+
 	</modules>
 	<distributionManagement>
 		<repository>
@@ -546,11 +553,11 @@
 			<url>http://nexus.aws.hmislynk.com:8081/repository/maven-snapshot</url>
 		</snapshotRepository>
 	</distributionManagement>
-<repositories>
-  <repository>
-    <id>central maven repo</id>
-    <name>central maven repo https</name>
-    <url>https://repo.maven.apache.org/maven2</url>
-  </repository>
-</repositories>
+	<repositories>
+		<repository>
+			<id>central maven repo</id>
+			<name>central maven repo https</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+	</repositories>
 </project>

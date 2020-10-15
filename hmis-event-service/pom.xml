@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.8.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.servinglynk.hmis.warehouse</groupId>
+	<artifactId>hmis-event-service</artifactId>
+	<version>2.22.30</version>
+	<packaging>war</packaging>
+	<name>hmis-event-service</name>
+
+
+
+	<properties>
+		<java-version>1.8</java-version>
+		<hslynk.version>2.23.2</hslynk.version>
+	</properties>
+
+	<dependencies>
+	<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-oxm</artifactId>
+
+</dependency>
+<dependency>
+<groupId>com.servinglynk.hmis.warehouse</groupId>
+			<artifactId>core-client</artifactId>
+			<version>2.24</version>
+</dependency>
+		<dependency>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+			 <artifactId>hmis-core-common</artifactId>	
+			 <version>${hslynk.version}</version>
+		</dependency>
+	<dependency>
+		<groupId>com.servinglynk.hmis.warehouse</groupId>
+		<artifactId>mq-core-client</artifactId>
+		<version>${hslynk.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-all</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.zaxxer</groupId>
+					<artifactId>HikariCP</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.1.17.Final</version>
+</dependency>
+		<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-entitymanager</artifactId>
+    <version>5.1.17.Final</version>
+</dependency>
+		<dependency>
+    <groupId>com.thoughtworks.xstream</groupId>
+    <artifactId>xstream</artifactId>
+    <version>1.4.9</version>
+</dependency>
+			<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>     
+		<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>9.4-1201-jdbc41</version>
+			</dependency>
+				<dependency>
+				<groupId>org.jadira.usertype</groupId>
+				<artifactId>usertype.extended</artifactId>
+				<version>5.0.0.GA</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-core</artifactId>
+					</exclusion>
+				</exclusions>
+				</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+</dependency>
+<dependency>
+    <groupId>com.googlecode.json-simple</groupId>
+    <artifactId>json-simple</artifactId>
+    <version>1.1</version>
+</dependency>
+
+	</dependencies>
+	<build>
+	<finalName>hmis-event-service</finalName>
+	</build>
+	<!-- <build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>  -->
+<repositories>
+  <repository>
+    <id>central maven repo</id>
+    <name>central maven repo https</name>
+    <url>https://repo.maven.apache.org/maven2</url>
+  </repository>
+</repositories>
+</project>
