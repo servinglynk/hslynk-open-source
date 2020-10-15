@@ -332,3 +332,14 @@ admin/.settings/org.eclipse.jdt.core.prefs
 bed-inventory/.settings/*
 bed-inventory/.settings/*
 bed-inventory/.settings/*
+
+
+*/target/*
+subscription-service/.settings/*
+subscription-service/.settings
+*/.classpath
+*.project
+*/.idea
+*/*.iml
+*/target
+*/bin

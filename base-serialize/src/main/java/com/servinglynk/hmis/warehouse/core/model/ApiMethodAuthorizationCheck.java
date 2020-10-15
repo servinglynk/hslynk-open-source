@@ -18,6 +18,8 @@ public class ApiMethodAuthorizationCheck extends ClientModel {
 	private Account account;
 	
 	private Boolean checkSessionToken=null;
+	
+	private String requestURL;
 
 	public String getTrustedAppId() {
 		return trustedAppId;
@@ -56,5 +58,10 @@ public class ApiMethodAuthorizationCheck extends ClientModel {
 	public void setCheckSessionToken(Boolean checkSessionToken) {
 		this.checkSessionToken = checkSessionToken;
 	}
-
+	public String getRequestURL() {
+		return requestURL;
+	}
+	public void setRequestURL(String requestURL) {
+		this.requestURL = requestURL;
+	}
 }
