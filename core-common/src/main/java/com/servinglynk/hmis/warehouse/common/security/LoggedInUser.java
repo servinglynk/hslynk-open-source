@@ -13,6 +13,7 @@ public class LoggedInUser implements UserDetails  {
 	private String projectGroup;
 	private UUID profileId;
 	private UUID userId;
+	private String url;
 	private Boolean checkProjectGroup = true;
 	public LoggedInUser(String username, String projectGroup,UUID profileId,UUID userId) {
 		super();
@@ -99,5 +100,13 @@ public class LoggedInUser implements UserDetails  {
 
 	public void setUserId(UUID userId) {
 		this.userId = userId;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }
