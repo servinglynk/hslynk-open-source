@@ -6,6 +6,7 @@ import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentMonthshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
+import com.servinglynk.hmis.warehouse.enums.LivingSituationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 public class EnrollmentConveter extends BaseConverter {
@@ -30,7 +31,7 @@ public class EnrollmentConveter extends BaseConverter {
 	/*	if(enrollment.getProjectentryid()!=null)
 		pEnrollment.setProjectentryid(enrollment.getProjectentryid());*/
 		if(enrollment.getLivingSituation()!=null)
-			
+			pEnrollment.setLivingSituation(LivingSituationEnum.lookupEnum(enrollment.getLivingSituation().toString()));
 		if(enrollment.getRelationshiptohoh()!=null)
 		pEnrollment.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(enrollment.getRelationshiptohoh().toString()));
 		if(enrollment.getTimeshomelesspastthreeyears()!=null)
