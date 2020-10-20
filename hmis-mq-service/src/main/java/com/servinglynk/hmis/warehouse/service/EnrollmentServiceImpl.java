@@ -27,19 +27,21 @@ public class EnrollmentServiceImpl extends BaseService implements EnrollmentServ
 		UUID geniricHousehold = enrollment.getGenericHouseHoldId();
 		List<Client> clients  = daoFactory.getEnrollmentDao().getGenericHousehold(geniricHousehold, sessionModel.getProjectGroupCode(),schemaYear);
 		for(Client client : clients) {
-			HttpHeaders headers =  getHttpHeader(sessionModel.getClientId(), sessionModel.getSessionToken());
-			if(client.getSchemaYear().equalsIgnoreCase(schemaYear)) {
-				this.createEnrollment(schemaYear,client.getClientId(), enrollment, headers);
-			}else {
-				Client otherClient = this.getClient(client.getClientId(),headers,client.getSchemaYear());
-				Client newClient = this.createClient(otherClient,headers,schemaYear);
-				this.createEnrollment(schemaYear,newClient.getClientId(), enrollment, headers);
+			HttpHeaders headers =  getHttpHeader(sessionModel.getTrustedAppId(), sessionModel.getSessionToken());
+			if(client != null && schemaYear != null) {
+				if(schemaYear.equalsIgnoreCase(client.getSchemaYear())) {
+					this.createEnrollment(schemaYear,client.getClientId(), enrollment, headers);
+				}else {
+					Client otherClient = this.getClient(client.getClientId(),headers,client.getSchemaYear());
+					Client newClient = this.createClient(otherClient,headers,schemaYear);
+					this.createEnrollment(schemaYear,newClient.getClientId(), enrollment, headers);
+				}
 			}
 		}
 	}
 
 	public void calCulateChronicHomelessness(SessionModel sessionModel,String schemaYear) {
-			HttpHeaders headers =  getHttpHeader(sessionModel.getClientId(), sessionModel.getSessionToken());
+			HttpHeaders headers =  getHttpHeader(sessionModel.getTrustedAppId(), sessionModel.getSessionToken());
 			calCulateChronicHomelessness(schemaYear, sessionModel.getClientId(), sessionModel.getEnrollmentId(), headers);
 	}
 	
@@ -97,11 +99,11 @@ public class EnrollmentServiceImpl extends BaseService implements EnrollmentServ
 		} 
 		return null;
 	}
-	public HttpHeaders getHttpHeader(String clientId, String sessionToken) {
+	public HttpHeaders getHttpHeader(String trustedAppId, String sessionToken) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", "application/json");
 		headers.add("Content-Type", "application/json; charset=UTF-8");
-		headers.add("X-HMIS-TrustedApp-Id", clientId);
+		headers.add("X-HMIS-TrustedApp-Id", trustedAppId);
 		headers.add("Authorization","HMISUserAuth session_token="+sessionToken);
 		return headers;
 	}

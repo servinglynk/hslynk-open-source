@@ -52,7 +52,7 @@ public class SurveyResponseListener extends BaseListener {
 							if(hmisPostingsModel != null) {
 								HmisPostingModel hmisPostingModel = hmisPostingsModel.getHmisPosting();
 								SessionModel sessionModel = new SessionModel();
-								sessionModel.setClientId(event.getPayload().get("trustedAppId").toString());
+								sessionModel.setTrustedAppId(event.getPayload().get("trustedAppId").toString());
 								sessionModel.setProjectGroupCode(event.getPayload().get("projectGroupCode").toString());
 								sessionModel.setSessionToken(event.getPayload().get("sessionToken").toString());
 								
