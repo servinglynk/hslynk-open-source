@@ -119,7 +119,9 @@ public class PurgeProjectGroup extends Logging {
 		//BA0007
 		//SP0022
 		//MO0006
-	    view.purge("MO0006");
+		//HO0002
+		//OR0024
+	    view.purge("OR0024");
 
 	}
 

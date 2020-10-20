@@ -30,7 +30,7 @@ public class MapperExample {
         HmisPostingsModel hmisPostingsModel = mapper.readValue(hmisPosting, HmisPostingsModel.class);
         HmisPostingServiceImpl impl = new HmisPostingServiceImpl();
         SessionModel sessionModel = new SessionModel();
-		sessionModel.setClientId("BF3CC2EA-7924-4CF6-AE93-7D9F0ED6B63E");
+		sessionModel.setTrustedAppId("BF3CC2EA-7924-4CF6-AE93-7D9F0ED6B63E");
 		sessionModel.setProjectGroupCode("TT0013");
 		sessionModel.setSessionToken("HMISUserAuth session_token=C0655915EB0945769E407E430671641E5C9271CA5E054CDFA2804C004DE81044");
 		

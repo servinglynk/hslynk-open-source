@@ -19,6 +19,7 @@ public class ChronicHomelessListener extends BaseListener {
 			
 			SessionModel model = new SessionModel();
 			if(event.getPayload().get("enrollmentId")!=null) model.setEnrollmentId(event.getPayload().get("enrollmentId").toString());
+			if(event.getPayload().get("trustedAppId")!=null) model.setTrustedAppId(event.getPayload().get("trustedAppId").toString());
 			if(event.getPayload().get("clientId")!=null) model.setClientId(event.getPayload().get("clientId").toString());
 			if(event.getPayload().get("projectGroupCode")!=null) model.setProjectGroupCode(event.getPayload().get("projectGroupCode").toString());
 			String schemaYear = event.getPayload().get("schemaYear").toString();

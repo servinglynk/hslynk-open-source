@@ -228,6 +228,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 			  Map<String, Object> data  = new HashMap<String, Object>();
 			  data.put("sessionToken", session.getToken());
 			  data.put("clientId",clientId);
+			  data.put("trustedAppId",session.getClientTypeId());
 			  data.put("enrollmentId", enrollmentId);
 			  data.put("userId", session.getAccount().getAccountId());
 			  data.put("projectGroupCode", session.getAccount().getProjectGroup().getProjectGroupCode());

@@ -1,9 +1,7 @@
 package com.servinglynk.hmis.warehouse.service;
 
 import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,7 +28,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.servinglynk.hmis.warehouse.model.Client;
-import com.servinglynk.hmis.warehouse.model.EnrollmentModel;
+import com.servinglynk.hmis.warehouse.model.ClientSurveySubmission;
+import com.servinglynk.hmis.warehouse.model.ClientSurveySubmissions;
 import com.servinglynk.hmis.warehouse.model.GlobalEnrollment;
 import com.servinglynk.hmis.warehouse.model.GlobalEnrollmentMap;
 import com.servinglynk.hmis.warehouse.model.GlobalEnrollmentsMap;
@@ -44,7 +43,11 @@ import com.servinglynk.hmis.warehouse.model.SessionModel;
 @Service
 public class HmisPostingServiceImpl implements HmisPostingService {
 	protected final Log logger = LogFactory.getLog(getClass());
-	
+	private static final String HMIS_HOST ="http://hmiselb.aws.hmislynk.com";
+	//private static final String HMIS_HOST ="http://localhost:8081";
+	//private static final String CES_HOST = "http://localhost:8081";
+
+	private static final String CES_HOST = "http://ceselb.aws.hmislynk.com";
 	@Autowired RestTemplate restTemplate;
 	@Autowired protected ServiceFactory serviceFactory;
 	
@@ -53,8 +56,8 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 			if(hmisPostingModel != null) {
 				UUID enrollmentId = null;
 				String hmisPostingStatus = hmisPostingModel.getHmisPostingStatus();
-					HttpHeaders httpHeader = getHttpHeader(session.getClientId(), session.getSessionToken());
-					if(StringUtils.equals("CREATE", hmisPostingStatus) && hmisPostingModel.getGlobalEnrollmentId() == null) {
+					HttpHeaders httpHeader = getHttpHeader(session.getTrustedAppId(), session.getSessionToken());
+					if(StringUtils.equals("CREATE", hmisPostingStatus) && hmisPostingModel.getGlobalEnrollmentId() == null && StringUtils.equals("1", hmisPostingModel.getSurveyCategory())) {
 						enrollmentId = createEnrollment(hmisPostingModel, httpHeader);
 					} else {
 						 // When a global enrollment is provided we need to get the version specific enrollment to complete Hmis Posting.
@@ -77,10 +80,43 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 	 * @param headers
 	 * @return
 	 */
+	private String getSurveySubmissionsByClientId(HmisPostingModel hmisPostingModel, HttpHeaders headers) {
+		String enrollmentId = null;
+		try {
+			HttpEntity<Client> requestEntity = new HttpEntity<Client>(headers);
+			ResponseEntity<ClientSurveySubmissions> responseEntity =	restTemplate.exchange(CES_HOST+"/survey-api/rest/clientsurveysubmissions/"+hmisPostingModel.getClientId()+"?q="+hmisPostingModel.getSurveyId(), HttpMethod.GET,requestEntity, ClientSurveySubmissions.class);
+			logger.info("Get Survey Submission "+responseEntity.getStatusCodeValue());
+			ClientSurveySubmissions clientSurveySubmissions = responseEntity.getBody();
+			if(clientSurveySubmissions != null) {
+				List<ClientSurveySubmission> clientSurveySubmissionsList = clientSurveySubmissions.getClientSurveySubmissions();
+				if(!CollectionUtils.isEmpty(clientSurveySubmissionsList)) {
+					for(ClientSurveySubmission clientSurveySubmission : clientSurveySubmissionsList) {
+						if(StringUtils.equals("1", clientSurveySubmission.getSurveyCategory()) && StringUtils.equals("DONE", clientSurveySubmission.getHmisPostingStatus())) {
+							String hmisLink = clientSurveySubmission.getHmisLink();
+							if(StringUtils.isNotBlank(hmisLink)) {
+								String[] split = StringUtils.split("/");
+								enrollmentId = split[split.length-1];
+								break;
+							}
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			logger.error(" Error when getGlobalProjectById is called", e.getCause());
+		} 
+		return enrollmentId;
+	}
+	/***
+	 * Get Global project by id
+	 * @param globalProjectId
+	 * @param headers
+	 * @return
+	 */
 	private GlobalProjectModel getGlobalProjectById(UUID globalProjectId, HttpHeaders headers) {
 		try {
 			HttpEntity<Client> requestEntity = new HttpEntity<Client>(headers);
-			ResponseEntity<GlobalProjectModel> responseEntity =	restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-globalapi/rest/globalprojects/"+globalProjectId, HttpMethod.GET,requestEntity, GlobalProjectModel.class);
+			ResponseEntity<GlobalProjectModel> responseEntity =	restTemplate.exchange(HMIS_HOST+"/hmis-globalapi/rest/globalprojects/"+globalProjectId, HttpMethod.GET,requestEntity, GlobalProjectModel.class);
 			logger.info("Project created "+responseEntity.getStatusCodeValue());
 			return responseEntity.getBody();
 		} catch (Exception e) {
@@ -97,7 +133,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 	private GlobalEnrollment getGlobalEnrollmentById(UUID globalEnrollmentId, HttpHeaders headers) {
 		try {
 			HttpEntity<Client> requestEntity = new HttpEntity<Client>(headers);
-			ResponseEntity<GlobalEnrollment> responseEntity =	restTemplate.exchange("http://hmiselb.aws.hmislynk.com/hmis-globalapi/rest/globalenrollments/"+globalEnrollmentId, HttpMethod.GET,requestEntity, GlobalEnrollment.class);
+			ResponseEntity<GlobalEnrollment> responseEntity =	restTemplate.exchange(HMIS_HOST+"/hmis-globalapi/rest/globalenrollments/"+globalEnrollmentId, HttpMethod.GET,requestEntity, GlobalEnrollment.class);
 			logger.info("Project created "+responseEntity.getStatusCodeValue());
 			return responseEntity.getBody();
 		} catch (Exception e) {
@@ -113,6 +149,34 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 	 * @return
 	 */
 	private UUID getVersionSpecificProjectId(HmisPostingModel hmisPostingModel, HttpHeaders headers) {
+		GlobalProjectModel globalProjectById = getGlobalProjectById(hmisPostingModel.getGlobalProjectId(), headers);
+		if(globalProjectById != null) {
+			String schemaVersion = hmisPostingModel.getSchemaVersion();
+			schemaVersion = StringUtils.substring(schemaVersion,1);
+			GlobalProjectsMap projectsMap = globalProjectById.getProjects();
+			if(projectsMap != null) {
+				List<GlobalProjectMap> globalProjectMaps = projectsMap.getGlobalProjectMaps();
+				if(!CollectionUtils.isEmpty(globalProjectMaps)) {
+					for(GlobalProjectMap globalProjectMap : globalProjectMaps) {
+							if(StringUtils.equals(schemaVersion, globalProjectMap.getSource())) {
+								return globalProjectMap.getProjectId();
+							}
+					}
+				}
+			}
+		}
+		return createVersionSpecificProject(globalProjectById, headers, hmisPostingModel);
+	}
+	
+	
+	/***
+	 * Get Version specific projectId to create the enrollment.
+	 * If a version specific projectId does not exists, create one and return it.
+	 * @param hmisPostingModel
+	 * @param headers
+	 * @return
+	 */
+	private UUID getEnrollmentAtEntry(HmisPostingModel hmisPostingModel, HttpHeaders headers) {
 		GlobalProjectModel globalProjectById = getGlobalProjectById(hmisPostingModel.getGlobalProjectId(), headers);
 		String schemaVersion = hmisPostingModel.getSchemaVersion();
 		schemaVersion = StringUtils.substring(schemaVersion,1);
@@ -172,7 +236,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 				try {
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		String jsonObj = objectMapper.writer().withRootName("project").writeValueAsString(map);
-		String url = "http://hmiselb.aws.hmislynk.com/hmis-clientapi-"+hmisPostingModel.getSchemaVersion()+"/rest/projects";
+		String url = HMIS_HOST+"/hmis-clientapi-"+hmisPostingModel.getSchemaVersion()+"/rest/projects";
 		//
 		 Object responseObject = makeAPICall(jsonObj, headers, url, HttpMethod.POST);
         LinkedHashMap<Object, Map> persons = (LinkedHashMap<Object, Map>) responseObject;
@@ -231,23 +295,31 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 	 * @param schemaYear
 	 */
 	private UUID createEnrollment(HmisPostingModel hmisPostingModel, HttpHeaders headers) {
-		UUID enrollmentId  = null;
+		Map<String, Object> map = new HashMap<>();
 		try {
-			EnrollmentModel enrollmentModel = new EnrollmentModel();
-			enrollmentModel.setClientId(hmisPostingModel.getClientId());
-			 String entryDate = hmisPostingModel.getEntryDate();
-			if(entryDate != null) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date entryUtilDate = sdf.parse(entryDate);
-				enrollmentModel.setEntryDate(entryUtilDate);
-			}
+			map.put("entryDate", hmisPostingModel.getEntryDate());
 			UUID projectId = getVersionSpecificProjectId(hmisPostingModel, headers);
-			enrollmentModel.setProjectId(projectId);
-			enrollmentId = serviceFactory.getEnrollmentService().createEnrollment(hmisPostingModel.getSchemaVersion(), hmisPostingModel.getClientId(), enrollmentModel, headers);
-		} catch (Exception e) {
-			logger.error(" Error when createEnrollment is called", e.getCause());
+			map.put("projectId",projectId);
+			map.put("clientId", hmisPostingModel.getClientId());
+			ObjectMapper objectMapper = new ObjectMapper();
+				
+			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			String jsonObj = objectMapper.writer().withRootName("enrollment	").writeValueAsString(map);
+			String url = HMIS_HOST+"/hmis-clientapi-v"+hmisPostingModel.getSchemaVersion()+"/rest/enrollments";
+			//
+			 Object responseObject = makeAPICall(jsonObj, headers, url, HttpMethod.POST);
+	        LinkedHashMap<Object, Map> persons = (LinkedHashMap<Object, Map>) responseObject;
+	        Set<Entry<Object, Map>> entrySet = persons.entrySet();
+	        Entry<Object, Map> next = entrySet.iterator().next();
+	        logger.info("key:"+next.getKey() + " value:"+next.getValue());
+	        Map value = next.getValue();
+			return UUID.fromString((String)value.get("enrollmentId"));
+		} catch (JsonMappingException e) {
+			logger.error(" Error when createExit is called", e.getCause());
+		} catch (JsonProcessingException e) {
+			logger.error(" Error when createExit is called", e.getCause());
 		}
-		return enrollmentId;
+		return null;
 	}
 	/***
 	 * Create Exit if the survey category is Exit
@@ -262,7 +334,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 				try {
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		String jsonObj = objectMapper.writer().withRootName("exit").writeValueAsString(map);
-		String url = "http://hmiselb.aws.hmislynk.com/hmis-clientapi-v"+hmisPostingModel.getSchemaVersion()+"/rest/enrollments/"+enrollmentId+"/exits";
+		String url = HMIS_HOST+"/hmis-clientapi-v"+hmisPostingModel.getSchemaVersion()+"/rest/enrollments/"+enrollmentId+"/exits";
 		//
 		 Object responseObject = makeAPICall(jsonObj, headers, url, HttpMethod.POST);
         LinkedHashMap<Object, Map> persons = (LinkedHashMap<Object, Map>) responseObject;
@@ -357,12 +429,12 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 	private void updateResponse(HmisPostingModel hmisPostingModel,List<UUID> responseIds, HttpHeaders headers, String hmisLink, HttpMethod httpMethod) {
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("hmisLink", StringUtils.replace(hmisLink, "http://hmiselb.aws.hmislynk.com", ""));
+		map.put("hmisLink", StringUtils.replace(hmisLink, HMIS_HOST+"", ""));
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		for(UUID responseId : responseIds) {
 			try {
-				String url = "http://ceselb.aws.hmislynk.com/survey-api/rest/v3/clients/"+hmisPostingModel.getDedupClientId()+"/surveys/"+hmisPostingModel.getSurveyId()+"/responses/"+responseId;
+				String url = CES_HOST+"/survey-api/rest/v3/clients/"+hmisPostingModel.getDedupClientId()+"/surveys/"+hmisPostingModel.getSurveyId()+"/responses/"+responseId;
 				String jsonObj = objectMapper.writer().withRootName("response").writeValueAsString(map);
 				makeAPICall(jsonObj, headers, url, httpMethod);
 			} catch (JsonMappingException e) {
@@ -382,13 +454,13 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 	 */
 	private void updateClientSurveySubmission(HmisPostingModel hmisPostingModel, HttpHeaders headers, String hmisLink, HttpMethod httpMethod) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("hmisLink", StringUtils.replace(hmisLink, "http://hmiselb.aws.hmislynk.com", ""));
+		map.put("hmisLink", StringUtils.replace(hmisLink, HMIS_HOST+"", ""));
 		map.put("globalEnrollmentId", hmisPostingModel.getGlobalEnrollmentId());
 		map.put("hmisPostingStatus", "DONE");
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			try {
-				String url = "http://ceselb.aws.hmislynk.com/survey-api/rest/clientsurveysubmissions/"+hmisPostingModel.getClientSurveySubmissionId();
+				String url = CES_HOST+"/survey-api/rest/clientsurveysubmissions/"+hmisPostingModel.getClientSurveySubmissionId();
 				String jsonObj = objectMapper.writer().withRootName("clientsurveysubmission").writeValueAsString(map);
 				makeAPICall(jsonObj, headers, url, httpMethod);
 			} catch (JsonMappingException e) {
@@ -482,7 +554,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 					requestPath = StringUtils.replace(requestPath, "{clientid}", clientId.toString());
 			}
 		}
-		String url = "http://hmiselb.aws.hmislynk.com/hmis-clientapi-"+requestPath;
+		String url = HMIS_HOST+"/hmis-clientapi-"+requestPath;
 		return url;
 	}
 	/***
@@ -514,7 +586,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 			if(clientId !=null)
 				requestPath = StringUtils.replace(requestPath, "{clientid}", clientId.toString());
 		}
-		String url = "http://hmiselb.aws.hmislynk.com/hmis-clientapi-"+requestPath;
+		String url = HMIS_HOST+"/hmis-clientapi-"+requestPath;
 		return url;
 	}
 	/***
