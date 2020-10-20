@@ -27,7 +27,7 @@ import com.servinglynk.hmis.warehouse.service.AWSService;
 
 
 @RestController
-@RequestMapping("/export")
+@RequestMapping("/exports")
 public class FileExportController extends ControllerBase {
 	@Autowired
 	AWSService awsService;
