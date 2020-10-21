@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.entity.BedOccupantEntity;
 import com.servinglynk.hmis.model.BedOccupant;
 import com.servinglynk.hmis.model.BedOccupants;
+import com.servinglynk.hmis.model.SortedPagination;
 import com.servinglynk.hmis.service.converter.BedOccupantConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 @Service
@@ -27,7 +28,7 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 	
 	@Transactional
 	public void updateBedOccupant(BedOccupant bedUnit) {
-		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findOne(bedUnit.getId());
+		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedOccupant "+bedUnit.getId()+" not found");
 		entity = BedOccupantConverter.modelToEntity(bedUnit,entity);
 		entity.setDedupClientId(validationService.validateCleintId(bedUnit.getClientId()));
@@ -37,14 +38,14 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 	
 	@Transactional
 	public void deleteBedOccupant(UUID bedUnitId) {
-		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findOne(bedUnitId);
+		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedOccupant "+bedUnitId+" not found");
 		daoFactory.getBedOccupantRepository().delete(entity);
 	}
 	
 	@Transactional
 	public BedOccupant getBedOccupant(UUID bedUnitId) {
-		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findOne(bedUnitId);
+		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedOccupant "+bedUnitId+" not found");		
 		return BedOccupantConverter.entityToModel(entity);
 	}
@@ -56,6 +57,13 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		for(BedOccupantEntity bedUnitEntity : entityPage.getContent()) {
 			bedUnits.addBedOccupant(BedOccupantConverter.entityToModel(bedUnitEntity));
 		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        bedUnits.setPagination(pagination);
 		return bedUnits;
 	}	
 }

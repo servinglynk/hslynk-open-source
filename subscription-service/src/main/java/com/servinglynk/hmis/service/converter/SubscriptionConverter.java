@@ -1,7 +1,10 @@
 package com.servinglynk.hmis.service.converter;
 
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.servinglynk.hmis.entity.SubscriptionContactEntity;
 import com.servinglynk.hmis.entity.SubscriptionEntity;
@@ -25,7 +28,7 @@ public class SubscriptionConverter {
 
 		if(model.getChannel()!=null) {
 			if(model.getChannel().getEndpoint()!=null) entity.setChannelEndpoint(model.getChannel().getEndpoint());
-			if(model.getChannel().getHeader()!=null) entity.setChannelHeader(model.getChannel().getHeader());
+			if(model.getChannel().getHeader()!=null) entity.setChannelHeader(StringUtils.join(model.getChannel().getHeader().toArray(),","));
 			if(model.getChannel().getPayload()!=null) entity.setChannelPayload(model.getChannel().getPayload());
 			if(model.getChannel().getType()!=null) entity.setChannelType(model.getChannel().getType());
 		}
@@ -51,7 +54,7 @@ public class SubscriptionConverter {
 				model.setEnd(Date.from(entity.getEnd().atZone(ZoneId.systemDefault()).toInstant()));
 		SubscriptionChannel channel = new SubscriptionChannel();
 			if(entity.getChannelEndpoint()!=null) channel.setEndpoint(entity.getChannelEndpoint());
-			if(entity.getChannelHeader()!=null) channel.setHeader(entity.getChannelHeader());
+			if(entity.getChannelHeader()!=null) channel.setHeader(Arrays.asList(entity.getChannelHeader()));
 			if(entity.getChannelPayload()!=null) channel.setPayload(entity.getChannelPayload());
 			if(entity.getChannelType()!=null) channel.setType(entity.getChannelType());
 

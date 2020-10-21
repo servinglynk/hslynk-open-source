@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.entity.ShelterEntity;
 import com.servinglynk.hmis.model.ShelterModel;
 import com.servinglynk.hmis.model.Shelters;
+import com.servinglynk.hmis.model.SortedPagination;
 import com.servinglynk.hmis.service.converter.ShelterConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 
@@ -26,7 +27,7 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 	
 	@Transactional
 	public void updateShelter(ShelterModel shelter) {
-		ShelterEntity entity =  daoFactory.getShelterRepository().findOne(shelter.getId());
+		ShelterEntity entity =  daoFactory.getShelterRepository().findByIdAndProjectGroupCodeAndDeleted(shelter.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("Shelter "+shelter.getId()+" not found");
 		entity = ShelterConverter.modelToEntity(shelter,entity);
 		daoFactory.getShelterRepository().save(entity);
@@ -34,14 +35,14 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 	
 	@Transactional
 	public void deleteShelter(UUID shelterId) {
-		ShelterEntity entity =  daoFactory.getShelterRepository().findOne(shelterId);
+		ShelterEntity entity =  daoFactory.getShelterRepository().findByIdAndProjectGroupCodeAndDeleted(shelterId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("Shelter "+shelterId+" not found");
 		daoFactory.getShelterRepository().delete(entity);
 	}
 	
 	@Transactional
 	public ShelterModel getShelter(UUID shelterId) {
-		ShelterEntity entity =  daoFactory.getShelterRepository().findOne(shelterId);
+		ShelterEntity entity =  daoFactory.getShelterRepository().findByIdAndProjectGroupCodeAndDeleted(shelterId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("Shelter "+shelterId+" not found");		
 		return ShelterConverter.entityToModel(entity);
 	}
@@ -53,6 +54,13 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 		for(ShelterEntity shelterEntity : entityPage.getContent()) {
 			shelters.addShleter(ShelterConverter.entityToModel(shelterEntity));
 		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        shelters.setPagination(pagination);
 		return shelters;
 	}	
 }

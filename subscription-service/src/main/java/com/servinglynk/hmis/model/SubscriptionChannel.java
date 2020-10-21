@@ -1,5 +1,7 @@
 package com.servinglynk.hmis.model;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import com.servinglynk.hmis.warehouse.annotations.AllowedValues;
@@ -14,7 +16,7 @@ public class SubscriptionChannel extends ClientModel {
 	@NotNull(message = "Payload is required")
 	private String payload;
 
-	private String header;
+	private List<String> header;
 	
 	public String getType() {
 		return type;
@@ -34,10 +36,10 @@ public class SubscriptionChannel extends ClientModel {
 	public void setPayload(String payload) {
 		this.payload = payload;
 	}
-	public String getHeader() {
+	public List<String> getHeader() {
 		return header;
 	}
-	public void setHeader(String header) {
+	public void setHeader(List<String> header) {
 		this.header = header;
 	}
 }
