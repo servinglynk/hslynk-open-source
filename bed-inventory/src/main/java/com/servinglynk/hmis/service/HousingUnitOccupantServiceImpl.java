@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.entity.HousingUnitOccupantEntity;
 import com.servinglynk.hmis.model.HousingUnitOccupant;
 import com.servinglynk.hmis.model.HousingUnitOccupants;
+import com.servinglynk.hmis.model.SortedPagination;
 import com.servinglynk.hmis.service.converter.HousingUnitOccupantConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 @Service
@@ -27,7 +28,7 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 	
 	@Transactional
 	public void updateHousingUnitOccupant(HousingUnitOccupant housingUnitUnit) {
-		HousingUnitOccupantEntity entity =  daoFactory.getHousingUnitOccupantRepository().findOne(housingUnitUnit.getId());
+		HousingUnitOccupantEntity entity =  daoFactory.getHousingUnitOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitUnit.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitOccupant "+housingUnitUnit.getId()+" not found");
 		entity = HousingUnitOccupantConverter.modelToEntity(housingUnitUnit,entity);
 		entity.setDedupClientId(validationService.validateCleintId(housingUnitUnit.getClientId()));
@@ -37,14 +38,14 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 	
 	@Transactional
 	public void deleteHousingUnitOccupant(UUID housingUnitUnitId) {
-		HousingUnitOccupantEntity entity =  daoFactory.getHousingUnitOccupantRepository().findOne(housingUnitUnitId);
+		HousingUnitOccupantEntity entity =  daoFactory.getHousingUnitOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitOccupant "+housingUnitUnitId+" not found");
 		daoFactory.getHousingUnitOccupantRepository().delete(entity);
 	}
 	
 	@Transactional
 	public HousingUnitOccupant getHousingUnitOccupant(UUID housingUnitUnitId) {
-		HousingUnitOccupantEntity entity =  daoFactory.getHousingUnitOccupantRepository().findOne(housingUnitUnitId);
+		HousingUnitOccupantEntity entity =  daoFactory.getHousingUnitOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitOccupant "+housingUnitUnitId+" not found");		
 		return HousingUnitOccupantConverter.entityToModel(entity);
 	}
@@ -56,6 +57,13 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 		for(HousingUnitOccupantEntity housingUnitUnitEntity : entityPage.getContent()) {
 			housingUnitUnits.addHousingUnitOccupant(HousingUnitOccupantConverter.entityToModel(housingUnitUnitEntity));
 		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        housingUnitUnits.setPagination(pagination);
 		return housingUnitUnits;
 	}	
 }

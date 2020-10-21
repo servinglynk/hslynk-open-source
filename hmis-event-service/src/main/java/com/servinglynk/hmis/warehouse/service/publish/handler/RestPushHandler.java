@@ -27,7 +27,7 @@ public class RestPushHandler extends BaseService implements EventPublisher {
 	
 	@Override
 	public void publish(SubscriptionEntity entity) {
-		
+		System.out.println("inside rest push handelr");
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", "application/json");
 		headers.add("Content-Type", "application/json; charset=UTF-8");

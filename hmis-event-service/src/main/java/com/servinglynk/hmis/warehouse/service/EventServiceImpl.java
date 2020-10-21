@@ -31,6 +31,7 @@ public class EventServiceImpl extends BaseService implements EventService {
 		Map<String, Object> requestBody =  (Map<String, Object>) event.getPayload().get("reqestBody");
 		Object obj = new JSONParser().parse(mapper.writeValueAsString(requestBody).toLowerCase());
 		JSONObject jsonObject = (JSONObject) obj;
+		System.out.println(entities.size()+"  subscriptionn entities found");
 		for (SubscriptionEntity entity : entities) {
 			UriComponents uriComponents = null;
 			uriComponents = UriComponentsBuilder.newInstance().fromHttpUrl("http://api.hslynk.com/"+entity.getCriteria()).build();

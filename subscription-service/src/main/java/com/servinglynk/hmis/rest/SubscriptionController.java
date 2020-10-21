@@ -20,7 +20,7 @@ import com.servinglynk.hmis.model.Subscriptions;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 
 @RestController
-@RequestMapping("/subscription")
+@RequestMapping("/rest/subscription")
 public class SubscriptionController extends BaseController {
 
 	@RequestMapping(method = RequestMethod.POST)

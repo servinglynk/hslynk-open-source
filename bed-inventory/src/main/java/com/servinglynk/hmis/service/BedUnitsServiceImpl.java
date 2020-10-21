@@ -11,6 +11,7 @@ import com.servinglynk.hmis.entity.BedUnitEntity;
 import com.servinglynk.hmis.entity.RoomEntity;
 import com.servinglynk.hmis.model.BedUnit;
 import com.servinglynk.hmis.model.BedUnits;
+import com.servinglynk.hmis.model.SortedPagination;
 import com.servinglynk.hmis.service.converter.BedUnitConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 @Service
@@ -18,7 +19,7 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 
 	@Transactional
 	public BedUnit createBedUnit(BedUnit bedUnit) {
-		RoomEntity roomEntity =  daoFactory.getRoomRepository().findOne(bedUnit.getRoom().getId());
+		RoomEntity roomEntity =  daoFactory.getRoomRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getRoom().getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(roomEntity == null) throw new ResourceNotFoundException("Room "+bedUnit.getRoom().getId()+" not found");
 		BedUnitEntity entity = BedUnitConverter.modelToEntity(bedUnit,null);
 		entity.setRoom(roomEntity);
@@ -29,7 +30,7 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 	
 	@Transactional
 	public void updateBedUnit(BedUnit bedUnit) {
-		BedUnitEntity entity =  daoFactory.getBedUnitRepository().findOne(bedUnit.getId());
+		BedUnitEntity entity =  daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedUnit "+bedUnit.getId()+" not found");
 		entity = BedUnitConverter.modelToEntity(bedUnit,entity);
 		daoFactory.getBedUnitRepository().save(entity);
@@ -37,14 +38,14 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 	
 	@Transactional
 	public void deleteBedUnit(UUID bedUnitId) {
-		BedUnitEntity entity =  daoFactory.getBedUnitRepository().findOne(bedUnitId);
+		BedUnitEntity entity =  daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedUnit "+bedUnitId+" not found");
 		daoFactory.getBedUnitRepository().delete(entity);
 	}
 	
 	@Transactional
 	public BedUnit getBedUnit(UUID bedUnitId) {
-		BedUnitEntity entity =  daoFactory.getBedUnitRepository().findOne(bedUnitId);
+		BedUnitEntity entity =  daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedUnit "+bedUnitId+" not found");		
 		return BedUnitConverter.entityToModel(entity);
 	}
@@ -56,6 +57,13 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 		for(BedUnitEntity bedUnitEntity : entityPage.getContent()) {
 			bedUnits.addBedUnit(BedUnitConverter.entityToModel(bedUnitEntity));
 		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        bedUnits.setPagination(pagination);
 		return bedUnits;
 	}	
 }
