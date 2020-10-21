@@ -85,7 +85,7 @@
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.11</version>
+				<version>4.13.1</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -417,7 +417,7 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>5.3.6.Final</version>
+				<version>5.2.5.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -432,7 +432,7 @@
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-core</artifactId>
-				<version>4.2.13.RELEASE</version>
+				<version>4.2.16.RELEASE</version>
 
 			</dependency>
 			<dependency>
@@ -491,7 +491,7 @@
 		<module>base-model</module>
 		<module>base-serialize</module>
 		<module>base-service</module>
-		<module>hmis-model-v2020</module>
+ 		<module>hmis-model-v2020</module>
 		<module>hmis-model-v2014</module>
 		<module>hmis-model-v2015</module>
 		<module>hmis-model-v2016</module>
@@ -511,8 +511,8 @@
 		<module>hmis-clientapi-v2015</module>
 		<module>hmis-clientapi-v2016</module>
 		<module>hmis-clientapi-v2017</module>
-		<module>hmis-clientapi-v2020</module>
-		<module>notification-core</module>
+		<module>hmis-clientapi-v2020</module> 
+ 		<module>notification-core</module>
 		<module>notification-service</module>
 		<module>report-service</module>
 		<module>user-service</module>
@@ -521,27 +521,21 @@
 		<module>hmis-load-processor-v2015</module>
 		<module>hmis-load-processor-v2016</module>
 		<module>hmis-load-processor-v2017</module>
-		<module>hmis-load-processor-v2020</module>
+		<module>hmis-load-processor-v2020</module> 
 		<!-- <module>global-household</module> -->
 		<module>authorization-service</module>
 		<module>upload-service</module>
 		<module>client-dedup</module>
 		<module>globalapi</module>
 		<module>fileupload-core</module>
-
-		 <module>hmis-mq-service</module>
-
-		<!-- <module>hmis-mq-service</module> -->
-
-		<module>mq-core-client</module>
+		<module>bed-inventory</module>
+		<module>hmis-search-service</module>
+		<module>hmis-mq-service</module>
+   	    <module>mq-core-client</module>
 		<module>subscription-service</module>
 		<module>hmis-event-service</module>
-		<!-- <module>hmis-search-service</module> -->
 		<module>admin</module>
-
-		<!-- <module>hmis-mq-service</module> <module>hmis-search-service</module> -->
-
-
+	
 	</modules>
 	<distributionManagement>
 		<repository>

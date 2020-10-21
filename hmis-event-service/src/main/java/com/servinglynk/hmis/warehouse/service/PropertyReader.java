@@ -28,6 +28,7 @@ public class PropertyReader {
 
 	public Properties getProperties(String serviceName) {
 		load("common".toUpperCase());
+		load("mq-service");
 		load(serviceName);
 		System.out.println(properties.size()+" properties loaded");
 		return properties;

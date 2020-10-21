@@ -3,7 +3,7 @@ package com.servinglynk.hmis.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HousingUnits {
+public class HousingUnits extends PaginatedModel{
 
 	List<HousingUnit> housingUnits = new ArrayList<HousingUnit>();
 

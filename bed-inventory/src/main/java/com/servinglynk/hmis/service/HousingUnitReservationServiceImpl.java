@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.entity.HousingUnitReservationEntity;
 import com.servinglynk.hmis.model.HousingUnitReservation;
 import com.servinglynk.hmis.model.HousingUnitReservations;
+import com.servinglynk.hmis.model.SortedPagination;
 import com.servinglynk.hmis.service.converter.HousingUnitReservationConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 @Service
@@ -25,7 +26,7 @@ public class HousingUnitReservationServiceImpl extends BaseService implements Ho
 	
 	@Transactional
 	public void updateHousingUnitReservation(HousingUnitReservation housingUnitReservation) {
-		HousingUnitReservationEntity entity =  daoFactory.getHousingUnitReservationRepository().findOne(housingUnitReservation.getId());
+		HousingUnitReservationEntity entity =  daoFactory.getHousingUnitReservationRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitReservation.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitReservation "+housingUnitReservation.getId()+" not found");
 		entity = HousingUnitReservationConverter.modelToEntity(housingUnitReservation,entity);
 		daoFactory.getHousingUnitReservationRepository().save(entity);
@@ -33,14 +34,14 @@ public class HousingUnitReservationServiceImpl extends BaseService implements Ho
 	
 	@Transactional
 	public void deleteHousingUnitReservation(UUID housingUnitReservationId) {
-		HousingUnitReservationEntity entity =  daoFactory.getHousingUnitReservationRepository().findOne(housingUnitReservationId);
+		HousingUnitReservationEntity entity =  daoFactory.getHousingUnitReservationRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitReservationId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitReservation "+housingUnitReservationId+" not found");
 		daoFactory.getHousingUnitReservationRepository().delete(entity);
 	}
 	
 	@Transactional
 	public HousingUnitReservation getHousingUnitReservation(UUID housingUnitReservationId) {
-		HousingUnitReservationEntity entity =  daoFactory.getHousingUnitReservationRepository().findOne(housingUnitReservationId);
+		HousingUnitReservationEntity entity =  daoFactory.getHousingUnitReservationRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitReservationId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitReservation "+housingUnitReservationId+" not found");		
 		return HousingUnitReservationConverter.entityToModel(entity);
 	}
@@ -52,6 +53,13 @@ public class HousingUnitReservationServiceImpl extends BaseService implements Ho
 		for(HousingUnitReservationEntity housingUnitReservationEntity : entityPage.getContent()) {
 			housingUnitReservations.addHousingUnitReservation(HousingUnitReservationConverter.entityToModel(housingUnitReservationEntity));
 		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        housingUnitReservations.setPagination(pagination);
 		return housingUnitReservations;
 	}	
 }

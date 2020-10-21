@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.servinglynk.hmis.entity.RoomReservationEntity;
 import com.servinglynk.hmis.model.RoomReservation;
 import com.servinglynk.hmis.model.RoomReservations;
+import com.servinglynk.hmis.model.SortedPagination;
 import com.servinglynk.hmis.service.converter.RoomReservationConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 @Service
@@ -25,7 +26,7 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 	
 	@Transactional
 	public void updateRoomReservation(RoomReservation room) {
-		RoomReservationEntity entity =  daoFactory.getRoomReservationRepository().findOne(room.getId());
+		RoomReservationEntity entity =  daoFactory.getRoomReservationRepository().findByIdAndProjectGroupCodeAndDeleted(room.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("RoomReservation "+room.getId()+" not found");
 		entity = RoomReservationConverter.modelToEntity(room,entity);
 		daoFactory.getRoomReservationRepository().save(entity);
@@ -33,14 +34,14 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 	
 	@Transactional
 	public void deleteRoomReservation(UUID roomId) {
-		RoomReservationEntity entity =  daoFactory.getRoomReservationRepository().findOne(roomId);
+		RoomReservationEntity entity =  daoFactory.getRoomReservationRepository().findByIdAndProjectGroupCodeAndDeleted(roomId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("RoomReservation "+roomId+" not found");
 		daoFactory.getRoomReservationRepository().delete(entity);
 	}
 	
 	@Transactional
 	public RoomReservation getRoomReservation(UUID roomId) {
-		RoomReservationEntity entity =  daoFactory.getRoomReservationRepository().findOne(roomId);
+		RoomReservationEntity entity =  daoFactory.getRoomReservationRepository().findByIdAndProjectGroupCodeAndDeleted(roomId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("RoomReservation "+roomId+" not found");		
 		return RoomReservationConverter.entityToModel(entity);
 	}
@@ -52,6 +53,13 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 		for(RoomReservationEntity roomEntity : entityPage.getContent()) {
 			rooms.addRoomReservation(RoomReservationConverter.entityToModel(roomEntity));
 		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        rooms.setPagination(pagination);
 		return rooms;
 	}	
 }

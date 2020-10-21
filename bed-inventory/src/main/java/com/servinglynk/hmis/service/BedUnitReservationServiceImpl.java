@@ -11,6 +11,7 @@ import com.servinglynk.hmis.entity.BedUnitEntity;
 import com.servinglynk.hmis.entity.BedUnitReservationEntity;
 import com.servinglynk.hmis.model.BedUnitReservation;
 import com.servinglynk.hmis.model.BedUnitReservations;
+import com.servinglynk.hmis.model.SortedPagination;
 import com.servinglynk.hmis.service.converter.BedUnitReservationConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 @Service
@@ -29,7 +30,7 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 	
 	@Transactional
 	public void updateBedUnitReservation(BedUnitReservation room) {
-		BedUnitReservationEntity entity =  daoFactory.getBedUnitReservationRepository().findOne(room.getId());
+		BedUnitReservationEntity entity =  daoFactory.getBedUnitReservationRepository().findByIdAndProjectGroupCodeAndDeleted(room.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedUnitReservation "+room.getId()+" not found");
 		entity = BedUnitReservationConverter.modelToEntity(room,entity);
 		daoFactory.getBedUnitReservationRepository().save(entity);
@@ -37,14 +38,14 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 	
 	@Transactional
 	public void deleteBedUnitReservation(UUID roomId) {
-		BedUnitReservationEntity entity =  daoFactory.getBedUnitReservationRepository().findOne(roomId);
+		BedUnitReservationEntity entity =  daoFactory.getBedUnitReservationRepository().findByIdAndProjectGroupCodeAndDeleted(roomId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedUnitReservation "+roomId+" not found");
 		daoFactory.getBedUnitReservationRepository().delete(entity);
 	}
 	
 	@Transactional
 	public BedUnitReservation getBedUnitReservation(UUID roomId) {
-		BedUnitReservationEntity entity =  daoFactory.getBedUnitReservationRepository().findOne(roomId);
+		BedUnitReservationEntity entity =  daoFactory.getBedUnitReservationRepository().findByIdAndProjectGroupCodeAndDeleted(roomId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedUnitReservation "+roomId+" not found");		
 		return BedUnitReservationConverter.entityToModel(entity);
 	}
@@ -56,6 +57,13 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 		for(BedUnitReservationEntity roomEntity : entityPage.getContent()) {
 			rooms.addBedUnitReservation(BedUnitReservationConverter.entityToModel(roomEntity));
 		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        rooms.setPagination(pagination);
 		return rooms;
 	}	
 }
