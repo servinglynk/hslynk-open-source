@@ -98,8 +98,9 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 				if(!CollectionUtils.isEmpty(clientSurveySubmissionsList)) {
 					for(ClientSurveySubmission clientSurveySubmission : clientSurveySubmissionsList) {
 						if(StringUtils.equals("1", clientSurveySubmission.getSurveyCategory()) && StringUtils.equals("DONE", clientSurveySubmission.getHmisPostingStatus())
-						  &&  hmisPostingModel.getSurveyId() == clientSurveySubmission.getSurveyId()) {
+						  && hmisPostingModel.getSurveyId().compareTo(clientSurveySubmission.getSurveyId()) == 0) {
 							if(clientSurveySubmission.getGlobalEnrollmentId() != null) {
+								System.out.println("testing");
 								enrollmentId = String.valueOf(clientSurveySubmission.getGlobalEnrollmentId());
 								break;
 							}
@@ -314,7 +315,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 	private UUID createEnrollment(HmisPostingModel hmisPostingModel, HttpHeaders headers) {
 		Map<String, Object> map = new HashMap<>();
 		try {
-			map.put("entryDate", converDate(hmisPostingModel.getEntryDate()));
+			map.put("entryDate", hmisPostingModel.getEntryDate());
 			UUID projectId = getVersionSpecificProjectId(hmisPostingModel, headers);
 			map.put("projectId",projectId);
 			map.put("clientId", hmisPostingModel.getClientId());
@@ -417,7 +418,7 @@ public class HmisPostingServiceImpl implements HmisPostingService {
 							map.put(split[1], StringUtils.isNotBlank(questionResponseModel.getPickListValueCode()) ? questionResponseModel.getPickListValueCode() : questionResponseModel.getResponseText());
 						}
 						map.put("dataCollectionStage", hmisPostingModel.getSurveyCategory());
-						map.put("informationDate", converDate(hmisPostingModel.getInformationDate()));
+						map.put("informationDate", hmisPostingModel.getInformationDate());
 						objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 						String jsonObj = objectMapper.writer().withRootName(rootName).writeValueAsString(map);
 						String url = getUrl(questionResponseKey,hmisPostingModel.getClientId(), enrollmentId, exitId, projectId, null);
