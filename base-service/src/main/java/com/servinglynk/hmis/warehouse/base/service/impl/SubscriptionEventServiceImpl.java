@@ -126,7 +126,7 @@ public class SubscriptionEventServiceImpl implements SubscriptionEventService {
 		    }
 		    
 		    
-				if(authentication.getPrincipal()!=null){
+				if(authentication != null && authentication.getPrincipal()!=null){
 					LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
 					  payload.put("projectGroupCode", entity.getProjectGroup());
 					  payload.put("requestUrl", entity.getUrl());
