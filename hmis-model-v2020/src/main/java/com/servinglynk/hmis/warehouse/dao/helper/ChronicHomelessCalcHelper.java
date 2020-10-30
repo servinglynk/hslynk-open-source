@@ -114,7 +114,7 @@ public class ChronicHomelessCalcHelper{
 		}
 	
 	private boolean validateDiffInDays(Enrollment enrollment, LocalDateTime date) {
-		if(enrollment.getEntrydate() !=null && diffInDays(LocalDateTime.now(),date) < 365) {
+		if(enrollment.getEntrydate() !=null && diffInDays(LocalDateTime.now(),date) > 365) {
 			return true;
 		}else {
 			return validateTimesHomeless(enrollment);
