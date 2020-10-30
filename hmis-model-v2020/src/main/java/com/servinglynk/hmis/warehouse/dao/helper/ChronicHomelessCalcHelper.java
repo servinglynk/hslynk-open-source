@@ -110,7 +110,7 @@ public class ChronicHomelessCalcHelper{
 	}
 	
 	private long diffInDays(LocalDateTime a, LocalDateTime localDateTime) {
-		  return ChronoUnit.DAYS.between(a, localDateTime);
+		  return ChronoUnit.DAYS.between(localDateTime,a);
 		}
 	
 	private boolean validateDiffInDays(Enrollment enrollment, LocalDateTime date) {
