@@ -234,8 +234,7 @@ public class AccountServiceImpl extends ServiceBase implements AccountService {
 	public Account activateAccount(Account account,String auditUser) {
 		HmisUser pAccount = daoFactory.getAccountDao().findByUserId(account.getAccountId());
 		if(pAccount==null) throw new AccountNotFoundException();
-		if(!pAccount.getStatus().equalsIgnoreCase(Constants.ACCOUNT_STATUS_INACTIVE)) 
-			throw new AccessDeniedException("Account cannot be activated from "+pAccount.getStatus()+" status");
+		
 		pAccount.setStatus(ACCOUNT_STATUS_ACTIVE);
 		daoFactory.getAccountDao().updateAccount(pAccount);
 		return account;
