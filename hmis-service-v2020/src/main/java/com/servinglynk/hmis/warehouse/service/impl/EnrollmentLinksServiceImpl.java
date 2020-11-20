@@ -24,6 +24,7 @@ import com.servinglynk.hmis.warehouse.core.model.ExitActionLink;
 import com.servinglynk.hmis.warehouse.core.model.ExitActionLinks;
 import com.servinglynk.hmis.warehouse.model.v2020.Assessment;
 import com.servinglynk.hmis.warehouse.model.v2020.Contact;
+import com.servinglynk.hmis.warehouse.model.v2020.CurrentLivingSituation;
 import com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement;
 import com.servinglynk.hmis.warehouse.model.v2020.Disabilities;
 import com.servinglynk.hmis.warehouse.model.v2020.Domesticviolence;
@@ -282,6 +283,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		enrollmentLinks.setServiceFaReferrals(getServiceFaReferralsLinks(clientId, enrollmentId));
 		enrollmentLinks.setEvents(getEventsLinks(clientId, enrollmentId));
 		enrollmentLinks.setAssessments(getAssessmentsLinks(clientId, enrollmentId));
+		enrollmentLinks.setCurrentLivingSituationsLinks(getCurrentLivingSituationsLinks(clientId, enrollmentId));
 		
 		if(enrollmentLinks.getContacts().isEmpty())  enrollmentLinks.setContacts(null);
 		if(enrollmentLinks.getDateOfEngagements().isEmpty()) enrollmentLinks.setDateOfEngagements(null);
@@ -300,6 +302,7 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		if(enrollmentLinks.getServiceFaReferrals().isEmpty()) enrollmentLinks.setServiceFaReferrals(null);
 		if(enrollmentLinks.getEvents().isEmpty()) enrollmentLinks.setEvents(null);
 		if(enrollmentLinks.getAssessments().isEmpty()) enrollmentLinks.setAssessments(null);
+		if(enrollmentLinks.getCurrentLivingSituationsLinks().isEmpty()) enrollmentLinks.setCurrentLivingSituationsLinks(null);
 		return enrollmentLinks;
 	}
 	
@@ -392,6 +395,46 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 		}
 					
 		return dateLinks;
+	}
+	
+	
+	public Map<String,Map<String,List<ActionLinks>>> getCurrentLivingSituationsLinks(UUID clientId,UUID enrollmentId) {
+		
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
+		List<CurrentLivingSituation> data = daoFactory.getCurrentLivingSituationDao().getAllEnrollmentCurrentLivingSituations(enrollmentId, null,null);
+		for(CurrentLivingSituation entity : data) {
+			LocalDateTime date  = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+
+		}
+		
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/currentlivingsituations/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+					
+	return dateLinks;
+
 	}
 	
 	@SuppressWarnings("unchecked")

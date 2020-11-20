@@ -9,7 +9,7 @@
 	<parent>
 			<groupId>com.servinglynk.hmis.warehouse</groupId>
 			<artifactId>hslynk-parent</artifactId>
-			<version>2.25.0</version>
+			<version>2.25.1</version>
 	</parent>
 	<dependencies>
 		<dependency>
@@ -89,7 +89,7 @@
 		</dependency>
 
 		<!-- Marshaling dependencies -->
-		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> 
+		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId>
 			</dependency> -->
 
 		<!-- Loging dependencies -->
