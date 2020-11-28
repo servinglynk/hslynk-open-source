@@ -776,6 +776,17 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 		return projectGroups;
 	}
 
+	@Transactional
+	public TrustedApps getTrustedAppsByProjectGroup(UUID projectGroupId) {
+		TrustedApps trustedApps = new TrustedApps();
+		
+		List<TrustedAppProjectGroupMapEntity> trustedAppsByProjectGroup = daoFactory.getTrustedAppDao().getTrustedAppsByProjectGroup(projectGroupId);
+		for(TrustedAppProjectGroupMapEntity entity : trustedAppsByProjectGroup) {
+			trustedApps.addTrustedApp(TrustedAppConverter.convertToTrustedAppPlain(entity.getTrustedApp(), null));
+		}
+		return trustedApps;
+	}
+	
 
 	@Transactional
 	public TrustedApps getTrustedApps() {
