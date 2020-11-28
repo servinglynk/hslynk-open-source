@@ -64,6 +64,16 @@ public class TrustedAppDaoImpl extends QueryExecutorImpl implements TrustedAppDa
 		return entities;
 	}
 
+	public List<TrustedAppProjectGroupMapEntity> getTrustedAppsByProjectGroup(UUID projectGroupId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(TrustedAppProjectGroupMapEntity.class);
+		if(projectGroupId!=null) {
+			criteria.createAlias("projectGroup", "projectGroup");
+			criteria.add(Restrictions.eq("projectGroup.id", projectGroupId));
+		}
+		List<TrustedAppProjectGroupMapEntity> entities = (List<TrustedAppProjectGroupMapEntity>) find(criteria);
+		return entities;
+	}
+	
 	@Override
 	public TrustedAppProjectGroupMapEntity addProjectGroupToTrustedApp(TrustedAppProjectGroupMapEntity mapEntity) {
 		mapEntity.setId(UUID.randomUUID());

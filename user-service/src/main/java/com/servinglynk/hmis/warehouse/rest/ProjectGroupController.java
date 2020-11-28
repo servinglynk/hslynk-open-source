@@ -15,6 +15,7 @@ import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroup;
 import com.servinglynk.hmis.warehouse.core.model.ProjectGroups;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.core.model.TrustedApps;
 
 @RestController
 @RequestMapping("/projectgroups")
@@ -61,4 +62,9 @@ public class ProjectGroupController extends ControllerBase {
 		return serviceFactory.getProjectGroupService().getProjectGroupById(projectgroupid);	
 	}
 
+	@RequestMapping(value="/{projectgroupid}/trustedapps",method=RequestMethod.GET)
+	@APIMapping(value="USR_GET_PROJECTGROUP_ID",checkSessionToken=true, checkTrustedApp=true)
+	public TrustedApps getTrustedAppsByProjectGroupId(@PathVariable("projectgroupid") UUID projectgroupid  ,HttpServletRequest request) throws Exception {
+		return serviceFactory.getTrustedAppService().getTrustedAppsByProjectGroup(projectgroupid);
+	}
 }

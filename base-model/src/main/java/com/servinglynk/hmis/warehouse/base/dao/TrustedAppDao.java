@@ -24,6 +24,8 @@ public interface TrustedAppDao {
 
 	public List<TrustedAppEntity> getAllTrustedApps();
 	
+	public List<TrustedAppProjectGroupMapEntity> getTrustedAppsByProjectGroup(UUID projectGroupId);
+	
 	List<TrustedAppProjectGroupMapEntity> getTrustedAppProjectGroups(String exteranlId,UUID projectGroupId);
 
 }

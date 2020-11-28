@@ -39,5 +39,6 @@ public interface TrustedAppService {
 	
 	void deleteProjectGroupToTrustedApp(String trustedAppId, UUID projectgroupid);
 	public ProjectGroups getTrustedAppProjectGroups(String trustedAppId);
+	public TrustedApps getTrustedAppsByProjectGroup(UUID projectGroupId);
 	public TrustedApps getTrustedApps();
 }
