@@ -15,6 +15,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
+import com.servinglynk.hmis.warehouse.annotations.Subscription;
 import com.servinglynk.hmis.warehouse.base.service.SubscriptionEventService;
 
 @Aspect
@@ -22,7 +23,7 @@ public class SubscriptionInterceptor { //extends HandlerInterceptorAdapter  {
 
 	@Autowired SubscriptionEventService subscriptionEventService;
     
-	@Before("@annotation(com.servinglynk.hmis.warehouse.annotations.APIMapping)")
+	@Before("@annotation(com.servinglynk.hmis.warehouse.annotations.Subscription)")
 	public void before(JoinPoint jp){
 		SecurityContext context =  SecurityContextHolder.getContext();
 		Authentication authentication =  context.getAuthentication();

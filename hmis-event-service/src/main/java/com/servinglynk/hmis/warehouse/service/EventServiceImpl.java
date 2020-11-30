@@ -24,8 +24,13 @@ public class EventServiceImpl extends BaseService implements EventService {
 	@Transactional
 	public void processEvent(AMQEvent event) throws Exception {
 		JSONObjectMapper mapper = new JSONObjectMapper();
-		String projecrGrouCode = (String) event.getPayload().get("projectGroupCode");
-		String requestUrl = ((String) event.getPayload().get("requestUrl")).replace("/hmis-clientapi-", "").replace("/rest", "");
+		System.out.println("");
+		String projecrGrouCode = null;
+		if( event.getPayload().get("projectGroupCode")!=null) projecrGrouCode = (String) event.getPayload().get("projectGroupCode");
+		String requestUrl = null;
+		if( event.getPayload().get("requestUrl")!=null) requestUrl = ((String) event.getPayload().get("requestUrl")).replace("/hmis-clientapi-", "").replace("/rest", "");
+		
+		if(projecrGrouCode!=null && requestUrl!=null ) {
 		List<SubscriptionEntity> entities = daoFactory.getSubscriptionRepository()
 				.findByCriteriaUrlAndProjectGroupCodeAndDeleted(requestUrl, projecrGrouCode, false);
 		Map<String, Object> requestBody =  (Map<String, Object>) event.getPayload().get("reqestBody");
@@ -47,8 +52,14 @@ public class EventServiceImpl extends BaseService implements EventService {
 			}
 
 			if (validated) {
-				handlerFactory.getPublisher(entity.getChannelType().toLowerCase()).publish(entity);
+				try {
+					handlerFactory.getPublisher(entity.getChannelType().toLowerCase()).publish(entity);
+				}catch (Exception e) {
+					System.out.println("Subscription update message sending failed "+e.getMessage());
+					e.printStackTrace();
+				}
 			}
+		}
 		}
 	}
 	

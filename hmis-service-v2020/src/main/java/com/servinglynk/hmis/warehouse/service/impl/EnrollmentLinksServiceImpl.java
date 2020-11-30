@@ -23,6 +23,8 @@ import com.servinglynk.hmis.warehouse.core.model.EnrollmentLinks;
 import com.servinglynk.hmis.warehouse.core.model.ExitActionLink;
 import com.servinglynk.hmis.warehouse.core.model.ExitActionLinks;
 import com.servinglynk.hmis.warehouse.model.v2020.Assessment;
+import com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults;
+import com.servinglynk.hmis.warehouse.model.v2020.ConnectionWithSoar;
 import com.servinglynk.hmis.warehouse.model.v2020.Contact;
 import com.servinglynk.hmis.warehouse.model.v2020.CurrentLivingSituation;
 import com.servinglynk.hmis.warehouse.model.v2020.Dateofengagement;
@@ -424,6 +426,46 @@ public class EnrollmentLinksServiceImpl extends ServiceBase implements Enrollmen
 					actionLinks.setGroupBy(stageLinks.getKey());
 					  for(UUID id : stageLinks.getValue()) {
 							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/currentlivingsituations/"+id));
+					  }
+					  links.add(actionLinks);
+					  linksMap.put(stageLinks.getKey(), links);
+				}
+				stagesLinkMap.put(dateInfoLinks.getKey(), links);
+			}
+			dateLinks.put(datesLinks.getKey(), stagesLinkMap);			
+		}
+					
+	return dateLinks;
+
+	}
+	
+	
+	public Map<String,Map<String,List<ActionLinks>>> getConnectionwithsoarLinks(UUID clientId,UUID enrollmentId) {
+		
+		Map<String,Map<String,List<ActionLinks>>> dateLinks = new TreeMap<>();
+		Map<String,Map<String,Map<String,List<UUID>>>> content = new TreeMap<>();
+		List<ConnectionWithSoar> data = daoFactory.getConnectionWithSoarDao().getAllEnrollmentConnectionwithsoars(enrollmentId, null,null);
+		for(ConnectionWithSoar entity : data) {
+			LocalDateTime date  = entity.getDateUpdated();
+			
+			String collectionStage = "unspecified_stage";
+
+				this.groupByStage(entity.getDateUpdated(),"dateUpdated",collectionStage,content, entity.getId());
+
+		}
+		
+		
+		for(Map.Entry<String,Map<String,Map<String,List<UUID>>>> datesLinks : content.entrySet()) {
+			Map<String,List<ActionLinks>> stagesLinkMap = new TreeMap<>();			
+			for(Map.Entry<String,Map<String,List<UUID>>> dateInfoLinks : datesLinks.getValue().entrySet()) {
+
+				Map<String,List<ActionLinks>> linksMap = new HashMap<>();
+				List<ActionLinks> links = new ArrayList<>();
+				for(Map.Entry<String,List<UUID>> stageLinks : dateInfoLinks.getValue().entrySet()) {
+					ActionLinks actionLinks = new ActionLinks();
+					actionLinks.setGroupBy(stageLinks.getKey());
+					  for(UUID id : stageLinks.getValue()) {
+							actionLinks.addLink(new ActionLink(id+"", "/hmis-clientapi/rest/v2020/clients/"+clientId+"/enrollments/"+enrollmentId+"/connectionwithsoar/"+id));
 					  }
 					  links.add(actionLinks);
 					  linksMap.put(stageLinks.getKey(), links);
