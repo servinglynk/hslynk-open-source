@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.rest.interceptor.ApiMehtodAuthCheckInterce
 @EnableTransactionManagement
 @EnableElasticsearchRepositories(basePackages ="com.servinglynk.hmis.warehouse.repository" )
 @ComponentScan(basePackages =  { "com.servinglynk.hmis.warehouse"})
-@EntityScan("com.servinglynk.hmis.warehouse.model")
+@EntityScan("com.servinglynk.hmis.warehouse.entity")
 @Import({com.servinglynk.hmis.warehouse.config.AMQConfiguration.class})
 public class HmisSearchServiceApplication extends WebMvcConfigurerAdapter  {
 
@@ -82,7 +82,7 @@ public class HmisSearchServiceApplication extends WebMvcConfigurerAdapter  {
 	public RestHighLevelClient restClient() {
 			  ClientConfiguration clientConfiguration = ClientConfiguration.builder() 
 				      .connectedTo(env.getProperty("es.service.url"))
-				      .usingSsl()
+				     // .usingSsl()
 				    //  .withConnectTimeout(millis)
 				      .build();
 
@@ -110,6 +110,6 @@ public class HmisSearchServiceApplication extends WebMvcConfigurerAdapter  {
 			 
 				 @Override
 			    public void addInterceptors(InterceptorRegistry registry) {
-			        registry.addInterceptor(apiMehtodAuthCheckInterceptor());
+			   //     registry.addInterceptor(apiMehtodAuthCheckInterceptor());
 				 }
 }

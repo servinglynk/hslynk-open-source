@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.servinglynk.hmis.warehouse.base.service.aop.SubscriptionInterceptor;
 import com.servinglynk.hmis.warehouse.base.service.core.PropertyReaderServiceImpl;
 import com.servinglynk.hmis.warehouse.core.model.JSONObjectMapper;
 import com.servinglynk.hmis.warehouse.rest.BulkUploadErrorActivityController;
@@ -40,6 +42,7 @@ import com.servinglynk.hmis.warehouse.rest.SearchController;
 		com.servinglynk.hmis.warehouse.client.config.SpringConfig.class,
 		com.servinglynk.hmis.warehouse.config.WebDBPoolConfig.class})
 @EnableWebMvc
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableTransactionManagement
 @EnableScheduling
 public class ClientAPIConfig extends WebMvcConfigurerAdapter {
@@ -135,5 +138,11 @@ public class ClientAPIConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public HmisHouseHoldController hmisHouseHoldController() {
 		 return new HmisHouseHoldController();
+	 }
+	 
+	 
+	 @Bean
+	 public SubscriptionInterceptor subscriptionAspect() {
+		 return new SubscriptionInterceptor();
 	 }
 }

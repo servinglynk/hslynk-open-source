@@ -19,6 +19,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
@@ -41,6 +42,7 @@ import com.servinglynk.hmis.warehouse.converter.ClientConverter;
 import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.ActionLinks;
 import com.servinglynk.hmis.warehouse.core.model.BaseClient;
+import com.servinglynk.hmis.warehouse.entity.ClientEntity;
 import com.servinglynk.hmis.warehouse.listener.ClientCreationListener;
 import com.servinglynk.hmis.warehouse.model.SearchRequest;
 import com.servinglynk.hmis.warehouse.model.SearchResults;
@@ -239,9 +241,11 @@ public class SearchServiceImpl extends BaseService implements SearchService {
 	
 	@Autowired EntityManager entityManager;
 	@Autowired ClientCreationListener listener;
+	
+	@Transactional
 	public void cacheClients() throws Exception  {
 		Session session = entityManager.unwrap(Session.class);
-		DetachedCriteria criteria = DetachedCriteria.forClass(Client.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(ClientEntity.class);
 		criteria.add(Restrictions.eq("deleted", false));
 		criteria.add(Restrictions.isNull("parentId"));
 	//	criteria.add(Restrictions.eq("projectGroupCode", "HO0002"));

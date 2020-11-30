@@ -177,10 +177,6 @@
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.extended</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-		</dependency>
 	</dependencies>
 
 

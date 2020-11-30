@@ -30,6 +30,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
 import com.servinglynk.hmis.warehouse.service.PropertyReader;
+import com.servinglynk.hmis.warehouse.service.publish.handler.EventPublisher;
+import com.servinglynk.hmis.warehouse.service.publish.handler.RestPushHandler;
 
 
 @SpringBootApplication
@@ -107,4 +109,8 @@ public class HmisEventServiceApplication {
 	  
 	  }
 	
+	  @Bean
+	  public EventPublisher restPushHandler() {
+		  return new RestPushHandler();
+	  }
 }

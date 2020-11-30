@@ -45,6 +45,7 @@ public class SearchController extends BaseController{
 	  }
 		
 		@RequestMapping(method =  RequestMethod.POST)
+		@APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=false, checkTrustedApp=false)
 		public void cacheClients() throws Exception  {
 			searchService.cacheClients();
 		}

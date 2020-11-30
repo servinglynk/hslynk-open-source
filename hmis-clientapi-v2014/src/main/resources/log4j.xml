@@ -1,0 +1,49 @@
+<log4j:configuration debug="true" xmlns:log4j='http://jakarta.apache.org/log4j/'>
+ 
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">
+    <param name="Target" value="System.out"/>
+    <layout class="org.apache.log4j.PatternLayout">
+    <param name="ConversionPattern" value="[%X{traceId}] [%d{dd/MMM/yyyy HH:mm:ss}] [%t] %-5p %c %x - %m%n" />
+    </layout>
+  </appender>
+ 
+
+ <appender name="fileAppender" class="org.apache.log4j.rolling.RollingFileAppender" >
+    <rollingPolicy
+        class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+        <param name="ActiveFileName" value="${catalina.home}/logs/clientapi-v2014.log" />
+        <param name="FileNamePattern" value="${catalina.home}/logs/hmis_logs_archive/clientapi-v2014.%d{yyyy-MMM-dd}.log" />
+    </rollingPolicy>
+    <triggeringPolicy
+        class="org.apache.log4j.rolling.SizeBasedTriggeringPolicy">
+        <param name="MaxFileSize" value="10MB" />
+    </triggeringPolicy>
+    <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="[%X{traceId}] [%d{dd/MMM/yyyy HH:mm:ss}] [%t] %-5p %c %x - %m%n" />
+    </layout>
+</appender>
+
+<logger name="org.springframework" additivity="false">
+	<level value="INFO" />
+	<appender-ref ref="fileAppender" />
+</logger>
+
+<logger name="org.hibernate" additivity="false">
+	<level value="INFO" />
+	<appender-ref ref="fileAppender" />
+</logger>
+ 
+ <logger name="com.servinglynk.hmis" additivity="false" >
+ 	<level value="DEBUG" />
+ 	<appender-ref ref="fileAppender"/>
+ 
+ </logger>
+ 
+  <root>
+    <priority value ="debug"></priority>
+    <appender-ref ref="console" />
+    <appender-ref ref="fileAppender" />
+
+  </root>
+ 
+</log4j:configuration>

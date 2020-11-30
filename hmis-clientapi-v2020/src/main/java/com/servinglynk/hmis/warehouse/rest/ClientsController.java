@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
+import com.servinglynk.hmis.warehouse.annotations.AllowedValues;
+import com.servinglynk.hmis.warehouse.annotations.Subscription;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Assessment;
 import com.servinglynk.hmis.warehouse.core.model.AssessmentQuestion;
@@ -154,6 +156,7 @@ public class ClientsController extends ControllerBase {
 
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}", method = RequestMethod.PUT)
 	@APIMapping(value = "CLIENT_API_UPDATE_ENROLLMENT", checkSessionToken = true, checkTrustedApp = true)
+	@Subscription
 	public void updateEnrollment(@RequestBody Enrollment enrollment, @PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);

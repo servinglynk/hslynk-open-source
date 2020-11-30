@@ -143,7 +143,7 @@ public class SubscriptionEventServiceImpl implements SubscriptionEventService {
 		    request.setEventType("subscription-event");
 		    request.setSubsystem("hmis-clientapi");
 			
-			ActiveMQQueue queue = new ActiveMQQueue("subscription.event");
+			ActiveMQQueue queue = new ActiveMQQueue("subscription.event1");
 			try {
 				jmsMessagingTemplate.convertAndSend(queue,request.toJSONString());
 			} catch (JmsException e) {
