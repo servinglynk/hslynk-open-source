@@ -9,7 +9,7 @@
  
 
  <appender name="FILE_AUDIT" class="org.apache.log4j.RollingFileAppender" >
-  <param name="file" value="${catalina.home}/logs/clientapi-v2014.log" />
+  <param name="file" value="${catalina.home}/logs/clientapi-v2015.log" />
   <param name="Append" value="true" />
     <param name="ImmediateFlush" value="true" />
     <param name="MaxFileSize" value="20MB" />

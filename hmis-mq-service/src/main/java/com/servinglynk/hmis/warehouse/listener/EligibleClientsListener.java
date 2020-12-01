@@ -15,7 +15,7 @@ public class EligibleClientsListener extends BaseListener {
 	
 	@JmsListener(destination="eligibleClients")
 	public void listeneQueue(String eventString) {
-		System.out.println("inside eligibleClients listener");
+		logger.debug("inside eligibleClients listener");
 		JSONObjectMapper mapper = new JSONObjectMapper();
 		try {
 			AMQEvent event = mapper.readValue(eventString, AMQEvent.class);
