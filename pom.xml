@@ -98,6 +98,12 @@
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-all</artifactId>
 				<version>5.15.9</version>
+				<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
 			</dependency>
 
 
@@ -280,11 +286,11 @@
 				<artifactId>commons-compress</artifactId>
 				<version>1.19</version>
 			</dependency>
-			<dependency>
+			<!-- <dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
-				<version>1.1.3</version>
-			</dependency>
+				<version>1.2.3</version>
+			</dependency> -->
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
@@ -490,13 +496,12 @@
 		<module>core-common</module>
 		<module>base-model</module>
 		<module>base-serialize</module>
-		<module>base-service</module>
- 		<module>hmis-model-v2020</module>
+	 	<module>base-service</module> 
+ 	    <module>hmis-model-v2020</module>
 		<module>hmis-model-v2014</module>
 		<module>hmis-model-v2015</module>
 		<module>hmis-model-v2016</module>
 		<module>hmis-model-v2017</module>
-
 		<module>hmis-service-v2014</module>
 		<module>hmis-serialize-v2014</module>
 		<module>hmis-service-v2015</module>
@@ -505,13 +510,13 @@
 		<module>hmis-serialize-v2016</module>
 		<module>hmis-service-v2017</module>
 		<module>hmis-serialize-v2017</module>
-		<module>hmis-service-v2020</module>
-		<module>hmis-serialize-v2020</module>
 		<module>hmis-clientapi-v2014</module>
 		<module>hmis-clientapi-v2015</module>
 		<module>hmis-clientapi-v2016</module>
 		<module>hmis-clientapi-v2017</module>
-		<module>hmis-clientapi-v2020</module> 
+		<module>hmis-service-v2020</module>
+		<module>hmis-serialize-v2020</module>
+		<module>hmis-clientapi-v2020</module>  
  		<module>notification-core</module>
 		<module>notification-service</module>
 		<module>report-service</module>
@@ -521,13 +526,13 @@
 		<module>hmis-load-processor-v2015</module>
 		<module>hmis-load-processor-v2016</module>
 		<module>hmis-load-processor-v2017</module>
-		<module>hmis-load-processor-v2020</module> 
+		<module>hmis-load-processor-v2020</module>
 		<!-- <module>global-household</module> -->
 		<module>authorization-service</module>
 		<module>upload-service</module>
 		<module>client-dedup</module>
 		<module>globalapi</module>
-		<module>fileupload-core</module>
+		<module>fileupload-core</module> 
 		<module>bed-inventory</module>
 		<module>hmis-search-service</module>
 		<module>hmis-mq-service</module>

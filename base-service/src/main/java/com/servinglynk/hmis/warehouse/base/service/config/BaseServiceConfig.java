@@ -1,8 +1,6 @@
 
 package com.servinglynk.hmis.warehouse.base.service.config;
 
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -57,9 +55,9 @@ import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ApiAuthCheckInterceptor;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ClientConsentInterceptor;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.EnrollmentSharingInterceptor;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.HslynkTraceLogger;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
-
 
 @Configuration
 @EnableWebMvc
@@ -107,6 +105,7 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	 public SubscriptionInterceptor subscriptionInterceptor() {
 		 return new SubscriptionInterceptor();
 	 }
+
 	 
 		 @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
@@ -158,6 +157,11 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 		
 		
 		return bean;
+	}
+	
+	@Bean
+	public HslynkTraceLogger traceLogger() {
+		return new HslynkTraceLogger();
 	}
 	
 	

@@ -13,7 +13,7 @@ public class EventListener extends BaseListener {
 
 	@JmsListener(destination="subscription.event")
 	public void processEvent(String eventString) {
-		System.out.println("inside enrollment.chronichomeless listener"+eventString);
+		logger.debug("inside enrollment.chronichomeless listener"+eventString);
 		JSONObjectMapper mapper = new JSONObjectMapper();
 		try {
 			AMQEvent event = mapper.readValue(eventString, AMQEvent.class);

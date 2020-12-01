@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.rest;
 
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,16 +60,10 @@ public class SubscriptionController extends BaseController {
 	}	
 	
 	@RequestMapping(method = RequestMethod.POST,value = "/receiver")
-	@APIMapping(value = "CREATE_AREA",checkSessionToken = true,checkTrustedApp = true)
-	public void subscriptionUpdateReceiver(HttpServletRequest request,HttpServletResponse response) {
-		ContentCachingRequestWrapper req = new ContentCachingRequestWrapper(request);
-		  String body = null;
-		    if (req.getContentLength() > 0) {
-		      body = new String(req.getContentAsByteArray());
-		    }
-		    body = body.replaceAll("(\\r|\\n)", "");
-		    
-		    System.out.println("subscription update received "+body);
+	//@APIMapping(value = "CREATE_AREA",checkSessionToken = false,checkTrustedApp = false)
+	public void subscriptionUpdateReceiver(@RequestBody Map<String, Object> data,HttpServletRequest request,HttpServletResponse response) {
+
+		    System.out.println("Received subscription notification with payload \n"+data+" \n\n");
 	
 	}
 }

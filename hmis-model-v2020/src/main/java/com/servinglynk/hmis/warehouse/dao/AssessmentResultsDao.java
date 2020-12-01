@@ -18,6 +18,6 @@ public interface AssessmentResultsDao extends ParentDao {
 	   void deleteAssessmentResults(com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults assessmentResults);
 	   com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults getAssessmentResultsById(UUID assessmentResultsId);
 	   public List<com.servinglynk.hmis.warehouse.model.v2020.AssessmentResults> getAllEnrollmentAssessmentResults(
-				UUID enrollmentId, int startIndex, int maxItems);
+				UUID enrollmentId, Integer startIndex, Integer maxItems);
 	   public long getEnrollmentAssessmentResultsCount(UUID enrollmentId);
 }

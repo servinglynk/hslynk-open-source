@@ -21,9 +21,11 @@ public class EmailHandler implements EventPublisher {
 		
 		Notification notification = new Notification();
 		notification.setMethod("EMAIL");
-		notification.setType("HMIS_EMAIL_NOTIFICATION");
-		notification.getParameters().addParameter(new Parameter("message", "enrollment information is updated. "+entity.getCriteriaUrl()+"get updated information"));
-		notification.getParameters().addParameter(new Parameter("subject", "Subscription Update"));
+		notification.setType("HMIS_SUBSCRIPTION_NOTIFICATION");
+//		notification.getParameters().addParameter(new Parameter("reason", "enrollment information is updated. "+entity.getCriteriaUrl()+"get updated information"));
+//		notification.getParameters().addParameter(new Parameter("subject", "Subscription Update"));
+		notification.getParameters().addParameter(new Parameter("reason",entity.getReason()));
+		notification.getParameters().addParameter(new Parameter("callbackURL", entity.getCriteriaUrl()));
 		Recipients recipients = new Recipients();
 		recipients.addToRecipient(entity.getChannelEndpoint());
 //		notification.getRecipients().getToRecipients().add(entity.getChannelEndpoint());

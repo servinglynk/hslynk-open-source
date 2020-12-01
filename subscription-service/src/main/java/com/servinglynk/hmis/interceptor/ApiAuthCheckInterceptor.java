@@ -53,7 +53,7 @@ public class ApiAuthCheckInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		}else{
 			
-			return false;
+			return true;
 		}
 	}
 
