@@ -6,7 +6,7 @@
   <display-name>User Service</display-name>
       <filter>
    <filter-name>LogFilter</filter-name>
-   <filter-class>com.servinglynk.hmis.warehouse.core.web.interceptor.HslynkTraceLogger</filter-class>
+   <filter-class>com.servinglynk.hmis.warehouse.core.web.interceptor.HslynkTraceFilter</filter-class>
   
 </filter>
 

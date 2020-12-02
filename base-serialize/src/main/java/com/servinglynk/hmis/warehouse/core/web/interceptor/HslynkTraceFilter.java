@@ -25,10 +25,10 @@ import com.servinglynk.hmis.warehouse.common.Constants;
 import com.servinglynk.hmis.warehouse.common.GeneralUtil;
 import com.servinglynk.hmis.warehouse.common.util.TraceUtil;
 
-public class HslynkTraceLogger  extends org.springframework.web.filter.OncePerRequestFilter {
+public class HslynkTraceFilter  extends org.springframework.web.filter.OncePerRequestFilter {
 
 	
-	  private static final Logger logger = LoggerFactory.getLogger(HslynkTraceLogger.class);
+	  private static final Logger logger = LoggerFactory.getLogger(HslynkTraceFilter.class);
 
 	  @Autowired
 	  private SessionHelper sessionHelper;
@@ -37,22 +37,15 @@ public class HslynkTraceLogger  extends org.springframework.web.filter.OncePerRe
 	  
 	  private boolean logHttpResponses=true;
 /*
-	//  @Value("${wemofilter.logHttpRequests}")
-	  private boolean logHttpRequests;
-
-	//  @Value("${wemofilter.logHttpResponses}")
-	  private boolean logHttpResponses;
-
-	//  @Value("${wemofilte.remove.httpRequestHeaders:}")
+	
 	  private String[] inputRemoveHttpRequestHeaders;
 	  private Set<String> removeHttpRequestHeaders;
 
-	//  @Value("${wemofilte.remove.httpResponseHeaders:}")
+	
 	  private String[] inputRemoveHttpResponseHeaders;
 	  private Set<String> removeHttpResponseHeaders;
 
-	//  @Value("${wemofilte.remove.httpBodyContentTypes:application/octet-stream,multipart/octet-stream}")
-	  private String[] inputRemoveHttpBodyContentTypes= {"application/octet-stream","multipart/octet-stream"};
+		  private String[] inputRemoveHttpBodyContentTypes= {"application/octet-stream","multipart/octet-stream"};
 	  private Set<String> removeHttpBodyContentTypes;
 
 	  @PostConstruct

@@ -7,9 +7,12 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.servinglynk.hmis.interceptor.ApiAuthCheckInterceptor;
 import com.servinglynk.hmis.repository.BaseRepositoryFactoryBean;
 import com.servinglynk.hmis.service.PropertyReader;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.HslynkTraceFilter;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
 
@@ -94,5 +98,25 @@ public class BedInventoryConfig  extends WebMvcConfigurerAdapter {
 			PropertiesPropertySource dbPropertySource = new PropertiesPropertySource("dbPropertySource", properties);
 			propertySources.addFirst(dbPropertySource);
 		}
+	 
+		
+		  @Bean
+		  
+		  @Order(Ordered.HIGHEST_PRECEDENCE) public HslynkTraceFilter traceLogger() {
+		  return new HslynkTraceFilter(); }
+		 
+	 /*
+	
+	 @Bean
+	 public FilterRegistrationBean loggingFilter(){
+	     FilterRegistrationBean registrationBean 
+	       = new FilterRegistrationBean();
+	         
+	     registrationBean.setFilter(new HslynkTraceLogger());
+	     registrationBean.addUrlPatterns("/*");
+	         
+	     return registrationBean;    
+	 }
+	 */
 }
 
