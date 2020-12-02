@@ -55,7 +55,7 @@ import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ApiAuthCheckInterceptor;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ClientConsentInterceptor;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.EnrollmentSharingInterceptor;
-import com.servinglynk.hmis.warehouse.core.web.interceptor.HslynkTraceLogger;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.HslynkTraceFilter;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
 
@@ -160,8 +160,8 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 	}
 	
 	@Bean
-	public HslynkTraceLogger traceLogger() {
-		return new HslynkTraceLogger();
+	public HslynkTraceFilter traceLogger() {
+		return new HslynkTraceFilter();
 	}
 	
 	
