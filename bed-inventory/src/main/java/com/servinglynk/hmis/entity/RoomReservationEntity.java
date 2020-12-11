@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "room_reservation", schema =  "bed_inventory")
@@ -27,9 +26,11 @@ public class RoomReservationEntity extends BaseEntity {
 	private UUID id;
 	
 	@Column(name = "reserved_client_id")
+	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
 	private UUID reservedCleintId;
 	
 	@Column(name = "reserved_household_id")
+	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
 	private UUID reservedHouseholdId;
 	
 	@Column(name = "reservation_start_date")

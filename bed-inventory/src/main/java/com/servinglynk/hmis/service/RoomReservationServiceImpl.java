@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -7,6 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.entity.BedUnitEntity;
+import com.servinglynk.hmis.entity.BedUnitReservationEntity;
+import com.servinglynk.hmis.entity.RoomEntity;
 import com.servinglynk.hmis.entity.RoomReservationEntity;
 import com.servinglynk.hmis.model.RoomReservation;
 import com.servinglynk.hmis.model.RoomReservations;
@@ -18,8 +22,13 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 
 	@Transactional
 	public RoomReservation createRoomReservation(RoomReservation room) {
+		RoomEntity roomEntity = daoFactory.getRoomRepository().findByIdAndProjectGroupCodeAndDeleted(room.getRoom().getId(), SecurityContextUtil.getUserProjectGroup(),false);
+		if(roomEntity==null) throw new ResourceNotFoundException("Room "+room.getRoom().getId()+" not found");
 		RoomReservationEntity entity = RoomReservationConverter.modelToEntity(room,null);
+		entity.setRoom(roomEntity);
 		daoFactory.getRoomReservationRepository().save(entity);
+		List<BedUnitEntity> bedUnitEntities =	daoFactory.getBedUnitRepository().findByRoomAndDeleted(roomEntity, false);
+		this.reserveRoomBedUnits(bedUnitEntities, room);
 		room.setId(entity.getId());
 		return room;
 	}
@@ -62,4 +71,20 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 	        rooms.setPagination(pagination);
 		return rooms;
 	}	
+	
+	
+	public void reserveRoomBedUnits(List<BedUnitEntity> bedUnitEntities,RoomReservation roomReservation) {
+		for(BedUnitEntity bedUnitEntity : bedUnitEntities) {
+			BedUnitReservationEntity entity = new BedUnitReservationEntity();
+			entity.setBedUnit(bedUnitEntity);
+			entity.setProjectGroupCode(bedUnitEntity.getProjectGroupCode());
+			entity.setReservationEndDateDate(roomReservation.getReservationEndDateDate());
+			entity.setReservationStateDate(roomReservation.getReservationStateDate());
+			entity.setReservedCleintId(roomReservation.getReservedCleintId());
+			entity.setReservedHouseholdId(roomReservation.getReservedHouseholdId());
+			daoFactory.getBedUnitReservationRepository().save(entity);
+			
+		}
+		
+	}
 }
