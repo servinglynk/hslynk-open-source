@@ -3,6 +3,13 @@ package com.servinglynk.hmis.model;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+
+@JsonRootName("roomReservation")
+@JsonInclude(value = Include.NON_NULL)
 public class RoomReservation {
 
 	private UUID id;
@@ -43,6 +50,7 @@ public class RoomReservation {
 		this.reservationEndDateDate = reservationEndDateDate;
 	}
 	public RoomModel getRoom() {
+		if(room == null) room = new RoomModel();
 		return room;
 	}
 	public void setRoom(RoomModel room) {
