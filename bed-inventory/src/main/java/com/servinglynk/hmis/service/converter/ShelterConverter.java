@@ -16,13 +16,6 @@ public class ShelterConverter {
 		entity.setProjectId(shelter.getProjectId());
 		entity.setProjectType(shelter.getProjectType());
 		entity.setUrl(shelter.getUrl());
-		entity.setAddress1(shelter.getAddress1());
-		entity.setAddress2(shelter.getAddress2());
-		entity.setCity(shelter.getCity());
-		entity.setState(shelter.getState());
-		entity.setZipcode(shelter.getZipcode());
-		entity.setLatitude(shelter.getLatitude());
-		entity.setLongitude(shelter.getLongitude());
 		return entity;
 	}
 
@@ -37,13 +30,6 @@ public class ShelterConverter {
 		model.setProjectType(entity.getProjectType());
 		model.setUrl(entity.getUrl());
 		model.setId(entity.getId());
-		model.setAddress1(entity.getAddress1());
-		model.setAddress2(entity.getAddress2());
-		model.setCity(entity.getCity());
-		model.setState(entity.getState());
-		model.setZipcode(entity.getZipcode());
-		model.setLatitude(entity.getLatitude());
-		model.setLongitude(entity.getLongitude());
 		return model;
 	}
 

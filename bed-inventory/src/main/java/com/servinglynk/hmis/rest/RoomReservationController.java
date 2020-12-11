@@ -18,51 +18,32 @@ public class RoomReservationController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@APIMapping(value = "CREATE_ROOM_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
-	RoomReservation createRoomReservation(RoomReservation roomreservation,
-			@PathVariable("shelterid") UUID shelterid,
-			@PathVariable("areaid") UUID areaid,
-			@PathVariable("roomid") UUID roomid			
-			) {
-			roomreservation.getRoom().setId(roomid);
+	RoomReservation createRoomReservation(RoomReservation roomreservation) {
 		return serviceFactory.getRoomReservationService().createRoomReservation(roomreservation);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT,value = "/{roomreservationid}")
 	@APIMapping(value = "UPDATE_ROOM_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
-	void updateRoomReservation(RoomReservation roomreservation,
-			@PathVariable("roomreservationid") UUID roomreservationid,
-			@PathVariable("shelterid") UUID shelterid,
-			@PathVariable("areaid") UUID areaid,
-			@PathVariable("roomid") UUID roomid	) {
+	void updateRoomReservation(RoomReservation roomreservation,@PathVariable("roomreservationid") UUID roomreservationid) {
 		roomreservation.setId(roomreservationid);
-		roomreservation.getRoom().setAreaId(roomid);
 		serviceFactory.getRoomReservationService().updateRoomReservation(roomreservation);
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE,value = "/{roomreservationid}")
 	@APIMapping(value = "DELETE_ROOM_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
-	void deleteRoomReservation(@PathVariable("roomreservationid") UUID roomreservationId,
-			@PathVariable("shelterid") UUID shelterid,
-			@PathVariable("areaid") UUID areaid,
-			@PathVariable("roomid") UUID roomid	) {
+	void deleteRoomReservation(@PathVariable("roomreservationid") UUID roomreservationId) {
 		serviceFactory.getRoomReservationService().deleteRoomReservation(roomreservationId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,value = "/{roomreservationid}")
 	@APIMapping(value = "GET_ROOM_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
-	RoomReservation getRoomReservation(@PathVariable("roomreservationid") UUID roomreservationId,
-			@PathVariable("shelterid") UUID shelterid,
-			@PathVariable("areaid") UUID areaid,
-			@PathVariable("roomid") UUID roomid	) {
+	RoomReservation getRoomReservation(@PathVariable("roomreservationid") UUID roomreservationId) {
 		return serviceFactory.getRoomReservationService().getRoomReservation(roomreservationId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@APIMapping(value = "GET_ROOM_RESERVATIONS",checkSessionToken = true,checkTrustedApp = true)
-	RoomReservations getAreas(
-			@PathVariable("shelterid") UUID shelterid,
-			@PathVariable("areaid") UUID areaid,
-			@PathVariable("roomid") UUID roomid,	Pageable pageable) {
+	RoomReservations getAreas(Pageable pageable) {
 		return serviceFactory.getRoomReservationService().getRoomReservations(pageable);
 	}
 }

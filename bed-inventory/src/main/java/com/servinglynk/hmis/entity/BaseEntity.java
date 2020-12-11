@@ -3,6 +3,7 @@ package com.servinglynk.hmis.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -10,6 +11,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
+import org.codehaus.jackson.annotate.JsonCreator;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;

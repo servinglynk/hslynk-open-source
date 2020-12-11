@@ -2,12 +2,6 @@ package com.servinglynk.hmis.model;
 
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-@JsonRootName("room")
-@JsonInclude(value = Include.NON_NULL)
 public class RoomModel {
 
 	private UUID id;
