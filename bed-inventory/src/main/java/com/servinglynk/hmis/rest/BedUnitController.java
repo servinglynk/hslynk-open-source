@@ -53,6 +53,6 @@ public class BedUnitController extends BaseController{
 	@APIMapping(value = "GET_BEDUNITS",checkSessionToken = true,checkTrustedApp = true)
 	BedUnits getBedUnits(Pageable pageable,@PathVariable("shelterid") UUID shelterid,
 			@PathVariable("areaid") UUID areaid,@PathVariable("roomid") UUID roomid) {
-		return serviceFactory.getBedUnitService().getBedUnits(pageable);
+		return serviceFactory.getBedUnitService().getBedUnits(shelterid,areaid,roomid,pageable);
 	}
 }
