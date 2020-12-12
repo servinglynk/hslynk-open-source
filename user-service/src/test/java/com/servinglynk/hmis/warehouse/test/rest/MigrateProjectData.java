@@ -220,41 +220,13 @@ public class MigrateProjectData {
 		
 			//System.out.println( data.toString(new Date()));
 	}
-	
-/*	public static void main(String args[]) throws Exception {
 		
-		String query = "select * from housing_inventory.eligible_clients where client_dedup_id is null ";
-		Class.forName("org.postgresql.Driver");
-		Connection connection =DriverManager.getConnection("jdbc:postgresql://internal.hmislynk.com:20800/hmis", "hmisdb1", "#SERVINGLYNK#2016%s3cur3");
-		Statement statement =null;
-		try {
-			 statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(query);
-			while (rs.next()) {
-				String clientId = rs.getString("client_id");
-				String query2 = "select dedup_client_id from base.client where id = '"+clientId+"'";
-				Statement statement2 = connection.createStatement();
-				ResultSet resultSet =		statement2.executeQuery(query2);
-				if(resultSet.next()) {
-					String dedupId =resultSet.getString("dedup_client_id");
-					String query3 = "update housing_inventory.eligible_clients set client_dedup_id = '"+dedupId+"' where client_id='"+clientId+"';";
-					System.out.println(query3);
-				}
-				if(!statement2.isClosed()) statement2.close();
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			if(!statement.isClosed()) statement.close();
-			if(!connection.isClosed()) connection.close();
-		}
-	}*/
 	public static void main(String args[]) throws Exception {
 
 		String query = "select * from housing_inventory.eligible_clients where  project_group_code not in ('PG0001')";
 		Class.forName("org.postgresql.Driver");
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://internal.hmislynk.com:20800/hmis",
-				"hmisdb1", "#SERVINGLYNK#2016%s3cur3");
+		Connection connection = DriverManager.getConnection("jdbc:postgresql://locahost:5432/hmis",
+				"postgres", "postgres");
 		Statement statement = null;
 		try {
 			 statement = connection.createStatement();
