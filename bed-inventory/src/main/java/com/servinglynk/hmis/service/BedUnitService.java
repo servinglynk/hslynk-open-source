@@ -12,5 +12,5 @@ public interface BedUnitService {
 	void updateBedUnit(BedUnit room);
 	void deleteBedUnit(UUID roomId);
 	BedUnit getBedUnit(UUID roomId);
-	BedUnits getBedUnits(Pageable pageable);
+	BedUnits getBedUnits(UUID shelterid, UUID areaid, UUID roomid, Pageable pageable);
 }
