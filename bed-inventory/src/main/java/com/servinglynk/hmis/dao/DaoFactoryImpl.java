@@ -28,6 +28,7 @@ public class DaoFactoryImpl implements DaoFactory {
 	@Autowired private RoomReservationRepository roomReservationRepository;
 	@Autowired private BedUnitReservationRepository bedUnitReservationRepository;
 	@Autowired private HousingUnitReservationRepository housingUnitReservationRepository;
+	@Autowired private ShelterDao shelterDao;
 	
 	public ShelterRepository getShelterRepository() {
 		return shelterRepository;
@@ -88,6 +89,12 @@ public class DaoFactoryImpl implements DaoFactory {
 	}
 	public void setHousingUnitReservationRepository(HousingUnitReservationRepository housingUnitReservationRepository) {
 		this.housingUnitReservationRepository = housingUnitReservationRepository;
+	}
+	public ShelterDao getShelterDao() {
+		return shelterDao;
+	}
+	public void setShelterDao(ShelterDao shelterDao) {
+		this.shelterDao = shelterDao;
 	}	
 	
 }
