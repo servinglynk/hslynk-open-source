@@ -12,5 +12,5 @@ public interface BedOccupantService {
 	void updateBedOccupant(BedOccupant bedOccupant);
 	void deleteBedOccupant(UUID bedOccupantId);
 	BedOccupant getBedOccupant(UUID bedOccupantId);
-	BedOccupants getBedOccupants(Pageable pageable);
+	BedOccupants getBedOccupants(UUID bedUnitId,Pageable pageable);
 }

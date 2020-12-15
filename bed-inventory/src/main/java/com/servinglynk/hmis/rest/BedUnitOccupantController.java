@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,32 +19,35 @@ public class BedUnitOccupantController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@APIMapping(value = "CREATE_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
-	BedOccupant createBedOccupant(BedOccupant bedOccupant) {
+	BedOccupant createBedOccupant(@RequestBody BedOccupant bedOccupant,
+			@PathVariable("bedunitid") UUID bedunitid) {
+		bedOccupant.getBedUnit().setId(bedunitid);
 		return serviceFactory.getBedOccupantService().createBedOccupant(bedOccupant);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT,value = "/{occupantid}")
 	@APIMapping(value = "UPDATE_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
-	void updateBedOccupant(BedOccupant bedOccupant,@PathVariable("occupantid") UUID occupantid) {
+	void updateBedOccupant(@RequestBody BedOccupant bedOccupant,@PathVariable("bedunitid") UUID bedunitid,@PathVariable("occupantid") UUID occupantid) {
 		bedOccupant.setId(occupantid);
+		bedOccupant.getBedUnit().setId(bedunitid);
 		serviceFactory.getBedOccupantService().updateBedOccupant(bedOccupant);
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE,value = "/{occupantid}")
 	@APIMapping(value = "DELETE_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
-	void deleteBedOccupant(@PathVariable("occupantid") UUID bedOccupantId) {
+	void deleteBedOccupant(@PathVariable("bedunitid") UUID bedunitid,@PathVariable("occupantid") UUID bedOccupantId) {
 		serviceFactory.getBedOccupantService().deleteBedOccupant(bedOccupantId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,value = "/{occupantid}")
 	@APIMapping(value = "GET_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
-	BedOccupant getBedOccupant(@PathVariable("occupantid") UUID bedOccupantId) {
+	BedOccupant getBedOccupant(@PathVariable("bedunitid") UUID bedunitid,@PathVariable("occupantid") UUID bedOccupantId) {
 		return serviceFactory.getBedOccupantService().getBedOccupant(bedOccupantId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@APIMapping(value = "GET_OCCUPANTS",checkSessionToken = true,checkTrustedApp = true)
-	BedOccupants getBedOccupants(Pageable pageable) {
-		return serviceFactory.getBedOccupantService().getBedOccupants(pageable);
+	BedOccupants getBedOccupants(@PathVariable("bedunitid") UUID bedunitid,Pageable pageable) {
+		return serviceFactory.getBedOccupantService().getBedOccupants(bedunitid,pageable);
 	}
 }

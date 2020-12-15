@@ -3,6 +3,7 @@ package com.servinglynk.hmis.model;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -14,8 +15,11 @@ public class BedOccupant {
 	private UUID clientId;
 	private UUID dedupClientId;
 	private UUID enrollmentId;
+	 @JsonFormat(pattern = "yyyy-MM-dd")
 	private Date occupancyStartDate;
+	 @JsonFormat(pattern = "yyyy-MM-dd")
 	private Date occupancyEndDate;
+	 private String enrollmentType;
 	private Boolean isActive;
 	private BedUnit bedUnit;
 	public UUID getId() {
@@ -55,6 +59,7 @@ public class BedOccupant {
 		this.isActive = isActive;
 	}
 	public BedUnit getBedUnit() {
+		if(bedUnit == null) bedUnit = new BedUnit();
 		return bedUnit;
 	}
 	public void setBedUnit(BedUnit bedUnit) {
@@ -66,4 +71,11 @@ public class BedOccupant {
 	public void setEnrollmentId(UUID enrollmentId) {
 		this.enrollmentId = enrollmentId;
 	}
+	public String getEnrollmentType() {
+		return enrollmentType;
+	}
+	public void setEnrollmentType(String enrollmentType) {
+		this.enrollmentType = enrollmentType;
+	}
+	
 }

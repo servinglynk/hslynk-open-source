@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.entity.BedOccupantEntity;
+import com.servinglynk.hmis.entity.BedUnitEntity;
 import com.servinglynk.hmis.model.BedOccupant;
 import com.servinglynk.hmis.model.BedOccupants;
 import com.servinglynk.hmis.model.SortedPagination;
@@ -18,9 +19,14 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 
 	@Transactional
 	public BedOccupant createBedOccupant(BedOccupant bedUnit) {
+		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getBedUnit().getId(),SecurityContextUtil.getUserProjectGroup(),false);
+		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed unit not found");
 		BedOccupantEntity entity = BedOccupantConverter.modelToEntity(bedUnit,null);
+		entity.setClientId(bedUnit.getClientId());
 		entity.setDedupClientId(validationService.validateCleintId(bedUnit.getClientId()));
 		entity.setEnrollmentType(validationService.validateEnrillment(bedUnit.getEnrollmentId()));
+		entity.setEnrollemntId(bedUnit.getEnrollmentId());
+		entity.setBedUnit(bedUnitEntity);
 		daoFactory.getBedOccupantRepository().save(entity);
 		bedUnit.setId(entity.getId());
 		return bedUnit;
@@ -28,6 +34,8 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 	
 	@Transactional
 	public void updateBedOccupant(BedOccupant bedUnit) {
+		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getBedUnit().getId(),SecurityContextUtil.getUserProjectGroup(),false);
+		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed unit not found");
 		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedOccupant "+bedUnit.getId()+" not found");
 		entity = BedOccupantConverter.modelToEntity(bedUnit,entity);
@@ -51,11 +59,13 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 	}
 	
 	@Transactional
-	public BedOccupants getBedOccupants(Pageable pageable) {
+	public BedOccupants getBedOccupants(UUID bedUnitId,Pageable pageable) {
+		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnitId,SecurityContextUtil.getUserProjectGroup(),false);
+		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed unit not found");
 		BedOccupants bedUnits = new BedOccupants();
-		Page<BedOccupantEntity> entityPage = daoFactory.getBedOccupantRepository().findAll(pageable);
-		for(BedOccupantEntity bedUnitEntity : entityPage.getContent()) {
-			bedUnits.addBedOccupant(BedOccupantConverter.entityToModel(bedUnitEntity));
+		Page<BedOccupantEntity> entityPage = daoFactory.getBedOccupantRepository().findByBedUnitAndDeleted(bedUnitEntity, false, pageable);
+		for(BedOccupantEntity occupantEntity : entityPage.getContent()) {
+			bedUnits.addBedOccupant(BedOccupantConverter.entityToModel(occupantEntity));
 		}
 		
 		 SortedPagination pagination = new SortedPagination();
