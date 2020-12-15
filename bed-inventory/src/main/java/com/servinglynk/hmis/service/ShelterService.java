@@ -12,5 +12,5 @@ public interface ShelterService {
 	void updateShelter(ShelterModel shelter);
 	void deleteShelter(UUID shelterId);
 	ShelterModel getShelter(UUID shelterId);
-	Shelters getShelters(Pageable pageable);
+	Shelters getShelters(String q, Pageable pageable);
 }
