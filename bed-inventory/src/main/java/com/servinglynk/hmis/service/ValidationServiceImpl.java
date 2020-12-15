@@ -11,7 +11,7 @@ public class ValidationServiceImpl implements ValidationService {
 	public UUID validateCleintId(UUID clientId) {
 		
 		
-		return null;
+		return clientId;
 	}
 	
 	public String validateEnrillment(UUID enrollmentId) {

@@ -12,5 +12,5 @@ public interface BedReservationService {
 	void updateBedUnitReservation(BedUnitReservation bedUnitReservation);
 	void deleteBedUnitReservation(UUID bedUnitReservationId);
 	BedUnitReservation getBedUnitReservation(UUID bedUnitReservationId);
-	BedUnitReservations getBedUnitReservations(Pageable pageable);
+	BedUnitReservations getBedUnitReservations(UUID bedunitid, Pageable pageable);
 }

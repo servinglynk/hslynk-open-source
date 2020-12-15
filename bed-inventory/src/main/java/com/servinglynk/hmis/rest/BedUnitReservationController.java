@@ -27,26 +27,28 @@ public class BedUnitReservationController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.PUT,value = "/{reservationid}")
 	@APIMapping(value = "UPDATE_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
-	void updateBedUnitReservation(BedUnitReservation bedUnitReservation,@PathVariable("reservationid") UUID reservationid) {
+	void updateBedUnitReservation(BedUnitReservation bedUnitReservation,
+			@PathVariable("bedunitid") UUID bedunitid,
+			@PathVariable("reservationid") UUID reservationid) {
 		bedUnitReservation.setId(reservationid);
 		serviceFactory.getBedReservationService().updateBedUnitReservation(bedUnitReservation);
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE,value = "/{reservationid}")
 	@APIMapping(value = "DELETE_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
-	void deleteBedUnitReservation(@PathVariable("reservationid") UUID bedUnitReservationId) {
+	void deleteBedUnitReservation(@PathVariable("bedunitid") UUID bedunitid,@PathVariable("reservationid") UUID bedUnitReservationId) {
 		serviceFactory.getBedReservationService().deleteBedUnitReservation(bedUnitReservationId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,value = "/{reservationid}")
 	@APIMapping(value = "GET_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
-	BedUnitReservation getBedUnitReservation(@PathVariable("reservationid") UUID bedUnitReservationId) {
+	BedUnitReservation getBedUnitReservation(@PathVariable("bedunitid") UUID bedunitid,@PathVariable("reservationid") UUID bedUnitReservationId) {
 		return serviceFactory.getBedReservationService().getBedUnitReservation(bedUnitReservationId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@APIMapping(value = "GET_RESERVATIONS",checkSessionToken = true,checkTrustedApp = true)
-	BedUnitReservations getBedUnitReservations(Pageable pageable) {
-		return serviceFactory.getBedReservationService().getBedUnitReservations(pageable);
+	BedUnitReservations getBedUnitReservations(@PathVariable("bedunitid") UUID bedunitid,Pageable pageable) {
+		return serviceFactory.getBedReservationService().getBedUnitReservations(bedunitid,pageable);
 	}
 }
