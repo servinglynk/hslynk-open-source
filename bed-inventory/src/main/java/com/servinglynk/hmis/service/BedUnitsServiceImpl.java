@@ -23,6 +23,8 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 		if(roomEntity == null) throw new ResourceNotFoundException("Room "+bedUnit.getRoom().getId()+" not found");
 		BedUnitEntity entity = BedUnitConverter.modelToEntity(bedUnit,null);
 		entity.setRoom(roomEntity);
+		entity.setArea(roomEntity.getAreaEntity());
+		entity.setShelter(roomEntity.getAreaEntity().getShelterEntity());
 		daoFactory.getBedUnitRepository().save(entity);
 		bedUnit.setId(entity.getId());
 		return bedUnit;
@@ -51,9 +53,11 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 	}
 	
 	@Transactional
-	public BedUnits getBedUnits(Pageable pageable) {
+	public BedUnits getBedUnits(UUID shelterid, UUID areaid, UUID roomid, Pageable pageable) {
 		BedUnits bedUnits = new BedUnits();
-		Page<BedUnitEntity> entityPage = daoFactory.getBedUnitRepository().findAll(pageable);
+		RoomEntity roomEntity =  daoFactory.getRoomRepository().findByIdAndProjectGroupCodeAndDeleted(roomid,SecurityContextUtil.getUserProjectGroup(),false);
+		if(roomEntity == null) throw new ResourceNotFoundException("Room "+roomid+" not found");
+		Page<BedUnitEntity> entityPage = daoFactory.getBedUnitRepository().findByRoomAndDeleted(roomEntity, false, pageable);
 		for(BedUnitEntity bedUnitEntity : entityPage.getContent()) {
 			bedUnits.addBedUnit(BedUnitConverter.entityToModel(bedUnitEntity));
 		}

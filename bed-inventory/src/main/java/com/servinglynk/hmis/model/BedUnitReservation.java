@@ -52,6 +52,7 @@ public class BedUnitReservation {
 		this.reservationEndDateDate = reservationEndDateDate;
 	}
 	public BedUnit getBedUnit() {
+		if(bedUnit == null) bedUnit = new BedUnit();
 		return bedUnit;
 	}
 	public void setBedUnit(BedUnit bedUnit) {

@@ -51,9 +51,11 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 	}
 	
 	@Transactional
-	public BedUnitReservations getBedUnitReservations(Pageable pageable) {
+	public BedUnitReservations getBedUnitReservations(UUID bedUnitId,Pageable pageable) {
+		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findOne(bedUnitId);
+		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed Unit "+bedUnitId+" not found");
 		BedUnitReservations rooms = new BedUnitReservations();
-		Page<BedUnitReservationEntity> entityPage = daoFactory.getBedUnitReservationRepository().findAll(pageable);
+		Page<BedUnitReservationEntity> entityPage = daoFactory.getBedUnitReservationRepository().findByBedUnitAndDeleted(bedUnitEntity, false, pageable);
 		for(BedUnitReservationEntity roomEntity : entityPage.getContent()) {
 			rooms.addBedUnitReservation(BedUnitReservationConverter.entityToModel(roomEntity));
 		}

@@ -20,6 +20,10 @@ public class BedOccupantConverter {
 		model.setIsActive(entity.getIsActive());
 		model.setOccupancyEndDate(entity.getOccupancyEndDate());
 		model.setOccupancyStartDate(entity.getOccupancyStartDate());
+		model.setClientId(entity.getClientId());
+		model.setDedupClientId(entity.getDedupClientId());
+		model.setEnrollmentId(entity.getEnrollemntId());
+		model.setEnrollmentType(entity.getEnrollmentType());
 		model.setId(entity.getId());
 		return model;
 	}

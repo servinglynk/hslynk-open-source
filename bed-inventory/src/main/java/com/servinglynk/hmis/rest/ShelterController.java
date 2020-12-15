@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.model.ShelterModel;
@@ -44,7 +45,9 @@ public class ShelterController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@APIMapping(value = "GET_SHELTERS",checkSessionToken = true,checkTrustedApp = true)
-	Shelters getAreas(Pageable pageable) {
-		return serviceFactory.getShelterService().getShelters(pageable);
+	Shelters getAreas(
+			@RequestParam(value = "q",required = false) String q,
+			Pageable pageable) {
+		return serviceFactory.getShelterService().getShelters(q,pageable);
 	}
 }

@@ -41,6 +41,13 @@ public class BedUnitEntity extends BaseEntity {
 	@JoinColumn(name = "room_id", nullable = true )
 	private RoomEntity room;
 	
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "area_id", nullable = true )
+	private AreaEntity area;
+	
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "shelter_id", nullable = true )
+	private ShelterEntity shelter;
 	
 	public UUID getId() {
 		return id;
@@ -77,5 +84,17 @@ public class BedUnitEntity extends BaseEntity {
 	}
 	public void setRoom(RoomEntity room) {
 		this.room = room;
+	}
+	public AreaEntity getArea() {
+		return area;
+	}
+	public void setArea(AreaEntity area) {
+		this.area = area;
+	}
+	public ShelterEntity getShelter() {
+		return shelter;
+	}
+	public void setShelter(ShelterEntity shelter) {
+		this.shelter = shelter;
 	}
 }
