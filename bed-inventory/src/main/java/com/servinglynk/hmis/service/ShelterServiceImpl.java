@@ -48,9 +48,9 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 	}
 	
 	@Transactional
-	public Shelters getShelters(Pageable pageable) {
+	public Shelters getShelters(String q,Pageable pageable) {
 		Shelters shelters = new Shelters();
-		Page<ShelterEntity> entityPage = daoFactory.getShelterRepository().findAll(pageable);
+		Page<ShelterEntity> entityPage = daoFactory.getShelterRepository().findByProjectGroupCodeAndDeleted(SecurityContextUtil.getUserProjectGroup(),false,pageable);
 		for(ShelterEntity shelterEntity : entityPage.getContent()) {
 			shelters.addShleter(ShelterConverter.entityToModel(shelterEntity));
 		}
