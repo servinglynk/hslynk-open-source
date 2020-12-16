@@ -24,4 +24,5 @@ public interface DaoFactory {
 	RoomReservationRepository getRoomReservationRepository();
 	BedUnitReservationRepository getBedUnitReservationRepository();
 	HousingUnitReservationRepository getHousingUnitReservationRepository();
+	ShelterDao getShelterDao();
 }

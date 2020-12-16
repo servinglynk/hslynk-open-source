@@ -12,5 +12,5 @@ public interface RoomReservationService {
 	void updateRoomReservation(RoomReservation roomReservation);
 	void deleteRoomReservation(UUID roomReservationId);
 	RoomReservation getRoomReservation(UUID roomReservationId);
-	RoomReservations getRoomReservations(Pageable pageable);
+	RoomReservations getRoomReservations(UUID roomid, Pageable pageable);
 }

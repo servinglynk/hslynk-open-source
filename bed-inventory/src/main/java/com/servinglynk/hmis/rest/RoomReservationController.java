@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ public class RoomReservationController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@APIMapping(value = "CREATE_ROOM_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
-	RoomReservation createRoomReservation(RoomReservation roomreservation,
+	RoomReservation createRoomReservation(@RequestBody RoomReservation roomreservation,
 			@PathVariable("shelterid") UUID shelterid,
 			@PathVariable("areaid") UUID areaid,
 			@PathVariable("roomid") UUID roomid			
@@ -29,7 +30,7 @@ public class RoomReservationController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.PUT,value = "/{roomreservationid}")
 	@APIMapping(value = "UPDATE_ROOM_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
-	void updateRoomReservation(RoomReservation roomreservation,
+	void updateRoomReservation(@RequestBody RoomReservation roomreservation,
 			@PathVariable("roomreservationid") UUID roomreservationid,
 			@PathVariable("shelterid") UUID shelterid,
 			@PathVariable("areaid") UUID areaid,
@@ -63,6 +64,6 @@ public class RoomReservationController extends BaseController{
 			@PathVariable("shelterid") UUID shelterid,
 			@PathVariable("areaid") UUID areaid,
 			@PathVariable("roomid") UUID roomid,	Pageable pageable) {
-		return serviceFactory.getRoomReservationService().getRoomReservations(pageable);
+		return serviceFactory.getRoomReservationService().getRoomReservations(roomid,pageable);
 	}
 }
