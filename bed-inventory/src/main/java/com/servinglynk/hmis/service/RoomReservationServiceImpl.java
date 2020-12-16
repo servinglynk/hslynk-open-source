@@ -56,11 +56,13 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 	}
 	
 	@Transactional
-	public RoomReservations getRoomReservations(Pageable pageable) {
+	public RoomReservations getRoomReservations(UUID roomId,Pageable pageable) {
+		RoomEntity roomEntity = daoFactory.getRoomRepository().findByIdAndProjectGroupCodeAndDeleted(roomId, SecurityContextUtil.getUserProjectGroup(),false);
+		if(roomEntity==null) throw new ResourceNotFoundException("Room "+roomId+" not found");
 		RoomReservations rooms = new RoomReservations();
-		Page<RoomReservationEntity> entityPage = daoFactory.getRoomReservationRepository().findAll(pageable);
-		for(RoomReservationEntity roomEntity : entityPage.getContent()) {
-			rooms.addRoomReservation(RoomReservationConverter.entityToModel(roomEntity));
+		Page<RoomReservationEntity> entityPage = daoFactory.getRoomReservationRepository().findByRoomAndDeleted(roomEntity,false,pageable);
+		for(RoomReservationEntity roomReservationEntity : entityPage.getContent()) {
+			rooms.addRoomReservation(RoomReservationConverter.entityToModel(roomReservationEntity));
 		}
 		
 		 SortedPagination pagination = new SortedPagination();
