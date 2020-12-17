@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.service;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -51,11 +52,11 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 	}
 	
 	@Transactional
-	public BedUnitReservations getBedUnitReservations(UUID bedUnitId,Pageable pageable) {
+	public BedUnitReservations getBedUnitReservations(UUID bedUnitId, Date fromdate, Date todate,Pageable pageable) {
 		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findOne(bedUnitId);
 		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed Unit "+bedUnitId+" not found");
 		BedUnitReservations rooms = new BedUnitReservations();
-		Page<BedUnitReservationEntity> entityPage = daoFactory.getBedUnitReservationRepository().findByBedUnitAndDeleted(bedUnitEntity, false, pageable);
+		Page<BedUnitReservationEntity> entityPage = daoFactory.getBedUnitReservationDao().getBedUnits(bedUnitId, fromdate, todate, pageable);
 		for(BedUnitReservationEntity roomEntity : entityPage.getContent()) {
 			rooms.addBedUnitReservation(BedUnitReservationConverter.entityToModel(roomEntity));
 		}

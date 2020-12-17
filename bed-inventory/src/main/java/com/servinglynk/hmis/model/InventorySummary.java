@@ -8,12 +8,13 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(value = Include.NON_NULL)
 public class InventorySummary extends ClientModel {
 	
-	
+	private Long totalShelters;
 	private Long totalAreas;
 	private Long totalRooms;
 	private Long totalBeds;
 	private Long occupiedBeds;
 	private Long reservedBeds;
+	private Long reservedRooms;
 	private Long vacantBeds;
 	
 	public Long getTotalAreas() {
@@ -51,5 +52,17 @@ public class InventorySummary extends ClientModel {
 	}
 	public void setVacantBeds(Long vacantBeds) {
 		this.vacantBeds = vacantBeds;
+	}
+	public Long getTotalShelters() {
+		return totalShelters;
+	}
+	public void setTotalShelters(Long totalShelters) {
+		this.totalShelters = totalShelters;
+	}
+	public Long getReservedRooms() {
+		return reservedRooms;
+	}
+	public void setReservedRooms(Long reservedRooms) {
+		this.reservedRooms = reservedRooms;
 	}	
 }
