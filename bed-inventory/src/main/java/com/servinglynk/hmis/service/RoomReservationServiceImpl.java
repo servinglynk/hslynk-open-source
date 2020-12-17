@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,11 +57,11 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 	}
 	
 	@Transactional
-	public RoomReservations getRoomReservations(UUID roomId,Pageable pageable) {
+	public RoomReservations getRoomReservations(UUID roomId,Date fromdate, Date todate,Pageable pageable) {
 		RoomEntity roomEntity = daoFactory.getRoomRepository().findByIdAndProjectGroupCodeAndDeleted(roomId, SecurityContextUtil.getUserProjectGroup(),false);
 		if(roomEntity==null) throw new ResourceNotFoundException("Room "+roomId+" not found");
 		RoomReservations rooms = new RoomReservations();
-		Page<RoomReservationEntity> entityPage = daoFactory.getRoomReservationRepository().findByRoomAndDeleted(roomEntity,false,pageable);
+		Page<RoomReservationEntity> entityPage = daoFactory.getRoomReservationDao().getRoomReservations(roomId, fromdate, todate, pageable);
 		for(RoomReservationEntity roomReservationEntity : entityPage.getContent()) {
 			rooms.addRoomReservation(RoomReservationConverter.entityToModel(roomReservationEntity));
 		}
@@ -80,8 +81,8 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 			BedUnitReservationEntity entity = new BedUnitReservationEntity();
 			entity.setBedUnit(bedUnitEntity);
 			entity.setProjectGroupCode(bedUnitEntity.getProjectGroupCode());
-			entity.setReservationEndDateDate(roomReservation.getReservationEndDateDate());
-			entity.setReservationStateDate(roomReservation.getReservationStateDate());
+			entity.setReservationEndDateDate(roomReservation.getEndDate());
+			entity.setReservationStateDate(roomReservation.getStateDate());
 			entity.setReservedCleintId(roomReservation.getReservedCleintId());
 			entity.setReservedHouseholdId(roomReservation.getReservedHouseholdId());
 			daoFactory.getBedUnitReservationRepository().save(entity);

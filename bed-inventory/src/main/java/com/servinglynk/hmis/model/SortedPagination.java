@@ -53,7 +53,7 @@ public class SortedPagination {
 
 
 	public Sort getSort() {
-		if(sort==null) return new Sort();
+	//	if(sort==null) return new Sort();
 		return sort;
 	}
 

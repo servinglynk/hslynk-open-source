@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.service;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.data.domain.Pageable;
@@ -12,5 +13,5 @@ public interface BedOccupantService {
 	void updateBedOccupant(BedOccupant bedOccupant);
 	void deleteBedOccupant(UUID bedOccupantId);
 	BedOccupant getBedOccupant(UUID bedOccupantId);
-	BedOccupants getBedOccupants(UUID bedUnitId,Pageable pageable);
+	BedOccupants getBedOccupants(UUID bedUnitId,Date fromdate, Date todate, Pageable pageable);
 }

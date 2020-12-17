@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.entity.ShelterEntity;
+import com.servinglynk.hmis.model.InventorySummary;
 import com.servinglynk.hmis.model.ShelterModel;
 import com.servinglynk.hmis.model.Shelters;
 import com.servinglynk.hmis.model.SortedPagination;
@@ -43,8 +44,10 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 	@Transactional
 	public ShelterModel getShelter(UUID shelterId) {
 		ShelterEntity entity =  daoFactory.getShelterRepository().findByIdAndProjectGroupCodeAndDeleted(shelterId,SecurityContextUtil.getUserProjectGroup(),false);
-		if(entity == null) throw new ResourceNotFoundException("Shelter "+shelterId+" not found");		
-		return ShelterConverter.entityToModel(entity);
+		if(entity == null) throw new ResourceNotFoundException("Shelter "+shelterId+" not found");
+		ShelterModel shelterModel = ShelterConverter.entityToModel(entity);
+		//shelterModel.setSummary(this.getShelterSummary(shelterId, 1L));
+		return shelterModel;
 	}
 	
 	@Transactional
@@ -60,6 +63,7 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 			shelters.addShleter(ShelterConverter.entityToModel(shelterEntity));
 		}
 		
+		//shelters.setSummary(this.getShelterSummary(null, entityPage.getTotalElements()));
 		 SortedPagination pagination = new SortedPagination();
 		   
 	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
@@ -68,4 +72,18 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 	        shelters.setPagination(pagination);
 		return shelters;
 	}	
+	
+	
+	public InventorySummary getShelterSummary(UUID shelterId,Long shelterCount) {
+		InventorySummary summary = new InventorySummary();
+		summary.setTotalAreas(daoFactory.getSummaryDao().getAreaCount(shelterId));
+		summary.setTotalRooms(daoFactory.getSummaryDao().getRoomCount(null, shelterId));
+		summary.setTotalBeds(daoFactory.getSummaryDao().getBedCount(null, null, shelterId));
+		summary.setTotalShelters(shelterCount);
+		summary.setOccupiedBeds(daoFactory.getSummaryDao().getOccupiedBeds(null, null, null, shelterId));
+		summary.setReservedBeds(daoFactory.getSummaryDao().getReservedBeds(null, null, null, shelterId));
+		summary.setReservedRooms(daoFactory.getSummaryDao().getReservedRooms(null, null, shelterId));
+		summary.setVacantBeds(daoFactory.getSummaryDao().getVacantBeds(null,null, null, shelterId));
+		return summary;
+	}
 }

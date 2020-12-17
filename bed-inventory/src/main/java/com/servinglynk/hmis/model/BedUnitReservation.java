@@ -3,10 +3,9 @@ package com.servinglynk.hmis.model;
 import java.util.Date;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("bedUnitReservation")
 @JsonInclude(value = Include.NON_NULL)
@@ -15,10 +14,8 @@ public class BedUnitReservation {
 	private UUID id;
 	private UUID reservedCleintId;
 	private UUID reservedHouseholdId;
-	 @JsonFormat(pattern = "yyyy-MM-dd")
-	private Date reservationStateDate; 
-	 @JsonFormat(pattern = "yyyy-MM-dd")
-	private Date reservationEndDateDate;
+	private Date startDate; 
+	private Date endDate;
 	
 	private BedUnit bedUnit;
 	public UUID getId() {
@@ -39,17 +36,17 @@ public class BedUnitReservation {
 	public void setReservedHouseholdId(UUID reservedHouseholdId) {
 		this.reservedHouseholdId = reservedHouseholdId;
 	}
-	public Date getReservationStateDate() {
-		return reservationStateDate;
+	public Date getStartDate() {
+		return startDate;
 	}
-	public void setReservationStateDate(Date reservationStateDate) {
-		this.reservationStateDate = reservationStateDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
-	public Date getReservationEndDateDate() {
-		return reservationEndDateDate;
+	public Date getEndDate() {
+		return endDate;
 	}
-	public void setReservationEndDateDate(Date reservationEndDateDate) {
-		this.reservationEndDateDate = reservationEndDateDate;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	public BedUnit getBedUnit() {
 		if(bedUnit == null) bedUnit = new BedUnit();
