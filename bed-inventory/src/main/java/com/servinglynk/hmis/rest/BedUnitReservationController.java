@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.model.BedUnitReservation;
 import com.servinglynk.hmis.model.BedUnitReservations;
-import com.servinglynk.hmis.service.exception.InvalidParameterException;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
-import com.servinglynk.hmis.warehouse.common.util.DateUtil;
 
 @RestController
 @RequestMapping("/bedunits/{bedunitid}/reservations")

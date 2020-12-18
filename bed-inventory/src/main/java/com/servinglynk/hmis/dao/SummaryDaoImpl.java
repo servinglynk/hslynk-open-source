@@ -13,9 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.entity.AreaEntity;
+import com.servinglynk.hmis.entity.BedOccupantEntity;
 import com.servinglynk.hmis.entity.BedUnitEntity;
+import com.servinglynk.hmis.entity.BedUnitReservationEntity;
 import com.servinglynk.hmis.entity.RoomEntity;
+import com.servinglynk.hmis.entity.RoomReservationEntity;
 import com.servinglynk.hmis.entity.ShelterEntity;
+import com.servinglynk.hmis.service.SecurityContextUtil;
 
 
 @Component
@@ -23,30 +27,51 @@ public class SummaryDaoImpl implements SummaryDao {
 	
 	@Autowired EntityManager entityManager;
 	
-	public Long getBedCount(UUID roomId,UUID areaId,UUID ShelterId) {
+	public Long getBedCount(UUID roomId,UUID areaId,UUID shelterId) {
 		Session session = entityManager.unwrap(Session.class);
 		ProjectionList projectionList = Projections.projectionList();
 		DetachedCriteria criteria = DetachedCriteria.forClass(BedUnitEntity.class);
 		criteria.createAlias("room", "room");
 		criteria.createAlias("area", "area");
 		criteria.createAlias("shelter", "shelter");
-		if(roomId!=null) criteria.add(Restrictions.eq("room.id", roomId));
-		if(areaId!=null) criteria.add(Restrictions.eq("area.id", areaId));
-		if(ShelterId!=null) criteria.add(Restrictions.eq("shelter.id", ShelterId));
+		if(roomId!=null) {
+			criteria.add(Restrictions.eq("room.id", roomId));
+			criteria.add(Restrictions.eq("room.deleted", false));
+		}
+		if(areaId!=null) {
+			criteria.add(Restrictions.eq("area.id", areaId));
+			criteria.add(Restrictions.eq("area.deleted", false));
+		}
+		if(shelterId!=null) {
+			criteria.add(Restrictions.eq("shelter.id", shelterId));
+			criteria.add(Restrictions.eq("shelter.deleted", false));
+		}
+		
+	    criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+	    criteria.add(Restrictions.eq("deleted", false));
 		projectionList.add(Projections.rowCount());
 		criteria.setProjection(projectionList);
 		return (Long) criteria.getExecutableCriteria(session).uniqueResult();
 	}
 	
 	
-	public Long getRoomCount(UUID areaId,UUID ShelterId) {
+	public Long getRoomCount(UUID areaId,UUID shelterId) {
 		Session session = entityManager.unwrap(Session.class);
 		ProjectionList projectionList = Projections.projectionList();
 		DetachedCriteria criteria = DetachedCriteria.forClass(RoomEntity.class);
-		criteria.createAlias("areaEntity", "areaEntity");
-		criteria.createAlias("shelterEntity", "shelterEntity");
-		if(areaId!=null) criteria.add(Restrictions.eq("areaEntity.id", areaId));
-		if(ShelterId!=null) criteria.add(Restrictions.eq("shelterEntity.id", ShelterId));
+		criteria.createAlias("area", "area");
+		criteria.createAlias("shelter", "shelter");
+		if(areaId!=null) {
+			criteria.add(Restrictions.eq("area.id", areaId));
+			criteria.add(Restrictions.eq("area.deleted", false));
+		}
+		if(shelterId!=null) {
+			criteria.add(Restrictions.eq("shelter.id", shelterId));
+			criteria.add(Restrictions.eq("shelter.deleted", false));
+		}
+		
+	    criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+	    criteria.add(Restrictions.eq("deleted", false));
 		projectionList.add(Projections.rowCount());
 		criteria.setProjection(projectionList);
 		return (Long) criteria.getExecutableCriteria(session).uniqueResult();
@@ -56,8 +81,14 @@ public class SummaryDaoImpl implements SummaryDao {
 		Session session = entityManager.unwrap(Session.class);
 		ProjectionList projectionList = Projections.projectionList();
 		DetachedCriteria criteria = DetachedCriteria.forClass(AreaEntity.class);
-		criteria.createAlias("shelterEntity", "shelterEntity");
-		if(shelterId!=null) criteria.add(Restrictions.eq("shelterEntity.id", shelterId));
+		criteria.createAlias("shelter", "shelter");
+		if(shelterId!=null) {
+			criteria.add(Restrictions.eq("shelter.id", shelterId));
+			criteria.add(Restrictions.eq("shelter.deleted", false));
+		}
+		
+	    criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+	    criteria.add(Restrictions.eq("deleted", false));
 		projectionList.add(Projections.rowCount());
 		criteria.setProjection(projectionList);
 		return (Long) criteria.getExecutableCriteria(session).uniqueResult();
@@ -68,6 +99,9 @@ public class SummaryDaoImpl implements SummaryDao {
 		ProjectionList projectionList = Projections.projectionList();
 		DetachedCriteria criteria = DetachedCriteria.forClass(ShelterEntity.class);
 		if(shelterId!=null) criteria.add(Restrictions.eq("id", shelterId));
+		
+	    criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+	    criteria.add(Restrictions.eq("deleted", false));
 		projectionList.add(Projections.rowCount());
 		criteria.setProjection(projectionList);
 		return (Long) criteria.getExecutableCriteria(session).uniqueResult();
@@ -76,28 +110,98 @@ public class SummaryDaoImpl implements SummaryDao {
 
 	@Override
 	public Long getReservedBeds(UUID bedId, UUID roomId, UUID areaId, UUID shelterId) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = entityManager.unwrap(Session.class);
+		ProjectionList projectionList = Projections.projectionList();
+		DetachedCriteria criteria = DetachedCriteria.forClass(BedUnitReservationEntity.class);
+		criteria.createAlias("room", "room");
+		criteria.createAlias("area", "area");
+		criteria.createAlias("shelter", "shelter");
+		criteria.createAlias("bedUnit", "bedUnit");
+		if(bedId!=null) {
+			criteria.add(Restrictions.eq("bedUnit.id", bedId));
+			criteria.add(Restrictions.eq("bedUnit.deleted", false));
+		}
+		if(roomId!=null) {
+			criteria.add(Restrictions.eq("room.id", roomId));
+			criteria.add(Restrictions.eq("room.deleted", false));
+		}
+		if(areaId!=null) {
+			criteria.add(Restrictions.eq("area.id", areaId));
+			criteria.add(Restrictions.eq("area.deleted", false));
+		}
+		if(shelterId!=null) {
+			criteria.add(Restrictions.eq("shelter.id", shelterId));
+			criteria.add(Restrictions.eq("shelter.deleted", false));
+		}
+		
+	    criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+	    criteria.add(Restrictions.eq("deleted", false));
+		projectionList.add(Projections.rowCount());
+		criteria.setProjection(projectionList);
+		return (Long) criteria.getExecutableCriteria(session).uniqueResult();
 	}
 
 
 	@Override
 	public Long getOccupiedBeds(UUID bedId, UUID roomId, UUID areaId, UUID shelterId) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = entityManager.unwrap(Session.class);
+		ProjectionList projectionList = Projections.projectionList();
+		DetachedCriteria criteria = DetachedCriteria.forClass(BedOccupantEntity.class);
+		criteria.createAlias("room", "room");
+		criteria.createAlias("area", "area");
+		criteria.createAlias("shelter", "shelter");
+		criteria.createAlias("bedUnit", "bedUnit");
+		if(bedId!=null) {
+			criteria.add(Restrictions.eq("bedUnit.id", bedId));
+			criteria.add(Restrictions.eq("bedUnit.deleted", false));	
+		}
+		if(roomId!=null) {
+			criteria.add(Restrictions.eq("room.id", roomId));
+			criteria.add(Restrictions.eq("room.deleted", false));
+		}
+		if(areaId!=null) {
+			criteria.add(Restrictions.eq("area.id", areaId));
+			criteria.add(Restrictions.eq("area.deleted", false));
+		}
+		if(shelterId!=null) {
+			criteria.add(Restrictions.eq("shelter.id", shelterId));
+			criteria.add(Restrictions.eq("shelter.deleted", false));
+		}
+		
+	    criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+	    criteria.add(Restrictions.eq("deleted", false));
+		projectionList.add(Projections.rowCount());
+		criteria.setProjection(projectionList);
+		return (Long) criteria.getExecutableCriteria(session).uniqueResult();
 	}					
 
 
 	@Override
 	public Long getReservedRooms(UUID roomId, UUID areaId, UUID shelterId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Session session = entityManager.unwrap(Session.class);
+		ProjectionList projectionList = Projections.projectionList();
+		DetachedCriteria criteria = DetachedCriteria.forClass(RoomReservationEntity.class);
+		criteria.createAlias("room", "room");
+		criteria.createAlias("area", "area");
+		criteria.createAlias("shelter", "shelter");
 
-
-	@Override
-	public Long getVacantBeds(UUID bedId, UUID roomId, UUID areaId, UUID shelterId) {
-		// TODO Auto-generated method stub
-		return null;
+		if(roomId!=null) {
+			criteria.add(Restrictions.eq("room.id", roomId));
+			criteria.add(Restrictions.eq("room.deleted", false));
+		}
+		if(areaId!=null) {
+			criteria.add(Restrictions.eq("area.id", areaId));
+			criteria.add(Restrictions.eq("area.deleted", false));
+		}
+		if(shelterId!=null) {
+			criteria.add(Restrictions.eq("shelter.id", shelterId));
+			criteria.add(Restrictions.eq("shelter.deleted", false));
+		}
+		
+	    criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+	    criteria.add(Restrictions.eq("deleted", false));
+		projectionList.add(Projections.rowCount());
+		criteria.setProjection(projectionList);
+		return (Long) criteria.getExecutableCriteria(session).uniqueResult();
 	}
 }

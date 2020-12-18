@@ -10,5 +10,4 @@ public interface SummaryDao {
 	Long getReservedBeds(UUID bedId,UUID roomId,UUID areaId,UUID shelterId);
 	Long getOccupiedBeds(UUID bedId,UUID roomId,UUID areaId,UUID shelterId);
 	Long getReservedRooms(UUID roomId,UUID areaId,UUID shelterId);
-	Long getVacantBeds(UUID bedId,UUID roomId,UUID areaId,UUID shelterId);
 }

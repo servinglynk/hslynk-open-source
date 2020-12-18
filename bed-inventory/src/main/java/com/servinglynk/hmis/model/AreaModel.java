@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonRootName("area")
 @JsonInclude(value = Include.NON_NULL)
-public class AreaModel {
+public class AreaModel extends ClientModel {
 
 	private UUID id;
 	private String name;

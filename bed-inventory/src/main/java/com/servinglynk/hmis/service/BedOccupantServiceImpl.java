@@ -28,6 +28,9 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		entity.setEnrollmentType(validationService.validateEnrillment(bedUnit.getEnrollmentId()));
 		entity.setEnrollemntId(bedUnit.getEnrollmentId());
 		entity.setBedUnit(bedUnitEntity);
+		entity.setRoom(bedUnitEntity.getRoom());
+		entity.setArea(bedUnitEntity.getArea());
+		entity.setShelter(bedUnitEntity.getShelter());
 		daoFactory.getBedOccupantRepository().save(entity);
 		bedUnit.setId(entity.getId());
 		return bedUnit;

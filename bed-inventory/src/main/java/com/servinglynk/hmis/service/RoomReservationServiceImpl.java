@@ -27,6 +27,8 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 		if(roomEntity==null) throw new ResourceNotFoundException("Room "+room.getRoom().getId()+" not found");
 		RoomReservationEntity entity = RoomReservationConverter.modelToEntity(room,null);
 		entity.setRoom(roomEntity);
+		entity.setArea(roomEntity.getArea());
+		entity.setShelter(roomEntity.getShelter());
 		daoFactory.getRoomReservationRepository().save(entity);
 		List<BedUnitEntity> bedUnitEntities =	daoFactory.getBedUnitRepository().findByRoomAndDeleted(roomEntity, false);
 		this.reserveRoomBedUnits(bedUnitEntities, room);
@@ -82,7 +84,7 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 			entity.setBedUnit(bedUnitEntity);
 			entity.setProjectGroupCode(bedUnitEntity.getProjectGroupCode());
 			entity.setReservationEndDateDate(roomReservation.getEndDate());
-			entity.setReservationStateDate(roomReservation.getStateDate());
+			entity.setReservationStateDate(roomReservation.getStartDate());
 			entity.setReservedCleintId(roomReservation.getReservedCleintId());
 			entity.setReservedHouseholdId(roomReservation.getReservedHouseholdId());
 			daoFactory.getBedUnitReservationRepository().save(entity);

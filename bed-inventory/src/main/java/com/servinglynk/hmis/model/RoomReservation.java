@@ -15,7 +15,7 @@ public class RoomReservation {
 	private UUID id;
 	private UUID reservedCleintId;
 	private UUID reservedHouseholdId;
-	private Date stateDate; 
+	private Date startDate; 
 	private Date endDate;
 	
 	private RoomModel room;
@@ -37,11 +37,11 @@ public class RoomReservation {
 	public void setReservedHouseholdId(UUID reservedHouseholdId) {
 		this.reservedHouseholdId = reservedHouseholdId;
 	}
-	public Date getStateDate() {
-		return stateDate;
+	public Date getStartDate() {
+		return startDate;
 	}
-	public void setStateDate(Date stateDate) {
-		this.stateDate = stateDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 	public Date getEndDate() {
 		return endDate;
