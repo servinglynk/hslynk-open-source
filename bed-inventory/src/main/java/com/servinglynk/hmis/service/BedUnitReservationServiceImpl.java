@@ -24,6 +24,9 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed Unit "+room.getBedUnit().getId()+" not found");
 		BedUnitReservationEntity entity = BedUnitReservationConverter.modelToEntity(room,null);
 		entity.setBedUnit(bedUnitEntity);
+		entity.setRoom(bedUnitEntity.getRoom());
+		entity.setArea(bedUnitEntity.getArea());
+		entity.setShelter(bedUnitEntity.getShelter());
 		daoFactory.getBedUnitReservationRepository().save(entity);
 		room.setId(entity.getId());
 		return room;

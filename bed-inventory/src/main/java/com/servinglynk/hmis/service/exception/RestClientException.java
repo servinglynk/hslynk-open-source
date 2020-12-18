@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.service.exception;
 
+@SuppressWarnings("serial")
 public class RestClientException extends RuntimeException {
 	
 	

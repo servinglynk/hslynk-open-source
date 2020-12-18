@@ -14,10 +14,10 @@ public class RoomConverter {
 
 	public static RoomModel entityToModel(RoomEntity entity) {
 		RoomModel model = new RoomModel();
-		model.setArea(AreaConverter.entityToModel(entity.getAreaEntity()));
+		model.setArea(AreaConverter.entityToModel(entity.getArea()));
 		model.setName(entity.getName());
 		model.setOccupantCapacity(entity.getOccupantCapacity());
-		model.setShelter(ShelterConverter.entityToModel(entity.getShelterEntity()));
+		model.setShelter(ShelterConverter.entityToModel(entity.getShelter()));
 		model.setId(entity.getId());
 		return model;
 	}

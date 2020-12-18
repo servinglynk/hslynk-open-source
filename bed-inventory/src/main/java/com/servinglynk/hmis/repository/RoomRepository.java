@@ -11,7 +11,7 @@ import com.servinglynk.hmis.entity.AreaEntity;
 import com.servinglynk.hmis.entity.RoomEntity;
 
 public interface RoomRepository extends JpaRepository<RoomEntity, Serializable> {
-	Page<RoomEntity> findByAreaEntity(AreaEntity areaEntity,Pageable pageable);
+	Page<RoomEntity> findByArea(AreaEntity areaEntity,Pageable pageable);
 
 	RoomEntity findByIdAndProjectGroupCodeAndDeleted(UUID id, String userProjectGroup, boolean deleted);
 }

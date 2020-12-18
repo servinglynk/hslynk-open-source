@@ -36,7 +36,7 @@ public class AreaEntity extends BaseEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "shelter_id", nullable = true )
-	private ShelterEntity shelterEntity;
+	private ShelterEntity shelter;
 	public UUID getId() {
 		return id;
 	}
@@ -67,10 +67,10 @@ public class AreaEntity extends BaseEntity {
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-	public ShelterEntity getShelterEntity() {
-		return shelterEntity;
+	public ShelterEntity getShelter() {
+		return shelter;
 	}
-	public void setShelterEntity(ShelterEntity shelterEntity) {
-		this.shelterEntity = shelterEntity;
+	public void setShelter(ShelterEntity shelter) {
+		this.shelter = shelter;
 	}
 }

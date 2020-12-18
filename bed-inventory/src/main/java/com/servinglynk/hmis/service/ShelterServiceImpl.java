@@ -46,7 +46,7 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 		ShelterEntity entity =  daoFactory.getShelterRepository().findByIdAndProjectGroupCodeAndDeleted(shelterId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("Shelter "+shelterId+" not found");
 		ShelterModel shelterModel = ShelterConverter.entityToModel(entity);
-		//shelterModel.setSummary(this.getShelterSummary(shelterId, 1L));
+		shelterModel.setSummary(this.getShelterSummary(shelterId, 1L));
 		return shelterModel;
 	}
 	
@@ -63,7 +63,7 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 			shelters.addShleter(ShelterConverter.entityToModel(shelterEntity));
 		}
 		
-		//shelters.setSummary(this.getShelterSummary(null, entityPage.getTotalElements()));
+		shelters.setSummary(this.getShelterSummary(null, entityPage.getTotalElements()));
 		 SortedPagination pagination = new SortedPagination();
 		   
 	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
@@ -83,7 +83,7 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 		summary.setOccupiedBeds(daoFactory.getSummaryDao().getOccupiedBeds(null, null, null, shelterId));
 		summary.setReservedBeds(daoFactory.getSummaryDao().getReservedBeds(null, null, null, shelterId));
 		summary.setReservedRooms(daoFactory.getSummaryDao().getReservedRooms(null, null, shelterId));
-		summary.setVacantBeds(daoFactory.getSummaryDao().getVacantBeds(null,null, null, shelterId));
+		summary.setVacantBeds(summary.getTotalBeds() - summary.getOccupiedBeds());
 		return summary;
 	}
 }
