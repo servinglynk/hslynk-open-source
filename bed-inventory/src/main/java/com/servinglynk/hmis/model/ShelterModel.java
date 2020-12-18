@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("shelter")
 @JsonInclude(value = Include.NON_NULL)
-public class ShelterModel {
+public class ShelterModel extends ClientModel {
 
 	private UUID id;
 	private String name;

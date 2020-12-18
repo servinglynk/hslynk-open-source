@@ -23,7 +23,7 @@ public class AreaConverter {
 		model.setIsActive(entity.getIsActive());
 		model.setOccupantCapacity(entity.getOccupantCapacity());
 		model.setId(entity.getId());
-		model.setShelter(ShelterConverter.entityToModel(entity.getShelterEntity()));
+		model.setShelter(ShelterConverter.entityToModel(entity.getShelter()));
 		return model;
 	}
 

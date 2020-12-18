@@ -11,6 +11,7 @@ import com.servinglynk.hmis.entity.BedUnitEntity;
 import com.servinglynk.hmis.entity.RoomEntity;
 import com.servinglynk.hmis.model.BedUnit;
 import com.servinglynk.hmis.model.BedUnits;
+import com.servinglynk.hmis.model.InventorySummary;
 import com.servinglynk.hmis.model.SortedPagination;
 import com.servinglynk.hmis.service.converter.BedUnitConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
@@ -23,8 +24,8 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 		if(roomEntity == null) throw new ResourceNotFoundException("Room "+bedUnit.getRoom().getId()+" not found");
 		BedUnitEntity entity = BedUnitConverter.modelToEntity(bedUnit,null);
 		entity.setRoom(roomEntity);
-		entity.setArea(roomEntity.getAreaEntity());
-		entity.setShelter(roomEntity.getAreaEntity().getShelterEntity());
+		entity.setArea(roomEntity.getArea());
+		entity.setShelter(roomEntity.getArea().getShelter());
 		daoFactory.getBedUnitRepository().save(entity);
 		bedUnit.setId(entity.getId());
 		return bedUnit;
@@ -70,4 +71,13 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 	        bedUnits.setPagination(pagination);
 		return bedUnits;
 	}	
+	
+	public InventorySummary getBedUnitSummary(UUID shelterId,UUID areaId,UUID roomId,UUID bedunitId,Long bedCount) {
+		InventorySummary summary = new InventorySummary();
+		summary.setTotalBeds(bedCount);
+		summary.setOccupiedBeds(daoFactory.getSummaryDao().getOccupiedBeds(null, roomId, areaId, shelterId));
+		summary.setReservedBeds(daoFactory.getSummaryDao().getReservedBeds(null, roomId, areaId, shelterId));
+		summary.setVacantBeds(summary.getTotalBeds() - summary.getOccupiedBeds());
+		return summary;
+	}
 }

@@ -7,8 +7,8 @@ public class RoomReservationConverter {
 
 	public static RoomReservation entityToModel(RoomReservationEntity entity) {
 		RoomReservation model = new RoomReservation();
-		model.setReservationEndDateDate(entity.getReservationEndDateDate());
-		model.setReservationStateDate(entity.getReservationStateDate());
+		model.setEndDate(entity.getReservationEndDateDate());
+		model.setStartDate(entity.getReservationStateDate());
 		model.setReservedCleintId(entity.getReservedCleintId());
 		model.setReservedHouseholdId(entity.getReservedHouseholdId());
 		model.setRoom(RoomConverter.entityToModel(entity.getRoom()));
@@ -18,8 +18,8 @@ public class RoomReservationConverter {
 
 	public static RoomReservationEntity modelToEntity(RoomReservation model, RoomReservationEntity entity) {
 		if(entity == null) entity = new RoomReservationEntity();
-		entity.setReservationEndDateDate(model.getReservationEndDateDate());
-		entity.setReservationStateDate(model.getReservationStateDate());
+		entity.setReservationEndDateDate(model.getEndDate());
+		entity.setReservationStateDate(model.getStartDate());
 		entity.setReservedCleintId(model.getReservedCleintId());
 		entity.setReservedHouseholdId(model.getReservedHouseholdId());
 		return entity;

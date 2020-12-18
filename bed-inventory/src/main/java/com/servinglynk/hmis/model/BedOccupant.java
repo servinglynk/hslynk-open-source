@@ -3,10 +3,9 @@ package com.servinglynk.hmis.model;
 import java.util.Date;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("bedOccupant")
 @JsonInclude(value = Include.NON_NULL)
@@ -15,11 +14,9 @@ public class BedOccupant {
 	private UUID clientId;
 	private UUID dedupClientId;
 	private UUID enrollmentId;
-	 @JsonFormat(pattern = "yyyy-MM-dd")
-	private Date occupancyStartDate;
-	 @JsonFormat(pattern = "yyyy-MM-dd")
-	private Date occupancyEndDate;
-	 private String enrollmentType;
+	private Date startDate;
+	private Date endDate;
+	private String enrollmentType;
 	private Boolean isActive;
 	private BedUnit bedUnit;
 	public UUID getId() {
@@ -40,17 +37,17 @@ public class BedOccupant {
 	public void setDedupClientId(UUID dedupClientId) {
 		this.dedupClientId = dedupClientId;
 	}
-	public Date getOccupancyStartDate() {
-		return occupancyStartDate;
+	public Date getStartDate() {
+		return startDate;
 	}
-	public void setOccupancyStartDate(Date occupancyStartDate) {
-		this.occupancyStartDate = occupancyStartDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
-	public Date getOccupancyEndDate() {
-		return occupancyEndDate;
+	public Date getEndDate() {
+		return endDate;
 	}
-	public void setOccupancyEndDate(Date occupancyEndDate) {
-		this.occupancyEndDate = occupancyEndDate;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	public Boolean getIsActive() {
 		return isActive;

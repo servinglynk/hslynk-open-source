@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonRootName("room")
 @JsonInclude(value = Include.NON_NULL)
-public class RoomModel {
+public class RoomModel extends ClientModel{
 
 	private UUID id;
 	private String name;

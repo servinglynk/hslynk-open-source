@@ -10,16 +10,16 @@ public class BedOccupantConverter {
 			entity = new BedOccupantEntity();
 		}
 		entity.setIsActive(bedUnit.getIsActive());
-		entity.setOccupancyEndDate(bedUnit.getOccupancyEndDate());
-		entity.setOccupancyStartDate(bedUnit.getOccupancyStartDate());
+		entity.setOccupancyEndDate(bedUnit.getEndDate());
+		entity.setOccupancyStartDate(bedUnit.getStartDate());
 		return entity;
 	}
 
 	public static BedOccupant entityToModel(BedOccupantEntity entity) {
 		BedOccupant model = new BedOccupant();
 		model.setIsActive(entity.getIsActive());
-		model.setOccupancyEndDate(entity.getOccupancyEndDate());
-		model.setOccupancyStartDate(entity.getOccupancyStartDate());
+		model.setEndDate(entity.getOccupancyEndDate());
+		model.setStartDate(entity.getOccupancyStartDate());
 		model.setClientId(entity.getClientId());
 		model.setDedupClientId(entity.getDedupClientId());
 		model.setEnrollmentId(entity.getEnrollemntId());

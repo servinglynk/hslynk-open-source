@@ -16,4 +16,14 @@ public abstract class ClientModel {
 		String jsonString = objectMapper.writeValueAsString(this);
 		return jsonString;
 	} */
+	
+	private InventorySummary summary;
+
+	public InventorySummary getSummary() {
+		return summary;
+	}
+
+	public void setSummary(InventorySummary summary) {
+		this.summary = summary;
+	}
 }

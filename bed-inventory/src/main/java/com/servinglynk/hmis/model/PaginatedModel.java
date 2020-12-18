@@ -16,4 +16,15 @@ public abstract class PaginatedModel extends ClientModel{
 		this.pagination = pagination;
 	}
 	
+	private InventorySummary summary;
+
+	public InventorySummary getSummary() {
+		return summary;
+	}
+
+	public void setSummary(InventorySummary summary) {
+		this.summary = summary;
+	}
+	
+	
 }

@@ -29,6 +29,10 @@ public class DaoFactoryImpl implements DaoFactory {
 	@Autowired private BedUnitReservationRepository bedUnitReservationRepository;
 	@Autowired private HousingUnitReservationRepository housingUnitReservationRepository;
 	@Autowired private ShelterDao shelterDao;
+	@Autowired private SummaryDao summaryDao;
+	@Autowired private BedUnitReservationDao bedUnitReservationDao;
+	@Autowired private BedOccupantDao bedOccupantDao;
+	@Autowired private RoomReservationDao roomReservationDao;
 	
 	public ShelterRepository getShelterRepository() {
 		return shelterRepository;
@@ -95,6 +99,29 @@ public class DaoFactoryImpl implements DaoFactory {
 	}
 	public void setShelterDao(ShelterDao shelterDao) {
 		this.shelterDao = shelterDao;
+	}
+	public SummaryDao getSummaryDao() {
+		return summaryDao;
+	}
+	public void setSummaryDao(SummaryDao summaryDao) {
+		this.summaryDao = summaryDao;
+	}
+	public BedUnitReservationDao getBedUnitReservationDao() {
+		return bedUnitReservationDao;
+	}
+	public void setBedUnitReservationDao(BedUnitReservationDao bedUnitReservationDao) {
+		this.bedUnitReservationDao = bedUnitReservationDao;
+	}
+	public BedOccupantDao getBedOccupantDao() {
+		return bedOccupantDao;
+	}
+	public void setBedOccupantDao(BedOccupantDao bedOccupantDao) {
+		this.bedOccupantDao = bedOccupantDao;
+	}
+	public RoomReservationDao getRoomReservationDao() {
+		return roomReservationDao;
+	}
+	public void setRoomReservationDao(RoomReservationDao roomReservationDao) {
+		this.roomReservationDao = roomReservationDao;
 	}	
-	
 }

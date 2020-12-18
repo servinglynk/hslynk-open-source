@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.service;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -27,6 +28,9 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		entity.setEnrollmentType(validationService.validateEnrillment(bedUnit.getEnrollmentId()));
 		entity.setEnrollemntId(bedUnit.getEnrollmentId());
 		entity.setBedUnit(bedUnitEntity);
+		entity.setRoom(bedUnitEntity.getRoom());
+		entity.setArea(bedUnitEntity.getArea());
+		entity.setShelter(bedUnitEntity.getShelter());
 		daoFactory.getBedOccupantRepository().save(entity);
 		bedUnit.setId(entity.getId());
 		return bedUnit;
@@ -59,11 +63,11 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 	}
 	
 	@Transactional
-	public BedOccupants getBedOccupants(UUID bedUnitId,Pageable pageable) {
+	public BedOccupants getBedOccupants(UUID bedUnitId,Date fromdate, Date todate,Pageable pageable) {
 		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed unit not found");
 		BedOccupants bedUnits = new BedOccupants();
-		Page<BedOccupantEntity> entityPage = daoFactory.getBedOccupantRepository().findByBedUnitAndDeleted(bedUnitEntity, false, pageable);
+		Page<BedOccupantEntity> entityPage = daoFactory.getBedOccupantDao().getBedOccupants(bedUnitId, fromdate, todate, pageable);
 		for(BedOccupantEntity occupantEntity : entityPage.getContent()) {
 			bedUnits.addBedOccupant(BedOccupantConverter.entityToModel(occupantEntity));
 		}

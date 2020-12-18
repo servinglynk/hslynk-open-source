@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "bed_occupant", schema =  "bed_inventory")
@@ -53,6 +52,19 @@ public class BedOccupantEntity extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "bed_id", nullable = true )
 	private BedUnitEntity bedUnit;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "room_id", nullable = true )
+	private RoomEntity room;
+	
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "area_id", nullable = true )
+	private AreaEntity area;
+	
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "shelter_id", nullable = true )
+	private ShelterEntity shelter;
 	
 	public UUID getId() {
 		return id;
@@ -107,5 +119,23 @@ public class BedOccupantEntity extends BaseEntity {
 	}
 	public void setEnrollmentType(String enrollmentType) {
 		this.enrollmentType = enrollmentType;
+	}
+	public RoomEntity getRoom() {
+		return room;
+	}
+	public void setRoom(RoomEntity room) {
+		this.room = room;
+	}
+	public AreaEntity getArea() {
+		return area;
+	}
+	public void setArea(AreaEntity area) {
+		this.area = area;
+	}
+	public ShelterEntity getShelter() {
+		return shelter;
+	}
+	public void setShelter(ShelterEntity shelter) {
+		this.shelter = shelter;
 	}
 }

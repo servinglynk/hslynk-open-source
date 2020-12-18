@@ -42,6 +42,15 @@ public class RoomReservationEntity extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "room_id", nullable = true )
 	private RoomEntity room;
+	
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "shelter_id", nullable = true )
+	private ShelterEntity shelter;
+	
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "area_id", nullable = true )
+	private AreaEntity area;
+	
 	public UUID getId() {
 		return id;
 	}
@@ -77,5 +86,17 @@ public class RoomReservationEntity extends BaseEntity {
 	}
 	public void setRoom(RoomEntity room) {
 		this.room = room;
+	}
+	public ShelterEntity getShelter() {
+		return shelter;
+	}
+	public void setShelter(ShelterEntity shelter) {
+		this.shelter = shelter;
+	}
+	public AreaEntity getArea() {
+		return area;
+	}
+	public void setArea(AreaEntity area) {
+		this.area = area;
 	}
 }
