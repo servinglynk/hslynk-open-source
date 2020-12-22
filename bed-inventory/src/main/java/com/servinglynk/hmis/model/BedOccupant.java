@@ -19,6 +19,7 @@ public class BedOccupant {
 	private String enrollmentType;
 	private Boolean isActive;
 	private BedUnit bedUnit;
+	private Client client;
 	public UUID getId() {
 		return id;
 	}
@@ -74,5 +75,10 @@ public class BedOccupant {
 	public void setEnrollmentType(String enrollmentType) {
 		this.enrollmentType = enrollmentType;
 	}
-	
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
+	}
 }

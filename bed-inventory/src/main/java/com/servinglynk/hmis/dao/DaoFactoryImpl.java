@@ -7,6 +7,7 @@ import com.servinglynk.hmis.repository.AreaRepository;
 import com.servinglynk.hmis.repository.BedOccupantRepository;
 import com.servinglynk.hmis.repository.BedUnitRepository;
 import com.servinglynk.hmis.repository.BedUnitReservationRepository;
+import com.servinglynk.hmis.repository.ClientRepository;
 import com.servinglynk.hmis.repository.HousingUnitOccupantRepository;
 import com.servinglynk.hmis.repository.HousingUnitRepository;
 import com.servinglynk.hmis.repository.HousingUnitReservationRepository;
@@ -33,6 +34,7 @@ public class DaoFactoryImpl implements DaoFactory {
 	@Autowired private BedUnitReservationDao bedUnitReservationDao;
 	@Autowired private BedOccupantDao bedOccupantDao;
 	@Autowired private RoomReservationDao roomReservationDao;
+	@Autowired private ClientRepository clientRepository;
 	
 	public ShelterRepository getShelterRepository() {
 		return shelterRepository;
@@ -123,5 +125,11 @@ public class DaoFactoryImpl implements DaoFactory {
 	}
 	public void setRoomReservationDao(RoomReservationDao roomReservationDao) {
 		this.roomReservationDao = roomReservationDao;
-	}	
+	}
+	public ClientRepository getClientRepository() {
+		return clientRepository;
+	}
+	public void setClientRepository(ClientRepository clientRepository) {
+		this.clientRepository = clientRepository;
+	}
 }

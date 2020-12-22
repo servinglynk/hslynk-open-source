@@ -29,6 +29,10 @@ public class RoomReservationEntity extends BaseEntity {
 	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
 	private UUID reservedCleintId;
 	
+	@Column(name = "reserved_client_dedup_id")
+	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
+	private UUID reservedCleintDedupId;
+	
 	@Column(name = "reserved_household_id")
 	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
 	private UUID reservedHouseholdId;
@@ -98,5 +102,11 @@ public class RoomReservationEntity extends BaseEntity {
 	}
 	public void setArea(AreaEntity area) {
 		this.area = area;
+	}
+	public UUID getReservedCleintDedupId() {
+		return reservedCleintDedupId;
+	}
+	public void setReservedCleintDedupId(UUID reservedCleintDedupId) {
+		this.reservedCleintDedupId = reservedCleintDedupId;
 	}
 }

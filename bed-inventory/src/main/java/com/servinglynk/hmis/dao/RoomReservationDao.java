@@ -12,4 +12,6 @@ public interface RoomReservationDao {
 
 	
 	PageImpl<RoomReservationEntity> getRoomReservations(UUID roomId, Date fromdate,Date todate,Pageable pageable);
+	PageImpl<RoomReservationEntity> getClientRoomReservations(UUID clientDedupId, Date fromdate, Date todate,
+			Pageable pageable) ;
 }

@@ -22,14 +22,14 @@ public class BedUnitOccupantController extends BaseController{
 	@RequestMapping(method = RequestMethod.POST)
 	@APIMapping(value = "CREATE_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
 	BedOccupant createBedOccupant(@RequestBody BedOccupant bedOccupant,
-			@PathVariable("bedunitid") UUID bedunitid) {
+			@PathVariable("bedunitid") UUID bedunitid) throws Exception  {
 		bedOccupant.getBedUnit().setId(bedunitid);
 		return serviceFactory.getBedOccupantService().createBedOccupant(bedOccupant);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT,value = "/{occupantid}")
 	@APIMapping(value = "UPDATE_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
-	void updateBedOccupant(@RequestBody BedOccupant bedOccupant,@PathVariable("bedunitid") UUID bedunitid,@PathVariable("occupantid") UUID occupantid) {
+	void updateBedOccupant(@RequestBody BedOccupant bedOccupant,@PathVariable("bedunitid") UUID bedunitid,@PathVariable("occupantid") UUID occupantid)  throws Exception {
 		bedOccupant.setId(occupantid);
 		bedOccupant.getBedUnit().setId(bedunitid);
 		serviceFactory.getBedOccupantService().updateBedOccupant(bedOccupant);

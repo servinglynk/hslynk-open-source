@@ -25,7 +25,7 @@ public class RoomReservationController extends BaseController{
 			@PathVariable("shelterid") UUID shelterid,
 			@PathVariable("areaid") UUID areaid,
 			@PathVariable("roomid") UUID roomid			
-			) {
+			) throws Exception {
 			roomreservation.getRoom().setId(roomid);
 		return serviceFactory.getRoomReservationService().createRoomReservation(roomreservation);
 	}
@@ -36,7 +36,7 @@ public class RoomReservationController extends BaseController{
 			@PathVariable("roomreservationid") UUID roomreservationid,
 			@PathVariable("shelterid") UUID shelterid,
 			@PathVariable("areaid") UUID areaid,
-			@PathVariable("roomid") UUID roomid	) {
+			@PathVariable("roomid") UUID roomid	) throws Exception  {
 		roomreservation.setId(roomreservationid);
 		roomreservation.getRoom().setAreaId(roomid);
 		serviceFactory.getRoomReservationService().updateRoomReservation(roomreservation);

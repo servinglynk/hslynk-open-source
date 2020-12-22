@@ -15,8 +15,8 @@ public class HousingUnitOccupant {
 	private UUID clientId;
 	private UUID dedupClientId;
 	private UUID enrollmentId;
-	private Date occupancyStartDate;
-	private Date occupancyEndDate;
+	private Date startDate;
+	private Date endDate;
 	private Boolean isActive;
 	private HousingUnit housingUnit;
 	
@@ -39,17 +39,17 @@ public class HousingUnitOccupant {
 	public void setDedupClientId(UUID dedupClientId) {
 		this.dedupClientId = dedupClientId;
 	}
-	public Date getOccupancyStartDate() {
-		return occupancyStartDate;
+	public Date getStartDate() {
+		return startDate;
 	}
-	public void setOccupancyStartDate(Date occupancyStartDate) {
-		this.occupancyStartDate = occupancyStartDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
-	public Date getOccupancyEndDate() {
-		return occupancyEndDate;
+	public Date getEndDate() {
+		return endDate;
 	}
-	public void setOccupancyEndDate(Date occupancyEndDate) {
-		this.occupancyEndDate = occupancyEndDate;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	public Boolean getIsActive() {
 		return isActive;
@@ -58,6 +58,7 @@ public class HousingUnitOccupant {
 		this.isActive = isActive;
 	}
 	public HousingUnit getHousingUnit() {
+		if(housingUnit==null) housingUnit =  new HousingUnit();
 		return housingUnit;
 	}
 	public void setHousingUnit(HousingUnit housingUnit) {
