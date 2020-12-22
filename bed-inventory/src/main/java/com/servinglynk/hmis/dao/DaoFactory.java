@@ -31,4 +31,6 @@ public interface DaoFactory {
 	BedOccupantDao getBedOccupantDao();
 	RoomReservationDao getRoomReservationDao();
 	ClientRepository getClientRepository();
+	HousingUnitOccupantDao getHousingUnitOccupantDao();
+	HousingUnitReservationDao getHousingUnitReservationDao();
 }

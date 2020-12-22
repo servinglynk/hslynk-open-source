@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.service;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -72,6 +73,29 @@ public class HousingUnitReservationServiceImpl extends BaseService implements Ho
 	if(housingUnitEntity ==null) throw new ResourceNotFoundException(" Housing unit "+housingunitid+" not found");
 		HousingUnitReservations housingUnitReservations = new HousingUnitReservations();
 		Page<HousingUnitReservationEntity> entityPage = daoFactory.getHousingUnitReservationRepository().findByHousingUnitAndProjectGroupCodeAndDeleted(housingUnitEntity,SecurityContextUtil.getUserProjectGroup(), false,pageable);
+		for(HousingUnitReservationEntity housingUnitReservationEntity : entityPage.getContent()) {
+			HousingUnitReservation reservation = HousingUnitReservationConverter.entityToModel(housingUnitReservationEntity);
+			if(reservation.getReservedCleintId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+				if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
+			}
+			housingUnitReservations.addHousingUnitReservation(reservation);
+		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        housingUnitReservations.setPagination(pagination);
+		return housingUnitReservations;
+	}
+
+	@Transactional
+	public HousingUnitReservations getClientHousingUnitReservations(UUID dedupClientId, Date fromdate, Date todate,
+			Pageable pageable) {
+		HousingUnitReservations housingUnitReservations = new HousingUnitReservations();
+		Page<HousingUnitReservationEntity> entityPage = daoFactory.getHousingUnitReservationDao().getClientHousingUnitReservations(dedupClientId,fromdate,todate,pageable);
 		for(HousingUnitReservationEntity housingUnitReservationEntity : entityPage.getContent()) {
 			HousingUnitReservation reservation = HousingUnitReservationConverter.entityToModel(housingUnitReservationEntity);
 			if(reservation.getReservedCleintId()!=null) {
