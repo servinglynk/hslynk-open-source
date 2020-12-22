@@ -14,6 +14,7 @@ public class AMQEvent {
 	private String module;
 	private Map<String, Object> payload;
 	private String eventType;
+	private String type;
 	
 	public Date getCreatedAt() {
 		return createdAt;
@@ -45,7 +46,13 @@ public class AMQEvent {
 	public void setEventType(String eventType) {
 		this.eventType = eventType;
 	}	
-	
+
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String toJSONString() throws Exception {
 		JSONObjectMapper objectMapper = new JSONObjectMapper();
 		String jsonString = objectMapper.writeValueAsString(this);

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.entity.HousingUnitEntity;
 import com.servinglynk.hmis.entity.HousingUnitOccupantEntity;
 import com.servinglynk.hmis.model.HousingUnitOccupant;
 import com.servinglynk.hmis.model.HousingUnitOccupants;
@@ -17,23 +18,31 @@ import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 public class HousingUnitOccupantServiceImpl extends BaseService implements HousingUnitOccupantService {
 
 	@Transactional
-	public HousingUnitOccupant createHousingUnitOccupant(HousingUnitOccupant housingUnitUnit) {
+	public HousingUnitOccupant createHousingUnitOccupant(HousingUnitOccupant housingUnitUnit) throws Exception  {
+		HousingUnitEntity housingUnitEntity = daoFactory.getHousingUnitRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitUnit.getHousingUnit().getId(), SecurityContextUtil.getUserProjectGroup(), false);
+		if(housingUnitEntity ==null) throw new ResourceNotFoundException(" Housing unit "+housingUnitUnit.getHousingUnit().getId()+" not found");
 		HousingUnitOccupantEntity entity = HousingUnitOccupantConverter.modelToEntity(housingUnitUnit,null);
+		entity.setHousingUnit(housingUnitEntity);
 		entity.setDedupClientId(validationService.validateCleintId(housingUnitUnit.getClientId()));
 		entity.setEnrollmentType(validationService.validateEnrillment(housingUnitUnit.getEnrollmentId()));
 		daoFactory.getHousingUnitOccupantRepository().save(entity);
 		housingUnitUnit.setId(entity.getId());
+		sendClientMetaInfo(entity.getClientId(),entity.getDedupClientId(),false,"housingunit.occupant");
 		return housingUnitUnit;
 	}
 	
 	@Transactional
-	public void updateHousingUnitOccupant(HousingUnitOccupant housingUnitUnit) {
+	public void updateHousingUnitOccupant(HousingUnitOccupant housingUnitUnit)throws Exception  {
+		HousingUnitEntity housingUnitEntity = daoFactory.getHousingUnitRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitUnit.getHousingUnit().getId(), SecurityContextUtil.getUserProjectGroup(), false);
+		if(housingUnitEntity ==null) throw new ResourceNotFoundException(" Housing unit "+housingUnitUnit.getHousingUnit().getId()+" not found");
 		HousingUnitOccupantEntity entity =  daoFactory.getHousingUnitOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitUnit.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitOccupant "+housingUnitUnit.getId()+" not found");
 		entity = HousingUnitOccupantConverter.modelToEntity(housingUnitUnit,entity);
+		entity.setHousingUnit(housingUnitEntity);
 		entity.setDedupClientId(validationService.validateCleintId(housingUnitUnit.getClientId()));
 		entity.setEnrollmentType(validationService.validateEnrillment(housingUnitUnit.getEnrollmentId()));
 		daoFactory.getHousingUnitOccupantRepository().save(entity);
+		sendClientMetaInfo(entity.getClientId(),entity.getDedupClientId(),false,"housingunit.occupant");
 	}
 	
 	@Transactional
@@ -51,9 +60,11 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 	}
 	
 	@Transactional
-	public HousingUnitOccupants getHousingUnitOccupants(Pageable pageable) {
+	public HousingUnitOccupants getHousingUnitOccupants(UUID housingunitid,Pageable pageable) {
+		HousingUnitEntity housingUnitEntity = daoFactory.getHousingUnitRepository().findByIdAndProjectGroupCodeAndDeleted(housingunitid, SecurityContextUtil.getUserProjectGroup(), false);
+		if(housingUnitEntity ==null) throw new ResourceNotFoundException(" Housing unit "+housingunitid+" not found");
 		HousingUnitOccupants housingUnitUnits = new HousingUnitOccupants();
-		Page<HousingUnitOccupantEntity> entityPage = daoFactory.getHousingUnitOccupantRepository().findAll(pageable);
+		Page<HousingUnitOccupantEntity> entityPage = daoFactory.getHousingUnitOccupantRepository().findByHousingUnitAndProjectGroupCodeAndDeleted(housingUnitEntity, SecurityContextUtil.getUserProjectGroup(), false,pageable);
 		for(HousingUnitOccupantEntity housingUnitUnitEntity : entityPage.getContent()) {
 			housingUnitUnits.addHousingUnitOccupant(HousingUnitOccupantConverter.entityToModel(housingUnitUnitEntity));
 		}

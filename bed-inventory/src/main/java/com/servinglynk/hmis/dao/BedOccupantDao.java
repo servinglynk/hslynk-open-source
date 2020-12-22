@@ -10,4 +10,5 @@ import com.servinglynk.hmis.entity.BedOccupantEntity;
 
 public interface BedOccupantDao {
 	PageImpl<BedOccupantEntity> getBedOccupants(UUID bedUnitId, Date fromdate,Date todate,Pageable pageable);
+	PageImpl<BedOccupantEntity> getClinetBedOccupants(UUID clintDedupId, Date fromdate,Date todate,Pageable pageable);
 }

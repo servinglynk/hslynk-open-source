@@ -16,6 +16,7 @@ public class BedUnitReservation {
 	private UUID reservedHouseholdId;
 	private Date startDate; 
 	private Date endDate;
+	private Client client;
 	
 	private BedUnit bedUnit;
 	public UUID getId() {
@@ -58,5 +59,11 @@ public class BedUnitReservation {
 	public void setBedUnitId(UUID bedunitid) {
 		if(this.bedUnit == null) this.bedUnit = new BedUnit();
 		this.bedUnit.setId(bedunitid);		
+	}
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
 	}
 }

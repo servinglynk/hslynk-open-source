@@ -12,4 +12,5 @@ public interface BedUnitReservationDao {
 
 	
 	PageImpl<BedUnitReservationEntity> getBedUnits(UUID bedUnitId, Date fromdate,Date todate,Pageable pageable);
+	PageImpl<BedUnitReservationEntity> getClientBedUnitReservations(UUID clientDedupId, Date fromdate,Date todate,Pageable pageable);
 }

@@ -42,4 +42,29 @@ public class SecurityContextUtil {
 		return null;
 	}
 	
+	
+	public static String getSessionToken(){
+		Session session = null;
+		SecurityContext context =  SecurityContextHolder.getContext();
+		Authentication authentication =  context.getAuthentication();
+		if(authentication.getPrincipal()!=null){
+			session = (Session) authentication.getPrincipal();
+			if(session!=null)
+				return session.getToken();
+		}
+		return null;
+	}
+	
+	public static String getCleintTypeId(){
+		Session session = null;
+		SecurityContext context =  SecurityContextHolder.getContext();
+		Authentication authentication =  context.getAuthentication();
+		if(authentication.getPrincipal()!=null){
+			session = (Session) authentication.getPrincipal();
+			if(session!=null)
+				return session.getClientTypeId();
+		}
+		return null;
+	}
+	
 }

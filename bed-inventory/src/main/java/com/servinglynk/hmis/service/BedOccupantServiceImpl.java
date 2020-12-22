@@ -10,16 +10,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.entity.BedOccupantEntity;
 import com.servinglynk.hmis.entity.BedUnitEntity;
+import com.servinglynk.hmis.entity.ClientEntity;
 import com.servinglynk.hmis.model.BedOccupant;
 import com.servinglynk.hmis.model.BedOccupants;
 import com.servinglynk.hmis.model.SortedPagination;
 import com.servinglynk.hmis.service.converter.BedOccupantConverter;
+import com.servinglynk.hmis.service.converter.ClientConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 @Service
 public class BedOccupantServiceImpl extends BaseService implements BedOccupantService {
+	
+	
 
 	@Transactional
-	public BedOccupant createBedOccupant(BedOccupant bedUnit) {
+	public BedOccupant createBedOccupant(BedOccupant bedUnit) throws Exception {
 		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getBedUnit().getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed unit not found");
 		BedOccupantEntity entity = BedOccupantConverter.modelToEntity(bedUnit,null);
@@ -33,11 +37,12 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		entity.setShelter(bedUnitEntity.getShelter());
 		daoFactory.getBedOccupantRepository().save(entity);
 		bedUnit.setId(entity.getId());
+		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
 		return bedUnit;
 	}
 	
 	@Transactional
-	public void updateBedOccupant(BedOccupant bedUnit) {
+	public void updateBedOccupant(BedOccupant bedUnit) throws Exception{
 		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getBedUnit().getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed unit not found");
 		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getId(),SecurityContextUtil.getUserProjectGroup(),false);
@@ -45,6 +50,7 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		entity = BedOccupantConverter.modelToEntity(bedUnit,entity);
 		entity.setDedupClientId(validationService.validateCleintId(bedUnit.getClientId()));
 		entity.setEnrollmentType(validationService.validateEnrillment(bedUnit.getEnrollmentId()));
+		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
 		daoFactory.getBedOccupantRepository().save(entity);
 	}
 	
@@ -59,7 +65,12 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 	public BedOccupant getBedOccupant(UUID bedUnitId) {
 		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedOccupant "+bedUnitId+" not found");		
-		return BedOccupantConverter.entityToModel(entity);
+		BedOccupant bedOccupant = BedOccupantConverter.entityToModel(entity);
+		if(bedOccupant.getClientId()!=null) {
+			ClientEntity clientEntity = daoFactory.getClientRepository().findOne(bedOccupant.getClientId());
+			if(clientEntity!=null) bedOccupant.setClient(ClientConverter.entityToModel(clientEntity));
+		}
+		return bedOccupant;
 	}
 	
 	@Transactional
@@ -69,7 +80,34 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		BedOccupants bedUnits = new BedOccupants();
 		Page<BedOccupantEntity> entityPage = daoFactory.getBedOccupantDao().getBedOccupants(bedUnitId, fromdate, todate, pageable);
 		for(BedOccupantEntity occupantEntity : entityPage.getContent()) {
-			bedUnits.addBedOccupant(BedOccupantConverter.entityToModel(occupantEntity));
+			BedOccupant bedOccupant = BedOccupantConverter.entityToModel(occupantEntity);
+			if(bedOccupant.getClientId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(bedOccupant.getClientId());
+				if(clientEntity!=null) bedOccupant.setClient(ClientConverter.entityToModel(clientEntity));
+			}
+			bedUnits.addBedOccupant(bedOccupant);
+		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        bedUnits.setPagination(pagination);
+		return bedUnits;
+	}
+
+	@Transactional
+	public BedOccupants getClientBedUnitOccupants(UUID dedupClientId, Date fromdate, Date todate, Pageable pageable) {
+		BedOccupants bedUnits = new BedOccupants();
+		Page<BedOccupantEntity> entityPage = daoFactory.getBedOccupantDao().getClinetBedOccupants(dedupClientId, fromdate, todate, pageable);
+		for(BedOccupantEntity occupantEntity : entityPage.getContent()) {
+			BedOccupant bedOccupant = BedOccupantConverter.entityToModel(occupantEntity);
+			if(bedOccupant.getClientId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(bedOccupant.getClientId());
+				if(clientEntity!=null) bedOccupant.setClient(ClientConverter.entityToModel(clientEntity));
+			}
+			bedUnits.addBedOccupant(bedOccupant);
 		}
 		
 		 SortedPagination pagination = new SortedPagination();

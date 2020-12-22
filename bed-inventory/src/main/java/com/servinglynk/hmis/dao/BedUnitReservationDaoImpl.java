@@ -56,5 +56,35 @@ public class BedUnitReservationDaoImpl implements BedUnitReservationDao {
 			return new PageImpl<BedUnitReservationEntity>(entities,pageable,count);
 		
 	}
-
+	
+	public PageImpl<BedUnitReservationEntity> getClientBedUnitReservations(UUID clientDedupId, Date fromdate,Date todate,Pageable pageable) {
+		Session session = entityManager.unwrap(Session.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(BedUnitReservationEntity.class);
+		criteria.add(Restrictions.eq("reservedCleintDedupId", clientDedupId));
+		 Disjunction disjunction = Restrictions.disjunction();
+		if(fromdate!=null && todate != null) {
+			disjunction.add(Restrictions.between("reservationStateDate", fromdate, todate));
+			disjunction.add(Restrictions.between("reservationEndDateDate", fromdate, todate));
+			criteria.add(disjunction);
+		} else if(fromdate!=null) {
+			criteria.add(Restrictions.lt("reservationStateDate", fromdate));
+			criteria.add(Restrictions.gt("reservationEndDateDate",  fromdate));
+		} else if(todate!=null) {
+			criteria.add(Restrictions.lt("reservationStateDate", todate));
+			criteria.add(Restrictions.gt("reservationEndDateDate", todate));
+		}
+		criteria.add(Restrictions.eq("deleted", false));
+		criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+		
+		  DetachedCriteria countCriteria = criteria;
+		    List<BedUnitReservationEntity> entities = criteria.getExecutableCriteria(session).
+				   setMaxResults(pageable.getPageSize()).setFirstResult(pageable.getPageSize()*pageable.getPageNumber()).list();
+		  
+		    countCriteria.setProjection(Projections.rowCount());
+		   
+			Long count = (Long)countCriteria.getExecutableCriteria(session).uniqueResult();
+			
+			return new PageImpl<BedUnitReservationEntity>(entities,pageable,count);
+		
+	}
 }

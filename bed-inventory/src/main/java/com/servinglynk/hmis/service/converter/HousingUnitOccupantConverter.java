@@ -8,11 +8,11 @@ public class HousingUnitOccupantConverter {
 	public static HousingUnitOccupant entityToModel(HousingUnitOccupantEntity entity) {
 		HousingUnitOccupant model = new HousingUnitOccupant();
 		model.setClientId(entity.getClientId());
-		model.setOccupancyEndDate(entity.getOccupancyEndDate());
-		model.setOccupancyStartDate(entity.getOccupancyStartDate());
+		model.setEndDate(entity.getOccupancyEndDate());
+		model.setStartDate(entity.getOccupancyStartDate());
 		model.setId(entity.getId());
 		model.setHousingUnit(HousingUnitConverter.entityToModel(entity.getHousingUnit()));
-		return null;
+		return model;
 	}
 
 	public static HousingUnitOccupantEntity modelToEntity(HousingUnitOccupant model,
@@ -20,10 +20,10 @@ public class HousingUnitOccupantConverter {
 		if(entity == null) entity = new HousingUnitOccupantEntity();
 		
 		entity.setClientId(model.getClientId());
-		entity.setOccupancyEndDate(model.getOccupancyEndDate());
-		entity.setOccupancyStartDate(model.getOccupancyStartDate());
+		entity.setOccupancyEndDate(model.getEndDate());
+		entity.setOccupancyStartDate(model.getStartDate());
 
-		return null;
+		return entity;
 	}
 
 }

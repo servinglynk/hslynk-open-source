@@ -30,15 +30,13 @@ public class HousingUnitOccupantEntity extends BaseEntity {
 	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
 	private UUID clientId;
 	
-	@Column(name = "decup_cleint_id")
+	@Column(name = "dedup_client_id")
 	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
 	private UUID dedupClientId;
 	
-	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Column(name = "occupancy_start_date")
 	private Date occupancyStartDate;
 
-	@Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
 	@Column(name = "occupancy_end_date")
 	private Date occupancyEndDate;
 	
