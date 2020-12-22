@@ -22,7 +22,7 @@ public class BedUnitReservationController extends BaseController{
 	@RequestMapping(method = RequestMethod.POST)
 	@APIMapping(value = "CREATE_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
 	BedUnitReservation createBedUnitReservation(@RequestBody BedUnitReservation bedUnitReservation,
-			@PathVariable("bedunitid") UUID bedunitid) {
+			@PathVariable("bedunitid") UUID bedunitid) throws Exception {
 		bedUnitReservation.setBedUnitId(bedunitid);
 		return serviceFactory.getBedReservationService().createBedUnitReservation(bedUnitReservation);
 	}
@@ -31,7 +31,7 @@ public class BedUnitReservationController extends BaseController{
 	@APIMapping(value = "UPDATE_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
 	void updateBedUnitReservation(BedUnitReservation bedUnitReservation,
 			@PathVariable("bedunitid") UUID bedunitid,
-			@PathVariable("reservationid") UUID reservationid) {
+			@PathVariable("reservationid") UUID reservationid) throws Exception {
 		bedUnitReservation.setId(reservationid);
 		serviceFactory.getBedReservationService().updateBedUnitReservation(bedUnitReservation);
 	}

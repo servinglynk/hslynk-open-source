@@ -17,6 +17,7 @@ public class RoomReservation {
 	private UUID reservedHouseholdId;
 	private Date startDate; 
 	private Date endDate;
+	private Client client;
 	
 	private RoomModel room;
 	public UUID getId() {
@@ -55,5 +56,11 @@ public class RoomReservation {
 	}
 	public void setRoom(RoomModel room) {
 		this.room = room;
+	}
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
 	}
 }

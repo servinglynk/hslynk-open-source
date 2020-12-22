@@ -11,37 +11,45 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.entity.BedUnitEntity;
 import com.servinglynk.hmis.entity.BedUnitReservationEntity;
+import com.servinglynk.hmis.entity.ClientEntity;
 import com.servinglynk.hmis.entity.RoomEntity;
 import com.servinglynk.hmis.entity.RoomReservationEntity;
 import com.servinglynk.hmis.model.RoomReservation;
 import com.servinglynk.hmis.model.RoomReservations;
 import com.servinglynk.hmis.model.SortedPagination;
+import com.servinglynk.hmis.service.converter.ClientConverter;
 import com.servinglynk.hmis.service.converter.RoomReservationConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 @Service
 public class RoomReservationServiceImpl extends BaseService implements RoomReservationService {
 
 	@Transactional
-	public RoomReservation createRoomReservation(RoomReservation room) {
+	public RoomReservation createRoomReservation(RoomReservation room) throws Exception {
 		RoomEntity roomEntity = daoFactory.getRoomRepository().findByIdAndProjectGroupCodeAndDeleted(room.getRoom().getId(), SecurityContextUtil.getUserProjectGroup(),false);
 		if(roomEntity==null) throw new ResourceNotFoundException("Room "+room.getRoom().getId()+" not found");
 		RoomReservationEntity entity = RoomReservationConverter.modelToEntity(room,null);
+		entity.setReservedCleintId(room.getReservedCleintId());
+		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedCleintId()));
 		entity.setRoom(roomEntity);
 		entity.setArea(roomEntity.getArea());
 		entity.setShelter(roomEntity.getShelter());
 		daoFactory.getRoomReservationRepository().save(entity);
 		List<BedUnitEntity> bedUnitEntities =	daoFactory.getBedUnitRepository().findByRoomAndDeleted(roomEntity, false);
 		this.reserveRoomBedUnits(bedUnitEntities, room);
+		sendClientMetaInfo(entity.getReservedCleintId(), entity.getReservedCleintDedupId(), false, "room.reservation");
 		room.setId(entity.getId());
 		return room;
 	}
 	
 	@Transactional
-	public void updateRoomReservation(RoomReservation room) {
+	public void updateRoomReservation(RoomReservation room)  throws Exception {
 		RoomReservationEntity entity =  daoFactory.getRoomReservationRepository().findByIdAndProjectGroupCodeAndDeleted(room.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("RoomReservation "+room.getId()+" not found");
 		entity = RoomReservationConverter.modelToEntity(room,entity);
+		entity.setReservedCleintId(room.getReservedCleintId());
+		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedCleintId()));
 		daoFactory.getRoomReservationRepository().save(entity);
+		sendClientMetaInfo(entity.getReservedCleintId(), entity.getReservedCleintDedupId(), false, "room.reservation");
 	}
 	
 	@Transactional
@@ -55,7 +63,12 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 	public RoomReservation getRoomReservation(UUID roomId) {
 		RoomReservationEntity entity =  daoFactory.getRoomReservationRepository().findByIdAndProjectGroupCodeAndDeleted(roomId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("RoomReservation "+roomId+" not found");		
-		return RoomReservationConverter.entityToModel(entity);
+		RoomReservation reservation = RoomReservationConverter.entityToModel(entity);
+		if(reservation.getReservedCleintId()!=null) {
+			ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+			if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
+		}
+		return reservation;
 	}
 	
 	@Transactional
@@ -65,7 +78,12 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 		RoomReservations rooms = new RoomReservations();
 		Page<RoomReservationEntity> entityPage = daoFactory.getRoomReservationDao().getRoomReservations(roomId, fromdate, todate, pageable);
 		for(RoomReservationEntity roomReservationEntity : entityPage.getContent()) {
-			rooms.addRoomReservation(RoomReservationConverter.entityToModel(roomReservationEntity));
+			RoomReservation reservation = RoomReservationConverter.entityToModel(roomReservationEntity);
+			if(reservation.getReservedCleintId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+				if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
+			}
+			rooms.addRoomReservation(reservation);
 		}
 		
 		 SortedPagination pagination = new SortedPagination();
@@ -91,5 +109,28 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 			
 		}
 		
+	}
+
+	@Override
+	public RoomReservations getClientRoomReservations(UUID dedupClientId, Date fromdate, Date todate,
+			Pageable pageable) {
+		RoomReservations rooms = new RoomReservations();
+		Page<RoomReservationEntity> entityPage = daoFactory.getRoomReservationDao().getClientRoomReservations(dedupClientId, fromdate, todate, pageable);
+		for(RoomReservationEntity roomReservationEntity : entityPage.getContent()) {
+			RoomReservation reservation = RoomReservationConverter.entityToModel(roomReservationEntity);
+			if(reservation.getReservedCleintId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+				if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
+			}
+			rooms.addRoomReservation(reservation);
+		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        rooms.setPagination(pagination);
+		return rooms;
 	}
 }

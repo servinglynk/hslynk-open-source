@@ -60,6 +60,7 @@ public class ApiAuthCheckInterceptor extends HandlerInterceptorAdapter {
 			Session session = new Session();
 			session.setToken(clientresponse.getAccessToken());
 			session.setAccount(clientresponse.getAccount());
+			session.setClientTypeId(trustedApp);
 			this.sessionHelper.setSession(session, request);
 			SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(session, ""));
 			return true;

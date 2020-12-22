@@ -26,9 +26,11 @@ public class HousingUnitReservationEntity extends BaseEntity {
 	private UUID id;
 	
 	@Column(name = "reserved_client_id")
+	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
 	private UUID reservedCleintId;
 	
 	@Column(name = "reserved_household_id")
+	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
 	private UUID reservedHouseholdId;
 	
 	@Column(name = "reservation_start_date")
@@ -36,6 +38,10 @@ public class HousingUnitReservationEntity extends BaseEntity {
 	
 	@Column(name = "reservation_end_date")
 	private Date reservationEndDateDate;
+	
+	@Column(name = "dedup_cleint_id")
+	@org.hibernate.annotations.Type(type = "org.hibernate.type.PostgresUUIDType")
+	private UUID dedupClientId;
 	
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "hosuing_unit_id", nullable = true )
@@ -75,5 +81,11 @@ public class HousingUnitReservationEntity extends BaseEntity {
 	}
 	public void setHousingUnit(HousingUnitEntity housingUnit) {
 		this.housingUnit = housingUnit;
+	}
+	public UUID getDedupClientId() {
+		return dedupClientId;
+	}
+	public void setDedupClientId(UUID dedupClientId) {
+		this.dedupClientId = dedupClientId;
 	}
 }

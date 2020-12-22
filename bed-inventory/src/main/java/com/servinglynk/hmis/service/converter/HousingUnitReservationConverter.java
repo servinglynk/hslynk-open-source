@@ -7,8 +7,8 @@ public class HousingUnitReservationConverter {
 
 	public static HousingUnitReservation entityToModel(HousingUnitReservationEntity entity) {
 		HousingUnitReservation model = new HousingUnitReservation();
-		model.setReservationEndDateDate(entity.getReservationEndDateDate());
-		model.setReservationStateDate(entity.getReservationStateDate());
+		model.setEndDate(entity.getReservationEndDateDate());
+		model.setStartDate(entity.getReservationStateDate());
 		model.setReservedCleintId(entity.getReservedCleintId());
 		model.setReservedHouseholdId(entity.getReservedHouseholdId());
 		model.setHousingUnit(HousingUnitConverter.entityToModel(entity.getHousingUnit()));
@@ -19,8 +19,8 @@ public class HousingUnitReservationConverter {
 	public static HousingUnitReservationEntity modelToEntity(HousingUnitReservation model,
 			HousingUnitReservationEntity entity) {
 		if(entity == null) entity = new HousingUnitReservationEntity();
-		entity.setReservationEndDateDate(model.getReservationEndDateDate());
-		entity.setReservationStateDate(model.getReservationStateDate());
+		entity.setReservationEndDateDate(model.getEndDate());
+		entity.setReservationStateDate(model.getStartDate());
 		entity.setReservedCleintId(model.getReservedCleintId());
 		entity.setReservedHouseholdId(model.getReservedHouseholdId());
 		return entity;

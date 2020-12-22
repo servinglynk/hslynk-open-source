@@ -4,6 +4,7 @@ import com.servinglynk.hmis.repository.AreaRepository;
 import com.servinglynk.hmis.repository.BedOccupantRepository;
 import com.servinglynk.hmis.repository.BedUnitRepository;
 import com.servinglynk.hmis.repository.BedUnitReservationRepository;
+import com.servinglynk.hmis.repository.ClientRepository;
 import com.servinglynk.hmis.repository.HousingUnitOccupantRepository;
 import com.servinglynk.hmis.repository.HousingUnitRepository;
 import com.servinglynk.hmis.repository.HousingUnitReservationRepository;
@@ -29,4 +30,7 @@ public interface DaoFactory {
 	BedUnitReservationDao getBedUnitReservationDao();
 	BedOccupantDao getBedOccupantDao();
 	RoomReservationDao getRoomReservationDao();
+	ClientRepository getClientRepository();
+	HousingUnitOccupantDao getHousingUnitOccupantDao();
+	HousingUnitReservationDao getHousingUnitReservationDao();
 }
