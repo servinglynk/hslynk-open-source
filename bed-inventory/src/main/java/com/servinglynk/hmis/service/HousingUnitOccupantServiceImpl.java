@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.service;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -7,11 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.servinglynk.hmis.entity.ClientEntity;
 import com.servinglynk.hmis.entity.HousingUnitEntity;
 import com.servinglynk.hmis.entity.HousingUnitOccupantEntity;
 import com.servinglynk.hmis.model.HousingUnitOccupant;
 import com.servinglynk.hmis.model.HousingUnitOccupants;
 import com.servinglynk.hmis.model.SortedPagination;
+import com.servinglynk.hmis.service.converter.ClientConverter;
 import com.servinglynk.hmis.service.converter.HousingUnitOccupantConverter;
 import com.servinglynk.hmis.service.exception.ResourceNotFoundException;
 @Service
@@ -56,7 +59,12 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 	public HousingUnitOccupant getHousingUnitOccupant(UUID housingUnitUnitId) {
 		HousingUnitOccupantEntity entity =  daoFactory.getHousingUnitOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitOccupant "+housingUnitUnitId+" not found");		
-		return HousingUnitOccupantConverter.entityToModel(entity);
+		HousingUnitOccupant occupant = HousingUnitOccupantConverter.entityToModel(entity);
+		if(occupant.getClientId()!=null) {
+			ClientEntity clientEntity = daoFactory.getClientRepository().findOne(occupant.getClientId());
+			if(clientEntity!=null) occupant.setClient(ClientConverter.entityToModel(clientEntity));
+		}
+		return occupant;
 	}
 	
 	@Transactional
@@ -66,7 +74,35 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 		HousingUnitOccupants housingUnitUnits = new HousingUnitOccupants();
 		Page<HousingUnitOccupantEntity> entityPage = daoFactory.getHousingUnitOccupantRepository().findByHousingUnitAndProjectGroupCodeAndDeleted(housingUnitEntity, SecurityContextUtil.getUserProjectGroup(), false,pageable);
 		for(HousingUnitOccupantEntity housingUnitUnitEntity : entityPage.getContent()) {
-			housingUnitUnits.addHousingUnitOccupant(HousingUnitOccupantConverter.entityToModel(housingUnitUnitEntity));
+			HousingUnitOccupant occupant = HousingUnitOccupantConverter.entityToModel(housingUnitUnitEntity);
+			if(occupant.getClientId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(occupant.getClientId());
+				if(clientEntity!=null) occupant.setClient(ClientConverter.entityToModel(clientEntity));
+			}
+			housingUnitUnits.addHousingUnitOccupant(occupant);
+		}
+		
+		 SortedPagination pagination = new SortedPagination();
+		   
+	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        pagination.setReturned(entityPage.getContent().size());
+	        pagination.setTotal((int)entityPage.getTotalElements());
+	        housingUnitUnits.setPagination(pagination);
+		return housingUnitUnits;
+	}
+
+	@Transactional
+	public HousingUnitOccupants getClientHousingUnitOccupants(UUID dedupClientId, Date fromdate, Date todate,
+			Pageable pageable) {
+		HousingUnitOccupants housingUnitUnits = new HousingUnitOccupants();
+		Page<HousingUnitOccupantEntity> entityPage = daoFactory.getHousingUnitOccupantDao().getClientHousingUnitOccupants(dedupClientId, fromdate, todate,pageable);
+		for(HousingUnitOccupantEntity housingUnitUnitEntity : entityPage.getContent()) {
+			HousingUnitOccupant occupant = HousingUnitOccupantConverter.entityToModel(housingUnitUnitEntity);
+			if(occupant.getClientId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(occupant.getClientId());
+				if(clientEntity!=null) occupant.setClient(ClientConverter.entityToModel(clientEntity));
+			}
+			housingUnitUnits.addHousingUnitOccupant(occupant);
 		}
 		
 		 SortedPagination pagination = new SortedPagination();

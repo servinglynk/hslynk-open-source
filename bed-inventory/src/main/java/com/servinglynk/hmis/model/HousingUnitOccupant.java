@@ -19,7 +19,7 @@ public class HousingUnitOccupant {
 	private Date endDate;
 	private Boolean isActive;
 	private HousingUnit housingUnit;
-	
+	private Client client;
 	
 	public UUID getId() {
 		return id;
@@ -69,5 +69,11 @@ public class HousingUnitOccupant {
 	}
 	public void setEnrollmentId(UUID enrollmentId) {
 		this.enrollmentId = enrollmentId;
+	}
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
 	}
 }
