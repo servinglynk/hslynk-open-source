@@ -2,8 +2,10 @@ package com.servinglynk.hmis.rest;
 
 import java.util.UUID;
 
+import org.springframework.data.convert.ReadingConverter;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,13 +20,13 @@ public class HousingUnitController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@APIMapping(value = "CREATE_HOUSINGUNIT",checkSessionToken = true,checkTrustedApp = true)
-	HousingUnit createHousingUnit(HousingUnit housingUnit) {
+	HousingUnit createHousingUnit(@RequestBody HousingUnit housingUnit) {
 		return serviceFactory.getHousingUnitService().createHousingUnit(housingUnit);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT,value = "/{housingunitid}")
 	@APIMapping(value = "UPDATE_HOUSINGUNIT",checkSessionToken = true,checkTrustedApp = true)
-	void updateHousingUnit(HousingUnit housingUnit,@PathVariable("housingunitid") UUID housingunitid) {
+	void updateHousingUnit(@RequestBody HousingUnit housingUnit,@PathVariable("housingunitid") UUID housingunitid) {
 		housingUnit.setId(housingunitid);
 		serviceFactory.getHousingUnitService().updateHousingUnit(housingUnit);
 	}

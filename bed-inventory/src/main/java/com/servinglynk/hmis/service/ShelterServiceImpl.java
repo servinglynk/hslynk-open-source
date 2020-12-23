@@ -45,7 +45,7 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 	public ShelterModel getShelter(UUID shelterId) {
 		ShelterEntity entity =  daoFactory.getShelterRepository().findByIdAndProjectGroupCodeAndDeleted(shelterId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("Shelter "+shelterId+" not found");
-		ShelterModel shelterModel = ShelterConverter.entityToModel(entity);
+		ShelterModel shelterModel = ShelterConverter.entityToModel(entity,false);
 		shelterModel.setSummary(this.getShelterSummary(shelterId, 1L));
 		return shelterModel;
 	}
@@ -60,7 +60,7 @@ public class ShelterServiceImpl extends BaseService implements ShelterService {
 			entityPage = daoFactory.getShelterDao().getAllShelters(q, pageable);
 		}
 		for(ShelterEntity shelterEntity : entityPage.getContent()) {
-			shelters.addShleter(ShelterConverter.entityToModel(shelterEntity));
+			shelters.addShleter(ShelterConverter.entityToModel(shelterEntity,true));
 		}
 		
 		shelters.setSummary(this.getShelterSummary(null, entityPage.getTotalElements()));

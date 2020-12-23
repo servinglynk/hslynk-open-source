@@ -7,8 +7,8 @@ public class RoomConverter {
 
 	public static RoomEntity modelToEntity(RoomModel room, RoomEntity entity) {
 		if(entity == null) entity = new RoomEntity();
-		entity.setName(room.getName());
-		entity.setOccupantCapacity(room.getOccupantCapacity());
+		if(room.getName()!=null) entity.setName(room.getName());
+		if(room.getOccupantCapacity()!=null) entity.setOccupantCapacity(room.getOccupantCapacity());
 		return entity;
 	}
 
@@ -17,7 +17,7 @@ public class RoomConverter {
 		model.setArea(AreaConverter.entityToModel(entity.getArea()));
 		model.setName(entity.getName());
 		model.setOccupantCapacity(entity.getOccupantCapacity());
-		model.setShelter(ShelterConverter.entityToModel(entity.getShelter()));
+		model.setShelter(ShelterConverter.entityToModel(entity.getShelter(),false));
 		model.setId(entity.getId());
 		return model;
 	}

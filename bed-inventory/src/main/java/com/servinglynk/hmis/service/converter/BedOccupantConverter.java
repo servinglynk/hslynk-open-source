@@ -9,9 +9,9 @@ public class BedOccupantConverter {
 		if(entity == null) {
 			entity = new BedOccupantEntity();
 		}
-		entity.setIsActive(bedUnit.getIsActive());
-		entity.setOccupancyEndDate(bedUnit.getEndDate());
-		entity.setOccupancyStartDate(bedUnit.getStartDate());
+		if(bedUnit.getIsActive()!=null) entity.setIsActive(bedUnit.getIsActive());
+		if(bedUnit.getEndDate()!=null) entity.setOccupancyEndDate(bedUnit.getEndDate());
+		if(bedUnit.getStartDate()!=null) entity.setOccupancyStartDate(bedUnit.getStartDate());
 		return entity;
 	}
 

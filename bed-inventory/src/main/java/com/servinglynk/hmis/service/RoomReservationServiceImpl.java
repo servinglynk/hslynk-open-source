@@ -28,8 +28,8 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 		RoomEntity roomEntity = daoFactory.getRoomRepository().findByIdAndProjectGroupCodeAndDeleted(room.getRoom().getId(), SecurityContextUtil.getUserProjectGroup(),false);
 		if(roomEntity==null) throw new ResourceNotFoundException("Room "+room.getRoom().getId()+" not found");
 		RoomReservationEntity entity = RoomReservationConverter.modelToEntity(room,null);
-		entity.setReservedCleintId(room.getReservedCleintId());
-		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedCleintId()));
+		entity.setReservedCleintId(room.getReservedClientId());
+		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedClientId()));
 		entity.setRoom(roomEntity);
 		entity.setArea(roomEntity.getArea());
 		entity.setShelter(roomEntity.getShelter());
@@ -46,8 +46,8 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 		RoomReservationEntity entity =  daoFactory.getRoomReservationRepository().findByIdAndProjectGroupCodeAndDeleted(room.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("RoomReservation "+room.getId()+" not found");
 		entity = RoomReservationConverter.modelToEntity(room,entity);
-		entity.setReservedCleintId(room.getReservedCleintId());
-		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedCleintId()));
+		entity.setReservedCleintId(room.getReservedClientId());
+		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedClientId()));
 		daoFactory.getRoomReservationRepository().save(entity);
 		sendClientMetaInfo(entity.getReservedCleintId(), entity.getReservedCleintDedupId(), false, "room.reservation");
 	}
@@ -64,8 +64,8 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 		RoomReservationEntity entity =  daoFactory.getRoomReservationRepository().findByIdAndProjectGroupCodeAndDeleted(roomId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("RoomReservation "+roomId+" not found");		
 		RoomReservation reservation = RoomReservationConverter.entityToModel(entity);
-		if(reservation.getReservedCleintId()!=null) {
-			ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+		if(reservation.getReservedClientId()!=null) {
+			ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedClientId());
 			if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
 		}
 		return reservation;
@@ -79,8 +79,8 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 		Page<RoomReservationEntity> entityPage = daoFactory.getRoomReservationDao().getRoomReservations(roomId, fromdate, todate, pageable);
 		for(RoomReservationEntity roomReservationEntity : entityPage.getContent()) {
 			RoomReservation reservation = RoomReservationConverter.entityToModel(roomReservationEntity);
-			if(reservation.getReservedCleintId()!=null) {
-				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+			if(reservation.getReservedClientId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedClientId());
 				if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
 			}
 			rooms.addRoomReservation(reservation);
@@ -103,7 +103,7 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 			entity.setProjectGroupCode(bedUnitEntity.getProjectGroupCode());
 			entity.setReservationEndDateDate(roomReservation.getEndDate());
 			entity.setReservationStateDate(roomReservation.getStartDate());
-			entity.setReservedCleintId(roomReservation.getReservedCleintId());
+			entity.setReservedCleintId(roomReservation.getReservedClientId());
 			entity.setReservedHouseholdId(roomReservation.getReservedHouseholdId());
 			daoFactory.getBedUnitReservationRepository().save(entity);
 			
@@ -118,8 +118,8 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 		Page<RoomReservationEntity> entityPage = daoFactory.getRoomReservationDao().getClientRoomReservations(dedupClientId, fromdate, todate, pageable);
 		for(RoomReservationEntity roomReservationEntity : entityPage.getContent()) {
 			RoomReservation reservation = RoomReservationConverter.entityToModel(roomReservationEntity);
-			if(reservation.getReservedCleintId()!=null) {
-				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+			if(reservation.getReservedClientId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedClientId());
 				if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
 			}
 			rooms.addRoomReservation(reservation);

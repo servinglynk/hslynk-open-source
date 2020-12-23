@@ -29,6 +29,8 @@ public class RoomServiceImpl extends BaseService implements RoomService {
 		entity.setArea(areaEntity);
 		entity.setShelter(shelterEntity);
 		daoFactory.getRoomRepository().save(entity);
+		shelterEntity.setTotalRooms(shelterEntity.getTotalRooms()+1);
+		daoFactory.getShelterRepository().save(shelterEntity);
 		room.setId(entity.getId());
 		return room;
 	}
@@ -50,6 +52,9 @@ public class RoomServiceImpl extends BaseService implements RoomService {
 		RoomEntity entity =  daoFactory.getRoomRepository().findByIdAndProjectGroupCodeAndDeleted(roomId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("Room "+roomId+" not found");
 		daoFactory.getRoomRepository().delete(entity);
+		ShelterEntity shelterEntity = entity.getShelter();
+		shelterEntity.setTotalRooms(shelterEntity.getTotalRooms()-1);
+		daoFactory.getShelterRepository().save(shelterEntity);
 	}
 	
 	@Transactional
@@ -68,7 +73,7 @@ public class RoomServiceImpl extends BaseService implements RoomService {
 		AreaEntity areaEntity =  daoFactory.getAreaRepository().findOne(areaid);
 		if(areaEntity == null) throw new ResourceNotFoundException("Area "+areaid+" not found");
 		Rooms rooms = new Rooms();
-		Page<RoomEntity> entityPage = daoFactory.getRoomRepository().findByArea(areaEntity,pageable);
+		Page<RoomEntity> entityPage = daoFactory.getRoomRepository().findByAreaAndDeleted(areaEntity,false,pageable);
 		for(RoomEntity roomEntity : entityPage.getContent()) {
 			rooms.addRoom(RoomConverter.entityToModel(roomEntity));
 		}
