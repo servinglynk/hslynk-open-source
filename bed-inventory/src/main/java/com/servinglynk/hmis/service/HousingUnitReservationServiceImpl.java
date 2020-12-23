@@ -25,8 +25,8 @@ public class HousingUnitReservationServiceImpl extends BaseService implements Ho
 		HousingUnitEntity housingUnitEntity = daoFactory.getHousingUnitRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitReservation.getHousingUnit().getId(), SecurityContextUtil.getUserProjectGroup(), false);
 		if(housingUnitEntity ==null) throw new ResourceNotFoundException(" Housing unit "+housingUnitReservation.getHousingUnit().getId()+" not found");
 		HousingUnitReservationEntity entity = HousingUnitReservationConverter.modelToEntity(housingUnitReservation,null);
-		entity.setReservedCleintId(housingUnitReservation.getReservedCleintId());
-		entity.setDedupClientId(validationService.validateCleintId(housingUnitReservation.getReservedCleintId()));
+		entity.setReservedCleintId(housingUnitReservation.getReservedClientId());
+		entity.setDedupClientId(validationService.validateCleintId(housingUnitReservation.getReservedClientId()));
 		entity.setHousingUnit(housingUnitEntity);
 		daoFactory.getHousingUnitReservationRepository().save(entity);
 		housingUnitReservation.setId(entity.getId());
@@ -42,8 +42,8 @@ public class HousingUnitReservationServiceImpl extends BaseService implements Ho
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitReservation "+housingUnitReservation.getId()+" not found");
 		entity = HousingUnitReservationConverter.modelToEntity(housingUnitReservation,entity);
 		entity.setHousingUnit(housingUnitEntity);
-		entity.setReservedCleintId(housingUnitReservation.getReservedCleintId());
-		entity.setDedupClientId(validationService.validateCleintId(housingUnitReservation.getReservedCleintId()));
+		entity.setReservedCleintId(housingUnitReservation.getReservedClientId());
+		entity.setDedupClientId(validationService.validateCleintId(housingUnitReservation.getReservedClientId()));
 		daoFactory.getHousingUnitReservationRepository().save(entity);
 		sendClientMetaInfo(entity.getReservedCleintId(),entity.getDedupClientId(),false,"housingunit.reservation");
 	}
@@ -60,8 +60,8 @@ public class HousingUnitReservationServiceImpl extends BaseService implements Ho
 		HousingUnitReservationEntity entity =  daoFactory.getHousingUnitReservationRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitReservationId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitReservation "+housingUnitReservationId+" not found");	
 		HousingUnitReservation reservation = HousingUnitReservationConverter.entityToModel(entity);
-		if(reservation.getReservedCleintId()!=null) {
-			ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+		if(reservation.getReservedClientId()!=null) {
+			ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedClientId());
 			if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
 		}
 		return reservation;
@@ -75,8 +75,8 @@ public class HousingUnitReservationServiceImpl extends BaseService implements Ho
 		Page<HousingUnitReservationEntity> entityPage = daoFactory.getHousingUnitReservationRepository().findByHousingUnitAndProjectGroupCodeAndDeleted(housingUnitEntity,SecurityContextUtil.getUserProjectGroup(), false,pageable);
 		for(HousingUnitReservationEntity housingUnitReservationEntity : entityPage.getContent()) {
 			HousingUnitReservation reservation = HousingUnitReservationConverter.entityToModel(housingUnitReservationEntity);
-			if(reservation.getReservedCleintId()!=null) {
-				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+			if(reservation.getReservedClientId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedClientId());
 				if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
 			}
 			housingUnitReservations.addHousingUnitReservation(reservation);
@@ -98,8 +98,8 @@ public class HousingUnitReservationServiceImpl extends BaseService implements Ho
 		Page<HousingUnitReservationEntity> entityPage = daoFactory.getHousingUnitReservationDao().getClientHousingUnitReservations(dedupClientId,fromdate,todate,pageable);
 		for(HousingUnitReservationEntity housingUnitReservationEntity : entityPage.getContent()) {
 			HousingUnitReservation reservation = HousingUnitReservationConverter.entityToModel(housingUnitReservationEntity);
-			if(reservation.getReservedCleintId()!=null) {
-				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+			if(reservation.getReservedClientId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedClientId());
 				if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
 			}
 			housingUnitReservations.addHousingUnitReservation(reservation);

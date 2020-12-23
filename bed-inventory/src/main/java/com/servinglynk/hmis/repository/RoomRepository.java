@@ -14,4 +14,6 @@ public interface RoomRepository extends JpaRepository<RoomEntity, Serializable> 
 	Page<RoomEntity> findByArea(AreaEntity areaEntity,Pageable pageable);
 
 	RoomEntity findByIdAndProjectGroupCodeAndDeleted(UUID id, String userProjectGroup, boolean deleted);
+
+	Page<RoomEntity> findByAreaAndDeleted(AreaEntity areaEntity, boolean deleted, Pageable pageable);
 }

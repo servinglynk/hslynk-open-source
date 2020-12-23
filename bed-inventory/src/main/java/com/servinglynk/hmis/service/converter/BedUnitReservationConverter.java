@@ -7,10 +7,10 @@ public class BedUnitReservationConverter {
 
 	public static BedUnitReservationEntity modelToEntity(BedUnitReservation room, BedUnitReservationEntity entity) {
 		if(entity == null) entity = new BedUnitReservationEntity();
-		entity.setReservationEndDateDate(room.getEndDate());
-		entity.setReservationStateDate(room.getStartDate());
-		entity.setReservedCleintId(room.getReservedCleintId());
-		entity.setReservedHouseholdId(room.getReservedHouseholdId());
+		if(room.getEndDate()!=null) entity.setReservationEndDateDate(room.getEndDate());
+		if(room.getStartDate()!=null) entity.setReservationStateDate(room.getStartDate());
+		if(room.getReservedClientId()!=null) entity.setReservedCleintId(room.getReservedClientId());
+		if(room.getReservedHouseholdId()!=null)entity.setReservedHouseholdId(room.getReservedHouseholdId());
 		return entity;
 	}
 
@@ -18,7 +18,7 @@ public class BedUnitReservationConverter {
 		BedUnitReservation model = new BedUnitReservation();
 		model.setEndDate(entity.getReservationEndDateDate());
 		model.setStartDate(entity.getReservationStateDate());
-		model.setReservedCleintId(entity.getReservedCleintId());
+		model.setReservedClientId(entity.getReservedCleintId());
 		model.setReservedHouseholdId(entity.getReservedHouseholdId());
 		if(entity.getBedUnit()!=null) model.setBedUnit(BedUnitConverter.entityToModel(entity.getBedUnit()));
 		model.setId(entity.getId());

@@ -49,7 +49,7 @@ public class HousingUnitServiceImpl extends BaseService implements HousingUnitSe
 	@Transactional
 	public HousingUnits getHousingUnits(Pageable pageable) {
 		HousingUnits housingUnits = new HousingUnits();
-		Page<HousingUnitEntity> entityPage = daoFactory.getHousingUnitRepository().findAll(pageable);
+		Page<HousingUnitEntity> entityPage = daoFactory.getHousingUnitRepository().findByProjectGroupCodeAndDeleted(SecurityContextUtil.getUserProjectGroup(),false,pageable);
 		for(HousingUnitEntity housingUnitEntity : entityPage.getContent()) {
 			housingUnits.addHousingUnit(HousingUnitConverter.entityToModel(housingUnitEntity));
 		}
