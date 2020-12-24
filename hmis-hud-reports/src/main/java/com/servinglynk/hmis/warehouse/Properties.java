@@ -19,7 +19,10 @@ public class Properties {
     public static String POSTGRESQL_DB_USERNAME;
     public static String POSTGRESQL_DB_PASSWORD;
     public static String APR_FILE_LOCATION;
+    public static String LSA_FILE_LOCATION;
     public static String APR_CONFIG_LOCATION;
+    public static String AWS_SECRET_KEY;
+    public static String AWS_PUBLIC_KEY;
 
     public void generatePropValues() throws Exception {
 
@@ -47,12 +50,21 @@ public class Properties {
             POSTGRESQL_DB_DATABASE = prop.getProperty("posgresql.db.database");
             POSTGRESQL_DB_USERNAME = prop.getProperty("posgresql.db.username");
             POSTGRESQL_DB_PASSWORD = prop.getProperty("posgresql.db.password");
+            
+            AWS_PUBLIC_KEY = prop.getProperty("aws_access_key_id");
+            AWS_SECRET_KEY = prop.getProperty("aws_secret_access_key");
+            
             String aprLocation = prop.getProperty("app.apr.location");
             if(StringUtils.isBlank(aprLocation)) {
             	aprLocation =  "/home/ubuntu/hmis-hud-reports-2.0/";
             }
             APR_FILE_LOCATION = aprLocation;
-
+            String lsaLocation = prop.getProperty("app.lsa.location");
+            if(StringUtils.isBlank(lsaLocation)) {
+            	lsaLocation =  "/home/ubuntu/hmis-hud-reports-2.0/";
+            }
+            LSA_FILE_LOCATION = lsaLocation;
+            
             String aprConfigLocation = prop.getProperty("app.apr.config.location");
             if(StringUtils.isBlank(aprConfigLocation)) {
             	aprConfigLocation =  "/home/ubuntu/hmis-hud-reports-2.0/conf/";

@@ -270,7 +270,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			domain.setUpload(upload);
 			domain.setSource(source);
 			//domain.setReUpload(true);
-			domain.setReloadAll(true);
+//			domain.setReloadAll(true);
 			
 			domain.setUserId(upload.getUser()!=null ?  upload.getUser().getId():null);
 

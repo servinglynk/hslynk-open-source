@@ -127,8 +127,6 @@ alter TYPE "v2020".livingSituation add value '11';
 alter TYPE "v2020".livingSituation add value '28';
 alter TYPE "v2020".livingSituation add value '29';
 alter TYPE "v2020".livingSituation add value '30';
-alter TYPE "v2020".livingSituation add value '29';
-alter TYPE "v2020".livingSituation add value '30';
 alter TYPE "v2020".livingSituation add value '31';
 alter TYPE "v2020".livingSituation add value '32';
 alter TYPE "v2020".livingSituation add value '33';
@@ -3389,7 +3387,7 @@ ALTER TABLE v2020.enrollment DROP COLUMN projectentryid;
 
 
 insert into v2020.question(id,question_description,display_text,question_data_type,question_type,created_at,updated_at,user_id,is_active,picklist_group_name,deleted,hud_question_id,update_url_template) values
-('024c9acd-d3e1-4cc4-9800-a9db85edad36','Relationship to Head of Household','Relationship to Head of Household',
+('124c9acd-d3e1-4cc4-9800-a9db85edad36','Relationship to Head of Household','Relationship to Head of Household',
 'STRING','DROPDOWN',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,(null),	true,'relationshiptohoh',
 false,'3.15.1','/v2020/hmistypes/relationshiptohoh/values');
 
@@ -4223,7 +4221,6 @@ with (
 
 alter table v2020.event add column probsoldivrrresult v2020.no_yes_refused;
 
-alter table v2020.assessment add column client_id uuid;
 alter table v2020.assessment_questions  add column client_id uuid;
 alter table v2020.assessment_results  add column client_id uuid;
 

@@ -11,20 +11,22 @@ public class Funder extends BaseCSV {
 	@MapToColumn(column=2)
 	private String Funder;
 	@MapToColumn(column=3)
-	private String GrantID;
+	private String OtherFunder;
 	@MapToColumn(column=4)
-	private String StartDate;
+	private String GrantID;
 	@MapToColumn(column=5)
-	private String EndDate;
+	private String StartDate;
 	@MapToColumn(column=6)
-	private String DateCreated;
+	private String EndDate;
 	@MapToColumn(column=7)
-	private String DateUpdated;
+	private String DateCreated;
 	@MapToColumn(column=8)
-	private String UserID;
+	private String DateUpdated;
 	@MapToColumn(column=9)
-	private String DateDeleted;
+	private String UserID;
 	@MapToColumn(column=10)
+	private String DateDeleted;
+	@MapToColumn(column=11)
 	private String ExportID;
 	public String getFunderID() {
 		return FunderID;
@@ -43,6 +45,12 @@ public class Funder extends BaseCSV {
 	}
 	public void setFunder(String funder) {
 		Funder = funder;
+	}
+	public String getOtherFunder() {
+		return OtherFunder;
+	}
+	public void setOtherFunder(String otherFunder) {
+		OtherFunder = otherFunder;
 	}
 	public String getGrantID() {
 		return GrantID;

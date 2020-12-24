@@ -1,0 +1,76 @@
+//  Core
+
+.table {
+  font-size: $font-size-base;
+
+  thead th {
+    text-transform: uppercase;
+    background: $gray-200;
+    font-size: $font-size-sm;
+  }
+
+  tr {
+    transition: $transition-base;
+  }
+
+  td, th {
+    vertical-align: middle;
+  }
+
+  &.table-alternate {
+    thead th {
+      text-transform: none;
+      background: transparent;
+      font-size: $font-size-base * 1.1;
+      font-weight: normal;
+      color: $gray-900;
+    }
+  }
+}
+
+.report-datatable {
+  .rdt_Table {
+    .rdt_TableBody, .rdt_TableHead {
+      .rdt_TableRow, .rdt_TableHeadRow {
+        .rdt_TableCell, .rdt_TableCol {
+          &:last-child {
+            min-width: 254px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1800px) {
+  .all-upload-table {
+    .rdt_Table {
+      .rdt_TableRow, .rdt_TableHeadRow {
+        .rdt_TableCell, .rdt_TableCol {
+          min-width: 50px;
+          width: unset;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1600px) {
+  .all-upload-table {
+    .rdt_Table {
+      .rdt_TableRow, .rdt_TableHeadRow {
+        .rdt_TableCell, .rdt_TableCol {
+          min-width: 10px;
+          width: 50px;
+          &:last-child {
+            min-width: 200px;
+            width: 200px;
+            .btn {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

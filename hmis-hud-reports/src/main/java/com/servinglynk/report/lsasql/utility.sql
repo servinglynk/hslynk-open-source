@@ -1,6 +1,5 @@
-
 --Populate lsa."ref_Calendar"
-CREATE OR REPLACE FUNCTION dateadd(character varying, integer, date)
+CREATE OR REPLACE FUNCTION lsa.dateadd(character varying, integer, date)
 RETURNS date AS
 $BODY$
 
@@ -26,10 +25,9 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 
-CREATE OR REPLACE FUNCTION lsa.populate_ref_calendar()
- RETURNS void
+CREATE OR REPLACE PROCEDURE lsa.populate_ref_calendar()
  LANGUAGE plpgsql
-AS $function$
+AS $procedure$
 
 	declare
 	startDate date default '2012-10-01';
@@ -37,17 +35,19 @@ AS $function$
 	i int default 0;
 	total_days int = DATE_PART('day', endDate::timestamp - startDate::timestamp);
 	begin
+	
 	while (i <= total_days) 
 		LOOP
-			insert into lsa."ref_Calendar" ("theDate") select cast(dateadd('d', i, startDate) as date); 
+			insert into lsa.ref_Calendar (theDate) select cast(lsa.dateadd('d', i, startDate) as date); 
 			i = i + 1;
 		end loop;
+	
 	end;
 
-$function$
+$procedure$
 ;
 
-CREATE OR REPLACE FUNCTION isdate(s varchar) returns boolean as $$
+CREATE OR REPLACE FUNCTION lsa.isdate(s varchar) returns boolean as $$
 		begin
 	perform s::date;
 	return true;

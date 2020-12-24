@@ -1,0 +1,53 @@
+2020-08-05 17:00:36 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:00:37 main ReportGenerator [ERROR] org.postgresql.util.PSQLException: ERROR: operator does not exist: base.report_type = character varying
+  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
+  Position: 114
+org.postgresql.util.PSQLException: ERROR: operator does not exist: base.report_type = character varying
+  Hint: No operator matches the given name and argument types. You might need to add explicit type casts.
+  Position: 114
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2284)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2003)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:200)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:424)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:161)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:114)
+	at com.servinglynk.hive.connection.SyncPostgresProcessor.getReportConfigByStatusReportType(SyncPostgresProcessor.java:120)
+	at com.servinglynk.hmis.warehouse.LSAReportGenerator.exportToPDF(LSAReportGenerator.java:28)
+	at com.servinglynk.hmis.warehouse.LSAReportGenerator.main(LSAReportGenerator.java:19)
+2020-08-05 17:02:10 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:03:10 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:05:40 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:07:14 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:10:23 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:11:02 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:38:38 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:39:21 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:39:28 main SyncPostgresProcessor [ERROR]  Exception inserting sync table: ERROR: null value in column "ReportCoC" violates not-null constraint
+  Detail: Failing row contains (54, null, 2018-02-18, 2019-03-19, null, HsLynk Inc., LSA Online, HsLynk, info@hsLynk.com, 1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, TT0013).
+org.postgresql.util.PSQLException: ERROR: null value in column "ReportCoC" violates not-null constraint
+  Detail: Failing row contains (54, null, 2018-02-18, 2019-03-19, null, HsLynk Inc., LSA Online, HsLynk, info@hsLynk.com, 1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, TT0013).
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2284)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2003)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:200)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:424)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:161)
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:133)
+	at com.servinglynk.hive.connection.SyncPostgresProcessor.insertLsaReport(SyncPostgresProcessor.java:67)
+	at com.servinglynk.hmis.warehouse.LSAReportGenerator.exportToPDF(LSAReportGenerator.java:38)
+	at com.servinglynk.hmis.warehouse.LSAReportGenerator.main(LSAReportGenerator.java:23)
+2020-08-05 17:41:29 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:41:37 main SyncPostgresProcessor [ERROR]  Exception inserting sync table: ERROR: null value in column "ReportCoC" violates not-null constraint
+  Detail: Failing row contains (54, null, 2018-02-18, 2019-03-19, null, HsLynk Inc., LSA Online, HsLynk, info@hsLynk.com, 1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, TT0013).
+org.postgresql.util.PSQLException: ERROR: null value in column "ReportCoC" violates not-null constraint
+  Detail: Failing row contains (54, null, 2018-02-18, 2019-03-19, null, HsLynk Inc., LSA Online, HsLynk, info@hsLynk.com, 1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, TT0013).
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2284)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2003)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:200)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:424)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:161)
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:133)
+	at com.servinglynk.hive.connection.SyncPostgresProcessor.insertLsaReport(SyncPostgresProcessor.java:67)
+	at com.servinglynk.hmis.warehouse.LSAReportGenerator.exportToPDF(LSAReportGenerator.java:38)
+	at com.servinglynk.hmis.warehouse.LSAReportGenerator.main(LSAReportGenerator.java:23)
+2020-08-05 17:42:30 main ReportGenerator [INFO] Starting LSA reports process....
+2020-08-05 17:44:24 main ReportGenerator [INFO] Starting LSA reports process....
