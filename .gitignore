@@ -27,6 +27,7 @@ admin/node_modules/
 admin/bin
 admin/package-lock.json
 admin/src/main/webapp/script/hmis-admin.min.js
+admin/src/data/config.js
 
 authorization-service/target/*
 authorization-service/bin/*

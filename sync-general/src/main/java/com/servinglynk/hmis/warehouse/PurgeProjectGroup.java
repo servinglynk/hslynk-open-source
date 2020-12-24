@@ -111,18 +111,7 @@ public class PurgeProjectGroup extends Logging {
 		props.generatePropValues();
 		
 		PurgeProjectGroup view = new PurgeProjectGroup(logger);
-//		TE0008
-//		TE0003
-		//PP0021
-		//IL0009
-		//DP0003
-		//BA0007
-		//SP0022
-		//MO0006
-		//HO0002
-		//OR0024
 	    view.purge("OR0024");
-
 	}
 
 }

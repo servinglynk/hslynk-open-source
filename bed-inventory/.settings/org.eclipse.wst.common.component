@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="bed-inventory-api-2.25.2">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="hmis-base-serialize-2.26.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-base-serialize/hmis-base-serialize">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hmis-core-common-2.26.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-core-common/hmis-core-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="core-client-2.26.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/core-client/core-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="bed-inventory-api"/>
+        <property name="java-output-path" value="/bed-inventory-api/target/classes"/>
+    </wb-module>
+</project-modules>

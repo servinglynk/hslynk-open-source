@@ -22,7 +22,7 @@ public class SyncPostgresProcessor extends Logging{
     private static Connection connection = null;
     static final Logger logger = Logger.getLogger(SyncPostgresProcessor.class);
     static Connection getConnection() throws SQLException, ClassNotFoundException {
-        if (connection == null) {
+        if (connection == null || connection.isClosed() ) {
         	Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://" + Properties.POSTGRESQL_DB_HOST + ":" + Properties.POSTGRESQL_DB_PORT + "/" + Properties.POSTGRESQL_DB_DATABASE,
@@ -35,6 +35,54 @@ public class SyncPostgresProcessor extends Logging{
         return connection;
     }
     
+    public static void insertLsaReport(ReportConfig reportConfig) throws Exception{
+        PreparedStatement statement = null;
+        Connection connection = null;
+        try{
+            connection = SyncPostgresProcessor.getConnection();
+            statement = connection.prepareStatement("insert into lsa.\"lsa_Report\" (\n" + 
+            		"			  \"ReportID\"			\n" + 
+            		"			, \"ReportStart\"		\n" + 
+            		"			, \"ReportEnd\"		\n" + 
+            		"			, \"ReportCoC\"			\n" + 
+            		"			, \"SoftwareVendor\"\n" + 
+            		"			, \"SoftwareName\"	\n" + 
+            		"			, \"VendorContact\"\n" + 
+            		"			, \"VendorEmail\"	\n" + 
+            		"			, \"LSAScope\"\n" + 
+            		"			, \"project_group_code\"\n" + 
+            		"			)\n" + 
+            		"		values (?,?,?,?,?,?,?,?,?,?) ");
+            statement.setInt(1,reportConfig.getId().intValue());
+            statement.setDate(2,reportConfig.getStartDate());
+            statement.setDate(3,reportConfig.getEndDate());
+            statement.setString(4,reportConfig.getCocCode());
+            statement.setString(5,"HsLynk Inc.");
+            statement.setString(6,"LSA Online");
+            statement.setString(7,"HsLynk");
+            statement.setString(8,"info@hsLynk.com");
+            statement.setInt(9,1);
+            statement.setString(10,reportConfig.getProjectGroupCode());
+			
+            int rowsInserted =  statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new user was inserted successfully!");
+            }
+        }catch (SQLException ex) {
+            logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+
+        } finally {
+
+            try {
+                if (statement != null) {
+                	statement.close();
+                }
+            } catch (SQLException ex) {
+            	logger.error(" Exception inserting sync table: "+ex.getMessage(), ex);
+            }
+        }
+    }
+ 
    //  statement = connection.prepareStatement("select value as projectid,report_config_id, report_config_id as reportconfig from base.report_config_param where key='PROJECT_ID' and report_config_id in ( select id from base.report_config where status='INITIAL' limit 1 )");
     public static ReportConfig getProjects(int id) throws Exception{
         ResultSet resultSet = null;
@@ -114,9 +162,8 @@ public class SyncPostgresProcessor extends Logging{
         ReportConfig reportConfig = null; 
         try{
             connection = getConnection();
-            statement = connection.prepareStatement("select id,project_group_code,start_date,end_date,coc_id from base.report_config where status = ? and report_type= ? ");
+            statement = connection.prepareStatement("select id,project_group_code,start_date,end_date,coc_id from base.report_config where status = ? and report_type='"+reportType+"'");
             statement.setString(1, status);
-            statement.setString(2, reportType);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
             	Long reportConfigId = resultSet.getLong("id"); 
@@ -227,7 +274,7 @@ public class SyncPostgresProcessor extends Logging{
         Connection connection = null;
         try{
             connection = getConnection();
-            statement = connection.prepareStatement("select value from base.report_config_param where  report_config_id= ? and key='COC' ");
+            statement = connection.prepareStatement("select value from base.report_config_param where  report_config_id= ? and key='COC_CODE' ");
             statement.setLong(1, reportConfig.getId());
             resultSet = statement.executeQuery();
             while (resultSet.next()){

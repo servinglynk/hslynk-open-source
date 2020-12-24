@@ -1,0 +1,13 @@
+InventoryID,ProjectID,CoCCode,HouseholdType,Availability,UnitInventory,BedInventory,CHVetBedInventory,YouthVetBedInventory,VetBedInventory,CHYouthBedInventory,YouthBedInventory,CHBedInventory,OtherBedInventory,ESBedType,InventoryStartDate,InventoryEndDate,DateCreated,DateUpdated,UserID,DateDeleted,ExportID
+"15679af8","3c21b121","",,,,,,,,,,,,,"","","","",,,12345
+"18bfe615","1098c370","",,,,,,,,,,,,,"",,"","",,,12345
+"47b7b83d","7a406cc1","",,,,,,,,,,,,,"","","","",,,12345
+"6440060d","2d955398","",,,,,,,,,,,,,"","","","",,,12345
+"6ebfd4ca","7a406cc1","",,,,,,,,,,,,,"","","","",,,12345
+"78e26f3a","2d955398","",,,,,,,,,,,,,"","","","",,,12345
+"89c26ff4","3c21b121","",,,,,,,,,,,,,"","","","",,,12345
+"b0e38e53","2ff327bb","",,,,,,,,,,,,,"",,"","",,,12345
+"c2c2ac76","339da772","",,,,,,,,,,,,,"","","","",,,12345
+"c5c577a7","60b3bdd0","",,,,,,,,,,,,,"",,"","",,,12345
+"d7130c6b","773fa99b","",,,,,,,,,,,,,"",,"","",,,12345
+"ecf4eaff","339da772","",,,,,,,,,,,,,"","","","",,,12345

@@ -1,9 +1,3 @@
-CREATE OR REPLACE FUNCTION lsa.fun_lsareport_parameters_and_vendor_info (IN reportId integer, IN project_group_code varchar)
-RETURNS void
- LANGUAGE plpgsql
-AS $function$
-BEGIN
-
 /*
 LSA FY2019 Sample Code
 
@@ -20,19 +14,19 @@ Date:	4/16/2020 -- original
 	The hard-coded values here must be replaced with code to accept actual user-entered parameters 
 	and info specific to the HMIS application.
 */
-delete from lsa."lsa_Report"; 
+delete from lsa.lsa_Report; 
 
-insert into lsa."lsa_Report" (
-		  "ReportID"			--system-generated unique identifier for report process
-		, "ReportStart"		--user-entered start of report period
-		, "ReportEnd"			--user-entered end of report period 
-		, "ReportCoC"			--user-selected HUD Continuum of Care Code
-		, "SoftwareVendor"	--name of vendor  
-		, "SoftwareName"		--name of HMIS application
-		, "VendorContact"		--name of vendor contact
-		, "VendorEmail"		--email address of vendor contact
-		, "LSAScope"			--user-selected 1=systemwide, 2=project-focused
-		, "project_group_code"
+insert into lsa.lsa_Report (
+		  ReportID			--system-generated unique identifier for report process
+		, ReportStart		--user-entered start of report period
+		, ReportEnd			--user-entered end of report period 
+		, ReportCoC			--user-selected HUD Continuum of Care Code
+		, SoftwareVendor	--name of vendor  
+		, SoftwareName		--name of HMIS application
+		, VendorContact		--name of vendor contact
+		, VendorEmail		--email address of vendor contact
+		, LSAScope			--user-selected 1=systemwide, 2=project-focused
+		, project_group_code
 		)
 	select
 		  12345
@@ -45,8 +39,4 @@ insert into lsa."lsa_Report" (
 		, 'molly@squarepegdata.com'
 		, 1
 		, 'LS0024'
-;
-
-END
-$function$
 ;
