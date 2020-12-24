@@ -1,17 +1,12 @@
 package com.servinglynk.hmis.warehouse.service.converter;
 
-import java.time.ZoneId;
-import java.util.Date;
-
 import com.servinglynk.hmis.warehouse.core.model.ActionLink;
 import com.servinglynk.hmis.warehouse.core.model.Enrollment;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentDisablingconditionEnum;
-import com.servinglynk.hmis.warehouse.enums.EnrollmentHousingstatusEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentMonthshomelesspastthreeyearsEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentRelationshiptohohEnum;
-import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorEnum;
-import com.servinglynk.hmis.warehouse.enums.EnrollmentResidencepriorlengthofstayEnum;
 import com.servinglynk.hmis.warehouse.enums.EnrollmentTimeshomelesspastthreeyearsEnum;
+import com.servinglynk.hmis.warehouse.enums.LivingSituationEnum;
 import com.servinglynk.hmis.warehouse.enums.NoYesEnum;
 
 public class EnrollmentConveter extends BaseConverter {
@@ -30,14 +25,13 @@ public class EnrollmentConveter extends BaseConverter {
 		pEnrollment.setEntrydate(enrollment.getEntryDate());
 		if(enrollment.getHouseholdid()!=null)
 		pEnrollment.setHouseholdid(enrollment.getHouseholdid());
-
-
+		
 		if(enrollment.getMonthshomelesspastthreeyears()!=null)
 		pEnrollment.setMonthshomelesspastthreeyears(EnrollmentMonthshomelesspastthreeyearsEnum.lookupEnum(enrollment.getMonthshomelesspastthreeyears().toString()));
 	/*	if(enrollment.getProjectentryid()!=null)
 		pEnrollment.setProjectentryid(enrollment.getProjectentryid());*/
 		if(enrollment.getLivingSituation()!=null)
-			
+			pEnrollment.setLivingSituation(LivingSituationEnum.lookupEnum(enrollment.getLivingSituation().toString()));
 		if(enrollment.getRelationshiptohoh()!=null)
 		pEnrollment.setRelationshiptohoh(EnrollmentRelationshiptohohEnum.lookupEnum(enrollment.getRelationshiptohoh().toString()));
 		if(enrollment.getTimeshomelesspastthreeyears()!=null)
@@ -81,6 +75,9 @@ public class EnrollmentConveter extends BaseConverter {
 	     if(pEnrollment.getParentId() ==null && pEnrollment.getClient()!=null) {
 	    	   enrollment.addLink(new ActionLink("history","/clients/"+pEnrollment.getClient().getId()+"/enrollments/"+pEnrollment.getId()+"/history"));
 	       }
+		
+	     enrollment.setChronicHomeless(pEnrollment.isChronicHomeless());
+
 		copyBeanProperties(pEnrollment, enrollment);
 
 		return enrollment;
@@ -106,7 +103,9 @@ public class EnrollmentConveter extends BaseConverter {
 		enrollment.setPreviousStreetESSH(Integer.parseInt(pEnrollment.getPreviousStreetESSH().getValue()));
 		if(pEnrollment.getProject()!=null) enrollment.setProjectid(pEnrollment.getProject().getId());
 		enrollment.setSource(pEnrollment.getSource());
-
+		
+		enrollment.setChronicHomeless(pEnrollment.isChronicHomeless());
+		
 		if(pEnrollment.getDatetostreetessh() != null) enrollment.setDateToStreetESSH(pEnrollment.getDatetostreetessh());
 		if(pEnrollment.getHmisHousehold()!=null) {
 			enrollment.setHmisHouseholdId(pEnrollment.getHmisHousehold().getId());

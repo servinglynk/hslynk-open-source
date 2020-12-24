@@ -38,13 +38,14 @@ public class SearchController extends BaseController{
 						SearchRequest searchRequest = new SearchRequest();
 						  searchRequest.addSearchParam("consentGroupId",consentGroupId);
 						  searchRequest.setIsProcSearch(procSearch);
-						  searchRequest.setFreeText(searchterm);
+						  searchRequest.setFreeText(searchterm.replaceAll(" ", ""));
 						  searchRequest.setStartIndex(startIndex);
 						  searchRequest.setMaxItems(maxItems);
 						 return searchService.searcClients(searchRequest);						 
 	  }
 		
 		@RequestMapping(method =  RequestMethod.POST)
+		@APIMapping(value="CLIENT_API_SEARCH", checkSessionToken=false, checkTrustedApp=false)
 		public void cacheClients() throws Exception  {
 			searchService.cacheClients();
 		}

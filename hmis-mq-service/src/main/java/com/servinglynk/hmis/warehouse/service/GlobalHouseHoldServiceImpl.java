@@ -66,7 +66,10 @@ public class GlobalHouseHoldServiceImpl extends BaseService implements  GlobalHo
 		metaData.setProjectGroupCode(hmisHouseHoldModel.getProjectGroupCode());
 		metaData.setDeleted(false);
 		metaData.setMetaDataIdentifier(hmisHouseHoldModel.getGlobalHouseholdId());
-		metaData.setType("globalHouseHolds");
+		if(hmisHouseHoldModel.getGenericHouseHoldId()!=null)
+			metaData.setType("globalHouseHolds.genericHouseHolds");
+		if(hmisHouseHoldModel.getHmisHouseHoldId()!=null)
+			metaData.setType("globalHouseHolds.hmisHouseHolds");
 		metaData.setId(hmisHouseHoldModel.getGlobalHouseholdId());
 		try {
 			metaData.setAdditionalInfo(mapper.writeValueAsString(hmisHouseHoldModel));

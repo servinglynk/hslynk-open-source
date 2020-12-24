@@ -596,6 +596,7 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 				// if access token exists include the account in the response
 				if (pSessionToken != null)	{
 					LoggedInUser loggedInUser = new LoggedInUser(pSessionToken.getAccount().getUsername(),pSessionToken.getAccount().getProjectGroupCode(),pSessionToken.getAccount().getProfileEntity().getId(),pSessionToken.getAccount().getId());
+						loggedInUser.setUrl(apiAuthCheck.getRequestURL());
 						SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(loggedInUser, ""));
 						Account account = new Account();
 						account.setAccountId(pSessionToken.getAccount().getId());
@@ -775,6 +776,17 @@ public class TrustedAppServiceImpl extends ServiceBase implements TrustedAppServ
 		return projectGroups;
 	}
 
+	@Transactional
+	public TrustedApps getTrustedAppsByProjectGroup(UUID projectGroupId) {
+		TrustedApps trustedApps = new TrustedApps();
+		
+		List<TrustedAppProjectGroupMapEntity> trustedAppsByProjectGroup = daoFactory.getTrustedAppDao().getTrustedAppsByProjectGroup(projectGroupId);
+		for(TrustedAppProjectGroupMapEntity entity : trustedAppsByProjectGroup) {
+			trustedApps.addTrustedApp(TrustedAppConverter.convertToTrustedAppPlain(entity.getTrustedApp(), null));
+		}
+		return trustedApps;
+	}
+	
 
 	@Transactional
 	public TrustedApps getTrustedApps() {

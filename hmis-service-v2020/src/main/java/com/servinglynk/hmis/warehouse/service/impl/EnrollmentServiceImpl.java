@@ -16,6 +16,7 @@ import com.servinglynk.hmis.warehouse.client.MessageSender;
 import com.servinglynk.hmis.warehouse.core.model.Enrollments;
 import com.servinglynk.hmis.warehouse.core.model.HmisHousehold;
 import com.servinglynk.hmis.warehouse.core.model.Session;
+import com.servinglynk.hmis.warehouse.dao.helper.ChronicHomelessCalcHelper;
 import com.servinglynk.hmis.warehouse.model.AMQEvent;
 import com.servinglynk.hmis.warehouse.model.base.HmisUser;
 import com.servinglynk.hmis.warehouse.service.EnrollmentLinksService;
@@ -33,6 +34,8 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	EnrollmentLinksService enrollmentLinksService;
 	
 	@Autowired MessageSender messageSender;
+	
+	@Autowired ChronicHomelessCalcHelper chronicHomelessCalcHelper;
 
 	@Override
 	@Transactional
@@ -193,7 +196,9 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 	public com.servinglynk.hmis.warehouse.core.model.Enrollment calculateChronicHomelessness(
 			com.servinglynk.hmis.warehouse.core.model.Enrollment enrollment,UUID clientId,String caller, Session session) {
 		com.servinglynk.hmis.warehouse.model.v2020.Enrollment pEnrollment = daoFactory.getEnrollmentDao().getEnrollmentById(enrollment.getEnrollmentId());
-		publishChronicHomelessCalculation(clientId, pEnrollment.getId(), "2020", session);
+		boolean enrollmentChronicHomeless = chronicHomelessCalcHelper.isEnrollmentChronicHomeless(pEnrollment);
+		pEnrollment.setChronicHomeless(enrollmentChronicHomeless);
+		daoFactory.getEnrollmentDao().updateEnrollment(pEnrollment);
 		return EnrollmentConveter.entityToModel(pEnrollment);
 	}
 	
@@ -224,6 +229,7 @@ public class EnrollmentServiceImpl extends ServiceBase implements EnrollmentServ
 			  Map<String, Object> data  = new HashMap<String, Object>();
 			  data.put("sessionToken", session.getToken());
 			  data.put("clientId",clientId);
+			  data.put("trustedAppId",session.getClientTypeId());
 			  data.put("enrollmentId", enrollmentId);
 			  data.put("userId", session.getAccount().getAccountId());
 			  data.put("projectGroupCode", session.getAccount().getProjectGroup().getProjectGroupCode());

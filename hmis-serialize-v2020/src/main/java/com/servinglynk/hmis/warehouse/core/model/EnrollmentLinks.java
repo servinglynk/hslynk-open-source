@@ -21,7 +21,11 @@ Map<String,Map<String,List<ActionLinks>>> noncashbenefits = new HashMap<>();
 Map<String,Map<String,List<ActionLinks>>> residentialMoveinDates = new HashMap<>();
 Map<String,Map<String,List<ActionLinks>>> pathstatuses = new HashMap<>();
 Map<String,Map<String,List<ActionLinks>>> serviceFaReferrals = new HashMap<>();
-	
+Map<String,Map<String,List<ActionLinks>>> events = new HashMap<>();
+Map<String,Map<String,List<ActionLinks>>> assessments = new HashMap<>();
+Map<String,Map<String,List<ActionLinks>>> currentLivingSituationsLinks = new HashMap<>();
+
+ 	
 	public Map<String,Map<String,List<ActionLinks>>> getEnrollmentcocs() {
 		return enrollmentcocs;
 	}
@@ -111,5 +115,23 @@ Map<String,Map<String,List<ActionLinks>>> serviceFaReferrals = new HashMap<>();
 	}
 	public void setServiceFaReferrals(Map<String,Map<String,List<ActionLinks>>> serviceFaReferrals) {
 		this.serviceFaReferrals = serviceFaReferrals;
+	}
+	public Map<String, Map<String, List<ActionLinks>>> getEvents() {
+		return events;
+	}
+	public void setEvents(Map<String, Map<String, List<ActionLinks>>> events) {
+		this.events = events;
+	}
+	public Map<String, Map<String, List<ActionLinks>>> getAssessments() {
+		return assessments;
+	}
+	public void setAssessments(Map<String, Map<String, List<ActionLinks>>> assessments) {
+		this.assessments = assessments;
+	}
+	public Map<String, Map<String, List<ActionLinks>>> getCurrentLivingSituationsLinks() {
+		return currentLivingSituationsLinks;
+	}
+	public void setCurrentLivingSituationsLinks(Map<String, Map<String, List<ActionLinks>>> currentLivingSituationsLinks) {
+		this.currentLivingSituationsLinks = currentLivingSituationsLinks;
 	}	
 }

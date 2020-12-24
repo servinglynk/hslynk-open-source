@@ -26,7 +26,7 @@ public class EnrollmentGenericHouseHoldListener extends BaseListener {
 		//	EnrollmentModel enrollment = mapper.readValue(mapper.writeValueAsString(map.get("enrollment")), EnrollmentModel.class);
 			EnrollmentModel enrollment = objectMapper.readValue(enrollmentData, EnrollmentModel.class);
 			SessionModel sessionModel = new SessionModel();
-			sessionModel.setClientId(event.getPayload().get("clientId").toString());
+			sessionModel.setTrustedAppId(event.getPayload().get("clientId").toString());
 			sessionModel.setProjectGroupCode(event.getPayload().get("projectGroupCode").toString());
 			sessionModel.setSessionToken(event.getPayload().get("sessionToken").toString());
 			String schemaYear = event.getPayload().get("schemaYear").toString();

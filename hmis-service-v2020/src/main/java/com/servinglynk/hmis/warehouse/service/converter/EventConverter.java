@@ -9,13 +9,16 @@ public class EventConverter  extends BaseConverter {
 	   public static com.servinglynk.hmis.warehouse.model.v2020.Event modelToEntity (Event model ,com.servinglynk.hmis.warehouse.model.v2020.Event entity) {
 	       if(entity==null) entity = new com.servinglynk.hmis.warehouse.model.v2020.Event();
 	       entity.setId(model.getEventId());
-	       entity.setEvent(EventTypeEnum.lookupEnum(model.getEvent()));
+	       if(model.getEvent() !=null)
+	    	   entity.setEvent(EventTypeEnum.lookupEnum(model.getEvent()));
 	       entity.setEventDate(model.getEventDate());
 	       entity.setLocationcrisisorphhousing(model.getLocationcrisisorphhousing());
-	       entity.setReferralCaseManageAfter(NoYesEnum.lookupEnum(model.getLocationcrisisorphhousing()));
+	       if(model.getLocationcrisisorphhousing() !=null)
+	    	   entity.setReferralCaseManageAfter(NoYesEnum.lookupEnum(model.getLocationcrisisorphhousing()));
 	       entity.setReferralResult(model.getReferralResult());
 	       entity.setResultDate(model.getResultDate());
-	       entity.setProbsoldivrrresult(NoYesEnum.lookupEnum(model.getProbsoldivrrresult()));
+	       if(model.getProbsoldivrrresult() !=null)
+	    	   entity.setProbsoldivrrresult(NoYesEnum.lookupEnum(model.getProbsoldivrrresult()));
 	       return entity;
 	   }
 
@@ -23,7 +26,8 @@ public class EventConverter  extends BaseConverter {
 	   public static Event entityToModel (com.servinglynk.hmis.warehouse.model.v2020.Event entity) {
 	       Event model = new Event();
 	       model.setEventId(entity.getId());
-	       model.setEvent(entity.getEvent().getValue());
+	       if(entity.getEvent() !=null)
+	    	   model.setEvent(entity.getEvent().getValue());
 	       model.setEventDate(model.getEventDate());
 	       model.setLocationcrisisorphhousing(entity.getLocationcrisisorphhousing());
 	       if(entity.getReferralCaseManageAfter() != null)

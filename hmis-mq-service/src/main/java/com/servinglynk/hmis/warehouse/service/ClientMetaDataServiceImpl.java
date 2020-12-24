@@ -21,7 +21,7 @@ public class ClientMetaDataServiceImpl extends BaseService implements ClientMeta
 
 	@Transactional
 	public void createClientMetaData(ClientMetaDataModel model) {
-		ClientMetaDataEntity entity = daoFactory.getClientMetaDataRepository().findFirstByMetaDataIdentifier(model.getMetaDataIdentifier());
+		ClientMetaDataEntity entity = daoFactory.getClientMetaDataRepository().findFirstByMetaDataIdentifierAndType(model.getMetaDataIdentifier(),model.getType());
 		ClientMetaDataEntity entity2 = ClientMetaDataConverter.modelToEntity(entity, model);
 		daoFactory.getClientMetaDataRepository().save(entity2);		
 		indexClientMetadata(entity2);

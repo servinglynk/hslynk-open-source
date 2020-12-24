@@ -14,7 +14,7 @@
         <spring.version>3.0.5.RELEASE</spring.version>
         <slf4j.version>1.5.10</slf4j.version>
         <java.version>1.8</java.version>
-        <junit.version>4.8.2</junit.version>
+        <junit.version>4.13.1</junit.version>
         <hadoop.version>2.6.0</hadoop.version>
     </properties>
   
@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.2.1</version>
+			<version>3.2.3</version>
 			<scope>compile</scope>
         </dependency>
 
@@ -97,7 +97,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.15</version>
+            <version>1.2.17</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.sun.jdmk</groupId>
@@ -143,11 +143,7 @@
             <version>2.1.7</version>
         </dependency>
 
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
-        </dependency>
+        
            <dependency>
             <groupId>com.servinglynk.hmis.warehouse</groupId>
             <artifactId>hmis-s3-client</artifactId>
