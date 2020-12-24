@@ -111,10 +111,8 @@ public class PurgeProjectGroup extends Logging {
 		props.generatePropValues();
 		
 		PurgeProjectGroup view = new PurgeProjectGroup(logger);
-<<<<<<< Updated upstream
 
 	    view.purge("JP0005");
-=======
 //		TE0008
 //		TE0003
 		//PP0021

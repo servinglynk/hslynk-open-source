@@ -65,9 +65,9 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 				com.servinglynk.hmis.warehouse.model.v2020.Enrollment enrollmentModel = null;
 				try {
 					enrollmentModel = getModelObject(domain, enrollment,data,modelMap);
-					if(enrollmentModel.isIgnored()) {
-						continue;
-					}
+//					if(enrollmentModel.isIgnored()) {
+//						continue;
+//					}
 	//				enrollmentModel
 //						.setContinuouslyhomelessoneyear(EnrollmentContinuouslyhomelessoneyearEnum.lookupEnum((enrollment
 //								.getContinuouslyHomelessOneYear())));
@@ -106,7 +106,8 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					enrollmentModel.setExport(exportEntity);
 					HmisHousehold hmisHouseHold = parentDaoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(enrollmentModel);
 					enrollmentModel.setHmisHousehold(hmisHouseHold);
-					performSaveOrUpdate(enrollmentModel, domain);
+					getCurrentSession().update(enrollmentModel);
+//					performSaveOrUpdate(enrollmentModel, domain);
 //					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollment::"+enrollment.getEnrollmentID() +" Exception ::"+e.getMessage();

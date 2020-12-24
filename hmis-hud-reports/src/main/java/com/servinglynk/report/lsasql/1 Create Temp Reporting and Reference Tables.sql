@@ -186,7 +186,6 @@ DROP TABLE IF EXISTS lsa.ch_Exclude;
 	PersonalID varchar(36) not NULL,
 	excludeDate date not NULL,
 	Step varchar(10) not NULL,
-	constraint pk_ch_Exclude primary key (PersonalID, excludeDate) 
 	)
 	;
 
@@ -196,7 +195,6 @@ DROP TABLE IF EXISTS lsa.ch_Include;
 	PersonalID varchar(36) not NULL,
 	ESSHStreetDate date not NULL,
 	Step varchar(10) not NULL,
-	constraint pk_ch_Include primary key (PersonalID, ESSHStreetDate)
 	)
 	;
 

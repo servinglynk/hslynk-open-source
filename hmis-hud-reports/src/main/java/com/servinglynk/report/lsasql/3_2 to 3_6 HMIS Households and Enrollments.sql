@@ -36,6 +36,7 @@ Date:	4/16/2020 -- original
 	3.2 Cohort Dates 
 */
 
+	
 	delete from lsa.tlsa_CohortDates;
 
 	insert into lsa.tlsa_CohortDates (Cohort, CohortStart, CohortEnd, ReportID)
@@ -97,7 +98,7 @@ insert into lsa.tlsa_HHID (
 	, LastBednight
 	, Step)
 select distinct hoh.householdid, hoh.client_id, hoh.id
-	, hoh.projectid, cast (cast (p.projecttype as varchar) as integer), cast (cast (p.trackingmethodas varchar) as integer)
+	, hoh.projectid, cast (cast (p.projecttype as text) as integer), cast (cast (p.trackingmethod as text) as integer)
 	, hoh.entrydate 
 	, case when mid.moveindate > rpt.ReportEnd 
 			or p.projecttype not in ('3','13') 
@@ -108,7 +109,7 @@ select distinct hoh.householdid, hoh.client_id, hoh.id
 		when p.projecttype = '13' and (mid.moveindate <= hx.exitdate or hx.exitdate is null) 
 			then mid.moveindate
 		else null end
-	, case when p.projecttype = = '1' and p.trackingmethod = '3'
+	, case when p.projecttype ='1' and p.trackingmethod = '3'
 				and dateadd('d', 1, bn.LastBednight::date) >= p.operatingenddate then p.operatingenddate
 		when p.projecttype = '1' and p.trackingmethod = '3' and hx.exitdate > dateadd('d', 1, bn.LastBednight::date)
 			then dateadd('d', 1, bn.LastBednight::date)
@@ -225,7 +226,33 @@ where hoh.relationshiptohoh = '1'
 				(hx.exitdate > hhid.EntryDate and hx.exitdate >= '2012-10-1'
 					and hx.exitdate > hn.entrydate)) ;
 
-update lsa.tlsa_Enrollment set DVStatus =
+
+update n
+set n.EntryAge = case when c.DOBDataQuality in (8,9) then 98
+			when c.DOB is null 
+				or c.DOB = '1/1/1900'
+				or c.DOB > n.EntryDate
+				or (n.RelationshipToHoH = 1 and c.DOB = n.EntryDate)
+				or DATEADD(yy, 105, c.DOB) <= n.EntryDate 
+				or c.DOBDataQuality is null
+				or c.DOBDataQuality not in (1,2) then 99
+			when DATEADD(yy, 65, c.DOB) <= n.EntryDate then 65
+			when DATEADD(yy, 55, c.DOB) <= n.EntryDate then 64
+			when DATEADD(yy, 45, c.DOB) <= n.EntryDate then 54
+			when DATEADD(yy, 35, c.DOB) <= n.EntryDate then 44
+			when DATEADD(yy, 25, c.DOB) <= n.EntryDate then 34
+			when DATEADD(yy, 22, c.DOB) <= n.EntryDate then 24
+			when DATEADD(yy, 18, c.DOB) <= n.EntryDate then 21
+			when DATEADD(yy, 6, c.DOB) <= n.EntryDate then 17
+			when DATEADD(yy, 3, c.DOB) <= n.EntryDate then 5
+			when DATEADD(yy, 1, c.DOB) <= n.EntryDate then 2
+			else 0 end 	
+	, n.Step = '3.4.2'
+from tlsa_Enrollment n
+inner join v2020.client c on c.id = n.PersonalID;
+
+
+update lsa.tlsa_Enrollment set Step = '3.4.3', DVStatus =
 	 (select  min(case when dv.domesticviolencevictim = '1' and dv.currently_fleeing = 1 then 1
 				when dv.domesticviolencevictim = '1' and dv.currently_fleeing = 0 then 2 
 				when dv.domesticviolencevictim = '1' then 3
@@ -393,7 +420,7 @@ update lsa.tlsa_Enrollment
 			else 99 end
 		, Step = '3.6.3'
 	from lsa.tlsa_HHID hhid
-	inner join lsa.tlsa_CohortDates cd on cd.CohortEnd <> hhid.EntryDate and cd.Cohort = -1
+	inner join lsa.tlsa_CohortDates cd on cd.CohortEnd <> hhid.EntryDate anch d cd.Cohort = -1
 	left outer join lsa.tlsa_Enrollment adult on adult.HouseholdID = hhid.HouseholdID 
 		and adult.Exit1Age between 18 and 65 and adult.ExitDate between cd.CohortStart and cd.CohortEnd
 	left outer join lsa.tlsa_Enrollment child on child.HouseholdID = hhid.HouseholdID 

@@ -1,9 +1,0 @@
-.TextCenter
-{
-	text-align:center!important;
-}
-@media (min-width: 992px){
-.modal-lg{
-	margin: 90px auto;
-	}
-}

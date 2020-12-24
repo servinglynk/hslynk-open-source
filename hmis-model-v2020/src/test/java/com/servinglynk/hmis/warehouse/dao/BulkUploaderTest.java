@@ -119,8 +119,9 @@ public class BulkUploaderTest {
 		//		URL path = BulkUploadHelperTest.class.getResource("2016.xml");
 		//		upload.setInputpath(path.getPath());
 				upload.setProjectGroupCode("LS0024");
-				upload.setId(1L);
+				upload.setId(725L);
 				upload.setYear(2020L);
+				upload.setDescription("enrollment");
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
 				projectGrpEntity.setProjectGroupCode("LS0024");
 				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
