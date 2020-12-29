@@ -15,4 +15,6 @@ public interface BedOccupantService {
 	BedOccupant getBedOccupant(UUID bedOccupantId);
 	BedOccupants getBedOccupants(UUID bedUnitId,Date fromdate, Date todate, Pageable pageable);
 	BedOccupants getClientBedUnitOccupants(UUID dedupClientId, Date fromdate, Date todate, Pageable pageable);
+	void checkoutBedOccupant(BedOccupant bedOccupant) throws Exception;
+	Boolean isBedUnitVacent(UUID bedunitid, Date startDate, Date endDate);
 }
