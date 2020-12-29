@@ -39,6 +39,9 @@ public class BedOccupantEntity extends BaseEntity {
 	@Column(name = "occupancy_end_date")
 	private Date occupancyEndDate;
 	
+	@Column(name = "checkout_date")
+	private Date checkOutDate;
+	
 	@Column(name = "is_active")
 	private Boolean isActive;
 	
@@ -137,5 +140,11 @@ public class BedOccupantEntity extends BaseEntity {
 	}
 	public void setShelter(ShelterEntity shelter) {
 		this.shelter = shelter;
+	}
+	public Date getCheckOutDate() {
+		return checkOutDate;
+	}
+	public void setCheckOutDate(Date checkOutDate) {
+		this.checkOutDate = checkOutDate;
 	}
 }

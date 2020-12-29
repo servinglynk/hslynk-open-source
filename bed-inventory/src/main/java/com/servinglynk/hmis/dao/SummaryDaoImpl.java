@@ -168,6 +168,7 @@ public class SummaryDaoImpl implements SummaryDao {
 			criteria.add(Restrictions.eq("shelter.deleted", false));
 		}
 		
+		criteria.add(Restrictions.isNull("checkOutDate"));
 	    criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
 	    criteria.add(Restrictions.eq("deleted", false));
 		projectionList.add(Projections.rowCount());

@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.entity.BedOccupantEntity;
 import com.servinglynk.hmis.entity.BedUnitEntity;
+import com.servinglynk.hmis.entity.BedUnitReservationEntity;
 import com.servinglynk.hmis.entity.ClientEntity;
 import com.servinglynk.hmis.model.BedOccupant;
 import com.servinglynk.hmis.model.BedOccupants;
+import com.servinglynk.hmis.model.BedUnitReservation;
 import com.servinglynk.hmis.model.SortedPagination;
 import com.servinglynk.hmis.service.converter.BedOccupantConverter;
 import com.servinglynk.hmis.service.converter.ClientConverter;
@@ -26,6 +28,7 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 	public BedOccupant createBedOccupant(BedOccupant bedUnit) throws Exception {
 		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getBedUnit().getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed unit not found");
+		this.checkReservation(bedUnit, bedUnitEntity);
 		BedOccupantEntity entity = BedOccupantConverter.modelToEntity(bedUnit,null);
 		entity.setClientId(bedUnit.getClientId());
 		entity.setDedupClientId(validationService.validateCleintId(bedUnit.getClientId()));
@@ -53,6 +56,22 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
 		daoFactory.getBedOccupantRepository().save(entity);
 	}
+	
+	@Transactional
+	public void checkoutBedOccupant(BedOccupant bedOccupant) throws Exception {
+		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedOccupant.getBedUnit().getId(),SecurityContextUtil.getUserProjectGroup(),false);
+		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed unit not found");
+		BedOccupantEntity entity =  daoFactory.getBedOccupantDao().getClinetBedOccupants(bedOccupant.getClientId(),bedUnitEntity.getId());
+		if(entity == null) throw new ResourceNotFoundException("Client not occupied bed unit "+bedOccupant.getBedUnit().getId());
+		entity = BedOccupantConverter.modelToEntity(bedOccupant,entity);
+		if(bedOccupant.getCheckOutDate()==null) entity.setCheckOutDate(new Date());
+		entity.setDedupClientId(validationService.validateCleintId(bedOccupant.getClientId()));
+		entity.setEnrollmentType(validationService.validateEnrillment(bedOccupant.getEnrollmentId()));
+		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
+		daoFactory.getBedOccupantRepository().save(entity);
+		
+	}	
+	
 	
 	@Transactional
 	public void deleteBedOccupant(UUID bedUnitId) {
@@ -90,7 +109,7 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		
 		 SortedPagination pagination = new SortedPagination();
 		   
-	        pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
+	        if(pageable!=null)pagination.setFrom(pageable.getPageNumber() * pageable.getPageSize());
 	        pagination.setReturned(entityPage.getContent().size());
 	        pagination.setTotal((int)entityPage.getTotalElements());
 	        bedUnits.setPagination(pagination);
@@ -117,5 +136,22 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 	        pagination.setTotal((int)entityPage.getTotalElements());
 	        bedUnits.setPagination(pagination);
 		return bedUnits;
-	}	
+	}
+	
+	public void checkReservation(BedOccupant bedOccupant,BedUnitEntity bedUnitEntity) throws Exception {
+		Boolean isReserved = daoFactory.getBedUnitReservationDao().checkBedUnitOrRoomReservation(bedUnitEntity.getId(),bedUnitEntity.getRoom().getId(),bedOccupant.getStartDate(),bedOccupant.getEndDate(),bedOccupant.getClientId());
+		if(!isReserved) {
+			BedUnitReservation reservation = new BedUnitReservation();
+			reservation.setBedUnitId(bedOccupant.getBedUnit().getId());
+			reservation.setEndDate(bedOccupant.getEndDate());
+			reservation.setStartDate(bedOccupant.getStartDate());
+			reservation.setReservedClientId(bedOccupant.getClientId());
+			serviceFactory.getBedReservationService().createBedUnitReservation(reservation);
+		}
+	}
+
+	@Transactional
+	public Boolean isBedUnitVacent(UUID bedunitid, Date startDate, Date endDate) {
+			return daoFactory.getBedOccupantDao().isBedUnitVacent(bedunitid,startDate,endDate);
+	}
 }

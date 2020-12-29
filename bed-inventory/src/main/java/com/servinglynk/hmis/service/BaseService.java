@@ -16,6 +16,9 @@ public class BaseService {
 	protected DaoFactory daoFactory;
 	
 	@Autowired
+	protected ServiceFactory serviceFactory;
+	
+	@Autowired
 	protected ValidationService validationService;
 	
 	@Autowired MessageSender messageSender;
