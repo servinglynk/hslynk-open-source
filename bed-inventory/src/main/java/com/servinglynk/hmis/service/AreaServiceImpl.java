@@ -25,6 +25,8 @@ public class AreaServiceImpl extends BaseService implements AreaService {
 		if(shelterEntity == null) throw new ResourceNotFoundException("Shelter "+area.getShelter().getId()+" not found");
 		entity.setShelter(shelterEntity);
 		daoFactory.getAreaRepository().save(entity);
+		shelterEntity.setTotalAreas(shelterEntity.getTotalAreas()+1);
+		daoFactory.getShelterRepository().save(shelterEntity);
 		area.setId(entity.getId());
 		return area;
 	}
@@ -42,6 +44,9 @@ public class AreaServiceImpl extends BaseService implements AreaService {
 		AreaEntity entity =  daoFactory.getAreaRepository().findByIdAndProjectGroupCodeAndDeleted(areaId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("Area "+areaId+" not found");
 		daoFactory.getAreaRepository().delete(entity);
+		ShelterEntity shelterEntity = entity.getShelter();
+		shelterEntity.setTotalAreas(shelterEntity.getTotalAreas()-1);
+		daoFactory.getShelterRepository().save(shelterEntity);
 	}
 	
 	@Transactional

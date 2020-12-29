@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -45,8 +46,12 @@ public class BedOccupantDaoImpl implements BedOccupantDao {
 		criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
 		
 		  DetachedCriteria countCriteria = criteria;
-		    List<BedOccupantEntity> entities = criteria.getExecutableCriteria(session).
+		    List<BedOccupantEntity> entities = new ArrayList<BedOccupantEntity>();
+		    
+		    if (pageable!=null) {
+			  entities = criteria.getExecutableCriteria(session).
 				   setMaxResults(pageable.getPageSize()).setFirstResult(pageable.getPageSize()*pageable.getPageNumber()).list();
+		    }
 		  
 		    countCriteria.setProjection(Projections.rowCount());
 		   
@@ -86,6 +91,48 @@ public class BedOccupantDaoImpl implements BedOccupantDao {
 			
 			return new PageImpl<BedOccupantEntity>(entities,pageable,count);
 		
+	}
+
+
+	@Override
+	public BedOccupantEntity getClinetBedOccupants(UUID clientId, UUID bedUnitId) {
+		Session session = entityManager.unwrap(Session.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(BedOccupantEntity.class);
+		criteria.createAlias("bedUnit", "bedUnit");
+		criteria.add(Restrictions.eq("bedUnit.id", bedUnitId));
+		criteria.add(Restrictions.eq("clientId", clientId));
+		criteria.add(Restrictions.isNull("checkOutDate"));
+		criteria.add(Restrictions.eq("deleted", false));
+		criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+		List<BedOccupantEntity> occupantEntities = criteria.getExecutableCriteria(session).list();
+		if(occupantEntities.isEmpty()) return null;
+		return occupantEntities.get(0);
+	}
+
+
+	@Override
+	public Boolean isBedUnitVacent(UUID bedunitid, Date fromdate, Date todate) {
+		Session session = entityManager.unwrap(Session.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(BedOccupantEntity.class);
+		criteria.createAlias("bedUnit", "bedUnit");
+		criteria.add(Restrictions.eq("bedUnit.id", bedunitid));
+		 Disjunction disjunction = Restrictions.disjunction();
+		
+			disjunction.add(Restrictions.between("occupancyStartDate", fromdate, todate));
+			disjunction.add(Restrictions.between("occupancyEndDate", fromdate, todate));
+			criteria.add(disjunction);
+		criteria.add(Restrictions.isNull("checkOutDate"));
+		criteria.add(Restrictions.eq("deleted", false));
+		criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+		
+		  DetachedCriteria countCriteria = criteria;
+		 
+		    countCriteria.setProjection(Projections.rowCount());
+		   
+			Long count = (Long)countCriteria.getExecutableCriteria(session).uniqueResult();
+			
+			if(count  == 0) { return true; }
+			else return false;
 	}
 
 }

@@ -9,7 +9,7 @@ public class RoomReservationConverter {
 		RoomReservation model = new RoomReservation();
 		model.setEndDate(entity.getReservationEndDateDate());
 		model.setStartDate(entity.getReservationStateDate());
-		model.setReservedCleintId(entity.getReservedCleintId());
+		model.setReservedClientId(entity.getReservedCleintId());
 		model.setReservedHouseholdId(entity.getReservedHouseholdId());
 		model.setRoom(RoomConverter.entityToModel(entity.getRoom()));
 		model.setId(entity.getId());
@@ -18,10 +18,10 @@ public class RoomReservationConverter {
 
 	public static RoomReservationEntity modelToEntity(RoomReservation model, RoomReservationEntity entity) {
 		if(entity == null) entity = new RoomReservationEntity();
-		entity.setReservationEndDateDate(model.getEndDate());
-		entity.setReservationStateDate(model.getStartDate());
-		entity.setReservedCleintId(model.getReservedCleintId());
-		entity.setReservedHouseholdId(model.getReservedHouseholdId());
+		if(model.getEndDate()!=null) entity.setReservationEndDateDate(model.getEndDate());
+		if(model.getStartDate()!=null) entity.setReservationStateDate(model.getStartDate());
+		if(model.getReservedClientId()!=null) entity.setReservedCleintId(model.getReservedClientId());
+		if(model.getReservedHouseholdId()!=null) entity.setReservedHouseholdId(model.getReservedHouseholdId());
 		return entity;
 	}
 

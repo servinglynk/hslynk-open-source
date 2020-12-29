@@ -16,7 +16,7 @@ import com.servinglynk.hmis.model.RoomReservations;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 
 @RestController
-@RequestMapping("/shleters/{shelterid}/areas/{areaid}/rooms/{roomid}/roomreservations")
+@RequestMapping("/shelters/{shelterid}/areas/{areaid}/rooms/{roomid}/reservations")
 public class RoomReservationController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.POST)

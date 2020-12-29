@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class RoomReservation {
 
 	private UUID id;
-	private UUID reservedCleintId;
+	private UUID reservedClientId;
 	private UUID reservedHouseholdId;
 	private Date startDate; 
 	private Date endDate;
@@ -26,11 +26,11 @@ public class RoomReservation {
 	public void setId(UUID id) {
 		this.id = id;
 	}
-	public UUID getReservedCleintId() {
-		return reservedCleintId;
+	public UUID getReservedClientId() {
+		return reservedClientId;
 	}
-	public void setReservedCleintId(UUID reservedCleintId) {
-		this.reservedCleintId = reservedCleintId;
+	public void setReservedClientId(UUID reservedClientId) {
+		this.reservedClientId = reservedClientId;
 	}
 	public UUID getReservedHouseholdId() {
 		return reservedHouseholdId;

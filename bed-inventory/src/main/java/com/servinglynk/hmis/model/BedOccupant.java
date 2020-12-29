@@ -16,6 +16,7 @@ public class BedOccupant {
 	private UUID enrollmentId;
 	private Date startDate;
 	private Date endDate;
+	private Date checkOutDate;
 	private String enrollmentType;
 	private Boolean isActive;
 	private BedUnit bedUnit;
@@ -80,5 +81,11 @@ public class BedOccupant {
 	}
 	public void setClient(Client client) {
 		this.client = client;
+	}
+	public Date getCheckOutDate() {
+		return checkOutDate;
+	}
+	public void setCheckOutDate(Date checkOutDate) {
+		this.checkOutDate = checkOutDate;
 	}
 }

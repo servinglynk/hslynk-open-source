@@ -7,11 +7,11 @@ public class HousingUnitConverter {
 
 	public static HousingUnitEntity modelToEntity(HousingUnit model, HousingUnitEntity entity) {
 		if(entity == null) entity = new HousingUnitEntity();
-		entity.setDescription(model.getDescription());
-		entity.setOccupantCapacity(model.getOccupantCapacity());
-		entity.setName(model.getName());
-		entity.setProjectId(entity.getProjectId());
-		entity.setProjectType(model.getProjectType());
+		if(model.getDescription()!=null) entity.setDescription(model.getDescription());
+		if(model.getOccupantCapacity()!=null) entity.setOccupantCapacity(model.getOccupantCapacity());
+		if(model.getName()!=null) entity.setName(model.getName());
+		if(model.getProjectId()!=null) entity.setProjectId(entity.getProjectId());
+		if(model.getProjectType()!=null) entity.setProjectType(model.getProjectType());
 		
 		return entity;
 	}
@@ -25,7 +25,7 @@ public class HousingUnitConverter {
 		model.setProjectId(entity.getProjectId());
 		model.setProjectType(entity.getProjectType());
 		model.setId(entity.getId());
-		if(entity.getShelter() != null) model.setShelter(ShelterConverter.entityToModel(entity.getShelter()));
+		if(entity.getShelter() != null) model.setShelter(ShelterConverter.entityToModel(entity.getShelter(),false));
 		return model;
 	}
 
