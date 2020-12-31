@@ -14,5 +14,7 @@ public interface ClientMetaDataRepository extends JpaRepository<ClientMetaDataEn
 					, JpaSpecificationExecutor<ClientMetaDataEntity>{ 
 	
 		ClientMetaDataEntity	findFirstByMetaDataIdentifier(UUID metaDataIdentifier);
+		
+		ClientMetaDataEntity	findFirstByMetaDataIdentifierAndType(UUID metaDataIdentifier,String type);
 
 }

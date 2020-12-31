@@ -19,6 +19,6 @@ public interface EventDao extends ParentDao {
 	   com.servinglynk.hmis.warehouse.model.v2020.Event updateEvent(com.servinglynk.hmis.warehouse.model.v2020.Event Event);
 	   void deleteEvent(com.servinglynk.hmis.warehouse.model.v2020.Event Event);
 	   com.servinglynk.hmis.warehouse.model.v2020.Event getEventById(UUID EventId);
-	   List<Event> getAllEnrollmentEvents(UUID enrollmentId, int startIndex, int maxItems);
+	   List<Event> getAllEnrollmentEvents(UUID enrollmentId, Integer startIndex, Integer maxItems);
 	   long getEnrollmentEventsCount(UUID enrollmentId);
 }

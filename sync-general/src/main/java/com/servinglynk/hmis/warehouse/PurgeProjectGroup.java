@@ -111,6 +111,7 @@ public class PurgeProjectGroup extends Logging {
 		props.generatePropValues();
 		
 		PurgeProjectGroup view = new PurgeProjectGroup(logger);
+<<<<<<< HEAD
 
 //	    view.purge("JP0005");
 //		TE0008
@@ -125,6 +126,9 @@ public class PurgeProjectGroup extends Logging {
 		//OR0024
 	    view.purge("MC211");
 
+=======
+	    view.purge("OR0024");
+>>>>>>> d45c508376b843ef40001d28ab2f1d3df63ae2ef
 	}
 
 }

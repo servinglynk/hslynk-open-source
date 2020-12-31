@@ -174,15 +174,18 @@ public class ClientsController extends ControllerBase {
 	
 	@RequestMapping(value="/{clientid}/enrollments/{enrollmentid}",method=RequestMethod.GET)
 	@APIMapping(value="CLIENT_API_GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
-	public Enrollment getClientEnrollmentById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
-		return serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId,clientId);
+	public Enrollment getClientEnrollmentById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId,
+			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,HttpServletRequest request) throws Exception {
+		return serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId,clientId,includeChildLinks);
 	}
 
 	@RequestMapping(value="/enrollments/{enrollmentid}",method=RequestMethod.GET)
 //	@APIMapping(value="GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
 	@APIMapping(value="CLIENT_API_GET_ENROLLMENT_BY_ID",checkSessionToken=true,checkTrustedApp=true)
-	public Enrollment getEnrollmentById(@PathVariable("enrollmentid") UUID enrollmentId ,HttpServletRequest request) throws Exception {
-		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId);
+	public Enrollment getEnrollmentById(@PathVariable("enrollmentid") UUID enrollmentId ,
+			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,
+			HttpServletRequest request) throws Exception {
+		return serviceFactory.getEnrollmentService().getEnrollmentByEnrollmentId(enrollmentId,includeChildLinks);
 	}
 
 	@RequestMapping(value="/{clientid}/enrollments",method=RequestMethod.GET)
@@ -229,17 +232,20 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "exitid" ) UUID exitId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	        serviceFactory.getClientService().getClientById(clientId);
-	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false);
 	        serviceFactory.getExitService().deleteExit(exitId,session.getAccount().getUsername()); 
 	        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
 
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits/{exitid}",method=RequestMethod.GET)
 	   @APIMapping(value="CLIENT_API_GET_EXIT_BY_ID",checkTrustedApp=true,checkSessionToken=true)
-	   public Exit getExitById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "exitid" ) UUID exitId,HttpServletRequest request) throws Exception{
+	   public Exit getExitById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,
+			   @PathVariable( "exitid" ) UUID exitId,
+			   @RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,
+			   HttpServletRequest request) throws Exception{
 	        serviceFactory.getClientService().getClientById(clientId);
-	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		   return serviceFactory.getExitService().getExitById(exitId); 
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false);
+		   return serviceFactory.getExitService().getExitById(exitId,includeChildLinks); 
 	   }
 
 	   @RequestMapping(value="/{clientid}/enrollments/{enrollmentid}/exits",method=RequestMethod.GET)
@@ -251,7 +257,7 @@ public class ClientsController extends ControllerBase {
 	           if (startIndex == null) startIndex =0;
 	           if (maxItems == null) maxItems =30;
 		        serviceFactory.getClientService().getClientById(clientId);
-		        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+		        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false);
 	        return serviceFactory.getExitService().getAllEnrollmentExits(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -281,7 +287,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "employmentid" ) UUID employmentId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getEmploymentService().deleteEmployment(employmentId,session.getAccount().getUsername()); 
 	        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -290,7 +296,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_EMPLOYMENT_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Employment getEmploymentById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "employmentid" ) UUID employmentId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getEmploymentService().getEmploymentById(employmentId); 
 	   }
 
@@ -304,7 +310,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getEmploymentService().getAllEnrollmentEmployments(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -387,7 +393,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "disabilitiesid" ) UUID disabilitiesId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getDisabilitiesService().deleteDisabilities(disabilitiesId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -396,7 +402,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_DISABILITIES_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Disabilities getDisabilitiesById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "disabilitiesid" ) UUID disabilitiesId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getDisabilitiesService().getDisabilitiesById(disabilitiesId); 
 	   }
 
@@ -410,7 +416,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getDisabilitiesService().getAllEnrollmentDisabilitiess(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -450,8 +456,8 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "connectionwithsoarid" ) UUID connectionwithsoarId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	         serviceFactory.getConnectionwithsoarService().deleteConnectionwithsoar(connectionwithsoarId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -463,8 +469,8 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable("exitid") UUID exitId ,
 			   @PathVariable( "connectionwithsoarid" ) UUID connectionwithsoarId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	        return serviceFactory.getConnectionwithsoarService().getConnectionwithsoarById(connectionwithsoarId); 
 	   }
 
@@ -480,8 +486,8 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	        return serviceFactory.getConnectionwithsoarService().getAllExitConnectionwithsoars(exitId,startIndex,maxItems); 
 	   }
 	   
@@ -519,7 +525,7 @@ public class ClientsController extends ControllerBase {
 				HttpServletRequest request, HttpServletResponse response) throws Exception {
 			Session session = sessionHelper.getSession(request);
 			serviceFactory.getClientService().getClientById(clientId);
-			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false);
 			serviceFactory.getEnrollmentCocService().deleteEnrollmentCoc(enrollmentCocId,
 					session.getAccount().getUsername());
 			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
@@ -531,7 +537,7 @@ public class ClientsController extends ControllerBase {
 				@PathVariable("enrollmentid") UUID enrollmentId, @PathVariable("enrollmentCocid") UUID enrollmentCocId,
 				HttpServletRequest request) throws Exception {
 			serviceFactory.getClientService().getClientById(clientId);
-			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false);
 			return serviceFactory.getEnrollmentCocService().getEnrollmentCocById(enrollmentCocId);
 		}
 
@@ -548,7 +554,7 @@ public class ClientsController extends ControllerBase {
 				maxItems = 30;
 
 			serviceFactory.getClientService().getClientById(clientId);
-			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+			serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false);
 			return serviceFactory.getEnrollmentCocService().getAllEnrollmentEnrollmentCocs(enrollmentId, startIndex,
 					maxItems);
 		}
@@ -590,8 +596,8 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "exitPlansActionsid" ) UUID exitPlansActionsId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	         serviceFactory.getExitPlansActionsService().deleteExitPlansActions(exitPlansActionsId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -603,8 +609,8 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable("exitid") UUID exitId ,
 			   @PathVariable( "exitPlansActionsid" ) UUID exitPlansActionsId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	        return serviceFactory.getExitPlansActionsService().getExitPlansActionsById(exitPlansActionsId); 
 	   }
 
@@ -620,8 +626,8 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	        return serviceFactory.getExitPlansActionsService().getAllExitExitPlansActionss(exitId,startIndex,maxItems); 
 	   }
 
@@ -634,7 +640,7 @@ public class ClientsController extends ControllerBase {
 	   public FamilyReunification createFamilyReunification(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId,@RequestBody FamilyReunification familyReunification,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false);
 	         serviceFactory.getFamilyReunificationService().createFamilyReunification(familyReunification,exitId,session.getAccount().getUsername()); 
 	         FamilyReunification returnFamilyReunification = new FamilyReunification();
 	         returnFamilyReunification.setFamilyReunificationId(familyReunification.getFamilyReunificationId());
@@ -646,7 +652,7 @@ public class ClientsController extends ControllerBase {
 	   public void updateFamilyReunification(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId, @PathVariable( "familyReunificationid" ) UUID familyReunificationId,@RequestBody FamilyReunification familyReunification,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	        familyReunification.setFamilyReunificationId(familyReunificationId);
-	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
+	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false);
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getFamilyReunificationService().updateFamilyReunification(familyReunification,exitId,session.getAccount().getUsername()); 
 	   }
@@ -658,8 +664,8 @@ public class ClientsController extends ControllerBase {
 			   HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false);
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	         serviceFactory.getFamilyReunificationService().deleteFamilyReunification(familyReunificationId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -668,8 +674,8 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_FAMILYREUNIFICATION_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public FamilyReunification getFamilyReunificationById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId, @PathVariable( "familyReunificationid" ) UUID familyReunificationId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	        return serviceFactory.getFamilyReunificationService().getFamilyReunificationById(familyReunificationId); 
 	   }
 
@@ -683,8 +689,8 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	        return serviceFactory.getFamilyReunificationService().getAllEnrollmentFamilyReunifications(exitId,startIndex,maxItems); 
 	   }
 	   
@@ -696,7 +702,7 @@ public class ClientsController extends ControllerBase {
 	   public HousingAssessmentDisposition createHousingAssessmentDisposition(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId,@RequestBody HousingAssessmentDisposition housingAssessmentDisposition,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getHousingAssessmentDispositionService().createHousingAssessmentDisposition(housingAssessmentDisposition,exitId,session.getAccount().getUsername()); 
 	         HousingAssessmentDisposition returnHousingAssessmentDisposition = new HousingAssessmentDisposition();
 	         returnHousingAssessmentDisposition.setHousingAssessmentDispositionId(housingAssessmentDisposition.getHousingAssessmentDispositionId());
@@ -709,7 +715,7 @@ public class ClientsController extends ControllerBase {
 	        Session session = sessionHelper.getSession(request);
 	        housingAssessmentDisposition.setHousingAssessmentDispositionId(housingAssessmentDispositionId);
 	        serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        serviceFactory.getHousingAssessmentDispositionService().updateHousingAssessmentDisposition(housingAssessmentDisposition,exitId,session.getAccount().getUsername()); 
 	   }
 
@@ -720,8 +726,8 @@ public class ClientsController extends ControllerBase {
 			   HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	         serviceFactory.getHousingAssessmentDispositionService().deleteHousingAssessmentDisposition(housingAssessmentDispositionId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -730,8 +736,8 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_HOUSINGASSESSMENTDISPOSITION_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public HousingAssessmentDisposition getHousingAssessmentDispositionById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId, @PathVariable( "housingAssessmentDispositionid" ) UUID housingAssessmentDispositionId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	        return serviceFactory.getHousingAssessmentDispositionService().getHousingAssessmentDispositionById(housingAssessmentDispositionId); 
 	   }
 
@@ -745,8 +751,8 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	         serviceFactory.getExitService().getExitById(exitId);
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
+	         serviceFactory.getExitService().getExitById(exitId,false);
 	        return serviceFactory.getHousingAssessmentDispositionService().getAllExitHousingAssessmentDispositions(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -759,7 +765,7 @@ public class ClientsController extends ControllerBase {
 	   public ProjectCompletionStatus createProjectCompletionStatus(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId,@RequestBody ProjectCompletionStatus projectCompletionStatus,HttpServletRequest request) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getProjectCompletionStatusService().createProjectCompletionStatus(projectCompletionStatus,exitId,session.getAccount().getUsername()); 
 	         ProjectCompletionStatus returnProjectCompletionStatus = new ProjectCompletionStatus();
 	         returnProjectCompletionStatus.setProjectCompletionStatusId(projectCompletionStatus.getProjectCompletionStatusId());
@@ -772,7 +778,7 @@ public class ClientsController extends ControllerBase {
 	        Session session = sessionHelper.getSession(request); 
 	        projectCompletionStatus.setProjectCompletionStatusId(projectCompletionStatusId);
 	        serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        serviceFactory.getProjectCompletionStatusService().updateProjectCompletionStatus(projectCompletionStatus,exitId,session.getAccount().getUsername()); 
 	   }
 
@@ -783,7 +789,7 @@ public class ClientsController extends ControllerBase {
 			   HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getProjectCompletionStatusService().deleteProjectCompletionStatus(projectCompletionStatusId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -792,7 +798,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_PROJECTCOMPLETIONSTATUS_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public ProjectCompletionStatus getProjectCompletionStatusById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId , @PathVariable("exitid") UUID exitId, @PathVariable( "projectCompletionStatusid" ) UUID projectCompletionStatusId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getProjectCompletionStatusService().getProjectCompletionStatusById(projectCompletionStatusId); 
 	   }
 
@@ -806,7 +812,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getProjectCompletionStatusService().getAllExitProjectCompletionStatuss(exitId,startIndex,maxItems); 
 	   }
 	   
@@ -839,7 +845,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "incomeAndSourceid" ) UUID incomeAndSourceId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getIncomeAndSourceService().deleteIncomeAndSource(incomeAndSourceId,session.getAccount().getUsername()); 
 	        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -848,7 +854,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_INCOMEANDSOURCE_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public IncomeAndSource getIncomeAndSourceById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "incomeAndSourceid" ) UUID incomeAndSourceId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getIncomeAndSourceService().getIncomeAndSourceById(incomeAndSourceId); 
 	   }
 
@@ -862,7 +868,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getIncomeAndSourceService().getAllEnrollmentIncomeAndSources(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -895,7 +901,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "healthInsuranceid" ) UUID healthInsuranceId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getHealthInsuranceService().deleteHealthInsurance(healthInsuranceId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -904,7 +910,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_HEALTHINSURANCE_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public HealthInsurance getHealthInsuranceById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "healthInsuranceid" ) UUID healthInsuranceId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getHealthInsuranceService().getHealthInsuranceById(healthInsuranceId); 
 	   }
 
@@ -918,7 +924,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getHealthInsuranceService().getAllEnrollmentHealthInsurances(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -952,7 +958,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "servicesid" ) UUID servicesId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        serviceFactory.getServicesService().deleteServices(servicesId,session.getAccount().getUsername()); 
 	        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -961,7 +967,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_SERVICES_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Services getServicesById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "servicesid" ) UUID servicesId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getServicesService().getServicesById(servicesId); 
 	   }
 
@@ -975,7 +981,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getServicesService().getAllEnrollmentServicess(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -1008,7 +1014,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "healthStatusid" ) UUID healthStatusId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getHealthStatusService().deleteHealthStatus(healthStatusId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1017,7 +1023,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_HEALTHSTATUS_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public HealthStatus getHealthStatusById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "healthStatusid" ) UUID healthStatusId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getHealthStatusService().getHealthStatusById(healthStatusId); 
 	   }
 
@@ -1031,7 +1037,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getHealthStatusService().getAllEnrollmentHealthStatuss(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -1064,7 +1070,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "commercialSexualExploitationid" ) UUID commercialSexualExploitationId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getCommercialSexualExploitationService().deleteCommercialSexualExploitation(commercialSexualExploitationId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1073,7 +1079,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_COMMERCIAL_SEXUAL_EXPLOITATION_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public CommercialSexualExploitation getCommercialSexualExploitationById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "commercialSexualExploitationid" ) UUID commercialSexualExploitationId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getCommercialSexualExploitationService().getCommercialSexualExploitationById(commercialSexualExploitationId); 
 	   }
 
@@ -1087,7 +1093,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getCommercialSexualExploitationService().getAllEnrollmentCommercialSexualExploitations(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -1120,7 +1126,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "dateofengagementid" ) UUID dateofengagementId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        serviceFactory.getDateofengagementService().deleteDateofengagement(dateofengagementId,session.getAccount().getUsername()); 
 	        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1129,7 +1135,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_DATEOFENGAGEMENT_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Dateofengagement getDateofengagementById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "dateofengagementid" ) UUID dateofengagementId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getDateofengagementService().getDateofengagementById(dateofengagementId); 
 	   }
 
@@ -1143,7 +1149,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getDateofengagementService().getAllEnrollmentDateofengagements(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -1176,7 +1182,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "domesticViolenceid" ) UUID domesticViolenceId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getDomesticViolenceService().deleteDomesticViolence(domesticViolenceId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1185,7 +1191,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_DOMESTICVIOLENCE_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public DomesticViolence getDomesticViolenceById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "domesticViolenceid" ) UUID domesticViolenceId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getDomesticViolenceService().getDomesticViolenceById(domesticViolenceId); 
 	   }
 
@@ -1199,7 +1205,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getDomesticViolenceService().getAllEnrollmentDomesticViolences(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -1232,7 +1238,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "lastpermanentaddressid" ) UUID lastPermanentAddressId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getLastPermanentAddressService().deleteLastPermanentAddress(lastPermanentAddressId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1241,7 +1247,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_LASTPERMANENTADDRESS_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public LastPermanentAddress getLastPermanentAddressById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "lastpermanentaddressid" ) UUID lastPermanentAddressId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getLastPermanentAddressService().getLastPermanentAddressById(lastPermanentAddressId); 
 	   }
 
@@ -1255,7 +1261,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getLastPermanentAddressService().getAllEnrollmentLastPermanentAddresss(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -1292,7 +1298,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "youthCriticalIssuesid" ) UUID youthCriticalIssuesId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getYouthCriticalIssuesService().deleteYouthCriticalIssues(youthCriticalIssuesId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1301,7 +1307,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_YOUTHCRITICALISSUES_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public YouthCriticalIssue getYouthCriticalIssuesById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "youthCriticalIssuesid" ) UUID youthCriticalIssuesId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getYouthCriticalIssuesService().getYouthCriticalIssuesById(youthCriticalIssuesId); 
 	   }
 
@@ -1315,7 +1321,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getYouthCriticalIssuesService().getAllEnrollmentYouthCriticalIssuess(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -1347,7 +1353,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "worstHousingSituationid" ) UUID worstHousingSituationId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getWorstHousingSituationService().deleteWorstHousingSituation(worstHousingSituationId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1356,7 +1362,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_WORSTHOUSINGSITUATION_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public WorstHousingSituation getWorstHousingSituationById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "worstHousingSituationid" ) UUID worstHousingSituationId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getWorstHousingSituationService().getWorstHousingSituationById(worstHousingSituationId); 
 	   }
 
@@ -1370,7 +1376,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getWorstHousingSituationService().getAllEnrollmentWorstHousingSituations(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -1404,7 +1410,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "sexualorientationid" ) UUID sexualorientationId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getSexualorientationService().deleteSexualorientation(sexualorientationId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1413,7 +1419,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_SEXUALORIENTATION_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Sexualorientation getSexualorientationById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "sexualorientationid" ) UUID sexualorientationId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getSexualorientationService().getSexualorientationById(sexualorientationId); 
 	   }
 
@@ -1427,7 +1433,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getSexualorientationService().getAllEnrollmentSexualorientations(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -1459,7 +1465,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "schoolstatusid" ) UUID schoolstatusId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getSchoolstatusService().deleteSchoolstatus(schoolstatusId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1468,7 +1474,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_SCHOOLSTATUS_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Schoolstatus getSchoolstatusById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "schoolstatusid" ) UUID schoolstatusId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getSchoolstatusService().getSchoolstatusById(schoolstatusId); 
 	   }
 
@@ -1482,7 +1488,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getSchoolstatusService().getAllEnrollmentSchoolstatuss(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -1515,7 +1521,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "medicalassistanceid" ) UUID medicalassistanceId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getMedicalassistanceService().deleteMedicalassistance(medicalassistanceId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1524,7 +1530,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_MEDICALASSISTANCE_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Medicalassistance getMedicalassistanceById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "medicalassistanceid" ) UUID medicalassistanceId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getMedicalassistanceService().getMedicalassistanceById(medicalassistanceId); 
 	   }
 
@@ -1538,7 +1544,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getMedicalassistanceService().getAllEnrollmentMedicalassistances(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -1572,7 +1578,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "pathstatusid" ) UUID pathstatusId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getPathstatusService().deletePathstatus(pathstatusId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1581,7 +1587,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_PATHSTATUS_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Pathstatus getPathstatusById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "pathstatusid" ) UUID pathstatusId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getPathstatusService().getPathstatusById(pathstatusId); 
 	   }
 
@@ -1595,7 +1601,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getPathstatusService().getAllEnrollmentPathstatuss(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -1629,7 +1635,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "percentamiid" ) UUID percentamiId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getPercentamiService().deletePercentami(percentamiId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1638,7 +1644,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_PERCENTAMI_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Percentami getPercentamiById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "percentamiid" ) UUID percentamiId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getPercentamiService().getPercentamiById(percentamiId); 
 	   }
 
@@ -1652,7 +1658,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getPercentamiService().getAllEnrollmentPercentamis(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -1685,7 +1691,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "referralsourceid" ) UUID referralsourceId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getReferralsourceService().deleteReferralsource(referralsourceId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1694,7 +1700,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_REFERRALSOURCE_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Referralsource getReferralsourceById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "referralsourceid" ) UUID referralsourceId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getReferralsourceService().getReferralsourceById(referralsourceId); 
 	   }
 
@@ -1708,7 +1714,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getReferralsourceService().getAllEnrollmentReferralsources(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -1741,7 +1747,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "residentialmoveindateid" ) UUID residentialmoveindateId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getResidentialmoveindateService().deleteResidentialmoveindate(residentialmoveindateId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1750,7 +1756,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_RESIDENTIALMOVEINDATE_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Residentialmoveindate getResidentialmoveindateById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "residentialmoveindateid" ) UUID residentialmoveindateId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getResidentialmoveindateService().getResidentialmoveindateById(residentialmoveindateId); 
 	   }
 
@@ -1764,7 +1770,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getResidentialmoveindateService().getAllEnrollmentResidentialmoveindates(enrollmentId,startIndex,maxItems); 
 	   }
 	   
@@ -1797,7 +1803,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "rhybcpstatusid" ) UUID rhybcpstatusId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getRhybcpstatusService().deleteRhybcpstatus(rhybcpstatusId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1806,7 +1812,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_RHYBCPSTATUS_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public Rhybcpstatus getRhybcpstatusById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "rhybcpstatusid" ) UUID rhybcpstatusId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getRhybcpstatusService().getRhybcpstatusById(rhybcpstatusId); 
 	   }
 
@@ -1820,7 +1826,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getRhybcpstatusService().getAllEnrollmentRhybcpstatuss(enrollmentId,startIndex,maxItems); 
 	   }
 
@@ -1853,7 +1859,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "nonCashBenefitid" ) UUID nonCashBenefitId,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	        Session session = sessionHelper.getSession(request); 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	         serviceFactory.getNonCashBenefitService().deleteNonCashBenefit(nonCashBenefitId,session.getAccount().getUsername()); 
 	         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	   }
@@ -1862,7 +1868,7 @@ public class ClientsController extends ControllerBase {
 	   @APIMapping(value="CLIENT_API_GET_NONCASHBENEFIT_BY_ID",checkTrustedApp=true,checkSessionToken=true)
 	   public NonCashBenefit getNonCashBenefitById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId ,@PathVariable( "nonCashBenefitid" ) UUID nonCashBenefitId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getNonCashBenefitService().getNonCashBenefitById(nonCashBenefitId); 
 	   }
 
@@ -1876,7 +1882,7 @@ public class ClientsController extends ControllerBase {
 	           if (maxItems == null) maxItems =30;
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
-	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
+	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId,false); 
 	        return serviceFactory.getNonCashBenefitService().getAllEnrollmentNonCashBenefits(enrollmentId,startIndex,maxItems); 
 	   }
 	   

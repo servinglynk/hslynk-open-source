@@ -75,7 +75,7 @@ public class ApiAuthCheckInterceptor extends HandlerInterceptorAdapter /*impleme
 			return true;
 		}
 
-		ApiMethodAuthorizationCheck apiAuthCheck = this.apiAuthChecker.checkApiAuth(trustedAppId, accessToken, apiMethodId, isSessionTokenCheckRequired);
+		ApiMethodAuthorizationCheck apiAuthCheck = this.apiAuthChecker.checkApiAuth(trustedAppId, accessToken, apiMethodId, isSessionTokenCheckRequired,request.getRequestURI());
 
 		this.trustedAppHelper.setTrustedApp(apiAuthCheck.getTrustedApp(), request);
 

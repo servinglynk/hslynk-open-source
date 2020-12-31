@@ -12,6 +12,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.xstream.XStreamMarshaller;
+import org.springframework.web.client.RestTemplate;
 
 import com.servinglynk.hmis.warehouse.client.base.CoreClientBase;
 import com.servinglynk.hmis.warehouse.client.config.CoreClientConfig;
@@ -38,7 +39,7 @@ public class NotificationServiceClient extends CoreClientBase implements INotifi
 		HttpHeaders headers = getHttpHeaders();
 	
 		logger.debug(notification.toString());
-		
+		 restTemplate = new RestTemplate();
 		try {
 			System.out.println(notification.toJSONString());
 		} catch (Exception e) {

@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse.base.service.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -14,9 +15,7 @@ import com.servinglynk.hmis.warehouse.base.dao.DeveloperCompanyDaoImpl;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDao;
 import com.servinglynk.hmis.warehouse.base.dao.HmisUserDaoImpl;
 import com.servinglynk.hmis.warehouse.base.service.BulkUploadService;
-import com.servinglynk.hmis.warehouse.base.service.ProjectSubGroupService;
-import com.servinglynk.hmis.warehouse.base.service.ReportConfigService;
-import com.servinglynk.hmis.warehouse.base.service.SharingRuleService;
+import com.servinglynk.hmis.warehouse.base.service.aop.SubscriptionInterceptor;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactory;
 import com.servinglynk.hmis.warehouse.base.service.core.BaseServiceFactoryImpl;
 import com.servinglynk.hmis.warehouse.base.service.core.security.LocalApiAuthChecker;
@@ -48,6 +47,7 @@ import com.servinglynk.hmis.warehouse.base.service.impl.ReportConfigServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.RoleServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.SessionServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.SharingRuleServiceImpl;
+import com.servinglynk.hmis.warehouse.base.service.impl.SubscriptionEventServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.TrustedAppServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.UsernameChangeServiceImpl;
 import com.servinglynk.hmis.warehouse.base.service.impl.VerificationServiceImpl;
@@ -55,13 +55,14 @@ import com.servinglynk.hmis.warehouse.common.ValidationBean;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ApiAuthCheckInterceptor;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.ClientConsentInterceptor;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.EnrollmentSharingInterceptor;
+import com.servinglynk.hmis.warehouse.core.web.interceptor.HslynkTraceFilter;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.SessionHelper;
 import com.servinglynk.hmis.warehouse.core.web.interceptor.TrustedAppHelper;
-
 
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
+@EnableAspectJAutoProxy
 @EnableAsync
 @Import({com.servinglynk.hmis.warehouse.client.config.SpringConfig.class,	
 	com.servinglynk.hmis.warehouse.fileupload.config.FileUploadConfig.class})
@@ -94,10 +95,23 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 		 return new EnrollmentSharingInterceptor();
 	 }
 	 
+	 @Bean
+	 public SubscriptionEventServiceImpl subscriptionEventService() {
+		 return new SubscriptionEventServiceImpl();
+	 }
+	 
+	 
+	 @Bean
+	 public SubscriptionInterceptor subscriptionInterceptor() {
+		 return new SubscriptionInterceptor();
+	 }
+
+	 
 		 @Override
 	    public void addInterceptors(InterceptorRegistry registry) {
 	        registry.addInterceptor(apiAuthCheckInterceptor());
 	        registry.addInterceptor(clientConsentInterceptor()).addPathPatterns("/clients/*/enrollments/**","/clients/*/enrollments","/clients/*/veteraninfos");
+	      //  registry.addInterceptor(subscriptionInterceptor());//.addPathPatterns("/clients/*/enrollments/**","/clients/*/enrollments","/clients/*/veteraninfos");
 	     //   registry.addInterceptor(enrollmentSharingInterceptor()).addPathPatterns("/clients/**,/clients/enrollments/**","/clients/*/enrollments/**","/clients/*/enrollments","/clients/*/veteraninfos","/search*/*");
 	        registry.addInterceptor(enrollmentSharingInterceptor());
 		 }
@@ -143,6 +157,11 @@ public class BaseServiceConfig extends WebMvcConfigurerAdapter  {
 		
 		
 		return bean;
+	}
+	
+	@Bean
+	public HslynkTraceFilter traceLogger() {
+		return new HslynkTraceFilter();
 	}
 	
 	

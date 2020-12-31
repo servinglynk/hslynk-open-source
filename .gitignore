@@ -152,6 +152,15 @@ hmis-model-*/*.iml
 hmis-model-*/target
 hmis-model-*/bin
 
+bed-inventory/target/*
+bed-inventory/.settings/*
+bed-inventory/.classpath
+bed-inventory/.project
+bed-inventory/.idea
+bed-inventory/*.iml
+bed-inventory/target
+bed-inventory/bin
+
 notification-core/target/*
 notification-core/bin/*
 notification-core/.settings/*
@@ -321,3 +330,15 @@ hmis-model-v2015/target/*
 *.prefs
 *.prefs
 admin/.settings/org.eclipse.jdt.core.prefs
+bed-inventory/.settings/*
+bed-inventory/.settings/*
+bed-inventory/.settings/*
+hmis-event-service/.settings/.jsdtscope
+*.component
+hmis-event-service/.settings/org.eclipse.wst.common.project.facet.core.xml
+hmis-event-service/.settings/org.eclipse.wst.jsdt.ui.superType.container
+hmis-event-service/.settings/org.eclipse.wst.jsdt.ui.superType.name
+subscription-service/.settings/.jsdtscope
+subscription-service/.settings/org.eclipse.wst.common.project.facet.core.xml
+*.container
+subscription-service/.settings/org.eclipse.wst.jsdt.ui.superType.name

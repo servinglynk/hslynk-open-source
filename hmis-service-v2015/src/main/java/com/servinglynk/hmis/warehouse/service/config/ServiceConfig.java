@@ -16,6 +16,7 @@ import com.servinglynk.hmis.warehouse.service.impl.DomesticviolenceServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EducationServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EmploymentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentCocServiceImpl;
+import com.servinglynk.hmis.warehouse.service.impl.EnrollmentLinksServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImpl;
 import com.servinglynk.hmis.warehouse.service.impl.EnrollmentServiceImplV2;
 import com.servinglynk.hmis.warehouse.service.impl.EntryrhspServiceImpl;
@@ -263,5 +264,10 @@ public class ServiceConfig  {
 	 @Bean
 	 public HmisHouseHoldServiceImpl hmisHouseHoldService() {
 		 return new HmisHouseHoldServiceImpl();
+	 }
+	 
+	 @Bean
+	 public EnrollmentLinksServiceImpl enrollmentLinksService() {
+		 return new EnrollmentLinksServiceImpl();
 	 }
 }

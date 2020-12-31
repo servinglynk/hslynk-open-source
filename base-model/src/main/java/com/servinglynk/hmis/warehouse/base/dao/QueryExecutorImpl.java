@@ -384,9 +384,11 @@ protected List<?> findByNamedQueryAndNamedParam(String queryName,
 					Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", entity.getProjectGroup());
 						if(entity.getCheckProjectGroup())detachedCriteria.add(projectGroupCriterion);
 					detachedCriteria.add(Restrictions.eq("deleted", false));
+					detachedCriteria.add(Restrictions.isNull("parentId"));
 				}
 			}else if(clz.getSimpleName().equals("Enrollment")) {
 				if(authentication.getPrincipal()!=null){
+					detachedCriteria.add(Restrictions.isNull("parentId"));
 					LoggedInUser entity = (LoggedInUser) authentication.getPrincipal();
 					Criterion projectGroupCriterion = Restrictions.eq("projectGroupCode", entity.getProjectGroup());
 					if(entity.getCheckProjectGroup())	detachedCriteria.add(projectGroupCriterion);

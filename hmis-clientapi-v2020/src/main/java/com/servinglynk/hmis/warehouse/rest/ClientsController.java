@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
+import com.servinglynk.hmis.warehouse.annotations.AllowedValues;
+import com.servinglynk.hmis.warehouse.annotations.Subscription;
 import com.servinglynk.hmis.warehouse.core.model.Account;
 import com.servinglynk.hmis.warehouse.core.model.Assessment;
 import com.servinglynk.hmis.warehouse.core.model.AssessmentQuestion;
@@ -154,6 +156,7 @@ public class ClientsController extends ControllerBase {
 
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}", method = RequestMethod.PUT)
 	@APIMapping(value = "CLIENT_API_UPDATE_ENROLLMENT", checkSessionToken = true, checkTrustedApp = true)
+	@Subscription
 	public void updateEnrollment(@RequestBody Enrollment enrollment, @PathVariable("clientid") UUID clientId,
 			@PathVariable("enrollmentid") UUID enrollmentId, HttpServletRequest request) throws Exception {
 		Session session = sessionHelper.getSession(request);
@@ -1262,10 +1265,12 @@ public class ClientsController extends ControllerBase {
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits/{exitid}", method = RequestMethod.GET)
 	@APIMapping(value = "CLIENT_API_GET_EXIT_BY_ID", checkTrustedApp = true, checkSessionToken = true)
 	public Exit getExitById(@PathVariable("clientid") UUID clientId, @PathVariable("enrollmentid") UUID enrollmentId,
-			@PathVariable("exitid") UUID exitId, HttpServletRequest request) throws Exception {
+			@PathVariable("exitid") UUID exitId, 
+			@RequestParam(value="includeChildLinks",required=false,defaultValue="false") boolean includeChildLinks,
+			HttpServletRequest request) throws Exception {
 		serviceFactory.getClientService().getClientById(clientId);
 		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		return serviceFactory.getExitService().getExitById(exitId);
+		return serviceFactory.getExitService().getExitById(exitId,includeChildLinks);
 	}
 
 	@RequestMapping(value = "/{clientid}/enrollments/{enrollmentid}/exits", method = RequestMethod.GET)
@@ -1317,7 +1322,7 @@ public class ClientsController extends ControllerBase {
 		serviceFactory.getClientService().getClientById(clientId);
 		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
 		serviceFactory.getExitrhyService().deleteExitrhy(exitrhyId, session.getAccount().getUsername());
-		serviceFactory.getExitService().getExitById(exitId);
+		serviceFactory.getExitService().getExitById(exitId,false);
 		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
@@ -1328,7 +1333,7 @@ public class ClientsController extends ControllerBase {
 			@PathVariable("exitrhyid") UUID exitrhyId, HttpServletRequest request) throws Exception {
 		serviceFactory.getClientService().getClientById(clientId);
 		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		serviceFactory.getExitService().getExitById(exitId);
+		serviceFactory.getExitService().getExitById(exitId,false);
 		return serviceFactory.getExitrhyService().getExitrhyById(exitrhyId);
 	}
 	
@@ -1346,7 +1351,7 @@ public class ClientsController extends ControllerBase {
 
 		serviceFactory.getClientService().getClientById(clientId);
 		serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId);
-		serviceFactory.getExitService().getExitById(exitId);
+		serviceFactory.getExitService().getExitById(exitId,false);
 		return serviceFactory.getExitrhyService().getAllExitExitrhys(exitId, startIndex, maxItems);
 	}
 
@@ -1362,7 +1367,7 @@ public class ClientsController extends ControllerBase {
 		if (maxItems == null)
 			maxItems = 30;
 
-		serviceFactory.getExitService().getExitById(exitId);
+		serviceFactory.getExitService().getExitById(exitId,false);
 		return serviceFactory.getRHYAfterCareService().getAllExitRhyAfterCares(exitId, startIndex, maxItems);
 	}
 
@@ -1395,7 +1400,7 @@ public class ClientsController extends ControllerBase {
 			HttpServletResponse response) throws Exception {
 		Session session = sessionHelper.getSession(request);
 		serviceFactory.getRHYAfterCareService().deleteRhyAfterCare(rhyaftercareid, session.getAccount().getUsername());
-		serviceFactory.getExitService().getExitById(exitId);
+		serviceFactory.getExitService().getExitById(exitId,false);
 		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 
@@ -1404,7 +1409,7 @@ public class ClientsController extends ControllerBase {
 	public RhyAfterCare getRhyAfterCareById(
 			@PathVariable("rhyaftercareid") UUID rhyaftercareid, @PathVariable("exitid") UUID exitId, 
 			HttpServletRequest request) throws Exception {
-		serviceFactory.getExitService().getExitById(exitId);
+		serviceFactory.getExitService().getExitById(exitId,false);
 		return serviceFactory.getRHYAfterCareService().getRhyAfterCareById(rhyaftercareid);
 	}
 
@@ -1809,7 +1814,7 @@ public class ClientsController extends ControllerBase {
 	        Session session = sessionHelper.getSession(request); 
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-			serviceFactory.getExitService().getExitById(exitid);
+			serviceFactory.getExitService().getExitById(exitid,false);
 	        serviceFactory.getExithousingassessmentService().deleteExithousingassessment(exithousingassessmentId,session.getAccount().getUsername()); 
 	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
 	   }
@@ -1821,7 +1826,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "exithousingassessmentid" ) UUID exithousingassessmentId,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
 	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	 		 serviceFactory.getExitService().getExitById(exitid);
+	 		 serviceFactory.getExitService().getExitById(exitid,false);
 	        return serviceFactory.getExithousingassessmentService().getExithousingassessmentById(exithousingassessmentId); 
 	   }
 
@@ -1837,7 +1842,7 @@ public class ClientsController extends ControllerBase {
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
 	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-   	 		 serviceFactory.getExitService().getExitById(exitid);
+   	 		 serviceFactory.getExitService().getExitById(exitid,false);
 	        return serviceFactory.getExithousingassessmentService().getAllExitExithousingassessments(exitid,startIndex,maxItems); 
 	   }
 	   // VASExitReason
@@ -1873,7 +1878,7 @@ public class ClientsController extends ControllerBase {
 	        Session session = sessionHelper.getSession(request); 
 	        serviceFactory.getClientService().getClientById(clientId); 
 	        serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-			serviceFactory.getExitService().getExitById(exitid);
+			serviceFactory.getExitService().getExitById(exitid,false);
 	        serviceFactory.getVashExitReasonService().deleteVashExitReason(vashexitreasonid,session.getAccount().getUsername()); 
 	        response.setStatus(HttpServletResponse.SC_NO_CONTENT); 
 	   }
@@ -1885,7 +1890,7 @@ public class ClientsController extends ControllerBase {
 			   @PathVariable( "vashexitreasonid" ) UUID vashexitreasonid,HttpServletRequest request) throws Exception{
 	         serviceFactory.getClientService().getClientById(clientId); 
 	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-	 		 serviceFactory.getExitService().getExitById(exitid);
+	 		 serviceFactory.getExitService().getExitById(exitid,false);
 	        return serviceFactory.getVashExitReasonService().getVashExitReasonById(vashexitreasonid); 
 	   }
 
@@ -1901,7 +1906,7 @@ public class ClientsController extends ControllerBase {
 	 
 	         serviceFactory.getClientService().getClientById(clientId); 
 	         serviceFactory.getEnrollmentService().getEnrollmentByClientIdAndEnrollmentId(enrollmentId, clientId); 
-   	 		 serviceFactory.getExitService().getExitById(exitid);
+   	 		 serviceFactory.getExitService().getExitById(exitid,false);
 	        return serviceFactory.getVashExitReasonService().getAllExitVashExitReasons(exitid,startIndex,maxItems); 
 	   }
 	   

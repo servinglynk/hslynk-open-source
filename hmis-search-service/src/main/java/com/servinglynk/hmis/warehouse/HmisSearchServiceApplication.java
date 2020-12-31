@@ -32,7 +32,7 @@ import com.servinglynk.hmis.warehouse.rest.interceptor.ApiMehtodAuthCheckInterce
 @EnableTransactionManagement
 @EnableElasticsearchRepositories(basePackages ="com.servinglynk.hmis.warehouse.repository" )
 @ComponentScan(basePackages =  { "com.servinglynk.hmis.warehouse"})
-@EntityScan("com.servinglynk.hmis.warehouse.model")
+@EntityScan("com.servinglynk.hmis.warehouse.entity")
 @Import({com.servinglynk.hmis.warehouse.config.AMQConfiguration.class})
 public class HmisSearchServiceApplication extends WebMvcConfigurerAdapter  {
 

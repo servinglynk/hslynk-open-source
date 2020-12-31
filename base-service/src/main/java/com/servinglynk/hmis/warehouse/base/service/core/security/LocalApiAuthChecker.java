@@ -39,14 +39,15 @@ public class LocalApiAuthChecker implements ApiAuthChecker	{
 
 
 	@Override
-	public ApiMethodAuthorizationCheck checkApiAuth(String trustedAppId, String accessToken, String apiMethodId, Boolean isSessionTokenCheckRequired) {
+	public ApiMethodAuthorizationCheck checkApiAuth(String trustedAppId, String accessToken, 
+			String apiMethodId, Boolean isSessionTokenCheckRequired,String requestURL) {
 		
 		ApiMethodAuthorizationCheck apiMethodAuthCheck = new ApiMethodAuthorizationCheck();
 		apiMethodAuthCheck.setTrustedAppId(trustedAppId);
 		apiMethodAuthCheck.setAccessToken(accessToken);
 		apiMethodAuthCheck.setApiMethodId(apiMethodId);
 		apiMethodAuthCheck.setCheckSessionToken(isSessionTokenCheckRequired);
-		
+		apiMethodAuthCheck.setRequestURL(requestURL);
 		return serviceFactory.getTrustedAppService().checkApiAuthorization(apiMethodAuthCheck, this.requestor);
 	}
 	

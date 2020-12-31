@@ -1,8 +1,6 @@
 package com.servinglynk.hmis.warehouse.core.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -84,6 +82,9 @@ public class Enrollment extends ClientModel {
 	
 	@JsonProperty("source")
 	private String source;
+	
+	@JsonProperty("chronicHomeless")
+	private boolean chronicHomeless;
 	
 	EnrollmentEntryLinks entryLinks;
 	
@@ -343,6 +344,14 @@ public class Enrollment extends ClientModel {
 		this.genericHouseHoldId = genericHouseHoldId;
 	}
 
+	public boolean isChronicHomeless() {
+		return chronicHomeless;
+	}
+
+	public void setChronicHomeless(boolean chronicHomeless) {
+		this.chronicHomeless = chronicHomeless;
+	}
+
 /*	public List<ExitActionLink> getExitLinks() {
 		return exitLinks;
 	}
@@ -350,5 +359,4 @@ public class Enrollment extends ClientModel {
 	public void setExitLinks(List<ExitActionLink> exitLinks) {
 		this.exitLinks = exitLinks;
 	}*/
-
 }
