@@ -1,49 +1,7 @@
-/*
-LSA FY2019 Sample Code
 
-
-Name:  1 Create Temp Reporting and Reference Tables.sql
-Date:  4/17/2020   
-       5/21/2020 -- add column "Step" (varchar(10) not NULL) to all tables except lsa."ref_Calendar" and lsa."ref_Populations".
-					This is set in the sample code with every INSERT and UPDATE statement to the section number in
-					which the step occurs.  For sections with multiple INSERT and/or UPDATE statements, the section
-					number is followed by a statement number -- e.g., '3.6.1' and '3.6.2', etc.
-	   5/28/2020 -- remove extraneous DQ1Adult and DQ3Adult columns from CREATE lsa."tlsa_Enrollment"
-	   6/4/2020  -- change lsa."ch_Include".chDate column name to "ESSHStreetDate" per specs
-           7/2/2020 - 3.3.1 - add 'and p.ContinuumProject = 1' -- was inadvertently deleted on a previous update
-This script drops (if tables exist) and creates the following temp reporting tables:
-
-	lsa."tlsa_CohortDates" - based on ReportStart and ReportEnd, all cohorts and dates used in the LSA
-	lsa."tlsa_HHID" - 'master' table of HMIS HouseholdIDs active in continuum ES/SH/TH/RRH/PSH projects 
-			between 10/1/2012 and ReportEnd.  Used to store adjusted move-in and exit dates, 
-			household types, and other frequently-referenced data 
-	lsa."tlsa_Enrollment" - a 'master' table of enrollments associated with the HouseholdIDs in lsa."tlsa_HHID"
-			with enrollment ages and other frequently-referenced data
-
-	lsa."tlsa_Person" - a person-level pre-cursor to LSAPerson / people active in report period
-		lsa."ch_Exclude" - dates in TH or housed in RRH/PSH; used for LSAPerson chronic homelessness determination
-		lsa."ch_Include" - dates in ES/SH or on the street; used for LSAPerson chronic homelessness determination
-		lsa."ch_Episodes" - episodes of ES/SH/Street time constructed from lsa."ch_Include" for chronic homelessness determination
-	lsa."tlsa_Household" - a household-level precursor to LSAHousehold / households active in report period
-		lsa."sys_TimePadded" - used to identify households' last inactive date for "SystemPath" 
-		lsa."sys_Time" - used to count dates in ES/SH, TH, RRH/PSH but not housed, housed in RRH/PSH, and ES/SH/StreetDates
-	lsa."tlsa_Exit" - household-level precursor to LSAExit / households with system exits in exit cohort periods
-
-	dq_Enrollments - Enrollments included in LSAReport data quality reporting 
-
-This script drops (if tables exist), creates, and populates the following 
-reference tables used in the sample code:  
-	lsa."ref_Calendar" 
-		-Table of dates between 10/1/2012 and 9/30/2022
-	
-	lsa."ref_Populations" 
-		-Table of LSA household types/household populations/person-level populations
-		 with columns that can be used to match population identifiers in LSAPerson,
-		 LSAHousehold, and LSAExit with population IDs used in LSACalculated.
-*/
 
 DROP TABLE IF EXISTS lsa.tlsa_CohortDates;
-	
+
 create table lsa.tlsa_CohortDates (
 	Cohort int
 	, CohortStart date
@@ -53,7 +11,7 @@ create table lsa.tlsa_CohortDates (
 	)
 	;
 
-DROP TABLE IF EXISTS lsa.tlsa_HHID; 
+DROP TABLE IF EXISTS lsa.tlsa_HHID;
 
 create table lsa.tlsa_HHID (
 	 HouseholdID varchar(36)
@@ -112,7 +70,7 @@ create table lsa.tlsa_Enrollment (
 	, Step varchar(10) not NULL
 	, constraint pk_tlsa_Enrollment primary key (EnrollmentID)
 	);
-	
+
 DROP TABLE IF EXISTS lsa.tlsa_Person;
 
 create table lsa.tlsa_Person (
@@ -176,7 +134,7 @@ create table lsa.tlsa_Person (
 	AHARHoHPSH int,
 	ReportID int,
 	Step varchar(10) not NULL,
-	constraint pk_tlsa_Person primary key (PersonalID) 
+	constraint pk_tlsa_Person primary key (PersonalID)
 	)
 	;
 
@@ -185,17 +143,16 @@ DROP TABLE IF EXISTS lsa.ch_Exclude;
 	create table lsa.ch_Exclude(
 	PersonalID varchar(36) not NULL,
 	excludeDate date not NULL,
-	Step varchar(10) not NULL,
-	)
+	Step varchar(10) not NULL	)
 	;
 
 DROP TABLE IF EXISTS lsa.ch_Include;
-	
+
 	create table lsa.ch_Include(
 	PersonalID varchar(36) not NULL,
 	ESSHStreetDate date not NULL,
-	Step varchar(10) not NULL,
-	)
+	Step varchar(10) not NULL	,
+	constraint pk_ch_Include primary key (PersonalID, ESSHStreetDate))
 	;
 
 DROP TABLE IF EXISTS lsa.ch_Episodes;
@@ -205,9 +162,7 @@ create table lsa.ch_Episodes(
 	episodeStart date,
 	episodeEnd date,
 	episodeDays int null,
-	Step varchar(10) not NULL,
-	constraint pk_ch_Episodes primary key (PersonalID, episodeStart)
-	)
+	Step varchar(10) not NULL	)
 	;
 
 DROP TABLE IF EXISTS lsa.tlsa_Household;
@@ -288,7 +243,7 @@ create table lsa.tlsa_Household(
 	;
 
 	DROP TABLE IF EXISTS lsa.sys_TimePadded;
-	
+
 	create table lsa.sys_TimePadded (
 	  HoHID varchar(36) not null
 	, HHType int not null
@@ -300,7 +255,7 @@ create table lsa.tlsa_Household(
 	;
 
 DROP TABLE IF EXISTS lsa.sys_Time;
-	
+
 	create table lsa.sys_Time (
 		HoHID varchar(36)
 		, HHType int
@@ -312,7 +267,7 @@ DROP TABLE IF EXISTS lsa.sys_Time;
 		;
 
 DROP TABLE IF EXISTS lsa.dq_Enrollment;
-	
+
 	create table lsa.dq_Enrollment(
 	EnrollmentID varchar(36) not null
 	, PersonalID varchar(36) not null
@@ -326,12 +281,12 @@ DROP TABLE IF EXISTS lsa.dq_Enrollment;
 	, Status3 int
 	, SSNValid int
 	, Step varchar(10) not NULL
-    ,constraint pk_dq_Enrollment primary key (EnrollmentID) 
+    ,constraint pk_dq_Enrollment primary key (EnrollmentID)
 	)
 	;
-		
+
 	DROP TABLE IF EXISTS lsa.tlsa_Exit;
- 
+
 	create table lsa.tlsa_Exit(
 		HoHID varchar(36) not null,
 		HHType int not null,
@@ -360,14 +315,14 @@ DROP TABLE IF EXISTS lsa.dq_Enrollment;
 DROP TABLE IF EXISTS lsa.ref_Calendar;
 
 create table lsa.ref_Calendar (
-	theDate date not null 
+	theDate date not null
 	, yyyy smallint
-	, mm smallint 
+	, mm smallint
 	, dd smallint
 	, month_name varchar(10)
-	, day_name varchar(10) 
+	, day_name varchar(10)
 	, fy smallint
-	, constraint pk_ref_Calendar primary key (theDate) 
+	, constraint pk_ref_Calendar primary key (theDate)
 );
 
 DROP TABLE IF EXISTS lsa.ref_Populations;
@@ -377,36 +332,36 @@ create table lsa.ref_Populations (
 	, PopID int not null
 	, PopName varchar(255) not null
 	, PopType int not null
-	, HHType int 
-	, HHAdultAge int 
-	, HHVet int 
-	, HHDisability int 
-	, HHChronic int 
-	, HHFleeingDV int 
-	, HHParent int 
-	, HHChild int 
-	, AC3Plus int 
-	, Stat int 
-	, PSHMoveIn int 
-	, HoHRace int 
-	, HoHEthnicity int 
-	, SystemPath int 
-	, Race int 
-	, Ethnicity int 
-	, Age int 
-	, Gender int 
-	, VetStatus int 
-	, CHTime int 
-	, CHTimeStatus int 
-	, DisabilityStatus int 
-	, Core int 
-	, LOTH int 
-	, ReturnSummary int 
-	, ProjectLevelCount int 
+	, HHType int
+	, HHAdultAge int
+	, HHVet int
+	, HHDisability int
+	, HHChronic int
+	, HHFleeingDV int
+	, HHParent int
+	, HHChild int
+	, AC3Plus int
+	, Stat int
+	, PSHMoveIn int
+	, HoHRace int
+	, HoHEthnicity int
+	, SystemPath int
+	, Race int
+	, Ethnicity int
+	, Age int
+	, Gender int
+	, VetStatus int
+	, CHTime int
+	, CHTimeStatus int
+	, DisabilityStatus int
+	, Core int
+	, LOTH int
+	, ReturnSummary int
+	, ProjectLevelCount int
 )
 ;
 
-Select lsa.populate_ref_calendar();
+CALL lsa.populate_ref_calendar();
 
 update lsa.ref_Calendar
 set	month_name = to_char( theDate, 'Month'),
@@ -414,7 +369,7 @@ set	month_name = to_char( theDate, 'Month'),
 	yyyy = EXTRACT (year from theDate) ,
 	mm =EXTRACT (month from theDate),
 	dd = EXTRACT (day from theDate),
-	fy = case when EXTRACT (month from theDate) between 10 and 12 then EXTRACT (year from theDate)+ 1 
+	fy = case when EXTRACT (month from theDate) between 10 and 12 then EXTRACT (year from theDate)+ 1
 		else EXTRACT (year from theDate) end;
 
 INSERT INTO lsa.ref_Populations (id, PopID, PopName, PopType, HHType, HHAdultAge, HHVet, HHDisability, HHChronic, HHFleeingDV, HHParent, HHChild, AC3Plus, Stat, PSHMoveIn, HoHRace, HoHEthnicity, SystemPath, Race, Ethnicity, Age, Gender, VetStatus, CHTime, CHTimeStatus, DisabilityStatus, Core, LOTH, ReturnSummary, ProjectLevelCount) VALUES (1, 0, N'All', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, NULL);

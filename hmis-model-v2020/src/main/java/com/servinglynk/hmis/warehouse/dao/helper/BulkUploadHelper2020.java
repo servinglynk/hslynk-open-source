@@ -922,6 +922,7 @@ public class BulkUploadHelper2020 {
 			      domesticViolenceModel.setDomesticViolenceVictim((healthDV.getDomesticViolenceVictim()));
 			      domesticViolenceModel.setInformationDate(getXMLGregorianCalendar(healthDV.getInformationDate()));
 			      domesticViolenceModel.setEnrollmentID(healthDV.getProjectEntryID());
+			      domesticViolenceModel.setCurrentlyFleeing(healthDV.getCurrentlyFleeing());
 			      domesticViolenceModel.setUserID(healthDV.getUserID());
 			      domesticViolenceModel.setWhenOccurred((healthDV.getWhenOccurred()));
 			      domesticViolenceList.add(domesticViolenceModel);

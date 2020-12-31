@@ -66,6 +66,10 @@ public enum ExitDestinationEnum {
 	/** Enum Constant. */
 	THIRTY("30"),
 	/** Enum Constant. */
+	THIRTY_ONE("31"),
+	/** Enum Constant. */
+	THIRTY_TWO("32"),
+	/** Enum Constant. */
 	EIGHT("8"),
 	/** Enum Constant. */
 	NINE("9"),
