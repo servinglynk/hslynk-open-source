@@ -38,6 +38,8 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		entity.setArea(bedUnitEntity.getArea());
 		entity.setShelter(bedUnitEntity.getShelter());
 		daoFactory.getBedOccupantRepository().save(entity);
+		bedUnitEntity.setOccupancy(true);
+		daoFactory.getBedUnitRepository().save(bedUnitEntity);
 		bedUnit.setId(entity.getId());
 		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
 		return bedUnit;
@@ -68,6 +70,8 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		entity.setEnrollmentType(validationService.validateEnrillment(bedOccupant.getEnrollmentId()));
 		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
 		daoFactory.getBedOccupantRepository().save(entity);
+		bedUnitEntity.setOccupancy(false);
+		daoFactory.getBedUnitRepository().save(bedUnitEntity);
 		
 	}	
 	
