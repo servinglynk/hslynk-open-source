@@ -4,12 +4,13 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@JsonRootName("bedOccupant")
+@JsonRootName("roomOccupant")
 @JsonInclude(value = Include.NON_NULL)
-public class BedOccupant {
+public class RoomOccupant {
+	
 	private UUID id;
 	private UUID clientId;
 	private UUID dedupClientId;
@@ -19,7 +20,7 @@ public class BedOccupant {
 	private Date checkoutDate;
 	private String enrollmentType;
 	private Boolean isActive;
-	private BedUnit bedUnit;
+	private RoomModel room;
 	private Client client;
 	public UUID getId() {
 		return id;
@@ -39,6 +40,12 @@ public class BedOccupant {
 	public void setDedupClientId(UUID dedupClientId) {
 		this.dedupClientId = dedupClientId;
 	}
+	public UUID getEnrollmentId() {
+		return enrollmentId;
+	}
+	public void setEnrollmentId(UUID enrollmentId) {
+		this.enrollmentId = enrollmentId;
+	}
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -51,24 +58,11 @@ public class BedOccupant {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public Boolean getIsActive() {
-		return isActive;
+	public Date getCheckoutDate() {
+		return checkoutDate;
 	}
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-	public BedUnit getBedUnit() {
-		if(bedUnit == null) bedUnit = new BedUnit();
-		return bedUnit;
-	}
-	public void setBedUnit(BedUnit bedUnit) {
-		this.bedUnit = bedUnit;
-	}
-	public UUID getEnrollmentId() {
-		return enrollmentId;
-	}
-	public void setEnrollmentId(UUID enrollmentId) {
-		this.enrollmentId = enrollmentId;
+	public void setCheckoutDate(Date checkoutDate) {
+		this.checkoutDate = checkoutDate;
 	}
 	public String getEnrollmentType() {
 		return enrollmentType;
@@ -76,16 +70,23 @@ public class BedOccupant {
 	public void setEnrollmentType(String enrollmentType) {
 		this.enrollmentType = enrollmentType;
 	}
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+	public RoomModel getRoom() {
+		if(room == null) room = new RoomModel();
+		return room;
+	}
+	public void setRoom(RoomModel room) {
+		this.room = room;
+	}
 	public Client getClient() {
 		return client;
 	}
 	public void setClient(Client client) {
 		this.client = client;
-	}
-	public Date getCheckoutDate() {
-		return checkoutDate;
-	}
-	public void setCheckoutDate(Date checkoutDate) {
-		this.checkoutDate = checkoutDate;
 	}
 }

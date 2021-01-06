@@ -42,7 +42,7 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitOccupant "+housingUnitUnit.getId()+" not found");
 		entity = HousingUnitOccupantConverter.modelToEntity(housingUnitUnit,entity);
 		entity.setHousingUnit(housingUnitEntity);
-		entity.setDedupClientId(validationService.validateCleintId(housingUnitUnit.getClientId()));
+		if(housingUnitUnit.getClientId()!=null) entity.setDedupClientId(validationService.validateCleintId(housingUnitUnit.getClientId()));
 		entity.setEnrollmentType(validationService.validateEnrillment(housingUnitUnit.getEnrollmentId()));
 		daoFactory.getHousingUnitOccupantRepository().save(entity);
 		sendClientMetaInfo(entity.getClientId(),entity.getDedupClientId(),false,"housingunit.occupant");
@@ -68,7 +68,7 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 	}
 	
 	@Transactional
-	public HousingUnitOccupants getHousingUnitOccupants(UUID housingunitid,Pageable pageable) {
+	public HousingUnitOccupants getHousingUnitOccupants(UUID housingunitid,Date fromdate, Date todate,Pageable pageable) {
 		HousingUnitEntity housingUnitEntity = daoFactory.getHousingUnitRepository().findByIdAndProjectGroupCodeAndDeleted(housingunitid, SecurityContextUtil.getUserProjectGroup(), false);
 		if(housingUnitEntity ==null) throw new ResourceNotFoundException(" Housing unit "+housingunitid+" not found");
 		HousingUnitOccupants housingUnitUnits = new HousingUnitOccupants();

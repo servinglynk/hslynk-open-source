@@ -11,7 +11,7 @@ public class HousingUnitOccupantConverter {
 		model.setEndDate(entity.getOccupancyEndDate());
 		model.setStartDate(entity.getOccupancyStartDate());
 		model.setId(entity.getId());
-		model.setHousingUnit(HousingUnitConverter.entityToModel(entity.getHousingUnit()));
+		if(entity.getHousingUnit()!=null) model.setHousingUnit(HousingUnitConverter.entityToModel(entity.getHousingUnit()));
 		return model;
 	}
 

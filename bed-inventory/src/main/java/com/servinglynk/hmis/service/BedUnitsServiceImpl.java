@@ -61,11 +61,16 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 	}
 	
 	@Transactional
-	public BedUnits getBedUnits(UUID shelterid, UUID areaid, UUID roomid, Pageable pageable) {
+	public BedUnits getBedUnits(UUID shelterid, UUID areaid, UUID roomid,String q, Pageable pageable) {
 		BedUnits bedUnits = new BedUnits();
 		RoomEntity roomEntity =  daoFactory.getRoomRepository().findByIdAndProjectGroupCodeAndDeleted(roomid,SecurityContextUtil.getUserProjectGroup(),false);
 		if(roomEntity == null) throw new ResourceNotFoundException("Room "+roomid+" not found");
-		Page<BedUnitEntity> entityPage = daoFactory.getBedUnitRepository().findByRoomAndDeleted(roomEntity, false, pageable);
+		Page<BedUnitEntity> entityPage = null;
+		if(q!=null) {
+			entityPage = daoFactory.getBedUnitDao().getAllBedunits(roomEntity, q,pageable);
+		}else {
+			entityPage = daoFactory.getBedUnitRepository().findByRoomAndDeleted(roomEntity, false, pageable);
+		}
 		for(BedUnitEntity bedUnitEntity : entityPage.getContent()) {
 			bedUnits.addBedUnit(BedUnitConverter.entityToModel(bedUnitEntity));
 		}

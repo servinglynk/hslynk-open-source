@@ -43,6 +43,27 @@ public class HousingUnitEntity extends BaseEntity {
 	@Column(name = "is_active")
 	private Boolean isActive;
 	
+	@Column(name = "address_1")
+	private String address1;
+	
+	@Column(name = "address_2")
+	private String address2;
+	
+	@Column(name = "city")
+	private String city;
+	
+	@Column(name = "state")
+	private String state;
+	
+	@Column(name = "zipcode")
+	private String zipcode;
+	
+	@Column(name = "longitude")
+	private String longitude;
+	
+	@Column(name = "latitude")
+	private String latitude;
+	
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "shelter_id", nullable = true )
 	private ShelterEntity shelter;
@@ -94,5 +115,47 @@ public class HousingUnitEntity extends BaseEntity {
 	}
 	public void setShelter(ShelterEntity shelter) {
 		this.shelter = shelter;
+	}
+	public String getAddress1() {
+		return address1;
+	}
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+	public String getAddress2() {
+		return address2;
+	}
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}	
 }

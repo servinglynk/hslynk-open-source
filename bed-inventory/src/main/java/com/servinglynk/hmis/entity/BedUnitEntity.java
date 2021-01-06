@@ -37,6 +37,9 @@ public class BedUnitEntity extends BaseEntity {
 	@Column(name = "is_Active")
 	private Boolean isActive;
 	
+	@Column(name = "name")
+	private String name;
+	
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "room_id", nullable = true )
 	private RoomEntity room;
@@ -96,5 +99,11 @@ public class BedUnitEntity extends BaseEntity {
 	}
 	public void setShelter(ShelterEntity shelter) {
 		this.shelter = shelter;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 }
