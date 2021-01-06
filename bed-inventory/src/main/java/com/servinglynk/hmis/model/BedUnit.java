@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class BedUnit {
 	
 	private UUID id;
+	private String name;
 	private Boolean occupancy;
 	private Integer occupantCapacity;
 	private Boolean overflow;
@@ -55,5 +56,11 @@ public class BedUnit {
 	public void setRoomId(UUID roomid) {
 		if(this.room == null) room = new RoomModel();
 		room.setId(roomid);		
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 }

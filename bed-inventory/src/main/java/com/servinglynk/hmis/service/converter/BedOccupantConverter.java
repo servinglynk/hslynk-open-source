@@ -12,7 +12,7 @@ public class BedOccupantConverter {
 		if(bedUnit.getIsActive()!=null) entity.setIsActive(bedUnit.getIsActive());
 		if(bedUnit.getEndDate()!=null) entity.setOccupancyEndDate(bedUnit.getEndDate());
 		if(bedUnit.getStartDate()!=null) entity.setOccupancyStartDate(bedUnit.getStartDate());
-		if(bedUnit.getCheckOutDate()!=null) entity.setCheckOutDate(bedUnit.getCheckOutDate());
+		if(bedUnit.getCheckoutDate()!=null) entity.setCheckOutDate(bedUnit.getCheckoutDate());
 		return entity;
 	}
 
@@ -25,8 +25,9 @@ public class BedOccupantConverter {
 		model.setDedupClientId(entity.getDedupClientId());
 		model.setEnrollmentId(entity.getEnrollemntId());
 		model.setEnrollmentType(entity.getEnrollmentType());
-		model.setCheckOutDate(entity.getCheckOutDate());
+		model.setCheckoutDate(entity.getCheckOutDate());
 		model.setId(entity.getId());
+		if(entity.getBedUnit()!=null) model.setBedUnit(BedUnitConverter.entityToModel(entity.getBedUnit()));
 		return model;
 	}
 

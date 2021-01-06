@@ -11,7 +11,7 @@ public class HousingUnitReservationConverter {
 		model.setStartDate(entity.getReservationStateDate());
 		model.setReservedClientId(entity.getReservedCleintId());
 		model.setReservedHouseholdId(entity.getReservedHouseholdId());
-		model.setHousingUnit(HousingUnitConverter.entityToModel(entity.getHousingUnit()));
+		if(entity.getHousingUnit()!=null) model.setHousingUnit(HousingUnitConverter.entityToModel(entity.getHousingUnit()));
 		model.setId(entity.getId());
 		return model;
 	}

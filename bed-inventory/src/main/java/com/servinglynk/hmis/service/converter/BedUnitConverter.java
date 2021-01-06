@@ -10,6 +10,7 @@ public class BedUnitConverter {
 		if(bedUnit.getOccupancy()!=null) bedUnitEntity.setOccupancy(bedUnit.getOccupancy());
 		if(bedUnit.getOccupantCapacity()!=null) bedUnitEntity.setOccupantCapacity(bedUnit.getOccupantCapacity());
 		if(bedUnit.getOverflow()!=null) bedUnitEntity.setOverflow(bedUnit.getOverflow());
+		if(bedUnit.getName()!=null) bedUnitEntity.setName(bedUnit.getName());
 		return bedUnitEntity;
 	}
 
@@ -20,6 +21,7 @@ public class BedUnitConverter {
 		model.setOverflow(bedUnitEntity.getOverflow());
 		model.setId(bedUnitEntity.getId());
 		model.setRoom(RoomConverter.entityToModel(bedUnitEntity.getRoom()));
+		model.setName(bedUnitEntity.getName());
 		return model;
 	}
 

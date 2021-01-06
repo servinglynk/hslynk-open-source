@@ -12,5 +12,5 @@ public interface HousingUnitService {
 	void updateHousingUnit(HousingUnit housingUnit);
 	void deleteHousingUnit(UUID housingUnitId);
 	HousingUnit getHousingUnit(UUID housingUnitId);
-	HousingUnits getHousingUnits(Pageable pageable);
+	HousingUnits getHousingUnits(String q, Pageable pageable);
 }

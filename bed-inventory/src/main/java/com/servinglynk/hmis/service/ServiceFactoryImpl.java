@@ -16,6 +16,8 @@ public class ServiceFactoryImpl extends BaseService implements ServiceFactory {
 	@Autowired RoomService roomService;
 	@Autowired RoomReservationService roomReservationService;
 	@Autowired ShelterService shelterService;
+	@Autowired RoomOccupantService roomOccupantService;
+	
 	public AreaService getAreaService() {
 		return areaService;
 	}
@@ -75,6 +77,12 @@ public class ServiceFactoryImpl extends BaseService implements ServiceFactory {
 	}
 	public void setShelterService(ShelterService shelterService) {
 		this.shelterService = shelterService;
+	}
+	public RoomOccupantService getRoomOccupantService() {
+		return roomOccupantService;
+	}
+	public void setRoomOccupantService(RoomOccupantService roomOccupantService) {
+		this.roomOccupantService = roomOccupantService;
 	}
 	
 	

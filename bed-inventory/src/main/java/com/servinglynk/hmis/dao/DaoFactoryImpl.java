@@ -11,6 +11,7 @@ import com.servinglynk.hmis.repository.ClientRepository;
 import com.servinglynk.hmis.repository.HousingUnitOccupantRepository;
 import com.servinglynk.hmis.repository.HousingUnitRepository;
 import com.servinglynk.hmis.repository.HousingUnitReservationRepository;
+import com.servinglynk.hmis.repository.RoomOccupantRepository;
 import com.servinglynk.hmis.repository.RoomRepository;
 import com.servinglynk.hmis.repository.RoomReservationRepository;
 import com.servinglynk.hmis.repository.ShelterRepository;
@@ -37,6 +38,10 @@ public class DaoFactoryImpl implements DaoFactory {
 	@Autowired private ClientRepository clientRepository;
 	@Autowired private HousingUnitOccupantDao housingUnitOccupantDao;
 	@Autowired private HousingUnitReservationDao housingUnitReservationDao;
+	@Autowired private RoomOccupantRepository roomOccupantRepository;
+	@Autowired private RoomOccupantDao roomOccupantDao;
+	@Autowired private BedUnitDao bedUnitDao;
+	@Autowired private HousingUnitDao housingUnitDao;
 	
 	public ShelterRepository getShelterRepository() {
 		return shelterRepository;
@@ -146,5 +151,28 @@ public class DaoFactoryImpl implements DaoFactory {
 	public void setHousingUnitReservationDao(HousingUnitReservationDao housingUnitReservationDao) {
 		this.housingUnitReservationDao = housingUnitReservationDao;
 	}
-	
+	public RoomOccupantRepository getRoomOccupantRepository() {
+		return roomOccupantRepository;
+	}
+	public void setRoomOccupantRepository(RoomOccupantRepository roomOccupantRepository) {
+		this.roomOccupantRepository = roomOccupantRepository;
+	}
+	public RoomOccupantDao getRoomOccupantDao() {
+		return roomOccupantDao;
+	}
+	public void setRoomOccupantDao(RoomOccupantDao roomOccupantDao) {
+		this.roomOccupantDao = roomOccupantDao;
+	}
+	public BedUnitDao getBedUnitDao() {
+		return bedUnitDao;
+	}
+	public void setBedUnitDao(BedUnitDao bedUnitDao) {
+		this.bedUnitDao = bedUnitDao;
+	}
+	public HousingUnitDao getHousingUnitDao() {
+		return housingUnitDao;
+	}
+	public void setHousingUnitDao(HousingUnitDao housingUnitDao) {
+		this.housingUnitDao = housingUnitDao;
+	}
 }

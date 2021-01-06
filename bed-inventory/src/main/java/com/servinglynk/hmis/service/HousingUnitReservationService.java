@@ -13,7 +13,7 @@ public interface HousingUnitReservationService {
 	void updateHousingUnitReservation(HousingUnitReservation housingUnitReservation) throws Exception;
 	void deleteHousingUnitReservation(UUID housingUnitReservationId);
 	HousingUnitReservation getHousingUnitReservation(UUID housingUnitReservationId);
-	HousingUnitReservations getHousingUnitReservations(UUID housingunitid, Pageable pageable);
+	HousingUnitReservations getHousingUnitReservations(UUID housingunitid, Date fromdate, Date todate, Pageable pageable);
 	HousingUnitReservations getClientHousingUnitReservations(UUID dedupClientId, Date fromdate, Date todate,
 			Pageable pageable);
 }

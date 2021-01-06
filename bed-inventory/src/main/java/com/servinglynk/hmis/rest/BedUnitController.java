@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.model.BedUnit;
@@ -52,7 +53,9 @@ public class BedUnitController extends BaseController{
 	@RequestMapping(method = RequestMethod.GET)
 	@APIMapping(value = "GET_BEDUNITS",checkSessionToken = true,checkTrustedApp = true)
 	BedUnits getBedUnits(Pageable pageable,@PathVariable("shelterid") UUID shelterid,
-			@PathVariable("areaid") UUID areaid,@PathVariable("roomid") UUID roomid) {
-		return serviceFactory.getBedUnitService().getBedUnits(shelterid,areaid,roomid,pageable);
+			@PathVariable("areaid") UUID areaid,@PathVariable("roomid") UUID roomid,
+			@RequestParam(name = "q",required = false) String q
+			) {
+		return serviceFactory.getBedUnitService().getBedUnits(shelterid,areaid,roomid,q,pageable);
 	}
 }

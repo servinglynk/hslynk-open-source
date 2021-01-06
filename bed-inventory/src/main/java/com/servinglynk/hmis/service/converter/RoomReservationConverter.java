@@ -11,7 +11,7 @@ public class RoomReservationConverter {
 		model.setStartDate(entity.getReservationStateDate());
 		model.setReservedClientId(entity.getReservedCleintId());
 		model.setReservedHouseholdId(entity.getReservedHouseholdId());
-		model.setRoom(RoomConverter.entityToModel(entity.getRoom()));
+		if(entity.getRoom()!=null) model.setRoom(RoomConverter.entityToModel(entity.getRoom()));
 		model.setId(entity.getId());
 		return model;
 	}

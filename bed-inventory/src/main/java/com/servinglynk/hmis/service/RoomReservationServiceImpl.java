@@ -47,7 +47,7 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 		if(entity == null) throw new ResourceNotFoundException("RoomReservation "+room.getId()+" not found");
 		entity = RoomReservationConverter.modelToEntity(room,entity);
 		entity.setReservedCleintId(room.getReservedClientId());
-		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedClientId()));
+		if(room.getReservedClientId()!=null)entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedClientId()));
 		daoFactory.getRoomReservationRepository().save(entity);
 		sendClientMetaInfo(entity.getReservedCleintId(), entity.getReservedCleintDedupId(), false, "room.reservation");
 	}
