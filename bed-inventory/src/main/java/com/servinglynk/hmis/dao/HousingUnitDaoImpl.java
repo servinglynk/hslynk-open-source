@@ -30,7 +30,6 @@ public class HousingUnitDaoImpl implements HousingUnitDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(HousingUnitEntity.class);
 	    Disjunction disjunction = Restrictions.disjunction();
 	    disjunction.add(Restrictions.ilike("name", q,MatchMode.ANYWHERE));
-	    disjunction.add(Restrictions.ilike("address", q,MatchMode.ANYWHERE));
 	    disjunction.add(Restrictions.ilike("address1", q,MatchMode.ANYWHERE));
 	    disjunction.add(Restrictions.ilike("address2", q,MatchMode.ANYWHERE));
 	    disjunction.add(Restrictions.ilike("city", q,MatchMode.ANYWHERE));
