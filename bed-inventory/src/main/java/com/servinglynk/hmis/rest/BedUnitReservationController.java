@@ -29,7 +29,7 @@ public class BedUnitReservationController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.PUT,value = "/{reservationid}")
 	@APIMapping(value = "UPDATE_RESERVATION",checkSessionToken = true,checkTrustedApp = true)
-	void updateBedUnitReservation(BedUnitReservation bedUnitReservation,
+	void updateBedUnitReservation(@RequestBody BedUnitReservation bedUnitReservation,
 			@PathVariable("bedunitid") UUID bedunitid,
 			@PathVariable("reservationid") UUID reservationid) throws Exception {
 		bedUnitReservation.setId(reservationid);
