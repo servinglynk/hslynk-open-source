@@ -42,8 +42,11 @@ public class HousingUnitReservationServiceImpl extends BaseService implements Ho
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitReservation "+housingUnitReservation.getId()+" not found");
 		entity = HousingUnitReservationConverter.modelToEntity(housingUnitReservation,entity);
 		entity.setHousingUnit(housingUnitEntity);
-		entity.setReservedCleintId(housingUnitReservation.getReservedClientId());
-		if(housingUnitReservation.getReservedClientId()!=null) entity.setDedupClientId(validationService.validateCleintId(housingUnitReservation.getReservedClientId()));
+
+		if(housingUnitReservation.getReservedClientId()!=null) {
+			entity.setReservedCleintId(housingUnitReservation.getReservedClientId());
+			entity.setDedupClientId(validationService.validateCleintId(housingUnitReservation.getReservedClientId()));
+		}
 		daoFactory.getHousingUnitReservationRepository().save(entity);
 		sendClientMetaInfo(entity.getReservedCleintId(),entity.getDedupClientId(),false,"housingunit.reservation");
 	}
