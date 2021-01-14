@@ -18,6 +18,7 @@ import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 
 import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -110,9 +111,15 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 													.getNameDataQuality())));
 					clientModel.setNameSuffix(client.getNameSuffix());
 //					clientModel.setOtherGender(client.getOtherGender());
-					clientModel.setRace(ClientRaceEnum
-							.lookupEnum(BasicDataGenerator
-									.getStringValue(client.getRace())));
+					List<String> race = client.getRace();
+					if(CollectionUtils.isNotEmpty(race)) {
+						clientModel.setRace(ClientRaceEnum
+								.lookupEnum(race.get(0)));
+						if(race.size() > 1) {
+							clientModel.setRace1(ClientRaceEnum
+									.lookupEnum(race.get(1)));
+						}
+					}
 					clientModel
 							.setSsnDataQuality(ClientSsnDataQualityEnum
 									.lookupEnum(BasicDataGenerator
