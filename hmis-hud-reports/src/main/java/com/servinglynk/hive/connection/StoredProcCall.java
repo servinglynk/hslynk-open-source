@@ -5,11 +5,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.servinglynk.hmis.warehouse.Properties;
+
 public class StoredProcCall {
 	public static void main(String args[]) {
 		try {
-			callStoredProc();
-			callStoredProcWithParams(2, "test", "");
+			Properties props = new Properties();
+    		props.generatePropValues();
+			callStoredProc("run_create_output_tables");
+//			callStoredProcWithParams(2, "test", "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -38,11 +42,11 @@ public class StoredProcCall {
 		}
 	}
 
-	private static void callStoredProc() throws ClassNotFoundException, SQLException {
+	public static void callStoredProc(final String functionName) throws ClassNotFoundException, SQLException {
 		Connection c = SyncPostgresProcessor.getConnection();
 		if (c != null) {
 			try {
-				CallableStatement stmt = c.prepareCall("{call LSA.fun_create_output_tables}");
+				CallableStatement stmt = c.prepareCall("{call lsa."+functionName+"()}");
 				stmt.executeQuery();
 			} catch (SQLException e) {
 				e.printStackTrace();

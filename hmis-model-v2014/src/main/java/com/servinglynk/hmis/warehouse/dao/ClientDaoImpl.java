@@ -98,9 +98,15 @@ public class ClientDaoImpl extends ParentDaoImpl<com.servinglynk.hmis.warehouse.
 											.getNameDataQuality())));
 			model.setNameSuffix(client.getNameSuffix());
 			model.setOtherGender(client.getOtherGender());
-			model.setRace(ClientRaceEnum
-					.lookupEnum(BasicDataGenerator
-							.getStringValue(client.getRace())));
+			List<String> race = client.getRace();
+			if(CollectionUtils.isNotEmpty(race)) {
+				model.setRace(ClientRaceEnum
+						.lookupEnum(race.get(0)));
+				if(race.size() > 1) {
+					model.setRace1(ClientRaceEnum
+							.lookupEnum(race.get(1)));
+				}
+			}
 			model
 					.setSsnDataQuality(ClientSsnDataQualityEnum
 							.lookupEnum(BasicDataGenerator
