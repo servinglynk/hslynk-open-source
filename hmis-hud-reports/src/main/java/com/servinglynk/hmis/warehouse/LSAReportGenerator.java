@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.servinglynk.hive.connection.CsvExporter;
+import com.servinglynk.hive.connection.StoredProcCall;
 import com.servinglynk.hive.connection.SyncPostgresProcessor;
 
 public class LSAReportGenerator  extends Logging {
@@ -31,16 +32,16 @@ public class LSAReportGenerator  extends Logging {
 	    		logger.info("Starting LSA reports process....");
 	    		CsvExporter csvExporter = new CsvExporter();
 	    		Map<String,String> csvs = new HashMap<>();
-	    		csvs.put("\"lsa_Calculated\"","\"ReportID\"");
-	    		csvs.put("\"lsa_Exit\"","\"ReportID\"");
-	    		csvs.put("\"lsa_Funder\"","\"ExportID\"");
-	    		csvs.put("\"lsa_Inventory\"","\"ExportID\"");
-	    		csvs.put("\"lsa_Organization\"","\"ExportID\"");
-	    		csvs.put("\"lsa_Project\"","\"ExportID\"");
-	    		csvs.put("\"lsa_ProjectCoC\"","\"ExportID\"");
-	    		csvs.put("\"lsa_Person\"","\"ReportID\"");
-	    		csvs.put("\"lsa_Report\"","\"ReportID\"");
-	    		csvs.put("\"lsa_HouseHold\"","\"ReportID\"");
+	    		csvs.put("lsa_calculated","ReportID");
+	    		csvs.put("lsa_exit","ReportID");
+	    		csvs.put("lsa_funder","ExportID");
+	    		csvs.put("lsa_inventory","ExportID");
+	    		csvs.put("lsa_organization","ExportID");
+	    		csvs.put("lsa_project","ExportID");
+	    		csvs.put("lsa_projectCoC","ExportID");
+	    		csvs.put("lsa_person","ReportID");
+	    		csvs.put("lsa_report","ReportID");
+	    		csvs.put("lsa_houseHold","ReportID");
 	    		
 	    		
 	    		ReportConfig reportConfig = SyncPostgresProcessor.getReportConfigByStatusReportType("INITIAL","LSA");
@@ -48,11 +49,21 @@ public class LSAReportGenerator  extends Logging {
 	    			SyncPostgresProcessor.updateReportConfig("INPROGRESS", reportConfig.getId());
 	    			String reportId = String.valueOf(reportConfig.getId());
 	    			Integer id = Integer.parseInt(reportId);
+	    	
+	    			StoredProcCall.callStoredProc("run_create_output_tables");
 	    			SyncPostgresProcessor.insertLsaReport(reportConfig);
+	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_hmis_households_and_enrollments");
+	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_get_project_records_for_export");
+	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_other_pddes_for_export");
+	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsaperson");
+	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsahousehold");
+	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsaexit");
+	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsa_calculated_averages");
+	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsa_calculated_counts");
+	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsareport_dq_and_reportdate");
 	    			
-	    			//StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "fun_lsareport_parameters_and_vendor_info");
 	    			for (Map.Entry<String,String> entry : csvs.entrySet())   {
-	    				csvExporter.export("LSA",entry.getKey(),entry.getValue(),12345);
+	    				csvExporter.export("LSA",entry.getKey(),entry.getValue(),id);
 	    			}
 	        		SyncPostgresProcessor.updateReportConfig("BEFORE_ZIP_CREATION", reportConfig.getId());
 	            	  // Get the bucket name from project group code.

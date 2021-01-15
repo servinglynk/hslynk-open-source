@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -45,6 +46,15 @@ public class DomesticviolenceDaoImpl extends ParentDaoImpl implements
 					 }
 					domesticviolenceModel.setDomesticviolencevictim(DomesticviolenceDomesticviolencevictimEnum.lookupEnum((domesticViolence.getDomesticViolenceVictim())));
 					domesticviolenceModel.setWhenoccurred(DomesticviolenceWhenoccurredEnum.lookupEnum((domesticViolence.getWhenOccurred())));
+					String currentlyFleeing = domesticViolence.getCurrentlyFleeing();
+					if(StringUtils.isNotBlank(currentlyFleeing)) {
+						try {
+							int parseInt = Integer.parseInt(currentlyFleeing);
+							domesticviolenceModel.setCurrentlyFleeing(parseInt);
+						}catch(Exception e) {
+							// eat the exception
+						}
+					}
 					domesticviolenceModel.setDateCreatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateCreated()));
 					domesticviolenceModel.setDateUpdatedFromSource(BasicDataGenerator.getLocalDateTime(domesticViolence.getDateUpdated()));
 					Enrollment enrollmentModel = (Enrollment) getModel(Enrollment.class, domesticViolence.getEnrollmentID(),getProjectGroupCode(domain),true,relatedModelMap, domain.getUpload().getId());

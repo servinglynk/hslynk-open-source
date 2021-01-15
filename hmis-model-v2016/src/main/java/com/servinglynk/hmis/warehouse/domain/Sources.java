@@ -1885,7 +1885,7 @@ public class Sources {
                 @XmlElement(name = "Ethnicity")
                 protected byte ethnicity;
                 @XmlElement(name = "Race")
-                protected byte race;
+                protected List<String> race;
                 @XmlElement(name = "VeteranStatus")
                 protected byte veteranStatus;
                 @XmlAttribute
@@ -2171,7 +2171,7 @@ public class Sources {
                  * Gets the value of the race property.
                  * 
                  */
-                public byte getRace() {
+                public List<String> getRace() {
                     return race;
                 }
 
@@ -2179,7 +2179,7 @@ public class Sources {
                  * Sets the value of the race property.
                  * 
                  */
-                public void setRace(byte value) {
+                public void setRace(List<String> value) {
                     this.race = value;
                 }
 

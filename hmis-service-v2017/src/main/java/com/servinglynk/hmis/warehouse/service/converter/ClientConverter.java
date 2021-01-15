@@ -40,6 +40,8 @@ public class ClientConverter {
 		pClient.setNameSuffix(client.getNameSuffix());
 	    if(client.getRace()!=null)
 		pClient.setRace(ClientRaceEnum.lookupEnum(client.getRace()+""));
+	    if(client.getRace1()!=null)
+				pClient.setRace1(ClientRaceEnum.lookupEnum(client.getRace()+""));
 	    if(client.getSsn()!=null)
 		pClient.setSsn(client.getSsn());
 	    if(client.getSsn()!=null && StringUtils.isEmpty(client.getSsn().replaceAll(" ", ""))) pClient.setSsn(null);
@@ -84,6 +86,8 @@ public class ClientConverter {
 		client.setNameSuffix(pClient.getNameSuffix());
 	    if(pClient.getRace()!=null)
 		client.setRace(Integer.parseInt(pClient.getRace().getValue()));
+	    if(pClient.getRace1()!=null)
+	 		client.setRace1(Integer.parseInt(pClient.getRace1().getValue()));
 	    if(pClient.getSsn()!=null)
 		client.setSsn(pClient.getSsn());
 	    if(pClient.getSsnDataQuality()!=null)

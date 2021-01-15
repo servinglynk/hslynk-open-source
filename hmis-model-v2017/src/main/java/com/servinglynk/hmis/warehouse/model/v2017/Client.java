@@ -80,6 +80,8 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	/** Field mapping. */
 	private String nameSuffix;
 	/** Field mapping. */
+	private ClientRaceEnum race1;
+	/** Field mapping. */
 	private ClientRaceEnum race;
 	/** Field mapping. */
 	private String ssn;
@@ -420,6 +422,25 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 	public void setRace(final ClientRaceEnum race) {
 		this.race = race;
 	}
+	
+	 /**
+	 * Set the value related to the column: race.
+	 * @param race the race value you wish to set
+	 */
+	public void setRace1(final ClientRaceEnum race1) {
+		this.race1 = race1;
+	}
+
+	/**
+	 * Return the value associated with the column: race.
+	 * @return A ClientRaceEnum object (this.race)
+	 */
+	@Basic( optional = true )
+	@Column
+	@Type(type = "com.servinglynk.hmis.warehouse.enums.ClientRaceEnumType")
+	public ClientRaceEnum getRace1() {
+		return this.race1;
+	}
 
 	 /**
 	 * Return the value associated with the column: ssn.
@@ -646,6 +667,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		copy.setNameSuffix(this.getNameSuffix());
 //		copy.setOtherGender(this.getOtherGender());
 		copy.setRace(this.getRace());
+		copy.setRace1(this.getRace1());
 		copy.setSsn(this.getSsn());
 		copy.setSsnDataQuality(this.getSsnDataQuality());
 		copy.setUserId(this.getUserId());
@@ -683,6 +705,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		sb.append("nameSuffix: " + this.getNameSuffix() + ", ");
 //		sb.append("otherGender: " + this.getOtherGender() + ", ");
 		sb.append("race: " + this.getRace() + ", ");
+		sb.append("race1: " + this.getRace1() + ", ");
 		sb.append("ssn: " + this.getSsn() + ", ");
 		sb.append("ssnDataQuality: " + this.getSsnDataQuality() + ", ");
 		sb.append("veteranStatus: " + this.getVeteranStatus());
@@ -745,6 +768,7 @@ public class Client extends HmisBaseModel implements Cloneable, Serializable {
 		result = result && (((getNameSuffix() == null) && (that.getNameSuffix() == null)) || (getNameSuffix() != null && getNameSuffix().equals(that.getNameSuffix())));
 //		result = result && (((getOtherGender() == null) && (that.getOtherGender() == null)) || (getOtherGender() != null && getOtherGender().equals(that.getOtherGender())));
 		result = result && (((getRace() == null) && (that.getRace() == null)) || (getRace() != null && getRace().equals(that.getRace())));
+		result = result && (((getRace1() == null) && (that.getRace1() == null)) || (getRace1() != null && getRace1().equals(that.getRace1())));
 		result = result && (((getSsn() == null) && (that.getSsn() == null)) || (getSsn() != null && getSsn().equals(that.getSsn())));
 		result = result && (((getSsnDataQuality() == null) && (that.getSsnDataQuality() == null)) || (getSsnDataQuality() != null && getSsnDataQuality().equals(that.getSsnDataQuality())));
 		result = result && (((getUserId() == null) && (that.getUserId() == null)) || (getUserId() != null && getUserId().equals(that.getUserId())));
