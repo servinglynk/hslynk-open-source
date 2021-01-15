@@ -4049,7 +4049,7 @@ public class Sources {
                 @XmlElement(name = "Ethnicity", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
                 protected byte ethnicity;
                 @XmlElement(name = "Race", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
-                protected byte race;
+                protected List<String> race;
                 @XmlElement(name = "VeteranStatus", namespace = "http://www.hudhdx.info/Resources/Vendors/4_1_1/HUD_HMIS.xsd")
                 protected byte veteranStatus;
                 @XmlAttribute
@@ -4335,7 +4335,7 @@ public class Sources {
                  * Gets the value of the race property.
                  * 
                  */
-                public byte getRace() {
+                public List<String> getRace() {
                     return race;
                 }
 
@@ -4343,7 +4343,7 @@ public class Sources {
                  * Sets the value of the race property.
                  * 
                  */
-                public void setRace(byte value) {
+                public void setRace(List<String> value) {
                     this.race = value;
                 }
 

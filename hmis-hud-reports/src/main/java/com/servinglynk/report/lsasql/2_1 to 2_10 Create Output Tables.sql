@@ -1,32 +1,38 @@
+CREATE OR REPLACE FUNCTION lsa.run_create_output_tables()
+RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+
 /*
 LSA FY2019 Sample Code
 
 
-Name:  2_1 to 2_10 Create Output Tables.sql 
-Date:  4/7/2020  
+Name:  2_1 to 2_10 Create Output Tables.sql
+Date:  4/7/2020
 	   5/14/2020 - lsa."lsa_Report" - allow NULL value in "ReportDate" because it isn't set until the end
-				 - lsa."lsa_ProjectCoC" - allow NULL values for "GeographyType" and "ZIP" in the table -- they are still required 
-						by the HDX 
+				 - lsa."lsa_ProjectCoC" - allow NULL values for "GeographyType" and "ZIP" in the table -- they are still required
+						by the HDX
        5/21/2020 -- add column "Step" (varchar(10) not NULL) to lsa."lsa_Calculated".
 
-There are some deliberate differences from data typing and nullability as defined by 
-the HMIS CSV/LSA specs and the CREATE statements here. 
+There are some deliberate differences from data typing and nullability as defined by
+the HMIS CSV/LSA specs and the CREATE statements here.
 
 	Columns which may be NULL in the HMIS CSV under some circumstances that do not
-	apply to the LSA upload are created as NOT NULL here.  For example, "ProjectType" 
+	apply to the LSA upload are created as NOT NULL here.  For example, "ProjectType"
 	may be NULL in HMIS if "ContinuumProject" = 0, but may not be NULL in the LSA
 	because all projects included in the upload must have "ContinuumProject" = 1.
-	
+
 	Columns which may not be NULL in HMIS but are not relevant to the LSA are
-	created as NULL here.  For example, "UserID" values are not imported to the HDX 
-	and may be NULL in the LSA upload. 
-	
-	Date columns are created with data type varchar to enable date formatting as 
+	created as NULL here.  For example, "UserID" values are not imported to the HDX
+	and may be NULL in the LSA upload.
+
+	Date columns are created with data type varchar to enable date formatting as
 	required by HMIS/LSA CSV specs in the INSERT statements.  The only exception is
 	"DateDeleted" columns -- they must be NULL for all records and formatting is not
 	relevant.
 
-	"ExportID" columns have a string(36) data type for HMIS purposes, but the values 
+	"ExportID" columns have a string(36) data type for HMIS purposes, but the values
 	must match the LSA "ReportID", which is an int column; they are created here as int
 	to ensure that the data type, at least, is consistent with LSA requirements.
 
@@ -58,7 +64,7 @@ create table lsa.lsa_Project(
 	UserID varchar(36),						--HMIS: not NULL
 	DateDeleted timestamp,
 	ExportID int not NULL,						--HMIS: string(36)
-	CONSTRAINT pk_lsa_Project PRIMARY KEY (ProjectID) 
+	CONSTRAINT pk_lsa_Project PRIMARY KEY (ProjectID)
 	);
 
 /*
@@ -113,13 +119,13 @@ create table lsa.lsa_ProjectCoC(
 	ProjectCoCID varchar(36) not NULL,
 	ProjectID varchar(36) not NULL,
 	CoCCode varchar(6) not NULL,
-	Geocode varchar(6) not NULL,				
+	Geocode varchar(6) not NULL,
 	Address1 varchar(100),
-	Address2 varchar(100),	
+	Address2 varchar(100),
 	City varchar(50),
 	State varchar(2),
-	ZIP varchar(5),					
-	GeographyType int,					
+	ZIP varchar(5),
+	GeographyType int,
 	DateCreated varchar(19) not NULL,			--HMIS: datetime
 	DateUpdated varchar(19) not NULL,			--HMIS: datetime
 	UserID varchar(36),						--HMIS: not NULL
@@ -138,19 +144,19 @@ DROP TABLE IF EXISTS lsa.lsa_Inventory;
 create table lsa.lsa_Inventory(
 	InventoryID varchar(36) not NULL,
 	ProjectID varchar(36) not NULL,
-	CoCCode varchar(6)  not NULL, 
-	HouseholdType int not NULL, 
-	Availability int, 
-	UnitInventory int not NULL, 
-	BedInventory int not NULL,  
-	CHVetBedInventory int not NULL,				--HMIS: may be NULL 
-	YouthVetBedInventory int not NULL,			--HMIS: may be NULL 
-	VetBedInventory int not NULL,				--HMIS: may be NULL 
+	CoCCode varchar(6)  not NULL,
+	HouseholdType int not NULL,
+	Availability int,
+	UnitInventory int not NULL,
+	BedInventory int not NULL,
+	CHVetBedInventory int not NULL,				--HMIS: may be NULL
+	YouthVetBedInventory int not NULL,			--HMIS: may be NULL
+	VetBedInventory int not NULL,				--HMIS: may be NULL
 	CHYouthBedInventory int not NULL,			--HMIS: may be NULL
 	YouthBedInventory int not NULL,				--HMIS: may be NULL
 	CHBedInventory int not NULL,				--HMIS: may be NULL
 	OtherBedInventory int not NULL,				--HMIS: may be NULL
-	ESBedType int,  
+	ESBedType int,
 	InventoryStartDate varchar(10) not NULL,	--HMIS: date
 	InventoryEndDate varchar(10),				--HMIS: date
 	DateCreated varchar(19) not NULL,			--HMIS: datetime
@@ -168,7 +174,7 @@ DROP TABLE IF EXISTS lsa.lsa_Report;
 
 --	The NULL/NOT NULL requirements for this table as it is created here
 --	differ from those for the LSAReport.csv file because the values are not
---	populated in a single step. All of the data quality columns 
+--	populated in a single step. All of the data quality columns
 --	(UnduplicatedClient1 through MoveInDate3) must be non-NULL in the upload.
 create table lsa.lsa_Report(
 	ReportID int not NULL,
@@ -377,7 +383,7 @@ create table lsa.lsa_Household(
 	2.9 LSAExit.csv / lsa.lsa_Exit
 */
 DROP TABLE IF EXISTS lsa.lsa_Exit;
- 
+
 create table lsa.lsa_Exit(
 	RowTotal int not NULL,
 	Cohort int not NULL,
@@ -402,7 +408,7 @@ create table lsa.lsa_Exit(
 	2.10 LSACalculated.csv / lsa.lsa_Calculated
 */
 
-DROP TABLE IF EXISTS lsa.lsa_Calculated; 
+DROP TABLE IF EXISTS lsa.lsa_Calculated;
 
 create table lsa.lsa_Calculated(
 	Value int not NULL,
@@ -416,3 +422,8 @@ create table lsa.lsa_Calculated(
 	ReportID int not NULL,
 	Step varchar(10) not NULL
 	);
+
+
+	END
+$function$
+;

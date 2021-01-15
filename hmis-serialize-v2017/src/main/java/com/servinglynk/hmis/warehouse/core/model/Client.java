@@ -32,6 +32,7 @@ public class Client extends ClientModel {
 	private String nativeHIOtherPacific;
 	private String white;
 	private Integer race;
+	private Integer race1;
 	private Integer ethnicity;
 	private Integer gender;
 	private String veteranStatus;
@@ -147,6 +148,12 @@ public class Client extends ClientModel {
 	}
 	public void setRace(Integer race) {
 		this.race = race;
+	}
+	public void setRace1(Integer race) {
+		this.race = race;
+	}
+	public Integer getRace1() {
+		return race1;
 	}
 	public Integer getEthnicity() {
 		return ethnicity;

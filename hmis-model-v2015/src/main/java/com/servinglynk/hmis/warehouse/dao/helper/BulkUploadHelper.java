@@ -322,7 +322,21 @@ public class BulkUploadHelper {
 	    		   clientModel.setNameSuffix(client.getNameSuffix());
 	    		   clientModel.setOtherGender(client.getOtherGender());
 	    		   clientModel.setPersonalID(client.getPersonalID());
-	    		   clientModel.setRace(getByte(client.getRaceNone()));
+	    		   List<String> races = new ArrayList<>();
+	    		   if(StringUtils.equals(client.getAsian(), "1")) {
+	    			   races.add("2");
+	    		   }else if (StringUtils.equals(client.getAmIndAKNative(), "1")) {
+	    			   races.add("1");
+	    		   }else if (StringUtils.equals(client.getBlackAfAmerican(), "1")) {
+	    			   races.add("3");
+	    		   }else if (StringUtils.equals(client.getNativeHIOtherPacific(), "1")) {
+	    			   races.add("4");
+	    		   }else if (StringUtils.equals(client.getWhite(), "1")) {
+	    			   races.add("5");
+	    		   }else if (StringUtils.isNotBlank(client.getRaceNone())) {
+	    			   races.add(client.getRaceNone());
+	    		   }
+	    		   clientModel.setRace(races);
 	    		   SSN ssn = new SSN();
 	    		   ssn.setValue(client.getSsn());
 	    		   clientModel.setSSN(ssn);

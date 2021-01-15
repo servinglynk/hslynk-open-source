@@ -103,8 +103,15 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 									.lookupEnum(client
 													.getNameDataQuality()));
 					clientModel.setNameSuffix(client.getNameSuffix());
-					clientModel.setRace(ClientRaceEnum
-							.lookupEnum(client.getRace()));
+					List<String> race = client.getRace();
+					if(CollectionUtils.isNotEmpty(race)) {
+						clientModel.setRace(ClientRaceEnum
+								.lookupEnum(race.get(0)));
+						if(race.size() > 1) {
+							clientModel.setRace1(ClientRaceEnum
+									.lookupEnum(race.get(1)));
+						}
+					}
 					clientModel
 							.setSsnDataQuality(ClientSsnDataQualityEnum
 									.lookupEnum(client
