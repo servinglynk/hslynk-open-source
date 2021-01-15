@@ -68,6 +68,15 @@ public class ShelterEntity extends BaseEntity {
 	@Column(name = "latitude")
 	private String latitude;
 	
+	@Column(name = "total_areas")
+	private Long totalAreas=0L;
+	
+	@Column(name = "total_rooms")	
+	private Long totalRooms=0L;
+	
+	@Column(name = "total_beds")
+	private Long totalBeds=0L;
+	
 	public UUID getId() {
 		return id;
 	}
@@ -163,5 +172,23 @@ public class ShelterEntity extends BaseEntity {
 	}
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
+	}
+	public Long getTotalAreas() {
+		return totalAreas;
+	}
+	public void setTotalAreas(Long totalAreas) {
+		this.totalAreas = totalAreas;
+	}
+	public Long getTotalRooms() {
+		return totalRooms;
+	}
+	public void setTotalRooms(Long totalRooms) {
+		this.totalRooms = totalRooms;
+	}
+	public Long getTotalBeds() {
+		return totalBeds;
+	}
+	public void setTotalBeds(Long totalBeds) {
+		this.totalBeds = totalBeds;
 	}
 }

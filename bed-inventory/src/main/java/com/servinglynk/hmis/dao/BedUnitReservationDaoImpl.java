@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.servinglynk.hmis.entity.BedUnitReservationEntity;
+import com.servinglynk.hmis.entity.RoomReservationEntity;
 import com.servinglynk.hmis.service.SecurityContextUtil;
 
 @Component
@@ -86,5 +87,37 @@ public class BedUnitReservationDaoImpl implements BedUnitReservationDao {
 			
 			return new PageImpl<BedUnitReservationEntity>(entities,pageable,count);
 		
+	}
+
+	@Override
+	public Boolean checkBedUnitOrRoomReservation(UUID bedUnitId, UUID roomId, Date startDate, Date endDate,
+			UUID clientId) {
+		Session session = entityManager.unwrap(Session.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(BedUnitReservationEntity.class);
+		criteria.createAlias("bedUnit", "bedUnit");
+		criteria.add(Restrictions.eq("bedUnit.id", bedUnitId));
+		criteria.add(Restrictions.eq("reservationStateDate", startDate));
+		criteria.add(Restrictions.eq("reservationEndDateDate", endDate));
+		criteria.add(Restrictions.eq("reservedCleintId", clientId));
+		criteria.add(Restrictions.eq("deleted", false));
+		criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+		criteria.setProjection(Projections.rowCount());
+		Long count = (Long)criteria.getExecutableCriteria(session).uniqueResult();
+		
+		if(count == 0L) {
+			DetachedCriteria roomCriteria = DetachedCriteria.forClass(RoomReservationEntity.class);
+			roomCriteria.createAlias("room", "room");
+			roomCriteria.add(Restrictions.eq("room.id", roomId));
+			roomCriteria.add(Restrictions.eq("reservationStateDate", startDate));
+			roomCriteria.add(Restrictions.eq("reservationEndDateDate", endDate));
+			roomCriteria.add(Restrictions.eq("reservedCleintId", clientId));
+			roomCriteria.add(Restrictions.eq("deleted", false));
+			roomCriteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+			roomCriteria.setProjection(Projections.rowCount());
+			Long roomReservationCount = (Long)roomCriteria.getExecutableCriteria(session).uniqueResult();
+			if(roomReservationCount == 0L) return false;
+		}
+		
+		return true;
 	}
 }

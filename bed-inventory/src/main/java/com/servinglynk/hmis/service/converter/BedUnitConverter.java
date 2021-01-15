@@ -7,9 +7,9 @@ public class BedUnitConverter {
 
 	public static BedUnitEntity modelToEntity(BedUnit bedUnit, BedUnitEntity bedUnitEntity) {
 		if(bedUnitEntity == null) bedUnitEntity = new BedUnitEntity();
-		bedUnitEntity.setOccupancy(bedUnit.getOccupancy());
-		bedUnitEntity.setOccupantCapacity(bedUnit.getOccupantCapacity());
-		bedUnitEntity.setOverflow(bedUnit.getOverflow());
+		if(bedUnit.getOccupancy()!=null) bedUnitEntity.setOccupancy(bedUnit.getOccupancy());
+		if(bedUnit.getOccupantCapacity()!=null) bedUnitEntity.setOccupantCapacity(bedUnit.getOccupantCapacity());
+		if(bedUnit.getOverflow()!=null) bedUnitEntity.setOverflow(bedUnit.getOverflow());
 		return bedUnitEntity;
 	}
 

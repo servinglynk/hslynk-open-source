@@ -25,8 +25,8 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 		BedUnitEntity bedUnitEntity = daoFactory.getBedUnitRepository().findOne(room.getBedUnit().getId());
 		if(bedUnitEntity == null) throw new ResourceNotFoundException("Bed Unit "+room.getBedUnit().getId()+" not found");
 		BedUnitReservationEntity entity = BedUnitReservationConverter.modelToEntity(room,null);
-		entity.setReservedCleintId(room.getReservedCleintId());
-		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedCleintId()));
+		entity.setReservedCleintId(room.getReservedClientId());
+		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedClientId()));
 		entity.setBedUnit(bedUnitEntity);
 		entity.setRoom(bedUnitEntity.getRoom());
 		entity.setArea(bedUnitEntity.getArea());
@@ -42,8 +42,8 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 		BedUnitReservationEntity entity =  daoFactory.getBedUnitReservationRepository().findByIdAndProjectGroupCodeAndDeleted(room.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedUnitReservation "+room.getId()+" not found");
 		entity = BedUnitReservationConverter.modelToEntity(room,entity);
-		entity.setReservedCleintId(room.getReservedCleintId());
-		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedCleintId()));
+		entity.setReservedCleintId(room.getReservedClientId());
+		entity.setReservedCleintDedupId(validationService.validateCleintId(room.getReservedClientId()));
 		daoFactory.getBedUnitReservationRepository().save(entity);
 		sendClientMetaInfo(entity.getReservedCleintId(), entity.getReservedCleintDedupId(), false, "bedunit.reservation");
 	}
@@ -61,8 +61,8 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 		if(entity == null) throw new ResourceNotFoundException("BedUnitReservation "+roomId+" not found");		
 		
 		BedUnitReservation reservation = BedUnitReservationConverter.entityToModel(entity);
-		if(reservation.getReservedCleintId()!=null) {
-			ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+		if(reservation.getReservedClientId()!=null) {
+			ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedClientId());
 			if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
 		}
 		return reservation;
@@ -76,8 +76,8 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 		Page<BedUnitReservationEntity> entityPage = daoFactory.getBedUnitReservationDao().getBedUnits(bedUnitId, fromdate, todate, pageable);
 		for(BedUnitReservationEntity roomEntity : entityPage.getContent()) {
 			BedUnitReservation reservation = BedUnitReservationConverter.entityToModel(roomEntity);
-			if(reservation.getReservedCleintId()!=null) {
-				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+			if(reservation.getReservedClientId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedClientId());
 				if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
 			}
 			rooms.addBedUnitReservation(reservation);
@@ -99,8 +99,8 @@ public class BedUnitReservationServiceImpl extends BaseService implements BedRes
 		Page<BedUnitReservationEntity> entityPage = daoFactory.getBedUnitReservationDao().getClientBedUnitReservations(dedupClientId, fromdate, todate, pageable);
 		for(BedUnitReservationEntity roomEntity : entityPage.getContent()) {
 			BedUnitReservation reservation = BedUnitReservationConverter.entityToModel(roomEntity);
-			if(reservation.getReservedCleintId()!=null) {
-				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedCleintId());
+			if(reservation.getReservedClientId()!=null) {
+				ClientEntity clientEntity = daoFactory.getClientRepository().findOne(reservation.getReservedClientId());
 				if(clientEntity!=null) reservation.setClient(ClientConverter.entityToModel(clientEntity));
 			}
 			rooms.addBedUnitReservation(reservation);

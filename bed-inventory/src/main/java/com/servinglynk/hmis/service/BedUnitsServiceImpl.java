@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.entity.BedUnitEntity;
 import com.servinglynk.hmis.entity.RoomEntity;
+import com.servinglynk.hmis.entity.ShelterEntity;
 import com.servinglynk.hmis.model.BedUnit;
 import com.servinglynk.hmis.model.BedUnits;
 import com.servinglynk.hmis.model.InventorySummary;
@@ -28,6 +29,9 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 		entity.setShelter(roomEntity.getArea().getShelter());
 		daoFactory.getBedUnitRepository().save(entity);
 		bedUnit.setId(entity.getId());
+		ShelterEntity shelterEntity = roomEntity.getArea().getShelter();
+		shelterEntity.setTotalBeds(shelterEntity.getTotalBeds()+1);
+		daoFactory.getShelterRepository().save(shelterEntity);
 		return bedUnit;
 	}
 	
@@ -44,13 +48,16 @@ public class BedUnitsServiceImpl extends BaseService implements BedUnitService {
 		BedUnitEntity entity =  daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedUnit "+bedUnitId+" not found");
 		daoFactory.getBedUnitRepository().delete(entity);
+		ShelterEntity shelterEntity = entity.getShelter();
+		shelterEntity.setTotalBeds(shelterEntity.getTotalBeds()-1);
+		daoFactory.getShelterRepository().save(shelterEntity);
 	}
 	
 	@Transactional
 	public BedUnit getBedUnit(UUID bedUnitId) {
 		BedUnitEntity entity =  daoFactory.getBedUnitRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnitId,SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedUnit "+bedUnitId+" not found");		
-		return BedUnitConverter.entityToModel(entity);
+		return BedUnitConverter.entityToModel(entity);	
 	}
 	
 	@Transactional

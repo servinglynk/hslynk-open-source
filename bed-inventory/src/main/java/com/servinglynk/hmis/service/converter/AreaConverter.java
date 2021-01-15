@@ -9,10 +9,10 @@ public class AreaConverter {
 		if(entity==null) {
 			entity = new AreaEntity();
 		}
-		entity.setDescription(area.getDescription());
-		entity.setName(area.getName());
-		entity.setIsActive(area.getIsActive());
-		entity.setOccupantCapacity(area.getOccupantCapacity());
+		if(area.getDescription()!=null) entity.setDescription(area.getDescription());
+		if(area.getName()!=null) entity.setName(area.getName());
+		if(area.getIsActive()!=null) entity.setIsActive(area.getIsActive());
+		if(area.getOccupantCapacity()!=null) entity.setOccupantCapacity(area.getOccupantCapacity());
 		return entity;
 	}
 
@@ -23,7 +23,7 @@ public class AreaConverter {
 		model.setIsActive(entity.getIsActive());
 		model.setOccupantCapacity(entity.getOccupantCapacity());
 		model.setId(entity.getId());
-		model.setShelter(ShelterConverter.entityToModel(entity.getShelter()));
+		model.setShelter(ShelterConverter.entityToModel(entity.getShelter(),false));
 		return model;
 	}
 

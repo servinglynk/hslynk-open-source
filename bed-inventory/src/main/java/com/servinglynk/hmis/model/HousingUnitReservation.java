@@ -4,15 +4,15 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("housingUnitReservation")
 @JsonInclude(value = Include.NON_NULL)
 public class HousingUnitReservation {
 
 	private UUID id;
-	private UUID reservedCleintId;
+	private UUID reservedClientId;
 	private UUID reservedHouseholdId;
 	private Date startDate; 
 	private Date endDate;
@@ -25,11 +25,11 @@ public class HousingUnitReservation {
 	public void setId(UUID id) {
 		this.id = id;
 	}
-	public UUID getReservedCleintId() {
-		return reservedCleintId;
+	public UUID getReservedClientId() {
+		return reservedClientId;
 	}
-	public void setReservedCleintId(UUID reservedCleintId) {
-		this.reservedCleintId = reservedCleintId;
+	public void setReservedClientId(UUID reservedClientId) {
+		this.reservedClientId = reservedClientId;
 	}
 	public UUID getReservedHouseholdId() {
 		return reservedHouseholdId;
