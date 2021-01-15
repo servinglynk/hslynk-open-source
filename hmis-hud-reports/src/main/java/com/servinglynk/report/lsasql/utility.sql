@@ -1,5 +1,5 @@
 --Populate lsa."ref_Calendar"
-CREATE OR REPLACE FUNCTION lsa.dateadd(character varying, integer, date)
+CREATE OR REPLACE FUNCTION dateadd(character varying, integer, date)
 RETURNS date AS
 $BODY$
 
@@ -25,7 +25,7 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 
-CREATE OR REPLACE PROCEDURE lsa.populate_ref_calendar()
+CREATE OR REPLACE PROCEDURE populate_ref_calendar()
  LANGUAGE plpgsql
 AS $procedure$
 
@@ -47,7 +47,7 @@ AS $procedure$
 $procedure$
 ;
 
-CREATE OR REPLACE FUNCTION lsa.isdate(s varchar) returns boolean as $$
+CREATE OR REPLACE FUNCTION isdate(s varchar) returns boolean as $$
 		begin
 	perform s::date;
 	return true;

@@ -40,6 +40,8 @@ public class GlobalHouseholdDTO implements Serializable {
 	
 	private String schemaYear;
 	
+	private String name;
+	
 	private UUID userId;
 	
 	@JsonProperty(access=Access.WRITE_ONLY)
@@ -112,6 +114,14 @@ public class GlobalHouseholdDTO implements Serializable {
 
 	public void setSchemaYear(String schemaYear) {
 		this.schemaYear = schemaYear;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

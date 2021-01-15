@@ -34,8 +34,8 @@ public class RoomReservationServiceImpl extends BaseService implements RoomReser
 		entity.setArea(roomEntity.getArea());
 		entity.setShelter(roomEntity.getShelter());
 		daoFactory.getRoomReservationRepository().save(entity);
-		List<BedUnitEntity> bedUnitEntities =	daoFactory.getBedUnitRepository().findByRoomAndDeleted(roomEntity, false);
-		this.reserveRoomBedUnits(bedUnitEntities, room);
+		//List<BedUnitEntity> bedUnitEntities =	daoFactory.getBedUnitRepository().findByRoomAndDeleted(roomEntity, false);
+		//this.reserveRoomBedUnits(bedUnitEntities, room);
 		sendClientMetaInfo(entity.getReservedCleintId(), entity.getReservedCleintDedupId(), false, "room.reservation");
 		room.setId(entity.getId());
 		return room;

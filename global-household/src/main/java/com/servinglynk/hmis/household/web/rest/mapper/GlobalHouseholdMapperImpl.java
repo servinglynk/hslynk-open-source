@@ -30,6 +30,7 @@ public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
 			globalHouseholdDTO.setHeadOfHouseholdId(globalHousehold.getHeadOfHouseholdId());
 			globalHouseholdDTO.setUserId(globalHousehold.getUserId());
 			globalHouseholdDTO.setLink(globalHousehold.getHeadOfHouseHoldLink());
+			globalHouseholdDTO.setName(globalHousehold.getName());
 			
 	//		System.out.println("Clients size is "+clientRepository.findByDedupClientIdOrderBySchemaYearAsc(globalHousehold.getDedupClientId()).size());
 			if(globalHousehold.getDedupClientId()!=null)
@@ -61,6 +62,7 @@ public class GlobalHouseholdMapperImpl implements GlobalHouseholdMapper {
 		globalHousehold.setHeadOfHouseHoldLink(globalHouseholdDTO.getLink());
 		globalHousehold.setDedupClientId(globalHouseholdDTO.getDedupClientId());
 		globalHousehold.setSchemaYear(globalHouseholdDTO.getSchemaYear());
+		globalHousehold.setName(globalHouseholdDTO.getName());
 		if(globalHouseholdDTO.getGlobalHouseholdId()==null){
 			HouseholdMembership membership = new HouseholdMembership();
 			membership.setGlobalClientId(globalHouseholdDTO.getHeadOfHouseholdId());

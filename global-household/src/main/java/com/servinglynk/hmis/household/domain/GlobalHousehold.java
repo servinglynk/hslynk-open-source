@@ -60,6 +60,9 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
 	
 	@Column(name="schema_year")
 	private String schemaYear;
+	
+	@Column(name="name")
+	private String name;
  
     public UUID getGlobalHouseholdId() {
 		return globalHouseholdId;
@@ -99,6 +102,14 @@ public class GlobalHousehold extends GlobalHouseholdBaseEntity implements Serial
 
 	public void setDedupClientId(UUID dedupClientId) {
 		this.dedupClientId = dedupClientId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getSchemaYear() {
