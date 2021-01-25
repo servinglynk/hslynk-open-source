@@ -1,5 +1,6 @@
 package com.servinglynk.hmis.rest;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.data.domain.Pageable;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.model.HousingUnitReservation;
@@ -51,7 +53,14 @@ public class HousingUnitReservationController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@APIMapping(value = "GET_HOUSINGUNIT_RESERVATIONS",checkSessionToken = true,checkTrustedApp = true)
-	HousingUnitReservations getHousingUnitReservations(@PathVariable("housingunitid") UUID housingunitid,Pageable pageable) {
-		return serviceFactory.getHousingUnitReservationService().getHousingUnitReservations(housingunitid,pageable);
+	HousingUnitReservations getHousingUnitReservations(@PathVariable("housingunitid") UUID housingunitid,
+			@RequestParam(value = "fromdate",required = false )Long fromDate,
+			@RequestParam(value = "todate",required = false )Long toDate,
+			Pageable pageable) {
+		Date fromdate = null ;
+		Date todate = null;
+		if(fromDate!=null) fromdate = new Date(fromDate);
+		if(toDate!=null) todate = new Date(toDate);
+		return serviceFactory.getHousingUnitReservationService().getHousingUnitReservations(housingunitid,fromdate,todate,pageable);
 	}
 }

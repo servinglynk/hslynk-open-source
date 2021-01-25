@@ -11,4 +11,5 @@ public interface ServiceFactory {
 	public RoomService getRoomService();
 	public RoomReservationService getRoomReservationService();
 	public ShelterService getShelterService();
+	public RoomOccupantService getRoomOccupantService();
 }

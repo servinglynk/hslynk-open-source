@@ -17,6 +17,7 @@ public class HousingUnitOccupant {
 	private UUID enrollmentId;
 	private Date startDate;
 	private Date endDate;
+	private Date checkoutDate;
 	private Boolean isActive;
 	private HousingUnit housingUnit;
 	private Client client;
@@ -75,5 +76,11 @@ public class HousingUnitOccupant {
 	}
 	public void setClient(Client client) {
 		this.client = client;
+	}
+	public Date getCheckoutDate() {
+		return checkoutDate;
+	}
+	public void setCheckoutDate(Date checkoutDate) {
+		this.checkoutDate = checkoutDate;
 	}
 }

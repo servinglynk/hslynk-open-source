@@ -13,6 +13,8 @@ public interface HousingUnitOccupantService {
 	void updateHousingUnitOccupant(HousingUnitOccupant housingUnitOccupant) throws Exception ;
 	void deleteHousingUnitOccupant(UUID housingUnitOccupantId);
 	HousingUnitOccupant getHousingUnitOccupant(UUID housingUnitOccupantId);
-	HousingUnitOccupants getHousingUnitOccupants(UUID housingunitid, Pageable pageable);
+	HousingUnitOccupants getHousingUnitOccupants(UUID housingunitid, Date fromdate, Date todate, Pageable pageable);
 	HousingUnitOccupants getClientHousingUnitOccupants(UUID dedupClientId, Date fromdate, Date todate, Pageable pageable);
+	HousingUnitOccupant checkinHousingUnitOccupant(HousingUnitOccupant housingUnitOccupant) throws Exception;
+	void checkoutHousingUnitOccupant(HousingUnitOccupant housingUnitOccupant) throws Exception;
 }

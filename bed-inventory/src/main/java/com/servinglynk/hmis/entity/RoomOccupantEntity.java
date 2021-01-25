@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "housing_unit_occupant", schema =  "bed_inventory")
-public class HousingUnitOccupantEntity extends BaseEntity {
+@Table(name = "room_occupant", schema =  "bed_inventory")
+public class RoomOccupantEntity extends BaseEntity {
 
 	@Id
 	@Column(name = "id", nullable = false)
@@ -39,6 +39,9 @@ public class HousingUnitOccupantEntity extends BaseEntity {
 	@Column(name = "occupancy_end_date")
 	private Date occupancyEndDate;
 	
+	@Column(name = "checkout_date")
+	private Date checkOutDate;
+	
 	@Column(name = "is_active")
 	private Boolean isActive;
 	
@@ -49,13 +52,17 @@ public class HousingUnitOccupantEntity extends BaseEntity {
 	@Column(name = "enrollment_type")
 	private String enrollmentType;
 	
-	@Column(name = "checkout_date")
-	private Date checkOutDate;
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "room_id", nullable = true )
+	private RoomEntity room;
 	
 	@ManyToOne(fetch = FetchType.LAZY )
-	@JoinColumn(name = "hosuing_unit_id", nullable = true )
-	private HousingUnitEntity housingUnit;
+	@JoinColumn(name = "area_id", nullable = true )
+	private AreaEntity area;
 	
+	@ManyToOne(fetch = FetchType.LAZY )
+	@JoinColumn(name = "shelter_id", nullable = true )
+	private ShelterEntity shelter;
 	
 	public UUID getId() {
 		return id;
@@ -93,12 +100,6 @@ public class HousingUnitOccupantEntity extends BaseEntity {
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-	public HousingUnitEntity getHousingUnit() {
-		return housingUnit;
-	}
-	public void setHousingUnit(HousingUnitEntity housingUnit) {
-		this.housingUnit = housingUnit;
-	}
 	public UUID getEnrollemntId() {
 		return enrollemntId;
 	}
@@ -110,6 +111,24 @@ public class HousingUnitOccupantEntity extends BaseEntity {
 	}
 	public void setEnrollmentType(String enrollmentType) {
 		this.enrollmentType = enrollmentType;
+	}
+	public RoomEntity getRoom() {
+		return room;
+	}
+	public void setRoom(RoomEntity room) {
+		this.room = room;
+	}
+	public AreaEntity getArea() {
+		return area;
+	}
+	public void setArea(AreaEntity area) {
+		this.area = area;
+	}
+	public ShelterEntity getShelter() {
+		return shelter;
+	}
+	public void setShelter(ShelterEntity shelter) {
+		this.shelter = shelter;
 	}
 	public Date getCheckOutDate() {
 		return checkOutDate;

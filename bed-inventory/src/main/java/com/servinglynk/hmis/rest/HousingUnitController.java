@@ -2,12 +2,12 @@ package com.servinglynk.hmis.rest;
 
 import java.util.UUID;
 
-import org.springframework.data.convert.ReadingConverter;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.servinglynk.hmis.model.HousingUnit;
@@ -45,7 +45,9 @@ public class HousingUnitController extends BaseController{
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@APIMapping(value = "GET_HOUSINGUNITS",checkSessionToken = true,checkTrustedApp = true)
-	HousingUnits getHousingUnits(Pageable pageable) {
-		return serviceFactory.getHousingUnitService().getHousingUnits(pageable);
+	HousingUnits getHousingUnits(
+			@RequestParam(name = "q", required = false) String q,
+			Pageable pageable) {
+		return serviceFactory.getHousingUnitService().getHousingUnits(q,pageable);
 	}
 }

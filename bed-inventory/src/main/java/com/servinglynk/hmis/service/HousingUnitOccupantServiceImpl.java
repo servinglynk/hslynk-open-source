@@ -42,7 +42,7 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 		if(entity == null) throw new ResourceNotFoundException("HousingUnitOccupant "+housingUnitUnit.getId()+" not found");
 		entity = HousingUnitOccupantConverter.modelToEntity(housingUnitUnit,entity);
 		entity.setHousingUnit(housingUnitEntity);
-		entity.setDedupClientId(validationService.validateCleintId(housingUnitUnit.getClientId()));
+		if(housingUnitUnit.getClientId()!=null) entity.setDedupClientId(validationService.validateCleintId(housingUnitUnit.getClientId()));
 		entity.setEnrollmentType(validationService.validateEnrillment(housingUnitUnit.getEnrollmentId()));
 		daoFactory.getHousingUnitOccupantRepository().save(entity);
 		sendClientMetaInfo(entity.getClientId(),entity.getDedupClientId(),false,"housingunit.occupant");
@@ -68,7 +68,7 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 	}
 	
 	@Transactional
-	public HousingUnitOccupants getHousingUnitOccupants(UUID housingunitid,Pageable pageable) {
+	public HousingUnitOccupants getHousingUnitOccupants(UUID housingunitid,Date fromdate, Date todate,Pageable pageable) {
 		HousingUnitEntity housingUnitEntity = daoFactory.getHousingUnitRepository().findByIdAndProjectGroupCodeAndDeleted(housingunitid, SecurityContextUtil.getUserProjectGroup(), false);
 		if(housingUnitEntity ==null) throw new ResourceNotFoundException(" Housing unit "+housingunitid+" not found");
 		HousingUnitOccupants housingUnitUnits = new HousingUnitOccupants();
@@ -112,5 +112,37 @@ public class HousingUnitOccupantServiceImpl extends BaseService implements Housi
 	        pagination.setTotal((int)entityPage.getTotalElements());
 	        housingUnitUnits.setPagination(pagination);
 		return housingUnitUnits;
+	}
+
+	@Override
+	public HousingUnitOccupant checkinHousingUnitOccupant(HousingUnitOccupant housingUnitOccupant) throws Exception  {
+		HousingUnitEntity housingUnitEntity = daoFactory.getHousingUnitRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitOccupant.getHousingUnit().getId(), SecurityContextUtil.getUserProjectGroup(), false);
+		if(housingUnitEntity ==null) throw new ResourceNotFoundException(" Housing unit "+housingUnitOccupant.getHousingUnit().getId()+" not found");
+		HousingUnitOccupantEntity entity = HousingUnitOccupantConverter.modelToEntity(housingUnitOccupant,null);
+		entity.setHousingUnit(housingUnitEntity);
+		entity.setDedupClientId(validationService.validateCleintId(housingUnitOccupant.getClientId()));
+		entity.setEnrollmentType(validationService.validateEnrillment(housingUnitOccupant.getEnrollmentId()));
+		daoFactory.getHousingUnitOccupantRepository().save(entity);
+		housingUnitOccupant.setId(entity.getId());
+		housingUnitEntity.setOccupancy(true);
+		daoFactory.getHousingUnitRepository().save(housingUnitEntity);
+		sendClientMetaInfo(entity.getClientId(),entity.getDedupClientId(),false,"housingunit.occupant");
+		return housingUnitOccupant;
+	}
+
+	@Override
+	public void checkoutHousingUnitOccupant(HousingUnitOccupant housingUnitOccupant) throws Exception{
+		HousingUnitEntity housingUnitEntity = daoFactory.getHousingUnitRepository().findByIdAndProjectGroupCodeAndDeleted(housingUnitOccupant.getHousingUnit().getId(),SecurityContextUtil.getUserProjectGroup(),false);
+		if(housingUnitEntity == null) throw new ResourceNotFoundException("Housing unit not found");
+		HousingUnitOccupantEntity entity =  daoFactory.getHousingUnitOccupantDao().getClinetHousingUnitOccupants(housingUnitOccupant.getClientId(),housingUnitEntity.getId());
+		if(entity == null) throw new ResourceNotFoundException("Client not occupied housing unit "+housingUnitOccupant.getHousingUnit().getId());
+		entity = HousingUnitOccupantConverter.modelToEntity(housingUnitOccupant,entity);
+		if(housingUnitOccupant.getCheckoutDate()==null) entity.setCheckOutDate(new Date());
+		if(housingUnitOccupant.getClientId()!=null) entity.setDedupClientId(validationService.validateCleintId(housingUnitOccupant.getClientId()));
+		entity.setEnrollmentType(validationService.validateEnrillment(housingUnitOccupant.getEnrollmentId()));
+		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
+		daoFactory.getHousingUnitOccupantRepository().save(entity);
+		housingUnitEntity.setOccupancy(false);
+		daoFactory.getHousingUnitRepository().save(housingUnitEntity);
 	}	
 }

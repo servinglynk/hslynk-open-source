@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.servinglynk.hmis.entity.BedOccupantEntity;
 import com.servinglynk.hmis.entity.BedUnitEntity;
-import com.servinglynk.hmis.entity.BedUnitReservationEntity;
 import com.servinglynk.hmis.entity.ClientEntity;
 import com.servinglynk.hmis.model.BedOccupant;
 import com.servinglynk.hmis.model.BedOccupants;
@@ -39,6 +38,8 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		entity.setArea(bedUnitEntity.getArea());
 		entity.setShelter(bedUnitEntity.getShelter());
 		daoFactory.getBedOccupantRepository().save(entity);
+		bedUnitEntity.setOccupancy(true);
+		daoFactory.getBedUnitRepository().save(bedUnitEntity);
 		bedUnit.setId(entity.getId());
 		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
 		return bedUnit;
@@ -51,7 +52,7 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		BedOccupantEntity entity =  daoFactory.getBedOccupantRepository().findByIdAndProjectGroupCodeAndDeleted(bedUnit.getId(),SecurityContextUtil.getUserProjectGroup(),false);
 		if(entity == null) throw new ResourceNotFoundException("BedOccupant "+bedUnit.getId()+" not found");
 		entity = BedOccupantConverter.modelToEntity(bedUnit,entity);
-		entity.setDedupClientId(validationService.validateCleintId(bedUnit.getClientId()));
+		if(bedUnit.getClientId()!=null) entity.setDedupClientId(validationService.validateCleintId(bedUnit.getClientId()));
 		entity.setEnrollmentType(validationService.validateEnrillment(bedUnit.getEnrollmentId()));
 		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
 		daoFactory.getBedOccupantRepository().save(entity);
@@ -64,11 +65,13 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		BedOccupantEntity entity =  daoFactory.getBedOccupantDao().getClinetBedOccupants(bedOccupant.getClientId(),bedUnitEntity.getId());
 		if(entity == null) throw new ResourceNotFoundException("Client not occupied bed unit "+bedOccupant.getBedUnit().getId());
 		entity = BedOccupantConverter.modelToEntity(bedOccupant,entity);
-		if(bedOccupant.getCheckOutDate()==null) entity.setCheckOutDate(new Date());
-		entity.setDedupClientId(validationService.validateCleintId(bedOccupant.getClientId()));
+		if(bedOccupant.getCheckoutDate()==null) entity.setCheckOutDate(new Date());
+		if(bedOccupant.getClientId()!=null) entity.setDedupClientId(validationService.validateCleintId(bedOccupant.getClientId()));
 		entity.setEnrollmentType(validationService.validateEnrillment(bedOccupant.getEnrollmentId()));
 		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
 		daoFactory.getBedOccupantRepository().save(entity);
+		bedUnitEntity.setOccupancy(false);
+		daoFactory.getBedUnitRepository().save(bedUnitEntity);
 		
 	}	
 	
