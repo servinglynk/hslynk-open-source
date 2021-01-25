@@ -1,15 +1,10 @@
 package com.servinglynk.hmis.repository;
 
-import java.io.Serializable;
-
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.data.repository.Repository;
 
 @NoRepositoryBean
-public interface BaseRepository<T, ID extends Serializable> extends Repository<T, ID> {
+public interface BaseRepository<T,UUID>  {
 
-	void delete(T entity) throws Exception ;
-	T findOne(ID id);
-
+	void delete(T entity) ;
 	
 }

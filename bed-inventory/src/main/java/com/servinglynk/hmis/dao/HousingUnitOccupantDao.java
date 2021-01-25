@@ -15,4 +15,6 @@ public interface HousingUnitOccupantDao {
 			Pageable pageable);
 
 	PageImpl<HousingUnitOccupantEntity> getHousingOccupants(UUID housingUnitId, Date fromdate,Date todate,Pageable pageable);
+
+	HousingUnitOccupantEntity getClinetHousingUnitOccupants(UUID clientId, UUID housingUnitId);
 }

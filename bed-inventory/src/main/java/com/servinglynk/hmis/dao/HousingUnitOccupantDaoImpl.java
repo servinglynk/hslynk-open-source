@@ -64,6 +64,23 @@ public class HousingUnitOccupantDaoImpl implements HousingUnitOccupantDao {
 		
 	}
 	
+
+	@Override
+	public HousingUnitOccupantEntity getClinetHousingUnitOccupants(UUID clientId, UUID bedUnitId) {
+		Session session = entityManager.unwrap(Session.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(HousingUnitOccupantEntity.class);
+		criteria.createAlias("bedUnit", "bedUnit");
+		criteria.add(Restrictions.eq("bedUnit.id", bedUnitId));
+		criteria.add(Restrictions.eq("clientId", clientId));
+		criteria.add(Restrictions.isNull("checkOutDate"));
+		criteria.add(Restrictions.eq("deleted", false));
+		criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));
+		List<HousingUnitOccupantEntity> occupantEntities = criteria.getExecutableCriteria(session).list();
+		if(occupantEntities.isEmpty()) return null;
+		return occupantEntities.get(0);
+	}
+
+	
 	
 	@Override
 	public Page<HousingUnitOccupantEntity> getClientHousingUnitOccupants(UUID dedupClientId, Date fromdate, Date todate,

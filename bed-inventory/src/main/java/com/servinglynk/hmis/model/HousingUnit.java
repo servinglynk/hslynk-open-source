@@ -25,6 +25,7 @@ public class HousingUnit {
 	private String longitude;
 	private String latitude;
 	private ShelterModel shelter;
+	private Boolean occupancy;
 	
 	public UUID getId() {
 		return id;
@@ -115,5 +116,11 @@ public class HousingUnit {
 	}
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
+	}
+	public Boolean getOccupancy() {
+		return occupancy;
+	}
+	public void setOccupancy(Boolean occupancy) {
+		this.occupancy = occupancy;
 	}	
 }
