@@ -64,6 +64,9 @@ public class HousingUnitEntity extends BaseEntity {
 	@Column(name = "latitude")
 	private String latitude;
 	
+	@Column(name = "occupancy")
+	private Boolean occupancy;
+	
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "shelter_id", nullable = true )
 	private ShelterEntity shelter;
@@ -157,5 +160,11 @@ public class HousingUnitEntity extends BaseEntity {
 	}
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
+	}
+	public Boolean getOccupancy() {
+		return occupancy;
+	}
+	public void setOccupancy(Boolean occupancy) {
+		this.occupancy = occupancy;
 	}	
 }

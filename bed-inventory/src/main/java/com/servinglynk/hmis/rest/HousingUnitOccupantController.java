@@ -16,10 +16,10 @@ import com.servinglynk.hmis.model.HousingUnitOccupants;
 import com.servinglynk.hmis.warehouse.annotations.APIMapping;
 
 @RestController
-@RequestMapping("/housingunits/{housingunitid}/occupants")
+@RequestMapping("/housingunits/{housingunitid}")
 public class HousingUnitOccupantController extends BaseController{
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST,value = "/occupants")
 	@APIMapping(value = "CREATE_HOUSINGUNIT_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
 	HousingUnitOccupant createHousingUnitOccupant(
 			@RequestBody HousingUnitOccupant housingUnitOccupant,
@@ -29,7 +29,28 @@ public class HousingUnitOccupantController extends BaseController{
 		return serviceFactory.getHousingUnitOccupantService().createHousingUnitOccupant(housingUnitOccupant);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT,value = "/{occupantid}")
+	
+	@RequestMapping(method = RequestMethod.POST,value = "/checkin")
+	@APIMapping(value = "CREATE_HOUSINGUNIT_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
+	HousingUnitOccupant checkinHousingUnitOccupant(
+			@RequestBody HousingUnitOccupant housingUnitOccupant,
+			@PathVariable("housingunitid") UUID housingunitid
+			) throws Exception {
+		housingUnitOccupant.getHousingUnit().setId(housingunitid);
+		return serviceFactory.getHousingUnitOccupantService().checkinHousingUnitOccupant(housingUnitOccupant);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT,value = "/checkout")
+	@APIMapping(value = "CREATE_HOUSINGUNIT_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
+	void checkoutHousingUnitOccupant(
+			@RequestBody HousingUnitOccupant housingUnitOccupant,
+			@PathVariable("housingunitid") UUID housingunitid
+			) throws Exception {
+		housingUnitOccupant.getHousingUnit().setId(housingunitid);
+		 serviceFactory.getHousingUnitOccupantService().checkoutHousingUnitOccupant(housingUnitOccupant);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT,value = "/occupants/{occupantid}")
 	@APIMapping(value = "UPDATE_HOUSINGUNIT_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
 	void updateHousingUnitOccupant(@RequestBody HousingUnitOccupant housingUnitOccupant,
 			@PathVariable("housingunitid") UUID housingunitid,
@@ -39,21 +60,21 @@ public class HousingUnitOccupantController extends BaseController{
 		serviceFactory.getHousingUnitOccupantService().updateHousingUnitOccupant(housingUnitOccupant);
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE,value = "/{occupantid}")
+	@RequestMapping(method = RequestMethod.DELETE,value = "/occupants/{occupantid}")
 	@APIMapping(value = "DELETE_HOUSINGUNIT_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
 	void deleteHousingUnitOccupant(@PathVariable("occupantid") UUID housingUnitOccupantId,
 			@PathVariable("housingunitid") UUID housingunitid) {
 		serviceFactory.getHousingUnitOccupantService().deleteHousingUnitOccupant(housingUnitOccupantId);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET,value = "/{occupantid}")
+	@RequestMapping(method = RequestMethod.GET,value = "/occupants/{occupantid}")
 	@APIMapping(value = "GET_HOUSINGUNIT_OCCUPANT",checkSessionToken = true,checkTrustedApp = true)
 	HousingUnitOccupant getHousingUnitOccupant(	@PathVariable("housingunitid") UUID housingunitid,
 			@PathVariable("occupantid") UUID housingUnitOccupantId) {
 		return serviceFactory.getHousingUnitOccupantService().getHousingUnitOccupant(housingUnitOccupantId);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET,value = "/occupants")
 	@APIMapping(value = "GET_HOUSINGUNIT_OCCUPANTS",checkSessionToken = true,checkTrustedApp = true)
 	HousingUnitOccupants getHousingUnitOccupants(	@PathVariable("housingunitid") UUID housingunitid,
 			@RequestParam(value = "fromdate",required = false )Long fromDate,

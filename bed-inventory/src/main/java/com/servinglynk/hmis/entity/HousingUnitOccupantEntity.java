@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "housing_unit_occupant", schema =  "bed_inventory")
@@ -49,6 +48,9 @@ public class HousingUnitOccupantEntity extends BaseEntity {
 	
 	@Column(name = "enrollment_type")
 	private String enrollmentType;
+	
+	@Column(name = "checkout_date")
+	private Date checkOutDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "hosuing_unit_id", nullable = true )
@@ -108,5 +110,11 @@ public class HousingUnitOccupantEntity extends BaseEntity {
 	}
 	public void setEnrollmentType(String enrollmentType) {
 		this.enrollmentType = enrollmentType;
+	}
+	public Date getCheckOutDate() {
+		return checkOutDate;
+	}
+	public void setCheckOutDate(Date checkOutDate) {
+		this.checkOutDate = checkOutDate;
 	}
 }

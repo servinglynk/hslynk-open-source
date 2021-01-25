@@ -39,6 +39,7 @@ public class HousingUnitConverter {
 		model.setZipcode(entity.getZipcode());
 		model.setLatitude(entity.getLatitude());
 		model.setLongitude(entity.getLongitude());
+		model.setOccupancy(entity.getOccupancy());
 		if(entity.getShelter() != null) model.setShelter(ShelterConverter.entityToModel(entity.getShelter(),false));
 		return model;
 	}

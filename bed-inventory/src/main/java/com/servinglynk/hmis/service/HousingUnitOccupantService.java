@@ -15,4 +15,6 @@ public interface HousingUnitOccupantService {
 	HousingUnitOccupant getHousingUnitOccupant(UUID housingUnitOccupantId);
 	HousingUnitOccupants getHousingUnitOccupants(UUID housingunitid, Date fromdate, Date todate, Pageable pageable);
 	HousingUnitOccupants getClientHousingUnitOccupants(UUID dedupClientId, Date fromdate, Date todate, Pageable pageable);
+	HousingUnitOccupant checkinHousingUnitOccupant(HousingUnitOccupant housingUnitOccupant) throws Exception;
+	void checkoutHousingUnitOccupant(HousingUnitOccupant housingUnitOccupant) throws Exception;
 }
