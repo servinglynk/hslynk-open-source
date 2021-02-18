@@ -7,6 +7,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/conf"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/csvresources"/>
         <dependent-module archiveName="hmis-s3-client-2.14.20.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hmis-s3-client/hmis-s3-client">
             <dependency-type>uses</dependency-type>
         </dependent-module>

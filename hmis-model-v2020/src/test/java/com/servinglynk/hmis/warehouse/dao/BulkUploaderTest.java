@@ -104,7 +104,7 @@ public class BulkUploaderTest {
 	{
 				URL path = BulkUploaderTest.class.getResource("2020.xml");
 				BulkUpload upload = new BulkUpload();
-				upload.setInputpath("/Users/sdolia/Downloads/FY_2020_LSA.zip");
+				upload.setInputpath("/Users/sdolia/Downloads/FY_2020_LSA/Project.csv.zip");
 				
 				FileAppender appender = new FileAppender();
 				appender.setName("" + upload.getId());
@@ -118,12 +118,12 @@ public class BulkUploaderTest {
 				//upload.setInputpath("C:\\Users\\sdolia\\Desktop\\HUDFile\\CSV\\CSV.zip");
 		//		URL path = BulkUploadHelperTest.class.getResource("2016.xml");
 		//		upload.setInputpath(path.getPath());
-				upload.setProjectGroupCode("LS0024");
-				upload.setId(725L);
+				upload.setProjectGroupCode("TT0013");
+				upload.setId(755L);
 				upload.setYear(2020L);
-				upload.setDescription("enrollment");
+				upload.setDescription("organization");
 				ProjectGroupEntity projectGrpEntity = new ProjectGroupEntity();
-				projectGrpEntity.setProjectGroupCode("LS0024");
+				projectGrpEntity.setProjectGroupCode("TT0013");
 				BulkUpload bulkUpload = factory.getBulkUploaderDao().performBulkUpload(upload,projectGrpEntity,appender,false);
 	}
 	

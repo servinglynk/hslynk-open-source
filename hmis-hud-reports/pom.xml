@@ -29,13 +29,6 @@
             <scope>compile</scope>
         </dependency>
 		
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>3.2.3</version>
-			<scope>compile</scope>
-        </dependency>
-
         <!-- DB Dependencies -->
 		 <dependency>
             <groupId>org.postgresql</groupId>
@@ -147,7 +140,7 @@
            <dependency>
             <groupId>com.servinglynk.hmis.warehouse</groupId>
             <artifactId>hmis-s3-client</artifactId>
-            <version>2.23.0</version>
+            <version>2.26.4</version>
         </dependency>
         
 

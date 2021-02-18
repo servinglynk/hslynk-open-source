@@ -11,6 +11,8 @@ public enum ReportTypeEnum {
 	/** Enum Constant. */
 	LSA("LSA"),
 	/** Enum Constant. */
+	SPM("SPM"),
+	/** Enum Constant. */
 	CAPER("CAPER");
 	
 private final String status;
