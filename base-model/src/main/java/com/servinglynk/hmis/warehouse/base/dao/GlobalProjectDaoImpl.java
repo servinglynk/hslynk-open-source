@@ -145,6 +145,17 @@ public class GlobalProjectDaoImpl extends QueryExecutorImpl implements GlobalPro
 		}
 		
 	}
+	
+	@Override
+	public GlobalProjectEntity getGlobalProject(String projectName, String sourceSystemId, String projectGroupCode) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(GlobalProjectEntity.class);
+		criteria.add(Restrictions.eq("projectName", projectName));
+		criteria.add(Restrictions.eq("sourceSystemId", sourceSystemId));
+		criteria.add(Restrictions.eq("projectGroupCode", projectGroupCode));
+		List<GlobalProjectEntity> entities = (List<GlobalProjectEntity>) findByCriteria(criteria);
+		if(entities.isEmpty()) return null;
+		return entities.get(0);
+	}
 
 	@Override
 	public GlobalProjectEntity getGlobalProject(String projectName, String sourceSystemId) {

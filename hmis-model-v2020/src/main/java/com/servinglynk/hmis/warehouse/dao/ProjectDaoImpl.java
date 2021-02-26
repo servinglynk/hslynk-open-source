@@ -117,7 +117,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 	}
 	
 	public void manageGolbalProjects(com.servinglynk.hmis.warehouse.model.v2020.Project project,String projectGroupCode,UUID userId,String schemaYear) {
-		GlobalProjectEntity entity = factory.getGlobalProjectDao().getGlobalProject(project.getProjectname(),project.getSourceSystemId());
+		GlobalProjectEntity entity = factory.getGlobalProjectDao().getGlobalProject(project.getProjectname(),project.getSourceSystemId(), projectGroupCode);
 		if(entity==null) {
 			entity = new GlobalProjectEntity();
 			entity.setProjectCommonName(project.getProjectcommonname());
@@ -170,7 +170,7 @@ public class ProjectDaoImpl extends ParentDaoImpl implements ProjectDao {
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Project();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true); 
-data.i++;
+			data.i++;
 			return modelFromDB;
 		}
 		
@@ -178,7 +178,7 @@ data.i++;
 			modelFromDB = new com.servinglynk.hmis.warehouse.model.v2020.Project();
 			modelFromDB.setId(UUID.randomUUID());
 			modelFromDB.setRecordToBeInserted(true); 
-data.i++;
+			data.i++;
 		}
 		com.servinglynk.hmis.warehouse.model.v2020.Project model = new com.servinglynk.hmis.warehouse.model.v2020.Project();
 		// org.springframework.beans.BeanUtils.copyProperties(modelFromDB, model);

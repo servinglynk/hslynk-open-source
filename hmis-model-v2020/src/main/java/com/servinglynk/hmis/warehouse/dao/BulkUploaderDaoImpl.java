@@ -288,7 +288,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 			}
 			//Inserting organization inserts Org,Project,Funder,Coc,Inventory,Site and Affiliation.
 			if(StringUtils.equalsIgnoreCase("organization", upload.getDescription()) || domain.isReloadAll()) {
-				parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null); // Done
+			//	parentDaoFactory.getOrganizationDao().hydrateStaging(domain,exportModelMap,null); // Done
 				Map<String, HmisBaseModel> orgModelMap = getModelMap(com.servinglynk.hmis.warehouse.model.v2020.Organization.class, getProjectGroupCode(domain));
 				parentDaoFactory.getProjectDao().hydrateStaging(domain,exportModelMap, orgModelMap); // Done
 				
@@ -598,7 +598,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getEnrollmentDao().hydrateStaging(domain,exportModelMap,clientModelMap); // Done
 		logger.info(" Enrollment Process::: Bulk Upload Processing client Table Ends.....");
 		logger.info("Enrollment Process::: Enrollment table took " + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNanos) + " millis");
-		upload.setStatus(UploadStatus.C_CLIENT.getStatus());
+		upload.setStatus(UploadStatus.EXIT.getStatus());
 		upload.setExportId(domain.getExportId());
 		if(isFileFromS3) {
 			deleteFile(upload.getInputpath()); 
@@ -637,7 +637,7 @@ public class BulkUploaderDaoImpl extends ParentDaoImpl implements
 		parentDaoFactory.getInventoryDao().hydrateStaging(domain,exportModelMap,cocModelMap); // Done
 
 		upload.setExportId(domain.getExportId());
-		upload.setStatus(UploadStatus.EXIT.getStatus());
+		upload.setStatus(UploadStatus.ENROLLMENT.getStatus());
 		upload.setExportId(domain.getExportId());
 		if(isFileFromS3) {
 			deleteFile(upload.getInputpath()); 

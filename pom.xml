@@ -525,9 +525,9 @@
 		<!--
 		<module>hmis-load-processor-v2014</module>
 		<module>hmis-load-processor-v2015</module>
-		<module>hmis-load-processor-v2016</module>
-		<module>hmis-load-processor-v2017</module>
-		<module>hmis-load-processor-v2020</module> -->
+			<module>hmis-load-processor-v2016</module>
+			<module>hmis-load-processor-v2017</module> -->
+		<module>hmis-load-processor-v2020</module>
 		<!-- <module>global-household</module> -->
 		<module>authorization-service</module>
 		<module>upload-service</module>
@@ -535,8 +535,8 @@
 		<module>globalapi</module>
 		<module>fileupload-core</module> 
 		<module>bed-inventory</module>
-		<module>hmis-search-service</module>
-		<module>hmis-mq-service</module>
+		<!--<module>hmis-search-service</module>
+		<module>hmis-mq-service</module>-->
    	    <module>mq-core-client</module>
 		<module>subscription-service</module>
 		<module>hmis-event-service</module>
