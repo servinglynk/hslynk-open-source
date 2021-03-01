@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WebSocket Stomp Receiving Example</title>
+</head>
+<body>
+	<tr>
+				<td>
+			<div>
+		<h3>Messages - Clients</h3>
+		<ol id="clientsMessage"></ol>
+	</div>
+		</td>
+	<tr>
+
+
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var clientsMessage = $("#clientsMessage");
+			// defined a connection to a new socket endpoint
+			var socket = new SockJS('/hmis-event-service/events-socket');
+
+			var stompClient = Stomp.over(socket);
+
+            stompClient.connect({ }, function(frame) {			
+				stompClient.subscribe("/clients", function(data) {
+					var message = data.body;
+					clientsMessage.append("<li>" + message + "</li>");
+				});
+            });
+		});
+	</script>
+</body>
+</html>
