@@ -11,7 +11,7 @@ import com.servinglynk.hmis.warehouse.model.JSONObjectMapper;
 @Component
 public class EventListener extends BaseListener {
 
-	@JmsListener(destination="subscription.event")
+	//@JmsListener(destination="subscription.event")
 	public void processEvent(String eventString) {
 		logger.debug("inside enrollment.chronichomeless listener"+eventString);
 		JSONObjectMapper mapper = new JSONObjectMapper();

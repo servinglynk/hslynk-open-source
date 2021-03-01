@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 public class ServiceFactoryImpl implements ServiceFactory {
 
 	@Autowired EventService eventService;
+	@Autowired SubscriptionService subscriptionService;								
 
 	public EventService getEventService() {
 		return eventService;
@@ -16,4 +17,11 @@ public class ServiceFactoryImpl implements ServiceFactory {
 		this.eventService = eventService;
 	}
 
+	public SubscriptionService getSubscriptionService() {
+		return subscriptionService;
+	}
+
+	public void setSubscriptionService(SubscriptionService subscriptionService) {
+		this.subscriptionService = subscriptionService;
+	}
 }
