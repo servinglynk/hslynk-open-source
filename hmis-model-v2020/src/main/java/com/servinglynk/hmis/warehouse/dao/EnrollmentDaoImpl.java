@@ -11,6 +11,7 @@ import java.util.UUID;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,9 +107,9 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 					enrollmentModel.setExport(exportEntity);
 					HmisHousehold hmisHouseHold = parentDaoFactory.getHmisHouseholdDao().fetchBulkUploadHouseHold(enrollmentModel);
 					enrollmentModel.setHmisHousehold(hmisHouseHold);
-					getCurrentSession().update(enrollmentModel);
-//					performSaveOrUpdate(enrollmentModel, domain);
-//					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
+//					getCurrentSession().update(enrollmentModel);
+					performSaveOrUpdate(enrollmentModel, domain);
+					if(!enrollmentModel.isIgnored()) createClientMedataInfo(enrollmentModel);
 				} catch(Exception e) {
 					String errorMessage = "Exception beause of the enrollment::"+enrollment.getEnrollmentID() +" Exception ::"+e.getMessage();
 					if(enrollmentModel != null){
@@ -202,6 +203,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
+		criteria.addOrder(Order.desc("entryDate"));
 
 		return (List<com.servinglynk.hmis.warehouse.model.v2020.Enrollment>) findByCriteria(criteria,startIndex,maxItems);
 	}

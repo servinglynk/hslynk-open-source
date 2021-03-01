@@ -81,8 +81,6 @@ public class BulkUploaderWorkerDaoImpl extends BaseDaoImpl<BulkUpload> implement
 	}
 	public List<BulkUpload> getRecentUploads(String projectGroupCode,UUID userId,Integer startIndex, Integer maxItems) throws Exception{
 		DetachedCriteria query = DetachedCriteria.forClass(BulkUpload.class);
-		query.add(Restrictions.eq("projectGroupCode",projectGroupCode));
-		query.add(Restrictions.eq("deleted",false));
 		query.addOrder( Order.desc("id") );
 		List<BulkUpload> list = (List<BulkUpload>) findByCriteria(query,startIndex,maxItems);
 		return list;

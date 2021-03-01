@@ -38,10 +38,10 @@ public class LSAReportGenerator  extends Logging {
 	    		csvs.put("lsa_inventory","ExportID");
 	    		csvs.put("lsa_organization","ExportID");
 	    		csvs.put("lsa_project","ExportID");
-	    		csvs.put("lsa_projectCoC","ExportID");
+	    		csvs.put("lsa_projectcoc","ExportID");
 	    		csvs.put("lsa_person","ReportID");
 	    		csvs.put("lsa_report","ReportID");
-	    		csvs.put("lsa_houseHold","ReportID");
+	    		csvs.put("lsa_household","ReportID");
 	    		
 	    		
 	    		ReportConfig reportConfig = SyncPostgresProcessor.getReportConfigByStatusReportType("INITIAL","LSA");
@@ -49,18 +49,10 @@ public class LSAReportGenerator  extends Logging {
 	    			SyncPostgresProcessor.updateReportConfig("INPROGRESS", reportConfig.getId());
 	    			String reportId = String.valueOf(reportConfig.getId());
 	    			Integer id = Integer.parseInt(reportId);
-	    	
-	    			StoredProcCall.callStoredProc("run_create_output_tables");
+	    			
+	    			StoredProcCall.callStoredProc("create_temp_tables");
 	    			SyncPostgresProcessor.insertLsaReport(reportConfig);
-	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_hmis_households_and_enrollments");
-	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_get_project_records_for_export");
-	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_other_pddes_for_export");
-	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsaperson");
-	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsahousehold");
-	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsaexit");
-	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsa_calculated_averages");
-	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsa_calculated_counts");
-	    			StoredProcCall.callStoredProcWithParams(id,reportConfig.getProjectGroupCode(), "run_lsareport_dq_and_reportdate");
+	    			StoredProcCall.callStoredProc("run_hmis_households_and_enrollments");
 	    			
 	    			for (Map.Entry<String,String> entry : csvs.entrySet())   {
 	    				csvExporter.export("LSA",entry.getKey(),entry.getValue(),id);
@@ -70,7 +62,7 @@ public class LSAReportGenerator  extends Logging {
 	            	ZipFileProcessor.createZipFile(props.LSA_FILE_LOCATION, "", props.LSA_FILE_LOCATION+"/"+reportId+".zip");
 	            	SyncPostgresProcessor.updateReportConfig("BEFORE_S3", reportConfig.getId());
 	    		    String bucketName = SyncPostgresProcessor.getBucketName(reportConfig.getProjectGroupCode());
-	    			AwsS3Client client = new AwsS3Client();
+	    		    AwsS3Client client = new AwsS3Client();
 	    			client.uploadFile(props.LSA_FILE_LOCATION+"/"+reportId+".zip", "LSA/"+reportId+".zip",bucketName);
 	    			// update the report config to 
 	    			SyncPostgresProcessor.updateReportConfig("COMPLETED", reportConfig.getId());

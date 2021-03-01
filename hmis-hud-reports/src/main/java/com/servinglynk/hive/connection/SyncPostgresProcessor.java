@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -40,19 +41,20 @@ public class SyncPostgresProcessor extends Logging{
         Connection connection = null;
         try{
             connection = SyncPostgresProcessor.getConnection();
-            statement = connection.prepareStatement("insert into lsa.\"lsa_Report\" (\n" + 
-            		"			  \"ReportID\"			\n" + 
-            		"			, \"ReportStart\"		\n" + 
-            		"			, \"ReportEnd\"		\n" + 
-            		"			, \"ReportCoC\"			\n" + 
-            		"			, \"SoftwareVendor\"\n" + 
-            		"			, \"SoftwareName\"	\n" + 
-            		"			, \"VendorContact\"\n" + 
-            		"			, \"VendorEmail\"	\n" + 
-            		"			, \"LSAScope\"\n" + 
-            		"			, \"project_group_code\"\n" + 
-            		"			)\n" + 
-            		"		values (?,?,?,?,?,?,?,?,?,?) ");
+            statement = connection.prepareStatement("insert into lsa.lsa_report (\n" + 
+            		"ReportID" + 
+            		", ReportStart" + 
+            		", ReportEnd" + 
+            		", ReportCoC" + 
+            		", SoftwareVendor" + 
+            		", SoftwareName" + 
+            		", VendorContact" + 
+            		", VendorEmail" + 
+            		", LSAScope" + 
+            		", project_group_code" + 
+            		", ReportDate" + 
+            		"			)" + 
+            		"		values (?,?,?,?,?,?,?,?,?,?,?) ");
             statement.setInt(1,reportConfig.getId().intValue());
             statement.setDate(2,reportConfig.getStartDate());
             statement.setDate(3,reportConfig.getEndDate());
@@ -63,7 +65,7 @@ public class SyncPostgresProcessor extends Logging{
             statement.setString(8,"info@hsLynk.com");
             statement.setInt(9,1);
             statement.setString(10,reportConfig.getProjectGroupCode());
-			
+            statement.setTimestamp(11, new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
             int rowsInserted =  statement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("A new user was inserted successfully!");

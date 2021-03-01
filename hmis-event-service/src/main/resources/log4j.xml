@@ -71,7 +71,11 @@
  	<appender-ref ref="FILE_AUDIT"/>
  
  </logger>
+  <logger name="com.servinglynk.hmis" additivity="false" >
+ 	<level value="DEBUG" />
+ 	<appender-ref ref="STDOUT"/>
  
+ </logger>
   <root>
     <priority value ="debug"></priority>
     <appender-ref ref="STDOUT" />

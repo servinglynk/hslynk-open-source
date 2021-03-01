@@ -28,6 +28,7 @@ import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 import com.servinglynk.hmis.warehouse.service.PropertyReader;
 import com.servinglynk.hmis.warehouse.service.publish.handler.EventPublisher;
@@ -38,6 +39,7 @@ import com.servinglynk.hmis.warehouse.service.publish.handler.RestPushHandler;
 //@Import(com.servinglynk.hmis.warehouse.config.AMQConfiguration.class)
 @ComponentScan("com.servinglynk.hmis.warehouse")
 //@PropertySource("classpath:application.properties")
+@EnableWebSocketMessageBroker
 
 @EnableJpaAuditing
 @EnableJpaRepositories

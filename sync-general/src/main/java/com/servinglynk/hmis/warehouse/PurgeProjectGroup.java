@@ -25,19 +25,24 @@ public class PurgeProjectGroup extends Logging {
 	public void purge(String projectGroupCode) throws Exception {
 		
 		List<String> schemas = new ArrayList<>();
-		schemas.add("v2014");
-		schemas.add("v2015");
-		schemas.add("v2016");
+//		schemas.add("v2014");
+//		schemas.add("v2015");
+//		schemas.add("v2016");
 		schemas.add("v2020");
-		schemas.add("base");
-		schemas.add("survey");
-		schemas.add("housing_inventory");
-		schemas.add("notificationdb");
+		
+//		schemas.add("base");
+		
+//		schemas.add("survey");
+//		schemas.add("housing_inventory");
+//		schemas.add("bed_inventory");
+//		schemas.add("notificationdb");
 		
 		for(String schema : schemas) {
 			disableTriggers(schema);
 			List<String> allTablesFromPostgres = getAllTablesFromPostgres(schema);
 			for(String tableName : allTablesFromPostgres) {
+				if(!tableName.equalsIgnoreCase("client") 
+					&& !tableName.equalsIgnoreCase("export") && !tableName.equalsIgnoreCase("source")  )
 				purgeTable(tableName, projectGroupCode, schema);
                 // syncHBaseImport.dropHBASETable(tableName + "_" + projectGroupCode, logger);
 			}
@@ -123,7 +128,8 @@ public class PurgeProjectGroup extends Logging {
 		//MO0006
 		//HO0002
 		//OR0024
-	    view.purge("MC0005");
+		//MC0005
+	    view.purge("TT0013");
 
 	}
 
