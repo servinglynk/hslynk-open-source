@@ -3,6 +3,7 @@ package com.servinglynk.hmis.warehouse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class ReportGenerator extends Logging {
 		Logger logger = Logger.getLogger(ReportGenerator.class.getName());
 		Properties props = new Properties();
 		props.generatePropValues();
-		 boolean sageReport=true;
+		 boolean sageReport=false;
 		 ReportGenerator main = new ReportGenerator(logger);
 	     main.exportToPDF(sageReport);
 	}
@@ -46,8 +47,7 @@ public class ReportGenerator extends Logging {
         try {         
         	Properties props = new Properties();
     		props.generatePropValues();
-    		ReportConfig reportConfig = SyncPostgresProcessor.getReportConfigByStatusReportType("INITIAL","APR");
-        	List<HomePageDataBean> dataBeanList = HomePageDataBeanMaker.getHomePageDataList(reportConfig,props);
+        	List<HomePageDataBean> dataBeanList = new ArrayList<>();
         	if(!sageReport) {
                 JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(dataBeanList);
                 Map parameters = new HashMap();
@@ -56,7 +56,6 @@ public class ReportGenerator extends Logging {
     			InputStream inputStream = new FileInputStream(file);
     		    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
     		    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-    		    ZipFile zf = new ZipFile("file.zip");
     		    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
     		    JasperExportManager.exportReportToPdfFile(jasperPrint, "HMISREPORT_testing.pdf"); 
         	}

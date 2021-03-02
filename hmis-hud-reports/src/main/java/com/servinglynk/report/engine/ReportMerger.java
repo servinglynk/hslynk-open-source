@@ -43,9 +43,9 @@ public class ReportMerger {
     
     	private void exportToPDF() {
 		try {                                           
-        	InputStream inputStream1 = new FileInputStream("C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report.jrxml");
+        	InputStream inputStream1 = new FileInputStream("/Users/sdolia/github/hmis-lynk-open-source/hmis-hud-reports/src/main/csvresources/SPMAnnualReport.jrxml");
         	
-        	InputStream inputStream2 = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources/q27D_To_q27F_Tables.jrxml");
+//        	InputStream inputStream2 = new FileInputStream ("C:/workspace/hmis-hud-reports/src/main/resources/q27D_To_q27F_Tables.jrxml");
         	
             DataBeanMaker dataBeanMaker = new DataBeanMaker();
             ArrayList<DataBean> dataBeanList = dataBeanMaker.getDataBeanList();
@@ -61,18 +61,18 @@ public class ReportMerger {
 		    JasperReport jasperReport1 = JasperCompileManager.compileReport(jasperDesign1);
 		    JasperPrint jasperPrint1 = JasperFillManager.fillReport(jasperReport1, parameters, beanColDataSource);
 		    
-		    JasperDesign jasperDesign2 = JRXmlLoader.load(inputStream2);
-		    JasperReport jasperReport2 = JasperCompileManager.compileReport(jasperDesign2);
-		    JasperPrint jasperPrint2= JasperFillManager.fillReport(jasperReport2, parameters, q27DtoQ29DBeanColDataSource);
-		    
-		    List pages = jasperPrint2.getPages();
-		    for (int j = 0; j < pages.size(); j++) {
-		        JRPrintPage object = (JRPrintPage)pages.get(j);
-		        jasperPrint1.addPage(object);
-
-		    }
+//		    JasperDesign jasperDesign2 = JRXmlLoader.load(inputStream2);
+//		    JasperReport jasperReport2 = JasperCompileManager.compileReport(jasperDesign2);
+//		    JasperPrint jasperPrint2= JasperFillManager.fillReport(jasperReport2, parameters, q27DtoQ29DBeanColDataSource);
+//		    
+//		    List pages = jasperPrint1.getPages();
+//		    for (int j = 0; j < pages.size(); j++) {
+//		        JRPrintPage object = (JRPrintPage)pages.get(j);
+//		        jasperPrint1.addPage(object);
+//
+//		    }
 //		    JasperViewer.viewReport(jasperPrint1,false);
-		    JasperExportManager.exportReportToPdfFile(jasperPrint1, "C:/workspace/hmis-hud-reports/src/main/resources/HUD_Annual_Report.pdf");    
+		    JasperExportManager.exportReportToPdfFile(jasperPrint1, "HUD_Annual_Report.pdf");    
         } catch (Exception e) {
             logger.error(e, e);
         }
@@ -181,8 +181,8 @@ public class ReportMerger {
    	public static void main(String[] args) throws JRScriptletException {
         ReportMerger main = new ReportMerger();
         main.exportToPDF();
-        main.exportToXLS();
-        main.exportToCSV();
+//        main.exportToXLS();
+//        main.exportToCSV();
         
     }
 
