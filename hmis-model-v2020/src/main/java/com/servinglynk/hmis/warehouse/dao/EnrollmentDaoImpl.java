@@ -203,7 +203,7 @@ public class EnrollmentDaoImpl extends ParentDaoImpl implements EnrollmentDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(com.servinglynk.hmis.warehouse.model.v2020.Enrollment.class);
 		criteria.createAlias("client","client");
 		criteria.add(Restrictions.eq("client.id",clientId));
-		criteria.addOrder(Order.desc("entryDate"));
+		criteria.addOrder(Order.desc("entrydate"));
 
 		return (List<com.servinglynk.hmis.warehouse.model.v2020.Enrollment>) findByCriteria(criteria,startIndex,maxItems);
 	}
