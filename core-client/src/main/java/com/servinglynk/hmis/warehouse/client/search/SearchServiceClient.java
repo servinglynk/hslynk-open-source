@@ -45,9 +45,9 @@ public class SearchServiceClient extends CoreClientBase implements ISearchServic
 		}
 		}else {
 			 URI = new StringBuffer(
-					 env.getProperty("elbhost")+"/hmis-clientapi-v2014/rest/searchall/" + request.getSearchEntity() + "?");
+"http://internal-internal-hmis-search-1667521472.us-west-2.elb.amazonaws.com/hmis-search-service/el/search/clients?");
 			for (Map.Entry<String, Object> entry : request.getSearchParams().entrySet()) {
-				URI.append("&" + entry.getKey() + "=" + entry.getValue());
+				URI.append("" + entry.getKey() + "=" + entry.getValue());
 			}
 		}
 		ResponseEntity<String> response = restTemplate.exchange(URI.toString(), HttpMethod.GET, entity, String.class);
