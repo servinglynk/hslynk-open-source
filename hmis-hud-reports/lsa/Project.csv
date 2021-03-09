@@ -1,0 +1,9 @@
+ProjectID,OrganizationID,ProjectName,ProjectCommonName,OperatingStartDate,OperatingEndDate,ContinuumProject,ProjectType,HousingType,ResidentialAffiliation,TrackingMethod,HMISParticipatingProject,TargetPopulation,PITCount,DateCreated,DateUpdated,UserID,DateDeleted,ExportID
+227f4557,979499c7,APR - Emergency Shelter 3,,2010-01-01,,1,1,1,,0,0,4,,2021-02-13 08:02:22,2021-02-13 08:02:22,,,93
+47154162,979499c7,APR - Transitional Housing,,2010-01-01,,1,2,1,,,0,4,,2021-02-13 08:02:22,2021-02-13 08:02:22,,,93
+4888a5e1,979499c7,APR - Emergency Shelter NBN,,2012-10-01,,1,1,2,,3,0,4,,2021-02-13 08:02:22,2021-02-13 08:02:22,,,93
+61bdabec,979499c7,APR - Emergency Shelter 2,,2010-01-01,,1,1,1,,0,0,3,,2021-02-13 08:02:22,2021-02-13 08:02:22,,,93
+cab04cc2,979499c7,APR - RRH 2,,2010-01-01,,1,13,1,,,0,4,,2021-02-13 08:02:22,2021-02-13 08:02:22,,,93
+d233090c,979499c7,APR - Permanent Housing,,2010-01-01,,1,3,3,,,0,4,,2021-02-13 08:02:22,2021-02-13 08:02:22,,,93
+ebd57f64,979499c7,APR - RRH,,2017-01-01,,1,13,3,,,0,4,,2021-02-13 08:02:22,2021-02-13 08:02:22,,,93
+ff25088b,979499c7,APR - Emergency Shelter / SSO,,2010-01-01,,1,1,1,,0,0,4,,2021-02-13 08:02:22,2021-02-13 08:02:22,,,93
