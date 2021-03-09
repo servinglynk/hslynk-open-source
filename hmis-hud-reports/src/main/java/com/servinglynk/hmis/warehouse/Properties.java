@@ -20,6 +20,7 @@ public class Properties {
     public static String POSTGRESQL_DB_PASSWORD;
     public static String APR_FILE_LOCATION;
     public static String LSA_FILE_LOCATION;
+    public static String SPM_FILE_LOCATION;
     public static String APR_CONFIG_LOCATION;
     public static String AWS_SECRET_KEY;
     public static String AWS_PUBLIC_KEY;
@@ -65,6 +66,11 @@ public class Properties {
             }
             LSA_FILE_LOCATION = lsaLocation;
             
+            String spmLocation = prop.getProperty("app.spm.location");
+            if(StringUtils.isBlank(spmLocation)) {
+            	spmLocation =  "/home/ubuntu/hmis-hud-reports-2.0/";
+            }
+            SPM_FILE_LOCATION = spmLocation;
             String aprConfigLocation = prop.getProperty("app.apr.config.location");
             if(StringUtils.isBlank(aprConfigLocation)) {
             	aprConfigLocation =  "/home/ubuntu/hmis-hud-reports-2.0/conf/";

@@ -1,0 +1,6 @@
+RowTotal,Cohort,Stat,ExitFrom,ExitTo,ReturnTime,HHType,HHVet,HHDisability,HHFleeingDV,HoHRace,HoHEthnicity,HHAdultAge,HHParent,AC3Plus,SystemPath,ReportID
+1,-2,1,2,5,-1,2,0,1,0,6,0,25,1,0,1,93
+2,-2,1,2,5,-1,99,0,0,0,99,99,-1,1,0,1,93
+1,-2,1,2,11,-1,99,0,0,0,99,99,-1,1,0,1,93
+1,-2,1,2,11,-1,99,0,1,0,99,99,-1,1,0,1,93
+1,-2,1,5,3,-1,99,0,0,0,99,99,-1,1,0,-1,93

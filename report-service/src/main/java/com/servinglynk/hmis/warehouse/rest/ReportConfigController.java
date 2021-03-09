@@ -79,16 +79,19 @@ public class ReportConfigController extends ControllerBase {
 			try {
 		        Session session = sessionHelper.getSession(request);
 		        String bucketName = session.getAccount().getProjectGroup().getBucketName();
-		        String downloadFile = awsService.downloadFile1(bucketName, "APR/"+reportConfigId+".zip", null);
-		        InputStream inputStream = new FileInputStream(downloadFile);
-		        response.setContentType("application/force-download");
-		        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+".zip"); 
-		        response.setHeader("x-filename",reportConfigId+".zip"); 
-		        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+".zip"); 
-		        response.setHeader("x-filename",reportConfigId+".zip"); 
-		        IOUtils.copy(inputStream, response.getOutputStream());
-		        response.flushBuffer();
-		        inputStream.close();
+		        ReportConfig reportConfigById = serviceFactory.getReportConfigService().getReportConfigById(reportConfigId);
+		        if(reportConfigById != null && StringUtils.equals(reportConfigById.getProjectGroupCode(), session.getAccount().getProjectGroup().getProjectGroupCode())) {
+		        	   String downloadFile = awsService.downloadFile1(bucketName, reportConfigById.getReportType()+"/"+reportConfigId+".zip", null);
+				        InputStream inputStream = new FileInputStream(downloadFile);
+				        response.setContentType("application/force-download");
+				        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+".zip"); 
+				        response.setHeader("x-filename",reportConfigId+".zip"); 
+				        response.setHeader("Content-Disposition", "attachment; filename="+reportConfigId+".zip"); 
+				        response.setHeader("x-filename",reportConfigId+".zip"); 
+				        IOUtils.copy(inputStream, response.getOutputStream());
+				        response.flushBuffer();
+				        inputStream.close();
+		        }
 			}catch (Exception e){
 		        logger.debug("Request could not be completed at this moment. Please try again.");
 		        e.printStackTrace();

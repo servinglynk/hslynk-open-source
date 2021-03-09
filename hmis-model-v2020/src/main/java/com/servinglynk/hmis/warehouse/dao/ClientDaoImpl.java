@@ -138,18 +138,17 @@ public class ClientDaoImpl extends ParentDaoImpl implements ClientDao {
 					BeanUtils.copyProperties(clientModel, target, new String[] {"enrollments","veteranInfoes"});
 					UUID dedupId = daoFactory.getHmisClientDao().determindDedupId(target,projectGroupCode);
 					clientModel.setDedupClientId(dedupId);
-					
-					performSaveOrUpdate(clientModel,domain);
+//					createOrUpdatebaseCleint(target);
+//					
+//					performSaveOrUpdate(clientModel,domain);
 					
 					// Inserting client in base schema	
-					if(!clientModel.isIgnored()) {
-						target.setDateUpdated(LocalDateTime.now());
-						target.setSchemaYear("2020");
-						target.setId(clientModel.getId());
-						target.setDedupClientId(clientModel.getDedupClientId());
-						insertOrUpdate(target);	
-						createOrUpdatebaseCleint(target);
-					}
+					target.setDateUpdated(LocalDateTime.now());
+					target.setSchemaYear("2020");
+					target.setId(clientModel.getId());
+					target.setDedupClientId(clientModel.getDedupClientId());
+					createOrUpdatebaseCleint(target);
+					
 					
 				} catch (Exception e) {
 					e.printStackTrace();

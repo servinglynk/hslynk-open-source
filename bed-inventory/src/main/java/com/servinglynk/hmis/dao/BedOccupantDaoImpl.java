@@ -36,11 +36,11 @@ public class BedOccupantDaoImpl implements BedOccupantDao {
 			disjunction.add(Restrictions.between("occupancyEndDate", fromdate, todate));
 			criteria.add(disjunction);
 		} else if(fromdate!=null) {
-			criteria.add(Restrictions.lt("occupancyStartDate", fromdate));
-			criteria.add(Restrictions.gt("occupancyEndDate",  fromdate));
+			criteria.add(Restrictions.le("occupancyStartDate", fromdate));
+			criteria.add(Restrictions.ge("occupancyEndDate",  fromdate));
 		} else if(todate!=null) {
-			criteria.add(Restrictions.lt("occupancyStartDate", todate));
-			criteria.add(Restrictions.gt("occupancyEndDate", todate));
+			criteria.add(Restrictions.le("occupancyStartDate", todate));
+			criteria.add(Restrictions.ge("occupancyEndDate", todate));
 		}
 		criteria.add(Restrictions.eq("deleted", false));
 		criteria.add(Restrictions.eq("projectGroupCode", SecurityContextUtil.getUserProjectGroup()));

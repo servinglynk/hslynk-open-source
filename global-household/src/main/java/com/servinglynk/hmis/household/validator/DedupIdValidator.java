@@ -78,9 +78,11 @@ public class DedupIdValidator implements ConstraintValidator<ValidateDedupId,Obj
 			return true;
 		}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
+
 	
 	public String getSchemaYear(String link) {
 		return link.substring(link.indexOf("/v")+2,link.indexOf("/clients"));

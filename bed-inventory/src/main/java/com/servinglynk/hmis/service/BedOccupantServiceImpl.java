@@ -54,6 +54,10 @@ public class BedOccupantServiceImpl extends BaseService implements BedOccupantSe
 		entity = BedOccupantConverter.modelToEntity(bedUnit,entity);
 		if(bedUnit.getClientId()!=null) entity.setDedupClientId(validationService.validateCleintId(bedUnit.getClientId()));
 		entity.setEnrollmentType(validationService.validateEnrillment(bedUnit.getEnrollmentId()));
+		entity.setCheckOutDate(bedUnit.getCheckoutDate());
+		if(bedUnit.getCheckoutDate() == null) {
+			bedUnitEntity.setOccupancy(true);
+		}
 		sendClientMetaInfo(entity.getClientId(), entity.getDedupClientId(), false, "bedunit.occupant");
 		daoFactory.getBedOccupantRepository().save(entity);
 	}

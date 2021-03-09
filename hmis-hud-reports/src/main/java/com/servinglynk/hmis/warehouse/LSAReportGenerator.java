@@ -10,22 +10,14 @@ import com.servinglynk.hive.connection.StoredProcCall;
 import com.servinglynk.hive.connection.SyncPostgresProcessor;
 
 public class LSAReportGenerator  extends Logging {
-	private Logger logger = Logger.getLogger(ReportGenerator.class);
+	private static Logger logger = Logger.getLogger(LSAReportGenerator.class);
 	public LSAReportGenerator(Logger logger) throws Exception {
 	        this.logger = logger;
 	}
-	
-	
-	public static void main(String args[]) throws Exception {
-		Logger logger = Logger.getLogger(ReportGenerator.class.getName());
-		Properties props = new Properties();
-		props.generatePropValues();
-		LSAReportGenerator main = new LSAReportGenerator(logger);
-	    main.exportToPDF();
-	}
-	
-	
-	 private void exportToPDF() {
+	/***
+	 * Generate LSA report
+	 */
+	 public static void generateReport() {
 	        try {         
 	        	Properties props = new Properties();
 	    		props.generatePropValues();
@@ -42,7 +34,6 @@ public class LSAReportGenerator  extends Logging {
 	    		csvs.put("lsa_person","ReportID");
 	    		csvs.put("lsa_report","ReportID");
 	    		csvs.put("lsa_household","ReportID");
-	    		
 	    		
 	    		ReportConfig reportConfig = SyncPostgresProcessor.getReportConfigByStatusReportType("INITIAL","LSA");
 	    		if(reportConfig != null) {
@@ -67,13 +58,14 @@ public class LSAReportGenerator  extends Logging {
 	    			// update the report config to 
 	    			SyncPostgresProcessor.updateReportConfig("COMPLETED", reportConfig.getId());
 	    		}
-				//SendEmail.generateAndSendEmail("sandeep.dolia@gmail.com", "");
 	        } catch (Exception e) {
 	        	e.printStackTrace();
 	            logger.error(e, e);
 	        }
 	 }
 	 
-	
+	public static void main(String args[]) {
+		generateReport();
+	}
 	
 }
