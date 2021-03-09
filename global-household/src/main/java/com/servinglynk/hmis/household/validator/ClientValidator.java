@@ -47,7 +47,7 @@ public class ClientValidator implements ConstraintValidator<ValidateClient,Objec
 
 	@Override
 	public boolean isValid(Object arg0, ConstraintValidatorContext arg1) {
-		
+		System.out.println("inside client validation");
 		String clientId;
 		try {
 			clientId = BeanUtils.getProperty(arg0, clientField);
@@ -77,6 +77,7 @@ public class ClientValidator implements ConstraintValidator<ValidateClient,Objec
 			return true;
 		}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
