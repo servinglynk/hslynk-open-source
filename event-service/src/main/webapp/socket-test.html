@@ -22,7 +22,7 @@
 		$(document).ready(function() {
 			var clientsMessage = $("#clientsMessage");
 			// defined a connection to a new socket endpoint
-			var socket = new SockJS('/hmis-event-service/events-socket');
+			var socket = new SockJS('/event-service/events-socket');
 
 			var stompClient = Stomp.over(socket);
 
