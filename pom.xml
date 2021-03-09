@@ -539,7 +539,7 @@
 		<module>hmis-mq-service</module>-->
    	    <module>mq-core-client</module>
 		<module>subscription-service</module>
-		<module>hmis-event-service</module>
+		<module>event-service</module>
 		
 	
 	</modules>
