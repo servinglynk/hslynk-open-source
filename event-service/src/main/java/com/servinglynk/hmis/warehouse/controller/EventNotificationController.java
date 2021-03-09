@@ -24,7 +24,7 @@ public class EventNotificationController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	
-	@RequestMapping(method = RequestMethod.POST,value = "/eventnotifications")
+	@RequestMapping(method = RequestMethod.POST,value = "/rest/eventnotifications")
 	@APIMapping(checkSessionToken = false,checkTrustedApp = false,value = "PROCESS_SUBSCRIPTION")
 	public void processSubscrion(@RequestBody Map<String, Object> requestBody,HttpServletRequest request) {
 		TraceUtil.PutTraceIdInTreadContext(request);
