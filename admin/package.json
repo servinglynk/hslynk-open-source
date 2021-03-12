@@ -19,7 +19,7 @@
     "@fortawesome/free-solid-svg-icons": "5.12.1",
     "@fortawesome/react-fontawesome": "0.1.8",
     "apexcharts": "3.15.6",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "clsx": "1.1.0",
     "framer-motion": "1.8.4",
     "google-map-react": "1.1.6",
