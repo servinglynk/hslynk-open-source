@@ -67,7 +67,7 @@ public class AWSService extends BaseRegistry {
     }
     
     public String downloadFile1(String bucketName, String keyName, String tmpPath) throws IOException {
-    	 S3Object object = getS3Client().getObject(
+    	 S3Object object = s3client().getObject(
                  new GetObjectRequest(bucketName, keyName));
          InputStream objectData = object.getObjectContent();
          String name = keyName.contains("/") ? keyName.substring(keyName.lastIndexOf('/') + 1) : keyName;

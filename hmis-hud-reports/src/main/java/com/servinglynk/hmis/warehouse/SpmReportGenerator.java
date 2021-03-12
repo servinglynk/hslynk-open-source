@@ -4,9 +4,9 @@ import org.apache.log4j.Logger;
 
 import com.servinglynk.hive.connection.SyncPostgresProcessor;
 
-public class SPMReportGenerator  extends Logging {
+public class SpmReportGenerator  extends Logging {
 	private static Logger logger = Logger.getLogger(LSAReportGenerator.class);
-	public SPMReportGenerator(Logger logger) throws Exception {
+	public SpmReportGenerator(Logger logger) throws Exception {
 	        this.logger = logger;
 	}
 	/***
@@ -21,6 +21,7 @@ public class SPMReportGenerator  extends Logging {
 	    		if(reportConfig != null) {
 	    			SyncPostgresProcessor.updateReportConfig("INPROGRESS", reportConfig.getId());
 	    			String reportId = String.valueOf(reportConfig.getId());
+	    			// Game start here. 
 	        		SyncPostgresProcessor.updateReportConfig("BEFORE_ZIP_CREATION", reportConfig.getId());
 	            	  // Get the bucket name from project group code.
 	            	ZipFileProcessor.createZipFile(props.SPM_FILE_LOCATION, "", props.SPM_FILE_LOCATION+"/"+reportId+".zip");
