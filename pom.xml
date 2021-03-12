@@ -7,7 +7,7 @@
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
 	<artifactId>hslynk-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>2.26.6</version>
+	<version>2.26.9</version>
 	<name>hslynk-parent</name>
 	<properties>
 		<!-- Unique entry point for version number management. -->
@@ -539,7 +539,7 @@
 		<module>hmis-mq-service</module>-->
    	    <module>mq-core-client</module>
 		<module>subscription-service</module>
-		<module>hmis-event-service</module>
+		<module>event-service</module>
 		
 	
 	</modules>

@@ -333,11 +333,11 @@ admin/.settings/org.eclipse.jdt.core.prefs
 bed-inventory/.settings/*
 bed-inventory/.settings/*
 bed-inventory/.settings/*
-hmis-event-service/.settings/.jsdtscope
+event-service/.settings/.jsdtscope
 *.component
-hmis-event-service/.settings/org.eclipse.wst.common.project.facet.core.xml
-hmis-event-service/.settings/org.eclipse.wst.jsdt.ui.superType.container
-hmis-event-service/.settings/org.eclipse.wst.jsdt.ui.superType.name
+event-service/.settings/org.eclipse.wst.common.project.facet.core.xml
+event-service/.settings/org.eclipse.wst.jsdt.ui.superType.container
+event-service/.settings/org.eclipse.wst.jsdt.ui.superType.name
 subscription-service/.settings/.jsdtscope
 subscription-service/.settings/org.eclipse.wst.common.project.facet.core.xml
 *.container

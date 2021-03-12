@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.servinglynk.hmis.warehouse</groupId>
-	<artifactId>hmis-event-service</artifactId>
+	<artifactId>event-service</artifactId>
 	<version>2.26.4</version>
 	<packaging>war</packaging>
-	<name>hmis-event-service</name>
+	<name>event-service</name>
 
 
 
@@ -157,7 +157,7 @@
 
 	</dependencies>
 	<build>
-	<finalName>hmis-event-service</finalName>
+	<finalName>event-service</finalName>
 	</build>
 	<!-- <build>
 		<plugins>
