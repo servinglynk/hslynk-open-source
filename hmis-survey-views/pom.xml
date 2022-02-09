@@ -15,7 +15,7 @@
         <slf4j.version>1.5.10</slf4j.version>
         <java.version>1.7</java.version>
         <junit.version>4.8.2</junit.version>
-        <hadoop.version>2.6.0</hadoop.version>
+        <hadoop.version>2.10.1</hadoop.version>
     </properties>
   
   <dependencies>
