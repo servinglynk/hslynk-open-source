@@ -22,7 +22,7 @@
 		<jackson.mapper.version>1.8.5</jackson.mapper.version>
 		<spring.version>4.3.22.RELEASE</spring.version>
 		<spring-security-version>4.2.16.RELEASE</spring-security-version>
-		<hibernate.version>4.2.0.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 		<jsp-version>2.2.1</jsp-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
