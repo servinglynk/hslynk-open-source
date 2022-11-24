@@ -116,7 +116,7 @@
 		<dependency>
 				<groupId>org.hibernate</groupId>
 					<artifactId>hibernate-core</artifactId>
-					<version>4.3.11.Final</version><!--$NO-MVN-MAN-VER$-->
+					<version>5.3.20.Final</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		<dependency>
 				<groupId>org.hibernate</groupId>
