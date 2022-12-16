@@ -17,7 +17,7 @@
 		<log4j.jcl.version>1.7.0</log4j.jcl.version>
 		<jstl-version>1.2</jstl-version>
 		<slf4j.version>1.7.5</slf4j.version>
-		<spring.version>4.3.22.RELEASE</spring.version>
+		<spring.version>5.2.20.RELEASE</spring.version>
 		<fasterxml.version>2.10.0</fasterxml.version>
 		<jackson.mapper.version>1.8.5</jackson.mapper.version>
 		<spring.version>4.3.22.RELEASE</spring.version>
